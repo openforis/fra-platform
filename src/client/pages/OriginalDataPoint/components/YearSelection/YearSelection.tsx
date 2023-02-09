@@ -10,7 +10,7 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useODPYears, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions, useODPYears, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
 
 type Props = {
@@ -67,7 +67,7 @@ const YearSelection: React.FC<Props> = (props) => {
             window.history.replaceState(null, null, url)
           }}
         >
-          {years.map((year) => (
+          {['', ...years].map((year) => (
             <option key={year} value={year} disabled={reservedYears.includes(Number(year))} hidden={!year}>
               {year || t('nationalDataPoint.selectYear')}
             </option>

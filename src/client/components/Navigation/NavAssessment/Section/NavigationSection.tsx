@@ -16,11 +16,10 @@ import SectionItemLink from './SectionItemLink'
 type Props = {
   section: Section
   showSections: boolean
-  prefix: string
 }
 
 const NavigationSection: React.FC<Props> = (props) => {
-  const { section, showSections, prefix } = props
+  const { section, showSections } = props
 
   const { t } = useTranslation()
   const countryIso = useCountryIso()
@@ -34,6 +33,7 @@ const NavigationSection: React.FC<Props> = (props) => {
 
   const sectionLabel = Labels.getLabel({ cycle, labels: section.props.labels, t })
   const assessmentName = assessment.props.name
+  const prefix = section.props.anchors[cycle.uuid]
   let children = section.subSections
   if (isDataExport) {
     children = children.filter((subsection) => subsection?.props?.dataExport)

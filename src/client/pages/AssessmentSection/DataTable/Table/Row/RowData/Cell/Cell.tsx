@@ -7,7 +7,7 @@ import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
@@ -70,7 +70,7 @@ const Cell: React.FC<Props> = (props) => {
   const showError = useCallback(() => {
     if (!valid) {
       const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value: nodeValue }
-      dispatch(AssessmentSectionActions.setNodeValueValidation({ nodeUpdate }))
+      dispatch(AssessmentSectionActions.setNodeValidationToDisplay({ nodeUpdate }))
     }
   }, [colName, dispatch, nodeValue, tableName, valid, variableName])
 

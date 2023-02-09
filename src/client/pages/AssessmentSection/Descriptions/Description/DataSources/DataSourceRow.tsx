@@ -8,14 +8,14 @@ import classNames from 'classnames'
 import { Cols, ColType, DataSource, dataSourceType, Row, RowType } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/pages/assessmentSection'
+import { useTableSections } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import Autocomplete from '@client/components/Autocomplete'
 import DataColumn from '@client/components/DataGrid/DataColumn'
-import Icon from '@client/components/Icon'
 import MultiSelect from '@client/components/MultiSelect'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import DataSourceReferenceColumn from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceReferenceColumn'
 
 type Props = {
   disabled: boolean
@@ -27,9 +27,12 @@ type Props = {
   onChange: (dataSource: DataSource) => void
   onDelete: () => void
 }
-const validators: Record<string, (x: string) => boolean> = {
+
+export const datasourceValidators: Record<string, (x: string) => boolean> = {
   // check at least one character exists
-  reference: (referenceString) => !(Objects.isEmpty(referenceString) || /[A-Za-z]/.test(referenceString)),
+  referenceText: (text) => !(Objects.isEmpty(text) || /[A-Za-z]/.test(text)),
+  // check that reference link is link format
+  referenceLink: (link) => !Objects.isEmpty(link) || /^https?:\/\/[^\s$.?#].[^\s]*$/i.test(link),
   // check that is number
   year: (yearString) => !(Objects.isEmpty(yearString) || Number.isInteger(Number(yearString))),
   // check at least one character exists
@@ -44,7 +47,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
 
   const _onChange = useCallback(
-    (field: string, value: string) => {
+    (field: string, value: string | Record<string, string>) => {
       if (dataSource[field as keyof DataSource] === value) return
       onChange({
         ...dataSource,
@@ -67,22 +70,14 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <DataColumn
-        className={classNames('data-source-column', { 'validation-error': validators.reference(dataSource.reference) })}
-      >
-        <div className="data-source__delete-wrapper">
-          {!placeholder && !disabled && (
-            <button type="button" onClick={onDelete}>
-              <Icon name="remove" />
-            </button>
-          )}
-          <VerticallyGrowingTextField
-            disabled={disabled}
-            onChange={(event) => _onChange('reference', event.target?.value)}
-            value={dataSource.reference}
-          />
-        </div>
-      </DataColumn>
+      <DataSourceReferenceColumn
+        disabled={disabled}
+        dataSource={dataSource}
+        onChange={_onChange}
+        placeholder={placeholder}
+        onDelete={onDelete}
+      />
+
       <DataColumn className="data-source-column">
         <Autocomplete
           withArrow
@@ -105,7 +100,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       </DataColumn>
 
       <DataColumn
-        className={classNames('data-source-column', { 'validation-error': validators.year(dataSource.year) })}
+        className={classNames('data-source-column', { 'validation-error': datasourceValidators.year(dataSource.year) })}
       >
         <Autocomplete
           withArrow
@@ -117,7 +112,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       </DataColumn>
 
       <DataColumn
-        className={classNames('data-source-column', { 'validation-error': validators.comment(dataSource.comments) })}
+        className={classNames('data-source-column', {
+          'validation-error': datasourceValidators.comment(dataSource.comments),
+        })}
       >
         {' '}
         <VerticallyGrowingTextField

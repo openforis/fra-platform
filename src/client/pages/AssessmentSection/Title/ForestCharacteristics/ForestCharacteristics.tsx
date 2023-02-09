@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Labels } from '@meta/assessment'
 
 import { useCycle } from '@client/store/assessment'
-import { useOriginalDataPointYears } from '@client/store/pages/assessmentSection'
+import { useOriginalDataPointYears } from '@client/store/ui/assessmentSection'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import OriginalDataPointsPrint from '@client/pages/AssessmentPrint/OriginalDataPointsPrint'
 

@@ -33,6 +33,9 @@ const getLastRole = (user: User) => {
   if (roles.length === 1) return roles[0]
 
   const _roles = [...roles].sort((roleA, roleB) => {
+    if (!roleA.acceptedAt && !roleB.acceptedAt) return 0
+    if (!roleA.acceptedAt) return 1
+    if (!roleB.acceptedAt) return -1
     return roleB?.acceptedAt?.localeCompare(roleA?.acceptedAt)
   })
 

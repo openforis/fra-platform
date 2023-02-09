@@ -1,5 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { updateNodeValues } from '../ui/assessmentSection/actions/updateNodeValues'
 import { getAreas, getAssessment, getSections, initApp, updateCountry, updateCountryProp } from './actions'
 import { AssessmentState } from './stateType'
 
@@ -53,6 +54,11 @@ export const assessmentSlice = createSlice({
 
     builder.addCase(initApp.fulfilled, (state) => {
       state.appInitialized = true
+    })
+
+    builder.addCase(updateNodeValues.fulfilled, (state, payload) => {
+      const { countryIso } = payload.meta.arg
+      if (state.countries[countryIso]) state.countries[countryIso].lastEdit = new Date().toISOString()
     })
   },
 })

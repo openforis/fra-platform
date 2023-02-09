@@ -1,21 +1,22 @@
 import './DataTable.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
-import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions, useTableData } from '@client/store/pages/assessmentSection'
-import { useCanEditTableData } from '@client/store/user'
+import { useTableData } from '@client/store/ui/assessmentSection'
+import { useIsEditTableDataEnabled } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
-import GenerateValues from '@client/pages/AssessmentSection/DataTable/GenerateValues'
 
+import { useGetTableData } from './hooks/useGetTableData'
+import { useODPDeleteListener } from './hooks/useODPDeleteListener'
+import { useValidationsAndCalculations } from './hooks/useValidationsAndCalculations'
 import Chart from './Chart'
+import GenerateValues from './GenerateValues'
 import Table from './Table'
-import { useODPDeleteListener } from './useODPDeleteListener'
 
 type Props = {
   assessmentName: AssessmentName
@@ -30,61 +31,24 @@ const DataTable: React.FC<Props> = (props) => {
   const { print, onlyTables } = useIsPrint()
 
   const { i18n } = useTranslation()
-  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const data = useTableData({ table })
   const cycle = useCycle()
-  const canEditTableData = useCanEditTableData(sectionName)
-  const generateValues = canEditTableData && table.props.odp
+  const canEdit = useIsEditTableDataEnabled(sectionName)
 
-  const {
-    // props: { name: tableName },
-    rows,
-    props: { odp },
-    // isSectionDataEmpty,
-    // showOdpChart,
-    // canGenerateValues,
-    // print,
-  } = table
-  // const breakPointsColsPrint = print.colBreakPoints
+  const { name: cycleName } = cycle
+  const { props: tableProps, rows } = table
+  const { name: tableName, odp, secondary } = tableProps
+  const generateValues = canEdit && odp
+  const showOdpChart = odp
+  const dataEmpty = TableDatas.isTableDataEmpty({ data, tableName, countryIso })
 
-  // const generateValues: boolean = useSelector(
-  //   (state) => odp && !disabled && Objects.isFunction(canGenerateValues) && canGenerateValues(state)
-  // )
-
-  useODPDeleteListener({ assessmentName, cycleName: cycle.name, countryIso })
-
-  useEffect(() => {
-    dispatch(
-      AssessmentSectionActions.getTableData({
-        assessmentName,
-        countryIso,
-        cycleName: cycle.name,
-        tableNames: [table.props.name],
-      })
-    )
-    if (odp) {
-      dispatch(
-        AssessmentSectionActions.getOriginalDataPointData({
-          assessmentName,
-          countryIso,
-          cycleName: cycle.name,
-        })
-      )
-    }
-  }, [assessmentName, countryIso, cycle.name, dispatch, odp, sectionName, table.props.name])
-  if (!data) return null
-
-  const showOdpChart = table.props.odp
-
-  const dataEmpty = TableDatas.isTableDataEmpty({
-    data,
-    tableName: table.props.name,
-    countryIso,
-  })
+  useGetTableData({ assessmentName, countryIso, cycleName, sectionName, table })
+  useODPDeleteListener({ assessmentName, countryIso, cycleName })
+  useValidationsAndCalculations({ table })
 
   // Always show secondary tables - unless whole section empty (handled in parent)
-  if (dataEmpty && onlyTables && !table.props.secondary) {
+  if (dataEmpty && onlyTables && !secondary) {
     return null
   }
 

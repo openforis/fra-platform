@@ -6,7 +6,7 @@ import { Labels } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSections, useCountry, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/pages/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import Loading from '@client/components/Loading'

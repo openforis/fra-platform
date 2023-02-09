@@ -18,29 +18,31 @@ export const useUserCountries = (): Array<CountryIso> => {
   return user?.roles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
 }
 
-const useCanEditSection = (sectionName?: string, permission?: CollaboratorEditPropertyType) => {
+export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const country = useAssessmentCountry()
-  const isDataLocked = useIsDataLocked()
   const cycle = useCycle()
-  const { print } = useIsPrint()
 
-  return (
-    !print &&
-    !isDataLocked &&
-    Authorizer.canEditData({
-      country,
-      cycle,
-      permission,
-      section,
-      user,
-    })
-  )
+  return Authorizer.canEditData({
+    country,
+    cycle,
+    permission,
+    section,
+    user,
+  })
 }
 
-export const useCanEditTableData = (sectionName?: string) =>
+const useCanEditSection = (sectionName: string, permission: CollaboratorEditPropertyType) => {
+  const isDataLocked = useIsDataLocked()
+  const { print } = useIsPrint()
+  const canEdit = useCanEdit(sectionName, permission)
+
+  return !print && !isDataLocked && canEdit
+}
+
+export const useIsEditTableDataEnabled = (sectionName: string) =>
   useCanEditSection(sectionName, CollaboratorEditPropertyType.tableData)
 
-export const useCanEditDescriptions = (sectionName?: string) =>
+export const useIsEditDescriptionsEnabled = (sectionName: string) =>
   useCanEditSection(sectionName, CollaboratorEditPropertyType.descriptions)

@@ -20,7 +20,18 @@ const getAnchorsByUuid = (props: { cycle: Cycle; sections: Array<Section> }): Re
   }, {})
 }
 
+const getPrevious = (props: { subSection: SubSection; sections: Array<Section> }): SubSection => {
+  const { subSection, sections } = props
+  const sectionIsFirstOfParent = subSection.props.index === 0
+  const parentIndex = sections.findIndex((s) => s.id === subSection.parentId)
+  if (sectionIsFirstOfParent) {
+    return sections[parentIndex - 1].subSections[sections[parentIndex - 1].subSections.length - 1]
+  }
+  return sections[parentIndex].subSections[subSection.props.index - 1]
+}
+
 export const SubSections = {
   getAnchor,
   getAnchorsByUuid,
+  getPrevious,
 }

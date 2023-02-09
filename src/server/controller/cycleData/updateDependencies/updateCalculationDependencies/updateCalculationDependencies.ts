@@ -18,15 +18,7 @@ export const updateCalculationDependencies = async (
 
   const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes: [] }
   const queue: Array<VariableCache> = await getDependants(
-    {
-      assessment,
-      cycle,
-      variableName,
-      tableName,
-      colName,
-      countryIso,
-      isODP,
-    },
+    { assessment, cycle, variableName, tableName, colName, countryIso, isODP, type: 'calculations' },
     client
   )
   const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
@@ -101,7 +93,7 @@ export const updateCalculationDependencies = async (
       }
       // eslint-disable-next-line no-await-in-loop
       const calculationDependants = await getDependants(
-        { assessment, cycle, countryIso, colName, isODP, ...variableCache },
+        { assessment, cycle, countryIso, colName, isODP, type: 'calculations', ...variableCache },
         client
       )
       queue.push(...calculationDependants)

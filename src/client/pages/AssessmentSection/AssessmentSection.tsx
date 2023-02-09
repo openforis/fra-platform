@@ -6,19 +6,18 @@ import { useParams } from 'react-router-dom'
 import { AssessmentName, Labels, SubSections } from '@meta/assessment'
 
 import { useAssessmentSection, useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/pages/assessmentSection'
-import { useIsSectionDataEmpty } from '@client/store/pages/assessmentSection/hooks'
-import { useCanEditDescriptions, useCanEditTableData } from '@client/store/user/hooks'
+import { useTableSections } from '@client/store/ui/assessmentSection'
+import { useIsSectionDataEmpty } from '@client/store/ui/assessmentSection/hooks'
+import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from '@client/store/user/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import CommentableDescription from '@client/pages/AssessmentSection/Descriptions/CommentableDescription'
 
+import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
 import SectionHeader from './SectionHeader'
 import Title from './Title'
-import { useListenNodeUpdates } from './useListenNodeUpdates'
-import { useListenValidationsUpdate } from './useListenValidationsUpdate'
 
 type Props = {
   section?: string
@@ -34,13 +33,13 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   const countryIso = useCountryIso()
   const subSection = useAssessmentSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
-  const canEditTableData = useCanEditTableData(sectionProp)
-  const canEditDescriptions = useCanEditDescriptions(sectionProp)
+  const canEditTableData = useIsEditTableDataEnabled(sectionProp)
+  const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)
   const { print, onlyTables } = useIsPrint()
 
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
 
-  useListenValidationsUpdate({ assessmentName, cycleName: cycle.name, countryIso, canEditTableData })
+  // useListenValidationsUpdate({ assessmentName, cycleName: cycle.name, countryIso, canEditTableData })
   useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
 
   // Hide the whole section if no tables have data
@@ -101,7 +100,9 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
           disabled={!canEditDescriptions}
         />
       )}
-      {descriptions.comments && <GeneralComments sectionName={sectionName} disabled={!canEditDescriptions} />}
+      {descriptions.comments && (
+        <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
+      )}
 
       <div className="page-break" />
     </div>

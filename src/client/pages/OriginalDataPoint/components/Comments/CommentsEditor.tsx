@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
+import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
-import MarkdownEditor from '@client/components/MarkdownEditor'
+import EditorWYSIWYG from '@client/components/EditorWYSIWYG'
 import MarkdownPreview from '@client/components/MarkdownPreview'
 
 type Props = {
@@ -63,7 +63,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
         )}
       </div>
       <div className="cke_wrapper" style={{ display: open ? 'block' : 'none' }}>
-        <MarkdownEditor value={originalDataPoint.description} onChange={onChange} />
+        <EditorWYSIWYG value={originalDataPoint.description} onChange={onChange} />
       </div>
       {originalDataPoint.description && (
         <div className="fra-description__preview">

@@ -1890,4 +1890,10 @@ export const sustainableDevelopment = {
   dataExport: {
     included: false,
   },
+  migration: {
+    anchors: {
+      '2020': '8a',
+      '2025': '8',
+    },
+  },
 }

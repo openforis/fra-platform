@@ -8,8 +8,8 @@ import { Row } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/pages/assessmentSection'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/pages/dataExport'
+import { useTableSections } from '@client/store/ui/assessmentSection'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
 import { useCountryIso } from '@client/hooks'
 
 import ColumnSelect from './ColumnSelect'

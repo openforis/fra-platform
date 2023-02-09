@@ -5,7 +5,7 @@ import { Numbers } from '@utils/numbers'
 
 import { ODPs } from '@meta/assessment'
 
-import { useOriginalDataPoint } from '@client/store/pages/originalDataPoint'
+import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
 import ForestCharacteristicsNaturallyRegeneratingRow from '@client/pages/OriginalDataPoint/components/ForestCharacteristics/ForestCharacteristicsNaturallyRegeneratingRow'
 
 type Props = {

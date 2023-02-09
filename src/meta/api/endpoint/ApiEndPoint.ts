@@ -62,7 +62,15 @@ export const ApiEndPoint = {
   },
 
   File: {
-    biomassStock: () => apiPath('file', 'biomass-stock'),
+    biomassStock: ({
+      assessmentName = ':assessmentName',
+      cycleName = ':cycleName',
+      countryIso = ':countryIso',
+      sectionName = ':sectionName',
+      language = ':language',
+      selectedDomain = ':selectedDomain',
+    }) =>
+      apiPath('file', 'biomass-stock', assessmentName, cycleName, countryIso, sectionName, selectedDomain, language),
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
@@ -99,6 +107,7 @@ export const ApiEndPoint = {
   },
 
   Geo: {
+    bounds: () => apiPath('geo', 'bounds'),
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
       forest: () => apiPath('geo', 'layers', 'forest'),

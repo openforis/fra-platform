@@ -1,6 +1,7 @@
 import './User.scss'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useParams } from 'react-router-dom'
 
 import { AssessmentName } from '@meta/assessment'
 import { Users } from '@meta/user'
@@ -11,15 +12,19 @@ import { useUserToEdit } from '@client/store/ui//userManagement/hooks'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import { useToaster } from '@client/hooks/useToaster'
 import EditUserForm from '@client/components/EditUserForm'
 import ButtonContinue from '@client/pages/User/ButtonContinue'
 
 const User: React.FC = () => {
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const user = useUser()
   const userToEdit = useUserToEdit()
+  const location = useLocation()
+  const { toaster } = useToaster()
 
   const {
     assessmentName,
@@ -32,6 +37,12 @@ const User: React.FC = () => {
   const isSelf = String(user?.id) === userId
 
   const canEditUser = isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
+
+  useEffect(() => {
+    if (location?.state?.personalInfoRequired) {
+      toaster.info(t('userManagement.personalInfoRequired'))
+    }
+  }, [location?.state?.personalInfoRequired, t, toaster])
 
   useEffect(() => {
     dispatch(
