@@ -6,6 +6,7 @@ import { Objects } from '@utils/objects'
 
 import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
 
+import { useAssessmentSection, useCycle } from '@client/store/assessment'
 import DataGrid from '@client/components/DataGrid'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import ButtonCopyDataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/ButtonCopyDataSources'
@@ -31,6 +32,10 @@ const placeholder: DataSource = {
 
 export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName, disabled, description, onChange } = props
+  const cycle = useCycle()
+  const subSection = useAssessmentSection(sectionName)
+  const descriptions = subSection.props.descriptions[cycle.uuid]
+  const { dataSources: descriptionDataSource } = descriptions.nationalData
 
   const { t } = useTranslation()
 
@@ -69,16 +74,15 @@ export const DataSources: React.FC<Props> = (props: Props) => {
     <div className="data-source wrapper">
       <ButtonCopyDataSources disabled={copyDisabled} sectionName={sectionName} />
       <DataGrid className="data-source-grid">
-        <DataColumn head>{t('dataSource.referenceToTataSource')}</DataColumn>
-        <DataColumn head>{t('dataSource.typeOfDataSource')}</DataColumn>
-        <DataColumn head>{t('dataSource.fraVariable')}</DataColumn>
-        <DataColumn head>{t('dataSource.yearForDataSource')}</DataColumn>
-        <DataColumn head>{t('dataSource.comments')}</DataColumn>
+        {descriptionDataSource.table.columns.map((column) => {
+          return <DataColumn head>{t(`dataSource.${column}`)}</DataColumn>
+        })}
 
         <div className="data-source-review-indicator" />
 
         {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
           <DataSourceRow
+            descriptionDataSource={descriptionDataSource}
             onChange={(dataSource: DataSource) => _onChange(dataSource, i)}
             // eslint-disable-next-line react/no-array-index-key
             key={`dataSource_${i}`}

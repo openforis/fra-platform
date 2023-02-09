@@ -6,6 +6,7 @@ import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { Cols, ColType, DataSource, dataSourceType, Row, RowType } from '@meta/assessment'
+import { NationalDataDataSourceDescription } from '@meta/assessment/description'
 
 import { useCycle } from '@client/store/assessment'
 import { useTableSections } from '@client/store/ui/assessmentSection'
@@ -23,6 +24,7 @@ type Props = {
   sectionName: string
   placeholder: boolean
   index: number
+  descriptionDataSource: NationalDataDataSourceDescription
 
   onChange: (dataSource: DataSource) => void
   onDelete: () => void
@@ -40,7 +42,7 @@ export const datasourceValidators: Record<string, (x: string) => boolean> = {
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { disabled, dataSource, sectionName, onChange, placeholder, onDelete, index } = props
+  const { disabled, dataSource, descriptionDataSource, sectionName, onChange, placeholder, onDelete, index } = props
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const tableSections = useTableSections({ sectionName })
@@ -70,59 +72,91 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <DataSourceReferenceColumn
-        disabled={disabled}
-        dataSource={dataSource}
-        onChange={_onChange}
-        placeholder={placeholder}
-        onDelete={onDelete}
-      />
+      {descriptionDataSource.table.columns.map((column) => {
+        // TODO Move to columns separate components and use object for component mapping
+        switch (column) {
+          case 'referenceToTataSource':
+            return (
+              <DataSourceReferenceColumn
+                disabled={disabled}
+                dataSource={dataSource}
+                onChange={_onChange}
+                placeholder={placeholder}
+                onDelete={onDelete}
+              />
+            )
+          case 'typeOfDataSource':
+            return (
+              <DataColumn className="data-source-column">
+                <Autocomplete
+                  withArrow
+                  disabled={disabled}
+                  onSave={(value) => _onChange('type', value)}
+                  value={dataSource.type}
+                  items={Object.keys(dataSourceType).map((type) => t(`dataSource.${type}`))}
+                />
+              </DataColumn>
+            )
+          case 'fraVariable':
+            return (
+              <DataColumn className="data-source-column">
+                <MultiSelect
+                  disabled={disabled}
+                  values={dataSource.fraVariables ?? []}
+                  options={rows}
+                  onChange={(value: any) => {
+                    _onChange('fraVariables', value)
+                  }}
+                />
+              </DataColumn>
+            )
+          case 'variable':
+            return (
+              <DataColumn className={classNames('data-source-column')}>
+                <VerticallyGrowingTextField
+                  disabled={disabled}
+                  onChange={(event) => _onChange('variable', event.target.value)}
+                  value={dataSource.variable}
+                />
+              </DataColumn>
+            )
+          case 'yearForDataSource':
+            return (
+              <DataColumn
+                className={classNames('data-source-column', {
+                  'validation-error': datasourceValidators.year(dataSource.year),
+                })}
+              >
+                <Autocomplete
+                  withArrow
+                  disabled={disabled}
+                  onSave={(value) => _onChange('year', value)}
+                  value={dataSource.year}
+                  items={columns}
+                />
+              </DataColumn>
+            )
 
-      <DataColumn className="data-source-column">
-        <Autocomplete
-          withArrow
-          disabled={disabled}
-          onSave={(value) => _onChange('type', value)}
-          value={dataSource.type}
-          items={Object.keys(dataSourceType).map((type) => t(`dataSource.${type}`))}
-        />
-      </DataColumn>
+          case 'comments':
+            return (
+              <DataColumn
+                className={classNames('data-source-column', {
+                  'validation-error': datasourceValidators.comment(dataSource.comments),
+                })}
+              >
+                <VerticallyGrowingTextField
+                  disabled={disabled}
+                  onChange={(event) => _onChange('comments', event.target.value)}
+                  value={dataSource.comments}
+                />
+              </DataColumn>
+            )
 
-      <DataColumn className="data-source-column">
-        <MultiSelect
-          disabled={disabled}
-          values={dataSource.fraVariables ?? []}
-          options={rows}
-          onChange={(value: any) => {
-            _onChange('fraVariables', value)
-          }}
-        />
-      </DataColumn>
+          default:
+            return null
+        }
+      })}
 
-      <DataColumn
-        className={classNames('data-source-column', { 'validation-error': datasourceValidators.year(dataSource.year) })}
-      >
-        <Autocomplete
-          withArrow
-          disabled={disabled}
-          onSave={(value) => _onChange('year', value)}
-          value={dataSource.year}
-          items={columns}
-        />
-      </DataColumn>
-
-      <DataColumn
-        className={classNames('data-source-column', {
-          'validation-error': datasourceValidators.comment(dataSource.comments),
-        })}
-      >
-        {' '}
-        <VerticallyGrowingTextField
-          disabled={disabled}
-          onChange={(event) => _onChange('comments', event.target.value)}
-          value={dataSource.comments}
-        />
-      </DataColumn>
       <DataColumn className="data-source-review-indicator">
         {!disabled && (
           <ReviewIndicator

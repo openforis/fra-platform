@@ -1,5 +1,6 @@
 import { Description } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
+import { DataSourceColumn } from '../../../src/meta/assessment/description'
 import { Section, SubSection } from '../../../src/meta/assessment/section'
 import { DescriptionsSpec, SectionSpec } from '../../../src/test/sectionSpec'
 import { CycleUuid, getCycleUuids, getLabels } from './utils'
@@ -17,9 +18,20 @@ export const getSection = (props: { assessment: Assessment; index: number; label
   }
 }
 
-const fraColumns = ['reference', 'type', 'fraVariables', 'year', 'comments']
-
-const panEuropeanColumns = ['reference', 'type', 'variable', 'year', 'comments']
+const fraColumns: Array<DataSourceColumn> = [
+  'referenceToTataSource',
+  'typeOfDataSource',
+  'fraVariable',
+  'yearForDataSource',
+  'comments',
+]
+const panEuropeanColumns: Array<DataSourceColumn> = [
+  'referenceToTataSource',
+  'typeOfDataSource',
+  'variable',
+  'yearForDataSource',
+  'comments',
+]
 
 const panEuropeanDescription = {
   comments: true,

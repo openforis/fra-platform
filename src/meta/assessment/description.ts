@@ -1,17 +1,25 @@
 import { CycleUuid } from './cycle'
 
-export type DataSourceColumn = any
+export type DataSourceColumn =
+  | 'referenceToTataSource'
+  | 'typeOfDataSource'
+  | 'fraVariable'
+  | 'variable'
+  | 'yearForDataSource'
+  | 'comments'
 
 export interface AnalysisAndProcessingDescription {
   estimationAndForecasting: boolean
   reclassification: boolean
 }
 
+export interface NationalDataDataSourceDescription {
+  table?: { columns: Array<DataSourceColumn> }
+  text?: { readOnly?: boolean }
+}
+
 export interface NationalDataDescription {
-  dataSources?: {
-    table?: { columns: Array<DataSourceColumn> }
-    text?: { readOnly?: boolean }
-  }
+  dataSources?: NationalDataDataSourceDescription
   nationalClassification?: boolean
   originalData?: boolean
 }
