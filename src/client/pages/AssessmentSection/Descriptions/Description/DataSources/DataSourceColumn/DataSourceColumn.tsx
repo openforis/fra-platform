@@ -5,12 +5,12 @@ import { Objects } from '@utils/objects'
 import { DataSource, Table } from '@meta/assessment'
 import { DataSourceColumn as DataSourceColumnType } from '@meta/assessment/description'
 
-import ColumnComments from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/ColumnComments'
-import ColumnFraVariable from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/ColumnFraVariable'
-import ColumnReference from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/ColumnReference'
-import ColumnTypeOfDataSource from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/ColumnTypeOfDataSource'
-import ColumnVariable from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/ColumnVariable'
-import ColumnYearForDataSource from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/ColumnYearForDataSource'
+import ColumnComments from './ColumnComments'
+import ColumnFraVariable from './ColumnFraVariable'
+import ColumnReference from './ColumnReference'
+import ColumnTypeOfDataSource from './ColumnTypeOfDataSource'
+import ColumnVariable from './ColumnVariable'
+import ColumnYearForDataSource from './ColumnYearForDataSource'
 
 export const datasourceValidators: Record<string, (x: string) => boolean> = {
   // check at least one character exists
