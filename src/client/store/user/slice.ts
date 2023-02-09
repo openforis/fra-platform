@@ -3,6 +3,7 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { UserManagementActions } from '@client/store/ui/userManagement'
 
 import { initApp } from '../assessment/actions/initApp'
+import { LoginActions } from '../login'
 import { logout } from './actions'
 import { UserState } from './stateType'
 
@@ -26,6 +27,8 @@ export const userSlice = createSlice({
       const i = state.roles.findIndex((r) => r.id === role.id)
       if (i !== -1) state.roles[i] = { ...state.roles[i], ...role }
     })
+
+    builder.addCase(LoginActions.acceptInvitation.fulfilled, (_, { payload }) => payload)
   },
 })
 

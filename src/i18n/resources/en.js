@@ -550,7 +550,7 @@ The FRA team
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},
 
-You have been invited to access the {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
+You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
 
 Accept this invitation and access the platform at the following URL:
 {{- link}}
