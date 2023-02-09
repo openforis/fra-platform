@@ -74,9 +74,11 @@ export const DataSources: React.FC<Props> = (props: Props) => {
     <div className="data-source wrapper">
       <ButtonCopyDataSources disabled={copyDisabled} sectionName={sectionName} />
       <DataGrid className="data-source-grid">
-        {descriptionDataSource.table.columns.map((column) => {
-          return <DataColumn head>{t(`dataSource.${column}`)}</DataColumn>
-        })}
+        {descriptionDataSource.table.columns.map((column) => (
+          <DataColumn key={column} head>
+            {t(`dataSource.${column}`)}
+          </DataColumn>
+        ))}
 
         <div className="data-source-review-indicator" />
 
