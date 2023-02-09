@@ -26,8 +26,8 @@ const TitleField: React.FC<Props> = (props) => {
 
   const valid = validator?.({ [name]: value }) ?? true
 
-  const [title, setTitle] = useState(value)
-  const [otherTitle, setOtherTitle] = useState(value === 'Other' ? value : '')
+  const [title, setTitle] = useState(['Ms', 'Mr'].includes(value) ? value : 'Other')
+  const [otherTitle, setOtherTitle] = useState(['Ms', 'Mr'].includes(value) ? '' : value)
 
   useOnUpdate(() => {
     onChange(name, title === 'Other' ? otherTitle : title)
