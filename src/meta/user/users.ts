@@ -138,10 +138,10 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
   const validateContactPreference = (prop: UserContactPreference) => {
     return (
       ([UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(
-        prop.method
+        prop?.method
       ) &&
         Objects.isEmpty(prop.options?.phone)) ||
-      Objects.isEmpty(prop.method)
+      Objects.isEmpty(prop?.method)
     )
   }
 

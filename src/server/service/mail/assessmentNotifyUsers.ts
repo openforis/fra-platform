@@ -4,7 +4,7 @@ import { ClientRoutes } from '@meta/app'
 import { Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { AssessmentName, Cycle } from '@meta/assessment'
-import { RoleName, User } from '@meta/user'
+import { RoleName, User, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { UserRepository } from '@server/repository/public/user'
@@ -34,7 +34,7 @@ export const createMail = async (props: {
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
     serverUrl: link,
-    recipientName: recipient.props.name,
+    recipientName: Users.getFullName(recipient),
     status: i18n.t(`assessment.status.${status}.label`),
     changer: user.props.name,
     assessment: i18n.t(`assessment.${assessmentName}`),
