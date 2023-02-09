@@ -32,7 +32,9 @@ const panEuropeanDescription = {
   },
 }
 
-const transformDescription = (descriptions: DescriptionsSpec): Description => {
+const transformDescription = (descriptions: DescriptionsSpec, cycleName: string): Description => {
+  const is2025 = cycleName === '2025'
+
   const description: Description = {}
 
   if (descriptions.analysisAndProcessing) {
@@ -53,11 +55,17 @@ const transformDescription = (descriptions: DescriptionsSpec): Description => {
   if (descriptions.nationalData) {
     description.nationalData = {
       dataSources: {
-        table: {
-          columns: [...fraColumns],
+        table: is2025
+          ? {
+              columns: [...fraColumns],
+            }
+          : undefined,
+        text: {
+          readOnly: is2025,
         },
       },
       nationalClassification: true,
+      originalData: true,
     }
   }
 
@@ -88,7 +96,7 @@ const getDescriptions = (props: {
   return cycles.reduce(
     (acc, cycle) => ({
       ...acc,
-      [cycle.uuid]: transformDescription(descriptions),
+      [cycle.uuid]: transformDescription(descriptions, cycle.name),
     }),
     {}
   )

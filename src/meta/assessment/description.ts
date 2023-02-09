@@ -2,20 +2,26 @@ import { CycleUuid } from './cycle'
 
 export type DataSourceColumn = any
 
-export interface Description {
-  analysisAndProcessing?: {
-    estimationAndForecasting: boolean
-    reclassification: boolean
+export interface AnalysisAndProcessingDescription {
+  estimationAndForecasting: boolean
+  reclassification: boolean
+}
+
+export interface NationalDataDescription {
+  dataSources?: {
+    table?: { columns: Array<DataSourceColumn> }
+    text?: { readOnly?: boolean }
   }
+  nationalClassification?: boolean
+  originalData?: boolean
+}
+
+export interface Description {
+  analysisAndProcessing?: AnalysisAndProcessingDescription
+  nationalData?: NationalDataDescription
+
   comments?: boolean
   introductoryText?: boolean
-  nationalData?: {
-    dataSources?: {
-      table?: { columns: Array<DataSourceColumn> }
-      text?: { readOnly?: boolean }
-    }
-    nationalClassification?: boolean
-  }
 }
 
 export type Descriptions = Record<CycleUuid, Description>

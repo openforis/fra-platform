@@ -27,11 +27,11 @@ export const ButtonCopyDataSources: React.FC<Props> = (props: Props) => {
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
-        previousSectionName: previousSection.props.name,
+        previousSectionName: previousSection?.props.name,
         sectionName,
       })
     )
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, previousSection.props.name, sectionName])
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, previousSection?.props.name, sectionName])
 
   const copyDisabled = disabled || !previousSection
 
