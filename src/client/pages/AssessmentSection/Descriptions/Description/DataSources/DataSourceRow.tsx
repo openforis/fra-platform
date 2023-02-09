@@ -30,7 +30,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const table = tableSections?.[0]?.tables?.[0]
   if (!table) return null
 
-  const titleVariable = dataSource.fraVariables ? dataSource.fraVariables?.join(', ') : dataSource.variable
+  const titleVariable = dataSource.fraVariables ? dataSource.fraVariables.join(', ') : dataSource.variable
   const title = `${titleVariable} | ${dataSource.year}`
   return (
     <>
