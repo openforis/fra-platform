@@ -11,6 +11,7 @@ import { metadataFix } from '@test/dataMigration/steps/metadataFix/metadataFix'
 import { migrateBiomassAndCarbonStockData } from '@test/dataMigration/steps/migrateBiomassAndCarbonStockData'
 import { migrateDescriptions } from '@test/dataMigration/steps/migrateDescriptions'
 import { migrateMessageBoard } from '@test/dataMigration/steps/migrateMessageBoard'
+import { migrateNodeExt } from '@test/dataMigration/steps/migrateNodeExt/migrateNodeExt'
 import { migratePrimaryForestData } from '@test/dataMigration/steps/migratePrimaryForestData'
 import { postMetadataFix } from '@test/dataMigration/steps/postMetadataFix/postMetadataFix'
 import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
@@ -35,6 +36,11 @@ const migrateCycle = (cycleName: string) =>
     Logger.debug(`    ========== ${index} deleteWrongCalculatedNodes ${cycle.name}`)
     // eslint-disable-next-line no-await-in-loop
     await deleteWrongCalculatedNodes({ assessment, cycle }, client)
+
+    index += 1
+    Logger.debug(`    ========== ${index} migrateNodeExt ${cycle.name}`)
+    // eslint-disable-next-line no-await-in-loop
+    await migrateNodeExt({ assessment, cycle }, client)
 
     index += 1
     Logger.debug(`    ========== ${index} updateCalculatedNodes ${cycle.name}`)

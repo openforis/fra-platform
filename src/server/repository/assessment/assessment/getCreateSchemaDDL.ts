@@ -227,6 +227,17 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           value      jsonb default '{}'::jsonb not null,
           constraint table_name_pk_2 unique (country_iso, section_name, name)
       );
+      
+      create table ${assessmentCycleSchemaName}.node_ext
+      (
+          country_iso varchar(3) references country(country_iso) not null,
+          table_name varchar(255) not null,
+          variable_name varchar(255) not null,
+          col_name varchar(255) not null,
+          value jsonb default '{}'::jsonb,
+          created_at timestamp with time zone default now(),
+          updated_at timestamp with time zone default now()
+      );
   `
 }
 
@@ -308,7 +319,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                      end as total
           from raw_values rv),
       total_land_area as (
-        select * from ext_data.node where variable_name = 'totalLandArea' and table_name = 'extentOfForest'
+        select * from ${assessmentCycleSchemaName}.node_ext where variable_name = 'totalLandArea' and table_name = 'extentOfForest'
       )
       select rv.country_iso,
              rv.year,
