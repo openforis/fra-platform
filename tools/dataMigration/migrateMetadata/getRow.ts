@@ -52,7 +52,7 @@ const _getChartProps = (rowSpec: RowSpec, assessment: Assessment): Record<string
     const cycles = rowSpec.migration?.chart?.cycles.map(
       (cycleName) => assessment.cycles.find((c) => c.name === cycleName).uuid
     )
-    return cycles.reduce<Record<string, ChartProps>>(
+    return cycles?.reduce<Record<string, ChartProps>>(
       (chartPropsAgg, cycle) => ({ ...chartPropsAgg, [cycle]: chartProps }),
       {}
     )
