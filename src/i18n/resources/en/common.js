@@ -22,4 +22,14 @@ module.exports = {
   dashboard: 'Dashboard',
   copyToClipboard: 'Copy to clipboard',
   continue: 'Continue',
+
+  tier: 'Tier',
+  status: 'Status',
+  trend: 'Trend',
+  tiers: {
+    notSelected: '',
+    high: 'High',
+    medium: 'Medium',
+    low: 'Low',
+  },
 }

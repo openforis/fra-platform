@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { fraYears } from '../fraYears'
 import { SectionSpec } from '../sectionSpec'
+import { getStatusAndTierTable } from './common/statusAndTierTable'
 
 export const growingStock: SectionSpec = {
   sectionName: 'growingStock',
@@ -751,6 +752,9 @@ export const growingStock: SectionSpec = {
           },
         },
       ],
+    },
+    {
+      tableSpecs: [getStatusAndTierTable('growingStock', 'growingStock')],
     },
   ],
   showTitle: true,
