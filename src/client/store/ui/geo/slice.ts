@@ -15,10 +15,13 @@ const initialState: GeoState = {
   forestOptions: {
     selected: [],
     fetchedLayers: {},
+    pendingLayers: {},
+    failedLayers: {},
     opacity: {},
     hansenPercentage: 10,
     agreementLayerSelected: false,
     agreementLevel: 1,
+    agreementPalette: [],
     recipe: 'custom',
   },
   mosaicUrl: '',
@@ -40,6 +43,7 @@ export const geoSlice = createSlice({
     toggleForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
       const i = state.forestOptions.selected.findIndex((key) => key === payload)
       if (i === -1) {
+        delete state.forestOptions.failedLayers[payload] // In case the loading failed and it is manually re-tried
         state.forestOptions.selected.push(payload)
       } else {
         state.forestOptions.selected.splice(i, 1)
@@ -75,9 +79,20 @@ export const geoSlice = createSlice({
     setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.agreementLevel = payload
     },
+    setAgreementPalette: (state, { payload }: PayloadAction<Array<string>>) => {
+      state.forestOptions.agreementPalette = payload
+    },
+    resetAgreementPalette: (state) => {
+      state.forestOptions.agreementPalette = initialState.forestOptions.agreementPalette
+    },
     resetAgreementLayer: (state) => {
       state.forestOptions.agreementLayerSelected = initialState.forestOptions.agreementLayerSelected
       state.forestOptions.agreementLevel = initialState.forestOptions.agreementLevel
+    },
+    resetLayersStates: (state) => {
+      state.forestOptions.fetchedLayers = initialState.forestOptions.fetchedLayers
+      state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
+      state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
     },
     setRecipe: (state, { payload }: PayloadAction<string>) => {
       const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
@@ -108,6 +123,15 @@ export const geoSlice = createSlice({
       })
       .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
         state.forestOptions.fetchedLayers[key] = mapId
+        delete state.forestOptions.pendingLayers[key]
+        delete state.forestOptions.failedLayers[key]
+      })
+      .addCase(getForestLayer.pending, (state, { meta }) => {
+        state.forestOptions.pendingLayers[meta.arg.key] = meta.arg.uri
+      })
+      .addCase(getForestLayer.rejected, (state, { meta }) => {
+        delete state.forestOptions.pendingLayers[meta.arg.key]
+        state.forestOptions.failedLayers[meta.arg.key] = meta.arg.uri
       })
   },
 })
