@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Users } from '@meta/user'
+
 import { useUser } from '@client/store/user'
 /* global  __APPLICATION_VERSION__ */
 
@@ -13,7 +15,7 @@ const SendFeedback: React.FC = () => {
 
   let userInformationLine = ''
   if (user) {
-    userInformationLine = `${i18n.t('navigation.support.user')}: ${user.name} (${user.id})`
+    userInformationLine = `${i18n.t('navigation.support.user')}: ${Users.getFullName(user)} (${user.id})`
   }
 
   const body = `

@@ -64,7 +64,7 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
         from q
         ;
 
-        insert into users_role (user_id, assessment_id, country_iso, cycle_uuid, role, props, invitation_uuid,
+        insert into users_role (user_id, assessment_id, country_iso, cycle_uuid, role, permissions, props, invitation_uuid,
                                 invited_at, accepted_at)
         select us.id,
                case when r.role = 'ADMINISTRATOR' then null else ${assessment.id} end                     as assessment_id,
@@ -75,7 +75,14 @@ export const migrateUsersRole = async (props: Props): Promise<void> => {
                    when t.sections is not null then jsonb_build_object('sections', t.sections)
                    else '{}'::jsonb
                    end
-                                                                                                          as roles,
+                                                                                                          as permissions,
+               case
+                   when u.institution is not null and u.position is not null then jsonb_build_object('organization', u.institution, 'professionalTitle', u.position)
+                   when u.institution is not null then jsonb_build_object('organization', u.institution)
+                   when u.position is not null then jsonb_build_object('professionalTitle', u.position)
+                   else '{}'::jsonb
+               end
+                                                                                                          as props,
                null                                                                                       as invitation_uuid,
                null                                                                                       as invited_at,
                null                                                                                       as accepted_at

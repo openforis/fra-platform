@@ -3,6 +3,7 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { CountryIso } from '@meta/area'
 import { NodeUpdate, NodeUpdates, TableDatas } from '@meta/data'
 
+import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { getDescription } from './actions/getDescription'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
@@ -121,6 +122,7 @@ export const AssessmentSectionActions = {
   updateDescription,
   updateNodeValues,
   postEstimate,
+  copyPreviousDatasources,
 }
 
 export default assessmentSectionSlice.reducer as Reducer<AssessmentSectionState>

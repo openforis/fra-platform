@@ -1,8 +1,7 @@
-import { Objects } from '@utils/objects'
-
 import { Assessment, Section } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { SectionAdapter } from '@server/repository/adapter'
 
 export const remove = async (
   params: {
@@ -18,6 +17,6 @@ export const remove = async (
     `
       delete from ${schemaName}.section where id = ($1) returning *;`,
     [+section.id],
-    Objects.camelize
+    SectionAdapter
   )
 }

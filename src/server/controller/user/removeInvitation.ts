@@ -29,7 +29,7 @@ export const removeInvitation = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { userId, user: invitedUser.name, role },
+          target: { userId, user: invitedUser.props.name, role },
           section: 'users',
           message: ActivityLogMessage.invitationRemove,
           countryIso,

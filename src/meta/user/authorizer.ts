@@ -101,7 +101,7 @@ const canEditData = (props: {
   if (Users.isCollaborator(user, countryIso, cycle) && status === AssessmentStatus.editing) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
 
-    const userSections = userRole.props?.sections ?? {}
+    const userSections = userRole.permissions?.sections ?? {}
     if (Objects.isEmpty(userSections)) return true
     if (userSections === 'none') return false
     if (userSections === 'all') return true

@@ -1,17 +1,20 @@
 import './EditUserForm.scss'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 
-import { RoleName, User, Users } from '@meta/user'
+import { Collaborator, RoleName, User, UserRole, Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { UserManagementActions } from '@client/store/ui/userManagement'
+import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
-import CountryRoles from './CountryRoles'
+// import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
-import TextInputFields from './TextInputFields'
+import TextInputField from './TextInputField'
+import TitleField from './TitleField'
+import UserRolePropsFields from './UserRolePropsFields'
 
 type Props = {
   user: User
@@ -23,39 +26,77 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
+  const userInfo = useUser()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(user)
+  const [roleToEdit, setRoleToEdit] = useState<UserRole<any, any>>(Users.getRole(user, countryIso, cycle))
+
+  const changeUser = (name: string, value: string) => setUserToEdit({ ...user, [name]: value })
+
+  const changeUserProp = (name: string, value: any) =>
+    setUserToEdit({ ...user, props: { ...user.props, [name]: value } })
+
+  const changeUserRoleProp = (name: string, value: string) =>
+    setRoleToEdit({ ...roleToEdit, props: { ...roleToEdit.props, [name]: value } })
 
   useOnUpdate(() => {
-    if (!Users.validate(userToEdit).isError) {
-      dispatch(
-        UserManagementActions.updateUser({
-          assessmentName: assessment?.props?.name,
-          cycleName: cycle?.name,
-          user: userToEdit,
-          profilePicture,
-          countryIso,
-        })
-      )
-    }
-  }, [profilePicture, userToEdit])
+    dispatch(
+      UserManagementActions.updateRoleProps({
+        id: userInfo.id,
+        assessmentName: assessment?.props?.name,
+        cycleName: cycle?.name,
+        role: roleToEdit,
+        countryIso,
+      })
+    )
+  }, [roleToEdit])
 
-  const changeUser = useCallback((value: string, key: string) => setUserToEdit({ ...user, [key]: value }), [user])
+  useOnUpdate(() => {
+    dispatch(
+      UserManagementActions.updateUser({
+        assessmentName: assessment?.props?.name,
+        cycleName: cycle?.name,
+        user: userToEdit,
+        profilePicture,
+        countryIso,
+      })
+    )
+  }, [profilePicture, userToEdit])
 
   if (!user) return null
 
   const userRole = Users.getRole(user, countryIso, cycle)
 
+  const enabled = Users.isAdministrator(userInfo) || user.id === userInfo?.id
+
   return (
     <div className="edit-user__form-container">
       <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
 
-      <TextInputFields onChange={changeUser} user={userToEdit} />
+      <TextInputField
+        name="email"
+        value={user.email}
+        onChange={changeUser}
+        validator={Users.validEmail}
+        enabled={enabled}
+      />
 
-      {userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole} />}
+      <TitleField name="title" value={user.props.title} onChange={changeUserProp} enabled={enabled} />
 
-      {canEditRoles && <CountryRoles user={user} />}
+      <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} />
+
+      <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} />
+
+      {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
+        userRole?.role
+      ) && <UserRolePropsFields role={roleToEdit} onChange={changeUserRoleProp} enabled={enabled} />}
+
+      {canEditRoles && userRole?.role === RoleName.COLLABORATOR && (
+        <CollaboratorPermissions userRole={userRole as Collaborator} />
+      )}
+
+      {/* {canEditRoles && <CountryRoles user={user} />} */}
     </div>
   )
 }

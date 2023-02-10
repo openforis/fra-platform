@@ -1,1 +1,1 @@
-export const fields: Array<string> = ['email', 'id', 'institution', 'lang', 'name', 'position', 'status', 'uuid']
+export const fields: Array<string> = ['id', 'email', 'props', 'status', 'uuid']

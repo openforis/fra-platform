@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { RoleName, User, UserRole } from '@meta/user'
+import { RoleName, User, UserRole, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAppDispatch } from '@client/store'
@@ -38,7 +38,7 @@ const InvitationColumn: React.FC<Props> = (props: Props) => {
   const currentUser = useUser()
 
   const removeInvitation = useCallback(() => {
-    if (window.confirm(t('userManagement.confirmDelete', { user: user.name })))
+    if (window.confirm(t('userManagement.confirmDelete', { user: Users.getFullname(user) })))
       dispatch(
         UserManagementActions.removeInvitation({
           assessmentName,
@@ -49,7 +49,7 @@ const InvitationColumn: React.FC<Props> = (props: Props) => {
       ).then(() => {
         toaster.success(t('userManagement.invitationDeleted'))
       })
-  }, [t, user.name, dispatch, assessmentName, cycleName, countryIso, invitationUuid, toaster])
+  }, [t, user, dispatch, assessmentName, cycleName, countryIso, invitationUuid, toaster])
 
   return (
     <>

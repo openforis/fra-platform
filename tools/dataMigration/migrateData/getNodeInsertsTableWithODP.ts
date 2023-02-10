@@ -1,8 +1,7 @@
-import { ITask } from 'pg-promise'
-
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { NodeValue } from '../../../src/meta/assessment/node'
 import { Table } from '../../../src/meta/assessment/table'
+import { BaseProtocol } from '../../../src/server/db'
 import { Objects } from '../../../src/utils'
 import { DBNames } from '../_DBNames'
 import { NodeRow } from './_getNodeInserts'
@@ -16,7 +15,7 @@ export const getNodeInsertsTableWithODP = async (
     tableNameLegacy: string
     estimated?: boolean
   },
-  client: ITask<any>
+  client: BaseProtocol
 ): Promise<Array<NodeRow>> => {
   const { assessment, table, variables, tableNameLegacy, estimated } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)

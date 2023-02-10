@@ -7,10 +7,8 @@ import { functions } from './functions'
 type Props = Context & { formula: string }
 
 const evalFormula = <ReturnType>(props: Props): ReturnType => {
-  const { formula, ...context } = props
-
   const evaluator = new JavascriptExpressionEvaluator<Context>(functions, evaluators)
-  return evaluator.evaluate(formula, context)
+  return evaluator.evaluate(props.formula, props)
 }
 
 export const ExpressionEvaluator = {
