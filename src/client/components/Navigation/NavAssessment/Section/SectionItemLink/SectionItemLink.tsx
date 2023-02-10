@@ -5,13 +5,14 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { ClientRoutes } from '@meta/app'
 import { Labels, SubSection, SubSections } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { NavigationActions } from '@client/store/ui/navigation'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
-import { useIsDataExportView } from '@client/hooks'
+import { useCountryIso, useIsDataExportView } from '@client/hooks'
 import { Breakpoints } from '@client/utils'
 
 import ReviewStatusMarker from '../ReviewStatusMarker'
@@ -24,18 +25,26 @@ const SectionItemLink: React.FC<Props> = (props) => {
   const { subSection } = props
 
   const { id } = subSection
-  const { name } = subSection.props
+  const { name: sectionName } = subSection.props
+
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const countryIso = useCountryIso()
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const reviewStatus = useSectionReviewSummary(id)
 
   return (
     <NavLink
-      to={name}
+      to={ClientRoutes.Assessment.Cycle.Country.Section.getLink({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        countryIso,
+        sectionName,
+      })}
       className={(navData) =>
         classNames('nav-section__item', {
           selected: navData.isActive,

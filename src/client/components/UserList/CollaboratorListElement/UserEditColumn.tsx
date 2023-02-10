@@ -34,7 +34,7 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={ClientRoutes.Assessment.Cycle.Country.Home.Users.User.getLink({
+      to={ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
         countryIso,
         assessmentName,
         cycleName,

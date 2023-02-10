@@ -550,7 +550,7 @@ The FRA team
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},
 
-You have been invited to access the {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
+You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
 
 Accept this invitation and access the platform at the following URL:
 {{- link}}
@@ -1064,7 +1064,27 @@ The FRA team
 
   editUser: {
     chooseProfilePicture: 'Choose picture',
+    title: 'Appellation',
     name: 'Name',
+    surname: 'Surname(s)',
+    professionalTitle: 'Professional title',
+    organizationalUnit: 'Organizational unit',
+    organization: 'Organization',
+    street: 'Street address',
+    zipCode: 'Zip code',
+    poBox: 'P.O. Box',
+    city: 'City',
+    countryIso: 'Country',
+    primaryEmail: 'Primary email address',
+    secondaryEmail: 'Secondary email address',
+    primaryPhoneNumber: 'Primary telephone number',
+    secondaryPhoneNumber: 'Secondary telephone number',
+    skype: 'Skypename',
+    contactPreference: 'Preferred way of contacting',
+    contactPreferenceMethod: 'Contacting method',
+    platformChat: 'PlatformChat',
+    signal: 'Signal',
+    whatsapp: 'Whatsapp',
     role: 'Role',
     email: 'Email',
     loginEmail: 'Login',

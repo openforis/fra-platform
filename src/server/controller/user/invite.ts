@@ -28,7 +28,8 @@ export const invite = async (
     // If user with primary email not found, check if user has active google login
     if (!userToInvite) userToInvite = await UserRepository.getOne({ emailGoogle: email }, t)
     // If neither of above, create new user
-    if (!userToInvite) userToInvite = await UserRepository.create({ user: { email, name: name ?? '' } }, client)
+    if (!userToInvite)
+      userToInvite = await UserRepository.create({ user: { email, props: { name: name ?? '' } } }, client)
 
     const userRole = await UserRoleRepository.create(
       {
@@ -37,6 +38,7 @@ export const invite = async (
         country: countryIso,
         role: roleName,
         cycle,
+        props: { primaryEmail: email, address: { countryIso } },
       },
       t
     )
@@ -46,7 +48,7 @@ export const invite = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { userId, user: userToInvite.name, role },
+          target: { userId, user: userToInvite.props.name, role },
           section: 'users',
           message: ActivityLogMessage.invitationAdd,
           countryIso,

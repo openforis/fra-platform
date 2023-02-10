@@ -1,10 +1,12 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const acceptInvitation = createAsyncThunk(
+import { ApiEndPoint } from '@meta/api/endpoint'
+import { User } from '@meta/user'
+
+export const acceptInvitation = createAsyncThunk<User, { invitationUuid: string }>(
   'user/invitation/accept',
-  async (params: { invitationUuid: string }) => {
+  async (params) => {
     const { data } = await axios.get(ApiEndPoint.User.invitationAccept(), {
       params,
     })

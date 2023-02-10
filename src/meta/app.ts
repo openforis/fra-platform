@@ -88,19 +88,19 @@ export const ClientRoutes = {
             'home',
             ':sectionName'
           ),
-          Users: {
-            User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'home', 'users/:id'),
-          },
         },
         OriginalDataPoint: {
           Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
             ...assessmentParts,
-            'originalDataPoint/:year/:sectionName'
+            'originalDataPoints/:year/:sectionName'
           ),
         },
         Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
         PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
-        Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, ':sectionName'),
+        Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, 'sections/:sectionName'),
+        Users: {
+          User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'users/:id'),
+        },
       },
     },
   },

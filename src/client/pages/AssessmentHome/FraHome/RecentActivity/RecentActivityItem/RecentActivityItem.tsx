@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
 import { ActivityLog, ActivityLogs } from '@meta/assessment'
+import { Users } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
@@ -30,10 +31,10 @@ const RecentActivityItem: React.FC<Props> = ({ activity }) => {
       <img
         className="landing__activity-avatar"
         src={ApiEndPoint.User.profilePicture(String(user.id))}
-        alt={user.name}
+        alt={Users.getFullName(user)}
       />
       <div className="landing__activity-name">
-        <strong>{user.name}</strong>
+        <strong>{Users.getFullName(user)}</strong>
         <span>{ActivityLogs.getLabelAction(activity, i18n)}</span>
         {ActivityLogs.hasSectionLink(activity) && (
           <Link

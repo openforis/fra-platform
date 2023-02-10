@@ -2,9 +2,10 @@ import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { CollaboratorProps, RoleName, User } from '@meta/user'
+import { RoleName, User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
+import { UserRoleAdapter } from '@server/repository/adapter'
 
 import { fields } from './fields'
 
@@ -56,7 +57,7 @@ export const getMany = async (
     const selectedRoles = roles.map((roleName) => `'${roleName}'`).join(',')
 
     query = `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
+        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)  - 'props') as roles
         from public.users u
           join public.users_role ur on (u.id = ur.user_id)
           ${
@@ -81,10 +82,7 @@ export const getMany = async (
   return client.manyOrNone<User>(query, queryParams).then((data) =>
     data.map(({ roles, ...user }) => ({
       ...Objects.camelize(user),
-      roles: roles.map(({ props, ...role }) => ({
-        ...Objects.camelize(role),
-        props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
-      })),
+      roles: roles.map(UserRoleAdapter),
     }))
   )
 }

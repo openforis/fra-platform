@@ -26,7 +26,9 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
         'user-list__inactive-user': user.status === UserStatus.inactive,
       })}
     >
-      <UserField user={user} field="name" />
+      <td className="user-list__cell">
+        <div className="user-list__cell--read-only">{Users.getFullName(user)}</div>
+      </td>
       <UserRoleField user={user} countryIso={countryIso} />
       <UserField user={user} field="email" />
       {!readOnly && (

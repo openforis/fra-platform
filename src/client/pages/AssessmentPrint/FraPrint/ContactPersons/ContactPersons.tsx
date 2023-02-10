@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from '@utils/objects'
 
 import { SubSections } from '@meta/assessment'
-import { CollaboratorProps, RoleName, User, Users, UserStatus } from '@meta/user'
+import { RoleName, User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
@@ -83,7 +83,7 @@ const ContactPersons: React.FC = () => {
             {users.map((user) => (
               <tr key={user.id}>
                 <td className="fra-table__cell-left">
-                  <div className="text-input__readonly-view">{user.name}</div>
+                  <div className="text-input__readonly-view">{Users.getFullName(user)}</div>
                 </td>
                 <td className="fra-table__cell-left">
                   <div className="text-input__readonly-view">
