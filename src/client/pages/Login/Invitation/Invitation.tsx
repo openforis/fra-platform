@@ -95,7 +95,8 @@ const Invitation: React.FC = () => {
         {t('login.invitationMessage', {
           assessment: assessment.props.name,
           cycle: cycle.name,
-          userRole: t(Users.getI18nRoleLabelKey(userRole.role)),
+          role: t(Users.getI18nRoleLabelKey(userRole.role)),
+          country: t(`area.${userRole.countryIso}.listName`),
         })}
       </h3>
 

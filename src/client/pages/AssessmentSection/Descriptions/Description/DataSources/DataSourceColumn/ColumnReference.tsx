@@ -7,7 +7,8 @@ import { DataSource } from '@meta/assessment'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import Icon from '@client/components/Icon'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
-import { datasourceValidators } from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/DataSourceColumn'
+
+import { datasourceValidators } from './DataSourceColumn'
 
 interface DataSourceReferenceColumnProps {
   dataSource: DataSource
