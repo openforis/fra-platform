@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
@@ -43,7 +44,8 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
   let otherLand = null
-  if (forestPercent || otherWoodedLandPercent) {
+
+  if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
     otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)))
   }
 
