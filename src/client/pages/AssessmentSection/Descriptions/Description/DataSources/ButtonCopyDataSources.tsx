@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CommentableDescriptionValue } from '@meta/assessment'
+
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { usePreviousSection } from '@client/store/assessment/hooks/usePreviousSection'
@@ -9,11 +11,12 @@ import { useCountryIso } from '@client/hooks'
 
 interface Props {
   disabled: boolean
+  currentValue: CommentableDescriptionValue
   sectionName: string
 }
 
 export const ButtonCopyDataSources: React.FC<Props> = (props: Props) => {
-  const { disabled, sectionName } = props
+  const { disabled, currentValue, sectionName } = props
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -27,11 +30,12 @@ export const ButtonCopyDataSources: React.FC<Props> = (props: Props) => {
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
+        currentValue,
         previousSectionName: previousSection?.props.name,
         sectionName,
       })
     )
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, previousSection?.props.name, sectionName])
+  }, [assessment.props.name, countryIso, currentValue, cycle.name, dispatch, previousSection?.props.name, sectionName])
 
   const copyDisabled = disabled || !previousSection
 
