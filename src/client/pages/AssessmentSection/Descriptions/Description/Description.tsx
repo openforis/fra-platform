@@ -87,8 +87,8 @@ const Description: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   const isDataSources = name === 'dataSources'
-  const dataSourceHasTable = isDataSources && descriptionsMetadata?.nationalData?.dataSources?.table
-  const dataSourceTextReadOnly = isDataSources && descriptionsMetadata?.nationalData?.dataSources?.text?.readOnly
+  const dataSourceHasTable = isDataSources && descriptionsMetadata.nationalData?.dataSources?.table
+  const dataSourceTextReadOnly = isDataSources && descriptionsMetadata.nationalData?.dataSources?.text?.readOnly
 
   const showMarkdownEditor = (!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly)
 
