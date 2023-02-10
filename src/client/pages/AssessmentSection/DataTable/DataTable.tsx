@@ -59,11 +59,11 @@ const DataTable: React.FC<Props> = (props) => {
           <Chart
             data={data}
             trends={rows
-              .filter((row) => !!row.props.chart)
+              .filter((row) => !!row.props.chart?.[cycle.uuid])
               .map((row) => ({
                 name: row.props.variableName,
-                label: i18n.t(row.props.chart.labelKey),
-                color: row.props.chart.color,
+                label: i18n.t(row.props.chart[cycle.uuid].labelKey),
+                color: row.props.chart[cycle.uuid].color,
               }))}
           />
           <div className="page-break" />
