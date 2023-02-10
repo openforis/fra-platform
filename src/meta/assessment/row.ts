@@ -20,14 +20,16 @@ export interface RowLabel {
   key?: string
 }
 
+export interface ChartProps {
+  color: string
+  labelKey: string
+}
+
 export interface RowProps {
   calculateFn?: Record<CycleUuid, string>
   // if a variable is subcategory, then categoryLevel starts from 1
   categoryLevel?: number
-  chart?: {
-    color: string
-    labelKey: string
-  }
+  chart?: Record<CycleUuid, ChartProps>
   /**
    * This property includes the variable dependants which the row should be excluded from.
    *

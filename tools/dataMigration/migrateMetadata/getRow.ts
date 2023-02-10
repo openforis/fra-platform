@@ -1,4 +1,5 @@
 import { Assessment, Row, RowType, Table } from '../../../src/meta/assessment'
+import { ChartProps } from '../../../src/meta/assessment/row'
 import { RowSpec } from '../../../src/test/sectionSpec'
 import { getCycleUuids } from './utils'
 
@@ -43,6 +44,26 @@ const _getValidateFns = (rowSpec: RowSpec, cycles: string[], assessment: Assessm
   )
 }
 
+// Return chartProps prop in format Record<cycleUuid, ChartProps>
+const _getChartProps = (rowSpec: RowSpec, assessment: Assessment): Record<string, ChartProps> => {
+  const { chartProps } = rowSpec
+
+  if (Array.isArray(rowSpec.migration?.chart?.cycles)) {
+    const cycles = rowSpec.migration?.chart?.cycles.map(
+      (cycleName) => assessment.cycles.find((c) => c.name === cycleName).uuid
+    )
+    return cycles.reduce<Record<string, ChartProps>>(
+      (chartPropsAgg, cycle) => ({ ...chartPropsAgg, [cycle]: chartProps }),
+      {}
+    )
+  }
+
+  return assessment.cycles.reduce<Record<string, ChartProps>>(
+    (chartPropsAgg, cycle) => ({ ...chartPropsAgg, [cycle.uuid]: chartProps }),
+    {}
+  )
+}
+
 export const getRow = (props: { assessment: Assessment; rowSpec: RowSpec; table: Table }): Row => {
   const { assessment, rowSpec, table } = props
   const linkToSection = rowSpec.cols?.[0]?.linkToSection
@@ -65,7 +86,7 @@ export const getRow = (props: { assessment: Assessment; rowSpec: RowSpec; table:
     tableId: table.id,
   }
   if (rowSpec.chartProps) {
-    row.props.chart = rowSpec.chartProps
+    row.props.chart = _getChartProps(rowSpec, assessment)
   }
 
   if (rowSpec.labelKey) {

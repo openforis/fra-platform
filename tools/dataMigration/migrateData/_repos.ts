@@ -18,6 +18,7 @@ export const getRows = (client: BaseProtocol, schema: string, table: Table): Pro
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
           validateFns: row.props.validateFns,
+          chart: row.props.chart,
         },
       }
     }
