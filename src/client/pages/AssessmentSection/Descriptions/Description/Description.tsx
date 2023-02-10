@@ -35,7 +35,7 @@ const Description: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const section = useAssessmentSection(sectionName)
-  const descriotionsMetadata = section.props.descriptions[cycle.uuid]
+  const descriptionsMetadata = section.props.descriptions[cycle.uuid]
 
   const user = useUser()
   const { print } = useIsPrint()
@@ -82,8 +82,8 @@ const Description: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   const isDataSources = name === 'dataSources'
-  const dataSourceHasTable = isDataSources && descriotionsMetadata?.nationalData?.dataSources?.table
-  const dataSourceTextReadOnly = isDataSources && descriotionsMetadata?.nationalData?.dataSources?.text?.readOnly
+  const dataSourceHasTable = isDataSources && descriptionsMetadata?.nationalData?.dataSources?.table
+  const dataSourceTextReadOnly = isDataSources && descriptionsMetadata?.nationalData?.dataSources?.text?.readOnly
 
   const showMarkdownEditor = (!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly)
 
