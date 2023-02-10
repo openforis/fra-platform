@@ -15,6 +15,7 @@ import EditorWYSIWYG from '@client/components/EditorWYSIWYG'
 import MarkdownPreview from '@client/components/MarkdownPreview'
 import DataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSources'
 
+import { useDescriptions } from '../Descriptions'
 import Title from './Title'
 import Toggle from './Toggle'
 
@@ -35,7 +36,11 @@ const Description: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const section = useAssessmentSection(sectionName)
-  const descriptionsMetadata = section.props.descriptions[cycle.uuid]
+  const descriptionsMetadata = useDescriptions({
+    disabled,
+    sectionName,
+    descriptions: section.props.descriptions[cycle.uuid],
+  })
 
   const user = useUser()
   const { print } = useIsPrint()

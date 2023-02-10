@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 
 import { Description, TableNames } from '@meta/assessment'
-import { DataSourceColumn } from '@meta/assessment/description'
 
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useHasOriginalDataPointData } from '@client/store/ui/assessmentSection'
@@ -16,7 +15,7 @@ type Props = {
   sectionName: string
 }
 
-const useDescriptions = (props: Props): Description => {
+export const useDescriptions = (props: Props): Description => {
   const { descriptions, sectionName } = props
   const { onlyTables } = useIsPrint()
   const cycle = useCycle()
@@ -35,7 +34,9 @@ const useDescriptions = (props: Props): Description => {
           },
           nationalData: {
             dataSources: {
-              table: { columns: Array<DataSourceColumn> },
+              table: {
+                columns: ['referenceToTataSource', 'typeOfDataSource', 'fraVariable', 'yearForDataSource', 'comments'],
+              },
               text: { readOnly: cycle.name !== '2020' },
             },
             nationalClassification: true,
@@ -47,7 +48,7 @@ const useDescriptions = (props: Props): Description => {
     }
     return {
       [TableNames.extentOfForest]: getDescriptions(!hasOriginalDataPointData),
-      [TableNames.forestCharacteristics]: getDescriptions(!hasOriginalDataPointData && useOriginalDataPoint),
+      [TableNames.forestCharacteristics]: getDescriptions(!hasOriginalDataPointData && !useOriginalDataPoint),
     }
   }, [cycle.name, hasOriginalDataPointData, useOriginalDataPoint])
 

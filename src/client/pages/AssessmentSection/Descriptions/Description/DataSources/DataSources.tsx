@@ -12,6 +12,8 @@ import DataColumn from '@client/components/DataGrid/DataColumn'
 import ButtonCopyDataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/ButtonCopyDataSources'
 import DataSourceRow from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceRow'
 
+import { useDescriptions } from '../../Descriptions'
+
 type Props = {
   disabled: boolean
   sectionName: string
@@ -34,7 +36,12 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName, disabled, description, onChange } = props
   const cycle = useCycle()
   const subSection = useAssessmentSection(sectionName)
-  const descriptions = subSection.props.descriptions[cycle.uuid]
+  const descriptions = useDescriptions({
+    disabled,
+    sectionName,
+    descriptions: subSection.props.descriptions[cycle.uuid],
+  })
+
   const { dataSources: descriptionDataSource } = descriptions.nationalData
 
   const { t } = useTranslation()
