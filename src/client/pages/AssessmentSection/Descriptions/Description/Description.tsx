@@ -60,8 +60,8 @@ const Description: React.FC<Props> = (props) => {
   )
 
   const error = user && showAlertEmptyContent && !description
-  let markdown = description.text || template.text
-  if (print) markdown = markdown?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
+  let text = description.text || template.text
+  if (print) text = text?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
     dispatch(
@@ -85,15 +85,15 @@ const Description: React.FC<Props> = (props) => {
   const dataSourceHasTable = isDataSources && descriotionsMetadata?.nationalData?.dataSources?.table
   const dataSourceTextReadOnly = isDataSources && descriotionsMetadata?.nationalData?.dataSources?.text?.readOnly
 
-  const showMarkdownEditor = (!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly && markdown)
+  const showMarkdownEditor = (!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly)
 
   const showPreview =
     // 1. not data source: Show markdown preview if description is not open and it has text
-    (!isDataSources && !open && markdown) ||
+    (!isDataSources && !open && text) ||
     // 2. data source: Show markdown preview if description is not open and it is not read only
     (isDataSources && !open && !dataSourceTextReadOnly) ||
     // 3. data source: Show markdown preview if description is open and it is read only (preview of previous cycle) and has text
-    (isDataSources && open && dataSourceTextReadOnly && markdown)
+    (isDataSources && open && dataSourceTextReadOnly && text)
 
   return (
     <div className="fra-description__header-row">
@@ -104,15 +104,15 @@ const Description: React.FC<Props> = (props) => {
       )}
       {showMarkdownEditor && (
         <div className="fra-description__preview">
-          <EditorWYSIWYG value={markdown} onChange={(content) => onChange({ ...description, text: content })} />
+          <EditorWYSIWYG value={text} onChange={(content) => onChange({ ...description, text: content })} />
         </div>
       )}
       {showPreview && (
         <div className="fra-description__preview">
-          <MarkdownPreview value={markdown} />
+          <MarkdownPreview value={text} />
         </div>
       )}
-      {!open && !markdown && showDashEmptyContent && <div>-</div>}
+      {!open && !text && showDashEmptyContent && <div>-</div>}
     </div>
   )
 }
