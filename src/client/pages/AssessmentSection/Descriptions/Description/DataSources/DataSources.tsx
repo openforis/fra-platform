@@ -79,7 +79,9 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="data-source wrapper">
-      <ButtonCopyDataSources disabled={copyDisabled} currentValue={description} sectionName={sectionName} />
+      {!disabled && (
+        <ButtonCopyDataSources disabled={copyDisabled} currentValue={description} sectionName={sectionName} />
+      )}
 
       <DataGrid className="data-source-grid">
         {descriptionDataSource.table.columns.map((column) => (
