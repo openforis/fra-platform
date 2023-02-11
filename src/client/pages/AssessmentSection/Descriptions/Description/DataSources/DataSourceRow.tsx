@@ -47,7 +47,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       ))}
 
       <DataColumn className="data-source-review-indicator">
-        {!isDataLocked && <ReviewIndicator title={title} topicKey={dataSource.uuid} />}
+        {!isDataLocked && dataSource.uuid && <ReviewIndicator title={title} topicKey={dataSource.uuid} />}
       </DataColumn>
     </>
   )
