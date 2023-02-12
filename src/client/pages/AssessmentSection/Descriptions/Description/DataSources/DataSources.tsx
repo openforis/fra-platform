@@ -3,6 +3,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
+import { UUIDs } from '@utils/uuids'
 
 import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
 
@@ -49,16 +50,18 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { dataSources = [] } = description
 
   const _onChange = useCallback(
-    (dataSource: DataSource, i: number) => {
+    (dataSource: DataSource) => {
+      const { uuid } = dataSource
       const updatedDescription = Objects.cloneDeep({
         ...description,
-        dataSources,
+        dataSources: Objects.cloneDeep(dataSources),
       })
-      // is it a placeholder?
-      if (i === dataSources.length) {
-        updatedDescription.dataSources.push(dataSource)
-      } else {
+      // If we don't have UUID, it's a new data source
+      if (uuid) {
+        const i = updatedDescription.dataSources.findIndex((dataSource) => dataSource.uuid === uuid)
         updatedDescription.dataSources[i] = dataSource
+      } else {
+        updatedDescription.dataSources.push({ ...dataSource, uuid: UUIDs.v4() })
       }
       onChange(updatedDescription)
     },
@@ -66,10 +69,11 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   )
 
   const _onDelete = useCallback(
-    (i: number) => {
-      const updatedDescription = Objects.cloneDeep(description)
-      updatedDescription.dataSources.splice(i, 1)
-      onChange(updatedDescription)
+    (uuid: string) => {
+      onChange({
+        ...description,
+        dataSources: description.dataSources.filter((dataSource) => dataSource.uuid !== uuid),
+      })
     },
     [description, onChange]
   )
@@ -95,16 +99,15 @@ export const DataSources: React.FC<Props> = (props: Props) => {
         {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
           <DataSourceRow
             descriptionDataSource={descriptionDataSource}
-            onChange={(dataSource: DataSource) => _onChange(dataSource, i)}
+            onChange={(dataSource: DataSource) => _onChange(dataSource)}
             // eslint-disable-next-line react/no-array-index-key
             key={`dataSource_${i}`}
             disabled={disabled}
             sectionName={sectionName}
             dataSource={dataSource}
-            // Last item is always placeholder
-            placeholder={i === dataSources.length}
-            onDelete={() => _onDelete(i)}
-            index={i}
+            // if we don't have uuid, it's a placeholder
+            placeholder={!dataSource.uuid}
+            onDelete={() => _onDelete(dataSource.uuid)}
           />
         ))}
       </DataGrid>

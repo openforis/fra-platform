@@ -10,6 +10,7 @@ export enum CommentableDescriptionName {
   introductoryText = 'introductoryText',
 }
 export interface DataSource {
+  uuid?: string
   reference: {
     text: string
     link?: string
