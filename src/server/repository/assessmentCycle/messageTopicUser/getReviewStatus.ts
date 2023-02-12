@@ -17,42 +17,41 @@ export const getReviewStatus = async (
 
   return client.map<ReviewStatus>(
     `
-      with m as (
-        select
-          topic_id,
-          count(*) messages_count,
-          max(created_time) last_message_time
-        from ${cycleSchema}.message m
-        left join ${cycleSchema}.message_topic mt
-          on mt.id = m.topic_id
-        where not m.deleted and mt.key in (
-          select r.uuid::text
-          from ${schemaName}.row r
-            left join ${schemaName}."table" t
-              on t.id = r.table_id
-            left join ${schemaName}.table_section ts
-              on ts.id = t.table_section_id
-            left join ${schemaName}.section as s
-              on s.id = ts.section_id
-          where s.props ->> 'name' = $1
-        )
-        group by topic_id
-      )
-      select
-        mt.key,
-        mt.status,
-        m.messages_count,
-        msg.user_id last_message_user_id,
-        mtu.last_open_time is null or m.last_message_time > mtu.last_open_time has_unread_messages
-      from m
-        left join ${cycleSchema}.message msg
-          on m.last_message_time = msg.created_time
-        left join ${cycleSchema}.message_topic_user mtu
-          on mtu.topic_id = m.topic_id
-          and mtu.user_id = $2
-        left join ${cycleSchema}.message_topic mt
-          on mt.id = m.topic_id
-      where mt.country_iso = $3
+        with data_source_row_uuids as (select jsonb_array_elements(value -> 'dataSources') ->> 'uuid' as uuid
+                                       from ${cycleSchema}.descriptions d
+                                       where d.section_name = $1
+                                         and d.value -> 'dataSources' is not null),
+             m as (select topic_id,
+                          count(*)          messages_count,
+                          max(created_time) last_message_time
+                   from ${cycleSchema}.message m
+                            left join ${cycleSchema}.message_topic mt
+                                      on mt.id = m.topic_id
+                   where not m.deleted
+                     and (mt.key in (select r.uuid::text
+                                     from ${schemaName}.row r
+                                              left join ${schemaName}."table" t
+                                                        on t.id = r.table_id
+                                              left join ${schemaName}.table_section ts
+                                                        on ts.id = t.table_section_id
+                                              left join ${schemaName}.section as s
+                                                        on s.id = ts.section_id
+                                     where s.props ->> 'name' = $1) or mt.key in (select uuid from data_source_row_uuids))
+                   group by topic_id)
+        select mt.key,
+               mt.status,
+               m.messages_count,
+               msg.user_id                                                            last_message_user_id,
+               mtu.last_open_time is null or m.last_message_time > mtu.last_open_time has_unread_messages
+        from m
+                 left join ${cycleSchema}.message msg
+                           on m.last_message_time = msg.created_time
+                 left join ${cycleSchema}.message_topic_user mtu
+                           on mtu.topic_id = m.topic_id
+                               and mtu.user_id = $2
+                 left join ${cycleSchema}.message_topic mt
+                           on mt.id = m.topic_id
+        where mt.country_iso = $3
     `,
     [sectionName, user.id, countryIso],
     (row) => Objects.camelize(row)

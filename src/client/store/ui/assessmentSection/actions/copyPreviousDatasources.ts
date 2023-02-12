@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { UUIDs } from '@utils/uuids'
 import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
@@ -26,7 +27,9 @@ export const copyPreviousDatasources = createAsyncThunk<
       updateDescription({
         value: {
           ...currentValue,
-          dataSources: value.dataSources?.map(({ fraVariables: _fraVariables, ...rest }: DataSource) => rest),
+          dataSources: value.dataSources?.map(({ fraVariables: _fraVariables, ...rest }: DataSource) => {
+            return { ...rest, uuid: UUIDs.v4() }
+          }),
         },
         name,
         sectionName,

@@ -4,7 +4,7 @@ import { DataSource } from '@meta/assessment'
 import { NationalDataDataSourceDescription } from '@meta/assessment/description'
 
 import { useTableSections } from '@client/store/ui/assessmentSection'
-import { useCountryIso } from '@client/hooks'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
@@ -15,7 +15,6 @@ type Props = {
   dataSource: DataSource
   sectionName: string
   placeholder: boolean
-  index: number
   descriptionDataSource: NationalDataDataSourceDescription
 
   onChange: (dataSource: DataSource) => void
@@ -23,8 +22,8 @@ type Props = {
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { disabled, dataSource, descriptionDataSource, sectionName, onChange, placeholder, onDelete, index } = props
-  const countryIso = useCountryIso()
+  const { disabled, dataSource, descriptionDataSource, sectionName, onChange, placeholder, onDelete } = props
+  const isDataLocked = useIsDataLocked()
   const tableSections = useTableSections({ sectionName })
 
   const table = tableSections?.[0]?.tables?.[0]
@@ -48,7 +47,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       ))}
 
       <DataColumn className="data-source-review-indicator">
-        {!disabled && <ReviewIndicator title={title} topicKey={`dataSource-${countryIso}-${sectionName}-${index}`} />}
+        {!isDataLocked && dataSource.uuid && <ReviewIndicator title={title} topicKey={dataSource.uuid} />}
       </DataColumn>
     </>
   )
