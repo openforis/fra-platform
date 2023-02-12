@@ -34,14 +34,18 @@ const Table: React.FC<Props> = (props) => {
   const tableRef = useRef<HTMLTableElement>(null)
 
   const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
-  const { secondary } = table.props
+  const { secondary, name } = table.props
   const displayTableExportButton = !secondary && !print && tableRef.current != null
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
         {displayTableExportButton && (
-          <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} inReview={!disabled && !secondary} />
+          <ButtonTableExport
+            tableRef={tableRef}
+            filename={`${sectionAnchor} ${name}`}
+            inReview={!disabled && !secondary}
+          />
         )}
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">
