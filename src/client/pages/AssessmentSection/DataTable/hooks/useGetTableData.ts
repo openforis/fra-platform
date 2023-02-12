@@ -4,6 +4,7 @@ import { CountryIso } from '@meta/area'
 import { AssessmentName, Table, TableNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
+import { useCountry } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCanEdit } from '@client/store/user'
 
@@ -50,16 +51,29 @@ const useTableNames = (props: Props): Array<string> => {
 
 export const useGetTableData = (props: Props) => {
   const { assessmentName, countryIso, cycleName, table } = props
+  const country = useCountry(countryIso)
   const { odp } = table.props
 
   const dispatch = useAppDispatch()
   const tableNames = useTableNames(props)
 
+  // if we are using original data point, and we are not in table 1a extent of forest, we need to merge odp data for calculations
+  const mergeOdp =
+    country.props?.forestCharacteristics.useOriginalDataPoint && table.props.name !== TableNames.extentOfForest
+
   useEffect(() => {
-    dispatch(AssessmentSectionActions.getTableData({ assessmentName, countryIso, cycleName, tableNames }))
+    dispatch(
+      AssessmentSectionActions.getTableData({
+        assessmentName,
+        countryIso,
+        cycleName,
+        tableNames,
+        mergeOdp,
+      })
+    )
 
     if (odp) {
       dispatch(AssessmentSectionActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
     }
-  }, [assessmentName, countryIso, cycleName, dispatch, odp, tableNames])
+  }, [assessmentName, countryIso, cycleName, dispatch, mergeOdp, odp, tableNames])
 }
