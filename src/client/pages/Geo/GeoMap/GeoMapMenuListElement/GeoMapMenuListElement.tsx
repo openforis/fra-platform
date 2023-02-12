@@ -36,7 +36,9 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
               <p>{title}</p>
             </div>
           ) : (
-            <p>{title}</p>
+            <div>
+              <p>{title}</p>
+            </div>
           )}
         </div>
         {children}

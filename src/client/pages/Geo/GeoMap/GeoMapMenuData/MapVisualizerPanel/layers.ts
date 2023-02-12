@@ -48,3 +48,5 @@ export const layers: Layer[] = [
     opacity: 1,
   },
 ]
+
+export const GLOBAL_OPACITY_KEY = 'GLOBAL_OPACITY'

@@ -10,7 +10,7 @@ import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
 import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
 import LayerOptionsPanel from './LayerOptionsPanel'
-import { layers } from '.'
+import { layers, GLOBAL_OPACITY_KEY } from '.'
 
 const RecipeSelector: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -39,7 +39,6 @@ const RecipeSelector: React.FC = () => {
 const MapVisualizerPanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
-
   const toggleForestLayer = (key: ForestSource) => {
     dispatch(GeoActions.setRecipe('custom'))
     dispatch(GeoActions.toggleForestLayer(key))
@@ -50,6 +49,11 @@ const MapVisualizerPanel: React.FC = () => {
       <RecipeSelector />
       <p>Forest Layers</p>
       <div className="geo-map-menu-data-visualizer-panel-layers">
+        <div key={GLOBAL_OPACITY_KEY}>
+          <GeoMapMenuListElement title="Global Opacity" tabIndex={-2}>
+            <LayerOptionsPanel layerKey={GLOBAL_OPACITY_KEY} checked />
+          </GeoMapMenuListElement>
+        </div>
         {layers.map((layer, index) => {
           const isLayerChecked = forestOptions.selected.includes(layer.key)
           return (
