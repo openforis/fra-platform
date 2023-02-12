@@ -55,7 +55,7 @@ const ReviewIndicator = (props: Props) => {
       onClick={openTopic}
       type="button"
     >
-      {messagesCount === 0 ? <Icon name="circle-add" /> : <Icon name="chat-46" />}
+      <Icon name="chat-46" />
     </button>
   )
 }
