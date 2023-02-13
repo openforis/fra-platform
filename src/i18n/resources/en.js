@@ -1042,6 +1042,8 @@ The FRA team
     mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
     mustBeEqualToPlantedForest: 'Subcategories sum should be equal to Planted Forest',
     mustBeEqualToForestArea: 'Naturally regenerating forest + Planted forest must equal to Total Forest',
+    columnEmpty: "Column '$t({{columName}})' must have a value",
+    // columnMustHaveValue: "Column '$t({{column}})' must have a value",
   },
 
   emoji: {
