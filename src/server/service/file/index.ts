@@ -40,6 +40,12 @@ export const fileTypes = {
     downloadName: `BiomassCalculator_${domain}`,
     fileType: 'xlsx',
   }),
+  sdgFocalPoints: {
+    key: 'NSO_SDG_Contact_Persons',
+    folder: 'sdgFocalPoints',
+    downloadName: 'NSO_SDG_Contact_Persons',
+    fileType: 'xlsx',
+  },
 }
 
 const _getFilepath = (type: Type, lang: string) =>
