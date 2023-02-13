@@ -1,5 +1,7 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
+import { validatorEqualToSum } from '@meta/expressionEvaluator/functions/validatorEqualToSum'
+
 import { Context } from '../context'
 import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
 import { validatorEqualToPlantedForest } from './validatorEqualToPlantedForest'
@@ -43,4 +45,5 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorEqualToForestExpansion,
   validatorEqualToPlantedForest,
   validatorEqualToTotalForest,
+  validatorEqualToSum,
 ]
