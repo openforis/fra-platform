@@ -481,6 +481,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.production',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.production)`,
+                ],
+              },
             },
             {
               idx: 1,
@@ -496,6 +501,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.soilWaterProtection',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.protection_of_soil_and_water)`,
+                ],
+              },
             },
             {
               idx: 2,
@@ -511,6 +521,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.biodiversityConservation',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.conservation_of_biodiversity)`,
+                ],
+              },
             },
             {
               idx: 3,
@@ -526,6 +541,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.socialServices',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.social_services)`,
+                ],
+              },
             },
             {
               idx: 4,
@@ -541,6 +561,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.other',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.other)`,
+                ],
+              },
             },
           ],
           tableDataRequired: [],
