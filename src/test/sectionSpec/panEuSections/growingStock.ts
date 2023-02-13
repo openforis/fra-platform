@@ -87,15 +87,23 @@ export const growingStock = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  variableExport: 'pan_european_growing_stock_forest_2025',
+                },
+                { idx: 1, type: 'decimal', variableExport: 'pan_european_growing_stock_coniferus_2025' },
+                { idx: 2, type: 'decimal', variableExport: 'pan_european_growing_stock_broadleaved_2025' },
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.forest_2025['total'],[table_1_2a.forest_2025['coniferous'],table_1_2a.forest_2025['broadleaved']])`,
+                ],
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2025 },
+              variableName: 'forest_2025',
               variableExport: 'forest_2025',
             },
             {
@@ -110,10 +118,19 @@ export const growingStock = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  variableExport: 'pan_european_growing_stock_forest_2020',
+                },
+                { idx: 1, type: 'decimal', variableExport: 'pan_european_growing_stock_coniferus_2020' },
+                { idx: 2, type: 'decimal', variableExport: 'pan_european_growing_stock_broadleaved_2020' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.forest_2020['total'],[table_1_2a.forest_2020['coniferous'],table_1_2a.forest_2020['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2020 },
               variableExport: 'forest_2020',
@@ -134,6 +151,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.forest_2015['total'],[table_1_2a.forest_2015['coniferous'],table_1_2a.forest_2015['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2015 },
               variableExport: 'forest_2015',
@@ -154,6 +176,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.forest_2010['total'],[table_1_2a.forest_2010['coniferous'],table_1_2a.forest_2010['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2010 },
               variableExport: 'forest_2010',
@@ -174,6 +201,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.forest_2005['total'],[table_1_2a.forest_2005['coniferous'],table_1_2a.forest_2005['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2005 },
               variableExport: 'forest_2005',
@@ -194,6 +226,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.forest_2000['total'],[table_1_2a.forest_2000['coniferous'],table_1_2a.forest_2000['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2000 },
               variableExport: 'forest_2000',
@@ -214,6 +251,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.forest_1990['total'],[table_1_2a.forest_1990['coniferous'],table_1_2a.forest_1990['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
@@ -236,6 +278,9 @@ export const growingStock = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2025['total'],[table_1_2a._of_which_available_for_wood_supply_2025['coniferous'],table_1_2a._of_which_available_for_wood_supply_2025['broadleaved']])`,
+                ],
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2025 },
@@ -257,6 +302,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2020['total'],
+                  [table_1_2a._of_which_available_for_wood_supply_2020['coniferous'],
+                  table_1_2a._of_which_available_for_wood_supply_2020['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2020 },
               variableExport: '_of_which_available_for_wood_supply_2020',
@@ -277,6 +329,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2015['total'],
+                  [table_1_2a._of_which_available_for_wood_supply_2015['coniferous'],
+                  table_1_2a._of_which_available_for_wood_supply_2015['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2015 },
               variableExport: '_of_which_available_for_wood_supply_2015',
@@ -297,6 +356,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2010['total'],
+                  [table_1_2a._of_which_available_for_wood_supply_2010['coniferous'],
+                  table_1_2a._of_which_available_for_wood_supply_2010['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2010 },
               variableExport: '_of_which_available_for_wood_supply_2010',
@@ -317,6 +383,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2005['total'],
+                  [table_1_2a._of_which_available_for_wood_supply_2005['coniferous'],
+                  table_1_2a._of_which_available_for_wood_supply_2005['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2005 },
               variableExport: '_of_which_available_for_wood_supply_2005',
@@ -337,6 +410,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2000['total'],
+                  [table_1_2a._of_which_available_for_wood_supply_2000['coniferous'],
+                  table_1_2a._of_which_available_for_wood_supply_2000['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2000 },
               variableExport: '_of_which_available_for_wood_supply_2000',
@@ -357,6 +437,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_1990['total'],
+                  [table_1_2a._of_which_available_for_wood_supply_1990['coniferous'],
+                  table_1_2a._of_which_available_for_wood_supply_1990['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 1990 },
               variableExport: '_of_which_available_for_wood_supply_1990',
@@ -379,6 +466,9 @@ export const growingStock = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.other_wooded_land_2025['total'],[table_1_2a.other_wooded_land_2025['coniferous'],table_1_2a.other_wooded_land_2025['broadleaved']])`,
+                ],
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2025 },
@@ -400,6 +490,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.other_wooded_land_2020['total'],[table_1_2a.other_wooded_land_2020['coniferous'],table_1_2a.other_wooded_land_2020['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2020 },
               variableExport: 'other_wooded_land_2020',
@@ -420,6 +515,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.other_wooded_land_2015['total'],[table_1_2a.other_wooded_land_2015['coniferous'],table_1_2a.other_wooded_land_2015['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'other_wooded_land_2015',
@@ -440,6 +540,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.other_wooded_land_2010['total'],[table_1_2a.other_wooded_land_2010['coniferous'],table_1_2a.other_wooded_land_2010['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'other_wooded_land_2010',
@@ -460,6 +565,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.other_wooded_land_2005['total'],[table_1_2a.other_wooded_land_2005['coniferous'],table_1_2a.other_wooded_land_2005['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'other_wooded_land_2005',
@@ -480,6 +590,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.other_wooded_land_2000['total'],[table_1_2a.other_wooded_land_2000['coniferous'],table_1_2a.other_wooded_land_2000['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'other_wooded_land_2000',
@@ -500,6 +615,11 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.other_wooded_land_1990['total'],[table_1_2a.other_wooded_land_1990['coniferous'],table_1_2a.other_wooded_land_1990['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'other_wooded_land_1990',
@@ -522,6 +642,11 @@ export const growingStock = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['total'],
+                  [table_1_2a.total_forest_and_other_wooded_land_2025['coniferous'],
+                  table_1_2a.total_forest_and_other_wooded_land_2025['broadleaved']])`,
+                ],
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2025 },
@@ -543,6 +668,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['total'],
+                  [table_1_2a.total_forest_and_other_wooded_land_2020['coniferous'],
+                  table_1_2a.total_forest_and_other_wooded_land_2020['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
               variableExport: 'total_forest_and_other_wooded_land_2020',
@@ -563,6 +695,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['total'],
+                  [table_1_2a.total_forest_and_other_wooded_land_2015['coniferous'],
+                  table_1_2a.total_forest_and_other_wooded_land_2015['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'total_forest_and_other_wooded_land_2015',
@@ -583,6 +722,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['total'],
+                  [table_1_2a.total_forest_and_other_wooded_land_2010['coniferous'],
+                  table_1_2a.total_forest_and_other_wooded_land_2010['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'total_forest_and_other_wooded_land_2010',
@@ -603,6 +749,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['total'],
+                  [table_1_2a.total_forest_and_other_wooded_land_2005['coniferous'],
+                  table_1_2a.total_forest_and_other_wooded_land_2005['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'total_forest_and_other_wooded_land_2005',
@@ -623,6 +776,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['total'],
+                  [table_1_2a.total_forest_and_other_wooded_land_2000['coniferous'],
+                  table_1_2a.total_forest_and_other_wooded_land_2000['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'total_forest_and_other_wooded_land_2000',
@@ -643,6 +803,13 @@ export const growingStock = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['total'],
+                  [table_1_2a.total_forest_and_other_wooded_land_1990['coniferous'],
+                  table_1_2a.total_forest_and_other_wooded_land_1990['broadleaved']])`,
+                ],
+              },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'total_forest_and_other_wooded_land_1990',
