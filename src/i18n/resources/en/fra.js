@@ -29,7 +29,7 @@ module.exports = {
   },
 
   contactPersons: {
-    expectedDateForNextCountryReportUpdate: 'Expected date/year for next update of the country report',
+    expectedYearForNextCountryReportUpdate: 'Expected year for next update of the country report',
   },
 
   degradedForest: {
