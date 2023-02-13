@@ -107,6 +107,7 @@ export const getManyMetadata = async (
                     ...Objects.camelize(row.props),
                     calculateFn: row.props.calculateFn,
                     validateFns: row.props.validateFns,
+                    chart: row.props.chart,
                   },
                   cols: cols.map((col) => ColAdapter(col as unknown as ColDB)),
                 })),

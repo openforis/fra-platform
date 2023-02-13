@@ -37,7 +37,7 @@ export const fileTypes = {
   biomassStock: (assessmentName: string, cycleName: string, domain: string) => ({
     key: `calculator_${domain}`,
     folder: `${assessmentName}/${cycleName}/biomassStock`,
-    downloadName: 'BiomassCalculator.xlsx',
+    downloadName: `BiomassCalculator_${domain}`,
     fileType: 'xlsx',
   }),
 }

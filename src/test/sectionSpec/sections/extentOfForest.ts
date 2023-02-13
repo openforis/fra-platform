@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { fraYears } from '../fraYears'
 import { SectionSpec } from '../sectionSpec'
+import { getStatusAndTierTable } from './common/statusAndTierTable'
 
 const validateSumOverride = `validatorSumNotGreaterThan((climaticDomain.boreal || 0) + (climaticDomain.temperate || 0) + (climaticDomain.sub_tropical || 0) + (climaticDomain.tropical || 0), '100')`
 
@@ -388,6 +389,7 @@ export const extentOfForest: SectionSpec = {
           dataExport: false,
           columnsExportAlways: [],
         },
+        getStatusAndTierTable('extentOfForest', 'forestArea', true),
       ],
     },
   ],

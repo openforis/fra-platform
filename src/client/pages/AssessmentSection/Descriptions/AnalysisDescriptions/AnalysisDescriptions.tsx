@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { AnalysisAndProcessingDescription } from '@meta/assessment/description'
+
 import { useCycle } from '@client/store/assessment'
 
 import CommentableDescription from '../CommentableDescription'
@@ -10,10 +12,11 @@ type Props = {
   disabled: boolean
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
+  analysisAndProcessing: AnalysisAndProcessingDescription
 }
 
 const AnalysisDescriptions: React.FC<Props> = (props) => {
-  const { sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const { analysisAndProcessing, sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const cycle = useCycle()
 
   const { t } = useTranslation()
@@ -21,22 +24,26 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
   return (
     <div className="fra-description__container">
       <h2 className="headline fra-description__group-header">{t('description.analysisAndProcessing')}</h2>
-      <CommentableDescription
-        title={t('description.estimationAndForecasting')}
-        disabled={disabled}
-        sectionName={sectionName}
-        name="estimationAndForecasting"
-        showAlertEmptyContent={showAlertEmptyContent}
-        showDashEmptyContent={showDashEmptyContent}
-      />
-      <CommentableDescription
-        title={t('description.reclassification', { cycleName: cycle.name })}
-        disabled={disabled}
-        sectionName={sectionName}
-        name="reclassification"
-        showAlertEmptyContent={showAlertEmptyContent}
-        showDashEmptyContent={showDashEmptyContent}
-      />
+      {analysisAndProcessing.estimationAndForecasting && (
+        <CommentableDescription
+          title={t('description.estimationAndForecasting')}
+          disabled={disabled}
+          sectionName={sectionName}
+          name="estimationAndForecasting"
+          showAlertEmptyContent={showAlertEmptyContent}
+          showDashEmptyContent={showDashEmptyContent}
+        />
+      )}
+      {analysisAndProcessing.reclassification && (
+        <CommentableDescription
+          title={t('description.reclassification', { cycleName: cycle.name })}
+          disabled={disabled}
+          sectionName={sectionName}
+          name="reclassification"
+          showAlertEmptyContent={showAlertEmptyContent}
+          showDashEmptyContent={showDashEmptyContent}
+        />
+      )}
     </div>
   )
 }

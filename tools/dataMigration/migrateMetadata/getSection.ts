@@ -1,7 +1,9 @@
+import { Description } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
+import { DataSourceColumn } from '../../../src/meta/assessment/description'
 import { Section, SubSection } from '../../../src/meta/assessment/section'
-import { SectionSpec } from '../../../src/test/sectionSpec'
-import { getCycleUuids, getLabels } from './utils'
+import { DescriptionsSpec, SectionSpec } from '../../../src/test/sectionSpec'
+import { CycleUuid, getCycleUuids, getLabels } from './utils'
 
 export const getSection = (props: { assessment: Assessment; index: number; labelKey: string }): Section => {
   const { assessment, index, labelKey } = props
@@ -14,6 +16,102 @@ export const getSection = (props: { assessment: Assessment; index: number; label
       index,
     },
   }
+}
+
+const fraColumns: Array<DataSourceColumn> = [
+  'referenceToTataSource',
+  'typeOfDataSource',
+  'fraVariable',
+  'yearForDataSource',
+  'comments',
+]
+const panEuropeanColumns: Array<DataSourceColumn> = [
+  'referenceToTataSource',
+  'typeOfDataSource',
+  'variable',
+  'yearForDataSource',
+  'comments',
+]
+
+const panEuropeanDescription = {
+  comments: true,
+  nationalData: {
+    dataSources: {
+      table: {
+        columns: [...panEuropeanColumns],
+      },
+    },
+  },
+}
+
+const transformDescription = (descriptions: DescriptionsSpec, cycleName: string): Description => {
+  const is2025 = cycleName === '2025'
+
+  const description: Description = {}
+
+  if (descriptions.analysisAndProcessing) {
+    description.analysisAndProcessing = {
+      estimationAndForecasting: true,
+      reclassification: true,
+    }
+  }
+
+  if (descriptions.comments) {
+    description.comments = true
+  }
+
+  if (descriptions.introductoryText) {
+    description.introductoryText = true
+  }
+
+  if (descriptions.nationalData) {
+    description.nationalData = {
+      dataSources: {
+        table: is2025
+          ? {
+              columns: [...fraColumns],
+            }
+          : undefined,
+        text: {
+          readOnly: is2025,
+        },
+      },
+      nationalClassification: true,
+      originalData: true,
+    }
+  }
+
+  return description
+}
+
+const getDescriptions = (props: {
+  assessment: Assessment
+  descriptions: DescriptionsSpec
+}): Record<CycleUuid, Description> => {
+  const { assessment, descriptions } = props
+  const {
+    props: { name },
+    cycles,
+  } = assessment
+  const isPanEuropean = name === 'panEuropean'
+
+  if (isPanEuropean) {
+    return cycles.reduce(
+      (acc, cycle) => ({
+        ...acc,
+        [cycle.uuid]: panEuropeanDescription,
+      }),
+      {}
+    )
+  }
+
+  return cycles.reduce(
+    (acc, cycle) => ({
+      ...acc,
+      [cycle.uuid]: transformDescription(descriptions, cycle.name),
+    }),
+    {}
+  )
 }
 
 export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec; index: number }): SubSection => {
@@ -45,12 +143,7 @@ export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec
         migration: spec.migration,
       }),
       showTitle: spec.showTitle,
-      descriptions: {
-        analysisAndProcessing: Boolean(spec.descriptions.analysisAndProcessing),
-        comments: Boolean(spec.descriptions.comments),
-        introductoryText: Boolean(spec.descriptions.introductoryText),
-        nationalData: Boolean(spec.descriptions.nationalData),
-      },
+      descriptions: getDescriptions({ assessment, descriptions: spec.descriptions }),
     },
   }
   if (spec.dataExport?.included) {

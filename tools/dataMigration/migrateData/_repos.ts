@@ -18,6 +18,7 @@ export const getRows = (client: BaseProtocol, schema: string, table: Table): Pro
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
           validateFns: row.props.validateFns,
+          chart: row.props.chart,
         },
       }
     }
@@ -50,6 +51,10 @@ export const isBasicTable = (tableName: string): boolean =>
   tableName &&
   tableName.trim() !== '' &&
   ![
+    'extentOfForest_forestAreaStatusAndTrend',
+    'biomassStock_biomassStockStatus',
+    'growingStock_growingStockStatus',
+
     'contactPersons',
     'extentOfForest',
     'forestCharacteristics',

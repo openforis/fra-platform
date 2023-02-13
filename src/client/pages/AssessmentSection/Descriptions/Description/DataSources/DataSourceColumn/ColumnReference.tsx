@@ -8,7 +8,7 @@ import DataColumn from '@client/components/DataGrid/DataColumn'
 import Icon from '@client/components/Icon'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
-import { datasourceValidators } from './DataSourceRow'
+import { datasourceValidators } from './DataSourceColumn'
 
 interface DataSourceReferenceColumnProps {
   dataSource: DataSource
@@ -18,7 +18,7 @@ interface DataSourceReferenceColumnProps {
   onChange: (key: string, value: Record<string, string>) => void
 }
 
-const DataSourceReferenceColumn: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
+const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
   const { dataSource, placeholder, disabled, onDelete, onChange } = props
 
   const _onChange = useCallback(
@@ -53,4 +53,4 @@ const DataSourceReferenceColumn: React.FC<DataSourceReferenceColumnProps> = (pro
   )
 }
 
-export default DataSourceReferenceColumn
+export default ColumnReference
