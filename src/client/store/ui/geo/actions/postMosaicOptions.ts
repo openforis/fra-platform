@@ -5,6 +5,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { MosaicOptions } from '@meta/geo'
 
 const getReqBody = (mosaicOptions: MosaicOptions) => {
+  const { sources, year, maxCloudCoverage } = mosaicOptions
   const body = {
     recipe: {
       id: '390c7c3f-1540-0e1f-52a0-5609b46122a8',
@@ -12,13 +13,19 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
       placeholder: 'Optical_mosaic_2022-04-03_21-57-59',
       model: {
         dates: {
-          targetDate: '2022-07-02',
-          seasonStart: '2022-01-01',
-          seasonEnd: '2023-01-01',
+          targetDate: `${year}-07-02`,
+          seasonStart: `${year}-01-01`,
+          seasonEnd: `${year + 1}-01-01`,
           yearsBefore: 0,
           yearsAfter: 0,
         },
-        sources: {},
+        sources: {
+          dataSets: {
+            ...(sources.includes('sentinel') ? { SENTINEL: ['SENTINEL_2'] } : {}),
+            ...(sources.includes('landsat') ? { LANDSAT: ['LANDSAT_9', 'LANDSAT_8'] } : {}),
+          },
+          cloudPercentageThreshold: maxCloudCoverage,
+        },
         sceneSelectionOptions: { type: 'ALL', targetDateWeight: 0 },
         compositeOptions: {
           corrections: ['SR'],
@@ -50,16 +57,6 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
     },
   }
 
-  const sources: any = {}
-
-  if (mosaicOptions.sources.includes('sentinel')) {
-    sources.SENTINEL = ['SENTINEL_2']
-  }
-  if (mosaicOptions.sources.includes('landsat')) {
-    sources.LANDSAT = ['LANDSAT_9', 'LANDSAT_8']
-  }
-
-  body.recipe.model.sources = sources
   return body
 }
 
