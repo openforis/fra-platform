@@ -1,14 +1,15 @@
 import './satelliteSourcePanel.scss'
 import React from 'react'
 
-import { MosaicSource } from '@meta/geo'
+import { MosaicOptions, MosaicSource } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
-import { GeoActions, useUiMosaicOptions } from '@client/store/ui/geo'
+import { GeoActions, useAppliedMosaicOptions, useUiMosaicOptions } from '@client/store/ui/geo'
 
 const SatelliteSourcePanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const uiMosaicOptions = useUiMosaicOptions()
+  const appliedMosaicOptions = useAppliedMosaicOptions()
   const startYear = 2000
   const endYear = 2022
   const years = Array(endYear - startYear + 1)
@@ -18,6 +19,16 @@ const SatelliteSourcePanel: React.FC = () => {
     { key: 'sentinel', label: 'Sentinel' },
     { key: 'landsat', label: 'Landsat' },
   ]
+
+  const optionsHaveChanged = Object.entries(uiMosaicOptions).some(
+    ([key, uiValue]: [keyof MosaicOptions, MosaicOptions[keyof MosaicOptions]]) => {
+      const appliedValue = appliedMosaicOptions[key]
+      if (Array.isArray(uiValue) && Array.isArray(appliedValue)) {
+        return appliedValue.length !== uiValue.length || appliedValue.some((val) => !uiValue.includes(val))
+      }
+      return appliedMosaicOptions[key] !== uiValue
+    }
+  )
 
   return (
     <div className="geo-map-menu-mosaic-satellite-panel">
@@ -61,7 +72,7 @@ const SatelliteSourcePanel: React.FC = () => {
           />
         </div>
       </div>
-      <button type="button" className="btn btn-primary geo-map-menu-mosaic-btn-apply" disabled>
+      <button type="button" className="btn btn-primary geo-map-menu-mosaic-btn-apply" disabled={!optionsHaveChanged}>
         Apply changes
       </button>
     </div>
