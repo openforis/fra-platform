@@ -5,4 +5,5 @@ export interface GeoState {
   selectedPanel: MapPanel
   mosaicOptions: MosaicOptions
   mosaicUrl: string
+  mosaicSelected: boolean
 }

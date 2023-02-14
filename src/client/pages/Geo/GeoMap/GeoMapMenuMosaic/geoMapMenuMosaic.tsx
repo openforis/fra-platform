@@ -1,56 +1,51 @@
 import './geoMapMenuMosaic.scss'
-import React, { useCallback, useEffect } from 'react'
-
-import { MosaicSource } from '@meta/geo'
+import React, { useEffect, useRef } from 'react'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useMosaicOptions, useMosaicUrl, useSelectedPanel } from '@client/store/ui/geo'
+import { useMosaicSelected } from '@client/store/ui/geo/hooks'
 import { useGeoMap } from '@client/hooks'
+import { MapController } from '@client/utils'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
 import GeoMenuItem from '../GeoMapMenuItem'
 import SatelliteSourcePanel from './SatelliteSourcePanel'
-
-const removeOverlayLayer = (mapLayerId: string, overlayLayers: google.maps.MVCArray) => {
-  for (let i = 0; i < overlayLayers.getLength(); i += 1) {
-    const overlayLayer = overlayLayers.getAt(i)
-    if (overlayLayer.name === mapLayerId) {
-      overlayLayers.removeAt(i)
-
-      break
-    }
-  }
-}
-
-const addOVerlayLayer = (mapLayerId: string, layerUrl: string, overlayLayers: google.maps.MVCArray) => {
-  const layer = new google.maps.ImageMapType({
-    name: mapLayerId,
-    getTileUrl: (coord: google.maps.Point, zoom: number) => {
-      const url = layerUrl.replace('{x}', String(coord.x)).replace('{y}', String(coord.y)).replace('{z}', String(zoom))
-      return url
-    },
-    tileSize: new google.maps.Size(256, 256),
-    minZoom: 1,
-    maxZoom: 20,
-  })
-
-  overlayLayers.push(layer)
-}
 
 const GeoMapMenuMosaic: React.FC = () => {
   const dispatch = useAppDispatch()
   const selectedPanel = useSelectedPanel()
   const mosaicUrl = useMosaicUrl()
   const mosaicOptions = useMosaicOptions()
+  const mosaicSelected = useMosaicSelected()
   const map = useGeoMap()
+  const mapControllerRef = useRef<MapController>(new MapController(map))
+  const mosaicLayerKey = 'mosaic'
 
+  // Mosaic layer toggled, mosaicUrl updated or mosaicOptions changed
   useEffect(() => {
+    // console.log('mosaic', mosaicSelected)
+    // console.log('url', mosaicUrl)
+
+    // Mosaic layer not selected, so remove layer from map if present
+    if (!mosaicSelected) {
+      mapControllerRef.current.removeLayer(mosaicLayerKey)
+      return
+    }
+
+    if (mosaicOptions.sources.length > 0) {
+      dispatch(GeoActions.postMosaicOptions(mosaicOptions))
+    }
+  }, [mosaicSelected, mosaicOptions, mosaicUrl, dispatch])
+  /*
+  useEffect(() => {
+    console.log('effect1', mosaicUrl)
     if (mosaicUrl) {
       addOVerlayLayer('mosaic', mosaicUrl, map.overlayMapTypes)
     }
   }, [mosaicUrl])
 
   useEffect(() => {
+    console.log('effect2', mosaicOptions)
     if (mosaicOptions && mosaicOptions.sources.length > 0) {
       dispatch(GeoActions.postMosaicOptions(mosaicOptions))
     }
@@ -58,6 +53,7 @@ const GeoMapMenuMosaic: React.FC = () => {
 
   const handleClickSource = useCallback(
     (source: MosaicSource) => {
+      console.log('click source')
       const mosaicOptionsCopy = { ...mosaicOptions }
       const sources = [...mosaicOptions.sources]
 
@@ -75,6 +71,7 @@ const GeoMapMenuMosaic: React.FC = () => {
     },
     [mosaicOptions]
   )
+  */
 
   return (
     <div className="geo-map-menu-item">
@@ -82,14 +79,14 @@ const GeoMapMenuMosaic: React.FC = () => {
       {selectedPanel === 'mosaic' && (
         <div>
           <GeoMenuItem
-            title="Sentinel"
-            checked={mosaicOptions.sources.includes('sentinel')}
+            title="Show mosaic layer"
+            checked={mosaicSelected}
             tabIndex={-1}
-            onCheckboxClick={() => handleClickSource('sentinel')}
+            onCheckboxClick={() => dispatch(GeoActions.toggleMosaicLayer())}
           >
             <SatelliteSourcePanel />
           </GeoMenuItem>
-          <div className="geo-map-menu-separator" />
+          {/* <div className="geo-map-menu-separator" />
           <GeoMenuItem
             title="Landsat"
             checked={mosaicOptions.sources.includes('landsat')}
@@ -97,7 +94,7 @@ const GeoMapMenuMosaic: React.FC = () => {
             onCheckboxClick={() => handleClickSource('landsat')}
           >
             <SatelliteSourcePanel />
-          </GeoMenuItem>
+      </GeoMenuItem>  */}
         </div>
       )}
     </div>
