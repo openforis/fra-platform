@@ -57,6 +57,7 @@ const SatelliteSourcePanel: React.FC = () => {
               <div key={key}>
                 <input
                   id={key}
+                  className="geo-map-menu-mosaic-satellite-panel__checkbox"
                   type="checkbox"
                   checked={uiMosaicOptions.sources.includes(key)}
                   onChange={() => dispatch(GeoActions.toggleMosaicSource(key))}
