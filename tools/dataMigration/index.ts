@@ -22,7 +22,7 @@ import { migrateAreas } from './migrateAreas'
 import { migrateMetadata } from './migrateMetadata'
 import { migrateRepository } from './migrateRepository'
 import { migrateReview } from './migrateReview'
-import { migrateUsers } from './migrateUsers'
+// import { migrateUsers } from './migrateUsers'
 import { migrateUsersAuthProvider } from './migrateUsersAuthProvider'
 import { migrateUsersInvitation } from './migrateUsersInvitation'
 import { migrateUsersResetPassword } from './migrateUsersResetPassword'
@@ -108,7 +108,7 @@ export const migrate = async (props: {
     )
   )
 
-  await migrateUsers({ client })
+  // await migrateUsers({ client })
   await migrateUsersAuthProvider({ client })
   await migrateUsersRole({ assessment, client })
   await migrateUsersInvitation({ client })
