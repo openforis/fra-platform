@@ -1121,7 +1121,7 @@ export const growingStockComposition: SectionSpec = {
                   '(growingStockComposition.total_native_placeholder || 0) + (growingStockComposition.totalIntroduced || 0)',
                 colNames: ['1990', '2000', '2010', '2015', '2020'],
                 validateFns: [
-                  `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockComposition.totalGrowingStock)`,
+                  `validatorEqualToTotalGrowingStock(growingStockTotal.forest['2025'], growingStockComposition2025.totalGrowingStock)`,
                 ],
               },
             },
