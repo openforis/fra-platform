@@ -30,15 +30,16 @@ const initialState: GeoState = {
     recipe: 'custom',
   },
   mosaicSelected: false,
-  mosaicUrl: '',
+  mosaicUrl: null,
 }
 
 export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
-    updateMosaicOptions: (state, { payload }) => {
-      state.mosaicOptions = payload
+    applyMosaicOptions: (state) => {
+      state.mosaicUrl = null
+      state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
       state.mosaicSelected = !state.mosaicSelected

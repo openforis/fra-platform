@@ -30,6 +30,10 @@ const SatelliteSourcePanel: React.FC = () => {
     }
   )
 
+  const applyChanges = () => {
+    dispatch(GeoActions.applyMosaicOptions())
+  }
+
   return (
     <div className="geo-map-menu-mosaic-satellite-panel">
       <div>
@@ -72,7 +76,12 @@ const SatelliteSourcePanel: React.FC = () => {
           />
         </div>
       </div>
-      <button type="button" className="btn btn-primary geo-map-menu-mosaic-btn-apply" disabled={!optionsHaveChanged}>
+      <button
+        type="button"
+        className="btn btn-primary geo-map-menu-mosaic-btn-apply"
+        disabled={!optionsHaveChanged}
+        onClick={() => applyChanges()}
+      >
         Apply changes
       </button>
     </div>

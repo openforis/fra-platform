@@ -20,9 +20,11 @@ const MosaicControl: React.FC = () => {
   // Mosaic layer toggled, mosaicUrl updated or appliedMosaicOptions changed
   useEffect(() => {
     // console.log(mosaicSelected, appliedMosaicOptions, mosaicUrl)
-    // Mosaic layer not selected, so remove layer from map if present
+    // In any case, if there's an existing background layer, it should be removed
+    mapControllerRef.current.removeLayer(mosaicLayerKey)
+
+    // Mosaic layer not selected, so do nothing
     if (!mosaicSelected) {
-      mapControllerRef.current.removeLayer(mosaicLayerKey)
       return
     }
 
