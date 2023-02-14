@@ -514,7 +514,7 @@ L'équipe de FRA fra@fao.org
     fedAreasExceedTotalLandArea:
       'La superficie des forêts et des autres terres boisées est supérieure au total des terres émergées',
     forestAreaDoesNotMatchPreviouslyReported:
-      'La superficie de forêt ne correspond pas à la superficie de FRA 2015: {{previous}}',
+      'La superficie de forêt ne correspond pas à la superficie de FRA {{year}}: {{previous}}',
     useOriginalDataPoints: 'Utiliser les points de données nationales',
     dontUseOriginalDataPoints: 'Ne pas utiliser les points de données nationales',
     whatIsThis: "Qu'est-ce-que c'est?",
