@@ -1,11 +1,10 @@
-import { ITask } from 'pg-promise'
-
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { Col } from '../../../src/meta/assessment/col'
 import { Cycle } from '../../../src/meta/assessment/cycle'
 import { NodeValue } from '../../../src/meta/assessment/node'
 import { RowType } from '../../../src/meta/assessment/row'
 import { Table } from '../../../src/meta/assessment/table'
+import { BaseProtocol } from '../../../src/server/db'
 import { DBNames } from '../_DBNames'
 import * as sqlCreator from '../dataTable/dataTableSqlCreator'
 import { getCols, getRows } from './_repos'
@@ -28,7 +27,7 @@ export const _getNodeInserts = async (
     table: Table
     legacySchema: string
   },
-  client: ITask<any>
+  client: BaseProtocol
 ): Promise<Array<NodeRow>> => {
   const { assessment, cycle, countryISOs, table, legacySchema } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)

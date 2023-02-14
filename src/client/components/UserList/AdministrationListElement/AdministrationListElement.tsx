@@ -5,7 +5,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 // import { ClientRoutes } from '@meta/app'
-import { RoleName, User, UserStatus } from '@meta/user'
+import { RoleName, User, Users, UserStatus } from '@meta/user'
 
 import { useFilteredRoleNames } from '@client/store/ui/userManagement'
 
@@ -19,15 +19,15 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
 
   // const { id, status } = user
 
-  const { status } = user
-
   return (
     <tr
       className={classNames({
-        'user-list__inactive-user': status === UserStatus.inactive,
+        'user-list__inactive-user': user.status === UserStatus.inactive,
       })}
     >
-      <UserField user={user} field="name" />
+      <td className="user-list__cell">
+        <div className="user-list__cell--read-only">{Users.getFullName(user)}</div>
+      </td>
       {filteredRoleNames.map((roleName: RoleName) => (
         <UserRolesField key={roleName} roleName={roleName} user={user} />
       ))}

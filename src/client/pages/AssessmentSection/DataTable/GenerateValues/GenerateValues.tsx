@@ -31,9 +31,7 @@ const GenerateValues: React.FC<Props> = (props) => {
     data
   )
   const [buttonEnabled, setButtonEnabled] = useState<boolean>(true)
-  const isMethodClearTable = method === Method.clearTable
   let buttonLabel = 'tableWithOdp.generateFraValues'
-  if (isMethodClearTable) buttonLabel = 'tableWithOdp.clearTable'
   if (isEstimationPending || !buttonEnabled) buttonLabel = 'tableWithOdp.generatingFraValues'
 
   return (
@@ -46,13 +44,11 @@ const GenerateValues: React.FC<Props> = (props) => {
           <option value={Method.linear}>{t('tableWithOdp.linearExtrapolation')}</option>
           <option value={Method.repeatLast}>{t('tableWithOdp.repeatLastExtrapolation')}</option>
           <option value={Method.annualChange}>{t('tableWithOdp.annualChangeExtrapolation')}</option>
-          <option disabled>---</option>
-          <option value={Method.clearTable}>{t('tableWithOdp.clearTable')}</option>
         </select>
 
         <button
           type="button"
-          className={`btn-s ${isMethodClearTable ? 'btn-secondary' : 'btn-primary'}`}
+          className="btn-s btn-primary"
           disabled={isEstimationPending || !valid || !buttonEnabled}
           onClick={() => {
             setButtonEnabled(false)
@@ -65,9 +61,7 @@ const GenerateValues: React.FC<Props> = (props) => {
           {t(buttonLabel)}
         </button>
 
-        {!Objects.isEmpty(method) && !isMethodClearTable && (
-          <FieldsOption method={method} fields={fields} setFields={setFields} />
-        )}
+        {!Objects.isEmpty(method) && <FieldsOption method={method} fields={fields} setFields={setFields} />}
       </div>
     </div>
   )

@@ -30,7 +30,7 @@ export const acceptInvitation = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { userId, user: user.name, role },
+          target: { userId, user: user.props.name, role },
           section: 'users',
           message: ActivityLogMessage.invitationAccept,
           countryIso,

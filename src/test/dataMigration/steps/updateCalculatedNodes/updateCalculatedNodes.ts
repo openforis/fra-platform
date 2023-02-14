@@ -30,7 +30,12 @@ export const updateCalculatedNodes = async (
                  left join ${schema}.col c on r.id = c.row_id
         where t.props -> 'cycles' ? '${cycle.uuid}'
           and r.props -> 'cycles' ? '${cycle.uuid}'
-          and ((r.props ->> 'calculateFn' is not null and r.props -> 'calculateFn' ->> '${cycle.uuid}' is not null) or c.props ->> 'calculateFn' is not null)
+          and c.props -> 'cycles' ? '${cycle.uuid}'
+          and (
+              (r.props ->> 'calculateFn' is not null and r.props -> 'calculateFn' ->> '${cycle.uuid}' is not null) 
+                  or
+              (c.props ->> 'calculateFn' is not null and c.props -> 'calculateFn' ->> '${cycle.uuid}' is not null)
+              )
         group by r.id, r.uuid, r.props, t.props ->> 'name'
         order by r.id`,
     [],
@@ -42,6 +47,7 @@ export const updateCalculatedNodes = async (
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
           validateFns: row.props.validateFns,
+          chart: row.props.chart,
         },
       }
     }

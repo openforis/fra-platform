@@ -477,6 +477,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.introducedTreeSpecies',
       tableSpecs: [
         {
           name: 'table_4_4b',
@@ -1074,6 +1075,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.invasiveTreeSpecies',
       tableSpecs: [
         {
           name: 'table_4_4c',
@@ -1669,6 +1671,269 @@ export const introducedTreeSpecies = {
                 'forest_area_affected_2025',
               ],
             },
+          },
+        },
+      ],
+    },
+    {
+      titleKey: 'panEuropean.countryComments.countryComments',
+      tableSpecs: [
+        {
+          name: 'country_comments_4_4_1',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 3,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theYearAndDataReportedFor2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  rowSpan: 3,
+                  labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: -1,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
+                  className: 'fra-table__header-cell',
+                  type: 'placeholder',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: { cycles: ['2025'], columnNames: { '2025': ['theYearAndDataReportedFor2025'] } },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_4_4_2',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 2,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.approachApplieToReportingOnIntroducedInvasiveSpecies',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.referenceAreaForAssessmentSizeOfSamplePlotAverageStand',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey:
+                    'panEuropean.countryComments.referencePeriodUsedToClassifyAsIntroducedYearsSinceIntroductionYears',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.criteriaOrThresholdsUsedToClassifySpeciesAsInvasive',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: { '2025': ['approachApplieToReportingOnIntroducedInvasiveSpecies'] },
+          },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_4_4_3',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.category',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsRelatedToDataDefinitions',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsOnTrends',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.general',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.fowl:AreaDominatedByIntroducedTreeSpecies',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.areaDominatedByInvasiveTreeSpecies',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 3,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.nonWoodyInvasiveSpecies',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrends'] },
           },
         },
       ],

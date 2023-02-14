@@ -1,4 +1,3 @@
-import { Objects } from '@utils/objects'
 import { Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
@@ -24,8 +23,8 @@ const newInstance = (props: { key: string }) => {
   }
   const worker = new Worker(key, processor, opts)
 
-  worker.on('completed', (job, result: { nodeUpdates: NodeUpdates; validations: NodeUpdates }) => {
-    const { nodeUpdates, validations } = result
+  worker.on('completed', (job, result: { nodeUpdates: NodeUpdates }) => {
+    const { nodeUpdates } = result
     const { assessment, cycle, countryIso } = nodeUpdates
 
     const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
@@ -33,12 +32,12 @@ const newInstance = (props: { key: string }) => {
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
 
     // Update validations
-    if (!Objects.isEmpty(validations.nodes)) {
-      const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent(propsEvent)
-      SocketServer.emit(nodeValidationsUpdateEvent, { validations })
-    }
+    // if (!Objects.isEmpty(validations.nodes)) {
+    //   const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent(propsEvent)
+    //   SocketServer.emit(nodeValidationsUpdateEvent, { validations })
+    // }
     Logger.debug(
-      `[calculateAndValidateDependentNodesWorker] job-${job.id} completed. ${nodeUpdates.nodes.length} nodes updated,  ${validations.nodes.length} node validations updated`
+      `[calculateAndValidateDependentNodesWorker] job-${job.id} completed. ${nodeUpdates.nodes.length} nodes updated`
     )
   })
 

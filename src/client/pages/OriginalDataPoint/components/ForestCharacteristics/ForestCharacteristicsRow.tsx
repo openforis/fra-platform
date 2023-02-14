@@ -8,7 +8,7 @@ import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions } from '@client/store/ui/originalDataPoint'
 import PercentInput from '@client/components/PercentInput'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 

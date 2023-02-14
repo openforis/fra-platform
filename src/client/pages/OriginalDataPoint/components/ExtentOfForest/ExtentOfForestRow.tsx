@@ -2,13 +2,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Numbers } from '@utils/numbers'
+import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions } from '@client/store/pages/originalDataPoint'
+import { OriginalDataPointActions } from '@client/store/ui/originalDataPoint'
 import PercentInput from '@client/components/PercentInput'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
@@ -41,6 +42,12 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
+
+  let otherLand = null
+
+  if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
+    otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)))
+  }
 
   return (
     <tr className={classNameRowComments}>
@@ -157,7 +164,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        {Numbers.format(Numbers.sub(100, Numbers.add(forestPercent, otherWoodedLandPercent)))}
+        {otherLand}
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 

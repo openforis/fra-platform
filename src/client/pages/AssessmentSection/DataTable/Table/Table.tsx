@@ -4,7 +4,7 @@ import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
 import { useCycle } from '@client/store/assessment'
-import { useShowOriginalDatapoints } from '@client/store/pages/assessmentSection/hooks'
+import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import ButtonTableExport from '@client/components/ButtonTableExport'
@@ -34,14 +34,18 @@ const Table: React.FC<Props> = (props) => {
   const tableRef = useRef<HTMLTableElement>(null)
 
   const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
-  const { secondary } = table.props
+  const { secondary, name } = table.props
   const displayTableExportButton = !secondary && !print && tableRef.current != null
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
         {displayTableExportButton && (
-          <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} inReview={!disabled && !secondary} />
+          <ButtonTableExport
+            tableRef={tableRef}
+            filename={`${sectionAnchor} ${name}`}
+            inReview={!disabled && !secondary}
+          />
         )}
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">

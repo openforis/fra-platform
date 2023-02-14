@@ -501,6 +501,7 @@ export const naturalness = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.naturalnessBySubclass',
       tableSpecs: [
         {
           name: 'table_4_3b',
@@ -841,6 +842,237 @@ export const naturalness = {
           ],
           migration: {
             cycles: ['2025'],
+          },
+        },
+      ],
+    },
+    {
+      titleKey: 'panEuropean.countryComments.countryComments',
+      tableSpecs: [
+        {
+          name: 'country_comments_4_3_1',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 3,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theYearAndDataReportedFor2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  rowSpan: 3,
+                  labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: -1,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
+                  className: 'fra-table__header-cell',
+                  type: 'placeholder',
+                },
+                { idx: 1, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: { cycles: ['2025'], columnNames: { '2025': ['theYearAndDataReportedFor2025'] } },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_4_3_2',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 2,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.approachToDelimniateBetweenCategories',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey:
+                    'panEuropean.countryComments.criteriaOrThresholdsUsedToDelimitUndisturbedByManFromSemiNatural',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_1',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.criteriaOrThresholdsUsedToDelimitSemiNaturalFromPlantations',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: { cycles: ['2025'], columnNames: { '2025': ['approachToDelimniateBetweenCategories'] } },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_4_3_3',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.category',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsRelatedToDataDefinitions',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsOnTrend',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.fowlUndisturbedByMan',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.fowlSemiNatural',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.fowlPlantations',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
           },
         },
       ],

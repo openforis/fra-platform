@@ -10,10 +10,11 @@ import { createAssessmentFile } from './createAssessmentFile'
 import { getFile } from './get'
 import { getAssessmentFile } from './getAssessmentFile'
 import { getAssessmentFiles } from './getAssessmentFiles'
+import { getBiomassStockFile } from './getBiomassStockFile'
 import { getDataDownloadFile } from './getDataDownloadFile'
 import { removeAssessmentFile } from './removeAssessmentFile'
 import multer = require('multer')
-import { getBiomassStockFile } from './getBiomassStockFile'
+import { getSdgFocalPointsFile } from './getSdgFocalPointsFile'
 
 export const FileApi = {
   init: (express: Express): void => {
@@ -22,9 +23,10 @@ export const FileApi = {
     express.get(ApiEndPoint.File.dataDownload(), AuthMiddleware.requireView, getDataDownloadFile)
     express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
     express.get(ApiEndPoint.File.userGuide(), getUserGuideFile)
+    express.get(ApiEndPoint.File.sdgFocalPoints(), AuthMiddleware.requireView, getSdgFocalPointsFile)
 
     // BiomassStock
-    express.get(ApiEndPoint.File.biomassStock(), AuthMiddleware.requireEditTableData, getBiomassStockFile)
+    express.get(ApiEndPoint.File.biomassStock({}), AuthMiddleware.requireEditTableData, getBiomassStockFile)
 
     // Files
     express.put(

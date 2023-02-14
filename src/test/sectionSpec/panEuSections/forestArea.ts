@@ -841,6 +841,7 @@ export const forestArea = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.forestAreaByForestType',
       tableSpecs: [
         {
           name: 'table_1_1b',
@@ -1045,86 +1046,732 @@ export const forestArea = {
         },
       ],
     },
-    // {
-    //   tableSpecs: [
-    //     {
-    //       name: 'country_comments_table_1_1a',
-    //       rows: [
-    //         {
-    //           idx: 'header_0',
-    //           cols: [
-    //             {
-    //               idx: 0,
-    //               colSpan: 1,
-    //               rowSpan: 3,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.category',
-    //               className: 'fra-table__header-cell-left',
-    //               type: 'header',
-    //             },
-    //           ],
-    //           type: 'header',
-    //         },
-    //         {
-    //           idx: 0,
-    //           type: 'data',
-    //           cols: [
-    //             {
-    //               idx: 'header_0',
-    //               type: 'header',
-    //               colSpan: 1,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //               className: 'fra-table__category-cell',
-    //             },
-    //             { idx: 0, type: 'text' },
-    //             { idx: 1, type: 'text' },
-    //           ],
-    //           variableExport: 'predominantly_coniferous_forest',
-    //           labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //         },
-    //         {
-    //           idx: 1,
-    //           type: 'data',
-    //           cols: [
-    //             {
-    //               idx: 'header_0',
-    //               type: 'header',
-    //               colSpan: 1,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //               className: 'fra-table__category-cell',
-    //             },
-    //             { idx: 0, type: 'text' },
-    //             { idx: 1, type: 'text' },
-    //           ],
-    //           variableExport: 'predominantly_broadleaved_forest',
-    //           labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_broadleaved_forest',
-    //         },
-    //         {
-    //           idx: 2,
-    //           type: 'data',
-    //           cols: [
-    //             {
-    //               idx: 'header_0',
-    //               type: 'header',
-    //               colSpan: 1,
-    //               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
-    //               className: 'fra-table__category-cell',
-    //             },
-    //             { idx: 0, type: 'text' },
-    //             { idx: 1, type: 'text' },
-    //           ],
-    //           variableExport: 'mixed_forest',
-    //           labelKey: 'panEuropean.forestAreaByForestTypes.mixed_forest',
-    //         },
-    //       ],
-    //       tableDataRequired: [],
-    //       print: { colBreakPoints: [], pageBreakAfter: false },
-    //       dataExport: false,
-    //       columnsExportAlways: [],
-    //       unit: 'haThousand',
-    //       columnsExport: ['year_export'],
-    //     },
-    //   ],
-    // },
+    {
+      titleKey: 'panEuropean.countryComments.countryComments',
+      tableSpecs: [
+        {
+          name: 'country_comments_1_1_1',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 3,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theYearAndDataReported',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  rowSpan: 3,
+                  labelKey: 'panEuropean.countryComments.howDidYouGenerateValues',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: -1,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
+                  className: 'fra-table__header-cell',
+                  type: 'placeholder',
+                },
+                { idx: 1, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.assessementBasedOnEvidence',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: { '2025': ['theYearAndDataReported'] },
+          },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_1_1_2',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 3,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.approachToReportingOnTheCategoriesOfTheTable11A',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 'header_1',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.category',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.areaEstimate',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.comments',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forest',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.christmasTreePlantationsOnForestLand',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.poplarPlantationsOnForestLand',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 3,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.shortRotationForestry',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 4,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.shortRotationCoppicesOnForestLand',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 5,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.OfWhichNotAvailableForWoodSupply',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 6,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.environmentalRestrictions',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 7,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.protectedForests',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 8,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey:
+                    'panEuropean.countryComments.productiveForestsDesignatedToProtectKeyHabitatsSpeciesOrOtherNaturalValues',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 9,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey:
+                    'panEuropean.countryComments.protectiveForestsSoilWaterAndOtherEcosystemFunctionsInfrastructureAndManagedNaturalResources',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 10,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.socialRestrictions',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 11,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey:
+                    'panEuropean.countryComments.forestsDesignatedToProtectAestheticHistoricalCulturalOrSpiritualValues',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 12,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestsManagedForRecreationalPurposes',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 13,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestsExcludedFromHarvestingByOwnerSDecision',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 14,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.militaryForests',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 15,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.economicRestrictions',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 16,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestsOfVeryLowProductivityEconomicRevenueOfHarvesting',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 'idx', type: 'decimal' },
+                { idx: 'idx', type: 'decimal' },
+              ],
+            },
+            {
+              idx: 17,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestsPhysicallyNotAccessibleIncludingSlopeAndSoilCondition',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 18,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.otherPleaseSpecify',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 19,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.otherWoodedLand',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 20,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.alpineShrublandEGPinusMugo',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 21,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.otherShrublandEGMaquisGarrigueMatorral',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 22,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.otherPleaseSpecify',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 23,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.otherLandWithTreeCover',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 24,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.agroForestrySilvoPastoralAreasEGForRearingIberianBlackPig',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 25,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey:
+                    'panEuropean.countryComments.plantationsOfNutProducingTreesOrShrubsEGSweetChestnutsAlmondsWalnutsHazelnuts',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 26,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.oliveGrovesAndFruitTreeOrchards',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 'idx', type: 'decimal' },
+                { idx: 'idx', type: 'decimal' },
+              ],
+            },
+            {
+              idx: 27,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.poplarPlantationsOnAgriculturalLand',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 28,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.treesInUrbanSettings',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 29,
+              type: 'data',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.shortRotationCoppicesOnAgriculturalLand',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 30,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.christmasTreePlantationsOnAgriculturalLand',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: {
+              '2025': ['approachToReportingOnTheCategoriesOfTheTable11A'],
+            },
+          },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_1_1_3',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.category',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsRelateToDataDefinitions',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsOnTrendS',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestArea',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.ofWhichAvailableForWoodSupply',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.owlArea',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 1, type: 'decimal' },
+                { idx: 2, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 3,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.forestTypes',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: {
+              '2025': ['category', 'commentsRelateToDataDefinitions', 'commentsOnTrendS'],
+            },
+          },
+        },
+      ],
+    },
   ],
   showTitle: true,
   descriptions: {

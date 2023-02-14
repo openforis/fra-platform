@@ -2,6 +2,7 @@ module.exports = {
   referenceToTataSource: 'Reference to data source',
   typeOfDataSource: 'Type of data source',
   fraVariable: 'FRA variable',
+  variable: 'Variable',
   yearForDataSource: 'Year for data source',
   comments: 'Comments',
 

@@ -62,11 +62,20 @@ export const ApiEndPoint = {
   },
 
   File: {
-    biomassStock: () => apiPath('file', 'biomass-stock'),
+    biomassStock: ({
+      assessmentName = ':assessmentName',
+      cycleName = ':cycleName',
+      countryIso = ':countryIso',
+      sectionName = ':sectionName',
+      language = ':language',
+      selectedDomain = ':selectedDomain',
+    }) =>
+      apiPath('file', 'biomass-stock', assessmentName, cycleName, countryIso, sectionName, selectedDomain, language),
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
     userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
+    sdgFocalPoints: () => apiPath('file', 'sdg-focal-points'),
     Assessment: {
       one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
       many: () => apiPath('file', 'assessment'),
@@ -95,9 +104,11 @@ export const ApiEndPoint = {
     roles: () => apiPath('users', 'roles'),
     adminRole: () => apiPath('users', 'admin-role'),
     sectionAuth: () => apiPath('users', 'section-auth'),
+    roleProps: () => apiPath('users', 'role', 'props'),
   },
 
   Geo: {
+    bounds: () => apiPath('geo', 'bounds'),
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
       forest: () => apiPath('geo', 'layers', 'forest'),

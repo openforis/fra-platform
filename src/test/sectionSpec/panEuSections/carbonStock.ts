@@ -644,6 +644,7 @@ export const carbonStock = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.carbonStockInHarvestedWoodProductsHWP',
       tableSpecs: [
         {
           name: 'table_1_4b',
@@ -816,6 +817,229 @@ export const carbonStock = {
         },
       ],
     },
+    {
+      titleKey: 'panEuropean.countryComments.countryComments',
+      tableSpecs: [
+        {
+          name: 'country_comments_1_4_1',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 3,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theYearAndDataReportedFor2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  rowSpan: 3,
+                  labelKey: 'panEuropean.countryComments.howDidYouGenerateValuesFor2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: -1,
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.theRecentAvailableYear',
+                  className: 'fra-table__header-cell',
+                  type: 'placeholder',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: { '2025': ['theYearAndDataReportedFor2025'] },
+          },
+        },
+      ],
+    },
+    {
+      tableSpecs: [
+        {
+          name: 'country_comments_1_4_2',
+          rows: [
+            {
+              idx: 'header_0',
+              cols: [
+                {
+                  idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.category',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsRelatedToDataDefinitionsConversionFactorsUsed',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.countryComments.commentsOnTrend',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+              ],
+              type: 'header',
+            },
+            {
+              idx: 0,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.carbonStockInAboveGroundLivingBiomass',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 1,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.carbonStockInAboveGroundLivingBiomass',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 2,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.carbonStockInDeadwood',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 3,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.carbonStockInLitter',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 4,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.carbonStockInSoil',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+            {
+              idx: 5,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.biomassCarbonConversionFactorUsed',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'decimal' },
+                { idx: 1, type: 'decimal' },
+              ],
+            },
+          ],
+          tableDataRequired: [],
+          print: { colBreakPoints: [], pageBreakAfter: false },
+          dataExport: true,
+          columnsExportAlways: [],
+          columnsExport: [],
+          migration: {
+            cycles: ['2025'],
+            columnNames: {
+              '2025': ['category', 'commentsRelatedToDataDefinitionsConversionFactorsUsed', 'commentsOnTrend'],
+            },
+          },
+        },
+      ],
+    },
   ],
   showTitle: true,
   descriptions: {
@@ -970,13 +1194,13 @@ export const carbonStockInHarvestedWoodProductsHWP = {
                   idx: 'header_0',
                   type: 'header',
                   colSpan: 1,
-                  labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+                  labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWPharvested_wood_products',
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
                 { idx: 0, type: 'decimal' },
               ],
-              labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+              labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWPharvested_wood_products',
               labelParams: { year: 2000 },
               variableExport: 'harvested_wood_products_2000',
             },
@@ -988,13 +1212,13 @@ export const carbonStockInHarvestedWoodProductsHWP = {
                   idx: 'header_0',
                   type: 'header',
                   colSpan: 1,
-                  labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+                  labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWPharvested_wood_products',
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
                 { idx: 0, type: 'decimal' },
               ],
-              labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products',
+              labelKey: 'panEuropean.carbonStockInHarvestedWoodProductsHWPharvested_wood_products',
               labelParams: { year: 1990 },
               variableExport: 'harvested_wood_products_1990',
             },
