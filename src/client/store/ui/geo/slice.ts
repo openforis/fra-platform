@@ -9,7 +9,7 @@ import { getForestLayer } from './actions'
 import { GeoState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
-  sources: ['sentinel'],
+  sources: ['landsat'],
   year: 2020,
   maxCloudCoverage: 30,
 }
