@@ -31,9 +31,9 @@ const AgreementLevelsControl: React.FC = () => {
   useEffect(() => {
     // If any of the dependencies changes and there is an existing agreement layer on the
     // map, the layer is no longer valid, so remove it. If there is no existing agreement
-    // layer, it's still safe to call `removeEarthEngineLayer`, it'll just do nothing and
+    // layer, it's still safe to call `removeLayer`, it'll just do nothing and
     // return `false`.
-    mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
+    mapControllerRef.current.removeLayer(agreementLayerKey)
     setCurrentPalette([])
 
     // If less than two sources are selected or the agreement level is greater than the

@@ -83,7 +83,7 @@ const MapVisualizerPanel: React.FC = () => {
         }
       } else {
         // Layer is not selected so ensure it's not shown on map
-        mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
+        mapControllerRef.current.removeLayer(mapLayerKey)
       }
     })
   }, [
