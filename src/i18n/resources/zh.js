@@ -576,7 +576,7 @@ FRA工作组 fra@fao.org
     ofWhichTreesUrbanSettings: '城市树木…',
     totalLandArea: '土地面积总和',
     fedAreasExceedTotalLandArea: '森林和其他林地面积超过土地面积总和',
-    forestAreaDoesNotMatchPreviouslyReported: '森林面积与FRA 2015中报告的面积不匹配: {{previous}}',
+    forestAreaDoesNotMatchPreviouslyReported: '森林面积与FRA {{year}}中报告的面积不匹配: {{previous}}',
     useOriginalDataPoints: '使用国家数据点',
     dontUseOriginalDataPoints: '不使用国家数据点',
     whatIsThis: '这是什么？',
