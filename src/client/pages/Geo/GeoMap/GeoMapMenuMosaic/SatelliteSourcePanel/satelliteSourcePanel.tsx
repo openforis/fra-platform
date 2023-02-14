@@ -4,11 +4,11 @@ import React from 'react'
 import { MosaicSource } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
-import { GeoActions, useMosaicOptions } from '@client/store/ui/geo'
+import { GeoActions, useUiMosaicOptions } from '@client/store/ui/geo'
 
 const SatelliteSourcePanel: React.FC = () => {
   const dispatch = useAppDispatch()
-  const mosaicOptions = useMosaicOptions()
+  const uiMosaicOptions = useUiMosaicOptions()
   const startYear = 2000
   const endYear = 2022
   const years = Array(endYear - startYear + 1)
@@ -29,7 +29,7 @@ const SatelliteSourcePanel: React.FC = () => {
               <input
                 id={key}
                 type="checkbox"
-                checked={mosaicOptions.sources.includes(key)}
+                checked={uiMosaicOptions.sources.includes(key)}
                 onChange={() => dispatch(GeoActions.toggleMosaicSource(key))}
               />
               <label htmlFor={key}>{label}</label>
@@ -39,7 +39,7 @@ const SatelliteSourcePanel: React.FC = () => {
         <p>Year</p>
         <div>
           <select
-            value={mosaicOptions.year}
+            value={uiMosaicOptions.year}
             onChange={(e) => dispatch(GeoActions.setMosaicYear(Number(e.target.value)))}
           >
             {years.map((year) => (
@@ -51,12 +51,12 @@ const SatelliteSourcePanel: React.FC = () => {
       <div>
         <p>Max Cloud Coverage</p>
         <div>
-          <div>{`${mosaicOptions.maxCloudCoverage}%`}</div>
+          <div>{`${uiMosaicOptions.maxCloudCoverage}%`}</div>
           <input
             type="range"
             min="0"
             max="100"
-            value={mosaicOptions.maxCloudCoverage}
+            value={uiMosaicOptions.maxCloudCoverage}
             onChange={(e) => dispatch(GeoActions.setMosaicMaxCloudCoverage(Number(e.target.value)))}
           />
         </div>

@@ -1,19 +1,24 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { MosaicSource } from '@meta/geo'
+import { MosaicOptions, MosaicSource } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
 import { GeoState } from './stateType'
 
+const initialMosaicOptions: MosaicOptions = {
+  sources: ['sentinel'],
+  year: 2020,
+  maxCloudCoverage: 30,
+}
+
 const initialState: GeoState = {
   selectedPanel: null,
   mosaicOptions: {
-    sources: ['sentinel'],
-    year: 2020,
-    maxCloudCoverage: 30,
+    ui: { ...initialMosaicOptions },
+    applied: { ...initialMosaicOptions },
   },
   forestOptions: {
     selected: [],
@@ -39,18 +44,18 @@ export const geoSlice = createSlice({
       state.mosaicSelected = !state.mosaicSelected
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
-      const i = state.mosaicOptions.sources.findIndex((key) => key === payload)
+      const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
       if (i === -1) {
-        state.mosaicOptions.sources.push(payload)
+        state.mosaicOptions.ui.sources.push(payload)
       } else {
-        state.mosaicOptions.sources.splice(i, 1)
+        state.mosaicOptions.ui.sources.splice(i, 1)
       }
     },
     setMosaicYear: (state, { payload }: PayloadAction<number>) => {
-      state.mosaicOptions.year = payload
+      state.mosaicOptions.ui.year = payload
     },
     setMosaicMaxCloudCoverage: (state, { payload }: PayloadAction<number>) => {
-      state.mosaicOptions.maxCloudCoverage = payload
+      state.mosaicOptions.ui.maxCloudCoverage = payload
     },
     updateSelectedPanel: (state, { payload }) => {
       state.selectedPanel = payload

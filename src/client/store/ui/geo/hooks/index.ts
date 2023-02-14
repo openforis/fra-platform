@@ -6,7 +6,9 @@ export const useMosaicUrl = (): string => useAppSelector((state) => state.geo?.m
 
 export const useMosaicSelected = (): boolean => useAppSelector((state) => state.geo?.mosaicSelected)
 
-export const useMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions)
+export const useUiMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.ui)
+
+export const useAppliedMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.applied)
 
 export const useSelectedPanel = (): MapPanel => useAppSelector((state) => state.geo?.selectedPanel)
 

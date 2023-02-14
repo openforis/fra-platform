@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 import { useAppDispatch } from '@client/store'
-import { GeoActions, useMosaicOptions, useMosaicUrl } from '@client/store/ui/geo'
-import { useMosaicSelected } from '@client/store/ui/geo/hooks'
+import { GeoActions, useAppliedMosaicOptions, useMosaicSelected, useMosaicUrl } from '@client/store/ui/geo'
 import { useGeoMap } from '@client/hooks'
 import { MapController } from '@client/utils'
 
@@ -12,7 +11,7 @@ import SatelliteSourcePanel from '../SatelliteSourcePanel'
 const MosaicControl: React.FC = () => {
   const dispatch = useAppDispatch()
   const mosaicUrl = useMosaicUrl()
-  const mosaicOptions = useMosaicOptions()
+  const appliedMosaicOptions = useAppliedMosaicOptions()
   const mosaicSelected = useMosaicSelected()
   const map = useGeoMap()
   const mapControllerRef = useRef<MapController>(new MapController(map))
@@ -20,6 +19,7 @@ const MosaicControl: React.FC = () => {
 
   // Mosaic layer toggled, mosaicUrl updated or mosaicOptions changed
   useEffect(() => {
+    // console.log(mosaicSelected, appliedMosaicOptions, mosaicUrl)
     // Mosaic layer not selected, so remove layer from map if present
     if (!mosaicSelected) {
       mapControllerRef.current.removeLayer(mosaicLayerKey)
@@ -33,10 +33,10 @@ const MosaicControl: React.FC = () => {
     }
 
     // Get mosaic url from Sepal
-    if (mosaicOptions.sources.length > 0) {
-      dispatch(GeoActions.postMosaicOptions(mosaicOptions))
+    if (appliedMosaicOptions.sources.length > 0) {
+      dispatch(GeoActions.postMosaicOptions(appliedMosaicOptions))
     }
-  }, [mosaicSelected, mosaicOptions, mosaicUrl, dispatch])
+  }, [mosaicSelected, appliedMosaicOptions, mosaicUrl, dispatch])
 
   return (
     <div>
