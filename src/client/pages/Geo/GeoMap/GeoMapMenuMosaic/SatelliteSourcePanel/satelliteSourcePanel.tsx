@@ -6,6 +6,20 @@ import { MosaicOptions, MosaicSource } from '@meta/geo'
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useAppliedMosaicOptions, useUiMosaicOptions } from '@client/store/ui/geo'
 
+interface ControlProps {
+  label: string
+  children: React.ReactNode
+}
+
+const Control: React.FC<ControlProps> = ({ label, children }) => {
+  return (
+    <>
+      <p className="geo-map-menu-mosaic-satellite-panel__label">{label}</p>
+      <div>{children}</div>
+    </>
+  )
+}
+
 const SatelliteSourcePanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const uiMosaicOptions = useUiMosaicOptions()
@@ -37,22 +51,24 @@ const SatelliteSourcePanel: React.FC = () => {
   return (
     <div className="geo-map-menu-mosaic-satellite-panel">
       <div>
-        <p>Sources</p>
-        <div>
-          {sources.map(({ key, label }) => (
-            <div key={key}>
-              <input
-                id={key}
-                type="checkbox"
-                checked={uiMosaicOptions.sources.includes(key)}
-                onChange={() => dispatch(GeoActions.toggleMosaicSource(key))}
-              />
-              <label htmlFor={key}>{label}</label>
-            </div>
-          ))}
-        </div>
-        <p>Year</p>
-        <div>
+        <Control label="Sources">
+          <>
+            {sources.map(({ key, label }) => (
+              <div key={key}>
+                <input
+                  id={key}
+                  type="checkbox"
+                  checked={uiMosaicOptions.sources.includes(key)}
+                  onChange={() => dispatch(GeoActions.toggleMosaicSource(key))}
+                />
+                <label htmlFor={key}>{label}</label>
+              </div>
+            ))}
+          </>
+        </Control>
+      </div>
+      <div>
+        <Control label="Year">
           <select
             value={uiMosaicOptions.year}
             onChange={(e) => dispatch(GeoActions.setMosaicYear(Number(e.target.value)))}
@@ -61,20 +77,21 @@ const SatelliteSourcePanel: React.FC = () => {
               <option key={year}>{year}</option>
             ))}
           </select>
-        </div>
+        </Control>
       </div>
       <div>
-        <p>Max Cloud Coverage</p>
-        <div>
-          <div>{`${uiMosaicOptions.maxCloudCoverage}%`}</div>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={uiMosaicOptions.maxCloudCoverage}
-            onChange={(e) => dispatch(GeoActions.setMosaicMaxCloudCoverage(Number(e.target.value)))}
-          />
-        </div>
+        <Control label="Max Cloud Coverage">
+          <>
+            <div>{`${uiMosaicOptions.maxCloudCoverage}%`}</div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={uiMosaicOptions.maxCloudCoverage}
+              onChange={(e) => dispatch(GeoActions.setMosaicMaxCloudCoverage(Number(e.target.value)))}
+            />
+          </>
+        </Control>
       </div>
       <button
         type="button"

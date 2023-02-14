@@ -1,3 +1,4 @@
+import './MosaicControl.scss'
 import React, { useEffect, useRef } from 'react'
 
 import { useAppDispatch } from '@client/store'
