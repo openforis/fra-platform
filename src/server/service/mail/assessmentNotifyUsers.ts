@@ -36,7 +36,7 @@ export const createMail = async (props: {
     serverUrl: link,
     recipientName: Users.getFullName(recipient),
     status: i18n.t(`assessment.status.${status}.label`),
-    changer: user.props.name,
+    changer: Users.getFullName(user),
     assessment: i18n.t(`assessment.${assessmentName}`),
     message,
   }
