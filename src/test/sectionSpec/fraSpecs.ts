@@ -2489,6 +2489,9 @@ export const FraSpecs: Record<string, SectionSpec> = {
                 mainCategory: true,
                 variableName: 'totalGrowingStock',
                 migration: {
+                  validateFns: [
+                    `validatorEqualToTotalGrowingStock(growingStockTotal.forest['2025'], growingStockComposition2025.totalGrowingStock)`,
+                  ],
                   calcFormula: `(growingStockComposition2025.totalNative || growingStockComposition2025.totalIntroduced)
                   ? (growingStockComposition2025.totalNative || 0) + (growingStockComposition2025.totalIntroduced || 0)
                   : null`,
