@@ -613,7 +613,7 @@ The FRA team fra@fao.org
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
-    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
+    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA {{year}} area: {{previous}}',
     forestAreaNetChangeDoesNotMatch: "Forest area net change doesn't match expected value: {{value}}",
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points',

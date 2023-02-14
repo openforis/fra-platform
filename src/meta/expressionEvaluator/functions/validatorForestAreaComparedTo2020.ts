@@ -6,22 +6,22 @@ import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessmen
 
 import { Context } from '../context'
 
-export const validatorForestAreaComparedTo2015: ExpressionFunction<Context> = {
-  name: 'validatorForestAreaComparedTo2015',
+export const validatorForestAreaComparedTo2020: ExpressionFunction<Context> = {
+  name: 'validatorForestAreaComparedTo2020',
   minArity: 2,
   executor: () => {
-    return (forestArea2015?: string, forestArea?: string): NodeValueValidation => {
+    return (forestArea2020?: string, forestArea?: string): NodeValueValidation => {
       const valid =
-        Objects.isEmpty(forestArea2015) ||
+        Objects.isEmpty(forestArea2020) ||
         Objects.isEmpty(forestArea) ||
-        Numbers.lessThanOrEqualTo(Numbers.abs(Numbers.sub(forestArea2015, forestArea)), 1)
+        Numbers.lessThanOrEqualTo(Numbers.abs(Numbers.sub(forestArea2020, forestArea)), 1)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
         : [
             {
               key: 'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-              params: { previous: forestArea2015, year: '2015' },
+              params: { previous: forestArea2020, year: '2020' },
             },
           ]
 

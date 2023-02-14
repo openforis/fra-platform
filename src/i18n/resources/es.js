@@ -514,7 +514,7 @@ El equipo de FRA
     ofWhichTreesUrbanSettings: '…de las cuales árboles en espacios urbanos',
     totalLandArea: 'Superficie total de tierra',
     fedAreasExceedTotalLandArea: 'El área de bosque y otras tierras boscosas exceden la superficie total de tierra',
-    forestAreaDoesNotMatchPreviouslyReported: 'El área de bosque no coincide con el área de FRA 2015: {{previous}}',
+    forestAreaDoesNotMatchPreviouslyReported: 'El área de bosque no coincide con el área de FRA {{year}}: {{previous}}',
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
     whatIsThis: '¿Qué significa esto?',

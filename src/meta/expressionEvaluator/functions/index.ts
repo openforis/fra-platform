@@ -8,6 +8,7 @@ import { validatorEqualToPrivateForest } from './validatorEqualToPrivateForest'
 import { validatorEqualToTotalForest } from './validatorEqualToTotalForest'
 import { validatorEqualToTotalGrowingStock } from './validatorEqualToTotalGrowingStock'
 import { validatorForestAreaComparedTo2015 } from './validatorForestAreaComparedTo2015'
+import { validatorForestAreaComparedTo2020 } from './validatorForestAreaComparedTo2020'
 import { validatorForestAreaNetChange } from './validatorForestAreaNetChange'
 import { validatorGreaterThanOrZero } from './validatorGreaterThanOrZero'
 import { validatorIsYear } from './validatorIsYear'
@@ -47,4 +48,5 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorEqualToTotalForest,
   NWFPProductHasCategory,
   validatorSumNotGreaterThanForest,
+  validatorForestAreaComparedTo2020,
 ]
