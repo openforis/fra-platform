@@ -18,7 +18,7 @@ export const validatorEqualToTotalForest: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.mustBeEqualToForestArea11' }]
+        : [{ key: 'generalValidation.mustBeEqualToForestArea' }]
 
       return { valid, messages }
     }
