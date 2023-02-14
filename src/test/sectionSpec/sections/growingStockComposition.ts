@@ -1554,8 +1554,8 @@ export const growingStockComposition: SectionSpec = {
                 },
                 {
                   idx: 3,
-                  type: 'calculated',
-                  colName: 'growingStockPercent',
+                  type: 'placeholder',
+                  colName: '',
                 },
               ],
               mainCategory: true,
@@ -1564,7 +1564,7 @@ export const growingStockComposition: SectionSpec = {
                 calcFormula: `(growingStockComposition2025.totalNative || growingStockComposition2025.totalIntroduced)
                   ? (growingStockComposition2025.totalNative || 0) + (growingStockComposition2025.totalIntroduced || 0)
                   : null`,
-                colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
+                colNames: ['growingStockMillionCubicMeter'],
               },
             },
           ],
