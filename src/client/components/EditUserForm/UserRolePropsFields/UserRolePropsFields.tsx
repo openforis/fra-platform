@@ -41,18 +41,31 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(role.role) && (
         <>
-          <TextInputField name="street" value={roleProps.address?.street} onChange={changeAddress} enabled={enabled} />
+          <TextInputField
+            name="street"
+            value={roleProps.address?.street}
+            onChange={changeAddress}
+            enabled={enabled}
+            mandatory
+          />
 
           <TextInputField
             name="zipCode"
             value={roleProps.address?.zipCode}
             onChange={changeAddress}
             enabled={enabled}
+            mandatory
           />
 
           <TextInputField name="poBox" value={roleProps.address?.poBox} onChange={changeAddress} enabled={enabled} />
 
-          <TextInputField name="city" value={roleProps.address?.city} onChange={changeAddress} enabled={enabled} />
+          <TextInputField
+            name="city"
+            value={roleProps.address?.city}
+            onChange={changeAddress}
+            enabled={enabled}
+            mandatory
+          />
 
           <TextInputField
             name="countryIso"
@@ -61,7 +74,13 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
             enabled={enabled}
           />
 
-          <TextInputField name="primaryEmail" value={roleProps.primaryEmail} onChange={onChange} enabled={enabled} />
+          <TextInputField
+            name="primaryEmail"
+            value={roleProps.primaryEmail}
+            onChange={onChange}
+            enabled={enabled}
+            mandatory
+          />
 
           <TextInputField
             name="secondaryEmail"
@@ -75,6 +94,7 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
             value={roleProps.primaryPhoneNumber}
             onChange={onChange}
             enabled={enabled}
+            mandatory
           />
 
           <PhoneField

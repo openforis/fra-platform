@@ -80,13 +80,14 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
         onChange={changeUser}
         validator={Users.validEmail}
         enabled={enabled}
+        mandatory
       />
 
-      <TitleField name="title" value={user.props.title} onChange={changeUserProp} enabled={enabled} />
+      <TitleField name="title" value={user.props.title} onChange={changeUserProp} enabled={enabled} mandatory />
 
-      <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} />
+      <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} mandatory />
 
-      <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} />
+      <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} mandatory />
 
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
         userRole?.role
