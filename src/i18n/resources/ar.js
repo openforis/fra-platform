@@ -584,7 +584,7 @@ The FRA team
     totalLandArea: 'إجمالي مساحة الأرض',
     fedAreasExceedTotalLandArea: 'مساحة الغابة والأرض الحرجية الأخرى تتجاوز إجمالي مساحة الأرض',
     forestAreaDoesNotMatchPreviouslyReported:
-      'مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام 2015: {{previous}}',
+      'مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام {{year}}: {{previous}}',
     useOriginalDataPoints: 'استخدم نقاط البيانات الوطنية',
     dontUseOriginalDataPoints: 'لاتستخدم نقاط البيانات الوطنية',
     whatIsThis: 'ما هذا؟',

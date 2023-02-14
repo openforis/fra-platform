@@ -14,11 +14,16 @@ export const validatorForestAreaNetChange: ExpressionFunction<Context> = {
       const valid =
         Objects.isEmpty(forestArea) ||
         Objects.isEmpty(forestAreaNetChange) ||
-        Numbers.eq(forestArea, forestAreaNetChange)
+        Numbers.greaterThan(Numbers.sub(forestAreaNetChange, forestArea), -1)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'extentOfForest.forestAreaNetChangeDoesNotMatch', params: { value: forestArea } }]
+        : [
+            {
+              key: 'extentOfForest.forestAreaNetChangeDoesNotMatch',
+              params: { value: Numbers.toFixed(Numbers.toBigNumber(forestArea)) },
+            },
+          ]
 
       return { valid, messages }
     }
