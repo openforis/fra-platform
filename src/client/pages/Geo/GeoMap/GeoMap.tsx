@@ -19,6 +19,7 @@ const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
     if (ref.current && !map) {
       const mapSetUp = new window.google.maps.Map(ref.current, {
         zoom: zoom || 4,
+        center: { lat: 0, lng: 0 },
         disableDefaultUI: true,
         zoomControl: true,
         rotateControl: true,
