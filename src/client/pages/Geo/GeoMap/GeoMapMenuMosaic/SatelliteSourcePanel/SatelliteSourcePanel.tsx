@@ -1,4 +1,4 @@
-import './satelliteSourcePanel.scss'
+import './SatelliteSourcePanel.scss'
 import React from 'react'
 
 import { MosaicOptions, MosaicSource } from '@meta/geo'

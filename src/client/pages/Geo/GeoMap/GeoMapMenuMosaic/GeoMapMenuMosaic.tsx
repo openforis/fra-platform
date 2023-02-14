@@ -1,4 +1,4 @@
-import './geoMapMenuMosaic.scss'
+import './GeoMapMenuMosaic.scss'
 import React from 'react'
 
 import { useSelectedPanel } from '@client/store/ui/geo'
