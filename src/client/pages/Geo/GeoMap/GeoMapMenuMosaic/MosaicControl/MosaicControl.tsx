@@ -29,6 +29,7 @@ const MosaicControl: React.FC = () => {
     // Use existing mosaic url if available to avoid unnecessary Sepal calls
     if (mosaicUrl) {
       mapControllerRef.current.addSepalLayer(mosaicLayerKey, mosaicUrl)
+      return
     }
 
     // Get mosaic url from Sepal
