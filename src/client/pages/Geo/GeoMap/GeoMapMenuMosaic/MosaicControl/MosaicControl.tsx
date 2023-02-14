@@ -17,7 +17,7 @@ const MosaicControl: React.FC = () => {
   const mapControllerRef = useRef<MapController>(new MapController(map))
   const mosaicLayerKey = 'mosaic'
 
-  // Mosaic layer toggled, mosaicUrl updated or mosaicOptions changed
+  // Mosaic layer toggled, mosaicUrl updated or appliedMosaicOptions changed
   useEffect(() => {
     // console.log(mosaicSelected, appliedMosaicOptions, mosaicUrl)
     // Mosaic layer not selected, so remove layer from map if present
