@@ -21,6 +21,7 @@ import { validatorPrimaryForest } from './validatorPrimaryForest'
 import { validatorRemainingLandWithTreeCoverTotal } from './validatorRemainingLandWithTreeCoverTotal'
 import { validatorSubCategory } from './validatorSubCategory'
 import { validatorSumNotGreaterThan } from './validatorSumNotGreaterThan'
+import { validatorSumNotGreaterThanForest } from './validatorSumNotGreaterThanForest'
 import { validatorTotalForest } from './validatorTotalForest'
 
 export const functions: Array<ExpressionFunction<Context>> = [
@@ -45,4 +46,5 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorEqualToPlantedForest,
   validatorEqualToTotalForest,
   NWFPProductHasCategory,
+  validatorSumNotGreaterThanForest,
 ]
