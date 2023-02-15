@@ -2,9 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
+import { CountryIso } from '@meta/area'
 import { MosaicOptions } from '@meta/geo'
 
-const getReqBody = (mosaicOptions: MosaicOptions) => {
+const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
   const { sources, year, maxCloudCoverage } = mosaicOptions
   const body = {
     recipe: {
@@ -42,7 +43,7 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
           type: 'EE_TABLE',
           id: 'users/geofra/boundaries/UN_Res0_ADM0_BNDA_CTY_FRA_v1',
           keyColumn: 'ISO3CD',
-          key: 'FIN',
+          key: countryIso,
           buffer: 0,
         },
       },
@@ -60,10 +61,15 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
   return body
 }
 
-export const postMosaicOptions = createAsyncThunk<{ urlTemplate: string }, MosaicOptions>(
+interface PostMosaicOptionsProps {
+  mosaicOptions: MosaicOptions
+  countryIso: CountryIso
+}
+
+export const postMosaicOptions = createAsyncThunk<{ urlTemplate: string }, PostMosaicOptionsProps>(
   'geo/post/mosaic',
-  async (mosaicOptions: MosaicOptions) => {
-    const body = getReqBody(mosaicOptions)
+  async ({ mosaicOptions, countryIso }) => {
+    const body = getReqBody(mosaicOptions, countryIso)
     const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
 
     return data

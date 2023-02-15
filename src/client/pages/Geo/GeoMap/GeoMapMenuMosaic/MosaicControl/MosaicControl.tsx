@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useAppliedMosaicOptions, useMosaicSelected, useMosaicUrl } from '@client/store/ui/geo'
-import { useGeoMap } from '@client/hooks'
+import { useCountryIso, useGeoMap } from '@client/hooks'
 import { MapController } from '@client/utils'
 
 import GeoMenuItem from '../../GeoMapMenuItem'
@@ -17,6 +17,7 @@ const MosaicControl: React.FC = () => {
   const map = useGeoMap()
   const mapControllerRef = useRef<MapController>(new MapController(map))
   const mosaicLayerKey = 'mosaic'
+  const countryIso = useCountryIso()
 
   // Mosaic layer toggled, mosaicUrl updated or appliedMosaicOptions changed
   useEffect(() => {
@@ -37,9 +38,9 @@ const MosaicControl: React.FC = () => {
 
     // Get mosaic url from Sepal
     if (appliedMosaicOptions.sources.length > 0) {
-      dispatch(GeoActions.postMosaicOptions(appliedMosaicOptions))
+      dispatch(GeoActions.postMosaicOptions({ mosaicOptions: appliedMosaicOptions, countryIso }))
     }
-  }, [mosaicSelected, appliedMosaicOptions, mosaicUrl, dispatch])
+  }, [mosaicSelected, appliedMosaicOptions, mosaicUrl, countryIso, dispatch])
 
   return (
     <div>
