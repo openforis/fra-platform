@@ -1,5 +1,6 @@
 import './EditUserForm.scss'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Collaborator, RoleName, User, UserRole, Users } from '@meta/user'
 
@@ -27,6 +28,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const userInfo = useUser()
+  const { t } = useTranslation()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(user)
@@ -92,6 +94,10 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
         userRole?.role
       ) && <UserRolePropsFields role={roleToEdit} onChange={changeUserRoleProp} enabled={enabled} />}
+
+      <div className="edit-user__form-item">
+        <div className="edit-user__form-label">{t('editUser.mandatoryFields')}</div>
+      </div>
 
       {canEditRoles && userRole?.role === RoleName.COLLABORATOR && (
         <CollaboratorPermissions userRole={userRole as Collaborator} />

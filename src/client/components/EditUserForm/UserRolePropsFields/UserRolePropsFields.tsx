@@ -37,7 +37,13 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
         enabled={enabled}
       />
 
-      <TextInputField name="organization" value={roleProps.organization} onChange={onChange} enabled={enabled} />
+      <TextInputField
+        name="organization"
+        value={roleProps.organization}
+        onChange={onChange}
+        enabled={enabled}
+        mandatory
+      />
 
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(role.role) && (
         <>
@@ -72,14 +78,6 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
             value={roleProps.address?.countryIso}
             onChange={changeAddress}
             enabled={enabled}
-          />
-
-          <TextInputField
-            name="primaryEmail"
-            value={roleProps.primaryEmail}
-            onChange={onChange}
-            enabled={enabled}
-            mandatory
           />
 
           <TextInputField

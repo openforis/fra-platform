@@ -121,9 +121,9 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
     role.role
   )
 
-  const roleBaseProps = ['professionalTitle', 'organizationalUnit', 'organization']
+  const roleBaseProps = ['organization']
 
-  const roleExtendedProps = roleBaseProps.concat(['primaryPhoneNumber'])
+  const roleExtendedProps = roleBaseProps.concat(['address', 'primaryPhoneNumber'])
 
   const validateAddress = (prop: any) =>
     ['street', 'zipCode', 'city'].some((propName) => Objects.isEmpty(prop[propName]))
