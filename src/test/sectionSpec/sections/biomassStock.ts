@@ -554,7 +554,7 @@ export const biomassStock: SectionSpec = {
             },
           },
         },
-        getStatusAndTierTable('biomassStock', 'biomassStock'),
+        ...getStatusAndTierTable('biomassStock', 'biomassStock'),
       ],
     },
   ],

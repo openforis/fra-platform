@@ -52,8 +52,11 @@ export const isBasicTable = (tableName: string): boolean =>
   tableName.trim() !== '' &&
   ![
     'extentOfForest_forestAreaStatusAndTrend',
+    'extentOfForest_forestAreaStatusAndTrend_Description',
     'biomassStock_biomassStockStatus',
+    'biomassStock_biomassStockStatus_Description',
     'growingStock_growingStockStatus',
+    'growingStock_growingStockStatus_Description',
 
     'contactPersons',
     'extentOfForest',
