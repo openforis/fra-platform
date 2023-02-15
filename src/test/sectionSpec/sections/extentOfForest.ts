@@ -393,7 +393,7 @@ export const extentOfForest: SectionSpec = {
           dataExport: false,
           columnsExportAlways: [],
         },
-        getStatusAndTierTable('extentOfForest', 'forestArea', true),
+        ...getStatusAndTierTable('extentOfForest', 'forestArea', true),
       ],
     },
   ],
