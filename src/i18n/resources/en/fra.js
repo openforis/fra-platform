@@ -137,7 +137,7 @@ module.exports = {
     totalGrowingStock: 'Total growing stock',
     totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
     totalNativeTreeSpecies: 'TOTAL native tree species',
-    updatedGrowingStockComposition: 'Updated growing stock composition',
+    updatedGrowingStockComposition: '$t(growingStockComposition.growingStockComposition)',
   },
 
   holderOfManagementRights: {
