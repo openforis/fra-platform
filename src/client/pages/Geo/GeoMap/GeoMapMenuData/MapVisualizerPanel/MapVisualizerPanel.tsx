@@ -78,14 +78,14 @@ const MapVisualizerPanel: React.FC = () => {
         })}
         <AgreementLevelsControl />
       </div>
-      <div className="geo-map-menu-data-container-btn">
+      {/* <div className="geo-map-menu-data-container-btn">
         <button type="button" className="btn btn-secondary geo-map-menu-data-btn-recipe">
           Save Recipe
         </button>
         <button type="button" className="btn btn-primary geo-map-menu-data-btn-display">
           Display
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }
