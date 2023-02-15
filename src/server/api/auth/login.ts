@@ -55,11 +55,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
       req.login(user, (err: any) => {
         if (err) next(err)
         setAuthToken(res, user)
-        let redirectUrl = process.env.NODE_ENV === 'development' ? '/' : appUri
-        redirectUrl += `${ClientRoutes.Assessment.Cycle.Landing.getLink({
-          assessmentName,
-          cycleName,
-        })}`
+        const redirectUrl = process.env.NODE_ENV === 'development' ? '/' : appUri
         res.redirect(redirectUrl)
       })
     }

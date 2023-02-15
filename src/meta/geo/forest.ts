@@ -1,10 +1,13 @@
 export interface ForestOptions {
   selected: ForestSource[]
   fetchedLayers: { [key: string]: string }
+  pendingLayers: { [key: string]: string }
+  failedLayers: { [key: string]: string }
   opacity: { [key: string]: number }
   hansenPercentage: HansenPercentage
   agreementLayerSelected: boolean
   agreementLevel: number
+  agreementPalette: Array<string>
   recipe: string
 }
 
