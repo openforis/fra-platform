@@ -177,4 +177,40 @@ module.exports = {
       employmentEducationAndNwfp2025: 'Non wood forest products removals and value 2020',
     },
   },
+
+  extentOfForest_forestAreaStatusAndTrend_Description: {
+    header_0: 'Forest area tier criteria',
+    status: {
+      high: 'Data sources: Recent¹ National Forest Inventory or remote sensing (sample-based survey or wall-to-wall mapping) with accuracy assessment / field data calibration.',
+      medium:
+        'Data sources: Old² National Forest Inventory or remote sensing (sample-based survey or wall-to-wall mapping) with accuracy assessment / field data calibration.',
+      low: 'Data sources:  Other, such as registers, expert estimates, or remote sensing without accuracy assessment / field data calibration.',
+    },
+    trend: {
+      high: 'Estimates based on repeated compatible³ National Forest Inventories where the most recent is not older than five years; and/or remote sensing- change assessments through multitemporal analysis for a period ending not more than five years ago (e.g., REDD+ forest reference [emission] levels).',
+      medium:
+        'Estimates based on repeated compatible³ National Forest Inventories where the most recent is older than five years; and/or remote sensing change assessments through multitemporal analysis for a period ending more than five years ago; or comparison of compatible maps without multitemporal analysis.',
+      low: 'Other data sources, e.g., expert estimates, or estimates based on non-compatible assessments.',
+    },
+  },
+
+  biomassStock_biomassStockStatus_Description: {
+    header_0: 'Growing stock tier criteria',
+    status: {
+      high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples',
+      medium:
+        'Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples.',
+      low: 'Data sources:  Other data sources, such as satellite data, registers, questionnaires or expert assessments.',
+    },
+  },
+
+  growingStock_growingStockStatus_Description: {
+    header_0: 'Biomass estimation methods tier criteria',
+    status: {
+      high: 'Country-specific biomass conversion and expansion factors or allometric equations applied',
+      medium:
+        'Application of generic or biome-level allometric equations or a combination of country/biome specific conversion factors and IPCC default biomass expansion factors.',
+      low: 'IPCC default biomass conversion and expansion factors applied (e g using the "biomass calculator"), or estimates based on remote sensing-based biomass maps.',
+    },
+  },
 }

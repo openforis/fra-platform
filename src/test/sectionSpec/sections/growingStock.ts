@@ -754,7 +754,7 @@ export const growingStock: SectionSpec = {
       ],
     },
     {
-      tableSpecs: [getStatusAndTierTable('growingStock', 'growingStock')],
+      tableSpecs: [...getStatusAndTierTable('growingStock', 'growingStock')],
     },
   ],
   showTitle: true,
