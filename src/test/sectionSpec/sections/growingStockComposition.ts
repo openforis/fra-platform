@@ -1,6 +1,41 @@
 // @ts-nocheck
 import { SectionSpec } from '../sectionSpec'
 
+// Table 2b, the “% of total” should be calculated,
+// meaning each data entry should be divided by
+// the Total growing stock and multiplied by 100 to display as a %.
+const getGrowingStockPercent = (idx: number, variable: string) => {
+  const tableName = 'growingStockComposition2025'
+  const variableName = `${variable}${idx}`
+  const variableNameTotal = 'totalGrowingStock'
+  const colName = 'growingStockMillionCubicMeter'
+  return `(${tableName}.${variableName}['${colName}'] / ${tableName}.${variableNameTotal}['${colName}']) * 100`
+}
+
+const totalNativeGrowingStockPercent = `${[1, 2, 3, 4, 5, 6, 7, 8, 9]
+  .map((idx) => `growingStockComposition2025.nativeRank${idx}['growingStockMillionCubicMeter']`)
+  .join(` || `)} || growingStockComposition2025.remainingNative['growingStockMillionCubicMeter']
+                  ? ((${[1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    .map(
+                      (idx) => `(growingStockComposition2025.nativeRank${idx}['growingStockMillionCubicMeter'] || 0)`
+                    )
+                    .join(
+                      ' + '
+                    )} + growingStockComposition2025.remainingNative['growingStockMillionCubicMeter'] || 0) / growingStockComposition2025.totalGrowingStock['growingStockMillionCubicMeter'] * 100)
+                  : null`
+
+const remainingIntroducedGrowingStockPercent = `${[1, 2, 3, 4, 5]
+  .map((idx) => `growingStockComposition2025.nativeRank${idx}['growingStockMillionCubicMeter']`)
+  .join(` || `)}
+                  ? (${[1, 2, 3, 4, 5]
+                    .map(
+                      (idx) => `(growingStockComposition2025.nativeRank${idx}['growingStockMillionCubicMeter'] || 0)`
+                    )
+                    .join(
+                      ' + '
+                    )} / growingStockComposition2025.totalGrowingStock['growingStockMillionCubicMeter'] * 100)
+                  : null`
+
 export const growingStockComposition: SectionSpec = {
   sectionName: 'growingStockComposition',
   sectionAnchor: '2b',
@@ -1325,8 +1360,11 @@ export const growingStockComposition: SectionSpec = {
                 },
                 {
                   idx: 3,
-                  type: 'decimal',
+                  type: 'calculated',
                   colName: 'growingStockPercent',
+                  migration: {
+                    calculateFn: getGrowingStockPercent(idx + 1, 'nativeRank'),
+                  },
                 },
               ],
               variableName: `nativeRank${idx + 1}`,
@@ -1354,8 +1392,14 @@ export const growingStockComposition: SectionSpec = {
                 },
                 {
                   idx: 3,
-                  type: 'decimal',
+                  type: 'calculated',
                   colName: 'growingStockPercent',
+                  migration: {
+                    calculateFn: `growingStockComposition2025.remainingNative['growingStockMillionCubicMeter'] ?
+                     (growingStockComposition2025.remainingNative['growingStockMillionCubicMeter'] / growingStockComposition2025.totalGrowingStock['growingStockMillionCubicMeter']) * 100
+                     : null
+                    `,
+                  },
                 },
               ],
               labelKey: 'growingStockComposition.remainingNative',
@@ -1384,11 +1428,23 @@ export const growingStockComposition: SectionSpec = {
                   idx: 2,
                   type: 'calculated',
                   colName: 'growingStockMillionCubicMeter',
+                  migration: {
+                    calculateFn: `${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                      .map((idx) => `growingStockComposition2025.nativeRank${idx}`)
+                      .join(` || `)} || growingStockComposition2025.remainingNative
+                  ? ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    .map((idx) => `(growingStockComposition2025.nativeRank${idx} || 0)`)
+                    .join(' + ')} + (growingStockComposition2025.remainingNative || 0)
+                  : null`,
+                  },
                 },
                 {
                   idx: 3,
                   type: 'calculated',
                   colName: 'growingStockPercent',
+                  migration: {
+                    calculateFn: totalNativeGrowingStockPercent,
+                  },
                 },
               ],
               labelKey: 'growingStockComposition.totalNative',
@@ -1396,13 +1452,6 @@ export const growingStockComposition: SectionSpec = {
               mainCategory: true,
               variableName: 'totalNative',
               migration: {
-                calcFormula: `${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  .map((idx) => `growingStockComposition2025.nativeRank${idx}`)
-                  .join(` || `)} || growingStockComposition2025.remainingNative
-                  ? ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                    .map((idx) => `(growingStockComposition2025.nativeRank${idx} || 0)`)
-                    .join(' + ')} + (growingStockComposition2025.remainingNative || 0)
-                  : null`,
                 colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
               },
             },
@@ -1457,8 +1506,11 @@ export const growingStockComposition: SectionSpec = {
                 },
                 {
                   idx: 3,
-                  type: 'decimal',
+                  type: 'calculated',
                   colName: 'growingStockPercent',
+                  migration: {
+                    calculateFn: getGrowingStockPercent(idx + 1, 'introducedRank'),
+                  },
                 },
               ],
               variableName: `introducedRank${idx + 1}`,
@@ -1486,8 +1538,11 @@ export const growingStockComposition: SectionSpec = {
                 },
                 {
                   idx: 3,
-                  type: 'decimal',
+                  type: 'calculated',
                   colName: 'growingStockPercent',
+                  migration: {
+                    calculateFn: remainingIntroducedGrowingStockPercent,
+                  },
                 },
               ],
               variableName: 'remainingIntroduced',
@@ -1514,23 +1569,32 @@ export const growingStockComposition: SectionSpec = {
                   idx: 2,
                   type: 'calculated',
                   colName: 'growingStockMillionCubicMeter',
+                  migration: {
+                    calculateFn: `(${[1, 2, 3, 4, 5]
+                      .map((idx) => `growingStockComposition2025.introducedRank${idx}`)
+                      .join(` || `)} || growingStockComposition2025.remainingIntroduced)
+                  ? ${[1, 2, 3, 4, 5]
+                    .map((idx) => `(growingStockComposition2025.introducedRank${idx} || 0)`)
+                    .join(' + ')} + (growingStockComposition2025.remainingIntroduced || 0)
+                  : null`,
+                  },
                 },
                 {
                   idx: 3,
                   type: 'calculated',
                   colName: 'growingStockPercent',
+                  migration: {
+                    calculateFn: `
+                     growingStockComposition2025.totalIntroduced['growingStockMillionCubicMeter'] ?
+                     (growingStockComposition2025.totalIntroduced['growingStockMillionCubicMeter'] / growingStockComposition2025.totalGrowingStock['growingStockMillionCubicMeter']) * 100
+                     : null
+                    `,
+                  },
                 },
               ],
               mainCategory: true,
               variableName: 'totalIntroduced',
               migration: {
-                calcFormula: `(${[1, 2, 3, 4, 5]
-                  .map((idx) => `growingStockComposition2025.introducedRank${idx}`)
-                  .join(` || `)} || growingStockComposition2025.remainingIntroduced)
-                  ? ${[1, 2, 3, 4, 5]
-                    .map((idx) => `(growingStockComposition2025.introducedRank${idx} || 0)`)
-                    .join(' + ')} + (growingStockComposition2025.remainingIntroduced || 0)
-                  : null`,
                 colNames: ['growingStockMillionCubicMeter', 'growingStockPercent'],
               },
             },
