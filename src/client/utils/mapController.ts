@@ -4,7 +4,7 @@ import ee from '@google/earthengine'
 export class MapController {
   map: google.maps.Map
 
-  #getEarthEngineLayerIndex(mapLayerKey: string): number {
+  #getLayerIndex(mapLayerKey: string): number {
     return this.map.overlayMapTypes.getArray().findIndex(({ name }) => name === mapLayerKey)
   }
 
@@ -14,8 +14,8 @@ export class MapController {
 
   addEarthEngineLayer(mapLayerKey: string, mapId: string, overwrite = false): void {
     if (overwrite) {
-      this.removeEarthEngineLayer(mapLayerKey)
-    } else if (this.getEarthEngineLayer(mapLayerKey)) {
+      this.removeLayer(mapLayerKey)
+    } else if (this.getLayer(mapLayerKey)) {
       return // avoid duplicates
     }
 
@@ -27,13 +27,15 @@ export class MapController {
     // map.panToBounds(new google.maps.LatLngBounds(countryBoundingBoxes["FI"])) // bound to box
   }
 
-  getEarthEngineLayer(mapLayerKey: string): google.maps.MapType | null {
-    const i = this.#getEarthEngineLayerIndex(mapLayerKey)
+  getLayer(mapLayerKey: string): google.maps.MapType | null {
+    const i = this.#getLayerIndex(mapLayerKey)
     return i >= 0 ? this.map.overlayMapTypes.getAt(i) : null
   }
 
-  removeEarthEngineLayer(mapLayerKey: string): boolean {
-    const i = this.#getEarthEngineLayerIndex(mapLayerKey)
+  removeLayer(mapLayerKey: string): boolean {
+    if (!this.map) return false
+
+    const i = this.#getLayerIndex(mapLayerKey)
 
     if (i < 0) return false
 
@@ -47,11 +49,31 @@ export class MapController {
       setOpacity: (opacity: number) => void
     }
 
-    const layer = this.getEarthEngineLayer(mapLayerKey) as MapTypeWithSetOpacity
+    const layer = this.getLayer(mapLayerKey) as MapTypeWithSetOpacity
 
     if (!layer) return false
 
     layer.setOpacity(opacity)
     return true
+  }
+
+  addSepalLayer(mapLayerKey: string, urlTemplate: string) {
+    if (this.getLayer(mapLayerKey)) return // prevent duplicates
+
+    const layer = new google.maps.ImageMapType({
+      name: mapLayerKey,
+      getTileUrl: (coord: google.maps.Point, zoom: number) => {
+        const url = urlTemplate
+          .replace('{x}', String(coord.x))
+          .replace('{y}', String(coord.y))
+          .replace('{z}', String(zoom))
+        return url
+      },
+      tileSize: new google.maps.Size(256, 256),
+      minZoom: 1,
+      maxZoom: 20,
+    })
+
+    this.map.overlayMapTypes.push(layer)
   }
 }

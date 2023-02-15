@@ -38,7 +38,7 @@ const useHandleForestResourceLayers = (
     if (!map || prevCountryIso === countryIso || !mapControllerRef.current) return
     layers.forEach(({ key: mapLayerKey }) => {
       // Remove the layer from the map since it belongs to the previous country
-      mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
+      mapControllerRef.current.removeLayer(mapLayerKey)
     })
     // Since the country changed, all layers previously fetched need to be cleared
     // This will trigger the loading of the layers in the next useEffect
@@ -96,7 +96,7 @@ const useHandleForestResourceLayers = (
         }
       } else {
         // Layer is not selected so ensure it's not shown on map
-        mapControllerRef.current.removeEarthEngineLayer(mapLayerKey)
+        mapControllerRef.current.removeLayer(mapLayerKey)
       }
     })
   }, [
@@ -132,9 +132,9 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
   useEffect(() => {
     // If any of the dependencies changes and there is an existing agreement layer on the
     // map, the layer is no longer valid, so remove it. If there is no existing agreement
-    // layer, it's still safe to call `removeEarthEngineLayer`, it'll just do nothing and
+    // layer, it's still safe to call `removeLayer`, it'll just do nothing and
     // return `false`.
-    mapControllerRef.current.removeEarthEngineLayer(agreementLayerKey)
+    mapControllerRef.current.removeLayer(agreementLayerKey)
     dispatch(GeoActions.resetAgreementPalette())
 
     // If less than two sources are selected or the agreement level is greater than the
