@@ -121,19 +121,12 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
     role.role
   )
 
-  const roleBaseProps = ['professionalTitle', 'organizationalUnit', 'organization']
+  const roleBaseProps = ['organization']
 
-  const roleExtendedProps = roleBaseProps.concat([
-    'primaryEmail',
-    'secondaryEmail',
-    'primaryPhoneNumber',
-    'secondaryPhoneNumber',
-    'skype',
-    'contactPreference',
-  ])
+  const roleExtendedProps = roleBaseProps.concat(['address', 'primaryPhoneNumber'])
 
   const validateAddress = (prop: any) =>
-    ['street', 'zipCode', 'poBox', 'city', 'countryIso'].some((propName) => Objects.isEmpty(prop[propName]))
+    ['street', 'zipCode', 'city'].some((propName) => Objects.isEmpty(prop[propName]))
 
   const validateContactPreference = (prop: UserContactPreference) => {
     return (

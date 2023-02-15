@@ -33,7 +33,6 @@ const ContactMethodField: React.FC<Props> = (props) => {
   )
 
   const phoneOptions = {
-    '': '',
     [UserContactPreferencePhoneOption.signal]: 'Signal',
     [UserContactPreferencePhoneOption.whatsapp]: 'Whatsapp',
   }
@@ -78,6 +77,7 @@ const ContactMethodField: React.FC<Props> = (props) => {
             setPhoneOption('')
           }}
         >
+          <option value="">{t('userManagement.placeholder')}</option>
           {Object.entries(methodOptions).map(([k, v]) => (
             <option key={k} value={k}>
               {v}
@@ -98,6 +98,7 @@ const ContactMethodField: React.FC<Props> = (props) => {
             ].includes(method)
           }
         >
+          <option value="">{t('userManagement.placeholder')}</option>
           {Object.entries(phoneOptions).map(([k, v]) => (
             <option key={k} value={k}>
               {v}

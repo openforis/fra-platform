@@ -15,10 +15,11 @@ type Props = {
   onChange: (name: string, value: string) => void
   validator?: (partial: Partial<User> | Partial<UserProps>) => boolean
   enabled?: boolean
+  mandatory?: boolean
 }
 
 const PhoneField: React.FC<Props> = (props) => {
-  const { name, value, onChange, validator, enabled } = props
+  const { name, value, onChange, validator, enabled, mandatory } = props
 
   const { t } = useTranslation()
 
@@ -33,7 +34,10 @@ const PhoneField: React.FC<Props> = (props) => {
 
   return (
     <div className="edit-user__form-item" key={name}>
-      <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
+      <div className="edit-user__form-label">
+        {t(`editUser.${name}`)}
+        {mandatory && '*'}
+      </div>
       <div
         className={classNames('edit-user__form-phone-field ', `edit-user__form-field${enabled ? '' : '-disabled'}`, {
           error: !valid,
@@ -60,6 +64,7 @@ const PhoneField: React.FC<Props> = (props) => {
 PhoneField.defaultProps = {
   validator: undefined,
   enabled: false,
+  mandatory: false,
 }
 
 export default PhoneField
