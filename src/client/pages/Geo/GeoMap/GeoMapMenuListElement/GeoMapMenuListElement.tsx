@@ -3,12 +3,15 @@ import React from 'react'
 
 import classNames from 'classnames'
 
+import { LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
+
 interface Props {
   title: string
   tabIndex: number
   checked?: boolean
   onCheckboxClick?: () => void
   backgroundColor?: string
+  loadingStatus?: string
 }
 
 const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
@@ -18,7 +21,16 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
   onCheckboxClick,
   children,
   backgroundColor,
+  loadingStatus,
 }) => {
+  let checkBoxContent = null
+  if (loadingStatus === LayerStatus.loading) {
+    checkBoxContent = <div className="geo-map-menu-list-element-loading-status-loading" />
+  } else if (loadingStatus === LayerStatus.failed) {
+    checkBoxContent = <div className={classNames('fra-checkbox', 'failed')} />
+  } else {
+    checkBoxContent = <div className={classNames('fra-checkbox', { checked })} />
+  }
   return (
     <>
       <div className="geo-map-menu-list-element">
@@ -32,7 +44,7 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
               onClick={onCheckboxClick}
               onKeyDown={onCheckboxClick}
             >
-              <div className={classNames('fra-checkbox', { checked })} />
+              {checkBoxContent}
               <p>{title}</p>
             </div>
           ) : (
@@ -52,6 +64,7 @@ GeoMenuItem.defaultProps = {
   checked: null,
   onCheckboxClick: null,
   backgroundColor: null,
+  loadingStatus: null,
 }
 
 export default GeoMenuItem

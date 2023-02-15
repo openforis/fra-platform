@@ -127,6 +127,8 @@ export const geoSlice = createSlice({
       state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
     },
     setRecipe: (state, { payload }: PayloadAction<string>) => {
+      // If the recipe is not custom, reset the failed layers so they are fetched again
+      if (payload !== 'custom') state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
       const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
       const opacity = 0
       const agreementLevel = 1
@@ -161,10 +163,18 @@ export const geoSlice = createSlice({
       })
       .addCase(getForestLayer.pending, (state, { meta }) => {
         state.forestOptions.pendingLayers[meta.arg.key] = meta.arg.uri
+        delete state.forestOptions.fetchedLayers[meta.arg.key]
+        delete state.forestOptions.failedLayers[meta.arg.key]
       })
       .addCase(getForestLayer.rejected, (state, { meta }) => {
-        delete state.forestOptions.pendingLayers[meta.arg.key]
         state.forestOptions.failedLayers[meta.arg.key] = meta.arg.uri
+        delete state.forestOptions.pendingLayers[meta.arg.key]
+        delete state.forestOptions.fetchedLayers[meta.arg.key]
+        // Un-select the layer if the fetching fails
+        const i = state.forestOptions.selected.findIndex((key) => key === meta.arg.key)
+        if (i !== -1) {
+          state.forestOptions.selected.splice(i, 1)
+        }
       })
   },
 })

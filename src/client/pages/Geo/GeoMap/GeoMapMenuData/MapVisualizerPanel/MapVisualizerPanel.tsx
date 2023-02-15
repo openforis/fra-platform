@@ -10,7 +10,7 @@ import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
 import AgreementLevelsControl from '../MapVisualizerAgreementLevelsControl'
 import LayerOptionsPanel from './LayerOptionsPanel'
-import { layers, GLOBAL_OPACITY_KEY } from '.'
+import { GLOBAL_OPACITY_KEY, layers, LayerStatus } from '.'
 
 const RecipeSelector: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -56,6 +56,11 @@ const MapVisualizerPanel: React.FC = () => {
         </div>
         {layers.map((layer, index) => {
           const isLayerChecked = forestOptions.selected.includes(layer.key)
+          let status = null
+          if (forestOptions.pendingLayers[layer.key] !== undefined) status = LayerStatus.loading
+          if (forestOptions.fetchedLayers[layer.key] !== undefined) status = LayerStatus.ready
+          if (forestOptions.failedLayers[layer.key] !== undefined) status = LayerStatus.failed
+          // If the status continues to be null, it means it has not been attempted to fetch the layer
           return (
             <div key={layer.key}>
               <GeoMapMenuListElement
@@ -64,6 +69,7 @@ const MapVisualizerPanel: React.FC = () => {
                 checked={isLayerChecked}
                 onCheckboxClick={() => toggleForestLayer(layer.key)}
                 backgroundColor={layer.key.toLowerCase()}
+                loadingStatus={status}
               >
                 <LayerOptionsPanel layerKey={layer.key} checked={isLayerChecked} />
               </GeoMapMenuListElement>
