@@ -10,7 +10,7 @@ import { optionNotSelected } from '@client/pages/AssessmentSection/DataTable/Tab
 import { DOMs } from '@client/utils/dom'
 
 const getOptionLabel = (option: ColSelectOption, i18n: i18n, labelKeyPrefix: string): string => {
-  const label = i18n.t(`${labelKeyPrefix}.${option.name}`)
+  const label = Number.isInteger(+option.name) ? option.name : i18n.t(`${labelKeyPrefix}.${option.name}`)
   return option.type === 'header' ? `--- ${label} ---` : label
 }
 

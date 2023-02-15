@@ -1104,6 +1104,7 @@ The FRA team
     status: 'Status',
     demoteToUser: 'Are you sure you want to remove Admin privileges?',
     promoteToAdmin: 'Are you sure you want to grant Admin privileges?',
+    mandatoryFields: '* are mandatory fields',
   },
 
   country: {
