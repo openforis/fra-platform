@@ -11,17 +11,17 @@ import SatelliteSourcePanel from '../SatelliteSourcePanel'
 
 const MosaicControl: React.FC = () => {
   const dispatch = useAppDispatch()
-  const mosaicUrl = useMosaicUrl()
   const appliedMosaicOptions = useAppliedMosaicOptions()
   const mosaicSelected = useMosaicSelected()
   const map = useGeoMap()
   const mapControllerRef = useRef<MapController>(new MapController(map))
   const mosaicLayerKey = 'mosaic'
   const countryIso = useCountryIso()
+  const mosaicUrl = useMosaicUrl(countryIso)
 
   // Mosaic layer toggled, mosaicUrl updated or appliedMosaicOptions changed
   useEffect(() => {
-    // console.log(mosaicSelected, appliedMosaicOptions, mosaicUrl)
+    // console.log(mosaicSelected, appliedMosaicOptions, mosaicUrl, countryIso)
     // In any case, if there's an existing background layer, it should be removed
     mapControllerRef.current.removeLayer(mosaicLayerKey)
 

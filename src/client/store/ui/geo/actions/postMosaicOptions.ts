@@ -66,12 +66,15 @@ interface PostMosaicOptionsProps {
   countryIso: CountryIso
 }
 
-export const postMosaicOptions = createAsyncThunk<{ urlTemplate: string }, PostMosaicOptionsProps>(
-  'geo/post/mosaic',
-  async ({ mosaicOptions, countryIso }) => {
-    const body = getReqBody(mosaicOptions, countryIso)
-    const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
+export const postMosaicOptions = createAsyncThunk<
+  { urlTemplate: string; countryIso: CountryIso },
+  PostMosaicOptionsProps
+>('geo/post/mosaic', async ({ mosaicOptions, countryIso }) => {
+  const body = getReqBody(mosaicOptions, countryIso)
+  const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
 
-    return data
+  return {
+    urlTemplate: data.urlTemplate,
+    countryIso,
   }
-)
+})

@@ -33,7 +33,7 @@ const initialState: GeoState = {
     recipe: 'custom',
   },
   mosaicSelected: false,
-  mosaicUrl: null,
+  mosaicUrl: {},
 }
 
 export const geoSlice = createSlice({
@@ -41,7 +41,7 @@ export const geoSlice = createSlice({
   initialState,
   reducers: {
     applyMosaicOptions: (state) => {
-      state.mosaicUrl = null
+      state.mosaicUrl = {}
       state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
@@ -146,7 +146,8 @@ export const geoSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
-        state.mosaicUrl = payload.urlTemplate
+        const { urlTemplate, countryIso } = payload
+        state.mosaicUrl[countryIso] = urlTemplate
       })
       .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
         state.forestOptions.fetchedLayers[key] = mapId

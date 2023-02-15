@@ -1,12 +1,15 @@
+import { CountryIso } from '@meta/area'
 import { ForestOptions, MapPanel, MosaicOptions } from '@meta/geo'
 
-export interface GeoState {
+export type GeoState = {
   forestOptions: ForestOptions
   selectedPanel: MapPanel
   mosaicOptions: {
     ui: MosaicOptions
     applied: MosaicOptions
   }
-  mosaicUrl: string
+  mosaicUrl: {
+    [key in CountryIso]?: string
+  }
   mosaicSelected: boolean
 }
