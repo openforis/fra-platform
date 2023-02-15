@@ -4,7 +4,6 @@ import { Context } from '../context'
 import { NWFPProductHasCategory } from './NWFPProductHasCategory'
 import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
 import { validatorEqualToPlantedForest } from './validatorEqualToPlantedForest'
-import { validatorEqualToPrivateForest } from './validatorEqualToPrivateForest'
 import { validatorEqualToSum } from './validatorEqualToSum'
 import { validatorEqualToTotalForest } from './validatorEqualToTotalForest'
 import { validatorEqualToTotalGrowingStock } from './validatorEqualToTotalGrowingStock'
@@ -20,6 +19,7 @@ import { validatorOtherLand } from './validatorOtherLand'
 import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTreeCoverTotal'
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
 import { validatorPrimaryForest } from './validatorPrimaryForest'
+import { validatorPrivateOwnership } from './validatorPrivateOwnership'
 import { validatorRemainingLandWithTreeCoverTotal } from './validatorRemainingLandWithTreeCoverTotal'
 import { validatorSubCategory } from './validatorSubCategory'
 import { validatorSumNotGreaterThan } from './validatorSumNotGreaterThan'
@@ -41,7 +41,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorPrimaryForest,
   validatorSubCategory,
   validatorTotalForest,
-  validatorEqualToPrivateForest,
+  validatorPrivateOwnership,
   validatorSumNotGreaterThan,
   validatorForestAreaNetChange,
   validatorEqualToForestExpansion,
