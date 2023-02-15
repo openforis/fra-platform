@@ -13,6 +13,11 @@ export const migrateNodeExt = async (
   const { assessment, cycle } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const schemaCycle2020 = Schemas.getNameCycle(
+    assessment,
+    assessment.cycles.find((c) => c.name === '2020')
+  )
+
   const pgp = pgPromise()
   const cs = new pgp.helpers.ColumnSet(
     [
@@ -68,4 +73,13 @@ from c2`,
   // @ts-ignore
   const query = pgp.helpers.insert(values, cs)
   await client.query(query)
+
+  if (cycle.name === '2025') {
+    await client.query(`
+        insert into ${schemaCycle}.node_ext (country_iso, table_name, variable_name, col_name, value)
+        select country_iso, table_name, variable_name, col_name, value
+        from ${schemaCycle2020}.node_ext
+        where country_iso like 'X%'
+    `)
+  }
 }
