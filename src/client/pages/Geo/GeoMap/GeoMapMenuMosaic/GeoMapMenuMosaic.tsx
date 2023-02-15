@@ -35,7 +35,6 @@ const GeoMapMenuMosaic: React.FC = () => {
 
   // Mosaic layer toggled, mosaicUrl updated or appliedMosaicOptions changed
   useEffect(() => {
-    // console.log(mosaicSelected, appliedMosaicOptions, mosaicUrl, countryIso)
     // If map is still loading, stop
     if (!map) return
 
