@@ -1,6 +1,7 @@
 @import 'src/client/style/partials';
 
-.geo-map-menu-forest-layer-options-panel {
+.geo-map-menu-forest-hansen-layer-inputs {
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0px 25px 0px 25px;
@@ -62,4 +63,26 @@
 .geo-map-menu-mosaic-btn-apply {
   width: 150px;
   margin: 40px 1px 0 auto;
+}
+
+.geo-map-menu-forest-layer-opacity-input {
+  margin: auto 5px auto auto;
+  min-width: 180px;
+  > div {
+    height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  input {
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+  }
+  small {
+    height: 100%;
+    vertical-align: middle;
+    font-size: normal;
+    font-weight: bold;
+    margin-left: 15px;
+  }
 }

@@ -38,21 +38,22 @@ const AgreementLevelsControl: React.FC = () => {
       onCheckboxClick={() => toggleAgreementLayer(!forestOptions.agreementLayerSelected)}
     >
       <>
-        {forestOptions.agreementLayerSelected && <LayerOptionsPanel layerKey={agreementLayerKey} />}
-        <div className="geo-map-menu-data-visualizer-agreement-levels-control">
-          <p>
-            <small>
-              Choose the agreement level between all map layers. Agreement level <i>N</i> means that at least <i>N</i>{' '}
-              of the selected data sources need to agree that a certain pixel is forest area.
-            </small>
-          </p>
-          <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
-            {Array(layers.length)
-              .fill(undefined)
-              .map((_, i) => {
-                const level = i + 1
-                const id = `agreement-${level}`
-                const disabled = level > forestOptions.selected.length
+        <LayerOptionsPanel layerKey={agreementLayerKey} checked={forestOptions.agreementLayerSelected} />
+        {forestOptions.agreementLayerSelected && (
+          <div className="geo-map-menu-data-visualizer-agreement-levels-control">
+            <p>
+              <small>
+                Choose the agreement level between all map layers. Agreement level <i>N</i> means that at least <i>N</i>{' '}
+                of the selected data sources need to agree that a certain pixel is forest area.
+              </small>
+            </p>
+            <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
+              {Array(layers.length)
+                .fill(undefined)
+                .map((_, i) => {
+                  const level = i + 1
+                  const id = `agreement-${level}`
+                  const disabled = level > forestOptions.selected.length
 
                 // Agreement layer color legend
                 const agreementLevelOffset = level - forestOptions.agreementLevel
@@ -65,26 +66,27 @@ const AgreementLevelsControl: React.FC = () => {
                       }
                     : {}
 
-                return (
-                  <span
-                    className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })}
-                    key={level}
-                  >
-                    <input
-                      id={id}
-                      className="geo-map-menu-data-visualizer-agreement-levels-box"
-                      type="checkbox"
-                      checked={level <= forestOptions.agreementLevel}
-                      disabled={disabled}
-                      onChange={() => setAgreementLevel(level)}
-                      style={style}
-                    />
-                    <label htmlFor={id}>{level}</label>
-                  </span>
-                )
-              })}
+                  return (
+                    <span
+                      className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })}
+                      key={level}
+                    >
+                      <input
+                        id={id}
+                        className="geo-map-menu-data-visualizer-agreement-levels-box"
+                        type="checkbox"
+                        checked={level <= forestOptions.agreementLevel}
+                        disabled={disabled}
+                        onChange={() => setAgreementLevel(level)}
+                        style={style}
+                      />
+                      <label htmlFor={id}>{level}</label>
+                    </span>
+                  )
+                })}
+            </div>
           </div>
-        </div>
+        )}
       </>
     </GeoMapMenuListElement>
   ) : null
