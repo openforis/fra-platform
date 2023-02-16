@@ -17,27 +17,30 @@ export default async (job: Job<UpdateDependenciesProps>) => {
 
     const { nodeUpdates, isODP, sectionName, user } = job.data
     const { assessment, cycle, countryIso, nodes } = nodeUpdates
-    const results = await DB.tx(async (client) =>
-      Promise.all(
-        nodes.map((node) => {
-          return updateNodeDependencies(
-            {
-              assessment,
-              colName: node.colName,
-              countryIso,
-              cycle,
-              isODP,
-              sourceNode: isODP ? undefined : node,
-              sectionName,
-              tableName: node.tableName,
-              user,
-              variableName: node.variableName,
-            },
-            client
-          )
-        })
-      )
-    )
+    const results: Array<{ nodeUpdates: NodeUpdates }> = []
+
+    await DB.tx(async (client) => {
+      for (let i = 0; i < nodes.length; i += 1) {
+        const node = nodes[i]
+        // eslint-disable-next-line no-await-in-loop
+        const result = await updateNodeDependencies(
+          {
+            assessment,
+            colName: node.colName,
+            countryIso,
+            cycle,
+            isODP,
+            sourceNode: isODP ? undefined : node,
+            sectionName,
+            tableName: node.tableName,
+            user,
+            variableName: node.variableName,
+          },
+          client
+        )
+        results.push(result)
+      }
+    })
 
     // const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
     const result = results.reduce<{ nodeUpdates: NodeUpdates }>(
