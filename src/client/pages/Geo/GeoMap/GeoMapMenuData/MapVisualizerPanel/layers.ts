@@ -48,3 +48,11 @@ export const layers: Layer[] = [
     opacity: 1,
   },
 ]
+
+export const GLOBAL_OPACITY_KEY = 'GLOBAL_OPACITY'
+
+export enum LayerStatus {
+  loading = 'loading',
+  failed = 'failed',
+  ready = 'ready',
+}

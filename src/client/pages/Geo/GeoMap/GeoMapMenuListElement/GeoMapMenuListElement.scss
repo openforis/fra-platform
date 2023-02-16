@@ -5,7 +5,9 @@
   flex-direction: row;
   align-items: center;
   font-weight: bold;
-  padding: 6px 0 4px;
+  padding: 6px 0 6px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .geo-map-menu-list-element-bottom {
@@ -23,6 +25,9 @@
   > .fra-checkbox {
     margin: 0 10px 0 5px;
     cursor: pointer;
+  }
+  > .failed {
+    border-color: red;
   }
 }
 
@@ -68,4 +73,49 @@
   margin: 0 0 0 auto;
   padding: 5px 10px 5px 10px;
   cursor: pointer;
+}
+
+.geo-map-menu-item-title {
+  max-width: 160px;
+  height: 100%;
+  white-space: pre-line;
+  margin: auto auto auto 0px;
+  padding-top: 3px;
+  > div {
+    height: 100%;
+    vertical-align: middle;
+    > p {
+      font-size: $font-m;
+      text-justify: left;
+      font-weight: bold;
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
+}
+
+// Free to use from: https://loading.io/css/ (adapted)
+.geo-map-menu-list-element-loading-status-loading {
+  display: inline-block;
+  width: 14px;
+  height: 100%;
+  margin: 0 10px 0 5px;
+}
+.geo-map-menu-list-element-loading-status-loading:after {
+  content: ' ';
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #1798a5;
+  border-color: #1798a5 transparent #1798a5 transparent;
+  animation: geo-map-menu-list-element-loading-status-loading 1.2s linear infinite;
+}
+@keyframes geo-map-menu-list-element-loading-status-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
