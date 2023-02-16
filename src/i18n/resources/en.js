@@ -1038,11 +1038,12 @@ The FRA team
     sumNotGreaterThan: 'Sum should not exceed {{maxValue}}',
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
-    mustBeEqualToPrivateForest: 'Subcategories sum should be equal to Private Ownership',
+    mustBeEqualToPrivateOwnership: 'Subcategories sum should be equal to Private Ownership',
     mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
     mustBeEqualToPlantedForest: 'Subcategories sum should be equal to Planted Forest',
     mustBeEqualToForestArea:
       'The sum of Naturally regenerating and Planted forest should be equal to Total growing stock',
+    mustBeLessThanPrivateOwnership: 'Subcategories sum should be less than Private Ownership',
     columnEmpty: "Column '$t({{columName}})' must have a value",
     forestSumAreaExceedsExtentOfForest:
       'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
@@ -1104,6 +1105,7 @@ The FRA team
     status: 'Status',
     demoteToUser: 'Are you sure you want to remove Admin privileges?',
     promoteToAdmin: 'Are you sure you want to grant Admin privileges?',
+    mandatoryFields: '* are mandatory fields',
   },
 
   country: {

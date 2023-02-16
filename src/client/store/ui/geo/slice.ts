@@ -1,16 +1,24 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { MosaicOptions, MosaicSource } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
 import { GeoState } from './stateType'
 
+const initialMosaicOptions: MosaicOptions = {
+  sources: ['landsat'],
+  year: 2020,
+  maxCloudCoverage: 30,
+}
+
 const initialState: GeoState = {
   selectedPanel: null,
   mosaicOptions: {
-    sources: [],
+    ui: { ...initialMosaicOptions },
+    applied: { ...initialMosaicOptions },
   },
   forestOptions: {
     selected: [],
@@ -24,15 +32,34 @@ const initialState: GeoState = {
     agreementPalette: [],
     recipe: 'custom',
   },
-  mosaicUrl: '',
+  mosaicSelected: false,
+  mosaicUrl: {},
 }
 
 export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
-    updateMosaicOptions: (state, { payload }) => {
-      state.mosaicOptions = payload
+    applyMosaicOptions: (state) => {
+      state.mosaicUrl = {}
+      state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
+    },
+    toggleMosaicLayer: (state) => {
+      state.mosaicSelected = !state.mosaicSelected
+    },
+    toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
+      const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
+      if (i === -1) {
+        state.mosaicOptions.ui.sources.push(payload)
+      } else {
+        state.mosaicOptions.ui.sources.splice(i, 1)
+      }
+    },
+    setMosaicYear: (state, { payload }: PayloadAction<number>) => {
+      state.mosaicOptions.ui.year = payload
+    },
+    setMosaicMaxCloudCoverage: (state, { payload }: PayloadAction<number>) => {
+      state.mosaicOptions.ui.maxCloudCoverage = payload
     },
     updateSelectedPanel: (state, { payload }) => {
       state.selectedPanel = payload
@@ -119,7 +146,8 @@ export const geoSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
-        state.mosaicUrl = payload.urlTemplate
+        const { urlTemplate, countryIso } = payload
+        state.mosaicUrl[countryIso] = urlTemplate
       })
       .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
         state.forestOptions.fetchedLayers[key] = mapId

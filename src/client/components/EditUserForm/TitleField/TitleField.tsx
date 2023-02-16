@@ -15,10 +15,11 @@ type Props = {
   onChange: (name: string, value: string) => void
   validator?: (partial: Partial<User> | Partial<UserProps>) => boolean
   enabled?: boolean
+  mandatory?: boolean
 }
 
 const TitleField: React.FC<Props> = (props) => {
-  const { name, value, onChange, validator, enabled } = props
+  const { name, value, onChange, validator, enabled, mandatory } = props
 
   const { t } = useTranslation()
 
@@ -35,7 +36,10 @@ const TitleField: React.FC<Props> = (props) => {
 
   return (
     <div className="edit-user__form-item" key={name}>
-      <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
+      <div className="edit-user__form-label">
+        {t(`editUser.${name}`)}
+        {mandatory && '*'}
+      </div>
       <div
         className={classNames('edit-user__form-title-field ', `edit-user__form-field${enabled ? '' : '-disabled'}`, {
           error: !valid,
@@ -69,6 +73,7 @@ const TitleField: React.FC<Props> = (props) => {
 TitleField.defaultProps = {
   validator: undefined,
   enabled: false,
+  mandatory: false,
 }
 
 export default TitleField
