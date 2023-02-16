@@ -4,6 +4,11 @@ export default {
   section: 'panEuropean_3_2',
   rows: {
     names: [
+      'roundwood_2022',
+      'roundwood_2021',
+      'roundwood_2020',
+      'roundwood_2019',
+      'roundwood_2018',
       'roundwood_2017',
       'roundwood_2016',
       'roundwood_2015',
