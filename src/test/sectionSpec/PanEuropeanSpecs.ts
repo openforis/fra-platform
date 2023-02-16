@@ -1285,12 +1285,47 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                   { idx: 8, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'other_wooded_land_2020',
+              },
+              {
+                idx: 13,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
                 labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
                 labelParams: { year: 2015 },
                 variableExport: 'other_wooded_land_2015',
               },
               {
-                idx: 13,
+                idx: 14,
                 type: 'data',
                 cols: [
                   {
@@ -1322,7 +1357,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2010',
               },
               {
-                idx: 14,
+                idx: 15,
                 type: 'data',
                 cols: [
                   {
@@ -1354,7 +1389,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2005',
               },
               {
-                idx: 15,
+                idx: 16,
                 type: 'data',
                 cols: [
                   {
@@ -1386,7 +1421,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_2000',
               },
               {
-                idx: 16,
+                idx: 17,
                 type: 'data',
                 cols: [
                   {
@@ -1418,7 +1453,42 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'other_wooded_land_1990',
               },
               {
-                idx: 17,
+                idx: 18,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    type: 'header',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__category-cell',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  { idx: 1, type: 'decimal' },
+                  {
+                    idx: 2,
+                    type: 'decimal',
+                  },
+                  { idx: 3, type: 'decimal' },
+                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 5,
+                    type: 'decimal',
+                  },
+                  { idx: 6, type: 'decimal' },
+                  { idx: 7, type: 'decimal' },
+                  { idx: 8, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
+                labelParams: { year: 2020 },
+                variableExport: 'total_forest_and_other_wooded_land_2020',
+              },
+              {
+                idx: 19,
                 type: 'data',
                 cols: [
                   {
@@ -1450,7 +1520,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2015',
               },
               {
-                idx: 18,
+                idx: 20,
                 type: 'data',
                 cols: [
                   {
@@ -1482,7 +1552,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2010',
               },
               {
-                idx: 19,
+                idx: 21,
                 type: 'data',
                 cols: [
                   {
@@ -1514,7 +1584,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2005',
               },
               {
-                idx: 20,
+                idx: 22,
                 type: 'data',
                 cols: [
                   {
@@ -1546,7 +1616,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 variableExport: 'total_forest_and_other_wooded_land_2000',
               },
               {
-                idx: 21,
+                idx: 23,
                 type: 'data',
                 cols: [
                   {
