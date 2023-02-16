@@ -4,24 +4,28 @@ export default {
   section: 'panEuropean_1_3_a2',
   rows: {
     names: [
+      'forest_available_for_wood_supply_even_aged_stands_of_which_2020',
       'forest_available_for_wood_supply_even_aged_stands_of_which_2015',
       'forest_available_for_wood_supply_even_aged_stands_of_which_2010',
       'forest_available_for_wood_supply_even_aged_stands_of_which_2005',
       'forest_available_for_wood_supply_even_aged_stands_of_which_2000',
       'forest_available_for_wood_supply_even_aged_stands_of_which_1990',
 
+      'predominantly_coniferous_forest_2020',
       'predominantly_coniferous_forest_2015',
       'predominantly_coniferous_forest_2010',
       'predominantly_coniferous_forest_2005',
       'predominantly_coniferous_forest_2000',
       'predominantly_coniferous_forest_1990',
 
+      'predominantly_broadleaved_forest_2020',
       'predominantly_broadleaved_forest_2015',
       'predominantly_broadleaved_forest_2010',
       'predominantly_broadleaved_forest_2005',
       'predominantly_broadleaved_forest_2000',
       'predominantly_broadleaved_forest_1990',
 
+      'mixed_forest_2020',
       'mixed_forest_2015',
       'mixed_forest_2010',
       'mixed_forest_2005',

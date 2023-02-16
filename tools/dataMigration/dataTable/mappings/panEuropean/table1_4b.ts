@@ -4,6 +4,8 @@ export default {
   section: 'panEuropean_1_4_b',
   rows: {
     names: [
+      'harvested_wood_products_2025',
+      'harvested_wood_products_2020',
       'harvested_wood_products_2015',
       'harvested_wood_products_2010',
       'harvested_wood_products_2005',
