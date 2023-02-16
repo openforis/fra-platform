@@ -98,6 +98,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
           validateFns: row.props.validateFns,
+          chart: row.props.chart,
         },
       }
     }

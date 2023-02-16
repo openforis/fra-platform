@@ -60,7 +60,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
 
       <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditTableData} />
 
-      <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={!canEditDescriptions} />
+      <Descriptions sectionName={sectionName} descriptions={descriptions[cycle.uuid]} disabled={!canEditDescriptions} />
       {showTitle && <Title subSection={subSection} />}
 
       {tableSections.map((tableSection) => {
@@ -91,7 +91,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
         )
       })}
 
-      {descriptions.introductoryText && (
+      {descriptions[cycle.uuid].introductoryText && (
         <CommentableDescription
           sectionName={sectionName}
           title={t('contactPersons.introductoryText')}
@@ -100,7 +100,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
           disabled={!canEditDescriptions}
         />
       )}
-      {descriptions.comments && (
+      {descriptions[cycle.uuid].comments && (
         <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
       )}
 

@@ -38,7 +38,7 @@ const InvitationColumn: React.FC<Props> = (props: Props) => {
   const currentUser = useUser()
 
   const removeInvitation = useCallback(() => {
-    if (window.confirm(t('userManagement.confirmDelete', { user: Users.getFullname(user) })))
+    if (window.confirm(t('userManagement.confirmDelete', { user: Users.getFullName(user) })))
       dispatch(
         UserManagementActions.removeInvitation({
           assessmentName,

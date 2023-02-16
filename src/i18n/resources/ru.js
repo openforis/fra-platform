@@ -529,7 +529,7 @@ module.exports.translation = {
     ofWhichTreesUrbanSettings: '…в том числе деревья в городской среде',
     totalLandArea: 'Общая площадь земель',
     fedAreasExceedTotalLandArea: 'Площадь лесов и прочих лесопокрытых земель превышает общую площадь земель',
-    forestAreaDoesNotMatchPreviouslyReported: 'Площадь лесов не совпадает с площадью ОЛР-2015: {{previous}}',
+    forestAreaDoesNotMatchPreviouslyReported: 'Площадь лесов не совпадает с площадью ОЛР-{{year}}: {{previous}}',
     useOriginalDataPoints: 'Использовать национальные отчетные годы',
     dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы',
     whatIsThis: 'Что это такое?',

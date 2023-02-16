@@ -42,5 +42,8 @@ export interface RowSpec {
     cycles?: Array<string>
     dependantsExclude?: Array<VariableCache>
     categoryLevel?: number
+    chart: {
+      cycles: Array<string>
+    }
   }
 }

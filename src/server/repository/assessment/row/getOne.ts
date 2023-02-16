@@ -35,6 +35,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
           validateFns: row.props.validateFns,
+          chart: row.props.chart,
         },
       }
       if (includeCols) {

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { fraYears } from '../fraYears'
 import { SectionSpec } from '../sectionSpec'
+import { getStatusAndTierTable } from './common/statusAndTierTable'
 
 const validateSumOverride = `validatorSumNotGreaterThan((climaticDomain.boreal || 0) + (climaticDomain.temperate || 0) + (climaticDomain.sub_tropical || 0) + (climaticDomain.tropical || 0), '100')`
 
@@ -86,10 +87,14 @@ export const extentOfForest: SectionSpec = {
                 color: '#0098a6',
               },
               migration: {
-                validateFns: [
-                  `validatorForestAreaComparedTo2015(value_aggregate.forestArea['2015'], extentOfForest.forestArea)`,
-                  `validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`,
-                ],
+                validateFns: {
+                  '2020': [
+                    `validatorForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)`,
+                  ],
+                  '2025': [
+                    `validatorForestAreaComparedTo2020(extentOfForest.forestArea['2020'], extentOfForest.forestArea)`,
+                  ],
+                },
               },
             },
             {
@@ -388,6 +393,7 @@ export const extentOfForest: SectionSpec = {
           dataExport: false,
           columnsExportAlways: [],
         },
+        getStatusAndTierTable('extentOfForest', 'forestArea', true),
       ],
     },
   ],

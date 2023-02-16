@@ -13,7 +13,8 @@ export const validatorEqualToPrivateForest: ExpressionFunction<Context> = {
     return (privateOwnership?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
       const valid =
         Numbers.eq(privateOwnership, 0) ||
-        Numbers.eq(privateOwnership, Numbers.sum(subCategoryValues.filter((val) => !Objects.isEmpty(val))))
+        subCategoryValues.some((value) => Objects.isEmpty(value)) ||
+        Numbers.eq(privateOwnership, Numbers.sum(subCategoryValues))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined

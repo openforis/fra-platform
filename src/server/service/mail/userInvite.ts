@@ -23,12 +23,10 @@ export const userInvite = async (props: {
     role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''
   }`
 
-  const countryName = i18n.t(`area.${countryIso}.listName`)
-
   const roleName = i18n.t(Users.getI18nRoleLabelKey(role.role))
 
   const emailProps = {
-    country: countryName,
+    country: i18n.t(`area.${countryIso}.listName`),
     assessmentName,
     cycleName,
     invitedUser: Users.getFullName(userToInvite),
@@ -39,7 +37,7 @@ export const userInvite = async (props: {
 
   const invitationEmail = {
     to: userToInvite.email,
-    subject: i18n.t('userManagement.invitationEmail.subject', { country: countryName }),
+    subject: i18n.t('userManagement.invitationEmail.subject'),
     text: i18n.t('userManagement.invitationEmail.textMessage', emailProps),
     html: i18n.t('userManagement.invitationEmail.htmlMessage', emailProps),
   }

@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { CommentableDescriptionValue } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import useDescription from '@client/store/ui/assessmentSection/hooks/useDescription'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
@@ -15,6 +15,7 @@ import EditorWYSIWYG from '@client/components/EditorWYSIWYG'
 import MarkdownPreview from '@client/components/MarkdownPreview'
 import DataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSources'
 
+import { useDescriptions } from '../Descriptions'
 import Title from './Title'
 import Toggle from './Toggle'
 
@@ -34,6 +35,12 @@ const Description: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const section = useAssessmentSection(sectionName)
+  const descriptionsMetadata = useDescriptions({
+    disabled,
+    sectionName,
+    descriptions: section.props.descriptions[cycle.uuid],
+  })
 
   const user = useUser()
   const { print } = useIsPrint()
@@ -58,8 +65,8 @@ const Description: React.FC<Props> = (props) => {
   )
 
   const error = user && showAlertEmptyContent && !description
-  let markdown = description.text || template.text
-  if (print) markdown = markdown?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
+  let text = description.text || template.text
+  if (print) text = text?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
     dispatch(
@@ -80,25 +87,37 @@ const Description: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   const isDataSources = name === 'dataSources'
+  const dataSourceHasTable = isDataSources && descriptionsMetadata.nationalData?.dataSources?.table
+  const dataSourceTextReadOnly = isDataSources && descriptionsMetadata.nationalData?.dataSources?.text?.readOnly
+
+  const showMarkdownEditor = (!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly)
+
+  const showPreview =
+    // 1. not data source: Show markdown preview if description is not open and it has text
+    (!isDataSources && !open && text) ||
+    // 2. data source: Show markdown preview if description is not open and it is not read only
+    (isDataSources && !open && !dataSourceTextReadOnly) ||
+    // 3. data source: Show markdown preview if description is open and it is read only (preview of previous cycle) and has text
+    (isDataSources && open && dataSourceTextReadOnly && text)
 
   return (
     <div className="fra-description__header-row">
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
-      {isDataSources && (
+      {dataSourceHasTable && (
         <DataSources description={description} onChange={onChange} disabled={!open} sectionName={sectionName} />
       )}
-      {open && (
+      {showMarkdownEditor && (
         <div className="fra-description__preview">
-          <EditorWYSIWYG value={markdown} onChange={(content) => onChange({ ...description, text: content })} />
+          <EditorWYSIWYG value={text} onChange={(content) => onChange({ ...description, text: content })} />
         </div>
       )}
-      {!open && markdown && (
+      {showPreview && (
         <div className="fra-description__preview">
-          <MarkdownPreview value={markdown} />
+          <MarkdownPreview value={text} />
         </div>
       )}
-      {!open && !markdown && showDashEmptyContent && <div>-</div>}
+      {!open && !text && showDashEmptyContent && <div>-</div>}
     </div>
   )
 }

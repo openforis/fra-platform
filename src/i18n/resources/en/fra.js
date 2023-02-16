@@ -29,7 +29,7 @@ module.exports = {
   },
 
   contactPersons: {
-    expectedDateForNextCountryReportUpdate: 'Expected date/year for next update of the country report',
+    expectedYearForNextCountryReportUpdate: 'Expected year for next update of the country report',
   },
 
   degradedForest: {
@@ -137,7 +137,7 @@ module.exports = {
     totalGrowingStock: 'Total growing stock',
     totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
     totalNativeTreeSpecies: 'TOTAL native tree species',
-    updatedGrowingStockComposition: 'Updated growing stock composition',
+    updatedGrowingStockComposition: '$t(growingStockComposition.growingStockComposition)',
   },
 
   holderOfManagementRights: {
@@ -149,8 +149,10 @@ module.exports = {
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
   },
+
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Primary forest by climatic domain',
+    primaryForestArea100Ha: 'Primary forest area ($t(unit.haThousand))',
     primaryForestBoreal: '…of which boreal primary forest',
     primaryForestTemperate: '…of which temperate primary forest',
     primaryForestTropical: '…of which tropical primary forest',

@@ -37,9 +37,15 @@ export const fileTypes = {
   biomassStock: (assessmentName: string, cycleName: string, domain: string) => ({
     key: `calculator_${domain}`,
     folder: `${assessmentName}/${cycleName}/biomassStock`,
-    downloadName: 'BiomassCalculator.xlsx',
+    downloadName: `BiomassCalculator_${domain}`,
     fileType: 'xlsx',
   }),
+  sdgFocalPoints: {
+    key: 'NSO_SDG_Contact_Persons',
+    folder: 'sdgFocalPoints',
+    downloadName: 'NSO_SDG_Contact_Persons',
+    fileType: 'xlsx',
+  },
 }
 
 const _getFilepath = (type: Type, lang: string) =>

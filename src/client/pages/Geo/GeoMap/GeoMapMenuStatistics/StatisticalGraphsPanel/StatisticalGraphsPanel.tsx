@@ -1,6 +1,7 @@
 import './StatisticalGraphsPanel.scss'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
+import { Numbers } from '@utils/numbers'
 import { ChartOptions, Plugin } from 'chart.js'
 import Chart from 'chart.js/auto'
 
@@ -66,6 +67,11 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
 
   const options = {
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: (value: any) => `${Numbers.format(value?.parsed?.y, 0)} ha`,
+        },
+      },
       title: {
         display: true,
         text: chartTitle,

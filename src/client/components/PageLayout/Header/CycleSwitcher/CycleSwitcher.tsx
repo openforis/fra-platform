@@ -7,7 +7,6 @@ import { Cycle } from '@meta/assessment'
 import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
 import Icon from '@client/components/Icon'
@@ -19,12 +18,11 @@ const CycleSwitcher = () => {
   const currentCycle = useCycle()
   const assessment = useAssessment()
   const user = useUser()
-  const isDataLocked = useIsDataLocked()
   const isDataExportView = useIsDataExportView()
 
   const assessmentName = assessment.props.name
   const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
-  const canSwitchCycle = (isDataLocked || isDataExportView) && userCycles.length > 1
+  const canSwitchCycle = isDataExportView || userCycles.length > 1
 
   const onCycleChange = useCallback(
     (cycleName: string) => {

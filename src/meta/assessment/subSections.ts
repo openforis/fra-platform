@@ -25,9 +25,10 @@ const getPrevious = (props: { subSection: SubSection; sections: Array<Section> }
   const sectionIsFirstOfParent = subSection.props.index === 0
   const parentIndex = sections.findIndex((s) => s.id === subSection.parentId)
   if (sectionIsFirstOfParent) {
-    return sections[parentIndex - 1].subSections[sections[parentIndex - 1].subSections.length - 1]
+    return sections[parentIndex - 1]?.subSections?.[sections[parentIndex - 1].subSections.length - 1]
   }
-  return sections[parentIndex].subSections[subSection.props.index - 1]
+  const ssIndex = sections[parentIndex].subSections.findIndex((ss) => ss.id === subSection.id)
+  return sections[parentIndex].subSections[ssIndex - 1]
 }
 
 export const SubSections = {

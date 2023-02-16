@@ -158,7 +158,7 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
   return hasCorrectRole && (!validEmail(user) || missingUserProperties || missingRoleProperties)
 }
 
-const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ')
+const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
 
 export const Users = {
   getRole,

@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react'
+import { batch } from 'react-redux'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName, Table, TableNames } from '@meta/assessment'
@@ -50,16 +51,26 @@ const useTableNames = (props: Props): Array<string> => {
 
 export const useGetTableData = (props: Props) => {
   const { assessmentName, countryIso, cycleName, table } = props
-  const { odp } = table.props
+  const { name: tableName, odp } = table.props
 
   const dispatch = useAppDispatch()
   const tableNames = useTableNames(props)
 
   useEffect(() => {
-    dispatch(AssessmentSectionActions.getTableData({ assessmentName, countryIso, cycleName, tableNames }))
-
-    if (odp) {
-      dispatch(AssessmentSectionActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
-    }
-  }, [assessmentName, countryIso, cycleName, dispatch, odp, tableNames])
+    batch(() => {
+      tableNames.forEach((_tableName) => {
+        const isTableProps = _tableName === tableName
+        // merge odp is true when table 1a and 1b are included as dependency
+        const mergeOdp = !(
+          isTableProps &&
+          [TableNames.extentOfForest, TableNames.forestCharacteristics].includes(_tableName as TableNames)
+        )
+        const getTableDataProps = { assessmentName, countryIso, cycleName, tableNames: [_tableName], mergeOdp }
+        dispatch(AssessmentSectionActions.getTableData(getTableDataProps))
+      })
+      if (odp) {
+        dispatch(AssessmentSectionActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
+      }
+    })
+  }, [assessmentName, countryIso, cycleName, dispatch, odp, tableName, tableNames])
 }
