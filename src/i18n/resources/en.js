@@ -1046,6 +1046,7 @@ The FRA team
     columnEmpty: "Column '$t({{columName}})' must have a value",
     forestSumAreaExceedsExtentOfForest:
       'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
+    valueEqualToSum: 'Total value should be equal to sum of subcategories',
   },
 
   emoji: {

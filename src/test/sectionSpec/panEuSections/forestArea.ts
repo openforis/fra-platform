@@ -47,6 +47,12 @@ export const forestArea = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2025'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2025'],
+                  table_1_1b.mixed_forest['forest_area_2025']])`,
+                ],
               },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2025 },
@@ -66,6 +72,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2020'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2020'],
+                  table_1_1b.mixed_forest['forest_area_2020']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2020 },
               variableExport: 'forest_2020',
@@ -85,6 +99,14 @@ export const forestArea = {
                 { idx: 0, type: 'decimal' },
               ],
               labelKey: 'panEuropean.forestArea.forest',
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2015'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2015'],
+                  table_1_1b.mixed_forest['forest_area_2015']])`,
+                ],
+              },
               labelParams: { year: 2015 },
               variableExport: 'forest_2015',
             },
@@ -103,6 +125,14 @@ export const forestArea = {
                 { idx: 0, type: 'decimal' },
               ],
               labelKey: 'panEuropean.forestArea.forest',
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2010'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2010'],
+                  table_1_1b.mixed_forest['forest_area_2010']])`,
+                ],
+              },
               labelParams: { year: 2010 },
               variableExport: 'forest_2010',
             },
@@ -120,6 +150,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2005'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2005'],
+                  table_1_1b.mixed_forest['forest_area_2005']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2005 },
               variableExport: 'forest_2005',
@@ -138,6 +176,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2000'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2000'],
+                  table_1_1b.mixed_forest['forest_area_2000']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2000 },
               variableExport: 'forest_2000',
@@ -156,6 +202,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_1990'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_1990'],
+                  table_1_1b.mixed_forest['forest_area_1990']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
