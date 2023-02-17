@@ -40,11 +40,14 @@ export const useCalculations = (props: { table: Table }): void => {
   useEffect(() => {
     const unsubscribe = dispatch(
       addAppListener({
-        matcher: isAnyOf(AssessmentSectionActions.updateNodeValues.pending),
-        effect: ({ meta }, { getState }) => {
+        matcher: isAnyOf(
+          AssessmentSectionActions.updateNodeValues.pending,
+          AssessmentSectionActions.postEstimate.fulfilled
+        ),
+        effect: ({ meta, payload }, { getState }) => {
           const state = getState()
           const { data } = state.ui.assessmentSection
-          const changedVariables = meta.arg.values
+          const changedVariables = meta.arg.values ?? payload
           const nodes: Array<NodeUpdate> = []
 
           // for each changed variable...
