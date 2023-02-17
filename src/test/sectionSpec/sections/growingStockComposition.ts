@@ -1618,8 +1618,8 @@ export const growingStockComposition: SectionSpec = {
                 },
                 {
                   idx: 3,
-                  type: 'placeholder',
-                  colName: '',
+                  type: 'calculated',
+                  colName: 'growingStockPercent',
                 },
               ],
               mainCategory: true,
