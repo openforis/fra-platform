@@ -28,6 +28,8 @@ const tableMappings: Record<string, Array<string>> = {
   ],
 }
 
+const colMapping = [1990, 2000, 2010, 2015, 2020, 2025]
+
 const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => {
   const { tableRef, table } = props
   const user = useUser()
@@ -40,11 +42,15 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
     if (!_table) return
     const csv = getData(_table)
     const include = tableMappings[table.props.name].map((variableLabel) => t(variableLabel))
+    // A list of indexes of the table columns that should be copied to clipboard
+    const correctIndexes = colMapping.map((year) => csv[1].indexOf(year.toString()))
     const z = csv
       .filter((row: string) => {
         return include.some((translatedVariable) => row[0].includes(translatedVariable))
       })
-      .map(([_, ...row]: string[]) => row)
+      .map((row: string[]) => {
+        return row.filter((_, i) => correctIndexes.includes(i))
+      })
 
     navigator.clipboard.writeText(z.map((row: Array<string>) => row.join('\t')).join('\n'))
   }, [t, table.props.name, tableRef])
