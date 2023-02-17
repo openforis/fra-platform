@@ -27,12 +27,11 @@ const TitleField: React.FC<Props> = (props) => {
 
   const valid = validator?.({ [name]: value }) ?? true
 
-  const [title, setTitle] = useState(['Ms', 'Mr'].includes(value) ? value : 'Other')
-  const [otherTitle, setOtherTitle] = useState(['Ms', 'Mr'].includes(value) ? '' : value)
+  const [title, setTitle] = useState(value)
 
   useOnUpdate(() => {
-    onChange(name, title === 'Other' ? otherTitle : title)
-  }, [title, otherTitle])
+    onChange(name, title)
+  }, [title])
 
   return (
     <div className="edit-user__form-item" key={name}>
@@ -49,22 +48,15 @@ const TitleField: React.FC<Props> = (props) => {
           value={title}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setTitle(e.target.value)
-            setOtherTitle('')
           }}
         >
+          <option value="">{t('userManagement.placeholder')}</option>
           {Object.entries(options).map(([k, v]) => (
             <option key={k} value={k}>
               {v}
             </option>
           ))}
         </select>
-
-        <input
-          type="text"
-          value={otherTitle}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOtherTitle(e.target.value)}
-          disabled={!enabled || title !== 'Other'}
-        />
       </div>
     </div>
   )
