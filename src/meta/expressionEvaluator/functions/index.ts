@@ -15,6 +15,7 @@ import { validatorIsYear } from './validatorIsYear'
 import { validatorNextCountryReportYear } from './validatorNextCountryReportYear'
 import { validatorNotGreaterThan } from './validatorNotGreaterThan'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
+import { validatorNotGreaterThanLandArea } from './validatorNotGreaterThanLandArea'
 import { validatorOtherLand } from './validatorOtherLand'
 import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTreeCoverTotal'
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
@@ -51,4 +52,5 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorSumNotGreaterThanForest,
   validatorForestAreaComparedTo2020,
   validatorEqualToSum,
+  validatorNotGreaterThanLandArea,
 ]
