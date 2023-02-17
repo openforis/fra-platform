@@ -91,9 +91,6 @@ export const extentOfForest: SectionSpec = {
                   '2020': [
                     `validatorForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)`,
                   ],
-                  '2025': [
-                    `validatorForestAreaComparedTo2020(extentOfForest.forestArea['2020'], extentOfForest.forestArea)`,
-                  ],
                 },
               },
             },
