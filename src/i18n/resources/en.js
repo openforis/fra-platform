@@ -1032,7 +1032,7 @@ The FRA team
     valueMustBePositive: 'Value should be greater than zero',
     valueMustBeYear: 'Value should be a valid year',
     emptyField: 'This field is empty',
-    mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
+    mustBeEqualToTotalGrowingStock: 'The summed value should be equal to the Total Forest',
     countryReportYearGreaterThanCurrentYear: 'Value should be greater or equal than {{minValue}}',
     valueNotGreaterThan: 'Value should be not greater than {{maxValue}}',
     sumNotGreaterThan: 'Sum should not exceed {{maxValue}}',
