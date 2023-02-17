@@ -282,7 +282,7 @@ export const areaAffectedByFire: SectionSpec = {
               variableExport: 'total_land_area_affected_by_fire',
               migration: {
                 validateFns: [
-                  `validatorNotGreaterThanForest(extentOfForest.forestArea, areaAffectedByFire.total_land_area_affected_by_fire)`,
+                  `validatorNotGreaterThanLandArea(extentOfForest.totalLandArea, areaAffectedByFire.total_land_area_affected_by_fire)`,
                 ],
               },
             },
@@ -375,7 +375,7 @@ export const areaAffectedByFire: SectionSpec = {
               subcategory: true,
               migration: {
                 validateFns: [
-                  `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, areaAffectedByFire.of_which_on_forest)`,
                 ],
                 categoryLevel: 1,
               },
