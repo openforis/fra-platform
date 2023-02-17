@@ -10,6 +10,7 @@ export enum TableNames {
   forestCharacteristics = 'forestCharacteristics',
   forestOwnership = 'forestOwnership',
   growingStockTotal = 'growingStockTotal',
+  'growingStockAvg' = 'growingStockAvg',
   // Used to append ODP data to tableData
   originalDataPointValue = 'originalDataPointValue',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
