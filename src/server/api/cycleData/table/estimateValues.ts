@@ -59,7 +59,7 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       })
     }
 
-    return Requests.sendOk(res)
+    return Requests.sendOk(res, nodes)
   } catch (e) {
     return Requests.sendErr(res, e)
   }
