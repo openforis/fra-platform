@@ -50,6 +50,7 @@ const _validForestPlantationIntroducedPercent = (nationalClass: ODPNationalClass
 // should be less than or equal to 100
 
 const _validPrimaryForest = (nationalClass: ODPNationalClass) => {
+  if (Objects.isEmpty(nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)) return true
   if (+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent <= 0) return true
   return ltE100(+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)
 }
