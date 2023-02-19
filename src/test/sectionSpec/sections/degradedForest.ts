@@ -376,11 +376,6 @@ export const degradedForest: SectionSpec = {
               labelKey: 'fra.degradedForest.degradedAreaForThatYear',
               variableExport: 'degradedAreaForThatYear',
               variableName: 'degradedAreaForThatYear',
-              migration: {
-                validateFns: [
-                  `validatorTotalForest(extentOfForest.totalLandArea['2025'], degradedForestMonitoring2025.degradedAreaForThatYear)`,
-                ],
-              },
             },
           ],
           tableDataRequired: [],
