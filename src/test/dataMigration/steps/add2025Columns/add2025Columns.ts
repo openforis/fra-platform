@@ -14,7 +14,7 @@ const tablesNewColumns: Record<string, Array<string>> = {
   // 'climaticDomain',
   // forestCharacteristics: ['2025'],
   specificForestCategories: ['2025'],
-  // forestAreaChange: ['2020-2025'],
+  forestAreaChange: ['2020-2025'],
   annualReforestation: ['2020-2025'],
   otherLandWithTreeCover: ['2025'],
   // growingStockAvg: ['2025'],

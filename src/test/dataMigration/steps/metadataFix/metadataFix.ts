@@ -22,7 +22,8 @@ export const metadataFix = async (props: Props, client: BaseProtocol): Promise<v
                      left join ${schema}."table" t
                                on r.table_id = t.id
             where (
-                    (t.props ->> 'name' = 'otherLandWithTreeCover' and
+                    (t.props ->> 'name' = 'forestAreaChange' and r.props ->> 'variableName' in ('forestAreaNetChange'))
+                    or (t.props ->> 'name' = 'otherLandWithTreeCover' and
                         r.props ->> 'variableName' in ('otherLandWithTreeCoverTotal', 'otherLand'))
                     or (t.props ->> 'name' = 'forestOwnership' and
                         r.props ->> 'variableName' in ('other_or_unknown', 'totalForestArea'))
@@ -32,6 +33,24 @@ export const metadataFix = async (props: Props, client: BaseProtocol): Promise<v
                         r.props ->> 'variableName' in ('total', 'totalForestArea'))
                 )
               and c.props ->> 'colType' = 'decimal') as d
+      where id = d.col_id;
+
+-- forestAreaChange
+      update ${schema}.col
+      set props = jsonb_set(
+              props,
+              '{calculateFn}',
+              '"(extentOfForest.forestArea[''2025''] - extentOfForest.forestArea[''2020'']) / 5"'
+          )
+      from (select c.id as col_id
+            from ${schema}.col c
+                     left join ${schema}.row r
+                               on r.id = c.row_id
+                     left join ${schema}."table" t
+                               on r.table_id = t.id
+            where t.props ->> 'name' = 'forestAreaChange'
+              and r.props ->> 'variableName' in ('forestAreaNetChange')
+              and c.props ->> 'colName' = '2020-2025') as d
       where id = d.col_id;
 
 -- nonWoodForestProductsRemovals
