@@ -21,7 +21,7 @@ export const updateCalculationDependencies = async (
     { assessment, cycle, variableName, tableName, colName, countryIso, isODP, type: 'calculations' },
     client
   )
-  const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
+  const visitedVariables: Array<VariableCache> = []
 
   // Don't include ODP data when calculating dependants of ODP cell
   const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
@@ -73,23 +73,22 @@ export const updateCalculationDependencies = async (
           )
         }
       } else {
-        // eslint-disable-next-line no-await-in-loop
-        await Promise.all(
-          row.cols.map(async (col) => {
-            if (col.props.calculateFn?.[cycle.uuid]) {
-              await calculateNode(
-                {
-                  ...evaluateProps,
-                  mergeOdp,
-                  colName: col.props.colName,
-                  formula: col.props.calculateFn[cycle.uuid],
-                  nodeUpdates,
-                },
-                client
-              )
-            }
-          })
-        )
+        for (let i = 0; i < row.cols.length; i += 1) {
+          const col = row.cols[i]
+          if (col.props.calculateFn?.[cycle.uuid]) {
+            // eslint-disable-next-line no-await-in-loop
+            await calculateNode(
+              {
+                ...evaluateProps,
+                mergeOdp,
+                colName: col.props.colName,
+                formula: col.props.calculateFn[cycle.uuid],
+                nodeUpdates,
+              },
+              client
+            )
+          }
+        }
       }
       // eslint-disable-next-line no-await-in-loop
       const calculationDependants = await getDependants(
