@@ -73,22 +73,23 @@ export const updateCalculationDependencies = async (
           )
         }
       } else {
-        for (let i = 0; i < row.cols.length; i += 1) {
-          const col = row.cols[i]
-          if (col.props.calculateFn?.[cycle.uuid]) {
-            // eslint-disable-next-line no-await-in-loop
-            await calculateNode(
-              {
-                ...evaluateProps,
-                mergeOdp,
-                colName: col.props.colName,
-                formula: col.props.calculateFn[cycle.uuid],
-                nodeUpdates,
-              },
-              client
-            )
-          }
-        }
+        // eslint-disable-next-line no-await-in-loop
+        await Promise.all(
+          row.cols.map(async (col) => {
+            if (col.props.calculateFn?.[cycle.uuid]) {
+              await calculateNode(
+                {
+                  ...evaluateProps,
+                  mergeOdp,
+                  colName: col.props.colName,
+                  formula: col.props.calculateFn[cycle.uuid],
+                  nodeUpdates,
+                },
+                client
+              )
+            }
+          })
+        )
       }
       // eslint-disable-next-line no-await-in-loop
       const calculationDependants = await getDependants(
