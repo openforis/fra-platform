@@ -23,9 +23,10 @@ export const useUserRedirect = (): void => {
 
     if (shouldRedirectToProfile) {
       navigate(
-        `${ClientRoutes.Assessment.Cycle.Users.User.getLink({
+        `${ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
+          countryIso,
           id: user.id,
         })}`,
         {

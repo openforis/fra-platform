@@ -188,6 +188,7 @@ export const degradedForest: SectionSpec = {
                     { optionName: 'lossOfCarbonBiomassAndGrowingStock' },
                     { optionName: 'lossOfBiologicalDiversity' },
                     { optionName: 'soilDamageErosion' },
+                    { optionName: 'other' },
                   ],
                   optionsLabelKeyPrefix: 'fra.degradedForest',
                   colName: 'criteriaOfDegradedForest',
@@ -282,6 +283,7 @@ export const degradedForest: SectionSpec = {
                     { optionName: 'productionHarvestData' },
                     { optionName: 'forestManagementPlanReport' },
                     { optionName: 'underDevelopment' },
+                    { optionName: 'other' },
                   ],
                   optionsLabelKeyPrefix: 'fra.degradedForest',
                   colName: 'mainMethods',
@@ -374,11 +376,6 @@ export const degradedForest: SectionSpec = {
               labelKey: 'fra.degradedForest.degradedAreaForThatYear',
               variableExport: 'degradedAreaForThatYear',
               variableName: 'degradedAreaForThatYear',
-              migration: {
-                validateFns: [
-                  `validatorTotalForest(extentOfForest.totalLandArea['2025'], degradedForestMonitoring2025.degradedAreaForThatYear)`,
-                ],
-              },
             },
           ],
           tableDataRequired: [],

@@ -26,9 +26,7 @@ export const loginSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(localLogin.fulfilled, () => initialState)
 
-    builder.addCase(acceptInvitation.fulfilled, (state, { payload }) => {
-      state.invitation = { ...payload }
-    })
+    builder.addCase(acceptInvitation.fulfilled, () => initialState)
 
     builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {
       const { assessment, user, userRole, userProviders } = payload

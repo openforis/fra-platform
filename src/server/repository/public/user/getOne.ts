@@ -1,15 +1,16 @@
 import { Objects } from '@utils/objects'
 
-import { CollaboratorProps, User } from '@meta/user'
+import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
+import { UserRoleAdapter } from '@server/repository/adapter'
 
 import { fields } from './fields'
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getOne = async (
-  props: ({ id: number } | { email: string } | { emailGoogle: string }) & { cycleUuid?: string },
+  props: ({ id: number } | { uuid: string } | { email: string } | { emailGoogle: string }) & { cycleUuid?: string },
   client: BaseProtocol = DB
 ): Promise<User> => {
   const where = []
@@ -19,6 +20,9 @@ export const getOne = async (
   if ('id' in props) {
     where.push('u.id = $1')
     values.push(String(props.id))
+  } else if ('uuid' in props) {
+    where.push('u.uuid = $1')
+    values.push(String(props.uuid))
   } else if ('email' in props) {
     where.push('lower(trim(u.email)) = trim(lower($1))')
     values.push(props.email)
@@ -54,13 +58,7 @@ export const getOne = async (
       if (!data) return null
       return {
         ...Objects.camelize(data),
-        roles:
-          data.roles[0] !== null
-            ? data.roles.map(({ props, ...role }) => ({
-                ...Objects.camelize(role),
-                props: { ...Objects.camelize(props), sections: (props as CollaboratorProps).sections },
-              }))
-            : [],
+        roles: (data.roles[0] !== null ? data.roles : []).map(UserRoleAdapter),
       }
     })
 }

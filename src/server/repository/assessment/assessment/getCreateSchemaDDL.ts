@@ -227,6 +227,17 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           value      jsonb default '{}'::jsonb not null,
           constraint table_name_pk_2 unique (country_iso, section_name, name)
       );
+      
+      create table ${assessmentCycleSchemaName}.node_ext
+      (
+          country_iso varchar(3) references country(country_iso) not null,
+          table_name varchar(255) not null,
+          variable_name varchar(255) not null,
+          col_name varchar(255) not null,
+          value jsonb default '{}'::jsonb,
+          created_at timestamp with time zone default now(),
+          updated_at timestamp with time zone default now()
+      );
   `
 }
 
@@ -306,7 +317,10 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                               coalesce(rv.other_planted_forest_area)
                      else null
                      end as total
-          from raw_values rv)
+          from raw_values rv),
+      total_land_area as (
+        select * from ${assessmentCycleSchemaName}.node_ext where variable_name = 'totalLandArea' and table_name = 'extentOfForest'
+      )
       select rv.country_iso,
              rv.year,
              rv.forest_area,
@@ -317,10 +331,10 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
              rv.other_planted_forest_area,
              rv.planted_forest,
              rv.total,
-             (e.data -> 'totalLandArea' ->> 'raw')::double precision                                         as total_land_area,
+             tla.value ->> 'raw' as total_land_area,
              case
                  when rv.forest_area is not null or rv.other_wooded_land is not null then
-                         (e.data -> 'totalLandArea' ->> 'raw')::double precision - coalesce(rv.forest_area, 0)::double precision -
+                         (tla.value ->> 'raw')::double precision - coalesce(rv.forest_area, 0)::double precision -
                          coalesce(rv.other_wooded_land, 0)::double precision
                  else null
                  end                                                               as other_land,
@@ -331,9 +345,9 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                  end                                                               as total_forest_area,
              rv.primary_forest
       from raw_values_2 rv
-               left join extentofforest e
-                         on e.country_iso = rv.country_iso
-                             and e.col_name = rv.year::text
+               left join total_land_area tla
+                         on tla.country_iso = rv.country_iso
+                             and tla.col_name = rv.year::text
       ;
   `
 }

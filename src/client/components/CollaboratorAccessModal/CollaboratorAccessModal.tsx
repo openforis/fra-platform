@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { SubSections } from '@meta/assessment'
-import { CollaboratorEditPropertyType, CollaboratorProps, RoleName, UserRole } from '@meta/user'
+import { Collaborator, CollaboratorEditPropertyType } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
@@ -17,7 +17,7 @@ import { useActions } from './hooks/useActions'
 type Props = {
   onClose: () => void
   open: boolean
-  userRole: UserRole<RoleName, CollaboratorProps>
+  userRole: Collaborator
 }
 
 const permissionTypes = [CollaboratorEditPropertyType.tableData, CollaboratorEditPropertyType.descriptions]

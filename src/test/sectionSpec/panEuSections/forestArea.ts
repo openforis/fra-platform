@@ -47,6 +47,12 @@ export const forestArea = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2025'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2025'],
+                  table_1_1b.mixed_forest['forest_area_2025']])`,
+                ],
               },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2025 },
@@ -66,6 +72,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2020'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2020'],
+                  table_1_1b.mixed_forest['forest_area_2020']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2020 },
               variableExport: 'forest_2020',
@@ -85,6 +99,14 @@ export const forestArea = {
                 { idx: 0, type: 'decimal' },
               ],
               labelKey: 'panEuropean.forestArea.forest',
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2015'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2015'],
+                  table_1_1b.mixed_forest['forest_area_2015']])`,
+                ],
+              },
               labelParams: { year: 2015 },
               variableExport: 'forest_2015',
             },
@@ -103,6 +125,14 @@ export const forestArea = {
                 { idx: 0, type: 'decimal' },
               ],
               labelKey: 'panEuropean.forestArea.forest',
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2010'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2010'],
+                  table_1_1b.mixed_forest['forest_area_2010']])`,
+                ],
+              },
               labelParams: { year: 2010 },
               variableExport: 'forest_2010',
             },
@@ -120,6 +150,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2005'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2005'],
+                  table_1_1b.mixed_forest['forest_area_2005']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2005 },
               variableExport: 'forest_2005',
@@ -138,6 +176,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2000'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2000'],
+                  table_1_1b.mixed_forest['forest_area_2000']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 2000 },
               variableExport: 'forest_2000',
@@ -156,6 +202,14 @@ export const forestArea = {
                 },
                 { idx: 0, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_1990'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_1990'],
+                  table_1_1b.mixed_forest['forest_area_1990']])`,
+                ],
+              },
               labelKey: 'panEuropean.forestArea.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
@@ -841,6 +895,7 @@ export const forestArea = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.forestAreaByForestType',
       tableSpecs: [
         {
           name: 'table_1_1b',
@@ -1046,6 +1101,7 @@ export const forestArea = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_1_1_1',
@@ -1181,14 +1237,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
                   labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1196,14 +1252,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.christmasTreePlantationsOnForestLand',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1211,14 +1267,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.poplarPlantationsOnForestLand',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1226,14 +1282,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.shortRotationForestry',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1241,14 +1297,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.shortRotationCoppicesOnForestLand',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1256,14 +1312,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.OfWhichNotAvailableForWoodSupply',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1271,14 +1327,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.environmentalRestrictions',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1286,14 +1342,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.protectedForests',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1301,14 +1357,15 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey:
+                    'panEuropean.countryComments.productiveForestsDesignatedToProtectKeyHabitatsSpeciesOrOtherNaturalValues',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1316,14 +1373,15 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey:
+                    'panEuropean.countryComments.protectiveForestsSoilWaterAndOtherEcosystemFunctionsInfrastructureAndManagedNaturalResources',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1331,14 +1389,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.socialRestrictions',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1346,14 +1404,15 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey:
+                    'panEuropean.countryComments.forestsDesignatedToProtectAestheticHistoricalCulturalOrSpiritualValues',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1361,14 +1420,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.forestsManagedForRecreationalPurposes',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1376,14 +1435,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.forestsExcludedFromHarvestingByOwnerSDecision',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1391,14 +1450,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.militaryForests',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1406,14 +1465,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.economicRestrictions',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1421,14 +1480,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.forestsOfVeryLowProductivityEconomicRevenueOfHarvesting',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 'idx', type: 'decimal' },
+                { idx: 'idx', type: 'decimal' },
               ],
             },
             {
@@ -1436,14 +1495,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.forestsPhysicallyNotAccessibleIncludingSlopeAndSoilCondition',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1451,14 +1510,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.otherPleaseSpecify',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1466,14 +1525,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.otherWoodedLand',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1481,14 +1540,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.alpineShrublandEGPinusMugo',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1496,14 +1555,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.otherShrublandEGMaquisGarrigueMatorral',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1511,14 +1570,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.otherPleaseSpecify',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1526,14 +1585,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.otherLandWithTreeCover',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1541,14 +1600,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.agroForestrySilvoPastoralAreasEGForRearingIberianBlackPig',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1556,14 +1615,15 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey:
+                    'panEuropean.countryComments.plantationsOfNutProducingTreesOrShrubsEGSweetChestnutsAlmondsWalnutsHazelnuts',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1571,14 +1631,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.oliveGrovesAndFruitTreeOrchards',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 'idx', type: 'decimal' },
+                { idx: 'idx', type: 'decimal' },
               ],
             },
             {
@@ -1586,14 +1646,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.poplarPlantationsOnAgriculturalLand',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1601,14 +1661,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.treesInUrbanSettings',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1616,14 +1676,14 @@ export const forestArea = {
               type: 'data',
               cols: [
                 {
-                  idx: 'header_0',
+                  idx: 0,
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
-                  className: 'fra-table__header-cell',
+                  labelKey: 'panEuropean.countryComments.shortRotationCoppicesOnAgriculturalLand',
+                  className: 'fra-table__header-cell-left',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
             {
@@ -1633,12 +1693,12 @@ export const forestArea = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest',
+                  labelKey: 'panEuropean.countryComments.christmasTreePlantationsOnAgriculturalLand',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 1, type: 'textarea' },
+                { idx: 2, type: 'textarea' },
               ],
             },
           ],

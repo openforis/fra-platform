@@ -168,7 +168,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#1',
-              variableName: 'product1',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_1['product_name'], nonWoodForestProductsRemovals.product_1['category'])`,
+                ],
+              },
             },
             {
               idx: 1,
@@ -266,6 +270,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#2',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_2['product_name'], nonWoodForestProductsRemovals.product_2['category'])`,
+                ],
+              },
             },
             {
               idx: 2,
@@ -363,6 +372,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#3',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_3['product_name'], nonWoodForestProductsRemovals.product_3['category'])`,
+                ],
+              },
             },
             {
               idx: 3,
@@ -460,6 +474,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#4',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_4['product_name'], nonWoodForestProductsRemovals.product_4['category'])`,
+                ],
+              },
             },
             {
               idx: 4,
@@ -557,6 +576,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#5',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_5['product_name'], nonWoodForestProductsRemovals.product_5['category'])`,
+                ],
+              },
             },
             {
               idx: 5,
@@ -654,6 +678,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#6',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_6['product_name'], nonWoodForestProductsRemovals.product_6['category'])`,
+                ],
+              },
             },
             {
               idx: 6,
@@ -751,6 +780,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#7',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_7['product_name'], nonWoodForestProductsRemovals.product_7['category'])`,
+                ],
+              },
             },
             {
               idx: 7,
@@ -848,6 +882,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#8',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_8['product_name'], nonWoodForestProductsRemovals.product_8['category'])`,
+                ],
+              },
             },
             {
               idx: 8,
@@ -945,6 +984,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#9',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_9['product_name'], nonWoodForestProductsRemovals.product_9['category'])`,
+                ],
+              },
             },
             {
               idx: 9,
@@ -1042,6 +1086,11 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
               ],
               label: '#10',
+              migration: {
+                validateFns: [
+                  `NWFPProductHasCategory(nonWoodForestProductsRemovals.product_10['product_name'], nonWoodForestProductsRemovals.product_10['category'])`,
+                ],
+              },
             },
             {
               idx: 10,
@@ -1127,12 +1176,12 @@ export const nonWoodForestProductsRemovals: SectionSpec = {
                 },
                 colNames: ['value'],
                 calcFormula: `(
-                 nonWoodForestProductsRemovals.product1 || nonWoodForestProductsRemovals.product_2 || nonWoodForestProductsRemovals.product_3 
+                 nonWoodForestProductsRemovals.product_1 || nonWoodForestProductsRemovals.product_2 || nonWoodForestProductsRemovals.product_3 
                  || nonWoodForestProductsRemovals.product_4 || nonWoodForestProductsRemovals.product_5 || nonWoodForestProductsRemovals.product_6 
                  || nonWoodForestProductsRemovals.product_7 || nonWoodForestProductsRemovals.product_8 || nonWoodForestProductsRemovals.product_9
                  || nonWoodForestProductsRemovals.product_10 || nonWoodForestProductsRemovals.all_other_plant_products || nonWoodForestProductsRemovals.all_other_animal_products
                  ) ? (
-                  (nonWoodForestProductsRemovals.product1 || 0) + (nonWoodForestProductsRemovals.product_2 || 0) + (nonWoodForestProductsRemovals.product_3 || 0)
+                  (nonWoodForestProductsRemovals.product_1 || 0) + (nonWoodForestProductsRemovals.product_2 || 0) + (nonWoodForestProductsRemovals.product_3 || 0)
                   + (nonWoodForestProductsRemovals.product_4 || 0) + (nonWoodForestProductsRemovals.product_5 || 0) + (nonWoodForestProductsRemovals.product_6 || 0)
                   + (nonWoodForestProductsRemovals.product_7 || 0) + (nonWoodForestProductsRemovals.product_8 || 0) + (nonWoodForestProductsRemovals.product_9 || 0)
                   + (nonWoodForestProductsRemovals.product_10 || 0) + (nonWoodForestProductsRemovals.all_other_plant_products || 0) + (nonWoodForestProductsRemovals.all_other_animal_products || 0)

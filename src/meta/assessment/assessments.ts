@@ -1,4 +1,4 @@
-import { Country, CountryIso } from '@meta/area'
+import { Areas, Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 
 import { User, Users } from '../user'
@@ -16,14 +16,9 @@ export const AssessmentStatusTransitions = {
     user: User
     cycle: Cycle
   }): AssessmentStatusTransition => {
-    const {
-      country: {
-        props: { status },
-      },
-      countryIso,
-      cycle,
-      user,
-    } = props
+    const { country, countryIso, cycle, user } = props
+
+    const status = Areas.getStatus(country)
 
     // collaborator cannot change the status of the assessment
     if (!user || Users.isCollaborator(user, countryIso, cycle)) return {}
@@ -42,8 +37,8 @@ export const AssessmentStatusTransitions = {
       case AssessmentStatus.accepted:
         return Users.isAdministrator(user) ? { previous: AssessmentStatus.review } : {}
 
-      // System's in the middle of changing the state
-      case AssessmentStatus.changing:
+      case AssessmentStatus.notStarted: // No data has been entered
+      case AssessmentStatus.changing: // System's in the middle of changing the state
         return {}
 
       // in editing or default NationalCorrespondent and AlternateNationalCorrespondent can submit to review

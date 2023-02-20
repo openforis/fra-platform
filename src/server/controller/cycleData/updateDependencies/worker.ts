@@ -17,44 +17,46 @@ export default async (job: Job<UpdateDependenciesProps>) => {
 
     const { nodeUpdates, isODP, sectionName, user } = job.data
     const { assessment, cycle, countryIso, nodes } = nodeUpdates
-    const results = await DB.tx(async (client) =>
-      Promise.all(
-        nodes.map((node) => {
-          return updateNodeDependencies(
-            {
-              assessment,
-              colName: node.colName,
-              countryIso,
-              cycle,
-              isODP,
-              sourceNode: isODP ? undefined : node,
-              sectionName,
-              tableName: node.tableName,
-              user,
-              variableName: node.variableName,
-            },
-            client
-          )
-        })
-      )
-    )
+    const results: Array<{ nodeUpdates: NodeUpdates }> = []
 
-    const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
+    await DB.tx(async (client) => {
+      for (let i = 0; i < nodes.length; i += 1) {
+        const node = nodes[i]
+        // eslint-disable-next-line no-await-in-loop
+        const result = await updateNodeDependencies(
+          {
+            assessment,
+            colName: node.colName,
+            countryIso,
+            cycle,
+            isODP,
+            sourceNode: isODP ? undefined : node,
+            sectionName,
+            tableName: node.tableName,
+            user,
+            variableName: node.variableName,
+          },
+          client
+        )
+        results.push(result)
+      }
+    })
+
+    // const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
+    const result = results.reduce<{ nodeUpdates: NodeUpdates }>(
       (acc, item) => {
         acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
-        acc.validations.nodes.push(...item.validations.nodes)
+        // acc.validations.nodes.push(...item.validations.nodes)
         return acc
       },
       {
         nodeUpdates: { assessment, cycle, countryIso, nodes: [] },
-        validations: { assessment, cycle, countryIso, nodes: [] },
+        // validations: { assessment, cycle, countryIso, nodes: [] },
       }
     )
 
     Logger.debug(
-      `[updateDependenciesWorker] job in thread ended ${job.id} ${job.id} in ${
-        (new Date().getTime() - time) / 1000
-      } seconds. ${__dirname}`
+      `[updateDependenciesWorker] job-${job.id} in thread ended in ${(new Date().getTime() - time) / 1000} seconds.`
     )
 
     return Promise.resolve(result)

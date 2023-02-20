@@ -1,11 +1,10 @@
-import { ITask } from 'pg-promise'
-
 import { Col, ColType } from '../../../src/meta/assessment/col'
 import { Row, RowType } from '../../../src/meta/assessment/row'
 import { Table } from '../../../src/meta/assessment/table'
+import { BaseProtocol } from '../../../src/server/db'
 import { Objects } from '../../../src/utils'
 
-export const getRows = (client: ITask<any>, schema: string, table: Table): Promise<Array<Row>> =>
+export const getRows = (client: BaseProtocol, schema: string, table: Table): Promise<Array<Row>> =>
   client.map<Row>(
     `select *
      from ${schema}.row
@@ -19,12 +18,13 @@ export const getRows = (client: ITask<any>, schema: string, table: Table): Promi
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
           validateFns: row.props.validateFns,
+          chart: row.props.chart,
         },
       }
     }
   )
 
-export const getCols = (client: ITask<any>, schema: string, table: Table): Promise<Array<Col>> =>
+export const getCols = (client: BaseProtocol, schema: string, table: Table): Promise<Array<Col>> =>
   client.map<Col>(
     `select *
      from ${schema}.col c
@@ -51,6 +51,13 @@ export const isBasicTable = (tableName: string): boolean =>
   tableName &&
   tableName.trim() !== '' &&
   ![
+    'extentOfForest_forestAreaStatusAndTrend',
+    'extentOfForest_forestAreaStatusAndTrend_Description',
+    'biomassStock_biomassStockStatus',
+    'biomassStock_biomassStockStatus_Description',
+    'growingStock_growingStockStatus',
+    'growingStock_growingStockStatus_Description',
+
     'contactPersons',
     'extentOfForest',
     'forestCharacteristics',

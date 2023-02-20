@@ -17,11 +17,11 @@ import Icon from '@client/components/Icon'
 
 const links = [
   {
-    href: 'http://unfccc.int/parties_observers/parties/national_focal_points/items/9336.php',
+    href: 'https://unfccc.int/process/parties-non-party-stakeholders/parties/national-focal-point',
     key: 'unfcccFocalPoints',
   },
-  { href: '/api/landing/sdgFocalPoints', key: 'sdgFocalPoints' },
-  { href: 'http://www.slms4redd.org', key: 'reddPortal' },
+  { href: ApiEndPoint.File.sdgFocalPoints(), key: 'sdgFocalPoints' },
+  { href: 'https://slms4redd.github.io/', key: 'reddPortal' },
   { href: 'https://goo.gl/aYJmzd', key: 'fraGeoSpatialTools' },
 ]
 

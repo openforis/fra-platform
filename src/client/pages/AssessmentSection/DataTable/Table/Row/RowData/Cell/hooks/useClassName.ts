@@ -1,6 +1,6 @@
 import { Col, Cols, ColType, Row } from '@meta/assessment'
 
-import { useNodeValueValidation } from '@client/store/pages/assessmentSection'
+import { useNodeValueValidation } from '@client/store/ui/assessmentSection'
 
 type Props = {
   col: Col

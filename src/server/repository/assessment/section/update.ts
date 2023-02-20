@@ -1,8 +1,7 @@
-import { Objects } from '@utils/objects'
-
 import { Assessment, Section, SubSection } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
+import { SectionAdapter, SubSectionAdapter } from '@server/repository/adapter'
 
 export const update = async (
   params: {
@@ -20,7 +19,7 @@ export const update = async (
       set props = $1::jsonb
       where id = $2 returning *;`,
     [JSON.stringify(section.props), section.id],
-    Objects.camelize
+    SectionAdapter
   )
 }
 
@@ -45,6 +44,6 @@ export const updateSubSection = async (
       set ${updateParentSectionId}
       where id = ${section.id} returning *;`,
     [],
-    Objects.camelize
+    SubSectionAdapter
   )
 }

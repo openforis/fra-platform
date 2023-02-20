@@ -148,7 +148,14 @@ export const forestCharacteristics: SectionSpec = {
               variableNo: 'b',
               variableName: 'plantedForest',
               variableExport: 'planted_forest',
+              chartProps: {
+                labelKey: 'forestCharacteristics.plantedForest',
+                color: '#f58833',
+              },
               migration: {
+                chart: {
+                  cycles: ['2025'],
+                },
                 calcFormula: `(forestCharacteristics.plantationForestArea || forestCharacteristics.otherPlantedForestArea) 
       ? (forestCharacteristics.plantationForestArea || 0) + (forestCharacteristics.otherPlantedForestArea || 0) 
       : null`,
@@ -191,6 +198,9 @@ export const forestCharacteristics: SectionSpec = {
                 color: '#bf00af',
               },
               migration: {
+                chart: {
+                  cycles: ['2020'],
+                },
                 categoryLevel: 1,
               },
             },
@@ -264,6 +274,9 @@ export const forestCharacteristics: SectionSpec = {
                 color: '#f58833',
               },
               migration: {
+                chart: {
+                  cycles: ['2020'],
+                },
                 categoryLevel: 1,
               },
             },
@@ -402,7 +415,7 @@ export const forestCharacteristics: SectionSpec = {
                   idx: 1,
                   colSpan: null,
                   rowSpan: 1,
-                  labelKey: 'fra.area100HaYear',
+                  labelKey: 'fra.primaryForestByClimaticDomain.primaryForestArea100Ha',
                   className: 'fra-table__header-cell',
                   type: 'header',
                   migration: {

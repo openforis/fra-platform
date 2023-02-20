@@ -2,7 +2,7 @@ import { createI18nPromise } from '@i18n/i18nFactory'
 
 import { ClientRoutes } from '@meta/app'
 import { AssessmentName } from '@meta/assessment'
-import { User, UserResetPassword } from '@meta/user'
+import { User, UserResetPassword, Users } from '@meta/user'
 
 import { sendMail } from './mail'
 
@@ -21,7 +21,7 @@ export const resetPassword = async (props: {
     userResetPassword.uuid ? `?resetPasswordUuid=${userResetPassword.uuid}` : ''
   }`
 
-  const emailProps = { link, url, user: user.name }
+  const emailProps = { link, url, user: Users.getFullName(user) }
 
   const resetPasswordEmail = {
     to: user.email,

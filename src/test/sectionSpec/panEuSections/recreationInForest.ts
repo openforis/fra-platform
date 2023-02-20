@@ -240,6 +240,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.intensityOfUse',
       tableSpecs: [
         {
           name: 'table_6_10b',
@@ -384,6 +385,8 @@ export const accessibilityForRecreation = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.recreationFacilities',
+
       tableSpecs: [
         {
           name: 'table_6_10c',
@@ -490,6 +493,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.otherRecreationFacilities',
       tableSpecs: [
         {
           name: 'table_6_10d',
@@ -1033,6 +1037,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
+      titleKey: 'panEuropean.countryComments.countryComments',
       tableSpecs: [
         {
           name: 'country_comments_6_10_1',

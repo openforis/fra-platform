@@ -5,6 +5,7 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ClientRoutes } from '@meta/app'
+import { Areas } from '@meta/area'
 import { AssessmentName } from '@meta/assessment'
 import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
@@ -26,6 +27,7 @@ import { SocketClient } from '@client/service/socket'
 
 import AssessmentPrint from '../AssessmentPrint'
 import Geo from '../Geo'
+import User from '../User'
 import SectionWrapper from './SectionWrapper'
 
 const Country: React.FC = () => {
@@ -73,7 +75,7 @@ const Country: React.FC = () => {
   }, [countryIso, assessmentName, cycleName, user, dispatch])
 
   if (!countryIso) return null
-  if (!country) return null
+  if (Areas.isISOCountry(countryIso) && !country) return null
 
   if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
 
@@ -106,6 +108,8 @@ const Country: React.FC = () => {
             </SectionWrapper>
           }
         />
+
+        <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} />
 
         <Route path="*" element={<Navigate to="home" replace />} />
       </Routes>

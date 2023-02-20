@@ -52,8 +52,10 @@ export const migrate = async (props: {
   cycleNames: Array<string>
   spec: Record<string, SectionSpec>
 }): Promise<void> => {
+  const startTime = new Date()
+  const hhmmss = startTime.toLocaleTimeString('en-GB', { hour12: false })
   // eslint-disable-next-line no-console
-  console.log('========== START ', new Date().getTime())
+  console.log('========== START ', hhmmss)
   const { assessmentName, assessmentLegacy, cycleNames, spec } = props
 
   // delete old assessment
@@ -71,64 +73,69 @@ export const migrate = async (props: {
     [assessmentName]
   )
 
-  await DB.tx(async (client) => {
-    // insert assessment
-    const assessment = await client.one<Assessment>(
-      `insert into assessment (props)
+  const client = DB
+  // await DB.tx(async (client) => {
+  // insert assessment
+  const assessment = await client.one<Assessment>(
+    `insert into assessment (props)
        values ($1::jsonb)
        returning *;`,
-      [JSON.stringify({ name: assessmentName })]
+    [JSON.stringify({ name: assessmentName })]
+  )
+
+  // create schema
+  const schema = DBNames.getAssessmentSchema(assessment.props.name)
+  await DB.query(getCreateSchemaDDL(schema))
+  assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
+
+  // Set fra/2020 to published
+  const defaultCycle = assessment.cycles.find((c) => c.name === '2020')
+  await client.query('update public.assessment_cycle set published = true where id = $1', [defaultCycle.id])
+  await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
+    assessment.id,
+    {
+      ...assessment.props,
+      defaultCycle: defaultCycle.uuid,
+    },
+  ])
+
+  await migrateMetadata({ assessment, assessmentLegacy, spec, client })
+  await migrateRepository({ assessment, client })
+
+  await Promise.all(
+    cycleNames.map((cycleName, index: number) =>
+      migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
     )
+  )
 
-    // create schema
-    const schema = DBNames.getAssessmentSchema(assessment.props.name)
-    await DB.query(getCreateSchemaDDL(schema))
-    assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
+  await migrateUsers({ client })
+  await migrateUsersAuthProvider({ client })
+  await migrateUsersRole({ assessment, client })
+  await migrateUsersInvitation({ client })
+  await migrateUsersResetPassword({ client })
+  await Promise.all(
+    assessment.cycles.map(async (cycle) => {
+      await migrateTablesData({ assessment, cycle }, client)
+      await generateMetaCache({ assessment, cycle }, client)
+    })
+  )
+  await migrateOdps({ assessment }, client)
+  await migrateAggregates({ assessment }, client)
+  await migrateReview({ assessment }, client)
+  await migrateActivityLog({ assessment }, client)
 
-    // Set fra/2020 to published
-    const defaultCycle = assessment.cycles.find((c) => c.name === '2020')
-    await client.query('update public.assessment_cycle set published = true where id = $1', [defaultCycle.id])
-    await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
-      assessment.id,
-      {
-        ...assessment.props,
-        defaultCycle: defaultCycle.uuid,
-      },
-    ])
-
-    await migrateMetadata({ assessment, assessmentLegacy, spec, client })
-    await migrateRepository({ assessment, client })
-
-    await Promise.all(
-      cycleNames.map((cycleName, index: number) =>
-        migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
-      )
-    )
-
-    await migrateUsers({ client })
-    await migrateUsersAuthProvider({ client })
-    await migrateUsersRole({ assessment, client })
-    await migrateUsersInvitation({ client })
-    await migrateUsersResetPassword({ client })
-    await Promise.all(
-      assessment.cycles.map(async (cycle) => {
-        await migrateTablesData({ assessment, cycle }, client)
-        await generateMetaCache({ assessment, cycle }, client)
-      })
-    )
-    await migrateOdps({ assessment }, client)
-    await migrateAggregates({ assessment }, client)
-    await migrateReview({ assessment }, client)
-    await migrateActivityLog({ assessment }, client)
-
-    await client.query(
-      `delete
+  await client.query(
+    `delete
        from settings;
       insert into settings (default_assessment_id)
       values ($1)`,
-      [assessment.id]
-    )
-  })
+    [assessment.id]
+  )
+  const endTime = new Date()
+  const totalTime = endTime.getTime() - startTime.getTime()
+  // eslint-disable-next-line no-console
+  console.log('========== END ', endTime.toLocaleTimeString('en-GB', { hour12: false }), ' - ', totalTime / 1000, 's')
+  // })
 }
 
 const assessmentName = 'fra'

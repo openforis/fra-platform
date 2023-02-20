@@ -64,6 +64,7 @@ export const validateNodes = async (
             ...Objects.camelize(row.props),
             calculateFn: row.props.calculateFn,
             validateFns: row.props.validateFns,
+            chart: row.props.chart,
           },
         },
       }

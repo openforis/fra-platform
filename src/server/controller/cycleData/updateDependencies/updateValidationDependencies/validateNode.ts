@@ -1,9 +1,9 @@
 import { AssessmentMetaCaches, NodeValueValidation, NodeValueValidations, Row } from '@meta/assessment'
 import { TableData } from '@meta/data'
+import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
 import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
-import { ExpressionEvaluator } from '@server/controller/cycleData/updateDependencies/expressionEvaluator'
 import { BaseProtocol } from '@server/db'
 
 export const validateNode = async (

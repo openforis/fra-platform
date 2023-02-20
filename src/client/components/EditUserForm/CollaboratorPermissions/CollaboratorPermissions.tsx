@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from '@utils/objects'
 
 import { SubSections } from '@meta/assessment'
-import { CollaboratorProps, RoleName, UserRole } from '@meta/user'
+import { Collaborator, CollaboratorPermissions as CollabPermissions } from '@meta/user'
 
 import { useAssessmentSections, useCycle } from '@client/store/assessment'
 import CollaboratorAccessModal from '@client/components/CollaboratorAccessModal'
 
 type Props = {
-  userRole: UserRole<RoleName, CollaboratorProps>
+  userRole: Collaborator
 }
 
 const CollaboratorPermissions = (props: Props) => {
@@ -19,21 +19,6 @@ const CollaboratorPermissions = (props: Props) => {
   const { t } = useTranslation()
   const cycle = useCycle()
   const sections = useAssessmentSections()
-
-  const options = SubSections.getAnchorsByUuid({ cycle, sections })
-
-  const properties = (userRole.props as CollaboratorProps) || undefined
-  const sectionPermissions = Objects.isEmpty(properties) ? 'all' : properties.sections ?? 'none'
-
-  const tableDataPermissions = Object.entries(sectionPermissions)
-    .reduce((prev, [k, v]) => (v.tableData ? [...prev, options[k]] : prev), [])
-    .sort()
-    .join(', ')
-
-  const descriptionsPermissions = Object.entries(sectionPermissions)
-    .reduce((prev, [k, v]) => (v.descriptions ? [...prev, options[k]] : prev), [])
-    .sort()
-    .join(', ')
 
   const [modalOptions, setModalOptions] = useState<{ open: boolean }>({ open: false })
 
@@ -44,6 +29,24 @@ const CollaboratorPermissions = (props: Props) => {
   const _onEditPermissionsClose = () => {
     setModalOptions({ open: false })
   }
+
+  if (!sections) return null
+
+  const options = SubSections.getAnchorsByUuid({ cycle, sections })
+
+  const permissions = (userRole.permissions as CollabPermissions) || undefined
+
+  const sectionPermissions = Objects.isEmpty(permissions) ? 'all' : permissions.sections ?? 'none'
+
+  const tableDataPermissions = Object.entries(sectionPermissions)
+    .reduce((prev, [k, v]) => (v.tableData ? [...prev, options[k]] : prev), [])
+    .sort()
+    .join(', ')
+
+  const descriptionsPermissions = Object.entries(sectionPermissions)
+    .reduce((prev, [k, v]) => (v.descriptions ? [...prev, options[k]] : prev), [])
+    .sort()
+    .join(', ')
 
   return (
     <div className="edit-user__form-item edit-user__form-item-permissions">

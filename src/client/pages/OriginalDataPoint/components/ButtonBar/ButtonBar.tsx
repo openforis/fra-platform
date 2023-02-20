@@ -12,7 +12,7 @@ import {
   OriginalDataPointActions,
   useIsOriginalDataPointUpdating,
   useOriginalDataPoint,
-} from '@client/store/pages/originalDataPoint'
+} from '@client/store/ui/originalDataPoint'
 import { useCountryIso } from '@client/hooks'
 
 type Props = {

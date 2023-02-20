@@ -1,10 +1,9 @@
-import { ITask } from 'pg-promise'
-
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { Col } from '../../../src/meta/assessment/col'
 import { Cycle } from '../../../src/meta/assessment/cycle'
 import { RowType } from '../../../src/meta/assessment/row'
 import { Table } from '../../../src/meta/assessment/table'
+import { BaseProtocol } from '../../../src/server/db'
 import { DBNames } from '../_DBNames'
 import * as sqlCreator from '../dataTable/dataTableSqlCreator'
 import { getMapping } from '../dataTable/tableMappings'
@@ -18,7 +17,7 @@ export const _getNodeInsertsDegradedForest = async (
     countryISOs: Array<string>
     table: Table
   },
-  client: ITask<any>
+  client: BaseProtocol
 ): Promise<Array<NodeRow>> => {
   const { assessment, cycle, countryISOs, table } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)

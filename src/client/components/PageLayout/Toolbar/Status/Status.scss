@@ -26,6 +26,7 @@
     visibility: hidden;
   }
 
+  &.status-notStarted,
   &.status-changing,
   &.status-editing {
     background-color: $ui-status-editing;

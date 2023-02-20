@@ -1045,7 +1045,7 @@ export const sustainableDevelopment = {
                   migration: {
                     style: {
                       '2020': { colSpan: 8, rowSpan: 1 },
-                      '2025': { colSpan: 10, rowSpan: 1 },
+                      '2025': { colSpan: 9, rowSpan: 1 },
                     },
                   },
                 },
@@ -1059,23 +1059,12 @@ export const sustainableDevelopment = {
                   idx: 0,
                   colSpan: 1,
                   rowSpan: 1,
-                  label: '1990',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                  migration: {
-                    cycles: ['2025'],
-                  },
-                },
-                {
-                  idx: 1,
-                  colSpan: 1,
-                  rowSpan: 1,
                   label: '2000',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
                 {
-                  idx: 2,
+                  idx: 1,
                   colSpan: 1,
                   rowSpan: 1,
                   label: '2010',
@@ -1083,7 +1072,7 @@ export const sustainableDevelopment = {
                   type: 'header',
                 },
                 {
-                  idx: 3,
+                  idx: 2,
                   colSpan: 1,
                   rowSpan: 1,
                   label: '2015',
@@ -1091,7 +1080,7 @@ export const sustainableDevelopment = {
                   type: 'header',
                 },
                 {
-                  idx: 4,
+                  idx: 3,
                   colSpan: 1,
                   rowSpan: 1,
                   label: '2016',
@@ -1102,7 +1091,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 5,
+                  idx: 4,
                   colSpan: 1,
                   rowSpan: 1,
                   label: '2017',
@@ -1113,7 +1102,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 6,
+                  idx: 5,
                   colSpan: 1,
                   rowSpan: 1,
                   label: '2018',
@@ -1124,7 +1113,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 7,
+                  idx: 6,
                   colSpan: 1,
                   rowSpan: 1,
                   label: '2019',
@@ -1135,7 +1124,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 8,
+                  idx: 7,
                   colSpan: 1,
                   rowSpan: 1,
                   label: '2020',
@@ -1143,7 +1132,7 @@ export const sustainableDevelopment = {
                   type: 'header',
                 },
                 ...['2021', '2022', '2023', '2024', '2025'].map((label, idx) => ({
-                  idx: idx + 9,
+                  idx: idx + 8,
                   colSpan: 1,
                   rowSpan: 1,
                   label,
@@ -1171,16 +1160,6 @@ export const sustainableDevelopment = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: '1990',
-                  migration: {
-                    cycles: ['2025'],
-                    calculateFn:
-                      'forestAreaWithinProtectedAreas.forest_area_within_protected_areas / extentOfForest.forestArea["2015"] * 100',
-                  },
-                },
-                {
-                  idx: 1,
-                  type: 'calculated',
                   colName: '2000',
                   migration: {
                     calculateFn:
@@ -1188,7 +1167,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 2,
+                  idx: 1,
                   type: 'calculated',
                   colName: '2010',
                   migration: {
@@ -1197,7 +1176,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 3,
+                  idx: 2,
                   type: 'calculated',
                   colName: '2015',
                   migration: {
@@ -1206,7 +1185,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 4,
+                  idx: 3,
                   type: 'calculated',
                   colName: '2016',
                   migration: {
@@ -1216,7 +1195,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 5,
+                  idx: 4,
                   type: 'calculated',
                   colName: '2017',
                   migration: {
@@ -1226,7 +1205,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 6,
+                  idx: 5,
                   type: 'calculated',
                   colName: '2018',
                   migration: {
@@ -1236,7 +1215,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 7,
+                  idx: 6,
                   type: 'calculated',
                   colName: '2019',
                   migration: {
@@ -1246,7 +1225,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 {
-                  idx: 8,
+                  idx: 7,
                   type: 'calculated',
                   colName: '2020',
                   migration: {
@@ -1255,7 +1234,7 @@ export const sustainableDevelopment = {
                   },
                 },
                 ...['2021', '2022', '2023', '2024'].map((colName, idx) => ({
-                  idx: idx + 9,
+                  idx: idx + 8,
                   type: 'decimal',
                   colName,
                   migration: {
@@ -1264,7 +1243,7 @@ export const sustainableDevelopment = {
                   },
                 })),
                 {
-                  idx: 13,
+                  idx: 12,
                   type: 'calculated',
                   colName: '2025',
                   migration: {

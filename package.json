@@ -1,9 +1,9 @@
 {
   "license": "UNLICENSED",
-  "name": "frap",
+  "name": "fra-platform",
   "engines": {
     "node": "^18.12.1",
-    "yarn": ">=1.16.0"
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "migrate-fra": "run-s migrate-fra:migration migrate-fra:post-migration",
@@ -261,7 +261,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
