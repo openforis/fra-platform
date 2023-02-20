@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react'
 import { isAnyOf } from '@reduxjs/toolkit'
 import { Objects } from '@utils/objects'
 
-import { AssessmentMetaCaches, NodeValueValidation, RowType, Table, VariableCache } from '@meta/assessment'
+import { AssessmentMetaCaches, ColType, NodeValueValidation, RowType, Table, VariableCache } from '@meta/assessment'
 import { NodeUpdate, TableDatas } from '@meta/data'
 import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
@@ -51,55 +51,51 @@ export const useCalculations = (props: { table: Table }): void => {
           const nodes: Array<NodeUpdate> = []
 
           // for each changed variable...
-          changedVariables.forEach(
-            ({ colName: changedColName, variableName: changedVariableName }: Record<string, string>) => {
-              // ...get variables that depend on it...
-              const dependantsToCalculate = dependants[changedVariableName]
-              if (!dependantsToCalculate) return
+          changedVariables.forEach(({ variableName: changedVariableName }: Record<string, string>) => {
+            // ...get variables that depend on it...
+            const dependantsToCalculate = dependants[changedVariableName]
+            if (!dependantsToCalculate) return
 
-              // ...and loop through each of them and calculate
-              dependantsToCalculate.forEach(({ variableName: dependantVariableName }) => {
-                // dont calculate self
-                if (dependantVariableName === changedVariableName) return
+            // ...and loop through each of them and calculate
+            dependantsToCalculate.forEach(({ variableName: dependantVariableName }) => {
+              // find the variable row metadata
+              const row = rowsData.find((row) => row.props.variableName === dependantVariableName)
+              row.cols
+                .filter((col) => col.props.colType === ColType.calculated || col.props.calculateFn)
+                .forEach((col) => {
+                  const calculateFn = col.props.calculateFn?.[cycle.uuid] ?? row?.props.calculateFn?.[cycle.uuid]
 
-                // find the variable row metadata
-                const row = rowsData.find((row) => row.props.variableName === dependantVariableName)
-                // find the column metadata
-                const col = row?.cols.find((col) => col.props.colName === changedColName)
-
-                const calculateFn = col?.props.calculateFn?.[cycle.uuid] ?? row?.props.calculateFn?.[cycle.uuid]
-
-                let nodeValue = TableDatas.getNodeValue({
-                  data,
-                  colName: changedColName,
-                  countryIso,
-                  tableName: table.props.name,
-                  variableName: dependantVariableName,
-                })
-
-                if (calculateFn) {
-                  const rawResult = ExpressionEvaluator.evalFormula<NodeValueValidation>({
-                    assessment,
-                    countryIso,
-                    cycle,
+                  let nodeValue = TableDatas.getNodeValue({
                     data,
-                    colName: changedColName,
-                    row,
-                    formula: calculateFn,
+                    colName: col.props.colName,
+                    countryIso,
+                    tableName: table.props.name,
+                    variableName: dependantVariableName,
                   })
 
-                  nodeValue = { raw: !Objects.isEmpty(rawResult) ? String(rawResult) : null, calculated: true }
-                }
+                  if (calculateFn) {
+                    const rawResult = ExpressionEvaluator.evalFormula<NodeValueValidation>({
+                      assessment,
+                      countryIso,
+                      cycle,
+                      data,
+                      colName: col.props.colName,
+                      row,
+                      formula: calculateFn,
+                    })
 
-                nodes.push({
-                  colName: changedColName,
-                  tableName: table.props.name,
-                  variableName: dependantVariableName,
-                  value: nodeValue,
+                    nodeValue = { raw: !Objects.isEmpty(rawResult) ? String(rawResult) : null, calculated: true }
+                  }
+
+                  nodes.push({
+                    colName: col.props.colName,
+                    tableName: table.props.name,
+                    variableName: dependantVariableName,
+                    value: nodeValue,
+                  })
                 })
-              })
-            }
-          )
+            })
+          })
 
           dispatch(
             AssessmentSectionActions.setNodeCalculations({
