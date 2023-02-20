@@ -4,7 +4,7 @@ import { RegionCode, RegionGroup } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ProcessEnv } from '@server/utils'
+import { isAtlantisAllowed } from '@server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 export const getRegionGroups = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -14,8 +14,8 @@ export const getRegionGroups = async (
   const assessmentName = Schemas.getNameCycle(assessment, cycle)
 
   let atlantis = ''
-  // Remove atlantis regions from published cycles
-  if (cycle.published || !ProcessEnv.fraAtlantisAlloawed) {
+
+  if (!isAtlantisAllowed(assessment, cycle)) {
     atlantis = `where r.region_code != '${RegionCode.AT}'`
   }
 

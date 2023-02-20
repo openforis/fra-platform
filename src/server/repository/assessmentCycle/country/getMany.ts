@@ -4,7 +4,7 @@ import { Country } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ProcessEnv } from '@server/utils'
+import { isAtlantisAllowed } from '@server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 const activityLogMessageUpdates = [
   ActivityLogMessage.nodeValueUpdate,
@@ -26,8 +26,7 @@ export const getMany = async (
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 
   let atlantis = ''
-
-  if (cycle.published || !ProcessEnv.fraAtlantisAlloawed) {
+  if (!isAtlantisAllowed(assessment, cycle)) {
     atlantis = `where c.country_iso not like 'X%'`
   }
 
