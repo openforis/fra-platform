@@ -8,9 +8,9 @@ import { NodeUpdate, TableDatas } from '@meta/data'
 import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { addAppListener } from '@client/store/middleware/listener'
-import { AssessmentSectionActions, useTableSections } from '@client/store/ui/assessmentSection'
+import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 export const useCalculations = (props: { table: Table }): void => {
@@ -20,12 +20,6 @@ export const useCalculations = (props: { table: Table }): void => {
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
   const rowsData = useMemo(() => table.rows.filter((row) => row.props.type !== RowType.header), [table.rows])
-  const section = useAssessmentSection()
-  const tableSections = useTableSections({ sectionName: section.props.name })
-  const currentSectionTableNames = useMemo(
-    () => tableSections.flatMap((ts) => ts.tables.flatMap((t) => t.props.name)),
-    [tableSections]
-  )
   const dependants: Record<string, Array<VariableCache>> = useMemo(
     () =>
       rowsData.reduce((acc, row) => {
@@ -37,10 +31,10 @@ export const useCalculations = (props: { table: Table }): void => {
             cycle,
             tableName: table.props.name,
             variableName,
-          }).filter(({ tableName }) => currentSectionTableNames.includes(tableName)),
+          }).filter(({ tableName }) => tableName === table.props.name),
         }
       }, {}),
-    [assessment, currentSectionTableNames, cycle, rowsData, table.props.name]
+    [assessment, cycle, rowsData, table.props.name]
   )
 
   useEffect(() => {
@@ -55,6 +49,7 @@ export const useCalculations = (props: { table: Table }): void => {
           const { data } = state.ui.assessmentSection
           const changedVariables = meta.arg.values ?? payload
           const nodes: Array<NodeUpdate> = []
+
           // for each changed variable...
           changedVariables.forEach(
             ({ colName: changedColName, variableName: changedVariableName }: Record<string, string>) => {
@@ -63,9 +58,9 @@ export const useCalculations = (props: { table: Table }): void => {
               if (!dependantsToCalculate) return
 
               // ...and loop through each of them and calculate
-              dependantsToCalculate.forEach(({ variableName: dependantVariableName, tableName }) => {
+              dependantsToCalculate.forEach(({ variableName: dependantVariableName }) => {
                 // dont calculate self
-                if (dependantVariableName === changedVariableName && tableName === table.props.name) return
+                if (dependantVariableName === changedVariableName) return
 
                 // find the variable row metadata
                 const row = rowsData.find((row) => row.props.variableName === dependantVariableName)
