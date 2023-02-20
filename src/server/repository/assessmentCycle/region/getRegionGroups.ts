@@ -14,8 +14,8 @@ export const getRegionGroups = async (
   const assessmentName = Schemas.getNameCycle(assessment, cycle)
 
   let atlantis = ''
-
-  if (!ProcessEnv.fraAtlantisAlloawed) {
+  // Remove atlantis regions from published cycles
+  if (cycle.published || !ProcessEnv.fraAtlantisAlloawed) {
     atlantis = `where r.region_code != '${RegionCode.AT}'`
   }
 

@@ -27,7 +27,7 @@ export const getMany = async (
 
   let atlantis = ''
 
-  if (!ProcessEnv.fraAtlantisAlloawed) {
+  if (cycle.published || !ProcessEnv.fraAtlantisAlloawed) {
     atlantis = `where c.country_iso not like 'X%'`
   }
 
