@@ -29,7 +29,7 @@
     "watch:server-debug": "cross-env NODE_ENV=development nodemon -e js --inspect --watch server src/server/serverLocal.js",
     "create-migration": "./src/server/db/migration/create-migration.sh",
     "run-migrations": "./src/server/db/migration/run-migrations.sh",
-    "generate-metacache": "ts-node tools/generateMetaCache/index.ts",
+    "generate-metacache": "yarn jest --verbose false --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/generateMetaCache/jest.config.js",
     "migrate": "run-s run-migrations generate-metacache",
     "//test": "mochapack --webpack-config webpack.config.babel.test.js",
     "test": "run-s test:integration",
