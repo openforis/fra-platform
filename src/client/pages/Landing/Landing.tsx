@@ -35,6 +35,7 @@ const Landing: React.FC = () => {
     RoleName.NATIONAL_CORRESPONDENT,
     RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
     RoleName.COLLABORATOR,
+    RoleName.VIEWER,
   ]
 
   if (userLastRole && userLastRole.countryIso && redirectRoles.includes(userLastRole.role)) {
