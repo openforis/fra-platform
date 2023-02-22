@@ -7,6 +7,8 @@ import { OriginalDataPoint } from '../originalDataPoint'
 
 const ltE100 = (x: number) => Numbers.lessThanOrEqualTo(x, 100)
 
+const e100 = (x: number) => Numbers.eq(x, 100)
+
 export const validateYear = (originalDataPoint: OriginalDataPoint) => {
   return Numbers.greaterThan(originalDataPoint.year ?? 0, 0)
 }
@@ -27,7 +29,7 @@ const _validExtentOfForestPercentage = (nationalClass: ODPNationalClass) => {
 
 // == ForestCharacteristics percentage
 // (forestNaturalPercent, forestPlantationPercent, otherPlantedForestPercent)
-// sum should be less than or equal to 100
+// sum should be equal to 100
 
 const _validForestCharacteristicsPercentage = (nationalClass: ODPNationalClass) => {
   if (+nationalClass.forestPercent <= 0) return true
@@ -36,7 +38,7 @@ const _validForestCharacteristicsPercentage = (nationalClass: ODPNationalClass) 
     nationalClass.forestPlantationPercent ?? 0,
     nationalClass.otherPlantedForestPercent ?? 0,
   ])
-  return ltE100(percentSum)
+  return e100(percentSum)
 }
 
 // == Forest plantation introduced percentage (forestPlantationIntroducedPercent)
