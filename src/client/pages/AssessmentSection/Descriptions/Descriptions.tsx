@@ -48,7 +48,7 @@ export const useDescriptions = (props: Props): Description => {
     }
     return {
       [TableNames.extentOfForest]: getDescriptions(!hasOriginalDataPointData),
-      [TableNames.forestCharacteristics]: getDescriptions(!hasOriginalDataPointData && !useOriginalDataPoint),
+      [TableNames.forestCharacteristics]: getDescriptions(!useOriginalDataPoint),
     }
   }, [cycle.name, hasOriginalDataPointData, useOriginalDataPoint])
 
