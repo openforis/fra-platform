@@ -194,7 +194,7 @@ module.exports = {
     },
   },
 
-  biomassStock_biomassStockStatus_Description: {
+  growingStock_growingStockStatus_Description: {
     header_0: 'Growing stock tier criteria',
     status: {
       high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples',
@@ -204,7 +204,7 @@ module.exports = {
     },
   },
 
-  growingStock_growingStockStatus_Description: {
+  biomassStock_biomassStockStatus_Description: {
     header_0: 'Biomass estimation methods tier criteria',
     status: {
       high: 'Country-specific biomass conversion and expansion factors or allometric equations applied',
