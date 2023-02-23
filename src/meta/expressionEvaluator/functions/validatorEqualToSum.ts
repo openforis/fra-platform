@@ -12,7 +12,8 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
   executor: () => {
     return (value: string, otherValues: Array<string>): NodeValueValidation => {
       const valid =
-        Objects.isEmpty(value) || Numbers.eq(value, Numbers.sum(otherValues?.filter((v) => !Objects.isEmpty(v))))
+        Objects.isEmpty(value) ||
+        Numbers.eqWithTolerance(value, Numbers.sum(otherValues?.filter((v) => !Objects.isEmpty(v))))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
