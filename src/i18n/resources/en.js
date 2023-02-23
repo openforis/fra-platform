@@ -483,6 +483,8 @@ The FRA team
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
     dataSources: 'Data sources',
+    dataSource2025ExplanatoryText:
+      'The data sources listed were reported in FRA 2020. Please copy and paste relevant data sources in table above.',
     additionalComments: 'Additional comments',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
