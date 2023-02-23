@@ -15,23 +15,13 @@ import { useCountryIso } from '@client/hooks'
 import { useToaster } from '@client/hooks/useToaster'
 import Icon from '@client/components/Icon'
 
-const links = [
-  {
-    href: 'https://unfccc.int/process/parties-non-party-stakeholders/parties/national-focal-point',
-    key: 'unfcccFocalPoints',
-  },
-  { href: ApiEndPoint.File.sdgFocalPoints(), key: 'sdgFocalPoints' },
-  { href: 'https://slms4redd.github.io/', key: 'reddPortal' },
-  { href: 'https://goo.gl/aYJmzd', key: 'fraGeoSpatialTools' },
-]
-
 const Links: React.FC = () => {
   const dispatch = useAppDispatch()
   const { toaster } = useToaster()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const i18n = useTranslation()
+  const { i18n } = useTranslation()
   const assessmentFiles = useAssessmentFiles()
   const user = useUser()
 
@@ -84,6 +74,21 @@ const Links: React.FC = () => {
       })
     )
   }, [assessment, cycle, countryIso, dispatch])
+
+  const links = [
+    {
+      href: 'https://unfccc.int/process/parties-non-party-stakeholders/parties/national-focal-point',
+      key: 'unfcccFocalPoints',
+    },
+    {
+      href: `${ApiEndPoint.File.sdgFocalPoints()}?assessmentName=${
+        assessment.props.name
+      }&countryIso=${countryIso}&cycleName=${cycle.name}`,
+      key: 'sdgFocalPoints',
+    },
+    { href: 'https://slms4redd.github.io/', key: 'reddPortal' },
+    { href: 'https://goo.gl/aYJmzd', key: 'fraGeoSpatialTools' },
+  ]
 
   return (
     <div className="landing__page-container">
