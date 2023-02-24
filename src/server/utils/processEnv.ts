@@ -24,7 +24,7 @@ export const ProcessEnv = {
 
   // fra
   fraReportCollaboratorsExcluded: JSON.parse(process.env.FRA_REPORT_COLLABORATORS_EXCLUDED ?? '[]'),
-  fraAtlantisAlloawed: JSON.parse(process.env.FRA_ATLANTIS_ALLOWED ?? 'false'),
+  fraAtlantisAllowed: JSON.parse(process.env.FRA_ATLANTIS_ALLOWED ?? '[]'),
 
   invitationExpiryDays: Number(process.env.INVITATION_EXPIRY_DAYS) || 7,
 
