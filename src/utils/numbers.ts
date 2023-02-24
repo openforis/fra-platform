@@ -66,12 +66,14 @@ const greaterThanWithTolerance = (x: BigNumberInput, y: BigNumberInput, toleranc
 
 const lessThan = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'lt')
 
-const eq = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'eq')
-
 const abs = (x: number | BigNumber): BigNumber | null => {
   const xNum = toBigNumber(x)
   return xNum.isFinite() ? xNum.abs() : null
 }
+
+const eq = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'eq')
+const eqWithTolerance = (x: BigNumberInput, y: BigNumberInput, tolerance = 1) =>
+  lessThanOrEqualTo(abs(sub(x, y)), tolerance)
 
 const toFixed = (value: number | BigNumber, precision = 2): string | null =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toFixed(precision)
@@ -113,6 +115,7 @@ export const Numbers = {
   greaterThan,
   lessThan,
   eq,
+  eqWithTolerance,
   between,
   lessThanOrEqualTo,
   greaterThanOrEqualTo,
