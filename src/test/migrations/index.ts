@@ -23,6 +23,7 @@ describe(`Migrations:`, () => {
     await Promise.all(
       migrations
         .filter((migration: string) => !ranMigrations.includes(migration))
+        .sort()
         .map(async (file: string) => {
           console.log('Running migration', file)
           // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
