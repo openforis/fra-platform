@@ -7,7 +7,7 @@ import { UUIDs } from '@utils/uuids'
 
 import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
 
-import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
+import { useAssessmentSection, useCycle } from '@client/store/assessment'
 import DataGrid from '@client/components/DataGrid'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import ButtonCopyDataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/ButtonCopyDataSources'
@@ -35,7 +35,6 @@ const placeholder: DataSource = {
 
 export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName, disabled, description, onChange } = props
-  const assessment = useAssessment()
   const cycle = useCycle()
   const subSection = useAssessmentSection(sectionName)
   const descriptions = useDescriptions({
@@ -113,9 +112,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
         ))}
       </DataGrid>
 
-      {assessment?.props?.name === 'fra' && cycle.name === '2025' && (
-        <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p>
-      )}
+      {descriptionDataSource.text?.readOnly && <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p>}
     </div>
   )
 }
