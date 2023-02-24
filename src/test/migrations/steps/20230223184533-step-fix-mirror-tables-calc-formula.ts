@@ -12,7 +12,7 @@ export default async (client: BaseProtocol) => {
       update ${schemaAssessment}.row r
       set props = jsonb_set(
               r.props,
-              '{calculateFn,${cycle.uuid}',
+              '{calculateFn,"${cycle.uuid}"}',
               to_jsonb(d.formula)
           )
       from (select r.id,
