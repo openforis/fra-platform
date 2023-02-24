@@ -113,7 +113,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
         ))}
       </DataGrid>
 
-      {assessment?.props?.name === 'fra' && cycle?.name === '2025' && (
+      {assessment?.props?.name === 'fra' && cycle.name === '2025' && (
         <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p>
       )}
     </div>
