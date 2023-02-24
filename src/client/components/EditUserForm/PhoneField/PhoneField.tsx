@@ -39,20 +39,20 @@ const PhoneField: React.FC<Props> = (props) => {
         {mandatory && '*'}
       </div>
       <div
-        className={classNames('edit-user__form-phone-field ', `edit-user__form-field${enabled ? '' : '-disabled'}`, {
+        className={classNames('edit-user__form-phone-field', `edit-user__form-field${enabled ? '' : '-disabled'}`, {
           error: !valid,
         })}
       >
         <input
           type="text"
-          value={prefix}
+          defaultValue={prefix}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrefix(e.target.value.trim())}
           disabled={!enabled}
         />
 
         <input
           type="text"
-          value={phoneNumber}
+          defaultValue={phoneNumber}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhoneNumber(e.target.value.trim())}
           disabled={!enabled}
         />
