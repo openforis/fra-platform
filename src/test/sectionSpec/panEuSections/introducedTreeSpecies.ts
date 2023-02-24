@@ -257,7 +257,6 @@ export const introducedTreeSpecies = {
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
             },
-            // { idx: 6 },
             {
               idx: 7,
               type: 'data',
@@ -394,7 +393,6 @@ export const introducedTreeSpecies = {
               labelParams: { year: 1990 },
               variableExport: 'other_wooded_land_1990',
             },
-            // { idx: 12 },
             {
               idx: 14,
               type: 'data',
@@ -412,6 +410,12 @@ export const introducedTreeSpecies = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2025['total'],
+                   [table_4_4a.forest_2025['total'],table_4_4a.other_wooded_land_2025['total']])`,
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2025['_of_which_invasive'],
+                   [table_4_4a.forest_2025['_of_which_invasive'],table_4_4a.other_wooded_land_2025['_of_which_invasive']])`,
+                ],
               },
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2025 },
@@ -434,6 +438,12 @@ export const introducedTreeSpecies = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2020['total'],
+                   [table_4_4a.forest_2020['total'],table_4_4a.other_wooded_land_2020['total']])`,
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2020['_of_which_invasive'],
+                   [table_4_4a.forest_2020['_of_which_invasive'],table_4_4a.other_wooded_land_2020['_of_which_invasive']])`,
+                ],
               },
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
@@ -454,6 +464,14 @@ export const introducedTreeSpecies = {
                 { idx: 0, type: 'decimal' },
                 { idx: 1, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2015['total'],
+                   [table_4_4a.forest_2015['total'],table_4_4a.other_wooded_land_2015['total']])`,
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2015['_of_which_invasive'],
+                   [table_4_4a.forest_2015['_of_which_invasive'],table_4_4a.other_wooded_land_2015['_of_which_invasive']])`,
+                ],
+              },
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'total_forest_and_other_wooded_land_2015',
@@ -473,6 +491,14 @@ export const introducedTreeSpecies = {
                 { idx: 0, type: 'decimal' },
                 { idx: 1, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2010['total'],
+                   [table_4_4a.forest_2010['total'],table_4_4a.other_wooded_land_2010['total']])`,
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2010['_of_which_invasive'],
+                   [table_4_4a.forest_2010['_of_which_invasive'],table_4_4a.other_wooded_land_2010['_of_which_invasive']])`,
+                ],
+              },
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'total_forest_and_other_wooded_land_2010',
@@ -492,6 +518,14 @@ export const introducedTreeSpecies = {
                 { idx: 0, type: 'decimal' },
                 { idx: 1, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2005['total'],
+                   [table_4_4a.forest_2005['total'],table_4_4a.other_wooded_land_2005['total']])`,
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2005['_of_which_invasive'],
+                   [table_4_4a.forest_2005['_of_which_invasive'],table_4_4a.other_wooded_land_2005['_of_which_invasive']])`,
+                ],
+              },
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'total_forest_and_other_wooded_land_2005',
@@ -511,6 +545,14 @@ export const introducedTreeSpecies = {
                 { idx: 0, type: 'decimal' },
                 { idx: 1, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2000['total'],
+                   [table_4_4a.forest_2000['total'],table_4_4a.other_wooded_land_2000['total']])`,
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_2000['_of_which_invasive'],
+                   [table_4_4a.forest_2000['_of_which_invasive'],table_4_4a.other_wooded_land_2000['_of_which_invasive']])`,
+                ],
+              },
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'total_forest_and_other_wooded_land_2000',
@@ -530,6 +572,14 @@ export const introducedTreeSpecies = {
                 { idx: 0, type: 'decimal' },
                 { idx: 1, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_1990['total'],
+                   [table_4_4a.forest_1990['total'],table_4_4a.other_wooded_land_1990['total']])`,
+                  `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_1990['_of_which_invasive'],
+                   [table_4_4a.forest_1990['_of_which_invasive'],table_4_4a.other_wooded_land_1990['_of_which_invasive']])`,
+                ],
+              },
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'total_forest_and_other_wooded_land_1990',
