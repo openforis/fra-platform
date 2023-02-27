@@ -1,5 +1,5 @@
-// import { BaseProtocol } from '@server/db'
-//
-// export default async (client: BaseProtocol) => {
-//   // DB Step
-// }
+import { BaseProtocol } from '@server/db'
+
+export default async (client: BaseProtocol) => {
+  // DB Step
+}
