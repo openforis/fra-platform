@@ -83,11 +83,12 @@ export const validProfilePicture = (file: File) => !file || file.size <= 1000000
 export const validName = (props: Partial<UserProps>) => !Objects.isEmpty(props.name)
 export const validRole = (user: Partial<User>) => !Objects.isEmpty(user.roles)
 
-export const validEmail = (user: Partial<User>) => {
-  // const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  const re = /.+@.+/
-  return re.test(user.email)
-}
+// const regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const regexEmail = /.+@.+/
+
+export const validEmail = (user: Partial<User>) => regexEmail.test(user.email)
+
+export const validEmailField = (email: string) => regexEmail.test(email)
 
 export const validateFields = (user: User) => ({
   email: validEmail(user),
@@ -176,4 +177,5 @@ export const Users = {
   validEmail,
   validateFields,
   validate,
+  validEmailField,
 }

@@ -80,7 +80,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
         name="email"
         value={user.email}
         onChange={changeUser}
-        validator={Users.validEmail}
+        validator={Users.validEmailField}
         enabled={enabled}
         mandatory
       />

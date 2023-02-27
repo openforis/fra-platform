@@ -28,7 +28,11 @@
     "watch:server": "ts-node-dev src/server",
     "watch:server-debug": "cross-env NODE_ENV=development nodemon -e js --inspect --watch server src/server/serverLocal.js",
     "create-migration": "./src/server/db/migration/create-migration.sh",
+    "create-migration-step": "src/test/migrations/create-migration-step.sh",
     "run-migrations": "./src/server/db/migration/run-migrations.sh",
+    "run-migration-steps": "yarn jest --verbose false --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/migrations/jest.config.js",
+    "generate-metacache": "yarn jest --verbose false --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/generateMetaCache/jest.config.js",
+    "migrate": "run-s run-migrations run-migration-steps generate-metacache",
     "//test": "mochapack --webpack-config webpack.config.babel.test.js",
     "test": "run-s test:integration",
     "test:integration": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config",
@@ -261,7 +265,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.5",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
