@@ -14,7 +14,7 @@ export const validatorEqualToTotalForest: ExpressionFunction<Context> = {
       const valid =
         Objects.isEmpty(totalForestArea) ||
         !subCategoryValues?.every(Boolean) ||
-        Numbers.greaterThanWithTolerance(totalForestArea, Numbers.sum(subCategoryValues))
+        !Numbers.greaterThan(Numbers.abs(Numbers.sub(totalForestArea, Numbers.sum(subCategoryValues))), 1)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined

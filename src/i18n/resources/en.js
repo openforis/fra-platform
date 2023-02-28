@@ -1043,8 +1043,7 @@ The FRA team
     mustBeEqualToPrivateOwnership: 'Subcategories sum should be equal to Private Ownership',
     mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
     mustBeEqualToPlantedForest: 'Subcategories sum should be equal to Planted Forest',
-    mustBeEqualToForestArea:
-      'The sum of Naturally regenerating and Planted forest should be equal to Total growing stock',
+    mustBeEqualToForestArea: 'Sum of Naturally regenerating forest and Planted forest not equal to the total forest',
     mustBeLessThanPrivateOwnership: 'Subcategories sum should be less than Private Ownership',
     columnEmpty: "Column '$t({{columName}})' must have a value",
     forestSumAreaExceedsExtentOfForest:
