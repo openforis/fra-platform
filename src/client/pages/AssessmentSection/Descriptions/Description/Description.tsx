@@ -1,5 +1,8 @@
 import './Description.scss'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Objects } from '@utils/objects'
 
 import { CommentableDescriptionValue } from '@meta/assessment'
 
@@ -46,6 +49,8 @@ const Description: React.FC<Props> = (props) => {
   const { print } = useIsPrint()
   const description = useDescription({ name, sectionName, template })
   const isDataLocked = useIsDataLocked()
+  const { t } = useTranslation()
+
   const [open, setOpen] = useState(false)
 
   const onChange = useCallback(
@@ -106,6 +111,9 @@ const Description: React.FC<Props> = (props) => {
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
       {dataSourceHasTable && (
         <DataSources description={description} onChange={onChange} disabled={!open} sectionName={sectionName} />
+      )}
+      {open && !Objects.isEmpty(text) && dataSourceTextReadOnly && (
+        <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p>
       )}
       {showMarkdownEditor && (
         <div className="fra-description__preview">
