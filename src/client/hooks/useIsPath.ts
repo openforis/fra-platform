@@ -10,7 +10,7 @@ export const useIsPath = ({ path, exact = true }: { path: string; exact?: boolea
 
 export const useIsCycleLanding = () => useIsPath({ path: ClientRoutes.Assessment.Cycle.Landing.path.absolute })
 
-export const useIsAssessment = () =>
+export const useIsCountry = () =>
   useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Country.Landing.path.absolute}/*`, exact: false })
 
 export const useIsAdmin = () =>
