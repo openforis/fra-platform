@@ -1,10 +1,10 @@
 # Términos y Definiciones
 
-_FRA 2020_
+_FRA 2025_
 
 ## Introducción
 
-La FAO coordina evaluaciones de los recursos forestales mundiales cada 5 a 10 años desde 1946. Estas evaluaciones han contribuido, en gran medida, a mejorar las definiciones, los conceptos y los métodos relacionados con las evaluaciones de los recursos forestales.
+Las Evaluaciones de los Recursos Forestales Mundiales han contribuido, en gran medida, a mejorar las definiciones, los conceptos y los métodos relacionados con las evaluaciones de los recursos forestales.
 
 Se ha trabajado mucho para optimizar el proceso de elaboración de informes y armonizarlo con el de otros procesos forestales internacionales, por ej.: el de la Asociación de Colaboración en Materia de Bosques (ACB) así como el de las organizaciones asociadas con el Cuestionario Colaborativo sobre Recursos Forestales (CFRQ) y la comunidad científica, todo ello con el fin de armonizar y mejorar las definiciones relacionadas con los bosques y reducir la carga que representa para los países la elaboración de informes. Para garantizar la comparación a través del tiempo, las definiciones fundamentales se basan en las evaluaciones mundiales anteriores. Cada vez que se ha introducido una nueva definición, o se ha modificado una definición anterior, se han tomado en cuenta las recomendaciones de los expertos de los distintos foros.
 
