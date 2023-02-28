@@ -111,10 +111,6 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           />
         ))}
       </DataGrid>
-
-      {!disabled && descriptionDataSource.text?.readOnly && (
-        <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p>
-      )}
     </div>
   )
 }
