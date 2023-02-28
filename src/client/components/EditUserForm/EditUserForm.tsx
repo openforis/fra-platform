@@ -11,7 +11,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
-// import CountryRoles from './CountryRoles'
+import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
 import TextInputField from './TextInputField'
 import TitleField from './TitleField'
@@ -19,10 +19,11 @@ import UserRolePropsFields from './UserRolePropsFields'
 
 type Props = {
   user: User
+  canEditPermissions?: boolean
   canEditRoles?: boolean
 }
 
-const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
+const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles }) => {
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const countryIso = useCountryIso()
@@ -103,12 +104,13 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
         <CollaboratorPermissions userRole={userRole as Collaborator} />
       )}
 
-      {/* {canEditRoles && <CountryRoles user={user} />} */}
+      {canEditPermissions && <CountryRoles user={user} />}
     </div>
   )
 }
 
 EditUserForm.defaultProps = {
+  canEditPermissions: false,
   canEditRoles: false,
 }
 
