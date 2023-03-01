@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import { DB } from '@server/db'
+import { Logger } from '@server/utils/logger'
 
 const client = DB
 let migrations: Array<string>
@@ -25,8 +26,7 @@ describe(`Migrations:`, () => {
         .filter((migration: string) => !ranMigrations.includes(migration))
         .sort()
         .map(async (file: string) => {
-          // eslint-disable-next-line no-console
-          console.log('Running migration', file)
+          Logger.log('Running migration', file)
           // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
           return require(`./steps/${file}`).default(client)
         })
