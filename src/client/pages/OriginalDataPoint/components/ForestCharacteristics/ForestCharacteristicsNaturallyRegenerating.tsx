@@ -4,20 +4,26 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from '@utils/numbers'
 
 import { ODPs } from '@meta/assessment'
+import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
 
 import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import ForestCharacteristicsNaturallyRegeneratingRow from '@client/pages/OriginalDataPoint/components/ForestCharacteristics/ForestCharacteristicsNaturallyRegeneratingRow'
+import Icon from '@client/components/Icon'
+
+import ForestCharacteristicsNaturallyRegeneratingRow from './ForestCharacteristicsNaturallyRegeneratingRow'
 
 type Props = {
   canEditData: boolean
+  nationalClassValidations: Array<NationalClassValidation>
 }
 
 const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
-  const { canEditData } = props
+  const { canEditData, nationalClassValidations } = props
   const originalDataPoint = useOriginalDataPoint()
   const { t } = useTranslation()
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+
+  const hasErrors = nationalClassValidations.some((v) => !v.validPrimaryForest)
 
   return (
     <div className="fra-table__container">
@@ -39,6 +45,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
                 key={nationalClass.name}
                 canEditData={canEditData}
                 index={index}
+                nationalClassValidation={nationalClassValidations[index]}
               />
             ))}
           </tbody>
@@ -70,6 +77,20 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
             </tr>
           </tfoot>
         </table>
+
+        {hasErrors && (
+          <div className="data-validations">
+            <Icon name="alert" />
+            {nationalClassValidations.map(
+              (nationalClassValidation, index) =>
+                !nationalClassValidation.validPrimaryForest && (
+                  <div className="msg">
+                    {t('generalValidation.classValueNotGreaterThan', { name: nationalClasses[index].name, value: 100 })}
+                  </div>
+                )
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

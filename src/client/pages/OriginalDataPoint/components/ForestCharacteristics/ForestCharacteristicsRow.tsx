@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from '@utils/numbers'
 import classNames from 'classnames'
 
-import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPNationalClass, OriginalDataPoint } from '@meta/assessment'
+import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -27,10 +28,11 @@ type Props = {
   canEditData: boolean
   index: number
   originalDataPoint: OriginalDataPoint
+  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsRow: React.FC<Props> = (props) => {
-  const { canEditData, index, originalDataPoint } = props
+  const { canEditData, index, nationalClassValidation, originalDataPoint } = props
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -43,8 +45,6 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
-
   if (!allowedClass(nationalClass)) {
     return null
   }
@@ -52,9 +52,11 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
+
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {area && Numbers.format((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>
+
       <td
         className={classNames('fra-table__cell', {
           error: !nationalClassValidation.validForestCharacteristicsPercentage,

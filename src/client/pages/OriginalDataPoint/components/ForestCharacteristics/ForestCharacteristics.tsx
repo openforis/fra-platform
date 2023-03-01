@@ -8,6 +8,7 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
+import Icon from '@client/components/Icon'
 
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
@@ -49,11 +50,18 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     naturallyRegeneratingForestTotal &&
     Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
+  const nationalClassValidations = nationalClasses.map((_, index) =>
+    ODPs.validateNationalClass(originalDataPoint, index)
+  )
+
+  const hasErrors = nationalClassValidations.some((v) => !v.validForestCharacteristicsPercentage)
+
   return (
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
+
           <DefinitionLink
             assessmentName={assessment.props.name}
             cycleName={cycle.name}
@@ -99,6 +107,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
+                  nationalClassValidation={nationalClassValidations[index]}
                 />
               ))}
 
@@ -137,11 +146,39 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               </tr>
             </tbody>
           </table>
+
+          {hasErrors && (
+            <div className="data-validations">
+              <Icon name="alert" />
+              {nationalClassValidations.map(
+                (nationalClassValidation, index) =>
+                  !nationalClassValidation.validForestCharacteristicsPercentage && (
+                    <div className="msg">
+                      {t('generalValidation.classValueNotGreaterThan', {
+                        name: nationalClasses[index].name,
+                        value: 100,
+                      })}
+                    </div>
+                  )
+              )}
+            </div>
+          )}
         </div>
       </div>
 
-      {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
-      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
+      {hasNaturallyRegeneratingForest && (
+        <ForestCharacteristicsNaturallyRegenerating
+          canEditData={canEditData}
+          nationalClassValidations={nationalClassValidations}
+        />
+      )}
+
+      {hasPlantation && (
+        <ForestCharacteristicsPlantation
+          canEditData={canEditData}
+          nationalClassValidations={nationalClassValidations}
+        />
+      )}
     </div>
   )
 }

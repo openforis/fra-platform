@@ -58,7 +58,7 @@ const _validPrimaryForest = (nationalClass: ODPNationalClass) => {
   return ltE100(+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)
 }
 
-type NationalClassValidation = {
+export type NationalClassValidation = {
   error: boolean
   validClassName?: boolean
   validArea?: boolean
