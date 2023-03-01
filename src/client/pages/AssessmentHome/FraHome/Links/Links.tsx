@@ -87,13 +87,13 @@ const Links: React.FC = () => {
       key: 'sdgFocalPoints',
     },
     { href: 'https://slms4redd.github.io/', key: 'reddPortal' },
-    { href: 'https://goo.gl/aYJmzd', key: 'fraGeoSpatialTools' },
+    { href: 'https://geofra.users.earthengine.app/view/geofra-dev', key: 'fraGeoSpatialTools' },
   ]
 
   return (
     <div className="landing__page-container">
       <div className="landing__page-container-header landing__repository-header">
-        <h3>{i18n.t('landing.links.links')}</h3>
+        <h3>{i18n.t<string>('landing.links.links')}</h3>
 
         {Users.isAdministrator(user) && (
           <>
@@ -122,7 +122,7 @@ const Links: React.FC = () => {
         <div key={link.key} className="landing__activity-item">
           <div className="landing__activity">
             <a className="link" href={link.href} rel="noreferrer" target="_blank">
-              {i18n.t(`landing.links.${link.key}`)}
+              {i18n.t<string>(`landing.links.${link.key}`)}
             </a>
           </div>
         </div>
@@ -160,7 +160,7 @@ const Links: React.FC = () => {
       ))}
 
       <div className="landing__page-container-header landing__repository-header">
-        <h3>{i18n.t('landing.links.repository')}</h3>
+        <h3>{i18n.t<string>('landing.links.repository')}</h3>
 
         {Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0 && (
           <>
