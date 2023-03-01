@@ -84,7 +84,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
             {nationalClassValidations.map(
               (nationalClassValidation, index) =>
                 !nationalClassValidation.validPrimaryForest && (
-                  <div className="msg">
+                  <div className="msg" key={nationalClasses[index].name}>
                     {t('generalValidation.classValueNotGreaterThan', { name: nationalClasses[index].name, value: 100 })}
                   </div>
                 )
