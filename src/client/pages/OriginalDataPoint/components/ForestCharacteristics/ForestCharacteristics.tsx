@@ -154,7 +154,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                 (nationalClassValidation, index) =>
                   !nationalClassValidation.validForestCharacteristicsPercentage && (
                     <div className="msg" key={nationalClasses[index].name}>
-                      {t('generalValidation.classValueNotGreaterThan', {
+                      {t('generalValidation.classValuesMustBeEqualesTo', {
                         name: nationalClasses[index].name,
                         value: 100,
                       })}

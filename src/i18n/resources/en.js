@@ -1051,6 +1051,7 @@ The FRA team
     valueEqualToSum: 'Total value should be equal to sum of subcategories',
     landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a)',
     classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
+    classValuesMustBeEqualesTo: '{{name}} sum must be equal to {{value}}',
   },
 
   emoji: {
