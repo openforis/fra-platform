@@ -8,8 +8,8 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
-import Icon from '@client/components/Icon'
 
+import NationalClassValidations from '../NationalClassValidations'
 import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
@@ -33,8 +33,6 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const nationalClassValidations = nationalClasses.map((_, index) =>
     ODPs.validateNationalClass(originalDataPoint, index)
   )
-
-  const hasErrors = nationalClassValidations.some((v) => !v.validExtentOfForestPercentage)
 
   return (
     <div className="odp__section">
@@ -109,22 +107,11 @@ const ExtentOfForest: React.FC<Props> = (props) => {
             </tbody>
           </table>
 
-          {hasErrors && (
-            <div className="data-validations">
-              <Icon name="alert" />
-              {nationalClassValidations.map(
-                (nationalClassValidation, index) =>
-                  !nationalClassValidation.validExtentOfForestPercentage && (
-                    <div className="msg" key={nationalClasses[index].name}>
-                      {t('generalValidation.classValueNotGreaterThan', {
-                        name: nationalClasses[index].name,
-                        value: 100,
-                      })}
-                    </div>
-                  )
-              )}
-            </div>
-          )}
+          <NationalClassValidations
+            nationalClasses={nationalClasses}
+            nationalClassValidations={nationalClassValidations}
+            variable="validExtentOfForestPercentage"
+          />
         </div>
       </div>
     </div>

@@ -7,8 +7,8 @@ import { ODPs } from '@meta/assessment'
 import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
 
 import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import Icon from '@client/components/Icon'
 
+import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 
 type Props = {
@@ -22,8 +22,6 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
-
-  const hasErrors = nationalClassValidations.some((v) => !v.validForestPlantationIntroducedPercent)
 
   return (
     <div className="fra-table__container">
@@ -76,19 +74,11 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
           </tfoot>
         </table>
 
-        {hasErrors && (
-          <div className="data-validations">
-            <Icon name="alert" />
-            {nationalClassValidations.map(
-              (nationalClassValidation, index) =>
-                !nationalClassValidation.validForestPlantationIntroducedPercent && (
-                  <div className="msg" key={nationalClasses[index].name}>
-                    {t('generalValidation.classValueNotGreaterThan', { name: nationalClasses[index].name, value: 100 })}
-                  </div>
-                )
-            )}
-          </div>
-        )}
+        <NationalClassValidations
+          nationalClasses={nationalClasses}
+          nationalClassValidations={nationalClassValidations}
+          variable="validForestPlantationIntroducedPercent"
+        />
       </div>
     </div>
   )

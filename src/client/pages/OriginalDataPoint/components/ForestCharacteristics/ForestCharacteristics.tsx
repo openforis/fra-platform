@@ -8,8 +8,8 @@ import { ODPs, OriginalDataPoint } from '@meta/assessment'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
-import Icon from '@client/components/Icon'
 
+import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 import ForestCharacteristicsRow from './ForestCharacteristicsRow'
@@ -53,8 +53,6 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const nationalClassValidations = nationalClasses.map((_, index) =>
     ODPs.validateNationalClass(originalDataPoint, index)
   )
-
-  const hasErrors = nationalClassValidations.some((v) => !v.validForestCharacteristicsPercentage)
 
   return (
     <div className="odp__section">
@@ -147,22 +145,11 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
             </tbody>
           </table>
 
-          {hasErrors && (
-            <div className="data-validations">
-              <Icon name="alert" />
-              {nationalClassValidations.map(
-                (nationalClassValidation, index) =>
-                  !nationalClassValidation.validForestCharacteristicsPercentage && (
-                    <div className="msg" key={nationalClasses[index].name}>
-                      {t('generalValidation.classValuesMustBeEqualTo', {
-                        name: nationalClasses[index].name,
-                        value: '100%',
-                      })}
-                    </div>
-                  )
-              )}
-            </div>
-          )}
+          <NationalClassValidations
+            nationalClasses={nationalClasses}
+            nationalClassValidations={nationalClassValidations}
+            variable="validForestCharacteristicsPercentage"
+          />
         </div>
       </div>
 
