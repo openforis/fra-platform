@@ -927,16 +927,16 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                   [table_1_3a1.forest_even_aged_stands_of_which_2020['intermediate_phase'],table_1_3a1.forest_even_aged_stands_of_which_2020['mature_phase'],
                   table_1_3a1.forest_even_aged_stands_of_which_2020['regeneration_phase'],table_1_3a1.forest_even_aged_stands_of_which_2020['unspecified']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2020['regeneration_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2020['regeneration_phase'],table_1_3a1.mixed_forest_2000['regeneration_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2020['regeneration_phase'],table_1_3a1.mixed_forest_2020['regeneration_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2020['regeneration_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2020['intermediate_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2020['intermediate_phase'],table_1_3a1.mixed_forest_2000['intermediate_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2020['intermediate_phase'],table_1_3a1.mixed_forest_2020['intermediate_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2020['intermediate_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2020['mature_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2020['mature_phase'],table_1_3a1.mixed_forest_2000['mature_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2020['mature_phase'],table_1_3a1.mixed_forest_2020['mature_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2020['mature_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2020['unspecified'],
-                  [table_1_3a1.predominantly_coniferous_forest_2020['unspecified'],table_1_3a1.mixed_forest_2000['unspecified'],
+                  [table_1_3a1.predominantly_coniferous_forest_2020['unspecified'],table_1_3a1.mixed_forest_2020['unspecified'],
                   table_1_3a1.predominantly_broadleaved_forest_2020['unspecified']])`,
                 ],
               },
@@ -973,16 +973,16 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                   [table_1_3a1.forest_even_aged_stands_of_which_2015['intermediate_phase'],table_1_3a1.forest_even_aged_stands_of_which_2015['mature_phase'],
                   table_1_3a1.forest_even_aged_stands_of_which_2015['regeneration_phase'],table_1_3a1.forest_even_aged_stands_of_which_2015['unspecified']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2015['regeneration_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2015['regeneration_phase'],table_1_3a1.mixed_forest_2000['regeneration_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2015['regeneration_phase'],table_1_3a1.mixed_forest_2015['regeneration_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2015['regeneration_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2015['intermediate_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2015['intermediate_phase'],table_1_3a1.mixed_forest_2000['intermediate_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2015['intermediate_phase'],table_1_3a1.mixed_forest_2015['intermediate_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2015['intermediate_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2015['mature_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2015['mature_phase'],table_1_3a1.mixed_forest_2000['mature_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2015['mature_phase'],table_1_3a1.mixed_forest_2015['mature_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2015['mature_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2015['unspecified'],
-                  [table_1_3a1.predominantly_coniferous_forest_2015['unspecified'],table_1_3a1.mixed_forest_2000['unspecified'],
+                  [table_1_3a1.predominantly_coniferous_forest_2015['unspecified'],table_1_3a1.mixed_forest_2015['unspecified'],
                   table_1_3a1.predominantly_broadleaved_forest_2015['unspecified']])`,
                 ],
               },
@@ -1019,16 +1019,16 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                   [table_1_3a1.forest_even_aged_stands_of_which_2010['intermediate_phase'],table_1_3a1.forest_even_aged_stands_of_which_2010['mature_phase'],
                   table_1_3a1.forest_even_aged_stands_of_which_2010['regeneration_phase'],table_1_3a1.forest_even_aged_stands_of_which_2010['unspecified']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2010['regeneration_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2010['regeneration_phase'],table_1_3a1.mixed_forest_2000['regeneration_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2010['regeneration_phase'],table_1_3a1.mixed_forest_2010['regeneration_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2010['regeneration_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2010['intermediate_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2010['intermediate_phase'],table_1_3a1.mixed_forest_2000['intermediate_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2010['intermediate_phase'],table_1_3a1.mixed_forest_2010['intermediate_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2010['intermediate_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2010['mature_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2010['mature_phase'],table_1_3a1.mixed_forest_2000['mature_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2010['mature_phase'],table_1_3a1.mixed_forest_2010['mature_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2010['mature_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2010['unspecified'],
-                  [table_1_3a1.predominantly_coniferous_forest_2010['unspecified'],table_1_3a1.mixed_forest_2000['unspecified'],
+                  [table_1_3a1.predominantly_coniferous_forest_2010['unspecified'],table_1_3a1.mixed_forest_2010['unspecified'],
                   table_1_3a1.predominantly_broadleaved_forest_2010['unspecified']])`,
                 ],
               },
@@ -1065,16 +1065,16 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                   [table_1_3a1.forest_even_aged_stands_of_which_2005['intermediate_phase'],table_1_3a1.forest_even_aged_stands_of_which_2005['mature_phase'],
                   table_1_3a1.forest_even_aged_stands_of_which_2005['regeneration_phase'],table_1_3a1.forest_even_aged_stands_of_which_2005['unspecified']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2005['regeneration_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2005['regeneration_phase'],table_1_3a1.mixed_forest_2000['regeneration_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2005['regeneration_phase'],table_1_3a1.mixed_forest_2005['regeneration_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2005['regeneration_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2005['intermediate_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2005['intermediate_phase'],table_1_3a1.mixed_forest_2000['intermediate_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2005['intermediate_phase'],table_1_3a1.mixed_forest_2005['intermediate_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2005['intermediate_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2005['mature_phase'],
-                  [table_1_3a1.predominantly_coniferous_forest_2005['mature_phase'],table_1_3a1.mixed_forest_2000['mature_phase'],
+                  [table_1_3a1.predominantly_coniferous_forest_2005['mature_phase'],table_1_3a1.mixed_forest_2005['mature_phase'],
                   table_1_3a1.predominantly_broadleaved_forest_2005['mature_phase']])`,
                   `validatorEqualToSum(table_1_3a1.forest_even_aged_stands_of_which_2005['unspecified'],
-                  [table_1_3a1.predominantly_coniferous_forest_2005['unspecified'],table_1_3a1.mixed_forest_2000['unspecified'],
+                  [table_1_3a1.predominantly_coniferous_forest_2005['unspecified'],table_1_3a1.mixed_forest_2005['unspecified'],
                   table_1_3a1.predominantly_broadleaved_forest_2005['unspecified']])`,
                 ],
               },
@@ -2126,6 +2126,23 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['total_volume'],
+                  [table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['intermediate_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['mature_phase'],
+                  table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['regeneration_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['unspecified']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['regeneration_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2020['regeneration_phase'],table_1_3a2.mixed_forest_2020['regeneration_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2020['regeneration_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['intermediate_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2020['intermediate_phase'],table_1_3a2.mixed_forest_2020['intermediate_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2020['intermediate_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['mature_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2020['mature_phase'],table_1_3a2.mixed_forest_2020['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2020['mature_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2020['unspecified'],
+                  [table_1_3a2.predominantly_coniferous_forest_2020['unspecified'],table_1_3a2.mixed_forest_2020['unspecified'],
+                  table_1_3a2.predominantly_broadleaved_forest_2020['unspecified']])`,
+                ],
               },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
@@ -2155,6 +2172,25 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['total_volume'],
+                  [table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['intermediate_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['mature_phase'],
+                  table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['regeneration_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['unspecified']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['regeneration_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2015['regeneration_phase'],table_1_3a2.mixed_forest_2015['regeneration_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2015['regeneration_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['intermediate_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2015['intermediate_phase'],table_1_3a2.mixed_forest_2015['intermediate_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2015['intermediate_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['mature_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2015['mature_phase'],table_1_3a2.mixed_forest_2015['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2015['mature_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2015['unspecified'],
+                  [table_1_3a2.predominantly_coniferous_forest_2015['unspecified'],table_1_3a2.mixed_forest_2015['unspecified'],
+                  table_1_3a2.predominantly_broadleaved_forest_2015['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
               labelParams: { year: 2015 },
@@ -2183,6 +2219,25 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['total_volume'],
+                  [table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['intermediate_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['mature_phase'],
+                  table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['regeneration_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['unspecified']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['regeneration_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2010['regeneration_phase'],table_1_3a2.mixed_forest_2010['regeneration_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2010['regeneration_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['intermediate_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2010['intermediate_phase'],table_1_3a2.mixed_forest_2010['intermediate_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2010['intermediate_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['mature_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2010['mature_phase'],table_1_3a2.mixed_forest_2010['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2010['mature_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2010['unspecified'],
+                  [table_1_3a2.predominantly_coniferous_forest_2010['unspecified'],table_1_3a2.mixed_forest_2010['unspecified'],
+                  table_1_3a2.predominantly_broadleaved_forest_2010['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
               labelParams: { year: 2010 },
@@ -2211,6 +2266,25 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['total_volume'],
+                  [table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['intermediate_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['mature_phase'],
+                  table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['regeneration_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['unspecified']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['regeneration_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2005['regeneration_phase'],table_1_3a2.mixed_forest_2005['regeneration_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2005['regeneration_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['intermediate_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2005['intermediate_phase'],table_1_3a2.mixed_forest_2005['intermediate_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2005['intermediate_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['mature_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2005['mature_phase'],table_1_3a2.mixed_forest_2005['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2005['mature_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2005['unspecified'],
+                  [table_1_3a2.predominantly_coniferous_forest_2005['unspecified'],table_1_3a2.mixed_forest_2005['unspecified'],
+                  table_1_3a2.predominantly_broadleaved_forest_2005['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
               labelParams: { year: 2005 },
@@ -2239,6 +2313,25 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['total_volume'],
+                  [table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['intermediate_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['mature_phase'],
+                  table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['regeneration_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['unspecified']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['regeneration_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2000['regeneration_phase'],table_1_3a2.mixed_forest_2000['regeneration_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2000['regeneration_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['intermediate_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2000['intermediate_phase'],table_1_3a2.mixed_forest_2000['intermediate_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2000['intermediate_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['mature_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_2000['mature_phase'],table_1_3a2.mixed_forest_2000['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2000['mature_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_2000['unspecified'],
+                  [table_1_3a2.predominantly_coniferous_forest_2000['unspecified'],table_1_3a2.mixed_forest_2000['unspecified'],
+                  table_1_3a2.predominantly_broadleaved_forest_2000['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
               labelParams: { year: 2000 },
@@ -2267,6 +2360,25 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['total_volume'],
+                  [table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['intermediate_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['mature_phase'],
+                  table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['regeneration_phase'],table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['unspecified']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['regeneration_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_1990['regeneration_phase'],table_1_3a2.mixed_forest_1990['regeneration_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_1990['regeneration_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['intermediate_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_1990['intermediate_phase'],table_1_3a2.mixed_forest_1990['intermediate_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_1990['intermediate_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['mature_phase'],
+                  [table_1_3a2.predominantly_coniferous_forest_1990['mature_phase'],table_1_3a2.mixed_forest_1990['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_1990['mature_phase']])`,
+                  `validatorEqualToSum(table_1_3a2.forest_available_for_wood_supply_even_aged_stands_of_which_1990['unspecified'],
+                  [table_1_3a2.predominantly_coniferous_forest_1990['unspecified'],table_1_3a2.mixed_forest_1990['unspecified'],
+                  table_1_3a2.predominantly_broadleaved_forest_1990['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.forest_available_for_wood_supply_even_aged_stands_of_which',
               labelParams: { year: 1990 },
@@ -2297,6 +2409,11 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_coniferous_forest_2020['total_volume'],
+                  [table_1_3a2.predominantly_coniferous_forest_2020['intermediate_phase'],table_1_3a2.predominantly_coniferous_forest_2020['mature_phase'],
+                  table_1_3a2.predominantly_coniferous_forest_2020['regeneration_phase'],table_1_3a2.predominantly_coniferous_forest_2020['unspecified']])`,
+                ],
               },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
@@ -2326,6 +2443,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_coniferous_forest_2015['total_volume'],
+                  [table_1_3a2.predominantly_coniferous_forest_2015['intermediate_phase'],table_1_3a2.predominantly_coniferous_forest_2015['mature_phase'],
+                  table_1_3a2.predominantly_coniferous_forest_2015['regeneration_phase'],table_1_3a2.predominantly_coniferous_forest_2015['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
               labelParams: { year: 2015 },
@@ -2354,6 +2478,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_coniferous_forest_2010['total_volume'],
+                  [table_1_3a2.predominantly_coniferous_forest_2010['intermediate_phase'],table_1_3a2.predominantly_coniferous_forest_2010['mature_phase'],
+                  table_1_3a2.predominantly_coniferous_forest_2010['regeneration_phase'],table_1_3a2.predominantly_coniferous_forest_2010['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
               labelParams: { year: 2010 },
@@ -2382,6 +2513,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_coniferous_forest_2005['total_volume'],
+                  [table_1_3a2.predominantly_coniferous_forest_2005['intermediate_phase'],table_1_3a2.predominantly_coniferous_forest_2005['mature_phase'],
+                  table_1_3a2.predominantly_coniferous_forest_2005['regeneration_phase'],table_1_3a2.predominantly_coniferous_forest_2005['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
               labelParams: { year: 2005 },
@@ -2410,6 +2548,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_coniferous_forest_2000['total_volume'],
+                  [table_1_3a2.predominantly_coniferous_forest_2000['intermediate_phase'],table_1_3a2.predominantly_coniferous_forest_2000['mature_phase'],
+                  table_1_3a2.predominantly_coniferous_forest_2000['regeneration_phase'],table_1_3a2.predominantly_coniferous_forest_2000['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
               labelParams: { year: 2000 },
@@ -2438,6 +2583,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_coniferous_forest_1990['total_volume'],
+                  [table_1_3a2.predominantly_coniferous_forest_1990['intermediate_phase'],table_1_3a2.predominantly_coniferous_forest_1990['mature_phase'],
+                  table_1_3a2.predominantly_coniferous_forest_1990['regeneration_phase'],table_1_3a2.predominantly_coniferous_forest_1990['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_coniferous_forest',
               labelParams: { year: 1990 },
@@ -2468,6 +2620,11 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_broadleaved_forest_2020['total_volume'],
+                  [table_1_3a2.predominantly_broadleaved_forest_2020['intermediate_phase'],table_1_3a2.predominantly_broadleaved_forest_2020['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2020['regeneration_phase'],table_1_3a2.predominantly_broadleaved_forest_2020['unspecified']])`,
+                ],
               },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
@@ -2497,6 +2654,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_broadleaved_forest_2015['total_volume'],
+                  [table_1_3a2.predominantly_broadleaved_forest_2015['intermediate_phase'],table_1_3a2.predominantly_broadleaved_forest_2015['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2015['regeneration_phase'],table_1_3a2.predominantly_broadleaved_forest_2015['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
               labelParams: { year: 2015 },
@@ -2525,6 +2689,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_broadleaved_forest_2010['total_volume'],
+                  [table_1_3a2.predominantly_broadleaved_forest_2010['intermediate_phase'],table_1_3a2.predominantly_broadleaved_forest_2010['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2010['regeneration_phase'],table_1_3a2.predominantly_broadleaved_forest_2010['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
               labelParams: { year: 2010 },
@@ -2553,6 +2724,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_broadleaved_forest_2005['total_volume'],
+                  [table_1_3a2.predominantly_broadleaved_forest_2005['intermediate_phase'],table_1_3a2.predominantly_broadleaved_forest_2005['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2005['regeneration_phase'],table_1_3a2.predominantly_broadleaved_forest_2005['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
               labelParams: { year: 2005 },
@@ -2581,6 +2759,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_broadleaved_forest_2000['total_volume'],
+                  [table_1_3a2.predominantly_broadleaved_forest_2000['intermediate_phase'],table_1_3a2.predominantly_broadleaved_forest_2000['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_2000['regeneration_phase'],table_1_3a2.predominantly_broadleaved_forest_2000['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
               labelParams: { year: 2000 },
@@ -2609,6 +2794,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.predominantly_broadleaved_forest_1990['total_volume'],
+                  [table_1_3a2.predominantly_broadleaved_forest_1990['intermediate_phase'],table_1_3a2.predominantly_broadleaved_forest_1990['mature_phase'],
+                  table_1_3a2.predominantly_broadleaved_forest_1990['regeneration_phase'],table_1_3a2.predominantly_broadleaved_forest_1990['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.predominantly_broadleaved_forest',
               labelParams: { year: 1990 },
@@ -2639,6 +2831,11 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.mixed_forest_2020['total_volume'],
+                  [table_1_3a2.mixed_forest_2020['intermediate_phase'],table_1_3a2.mixed_forest_2020['mature_phase'],
+                  table_1_3a2.mixed_forest_2020['regeneration_phase'],table_1_3a2.mixed_forest_2020['unspecified']])`,
+                ],
               },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
@@ -2668,6 +2865,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.mixed_forest_2015['total_volume'],
+                  [table_1_3a2.mixed_forest_2015['intermediate_phase'],table_1_3a2.mixed_forest_2015['mature_phase'],
+                  table_1_3a2.mixed_forest_2015['regeneration_phase'],table_1_3a2.mixed_forest_2015['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
               labelParams: { year: 2015 },
@@ -2696,6 +2900,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.mixed_forest_2010['total_volume'],
+                  [table_1_3a2.mixed_forest_2010['intermediate_phase'],table_1_3a2.mixed_forest_2010['mature_phase'],
+                  table_1_3a2.mixed_forest_2010['regeneration_phase'],table_1_3a2.mixed_forest_2010['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
               labelParams: { year: 2010 },
@@ -2724,6 +2935,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.mixed_forest_2005['total_volume'],
+                  [table_1_3a2.mixed_forest_2005['intermediate_phase'],table_1_3a2.mixed_forest_2005['mature_phase'],
+                  table_1_3a2.mixed_forest_2005['regeneration_phase'],table_1_3a2.mixed_forest_2005['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
               labelParams: { year: 2005 },
@@ -2752,6 +2970,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.mixed_forest_2000['total_volume'],
+                  [table_1_3a2.mixed_forest_2000['intermediate_phase'],table_1_3a2.mixed_forest_2000['mature_phase'],
+                  table_1_3a2.mixed_forest_2000['regeneration_phase'],table_1_3a2.mixed_forest_2000['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
               labelParams: { year: 2000 },
@@ -2780,6 +3005,13 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
+              migration: {
+                validateFns: [
+                  `validatorEqualToSum(table_1_3a2.mixed_forest_1990['total_volume'],
+                  [table_1_3a2.mixed_forest_1990['intermediate_phase'],table_1_3a2.mixed_forest_1990['mature_phase'],
+                  table_1_3a2.mixed_forest_1990['regeneration_phase'],table_1_3a2.mixed_forest_1990['unspecified']])`,
+                ],
+              },
               labelKey:
                 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mixed_forest',
               labelParams: { year: 1990 },

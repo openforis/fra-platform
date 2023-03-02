@@ -47,6 +47,7 @@ export const migrate = async (props: {
   console.log('========== START ', new Date().getTime())
   const { assessmentName, legacySchemaName, assessmentLegacy, cycleNames, spec } = props
 
+  // eslint-disable-next-line no-console
   console.log('========== 1. delete old assessment')
   // ==== 1. delete old assessment
   await DB.query(`drop schema if exists ${DBNames.getAssessmentSchema(assessmentName)} cascade;`)
@@ -65,6 +66,7 @@ export const migrate = async (props: {
   const client = DB
   // await DB.tx(async (client) => {
 
+  // eslint-disable-next-line no-console
   console.log('========== 2. create assessment')
   // ==== 2. create assessment
   const assessment = await client.one<Assessment>(
@@ -80,6 +82,7 @@ export const migrate = async (props: {
   // ==== 2 END. create assessment
 
   // ==== 3. create cycles
+  // eslint-disable-next-line no-console
   console.log('========== 3. create cycles')
   assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
 
@@ -96,6 +99,7 @@ export const migrate = async (props: {
   // ==== 3 END. create cycles
 
   // ==== 4. migrate metadata
+  // eslint-disable-next-line no-console
   console.log('========== 4. migrate metadata')
   await migrateMetadata({ assessment, assessmentLegacy, spec, client })
   // ==== 4 END. migrate metadata
@@ -107,11 +111,14 @@ export const migrate = async (props: {
   )
 
   // ==== 5. migrate data
+  // eslint-disable-next-line no-console
   console.log('========== 5. migrate data')
   await Promise.all(
     assessment.cycles.map(async (cycle) => {
+      // eslint-disable-next-line no-console
       console.log(`========== 5.1. migrate tables data ${cycle.name}`)
       await migrateTablesData({ assessment, cycle }, client, legacySchemaName)
+      // eslint-disable-next-line no-console
       console.log(`========== 5.2. generateMetaCache ${cycle.name}`)
       await generateMetaCache({ assessment, cycle }, client)
     })
