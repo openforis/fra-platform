@@ -25,11 +25,13 @@ export const getMany = async (
 ): Promise<Array<User>> => {
   const { countryIso, assessment, cycle, limit, offset, countries, roles } = props
 
-  let query = ''
-  let queryParams = []
+  const selectedCountries = !Objects.isEmpty(countries)
+    ? countries.map((countryIso) => `'${countryIso}'`).join(',')
+    : null
 
-  if (countryIso) {
-    query = `
+  const selectedRoles = !Objects.isEmpty(roles) ? roles.map((roleName) => `'${roleName}'`).join(',') : null
+
+  const query = `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
         from public.users u
           join public.users_role ur on (u.id = ur.user_id)
@@ -46,30 +48,13 @@ export const getMany = async (
                 )`
               : ''
           }
-        group by ${selectFields}
-        ${limit ? `limit ${limit}` : ''}
-        ${offset ? `offset ${offset}` : ''}
-    `
-    queryParams = countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
-  } else {
-    const selectedCountries = countries.map((countryIso) => `'${countryIso}'`).join(',')
-
-    const selectedRoles = roles.map((roleName) => `'${roleName}'`).join(',')
-
-    query = `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
-        from public.users u
-          join public.users_role ur on (u.id = ur.user_id)
-          where ur.assessment_id = $1
-          and ur.cycle_uuid = $2
         ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
         ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
         group by ${selectFields}
         ${limit ? `limit ${limit}` : ''}
         ${offset ? `offset ${offset}` : ''}
     `
-    queryParams = [assessment.id, cycle.uuid]
-  }
+  const queryParams = countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
 
   return client.manyOrNone<User>(query, queryParams).then((data) =>
     data.map(({ roles, ...user }) => ({
