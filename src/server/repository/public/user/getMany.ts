@@ -28,9 +28,9 @@ export const getMany = async (
   let query = ''
   let queryParams = []
 
-  if (assessment && cycle) {
+  if (countryIso) {
     query = `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
+        select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
         from public.users u
           join public.users_role ur on (u.id = ur.user_id)
         where ur.assessment_id = $1
@@ -57,26 +57,18 @@ export const getMany = async (
     const selectedRoles = roles.map((roleName) => `'${roleName}'`).join(',')
 
     query = `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)  - 'props') as roles
+        select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
         from public.users u
           join public.users_role ur on (u.id = ur.user_id)
-          ${
-            countryIso
-              ? `where u.id in (
-                  select user_id
-                  from public.users_role
-                  where country_iso = $1
-                )`
-              : ''
-          }
-        where true
+          where ur.assessment_id = $1
+          and ur.cycle_uuid = $2
         ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
         ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
         group by ${selectFields}
         ${limit ? `limit ${limit}` : ''}
         ${offset ? `offset ${offset}` : ''}
     `
-    queryParams = countryIso ? [countryIso] : []
+    queryParams = [assessment.id, cycle.uuid]
   }
 
   return client.manyOrNone<User>(query, queryParams).then((data) =>
