@@ -24,12 +24,14 @@ const UserManagement: React.FC = () => {
   useEffect(() => {
     dispatch(
       UserManagementActions.getUsersCount({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         countries: filters.countries,
         roles: filters.roles,
       })
     )
     setPageNumber(0)
-  }, [dispatch, filters.countries, filters.roles])
+  }, [assessment.props.name, cycle.name, dispatch, filters.countries, filters.roles])
 
   useEffect(() => {
     dispatch(
