@@ -134,4 +134,5 @@ export const isBasicTable = (tableName: string): boolean =>
     'country_comments_6_9_2',
     'country_comments_6_10_1',
     'country_comments_6_10_2',
+    'reasonability_check_3_1',
   ].includes(tableName)

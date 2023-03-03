@@ -4022,6 +4022,257 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        tableSpecs: [
+          {
+            name: 'reasonability_check_3_1',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.variable',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.forest',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FAWS',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.OWL',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FOWL',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2020.area',
+                    },
+                  },
+                  { idx: 2, type: 'decimal' },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2020 },
+                variableExport: 'netAnnualIncrementPerHa_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2015.area',
+                    },
+                  },
+                  { idx: 2, type: 'decimal' },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2015 },
+                variableName: 'netAnnualIncrementPerHa_2015',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2010.area',
+                    },
+                  },
+                  { idx: 2, type: 'decimal' },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2010 },
+                variableExport: 'netAnnualIncrementPerHa_2010',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2005.area',
+                    },
+                  },
+                  { idx: 2, type: 'decimal' },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2005 },
+                variableExport: 'netAnnualIncrementPerHa_2005',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2000.area',
+                    },
+                  },
+                  { idx: 2, type: 'decimal' },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2000 },
+                variableExport: 'netAnnualIncrementPerHa_2000',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_1990.area',
+                    },
+                  },
+                  { idx: 2, type: 'decimal' },
+                  { idx: 3, type: 'decimal' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 1990 },
+                variableExport: 'netAnnualIncrementPerHa_1990',
+              },
+            ],
+            tableDataRequired: [],
+            print: { colBreakPoints: [], pageBreakAfter: false },
+            dataExport: true,
+            columnsExportAlways: [],
+            columnsExport: [],
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': ['variable', 'forest', 'FAWS', 'OWL', 'FOWL'] },
+            },
+          },
+        ],
+      },
+      {
         titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {

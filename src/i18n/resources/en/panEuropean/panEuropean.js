@@ -2,6 +2,18 @@ const countryComments = require('./countryComments')
 
 module.exports = {
   countryComments,
+  // ...TODO: Move all reasonability checks out to a separate file
+  reasonabilityChecks: {
+    reasonabilityCheck: 'Reasonability check',
+    variable: 'Variable - Year',
+    forest: 'Forest',
+    FAWS: 'FAWS',
+    OWL: 'OWL',
+    FOWL: 'FOWL',
+
+    netAnnualIncrementPerHa: 'Net annual increment per ha (3.1/1.1a) - {{year}}',
+  },
+
   panEuCommentsTitle: 'Additional Comments',
   panEuropeanAssessment: 'Joint pan-European dataset',
   variable: 'Variable',

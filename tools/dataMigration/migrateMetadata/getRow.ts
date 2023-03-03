@@ -75,7 +75,7 @@ export const getRow = (props: { assessment: Assessment; rowSpec: RowSpec; table:
       index: rowSpec.idx,
       linkToSection,
       type: rowSpec.type as unknown as RowType,
-      variableName: rowSpec.variableName,
+      variableName: rowSpec.variableName ?? rowSpec.variableExport,
       calculateFn: _getCalculateFn(rowSpec, cycles, assessment),
       readonly: rowSpec.migration?.readonly,
       validateFns: _getValidateFns(rowSpec, cycles, assessment),
