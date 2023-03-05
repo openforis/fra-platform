@@ -14,7 +14,6 @@ import { employmentByEducationAndJobCharacteristics, employmentByGenderAndAge } 
 import { growingStock, growingStockByForestType, growingStockComposition } from './panEuSections/growingStock'
 import {
   introducedTreeSpecies,
-  // eslint-disable-next-line camelcase
   introducedTreeSpecies4_4b,
   invasiveTreeSpecies,
 } from './panEuSections/introducedTreeSpecies'
@@ -4085,17 +4084,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: 'FAWS',
                     migration: {
                       calculateFn:
                         'table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2020.area',
                     },
                   },
-                  { idx: 2, type: 'decimal' },
-                  { idx: 3, type: 'decimal' },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -4116,17 +4116,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: 'FAWS',
                     migration: {
                       calculateFn:
                         'table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2015.area',
                     },
                   },
-                  { idx: 2, type: 'decimal' },
-                  { idx: 3, type: 'decimal' },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -4147,17 +4148,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: 'FAWS',
                     migration: {
                       calculateFn:
                         'table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2010.area',
                     },
                   },
-                  { idx: 2, type: 'decimal' },
-                  { idx: 3, type: 'decimal' },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -4178,17 +4180,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: 'FAWS',
                     migration: {
                       calculateFn:
                         'table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2005.area',
                     },
                   },
-                  { idx: 2, type: 'decimal' },
-                  { idx: 3, type: 'decimal' },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -4209,17 +4212,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: 'FAWS',
                     migration: {
                       calculateFn:
                         'table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2000.area',
                     },
                   },
-                  { idx: 2, type: 'decimal' },
-                  { idx: 3, type: 'decimal' },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -4240,17 +4244,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
+                    colName: 'FAWS',
                     migration: {
                       calculateFn:
                         'table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_1990.area',
                     },
                   },
-                  { idx: 2, type: 'decimal' },
-                  { idx: 3, type: 'decimal' },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
