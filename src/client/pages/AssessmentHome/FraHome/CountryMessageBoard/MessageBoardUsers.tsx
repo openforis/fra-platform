@@ -18,7 +18,7 @@ const MessageBoardUsers: React.FC = () => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const user = useUser()
   const users = useUsers()
 
@@ -29,7 +29,7 @@ const MessageBoardUsers: React.FC = () => {
   return (
     <div className="landing__users-container">
       <div className="landing__page-container-header">
-        <h3 className="landing__users-container-header">{i18n.t<string>('countryMessageBoard.oneToOneMessages')}</h3>
+        <h3 className="landing__users-container-header">{t('countryMessageBoard.oneToOneMessages')}</h3>
       </div>
       {users.map((_user) => (
         <div key={_user.id} className="landing__user-outer-container">
@@ -45,12 +45,12 @@ const MessageBoardUsers: React.FC = () => {
                   {Users.getFullName(_user)}
                 </div>
                 <div className="landing__user-role">
-                  {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(_user, countryIso, cycle).role))}
+                  {t(Users.getI18nRoleLabelKey(Users.getRole(_user, countryIso, cycle)?.role))}
                 </div>
                 {user.id !== _user.id && (
                   <MessageButton
                     topicKey={Topics.getMessageBoardChatKey(user, _user)}
-                    topicSubtitle={i18n.t<string>('landing.users.message')}
+                    topicSubtitle={t('landing.users.message')}
                     topicTitle={Users.getFullName(_user)}
                     topicType={MessageTopicType.chat}
                   />
