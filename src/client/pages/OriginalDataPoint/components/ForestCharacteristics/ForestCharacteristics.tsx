@@ -9,6 +9,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
+import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 import ForestCharacteristicsRow from './ForestCharacteristicsRow'
@@ -49,11 +50,16 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     naturallyRegeneratingForestTotal &&
     Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
+  const nationalClassValidations = nationalClasses.map((_, index) =>
+    ODPs.validateNationalClass(originalDataPoint, index)
+  )
+
   return (
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
+
           <DefinitionLink
             assessmentName={assessment.props.name}
             cycleName={cycle.name}
@@ -99,6 +105,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
+                  nationalClassValidation={nationalClassValidations[index]}
                 />
               ))}
 
@@ -137,11 +144,28 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               </tr>
             </tbody>
           </table>
+
+          <NationalClassValidations
+            nationalClasses={nationalClasses}
+            nationalClassValidations={nationalClassValidations}
+            variable="validForestCharacteristicsPercentage"
+          />
         </div>
       </div>
 
-      {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
-      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
+      {hasNaturallyRegeneratingForest && (
+        <ForestCharacteristicsNaturallyRegenerating
+          canEditData={canEditData}
+          nationalClassValidations={nationalClassValidations}
+        />
+      )}
+
+      {hasPlantation && (
+        <ForestCharacteristicsPlantation
+          canEditData={canEditData}
+          nationalClassValidations={nationalClassValidations}
+        />
+      )}
     </div>
   )
 }

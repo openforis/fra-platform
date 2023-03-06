@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from '@utils/numbers'
 import classNames from 'classnames'
 
-import { ODPNationalClass, ODPs } from '@meta/assessment'
+import { ODPNationalClass } from '@meta/assessment'
+import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -22,15 +23,15 @@ const allowedClass = (nc: ODPNationalClass) =>
 type Props = {
   canEditData: boolean
   index: number
+  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
-  const { canEditData, index } = props
+  const { canEditData, index, nationalClassValidation } = props
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  // const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -39,7 +40,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const { name, area, forestPercent, forestPlantationPercent, forestPlantationIntroducedPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
+
   const plantationIntroduced = area
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
     : null
@@ -47,8 +48,6 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   if (!allowedClass(nationalClass)) {
     return null
   }
-
-  // const isPlantationPercentNull = forestPlantationPercent === null
 
   const isZeroOrNullPlantationIntroduced = plantationIntroduced === null || Numbers.eq(plantationIntroduced, 0)
 
