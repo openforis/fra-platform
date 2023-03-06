@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from '@utils/objects'
 
 import { SubSections } from '@meta/assessment'
-import { RoleName, User, Users, UserStatus } from '@meta/user'
+import { CollaboratorPermissions, RoleName, User, Users, UserStatus } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
@@ -34,14 +34,14 @@ const ContactPersons: React.FC = () => {
       ([UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
         allowedRoleNames.includes(userRole.role) &&
         userRole.role !== RoleName.COLLABORATOR) ||
-      (userRole.props as CollaboratorProps).sections !== 'none'
+      (userRole.props as CollaboratorPermissions).sections !== 'none'
     )
   })
 
   const getUserTableAnchors = (user: User) => {
     if (Users.isCollaborator(user, countryIso, cycle)) {
-      const collaboratorProps: CollaboratorProps = user.roles?.[0]?.props
-      const sections = collaboratorProps?.sections
+      const permissions: CollaboratorPermissions = user.roles?.[0]?.props
+      const sections = permissions?.sections
       if (!Objects.isEmpty(sections)) {
         return Object.keys(sections)
           .map((sectionUuid) => sectionAnchors[sectionUuid])
