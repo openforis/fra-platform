@@ -41,7 +41,7 @@ const UserListButtonExport = () => {
       name: Users.getFullName(user),
       [roleKey]: `${roleValue}${userRole?.invitationUuid ? ` - ${t('admin.invitationPending')}` : ''}`,
       email: user.email,
-      loginEmail: userRole?.props.email || user.email,
+      loginEmail: user.email, // TODO login email is stored into user_auth_provider and can be multiple
     }
   }
 
