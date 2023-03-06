@@ -22,7 +22,6 @@ const UserListButtonExport = () => {
     { key: 'name', label: t('userManagement.name') },
     ...csvRoleHeaders(),
     { key: 'email', label: t('userManagement.email') },
-    { key: 'loginEmail', label: t('userManagement.loginEmail') },
   ]
 
   // ==== TABLE DATA
@@ -41,7 +40,6 @@ const UserListButtonExport = () => {
       name: Users.getFullName(user),
       [roleKey]: `${roleValue}${userRole?.invitationUuid ? ` - ${t('admin.invitationPending')}` : ''}`,
       email: user.email,
-      loginEmail: user.email, // TODO login email is stored into user_auth_provider and can be multiple
     }
   }
 
