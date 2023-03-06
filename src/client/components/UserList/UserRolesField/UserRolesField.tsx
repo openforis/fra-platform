@@ -21,7 +21,7 @@ const UserRolesField: React.FC<{ roleName: RoleName; user: User }> = ({ roleName
           .filter((role) => role.role === roleName)
           .map((role) => {
             if (role.role === RoleName.ADMINISTRATOR) return t(Users.getI18nRoleLabelKey(role.role))
-            if (role.invitedAt && !role.acceptedAt) return t(Areas.getTranslationKey(role.countryIso))
+            if (role.invitationUuid && !role.acceptedAt) return t(Areas.getTranslationKey(role.countryIso))
             return (
               <Link
                 to={ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({

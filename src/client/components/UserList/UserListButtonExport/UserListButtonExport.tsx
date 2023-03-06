@@ -38,7 +38,9 @@ const UserListButtonExport = () => {
 
     return {
       name: Users.getFullName(user),
-      [roleKey]: `${roleValue}${userRole?.invitationUuid ? ` - ${t('admin.invitationPending')}` : ''}`,
+      [roleKey]: `${roleValue}${
+        userRole?.invitationUuid && !userRole.acceptedAt ? ` - ${t('admin.invitationPending')}` : ''
+      }`,
       email: user.email,
     }
   }
