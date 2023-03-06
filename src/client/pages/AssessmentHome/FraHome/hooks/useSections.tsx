@@ -31,7 +31,12 @@ export const useSections = (): Array<Section> => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const sections: Array<Section> = [{ name: SectionNames.overview, component: Dashboard }]
+  const sections: Array<Section> = []
+
+  // TODO: Remove this when dashboard updated for 2025
+  if (cycle.name === '2020') {
+    sections.push({ name: SectionNames.overview, component: Dashboard })
+  }
 
   if (user) {
     sections.push({ name: SectionNames.messageBoard, component: CountryMessageBoard })
