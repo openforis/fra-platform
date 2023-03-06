@@ -14,6 +14,7 @@ type Params = {
   offset?: number
   countries?: Array<CountryIso>
   roles?: Array<RoleName>
+  administrators?: boolean
 }
 
 export const getUsers = createAsyncThunk<Array<User>, Params>('userManagement/get/users', async (params) => {

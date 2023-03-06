@@ -42,6 +42,7 @@ const UserManagement: React.FC = () => {
         offset: pageNumber * 20,
         countries: filters.countries,
         roles: filters.roles,
+        administrators: true,
       })
     )
   }, [assessment, cycle, dispatch, filters.countries, filters.roles, pageNumber])

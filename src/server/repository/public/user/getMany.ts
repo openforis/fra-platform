@@ -20,10 +20,11 @@ export const getMany = async (
     offset?: number
     countries?: Array<CountryIso>
     roles?: Array<RoleName>
+    administrators?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
-  const { countryIso, assessment, cycle, limit, offset, countries, roles } = props
+  const { countryIso, assessment, cycle, limit, offset, countries, roles, administrators } = props
 
   const selectedCountries = !Objects.isEmpty(countries)
     ? countries.map((countryIso) => `'${countryIso}'`).join(',')
@@ -35,8 +36,8 @@ export const getMany = async (
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
         from public.users u
           join public.users_role ur on (u.id = ur.user_id)
-        where ur.assessment_id = $1
-          and ur.cycle_uuid = $2
+        where ${administrators ? '(ur.assessment_id = $1 or ur.assessment_id is null)' : 'ur.assessment_id = $1'}
+          and ${administrators ? '(ur.cycle_uuid = $2 or ur.cycle_uuid is null)' : 'ur.cycle_uuid = $2'}
           ${
             countryIso
               ? `and u.id in (
@@ -54,6 +55,7 @@ export const getMany = async (
         ${limit ? `limit ${limit}` : ''}
         ${offset ? `offset ${offset}` : ''}
     `
+
   const queryParams = countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
 
   return client.manyOrNone<User>(query, queryParams).then((data) =>
