@@ -37,15 +37,15 @@ const getLinks = (
       }),
     },
   ]
-  // if (Users.isAdministrator(user)) {
-  //   items.push({
-  //     content: i18nInstance.t('admin.admin'),
-  //     link: ClientRoutes.Assessment.Cycle.Admin.Root.getLink({
-  //       assessmentName: assessment.props.name,
-  //       cycleName: cycle.name,
-  //     }),
-  //   })
-  // }
+  if (Users.isAdministrator(user)) {
+    items.push({
+      content: i18nInstance.t('admin.admin'),
+      link: ClientRoutes.Assessment.Cycle.Admin.Root.getLink({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+      }),
+    })
+  }
   items.push(
     {
       divider: true,
