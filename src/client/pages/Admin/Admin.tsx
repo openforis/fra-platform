@@ -16,7 +16,7 @@ import User from '../User'
 import UserManagement from './UserManagement'
 
 const sections = [
-  { component: UserManagement, name: 'userManagement', labelKey: 'landing.sections.userManagement' },
+  { component: UserManagement, name: AdminRouteNames.userManagement, labelKey: 'landing.sections.userManagement' },
   // { name: 'dataExport', labelKey: 'common.dataExport' },
 ]
 
