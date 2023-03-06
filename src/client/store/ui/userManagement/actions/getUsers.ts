@@ -6,8 +6,8 @@ import { CountryIso } from '@meta/area'
 import { RoleName, User } from '@meta/user'
 
 type Params = {
-  countryIso?: CountryIso
   assessmentName?: string
+  countryIso?: CountryIso
   cycleName?: string
   print?: boolean
   limit?: number
@@ -17,9 +17,9 @@ type Params = {
 }
 
 export const getUsers = createAsyncThunk<Array<User>, Params>('userManagement/get/users', async (params) => {
-  const { assessmentName, cycleName } = params
+  const { countryIso } = params
 
-  const { data } = await axios.get(assessmentName && cycleName ? ApiEndPoint.User.many() : ApiEndPoint.Admin.users(), {
+  const { data } = await axios.get(countryIso ? ApiEndPoint.User.many() : ApiEndPoint.Admin.users(), {
     params,
   })
 
