@@ -3,9 +3,12 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
+import { AssessmentName } from '@meta/assessment'
 import { RoleName } from '@meta/user'
 
 type Params = {
+  assessmentName: AssessmentName
+  cycleName: string
   countries?: Array<CountryIso>
   roles?: Array<RoleName>
 }
