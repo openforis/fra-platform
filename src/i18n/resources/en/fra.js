@@ -192,6 +192,11 @@ module.exports = {
         'Estimates based on repeated compatible³ National Forest Inventories where the most recent is older than five years; and/or remote sensing change assessments through multitemporal analysis for a period ending more than five years ago; or comparison of compatible maps without multitemporal analysis.',
       low: 'Other data sources, e.g., expert estimates, or estimates based on non-compatible assessments.',
     },
+    footer1:
+      '¹ Data not older than 5 years from year of submission of report (2018 or more recent for FRA 2025 country reports)',
+    footer2:
+      '² Data older than 5 years from year of submission of report (older than 2018 for FRA 2025 country reports)',
+    footer3: '³ Compatible in terms of methods, categories and definitions used',
   },
 
   growingStock_growingStockStatus_Description: {
@@ -202,6 +207,10 @@ module.exports = {
         'Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples.',
       low: 'Data sources:  Other data sources, such as satellite data, registers, questionnaires or expert assessments.',
     },
+    footer1:
+      '¹ Data not older than 10 years from year of submission of report (2013 or more recent for FRA 2025 country reports)',
+    footer2:
+      '² Data older than 10 years from year of submission of report (older than 2013 for FRA 2025 country reports)',
   },
 
   biomassStock_biomassStockStatus_Description: {
