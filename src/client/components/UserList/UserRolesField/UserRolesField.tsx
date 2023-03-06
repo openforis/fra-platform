@@ -32,6 +32,7 @@ const UserRolesField: React.FC<{ roleName: RoleName; user: User }> = ({ roleName
                 })}
                 type="button"
                 className="link"
+                key={`${user.id}-${role.countryIso}`}
               >
                 {t(Areas.getTranslationKey(role.countryIso))}
               </Link>
