@@ -1938,6 +1938,353 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        tableSpecs: [
+          {
+            name: 'reasonability_check_2_4',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.variable',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.forest',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FAWS',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.OWL',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FOWL',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_2_4.forest_2020.total_area_with_damage / table_1_1a.forest_2020.area',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.other_wooded_land_2020.total_area_with_damage / table_1_1a.other_wooded_land_2020.area',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.total_forest_and_other_wooded_land_2020.total_area_with_damage / table_1_1a.total_forest_and_other_wooded_land_2020.area',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                labelParams: { year: 2020 },
+                variableExport: 'totalWithDamageOverTotal_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_2_4.forest_2015.total_area_with_damage / table_1_1a.forest_2015.area',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.other_wooded_land_2015.total_area_with_damage / table_1_1a.other_wooded_land_2015.area',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.total_forest_and_other_wooded_land_2015.total_area_with_damage / table_1_1a.total_forest_and_other_wooded_land_2015.area',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                labelParams: { year: 2015 },
+                variableExport: 'totalWithDamageOverTotal_2015',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_2_4.forest_2010.total_area_with_damage / table_1_1a.forest_2010.area',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.other_wooded_land_2010.total_area_with_damage / table_1_1a.other_wooded_land_2010.area',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.total_forest_and_other_wooded_land_2010.total_area_with_damage / table_1_1a.total_forest_and_other_wooded_land_2010.area',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                labelParams: { year: 2010 },
+                variableExport: 'totalWithDamageOverTotal_2010',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_2_4.forest_2005.total_area_with_damage / table_1_1a.forest_2005.area',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.other_wooded_land_2005.total_area_with_damage / table_1_1a.other_wooded_land_2005.area',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.total_forest_and_other_wooded_land_2005.total_area_with_damage / table_1_1a.total_forest_and_other_wooded_land_2005.area',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                labelParams: { year: 2005 },
+                variableExport: 'totalWithDamageOverTotal_2005',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_2_4.forest_2000.total_area_with_damage / table_1_1a.forest_2000.area',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.other_wooded_land_2000.total_area_with_damage / table_1_1a.other_wooded_land_2000.area',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.total_forest_and_other_wooded_land_2000.total_area_with_damage / table_1_1a.total_forest_and_other_wooded_land_2000.area',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                labelParams: { year: 2000 },
+                variableExport: 'totalWithDamageOverTotal_2000',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_2_4.forest_1990.total_area_with_damage / table_1_1a.forest_1990.area',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.other_wooded_land_1990.total_area_with_damage / table_1_1a.other_wooded_land_1990.area',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_2_4.total_forest_and_other_wooded_land_1990.total_area_with_damage / table_1_1a.total_forest_and_other_wooded_land_1990.area',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.totalWithDamageOverTotal',
+                labelParams: { year: 1990 },
+                variableExport: 'totalWithDamageOverTotal_1990',
+              },
+            ],
+            tableDataRequired: [],
+            print: { colBreakPoints: [], pageBreakAfter: false },
+            dataExport: true,
+            columnsExportAlways: [],
+            columnsExport: [],
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': ['variable', 'forest', 'FAWS', 'OWL', 'FOWL'] },
+            },
+          },
+        ],
+      },
+      {
         titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
@@ -4022,6 +4369,647 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
         ],
       },
       {
+        titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        tableSpecs: [
+          {
+            name: 'reasonability_check_3_1',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.variable',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.forest',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FAWS',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.OWL',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FOWL',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2020.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2020 },
+                variableExport: 'netAnnualIncrementPerHa_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2015.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2015 },
+                variableName: 'netAnnualIncrementPerHa_2015',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2010.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2010 },
+                variableExport: 'netAnnualIncrementPerHa_2010',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2005.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2005 },
+                variableExport: 'netAnnualIncrementPerHa_2005',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2000.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 2000 },
+                variableExport: 'netAnnualIncrementPerHa_2000',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_1990.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.netAnnualIncrementPerHa',
+                labelParams: { year: 1990 },
+                variableExport: 'netAnnualIncrementPerHa_1990',
+              },
+              {
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total / table_1_1a._of_which_available_for_wood_supply_2020.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                labelParams: { year: 2020 },
+                variableExport: 'fellingsPerHa_2020',
+              },
+              {
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total / table_1_1a._of_which_available_for_wood_supply_2015.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                labelParams: { year: 2015 },
+                variableName: 'fellingsPerHa_2015',
+              },
+              {
+                idx: 8,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total / table_1_1a._of_which_available_for_wood_supply_2010.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                labelParams: { year: 2010 },
+                variableExport: 'fellingsPerHa_2010',
+              },
+              {
+                idx: 9,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total / table_1_1a._of_which_available_for_wood_supply_2005.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                labelParams: { year: 2005 },
+                variableExport: 'fellingsPerHa_2005',
+              },
+              {
+                idx: 10,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total / table_1_1a._of_which_available_for_wood_supply_2000.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                labelParams: { year: 2000 },
+                variableExport: 'fellingsPerHa_2000',
+              },
+              {
+                idx: 11,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total / table_1_1a._of_which_available_for_wood_supply_1990.area',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsPerHa',
+                labelParams: { year: 1990 },
+                variableExport: 'fellingsPerHa_1990',
+              },
+              {
+                idx: 12,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                labelParams: { year: 2020 },
+                variableExport: 'fellingsAsPct_2020',
+              },
+              {
+                idx: 13,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                labelParams: { year: 2015 },
+                variableExport: 'fellingsAsPct_2015',
+              },
+              {
+                idx: 14,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                labelParams: { year: 2010 },
+                variableExport: 'fellingsAsPct_2010',
+              },
+              {
+                idx: 15,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                labelParams: { year: 2005 },
+                variableExport: 'fellingsAsPct_2005',
+              },
+              {
+                idx: 16,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                labelParams: { year: 2000 },
+                variableExport: 'fellingsAsPct_2000',
+              },
+              {
+                idx: 17,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.fellingsAsPct',
+                labelParams: { year: 1990 },
+                variableExport: 'fellingsAsPct_1990',
+              },
+            ],
+            tableDataRequired: [],
+            print: { colBreakPoints: [], pageBreakAfter: false },
+            dataExport: true,
+            columnsExportAlways: [],
+            columnsExport: [],
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': ['variable', 'forest', 'FAWS', 'OWL', 'FOWL'] },
+            },
+          },
+        ],
+      },
+      {
         titleKey: 'panEuropean.countryComments.countryComments',
         tableSpecs: [
           {
@@ -5412,6 +6400,455 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'woodfuel_volume',
               'woodfuel_market_value',
             ],
+          },
+        ],
+      },
+      {
+        titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        tableSpecs: [
+          {
+            name: 'reasonability_check_3_2',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.variable',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.forest',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FAWS',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.OWL',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FOWL',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2020.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_2020.total * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                labelParams: { year: 2020 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockSupply_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2015.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_2015.total * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                labelParams: { year: 2015 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockSupply_2015',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2010.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_2010.total * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                labelParams: { year: 2010 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockSupply_2010',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2005.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_2005.total * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                labelParams: { year: 2005 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockSupply_2005',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2000.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_2000.total * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                labelParams: { year: 2000 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockSupply_2000',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_1990.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_1990.total * 1000)',
+                    },
+                  },
+                  { idx: 2, type: 'placeholder' },
+                  { idx: 3, type: 'placeholder' },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockSupply',
+                labelParams: { year: 1990 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockSupply_1990',
+              },
+              {
+                idx: 6,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  { idx: 1, type: 'placeholder' },
+                  { idx: 2, type: 'placeholder' },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2020.net_annual_increment / (table_1_2a.total_forest_and_other_wooded_land_2020.total * 1000)',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                labelParams: { year: 2020 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockTotal_2020',
+              },
+              {
+                idx: 7,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  { idx: 1, type: 'placeholder' },
+                  { idx: 2, type: 'placeholder' },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2015.net_annual_increment / (table_1_2a.total_forest_and_other_wooded_land_2015.total * 1000)',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                labelParams: { year: 2015 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockTotal_2015',
+              },
+              {
+                idx: 8,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  { idx: 1, type: 'placeholder' },
+                  { idx: 2, type: 'placeholder' },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2010.net_annual_increment / (table_1_2a.total_forest_and_other_wooded_land_2010.total * 1000)',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                labelParams: { year: 2010 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockTotal_2010',
+              },
+              {
+                idx: 9,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  { idx: 1, type: 'placeholder' },
+                  { idx: 2, type: 'placeholder' },
+                  {
+                    idx: 1,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2005.net_annual_increment / (table_1_2a.total_forest_and_other_wooded_land_2005.total * 1000)',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                labelParams: { year: 2005 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockTotal_2005',
+              },
+              {
+                idx: 10,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  { idx: 1, type: 'placeholder' },
+                  { idx: 2, type: 'placeholder' },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_2000.net_annual_increment / (table_1_2a.total_forest_and_other_wooded_land_2000.total * 1000)',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                labelParams: { year: 2000 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockTotal_2000',
+              },
+              {
+                idx: 11,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  { idx: 0, type: 'placeholder' },
+                  { idx: 1, type: 'placeholder' },
+                  { idx: 2, type: 'placeholder' },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FAWS',
+                    migration: {
+                      calculateFn:
+                        'table_3_2._of_which_forest_available_for_wood_supply_1990.net_annual_increment / (table_1_2a.total_forest_and_other_wooded_land_1990.total * 1000)',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.roundwoodRemovalAsPctOfGrowingStockTotal',
+                labelParams: { year: 1990 },
+                variableExport: 'roundwoodRemovalAsPctOfGrowingStockTotal_1990',
+              },
+            ],
+            tableDataRequired: [],
+            print: { colBreakPoints: [], pageBreakAfter: false },
+            dataExport: true,
+            columnsExportAlways: [],
+            columnsExport: [],
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': ['variable', 'forest', 'FAWS', 'OWL', 'FOWL'] },
+            },
           },
         ],
       },
@@ -8194,6 +9631,354 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExportAlways: [],
             unit: 'cubicMeterPerHa',
             columnsExport: ['total', 'standing', 'lying'],
+          },
+        ],
+      },
+      {
+        titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        tableSpecs: [
+          {
+            name: 'reasonability_check_4_5',
+            rows: [
+              {
+                idx: 'header_0',
+                cols: [
+                  {
+                    idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.variable',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.forest',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FAWS',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.OWL',
+                    className: 'fra-table__header-cell-left',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.FOWL',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                ],
+                type: 'header',
+              },
+
+              {
+                idx: 0,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                    labelParams: { year: 2020 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_4_5.forest_2020.total / table_1_4a.forest_2020.deadwood',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.other_wooded_land_2020.total / table_1_4a.other_wooded_land_2020.deadwood',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.total_forest_and_other_wooded_land_2020.total / table_1_4a.total_forest_and_other_wooded_land_2020.deadwood',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                labelParams: { year: 2020 },
+                variableExport: 'deadwoodVolumeComparedToCarbon_2020',
+              },
+              {
+                idx: 1,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                    labelParams: { year: 2015 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_4_5.forest_2015.total / table_1_4a.forest_2015.deadwood',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.other_wooded_land_2015.total / table_1_4a.other_wooded_land_2015.deadwood',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.total_forest_and_other_wooded_land_2015.total / table_1_4a.total_forest_and_other_wooded_land_2015.deadwood',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                labelParams: { year: 2015 },
+                variableExport: 'deadwoodVolumeComparedToCarbon_2015',
+              },
+              {
+                idx: 2,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                    labelParams: { year: 2010 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_4_5.forest_2010.total / table_1_4a.forest_2010.deadwood',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.other_wooded_land_2010.total / table_1_4a.other_wooded_land_2010.deadwood',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.total_forest_and_other_wooded_land_2010.total / table_1_4a.total_forest_and_other_wooded_land_2010.deadwood',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                labelParams: { year: 2010 },
+                variableExport: 'deadwoodVolumeComparedToCarbon_2010',
+              },
+              {
+                idx: 3,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                    labelParams: { year: 2005 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_4_5.forest_2005.total / table_1_4a.forest_2005.deadwood',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.other_wooded_land_2005.total / table_1_4a.other_wooded_land_2005.deadwood',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.total_forest_and_other_wooded_land_2005.total / table_1_4a.total_forest_and_other_wooded_land_2005.deadwood',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                labelParams: { year: 2005 },
+                variableExport: 'deadwoodVolumeComparedToCarbon_2005',
+              },
+              {
+                idx: 4,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                    labelParams: { year: 2000 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_4_5.forest_2000.total / table_1_4a.forest_2000.deadwood',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.other_wooded_land_2000.total / table_1_4a.other_wooded_land_2000.deadwood',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.total_forest_and_other_wooded_land_2000.total / table_1_4a.total_forest_and_other_wooded_land_2000.deadwood',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                labelParams: { year: 2000 },
+                variableExport: 'deadwoodVolumeComparedToCarbon_2000',
+              },
+              {
+                idx: 5,
+                type: 'data',
+                cols: [
+                  {
+                    idx: 'header_0',
+                    colSpan: 1,
+                    labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                    labelParams: { year: 1990 },
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 0,
+                    type: 'calculated',
+                    colName: 'Forest',
+                    migration: {
+                      calculateFn: 'table_4_5.forest_1990.total / table_1_4a.forest_1990.deadwood',
+                    },
+                  },
+                  { idx: 1, type: 'placeholder' },
+                  {
+                    idx: 2,
+                    type: 'calculated',
+                    colName: 'OWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.other_wooded_land_1990.total / table_1_4a.other_wooded_land_1990.deadwood',
+                    },
+                  },
+                  {
+                    idx: 3,
+                    type: 'calculated',
+                    colName: 'FOWL',
+                    migration: {
+                      calculateFn:
+                        'table_4_5.total_forest_and_other_wooded_land_1990.total / table_1_4a.total_forest_and_other_wooded_land_1990.deadwood',
+                    },
+                  },
+                ],
+                migration: {
+                  cycles: ['2025'],
+                },
+                labelKey: 'panEuropean.reasonabilityChecks.deadwoodVolumeComparedToCarbon',
+                labelParams: { year: 1990 },
+                variableExport: 'deadwoodVolumeComparedToCarbon_1990',
+              },
+            ],
+            tableDataRequired: [],
+            print: { colBreakPoints: [], pageBreakAfter: false },
+            dataExport: true,
+            columnsExportAlways: [],
+            columnsExport: [],
+            migration: {
+              cycles: ['2025'],
+              columnNames: { '2025': ['variable', 'forest', 'FAWS', 'OWL', 'FOWL'] },
+            },
           },
         ],
       },
