@@ -9,6 +9,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import DefinitionLink from '@client/components/DefinitionLink'
 
+import NationalClassValidations from '../NationalClassValidations'
 import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
@@ -28,6 +29,10 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const { print } = useIsPrint()
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+
+  const nationalClassValidations = nationalClasses.map((_, index) =>
+    ODPs.validateNationalClass(originalDataPoint, index)
+  )
 
   return (
     <div className="odp__section">
@@ -80,6 +85,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
+                  nationalClassValidation={nationalClassValidations[index]}
                 />
               ))}
 
@@ -100,6 +106,12 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               </tr>
             </tbody>
           </table>
+
+          <NationalClassValidations
+            nationalClasses={nationalClasses}
+            nationalClassValidations={nationalClassValidations}
+            variable="validExtentOfForestPercentage"
+          />
         </div>
       </div>
     </div>

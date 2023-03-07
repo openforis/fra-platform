@@ -45,10 +45,11 @@ const _validForestCharacteristicsPercentage = (nationalClass: ODPNationalClass) 
 // should be less than or equal to 100
 
 const _validForestPlantationIntroducedPercent = (nationalClass: ODPNationalClass) => {
+  if (Objects.isEmpty(nationalClass.forestPlantationIntroducedPercent)) return true
   if (+nationalClass.forestPlantationIntroducedPercent <= 0) return true
   return ltE100(+nationalClass.forestPlantationIntroducedPercent)
 }
-// == Forest plantation introduced percentage (forestPlantationIntroducedPercent)
+// == Natural forest of which primary forest percentage (forestNaturalForestOfWhichPrimaryForestPercent)
 // should be less than or equal to 100
 
 const _validPrimaryForest = (nationalClass: ODPNationalClass) => {
@@ -57,7 +58,7 @@ const _validPrimaryForest = (nationalClass: ODPNationalClass) => {
   return ltE100(+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)
 }
 
-type NationalClassValidation = {
+export type NationalClassValidation = {
   error: boolean
   validClassName?: boolean
   validArea?: boolean
@@ -66,6 +67,7 @@ type NationalClassValidation = {
   validForestPlantationIntroducedPercent: boolean
   validPrimaryForest: boolean
 }
+
 export const validateNationalClass = (originalDataPoint: OriginalDataPoint, index: number): NationalClassValidation => {
   const nationalClass = originalDataPoint?.nationalClasses?.[index]
   // If the national class doesn't exist, it is not invalid

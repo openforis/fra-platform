@@ -4,7 +4,7 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentHomeRouteNames, ClientRoutes } from '@meta/app'
+import { ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
 
 import { useCountryIso } from '@client/hooks'
@@ -60,7 +60,7 @@ const FraHome: React.FC = () => {
 
         <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} />
 
-        <Route path="*" element={<Navigate to={AssessmentHomeRouteNames.overview} />} />
+        <Route path="*" element={<Navigate to={sections[0].name} />} />
       </Routes>
     </>
   )

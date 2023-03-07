@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from '@utils/numbers'
 import classNames from 'classnames'
 
-import { ODPNationalClass, ODPs } from '@meta/assessment'
+import { ODPNationalClass } from '@meta/assessment'
+import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -22,10 +23,11 @@ const allowedClass = (nc: ODPNationalClass) =>
 type Props = {
   canEditData: boolean
   index: number
+  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) => {
-  const { canEditData, index } = props
+  const { canEditData, index, nationalClassValidation } = props
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
@@ -39,7 +41,6 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
   const ofWhichPrimary = area
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
