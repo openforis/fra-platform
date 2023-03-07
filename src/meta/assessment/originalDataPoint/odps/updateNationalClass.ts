@@ -23,6 +23,7 @@ const calculateValues = (nationalClass: ODPNationalClass) => {
     otherPlantedForestPercent,
     forestPercent,
     otherWoodedLandPercent,
+    forestPlantationIntroducedPercent,
   } = nationalClass
 
   const rowIsMaxedForestCharacteristics = Numbers.eq(
@@ -39,6 +40,7 @@ const calculateValues = (nationalClass: ODPNationalClass) => {
     otherPlantedForestPercent: getValueOrNull(otherPlantedForestPercent, rowIsMaxedForestCharacteristics),
     forestPercent: getValueOrNull(forestPercent, rowIsMaxedExtentOfForest),
     otherWoodedLandPercent: getValueOrNull(otherWoodedLandPercent, rowIsMaxedExtentOfForest),
+    forestPlantationIntroducedPercent: forestPlantationIntroducedPercent ?? '0',
   }
 }
 
