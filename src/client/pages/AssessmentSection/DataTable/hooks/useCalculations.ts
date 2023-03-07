@@ -24,14 +24,16 @@ export const useCalculations = (props: { table: Table }): void => {
     () =>
       rowsData.reduce((acc, row) => {
         const { variableName } = row.props
+        const calculationsDependants = AssessmentMetaCaches.getCalculationsDependants({
+          assessment,
+          cycle,
+          tableName: table.props.name,
+          variableName,
+        })
+        const variableCaches = calculationsDependants.filter(({ tableName }) => tableName === table.props.name)
         return {
           ...acc,
-          [variableName]: AssessmentMetaCaches.getCalculationsDependants({
-            assessment,
-            cycle,
-            tableName: table.props.name,
-            variableName,
-          }).filter(({ tableName }) => tableName === table.props.name),
+          [variableName]: variableCaches,
         }
       }, {}),
     [assessment, cycle, rowsData, table.props.name]
