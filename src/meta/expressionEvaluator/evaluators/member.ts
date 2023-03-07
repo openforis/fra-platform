@@ -22,7 +22,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
       // @ts-ignore
       const variableName = isCol ? object.property.name ?? object.property.value : property.name ?? property.value
       // @ts-ignore
-      const colName = isCol ? property.value : colNameContext
+      const colName = isCol ? property.name ?? property.value : colNameContext
 
       return TableDatas.getDatum({ data, countryIso, tableName, variableName, colName })
     }
