@@ -21,7 +21,7 @@ const Links: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const assessmentFiles = useAssessmentFiles()
   const user = useUser()
 
@@ -30,6 +30,10 @@ const Links: React.FC = () => {
 
   const countryFiles = assessmentFiles[countryIso] || []
   const globalFiles = assessmentFiles.globals
+
+  const isAdmin = Users.isAdministrator(user)
+
+  const isAllowToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
 
   const uploadAssessmentFile = useCallback(
     (fileCountryIso?: CountryIso) => {
@@ -42,10 +46,10 @@ const Links: React.FC = () => {
           fileCountryIso,
         })
       ).then(() => {
-        toaster.success(i18n.t('landing.links.fileUploaded'))
+        toaster.success(t('landing.links.fileUploaded'))
       })
     },
-    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, i18n]
+    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
   )
 
   const deleteAssessmentFile = useCallback(
@@ -59,10 +63,10 @@ const Links: React.FC = () => {
           fileCountryIso,
         })
       ).then(() => {
-        toaster.success(i18n.t('landing.links.fileDeleted'))
+        toaster.success(t('landing.links.fileDeleted'))
       })
     },
-    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, i18n]
+    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
   )
 
   useEffect(() => {
@@ -93,9 +97,9 @@ const Links: React.FC = () => {
   return (
     <div className="landing__page-container">
       <div className="landing__page-container-header landing__repository-header">
-        <h3>{i18n.t<string>('landing.links.links')}</h3>
+        <h3>{t('landing.links.links')}</h3>
 
-        {Users.isAdministrator(user) && (
+        {isAdmin && (
           <>
             <input
               ref={globalFileRef}
@@ -112,7 +116,7 @@ const Links: React.FC = () => {
               type="button"
             >
               <Icon className="icon-sub icon-white" name="hit-up" />
-              {i18n.t('landing.links.uploadFile')}
+              {t('landing.links.uploadFile')}
             </button>
           </>
         )}
@@ -122,15 +126,14 @@ const Links: React.FC = () => {
         <div key={link.key} className="landing__activity-item">
           <div className="landing__activity">
             <a className="link" href={link.href} rel="noreferrer" target="_blank">
-              {i18n.t<string>(`landing.links.${link.key}`)}
+              {t(`landing.links.${link.key}`)}
             </a>
           </div>
         </div>
       ))}
 
-      {globalFiles.map((assessmentFile, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div key={index} className="landing__activity-item">
+      {globalFiles.map((assessmentFile) => (
+        <div key={assessmentFile.uuid} className="landing__activity-item">
           <div className="landing__activity">
             <a
               className="link"
@@ -143,26 +146,28 @@ const Links: React.FC = () => {
               {assessmentFile.fileName}
             </a>
           </div>
-          <div className="landing__activity-time">
-            <button
-              type="button"
-              className="btn-xs"
-              onClick={() =>
-                window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
-                  ? deleteAssessmentFile(assessmentFile.uuid)
-                  : null
-              }
-            >
-              <Icon className="icon-no-margin" name="trash-simple" />
-            </button>
-          </div>
+          {isAdmin && (
+            <div className="landing__activity-time">
+              <button
+                type="button"
+                className="btn-xs"
+                onClick={() =>
+                  window.confirm(t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
+                    ? deleteAssessmentFile(assessmentFile.uuid)
+                    : null
+                }
+              >
+                <Icon className="icon-no-margin" name="trash-simple" />
+              </button>
+            </div>
+          )}
         </div>
       ))}
 
       <div className="landing__page-container-header landing__repository-header">
-        <h3>{i18n.t<string>('landing.links.repository')}</h3>
+        <h3>{t('landing.links.repository')}</h3>
 
-        {Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0 && (
+        {isAllowToEdit && (
           <>
             <input
               ref={countryFileRef}
@@ -179,15 +184,14 @@ const Links: React.FC = () => {
               type="button"
             >
               <Icon className="icon-sub icon-white" name="hit-up" />
-              {i18n.t('landing.links.uploadFile')}
+              {t('landing.links.uploadFile')}
             </button>
           </>
         )}
       </div>
 
-      {countryFiles.map((assessmentFile, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div key={index} className="landing__activity-item">
+      {countryFiles.map((assessmentFile) => (
+        <div key={assessmentFile.uuid} className="landing__activity-item">
           <div className="landing__activity">
             <a
               className="link"
@@ -200,19 +204,21 @@ const Links: React.FC = () => {
               {assessmentFile.fileName}
             </a>
           </div>
-          <div className="landing__activity-time">
-            <button
-              type="button"
-              className="btn-xs"
-              onClick={() =>
-                window.confirm(i18n.t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
-                  ? deleteAssessmentFile(assessmentFile.uuid, countryIso)
-                  : null
-              }
-            >
-              <Icon className="icon-no-margin" name="trash-simple" />
-            </button>
-          </div>
+          {isAllowToEdit && (
+            <div className="landing__activity-time">
+              <button
+                type="button"
+                className="btn-xs"
+                onClick={() =>
+                  window.confirm(t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
+                    ? deleteAssessmentFile(assessmentFile.uuid, countryIso)
+                    : null
+                }
+              >
+                <Icon className="icon-no-margin" name="trash-simple" />
+              </button>
+            </div>
+          )}
         </div>
       ))}
     </div>
