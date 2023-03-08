@@ -33,7 +33,7 @@ const Links: React.FC = () => {
 
   const isAdmin = Users.isAdministrator(user)
 
-  const isAllowToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
+  const isAllowedToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
 
   const uploadAssessmentFile = useCallback(
     (fileCountryIso?: CountryIso) => {
@@ -167,7 +167,7 @@ const Links: React.FC = () => {
       <div className="landing__page-container-header landing__repository-header">
         <h3>{t('landing.links.repository')}</h3>
 
-        {isAllowToEdit && (
+        {isAllowedToEdit && (
           <>
             <input
               ref={countryFileRef}
@@ -204,7 +204,7 @@ const Links: React.FC = () => {
               {assessmentFile.fileName}
             </a>
           </div>
-          {isAllowToEdit && (
+          {isAllowedToEdit && (
             <div className="landing__activity-time">
               <button
                 type="button"
