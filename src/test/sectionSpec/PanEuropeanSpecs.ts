@@ -2944,11 +2944,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.minimumSizeOfDegradedFowlReportedHa',
+                    labelKey: 'panEuropean.countryComments.doesYourCountryHaveANationalMethodology',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -2958,12 +2958,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.otherCriteriaAndMinimumThresholdsUsedToDetermineAreaAsDegraded',
+                    labelKey: 'panEuropean.countryComments.ifYesWhatIsTheNationalDefinition',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -2973,11 +2972,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.criteriaUsedToDeterminePrimaryTypeOfDegradation',
+                    labelKey: 'panEuropean.countryComments.ifYesDescribeMonitoringProcessAndResults',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -2987,12 +2986,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.areDegradedAreasOriginatingFromLandUsesOtherThanForestryIncludedInTheFiguresYouReported',
+                    labelKey: 'panEuropean.countryComments.minimumSizeOfDegradedForestReportedHa',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -3003,11 +3001,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     colSpan: 1,
                     labelKey:
-                      'panEuropean.countryComments.inYourCountryAreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand',
+                      'panEuropean.countryComments.otherCriteriaAndMinimumThresholdsUsedToDetermineForestAsDegraded',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -3017,27 +3015,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.inYourCountryAreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem',
+                    labelKey: 'panEuropean.countryComments.criteriaUsedToDeterminePrimaryTypeOfDegradation',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 6,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.doesYourCountryHaveANationalMethodologyForLandDegradationAssessment',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
             ],
