@@ -11,6 +11,7 @@ const roleNames = [
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
   RoleName.COLLABORATOR,
+  RoleName.VIEWER,
 ]
 
 export const useUserToEdit = (): User => useAppSelector((state) => state.ui.userManagement.user)

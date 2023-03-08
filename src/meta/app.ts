@@ -65,9 +65,6 @@ export const ClientRoutes = {
           'admin',
           ':sectionName'
         ),
-        Users: {
-          User: newInstance<CycleParams & { id: number }>(...cycleParts, 'admin', 'users/:id'),
-        },
       },
       Login: {
         Root: newInstance<CycleParams>(...cycleParts, 'login'),
