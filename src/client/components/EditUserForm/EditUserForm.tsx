@@ -100,11 +100,11 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles 
         <div className="edit-user__form-label">{t('editUser.mandatoryFields')}</div>
       </div>
 
-      {canEditRoles && userRole?.role === RoleName.COLLABORATOR && (
+      {canEditPermissions && userRole?.role === RoleName.COLLABORATOR && (
         <CollaboratorPermissions userRole={userRole as Collaborator} />
       )}
 
-      {canEditPermissions && <CountryRoles user={user} />}
+      {canEditRoles && <CountryRoles user={user} />}
     </div>
   )
 }
