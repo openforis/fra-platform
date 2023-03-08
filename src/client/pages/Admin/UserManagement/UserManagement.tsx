@@ -22,6 +22,12 @@ const UserManagement: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(0)
 
   useEffect(() => {
+    return () => {
+      dispatch(UserManagementActions.resetFilters())
+    }
+  }, [dispatch])
+
+  useEffect(() => {
     dispatch(
       UserManagementActions.getUsersCount({
         assessmentName: assessment.props.name,
