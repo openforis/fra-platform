@@ -552,7 +552,7 @@ FRA工作组 fra@fao.org
     permissions: '权限',
     personalInfoRequired: '请在继续之前完成您的个人信息',
     userAdded: '{{email}}已被添加',
-    userModified: '{{用户}}已被修改',
+    userModified: '用户{{user}}已被修改',
     permissionNames: {
       tableData: '表格数据',
       descriptions: '描述',
