@@ -19,4 +19,17 @@ module.exports = {
   variable: 'FRA Variable',
   year: 'Año',
   filterCountries: 'Filtrar países',
+
+  dashboard: 'Cuadro de mandos',
+  copyToClipboard: 'Copiar al portapapeles',
+  continue: 'Continuar',
+  tier: 'Nivel',
+  status: 'Estado',
+  trend: 'Tendencia',
+  tiers: {
+    notSelected: '',
+    high: 'Alto',
+    medium: 'Medio',
+    low: 'Bajo',
+  },
 }
