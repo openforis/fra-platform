@@ -968,7 +968,7 @@ El equipo de FRA
     otherLandExceedsExtentOfForest: 'Superior al área de otras tierras (1a)',
     valueMustBePositive: 'El valor debe ser superior a cero',
     emptyField: 'Este campo está vacío',
-    mustBeEqualToTotalGrowingStock: 'El valor debe ser igual al Existencias totales en formación (2a)',
+    mustBeEqualToTotalGrowingStock: 'El valor debe ser igual al valor total de Existencias Forestales en Formación(2a)',
     remainingLandExceedsExtentOfForest: 'Excede la Superficie Terrestre Restante (1a)',
     valueMustBeYear: 'El valor debe ser un año válido',
     countryReportYearGreaterThanCurrentYear: 'El valor debe ser mayor o igual que {{valor mínimo}}',
