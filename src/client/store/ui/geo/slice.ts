@@ -33,6 +33,8 @@ const initialState: GeoState = {
     recipe: 'custom',
   },
   mosaicSelected: false,
+  mosaicPending: false,
+  mosaicFailed: false,
   mosaicUrl: {},
 }
 
@@ -42,9 +44,12 @@ export const geoSlice = createSlice({
   reducers: {
     applyMosaicOptions: (state) => {
       state.mosaicUrl = {}
+      state.mosaicFailed = false
+      state.mosaicPending = false
       state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
+      if (!state.mosaicSelected) state.mosaicFailed = false // The user is retrying
       state.mosaicSelected = !state.mosaicSelected
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
@@ -155,6 +160,19 @@ export const geoSlice = createSlice({
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
         const { urlTemplate, countryIso } = payload
         state.mosaicUrl[countryIso] = urlTemplate
+        state.mosaicFailed = false
+        state.mosaicPending = false
+      })
+      .addCase(postMosaicOptions.pending, (state) => {
+        state.mosaicPending = true
+        state.mosaicFailed = false
+        state.mosaicUrl = initialState.mosaicUrl
+      })
+      .addCase(postMosaicOptions.rejected, (state) => {
+        state.mosaicFailed = true
+        state.mosaicPending = false
+        state.mosaicSelected = false
+        state.mosaicUrl = initialState.mosaicUrl
       })
       .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
         state.forestOptions.fetchedLayers[key] = mapId
