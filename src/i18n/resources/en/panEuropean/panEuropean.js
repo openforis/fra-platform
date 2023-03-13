@@ -272,6 +272,7 @@ module.exports = {
     totalAreaOfDegradedLand: 'Total area of degraded land',
     areaPrimarilyDegradedBy: 'Area primarily degraded by',
     formerDegradedLandRestored: 'Former degraded land restored',
+    grazing: 'Grazing',
     agentOne: 'Agent 1',
     agentTwo: 'Agent 2',
     agentThree: 'Agent 3',
