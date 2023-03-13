@@ -33,7 +33,7 @@ const AgreementLevelsControl: React.FC = () => {
   return forestOptions.selected.length >= 2 ? (
     <GeoMapMenuListElement
       title="Agreement layer"
-      tabIndex={layers.length * -1 - 1}
+      tabIndex={0}
       checked={forestOptions.agreementLayerSelected}
       onCheckboxClick={() => toggleAgreementLayer(!forestOptions.agreementLayerSelected)}
     >
@@ -55,16 +55,16 @@ const AgreementLevelsControl: React.FC = () => {
                   const id = `agreement-${level}`
                   const disabled = level > forestOptions.selected.length
 
-                // Agreement layer color legend
-                const agreementLevelOffset = level - forestOptions.agreementLevel
-                const style =
-                  agreementLevelOffset >= 0 &&
-                  level <= forestOptions.selected.length &&
-                  agreementLevelOffset < forestOptions.agreementPalette.length
-                    ? {
-                        borderBottom: `10px solid ${forestOptions.agreementPalette[agreementLevelOffset]}`,
-                      }
-                    : {}
+                  // Agreement layer color legend
+                  const agreementLevelOffset = level - forestOptions.agreementLevel
+                  const style =
+                    agreementLevelOffset >= 0 &&
+                    level <= forestOptions.selected.length &&
+                    agreementLevelOffset < forestOptions.agreementPalette.length
+                      ? {
+                          borderBottom: `10px solid ${forestOptions.agreementPalette[agreementLevelOffset]}`,
+                        }
+                      : {}
 
                   return (
                     <span
