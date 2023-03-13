@@ -28,7 +28,7 @@ const RecipeSelector: React.FC = () => {
         <option value="custom">custom</option>
         {forestAgreementRecipes.map((recipe) => (
           <option key={recipe.forestAreaDataProperty} value={recipe.forestAreaDataProperty}>
-            {recipe.forestAreaDataProperty}
+            {recipe.recipeLabel}
           </option>
         ))}
       </select>

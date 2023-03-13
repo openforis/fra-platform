@@ -43,8 +43,8 @@ const AgreementLevelsControl: React.FC = () => {
           <div className="geo-map-menu-data-visualizer-agreement-levels-control">
             <p>
               <small>
-                Choose the agreement level between all map layers. Agreement level <i>N</i> means that at least <i>N</i>{' '}
-                of the selected data sources need to agree that a certain pixel is forest area.
+                Choose the min. agreement level between selected layers. Agreement level <i>N</i> means that at least{' '}
+                <i>N</i> of the selected data sources need to agree that a certain pixel is forest area.
               </small>
             </p>
             <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
