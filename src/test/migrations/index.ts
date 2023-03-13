@@ -26,7 +26,7 @@ describe(`Migrations:`, () => {
         .filter((migration: string) => !ranMigrations.includes(migration))
         .sort()
         .map(async (file: string) => {
-          Logger.log('Running migration', file)
+          Logger.info('Running migration', file)
           // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
           return require(`./steps/${file}`).default(client)
         })
