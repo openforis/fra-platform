@@ -34,6 +34,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
         props: {
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
+          linkToSection: row.props.linkToSection,
           validateFns: row.props.validateFns,
           chart: row.props.chart,
         },

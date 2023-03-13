@@ -43,7 +43,7 @@ export interface RowProps {
   }
   index: number | string
   label?: RowLabel // TODO: remove? (check if used - probably not)
-  linkToSection?: string
+  linkToSection?: Record<CycleUuid, string> | string
   readonly?: boolean
   type: RowType
   variableName?: string

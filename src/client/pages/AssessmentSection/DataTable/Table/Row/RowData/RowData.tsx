@@ -52,7 +52,7 @@ const RowData: React.FC<Props> = (props) => {
         colSpan={colHeaderStyle.colSpan}
         rowSpan={colHeaderStyle.rowSpan}
       >
-        {row.props.linkToSection ? (
+        {typeof row.props.linkToSection !== 'string' && row.props.linkToSection?.[cycle.uuid] ? (
           <>
             <div className="only-print">{colHeaderLabel}</div>
             <Link
@@ -60,7 +60,7 @@ const RowData: React.FC<Props> = (props) => {
                 countryIso,
                 assessmentName,
                 cycleName: cycle.name,
-                sectionName: row.props.linkToSection,
+                sectionName: row.props.linkToSection?.[cycle.uuid],
               })}
               className="link no-print"
             >
