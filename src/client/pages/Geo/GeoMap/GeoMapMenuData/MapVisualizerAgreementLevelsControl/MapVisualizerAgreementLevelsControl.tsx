@@ -25,7 +25,6 @@ const AgreementLevelsControl: React.FC = () => {
 
   const setAgreementLevel = (level: number) => {
     batch(() => {
-      dispatch(GeoActions.setRecipe('custom'))
       dispatch(GeoActions.setAgreementLevel(level))
     })
   }
