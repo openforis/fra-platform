@@ -8,6 +8,7 @@ import Paginator from '@client/components/Paginator'
 import UserList from '@client/components/UserList'
 import UserListFilters from '@client/components/UserListFilters'
 import UsersCount from '@client/components/UsersCount/UsersCount'
+import { DOMs } from '@client/utils/dom'
 
 const UserManagement: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -61,7 +62,10 @@ const UserManagement: React.FC = () => {
 
       <Paginator
         className="user-paginator"
-        onPageChange={(n) => setPageNumber(n)}
+        onPageChange={(n) => {
+          setPageNumber(n)
+          DOMs.scrollTo()
+        }}
         pageRangeDisplayed={5}
         pageCount={Math.ceil(usersCount.totals / 20)}
       />
