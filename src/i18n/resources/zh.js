@@ -7,12 +7,14 @@ const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const login = require('./zh/login')
 const uc = require('./zh/uc')
 const print = require('./zh/print')
+const dataSource = require('./zh/dataSource')
 
 module.exports.translation = {
   area,
   common,
   contentCheck,
   dataDownload,
+  dataSource,
   fra,
   statisticalFactsheets,
   login,
@@ -55,6 +57,7 @@ module.exports.translation = {
     userGuide: '使用指南',
     sendFeedback: '发送反馈',
     licenses: '许可',
+    platformVersion: '平台版本',
   },
 
   unit: {
@@ -82,6 +85,7 @@ module.exports.translation = {
     annualNumberOfVisitsMillion: '年访问量(百万)',
     millionNationalCurrency: '百万国家货币',
     facilityLengthIn1000Km: '设施 (单位：1000公里)',
+    growingStockPercent: '森林总立木蓄积的百分比',
   },
 
   countrySelection: {
@@ -113,17 +117,11 @@ module.exports.translation = {
       ADMINISTRATOR: '管理员',
       noRole: '不适用',
       // unused?
-      reviewer_plural: '审核人',
+      VIEWER: '观察者',
+      reviewer_plural: '审查者',
       nationalCorrespondent_plural: '国家通讯员',
       alternateNationalCorrespondent_plural: '候补国家通讯员',
       collaborator_plural: '合作者',
-      // deprecated
-      // reviewer: '审核人',
-      // nationalCorrespondent: '国家通讯员',
-      // alternateNationalCorrespondent: '候补国家通讯员',
-      // collaborator: '合作者',
-      // administrator: '管理员',
-      // noRole: '不适用',
     },
 
     resetPasswordEmail: {
@@ -190,7 +188,7 @@ FRA工作组 fra@fao.org
       externalData: '外部数据',
       links: '链接和存储库',
       contentCheck: '内容/检查',
-      versioning: '版本控制',
+      versioning: '版本更新',
     },
     overview: {
       loadingMap: '加载网站地图…',
@@ -265,6 +263,8 @@ FRA工作组 fra@fao.org
       repository: '资源库',
       uploadFile: '上传文件',
       confirmDelete: '删除 {{file}}? 此操作无法撤销。',
+      fileUploaded: '文件成功上传',
+      fileDeleted: '文件成功删除',
     },
     dataExport: {
       downloadData: '下载数据',
@@ -352,6 +352,8 @@ FRA工作组
     ndp: {
       previousNdpNotFound: '无法找到{{year}}前的任何国家数据点',
     },
+    userNotAdministrator: '错误：用户{{user}}试图访问仅对管理员开放的资源',
+    userAlreadyAddedToCountry: '错误：用户{{user}}已被添加到国家{{countryIso}}',
   },
   // components
 
@@ -403,12 +405,12 @@ FRA工作组
 
   time: {
     hour: '{{count}} 小时前',
-    hour_plural: '{{count}} 小时前',
     day: '{{count}} 天前',
-    day_plural: '{{count}} 天前',
     week: '{{count}} 星期前',
-    week_plural: '{{count}} 星期前',
     aMomentAgo: '刚才',
+    hour_plural: '{{count}}小时前',
+    day_plural: '{{count}}天以前',
+    week_plural: '{{count}}周前',
   },
 
   review: {
@@ -423,6 +425,7 @@ FRA工作组
     commentingClosed: '评论关闭',
     add: '添加',
     cancel: '取消',
+    loading: '正在加载',
   },
 
   description: {
@@ -491,6 +494,9 @@ FRA工作组
       otherWoodedLand: '其他林地',
       otherLand: '其他土地',
     },
+    forestCategoriesLabel2025: '森林、其他林地和其它土地',
+    nationalClassifications: '国家级分类',
+    categories: '类别',
   },
 
   userManagement: {
@@ -540,6 +546,17 @@ FRA工作组 fra@fao.org
 {{- url}}
     `,
     },
+    editPermissions: '编辑权限',
+    invitationDeleted: '邀请已被删除',
+    invitationEmailSent: '已发送邀请邮件',
+    permissions: '权限',
+    personalInfoRequired: '请在继续之前完成您的个人信息',
+    userAdded: '{{email}}已被添加',
+    userModified: '用户{{user}}已被修改',
+    permissionNames: {
+      tableData: '表格数据',
+      descriptions: '描述',
+    },
   },
 
   // FRA 2020 questionare
@@ -584,6 +601,7 @@ FRA工作组 fra@fao.org
     ndpMissingValues: '国家数据点存在缺失值',
     showNDPs: '显示国家数据点',
     hideNDPs: '隐藏国家数据点',
+    forestAreaNetChangeDoesNotMatch: '森林面积净变化与预期值不符：{{value}}',
   },
 
   climaticDomain: {
@@ -624,6 +642,7 @@ FRA工作组 fra@fao.org
     copyToClipboard: '复制数值',
     placeholderSelect: '估算和预测',
     _1000haYear: '1000公顷/年',
+    generatingFraValues: '生成中...',
   },
 
   forestAreaChange: {
@@ -974,6 +993,9 @@ FRA工作组
         next: '接受',
         previous: '',
       },
+      notStarted: {
+        label: '未开始',
+      },
     },
   },
 
@@ -989,8 +1011,20 @@ FRA工作组
     valueMustBePositive: '数值应大于0',
     emptyField: '此字段为空',
     mustBeEqualToTotalGrowingStock: '数值应等于立木总蓄积量(2a)',
+    remainingLandExceedsExtentOfForest: '超出其他土地(1a)',
+    valueMustBeYear: '数值应是有效年份',
+    countryReportYearGreaterThanCurrentYear: '数值应大于或等于{{minValue}}',
+    valueNotGreaterThan: '值应不大于{{maxValue}}',
+    sumNotGreaterThan: '总和不应超过{{maxValue}}',
     valuesAreInconsistentWithNetChange: '数值与森林面积净变化不一致',
-    valuesAreInconsistent1aOr1b: '数值与表1a或1b中报告的面积数值不一致',
+    valuesAreInconsistent1aOr1b: '数值与表1a或1b中报告的面积不一致',
+    mustBeEqualToPrivateOwnership: '子类别之和应等于私有',
+    mustBeEqualToForestExpansion: '子类别之和应等于森林扩张',
+    mustBeEqualToPlantedForest: '子类别之和应等于人工林',
+    mustBeEqualToForestArea: '自然再生林和人工林之和应等于总立木蓄积',
+    mustBeLessThanPrivateOwnership: '子类别之和应小于私有',
+    forestSumAreaExceedsExtentOfForest: '报告的FRA类别之和超过了表1a中报告的森林面积',
+    valueEqualToSum: '总值应等于子类别之和',
   },
 
   emoji: {
@@ -1024,6 +1058,31 @@ FRA工作组
     deactivate: '取消激活',
     activate: '激活',
     picture1MbMax: '个人简介中的图片不得超过1MB',
+    title: '称呼',
+    surname: '姓氏',
+    professionalTitle: '专业职称',
+    organizationalUnit: '组织单位',
+    organization: '组织机构',
+    street: '街道地址',
+    zipCode: '邮编',
+    poBox: '邮政信箱',
+    city: '城市',
+    countryIso: '国家',
+    primaryEmail: '主要电子邮件地址',
+    secondaryEmail: '次要电子邮件地址',
+    primaryPhoneNumber: '主要的联系电话',
+    secondaryPhoneNumber: '次要的联系电话',
+    skype: 'Skype名称',
+    contactPreference: '首选的联系方式',
+    contactPreferenceMethod: '联系方式',
+    platformChat: 'PlatformChat',
+    signal: 'Signal',
+    whatsapp: 'Whatsapp',
+    activated: '已激活',
+    status: '状态',
+    demoteToUser: '你确定要删除管理员权限吗？',
+    promoteToAdmin: '您确定要授予管理员权限吗？',
+    mandatoryFields: '*为必填项',
   },
 
   country: {
@@ -1943,6 +2002,12 @@ FRA工作组
       no18_area_available_for_public_recreation: '可供公众休闲的面积 18',
       no19_area_available_for_public_recreation: '可供公众休闲的面积 19',
       no20_area_available_for_public_recreation: '可供公众休闲的面积 20',
+    },
+  },
+
+  page: {
+    assessmentSection: {
+      dataTableHasErrors: '点击红色单元格，查看详情',
     },
   },
 }
