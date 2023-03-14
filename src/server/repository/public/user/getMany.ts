@@ -36,8 +36,8 @@ export const getMany = async (
 
   if (administrators) {
     whereConditions.push(`(
-    (ur.assessment_id = 47
-    and ur.cycle_uuid = '30545e81-e0f6-4946-9d64-1b83fa742a36'
+    (ur.assessment_id = $1
+    and ur.cycle_uuid = $2
     and (accepted_at is not null and invited_at is not null)
     )
    or (ur.role = '${RoleName.ADMINISTRATOR}')
