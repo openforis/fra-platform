@@ -56,14 +56,23 @@ const AgreementLevelsControl: React.FC = () => {
 
                   // Agreement layer color legend
                   const agreementLevelOffset = level - forestOptions.agreementLevel
-                  const style =
+                  const genericStyle =
                     agreementLevelOffset >= 0 &&
                     level <= forestOptions.selected.length &&
                     agreementLevelOffset < forestOptions.agreementPalette.length
                       ? {
-                          borderBottom: `10px solid ${forestOptions.agreementPalette[agreementLevelOffset]}`,
+                          backgroundColor: `${forestOptions.agreementPalette[agreementLevelOffset]}`,
                         }
                       : {}
+                  const selectedStyle =
+                    forestOptions.agreementPalette.length > 0
+                      ? {
+                          backgroundColor: `${forestOptions.agreementPalette[agreementLevelOffset]}`,
+                          boxShadow: `0px 0px 3px 3px ${forestOptions.agreementPalette[agreementLevelOffset]}30`,
+                        }
+                      : {}
+
+                  const style = level === forestOptions.agreementLevel ? selectedStyle : genericStyle
 
                   return (
                     <span
