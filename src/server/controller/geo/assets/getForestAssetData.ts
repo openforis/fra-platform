@@ -5,8 +5,7 @@ import { ForestSource } from '@meta/geo'
 
 export const getForestAssetData = (
   forestSource: ForestSource,
-  gteHansenTreeCoverPerc?: number,
-  onlyProtected?: boolean
+  gteHansenTreeCoverPerc?: number
 ): { year: number; img: Image } => {
   let asset = {} as any
 
@@ -103,10 +102,6 @@ export const getForestAssetData = (
       return null
   }
 
-  if (onlyProtected) {
-    const imgNationalProtectedArea = Image('users/projectgeffao/World/PAs_WDPA_image_Bin_30m_World')
-    asset.img = asset.img.mask(imgNationalProtectedArea.eq(1))
-  }
   return asset
 }
 

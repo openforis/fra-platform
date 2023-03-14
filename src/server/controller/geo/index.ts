@@ -3,6 +3,7 @@ import { getBounds } from './getBounds'
 import { getForestAgreementLayer } from './getForestAgreementLayer'
 import { estimateForestAgreementArea, getForestEstimations } from './getForestEstimations'
 import { getForestLayer } from './getForestLayer'
+import { getProtectedAreaLayer } from './getProtectedAreaLayer'
 
 export const GeoController = {
   getForestLayer,
@@ -11,4 +12,5 @@ export const GeoController = {
   getForestEstimations,
   estimateForestAgreementArea,
   getBounds,
+  getProtectedAreaLayer,
 }

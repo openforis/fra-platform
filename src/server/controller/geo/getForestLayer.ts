@@ -3,21 +3,18 @@ import { ForestSource, Layer, sourcesMetadata } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets'
 
-// import { authenticateToGee } from './authenticateToGee'
-
 type Props = {
   countryIso: CountryIso
   forestSource: ForestSource
   gteHansenTreeCoverPerc?: number
-  onlyProtected?: boolean
   opacity?: number
 }
 
 export const getForestLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, forestSource, gteHansenTreeCoverPerc, onlyProtected, opacity } = props
+  const { countryIso, forestSource, gteHansenTreeCoverPerc, opacity } = props
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAssetData(forestSource, gteHansenTreeCoverPerc, onlyProtected)
+  const asset = AssetsController.getForestAssetData(forestSource, gteHansenTreeCoverPerc)
   const metadata = sourcesMetadata[forestSource]
 
   return new Promise((resolve, reject) => {
