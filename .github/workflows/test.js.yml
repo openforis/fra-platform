@@ -36,7 +36,7 @@ jobs:
       - name: Use Redis
         uses: supercharge/redis-github-action@1.5.0
         with:
-          redis-version: [6]
+          redis-version: 6
 
       - run: yarn install --network-timeout 1000000
         env:
