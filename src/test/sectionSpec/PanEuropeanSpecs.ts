@@ -2584,11 +2584,17 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 2,
-                    colSpan: 8,
+                    colSpan: 6,
                     rowSpan: 1,
                     labelKey: 'panEuropean.areaWithForestLandDegradation.areaPrimarilyDegradedBy',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 8, rowSpan: 1 },
+                        '2025': { colSpan: 6, rowSpan: 1 },
+                      },
+                    },
                   },
                   {
                     idx: 3,
@@ -2597,6 +2603,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.areaWithForestLandDegradation.formerDegradedLandRestored',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: { cycles: ['2020'] },
                   },
                 ],
                 type: 'header',
@@ -2608,7 +2615,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.grazing',
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentOne',
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.grazing' },
+                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentOne' },
+                      },
+                    },
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2616,7 +2629,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 1,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.repeatedFires',
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentTwo',
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.repeatedFires' },
+                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentTwo' },
+                      },
+                    },
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2624,7 +2643,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 2,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.airPollution',
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentThree',
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.airPollution' },
+                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentThree' },
+                      },
+                    },
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2632,7 +2657,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 3,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.desertification',
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentFour',
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.desertification' },
+                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentFour' },
+                      },
+                    },
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2640,7 +2671,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 4,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other1',
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentFive',
+                    migration: {
+                      label: {
+                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.other1' },
+                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentFive' },
+                      },
+                    },
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2649,6 +2686,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.areaWithForestLandDegradation.other2',
+                    migration: { cycles: ['2020'] },
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2657,6 +2695,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.areaWithForestLandDegradation.other3',
+                    migration: { cycles: ['2020'] },
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2664,7 +2703,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 7,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.unknown',
+                    labelKey: 'panEuropean.areaWithForestLandDegradation.unknownMixedDegradation',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -2676,10 +2715,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 cols: [
                   {
                     idx: 0,
-                    colSpan: 10,
+                    colSpan: 7,
                     rowSpan: 1,
                     labelKey: 'panEuropean.areaWithForestLandDegradation.thousandHa',
                     className: 'fra-table__header-cell',
+                    migration: {
+                      style: {
+                        '2020': { colSpan: 10, rowSpan: 1 },
+                        '2025': { colSpan: 7, rowSpan: 1 },
+                      },
+                    },
                     type: 'header',
                   },
                 ],
@@ -2709,16 +2754,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 5,
                     type: 'decimal',
                   },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
+                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 8, type: 'decimal' },
+                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
                 ],
                 migration: {
-                  cycles: ['2025'],
+                  cycles: ['2025', '2020'],
                   validateFns: [
                     `validatorEqualToSum(table_2_5.forest_2020['total_area_of_degraded_land'],
                      [table_2_5.forest_2020['repeated_fires'],table_2_5.forest_2020['air_pollution'],
@@ -2755,13 +2797,10 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 5,
                     type: 'decimal',
                   },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
+                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 8, type: 'decimal' },
+                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
                 ],
                 migration: {
                   validateFns: [
@@ -2800,13 +2839,10 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 5,
                     type: 'decimal',
                   },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
+                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 8, type: 'decimal' },
+                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
                 ],
                 migration: {
                   validateFns: [
@@ -2845,13 +2881,10 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 5,
                     type: 'decimal',
                   },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
+                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 8, type: 'decimal' },
+                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
                 ],
                 migration: {
                   validateFns: [
@@ -2890,13 +2923,10 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 5,
                     type: 'decimal',
                   },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
+                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 8, type: 'decimal' },
+                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
                 ],
                 migration: {
                   validateFns: [
@@ -2935,13 +2965,10 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 5,
                     type: 'decimal',
                   },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
+                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
+                  { idx: 8, type: 'decimal' },
+                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
                 ],
                 migration: {
                   validateFns: [
@@ -2989,7 +3016,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 9, type: 'decimal' },
                 ],
                 migration: {
-                  cycles: ['2025'],
+                  cycles: ['2020'],
                 },
                 labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
                 labelParams: { year: 2020 },
@@ -3027,6 +3054,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 9, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
                 labelParams: { year: 2015 },
                 variableExport: 'other_wooded_land_2015',
@@ -3063,6 +3093,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 9, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
                 labelParams: { year: 2010 },
                 variableExport: 'other_wooded_land_2010',
@@ -3099,6 +3132,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 9, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
                 labelParams: { year: 2005 },
                 variableExport: 'other_wooded_land_2005',
@@ -3135,6 +3171,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 9, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
                 labelParams: { year: 2000 },
                 variableExport: 'other_wooded_land_2000',
@@ -3171,6 +3210,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 9, type: 'decimal' },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
                 labelParams: { year: 1990 },
                 variableExport: 'other_wooded_land_1990',
@@ -3208,7 +3250,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 9, type: 'decimal' },
                 ],
                 migration: {
-                  cycles: ['2025'],
+                  cycles: ['2020'],
                   validateFns: [
                     `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['total_area_of_degraded_land'],
                     [table_2_5.forest_2020['total_area_of_degraded_land'],table_2_5.other_wooded_land_2020['total_area_of_degraded_land']])`,
@@ -3269,6 +3311,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 9, type: 'decimal' },
                 ],
                 migration: {
+                  cycles: ['2020'],
                   validateFns: [
                     `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['total_area_of_degraded_land'],
                     [table_2_5.forest_2015['total_area_of_degraded_land'],table_2_5.other_wooded_land_2015['total_area_of_degraded_land']])`,
@@ -3329,6 +3372,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 9, type: 'decimal' },
                 ],
                 migration: {
+                  cycles: ['2020'],
                   validateFns: [
                     `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['total_area_of_degraded_land'],
                     [table_2_5.forest_2010['total_area_of_degraded_land'],table_2_5.other_wooded_land_2010['total_area_of_degraded_land']])`,
@@ -3389,6 +3433,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 9, type: 'decimal' },
                 ],
                 migration: {
+                  cycles: ['2020'],
                   validateFns: [
                     `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['total_area_of_degraded_land'],
                     [table_2_5.forest_2005['total_area_of_degraded_land'],table_2_5.other_wooded_land_2005['total_area_of_degraded_land']])`,
@@ -3449,6 +3494,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 9, type: 'decimal' },
                 ],
                 migration: {
+                  cycles: ['2020'],
                   validateFns: [
                     `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['total_area_of_degraded_land'],
                     [table_2_5.forest_2000['total_area_of_degraded_land'],table_2_5.other_wooded_land_2000['total_area_of_degraded_land']])`,
@@ -3509,6 +3555,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 9, type: 'decimal' },
                 ],
                 migration: {
+                  cycles: ['2020'],
                   validateFns: [
                     `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['total_area_of_degraded_land'],
                     [table_2_5.forest_1990['total_area_of_degraded_land'],table_2_5.other_wooded_land_1990['total_area_of_degraded_land']])`,
@@ -3555,72 +3602,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               'former_degraded_land_restored',
             ],
           },
-          {
-            name: 'table_2_5oth',
-            rows: [
-              {
-                idx: 'header_0',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.nA',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 1,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other1',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 2,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other2',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 3,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other3',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                ],
-                type: 'header',
-              },
-              {
-                idx: 0,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.otherNames',
-                    className: 'fra-table__header-cell-left',
-                  },
-                  { idx: 0, type: 'text' },
-                  { idx: 1, type: 'text' },
-                  { idx: 2, type: 'text' },
-                ],
-                labelKey: 'panEuropean.areaWithForestLandDegradation.otherNames',
-                mainCategory: true,
-              },
-            ],
-            tableDataRequired: [],
-            print: { colBreakPoints: [], pageBreakAfter: false },
-            dataExport: true,
-            columnsExportAlways: [],
-            secondary: true,
-          },
         ],
       },
       {
@@ -3650,11 +3631,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.minimumSizeOfDegradedFowlReportedHa',
+                    labelKey: 'panEuropean.countryComments.doesYourCountryHaveANationalMethodology',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -3664,12 +3645,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.otherCriteriaAndMinimumThresholdsUsedToDetermineAreaAsDegraded',
+                    labelKey: 'panEuropean.countryComments.ifYesWhatIsTheNationalDefinition',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -3679,11 +3659,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.criteriaUsedToDeterminePrimaryTypeOfDegradation',
+                    labelKey: 'panEuropean.countryComments.ifYesDescribeMonitoringProcessAndResults',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -3693,12 +3673,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.areDegradedAreasOriginatingFromLandUsesOtherThanForestryIncludedInTheFiguresYouReported',
+                    labelKey: 'panEuropean.countryComments.minimumSizeOfDegradedForestReportedHa',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -3709,11 +3688,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 'header_0',
                     colSpan: 1,
                     labelKey:
-                      'panEuropean.countryComments.inYourCountryAreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand',
+                      'panEuropean.countryComments.otherCriteriaAndMinimumThresholdsUsedToDetermineForestAsDegraded',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
               {
@@ -3723,27 +3702,11 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.inYourCountryAreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem',
+                    labelKey: 'panEuropean.countryComments.criteriaUsedToDeterminePrimaryTypeOfDegradation',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 6,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.doesYourCountryHaveANationalMethodologyForLandDegradationAssessment',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea' },
                 ],
               },
             ],
