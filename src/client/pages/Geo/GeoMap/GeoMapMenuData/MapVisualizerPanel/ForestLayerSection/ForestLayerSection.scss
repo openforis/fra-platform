@@ -1,0 +1,56 @@
+@import 'src/client/style/partials';
+
+.geo-map-menu-data-visualizer-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 25px 30px 25px;
+
+  > p {
+    margin: 30px 0 20px 0;
+  }
+}
+
+.geo-map-menu-data-visualizer-panel-layers {
+  flex-direction: row;
+  margin: 10px 0 0 0;
+  justify-content: space-between;
+}
+
+.geo-map-menu-data-container-btn {
+  display: flex;
+  flex-direction: row;
+  margin: 50px 0 0 0;
+  justify-content: flex-end;
+}
+
+.geo-map-menu-data-btn-recipe {
+  width: 150px;
+  font-size: $font-l;
+  margin: 0 30px;
+  padding: 14px;
+}
+
+.geo-map-menu-data-btn-display {
+  width: 150px;
+  font-size: $font-l;
+  padding: 14px;
+}
+
+.geo-map-menu-data-btn-upload {
+  width: 300px;
+  margin: 10px auto;
+  padding: 15px;
+  background-color: $text-heading;
+  border-color: $ui-border;
+  color: $ui-bg;
+  font-size: $font-l;
+
+  &:hover {
+    background-color: lighten($text-heading, 20%);
+    border-color: darken($ui-border, 4%);
+  }
+}
+
+.geo-map-menu-data-recipe-selector-title {
+  margin-top: 0px;
+}

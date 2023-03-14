@@ -37,6 +37,9 @@ export const userManagementSlice = createSlice({
     updateFilters: (state, { payload }) => {
       state.filters = { ...state.filters, ...payload }
     },
+    resetFilters: (state) => {
+      state.filters = { countries: [], roles: [] }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUsers.fulfilled, (state, { payload }) => {

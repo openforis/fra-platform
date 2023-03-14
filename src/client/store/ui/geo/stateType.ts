@@ -12,4 +12,6 @@ export type GeoState = {
     [key in CountryIso]?: string
   }
   mosaicSelected: boolean
+  mosaicPending: boolean
+  mosaicFailed: boolean
 }
