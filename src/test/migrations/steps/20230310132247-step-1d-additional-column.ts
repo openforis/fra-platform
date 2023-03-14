@@ -101,9 +101,18 @@ export default async (client: BaseProtocol) => {
     "calculateFn": {"${cycle.uuid}": "(extentOfForest.forestArea['2025'] - extentOfForest.forestArea['2020']) / 5"}
   }`
 
-  await Promise.all(
-    [colHeader0, col0, col1, col2, col3, col4].map((col) =>
-      client.query(`insert into ${schemaName}.col (row_id, props) values ($1, $2::jsonb);`, [row.id, col])
-    )
+  await client.query(`insert into ${schemaName}.col (row_id, props) values ($1, $2::jsonb);`, [row.id, colHeader0])
+  await client.query(`insert into ${schemaName}.col (row_id, props) values ($1, $2::jsonb);`, [row.id, col0])
+  await client.query(`insert into ${schemaName}.col (row_id, props) values ($1, $2::jsonb);`, [row.id, col1])
+  await client.query(`insert into ${schemaName}.col (row_id, props) values ($1, $2::jsonb);`, [row.id, col2])
+  await client.query(`insert into ${schemaName}.col (row_id, props) values ($1, $2::jsonb);`, [row.id, col3])
+  await client.query(`insert into ${schemaName}.col (row_id, props) values ($1, $2::jsonb);`, [row.id, col4])
+
+  await AssessmentController.generateMetaCache(
+    {
+      assessment,
+      cycle,
+    },
+    client
   )
 }
