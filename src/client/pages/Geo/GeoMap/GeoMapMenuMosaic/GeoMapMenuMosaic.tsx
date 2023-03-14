@@ -5,6 +5,8 @@ import { useAppDispatch } from '@client/store'
 import {
   GeoActions,
   useAppliedMosaicOptions,
+  useMosaicFailed,
+  useMosaicPending,
   useMosaicSelected,
   useMosaicUrl,
   useSelectedPanel,
@@ -13,6 +15,7 @@ import { useCountryIso, useGeoMap } from '@client/hooks'
 import { MapController } from '@client/utils'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
+import { LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
 import MosaicControl from './MosaicControl'
 
 const GeoMapMenuMosaic: React.FC = () => {
@@ -21,6 +24,8 @@ const GeoMapMenuMosaic: React.FC = () => {
   const map = useGeoMap()
   const mapControllerRef = useRef<MapController>(null)
   const mosaicSelected = useMosaicSelected()
+  const mosaicPending = useMosaicPending()
+  const mosaicFailed = useMosaicFailed()
   const mosaicLayerKey = 'mosaic'
   const countryIso = useCountryIso()
   const mosaicUrl = useMosaicUrl(countryIso)
@@ -42,9 +47,13 @@ const GeoMapMenuMosaic: React.FC = () => {
     mapControllerRef.current.removeLayer(mosaicLayerKey)
 
     // Mosaic layer not selected, so do nothing
-    if (!mosaicSelected) {
-      return
-    }
+    if (!mosaicSelected) return
+
+    // Mosaic layer is being fetched
+    if (mosaicPending) return
+
+    // Mosaic layer fetch failed, so skip until user retries
+    if (mosaicFailed) return
 
     // Use existing mosaic url if available to avoid unnecessary Sepal calls
     if (mosaicUrl) {
@@ -56,12 +65,16 @@ const GeoMapMenuMosaic: React.FC = () => {
     if (appliedMosaicOptions.sources.length > 0) {
       dispatch(GeoActions.postMosaicOptions({ mosaicOptions: appliedMosaicOptions, countryIso }))
     }
-  }, [mosaicSelected, appliedMosaicOptions, mosaicUrl, countryIso, map, dispatch])
+  }, [mosaicSelected, mosaicPending, mosaicFailed, appliedMosaicOptions, mosaicUrl, countryIso, map, dispatch])
 
+  let status = null
+  if (mosaicPending) status = LayerStatus.loading
+  if (mosaicUrl) status = LayerStatus.ready
+  if (mosaicFailed) status = LayerStatus.failed
   return (
     <div className="geo-map-menu-item">
       <GeoMapMenuButton panel="mosaic" text="Background" icon="radar" />
-      {selectedPanel === 'mosaic' && <MosaicControl />}
+      {selectedPanel === 'mosaic' && <MosaicControl loadingStatus={status} />}
     </div>
   )
 }
