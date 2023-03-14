@@ -25,7 +25,6 @@ const AgreementLevelsControl: React.FC = () => {
 
   const setAgreementLevel = (level: number) => {
     batch(() => {
-      dispatch(GeoActions.setRecipe('custom'))
       dispatch(GeoActions.setAgreementLevel(level))
     })
   }
@@ -43,8 +42,8 @@ const AgreementLevelsControl: React.FC = () => {
           <div className="geo-map-menu-data-visualizer-agreement-levels-control">
             <p>
               <small>
-                Choose the agreement level between all map layers. Agreement level <i>N</i> means that at least <i>N</i>{' '}
-                of the selected data sources need to agree that a certain pixel is forest area.
+                Choose the min. agreement level between selected layers. Agreement level <i>N</i> means that at least{' '}
+                <i>N</i> of the selected data sources need to agree that a certain pixel is forest area.
               </small>
             </p>
             <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
@@ -57,14 +56,23 @@ const AgreementLevelsControl: React.FC = () => {
 
                   // Agreement layer color legend
                   const agreementLevelOffset = level - forestOptions.agreementLevel
-                  const style =
+                  const genericStyle =
                     agreementLevelOffset >= 0 &&
                     level <= forestOptions.selected.length &&
                     agreementLevelOffset < forestOptions.agreementPalette.length
                       ? {
-                          borderBottom: `10px solid ${forestOptions.agreementPalette[agreementLevelOffset]}`,
+                          backgroundColor: `${forestOptions.agreementPalette[agreementLevelOffset]}`,
                         }
                       : {}
+                  const selectedStyle =
+                    forestOptions.agreementPalette.length > 0
+                      ? {
+                          backgroundColor: `${forestOptions.agreementPalette[agreementLevelOffset]}`,
+                          boxShadow: `0px 0px 3px 3px ${forestOptions.agreementPalette[agreementLevelOffset]}30`,
+                        }
+                      : {}
+
+                  const style = level === forestOptions.agreementLevel ? selectedStyle : genericStyle
 
                   return (
                     <span

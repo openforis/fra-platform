@@ -55,6 +55,16 @@ export const getMany = async (
     whereConditions.push(`ur.role in (${selectedRoles})`)
   }
 
+  if (countryIso) {
+    whereConditions.push(`u.id in (
+    select user_id
+    from public.users_role
+    where assessment_id = $1
+      and cycle_uuid = $2
+      and country_iso = $3
+    )`)
+  }
+
   const query = `
       select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
       from public.users u

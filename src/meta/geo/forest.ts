@@ -127,6 +127,7 @@ export interface Recipe {
   layers: Array<ForestSource>
   gteHansenTreeCoverPerc?: HansenPercentage
   forestAreaDataProperty: string
+  recipeLabel: string
 }
 
 export const forestAgreementRecipes: Array<Recipe> = [
@@ -143,6 +144,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
     ],
     gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementHansen10',
+    recipeLabel: 'All (GFC Hansen >=10%)',
   },
   {
     layers: [
@@ -157,6 +159,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
     ],
     gteHansenTreeCoverPerc: 20,
     forestAreaDataProperty: 'faAgreementHansen20',
+    recipeLabel: 'All (GFC Hansen >=20%)',
   },
   {
     layers: [
@@ -171,15 +174,18 @@ export const forestAgreementRecipes: Array<Recipe> = [
     ],
     gteHansenTreeCoverPerc: 30,
     forestAreaDataProperty: 'faAgreementHansen30',
+    recipeLabel: 'All (GFC Hansen >=30%)',
   },
   {
     layers: [ForestSource.ESRI, ForestSource.ESAWorldCover, ForestSource.GlobeLand, ForestSource.Hansen],
     gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementEsriEsaGloHansen10',
+    recipeLabel: 'ESRI, ESA, Globland 2020 & GFC Hansen >=10%',
   },
   {
     layers: [ForestSource.ESRI, ForestSource.ESAWorldCover],
     forestAreaDataProperty: 'faAgreementEsriEsa',
+    recipeLabel: 'ESRI & ESA',
   },
 ]
 
