@@ -4,13 +4,19 @@ const dataDownload = require('./es/dataDownload')
 const fra = require('./es/fra')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 const login = require('./es/login')
-const uc = require('./fr/uc')
-const print = require('./fr/print')
+const uc = require('./es/uc')
+const print = require('./es/print')
+const contentCheck = require('./es/contentCheck')
+const dataSource = require('./es/dataSource')
+const editUser = require('./es/editUser')
 
 module.exports.translation = {
   area,
+  contentCheck,
+  editUser,
   common,
   dataDownload,
+  dataSource,
   fra,
   statisticalFactsheets,
   login,
@@ -44,6 +50,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     userGuide: 'Guía del usuario',
     sendFeedback: 'Enviar comentarios',
     licenses: 'Licencias',
+    platformVersion: 'Versión de la plataforma',
   },
 
   disclaimer: {
@@ -77,6 +84,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     gt: 'Gt',
     fte1000: '1000 EDC',
     numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
+    growingStockPercent: '% del total de las Existencias Forestales en Formación',
   },
 
   countrySelection: {
@@ -107,17 +115,15 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
       COLLABORATOR: 'Colaborador',
       ADMINISTRATOR: 'Administrador',
       noRole: '',
-      // unused?
-      reviewer_plural: 'Evaluadores',
-      nationalCorrespondent_plural: 'Corresponsales Nacionales',
-      alternateNationalCorrespondent_plural: 'Corresponsales Nacionales Alternos',
-      collaborator_plural: 'Collaborators',
-      // deprecated
-      // reviewer: 'Evaluador',
-      // nationalCorrespondent: 'Corresponsal Nacional',
-      // alternateNationalCorrespondent: 'Corresponsal Nacional alterno',
-      // collaborator: 'Colaborador',
-      // administrator: 'Administrador',
+
+      VIEWER: 'Observador',
+      reviewer_plural: 'Revisores',
+      nationalCorrespondent_plural: 'Corresponsales nacionales',
+      alternateNationalCorrespondent_plural: 'Corresponsales nacionales suplentes',
+      collaborator_plural: 'Colaboradores',
+    },
+    resetPasswordEmail: {
+      subject: 'Plataforma FRA - Restablecer contraseña',
     },
   },
 
@@ -152,6 +158,8 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
       userManagement: 'Gestionar colaboradores',
       externalData: 'Datos externos',
       links: 'Enlaces y Repositorio',
+      contentCheck: 'Contenido / Comprobar',
+      versioning: 'Versionando',
     },
     overview: {
       loadingMap: 'Cargando mapa…',
@@ -227,6 +235,11 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
       repository: 'Repositorio',
       uploadFile: 'Cargar un archivo',
       confirmDelete: '¿Borrar {{file}}? Esta acción no puede deshacerse.',
+      fileUploaded: 'Archivo cargado correctamente',
+      fileDeleted: 'Archivo eliminado correctamente',
+    },
+    dataExport: {
+      downloadData: 'Descargar datos',
     },
   },
 
@@ -276,6 +289,9 @@ El equipo de FRA
         'Error: El usuario {{user}} en función {{role}} no puede editar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}',
       assessmentCommentingNotAllowed:
         'Error: El usuario {{user}} en función {{role}} no puede comentar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}',
+      userNotAdministrator:
+        'Error: El usuario {{user}} ha intentado acceder a un recurso disponible sólo para administradores',
+      userAlreadyAddedToCountry: 'Error: El usuario {{user}} ya está añadido al país {{country Iso}}',
     },
     assessment: {
       transitionNotAllowed:
@@ -341,12 +357,12 @@ El equipo de FRA
 
   time: {
     hour: '{{count}} hace una hora',
-    hour_plural: '{{count}} hace horas',
     day: '{{count}} hace un día',
-    day_plural: '{{count}} hace días',
     week: '{{count}} hace una semana',
-    week_plural: '{{count}} hace semanas',
     aMomentAgo: 'hace un momento',
+    hour_plural: 'Hace {{count}} horas',
+    day_plural: 'Hace {{count}} días ',
+    week_plural: 'Have {{count}} semanas',
   },
 
   review: {
@@ -361,6 +377,7 @@ El equipo de FRA
     commentingClosed: 'Se han desactivado los comentarios',
     add: 'Añadir',
     cancel: 'Cancelar',
+    loading: 'Cargando',
   },
 
   description: {
@@ -429,6 +446,9 @@ El equipo de FRA
       otherWoodedLand: 'Otras tierras boscosas',
       otherLand: 'Otras tierras',
     },
+    forestCategoriesLabel2025: 'Bosque, Otras Tierras Boscosas y Superfície Terrestre Restante',
+    nationalClassifications: 'Clasificaciones nacionales',
+    categories: 'Categorías',
   },
 
   userManagement: {
@@ -478,6 +498,17 @@ El equipo de FRA
 {{- url}}
     `,
     },
+    editPermissions: 'Editar permisos',
+    invitationDeleted: 'La invitación ha sido eliminada',
+    invitationEmailSent: 'Se le ha enviado un correo electrónico de invitación',
+    permissions: 'Permisos',
+    personalInfoRequired: 'Por favor complete sus datos personales antes de continuar',
+    userAdded: 'El email {{email}} ha sido añadido',
+    userModified: 'El usuario {{usuario}} ha sido modificado',
+    permissionNames: {
+      tableData: 'Datos de la tabla',
+      descriptions: 'Descripciones',
+    },
   },
 
   // FRA 2020 questionare
@@ -520,9 +551,11 @@ El equipo de FRA
     whatIsThis: '¿Qué significa esto?',
     tableNoticeMessage:
       'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
-    ndpMissingValues: 'El punto de datos nacionales tiene valores faltantes',
+    ndpMissingValues: 'El punto de dato nacional tiene valores faltantes',
     showNDPs: 'Mostrar puntos de datos nacionales',
     hideNDPs: 'Esconder puntos de datos nacionales',
+    forestAreaNetChangeDoesNotMatch:
+      'El cambio neto de la superficie forestal no coincide con el valor esperado: {{value}}',
   },
 
   climaticDomain: {
@@ -563,6 +596,7 @@ El equipo de FRA
     copyToClipboard: 'Copiar valores',
     placeholderSelect: 'Estimación y proyección',
     _1000haYear: '1000 ha/año',
+    generatingFraValues: 'Generando...',
   },
 
   forestAreaChange: {
@@ -917,6 +951,9 @@ El equipo de FRA
         next: 'Aceptar',
         previous: '',
       },
+      notStarted: {
+        label: 'No iniciado',
+      },
     },
   },
 
@@ -931,7 +968,23 @@ El equipo de FRA
     otherLandExceedsExtentOfForest: 'Superior al área de otras tierras (1a)',
     valueMustBePositive: 'El valor debe ser superior a cero',
     emptyField: 'Este campo está vacío',
-    mustBeEqualToTotalGrowingStock: 'El valor debe ser igual al Existencias totales en formación (2a)',
+    mustBeEqualToTotalGrowingStock: 'El valor debe ser igual al valor total de Existencias Forestales en Formación(2a)',
+    remainingLandExceedsExtentOfForest: 'Excede la Superficie Terrestre Restante (1a)',
+    valueMustBeYear: 'El valor debe ser un año válido',
+    countryReportYearGreaterThanCurrentYear: 'El valor debe ser mayor o igual que {{valor mínimo}}',
+    valueNotGreaterThan: 'El valor no debe ser mayor que {{Valor máximo}}',
+    sumNotGreaterThan: 'La suma no debe superar el valor {{Valor máximo}}',
+    valuesAreInconsistentWithNetChange: 'Los valores no concuerdan con el cambio neto del área de bosque',
+    valuesAreInconsistent1aOr1b: 'Los valores no concuerda con los valores de área indicados en los cuadros 1a o 1b.',
+    mustBeEqualToPrivateOwnership: 'La suma de las subcategorías debe ser igual a Propiedad privada',
+    mustBeEqualToForestExpansion: 'La suma de las subcategorías debe ser igual a Expansión forestal',
+    mustBeEqualToPlantedForest: 'La suma de las subcategorías debe ser igual a Bosque plantado',
+    mustBeEqualToForestArea:
+      'La suma de Bosque con Procesos de Regeneración Natural y Bosque Plantado debe ser igual al total de Existencias Forestales en Formación',
+    mustBeLessThanPrivateOwnership: 'La suma de las subcategorías debe ser inferior a Propiedad privada',
+    forestSumAreaExceedsExtentOfForest:
+      'La suma de las cifras introducidas supera el valor de área de bosque introducido en el cuadro 1a',
+    valueEqualToSum: 'El valor total debe ser igual a la suma de las subcategorías',
   },
 
   emoji: {
@@ -950,19 +1003,6 @@ El equipo de FRA
         flags: 'Banderas',
       },
     },
-  },
-
-  editUser: {
-    chooseProfilePicture: 'Elegir foto',
-    name: 'Nombre',
-    role: 'Función',
-    email: 'Correo electrónico',
-    loginEmail: 'Iniciar sesión',
-    institution: 'Institución',
-    position: 'Cargo',
-    done: 'Guardar',
-    cancel: 'Cancelar',
-    picture1MbMax: 'La foto de perfil no puede ser superior a 1MB',
   },
 
   country: {
@@ -990,5 +1030,11 @@ El equipo de FRA
     messageBoard: 'Tablero de mensajes',
     messageBoardDesc: 'Los mensajes publicados aquí son visibles para todos los miembros del país.',
     oneToOneMessages: 'Mensajes individuales',
+  },
+
+  page: {
+    assessmentSection: {
+      dataTableHasErrors: 'Haga clic en la celda roja para ver los detalles.',
+    },
   },
 }
