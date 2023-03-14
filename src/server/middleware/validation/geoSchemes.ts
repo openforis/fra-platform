@@ -1,6 +1,6 @@
-import { query } from 'express-validator'
+import { body, query } from 'express-validator'
 
-import { ForestSource, precalForestAgreementSources } from '@meta/geo'
+import { ForestSource, precalForestAgreementSources, ProtectedAreaSource } from '@meta/geo'
 
 const countryIsoQuery = query('countryIso')
   .exists()
@@ -78,8 +78,6 @@ export const forestLayerSchema = [
     .isInt({ min: 0, max: 100 })
     .withMessage('validation.errors.invalidValue')
     .toInt(),
-
-  query('onlyProtected').default(false).toBoolean(),
 ]
 
 export const forestAgreementLayerSchema = [
@@ -106,6 +104,30 @@ export const forestEstimationsSchema = [
     .withMessage('validation.errors.invalidValue')
     .toInt(),
 ]
+export const protectedAreaLayerSchema = [
+  body('countryIso')
+    .exists()
+    .withMessage('validation.errors.requiredValue')
+    .bail()
+    .isLength({ min: 3, max: 3 })
+    .withMessage('validation.errors.invalidValue'),
+
+  body('source')
+    .exists()
+    .withMessage('validation.errors.requiredValue')
+    .bail()
+    .isIn([ProtectedAreaSource.Custom, ProtectedAreaSource.FilteredWDPA, ProtectedAreaSource.WDPA])
+    .withMessage('validation.errors.invalidValue'),
+
+  body('params.assetId')
+    .if(body('source').equals(ProtectedAreaSource.Custom))
+    .exists()
+    .withMessage('validation.errors.requiredValue')
+    .bail()
+    .isString()
+    .isLength({ min: 10 })
+    .withMessage('validation.errors.invalidValue'),
+]
 
 export const GeoSchemes = {
   forestLayerSchema,
@@ -113,4 +135,5 @@ export const GeoSchemes = {
   forestEstimationsSchema,
   forestAgreementEstimationSchema,
   countryIsoSchema: [countryIsoQuery],
+  protectedAreaLayerSchema,
 }
