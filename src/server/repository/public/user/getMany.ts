@@ -62,6 +62,17 @@ export const getMany = async (
       where ${whereConditions.join(`
       and
       `)}
+      ${
+        countryIso
+          ? `and u.id in (
+              select user_id
+              from public.users_role
+              where assessment_id = $1
+                and cycle_uuid = $2
+                and country_iso = $3
+            )`
+          : ''
+      }
       group by ${selectFields}
                    ${limit ? `limit ${limit}` : ''}
                    ${offset ? `offset ${offset}` : ''}
