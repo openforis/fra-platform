@@ -17,10 +17,6 @@ let previousMigrations: Array<string> = []
 const executedMigrations: Array<string> = []
 
 beforeAll(async () => {
-  // quick and dirty workaround to close redis connection after running integration tests
-  // TODO: find a better strategy to handle Redis connections
-  QueueFactory.connection.quit()
-  WorkerFactory.connection.quit()
   previousMigrations = await client.map('select * from migration_steps', [], (row) => row.name)
   migrationSteps = fs
     .readdirSync(path.join(__dirname, `steps`))
@@ -28,6 +24,10 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
+  // quick and dirty workaround to close redis connection after running integration tests
+  // TODO: find a better strategy to handle Redis connections
+  QueueFactory.connection.quit()
+  WorkerFactory.connection.quit()
   await DB.$pool.end()
 })
 
