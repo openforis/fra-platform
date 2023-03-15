@@ -59,7 +59,7 @@ export const calculateRow = async (
       // eslint-disable-next-line consistent-return
       if (!col) return
 
-      const expression = row.props.calculateFn?.[cycle.uuid]
+      const expression = row.props.calculateFn?.[cycle.uuid] ?? col.props.calculateFn?.[cycle.uuid]
 
       const raw = ExpressionEvaluator.evalFormula<string | undefined>({
         assessment,
