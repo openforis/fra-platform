@@ -19,3 +19,5 @@ export const useAppliedMosaicOptions = (): MosaicOptions => useAppSelector((stat
 export const useSelectedPanel = (): MapPanel => useAppSelector((state) => state.geo?.selectedPanel)
 
 export const useForestSourceOptions = (): ForestOptions => useAppSelector((state) => state.geo?.forestOptions)
+
+export const useIsGeoMapAvailable = (): boolean => useAppSelector((state) => state.geo?.isMapAvailable)

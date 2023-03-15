@@ -17,6 +17,7 @@ const initialMosaicOptions: MosaicOptions = {
 }
 
 const initialState: GeoState = {
+  isMapAvailable: false,
   selectedPanel: null,
   mosaicOptions: {
     ui: { ...initialMosaicOptions },
@@ -46,6 +47,9 @@ export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
+    setMapAvailability: (state, { payload }: PayloadAction<boolean>) => {
+      state.isMapAvailable = payload
+    },
     applyMosaicOptions: (state) => {
       state.mosaicUrl = {}
       state.mosaicFailed = false
