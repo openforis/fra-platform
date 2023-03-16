@@ -4,9 +4,7 @@ import { Assessment } from '@meta/assessment'
 
 import { BaseProtocol, DB } from '@server/db'
 
-const fields: Array<string> = ['id', 'uuid', 'props']
-
-const selectFields = fields.map((f) => `a.${f}`).join(',')
+import { selectFields } from './selectFields'
 
 export const get = async (
   props: { assessmentName: string; metaCache?: boolean } | { id: number; metaCache?: boolean },
