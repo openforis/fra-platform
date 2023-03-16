@@ -168,7 +168,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           type          message_topic_type                    not null,
           section_uuid uuid
             constraint message_topic_section_uuid_fk
-            references assessment_paneuropean.section (uuid)
+            references ${assessmentSchemaName}.section (uuid)
             on update cascade on delete cascade
       );
       
