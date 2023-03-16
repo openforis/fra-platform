@@ -11,6 +11,7 @@ type Params = {
   cycleName: string
   countries?: Array<CountryIso>
   roles?: Array<RoleName>
+  userName?: string
 }
 
 export const getUsersCount = createAsyncThunk<{ totals: number }, Params>(

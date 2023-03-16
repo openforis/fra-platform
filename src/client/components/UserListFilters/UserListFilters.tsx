@@ -1,5 +1,5 @@
 import './UserListFilters.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso, Region, RegionCode } from '@meta/area'
@@ -24,6 +24,16 @@ const UserListFilters: React.FC = () => {
 
   const [modalOpen, setModalOpen] = useState(false)
 
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      dispatch(UserManagementActions.updateFilters({ userName }))
+    }, 1000)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [dispatch, userName])
+
   return (
     <div className="users__table-filter">
       <div className="users__table-filter-title">
@@ -31,6 +41,19 @@ const UserListFilters: React.FC = () => {
       </div>
 
       <div className="users__table-filter-container">
+        <div className="users__table-filter-item">
+          <div className="users__table-filter-item-label">
+            <h4>{t('userManagement.name')}</h4>
+          </div>
+          <div>
+            <input
+              type="text"
+              defaultValue={userName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value.trim())}
+            />
+          </div>
+        </div>
+
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
             <h4>{t('userManagement.role')}</h4>

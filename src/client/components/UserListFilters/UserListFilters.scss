@@ -20,6 +20,14 @@
   grid-template-columns: 20% auto;
   align-items: center;
   grid-column-gap: $spacing-xxs;
+
+  input {
+    width: 100%;
+    border: none;
+    padding: 10px 24px 10px 10px;
+    background: transparent;
+    outline: 1px solid #999;
+  }
 }
 
 .users__table-filter-item-label {

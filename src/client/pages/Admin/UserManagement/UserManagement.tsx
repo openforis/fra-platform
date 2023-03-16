@@ -35,10 +35,11 @@ const UserManagement: React.FC = () => {
         cycleName: cycle.name,
         countries: filters.countries,
         roles: filters.roles,
+        userName: filters.userName,
       })
     )
     setPageNumber(0)
-  }, [assessment.props.name, cycle.name, dispatch, filters.countries, filters.roles])
+  }, [assessment.props.name, cycle.name, dispatch, filters])
 
   useEffect(() => {
     dispatch(
@@ -49,10 +50,11 @@ const UserManagement: React.FC = () => {
         offset: pageNumber * 20,
         countries: filters.countries,
         roles: filters.roles,
+        userName: filters.userName,
         administrators: true,
       })
     )
-  }, [assessment, cycle, dispatch, filters.countries, filters.roles, pageNumber])
+  }, [assessment, cycle, dispatch, filters, pageNumber])
 
   return (
     <>

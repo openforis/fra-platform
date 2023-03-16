@@ -10,10 +10,11 @@ export const count = async (
     cycle: Cycle
     countries?: Array<CountryIso>
     roles?: Array<RoleName>
+    userName?: string
   },
   client: BaseProtocol = DB
 ): Promise<{ totals: number }> => {
-  const { assessment, cycle, countries, roles } = props
+  const { assessment, cycle, countries, roles, userName } = props
 
   const selectedCountries = countries.map((countryIso) => `'${countryIso}'`).join(',')
 
@@ -26,6 +27,7 @@ export const count = async (
     and ((accepted_at is not null and invited_at is not null) or invited_at is null)
       ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
       ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
+      ${userName ? `and concat(u.props->'name', ' ', u.props->'surname') ilike '%${userName}%'` : ''}
   `
 
   const totals = await client.one<{ totals: number }>(query, [assessment.id, cycle.uuid])
@@ -36,6 +38,7 @@ export const count = async (
     and ((accepted_at is not null and invited_at is not null) or invited_at is null)
       ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
       ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
+      ${userName ? `and concat(u.props->'name', ' ', u.props->'surname') ilike '%${userName}%'` : ''}
     group by role
   `
 

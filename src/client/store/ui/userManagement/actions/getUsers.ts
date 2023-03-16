@@ -12,6 +12,7 @@ type Params = {
   print?: boolean
   limit?: number
   offset?: number
+  userName?: string
   countries?: Array<CountryIso>
   roles?: Array<RoleName>
   administrators?: boolean

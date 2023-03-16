@@ -6,6 +6,7 @@ export interface UserManagementState {
     [key in keyof typeof RoleName | 'totals']?: number
   }
   filters: {
+    userName: string
     countries: Array<CountryIso>
     roles: Array<RoleName>
   }
