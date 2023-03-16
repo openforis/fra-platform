@@ -1,7 +1,7 @@
 import { Assessment, Cycle } from '@meta/assessment'
 
 import { BaseProtocol, DB } from '@server/db'
-import { read } from '@server/repository/assessment/assessment/read'
+import { get } from '@server/repository/assessment/assessment/get'
 
 export const updateDefaultCycle = async (
   params: {
@@ -16,5 +16,5 @@ export const updateDefaultCycle = async (
     cycle.uuid,
     assessment.id,
   ])
-  return read({ id: assessment.id }, client)
+  return get({ id: assessment.id }, client)
 }

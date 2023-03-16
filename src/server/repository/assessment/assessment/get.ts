@@ -8,7 +8,7 @@ const fields: Array<string> = ['id', 'uuid', 'props']
 
 const selectFields = fields.map((f) => `a.${f}`).join(',')
 
-export const read = async (
+export const get = async (
   props: { assessmentName: string; metaCache?: boolean } | { id: number; metaCache?: boolean },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {

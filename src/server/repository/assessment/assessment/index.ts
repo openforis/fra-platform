@@ -1,12 +1,12 @@
 import { createAssessment } from './createAssessment'
 import { createAssessmentSchema } from './createAssessmentSchema'
+import { get } from './get'
+import { getAll } from './getAll'
 import {
   getCreateSchemaCycleDDL,
   getCreateSchemaCycleOriginalDataPointViewDDL,
   getCreateSchemaDDL,
 } from './getCreateSchemaDDL'
-import { read } from './read'
-import { readAll } from './readAll'
 import { removeAssessment } from './removeAssessment'
 import { removeAssessmentSchema } from './removeAssessmentSchema'
 import { updateDefaultCycle } from './updateAssessment'
@@ -14,8 +14,8 @@ import { updateDefaultCycle } from './updateAssessment'
 export const AssessmentRepository = {
   createAssessment,
   createAssessmentSchema,
-  read,
-  readAll,
+  get,
+  getAll,
   removeAssessmentSchema,
   removeAssessment,
   getCreateSchemaDDL,
