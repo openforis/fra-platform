@@ -6,6 +6,7 @@ import {
   getCreateSchemaDDL,
 } from './getCreateSchemaDDL'
 import { read } from './read'
+import { readAll } from './readAll'
 import { removeAssessment } from './removeAssessment'
 import { removeAssessmentSchema } from './removeAssessmentSchema'
 import { updateDefaultCycle } from './updateAssessment'
@@ -14,6 +15,7 @@ export const AssessmentRepository = {
   createAssessment,
   createAssessmentSchema,
   read,
+  readAll,
   removeAssessmentSchema,
   removeAssessment,
   getCreateSchemaDDL,
