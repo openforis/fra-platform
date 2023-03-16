@@ -24,7 +24,7 @@ export const layers: Layer[] = [
   },
   {
     key: ForestSource.ESAGlobCover,
-    title: 'Global Land Cover ESA (2009)',
+    title: 'ESA GlobCover (2009)',
     opacity: 1,
   },
   {

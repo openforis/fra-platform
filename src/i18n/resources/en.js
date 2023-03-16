@@ -616,7 +616,8 @@ The FRA team fra@fao.org
     totalLandArea: 'Total land area',
     fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
     forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA {{year}} area: {{previous}}',
-    forestAreaNetChangeDoesNotMatch: "Forest area net change doesn't match expected value: {{value}}",
+    forestAreaNetChangeDoesNotMatch:
+      'Forest area net change is different from what was reported in table 1a, provide a comment to explain why',
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points',
     whatIsThis: 'What is this?',
@@ -676,6 +677,7 @@ The FRA team fra@fao.org
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
+    forestAreaNetChangeFrom1a: 'Forest area net change from table 1a',
     netChangeDoesNotMatch: 'Doesn’t match Forest area net change',
   },
 

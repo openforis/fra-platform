@@ -67,7 +67,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
         <div className="geo-map-menu-forest-hansen-layer-inputs">
           <div>
             <div>
-              <p>Select Hansen percentage:</p>
+              <p>Select min. tree cover percentage:</p>
               <fieldset>
                 {hansenPercentages.map((percentage) => {
                   const id = `hansenPercentage-${percentage}`
