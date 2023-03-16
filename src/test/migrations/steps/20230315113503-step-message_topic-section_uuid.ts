@@ -60,5 +60,19 @@ export default async (client: BaseProtocol) => {
     from datasources left join ${schemaName}.section s on section_name = s.props ->> 'name'
         where datasources.uuid = mt.key;
         `)
+
+    // update section_uuids for original data point
+    await DB.query(`
+        update
+            ${schemaCycle}.message_topic mt
+        set section_uuid = s.uuid
+        from ${schemaName}.section s
+        where s.props ->> 'name' = 'extentOfForest'
+          and split_part(mt.key, '-', 2) in ('dataSourceReferences',
+                                             'dataSourceMethods',
+                                             'dataSourceAdditionalComments',
+                                             'class')
+          and split_part(mt.key, '-', 1) in (select id::text from ${schemaCycle}.original_data_point);
+        `)
   }
 }
