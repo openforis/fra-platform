@@ -1,8 +1,7 @@
-import { Objects } from '@utils/objects'
-
 import { Assessment } from '@meta/assessment'
 
 import { BaseProtocol, DB } from '@server/db'
+import { AssessmentAdapter } from '@server/repository/adapter'
 
 import { selectFields } from './selectFields'
 
@@ -11,17 +10,12 @@ export const getAll = async (props: { metaCache?: boolean }, client: BaseProtoco
     `
         select ${selectFields},
                jsonb_agg(to_jsonb(ac.*)) as cycles
-            ${props.metaCache ? `, meta_cache as metacache` : ''}
+            ${props.metaCache ? `, meta_cache` : ''}
         from assessment a
                  left join assessment_cycle ac on a.id = ac.assessment_id
         group by ${selectFields};
     `,
     [],
-    ({ metacache, ...assessment }) => {
-      return {
-        ...Objects.camelize(assessment),
-        metaCache: metacache,
-      }
-    }
+    AssessmentAdapter
   )
 }

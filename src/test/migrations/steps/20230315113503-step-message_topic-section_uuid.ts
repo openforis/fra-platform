@@ -1,10 +1,8 @@
-// import { Objects } from '@utils/objects'
-
 import { AssessmentController } from '@server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
 export default async (client: BaseProtocol) => {
-  const assessments = await AssessmentController.getAll({ metaCache: false }, client)
+  const assessments = await AssessmentController.getAll({}, client)
   const schemas = assessments.flatMap((assessment) => {
     return assessment.cycles.flatMap((cycle) => {
       const schemaCycle = Schemas.getNameCycle(assessment, cycle)
