@@ -5,7 +5,7 @@ import { AssessmentAdapter } from '@server/repository/adapter'
 
 import { selectFields } from './selectFields'
 
-export const get = async (
+export const getOne = async (
   props: { assessmentName: string; metaCache?: boolean } | { id: number; metaCache?: boolean },
   client: BaseProtocol = DB
 ): Promise<Assessment> => {

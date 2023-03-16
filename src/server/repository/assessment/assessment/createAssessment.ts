@@ -3,7 +3,7 @@ import { Objects } from '@utils/objects'
 import { Assessment } from '@meta/assessment'
 
 import { BaseProtocol, DB } from '@server/db'
-import { get } from '@server/repository/assessment/assessment/get'
+import { getOne } from '@server/repository/assessment/assessment/getOne'
 
 export const createAssessment = async (
   params: {
@@ -21,5 +21,5 @@ export const createAssessment = async (
     [],
     Objects.camelize
   )
-  return get({ id: assessmentCreated.id }, client)
+  return getOne({ id: assessmentCreated.id }, client)
 }
