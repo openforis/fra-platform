@@ -46,9 +46,9 @@ const Toolbar: React.FC = () => {
     const elRoot = findElementRoot(evt.target)
     // We need to check these two, since React can unmount the other element before we get here.
     if (
-      elRoot.className.includes('country-select__country') ||
-      elRoot.className.includes('country-select__select-laptop') ||
-      elRoot.className.includes('country-select__select-mobile')
+      elRoot.className.includes('toolbar__country') ||
+      elRoot.className.includes('toolbar__select-laptop') ||
+      elRoot.className.includes('toolbar__select-mobile')
     )
       return
     if (countrySelectionRef.current && countrySelectionRef.current.contains(evt.target)) return
@@ -70,8 +70,8 @@ const Toolbar: React.FC = () => {
   if (print) return null
 
   return (
-    <div className="country-select">
-      <div style={{ display: 'flex', width: '340px' }}>
+    <div className="toolbar">
+      <div className="toolbar__nav-options">
         <ToggleNavigationControl />
 
         <button
@@ -94,7 +94,7 @@ const Toolbar: React.FC = () => {
             )}
 
             {countryIso && !open && (
-              <div className="country-select__country">
+              <div className="toolbar__country">
                 {Areas.isISOCountry(countryIso) && (
                   <div
                     className="flag"
@@ -103,20 +103,21 @@ const Toolbar: React.FC = () => {
                     }}
                   />
                 )}
-
-                <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
-                {user && Areas.isISOCountry(countryIso) && (
-                  <div className="user-role">
-                    {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
-                  </div>
-                )}
+                <div className="name-container">
+                  <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
+                  {user && Areas.isISOCountry(countryIso) && (
+                    <div className="user-role">
+                      {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 
             {!countryIso && !open && (
               <>
-                <div className="country-select__select-laptop">{`- ${t('common.selectArea')} -`}</div>
-                <div className="country-select__select-mobile">{`- ${t('common.selectArea')} -`}</div>
+                <div className="toolbar__select-laptop">{`- ${t('common.selectArea')} -`}</div>
+                <div className="toolbar__select-mobile">{`- ${t('common.selectArea')} -`}</div>
               </>
             )}
           </div>
