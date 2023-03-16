@@ -23,6 +23,7 @@ export const count = async (
     select count(distinct(u.id)) as totals from public.users u
       join public.users_role ur on (u.id = ur.user_id)
     where (ur.assessment_id is null or (ur.assessment_id = $1 and ur.cycle_uuid = $2))
+    and ((accepted_at is not null and invited_at is not null) or invited_at is null)
       ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
       ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
   `
@@ -32,6 +33,7 @@ export const count = async (
   query = `
     select role, count(*) as totals from public.users_role ur
     where (ur.assessment_id is null or (ur.assessment_id = $1 and ur.cycle_uuid = $2))
+    and ((accepted_at is not null and invited_at is not null) or invited_at is null)
       ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
       ${selectedRoles ? `and ur.role in (${selectedRoles})` : ''}
     group by role
