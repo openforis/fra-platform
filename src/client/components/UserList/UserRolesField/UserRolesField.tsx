@@ -20,9 +20,11 @@ const UserRolesField: React.FC<{ roleName: RoleName; user: User }> = ({ roleName
   return (
     <td className="user-list__cell">
       <div className="user-list__cell--read-only">
-        <Tooltip text={roles.join(', ')}>
-          {roles.length > 3 ? `${roles.slice(0, 3).join(', ')}...` : roles.join(', ')}
-        </Tooltip>
+        {roles.length > 3 ? (
+          <Tooltip text={roles.join(', ')}>{`${roles.slice(0, 3).join(', ')}...`}</Tooltip>
+        ) : (
+          <>{roles.join(', ')}</>
+        )}
       </div>
     </td>
   )
