@@ -72,7 +72,17 @@ export default async (client: BaseProtocol) => {
                                              'dataSourceMethods',
                                              'dataSourceAdditionalComments',
                                              'class')
-          and split_part(mt.key, '-', 1) in (select id::text from ${schemaCycle}.original_data_point);
+          and split_part(mt.key, '-', 1) in (select id::text from ${schemaCycle}.original_data_point)
+          and key not ilike '%class%forestCharacteristics%';
         `)
+
+    await DB.query(`
+      update ${schemaCycle}.message_topic mt
+      set section_uuid = s.uuid
+      from ${schemaName}.section s
+      where s.props ->> 'name' = 'forestCharacteristics'
+        and split_part(mt.key, '-', 1) in (select id::text from ${schemaCycle}.original_data_point)
+      and mt.key ilike '%class%forestCharacteristics%';
+    `)
   }
 }
