@@ -34,6 +34,7 @@ export const count = async (
 
   query = `
     select role, count(*) as totals from public.users_role ur
+      join public.users u on (ur.user_id = u.id)
     where (ur.assessment_id is null or (ur.assessment_id = $1 and ur.cycle_uuid = $2))
     and ((accepted_at is not null and invited_at is not null) or invited_at is null)
       ${selectedCountries ? `and ur.country_iso in (${selectedCountries})` : ''}
