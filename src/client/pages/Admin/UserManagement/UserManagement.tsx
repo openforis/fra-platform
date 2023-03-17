@@ -34,8 +34,8 @@ const UserManagement: React.FC = () => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countries: filters.countries,
+        fullname: filters.fullname,
         roles: filters.roles,
-        userName: filters.userName,
       })
     )
     setPageNumber(0)
@@ -49,8 +49,8 @@ const UserManagement: React.FC = () => {
         limit: 20,
         offset: pageNumber * 20,
         countries: filters.countries,
+        fullname: filters.fullname,
         roles: filters.roles,
-        userName: filters.userName,
         administrators: true,
       })
     )

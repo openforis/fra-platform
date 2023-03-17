@@ -20,8 +20,8 @@ const initialState: UserManagementState = {
     totals: 0,
   },
   filters: {
-    userName: '',
     countries: [],
+    fullname: '',
     roles: [],
   },
   user: null,
@@ -45,7 +45,7 @@ export const userManagementSlice = createSlice({
       state.filters = { ...state.filters, ...payload }
     },
     resetFilters: (state) => {
-      state.filters = { countries: [], roles: [], userName: '' }
+      state.filters = { countries: [], fullname: '', roles: [] }
     },
   },
   extraReducers: (builder) => {

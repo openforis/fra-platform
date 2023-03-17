@@ -14,8 +14,8 @@ type Params = {
   assessmentName: AssessmentName
   cycleName: string
   countries?: Array<CountryIso>
+  fullname?: string
   roles?: Array<RoleName>
-  userName?: string
 }
 
 const debouncedGetUsersCount = Functions.debounce(

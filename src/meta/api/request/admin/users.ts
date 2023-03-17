@@ -13,6 +13,7 @@ export type UsersRequest<QueryParams = any, Body = any> = Request<
     limit?: string
     offset?: string
     countries?: Array<CountryIso>
+    fullname?: string
     roles?: Array<RoleName>
     administrators?: boolean
   }

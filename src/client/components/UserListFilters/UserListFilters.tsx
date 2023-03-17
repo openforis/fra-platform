@@ -38,9 +38,9 @@ const UserListFilters: React.FC = () => {
           <div>
             <input
               type="text"
-              defaultValue={filters.userName}
+              defaultValue={filters.fullname}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                dispatch(UserManagementActions.updateFilters({ userName: e.target.value.trim() }))
+                dispatch(UserManagementActions.updateFilters({ fullname: e.target.value.trim() }))
               }
             />
           </div>

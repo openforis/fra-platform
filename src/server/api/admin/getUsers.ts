@@ -8,7 +8,7 @@ import Requests from '@server/utils/requests'
 
 export const getUsers = async (req: UsersRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, limit, offset, countries, roles, userName, administrators } = req.query
+    const { assessmentName, cycleName, limit, offset, countries, fullname, roles, administrators } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -17,8 +17,8 @@ export const getUsers = async (req: UsersRequest, res: Response) => {
       cycle,
       limit: limit && Number(limit),
       offset: offset && Number(offset),
-      userName: userName || '',
       countries: countries || [],
+      fullname: fullname || '',
       roles: roles || [],
       administrators,
     })
