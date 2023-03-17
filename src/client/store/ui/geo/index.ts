@@ -1,6 +1,8 @@
 export {
   useAppliedMosaicOptions,
   useForestSourceOptions,
+  useMosaicFailed,
+  useMosaicPending,
   useMosaicSelected,
   useMosaicUrl,
   useSelectedPanel,

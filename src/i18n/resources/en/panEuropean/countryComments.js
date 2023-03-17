@@ -147,16 +147,14 @@ module.exports = {
     'Reference area (if different from total fowl, e.g. ownership class or 1000 ha)',
   approachToReportOnTreeSpeciesComposition: 'Approach to report on tree species composition',
   minimumSizeOfTreesToBeIncluded: 'Minimum size of trees to be included',
-  minimumSizeOfDegradedFowlReportedHa: 'Minimum size of degraded fowl reported, ha',
-  otherCriteriaAndMinimumThresholdsUsedToDetermineAreaAsDegraded:
-    'Other criteria and minimum thresholds used to determine area as degraded',
+  doesYourCountryHaveANationalMethodology:
+    'Does your country have a national methodology for land degradation assessment?',
+  ifYesWhatIsTheNationalDefinition: 'If yes, what is the national definition of "Degraded forest"?',
+  ifYesDescribeMonitoringProcessAndResults: 'If yes, describe the monitoring process and results',
+  minimumSizeOfDegradedForestReportedHa: 'Minimum size of degraded forest reported (ha)',
+  otherCriteriaAndMinimumThresholdsUsedToDetermineForestAsDegraded:
+    'Other criteria and minimum thresholds used to determine forest as "degraded"',
   criteriaUsedToDeterminePrimaryTypeOfDegradation: 'Criteria used to determine primary type of degradation',
-  areDegradedAreasOriginatingFromLandUsesOtherThanForestryIncludedInTheFiguresYouReported:
-    'Are degraded areas originating from land uses other than forestry included in the figures you reported?',
-  AreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand:
-    'Are recently degraded forest areas legally considered as non-forest land?',
-  AreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem:
-    'Are degraded non-forest areas re-categorised to forest land with the aim to reforest them?',
   doesYourCountryHaveANationalMethodologyForLandDegradationAssessment:
     'Does your country have a national methodology for land degradation assessment?',
   totalAreaOfDegradedLand: 'Total area of degraded land',

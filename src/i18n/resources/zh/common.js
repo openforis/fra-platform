@@ -19,4 +19,17 @@ module.exports = {
   variable: 'FRA变量',
   year: '年份',
   filterCountries: '筛选国家',
+
+  dashboard: '主界面',
+  copyToClipboard: '复制到剪贴板',
+  continue: '继续',
+  tier: '等级',
+  status: '状况',
+  trend: '趋势',
+  tiers: {
+    notSelected: '',
+    high: '高',
+    medium: '中',
+    low: '低',
+  },
 }

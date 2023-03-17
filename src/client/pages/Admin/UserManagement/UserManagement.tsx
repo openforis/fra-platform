@@ -22,6 +22,12 @@ const UserManagement: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(0)
 
   useEffect(() => {
+    return () => {
+      dispatch(UserManagementActions.resetFilters())
+    }
+  }, [dispatch])
+
+  useEffect(() => {
     dispatch(
       UserManagementActions.getUsersCount({
         assessmentName: assessment.props.name,
@@ -42,6 +48,7 @@ const UserManagement: React.FC = () => {
         offset: pageNumber * 20,
         countries: filters.countries,
         roles: filters.roles,
+        administrators: true,
       })
     )
   }, [assessment, cycle, dispatch, filters.countries, filters.roles, pageNumber])

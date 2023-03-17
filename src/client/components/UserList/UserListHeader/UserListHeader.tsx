@@ -26,7 +26,7 @@ const UserListHeader: React.FC<{ isAdmin: boolean; readOnly: boolean }> = ({ isA
         <th className="user-list__header-cell">{t('userManagement.email')}</th>
         {!readOnly && (
           <th className="user-list__header-cell user-list__edit-column">
-            <UserListButtonExport />
+            <UserListButtonExport isAdmin={isAdmin} />
           </th>
         )}
       </tr>

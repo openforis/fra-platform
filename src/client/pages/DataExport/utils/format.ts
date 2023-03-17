@@ -2,7 +2,7 @@ import { Numbers } from '@utils/numbers'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName, AssessmentNames } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { TableData, TableDatas } from '@meta/data'
 import { Unit, UnitConverter, UnitFactors } from '@meta/dataExport'
 
 // import { getPanEuropeanTableMapping } from '@client/pages/DataExport/utils/panEuropean'
@@ -13,25 +13,25 @@ const sections: Record<string, string> = {
 
 /**
  * Helper function to display received data correctly
- * @param {string} column - column value
+ * @param {string} colName - column value
  * @param {string} countryIso - selection country iso
- * @param {Object} results - result set to display in the table
- * @param {string} variable - url params: current variable
+ * @param {Object} data - result set to display in the table
+ * @param {string} variableName - url params: current variable
  * @returns {{columnKey: string, value: string}} - formatted column and value, from results
  */
 export const formatValue = (
-  column: string,
+  colName: string,
   countryIso: CountryIso,
-  results: TableData,
+  data: TableData,
   tableName: string,
-  variable: string
+  variableName: string
 ): { columnKey: string; value: string } => {
-  const columnKey = column
+  const columnKey = colName
 
-  let value = results?.[countryIso]?.[tableName]?.[columnKey]?.[variable]?.raw
+  let value = TableDatas.getDatum({ countryIso, data, tableName, colName, variableName })
 
   // Convert value to string and check if it's a number
-  if (!Number.isNaN(+value)) value = Numbers.format(Number(value))
+  if (value && !Number.isNaN(+value)) value = Numbers.format(Number(value))
   if (value === 'NaN') value = ''
 
   return { columnKey, value }
