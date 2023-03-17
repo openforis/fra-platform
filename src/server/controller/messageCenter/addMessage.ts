@@ -32,7 +32,7 @@ export const addMessage = async (
     )
 
     if (!topic) {
-      topic = await MessageTopicRepository.create({ countryIso, assessment, cycle, key, type }, t)
+      topic = await MessageTopicRepository.create({ countryIso, assessment, cycle, key, type, sectionName }, t)
     }
 
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)
