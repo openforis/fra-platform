@@ -32,6 +32,7 @@ export enum ForestSource {
   ESAWorldCover = 'ESAWorldCover',
   Hansen = 'Hansen',
   MODIS = 'MODIS',
+  CustomFnF = 'CustomFNF',
 }
 
 export type Layer = {
@@ -107,6 +108,19 @@ export const sourcesMetadata = {
     palette: ['#FFD700'], // gold
     citation: 'https://lpdaac.usgs.gov/products/mod44bv006/',
   },
+  [ForestSource.CustomFnF]: {
+    palette: ['#A52A2A'],
+    citation: '',
+    scale: 0,
+  },
+}
+
+export interface LayerSource {
+  key: ForestSource
+  options?: {
+    gteTreeCoverPercent: number
+    assetId: string
+  }
 }
 
 export const agreementPalette = [
