@@ -22,7 +22,7 @@ type Params = {
   administrators?: boolean
 }
 
-const debouncedGetUsers = Functions.debounce(
+const throttledGetUsers = Functions.throttle(
   async (params: Params, dispatch: Dispatch) => {
     try {
       const { countryIso } = params
@@ -37,10 +37,10 @@ const debouncedGetUsers = Functions.debounce(
     }
     return null
   },
-  1000,
-  'getUsers'
+  500,
+  { leading: true, trailing: true }
 )
 
 export const getUsers = createAsyncThunk<void, Params>('userManagement/get/users', async (params, { dispatch }) => {
-  debouncedGetUsers(params, dispatch)
+  throttledGetUsers(params, dispatch)
 })

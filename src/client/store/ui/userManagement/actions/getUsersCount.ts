@@ -18,7 +18,7 @@ type Params = {
   roles?: Array<RoleName>
 }
 
-const debouncedGetUsersCount = Functions.debounce(
+const throttledGetUsersCount = Functions.throttle(
   async (params: Params, dispatch: Dispatch) => {
     try {
       const { data } = await axios.get(ApiEndPoint.Admin.usersCount(), {
@@ -30,13 +30,13 @@ const debouncedGetUsersCount = Functions.debounce(
     }
     return null
   },
-  1000,
-  'getUsersCount'
+  500,
+  { leading: true, trailing: true }
 )
 
 export const getUsersCount = createAsyncThunk<void, Params>(
   'userManagement/get/usersCount',
   async (params, { dispatch }) => {
-    debouncedGetUsersCount(params, dispatch)
+    throttledGetUsersCount(params, dispatch)
   }
 )
