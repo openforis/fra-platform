@@ -1,11 +1,10 @@
 import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle, Section } from '@meta/assessment'
 import { MessageTopic, MessageTopicType } from '@meta/messageCenter'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { SectionRepository } from '@server/repository/assessment/section'
 
 export const create = async (
   props: {
@@ -14,22 +13,13 @@ export const create = async (
     cycle: Cycle
     key: string
     type: MessageTopicType
-    sectionName?: string
+    section?: Section
   },
   client: BaseProtocol = DB
 ): Promise<MessageTopic> => {
-  const { countryIso, assessment, cycle, key, type, sectionName } = props
+  const { countryIso, assessment, cycle, key, type, section } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
-  // Country Message board section_uuid = null
-  let section
-  if (sectionName)
-    section = await SectionRepository.getOne({
-      assessment,
-      cycle,
-      sectionName,
-    })
 
   return client.one<MessageTopic>(
     `
