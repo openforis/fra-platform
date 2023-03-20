@@ -11,13 +11,6 @@
   height: 50px;
   box-shadow: 0 2px 4px 0px rgba($text-body, 0.5);
   width: 100%;
-
-  .text-input {
-    width: 100%;
-    border: none;
-    font-size: 13px;
-    padding: initial;
-  }
 }
 
 .toolbar__nav-options {
@@ -25,25 +18,6 @@
   grid-template-columns: 50px 1fr;
   width: 340px;
   padding-right: $spacing-xxxs;
-}
-
-.btn-toggle-navigation {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.toolbar__select-laptop {
-  display: none;
-
-  @include min-width($laptop) {
-    display: initial;
-  }
-}
-
-.toolbar__select-mobile {
-  @include min-width($laptop) {
-    display: none;
-  }
 }
 
 .links-download {

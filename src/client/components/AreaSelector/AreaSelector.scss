@@ -24,6 +24,13 @@
   .icon {
     margin-right: unset;
   }
+
+  .text-input {
+    width: 100%;
+    border: none;
+    font-size: 13px;
+    padding: initial;
+  }
 }
 
 .toolbar__country {
@@ -57,5 +64,19 @@
     color: $text-disabled;
     margin-top: -3px;
     opacity: 0.8;
+  }
+}
+
+.toolbar__select-laptop {
+  display: none;
+
+  @include min-width($laptop) {
+    display: initial;
+  }
+}
+
+.toolbar__select-mobile {
+  @include min-width($laptop) {
+    display: none;
   }
 }

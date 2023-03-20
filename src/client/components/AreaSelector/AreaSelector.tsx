@@ -12,12 +12,27 @@ import { useCountryIso } from '@client/hooks'
 import Icon from '../Icon'
 import CountryList from './CountryList'
 
-const findElementRoot = (el: Element): Element => {
-  if (el.parentElement === null) return el
-  return findElementRoot(el.parentElement)
+type Props = {
+  enableDownload?: boolean
+  includeCountries?: boolean
+  includeGlobals?: boolean
+  includeRegions?: boolean
+  placeholder?: string
+  showCountryFlag?: boolean
+  showCountryRole?: boolean
 }
 
-const AreaSelector: React.FC = () => {
+const AreaSelector: React.FC<Props> = (props) => {
+  const {
+    enableDownload,
+    includeCountries,
+    includeGlobals,
+    includeRegions,
+    placeholder,
+    showCountryFlag,
+    showCountryRole,
+  } = props
+
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const user = useUser()
@@ -27,38 +42,31 @@ const AreaSelector: React.FC = () => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
 
-  const countrySelectionRef = useRef(null)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside, true)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true)
+    }
+  }, [])
 
   useEffect(() => {
     setQuery('')
   }, [open])
 
-  const outsideClick = (evt: any) => {
-    const elRoot = findElementRoot(evt.target)
-    // We need to check these two, since React can unmount the other element before we get here.
-    if (
-      elRoot.className.includes('toolbar__country') ||
-      elRoot.className.includes('toolbar__select-laptop') ||
-      elRoot.className.includes('toolbar__select-mobile')
-    )
-      return
-    if (countrySelectionRef.current && countrySelectionRef.current.contains(evt.target)) return
-
-    setOpen(false)
-  }
-
-  useEffect(() => {
-    window.addEventListener('click', outsideClick)
-    return () => {
-      window.removeEventListener('click', outsideClick)
-    }
-  }, [])
-
   return (
     <button
       type="button"
       className="btn-country-select no-print"
-      ref={countrySelectionRef}
+      ref={ref}
       onClick={() => setOpen((prevState) => !prevState)}
     >
       <div>
@@ -66,8 +74,6 @@ const AreaSelector: React.FC = () => {
           <input
             type="text"
             className="text-input"
-            // eslint-disable-next-line
-            autoFocus
             onClick={(event) => event.stopPropagation()}
             placeholder={t('emoji.picker.search')}
             onChange={(event) => setQuery(event.target.value)}
@@ -76,7 +82,7 @@ const AreaSelector: React.FC = () => {
 
         {countryIso && !open && (
           <div className="toolbar__country">
-            {Areas.isISOCountry(countryIso) && (
+            {showCountryFlag && Areas.isISOCountry(countryIso) && (
               <div
                 className="flag"
                 style={{
@@ -84,8 +90,10 @@ const AreaSelector: React.FC = () => {
                 }}
               />
             )}
+
             <div className="name-container">
               <div className="name">{t(`area.${countryIso}.listName`)}</div>
+
               {user && Areas.isISOCountry(countryIso) && (
                 <div className="user-role">
                   {t(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
@@ -97,16 +105,36 @@ const AreaSelector: React.FC = () => {
 
         {!countryIso && !open && (
           <>
-            <div className="toolbar__select-laptop">{`- ${t('common.selectArea')} -`}</div>
-            <div className="toolbar__select-mobile">{`- ${t('common.selectArea')} -`}</div>
+            <div className="toolbar__select-laptop">{placeholder ? `- ${t(placeholder)} -` : ''}</div>
+            <div className="toolbar__select-mobile">{placeholder ? `- ${t(placeholder)} -` : ''}</div>
           </>
         )}
       </div>
+
       <Icon name="small-down" />
 
-      {open && <CountryList query={query} />}
+      {open && (
+        <CountryList
+          enableDownload={enableDownload}
+          includeCountries={includeCountries}
+          includeGlobals={includeGlobals}
+          includeRegions={includeRegions}
+          showCountryRole={showCountryRole}
+          query={query}
+        />
+      )}
     </button>
   )
+}
+
+AreaSelector.defaultProps = {
+  enableDownload: false,
+  includeGlobals: false,
+  includeRegions: false,
+  includeCountries: false,
+  placeholder: null,
+  showCountryFlag: false,
+  showCountryRole: false,
 }
 
 export default AreaSelector

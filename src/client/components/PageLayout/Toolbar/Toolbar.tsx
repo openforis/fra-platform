@@ -39,7 +39,14 @@ const Toolbar: React.FC = () => {
       <div className="toolbar__nav-options">
         <ToggleNavigationControl />
 
-        <AreaSelector />
+        <AreaSelector
+          includeCountries
+          includeGlobals
+          includeRegions
+          placeholder="common.selectArea"
+          showCountryFlag
+          showCountryRole
+        />
       </div>
 
       {isCountry && (
