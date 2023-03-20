@@ -2,6 +2,8 @@ import './AreaSelector.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { Areas } from '@meta/area'
 import { Users } from '@meta/user'
 
@@ -36,6 +38,7 @@ const AreaSelector: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const user = useUser()
+  const isCountry = Areas.isISOCountry(countryIso)
 
   const { t } = useTranslation()
 
@@ -81,8 +84,8 @@ const AreaSelector: React.FC<Props> = (props) => {
         )}
 
         {countryIso && !open && (
-          <div className="toolbar__country">
-            {showCountryFlag && Areas.isISOCountry(countryIso) && (
+          <div className={classNames('toolbar__country', { with_flag: isCountry })}>
+            {showCountryFlag && isCountry && (
               <div
                 className="flag"
                 style={{
@@ -90,11 +93,9 @@ const AreaSelector: React.FC<Props> = (props) => {
                 }}
               />
             )}
-
             <div className="name-container">
               <div className="name">{t(`area.${countryIso}.listName`)}</div>
-
-              {user && Areas.isISOCountry(countryIso) && (
+              {user && isCountry && (
                 <div className="user-role">
                   {t(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
                 </div>

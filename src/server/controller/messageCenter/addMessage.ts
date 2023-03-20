@@ -4,6 +4,7 @@ import { Message, MessageTopic, MessageTopicType } from '@meta/messageCenter'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
+import { SectionRepository } from '@server/repository/assessment/section'
 import { MessageRepository } from '@server/repository/assessmentCycle/message'
 import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
@@ -32,7 +33,15 @@ export const addMessage = async (
     )
 
     if (!topic) {
-      topic = await MessageTopicRepository.create({ countryIso, assessment, cycle, key, type }, t)
+      // Country Message board section_uuid = null
+      let section
+      if (sectionName)
+        section = await SectionRepository.getOne({
+          assessment,
+          cycle,
+          sectionName,
+        })
+      topic = await MessageTopicRepository.create({ countryIso, assessment, cycle, key, type, section }, t)
     }
 
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)

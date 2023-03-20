@@ -34,11 +34,14 @@
 }
 
 .toolbar__country {
-  display: grid;
-  grid-template-columns: 18px 1fr;
   align-items: center;
   color: $text-body;
   width: 100%;
+
+  &.with_flag {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+  }
 
   .flag {
     background-repeat: no-repeat;
