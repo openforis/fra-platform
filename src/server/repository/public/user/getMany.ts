@@ -78,6 +78,7 @@ export const getMany = async (
       and
       `)}
       group by ${selectFields}
+      order by concat(u.props->'name', ' ', u.props->'surname')
                    ${limit ? `limit ${limit}` : ''}
                    ${offset ? `offset ${offset}` : ''}
   `
