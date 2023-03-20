@@ -31,7 +31,7 @@ export interface ColSpec {
   optionsLabelKeyPrefix?: string
   optionName?: string
   variableNo?: string
-  linkToSection?: string
+  linkToSection?: string // TODO: remove? (check if used - probably not)
 
   // migration
   colName?: string
