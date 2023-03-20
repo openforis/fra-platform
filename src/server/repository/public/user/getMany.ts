@@ -19,13 +19,13 @@ export const getMany = async (
     limit?: number
     offset?: number
     countries?: Array<CountryIso>
-    fullname?: string
+    fullName?: string
     roles?: Array<RoleName>
     administrators?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
-  const { countryIso, assessment, cycle, limit, offset, countries, fullname, roles, administrators } = props
+  const { countryIso, assessment, cycle, limit, offset, countries, fullName, roles, administrators } = props
 
   const selectedCountries = !Objects.isEmpty(countries)
     ? countries.map((countryIso) => `'${countryIso}'`).join(',')
@@ -56,8 +56,8 @@ export const getMany = async (
     whereConditions.push(`ur.role in (${selectedRoles})`)
   }
 
-  if (fullname) {
-    whereConditions.push(`concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullname}%'`)
+  if (fullName) {
+    whereConditions.push(`concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
   }
 
   if (countryIso) {

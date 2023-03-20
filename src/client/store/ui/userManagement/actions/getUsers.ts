@@ -17,7 +17,7 @@ type Params = {
   limit?: number
   offset?: number
   countries?: Array<CountryIso>
-  fullname?: string
+  fullName?: string
   roles?: Array<RoleName>
   administrators?: boolean
 }

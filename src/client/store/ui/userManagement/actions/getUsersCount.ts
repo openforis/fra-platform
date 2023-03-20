@@ -14,7 +14,7 @@ type Params = {
   assessmentName: AssessmentName
   cycleName: string
   countries?: Array<CountryIso>
-  fullname?: string
+  fullName?: string
   roles?: Array<RoleName>
 }
 

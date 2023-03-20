@@ -7,7 +7,7 @@ export interface UserManagementState {
   }
   filters: {
     countries: Array<CountryIso>
-    fullname: string
+    fullName: string
     roles: Array<RoleName>
   }
   user?: User
