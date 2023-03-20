@@ -9,8 +9,8 @@ import { UserRoles } from '@meta/user/userRoles'
 
 import { useCycle, useRegionGroups } from '@client/store/assessment'
 import { useIsPanEuropean } from '@client/hooks'
+import { checkMatch } from '@client/utils'
 
-import { checkMatch } from '../utils/checkMatch'
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
 import CountryListDownload from './CountryListDownload'
 import CountryListRoleSection from './CountryListRoleSection'
