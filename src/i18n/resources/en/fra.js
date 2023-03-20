@@ -1,4 +1,5 @@
 // TODO: all fra labels will be migrated here in a future refactor
+
 module.exports = {
   // common
   area100HaYear: 'Area (1000 ha/year)',
@@ -12,12 +13,25 @@ module.exports = {
     areaAffected: 'Area affected (1000 ha)',
   },
 
+  biomassStock: {
+    aboveGround2025: '$t(biomassStock.aboveGround)',
+    belowGround2025: '$t(biomassStock.belowGround)',
+    deadWood2025: '$t(biomassStock.deadWood)',
+    biomassStock2025: '$t(biomassStock.biomassStock)',
+  },
+
   biomassStockAvg: {
     forestBiomass: 'Forest Biomass (tones/ha)',
   },
 
   biomassStockTotal: {
     totalForestBiomass: 'Total forest Biomass (million tones)',
+  },
+
+  carbonStock: {
+    carbonAboveGroundBiomass2025: '$t(carbonStock.carbonAboveGroundBiomass)',
+    carbonBelowGroundBiomass2025: '$t(carbonStock.carbonBelowGroundBiomass)',
+    carbonStock2025: '$t(carbonStock.carbonStock)',
   },
 
   carbonStockTotal: {
@@ -86,10 +100,17 @@ module.exports = {
     forestDamage: 'Forest damage',
     predominantCause: 'Predominant cause',
     forestAreaAffected: 'Forest area affected (1000 ha)',
+    severeWeatherEvents2025: '$t(disturbances.severeWeatherEvents)',
   },
 
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
+    totalLandArea2025: '$t(extentOfForest.totalLandArea)',
+  },
+
+  forestAreaChange: {
+    forestExpansion2025: '$t(forestAreaChange.forestExpansion)',
+    forestAreaChange2025: '$t(forestAreaChange.forestAreaChange)',
   },
 
   forestAreaWithinProtectedAreas: {
@@ -101,6 +122,7 @@ module.exports = {
     ofWhichPlantationForest: '$t(growingStock.plantationForest)',
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
+    // naturalForestArea2025: '$t(forestCharacteristics.naturalForestArea)',
   },
 
   forestOwnership: {
@@ -108,6 +130,7 @@ module.exports = {
     other2025: 'Other (specify in comments)',
     unknown2025: 'Unknown',
     total2025: 'Total',
+    forestOwnership2025: '$t(forestOwnership.forestOwnership)',
   },
 
   forestRestoration: {
@@ -127,6 +150,7 @@ module.exports = {
 
   growingStock: {
     totalForest: 'Total Forest',
+    naturallyRegeneratingForest2025: '$t(growingStock.naturallyRegeneratingForest)',
   },
 
   growingStockComposition: {
@@ -138,6 +162,9 @@ module.exports = {
     totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
     totalNativeTreeSpecies: 'TOTAL native tree species',
     updatedGrowingStockComposition: '$t(growingStockComposition.growingStockComposition)',
+
+    nativeTreeSpecies2025: '$t(growingStockComposition.nativeTreeSpecies)',
+    introducedTreeSpecies2025: '$t(growingStockComposition.introducedTreeSpecies)',
   },
 
   holderOfManagementRights: {
@@ -148,6 +175,10 @@ module.exports = {
 
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
+  },
+
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover2025: '$t(otherLandWithTreeCover.otherLandWithTreeCover)',
   },
 
   primaryForestByClimaticDomain: {
@@ -175,6 +206,10 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Non wood forest products removals and value 2020',
+      forestGrowingStockBiomassAndCarbon2025: '$t(navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon)',
+      forestDesignationAndManagement2025: '$t(navigation.sectionHeaders.forestDesignationAndManagement)',
+      forestOwnershipAndManagementRights2025: '$t(navigation.sectionHeaders.forestOwnershipAndManagementRights)',
+      forestDisturbances2025: '$t(navigation.sectionHeaders.forestDisturbances)',
     },
   },
 
