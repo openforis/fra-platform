@@ -103,7 +103,7 @@ const CountrySelectModal: React.FC<Props> = (props) => {
 
   useEffect(() => {
     setSelection(initialSelection)
-  }, [initialSelection])
+  }, [initialSelection, open])
 
   return (
     <Modal className="modal-country-select" isOpen={open}>

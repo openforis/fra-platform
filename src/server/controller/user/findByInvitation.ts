@@ -24,7 +24,7 @@ export const findByInvitation = async (
 
   const userProviders = await UserProviderRepository.getUserProviders({ user }, client)
 
-  const assessment = await AssessmentRepository.read({ id: userRole.assessmentId }, client)
+  const assessment = await AssessmentRepository.getOne({ id: userRole.assessmentId }, client)
   return {
     assessment,
     user,

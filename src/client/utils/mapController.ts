@@ -73,7 +73,7 @@ export class MapController {
       minZoom: 1,
       maxZoom: 20,
     })
-
-    this.map.overlayMapTypes.push(layer)
+    // Insert at index 0 so it doesn't overlay the other layers.
+    this.map.overlayMapTypes.insertAt(0, layer)
   }
 }

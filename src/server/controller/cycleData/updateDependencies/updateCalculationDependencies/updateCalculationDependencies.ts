@@ -29,7 +29,7 @@ export const updateCalculationDependencies = async (
 
   // Don't include ODP data when calculating dependants of ODP cell
   const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
-  const mergeOdp = !_isODPCell
+  const mergeOdp = isODP || !_isODPCell
 
   const debugKey = `[updateCalculationDependencies-${[props.tableName, props.variableName, props.colName].join('-')}]`
   Logger.debug(`${debugKey} initial queue length ${queue.length}`)

@@ -8,6 +8,7 @@ import Paginator from '@client/components/Paginator'
 import UserList from '@client/components/UserList'
 import UserListFilters from '@client/components/UserListFilters'
 import UsersCount from '@client/components/UsersCount/UsersCount'
+import { DOMs } from '@client/utils/dom'
 
 const UserManagement: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -33,11 +34,12 @@ const UserManagement: React.FC = () => {
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countries: filters.countries,
+        fullName: filters.fullName,
         roles: filters.roles,
       })
     )
     setPageNumber(0)
-  }, [assessment.props.name, cycle.name, dispatch, filters.countries, filters.roles])
+  }, [assessment.props.name, cycle.name, dispatch, filters])
 
   useEffect(() => {
     dispatch(
@@ -47,11 +49,12 @@ const UserManagement: React.FC = () => {
         limit: 20,
         offset: pageNumber * 20,
         countries: filters.countries,
+        fullName: filters.fullName,
         roles: filters.roles,
         administrators: true,
       })
     )
-  }, [assessment, cycle, dispatch, filters.countries, filters.roles, pageNumber])
+  }, [assessment, cycle, dispatch, filters, pageNumber])
 
   return (
     <>
@@ -61,7 +64,10 @@ const UserManagement: React.FC = () => {
 
       <Paginator
         className="user-paginator"
-        onPageChange={(n) => setPageNumber(n)}
+        onPageChange={(n) => {
+          setPageNumber(n)
+          DOMs.scrollTo()
+        }}
         pageRangeDisplayed={5}
         pageCount={Math.ceil(usersCount.totals / 20)}
       />
