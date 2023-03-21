@@ -122,7 +122,7 @@ module.exports = {
     ofWhichPlantationForest: '$t(growingStock.plantationForest)',
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
-    // naturalForestArea2025: '$t(forestCharacteristics.naturalForestArea)',
+    naturalForestArea2025: '$t(forestCharacteristics.naturalForestArea)',
   },
 
   forestOwnership: {
