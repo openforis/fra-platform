@@ -14,12 +14,13 @@ export default () => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessmentParams.props.name,
+      cycleName: '2020',
     })
 
     const section = await MetadataController.createSection({
       assessment,
       user,
-      section: sectionParams,
+      section: sectionParams(cycle.uuid),
     })
 
     await MetadataController.removeSection({

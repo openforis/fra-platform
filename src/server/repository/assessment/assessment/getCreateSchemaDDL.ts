@@ -165,7 +165,11 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
                   on update cascade on delete cascade,
           key           varchar(256)                          not null,
           status        message_topic_status default 'opened' not null,
-          type          message_topic_type                    not null
+          type          message_topic_type                    not null,
+          section_uuid uuid
+            constraint message_topic_section_uuid_fk
+            references ${assessmentSchemaName}.section (uuid)
+            on update cascade on delete cascade
       );
       
       create unique index message_topic_country_iso_key_uindex

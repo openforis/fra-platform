@@ -8,7 +8,7 @@ import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
-import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import { useCountryIso, useIsAdmin, useIsDataExportView } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import PopoverControl from '@client/components/PopoverControl'
 
@@ -18,6 +18,7 @@ const CycleSwitcher = () => {
   const currentCycle = useCycle()
   const assessment = useAssessment()
   const user = useUser()
+  const isAdmin = useIsAdmin()
   const isDataExportView = useIsDataExportView()
 
   const assessmentName = assessment.props.name
@@ -28,9 +29,10 @@ const CycleSwitcher = () => {
     (cycleName: string) => {
       if (countryIso)
         navigate(ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName }))
+      else if (isAdmin) navigate(ClientRoutes.Assessment.Cycle.Admin.Root.getLink({ assessmentName, cycleName }))
       else navigate(ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName }))
     },
-    [assessmentName, countryIso, navigate]
+    [assessmentName, countryIso, isAdmin, navigate]
   )
 
   if (!canSwitchCycle) return <span className="cycle-switcher-locked">{currentCycle.name}</span>
