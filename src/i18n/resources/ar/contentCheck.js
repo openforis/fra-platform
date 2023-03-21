@@ -11,7 +11,6 @@ module.exports = {
     management_plan_percent: 'مساحة الغابات مع خطط الإدارة (٪ من الغابات)',
     certified_area: 'مساحة الغابات المعتمدة (١٠٠٠  هكتار)',
   },
-
   periodicChangeRate: {
     title: 'معدلات التغيير الدوري (المعدلات السنوية)',
     forest_area_annual_net_change: 'صافي التغير السنوي لمساحة الغابات (١٠٠٠  هكتار)',
@@ -25,7 +24,6 @@ module.exports = {
     planted_forest_annual_net_change: 'صافي التغير السنوي للغابات المزروعة',
     planted_forest_annual_net_change_rate: 'معدل تغير الغابات المزروعة (٪)',
   },
-
   forestGrowingStockBiomassCarbon: {
     title: 'مخزون الغابات المتزايد والكتلة الحيوية والكربون',
     forest: 'مخزون الأشجار الحيّة (متر مكعب / هكتار)',
@@ -35,7 +33,7 @@ module.exports = {
     carbon_forest_above_ground: 'الكربون في الكتلة الحيوية فوق الأرض (طن / هكتار)',
     carbon_forest_below_ground: 'الكربون في الكتلة الحيوية تحت الأرض (طن / هكتار)',
     carbon_forest_deadwood: 'الكربون في الخشب الميت (طن / هكتار)',
-    carbon_forest_litter: 'الكربون في فضلات النبات (طن / هكتار)',
+    carbon_forest_litter: 'الكربون في بقايا النبات (طن / هكتار)',
     carbon_forest_soil: 'الكربون في التربة (طن / هكتار)',
     above_ground_biomass_growing_stock_ratio: 'نسبة (الكتلة الحيوية فوق الأرض) / مخزون النمو (طن / متر مكعب)',
     root_shoot_ratio: 'معدل وزن الجزء الجذري إلى الجزء الخضري',
@@ -44,9 +42,8 @@ module.exports = {
     carbon_biomass_below_ground_ratio: 'النسبة (الكربون / الكتلة الحيوية) للكتلة الحيوية تحت الأرض',
     dead_living_mass_ratio: 'نسبة (الكربون / الكتلة الحيوية) الحطب الميّت',
   },
-
   primaryDesignatedManagementObjective: {
-    title: 'الهدف الأساسي للإدارة المعينة',
+    title: 'الهدف الرئيسى المحدد للإدارة',
     production: '$t(designatedManagementObjective.production)',
     protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
@@ -55,16 +52,13 @@ module.exports = {
     other: '$t(designatedManagementObjective.other)',
     no_unknown: '$t(designatedManagementObjective.unknown)',
   },
-
-  totalAreaDesignatedManagementObjective: 'إجمالي المساحة بهدف إداري محدد',
-
+  totalAreaDesignatedManagementObjective: 'إجمالي المساحة الخاضعة لهدف إدارة محدد',
   forestOwnership: {
     title: 'الملكية',
     private_ownership: '$t(forestOwnership.privateOwnership)',
     public_ownership: '$t(forestOwnership.publicOwnership)',
     other_or_unknown: '$t(forestOwnership.otherOrUnknown)',
   },
-
   holderOfManagementRights: {
     title: 'حقوق إدارة الغابات العامة',
     public_administration: '$t(holderOfManagementRights.publicAdministration)',
@@ -73,7 +67,6 @@ module.exports = {
     communities: '$t(holderOfManagementRights.communities)',
     other: '$t(holderOfManagementRights.other)',
   },
-
   disturbances: {
     title: 'الاضطرابات',
     insects: '$t(disturbances.insects)',

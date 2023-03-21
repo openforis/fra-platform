@@ -21,8 +21,10 @@ module.exports.translation = {
   dataSource,
   print,
 
-  assessmentSection: {
-    dataTableHasErrors: 'اضغط على الخلية الحمراء لرؤية التفاصيل.',
+  page: {
+    assessmentSection: {
+      dataTableHasErrors: 'اضغط على الخلية الحمراء لرؤية التفاصيل.',
+    },
   },
 
   language: {
@@ -133,7 +135,7 @@ module.exports.translation = {
     },
 
     resetPasswordEmail: {
-      subject: 'منصة فرا - إعادة تعيين كلمة المرور',
+      subject: 'منصة تقييم الموارد الحرجية، إعادة ضبط كلمة المرور',
       textMessage: `عزيزي {{user}}
 
 تلقينا طلباً بإعادة ضبط كلمة المرور إلى حساب تقييم الموارد الحرجية الخاص بك. إذا لم تقدم هذا الطلب يمكنك تجاهل هذه الرسالة بأمان.
@@ -415,11 +417,12 @@ The FRA team
   time: {
     hour: '{{count}} قبل ساعة',
     day: '{{count}} قبل يوم',
-    day_plural: '{{count}} قبل أيام',
     week: '{{count}} قبل أسبوع',
-    week_plural: '{{count}} قبل أسابيع',
     aMomentAgo: 'قبل لحظة',
-    hour_plural: 'قبل {{عدد}} ساعة ',
+
+    hour_plural: 'قبل {{عدد}} ساعات',
+    day_plural: 'قبل {{عدد}} ايام',
+    week_plural: 'قبل {{عدد}} أسابيع',
   },
 
   review: {

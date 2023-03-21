@@ -38,7 +38,7 @@ module.exports = {
   returnHomeClick: 'هنا.',
 
   resetPassword: 'إعادة تعيين كلمة المرور',
-  alreadyLinked: 'حساب جوجل المحدد مرتبط بالفعل بمستخدم آخر',
+  alreadyLinked: 'حساب جوجل هذا مرتبط بالفعل بمستخدم آخر',
   noShortPassword: 'كلمة المرور قصيرة جدا',
   noMatchingLocalUser: 'لم نتمكن من العثور على أي مستخدم مطابق لهذه البيانات.',
   noMatchingProvider: 'لم نتمكن من العثور على أي مستخدم مطابق لهذه البيانات.',
@@ -48,8 +48,8 @@ module.exports = {
   invitationMessage: 'لقد تمت دعوتك إلى {{تقيم}} {{الدورة}} كـ {{الدور}} في {{البلد}}',
   invitationProvidersRegistered: 'لديك بالفعل حساب مسجل باسم {{أسماء مقدم المصادقة}}',
   acceptInvitation: 'قبول دعوة',
-  acceptInvitationWithFra: 'قبول الدعوة مع فرا',
-  acceptInvitationWithGoogle: 'قبول الدعوة مع جوجل',
+  acceptInvitationWithFra: 'قبول الدعوة باستخدام حساب فرا',
+  acceptInvitationWithGoogle: 'قبول الدعوة باستخدام حساب جوجل',
   invitationExpired: 'انتهت صلاحية هذه الدعوة',
   logoutSuccessful: 'لقد قمت بتسجيل الخروج بنجاح',
 }
