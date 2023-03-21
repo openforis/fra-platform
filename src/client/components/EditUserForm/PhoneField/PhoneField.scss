@@ -5,7 +5,12 @@
     border: none;
     gap: $spacing-xs;
 
+    &.error {
+      background: rgba(0, 0, 0, 0);
+    }
+
     input {
+      background: rgba(0, 0, 0, 0);
       border: 1px solid $ui-border;
       width: 100%;
       padding: 10px;

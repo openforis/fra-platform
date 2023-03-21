@@ -35,11 +35,10 @@ const TextInputField: React.FC<Props> = (props) => {
         {mandatory && '*'}
       </div>
       <div
-        className={classNames(
-          'edit-user__form-input-text-field',
-          `edit-user__form-field${enabled ? '' : '-disabled'}`,
-          { error: !valid }
-        )}
+        className={classNames('edit-user__form-field', 'edit-user__form-input-text-field', {
+          disabled: !enabled,
+          error: !valid,
+        })}
       >
         <input
           type="text"
