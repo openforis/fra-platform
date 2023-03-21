@@ -12,6 +12,7 @@ export interface ForestOptions {
   agreementLevel: number
   agreementPalette: Array<string>
   recipe: string
+  customAssetId: string
 }
 
 export const hansenPercentages = [10, 20, 30] as const

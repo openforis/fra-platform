@@ -57,6 +57,7 @@ const useHandleForestResourceLayers = (
       if (forestOptions.selected.includes(mapLayerKey) && forestOptions.opacity[mapLayerKey] !== 0) {
         // Layer is selected so ensure it's shown on map
         const isHansen = mapLayerKey === ForestSource.Hansen
+        const isCustomAsset = mapLayerKey === ForestSource.CustomFnF
         const key = mapLayerKey + (isHansen ? `__${forestOptions.hansenPercentage}` : '')
 
         // If the layer is pending or has failed, do not fetch it again.
@@ -87,6 +88,10 @@ const useHandleForestResourceLayers = (
             requestBody.layer.options = {
               gteTreeCoverPercent: forestOptions.hansenPercentage,
             }
+          } else if (isCustomAsset) {
+            requestBody.layer.options = {
+              assetId: forestOptions.customAssetId,
+            }
           }
 
           const uri = ApiEndPoint.Geo.Layers.forest()
@@ -110,6 +115,7 @@ const useHandleForestResourceLayers = (
     forestOptions.failedLayers,
     forestOptions.pendingLayers,
     forestOptions.opacity,
+    forestOptions.customAssetId,
     dispatch,
   ])
 }
@@ -172,14 +178,21 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
 
     // Otherwise, fetch a new map id from server and cache it for later use
     const layers: Array<LayerSource> = forestOptions.selected.map((key) => {
+      const isHansen = key === ForestSource.Hansen
+      const isCustomAsset = key === ForestSource.CustomFnF
       const layer: LayerSource = {
         key,
       }
-      if (key === ForestSource.Hansen) {
+      if (isHansen) {
         layer.options = {
           gteTreeCoverPercent: forestOptions.hansenPercentage,
         }
+      } else if (isCustomAsset) {
+        layer.options = {
+          assetId: forestOptions.customAssetId,
+        }
       }
+
       return layer
     })
 
@@ -210,6 +223,7 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
     forestOptions.agreementLevel,
     forestOptions.selected,
     forestOptions.hansenPercentage,
+    forestOptions.customAssetId,
     dispatch,
   ])
 }

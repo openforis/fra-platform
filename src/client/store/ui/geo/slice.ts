@@ -34,6 +34,7 @@ const initialState: GeoState = {
     agreementLevel: 1,
     agreementPalette: [],
     recipe: 'custom',
+    customAssetId: null,
   },
   mosaicSelected: false,
   mosaicPending: false,
@@ -137,6 +138,11 @@ export const geoSlice = createSlice({
       state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
       state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
     },
+    resetSingleLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
+      delete state.forestOptions.fetchedLayers[payload]
+      delete state.forestOptions.pendingLayers[payload]
+      delete state.forestOptions.failedLayers[payload]
+    },
     setRecipe: (state, { payload }: PayloadAction<string>) => {
       // If the recipe is not custom, reset the failed layers so they are fetched again
       if (payload !== 'custom') state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
@@ -159,6 +165,9 @@ export const geoSlice = createSlice({
       // Select agreement layer and set agreement level
       state.forestOptions.agreementLayerSelected = true
       state.forestOptions.agreementLevel = agreementLevel
+    },
+    setCustomAssetId: (state, { payload }: PayloadAction<string>) => {
+      state.forestOptions.customAssetId = payload
     },
   },
   extraReducers: (builder) => {
