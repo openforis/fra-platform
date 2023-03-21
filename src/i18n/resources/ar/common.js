@@ -19,4 +19,16 @@ module.exports = {
   variable: 'تقييم الموارد الحرجية متاح',
   year: 'العام',
   filterCountries: 'غربلة البلدان',
+  dashboard: 'لوحة التحكم',
+  copyToClipboard: 'انسخ للحافظة',
+  continue: 'اسْتَمَرَّ',
+  tier: 'المستوى',
+  status: 'الحالة',
+  trend: 'اتجاه',
+  tiers: {
+    notSelected: '',
+    high: 'مرتفع',
+    medium: 'متوسط',
+    low: 'منخفض',
+  },
 }

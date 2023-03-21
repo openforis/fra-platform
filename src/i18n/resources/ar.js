@@ -7,6 +7,7 @@ const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const login = require('./ar/login')
 const uc = require('./ar/uc')
 const print = require('./ar/print')
+const dataSource = require('./ar/dataSource')
 
 module.exports.translation = {
   area,
@@ -17,7 +18,14 @@ module.exports.translation = {
   statisticalFactsheets,
   login,
   uc,
+  dataSource,
   print,
+
+  page: {
+    assessmentSection: {
+      dataTableHasErrors: 'اضغط على الخلية الحمراء لرؤية التفاصيل.',
+    },
+  },
 
   language: {
     en: 'English',
@@ -60,6 +68,7 @@ module.exports.translation = {
     userGuide: 'دليل المستخدم',
     sendFeedback: 'أرسل رأيك',
     licenses: 'التراخيص',
+    platformVersion: 'إصدار المنصة',
   },
 
   unit: {
@@ -87,6 +96,7 @@ module.exports.translation = {
     annualNumberOfVisitsMillion: 'عدد الزيارات السنوية (مليون)',
     millionNationalCurrency: 'مليون وفق العملة المحلية',
     facilityLengthIn1000Km: 'المرفق (الطول بآلاف الكيلومترات)',
+    growingStockPercent: '٪ من إجمالي مخزون الأشجار الحيّة في الغابات',
   },
 
   countrySelection: {
@@ -117,17 +127,11 @@ module.exports.translation = {
       COLLABORATOR: 'متعاون',
       ADMINISTRATOR: 'مدير',
       noRole: 'غير محدد',
-      // unused?
-      reviewer_plural: 'مراجعون',
-      nationalCorrespondent_plural: 'مراسلون وطنيون',
-      alternateNationalCorrespondent_plural: 'مراسلون وطنيون بديلون',
-      collaborator_plural: 'متعاونون',
-      // deprecated
-      // reviewer: 'مُراجع',
-      // nationalCorrespondent: 'مراسل وطني',
-      // alternateNationalCorrespondent: 'مراسل وطني بديل',
-      // collaborator: 'متعاون',
-      // administrator: 'مدير',
+      VIEWER: 'مشاهد',
+      reviewer_plural: 'المراجعين',
+      nationalCorrespondent_plural: 'المراسلون الوطنيون',
+      alternateNationalCorrespondent_plural: 'المراسلون الوطنيون المناوبون',
+      collaborator_plural: 'المتعاونين',
     },
 
     resetPasswordEmail: {
@@ -192,8 +196,8 @@ Thanks,
       userManagement: 'إدارة المتعاونين',
       externalData: 'بيانات خارجية',
       links: 'الروابط والمستودع',
-      contentCheck: 'المحتوى / ضبط',
-      versioning: 'ترقيم الإصدارات',
+      contentCheck: 'المحتوى / التحقق',
+      versioning: 'الإصدار',
     },
     overview: {
       loadingMap: 'تحميل الخارطة...',
@@ -270,9 +274,11 @@ Thanks,
       repository: 'المستودع',
       uploadFile: 'حمل ملفاً',
       confirmDelete: 'هل ستحذف {{file}}? لا يمكنك العودة عن هذه الخطوة',
+      fileUploaded: 'تم تحميل الملف بنجاح',
+      fileDeleted: 'تم حذف الملف بنجاح',
     },
     dataExport: {
-      downloadData: 'نزل البيانات',
+      downloadData: 'تحميل البيانات',
     },
     versioning: {
       status: {
@@ -336,10 +342,8 @@ The FRA team
     access: {
       countryRoleNotSpecified: 'خطأ : المستخدم {{user}} حاول الدخول إلى {{countryIso}} لكن لم يتم تحديد دوره',
       countryUserNotReviewer: 'خطأ: المستخدم {{user}} حاول الدخول إلى {{countryIso}} وهو ليس مراجعاً فيه',
-      userNotAdministrator: 'خطأ: المستخدم {{user}} حاول الدخول إلى أحد الموارد المتاحة فقط للمديرين',
       roleChangeNotAllowed:
         'خطأ: المستخدم {{user}} المستخدم حاول تحديد دور آخر إضافة إلى  {{role}} وهو غير مسموح للشخص المسجل للدخول',
-      userAlreadyAddedToCountry: 'خطأ: المستخدم {{user}} أضيف مسبقاً إلى البلد {{countryIso}}',
       invitationAlreadyUsed:
         'خطأ: الدعوة {{invitationUuid}} استخدمت مسبقا، وإن قرصنة البريد الإلكتروني {{loginEmail}} ممنوعة!',
       countryDoesNotMatch: 'خطأ: البلد {{countyryIso}} غير مطابق',
@@ -347,6 +351,8 @@ The FRA team
         'خطأ: المستخدم {{user}} المضطلع بدور {{role}} لا يمكنه تعديل تقييم حالة {{assessmentStatus}} البلد {{countryIso}}',
       assessmentCommentingNotAllowed:
         'خطأ: المستخدم {{user}} المضطلع بدور {{role}} لا يمكنه كتابة تقييم عن حالة {{assessmentStatus}} البلد {{countryIso}}',
+      userNotAdministrator: 'خطأ: حاول المستخدم {{المستخدم}} الوصول إلى مورد متاح فقط للمسؤولين',
+      userAlreadyAddedToCountry: 'خطأ: تمت إضافة المستخدم {{المستخدم}} بالفعل إلى البلد {{البلد}}',
     },
     assessment: {
       transitionNotAllowed: 'خطأ: التحول من حالة {{currentStatus}} إلى {{status}} غير مسموح لهذا الدور {{role}}',
@@ -410,12 +416,13 @@ The FRA team
 
   time: {
     hour: '{{count}} قبل ساعة',
-    hour_plural: '{{count}} قبل ساعات',
     day: '{{count}} قبل يوم',
-    day_plural: '{{count}} قبل أيام',
     week: '{{count}} قبل أسبوع',
-    week_plural: '{{count}} قبل أسابيع',
     aMomentAgo: 'قبل لحظة',
+
+    hour_plural: 'قبل {{عدد}} ساعات',
+    day_plural: 'قبل {{عدد}} ايام',
+    week_plural: 'قبل {{عدد}} أسابيع',
   },
 
   review: {
@@ -430,6 +437,7 @@ The FRA team
     commentingClosed: 'إغلاق التعليقات',
     add: 'إضافة',
     cancel: 'إلغاء',
+    loading: 'تحميل',
   },
 
   description: {
@@ -498,6 +506,9 @@ The FRA team
       otherWoodedLand: 'أرض حرجية أخرى',
       otherLand: 'أرض أخرى',
     },
+    forestCategoriesLabel2025: 'الغابات والأراضي الحرجية الأخرى والأراضي المتبقية',
+    nationalClassifications: 'التصنيفات الوطنية',
+    categories: 'فئات',
   },
 
   userManagement: {
@@ -547,6 +558,17 @@ The FRA team
 {{- url}}
     `,
     },
+    editPermissions: 'تحرير الأذونات',
+    invitationDeleted: 'تم حذف الدعوة',
+    invitationEmailSent: 'تم إرسال بريد إلكتروني للدعوة',
+    permissions: 'أذونات',
+    personalInfoRequired: 'يرجى استكمال معلوماتك الشخصية قبل المتابعة',
+    userAdded: 'تمت إضافة {{البريد الالكتروني}}',
+    userModified: 'تم تعديل {{المستخدم}}',
+    permissionNames: {
+      tableData: 'بيانات الجدول',
+      descriptions: 'التفصيل',
+    },
   },
 
   // استبيان خاص بتقييم الموارد الحرجية لعام 2020
@@ -593,6 +615,7 @@ The FRA team
     ndpMissingValues: 'هنالك قيم مفقودة في نقطة البيانات الوطنية',
     showNDPs: 'إظهار نقاط البيانات الوطنية',
     hideNDPs: 'إخفاء نقاط البيانات الوطنية',
+    forestAreaNetChangeDoesNotMatch: 'التغيير الصافي لمساحة الغابة لا يطابق القيمة المتوقعة: {{القيمه}}',
   },
 
   climaticDomain: {
@@ -633,6 +656,7 @@ The FRA team
     copyToClipboard: 'انسخ القيم',
     placeholderSelect: 'تقييمات وتنبؤات',
     _1000haYear: '1000 هـ/العام',
+    generatingFraValues: 'جارٍ الإنشاء ...',
   },
 
   forestAreaChange: {
@@ -983,6 +1007,9 @@ The FRA team
         next: 'اقبل',
         previous: '',
       },
+      notStarted: {
+        label: 'لم يبدأ',
+      },
     },
   },
 
@@ -998,8 +1025,22 @@ The FRA team
     valueMustBePositive: 'يجب أن تكون القيمة أكبر من صفر',
     emptyField: 'هذا الحقل فارغ',
     mustBeEqualToTotalGrowingStock: 'يجب أن تكون القيمة مساوية لإجمالي مخزون الأشجار الحية (2أ)',
-    valuesAreInconsistentWithNetChange: 'القيم غير متسقة مع صافي التغيير في مساحة الغابة',
-    valuesAreInconsistent1aOr1b: 'القيم غير متسقة مع المساحات الواردة في الجدولين 1أ و1ب',
+    remainingLandExceedsExtentOfForest: 'يتجاوز مساحة الأرض المتبقية (١أ)',
+    valueMustBeYear: 'يجب أن تكون القيمة لسنة صالحة',
+    countryReportYearGreaterThanCurrentYear: 'يجب أن تكون القيمة أكبر أو تساوي {{القيمة الصغري}}',
+    valueNotGreaterThan: 'يجب ألا تكون القيمة أكبر من {{القيمة الكبري}}',
+    sumNotGreaterThan: 'يجب ألا يتجاوز المجموع {{القيمة الكبري}}',
+    valuesAreInconsistentWithNetChange: 'القيم غير متوافقة مع صافي تغير مساحة الغابات',
+    valuesAreInconsistent1aOr1b: 'القيم غير متوافقة مع المناطق المذكورة في الجدولين ١أ أو ١ ب',
+    mustBeEqualToPrivateOwnership: 'يجب أن يكون مجموع الفئات الفرعية مساويًا للملكية الخاصة',
+    mustBeEqualToForestExpansion: 'يجب أن يكون مجموع الفئات الفرعية مساويًا لتوسيع الغابات',
+    mustBeEqualToPlantedForest: 'يجب أن يكون مجموع الفئات الفرعية مساويًا للغابة المزروعة',
+    mustBeEqualToForestArea:
+      'يجب أن يكون مجموع الغابات المتجددة والمزروعة بشكل طبيعي مساويًا لإجمالي المخزون الأشجارالحيّة',
+    mustBeLessThanPrivateOwnership: 'يجب أن يكون مجموع الفئات الفرعية أقل من الملكية الخاصة',
+    forestSumAreaExceedsExtentOfForest:
+      'يتجاوز مجموع فئات تقييم الموارد الحرجية (فرا) المبلغ عنها مساحة الغابات المذكورة في الجدول ١أ',
+    valueEqualToSum: 'يجب أن تكون القيمة الإجمالية مساوية لمجموع الفئات الفرعية',
   },
 
   emoji: {
@@ -1033,6 +1074,31 @@ The FRA team
     deactivate: 'إلغاء التفعيل',
     activate: 'تفعيل',
     picture1MbMax: 'لا يجب أن يزيد حجم صورة الملف الشخصي عن 1 ميجابايت',
+    title: 'التسمية',
+    surname: 'اللقب ',
+    professionalTitle: 'المسمى الوظيفي',
+    organizationalUnit: 'وحدة تنظيمية',
+    organization: 'المنظمة',
+    street: 'العنوان',
+    zipCode: 'الرمز البريدي',
+    poBox: 'الصندوق البريدي',
+    city: 'المدينة',
+    countryIso: 'البلد',
+    primaryEmail: 'عنوان البريد الإلكتروني الرئيسي',
+    secondaryEmail: 'عنوان البريد الإلكتروني الثانوي',
+    primaryPhoneNumber: 'رقم الهاتف الأساسي',
+    secondaryPhoneNumber: 'رقم الهاتف الثانوي',
+    skype: 'اسم المستخدم في سكايب',
+    contactPreference: 'الطريقة المفضلة للاتصال',
+    contactPreferenceMethod: 'طريقة الاتصال',
+    platformChat: 'منصة الدردشة',
+    signal: 'الإشارة',
+    whatsapp: 'رقم الواتس اب',
+    activated: 'مفعل',
+    status: 'الحالة',
+    demoteToUser: 'هل أنت متأكد أنك تريد إزالة امتيازات المسؤول؟',
+    promoteToAdmin: 'هل أنت متأكد أنك تريد منح امتيازات المسؤول؟',
+    mandatoryFields: '* هي خانات إلزامية',
   },
 
   country: {
