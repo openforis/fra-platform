@@ -4,6 +4,8 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { MosaicOptions, MosaicSource } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
+import { LayerStatus } from '@client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel'
+
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
 import { GeoState } from './stateType'
@@ -28,6 +30,7 @@ const initialState: GeoState = {
     opacity: {},
     hansenPercentage: 10,
     agreementLayerSelected: false,
+    agreementLayerStatus: null,
     agreementLevel: 1,
     agreementPalette: [],
     recipe: 'custom',
@@ -125,6 +128,9 @@ export const geoSlice = createSlice({
     resetAgreementLayer: (state) => {
       state.forestOptions.agreementLayerSelected = initialState.forestOptions.agreementLayerSelected
       state.forestOptions.agreementLevel = initialState.forestOptions.agreementLevel
+    },
+    setAgreementLayerStatus: (state, { payload }: PayloadAction<LayerStatus>) => {
+      state.forestOptions.agreementLayerStatus = payload
     },
     resetLayersStates: (state) => {
       state.forestOptions.fetchedLayers = initialState.forestOptions.fetchedLayers

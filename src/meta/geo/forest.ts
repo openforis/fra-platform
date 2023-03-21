@@ -1,3 +1,5 @@
+import { LayerStatus } from '@client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel'
+
 export interface ForestOptions {
   selected: ForestSource[]
   fetchedLayers: { [key: string]: string }
@@ -6,6 +8,7 @@ export interface ForestOptions {
   opacity: { [key: string]: number }
   hansenPercentage: HansenPercentage
   agreementLayerSelected: boolean
+  agreementLayerStatus: LayerStatus
   agreementLevel: number
   agreementPalette: Array<string>
   recipe: string
@@ -32,7 +35,7 @@ export enum ForestSource {
   ESAWorldCover = 'ESAWorldCover',
   Hansen = 'Hansen',
   MODIS = 'MODIS',
-  CustomFnF = 'CustomFNF',
+  CustomFnF = 'CustomFnF',
 }
 
 export type Layer = {
@@ -118,8 +121,8 @@ export const sourcesMetadata = {
 export interface LayerSource {
   key: ForestSource
   options?: {
-    gteTreeCoverPercent: number
-    assetId: string
+    gteTreeCoverPercent?: number
+    assetId?: string
   }
 }
 
