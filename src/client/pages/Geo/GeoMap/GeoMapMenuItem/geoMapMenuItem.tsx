@@ -5,11 +5,14 @@ import classNames from 'classnames'
 
 import Icon from '@client/components/Icon'
 
+import { LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
+
 interface Props {
   title: string
   tabIndex: number
   checked?: boolean
   onCheckboxClick?: () => void
+  loadingStatus?: string
 }
 
 const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
@@ -18,7 +21,17 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
   checked,
   onCheckboxClick,
   children,
+  loadingStatus,
 }) => {
+  let checkBoxContent = null
+  if (loadingStatus === LayerStatus.loading) {
+    checkBoxContent = <div className="geo-map-menu-list-element-loading-status-loading" />
+  } else if (loadingStatus === LayerStatus.failed) {
+    checkBoxContent = <div className={classNames('fra-checkbox', 'failed')} />
+  } else {
+    checkBoxContent = <div className={classNames('fra-checkbox', { checked })} />
+  }
+
   const [isOpen, setIsOpen] = useState(false)
 
   const handleExpandClick = useCallback(() => {
@@ -37,7 +50,7 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
             onClick={onCheckboxClick}
             onKeyDown={onCheckboxClick}
           >
-            <div className={classNames('fra-checkbox', { checked })} />
+            {checkBoxContent}
             <p className="geo-map-menu-item-header-title">{title}</p>
           </div>
         ) : (
@@ -61,6 +74,7 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
 GeoMenuItem.defaultProps = {
   checked: null,
   onCheckboxClick: null,
+  loadingStatus: null,
 }
 
 export default GeoMenuItem

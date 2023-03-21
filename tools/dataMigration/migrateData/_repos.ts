@@ -17,6 +17,7 @@ export const getRows = (client: BaseProtocol, schema: string, table: Table): Pro
         props: {
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
+          linkToSection: row.props.linkToSection,
           validateFns: row.props.validateFns,
           chart: row.props.chart,
         },

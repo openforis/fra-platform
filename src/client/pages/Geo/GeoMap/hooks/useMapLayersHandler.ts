@@ -52,7 +52,8 @@ const useHandleForestResourceLayers = (
     const hansenPercentageHasChanged = forestOptions.hansenPercentage !== hansenPercentageOnPreviousMapDraw.current
 
     layers.forEach(({ key: mapLayerKey }) => {
-      if (forestOptions.selected.includes(mapLayerKey)) {
+      // The layers should only be fetched when they are selected and have opacity greater than 0.
+      if (forestOptions.selected.includes(mapLayerKey) && forestOptions.opacity[mapLayerKey] !== 0) {
         // Layer is selected so ensure it's shown on map
         const isHansen = mapLayerKey === ForestSource.Hansen
         const key = mapLayerKey + (isHansen ? `__${forestOptions.hansenPercentage}` : '')
@@ -108,6 +109,7 @@ const useHandleForestResourceLayers = (
     forestOptions.fetchedLayers,
     forestOptions.failedLayers,
     forestOptions.pendingLayers,
+    forestOptions.opacity,
     dispatch,
   ])
 }

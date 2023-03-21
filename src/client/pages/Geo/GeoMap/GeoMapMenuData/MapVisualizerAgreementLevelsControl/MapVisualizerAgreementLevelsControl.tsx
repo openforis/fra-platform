@@ -25,7 +25,6 @@ const AgreementLevelsControl: React.FC = () => {
 
   const setAgreementLevel = (level: number) => {
     batch(() => {
-      dispatch(GeoActions.setRecipe('custom'))
       dispatch(GeoActions.setAgreementLevel(level))
     })
   }
@@ -33,7 +32,7 @@ const AgreementLevelsControl: React.FC = () => {
   return forestOptions.selected.length >= 2 ? (
     <GeoMapMenuListElement
       title="Agreement layer"
-      tabIndex={layers.length * -1 - 1}
+      tabIndex={0}
       checked={forestOptions.agreementLayerSelected}
       onCheckboxClick={() => toggleAgreementLayer(!forestOptions.agreementLayerSelected)}
     >
@@ -43,8 +42,8 @@ const AgreementLevelsControl: React.FC = () => {
           <div className="geo-map-menu-data-visualizer-agreement-levels-control">
             <p>
               <small>
-                Choose the agreement level between all map layers. Agreement level <i>N</i> means that at least <i>N</i>{' '}
-                of the selected data sources need to agree that a certain pixel is forest area.
+                Choose the min. agreement level between selected layers. Agreement level <i>N</i> means that at least{' '}
+                <i>N</i> of the selected data sources need to agree that a certain pixel is forest area.
               </small>
             </p>
             <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
@@ -55,16 +54,25 @@ const AgreementLevelsControl: React.FC = () => {
                   const id = `agreement-${level}`
                   const disabled = level > forestOptions.selected.length
 
-                // Agreement layer color legend
-                const agreementLevelOffset = level - forestOptions.agreementLevel
-                const style =
-                  agreementLevelOffset >= 0 &&
-                  level <= forestOptions.selected.length &&
-                  agreementLevelOffset < forestOptions.agreementPalette.length
-                    ? {
-                        borderBottom: `10px solid ${forestOptions.agreementPalette[agreementLevelOffset]}`,
-                      }
-                    : {}
+                  // Agreement layer color legend
+                  const agreementLevelOffset = level - forestOptions.agreementLevel
+                  const genericStyle =
+                    agreementLevelOffset >= 0 &&
+                    level <= forestOptions.selected.length &&
+                    agreementLevelOffset < forestOptions.agreementPalette.length
+                      ? {
+                          backgroundColor: `${forestOptions.agreementPalette[agreementLevelOffset]}`,
+                        }
+                      : {}
+                  const selectedStyle =
+                    forestOptions.agreementPalette.length > 0
+                      ? {
+                          backgroundColor: `${forestOptions.agreementPalette[agreementLevelOffset]}`,
+                          boxShadow: `0px 0px 3px 3px ${forestOptions.agreementPalette[agreementLevelOffset]}30`,
+                        }
+                      : {}
+
+                  const style = level === forestOptions.agreementLevel ? selectedStyle : genericStyle
 
                   return (
                     <span

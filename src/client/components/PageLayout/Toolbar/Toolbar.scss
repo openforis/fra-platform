@@ -1,6 +1,6 @@
 @import 'src/client/style/partials';
 
-.country-select {
+.toolbar {
   position: sticky;
   top: 0;
   z-index: $z-index-area-selector;
@@ -18,6 +18,13 @@
     font-size: 13px;
     padding: initial;
   }
+}
+
+.toolbar__nav-options {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  width: 340px;
+  padding-right: $spacing-xxxs;
 }
 
 .btn-toggle-navigation {
@@ -61,10 +68,15 @@
   }
 }
 
-.country-select__country {
-  display: flex;
+.toolbar__country {
   align-items: center;
   color: $text-body;
+  width: 100%;
+
+  &.with_flag {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+  }
 
   .flag {
     background-repeat: no-repeat;
@@ -73,21 +85,27 @@
     height: 18px;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
     border-radius: 2px;
-    margin-right: 8px;
+  }
+
+  .name-container {
+    padding-left: $spacing-xxs;
   }
 
   .name {
     font-weight: 600;
+    @include line-clamp(1);
   }
 
   .user-role {
-    font-size: $font-s;
+    font-size: $font-xxs;
+    font-weight: 600;
     color: $text-disabled;
-    margin: 0 8px;
+    margin-top: -3px;
+    opacity: 0.8;
   }
 }
 
-.country-select__select-laptop {
+.toolbar__select-laptop {
   display: none;
 
   @include min-width($laptop) {
@@ -95,7 +113,7 @@
   }
 }
 
-.country-select__select-mobile {
+.toolbar__select-mobile {
   @include min-width($laptop) {
     display: none;
   }

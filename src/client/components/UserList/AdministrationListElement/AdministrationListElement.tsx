@@ -11,7 +11,6 @@ import { RoleName, User, Users, UserStatus } from '@meta/user'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useFilteredRoleNames } from '@client/store/ui/userManagement'
 
-import UserField from '../UserField'
 import UserRolesField from '../UserRolesField'
 
 const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
@@ -36,7 +35,6 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
       {filteredRoleNames.map((roleName: RoleName) => (
         <UserRolesField key={roleName} roleName={roleName} user={user} />
       ))}
-      <UserField user={user} field="email" />
       <td className="user-list__cell user-list__edit-column">
         <Link
           to={ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({

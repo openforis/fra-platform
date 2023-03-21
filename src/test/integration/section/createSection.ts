@@ -12,14 +12,15 @@ export default () =>
       email: userMockTest.email,
     })
 
-    const assessment = await AssessmentController.getOne({
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessmentParams.props.name,
+      cycleName: '2020',
     })
 
     const section = await MetadataController.createSection({
       assessment,
       user,
-      section: sectionParams,
+      section: sectionParams(cycle.uuid),
     })
 
     expect(section).toHaveProperty('id')
@@ -29,5 +30,5 @@ export default () =>
 
     expect(section).toHaveProperty('props')
     expect(section).toHaveProperty('props.index')
-    expect(section.props.index).toBe(sectionParams.props.index)
+    expect(section.props.index).toBe(sectionParams(cycle.uuid).props.index)
   })
