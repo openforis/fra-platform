@@ -173,7 +173,7 @@ module.exports = {
   NGA: { listName: 'نيجيريا' },
   NIC: { listName: 'نيكاراغوا' },
   NIU: { listName: 'نيوي' },
-  NLD: { listName: 'هولندا' },
+  NLD: { listName: 'مملكة هولندا' },
   NOR: { listName: 'النرويج' },
   NPL: { listName: 'نيبال' },
   NRU: { listName: 'ناورو' },
