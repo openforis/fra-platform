@@ -46,17 +46,6 @@ export type Layer = {
   citation?: string
 }
 
-export const precalForestAgreementSources: Array<ForestSource> = [
-  ForestSource.JAXA,
-  ForestSource.TandemX,
-  ForestSource.GlobeLand,
-  ForestSource.ESAGlobCover,
-  ForestSource.Copernicus,
-  ForestSource.ESRI,
-  ForestSource.ESAWorldCover,
-  ForestSource.Hansen, // precal with tree cover gte 10,20,30%
-]
-
 export const sourcesMetadata = {
   [ForestSource.JAXA]: {
     scale: 24.7376,

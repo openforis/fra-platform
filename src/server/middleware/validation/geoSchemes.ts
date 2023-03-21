@@ -1,6 +1,6 @@
 import { body, query } from 'express-validator'
 
-import { ForestSource, LayerSource, precalForestAgreementSources } from '@meta/geo'
+import { ForestSource, LayerSource } from '@meta/geo'
 
 const sourceOptions = Object.values(ForestSource)
 
@@ -66,7 +66,7 @@ export const forestLayerSchema = [
     .exists()
     .withMessage('validation.errors.requiredValue')
     .bail()
-    .isIn(precalForestAgreementSources)
+    .isIn(sourceOptions)
     .withMessage('validation.errors.invalidValue'),
 
   body('layer.options.gteTreeCoverPercent')
