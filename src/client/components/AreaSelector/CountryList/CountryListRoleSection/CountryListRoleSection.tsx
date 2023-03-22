@@ -8,8 +8,8 @@ import { RoleName, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useAssessment, useCountries, useCycle } from '@client/store/assessment'
+import { checkMatch } from '@client/utils'
 
-import { checkMatch } from '../../utils/checkMatch'
 import CountryListRow from '../CountryListRow'
 
 type Props = {
