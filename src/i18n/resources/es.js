@@ -659,7 +659,7 @@ El equipo de FRA
     naturallyRegeneratingForest: 'Bosque regenerado de forma natural',
     plantedForest: 'Bosque plantado',
     plantationForest: '…del cual es plantación forestal',
-    otherPlantedForest: '…del cual son otros bosques plantado',
+    otherPlantedForest: '…del cual son otros bosques plantados',
     forest: 'Bosque',
     otherWoodedLand: 'Otras tierras boscosas',
     copyToClipboard: 'Copiar valores',

@@ -127,7 +127,7 @@ module.exports = {
     ifYes: 'Si la respuesta es "sí"',
   },
   growingStock: {
-    totalForest: 'Total bosque',
+    totalForest: 'Total Bosque',
     naturallyRegeneratingForest2025: 'Bosque con procesos de regeneración natural',
   },
   growingStockComposition: {
