@@ -1,6 +1,7 @@
 module.exports = {
   referenceToTataSource: 'Reference to data source',
   typeOfDataSource: 'Type of data source',
+  typeOfDataSourceText: '$t(dataSource.typeOfDataSource)',
   fraVariable: 'FRA variable',
   variable: 'Variable',
   yearForDataSource: 'Year for data source',

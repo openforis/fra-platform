@@ -3,6 +3,7 @@ import { CycleUuid } from './cycle'
 export type DataSourceColumn =
   | 'referenceToTataSource'
   | 'typeOfDataSource'
+  | 'typeOfDataSourceText'
   | 'fraVariable'
   | 'variable'
   | 'yearForDataSource'

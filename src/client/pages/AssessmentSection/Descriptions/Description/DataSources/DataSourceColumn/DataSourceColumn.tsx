@@ -9,6 +9,7 @@ import ColumnComments from './ColumnComments'
 import ColumnFraVariable from './ColumnFraVariable'
 import ColumnReference from './ColumnReference'
 import ColumnTypeOfDataSource from './ColumnTypeOfDataSource'
+import ColumnTypeOfDataSourceText from './ColumnTypeOfDataSourceText'
 import ColumnVariable from './ColumnVariable'
 import ColumnYearForDataSource from './ColumnYearForDataSource'
 
@@ -37,6 +38,7 @@ const DataSourceColumn: React.FC<Props> = (props: Props) => {
   const Components: Record<string, React.FC<any>> = {
     referenceToTataSource: ColumnReference,
     typeOfDataSource: ColumnTypeOfDataSource,
+    typeOfDataSourceText: ColumnTypeOfDataSourceText,
     fraVariable: ColumnFraVariable,
     variable: ColumnVariable,
     yearForDataSource: ColumnYearForDataSource,
