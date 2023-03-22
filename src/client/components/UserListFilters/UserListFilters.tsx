@@ -33,6 +33,21 @@ const UserListFilters: React.FC = () => {
       <div className="users__table-filter-container">
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
+            <h4>{t('userManagement.name')}</h4>
+          </div>
+          <div>
+            <input
+              type="text"
+              defaultValue={filters.fullName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                dispatch(UserManagementActions.updateFilters({ fullName: e.target.value.trim() }))
+              }
+            />
+          </div>
+        </div>
+
+        <div className="users__table-filter-item">
+          <div className="users__table-filter-item-label">
             <h4>{t('userManagement.role')}</h4>
           </div>
           <div>

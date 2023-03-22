@@ -12,14 +12,15 @@ export default () => {
       email: userMockTest.email,
     })
 
-    const assessment = await AssessmentController.getOne({
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessmentParams.props.name,
+      cycleName: '2020',
     })
 
     const subSection = await MetadataController.createSubSection({
       assessment,
       user,
-      section: subSectionParams,
+      section: subSectionParams(cycle.uuid),
       parentSectionId: 1,
     })
 

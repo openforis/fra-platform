@@ -106,6 +106,7 @@ followed by the boreal, temperate and subtropical domains.`,
   definition: {
     definitionLabel: 'See definitions',
     faqLabel: 'FAQ',
+    seeReportingNotes: 'See Reporting Notes',
   },
 
   audit: {
