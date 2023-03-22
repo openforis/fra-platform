@@ -40,7 +40,8 @@ const TitleField: React.FC<Props> = (props) => {
         {mandatory && '*'}
       </div>
       <div
-        className={classNames('edit-user__form-title-field ', `edit-user__form-field${enabled ? '' : '-disabled'}`, {
+        className={classNames('edit-user__form-field', 'edit-user__form-title-field ', {
+          disabled: !enabled,
           error: !valid,
         })}
       >

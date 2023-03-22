@@ -29,11 +29,10 @@
     width: 100%;
     border: none;
   }
-}
 
-.edit-user__form-field-disabled {
-  @extend.edit-user__form-field;
-  color: $text-disabled;
+  &.disabled {
+    color: $text-disabled;
+  }
 }
 
 .edit-user__form-item-picture {
