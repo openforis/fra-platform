@@ -1,4 +1,8 @@
-import { LayerStatus } from '@client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel'
+enum LayerStatus {
+  loading = 'loading',
+  failed = 'failed',
+  ready = 'ready',
+}
 
 export interface ForestOptions {
   selected: ForestSource[]
