@@ -62,13 +62,10 @@ const ContactMethodField: React.FC<Props> = (props) => {
     <div className="edit-user__form-item" key={name}>
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
       <div
-        className={classNames(
-          'edit-user__form-contact_method-field',
-          `edit-user__form-field${enabled ? '' : '-disabled'}`,
-          {
-            error: !valid,
-          }
-        )}
+        className={classNames('edit-user__form-field', 'edit-user__form-contact_method-field', {
+          disabled: !enabled,
+          error: !valid,
+        })}
       >
         <select
           value={method}

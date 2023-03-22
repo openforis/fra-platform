@@ -18,7 +18,7 @@ export const useUserToEdit = (): User => useAppSelector((state) => state.ui.user
 
 export const useUsers = (): Array<User> => useAppSelector((state) => state.ui.userManagement.users)
 
-export const useFilters = (): { countries: Array<CountryIso>; roles: Array<RoleName> } =>
+export const useFilters = (): { countries: Array<CountryIso>; fullName: string; roles: Array<RoleName> } =>
   useAppSelector((state) => state.ui.userManagement.filters)
 
 export const useFilteredRoleNames = (): Array<RoleName> =>

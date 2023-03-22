@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
+import classNames from 'classnames'
+
 import { ClientRoutes } from '@meta/app'
 import { Areas } from '@meta/area'
 import { Users } from '@meta/user'
@@ -94,8 +96,8 @@ const Toolbar: React.FC = () => {
             )}
 
             {countryIso && !open && (
-              <div className="toolbar__country">
-                {Areas.isISOCountry(countryIso) && (
+              <div className={classNames('toolbar__country', { with_flag: isCountry })}>
+                {isCountry && (
                   <div
                     className="flag"
                     style={{
@@ -105,7 +107,7 @@ const Toolbar: React.FC = () => {
                 )}
                 <div className="name-container">
                   <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
-                  {user && Areas.isISOCountry(countryIso) && (
+                  {user && isCountry && (
                     <div className="user-role">
                       {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
                     </div>

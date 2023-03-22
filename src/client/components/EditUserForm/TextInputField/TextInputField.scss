@@ -16,6 +16,8 @@
   }
 
   &.error {
-    background-color: rgba($ui-destructive, 0.1) !important;
+    input {
+      background-color: rgba($ui-destructive, 0.1) !important;
+    }
   }
 }
