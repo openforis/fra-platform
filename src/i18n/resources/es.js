@@ -136,9 +136,9 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
   fraForestCharacteristicsClass: {
     naturallyRegeneratingForest: 'Bosque regenerado de forma natural',
     plantationForest: 'Plantación forestal',
-    ofWhichIntroduced: '…de la cual con especies introducidas',
-    otherPlantedForest: 'Otro bosque plantado',
-    totalForest: 'Área de bosque total',
+    ofWhichIntroduced: '…de la cual de especies introducidas',
+    otherPlantedForest: 'Otros bosques plantados',
+    totalForest: 'Área total de bosque',
   },
 
   fraOtherLandClass: {
@@ -253,14 +253,17 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
       subject: '{{sender}} le envió un mensaje',
       textMessage: `Estimado/a {{recipient}},
 
+
 {{sender}} le envió un mensaje.
+
 
 Acceda a la plataforma en la siguiente dirección URL para verlo y responder:
 {{- link}}
 
+
 El equipo de FRA
 {{- url}}
-    `,
+   `,
       htmlMessage: `Estimado/a {{recipient}},
 <br/><br/>
 {{sender}} le envió un mensaje.
@@ -270,7 +273,7 @@ El equipo de FRA
 El equipo de FRA
 <br/>
 {{- url}}
-    `,
+   `,
     },
   },
 
@@ -327,7 +330,7 @@ El equipo de FRA
     },
     sectionHeaders: {
       introduction: 'Introducción',
-      forestExtentCharacteristicsAndChanges: 'Extensión del bosque, características y cambios',
+      forestExtentCharacteristicsAndChanges: 'Extensión de bosque, características y cambios',
       forestGrowingStockBiomassAndCarbon: 'Existencias en formación, biomasa y carbono',
       forestDesignationAndManagement: 'Designación y gestión del bosque',
       forestOwnershipAndManagementRights: 'Propiedad del bosque y derechos de gestión',
@@ -475,16 +478,20 @@ El equipo de FRA
       subject: 'Invitación a la plataforma de FRA',
       textMessage: `Estimado/a {{invitedUser}},
 
+
 Ha sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.
+
 
 Acepte esta invitación y acceda a la plataforma en la siguiente dirección URL:
 {{- link}}
 
+
 ¡Que disfrute del trabajo!
+
 
 El equipo de FRA
 {{- url}}
-    `,
+   `,
       htmlMessage: `Estimado/a {{invitedUser}},
 <br/><br/>
 Ha sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.
@@ -496,7 +503,7 @@ Ha sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para
 El equipo de FRA
 <br/>
 {{- url}}
-    `,
+   `,
     },
     editPermissions: 'Editar permisos',
     invitationDeleted: 'La invitación ha sido eliminada',
@@ -530,7 +537,7 @@ El equipo de FRA
   },
 
   extentOfForest: {
-    extentOfForest: 'Extensión del bosque y otras tierras boscosas',
+    extentOfForest: 'Extensión de bosque y otras tierras boscosas',
     estimationAndForecasting: 'Estimación and proyección',
     categoryHeader: 'Categorías de FRA',
     forestArea: 'Bosque',
@@ -575,10 +582,10 @@ El equipo de FRA
     categoryHeader: 'Categorías de FRA',
     naturalForestArea: 'Bosque regenerado de forma natural',
     plantationForestArea: 'Plantación forestal',
-    plantationForestIntroducedArea: '…de la cual con especies introducidas',
-    otherPlantedForestArea: 'Otro bosque plantado',
+    plantationForestIntroducedArea: '…de la cual de especies introducidas',
+    otherPlantedForestArea: 'Otros bosques plantado',
     plantedForest: 'Bosque plantado',
-    totalForestArea: 'Área de bosque total',
+    totalForestArea: 'Área total de bosque',
     total: 'Total',
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
@@ -604,8 +611,8 @@ El equipo de FRA
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha/año)',
     forestExpansion: 'Expansión del bosque',
-    ofWhichAfforestation: '…de la cual con forestación',
-    ofWhichNaturalExpansion: '…de la cual con expansión natural',
+    ofWhichAfforestation: '…de la cual es forestación',
+    ofWhichNaturalExpansion: '…de la cual es expansión natural',
     deforestation: 'Deforestación',
     forestAreaNetChange: 'Cambio neto en el área de bosque',
     netChangeDoesNotMatch: 'No coincide con el cambio neto en el área de bosque',
@@ -627,7 +634,7 @@ El equipo de FRA
     temporarilyUnstocked: 'Bosque temporalmente sin cubierta de árboles y/o recientemente regenerado',
     primaryForest: 'Bosque primario',
     exceedsNaturallyRegeneratingForest: 'Excede el bosque regenerado de forma natural (1b)',
-    rubberWood: 'Madera de caucho',
+    rubberWood: 'Caucho',
   },
 
   otherLandWithTreeCover: {
@@ -651,8 +658,8 @@ El equipo de FRA
     totalTableHeader: 'Existencias totales en formación (millones de m³ sobre la corteza)',
     naturallyRegeneratingForest: 'Bosque regenerado de forma natural',
     plantedForest: 'Bosque plantado',
-    plantationForest: '…del cual con plantación forestal',
-    otherPlantedForest: '…del cual con otro bosque plantado',
+    plantationForest: '…del cual es plantación forestal',
+    otherPlantedForest: '…del cual son otros bosques plantado',
     forest: 'Bosque',
     otherWoodedLand: 'Otras tierras boscosas',
     copyToClipboard: 'Copiar valores',
@@ -704,9 +711,9 @@ El equipo de FRA
     primaryDesignatedManagementObjective: 'Objetivo primario de gestión designado',
     primaryDesignatedManagementObjectiveSupport:
       'El objetivo primario de gestión designado es significativamente más importante que otros objetivos de gestión. Los diferentes objetivos primarios de gestión son *exclusivos* y las áreas reportadas bajo un objetivo primario de gestión no deben ser reportadas para ningún otro objetivo primario de gestión. La suma de los diferentes objetivos de gestión se debe añadir al área de bosque.',
-    totalAreaWithDesignatedManagementObjective: 'Área total con un objetivo de gestión designado',
+    totalAreaWithDesignatedManagementObjective: 'Área total con objetivo de gestión designado',
     totalAreaWithDesignatedManagementObjectiveSupport:
-      'Objetivo de gestión designado, independientemente de si es primario o no. Las diferentes categorías de designación *no son exclusivas*. Por lo tanto, las áreas se pueden reportar más de una vez. Por ejemplo, el área de bosque reportado como objetivo primario de gestión "de uso múltiple" debe ser reportado para cada objetivo de gestión específico. De este modo, la suma de los diferentes objetivos de gestión puede ser superior al área de bosque total.',
+      'Objetivo de gestión designado, independientemente de si es primario o no. Las diferentes categorías de designación *no son exclusivas*. Por lo tanto, las áreas se pueden reportar más de una vez. Por ejemplo, el área de bosque reportado como objetivo primario de gestión "de uso múltiple" debe ser reportado para cada objetivo de gestión específico. De este modo, la suma de los diferentes objetivos de gestión puede ser superior al área total de bosque.',
     categoryHeader: 'Categorías de FRA 2020',
     areaUnitLabel: 'Área forestal (1000 ha)',
     production: 'Producción',
@@ -716,17 +723,17 @@ El equipo de FRA
     multipleUse: 'Uso múltiple',
     other: 'Otros (especificar en comentarios)',
     unknown: 'Ninguno/desconocido',
-    totalForestArea: 'Área de bosque total',
+    totalForestArea: 'Área total de bosque',
     total: 'Total',
   },
 
   forestAreaWithinProtectedAreas: {
     forestAreaWithinProtectedAreas:
-      'Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con plan de gestión a largo plazo',
+      'Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con planes de gestión a largo plazo',
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha)',
     header: 'Área de bosque dentro de áreas protegidas legalmente establecidas',
-    forestAreaWithLongTermManagementPlan: 'Área de bosque con plan de gestión a largo plazo',
+    forestAreaWithLongTermManagementPlan: 'Área de bosque con planes de gestión a largo plazo',
     ofWhichInProtectedAreas: '…de la cual en áreas protegidas',
   },
 
@@ -735,12 +742,12 @@ El equipo de FRA
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área de bosque (1000 ha)',
     privateOwnership: 'Propiedad privada',
-    ofWhichIndividuals: '…de la cual de propiedad de individuos',
-    ofWhichPrivateBusinesses: '…de la cual de propiedad de entidades comerciales e instituciones privadas',
-    ofWhichCommunities: '…de la cual de propiedad de comunidades locales, tribales e indígenas',
+    ofWhichIndividuals: '…de la cual es propiedad de individuos',
+    ofWhichPrivateBusinesses: '…de la cual es propiedad de entidades comerciales e instituciones privadas',
+    ofWhichCommunities: '…de la cual es propiedad de comunidades locales, tribales e indígenas',
     publicOwnership: 'Propiedad pública',
     otherOrUnknown: 'Desconocidas/otras (especificar en comentarios)',
-    totalForestArea: 'Área de bosque total',
+    totalForestArea: 'Área total de bosque',
     total: 'Total',
   },
 
@@ -766,7 +773,7 @@ El equipo de FRA
     diseases: 'Enfermedades',
     severeWeatherEvents: 'Eventos climáticos extremos',
     other: 'Otras (especificar en comentarios)',
-    totalForestArea: 'Área de bosque total',
+    totalForestArea: 'Área total de bosque',
     total: 'Total',
   },
 
@@ -775,7 +782,7 @@ El equipo de FRA
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha)',
     totalLandAreaAffectedByFire: 'Área total afectada por incendios',
-    ofWhichForest: '…de la cual en el bosque',
+    ofWhichForest: '…de la cual en bosque',
   },
 
   degradedForest: {
@@ -879,11 +886,11 @@ El equipo de FRA
     forestAreaProportionLandArea2015: 'Superficie forestal como proporción de la superficie total en 2015',
     subIndicator: 'Subindicador {{no}}',
     forestAreaAnnualNetChangeRate: 'Porcentaje anual de cambio neto en el área de bosque',
-    aboveGroundBiomassStockForests: 'Biomasa por encima del suelo en los bosques',
+    aboveGroundBiomassStockForests: 'Biomasa aérea del suelo en los bosques',
     percent2015ForestAreaBaseline: 'Porcentaje (referencia del área de bosque en 2015)',
     proportionForestAreaLegallyEstablishedProtectedAreas:
-      'Porcentaje de área de bosque dentro de las áreas protegidas legalmente establecidas',
-    proportionForestAreaLongTermForestManagement: 'Porcentaje de área de bosque con plan de gestión a largo plazo',
+      'Proporción de área de bosque dentro de áreas protegidas legalmente establecidas',
+    proportionForestAreaLongTermForestManagement: 'Proporción de área de bosque con planes de gestión a largo plazo',
     forestArea1000Ha: 'Área de bosque (1000 ha)',
     forestAreaVerifiedForestManagement:
       'Área de bosque bajo sistemas de certificación de manejo forestal verificados de forma independiente',
@@ -908,11 +915,15 @@ El equipo de FRA
       subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de FRA',
       textMessage: `Estimado/a {{recipientName}},
 
+
 {{changer}} ha cambiado el estado de {{assessment}} a "{{status}}" para {{country}} en la plataforma de FRA.
+
 
 {{message}}
 
+
 Visite la plataforma en la siguiente dirección: {{- serverUrl}}
+
 
 El equipo de FRA
 {{- serverUrl}}`,
