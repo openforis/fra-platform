@@ -1,5 +1,5 @@
 import './AreaSelector.scss'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -47,6 +47,10 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   const ref = useRef(null)
 
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => setQuery(event.target.value), [])
+
+  const handleClick = useCallback((event: React.MouseEvent<HTMLInputElement>) => event.stopPropagation(), [])
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -77,9 +81,9 @@ const AreaSelector: React.FC<Props> = (props) => {
           <input
             type="text"
             className="text-input"
-            onClick={(event) => event.stopPropagation()}
+            onChange={handleChange}
+            onClick={handleClick}
             placeholder={t('emoji.picker.search')}
-            onChange={(event) => setQuery(event.target.value)}
           />
         )}
 
