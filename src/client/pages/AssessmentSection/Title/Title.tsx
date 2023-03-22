@@ -41,7 +41,7 @@ const Title: React.FC<Props> = (props) => {
   const fra = assessmentName === AssessmentNames.fra
   const panEu = assessmentName === AssessmentNames.panEuropean
   const secondDoc = fra ? 'faq' : 'rn'
-  const secondLabel = fra ? 'definition.faqLabel' : 'definition.rnLabel'
+  const secondLabel = fra ? 'definition.faqLabel' : 'definition.seeReportingNotes'
   const sectionName = subSection.props.name
   const anchor = SubSections.getAnchor({ cycle, subSection })
   const Component = Components[assessmentName]?.[sectionName] || TitleDefault
@@ -50,7 +50,7 @@ const Title: React.FC<Props> = (props) => {
     <>
       {React.createElement(Component, { subSection })}
 
-      {(fra || panEu) && (
+      {(fra || (panEu && cycleName === '2025')) && (
         <div className="app-view__section-toolbar no-print">
           <DefinitionLink
             assessmentName={assessmentName}
