@@ -1,24 +1,19 @@
 import { CountryIso } from '@meta/area'
-import { ForestSource, Layer, sourcesMetadata } from '@meta/geo'
+import { Layer, LayerSource, sourcesMetadata } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets'
 
-// import { authenticateToGee } from './authenticateToGee'
-
 type Props = {
   countryIso: CountryIso
-  forestSource: ForestSource
-  gteHansenTreeCoverPerc?: number
-  onlyProtected?: boolean
-  opacity?: number
+  layer: LayerSource
 }
 
 export const getForestLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, forestSource, gteHansenTreeCoverPerc, onlyProtected, opacity } = props
+  const { countryIso, layer } = props
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAssetData(forestSource, gteHansenTreeCoverPerc, onlyProtected)
-  const metadata = sourcesMetadata[forestSource]
+  const asset = AssetsController.getForestAssetData(layer)
+  const metadata = sourcesMetadata[layer.key]
 
   return new Promise((resolve, reject) => {
     asset.img
@@ -27,7 +22,6 @@ export const getForestLayer = async (props: Props): Promise<Layer> => {
       .getMap(
         {
           palette: metadata.palette,
-          opacity,
         },
         (mapProperties: any, err: any) => {
           if (err) {

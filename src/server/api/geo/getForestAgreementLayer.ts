@@ -7,7 +7,7 @@ import Requests from '@server/utils/requests'
 
 export const getForestAgreementLayer = async (req: ForestAgreementLayerRequest, res: Response) => {
   try {
-    const layer = await GeoController.getForestAgreementLayer(req.query)
+    const layer = await GeoController.getForestAgreementLayer(req.body)
 
     Requests.sendOk(res, layer)
   } catch (e) {

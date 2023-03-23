@@ -47,6 +47,11 @@ export const layers: Layer[] = [
     title: 'Hansen GFC (2020)',
     opacity: 1,
   },
+  {
+    key: ForestSource.CustomFnF,
+    title: 'Custom layer',
+    opacity: 1,
+  },
 ]
 
 export const GLOBAL_OPACITY_KEY = 'GLOBAL_OPACITY'

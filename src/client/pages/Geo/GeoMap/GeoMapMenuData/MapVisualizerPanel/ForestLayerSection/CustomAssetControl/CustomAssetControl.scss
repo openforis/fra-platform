@@ -1,0 +1,162 @@
+@import 'src/client/style/partials';
+
+.custom-asset-data-visualizer-agreement-levels-control {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 25px 30px 30px;
+}
+
+.custom-asset-data-visualizer-agreement-levels-boxes {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  justify-content: space-between;
+
+  .custom-asset-data-visualizer-agreement-level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    &.disabled {
+      color: #bdbdbd;
+    }
+  }
+
+  .custom-asset-data-visualizer-agreement-levels-box {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-content: center;
+    background-color: #e7e7e7;
+    border: 1px solid #949495;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      width: 1em;
+      height: 1em;
+    }
+
+    &:checked {
+      background-color: #262627;
+      border-color: #5f5f5f;
+      box-shadow: none;
+    }
+
+    &:disabled {
+      background-color: #f8f7f7;
+      border-color: #dedfdf;
+      box-shadow: 0 0 10px 2px #efeeee inset;
+      cursor: default;
+    }
+  }
+
+  .disabled .icon {
+    color: lightgray;
+  }
+}
+
+.custom-input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.custom-input-container input[type='text'] {
+  flex: 1;
+  width: 100%;
+  padding-right: 0px;
+}
+
+.custom-input-container button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 100%;
+  color: #fff;
+  background-color: #1798a5;
+  border: none;
+}
+
+.custom-asset-list-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  padding: 6px 0 6px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.custom-asset-list-element-bottom {
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  width: 100%;
+  border-bottom: 1px solid $ui-border;
+}
+
+.custom-asset-item-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 190px;
+  height: 100%;
+  white-space: pre-line;
+  margin: auto auto auto 0px;
+  padding-top: 3px;
+  > div {
+    height: 100%;
+    vertical-align: middle;
+    > p {
+      font-size: $font-m;
+      text-justify: left;
+      font-weight: bold;
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
+}
+
+.custom-asset-list-element-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > .fra-checkbox {
+    margin: 0 10px 0 5px;
+    cursor: pointer;
+  }
+  > .failed {
+    border-color: red;
+  }
+}
+
+// Free to use from: https://loading.io/css/ (adapted)
+.custom-asset-list-element-loading-status-loading {
+  display: inline-block;
+  width: 14px;
+  height: 100%;
+  margin: 0 10px 0 5px;
+}
+.custom-asset-list-element-loading-status-loading:after {
+  content: ' ';
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #1798a5;
+  border-color: #1798a5 transparent #1798a5 transparent;
+  animation: custom-asset-list-element-loading-status-loading 1.2s linear infinite;
+}
+@keyframes custom-asset-list-element-loading-status-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

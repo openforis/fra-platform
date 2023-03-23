@@ -14,13 +14,13 @@ import { getForestLayer } from './getForestLayer'
 
 export const GeoApi = {
   init: (express: Express): void => {
-    express.get(
+    express.post(
       ApiEndPoint.Geo.Layers.forest(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestLayerSchema),
       GeeAuthMiddleware.requireLogin,
       getForestLayer
     )
-    express.get(
+    express.post(
       ApiEndPoint.Geo.Layers.forestAgreement(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestAgreementLayerSchema),
       GeeAuthMiddleware.requireLogin,
