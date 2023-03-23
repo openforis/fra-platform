@@ -514,7 +514,7 @@ The FRA team
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
       fullCoverMaps: 'Full-cover forest/vegetation maps',
       registersQuestionnaires: 'Registers/questionnaires',
-      other: 'Other (specify in comments)',
+      other: '$t(common.otherSpecifyInComments)',
     },
     appliesToVariablesOptions: {
       forest: 'Forest',
@@ -711,7 +711,7 @@ The FRA team fra@fao.org
     treesinurbansettings: 'Trees in urban settings',
     total: 'Total',
     otherLandArea: 'Other land area',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
   },
 
   growingStock: {
@@ -786,7 +786,7 @@ The FRA team fra@fao.org
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
     unknown: 'None/unknown',
     totalForestArea: 'Total forest area',
     total: 'Total',
@@ -837,7 +837,7 @@ The FRA team fra@fao.org
     insects: 'Insects',
     diseases: 'Diseases',
     severeWeatherEvents: 'Severe weather events',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
     totalForestArea: 'Total forest area',
     total: 'Total',
   },

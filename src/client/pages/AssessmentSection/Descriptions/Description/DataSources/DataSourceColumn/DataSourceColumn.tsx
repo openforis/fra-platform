@@ -3,12 +3,13 @@ import React, { useCallback } from 'react'
 import { Objects } from '@utils/objects'
 
 import { DataSource, Table } from '@meta/assessment'
-import { DataSourceColumn as DataSourceColumnType } from '@meta/assessment/description'
+import { DataSourceColumn as DataSourceColumnType, DataSourceVariables } from '@meta/assessment/description'
 
 import ColumnComments from './ColumnComments'
 import ColumnFraVariable from './ColumnFraVariable'
 import ColumnReference from './ColumnReference'
 import ColumnTypeOfDataSource from './ColumnTypeOfDataSource'
+import ColumnTypeOfDataSourceText from './ColumnTypeOfDataSourceText'
 import ColumnVariable from './ColumnVariable'
 import ColumnYearForDataSource from './ColumnYearForDataSource'
 
@@ -31,12 +32,14 @@ interface Props {
   onDelete: () => void
   placeholder: boolean
   table: Table
+  dataSourceVariables?: DataSourceVariables
 }
 const DataSourceColumn: React.FC<Props> = (props: Props) => {
-  const { column, disabled, placeholder, onChange, onDelete, dataSource, table } = props
+  const { column, disabled, placeholder, onChange, onDelete, dataSource, table, dataSourceVariables } = props
   const Components: Record<string, React.FC<any>> = {
     referenceToTataSource: ColumnReference,
     typeOfDataSource: ColumnTypeOfDataSource,
+    typeOfDataSourceText: ColumnTypeOfDataSourceText,
     fraVariable: ColumnFraVariable,
     variable: ColumnVariable,
     yearForDataSource: ColumnYearForDataSource,
@@ -66,8 +69,13 @@ const DataSourceColumn: React.FC<Props> = (props: Props) => {
       placeholder={placeholder}
       onDelete={onDelete}
       table={table}
+      dataSourceVariables={dataSourceVariables}
     />
   )
+}
+
+DataSourceColumn.defaultProps = {
+  dataSourceVariables: undefined,
 }
 
 export default DataSourceColumn

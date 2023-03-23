@@ -36,7 +36,7 @@ module.exports = {
     ifYes: '如果 "是"',
     whatIsDefinition: '国家对 "退化的森林 "的定义是什么？',
     yearOfLatestAssessment: '最近一次评估的年份',
-    other: '其他(在评论中阐述)',
+    other: '$t(common.otherSpecifyInComments)',
     notSelected: '',
     criteriaOfDegradedForest: '定义“退化的森林”时采用的标准',
     changeInForestStructureDecreaseInForestCanopy: '森林结构的变化/森林冠层的减少',
@@ -81,7 +81,7 @@ module.exports = {
   },
   forestOwnership: {
     ofWhichCommunities2025: '...其中土著居民和当地社区拥有的部分',
-    other2025: '其他(在评论中阐述)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: '不明',
     total2025: '共计',
   },
@@ -109,7 +109,7 @@ module.exports = {
   },
   holderOfManagementRights: {
     communities2025: '土著居民和当地社区',
-    other2025: '其他(在评论中阐述)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: '不明',
   },
   nonWoodForestProductsRemovals: {

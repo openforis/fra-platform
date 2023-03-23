@@ -106,7 +106,7 @@ module.exports = {
   },
   forestOwnership: {
     ofWhichCommunities2025: '...de la cual pertenece a Pueblos Indígenas y comunidades locales',
-    other2025: 'Otros (especificar en comentarios)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Desconocido',
     total2025: 'Total',
     forestOwnership2025: 'Propiedad forestal',
@@ -144,7 +144,7 @@ module.exports = {
   },
   holderOfManagementRights: {
     communities2025: 'Pueblos Indígenas y comunidades locales',
-    other2025: 'Otros (especifique en los comentarios)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Desconocido',
   },
   nonWoodForestProductsRemovals: {
