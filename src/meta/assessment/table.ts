@@ -35,7 +35,6 @@ export interface TableProps {
   dataExport: boolean
   columnsExport?: TableColumnNames
   columnsExportAlways?: TableColumnNames
-  dataSourceVariables?: { include: Array<string>; exclude: Array<string> }
 }
 
 export interface Table extends CycledPropsObject<TableProps> {

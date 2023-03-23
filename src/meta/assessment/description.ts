@@ -14,8 +14,13 @@ export interface AnalysisAndProcessingDescription {
   reclassification: boolean
 }
 
+export interface DataSourceVariables {
+  include: Array<string>
+  exclude: Array<string>
+}
+
 export interface NationalDataDataSourceDescription {
-  table?: { columns: Array<DataSourceColumn> }
+  table?: { columns: Array<DataSourceColumn>; dataSourceVariables?: DataSourceVariables }
   text?: { readOnly?: boolean }
 }
 
