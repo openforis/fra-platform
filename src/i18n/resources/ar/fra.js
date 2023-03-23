@@ -81,7 +81,7 @@ module.exports = {
   },
   forestOwnership: {
     ofWhichCommunities2025: '... منها مملوكة من قبل الشعوب الأصلية والمجتمعات المحلية',
-    other2025: 'أخرى (حدد في التعليقات)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'غير معروف',
     total2025: 'الإجمالي الكلي',
   },
@@ -111,7 +111,7 @@ module.exports = {
   },
   holderOfManagementRights: {
     communities2025: 'الشعوب الأصلية والمجتمعات المحلية',
-    other2025: 'أخرى (حدد في التعليقات)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'غير معروف',
   },
   nonWoodForestProductsRemovals: {

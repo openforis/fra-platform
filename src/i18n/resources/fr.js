@@ -420,7 +420,7 @@ L'équipe de FRA
       sampleBasedRemoteSensingAssessment: "Évaluation d'échantillons par télédétection",
       fullCoverMaps: 'Cartes complètes des forêts/de la végétation',
       registersQuestionnaires: 'Répertoires/questionnaires',
-      other: 'Autre (préciser dans les commentaires)',
+      other: '$t(common.otherSpecifyInComments)',
     },
     appliesToVariablesOptions: {
       forest: 'Forêt',
@@ -606,7 +606,7 @@ L'équipe de FRA fra@fao.org
     treesinurbansettings: 'Arbres en milieu urbain',
     total: 'Total',
     otherLandArea: "Superficie d'autre terre",
-    other: 'Autre (préciser dans les commentaires)',
+    other: '$t(common.otherSpecifyInComments)',
   },
 
   growingStock: {
