@@ -66,13 +66,24 @@
 }
 
 .geo-map-menu-forest-layer-opacity-input {
-  margin: auto 5px auto auto;
-  min-width: 180px;
+  display: flex;
+  margin: auto auto auto 5px;
+  width: 120px;
+  justify-content: space-between;
   > div {
     height: 100%;
     vertical-align: middle;
-    display: inline-block;
   }
+  .geo-map-menu-forest-layer-opacity-input-div {
+    flex: 1;
+    margin-left: 0px;
+  }
+
+  .geo-map-menu-forest-layer-opacity-percentage-div {
+    margin-left: 15px;
+    width: 10px;
+  }
+
   input {
     height: 100%;
     width: 100%;
@@ -83,6 +94,5 @@
     vertical-align: middle;
     font-size: normal;
     font-weight: bold;
-    margin-left: 15px;
   }
 }
