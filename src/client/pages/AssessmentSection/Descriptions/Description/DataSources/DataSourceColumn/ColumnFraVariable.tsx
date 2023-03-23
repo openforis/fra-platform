@@ -24,14 +24,15 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
   const _allColumnsCalculated = (row: Row) =>
     row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
 
-  const rows = Array.from(
-    new Set(
-      table.rows
-        ?.filter((row) => row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row))
-        .map((r) => t(Cols.getLabel({ cycle, col: r.cols[0], t })))
-        .concat(dataSourceVariables?.include.map<string>(t) ?? [])
-    )
-  )
+  const rows = table.rows.reduce((acc, row) => {
+    if (row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row)) {
+      const label = t(Cols.getLabel({ cycle, col: row.cols[0], t }))
+      if (!acc.includes(label)) {
+        acc.push(label)
+      }
+    }
+    return acc
+  }, dataSourceVariables?.include.map<string>(t) ?? [])
 
   const _onChange = (value: any) => {
     onChange('fraVariables', value)
