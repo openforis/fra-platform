@@ -11,13 +11,12 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
   minArity: 2,
   executor: () => {
     return (categoryValue?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
+      const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v))
+
       const valid =
-        Objects.isEmpty(categoryValue) ||
+        (Objects.isEmpty(categoryValue) && nonEmptySubCategoryValues.length === 0) ||
         !subCategoryValues?.every(Boolean) ||
-        Numbers.greaterThanWithTolerance(
-          categoryValue,
-          Numbers.sum(subCategoryValues?.filter((v) => !Objects.isEmpty(v)))
-        )
+        Numbers.greaterThanWithTolerance(categoryValue, Numbers.sum(nonEmptySubCategoryValues))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
