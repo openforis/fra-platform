@@ -11,6 +11,7 @@ import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import AgreementLevelsControl from '../../MapVisualizerAgreementLevelsControl'
 import LayerOptionsPanel from '../LayerOptionsPanel'
 import { GLOBAL_OPACITY_KEY, layers, LayerStatus } from '../layers'
+import CustomAssetControl from './CustomAssetControl'
 
 const RecipeSelector: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -54,6 +55,7 @@ const ForestLayerSection: React.FC = () => {
           </GeoMapMenuListElement>
         </div>
         {layers.map((layer) => {
+          if (layer.key === ForestSource.CustomFnF) return false
           const isLayerChecked = forestOptions.selected.includes(layer.key)
           let status = null
           if (forestOptions.pendingLayers[layer.key] !== undefined) status = LayerStatus.loading
@@ -75,6 +77,7 @@ const ForestLayerSection: React.FC = () => {
             </div>
           )
         })}
+        <CustomAssetControl />
         <AgreementLevelsControl />
       </div>
       {/* 
