@@ -11,49 +11,6 @@ const countryIsoQuery = query('countryIso')
   .isLength({ min: 3, max: 3 })
   .withMessage('validation.errors.invalidValue')
 
-const layerQuery = query('layer')
-  .default([])
-  .customSanitizer((layer) => {
-    if (Array.isArray(layer)) return Array.from(new Set<ForestSource>(layer))
-
-    return [layer]
-  })
-  .custom((layer) => {
-    if (layer.length >= 2 && layer.every((layerId: any) => sourceOptions.includes(layerId))) {
-      return true
-    }
-    return Promise.reject(Error('validation.errors.invalidValue'))
-  })
-
-const agreementLevelQuery = query('gteAgreementLevel')
-  .exists()
-  .bail()
-  .withMessage('validation.errors.requiredValue')
-  .isInt({ min: 1 })
-  .withMessage('validation.errors.invalidValue')
-  .bail()
-  .custom((value, { req }) => {
-    if (value > req.query.layer.length) {
-      return Promise.reject(Error('validation.errors.invalidValue'))
-    }
-    return true
-  })
-  .toInt()
-
-const hansenTreeCoverPercQuery = query('gteHansenTreeCoverPerc')
-  .customSanitizer((value, { req }) => {
-    if (!req.query.layer.includes(ForestSource.Hansen)) {
-      return 0
-    }
-    return value
-  })
-  .exists()
-  .bail()
-  .withMessage('validation.errors.requiredValue')
-  .isInt({ min: 0, max: 100 })
-  .withMessage('validation.errors.invalidValue')
-  .toInt()
-
 export const forestLayerSchema = [
   body('countryIso')
     .exists()
@@ -132,13 +89,7 @@ export const forestAgreementLayerSchema = [
     })
     .toInt(),
 ]
-export const forestAgreementEstimationSchema = [
-  countryIsoQuery,
-  query('scale').default(100).isFloat({ min: 10, max: 500 }).withMessage('validation.errors.invalidValue').toFloat(),
-  layerQuery,
-  agreementLevelQuery,
-  hansenTreeCoverPercQuery,
-]
+
 export const forestEstimationsSchema = [
   countryIsoQuery,
   query('year')
@@ -148,6 +99,10 @@ export const forestEstimationsSchema = [
     .isInt()
     .withMessage('validation.errors.invalidValue')
     .toInt(),
+]
+
+export const forestAgreementEstimationSchema = [
+  body('scale').default(100).isFloat({ min: 10, max: 500 }).withMessage('validation.errors.invalidValue').toFloat(),
 ]
 
 export const GeoSchemes = {
