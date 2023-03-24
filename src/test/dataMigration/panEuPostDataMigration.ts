@@ -22,7 +22,6 @@ const migrateCycle = (cycleName: string) =>
 
     index += 1
     Logger.debug(`    ========== ${index} updateCalculatedNodes ${cycle.name}`)
-    // eslint-disable-next-line no-await-in-loop
     await updateCalculatedNodes({ assessment, cycle }, client)
   })
 

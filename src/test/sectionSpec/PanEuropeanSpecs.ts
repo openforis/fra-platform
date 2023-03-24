@@ -2004,7 +2004,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_2_4.forest_2020.total_area_with_damage / table_1_1a.forest_2020.area',
                     },
@@ -2051,7 +2051,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_2_4.forest_2015.total_area_with_damage / table_1_1a.forest_2015.area',
                     },
@@ -2098,7 +2098,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_2_4.forest_2010.total_area_with_damage / table_1_1a.forest_2010.area',
                     },
@@ -2145,7 +2145,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_2_4.forest_2005.total_area_with_damage / table_1_1a.forest_2005.area',
                     },
@@ -2192,7 +2192,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_2_4.forest_2000.total_area_with_damage / table_1_1a.forest_2000.area',
                     },
@@ -2239,7 +2239,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_2_4.forest_1990.total_area_with_damage / table_1_1a.forest_1990.area',
                     },
@@ -9665,7 +9665,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_4_5.forest_2020.total / table_1_4a.forest_2020.deadwood',
                     },
@@ -9712,7 +9712,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_4_5.forest_2015.total / table_1_4a.forest_2015.deadwood',
                     },
@@ -9759,7 +9759,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_4_5.forest_2010.total / table_1_4a.forest_2010.deadwood',
                     },
@@ -9806,7 +9806,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_4_5.forest_2005.total / table_1_4a.forest_2005.deadwood',
                     },
@@ -9853,7 +9853,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_4_5.forest_2000.total / table_1_4a.forest_2000.deadwood',
                     },
@@ -9900,7 +9900,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     type: 'calculated',
-                    colName: 'Forest',
+                    colName: 'forest',
                     migration: {
                       calculateFn: 'table_4_5.forest_1990.total / table_1_4a.forest_1990.deadwood',
                     },
