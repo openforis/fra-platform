@@ -981,7 +981,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2020.below_ground / table_1_4a.forest_2020.above_ground',
                   },
@@ -1028,7 +1028,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2015.below_ground / table_1_4a.forest_2015.above_ground',
                   },
@@ -1075,7 +1075,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2010.below_ground / table_1_4a.forest_2010.above_ground',
                   },
@@ -1122,7 +1122,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2005.below_ground / table_1_4a.forest_2005.above_ground',
                   },
@@ -1169,7 +1169,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2000.below_ground / table_1_4a.forest_2000.above_ground',
                   },
@@ -1216,7 +1216,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_1990.below_ground / table_1_4a.forest_1990.above_ground',
                   },
@@ -1264,7 +1264,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2020.above_ground / table_1_2a.forest_2020.total',
                   },
@@ -1311,7 +1311,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2015.above_ground / table_1_2a.forest_2015.total',
                   },
@@ -1358,7 +1358,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2010.above_ground / table_1_2a.forest_2010.total',
                   },
@@ -1405,7 +1405,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2005.above_ground / table_1_2a.forest_2005.total',
                   },
@@ -1452,7 +1452,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2000.above_ground / table_1_2a.forest_2000.total',
                   },
@@ -1499,7 +1499,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_1990.above_ground / table_1_2a.forest_1990.total',
                   },
@@ -1547,7 +1547,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2020.soil_carbon * 1000 / table_1_1a.forest_2020.area',
                   },
@@ -1594,7 +1594,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2015.soil_carbon * 1000 / table_1_1a.forest_2015.area',
                   },
@@ -1641,7 +1641,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2010.soil_carbon * 1000 / table_1_1a.forest_2010.area',
                   },
@@ -1688,7 +1688,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2005.soil_carbon * 1000 / table_1_1a.forest_2005.area',
                   },
@@ -1735,7 +1735,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_2000.soil_carbon * 1000 / table_1_1a.forest_2000.area',
                   },
@@ -1782,7 +1782,7 @@ export const carbonStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: 'table_1_4a.forest_1990.soil_carbon * 1000 / table_1_1a.forest_1990.area',
                   },

@@ -34,6 +34,10 @@ const Toolbar: React.FC = () => {
 
   if (print) return null
 
+  const isAdmin = Users.isAdministrator(user)
+  const includeGlobals = isAdmin || cycle.published
+  const includeRegions = isAdmin || cycle.published
+
   return (
     <div className="toolbar">
       <div className="toolbar__nav-options">
@@ -42,8 +46,8 @@ const Toolbar: React.FC = () => {
         <AreaSelector
           enableDownload
           includeCountries
-          includeGlobals
-          includeRegions
+          includeGlobals={includeGlobals}
+          includeRegions={includeRegions}
           placeholder="common.selectArea"
           showCountryFlag
           showCountryRole

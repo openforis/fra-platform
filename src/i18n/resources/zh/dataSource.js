@@ -1,6 +1,7 @@
 module.exports = {
   referenceToTataSource: '数据源参考文献',
   typeOfDataSource: '数据源的类型',
+  typeOfDataSourceText: '$t(dataSource.typeOfDataSource)',
   fraVariable: 'FRA变量',
   variable: '变量',
   yearForDataSource: '数据源的年份',

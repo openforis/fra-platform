@@ -1,7 +1,7 @@
 import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Cycle, Row, VariableCache } from '@meta/assessment'
+import { Assessment, AssessmentNames, Cycle, Row, VariableCache } from '@meta/assessment'
 
 import { AreaController } from '@server/controller/area'
 import { BaseProtocol, Schemas } from '@server/db'
@@ -79,16 +79,18 @@ export const updateCalculatedNodes = async (
     }
   )
 
-  // ===== total land area (fao stat)
-  const totalLandAreaValues = await getTotalLandAreaValues({ cycle }, client)
-  await client.query(pgp.helpers.insert(totalLandAreaValues, cs))
+  if (assessment.props.name === AssessmentNames.fra) {
+    // ===== total land area (fao stat)
+    const totalLandAreaValues = await getTotalLandAreaValues({ cycle }, client)
+    await client.query(pgp.helpers.insert(totalLandAreaValues, cs))
 
-  // ===== certified area  - SDG sub ind. 5
-  const certifiedAreaValues = await getCertifiedAreaValues({ cycle }, client)
-  await client.query(pgp.helpers.insert(certifiedAreaValues, cs))
+    // ===== certified area  - SDG sub ind. 5
+    const certifiedAreaValues = await getCertifiedAreaValues({ cycle }, client)
+    await client.query(pgp.helpers.insert(certifiedAreaValues, cs))
 
-  const climaticDomainValues = await getClimaticDomainValues({ cycle }, client)
-  await client.query(pgp.helpers.insert(climaticDomainValues, cs))
+    const climaticDomainValues = await getClimaticDomainValues({ cycle }, client)
+    await client.query(pgp.helpers.insert(climaticDomainValues, cs))
+  }
 
   // ===== calculation rows
   for (let i = 0; i < rows.length; i += 1) {

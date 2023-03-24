@@ -16,7 +16,7 @@ export const getForestEstimations = async (req: ForestEstimationsRequest, res: R
 
 export const estimateForestAgreementArea = async (req: ForestAgreementAreaEstimationRequest, res: Response) => {
   try {
-    const areaHa = await GeoController.estimateForestAgreementArea(req.query)
+    const areaHa = await GeoController.estimateForestAgreementArea(req.body)
     Requests.sendOk(res, areaHa)
   } catch (e) {
     Requests.sendErr(res, e)

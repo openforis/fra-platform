@@ -43,6 +43,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
           column={column}
           disabled={disabled}
           placeholder={placeholder}
+          dataSourceVariables={descriptionDataSource?.table?.dataSourceVariables}
         />
       ))}
 

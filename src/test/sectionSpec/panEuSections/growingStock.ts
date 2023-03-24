@@ -1793,7 +1793,7 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: '(table_1_2a.forest_2020.total * 1000) / table_1_1a.forest_2020.area',
                   },
@@ -1848,7 +1848,7 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: '(table_1_2a.forest_2015.total * 1000) / table_1_1a.forest_2015.area',
                   },
@@ -1903,7 +1903,7 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: '(table_1_2a.forest_2010.total * 1000) / table_1_1a.forest_2010.area',
                   },
@@ -1958,7 +1958,7 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: '(table_1_2a.forest_2005.total * 1000) / table_1_1a.forest_2005.area',
                   },
@@ -2013,7 +2013,7 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: '(table_1_2a.forest_2000.total * 1000) / table_1_1a.forest_2000.area',
                   },
@@ -2068,7 +2068,7 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'calculated',
-                  colName: 'Forest',
+                  colName: 'forest',
                   migration: {
                     calculateFn: '(table_1_2a.forest_1990.total * 1000) / table_1_1a.forest_1990.area',
                   },

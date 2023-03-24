@@ -616,6 +616,7 @@ El equipo de FRA
     deforestation: 'Deforestación',
     forestAreaNetChange: 'Cambio neto en el área de bosque',
     netChangeDoesNotMatch: 'No coincide con el cambio neto en el área de bosque',
+    forestAreaNetChangeFrom1a: 'Cambio neto en el área de bosque de la tabla 1a',
   },
 
   annualReforestation: {
@@ -886,7 +887,7 @@ El equipo de FRA
     forestAreaProportionLandArea2015: 'Superficie forestal como proporción de la superficie total en 2015',
     subIndicator: 'Subindicador {{no}}',
     forestAreaAnnualNetChangeRate: 'Porcentaje anual de cambio neto en el área de bosque',
-    aboveGroundBiomassStockForests: 'Biomasa aérea del suelo en los bosques',
+    aboveGroundBiomassStockForests: 'Biomasa aérea en los bosques',
     percent2015ForestAreaBaseline: 'Porcentaje (referencia del área de bosque en 2015)',
     proportionForestAreaLegallyEstablishedProtectedAreas:
       'Proporción de área de bosque dentro de áreas protegidas legalmente establecidas',

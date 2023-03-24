@@ -437,7 +437,7 @@ module.exports.translation = {
       sampleBasedRemoteSensingAssessment: 'Выборочная оценка с помощью дистанционного зондирования',
       fullCoverMaps: 'Полные карты лесов/растительности',
       registersQuestionnaires: 'Реестры/опросники',
-      other: 'Другое (указать в комментариях)',
+      other: '$t(common.otherSpecifyInComments)',
     },
     appliesToVariablesOptions: {
       forest: 'Леса',
@@ -620,7 +620,7 @@ module.exports.translation = {
     treesinurbansettings: 'Деревья в городской среде',
     total: 'Итого',
     otherLandArea: 'Другие земельные площади',
-    other: 'Другое (указать в комментариях)',
+    other: '$t(common.otherSpecifyInComments)',
   },
 
   growingStock: {
@@ -745,7 +745,7 @@ module.exports.translation = {
     insects: 'Насекомые',
     diseases: 'Болезни',
     severeWeatherEvents: 'Суровые погодные явления',
-    other: 'Другое (указать в комментариях)',
+    other: '$t(common.otherSpecifyInComments)',
     totalForestArea: 'Общая площадь лесов',
     total: 'Итого',
   },

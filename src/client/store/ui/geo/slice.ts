@@ -4,6 +4,8 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { MosaicOptions, MosaicSource } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
+import { LayerStatus } from '@client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel'
+
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
 import { GeoState } from './stateType'
@@ -28,9 +30,11 @@ const initialState: GeoState = {
     opacity: {},
     hansenPercentage: 10,
     agreementLayerSelected: false,
+    agreementLayerStatus: null,
     agreementLevel: 1,
     agreementPalette: [],
     recipe: 'custom',
+    customAssetId: null,
   },
   mosaicSelected: false,
   mosaicPending: false,
@@ -126,10 +130,18 @@ export const geoSlice = createSlice({
       state.forestOptions.agreementLayerSelected = initialState.forestOptions.agreementLayerSelected
       state.forestOptions.agreementLevel = initialState.forestOptions.agreementLevel
     },
+    setAgreementLayerStatus: (state, { payload }: PayloadAction<LayerStatus>) => {
+      state.forestOptions.agreementLayerStatus = payload
+    },
     resetLayersStates: (state) => {
       state.forestOptions.fetchedLayers = initialState.forestOptions.fetchedLayers
       state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
       state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
+    },
+    resetSingleLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
+      delete state.forestOptions.fetchedLayers[payload]
+      delete state.forestOptions.pendingLayers[payload]
+      delete state.forestOptions.failedLayers[payload]
     },
     setRecipe: (state, { payload }: PayloadAction<string>) => {
       // If the recipe is not custom, reset the failed layers so they are fetched again
@@ -153,6 +165,9 @@ export const geoSlice = createSlice({
       // Select agreement layer and set agreement level
       state.forestOptions.agreementLayerSelected = true
       state.forestOptions.agreementLevel = agreementLevel
+    },
+    setCustomAssetId: (state, { payload }: PayloadAction<string>) => {
+      state.forestOptions.customAssetId = payload
     },
   },
   extraReducers: (builder) => {
