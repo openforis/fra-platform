@@ -84,6 +84,7 @@ const AreaSelector: React.FC<Props> = (props) => {
             onChange={handleChange}
             onClick={handleClick}
             placeholder={t('emoji.picker.search')}
+            autoFocus
           />
         )}
 
