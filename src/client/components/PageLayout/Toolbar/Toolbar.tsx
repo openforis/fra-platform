@@ -40,6 +40,7 @@ const Toolbar: React.FC = () => {
         <ToggleNavigationControl />
 
         <AreaSelector
+          enableDownload
           includeCountries
           includeGlobals
           includeRegions
