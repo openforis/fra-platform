@@ -2,15 +2,17 @@
 import './AreaSelector.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { Areas } from '@meta/area'
+import { ClientRoutes } from '@meta/app'
+import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 import { Users } from '@meta/user'
 
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useCountryIso, useIsGeoPage } from '@client/hooks'
 
 import Icon from '../Icon'
 import CountryList from './CountryList'
@@ -36,10 +38,17 @@ const AreaSelector: React.FC<Props> = (props) => {
     showCountryRole,
   } = props
 
+  const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const user = useUser()
+  const navigate = useNavigate()
+
+  // The user should remain in the maps page when changing countries.
+  const IsInGeoPage = useIsGeoPage()
   const isCountry = Areas.isISOCountry(countryIso)
+  const destinationPath =
+    IsInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
 
   const { t } = useTranslation()
 
@@ -51,6 +60,16 @@ const AreaSelector: React.FC<Props> = (props) => {
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => setQuery(event.target.value), [])
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLInputElement>) => event.stopPropagation(), [])
+
+  const onElementSelect = (countryIso: CountryIso | Global | RegionCode) => {
+    navigate(
+      destinationPath.getLink({
+        assessmentName: assessment.props.name,
+        cycleName: cycle?.name,
+        countryIso,
+      })
+    )
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -127,6 +146,7 @@ const AreaSelector: React.FC<Props> = (props) => {
           includeGlobals={includeGlobals}
           includeRegions={includeRegions}
           showCountryRole={showCountryRole}
+          onElementSelect={onElementSelect}
           query={query}
         />
       )}

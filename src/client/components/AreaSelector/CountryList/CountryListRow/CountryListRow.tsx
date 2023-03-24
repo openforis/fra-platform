@@ -1,19 +1,18 @@
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
 import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
-import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
-import { useCountryIso, useIsCycleLanding, useIsGeoPage } from '@client/hooks'
+import { useCountry } from '@client/store/assessment'
+import { useCountryIso, useIsCycleLanding } from '@client/hooks'
 import { Dates } from '@client/utils'
 
 type Props = {
   country: { countryIso: CountryIso | Global | RegionCode }
+  onElementSelect: (countryIso: CountryIso | Global | RegionCode) => void
   role: string
 }
 
@@ -21,16 +20,14 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const {
     role,
     country: { countryIso },
+    onElementSelect,
   } = props
 
   const { i18n } = useTranslation()
-  const assessment = useAssessment()
-  const cycle = useCycle()
   const country = useCountry(countryIso as CountryIso)
   const countryIsoCurrent = useCountryIso()
   const isCycleLanding = useIsCycleLanding()
   const countryNameRef = useRef(null)
-  const navigate = useNavigate()
 
   const status = Areas.getStatus(country)
   const selected = countryIso === countryIsoCurrent && !isCycleLanding
@@ -43,24 +40,12 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // The user should remain in the maps page when changing countries.
-  const IsInGeoPage = useIsGeoPage()
-  const isCountry = Areas.isISOCountry(countryIso)
-  const destinationPath =
-    IsInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
-
   return (
     <div
       className={classNames('country-selection-list__row', { selected })}
       onClick={(e) => {
         e.preventDefault()
-        navigate(
-          destinationPath.getLink({
-            assessmentName: assessment.props.name,
-            cycleName: cycle?.name,
-            countryIso,
-          })
-        )
+        onElementSelect(countryIso)
       }}
       aria-hidden="true"
     >

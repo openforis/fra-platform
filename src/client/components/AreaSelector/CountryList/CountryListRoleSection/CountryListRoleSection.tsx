@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
 
-import { Areas, Country, CountryIso } from '@meta/area'
+import { Areas, Country, CountryIso, Global, RegionCode } from '@meta/area'
 import { RoleName, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
@@ -13,9 +13,10 @@ import { checkMatch } from '@client/utils'
 import CountryListRow from '../CountryListRow'
 
 type Props = {
+  countryISOs: Array<CountryIso>
+  onElementSelect: (countryIso: CountryIso | Global | RegionCode) => void
   role: RoleName | string
   query: string
-  countryISOs: Array<CountryIso>
 }
 
 const matchRegion = (props: { country: Country; i18n: i18n; query: string }): boolean => {
@@ -28,7 +29,7 @@ const matchRegion = (props: { country: Country; i18n: i18n; query: string }): bo
 }
 
 const CountryListRoleSection: React.FC<Props> = (props: Props) => {
-  const { role, countryISOs, query } = props
+  const { countryISOs, role, onElementSelect, query } = props
 
   const { i18n } = useTranslation()
   const countries = useCountries()
@@ -51,7 +52,9 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
         const matchCountry = checkMatch(countryLabel, query) || matchRegion({ country, query, i18n })
 
         if (matchCountry) {
-          return <CountryListRow key={countryIso} role={role} country={{ countryIso }} />
+          return (
+            <CountryListRow key={countryIso} role={role} country={{ countryIso }} onElementSelect={onElementSelect} />
+          )
         }
 
         return null

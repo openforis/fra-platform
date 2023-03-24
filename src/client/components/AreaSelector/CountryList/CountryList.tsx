@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
 
-import { Areas, Global, Region, RegionCode } from '@meta/area'
+import { Areas, CountryIso, Global, Region, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useCycle, useRegionGroups } from '@client/store/assessment'
@@ -21,8 +21,9 @@ type Props = {
   includeCountries: boolean
   includeGlobals: boolean
   includeRegions: boolean
-  query: string
+  onElementSelect: (countryIso: CountryIso | Global | RegionCode) => void
   showCountryRole: boolean
+  query: string
 }
 
 const filterRegions = (props: { regions: Array<Region>; query: string; i18n: i18n }): Array<Region> => {
@@ -36,7 +37,8 @@ const filterRegions = (props: { regions: Array<Region>; query: string; i18n: i18
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
-  const { enableDownload, includeCountries, includeGlobals, includeRegions, query, showCountryRole } = props
+  const { enableDownload, includeCountries, includeGlobals, includeRegions, onElementSelect, showCountryRole, query } =
+    props
 
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
@@ -54,7 +56,11 @@ const CountryList: React.FC<Props> = (props: Props) => {
         <div className="country-selection-list__global">
           {includeGlobals && checkMatch(i18n.t(Areas.getTranslationKey(global)), query) && (
             <>
-              <CountryListRow role={UserRoles.noRole.role} country={{ countryIso: global }} />
+              <CountryListRow
+                role={UserRoles.noRole.role}
+                country={{ countryIso: global }}
+                onElementSelect={onElementSelect}
+              />
               <hr />
             </>
           )}
@@ -69,6 +75,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
                       key={regionCode}
                       role={UserRoles.noRole.role}
                       country={{ countryIso: regionCode }}
+                      onElementSelect={onElementSelect}
                     />
                   ))}
                   {regions.length > 0 && <hr />}
@@ -81,8 +88,9 @@ const CountryList: React.FC<Props> = (props: Props) => {
           Object.entries(countryMap).map(([role, cycleCountries]) => (
             <CountryListRoleSection
               key={role}
-              role={showCountryRole ? role : UserRoles.noRole.role}
               countryISOs={cycleCountries[cycle.uuid]}
+              role={showCountryRole ? role : UserRoles.noRole.role}
+              onElementSelect={onElementSelect}
               query={query}
             />
           ))}
