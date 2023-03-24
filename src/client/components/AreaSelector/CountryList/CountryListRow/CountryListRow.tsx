@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 
@@ -25,15 +25,15 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   const { i18n } = useTranslation()
   const assessment = useAssessment()
-  const { cycleName } = useParams<{ cycleName: string }>()
   const cycle = useCycle()
   const country = useCountry(countryIso as CountryIso)
   const countryIsoCurrent = useCountryIso()
   const isCycleLanding = useIsCycleLanding()
   const countryNameRef = useRef(null)
+  const navigate = useNavigate()
 
   const status = Areas.getStatus(country)
-  const selected = countryIso === countryIsoCurrent && cycleName === cycle.name && !isCycleLanding
+  const selected = countryIso === countryIsoCurrent && !isCycleLanding
   const hasRole = role !== UserRoles.noRole.role
 
   useEffect(() => {
@@ -50,13 +50,19 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
     IsInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
 
   return (
-    <Link
-      to={destinationPath.getLink({
-        assessmentName: assessment.props.name,
-        cycleName: cycle?.name,
-        countryIso: countryIso as CountryIso,
-      })}
+    <div
       className={classNames('country-selection-list__row', { selected })}
+      onClick={(e) => {
+        e.preventDefault()
+        navigate(
+          destinationPath.getLink({
+            assessmentName: assessment.props.name,
+            cycleName: cycle?.name,
+            countryIso,
+          })
+        )
+      }}
+      aria-hidden="true"
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>
         {i18n.t<string>(Areas.getTranslationKey(countryIso))}
@@ -74,7 +80,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
           </span>
         </>
       )}
-    </Link>
+    </div>
   )
 }
 
