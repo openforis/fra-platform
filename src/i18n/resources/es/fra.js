@@ -162,6 +162,7 @@ module.exports = {
     primaryForestTropical: '...del cual bosque primario tropical',
     primaryForestSubTropical: '...del cual bosque primario subtropical',
     totalPrimaryForest: 'Área total de bosque primario',
+    primaryForestArea100Ha: 'Área de bosque primario ($t(unit.haThousand))',
   },
   specificForestCategories: {
     specificForestCategories2025: 'Categorías específicas de los bosques',
