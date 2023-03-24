@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 import { Cycle } from '@meta/assessment'
-import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
+import { useUserCycles } from '@client/store/user/hooks'
 import { useCountryIso, useIsAdmin, useIsDataExportView } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import PopoverControl from '@client/components/PopoverControl'
@@ -17,12 +16,11 @@ const CycleSwitcher = () => {
   const navigate = useNavigate()
   const currentCycle = useCycle()
   const assessment = useAssessment()
-  const user = useUser()
   const isAdmin = useIsAdmin()
   const isDataExportView = useIsDataExportView()
+  const userCycles = useUserCycles(assessment)
 
   const assessmentName = assessment.props.name
-  const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
   const canSwitchCycle = isDataExportView || userCycles.length > 1
 
   const onCycleChange = useCallback(
