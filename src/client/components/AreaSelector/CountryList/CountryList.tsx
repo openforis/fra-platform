@@ -44,18 +44,17 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const isPanEuropean = useIsPanEuropean()
   const cycle = useCycle()
 
+  const global = isPanEuropean ? RegionCode.FE : Global.WO
+
   return (
     <div className="country-selection-list">
       {enableDownload && <CountryListDownload />}
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
-          {includeGlobals && checkMatch(i18n.t(`area.${isPanEuropean ? RegionCode.FE : Global.WO}.listName`), query) && (
+          {includeGlobals && checkMatch(i18n.t(Areas.getTranslationKey(global)), query) && (
             <>
-              <CountryListRow
-                role={UserRoles.noRole.role}
-                country={{ countryIso: isPanEuropean ? RegionCode.FE : Global.WO }}
-              />
+              <CountryListRow role={UserRoles.noRole.role} country={{ countryIso: global }} />
               <hr />
             </>
           )}
@@ -79,17 +78,14 @@ const CountryList: React.FC<Props> = (props: Props) => {
         </div>
 
         {includeCountries &&
-          Object.entries(countryMap).map(([role, cycleCountries]) => {
-            const countries = cycleCountries[cycle.uuid]
-            return (
-              <CountryListRoleSection
-                key={role}
-                role={showCountryRole ? role : UserRoles.noRole.role}
-                countryISOs={countries}
-                query={query}
-              />
-            )
-          })}
+          Object.entries(countryMap).map(([role, cycleCountries]) => (
+            <CountryListRoleSection
+              key={role}
+              role={showCountryRole ? role : UserRoles.noRole.role}
+              countryISOs={cycleCountries[cycle.uuid]}
+              query={query}
+            />
+          ))}
       </div>
     </div>
   )

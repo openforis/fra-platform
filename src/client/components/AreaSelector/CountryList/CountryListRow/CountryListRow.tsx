@@ -59,7 +59,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
       className={classNames('country-selection-list__row', { selected })}
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>
-        {i18n.t<string>(`area.${countryIso}.listName`)}
+        {i18n.t<string>(Areas.getTranslationKey(countryIso))}
       </span>
 
       {hasRole && (

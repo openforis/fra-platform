@@ -99,7 +99,7 @@ const AreaSelector: React.FC<Props> = (props) => {
               />
             )}
             <div className="name-container">
-              <div className="name">{t(`area.${countryIso}.listName`)}</div>
+              <div className="name">{t(Areas.getTranslationKey(countryIso))}</div>
               {user && isCountry && (
                 <div className="user-role">
                   {t(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
