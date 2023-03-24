@@ -41,8 +41,8 @@ const Toolbar: React.FC = () => {
 
         <AreaSelector
           includeCountries
-          includeGlobals
-          includeRegions
+          includeGlobals={cycle.published}
+          includeRegions={cycle.published}
           placeholder="common.selectArea"
           showCountryFlag
           showCountryRole

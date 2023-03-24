@@ -8,6 +8,7 @@ import { ClientRoutes } from '@meta/app'
 import { CountryIso, Global } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
 import { User, Users } from '@meta/user'
+import { UserRoles } from '@meta/user/userRoles'
 
 import { AppDispatch, useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -31,7 +32,7 @@ const getLinks = (
       content: i18nInstance.t('header.editProfile'),
       link: ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
         assessmentName: assessment.props.name,
-        countryIso: countryIso ?? Global.WO,
+        countryIso: countryIso ?? UserRoles.getLastRole(user).countryIso ?? Global.WO,
         cycleName: cycle.name,
         id: user.id,
       }),
