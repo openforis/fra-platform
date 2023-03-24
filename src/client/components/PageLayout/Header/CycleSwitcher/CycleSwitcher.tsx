@@ -18,7 +18,7 @@ const CycleSwitcher = () => {
   const assessment = useAssessment()
   const isAdmin = useIsAdmin()
   const isDataExportView = useIsDataExportView()
-  const userCycles = useUserCycles(assessment)
+  const userCycles = useUserCycles()
 
   const assessmentName = assessment.props.name
   const canSwitchCycle = isDataExportView || userCycles.length > 1

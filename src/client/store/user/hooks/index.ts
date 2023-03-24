@@ -1,9 +1,15 @@
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
+import { Cycle } from '@meta/assessment'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from '@meta/user'
 
 import { useAppSelector } from '@client/store'
-import { useAssessmentCountry, useAssessmentSection, useCountries, useCycle } from '@client/store/assessment'
+import {
+  useAssessment,
+  useAssessmentCountry,
+  useAssessmentSection,
+  useCountries,
+  useCycle,
+} from '@client/store/assessment'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
@@ -19,7 +25,8 @@ export const useUserCountries = (): Array<CountryIso> => {
   return user?.roles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
 }
 
-export const useUserCycles = (assessment: Assessment): Array<Cycle> => {
+export const useUserCycles = (): Array<Cycle> => {
+  const assessment = useAssessment()
   const user = useUser()
   const isAdministrator = Users.isAdministrator(user)
   if (isAdministrator) return assessment.cycles
