@@ -9,6 +9,7 @@ module.exports = {
   globalFRA: 'تقييم الموارد الحرجية العالمية',
   login: 'المنطقة المحجوزة',
   other: 'غير ذلك',
+  otherSpecifyInComments: 'أخرى (حدد في التعليقات)',
   regions: 'المناطق',
   select: 'اختيار',
   selectAll: 'اختيار الكل',

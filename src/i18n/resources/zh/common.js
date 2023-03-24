@@ -9,6 +9,7 @@ module.exports = {
   globalFRA: '全球森林资源评估',
   login: '保留区',
   other: '其他',
+  otherSpecifyInComments: '其他(在评论中阐述)',
   regions: '区域',
   select: '选择',
   selectAll: '选择所有',

@@ -1,44 +1,34 @@
 import { CountryIso } from '@meta/area'
-import { agreementPalette, ForestSource, Layer } from '@meta/geo'
+import { agreementPalette, Layer, LayerSource } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets/'
 
+import { getMap } from './getMap'
+
 type Props = {
   countryIso: CountryIso
-  layer: Array<ForestSource>
-  gteHansenTreeCoverPerc?: number
+  layers: Array<LayerSource>
   gteAgreementLevel: number
-  opacity?: number
 }
 
 export const getForestAgreementLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, layer, gteHansenTreeCoverPerc, gteAgreementLevel, opacity } = props
+  const { countryIso, layers, gteAgreementLevel } = props
 
-  const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAgreementAssetData(layer, gteHansenTreeCoverPerc, gteAgreementLevel)
-  const palette = agreementPalette.slice(gteAgreementLevel - 1, layer.length)
+  const asset = AssetsController.getForestAgreementAssetData(layers, gteAgreementLevel)
+  const palette = agreementPalette.slice(gteAgreementLevel - 1, layers.length)
 
-  return new Promise((resolve, reject) => {
-    asset.img
-      .clip(ftcCountry)
-      .selfMask()
-      .getMap(
-        {
-          palette,
-          min: gteAgreementLevel,
-          max: layer.length,
-          opacity,
-        },
-        (mapProperties: any, err: any) => {
-          if (err) {
-            reject(err)
-            return
-          }
-          resolve({
-            mapId: mapProperties.mapid,
-            palette,
-          })
-        }
-      )
+  const map = await getMap({
+    image: asset.img,
+    style: {
+      palette,
+      min: gteAgreementLevel,
+      max: layers.length,
+    },
+    countryIso,
   })
+
+  return {
+    mapId: map.mapId,
+    palette,
+  }
 }

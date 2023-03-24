@@ -20,6 +20,7 @@ const AgreementLevelsControl: React.FC = () => {
     batch(() => {
       dispatch(GeoActions.setRecipe('custom'))
       dispatch(GeoActions.setAgreementLayerSelected(selected))
+      dispatch(GeoActions.setAgreementLayerStatus(null))
     })
   }
 
@@ -35,6 +36,7 @@ const AgreementLevelsControl: React.FC = () => {
       tabIndex={0}
       checked={forestOptions.agreementLayerSelected}
       onCheckboxClick={() => toggleAgreementLayer(!forestOptions.agreementLayerSelected)}
+      loadingStatus={forestOptions.agreementLayerStatus}
     >
       <>
         <LayerOptionsPanel layerKey={agreementLayerKey} checked={forestOptions.agreementLayerSelected} />

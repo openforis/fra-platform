@@ -1,0 +1,85 @@
+@import 'src/client/style/partials';
+
+.btn-country-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 250px;
+  padding: 4px 12px;
+  background-color: $ui-bg;
+  border: none;
+  text-align: left;
+  font-size: $font-m;
+  font-weight: normal;
+  font-family: inherit;
+  color: $text-body;
+  transition: $ease-out;
+  outline: unset;
+
+  &:hover {
+    background-color: darken($ui-bg, 4%);
+  }
+
+  .icon {
+    margin-right: unset;
+  }
+
+  .text-input {
+    width: 100%;
+    border: none;
+    font-size: 13px;
+    padding: initial;
+  }
+}
+
+.toolbar__country {
+  align-items: center;
+  color: $text-body;
+  width: 100%;
+
+  &.with_flag {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+  }
+
+  .flag {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+  }
+
+  .name-container {
+    padding-left: $spacing-xxs;
+  }
+
+  .name {
+    font-weight: 600;
+    @include line-clamp(1);
+  }
+
+  .user-role {
+    font-size: $font-xxs;
+    font-weight: 600;
+    color: $text-disabled;
+    margin-top: -3px;
+    opacity: 0.8;
+  }
+}
+
+.toolbar__select-laptop {
+  display: none;
+
+  @include min-width($laptop) {
+    display: initial;
+  }
+}
+
+.toolbar__select-mobile {
+  @include min-width($laptop) {
+    display: none;
+  }
+}

@@ -8,6 +8,7 @@ module.exports = {
   globalFRA: 'Évaluation des ressources forestières mondiales',
   login: 'Espace réservé',
   other: 'Autre',
+  otherSpecifyInComments: 'Autre (préciser dans les commentaires)',
   regions: 'Régions',
   select: 'Choisissez',
   selectAll: 'Tout sélectionner',

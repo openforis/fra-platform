@@ -4,15 +4,16 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ForestSource, Layer } from '@meta/geo'
-import { ForestSourceWithOptions, HansenPercentage } from '@meta/geo/forest'
+import { HansenPercentage, LayerSource } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import { getForestLayer } from '@client/store/ui/geo/actions'
+import { GetForestLayerRequestBody } from '@client/store/ui/geo/actions/getForestLayer'
 import { useCountryIso, usePrevious } from '@client/hooks'
 import { MapController } from '@client/utils'
 
-import { layers } from '../GeoMapMenuData/MapVisualizerPanel'
+import { layers, LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
 
 const useHandleForestResourceLayers = (
   map: google.maps.Map,
@@ -56,6 +57,7 @@ const useHandleForestResourceLayers = (
       if (forestOptions.selected.includes(mapLayerKey) && forestOptions.opacity[mapLayerKey] !== 0) {
         // Layer is selected so ensure it's shown on map
         const isHansen = mapLayerKey === ForestSource.Hansen
+        const isCustomAsset = mapLayerKey === ForestSource.CustomFnF
         const key = mapLayerKey + (isHansen ? `__${forestOptions.hansenPercentage}` : '')
 
         // If the layer is pending or has failed, do not fetch it again.
@@ -76,22 +78,25 @@ const useHandleForestResourceLayers = (
           mapControllerRef.current.setEarthEngineLayerOpacity(mapLayerKey, opacity)
         } else {
           // Cache miss, fetch layer from server
-          const source: ForestSourceWithOptions = {
-            key: mapLayerKey,
-            options: isHansen ? { gteHansenTreeCoverPerc: forestOptions.hansenPercentage.toString() } : {},
-          }
-          const params: any = {
+          const requestBody: GetForestLayerRequestBody = {
             countryIso,
-            forestSource: mapLayerKey,
+            layer: {
+              key: isHansen ? ForestSource.Hansen : mapLayerKey,
+            },
+          }
+          if (isHansen) {
+            requestBody.layer.options = {
+              gteTreeCoverPercent: forestOptions.hansenPercentage,
+            }
+          } else if (isCustomAsset) {
+            requestBody.layer.options = {
+              assetId: forestOptions.customAssetId,
+            }
           }
 
-          Object.entries(source.options).forEach(([key, value]) => {
-            params[key] = value
-          })
+          const uri = ApiEndPoint.Geo.Layers.forest()
 
-          const uri = axios.getUri({ url: ApiEndPoint.Geo.Layers.forest(), params })
-
-          dispatch(getForestLayer({ key, uri }))
+          dispatch(getForestLayer({ key, uri, body: requestBody }))
           // Once getForestLayer is ready, the fetched mapId will be added to fetchedLayers,
           // retriggering this effect and leading to a cache hit.
         }
@@ -110,6 +115,7 @@ const useHandleForestResourceLayers = (
     forestOptions.failedLayers,
     forestOptions.pendingLayers,
     forestOptions.opacity,
+    forestOptions.customAssetId,
     dispatch,
   ])
 }
@@ -158,29 +164,58 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
     const hansenQuery = forestOptions.selected.includes(ForestSource.Hansen)
       ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}`
       : ''
-    const uri = `${ApiEndPoint.Geo.Layers.forestAgreement()}/?countryIso=${countryIso}${layerQuery}${agreementLevelQuery}${hansenQuery}`
+    const cacheKey = `${ApiEndPoint.Geo.Layers.forestAgreement()}/?countryIso=${countryIso}${layerQuery}${agreementLevelQuery}${hansenQuery}`
 
     // Use cached mapId if available
-    if (agreementLayerCache.current[uri]) {
-      const { mapId, palette } = agreementLayerCache.current[uri]
+    if (agreementLayerCache.current[cacheKey]) {
+      const { mapId, palette } = agreementLayerCache.current[cacheKey]
       mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
       mapControllerRef.current.setEarthEngineLayerOpacity(agreementLayerKey, opacity.current)
       dispatch(GeoActions.setAgreementPalette(palette))
       return
     }
+    const uri = ApiEndPoint.Geo.Layers.forestAgreement()
 
     // Otherwise, fetch a new map id from server and cache it for later use
-    axios.get<Layer>(uri).then((response) => {
-      const { mapId, palette } = response.data
+    const layers: Array<LayerSource> = forestOptions.selected.map((key) => {
+      const isHansen = key === ForestSource.Hansen
+      const isCustomAsset = key === ForestSource.CustomFnF
+      const layer: LayerSource = {
+        key,
+      }
+      if (isHansen) {
+        layer.options = {
+          gteTreeCoverPercent: forestOptions.hansenPercentage,
+        }
+      } else if (isCustomAsset) {
+        layer.options = {
+          assetId: forestOptions.customAssetId,
+        }
+      }
 
-      // Cache mapId for later use
-      agreementLayerCache.current[uri] = { mapId, palette }
-
-      // Render layer
-      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
-      mapControllerRef.current.setEarthEngineLayerOpacity(agreementLayerKey, opacity.current)
-      dispatch(GeoActions.setAgreementPalette(palette))
+      return layer
     })
+
+    const requestBody: GetForestLayerRequestBody = {
+      countryIso,
+      layers,
+      gteAgreementLevel: forestOptions.agreementLevel,
+    }
+    dispatch(GeoActions.setAgreementLayerStatus(LayerStatus.loading))
+    axios({ method: 'POST', url: uri, data: requestBody })
+      .then((response) => {
+        const { mapId, palette } = response.data
+
+        // Cache mapId for later use
+        agreementLayerCache.current[cacheKey] = { mapId, palette }
+
+        // Render layer
+        mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
+        mapControllerRef.current.setEarthEngineLayerOpacity(agreementLayerKey, opacity.current)
+        dispatch(GeoActions.setAgreementPalette(palette))
+        dispatch(GeoActions.setAgreementLayerStatus(LayerStatus.ready))
+      })
+      .catch(() => dispatch(GeoActions.setAgreementLayerStatus(LayerStatus.failed)))
   }, [
     countryIso,
     mapControllerRef,
@@ -188,6 +223,7 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
     forestOptions.agreementLevel,
     forestOptions.selected,
     forestOptions.hansenPercentage,
+    forestOptions.customAssetId,
     dispatch,
   ])
 }

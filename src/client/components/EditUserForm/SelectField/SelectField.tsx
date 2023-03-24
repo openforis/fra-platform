@@ -25,7 +25,7 @@ const SelectField: React.FC<Props> = (props) => {
   return (
     <div className="edit-user__form-item" key={name}>
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
-      <div className={classNames(`edit-user__form-field${enabled ? '' : '-disabled'}`, { error: !valid })}>
+      <div className={classNames('edit-user__form-field', { disabled: !enabled, error: !valid })}>
         <select value={value} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)}>
           {Object.entries(options).map(([k, v]) => (
             <option key={k} value={k}>

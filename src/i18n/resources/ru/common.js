@@ -9,6 +9,7 @@ module.exports = {
   globalFRA: 'Глобальная оценка лесных ресурсов',
   login: 'Зарезервированная область',
   other: 'Другое',
+  otherSpecifyInComments: 'Другое (указать в комментариях)',
   regions: 'Регионы',
   select: 'Выбрать',
   selectAll: 'Выделить все',
