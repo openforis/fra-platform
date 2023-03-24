@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import './AreaSelector.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -104,6 +103,7 @@ const AreaSelector: React.FC<Props> = (props) => {
             onChange={handleChange}
             onClick={handleClick}
             placeholder={t('emoji.picker.search')}
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
         )}
