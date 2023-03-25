@@ -22,6 +22,10 @@ const initialState: GeoState = {
   mosaicOptions: {
     ui: { ...initialMosaicOptions },
     applied: { ...initialMosaicOptions },
+    mosaicSelected: false,
+    mosaicPending: false,
+    mosaicFailed: false,
+    mosaicUrl: {},
   },
   forestOptions: {
     selected: [],
@@ -37,10 +41,6 @@ const initialState: GeoState = {
     recipe: 'custom',
     customAssetId: null,
   },
-  mosaicSelected: false,
-  mosaicPending: false,
-  mosaicFailed: false,
-  mosaicUrl: {},
 }
 
 export const geoSlice = createSlice({
@@ -51,14 +51,14 @@ export const geoSlice = createSlice({
       state.isMapAvailable = payload
     },
     applyMosaicOptions: (state) => {
-      state.mosaicUrl = {}
-      state.mosaicFailed = false
-      state.mosaicPending = false
+      state.mosaicOptions.mosaicUrl = {}
+      state.mosaicOptions.mosaicFailed = false
+      state.mosaicOptions.mosaicPending = false
       state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
-      if (!state.mosaicSelected) state.mosaicFailed = false // The user is retrying
-      state.mosaicSelected = !state.mosaicSelected
+      if (!state.mosaicOptions.mosaicSelected) state.mosaicOptions.mosaicFailed = false // The user is retrying
+      state.mosaicOptions.mosaicSelected = !state.mosaicOptions.mosaicSelected
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
       const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
@@ -178,20 +178,20 @@ export const geoSlice = createSlice({
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
         const { urlTemplate, countryIso } = payload
-        state.mosaicUrl[countryIso] = urlTemplate
-        state.mosaicFailed = false
-        state.mosaicPending = false
+        state.mosaicOptions.mosaicUrl[countryIso] = urlTemplate
+        state.mosaicOptions.mosaicFailed = false
+        state.mosaicOptions.mosaicPending = false
       })
       .addCase(postMosaicOptions.pending, (state) => {
-        state.mosaicPending = true
-        state.mosaicFailed = false
-        state.mosaicUrl = initialState.mosaicUrl
+        state.mosaicOptions.mosaicPending = true
+        state.mosaicOptions.mosaicFailed = false
+        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
       })
       .addCase(postMosaicOptions.rejected, (state) => {
-        state.mosaicFailed = true
-        state.mosaicPending = false
-        state.mosaicSelected = false
-        state.mosaicUrl = initialState.mosaicUrl
+        state.mosaicOptions.mosaicFailed = true
+        state.mosaicOptions.mosaicPending = false
+        state.mosaicOptions.mosaicSelected = false
+        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
       })
       .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
         state.forestOptions.fetchedLayers[key] = mapId

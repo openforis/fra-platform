@@ -4,13 +4,13 @@ import { ForestOptions, MapPanel, MosaicOptions } from '@meta/geo'
 import { useAppSelector } from '@client/store'
 
 export const useMosaicUrl = (countryIso: CountryIso): string =>
-  useAppSelector((state) => state.geo?.mosaicUrl[countryIso])
+  useAppSelector((state) => state.geo?.mosaicOptions.mosaicUrl[countryIso])
 
-export const useMosaicSelected = (): boolean => useAppSelector((state) => state.geo?.mosaicSelected)
+export const useMosaicSelected = (): boolean => useAppSelector((state) => state.geo?.mosaicOptions.mosaicSelected)
 
-export const useMosaicPending = (): boolean => useAppSelector((state) => state.geo?.mosaicPending)
+export const useMosaicPending = (): boolean => useAppSelector((state) => state.geo?.mosaicOptions.mosaicPending)
 
-export const useMosaicFailed = (): boolean => useAppSelector((state) => state.geo?.mosaicFailed)
+export const useMosaicFailed = (): boolean => useAppSelector((state) => state.geo?.mosaicOptions.mosaicFailed)
 
 export const useUiMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.ui)
 

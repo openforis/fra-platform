@@ -3,16 +3,16 @@ import { ForestOptions, MapPanel, MosaicOptions } from '@meta/geo'
 
 export type GeoState = {
   isMapAvailable: boolean
-  forestOptions: ForestOptions
   selectedPanel: MapPanel
+  forestOptions: ForestOptions
   mosaicOptions: {
     ui: MosaicOptions
     applied: MosaicOptions
+    mosaicSelected: boolean
+    mosaicPending: boolean
+    mosaicFailed: boolean
+    mosaicUrl: {
+      [key in CountryIso]?: string
+    }
   }
-  mosaicUrl: {
-    [key in CountryIso]?: string
-  }
-  mosaicSelected: boolean
-  mosaicPending: boolean
-  mosaicFailed: boolean
 }
