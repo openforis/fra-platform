@@ -44,10 +44,10 @@ const AreaSelector: React.FC<Props> = (props) => {
   const navigate = useNavigate()
 
   // The user should remain in the maps page when changing countries.
-  const IsInGeoPage = useIsGeoPage()
   const isCountry = Areas.isISOCountry(countryIso)
+  const isInGeoPage = useIsGeoPage()
   const destinationPath =
-    IsInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
+    isInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
 
   const { t } = useTranslation()
 
@@ -109,7 +109,7 @@ const AreaSelector: React.FC<Props> = (props) => {
         )}
 
         {countryIso && !open && (
-          <div className={classNames('toolbar__country', { with_flag: isCountry })}>
+          <div className={classNames('toolbar__country', { with_flag: showCountryFlag && isCountry })}>
             {showCountryFlag && isCountry && (
               <div
                 className="flag"
