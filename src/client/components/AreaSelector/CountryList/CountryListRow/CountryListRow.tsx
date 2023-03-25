@@ -26,7 +26,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   } = props
 
   const { i18n } = useTranslation()
-  const country = useCountry(selectedValue as CountryIso)
+  const country = useCountry(countryIso as CountryIso)
 
   const isCycleLanding = useIsCycleLanding()
   const countryNameRef = useRef(null)
