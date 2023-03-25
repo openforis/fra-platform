@@ -22,6 +22,7 @@ type Props = {
   includeGlobals: boolean
   includeRegions: boolean
   onElementSelect: (countryIso: CountryIso | Global | RegionCode) => void
+  selectedValue: CountryIso | Global | RegionCode
   showCountryRole: boolean
   query: string
 }
@@ -37,8 +38,16 @@ const filterRegions = (props: { regions: Array<Region>; query: string; i18n: i18
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
-  const { enableDownload, includeCountries, includeGlobals, includeRegions, onElementSelect, showCountryRole, query } =
-    props
+  const {
+    enableDownload,
+    includeCountries,
+    includeGlobals,
+    includeRegions,
+    selectedValue,
+    showCountryRole,
+    onElementSelect,
+    query,
+  } = props
 
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
@@ -57,9 +66,10 @@ const CountryList: React.FC<Props> = (props: Props) => {
           {includeGlobals && checkMatch(i18n.t(Areas.getTranslationKey(global)), query) && (
             <>
               <CountryListRow
-                role={UserRoles.noRole.role}
                 country={{ countryIso: global }}
                 onElementSelect={onElementSelect}
+                role={UserRoles.noRole.role}
+                selectedValue={selectedValue}
               />
               <hr />
             </>
@@ -73,9 +83,10 @@ const CountryList: React.FC<Props> = (props: Props) => {
                   {regions.map(({ regionCode }) => (
                     <CountryListRow
                       key={regionCode}
-                      role={UserRoles.noRole.role}
                       country={{ countryIso: regionCode }}
                       onElementSelect={onElementSelect}
+                      role={UserRoles.noRole.role}
+                      selectedValue={selectedValue}
                     />
                   ))}
                   {regions.length > 0 && <hr />}
@@ -89,8 +100,9 @@ const CountryList: React.FC<Props> = (props: Props) => {
             <CountryListRoleSection
               key={role}
               countryISOs={cycleCountries[cycle.uuid]}
-              role={showCountryRole ? role : UserRoles.noRole.role}
               onElementSelect={onElementSelect}
+              role={showCountryRole ? role : UserRoles.noRole.role}
+              selectedValue={selectedValue}
               query={query}
             />
           ))}

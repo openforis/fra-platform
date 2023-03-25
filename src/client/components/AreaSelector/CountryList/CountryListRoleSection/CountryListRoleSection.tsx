@@ -16,6 +16,7 @@ type Props = {
   countryISOs: Array<CountryIso>
   onElementSelect: (countryIso: CountryIso | Global | RegionCode) => void
   role: RoleName | string
+  selectedValue: CountryIso | Global | RegionCode
   query: string
 }
 
@@ -29,7 +30,7 @@ const matchRegion = (props: { country: Country; i18n: i18n; query: string }): bo
 }
 
 const CountryListRoleSection: React.FC<Props> = (props: Props) => {
-  const { countryISOs, role, onElementSelect, query } = props
+  const { countryISOs, onElementSelect, role, selectedValue, query } = props
 
   const { i18n } = useTranslation()
   const countries = useCountries()
@@ -53,7 +54,13 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
 
         if (matchCountry) {
           return (
-            <CountryListRow key={countryIso} role={role} country={{ countryIso }} onElementSelect={onElementSelect} />
+            <CountryListRow
+              key={countryIso}
+              role={role}
+              country={{ countryIso }}
+              onElementSelect={onElementSelect}
+              selectedValue={selectedValue}
+            />
           )
         }
 

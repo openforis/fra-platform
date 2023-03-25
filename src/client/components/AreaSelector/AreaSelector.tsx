@@ -11,7 +11,7 @@ import { Users } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
-import { useCountryIso, useIsGeoPage } from '@client/hooks'
+import { useIsGeoPage } from '@client/hooks'
 
 import Icon from '../Icon'
 import CountryList from './CountryList'
@@ -21,7 +21,9 @@ type Props = {
   includeCountries?: boolean
   includeGlobals?: boolean
   includeRegions?: boolean
+  onElementSelect?: (countryIso: CountryIso | Global | RegionCode) => void
   placeholder?: string
+  selectedValue?: CountryIso | Global | RegionCode
   showCountryFlag?: boolean
   showCountryRole?: boolean
 }
@@ -32,20 +34,22 @@ const AreaSelector: React.FC<Props> = (props) => {
     includeCountries,
     includeGlobals,
     includeRegions,
+    onElementSelect,
     placeholder,
+    selectedValue,
     showCountryFlag,
     showCountryRole,
   } = props
 
   const assessment = useAssessment()
-  const countryIso = useCountryIso()
   const cycle = useCycle()
   const user = useUser()
   const navigate = useNavigate()
 
   // The user should remain in the maps page when changing countries.
-  const isCountry = Areas.isISOCountry(countryIso)
   const isInGeoPage = useIsGeoPage()
+  const isCountry = Areas.isISOCountry(selectedValue)
+
   const destinationPath =
     isInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
 
@@ -60,7 +64,7 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLInputElement>) => event.stopPropagation(), [])
 
-  const onElementSelect = (countryIso: CountryIso | Global | RegionCode) => {
+  const defaultHandleElementSelect = (countryIso: CountryIso | Global | RegionCode) => {
     navigate(
       destinationPath.getLink({
         assessmentName: assessment.props.name,
@@ -69,6 +73,8 @@ const AreaSelector: React.FC<Props> = (props) => {
       })
     )
   }
+
+  const handleElementSelect = onElementSelect ?? defaultHandleElementSelect
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -108,28 +114,28 @@ const AreaSelector: React.FC<Props> = (props) => {
           />
         )}
 
-        {countryIso && !open && (
+        {selectedValue && !open && (
           <div className={classNames('toolbar__country', { with_flag: showCountryFlag && isCountry })}>
             {showCountryFlag && isCountry && (
               <div
                 className="flag"
                 style={{
-                  backgroundImage: `url('/img/flags/1x1/${countryIso}.svg')`,
+                  backgroundImage: `url('/img/flags/1x1/${selectedValue}.svg')`,
                 }}
               />
             )}
             <div className="name-container">
-              <div className="name">{t(Areas.getTranslationKey(countryIso))}</div>
-              {user && isCountry && (
+              <div className="name">{t(Areas.getTranslationKey(selectedValue))}</div>
+              {showCountryRole && user && isCountry && (
                 <div className="user-role">
-                  {t(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
+                  {t(Users.getI18nRoleLabelKey(Users.getRole(user, selectedValue as CountryIso, cycle)?.role))}
                 </div>
               )}
             </div>
           </div>
         )}
 
-        {!countryIso && !open && (
+        {!selectedValue && !open && (
           <>
             <div className="toolbar__select-laptop">{placeholder ? `- ${t(placeholder)} -` : ''}</div>
             <div className="toolbar__select-mobile">{placeholder ? `- ${t(placeholder)} -` : ''}</div>
@@ -145,8 +151,9 @@ const AreaSelector: React.FC<Props> = (props) => {
           includeCountries={includeCountries}
           includeGlobals={includeGlobals}
           includeRegions={includeRegions}
+          onElementSelect={handleElementSelect}
+          selectedValue={selectedValue}
           showCountryRole={showCountryRole}
-          onElementSelect={onElementSelect}
           query={query}
         />
       )}
@@ -159,7 +166,9 @@ AreaSelector.defaultProps = {
   includeGlobals: false,
   includeRegions: false,
   includeCountries: false,
+  onElementSelect: null,
   placeholder: null,
+  selectedValue: null,
   showCountryFlag: false,
   showCountryRole: false,
 }

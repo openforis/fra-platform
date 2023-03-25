@@ -7,12 +7,13 @@ import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
 import { useCountry } from '@client/store/assessment'
-import { useCountryIso, useIsCycleLanding } from '@client/hooks'
+import { useIsCycleLanding } from '@client/hooks'
 import { Dates } from '@client/utils'
 
 type Props = {
   country: { countryIso: CountryIso | Global | RegionCode }
   onElementSelect: (countryIso: CountryIso | Global | RegionCode) => void
+  selectedValue: CountryIso | Global | RegionCode
   role: string
 }
 
@@ -21,16 +22,17 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
     role,
     country: { countryIso },
     onElementSelect,
+    selectedValue,
   } = props
 
   const { i18n } = useTranslation()
-  const country = useCountry(countryIso as CountryIso)
-  const countryIsoCurrent = useCountryIso()
+  const country = useCountry(selectedValue as CountryIso)
+
   const isCycleLanding = useIsCycleLanding()
   const countryNameRef = useRef(null)
 
   const status = Areas.getStatus(country)
-  const selected = countryIso === countryIsoCurrent && !isCycleLanding
+  const selected = selectedValue === countryIso && !isCycleLanding
   const hasRole = role !== UserRoles.noRole.role
 
   useEffect(() => {

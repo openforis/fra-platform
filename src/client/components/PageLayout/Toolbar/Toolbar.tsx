@@ -49,6 +49,7 @@ const Toolbar: React.FC = () => {
           includeGlobals={includeGlobals}
           includeRegions={includeRegions}
           placeholder="common.selectArea"
+          selectedValue={countryIso}
           showCountryFlag
           showCountryRole
         />
