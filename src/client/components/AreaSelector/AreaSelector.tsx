@@ -58,7 +58,8 @@ const AreaSelector: React.FC<Props> = (props) => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
 
-  const ref = useRef(null)
+  const buttonRef = useRef(null)
+  const inputRef = useRef(null)
 
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => setQuery(event.target.value), [])
 
@@ -78,7 +79,7 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (buttonRef.current && !buttonRef.current.contains(event.target)) {
         setOpen(false)
       }
     }
@@ -92,13 +93,14 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   useEffect(() => {
     setQuery('')
+    if (inputRef?.current) inputRef.current.focus()
   }, [open])
 
   return (
     <button
       type="button"
       className="btn-country-select no-print"
-      ref={ref}
+      ref={buttonRef}
       onClick={() => setOpen((prevState) => !prevState)}
     >
       <div>
@@ -106,11 +108,10 @@ const AreaSelector: React.FC<Props> = (props) => {
           <input
             type="text"
             className="text-input"
+            ref={inputRef}
             onChange={handleChange}
             onClick={handleClick}
             placeholder={t('emoji.picker.search')}
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
           />
         )}
 
