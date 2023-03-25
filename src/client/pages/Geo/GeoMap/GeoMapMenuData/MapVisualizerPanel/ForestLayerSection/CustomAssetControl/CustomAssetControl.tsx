@@ -48,7 +48,7 @@ const CustomAssetControl: React.FC = () => {
 
   let checkBoxContent = null
   if (loadingStatus === LayerStatus.loading) {
-    checkBoxContent = <div className="custom-asset-list-element-loading-status-loading" />
+    checkBoxContent = <div className="loading-spinner" />
   } else if (loadingStatus === LayerStatus.failed) {
     checkBoxContent = <div className={classNames('fra-checkbox', 'failed')} />
   } else {
