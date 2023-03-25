@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ForestSource, Layer } from '@meta/geo'
-import { HansenPercentage, LayerSource } from '@meta/geo/forest'
+import { HansenPercentage, LayerSource, LayerStatus } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions, useIsGeoMapAvailable } from '@client/store/ui/geo'
@@ -13,7 +13,7 @@ import { GetForestLayerRequestBody } from '@client/store/ui/geo/actions/getFores
 import { useCountryIso, usePrevious } from '@client/hooks'
 import { mapController } from '@client/utils'
 
-import { layers, LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
+import { layers } from '../GeoMapMenuData/MapVisualizerPanel'
 
 const useHandleForestResourceLayers = () => {
   const countryIso = useCountryIso()

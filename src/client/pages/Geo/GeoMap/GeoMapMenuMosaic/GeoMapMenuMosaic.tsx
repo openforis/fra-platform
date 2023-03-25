@@ -1,6 +1,8 @@
 import './GeoMapMenuMosaic.scss'
 import React, { useEffect } from 'react'
 
+import { LayerStatus } from '@meta/geo'
+
 import { useAppDispatch } from '@client/store'
 import {
   GeoActions,
@@ -15,7 +17,6 @@ import { useCountryIso } from '@client/hooks'
 import { mapController } from '@client/utils'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
-import { LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
 import MosaicControl from './MosaicControl'
 
 const GeoMapMenuMosaic: React.FC = () => {
