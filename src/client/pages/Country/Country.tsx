@@ -75,9 +75,9 @@ const Country: React.FC = () => {
   }, [countryIso, assessmentName, cycleName, user, dispatch])
 
   if (!countryIso) return null
-  if (Areas.isISOCountry(countryIso) && !country) return null
 
-  if (!Authorizer.canView({ countryIso, assessment, cycle, user })) window.location.href = ClientRoutes.Root.path
+  if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ countryIso, assessment, cycle, user }))
+    window.location.href = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
 
   return (
     <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
