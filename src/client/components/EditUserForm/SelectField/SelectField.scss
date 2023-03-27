@@ -1,15 +1,20 @@
 @import 'src/client/style/partials';
 
 .edit-user__form-field {
-  &.edit-user__form-title-field {
+  &.edit-user__form-select-field {
     border: none;
     gap: $spacing-xs;
 
-    input,
     select {
       border: 1px solid $ui-border;
       width: 100%;
       padding: 10px;
+    }
+  }
+
+  &.error {
+    select {
+      background-color: rgba($ui-destructive, 0.1) !important;
     }
   }
 }
