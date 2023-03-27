@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle, Table } from '@meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { User } from '@meta/user'
 
 import { BaseProtocol, DB } from '@server/db'
@@ -11,20 +11,21 @@ type Props = {
   assessment: Assessment
   countryISOs: Array<CountryIso>
   cycle: Cycle
-  table: Table
+  tableName: string
   columnNames: string[]
   variableNames: string[]
+  sectionName: string
 }
 
 export const deleteNodeValues = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, table, columnNames, countryISOs, variableNames, user } = props
+  const { assessment, cycle, tableName, columnNames, countryISOs, variableNames, user, sectionName } = props
 
   return client.tx(async (t) => {
     await DataRepository.deleteNodeValues(
       {
         assessment,
         cycle,
-        table,
+        tableName,
         columnNames,
         countryISOs,
         variableNames,
@@ -37,11 +38,11 @@ export const deleteNodeValues = async (props: Props, client: BaseProtocol = DB):
         activityLog: {
           target: {
             countryISOs,
-            table: table.props.name,
+            tableName,
             columnNames,
             variableNames,
           },
-          section: 'assessment',
+          section: sectionName,
           message: ActivityLogMessage.tableValuesClear,
           user,
         },

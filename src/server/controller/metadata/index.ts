@@ -1,3 +1,4 @@
+import { RowRepository } from '@server/repository/assessment/row'
 import { SectionRepository } from '@server/repository/assessment/section'
 import { TableRepository } from '@server/repository/assessment/table'
 import { TableSectionRepository } from '@server/repository/assessment/tableSection'
@@ -15,20 +16,24 @@ import { updateTable } from './updateTable'
 import { updateTableSection } from './updateTableSection'
 
 export const MetadataController = {
+  createSection,
+  createSubSection,
+  createTable,
+  createTableSection,
+
+  getRows: RowRepository.getMany,
   getSection: SectionRepository.getOne,
   getSections: SectionRepository.getMany,
   getSectionsMetadata: SectionRepository.getManyMetadata,
-  removeSection,
-  createSection,
-  updateSection,
-  createSubSection,
-  updateSubSection,
-  getTableSection: TableSectionRepository.getOne,
-  createTableSection,
-  updateTableSection,
-  removeTableSection,
   getTable: TableRepository.getOne,
-  createTable,
-  updateTable,
+  getTableSection: TableSectionRepository.getOne,
+
+  removeSection,
   removeTable,
+  removeTableSection,
+
+  updateSection,
+  updateSubSection,
+  updateTable,
+  updateTableSection,
 }

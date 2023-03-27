@@ -2,11 +2,14 @@ import React, { useRef } from 'react'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
+import { Authorizer } from '@meta/user'
 
-import { useCycle } from '@client/store/assessment'
+import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
 import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection/hooks'
+import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
+import ButtonTableClear from '@client/components/ButtonTableClear'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 import ButtonCopyValues from '@client/pages/AssessmentSection/DataTable/Table/ButtonCopyValues'
 import TableBody from '@client/pages/AssessmentSection/DataTable/Table/TableBody'
@@ -31,21 +34,34 @@ const Table: React.FC<Props> = (props) => {
   const showODP = useShowOriginalDatapoints()
 
   const countryIso = useCountryIso()
+  const country = useCountry(countryIso)
+  const section = useAssessmentSection(sectionName)
+  const user = useUser()
+
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
   const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
   const { secondary, name } = table.props
-  const displayTableExportButton = !secondary && !print && tableRef.current != null
+  const displayButtons = !secondary && !print && tableRef.current != null
+
+  const canEditData = Authorizer.canEditData({
+    country,
+    cycle,
+    section,
+    user,
+  })
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
-        {displayTableExportButton && (
-          <ButtonTableExport
-            tableRef={tableRef}
-            filename={`${sectionAnchor} ${name}`}
-            inReview={!disabled && !secondary}
+        {displayButtons && <ButtonTableExport tableRef={tableRef} filename={`${sectionAnchor} ${name}`} />}
+        {displayButtons && canEditData && (
+          <ButtonTableClear
+            table={table}
+            disabled={disabled}
+            assessmentName={assessmentName}
+            sectionName={sectionName}
           />
         )}
         <ButtonCopyValues tableRef={tableRef} table={table} />

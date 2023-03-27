@@ -2,7 +2,7 @@ import { Objects } from '@utils/objects'
 
 import { Areas, Country, CountryIso } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
-import { Assessment, Cycle, Section } from '@meta/assessment'
+import { Assessment, Cycle, Section, SubSection } from '@meta/assessment'
 import { User } from '@meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from '@meta/user/userRole'
 import { Users } from '@meta/user/users'
@@ -75,7 +75,7 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  */
 const canEditData = (props: {
   cycle: Cycle
-  section: Section
+  section: Section | SubSection
   country: Country
   user: User
   permission?: CollaboratorEditPropertyType
