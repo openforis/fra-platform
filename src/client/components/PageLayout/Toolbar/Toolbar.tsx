@@ -44,10 +44,12 @@ const Toolbar: React.FC = () => {
         <ToggleNavigationControl />
 
         <AreaSelector
+          enableDownload
           includeCountries
           includeGlobals={includeGlobals}
           includeRegions={includeRegions}
           placeholder="common.selectArea"
+          selectedValue={countryIso}
           showCountryFlag
           showCountryRole
         />

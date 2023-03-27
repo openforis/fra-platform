@@ -3,6 +3,7 @@ import React from 'react'
 import { RoleName, UserContactPreference, UserRole } from '@meta/user/userRole'
 
 import ContactMethodField from '../ContactMethodField'
+import CountrySelectField from '../CountrySelectField'
 import PhoneField from '../PhoneField'
 import TextInputField from '../TextInputField'
 
@@ -73,11 +74,11 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
             mandatory
           />
 
-          <TextInputField
+          <CountrySelectField
             name="countryIso"
             value={roleProps.address?.countryIso}
             onChange={changeAddress}
-            enabled={enabled}
+            enabled
           />
 
           <TextInputField
