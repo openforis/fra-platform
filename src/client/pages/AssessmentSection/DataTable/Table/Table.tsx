@@ -2,11 +2,10 @@ import React, { useRef } from 'react'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
-import { Authorizer } from '@meta/user'
 
-import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
+import { useCycle } from '@client/store/assessment'
 import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection/hooks'
-import { useUser } from '@client/store/user'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import ButtonTableClear from '@client/components/ButtonTableClear'
@@ -34,9 +33,6 @@ const Table: React.FC<Props> = (props) => {
   const showODP = useShowOriginalDatapoints()
 
   const countryIso = useCountryIso()
-  const country = useCountry(countryIso)
-  const section = useAssessmentSection(sectionName)
-  const user = useUser()
 
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
@@ -45,18 +41,14 @@ const Table: React.FC<Props> = (props) => {
   const { secondary, name } = table.props
   const displayButtons = !secondary && !print && tableRef.current != null
 
-  const canEditData = Authorizer.canEditData({
-    country,
-    cycle,
-    section,
-    user,
-  })
+  const isDataLocked = useIsDataLocked()
+  const showClearButton = displayButtons && !isDataLocked && !table.props.readOnly
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
         {displayButtons && <ButtonTableExport tableRef={tableRef} filename={`${sectionAnchor} ${name}`} />}
-        {displayButtons && canEditData && (
+        {showClearButton && (
           <ButtonTableClear
             table={table}
             disabled={disabled}
