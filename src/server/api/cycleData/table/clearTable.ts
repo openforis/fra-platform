@@ -7,9 +7,6 @@ import { CycleDataController } from '@server/controller/cycleData'
 import { MetadataController } from '@server/controller/metadata'
 import Requests from '@server/utils/requests'
 
-const excludedVariables = ['totalLandArea']
-const excludedColumns = ['percentOfForestArea2015Default']
-
 export const clearTable = async (req: CycleDataRequest, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, sectionName, tableName } = req.query
@@ -20,41 +17,42 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
       metaCache: true,
     })
 
-    const tableSpec = await MetadataController.getTable({
-      assessment,
-      cycle,
-      tableName,
-    })
-
     const rows = await MetadataController.getRows({
       assessment,
       tableName,
+      includeCols: true,
     })
 
-    const variableNames = rows.reduce((acc, row) => {
-      if (!row.props.variableName || excludedVariables.includes(row.props.variableName)) {
+    const nodes = rows.reduce((acc, row) => {
+      if (!row.props.variableName || row.props.readonly) {
         return acc
       }
-      return [...acc, row.props.variableName]
-    }, [])
+      const { variableName } = row.props
 
-    const columnNames = tableSpec.props.columnNames[cycle.uuid]?.filter((colName) => !excludedColumns.includes(colName))
+      const columnNames = row.cols.reduce((acc, col) => {
+        if (!col.props.colName || col.props.readonly) {
+          return acc
+        }
+        return [...acc, col.props.colName]
+      }, [])
+
+      return [
+        ...acc,
+        ...columnNames.map((colName) => ({
+          tableName,
+          variableName,
+          colName,
+          value: { raw: null },
+        })),
+      ]
+    }, [])
 
     await CycleDataController.persistNodeValues({
       nodeUpdates: {
         assessment,
         cycle,
         countryIso,
-        nodes: variableNames.flatMap((variableName) => {
-          return columnNames.flatMap((colName) => {
-            return {
-              tableName,
-              variableName,
-              colName,
-              value: { raw: null },
-            }
-          })
-        }),
+        nodes,
       },
       sectionName,
       user: Requests.getUser(req),
