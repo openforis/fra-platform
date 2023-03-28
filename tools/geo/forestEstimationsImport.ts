@@ -51,6 +51,16 @@ type Response = {
       fa_hansen30: number
       fa_jaxa: number
       fa_tandemx: number
+      fa_copernicus_protected: number
+      fa_esa_2009_protected: number
+      fa_esa_2020_protected: number
+      fa_esri_protected: number
+      fa_globeland_protected: number
+      fa_hansen10_protected: number
+      fa_hansen20_protected: number
+      fa_hansen30_protected: number
+      fa_jaxa_protected: number
+      fa_tandemx_protected: number
       fra_1a_forestArea: number
       fra_1a_landArea: number
       fra_3b_protected: number
