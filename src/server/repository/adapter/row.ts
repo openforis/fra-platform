@@ -27,8 +27,10 @@ export const RowAdapter = (rowDB: RowDB): Row => {
       chart,
     },
   }
+
   if (_row.cols) {
-    _row.cols = row.cols.map(ColAdapter)
+    // Postgres returns nulls for empty arrays: [null]
+    _row.cols = row.cols.filter(Boolean).map(ColAdapter)
   }
   return _row
 }
