@@ -1,5 +1,6 @@
 import './Toolbar.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
@@ -21,6 +22,7 @@ import Status from './Status'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const Toolbar: React.FC = () => {
+  const { t } = useTranslation()
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
@@ -59,11 +61,16 @@ const Toolbar: React.FC = () => {
         <>
           <MediaQuery minWidth={Breakpoints.laptop}>
             {user && <Status />}
-            {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && <Lock />}
+            {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
           </MediaQuery>
 
           <div className="toolbar__utils-container">
-            {country?.props?.deskStudy && <div className="desk-study">{t('assessment.deskStudy')}</div>}
+            {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && (
+              <>
+                <Lock />
+                <div className="toolbar__separator" />
+              </>
+            )}
 
             <MediaQuery minWidth={Breakpoints.laptop}>
               <Link

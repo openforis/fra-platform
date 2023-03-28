@@ -10,7 +10,7 @@
 
 .nav-header__sep-container {
   display: grid;
-  grid-template-columns: $spacing-xl 1fr $spacing-xl;
+  grid-template-columns: $spacing-xl 1fr $spacing-xl - 4;
   grid-auto-rows: $spacing-s/2;
 
   .btn-toggle {
@@ -21,12 +21,14 @@
     width: $spacing-s;
     height: $spacing-s;
     display: grid;
-    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding: unset;
 
     svg {
       color: $text-body;
-      height: $spacing-s;
-      margin-left: -2px;
+      height: 17px;
+      width: 17px;
     }
 
     &.active {
@@ -41,8 +43,7 @@
     grid-column: 2;
     align-self: end;
     height: 1px;
-    background-color: $ui-border;
-    -webkit-box-shadow: 0 0 2px 1px lighten($ui-border, 8%);
-    box-shadow: 0 0 2px 1px lighten($ui-border, 8%);
+    opacity: 0.8;
+    background: radial-gradient($ui-border, lighten($ui-border, 10%));
   }
 }
