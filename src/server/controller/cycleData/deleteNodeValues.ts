@@ -2,6 +2,7 @@ import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
 import { User } from '@meta/user'
 
+import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
 import { BaseProtocol, DB } from '@server/db'
 import { DataRepository } from '@server/repository/assessmentCycle/data'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
@@ -32,6 +33,29 @@ export const deleteNodeValues = async (props: Props, client: BaseProtocol = DB):
       },
       t
     )
+
+    const nodeUpdatesPersisted = {
+      assessment,
+      cycle,
+      countryIso: countryISOs[0],
+      nodes: variableNames.flatMap((variableName) => {
+        return columnNames.flatMap((colName) => {
+          return {
+            tableName,
+            variableName,
+            colName,
+            value: { raw: null },
+          }
+        })
+      }),
+    }
+
+    // // schedule dependencies update
+    await scheduleUpdateDependencies({
+      nodeUpdates: nodeUpdatesPersisted,
+      sectionName,
+      user,
+    })
 
     await ActivityLogRepository.insertActivityLog(
       {

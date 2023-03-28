@@ -17,6 +17,7 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName,
       cycleName,
+      metaCache: true,
     })
 
     const tableSpec = await MetadataController.getTable({
@@ -37,15 +38,26 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
       return [...acc, row.props.variableName]
     }, [])
 
-    await CycleDataController.deleteNodeValues({
-      user: Requests.getUser(req),
-      assessment,
-      cycle,
-      tableName,
-      columnNames: tableSpec.props.columnNames[cycle.uuid]?.filter((colName) => !excludedColumns.includes(colName)),
-      countryISOs: [countryIso],
-      variableNames,
+    const columnNames = tableSpec.props.columnNames[cycle.uuid]?.filter((colName) => !excludedColumns.includes(colName))
+
+    await CycleDataController.persistNodeValues({
+      nodeUpdates: {
+        assessment,
+        cycle,
+        countryIso,
+        nodes: variableNames.flatMap((variableName) => {
+          return columnNames.flatMap((colName) => {
+            return {
+              tableName,
+              variableName,
+              colName,
+              value: { raw: null },
+            }
+          })
+        }),
+      },
       sectionName,
+      user: Requests.getUser(req),
     })
 
     return Requests.sendOk(res)
