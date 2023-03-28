@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { ForestOptions, MapPanel, MosaicOptions } from '@meta/geo'
+import { ForestOptions, GeoStatisticsState, MapPanel, MosaicOptions } from '@meta/geo'
 
 import { useAppSelector } from '@client/store'
 
@@ -21,3 +21,5 @@ export const useSelectedPanel = (): MapPanel => useAppSelector((state) => state.
 export const useForestSourceOptions = (): ForestOptions => useAppSelector((state) => state.geo?.forestOptions)
 
 export const useIsGeoMapAvailable = (): boolean => useAppSelector((state) => state.geo?.isMapAvailable)
+
+export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)

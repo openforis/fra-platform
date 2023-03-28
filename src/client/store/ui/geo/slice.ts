@@ -1,11 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { LayerStatus, MosaicOptions, MosaicSource } from '@meta/geo'
+import { ForestEstimations, LayerStatus, MosaicOptions, MosaicSource } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestLayer } from './actions'
+import { getForestEstimationData, getForestLayer } from './actions'
 import { GeoState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
@@ -38,6 +38,12 @@ const initialState: GeoState = {
     agreementPalette: [],
     recipe: 'custom',
     customAssetId: null,
+  },
+  geoStatistics: {
+    forestEstimations: null,
+    tabularEstimationData: [],
+    isLoading: false,
+    error: null,
   },
 }
 
@@ -171,6 +177,23 @@ export const geoSlice = createSlice({
     setCustomAssetId: (state, { payload }: PayloadAction<string>) => {
       state.forestOptions.customAssetId = payload
     },
+    setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {
+      state.geoStatistics.forestEstimations = payload
+      state.geoStatistics.isLoading = false
+      state.geoStatistics.error = null
+    },
+    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number][]>) => {
+      state.geoStatistics.tabularEstimationData = payload
+      state.geoStatistics.isLoading = false
+      state.geoStatistics.error = null
+    },
+    setEstimationsLoading: (state, { payload }: PayloadAction<boolean>) => {
+      state.geoStatistics.isLoading = payload
+    },
+    setEstimationsError: (state, { payload }: PayloadAction<string>) => {
+      state.geoStatistics.error = payload
+      state.geoStatistics.isLoading = false
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -210,6 +233,19 @@ export const geoSlice = createSlice({
         if (i !== -1) {
           state.forestOptions.selected.splice(i, 1)
         }
+      })
+      .addCase(getForestEstimationData.fulfilled, (state, { payload: forestEstimations }) => {
+        state.geoStatistics.forestEstimations = forestEstimations
+        state.geoStatistics.isLoading = false
+        state.geoStatistics.error = null
+      })
+      .addCase(getForestEstimationData.pending, (state) => {
+        state.geoStatistics.isLoading = true
+        state.geoStatistics.error = null
+      })
+      .addCase(getForestEstimationData.rejected, (state, action) => {
+        state.geoStatistics.isLoading = false
+        state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
       })
   },
 })

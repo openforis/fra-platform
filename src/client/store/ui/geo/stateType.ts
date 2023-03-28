@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { ForestOptions, MapPanel, MosaicOptions } from '@meta/geo'
+import { ForestOptions, GeoStatisticsState, MapPanel, MosaicOptions } from '@meta/geo'
 
 export type GeoState = {
   isMapAvailable: boolean
@@ -15,4 +15,5 @@ export type GeoState = {
       [key in CountryIso]?: string
     }
   }
+  geoStatistics: GeoStatisticsState
 }
