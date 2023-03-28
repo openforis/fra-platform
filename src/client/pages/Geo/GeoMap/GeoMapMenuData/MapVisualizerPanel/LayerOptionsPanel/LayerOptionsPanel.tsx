@@ -49,7 +49,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
   return (
     <>
       <div className="geo-map-menu-forest-layer-opacity-input">
-        <div>
+        <div className="geo-map-menu-forest-layer-opacity-input-div">
           <input
             type="range"
             min="0"
@@ -59,7 +59,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
             disabled={!checked}
           />{' '}
         </div>
-        <div>
+        <div className="geo-map-menu-forest-layer-opacity-percentage-div">
           <small>{`${(layerKey === GLOBAL_OPACITY_KEY ? globalOpacity : opacity) * 100}%`}</small>
         </div>
       </div>
@@ -67,7 +67,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
         <div className="geo-map-menu-forest-hansen-layer-inputs">
           <div>
             <div>
-              <p>Select Hansen percentage:</p>
+              <p>Select min. tree cover percentage:</p>
               <fieldset>
                 {hansenPercentages.map((percentage) => {
                   const id = `hansenPercentage-${percentage}`

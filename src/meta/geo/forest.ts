@@ -1,3 +1,9 @@
+enum LayerStatus {
+  loading = 'loading',
+  failed = 'failed',
+  ready = 'ready',
+}
+
 export interface ForestOptions {
   selected: ForestSource[]
   fetchedLayers: { [key: string]: string }
@@ -6,9 +12,11 @@ export interface ForestOptions {
   opacity: { [key: string]: number }
   hansenPercentage: HansenPercentage
   agreementLayerSelected: boolean
+  agreementLayerStatus: LayerStatus
   agreementLevel: number
   agreementPalette: Array<string>
   recipe: string
+  customAssetId: string
 }
 
 export const hansenPercentages = [10, 20, 30] as const
@@ -32,6 +40,7 @@ export enum ForestSource {
   ESAWorldCover = 'ESAWorldCover',
   Hansen = 'Hansen',
   MODIS = 'MODIS',
+  CustomFnF = 'CustomFnF',
 }
 
 export type Layer = {
@@ -41,17 +50,6 @@ export type Layer = {
   scale?: number
   citation?: string
 }
-
-export const precalForestAgreementSources: Array<ForestSource> = [
-  ForestSource.JAXA,
-  ForestSource.TandemX,
-  ForestSource.GlobeLand,
-  ForestSource.ESAGlobCover,
-  ForestSource.Copernicus,
-  ForestSource.ESRI,
-  ForestSource.ESAWorldCover,
-  ForestSource.Hansen, // precal with tree cover gte 10,20,30%
-]
 
 export const sourcesMetadata = {
   [ForestSource.JAXA]: {
@@ -107,6 +105,19 @@ export const sourcesMetadata = {
     palette: ['#FFD700'], // gold
     citation: 'https://lpdaac.usgs.gov/products/mod44bv006/',
   },
+  [ForestSource.CustomFnF]: {
+    palette: ['#A52A2A'],
+    citation: '',
+    scale: 0,
+  },
+}
+
+export interface LayerSource {
+  key: ForestSource
+  options?: {
+    gteTreeCoverPercent?: number
+    assetId?: string
+  }
 }
 
 export const agreementPalette = [
@@ -127,6 +138,7 @@ export interface Recipe {
   layers: Array<ForestSource>
   gteHansenTreeCoverPerc?: HansenPercentage
   forestAreaDataProperty: string
+  recipeLabel: string
 }
 
 export const forestAgreementRecipes: Array<Recipe> = [
@@ -143,6 +155,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
     ],
     gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementHansen10',
+    recipeLabel: 'All (GFC Hansen >=10%)',
   },
   {
     layers: [
@@ -157,6 +170,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
     ],
     gteHansenTreeCoverPerc: 20,
     forestAreaDataProperty: 'faAgreementHansen20',
+    recipeLabel: 'All (GFC Hansen >=20%)',
   },
   {
     layers: [
@@ -171,15 +185,18 @@ export const forestAgreementRecipes: Array<Recipe> = [
     ],
     gteHansenTreeCoverPerc: 30,
     forestAreaDataProperty: 'faAgreementHansen30',
+    recipeLabel: 'All (GFC Hansen >=30%)',
   },
   {
     layers: [ForestSource.ESRI, ForestSource.ESAWorldCover, ForestSource.GlobeLand, ForestSource.Hansen],
     gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementEsriEsaGloHansen10',
+    recipeLabel: 'ESRI, ESA, Globland 2020 & GFC Hansen >=10%',
   },
   {
     layers: [ForestSource.ESRI, ForestSource.ESAWorldCover],
     forestAreaDataProperty: 'faAgreementEsriEsa',
+    recipeLabel: 'ESRI & ESA',
   },
 ]
 

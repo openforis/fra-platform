@@ -73,7 +73,7 @@ http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
 Explanatory notes
 
 1. Includes forests for which it is not possible to distinguish whether planted or naturally regenerated.
-2. Includes forests with a mix of naturally regenerated native tree species and planted/seeded trees, and where the naturally regenerated trees are expected to constitute the major part of the growing stock at stand maturity.
+2. Includes forests with a mix of naturally regenerated tree species and planted/seeded trees, and where the naturally regenerated trees are expected to constitute the major part of the growing stock at stand maturity.
 3. Includes coppice from trees originally established through natural regeneration.
 4. Includes naturally regenerated trees of introduced species.
 

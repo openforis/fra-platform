@@ -11,13 +11,15 @@ import { NodeEnv } from '@server/utils/processEnv'
 
 import workerProcessor from './worker'
 
+export const connection = new IORedis(ProcessEnv.redisUrl)
+
 const newInstance = (props: { key: string }) => {
   const { key } = props
 
   const processor = ProcessEnv.nodeEnv === NodeEnv.development ? workerProcessor : `${__dirname}/worker`
   const opts = {
     concurrency: 1,
-    connection: new IORedis(ProcessEnv.redisUrl),
+    connection,
     lockDuration: 60_000,
     maxStalledCount: 0,
   }

@@ -4,6 +4,8 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { MosaicOptions, MosaicSource } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
+import { LayerStatus } from '@client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel'
+
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestLayer } from './actions'
 import { GeoState } from './stateType'
@@ -28,11 +30,15 @@ const initialState: GeoState = {
     opacity: {},
     hansenPercentage: 10,
     agreementLayerSelected: false,
+    agreementLayerStatus: null,
     agreementLevel: 1,
     agreementPalette: [],
     recipe: 'custom',
+    customAssetId: null,
   },
   mosaicSelected: false,
+  mosaicPending: false,
+  mosaicFailed: false,
   mosaicUrl: {},
 }
 
@@ -42,9 +48,12 @@ export const geoSlice = createSlice({
   reducers: {
     applyMosaicOptions: (state) => {
       state.mosaicUrl = {}
+      state.mosaicFailed = false
+      state.mosaicPending = false
       state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
+      if (!state.mosaicSelected) state.mosaicFailed = false // The user is retrying
       state.mosaicSelected = !state.mosaicSelected
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
@@ -121,10 +130,18 @@ export const geoSlice = createSlice({
       state.forestOptions.agreementLayerSelected = initialState.forestOptions.agreementLayerSelected
       state.forestOptions.agreementLevel = initialState.forestOptions.agreementLevel
     },
+    setAgreementLayerStatus: (state, { payload }: PayloadAction<LayerStatus>) => {
+      state.forestOptions.agreementLayerStatus = payload
+    },
     resetLayersStates: (state) => {
       state.forestOptions.fetchedLayers = initialState.forestOptions.fetchedLayers
       state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
       state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
+    },
+    resetSingleLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
+      delete state.forestOptions.fetchedLayers[payload]
+      delete state.forestOptions.pendingLayers[payload]
+      delete state.forestOptions.failedLayers[payload]
     },
     setRecipe: (state, { payload }: PayloadAction<string>) => {
       // If the recipe is not custom, reset the failed layers so they are fetched again
@@ -149,12 +166,28 @@ export const geoSlice = createSlice({
       state.forestOptions.agreementLayerSelected = true
       state.forestOptions.agreementLevel = agreementLevel
     },
+    setCustomAssetId: (state, { payload }: PayloadAction<string>) => {
+      state.forestOptions.customAssetId = payload
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
         const { urlTemplate, countryIso } = payload
         state.mosaicUrl[countryIso] = urlTemplate
+        state.mosaicFailed = false
+        state.mosaicPending = false
+      })
+      .addCase(postMosaicOptions.pending, (state) => {
+        state.mosaicPending = true
+        state.mosaicFailed = false
+        state.mosaicUrl = initialState.mosaicUrl
+      })
+      .addCase(postMosaicOptions.rejected, (state) => {
+        state.mosaicFailed = true
+        state.mosaicPending = false
+        state.mosaicSelected = false
+        state.mosaicUrl = initialState.mosaicUrl
       })
       .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
         state.forestOptions.fetchedLayers[key] = mapId

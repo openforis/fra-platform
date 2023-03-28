@@ -21,6 +21,7 @@ const initialState: UserManagementState = {
   },
   filters: {
     countries: [],
+    fullName: '',
     roles: [],
   },
   user: null,
@@ -31,22 +32,23 @@ export const userManagementSlice = createSlice({
   name: 'userManagement',
   initialState,
   reducers: {
+    setUsers: (state, { payload }) => {
+      state.users = payload
+    },
+    setUsersCount: (state, { payload }) => {
+      state.count = payload
+    },
     setUserToEdit: (state, { payload }) => {
       state.user = payload
     },
     updateFilters: (state, { payload }) => {
       state.filters = { ...state.filters, ...payload }
     },
+    resetFilters: (state) => {
+      state.filters = { countries: [], fullName: '', roles: [] }
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(getUsers.fulfilled, (state, { payload }) => {
-      state.users = payload
-    })
-
-    builder.addCase(getUsersCount.fulfilled, (state, { payload }) => {
-      state.count = payload
-    })
-
     builder.addCase(removeInvitation.fulfilled, (state, { payload }) => {
       const i = state.users.findIndex((u) => u.id === payload.userId)
       if (i !== -1) state.users.splice(i, 1)

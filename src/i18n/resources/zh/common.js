@@ -9,6 +9,7 @@ module.exports = {
   globalFRA: '全球森林资源评估',
   login: '保留区',
   other: '其他',
+  otherSpecifyInComments: '其他(在评论中阐述)',
   regions: '区域',
   select: '选择',
   selectAll: '选择所有',
@@ -19,4 +20,17 @@ module.exports = {
   variable: 'FRA变量',
   year: '年份',
   filterCountries: '筛选国家',
+
+  dashboard: '主界面',
+  copyToClipboard: '复制到剪贴板',
+  continue: '继续',
+  tier: '等级',
+  status: '状况',
+  trend: '趋势',
+  tiers: {
+    notSelected: '',
+    high: '高',
+    medium: '中',
+    low: '低',
+  },
 }

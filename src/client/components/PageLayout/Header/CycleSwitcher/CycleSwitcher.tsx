@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 import { Cycle } from '@meta/assessment'
-import { Authorizer } from '@meta/user'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import { useUserCycles } from '@client/store/user/hooks'
+import { useCountryIso, useIsAdmin, useIsDataExportView } from '@client/hooks'
 import Icon from '@client/components/Icon'
 import PopoverControl from '@client/components/PopoverControl'
 
@@ -17,20 +16,21 @@ const CycleSwitcher = () => {
   const navigate = useNavigate()
   const currentCycle = useCycle()
   const assessment = useAssessment()
-  const user = useUser()
+  const isAdmin = useIsAdmin()
   const isDataExportView = useIsDataExportView()
+  const userCycles = useUserCycles()
 
   const assessmentName = assessment.props.name
-  const userCycles = assessment.cycles.filter((cycle) => Authorizer.canView({ countryIso, user, cycle, assessment }))
   const canSwitchCycle = isDataExportView || userCycles.length > 1
 
   const onCycleChange = useCallback(
     (cycleName: string) => {
       if (countryIso)
         navigate(ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName }))
+      else if (isAdmin) navigate(ClientRoutes.Assessment.Cycle.Admin.Root.getLink({ assessmentName, cycleName }))
       else navigate(ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName }))
     },
-    [assessmentName, countryIso, navigate]
+    [assessmentName, countryIso, isAdmin, navigate]
   )
 
   if (!canSwitchCycle) return <span className="cycle-switcher-locked">{currentCycle.name}</span>

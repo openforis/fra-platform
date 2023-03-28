@@ -1,47 +1,33 @@
 import { CountryIso } from '@meta/area'
-import { ForestSource, Layer, sourcesMetadata } from '@meta/geo'
+import { Layer, LayerSource, sourcesMetadata } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets'
 
-// import { authenticateToGee } from './authenticateToGee'
+import { getMap } from './getMap'
 
 type Props = {
   countryIso: CountryIso
-  forestSource: ForestSource
-  gteHansenTreeCoverPerc?: number
-  onlyProtected?: boolean
-  opacity?: number
+  layer: LayerSource
 }
 
 export const getForestLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, forestSource, gteHansenTreeCoverPerc, onlyProtected, opacity } = props
+  const { countryIso, layer } = props
 
-  const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAssetData(forestSource, gteHansenTreeCoverPerc, onlyProtected)
-  const metadata = sourcesMetadata[forestSource]
+  const asset = AssetsController.getForestAssetData(layer)
+  const metadata = sourcesMetadata[layer.key]
 
-  return new Promise((resolve, reject) => {
-    asset.img
-      .clip(ftcCountry)
-      .selfMask()
-      .getMap(
-        {
-          palette: metadata.palette,
-          opacity,
-        },
-        (mapProperties: any, err: any) => {
-          if (err) {
-            reject(err)
-            return
-          }
-          resolve({
-            mapId: mapProperties.mapid,
-            year: asset.year,
-            scale: metadata.scale,
-            palette: metadata.palette,
-            citation: metadata.citation,
-          })
-        }
-      )
+  const map = await getMap({
+    image: asset.img,
+    style: {
+      palette: metadata.palette,
+    },
+    countryIso,
   })
+
+  return {
+    mapId: map.mapId,
+    year: asset.year,
+    scale: metadata.scale,
+    palette: metadata.palette,
+  }
 }

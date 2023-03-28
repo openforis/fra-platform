@@ -1,4 +1,5 @@
 // TODO: all fra labels will be migrated here in a future refactor
+
 module.exports = {
   // common
   area100HaYear: 'Area (1000 ha/year)',
@@ -12,12 +13,25 @@ module.exports = {
     areaAffected: 'Area affected (1000 ha)',
   },
 
+  biomassStock: {
+    aboveGround2025: '$t(biomassStock.aboveGround)',
+    belowGround2025: '$t(biomassStock.belowGround)',
+    deadWood2025: '$t(biomassStock.deadWood)',
+    biomassStock2025: '$t(biomassStock.biomassStock)',
+  },
+
   biomassStockAvg: {
     forestBiomass: 'Forest Biomass (tones/ha)',
   },
 
   biomassStockTotal: {
     totalForestBiomass: 'Total forest Biomass (million tones)',
+  },
+
+  carbonStock: {
+    carbonAboveGroundBiomass2025: '$t(carbonStock.carbonAboveGroundBiomass)',
+    carbonBelowGroundBiomass2025: '$t(carbonStock.carbonBelowGroundBiomass)',
+    carbonStock2025: '$t(carbonStock.carbonStock)',
   },
 
   carbonStockTotal: {
@@ -86,10 +100,17 @@ module.exports = {
     forestDamage: 'Forest damage',
     predominantCause: 'Predominant cause',
     forestAreaAffected: 'Forest area affected (1000 ha)',
+    severeWeatherEvents2025: '$t(disturbances.severeWeatherEvents)',
   },
 
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
+    totalLandArea2025: '$t(extentOfForest.totalLandArea)',
+  },
+
+  forestAreaChange: {
+    forestExpansion2025: '$t(forestAreaChange.forestExpansion)',
+    forestAreaChange2025: '$t(forestAreaChange.forestAreaChange)',
   },
 
   forestAreaWithinProtectedAreas: {
@@ -101,13 +122,15 @@ module.exports = {
     ofWhichPlantationForest: '$t(growingStock.plantationForest)',
     primaryForest: '…of which primary forest',
     plantationForestIntroducedArea2025: '…of which introduced species',
+    naturalForestArea2025: '$t(forestCharacteristics.naturalForestArea)',
   },
 
   forestOwnership: {
     ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
-    other2025: 'Other (specify in comments)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
     total2025: 'Total',
+    forestOwnership2025: '$t(forestOwnership.forestOwnership)',
   },
 
   forestRestoration: {
@@ -127,6 +150,7 @@ module.exports = {
 
   growingStock: {
     totalForest: 'Total Forest',
+    naturallyRegeneratingForest2025: '$t(growingStock.naturallyRegeneratingForest)',
   },
 
   growingStockComposition: {
@@ -138,16 +162,23 @@ module.exports = {
     totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
     totalNativeTreeSpecies: 'TOTAL native tree species',
     updatedGrowingStockComposition: '$t(growingStockComposition.growingStockComposition)',
+
+    nativeTreeSpecies2025: '$t(growingStockComposition.nativeTreeSpecies)',
+    introducedTreeSpecies2025: '$t(growingStockComposition.introducedTreeSpecies)',
   },
 
   holderOfManagementRights: {
     communities2025: 'Indigenous Peoples and local communities',
-    other2025: 'Other (specify in comments)',
+    other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
   },
 
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
+  },
+
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover2025: '$t(otherLandWithTreeCover.otherLandWithTreeCover)',
   },
 
   primaryForestByClimaticDomain: {
@@ -175,6 +206,10 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Non wood forest products removals and value 2020',
+      forestGrowingStockBiomassAndCarbon2025: '$t(navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon)',
+      forestDesignationAndManagement2025: '$t(navigation.sectionHeaders.forestDesignationAndManagement)',
+      forestOwnershipAndManagementRights2025: '$t(navigation.sectionHeaders.forestOwnershipAndManagementRights)',
+      forestDisturbances2025: '$t(navigation.sectionHeaders.forestDisturbances)',
     },
   },
 
@@ -192,9 +227,14 @@ module.exports = {
         'Estimates based on repeated compatible³ National Forest Inventories where the most recent is older than five years; and/or remote sensing change assessments through multitemporal analysis for a period ending more than five years ago; or comparison of compatible maps without multitemporal analysis.',
       low: 'Other data sources, e.g., expert estimates, or estimates based on non-compatible assessments.',
     },
+    footer1:
+      '¹ Data not older than 5 years from year of submission of report (2018 or more recent for FRA 2025 country reports)',
+    footer2:
+      '² Data older than 5 years from year of submission of report (older than 2018 for FRA 2025 country reports)',
+    footer3: '³ Compatible in terms of methods, categories and definitions used',
   },
 
-  biomassStock_biomassStockStatus_Description: {
+  growingStock_growingStockStatus_Description: {
     header_0: 'Growing stock tier criteria',
     status: {
       high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples',
@@ -202,9 +242,13 @@ module.exports = {
         'Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples.',
       low: 'Data sources:  Other data sources, such as satellite data, registers, questionnaires or expert assessments.',
     },
+    footer1:
+      '¹ Data not older than 10 years from year of submission of report (2013 or more recent for FRA 2025 country reports)',
+    footer2:
+      '² Data older than 10 years from year of submission of report (older than 2013 for FRA 2025 country reports)',
   },
 
-  growingStock_growingStockStatus_Description: {
+  biomassStock_biomassStockStatus_Description: {
     header_0: 'Biomass estimation methods tier criteria',
     status: {
       high: 'Country-specific biomass conversion and expansion factors or allometric equations applied',

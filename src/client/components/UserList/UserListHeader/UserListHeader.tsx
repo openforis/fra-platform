@@ -16,17 +16,21 @@ const UserListHeader: React.FC<{ isAdmin: boolean; readOnly: boolean }> = ({ isA
     <thead>
       <tr>
         <th className="user-list__header-cell">{t('userManagement.name')}</th>
-        {!isAdmin && <th className="user-list__header-cell">{t('userManagement.role')}</th>}
+        {!isAdmin && (
+          <>
+            <th className="user-list__header-cell">{t('userManagement.role')}</th>
+            <th className="user-list__header-cell">{t('userManagement.email')}</th>
+          </>
+        )}
         {isAdmin &&
           filteredRoleNames.map((roleName: RoleName) => (
             <th key={roleName} className="user-list__header-cell">
               {t(Users.getI18nRoleLabelKey(roleName))}
             </th>
           ))}
-        <th className="user-list__header-cell">{t('userManagement.email')}</th>
         {!readOnly && (
           <th className="user-list__header-cell user-list__edit-column">
-            <UserListButtonExport />
+            <UserListButtonExport isAdmin={isAdmin} />
           </th>
         )}
       </tr>

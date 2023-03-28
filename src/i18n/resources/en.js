@@ -106,6 +106,7 @@ followed by the boreal, temperate and subtropical domains.`,
   definition: {
     definitionLabel: 'See definitions',
     faqLabel: 'FAQ',
+    seeReportingNotes: 'See Reporting Notes',
   },
 
   audit: {
@@ -483,6 +484,8 @@ The FRA team
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
     dataSources: 'Data sources',
+    dataSource2025ExplanatoryText:
+      'The data sources listed were reported in FRA 2020. Please copy and paste relevant data sources in table above.',
     additionalComments: 'Additional comments',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
@@ -511,7 +514,7 @@ The FRA team
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
       fullCoverMaps: 'Full-cover forest/vegetation maps',
       registersQuestionnaires: 'Registers/questionnaires',
-      other: 'Other (specify in comments)',
+      other: '$t(common.otherSpecifyInComments)',
     },
     appliesToVariablesOptions: {
       forest: 'Forest',
@@ -614,7 +617,8 @@ The FRA team fra@fao.org
     totalLandArea: 'Total land area',
     fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
     forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA {{year}} area: {{previous}}',
-    forestAreaNetChangeDoesNotMatch: "Forest area net change doesn't match expected value: {{value}}",
+    forestAreaNetChangeDoesNotMatch:
+      'Forest area net change is different from what was reported in table 1a, provide a comment to explain why',
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points',
     whatIsThis: 'What is this?',
@@ -674,6 +678,7 @@ The FRA team fra@fao.org
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
+    forestAreaNetChangeFrom1a: 'Forest area net change from table 1a',
     netChangeDoesNotMatch: 'Doesn’t match Forest area net change',
   },
 
@@ -706,7 +711,7 @@ The FRA team fra@fao.org
     treesinurbansettings: 'Trees in urban settings',
     total: 'Total',
     otherLandArea: 'Other land area',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
   },
 
   growingStock: {
@@ -781,7 +786,7 @@ The FRA team fra@fao.org
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
     unknown: 'None/unknown',
     totalForestArea: 'Total forest area',
     total: 'Total',
@@ -832,7 +837,7 @@ The FRA team fra@fao.org
     insects: 'Insects',
     diseases: 'Diseases',
     severeWeatherEvents: 'Severe weather events',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
     totalForestArea: 'Total forest area',
     total: 'Total',
   },
@@ -1041,14 +1046,15 @@ The FRA team
     mustBeEqualToPrivateOwnership: 'Subcategories sum should be equal to Private Ownership',
     mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
     mustBeEqualToPlantedForest: 'Subcategories sum should be equal to Planted Forest',
-    mustBeEqualToForestArea:
-      'The sum of Naturally regenerating and Planted forest should be equal to Total growing stock',
+    mustBeEqualToForestArea: 'Sum of Naturally regenerating forest and Planted forest not equal to the total forest',
     mustBeLessThanPrivateOwnership: 'Subcategories sum should be less than Private Ownership',
     columnEmpty: "Column '$t({{columName}})' must have a value",
     forestSumAreaExceedsExtentOfForest:
       'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
     valueEqualToSum: 'Total value should be equal to sum of subcategories',
     landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a)',
+    classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
+    classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',
   },
 
   emoji: {

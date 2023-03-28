@@ -5,7 +5,8 @@ import { Numbers } from '@utils/numbers'
 import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { OriginalDataPoint } from '@meta/assessment'
+import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -27,10 +28,11 @@ type Props = {
   canEditData: boolean
   index: number
   originalDataPoint: OriginalDataPoint
+  nationalClassValidation: NationalClassValidation
 }
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
-  const { canEditData, index, originalDataPoint } = props
+  const { canEditData, index, nationalClassValidation, originalDataPoint } = props
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -41,7 +43,6 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { name, area, forestPercent, otherWoodedLandPercent, uuid } = nationalClass
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
   let otherLand = null
 

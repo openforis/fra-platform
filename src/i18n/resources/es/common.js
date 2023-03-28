@@ -9,6 +9,7 @@ module.exports = {
   globalFRA: 'Evaluación de los recursos forestales mundiales',
   login: 'Área reservada',
   other: 'Otros',
+  otherSpecifyInComments: 'Otros (especifique en los comentarios)',
   regions: 'Regiones',
   select: 'Seleccionar',
   selectAll: 'Seleccionar todo',
@@ -19,4 +20,17 @@ module.exports = {
   variable: 'FRA Variable',
   year: 'Año',
   filterCountries: 'Filtrar países',
+
+  dashboard: 'Cuadro de mandos',
+  copyToClipboard: 'Copiar al portapapeles',
+  continue: 'Continuar',
+  tier: 'Nivel',
+  status: 'Estado',
+  trend: 'Tendencia',
+  tiers: {
+    notSelected: '',
+    high: 'Alto',
+    medium: 'Medio',
+    low: 'Bajo',
+  },
 }

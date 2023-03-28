@@ -66,16 +66,16 @@ const _getChartProps = (rowSpec: RowSpec, assessment: Assessment): Record<string
 
 export const getRow = (props: { assessment: Assessment; rowSpec: RowSpec; table: Table }): Row => {
   const { assessment, rowSpec, table } = props
-  const linkToSection = rowSpec.cols?.[0]?.linkToSection
+  // const linkToSection = rowSpec.cols?.[0]?.linkToSection
   const cycles = getCycleUuids({ assessment, parentCycleUuids: table.props.cycles, migration: rowSpec.migration })
 
   const row: Row = {
     props: {
       cycles,
       index: rowSpec.idx,
-      linkToSection,
+      // linkToSection,
       type: rowSpec.type as unknown as RowType,
-      variableName: rowSpec.variableName,
+      variableName: rowSpec.variableName ?? rowSpec.variableExport,
       calculateFn: _getCalculateFn(rowSpec, cycles, assessment),
       readonly: rowSpec.migration?.readonly,
       validateFns: _getValidateFns(rowSpec, cycles, assessment),

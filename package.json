@@ -6,13 +6,7 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "migrate-fra": "run-s migrate-fra:migration migrate-fra:post-migration",
-    "migrate-fra:migration": "ts-node tools/dataMigration/index.ts",
-    "migrate-fra:post-migration": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/dataMigration/jest.config.js",
-    "migrate-fra:test:persist-node-value": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config jest.config.test.js",
-    "migrate-fra:data-export:compare": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/dataExportComparison/jest.config.js",
-    "migrate-fra:bulk-download:compare": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/bulkDownloadComparison/jest.config.js",
-    "migrate-panEuropean:migration": "ts-node tools/dataMigration/panEuropean.ts",
+    "migrate-panEuropean:migration": "ts-node tools/dataMigration/panEuropean.ts && yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/dataMigration/jest.config.panEu.js",
     "build": "yarn build:client && yarn build:server && yarn build:copy && yarn run-migrations",
     "build:server": "yarn tsc --project tsconfig.server.json && yarn tscpaths -v -p tsconfig.server.paths.json -s ./server -o ./dist",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
@@ -28,7 +22,11 @@
     "watch:server": "ts-node-dev src/server",
     "watch:server-debug": "cross-env NODE_ENV=development nodemon -e js --inspect --watch server src/server/serverLocal.js",
     "create-migration": "./src/server/db/migration/create-migration.sh",
+    "create-migration-step": "src/test/migrations/create-migration-step.sh",
     "run-migrations": "./src/server/db/migration/run-migrations.sh",
+    "run-migration-steps": "yarn jest --verbose false --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/migrations/jest.config.js",
+    "generate-metacache": "yarn jest --verbose false --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/generateMetaCache/jest.config.js",
+    "migrate": "run-s run-migrations run-migration-steps generate-metacache",
     "//test": "mochapack --webpack-config webpack.config.babel.test.js",
     "test": "run-s test:integration",
     "test:integration": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config",
@@ -261,7 +259,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.7",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

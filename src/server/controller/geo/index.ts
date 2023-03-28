@@ -1,8 +1,10 @@
 import { getBoundariesLayer } from './getBoundariesLayer'
 import { getBounds } from './getBounds'
+import { getBurnedAreaLayer } from './getBurnedAreaLayer'
 import { getForestAgreementLayer } from './getForestAgreementLayer'
 import { estimateForestAgreementArea, getForestEstimations } from './getForestEstimations'
 import { getForestLayer } from './getForestLayer'
+import { getProtectedAreaLayer } from './getProtectedAreaLayer'
 
 export const GeoController = {
   getForestLayer,
@@ -11,4 +13,6 @@ export const GeoController = {
   getForestEstimations,
   estimateForestAgreementArea,
   getBounds,
+  getProtectedAreaLayer,
+  getBurnedAreaLayer,
 }

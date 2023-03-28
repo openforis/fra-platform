@@ -2,6 +2,30 @@ const countryComments = require('./countryComments')
 
 module.exports = {
   countryComments,
+  // ...TODO: Move all reasonability checks out to a separate file
+  reasonabilityChecks: {
+    reasonabilityCheck: 'Reasonability check',
+    variable: 'Variable - Year',
+    forest: 'Forest',
+    FAWS: 'FAWS',
+    OWL: 'OWL',
+    FOWL: 'FOWL',
+
+    netAnnualIncrementPerHa: 'Net annual increment per ha (3.1/1.1a) - {{year}}',
+    fellingsPerHa: 'Fellings per ha (3.1/1.1a) - {{year}}',
+    fellingsAsPct: 'Fellings as percent of net annual increment (3.1) - {{year}}',
+    roundwoodRemovalAsPctOfGrowingStockSupply:
+      'Roundwood removals as percent of growing stock on Forest available for wood supply (3.2 / 1.2a) - {{year}}',
+    roundwoodRemovalAsPctOfGrowingStockTotal:
+      'Roundwood removals as percent of growing stock on Forest and Other wooded land (3.2 / 1.2a) - {{year}}',
+    growingStockPerHa: 'Growing stock per hectar (1.2a/1.1a) - {{year}}',
+    carbonBelowByCarbonAbove: 'Carbon in below-ground biomass/ Carbon in above-ground biomass (1.4a) - {{year}}',
+    carbonAboveByGrowingStock: 'Carbon in above-ground biomass/ growing stock (1.4a/1.2a) - {{year}}',
+    soilCarbon: 'Soil carbon (1.4a/1.1a) - {{year}}',
+    deadwoodVolumeComparedToCarbon: 'Dead wood: volume compared to carbon stock (4.5/1.4a) - {{year}}',
+    totalWithDamageOverTotal: 'Area with damage as a share of Total forest area (2.4/1.1a) - {{year}}',
+  },
+
   panEuCommentsTitle: 'Additional Comments',
   panEuropeanAssessment: 'Joint pan-European dataset',
   variable: 'Variable',
@@ -249,13 +273,18 @@ module.exports = {
     areaPrimarilyDegradedBy: 'Area primarily degraded by',
     formerDegradedLandRestored: 'Former degraded land restored',
     grazing: 'Grazing',
+    agentOne: 'Agent 1',
+    agentTwo: 'Agent 2',
+    agentThree: 'Agent 3',
+    agentFour: 'Agent 4',
+    agentFive: 'Agent 5',
     repeatedFires: 'Repeated fires',
     airPollution: 'Air pollution',
     desertification: 'Desertification',
     other1: 'Other 1',
     other2: 'Other 2',
     other3: 'Other 3',
-    unknown: 'Unknown',
+    unknownMixedDegradation: 'Unknown / Mixed degradation',
     nA: '',
     thousandHa: '1000 ha',
     forest: 'Forest - {{year}}',

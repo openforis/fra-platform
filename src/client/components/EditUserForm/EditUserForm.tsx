@@ -11,18 +11,19 @@ import { useUser } from '@client/store/user'
 import { useCountryIso, useOnUpdate } from '@client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
-// import CountryRoles from './CountryRoles'
+import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
+import SelectField from './SelectField'
 import TextInputField from './TextInputField'
-import TitleField from './TitleField'
 import UserRolePropsFields from './UserRolePropsFields'
 
 type Props = {
   user: User
+  canEditPermissions?: boolean
   canEditRoles?: boolean
 }
 
-const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
+const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles }) => {
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const countryIso = useCountryIso()
@@ -80,12 +81,19 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
         name="email"
         value={user.email}
         onChange={changeUser}
-        validator={Users.validEmail}
+        validator={Users.validEmailField}
         enabled={enabled}
         mandatory
       />
 
-      <TitleField name="title" value={user.props.title} onChange={changeUserProp} enabled={enabled} mandatory />
+      <SelectField
+        name="title"
+        value={user.props.title}
+        onChange={changeUserProp}
+        options={{ Ms: 'Ms', Mr: 'Mr', Other: 'Other' }}
+        enabled={enabled}
+        mandatory
+      />
 
       <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} mandatory />
 
@@ -99,16 +107,17 @@ const EditUserForm: React.FC<Props> = ({ user, canEditRoles }) => {
         <div className="edit-user__form-label">{t('editUser.mandatoryFields')}</div>
       </div>
 
-      {canEditRoles && userRole?.role === RoleName.COLLABORATOR && (
+      {canEditPermissions && userRole?.role === RoleName.COLLABORATOR && (
         <CollaboratorPermissions userRole={userRole as Collaborator} />
       )}
 
-      {/* {canEditRoles && <CountryRoles user={user} />} */}
+      {canEditRoles && <CountryRoles user={user} />}
     </div>
   )
 }
 
 EditUserForm.defaultProps = {
+  canEditPermissions: false,
   canEditRoles: false,
 }
 

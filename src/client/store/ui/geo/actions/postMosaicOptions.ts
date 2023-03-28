@@ -23,7 +23,7 @@ const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
         sources: {
           dataSets: {
             ...(sources.includes('sentinel') ? { SENTINEL: ['SENTINEL_2'] } : {}),
-            ...(sources.includes('landsat') ? { LANDSAT: ['LANDSAT_9', 'LANDSAT_8'] } : {}),
+            ...(sources.includes('landsat') ? { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] } : {}),
           },
           cloudPercentageThreshold: maxCloudCoverage,
         },

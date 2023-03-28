@@ -17,7 +17,7 @@ type Props = {
 const UserList: React.FC<Props> = ({ users, isAdmin, readOnly }) => {
   const { t } = useTranslation()
 
-  return users && users.length > 0 ? (
+  return users?.length > 0 ? (
     <table className="user-list__table">
       <UserListHeader readOnly={readOnly} isAdmin={isAdmin} />
       <tbody>

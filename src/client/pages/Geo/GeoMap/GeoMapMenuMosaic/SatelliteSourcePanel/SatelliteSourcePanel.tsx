@@ -6,6 +6,8 @@ import { MosaicOptions, MosaicSource } from '@meta/geo'
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useAppliedMosaicOptions, useUiMosaicOptions } from '@client/store/ui/geo'
 
+import { LayerStatus } from '../../GeoMapMenuData/MapVisualizerPanel'
+
 interface ControlProps {
   label: string
   children: React.ReactNode
@@ -20,7 +22,10 @@ const Control: React.FC<ControlProps> = ({ label, children }) => {
   )
 }
 
-const SatelliteSourcePanel: React.FC = () => {
+interface Props {
+  loadingStatus?: string
+}
+const SatelliteSourcePanel: React.FC<Props> = ({ loadingStatus }) => {
   const dispatch = useAppDispatch()
   const uiMosaicOptions = useUiMosaicOptions()
   const appliedMosaicOptions = useAppliedMosaicOptions()
@@ -50,6 +55,11 @@ const SatelliteSourcePanel: React.FC = () => {
 
   return (
     <div className="geo-map-menu-mosaic-satellite-panel">
+      {loadingStatus === LayerStatus.failed && (
+        <p className="geo-map-menu-mosaic-satellite-error-message">
+          Error: No mosaic available for the selected configuration.
+        </p>
+      )}
       <div>
         <Control label="Sources">
           <>
@@ -106,4 +116,7 @@ const SatelliteSourcePanel: React.FC = () => {
   )
 }
 
+SatelliteSourcePanel.defaultProps = {
+  loadingStatus: null,
+}
 export default SatelliteSourcePanel

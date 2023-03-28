@@ -13,6 +13,8 @@ import { WorkerFactory } from './workerFactory'
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
 
+export const connection = new IORedis(ProcessEnv.redisUrl)
+
 const getInstance = (props: {
   assessment: Assessment
   cycle: Cycle
@@ -28,7 +30,7 @@ const getInstance = (props: {
   workers[key] = WorkerFactory.newInstance({ key })
 
   const opts = {
-    connection: new IORedis(ProcessEnv.redisUrl),
+    connection,
     streams: { events: { maxLen: 10 } },
   }
   queue = new Queue<UpdateDependenciesProps>(key, opts)
@@ -39,7 +41,6 @@ const getInstance = (props: {
 
 process.on('SIGTERM', async () => {
   await Promise.all(Object.values(workers).map((worker) => worker.close()))
-
   Logger.debug('[calculateAndValidateDependentNodesWorkers] all workers closed')
 })
 

@@ -1,6 +1,5 @@
 import './Toolbar.scss'
-import React, { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
@@ -12,19 +11,14 @@ import { useAssessment, useCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
+import AreaSelector from '@client/components/AreaSelector/AreaSelector'
 import Icon from '@client/components/Icon'
 import LinkHome from '@client/components/LinkHome'
 import { Breakpoints } from '@client/utils'
 
-import CountryList from './CountryList'
 import Lock from './Lock'
 import Status from './Status'
 import ToggleNavigationControl from './ToggleNavigationControl'
-
-const findElementRoot = (el: Element): Element => {
-  if (el.parentElement === null) return el
-  return findElementRoot(el.parentElement)
-}
 
 const Toolbar: React.FC = () => {
   const cycle = useCycle()
@@ -32,98 +26,33 @@ const Toolbar: React.FC = () => {
   const country = useCountry(countryIso)
   const { print } = useIsPrint()
   const user = useUser()
-  const { i18n, t } = useTranslation()
-  const countrySelectionRef = useRef(null)
-  const [open, setOpen] = useState(false)
-  const [query, setQuery] = useState('')
 
   const isCountry = Areas.isISOCountry(countryIso)
   const assessment = useAssessment()
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
-  const outsideClick = (evt: any) => {
-    const elRoot = findElementRoot(evt.target)
-    // We need to check these two, since React can unmount the other element before we get here.
-    if (
-      elRoot.className.includes('country-select__country') ||
-      elRoot.className.includes('country-select__select-laptop') ||
-      elRoot.className.includes('country-select__select-mobile')
-    )
-      return
-    if (countrySelectionRef.current && countrySelectionRef.current.contains(evt.target)) return
-
-    setOpen(false)
-  }
-
-  useEffect(() => {
-    window.addEventListener('click', outsideClick)
-    return () => {
-      window.removeEventListener('click', outsideClick)
-    }
-  }, [])
-
-  useEffect(() => {
-    setQuery('')
-  }, [open])
-
   if (print) return null
+
+  const isAdmin = Users.isAdministrator(user)
+  const includeGlobals = isAdmin || cycle.published
+  const includeRegions = isAdmin || cycle.published
 
   return (
     <div className="toolbar">
-      <div className="country-select">
+      <div className="toolbar__nav-options">
         <ToggleNavigationControl />
 
-        <button
-          type="button"
-          className="btn-country-select no-print"
-          ref={countrySelectionRef}
-          onClick={() => setOpen((prevState) => !prevState)}
-        >
-          <div>
-            {open && (
-              <input
-                type="text"
-                className="text-input"
-                // eslint-disable-next-line
-                autoFocus
-                onClick={(event) => event.stopPropagation()}
-                placeholder={i18n.t('emoji.picker.search')}
-                onChange={(event) => setQuery(event.target.value)}
-              />
-            )}
-
-            {countryIso && !open && (
-              <div className="country-select__country">
-                {Areas.isISOCountry(countryIso) && (
-                  <div
-                    className="flag"
-                    style={{
-                      backgroundImage: `url('/img/flags/1x1/${countryIso}.svg')`,
-                    }}
-                  />
-                )}
-
-                <div className="name">{i18n.t<string>(`area.${countryIso}.listName`)}</div>
-                {user && Areas.isISOCountry(countryIso) && (
-                  <div className="user-role">
-                    {i18n.t<string>(Users.getI18nRoleLabelKey(Users.getRole(user, countryIso, cycle)?.role))}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {!countryIso && !open && (
-              <>
-                <div className="country-select__select-laptop">{`- ${t('common.selectArea')} -`}</div>
-                <div className="country-select__select-mobile">{`- ${t('common.selectArea')} -`}</div>
-              </>
-            )}
-          </div>
-          <Icon name="small-down" />
-
-          {open && <CountryList query={query} />}
-        </button>
+        <AreaSelector
+          enableDownload
+          includeCountries
+          includeGlobals={includeGlobals}
+          includeRegions={includeRegions}
+          placeholder="common.selectArea"
+          selectedValue={countryIso}
+          showCountryFlag
+          showCountryRole
+        />
       </div>
 
       {isCountry && (

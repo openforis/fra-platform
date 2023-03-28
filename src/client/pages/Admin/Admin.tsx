@@ -12,11 +12,10 @@ import { Users } from '@meta/user'
 import { useCountries } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 
-import User from '../User'
 import UserManagement from './UserManagement'
 
 const sections = [
-  { component: UserManagement, name: 'userManagement', labelKey: 'landing.sections.userManagement' },
+  { component: UserManagement, name: AdminRouteNames.userManagement, labelKey: 'landing.sections.userManagement' },
   // { name: 'dataExport', labelKey: 'common.dataExport' },
 ]
 
@@ -55,8 +54,6 @@ const Admin: React.FC = () => {
         {sections.map(({ name, component }) => (
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
-
-        <Route path={ClientRoutes.Assessment.Cycle.Admin.Users.User.path.relative} element={<User />} />
 
         <Route path="*" element={<Navigate to={AdminRouteNames.userManagement} replace />} />
       </Routes>
