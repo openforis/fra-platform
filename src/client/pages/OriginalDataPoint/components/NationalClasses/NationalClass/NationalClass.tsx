@@ -76,7 +76,7 @@ const NationalClass: React.FC<Props> = (props) => {
               placeholder={
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
-              value={name || ''}
+              defaultValue={name || ''}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const { value } = event.target
                 const originalDataPointUpdate = ODPs.updateNationalClass({
