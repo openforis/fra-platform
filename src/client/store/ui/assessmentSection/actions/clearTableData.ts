@@ -7,6 +7,6 @@ import { CycleDataParams } from '@meta/api/request'
 export const clearTableData = createAsyncThunk<void, CycleDataParams & { tableName: string }>(
   'section/get/clearTableData',
   async (params) => {
-    await axios.get(ApiEndPoint.CycleData.Table.tableClear(), { params })
+    await axios.post(ApiEndPoint.CycleData.Table.tableClear(), {}, { params })
   }
 )

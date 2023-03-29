@@ -22,7 +22,7 @@ export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<
   return client.map<Row>(
     `
         select r.*
-               ${includeCols ? `, jsonb_agg(c.*)        as cols` : ''}
+               ${includeCols ? `, coalesce(jsonb_agg(c.*) filter (where c.uuid is not null), '[]')     as cols` : ''}
         from ${schema}.row r
                 left join ${schema}."table" t on r.table_id = t.id
                 ${includeCols ? `left join ${schema}.col c on r.id = c.row_id` : ''}

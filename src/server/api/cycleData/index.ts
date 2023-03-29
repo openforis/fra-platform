@@ -34,7 +34,7 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditTableData,
       estimateValues
     )
-    express.get(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
+    express.post(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
 
     // Descriptions
     express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)

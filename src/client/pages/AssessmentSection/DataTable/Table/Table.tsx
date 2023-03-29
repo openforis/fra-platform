@@ -39,15 +39,15 @@ const Table: React.FC<Props> = (props) => {
 
   const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
   const { secondary, name } = table.props
-  const displayButtons = !secondary && !print && tableRef.current != null
 
   const isDataLocked = useIsDataLocked()
-  const showClearButton = displayButtons && !isDataLocked && !table.props.readonly
+  const showClearButton = !print && !isDataLocked && !table.props.readonly
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
-        {displayButtons && <ButtonTableExport tableRef={tableRef} filename={`${sectionAnchor} ${name}`} />}
+        {!print && <ButtonTableExport tableRef={tableRef} filename={`${sectionAnchor} ${name}`} />}
+
         {showClearButton && (
           <ButtonTableClear
             table={table}
@@ -56,6 +56,7 @@ const Table: React.FC<Props> = (props) => {
             sectionName={sectionName}
           />
         )}
+
         <ButtonCopyValues tableRef={tableRef} table={table} />
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">
