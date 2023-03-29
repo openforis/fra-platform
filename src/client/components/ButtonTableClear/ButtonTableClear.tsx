@@ -32,7 +32,6 @@ const ButtonTableClear: React.FC<Props> = (props) => {
   const { print } = useIsPrint()
   const isLocked = useIsDataLocked()
 
-  // useCallback
   const _onClick = useCallback(() => {
     if (window.confirm(t('common.areYouSureYouWantToDeleteAllTableData'))) {
       dispatch(
