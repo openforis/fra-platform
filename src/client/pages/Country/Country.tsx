@@ -76,6 +76,8 @@ const Country: React.FC = () => {
 
   if (!countryIso) return null
 
+  if (!country) return null
+
   if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ countryIso, assessment, cycle, user }))
     window.location.href = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
 
