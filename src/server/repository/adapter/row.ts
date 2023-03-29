@@ -29,7 +29,6 @@ export const RowAdapter = (rowDB: RowDB): Row => {
   }
 
   if (_row.cols) {
-    // Postgres returns nulls for empty arrays: [null]
     _row.cols = row.cols.map(ColAdapter)
   }
   return _row
