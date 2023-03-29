@@ -43,7 +43,7 @@ const Title: React.FC<Props> = (props) => {
   const secondDoc = fra ? 'faq' : 'rn'
   const secondLabel = fra ? 'definition.faqLabel' : 'definition.seeReportingNotes'
   const sectionName = subSection.props.name
-  const anchor = SubSections.getAnchor({ cycle, subSection })
+  const anchor = fra ? SubSections.getAnchor({ cycle, subSection }) : ''
   const Component = Components[assessmentName]?.[sectionName] || TitleDefault
 
   return (
