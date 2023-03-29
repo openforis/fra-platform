@@ -41,6 +41,16 @@ export interface ForestEstimationsData {
   faHansen30: number
   faJaxa: number
   faTandemx: number
+  faCopernicusProtected: number
+  faEsa2009Protected: number
+  faEsa2020Protected: number
+  faEsriProtected: number
+  faGlobelandProtected: number
+  faHansen10Protected: number
+  faHansen20Protected: number
+  faHansen30Protected: number
+  faJaxaProtected: number
+  faTandemxProtected: number
   fra1aForestArea: number
   fra1aLandArea: number
   fra3bProtected: number
