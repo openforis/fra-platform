@@ -1,38 +1,49 @@
 @import 'src/client/style/partials';
 
-.nav-assessment-header {
+.nav-header {
   margin-top: $spacing-xs;
 
   @include min-width($laptop) {
-    margin-top: 0px;
+    margin-top: $spacing-xxxs;
   }
+}
 
-  .nav-assessment-header__toggler {
-    padding: $spacing-xxs $spacing-xxs $spacing-xxs $spacing-xs;
+.nav-header__sep-container {
+  display: grid;
+  grid-template-columns: $spacing-xl 1fr $spacing-xl - 4;
+  grid-auto-rows: $spacing-s/2;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .btn-toggle {
+    grid-row: 1/3;
+    grid-column: 3;
+    justify-self: center;
+    align-self: center;
+    width: $spacing-s;
+    height: $spacing-s;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    padding: unset;
 
-    .desk-study {
-      color: $text-mute;
-      font-size: $font-xs;
+    svg {
+      color: $text-body;
+      height: 17px;
+      width: 17px;
     }
 
-    .nav-assessment-header__btn-toggle-sections {
-      justify-self: right;
-      font-weight: 400;
-      transition: $ease-out;
-      text-decoration: none;
-      color: $text-mute;
-
-      &:hover {
-        color: $text-body;
+    &.active {
+      svg {
+        color: $ui-accent;
       }
     }
   }
 
-  hr {
-    margin: $spacing-xxs 0;
+  .hr {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: end;
+    height: 1px;
+    opacity: 0.8;
+    background: radial-gradient($ui-border, lighten($ui-border, 6%));
   }
 }

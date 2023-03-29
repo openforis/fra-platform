@@ -13,8 +13,8 @@ import { useCountryIso, useOnUpdate } from '@client/hooks'
 import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
 import ProfilePicture from './ProfilePicture'
+import SelectField from './SelectField'
 import TextInputField from './TextInputField'
-import TitleField from './TitleField'
 import UserRolePropsFields from './UserRolePropsFields'
 
 type Props = {
@@ -86,7 +86,14 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles 
         mandatory
       />
 
-      <TitleField name="title" value={user.props.title} onChange={changeUserProp} enabled={enabled} mandatory />
+      <SelectField
+        name="title"
+        value={user.props.title}
+        onChange={changeUserProp}
+        options={{ Ms: 'Ms', Mr: 'Mr', Other: 'Other' }}
+        enabled={enabled}
+        mandatory
+      />
 
       <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} mandatory />
 
