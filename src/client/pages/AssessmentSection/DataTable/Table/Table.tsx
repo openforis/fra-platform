@@ -42,7 +42,7 @@ const Table: React.FC<Props> = (props) => {
   const displayButtons = !secondary && !print && tableRef.current != null
 
   const isDataLocked = useIsDataLocked()
-  const showClearButton = displayButtons && !isDataLocked && !table.props.readOnly
+  const showClearButton = displayButtons && !isDataLocked && !table.props.readonly
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>

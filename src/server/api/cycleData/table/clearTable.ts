@@ -17,6 +17,12 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
       metaCache: true,
     })
 
+    const tableSpec = await MetadataController.getTable({
+      tableName,
+      cycle,
+      assessment,
+    })
+
     const rows = await MetadataController.getRows({
       assessment,
       tableName,
@@ -29,7 +35,8 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
       }
       const { variableName } = row.props
 
-      const columnNames = row.cols.reduce((acc, col) => {
+      const columnNames = tableSpec.props.columnNames[cycle.uuid].reduce((acc, colName) => {
+        const col = row.cols.find((c) => c.props.colName === colName)
         if (!col.props.colName || col.props.readonly) {
           return acc
         }

@@ -31,7 +31,7 @@ export interface TableProps {
   name: string
   odp?: boolean
   print?: { pageBreakAfter: boolean }
-  readOnly?: boolean
+  readonly?: boolean
   secondary?: boolean
   unit?: Unit
 }
