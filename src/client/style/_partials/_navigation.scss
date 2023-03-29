@@ -1,23 +1,29 @@
 @import 'config';
 @import 'spacing';
 
+@mixin nav-bg($color) {
+  -webkit-box-shadow: inset 0 0 50px 10px $color;
+  box-shadow: inset 0 0 50px 10px $color;
+}
+
 @mixin mixin-nav-secondary-base($padding, $hover: false) {
   display: flex;
   align-items: stretch;
   flex-flow: row nowrap;
-  padding: $padding 12px $padding $spacing-xs;
+  padding: $padding $spacing-xs;
   text-decoration: none;
   color: $text-body;
+  transition: all 0.1s;
 
   @if $hover {
     &:hover {
       color: inherit;
-      background-color: var(--ui-bg-hover);
       transition: $ease-out;
+      @include nav-bg(var(--ui-bg-hover));
     }
 
     &.selected {
-      background-color: var(--ui-accent-light);
+      @include nav-bg(var(--ui-accent-light));
       pointer-events: none;
     }
   }
