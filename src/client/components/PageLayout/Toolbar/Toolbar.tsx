@@ -1,5 +1,6 @@
 import './Toolbar.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
@@ -21,6 +22,7 @@ import Status from './Status'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const Toolbar: React.FC = () => {
+  const { t } = useTranslation()
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
@@ -56,34 +58,44 @@ const Toolbar: React.FC = () => {
       </div>
 
       {isCountry && (
-        <MediaQuery minWidth={Breakpoints.laptop}>
-          {user && <Status />}
+        <>
+          <MediaQuery minWidth={Breakpoints.laptop}>
+            {user && <Status />}
+            {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
+          </MediaQuery>
 
-          {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && <Lock />}
+          <div className="toolbar__utils-container">
+            {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && (
+              <>
+                <Lock />
+                <div className="toolbar__separator" />
+              </>
+            )}
 
-          <div className="links-download">
-            <Link
-              className="btn btn-secondary"
-              to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
-                countryIso,
-                assessmentName,
-                cycleName,
-              })}
-              target="_blank"
-            >
-              <Icon name="small-print" className="icon-margin-left icon-sub" />
-              <Icon name="icon-table2" className="icon-no-margin icon-sub" />
-            </Link>
+            <MediaQuery minWidth={Breakpoints.laptop}>
+              <Link
+                className="btn btn-secondary"
+                to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
+                  countryIso,
+                  assessmentName,
+                  cycleName,
+                })}
+                target="_blank"
+              >
+                <Icon name="small-print" className="icon-margin-left icon-sub" />
+                <Icon name="icon-table2" className="icon-no-margin icon-sub" />
+              </Link>
 
-            <Link
-              className="btn btn-secondary"
-              to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
-              target="_blank"
-            >
-              <Icon name="small-print" className="icon-no-margin icon-sub" />
-            </Link>
+              <Link
+                className="btn btn-secondary"
+                to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
+                target="_blank"
+              >
+                <Icon name="small-print" className="icon-no-margin icon-sub" />
+              </Link>
+            </MediaQuery>
           </div>
-        </MediaQuery>
+        </>
       )}
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>

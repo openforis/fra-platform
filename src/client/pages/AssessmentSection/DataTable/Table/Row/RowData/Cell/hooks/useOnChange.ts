@@ -87,21 +87,22 @@ export default (props: Props): UseOnChange => {
     el.innerHTML = clipboardData.getData('text/html')
 
     const rows = el.getElementsByTagName('tr')
-    const rowSpecs = table.rows.filter((row) => row.props.type !== RowType.header)
+    const rowSpecs = table.rows.filter((row) => ![RowType.header, RowType.noticeMessage].includes(row.props.type))
 
     if (rows.length > 0) {
       const values: Array<NodesBodyValue> = []
+
       for (let i = 0; i < rows.length; i += 1) {
-        const rowIdxCurrent = i + Number(row.props.index)
-        const rowSpec = rowSpecs[rowIdxCurrent]
+        const rowIdxCurrent = Number(row.props.index) + i
+        const rowSpec = rowSpecs.find((rowSpec) => rowSpec.props.index === rowIdxCurrent)
         if (!rowSpec) break
 
         const columns = rows[i].getElementsByTagName('td')
+        const colSpecs = rowSpec.cols.filter((col) => col.props.colType !== ColType.header)
+
         for (let j = 0; j < columns.length; j += 1) {
           const colIdxCurrent = Number(col.props.index) + j
-          const colSpec = rowSpec.cols
-            .filter((col) => col.props.colType !== ColType.header)
-            .find((col) => col.props.index === colIdxCurrent)
+          const colSpec = colSpecs.find((colSpec) => colSpec.props.index === colIdxCurrent)
           if (!colSpec) break
 
           const colSpecType = colSpec.props.colType

@@ -41,6 +41,7 @@ const AreaSelector: React.FC<Props> = (props) => {
     showCountryRole,
   } = props
 
+  const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
@@ -52,8 +53,6 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   const destinationPath =
     isInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
-
-  const { t } = useTranslation()
 
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
