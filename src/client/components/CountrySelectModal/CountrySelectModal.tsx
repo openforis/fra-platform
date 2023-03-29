@@ -99,6 +99,7 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     else document.body.classList.remove('no-scroll')
   }, [open])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(updateCountries, [countries, query])
 
   useEffect(() => {

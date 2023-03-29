@@ -12,7 +12,7 @@ const ButtonToggleAll: React.FC<Props> = (props) => {
 
   return (
     <button
-      className="btn-s nav-assessment-header__btn-toggle-sections"
+      className="btn-s nav-header__btn-toggle-sections"
       onClick={() => setShowSections(!showSections)}
       type="button"
     >
