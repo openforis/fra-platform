@@ -1,10 +1,10 @@
 // @ts-ignore
 import { Image } from '@google/earthengine'
 
-import { ProtectedAreaKey, ProtectedAreaLayerSource } from '@meta/geo'
+import { LayerSource, ProtectedAreaKey, protectedAreaSourcesMetadata } from '@meta/geo'
 
-export const getProtectedAreaAssetData = (layer: ProtectedAreaLayerSource): { year?: number; img: Image } => {
-  let asset = {} as { year?: number; img: Image }
+export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
+  let asset = {} as { year?: number; img: Image; metadata: any }
 
   switch (layer.key) {
     case ProtectedAreaKey.FilteredWDPA: {
@@ -15,6 +15,7 @@ export const getProtectedAreaAssetData = (layer: ProtectedAreaLayerSource): { ye
       asset = {
         year: 2017,
         img: imgFilteredWDPA,
+        metadata: protectedAreaSourcesMetadata[layer.key],
       }
       break
     }
@@ -24,6 +25,7 @@ export const getProtectedAreaAssetData = (layer: ProtectedAreaLayerSource): { ye
 
       asset = {
         img: imgCustom,
+        metadata: protectedAreaSourcesMetadata[layer.key],
       }
       break
     }
