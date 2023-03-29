@@ -53,7 +53,7 @@ const Title: React.FC<Props> = (props) => {
       {(fra || (panEu && cycleName === '2025')) && (
         <div className="app-view__section-toolbar no-print">
           <DefinitionLink
-            assessmentName={assessmentName.toLowerCase()}
+            assessmentName={assessmentName}
             cycleName={cycleName}
             className="margin-right-big"
             document="tad"
@@ -62,7 +62,7 @@ const Title: React.FC<Props> = (props) => {
             lang={i18n.language}
           />
           <DefinitionLink
-            assessmentName={assessmentName.toLowerCase()}
+            assessmentName={assessmentName}
             cycleName={cycleName}
             className="align-left"
             document={secondDoc}
