@@ -1,10 +1,10 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestSource, LayerSource } from '@meta/geo'
+import { ForestSource, LayerSource, sourcesMetadata } from '@meta/geo'
 
-export const getForestAssetData = (layer: LayerSource): { year?: number; img: Image } => {
-  let asset = {} as { year?: number; img: Image }
+export const getForestAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
+  let asset = {} as { year?: number; img: Image; metadata: any }
 
   switch (layer.key) {
     case ForestSource.JAXA: {
@@ -16,6 +16,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2017,
         img: imgForestJAXA,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -25,6 +26,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2019,
         img: imgForestTANDEMX,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -38,6 +40,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2009,
         img: imgForestLCESA,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -47,6 +50,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2020,
         img: imgForestGlobeLand,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -57,6 +61,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2019,
         img: imgForestCopernicus,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -66,6 +71,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2020,
         img: imgForestESRIy2020,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -76,6 +82,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2020,
         img: imgForestESAy2020,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -94,6 +101,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2020,
         img: imgForestHansen,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -102,6 +110,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
 
       asset = {
         img: imgCustom,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }

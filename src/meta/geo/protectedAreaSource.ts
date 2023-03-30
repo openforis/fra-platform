@@ -18,9 +18,3 @@ export const protectedAreaSourcesMetadata = {
     scale: 0,
   },
 }
-export interface ProtectedAreaLayerSource {
-  key: ProtectedAreaKey
-  options?: {
-    assetId?: string
-  }
-}

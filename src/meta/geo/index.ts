@@ -1,5 +1,4 @@
 export type { Bounds } from './bounds'
-export type { BurnedAreaLayerSource } from './burnedAreaSource'
 export { BurnedAreaKey, burnedAreaSourcesMetadata } from './burnedAreaSource'
 export type { Layer } from './forest'
 export type { ForestOptions, LayerSource } from './forest'
@@ -7,6 +6,5 @@ export { agreementPalette, ForestSource, getRecipeAgreementAreaProperty, sources
 export type { ForestEstimations, ForestEstimationsData } from './forestEstimations'
 export { ExtraEstimation, extraEstimationsMetadata } from './forestEstimations'
 export type { MosaicOptions, MosaicSource } from './mosaic'
-export type { ProtectedAreaLayerSource } from './protectedAreaSource'
 export { ProtectedAreaKey, protectedAreaSourcesMetadata } from './protectedAreaSource'
 export type { MapPanel } from './ui'
