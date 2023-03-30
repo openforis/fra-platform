@@ -4,7 +4,6 @@ import { CycleDataRequest } from '@meta/api/request'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
-import { MetadataController } from '@server/controller/metadata'
 import Requests from '@server/utils/requests'
 
 export const clearTable = async (req: CycleDataRequest, res: Response) => {
@@ -17,55 +16,16 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
       metaCache: true,
     })
 
-    const tableSpec = await MetadataController.getTable({
-      tableName,
+    const nodes = await CycleDataController.clearTableData({
+      assessment,
+      countryIso,
       cycle,
-      assessment,
-    })
-
-    const rows = await MetadataController.getRows({
-      assessment,
-      tableName,
-      includeCols: true,
-    })
-
-    const nodes = rows.reduce((acc, row) => {
-      if (!row.props.variableName || row.props.readonly) {
-        return acc
-      }
-      const { variableName } = row.props
-
-      const columnNames = tableSpec.props.columnNames[cycle.uuid].reduce((acc, colName) => {
-        const col = row.cols.find((c) => c.props.colName === colName)
-        if (!col.props.colName || col.props.readonly) {
-          return acc
-        }
-        return [...acc, col.props.colName]
-      }, [])
-
-      return [
-        ...acc,
-        ...columnNames.map((colName) => ({
-          tableName,
-          variableName,
-          colName,
-          value: { raw: null },
-        })),
-      ]
-    }, [])
-
-    await CycleDataController.persistNodeValues({
-      nodeUpdates: {
-        assessment,
-        cycle,
-        countryIso,
-        nodes,
-      },
       sectionName,
+      tableName,
       user: Requests.getUser(req),
     })
 
-    return Requests.sendOk(res)
+    return Requests.sendOk(res, nodes)
   } catch (e) {
     return Requests.sendErr(res, e)
   }

@@ -4,6 +4,7 @@ import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/m
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
 
+import { clearTableData } from './clearTableData'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { deleteNodeValues } from './deleteNodeValues'
 import { getBulkDownload } from './getBulkDownload'
@@ -23,6 +24,7 @@ export const CycleDataController = {
   // table data
   getOriginalDataPointData: DataRepository.getOriginalDataPointData,
   getTableData,
+  clearTableData,
   // original data points
   createOriginalDataPoint,
   getOriginalDataPoint,
