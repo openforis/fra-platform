@@ -1,11 +1,13 @@
 import { CountryIso } from '@meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
+import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
 import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
 import { BaseProtocol, DB } from '@server/db'
 import { DataRepository } from '@server/repository/assessmentCycle/data'
 import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { SocketServer } from '@server/service/socket'
 
 type Props = {
   assessment: Assessment
@@ -37,6 +39,10 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
       nodes,
     }
 
+    const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
+    SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+
     // schedule dependencies update
     await scheduleUpdateDependencies({
       isODP: true,
@@ -52,6 +58,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
           target: {
             countryIso,
             tableName,
+            nodes,
           },
           section: sectionName,
           message: ActivityLogMessage.tableValuesClear,
