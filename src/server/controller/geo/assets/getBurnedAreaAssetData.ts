@@ -1,10 +1,10 @@
 // @ts-ignore
 import { Filter, Image, ImageCollection, Reducer } from '@google/earthengine'
 
-import { BurnedAreaKey, BurnedAreaLayerSource } from '@meta/geo'
+import { BurnedAreaKey, burnedAreaSourcesMetadata, LayerSource } from '@meta/geo'
 
-export const getBurnedAreaAssetData = (layer: BurnedAreaLayerSource): { year?: number; img: Image } => {
-  let asset = {} as { year?: number; img: Image }
+export const getBurnedAreaAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
+  let asset = {} as { year?: number; img: Image; metadata: any }
 
   switch (layer.key) {
     case BurnedAreaKey.MODIS: {
@@ -17,6 +17,7 @@ export const getBurnedAreaAssetData = (layer: BurnedAreaLayerSource): { year?: n
       asset = {
         year: layer.options.year,
         img: imgMODIS,
+        metadata: burnedAreaSourcesMetadata[layer.key],
       }
       break
     }
