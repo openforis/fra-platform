@@ -18,7 +18,7 @@ export const GeoApi = {
   init: (express: Express): void => {
     express.post(
       ApiEndPoint.Geo.Layers.forest(),
-      ValidationMiddleware.validateRequest(GeoSchemes.forestLayerSchema),
+      ValidationMiddleware.validateRequest(GeoSchemes.layerSchema),
       GeeAuthMiddleware.requireLogin,
       getForestLayer
     )
@@ -46,8 +46,18 @@ export const GeoApi = {
 
     express.get(ApiEndPoint.Geo.Layers.boundaries(), GeeAuthMiddleware.requireLogin, getBoundariesLayer)
 
-    express.post(ApiEndPoint.Geo.Layers.protectedArea(), GeeAuthMiddleware.requireLogin, getProtectedAreaLayer)
+    express.post(
+      ApiEndPoint.Geo.Layers.protectedArea(),
+      ValidationMiddleware.validateRequest(GeoSchemes.layerSchema),
+      GeeAuthMiddleware.requireLogin,
+      getProtectedAreaLayer
+    )
 
-    express.post(ApiEndPoint.Geo.Layers.burnedArea(), GeeAuthMiddleware.requireLogin, getBurnedAreaLayer)
+    express.post(
+      ApiEndPoint.Geo.Layers.burnedArea(),
+      ValidationMiddleware.validateRequest(GeoSchemes.layerSchema),
+      GeeAuthMiddleware.requireLogin,
+      getBurnedAreaLayer
+    )
   },
 }

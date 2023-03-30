@@ -8,10 +8,3 @@ export const burnedAreaSourcesMetadata = {
     scale: 500,
   },
 }
-
-export interface BurnedAreaLayerSource {
-  key: BurnedAreaKey
-  options: {
-    year: number
-  }
-}

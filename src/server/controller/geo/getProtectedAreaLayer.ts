@@ -2,7 +2,7 @@
 import { data } from '@google/earthengine'
 
 import { CountryIso } from '@meta/area'
-import { Layer, ProtectedAreaKey, ProtectedAreaLayerSource, protectedAreaSourcesMetadata } from '@meta/geo'
+import { Layer, LayerSource, ProtectedAreaKey } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets'
 
@@ -10,14 +10,13 @@ import { getMap } from './getMap'
 
 type Props = {
   countryIso: CountryIso
-  layer: ProtectedAreaLayerSource
+  layer: LayerSource
 }
 
 export const getProtectedAreaLayer = async (props: Props): Promise<Layer> => {
   const { countryIso, layer } = props
 
   const asset = AssetsController.getProtectedAreaAssetData(layer)
-  const metadata = protectedAreaSourcesMetadata[layer.key]
 
   switch (layer.key) {
     case ProtectedAreaKey.FilteredWDPA:
@@ -25,7 +24,7 @@ export const getProtectedAreaLayer = async (props: Props): Promise<Layer> => {
       const map = await getMap({
         image: asset.img,
         style: {
-          palette: metadata.palette,
+          palette: asset.metadata.palette,
         },
         countryIso,
       })
@@ -33,8 +32,8 @@ export const getProtectedAreaLayer = async (props: Props): Promise<Layer> => {
       return {
         mapId: map.mapId,
         year: asset.year,
-        scale: metadata.scale,
-        palette: metadata.palette,
+        scale: asset.metadata.scale,
+        palette: asset.metadata.palette,
       }
     }
 
@@ -61,7 +60,7 @@ export const getProtectedAreaLayer = async (props: Props): Promise<Layer> => {
             }
             resolve({
               mapId: featureViewTilesKey,
-              palette: metadata.palette,
+              palette: ['#2c05ff'],
             })
           }
         )
