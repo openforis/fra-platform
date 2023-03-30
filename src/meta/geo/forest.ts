@@ -1,3 +1,6 @@
+import { BurnedAreaKey } from './burnedAreaSource'
+import { ProtectedAreaKey } from './protectedAreaSource'
+
 enum LayerStatus {
   loading = 'loading',
   failed = 'failed',
@@ -113,10 +116,11 @@ export const sourcesMetadata = {
 }
 
 export interface LayerSource {
-  key: ForestSource
+  key: ForestSource | ProtectedAreaKey | BurnedAreaKey
   options?: {
     gteTreeCoverPercent?: number
     assetId?: string
+    year?: number
   }
 }
 

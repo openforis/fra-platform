@@ -1,8 +1,8 @@
 import { body, query } from 'express-validator'
 
-import { ForestSource, LayerSource } from '@meta/geo'
+import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from '@meta/geo'
 
-const sourceOptions = Object.values(ForestSource)
+const sourceKeys = Object.keys(ForestSource).concat(Object.keys(ProtectedAreaKey)).concat(Object.keys(BurnedAreaKey))
 
 const countryIsoQuery = query('countryIso')
   .exists()
@@ -11,7 +11,7 @@ const countryIsoQuery = query('countryIso')
   .isLength({ min: 3, max: 3 })
   .withMessage('validation.errors.invalidValue')
 
-export const forestLayerSchema = [
+export const layerSchema = [
   body('countryIso')
     .exists()
     .withMessage('validation.errors.requiredValue')
@@ -23,7 +23,7 @@ export const forestLayerSchema = [
     .exists()
     .withMessage('validation.errors.requiredValue')
     .bail()
-    .isIn(sourceOptions)
+    .isIn(sourceKeys)
     .withMessage('validation.errors.invalidValue'),
 
   body('layer.options.gteTreeCoverPercent')
@@ -34,6 +34,31 @@ export const forestLayerSchema = [
     .isInt({ min: 0, max: 100 })
     .withMessage('validation.errors.invalidValue')
     .toInt(),
+
+  body('layer.options.year')
+    .if(body('layer.key').equals(BurnedAreaKey.MODIS))
+    .exists()
+    .withMessage('validation.errors.requiredValue')
+    .bail()
+    .isInt({ min: 2000 })
+    .withMessage('validation.errors.invalidValue')
+    .toInt(),
+
+  body('layer.options.assetId')
+    .if(body('layer.key').equals(ForestSource.CustomFnF))
+    .exists()
+    .withMessage('validation.errors.requiredValue')
+    .bail()
+    .isLength({ min: 10 })
+    .withMessage('validation.errors.invalidValue'),
+
+  body('layer.options.assetId')
+    .if(body('layer.key').equals(ProtectedAreaKey.CustomPA))
+    .exists()
+    .withMessage('validation.errors.requiredValue')
+    .bail()
+    .isLength({ min: 10 })
+    .withMessage('validation.errors.invalidValue'),
 ]
 export const forestAgreementLayerSchema = [
   body('countryIso')
@@ -53,7 +78,7 @@ export const forestAgreementLayerSchema = [
     })
     .custom((layers) => {
       let valid = true
-      if (layers.length >= 2 && layers.every((ls: LayerSource) => sourceOptions.includes(ls.key))) {
+      if (layers.length >= 2 && layers.every((ls: LayerSource) => Object.keys(ForestSource).includes(ls.key))) {
         const lsHansen = layers.find((ls: LayerSource) => ls.key === ForestSource.Hansen)
         if (
           lsHansen !== undefined &&
@@ -101,12 +126,12 @@ export const forestEstimationsSchema = [
     .toInt(),
 ]
 
-export const forestAgreementEstimationSchema = [
-  body('scale').default(100).isFloat({ min: 10, max: 500 }).withMessage('validation.errors.invalidValue').toFloat(),
-]
+export const forestAgreementEstimationSchema = forestAgreementLayerSchema.concat([
+  body('scale').default(100).isFloat({ min: 10, max: 500 }).withMessage('validation.errors.invalidValue').toInt(),
+])
 
 export const GeoSchemes = {
-  forestLayerSchema,
+  layerSchema,
   forestAgreementLayerSchema,
   forestEstimationsSchema,
   forestAgreementEstimationSchema,
