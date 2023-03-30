@@ -13,15 +13,13 @@ type Props = {
   tableName: string
 }
 
-export const clearTableData = async (
-  props: Props,
-  client: BaseProtocol = DB
-): Promise<Array<Omit<NodeUpdate, 'value'>>> => {
+export const clearTableData = async (props: Props, client: BaseProtocol = DB): Promise<Array<NodeUpdate>> => {
   const { assessment, cycle, countryISOs, tableName } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const schemaAssessment = Schemas.getName(assessment)
 
-  return client.map<Omit<NodeUpdate, 'value'>>(
+  // TODO: Add value??
+  return client.map<NodeUpdate>(
     `
           with rc as (select c.props ->> 'colName'      as col_name,
                          r.props ->> 'variableName' as variable_name,
