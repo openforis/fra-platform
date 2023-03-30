@@ -7,7 +7,7 @@ import { i18n } from 'i18next'
 import { Areas, CountryIso, Global, Region, RegionCode } from '@meta/area'
 import { UserRoles } from '@meta/user/userRoles'
 
-import { useCycle, useRegionGroups } from '@client/store/assessment'
+import { useCountries, useCycle, useRegionGroups } from '@client/store/assessment'
 import { useIsPanEuropean } from '@client/hooks'
 import { checkMatch } from '@client/utils'
 
@@ -52,6 +52,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
+  const allCountries = useCountries()
   const isPanEuropean = useIsPanEuropean()
   const cycle = useCycle()
 
@@ -95,17 +96,26 @@ const CountryList: React.FC<Props> = (props: Props) => {
             })}
         </div>
 
-        {includeCountries &&
-          Object.entries(countryMap).map(([role, cycleCountries]) => (
-            <CountryListRoleSection
-              key={role}
-              countryISOs={cycleCountries[cycle.uuid]}
-              onElementSelect={onElementSelect}
-              role={showCountryRole ? role : UserRoles.noRole.role}
-              selectedValue={selectedValue}
-              query={query}
-            />
-          ))}
+        {includeCountries && showCountryRole
+          ? Object.entries(countryMap).map(([role, cycleCountries]) => (
+              <CountryListRoleSection
+                key={role}
+                countryISOs={cycleCountries[cycle.uuid]}
+                onElementSelect={onElementSelect}
+                role={role}
+                selectedValue={selectedValue}
+                query={query}
+              />
+            ))
+          : allCountries.map(({ countryIso }) => (
+              <CountryListRow
+                key={countryIso}
+                country={{ countryIso }}
+                onElementSelect={onElementSelect}
+                role={UserRoles.noRole.role}
+                selectedValue={selectedValue}
+              />
+            ))}
       </div>
     </div>
   )
