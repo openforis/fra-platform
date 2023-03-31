@@ -42,9 +42,21 @@ const getLastRole = (user: User) => {
   return _roles[0]
 }
 
+const roleNamesOrder = [
+  RoleName.NATIONAL_CORRESPONDENT,
+  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+  RoleName.REVIEWER,
+  RoleName.COLLABORATOR,
+  RoleName.VIEWER,
+]
+
+const sortRoles = ({ role: roleA }: UserRole<RoleName>, { role: roleB }: UserRole<RoleName>) =>
+  roleNamesOrder.indexOf(roleA) - roleNamesOrder.indexOf(roleB)
+
 export const UserRoles = {
   isInvitationExpired,
   noRole,
   getRecipientRoles,
   getLastRole,
+  sortRoles,
 }
