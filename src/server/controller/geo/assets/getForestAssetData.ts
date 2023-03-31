@@ -115,6 +115,22 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       break
     }
 
+    case ForestSource.Agreement: {
+      let imgAddition = Image(0)
+
+      layer.options.agreement.layers.forEach(function (source) {
+        const asset = getForestAssetData(source)
+        imgAddition = imgAddition.add(asset.img.unmask())
+      })
+
+      return {
+        img: imgAddition.mask(imgAddition.gte(layer.options.agreement.gteAgreementLevel)),
+        metadata: sourcesMetadata[layer.key],
+      }
+
+      break
+    }
+
     default:
       return null
   }

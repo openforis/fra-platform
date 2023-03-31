@@ -44,6 +44,7 @@ export enum ForestSource {
   Hansen = 'Hansen',
   MODIS = 'MODIS',
   CustomFnF = 'CustomFnF',
+  Agreement = 'Agreement',
 }
 
 export type Layer = {
@@ -53,6 +54,20 @@ export type Layer = {
   scale?: number
   citation?: string
 }
+
+export const agreementPalette = [
+  '#FFC0CB', // pink
+  '#FF0000', // red
+  '#FF8000', // shade of brown
+  '#FFFF00', // yellow
+  '#01def9', // shade of cyan
+  '#0040FF', // shade of blue
+  '#01DF01', // shade of green
+  '#0B3B0B', // very dark shade of green
+  '#808080', // gray
+  '#800080', // purple
+  '#000000', // black
+]
 
 export const sourcesMetadata = {
   [ForestSource.JAXA]: {
@@ -113,6 +128,11 @@ export const sourcesMetadata = {
     citation: '',
     scale: 0,
   },
+  [ForestSource.Agreement]: {
+    palette: agreementPalette,
+    citation: '',
+    scale: 0,
+  },
 }
 
 export interface LayerSource {
@@ -121,22 +141,12 @@ export interface LayerSource {
     gteTreeCoverPercent?: number
     assetId?: string
     year?: number
+    agreement?: {
+      layers: Array<LayerSource>
+      gteAgreementLevel: number
+    }
   }
 }
-
-export const agreementPalette = [
-  '#FFC0CB', // pink
-  '#FF0000', // red
-  '#FF8000', // shade of brown
-  '#FFFF00', // yellow
-  '#01def9', // shade of cyan
-  '#0040FF', // shade of blue
-  '#01DF01', // shade of green
-  '#0B3B0B', // very dark shade of green
-  '#808080', // gray
-  '#800080', // purple
-  '#000000', // black
-]
 
 export interface Recipe {
   layers: Array<ForestSource>
