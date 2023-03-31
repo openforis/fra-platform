@@ -72,12 +72,4 @@ export default async (client: BaseProtocol) => {
     `delete from ${schemaName}.col c where c.props->>'colName' in ('2001', '2002', '2003', '2004', '2006', '2007', '2008', '2009', '2011', '2012', '2013', '2014') and row_id = $1;`,
     rowData.id
   )
-
-  await AssessmentController.generateMetaCache(
-    {
-      assessment,
-      cycle,
-    },
-    client
-  )
 }
