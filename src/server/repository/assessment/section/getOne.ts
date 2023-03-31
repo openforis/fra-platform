@@ -10,7 +10,8 @@ export const getOne = async (
   client: BaseProtocol = DB
 ): Promise<Section> => {
   const schemaName = Schemas.getName(props.assessment)
-  return client.one<Section>(
+
+  return client.oneOrNone<Section>(
     `
         select s.*
         from ${schemaName}.section s
@@ -18,6 +19,6 @@ export const getOne = async (
           and props -> 'cycles' ? $1;
     `,
     [props.cycle.uuid, 'sectionName' in props ? props.sectionName : props.id],
-    SectionAdapter
+    (section) => section && SectionAdapter(section)
   )
 }
