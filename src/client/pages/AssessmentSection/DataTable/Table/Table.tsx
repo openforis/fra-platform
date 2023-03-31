@@ -5,8 +5,10 @@ import { TableData } from '@meta/data'
 
 import { useCycle } from '@client/store/assessment'
 import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection/hooks'
+import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
+import ButtonTableClear from '@client/components/ButtonTableClear'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 import ButtonCopyValues from '@client/pages/AssessmentSection/DataTable/Table/ButtonCopyValues'
 import TableBody from '@client/pages/AssessmentSection/DataTable/Table/TableBody'
@@ -31,23 +33,30 @@ const Table: React.FC<Props> = (props) => {
   const showODP = useShowOriginalDatapoints()
 
   const countryIso = useCountryIso()
+
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
   const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
   const { secondary, name } = table.props
-  const displayTableExportButton = !secondary && !print && tableRef.current != null
+
+  const isDataLocked = useIsDataLocked()
+  const showClearButton = !print && !isDataLocked && !table.props.readonly
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
-        {displayTableExportButton && (
-          <ButtonTableExport
-            tableRef={tableRef}
-            filename={`${sectionAnchor} ${name}`}
-            inReview={!disabled && !secondary}
+        {!print && <ButtonTableExport tableRef={tableRef} filename={`${sectionAnchor} ${name}`} />}
+
+        {showClearButton && (
+          <ButtonTableClear
+            table={table}
+            disabled={disabled}
+            assessmentName={assessmentName}
+            sectionName={sectionName}
           />
         )}
+
         <ButtonCopyValues tableRef={tableRef} table={table} />
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">

@@ -24,17 +24,16 @@ export enum TableNames {
 export type TableColumnNames = Record<string, Array<string>>
 
 export interface TableProps {
-  name: string
-  odp?: boolean
-  secondary?: boolean
-  unit?: Unit
   columnNames: TableColumnNames
-  // print
-  print?: { pageBreakAfter: boolean }
-  // data export
-  dataExport: boolean
   columnsExport?: TableColumnNames
   columnsExportAlways?: TableColumnNames
+  dataExport: boolean
+  name: string
+  odp?: boolean
+  print?: { pageBreakAfter: boolean }
+  readonly?: boolean
+  secondary?: boolean
+  unit?: Unit
 }
 
 export interface Table extends CycledPropsObject<TableProps> {

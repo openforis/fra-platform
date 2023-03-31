@@ -4,6 +4,7 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 
+import { clearTable } from '@server/api/cycleData/table/clearTable'
 import { AuthMiddleware } from '@server/middleware/auth'
 
 import { getDescription } from './descriptions/getDescription'
@@ -33,6 +34,7 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditTableData,
       estimateValues
     )
+    express.post(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
 
     // Descriptions
     express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)
