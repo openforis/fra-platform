@@ -12,7 +12,7 @@ type Props = {
   disabled: boolean
   dataSource: DataSource
   table: Table
-  onChange: (key: string, value: string) => void
+  onChange: (key: string, value: string | string[]) => void
   dataSourceVariables: DataSourceVariables
 }
 const ColumnFraVariable: React.FC<Props> = (props: Props) => {
@@ -24,23 +24,37 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
   const _allColumnsCalculated = (row: Row) =>
     row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
 
-  const rows = table.rows.reduce((acc, row) => {
+  const rows = table.rows.reduce<Record<string, string>>((acc, row) => {
     if (row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row)) {
       const label = t(Cols.getLabel({ cycle, col: row.cols[0], t }))
-      if (!acc.includes(label)) {
-        acc.push(label)
+      if (!acc[label]) {
+        // eslint-disable-next-line no-param-reassign
+        acc[label] = row.props.variableName
       }
     }
     return acc
-  }, dataSourceVariables?.include.map<string>(t) ?? [])
+  }, dataSourceVariables?.include.reduce((acc, variable) => ({ ...acc, [t(variable)]: variable }), {}) ?? {})
 
-  const _onChange = (value: any) => {
-    onChange('fraVariables', value)
+  const _onChange = (value: string[]) => {
+    onChange(
+      'fraVariables',
+      value.map((v) => rows[v])
+    )
   }
 
   return (
     <DataColumn className="data-source-column">
-      <MultiSelect disabled={disabled} values={dataSource.fraVariables ?? []} options={rows} onChange={_onChange} />
+      <MultiSelect
+        disabled={disabled}
+        values={Object.entries(rows).reduce((acc, [label, variable]) => {
+          if (dataSource.fraVariables?.includes(variable)) {
+            acc.push(label)
+          }
+          return acc
+        }, [])}
+        options={Object.keys(rows)}
+        onChange={_onChange}
+      />
     </DataColumn>
   )
 }
