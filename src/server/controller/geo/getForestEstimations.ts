@@ -24,7 +24,7 @@ export const estimateArea = async (props: {
   const { countryIso, maskImage, baseImage = null, scale = 30 } = props
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
 
-  const imgArea = baseImage !== null ? baseImage.mask(maskImage.eq(1)) : maskImage.eq(1)
+  const imgArea = baseImage !== null ? baseImage.mask(maskImage) : maskImage
 
   const imgAreaStats = imgArea.rename('areaHa').multiply(Image.pixelArea()).divide(10000).reduceRegion({
     reducer: Reducer.sum(),
@@ -54,4 +54,18 @@ export const estimateForestAgreementArea = async (props: {
   const asset = AssetsController.getForestAgreementAssetData(layers, gteAgreementLevel)
 
   return estimateArea({ countryIso, maskImage: asset.img.gte(1), scale })
+}
+
+export const estimateIntersectionArea = async (props: {
+  countryIso: CountryIso
+  baseSource: LayerSource
+  maskSource: LayerSource
+  scale?: number
+}): Promise<{ areaHa: number }> => {
+  const { baseSource, maskSource, countryIso, scale = 30 } = props
+
+  const baseAsset = AssetsController.getAssetData(baseSource)
+  const maskAsset = AssetsController.getAssetData(maskSource)
+
+  return estimateArea({ countryIso, baseImage: baseAsset.img.gte(1), maskImage: maskAsset.img.gte(1), scale })
 }
