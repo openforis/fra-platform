@@ -1,12 +1,10 @@
 import './SatelliteSourcePanel.scss'
 import React from 'react'
 
-import { MosaicOptions, MosaicSource } from '@meta/geo'
+import { LayerStatus, MosaicOptions, MosaicSource } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useAppliedMosaicOptions, useUiMosaicOptions } from '@client/store/ui/geo'
-
-import { LayerStatus } from '../../GeoMapMenuData/MapVisualizerPanel'
 
 interface ControlProps {
   label: string

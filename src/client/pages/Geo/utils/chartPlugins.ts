@@ -14,7 +14,7 @@ export const whiteBackgroundplugin = (): Plugin => {
   }
 }
 
-export const displayPercentagesPlugin = (percentages: Array<number>, backgroundColors: Array<string>): Plugin => {
+export const displayPercentagesPlugin = (): Plugin => {
   return {
     id: 'displayPercentages',
     afterDraw: (chart) => {
@@ -24,10 +24,11 @@ export const displayPercentagesPlugin = (percentages: Array<number>, backgroundC
       } = chart
       const _metasets = chart.getDatasetMeta(0)
       datasets[0].data.forEach((dp, i) => {
-        const barValue = `${percentages[i]}%`
+        const barValue = `${chart.config.options.percentages[i]}%`
         const lineHeight = ctx.measureText('M').width
-        ctx.fillStyle = backgroundColors[i]
+        ctx.fillStyle = chart.config.options.backgroundColors[i]
         ctx.textAlign = 'center'
+        // console.log(barValue, i )
         ctx.fillText(barValue, _metasets.data[i].x, _metasets.data[i].y - lineHeight * 1.5)
       })
     },

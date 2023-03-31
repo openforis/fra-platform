@@ -1,13 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { MosaicOptions, MosaicSource } from '@meta/geo'
+import { ForestEstimations, LayerStatus, MosaicOptions, MosaicSource } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
-import { LayerStatus } from '@client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel'
-
 import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestLayer } from './actions'
+import { getForestEstimationData, getForestLayer } from './actions'
 import { GeoState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
@@ -17,10 +15,15 @@ const initialMosaicOptions: MosaicOptions = {
 }
 
 const initialState: GeoState = {
+  isMapAvailable: false,
   selectedPanel: null,
   mosaicOptions: {
     ui: { ...initialMosaicOptions },
     applied: { ...initialMosaicOptions },
+    mosaicSelected: false,
+    mosaicPending: false,
+    mosaicFailed: false,
+    mosaicUrl: {},
   },
   forestOptions: {
     selected: [],
@@ -36,25 +39,30 @@ const initialState: GeoState = {
     recipe: 'custom',
     customAssetId: null,
   },
-  mosaicSelected: false,
-  mosaicPending: false,
-  mosaicFailed: false,
-  mosaicUrl: {},
+  geoStatistics: {
+    forestEstimations: null,
+    tabularEstimationData: [],
+    isLoading: false,
+    error: null,
+  },
 }
 
 export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
+    setMapAvailability: (state, { payload }: PayloadAction<boolean>) => {
+      state.isMapAvailable = payload
+    },
     applyMosaicOptions: (state) => {
-      state.mosaicUrl = {}
-      state.mosaicFailed = false
-      state.mosaicPending = false
+      state.mosaicOptions.mosaicUrl = {}
+      state.mosaicOptions.mosaicFailed = false
+      state.mosaicOptions.mosaicPending = false
       state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
-      if (!state.mosaicSelected) state.mosaicFailed = false // The user is retrying
-      state.mosaicSelected = !state.mosaicSelected
+      if (!state.mosaicOptions.mosaicSelected) state.mosaicOptions.mosaicFailed = false // The user is retrying
+      state.mosaicOptions.mosaicSelected = !state.mosaicOptions.mosaicSelected
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
       const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
@@ -169,25 +177,59 @@ export const geoSlice = createSlice({
     setCustomAssetId: (state, { payload }: PayloadAction<string>) => {
       state.forestOptions.customAssetId = payload
     },
+    setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {
+      state.geoStatistics.forestEstimations = payload
+      state.geoStatistics.isLoading = false
+      state.geoStatistics.error = null
+    },
+    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number][]>) => {
+      state.geoStatistics.tabularEstimationData = payload
+      state.geoStatistics.isLoading = false
+      state.geoStatistics.error = null
+    },
+    setEstimationsLoading: (state, { payload }: PayloadAction<boolean>) => {
+      state.geoStatistics.isLoading = payload
+    },
+    setEstimationsError: (state, { payload }: PayloadAction<string>) => {
+      state.geoStatistics.error = payload
+      state.geoStatistics.isLoading = false
+    },
+    insertTabularEstimationEntry: (
+      state,
+      { payload: [index, entry] }: PayloadAction<[number, [string, number, number]]>
+    ) => {
+      let replaced = false
+      state.geoStatistics.tabularEstimationData = state.geoStatistics.tabularEstimationData.map((row) => {
+        let newRow: [string, number, number] = [...row]
+        if (newRow[0] === entry[0]) {
+          newRow = entry
+          replaced = true
+        }
+        return newRow
+      })
+      if (!replaced) {
+        state.geoStatistics.tabularEstimationData.splice(index, 0, entry)
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
         const { urlTemplate, countryIso } = payload
-        state.mosaicUrl[countryIso] = urlTemplate
-        state.mosaicFailed = false
-        state.mosaicPending = false
+        state.mosaicOptions.mosaicUrl[countryIso] = urlTemplate
+        state.mosaicOptions.mosaicFailed = false
+        state.mosaicOptions.mosaicPending = false
       })
       .addCase(postMosaicOptions.pending, (state) => {
-        state.mosaicPending = true
-        state.mosaicFailed = false
-        state.mosaicUrl = initialState.mosaicUrl
+        state.mosaicOptions.mosaicPending = true
+        state.mosaicOptions.mosaicFailed = false
+        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
       })
       .addCase(postMosaicOptions.rejected, (state) => {
-        state.mosaicFailed = true
-        state.mosaicPending = false
-        state.mosaicSelected = false
-        state.mosaicUrl = initialState.mosaicUrl
+        state.mosaicOptions.mosaicFailed = true
+        state.mosaicOptions.mosaicPending = false
+        state.mosaicOptions.mosaicSelected = false
+        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
       })
       .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
         state.forestOptions.fetchedLayers[key] = mapId
@@ -208,6 +250,19 @@ export const geoSlice = createSlice({
         if (i !== -1) {
           state.forestOptions.selected.splice(i, 1)
         }
+      })
+      .addCase(getForestEstimationData.fulfilled, (state, { payload: forestEstimations }) => {
+        state.geoStatistics.forestEstimations = forestEstimations
+        state.geoStatistics.isLoading = false
+        state.geoStatistics.error = null
+      })
+      .addCase(getForestEstimationData.pending, (state) => {
+        state.geoStatistics.isLoading = true
+        state.geoStatistics.error = null
+      })
+      .addCase(getForestEstimationData.rejected, (state, action) => {
+        state.geoStatistics.isLoading = false
+        state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
       })
   },
 })
