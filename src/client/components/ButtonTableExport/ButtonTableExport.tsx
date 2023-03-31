@@ -14,11 +14,10 @@ type Props = {
   disabled?: boolean
   filename?: string
   tableRef: MutableRefObject<HTMLTableElement>
-  inReview?: boolean
 }
 
 const ButtonTableExport: React.FC<Props> = (props) => {
-  const { disabled, filename, tableRef, inReview } = props
+  const { disabled, filename, tableRef } = props
 
   const { print } = useIsPrint()
   const isLocked = useIsDataLocked()
@@ -28,7 +27,6 @@ const ButtonTableExport: React.FC<Props> = (props) => {
   return (
     <CSVLink
       className={classNames('fra-table__btn-export', 'btn-xs', 'btn-primary', 'no-print', {
-        'in-review': inReview,
         disabled: !isLocked && disabled,
       })}
       target="_blank"
@@ -44,7 +42,6 @@ const ButtonTableExport: React.FC<Props> = (props) => {
 ButtonTableExport.defaultProps = {
   disabled: false,
   filename: 'tableData',
-  inReview: false,
 }
 
 export default ButtonTableExport

@@ -1,10 +1,7 @@
-import { Objects } from '@utils/objects'
-
 import { Assessment, Cycle, TableSection } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter'
-import { ColDB } from '@server/repository/adapter/col'
+import { TableSectionAdapter } from '@server/repository/adapter'
 
 export const getManyMetadata = async (
   props: {
@@ -94,27 +91,7 @@ export const getManyMetadata = async (
       return result.rows.reduce((prev, current) => {
         return {
           ...prev,
-          [current.section_name]: current.table_sections.map((ts: TableSection) => {
-            const { tables, ...tableSection } = ts
-            return {
-              ...tableSection,
-              tables: tables.map(({ props, rows, ...table }) => ({
-                ...Objects.camelize(table),
-                props,
-                rows: rows.map(({ cols, ...row }) => ({
-                  ...Objects.camelize(row),
-                  props: {
-                    ...Objects.camelize(row.props),
-                    calculateFn: row.props.calculateFn,
-                    linkToSection: row.props.linkToSection,
-                    validateFns: row.props.validateFns,
-                    chart: row.props.chart,
-                  },
-                  cols: cols.map((col) => ColAdapter(col as unknown as ColDB)),
-                })),
-              })),
-            }
-          }),
+          [current.section_name]: current.table_sections.map(TableSectionAdapter),
         }
       }, {})
     }

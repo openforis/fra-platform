@@ -35,13 +35,14 @@ export interface ColStyle {
 
 export interface ColProps {
   calculateFn?: Record<CycleUuid, string>
-  validateFns?: Record<CycleUuid, Array<string>>
   colName?: string
   colType: ColType
   index?: number | string
   labels?: Record<string, Label> // label by cycle uuid
+  readonly?: boolean
   select?: ColSelectProps
   style: Record<string, ColStyle> // style by cycle uuid
+  validateFns?: Record<CycleUuid, Array<string>>
   variableNo?: Record<string, string> // variable number by cycle uuid
 }
 

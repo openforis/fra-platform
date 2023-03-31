@@ -21,12 +21,15 @@ export const MetadataController = {
   removeSection,
   createSection,
   updateSection,
+
   createSubSection,
   updateSubSection,
+
   getTableSection: TableSectionRepository.getOne,
   createTableSection,
   updateTableSection,
   removeTableSection,
+
   getTable: TableRepository.getOne,
   createTable,
   updateTable,
