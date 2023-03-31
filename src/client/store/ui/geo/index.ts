@@ -1,6 +1,8 @@
 export {
   useAppliedMosaicOptions,
   useForestSourceOptions,
+  useGeoStatistics,
+  useIsGeoMapAvailable,
   useMosaicFailed,
   useMosaicPending,
   useMosaicSelected,

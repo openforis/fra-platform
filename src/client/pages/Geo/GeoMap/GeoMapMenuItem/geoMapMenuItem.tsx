@@ -3,9 +3,9 @@ import React, { useCallback, useState } from 'react'
 
 import classNames from 'classnames'
 
-import Icon from '@client/components/Icon'
+import { LayerStatus } from '@meta/geo'
 
-import { LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
+import Icon from '@client/components/Icon'
 
 interface Props {
   title: string
@@ -25,7 +25,7 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
 }) => {
   let checkBoxContent = null
   if (loadingStatus === LayerStatus.loading) {
-    checkBoxContent = <div className="geo-map-menu-list-element-loading-status-loading" />
+    checkBoxContent = <div className="loading-spinner" />
   } else if (loadingStatus === LayerStatus.failed) {
     checkBoxContent = <div className={classNames('fra-checkbox', 'failed')} />
   } else {
