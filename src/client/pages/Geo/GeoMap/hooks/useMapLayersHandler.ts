@@ -1,29 +1,27 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ForestSource, Layer } from '@meta/geo'
-import { HansenPercentage, LayerSource } from '@meta/geo/forest'
+import { HansenPercentage, LayerSource, LayerStatus } from '@meta/geo/forest'
 
 import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { GeoActions, useForestSourceOptions, useIsGeoMapAvailable } from '@client/store/ui/geo'
 import { getForestLayer } from '@client/store/ui/geo/actions'
 import { GetForestLayerRequestBody } from '@client/store/ui/geo/actions/getForestLayer'
 import { useCountryIso, usePrevious } from '@client/hooks'
-import { MapController } from '@client/utils'
+import { mapController } from '@client/utils'
 
-import { layers, LayerStatus } from '../GeoMapMenuData/MapVisualizerPanel'
+import { layers } from '../GeoMapMenuData/MapVisualizerPanel'
 
-const useHandleForestResourceLayers = (
-  map: google.maps.Map,
-  mapControllerRef: React.MutableRefObject<MapController>
-) => {
+const useHandleForestResourceLayers = () => {
   const countryIso = useCountryIso()
   const prevCountryIso = usePrevious(countryIso)
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
   const hansenPercentageOnPreviousMapDraw = useRef<HansenPercentage>(forestOptions.hansenPercentage)
+  const isMapAvailable = useIsGeoMapAvailable()
 
   // Keep track of the opacities to set them when the country switches
   // Done this way to avoid having 'forestOptions.opacity' in the following dependency
@@ -36,15 +34,15 @@ const useHandleForestResourceLayers = (
   // Handle a change of country ISO
   useEffect(() => {
     // Run only when the Country ISO changes and there is a map available
-    if (!map || prevCountryIso === countryIso || !mapControllerRef.current) return
+    if (!isMapAvailable || prevCountryIso === countryIso) return
     layers.forEach(({ key: mapLayerKey }) => {
       // Remove the layer from the map since it belongs to the previous country
-      mapControllerRef.current.removeLayer(mapLayerKey)
+      mapController.removeLayer(mapLayerKey)
     })
     // Since the country changed, all layers previously fetched need to be cleared
     // This will trigger the loading of the layers in the next useEffect
     dispatch(GeoActions.resetLayersStates())
-  }, [countryIso, map, mapControllerRef, prevCountryIso, dispatch])
+  }, [isMapAvailable, countryIso, prevCountryIso, dispatch])
 
   // Handle the cases where the state of the layers themselves change.
   useEffect(() => {
@@ -73,9 +71,9 @@ const useHandleForestResourceLayers = (
           if (overwrite) {
             hansenPercentageOnPreviousMapDraw.current = forestOptions.hansenPercentage
           }
-          mapControllerRef.current.addEarthEngineLayer(mapLayerKey, mapId, overwrite)
+          mapController.addEarthEngineLayer(mapLayerKey, mapId, overwrite)
           const opacity = opacities.current[mapLayerKey] !== undefined ? opacities.current[mapLayerKey] : 1
-          mapControllerRef.current.setEarthEngineLayerOpacity(mapLayerKey, opacity)
+          mapController.setEarthEngineLayerOpacity(mapLayerKey, opacity)
         } else {
           // Cache miss, fetch layer from server
           const requestBody: GetForestLayerRequestBody = {
@@ -102,12 +100,11 @@ const useHandleForestResourceLayers = (
         }
       } else {
         // Layer is not selected so ensure it's not shown on map
-        mapControllerRef.current.removeLayer(mapLayerKey)
+        mapController.removeLayer(mapLayerKey)
       }
     })
   }, [
     countryIso,
-    mapControllerRef,
     prevCountryIso,
     forestOptions.selected,
     forestOptions.hansenPercentage,
@@ -120,7 +117,7 @@ const useHandleForestResourceLayers = (
   ])
 }
 
-const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapController>) => {
+const useHandleAgreementLayer = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
   const agreementLayerCache = useRef<{ [key: string]: Layer }>({})
@@ -138,11 +135,12 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
       forestOptions.opacity[agreementLayerKey] !== undefined ? forestOptions.opacity[agreementLayerKey] : 1
   }, [forestOptions.opacity])
   useEffect(() => {
+    if (mapController.isMapUnavailable()) return
     // If any of the dependencies changes and there is an existing agreement layer on the
     // map, the layer is no longer valid, so remove it. If there is no existing agreement
     // layer, it's still safe to call `removeLayer`, it'll just do nothing and
     // return `false`.
-    mapControllerRef.current.removeLayer(agreementLayerKey)
+    mapController.removeLayer(agreementLayerKey)
     dispatch(GeoActions.resetAgreementPalette())
 
     // If less than two sources are selected or the agreement level is greater than the
@@ -169,8 +167,8 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
     // Use cached mapId if available
     if (agreementLayerCache.current[cacheKey]) {
       const { mapId, palette } = agreementLayerCache.current[cacheKey]
-      mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
-      mapControllerRef.current.setEarthEngineLayerOpacity(agreementLayerKey, opacity.current)
+      mapController.addEarthEngineLayer(agreementLayerKey, mapId)
+      mapController.setEarthEngineLayerOpacity(agreementLayerKey, opacity.current)
       dispatch(GeoActions.setAgreementPalette(palette))
       return
     }
@@ -210,15 +208,14 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
         agreementLayerCache.current[cacheKey] = { mapId, palette }
 
         // Render layer
-        mapControllerRef.current.addEarthEngineLayer(agreementLayerKey, mapId)
-        mapControllerRef.current.setEarthEngineLayerOpacity(agreementLayerKey, opacity.current)
+        mapController.addEarthEngineLayer(agreementLayerKey, mapId)
+        mapController.setEarthEngineLayerOpacity(agreementLayerKey, opacity.current)
         dispatch(GeoActions.setAgreementPalette(palette))
         dispatch(GeoActions.setAgreementLayerStatus(LayerStatus.ready))
       })
       .catch(() => dispatch(GeoActions.setAgreementLayerStatus(LayerStatus.failed)))
   }, [
     countryIso,
-    mapControllerRef,
     forestOptions.agreementLayerSelected,
     forestOptions.agreementLevel,
     forestOptions.selected,
@@ -228,7 +225,7 @@ const useHandleAgreementLayer = (mapControllerRef: React.MutableRefObject<MapCon
   ])
 }
 
-export const useMapLayersHandler = (map: google.maps.Map, mapControllerRef: React.MutableRefObject<MapController>) => {
-  useHandleForestResourceLayers(map, mapControllerRef)
-  useHandleAgreementLayer(mapControllerRef)
+export const useMapLayersHandler = () => {
+  useHandleForestResourceLayers()
+  useHandleAgreementLayer()
 }

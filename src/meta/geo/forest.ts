@@ -1,7 +1,7 @@
 import { BurnedAreaKey } from './burnedAreaSource'
 import { ProtectedAreaKey } from './protectedAreaSource'
 
-enum LayerStatus {
+export enum LayerStatus {
   loading = 'loading',
   failed = 'failed',
   ready = 'ready',

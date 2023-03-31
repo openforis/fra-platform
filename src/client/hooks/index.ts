@@ -1,7 +1,6 @@
 export { useAsync } from './useAsync'
 export { useCountryIso } from './useCountryIso'
 export { useCountryLandingSections } from './useCountryLandingSections'
-export { MapContext, useGeoMap } from './useGeoMap'
 export { useGetRequest } from './useGetRequest'
 export { useIsDataExportView } from './useIsDataExportView'
 export { useIsMounted } from './useIsMounted'

@@ -1,5 +1,7 @@
 module.exports = {
+  areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   apply: 'Apply',
+  clearTable: 'Clear table',
   column: 'Column',
   continue: 'Continue',
   copyToClipboard: 'Copy to clipboard',

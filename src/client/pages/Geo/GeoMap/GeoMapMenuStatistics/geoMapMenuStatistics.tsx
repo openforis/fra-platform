@@ -1,8 +1,9 @@
 import './geoMapMenuStatistics.scss'
 import React from 'react'
 
-import { useSelectedPanel } from '@client/store/ui/geo'
-import { useEstimationsData } from '@client/pages/Geo/GeoMap/hooks'
+import { useGeoStatistics, useSelectedPanel } from '@client/store/ui/geo'
+import { useCountryIso } from '@client/hooks'
+import { useGeoStatisticsHandler } from '@client/pages/Geo/GeoMap/hooks'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
 import GeoMenuItem from '../GeoMapMenuItem'
@@ -10,8 +11,11 @@ import StatisticalGraphsPanel from './StatisticalGraphsPanel'
 import TreeCoverAreaPanel from './TreeCoverAreaPanel'
 
 const GeoMapMenuStatistics: React.FC = () => {
+  useGeoStatisticsHandler()
+  const year = 2020 // Default value is 2020 for now
+  const countryIso = useCountryIso()
   const selectedPanel = useSelectedPanel()
-  const { tabularEstimationData: statisticsData, isLoading, error, countryIso, year } = useEstimationsData()
+  const { tabularEstimationData: statisticsData, isLoading, error } = useGeoStatistics()
 
   return (
     <div className="geo-map-menu-item statistics">

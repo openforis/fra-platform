@@ -1,11 +1,17 @@
 import './MapVisualizerAgreementLevelsControl.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import { batch } from 'react-redux'
 
+import axios from 'axios'
 import classNames from 'classnames'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
+import { ExtraEstimation, ForestSource } from '@meta/geo'
+import { LayerSource } from '@meta/geo/forest'
+
 import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { GeoActions, useForestSourceOptions, useGeoStatistics } from '@client/store/ui/geo'
+import { useCountryIso } from '@client/hooks'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
 import { layers } from '../MapVisualizerPanel'
@@ -13,8 +19,65 @@ import LayerOptionsPanel from '../MapVisualizerPanel/LayerOptionsPanel'
 
 const AgreementLevelsControl: React.FC = () => {
   const dispatch = useAppDispatch()
+  const countryIso = useCountryIso()
   const forestOptions = useForestSourceOptions()
+  const geoStatistics = useGeoStatistics()
   const agreementLayerKey = 'Agreement'
+
+  const [estimateButtonDisabled, setEstimateButtonDisabled] = useState(false)
+  const [selectedScaler, setSelectedScaler] = useState('30')
+  const [estimationError, setEstimationError] = useState(null)
+
+  const handleScalerChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedScaler(event.target.value)
+  }
+
+  const handleEstimateButtonClick = () => {
+    setEstimateButtonDisabled(true)
+    setEstimationError(null)
+
+    const layers: Array<LayerSource> = forestOptions.selected.map((key) => {
+      const isHansen = key === ForestSource.Hansen
+      const isCustomAsset = key === ForestSource.CustomFnF
+      const layer: LayerSource = {
+        key,
+      }
+      if (isHansen) {
+        layer.options = {
+          gteTreeCoverPercent: forestOptions.hansenPercentage,
+        }
+      } else if (isCustomAsset) {
+        layer.options = {
+          assetId: forestOptions.customAssetId,
+        }
+      }
+
+      return layer
+    })
+
+    const requestBody = {
+      countryIso,
+      layers,
+      gteAgreementLevel: forestOptions.agreementLevel,
+      scale: selectedScaler,
+    }
+
+    axios({ method: 'POST', url: ApiEndPoint.Geo.Estimations.forestAgreement(), data: requestBody })
+      .then((response) => {
+        const label = ExtraEstimation.CustomRecipe
+        const area = response.data.areaHa
+        const fra1ALandArea = geoStatistics.forestEstimations.data.fra1aLandArea
+        const percentage = (area * 100) / (fra1ALandArea * 1000)
+        const entry: [string, number, number] = [label, Number(area.toFixed(2)), Number(percentage.toFixed(2))]
+        dispatch(GeoActions.insertTabularEstimationEntry([-1, entry]))
+      })
+      .catch((error) => {
+        setEstimationError(error.message)
+      })
+      .finally(() => {
+        setEstimateButtonDisabled(false)
+      })
+  }
 
   const toggleAgreementLayer = (selected: boolean) => {
     batch(() => {
@@ -96,6 +159,33 @@ const AgreementLevelsControl: React.FC = () => {
                 })}
             </div>
           </div>
+        )}
+        {forestOptions.agreementLayerSelected && (
+          <div className="custom-agreement-area-container">
+            <select
+              className="custom-agreement-area-scale-selector"
+              onChange={(e) => {
+                handleScalerChange(e)
+              }}
+            >
+              <option value="30">30 reducer scale</option>
+              <option value="100">100 reducer scale</option>
+              <option value="200">200 reducer scale</option>
+            </select>
+            <button
+              type="button"
+              disabled={estimateButtonDisabled}
+              className="btn btn-primary custom-agreement-area-estimate-button"
+              onClick={handleEstimateButtonClick}
+            >
+              Estimate custom agreement area
+            </button>
+          </div>
+        )}
+        {forestOptions.agreementLayerSelected && estimationError && (
+          <p className="estimation-error-message">
+            An error has occured while calculating the estimation: {estimationError}
+          </p>
         )}
       </>
     </GeoMapMenuListElement>

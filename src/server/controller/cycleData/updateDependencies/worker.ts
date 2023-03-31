@@ -22,20 +22,11 @@ export default async (job: Job<UpdateDependenciesProps>) => {
     await DB.tx(async (client) => {
       for (let i = 0; i < nodes.length; i += 1) {
         const node = nodes[i]
+        const { colName, tableName, variableName } = node
+        const sourceNode = isODP ? undefined : node
         // eslint-disable-next-line no-await-in-loop
         const result = await updateNodeDependencies(
-          {
-            assessment,
-            colName: node.colName,
-            countryIso,
-            cycle,
-            isODP,
-            sourceNode: isODP ? undefined : node,
-            sectionName,
-            tableName: node.tableName,
-            user,
-            variableName: node.variableName,
-          },
+          { assessment, colName, countryIso, cycle, isODP, sourceNode, sectionName, tableName, user, variableName },
           client
         )
         results.push(result)
