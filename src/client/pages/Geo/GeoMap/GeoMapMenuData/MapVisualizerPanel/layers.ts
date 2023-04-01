@@ -66,11 +66,12 @@ export const protectedAreaLayers: ProtectedAreaLayer[] = [
     title: 'Filtered WDPA',
     opacity: 1,
   },
-  {
-    key: ProtectedAreaKey.WDPA,
-    title: 'WDPA',
-    opacity: 1,
-  },
+  // Commented out until the right implementation for rendering is done
+  // {
+  //   key: ProtectedAreaKey.WDPA,
+  //   title: 'WDPA',
+  //   opacity: 1,
+  // },
   {
     key: ProtectedAreaKey.CustomPA,
     title: 'Custom protected area',
