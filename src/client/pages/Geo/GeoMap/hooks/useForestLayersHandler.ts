@@ -11,7 +11,7 @@ import { GetForestLayerRequestBody } from '@client/store/ui/geo/actions/getFores
 import { useCountryIso, usePrevious } from '@client/hooks'
 import { mapController } from '@client/utils'
 
-import { layers } from '../GeoMapMenuData/MapVisualizerPanel'
+import { forestLayers } from '../GeoMapMenuData/MapVisualizerPanel'
 
 export const useForestLayersHandler = () => {
   const countryIso = useCountryIso()
@@ -33,7 +33,7 @@ export const useForestLayersHandler = () => {
   useEffect(() => {
     // Run only when the Country ISO changes and there is a map available
     if (!isMapAvailable || prevCountryIso === countryIso) return
-    layers.forEach(({ key: mapLayerKey }) => {
+    forestLayers.forEach(({ key: mapLayerKey }) => {
       // Remove the layer from the map since it belongs to the previous country
       mapController.removeLayer(mapLayerKey)
     })
@@ -48,7 +48,7 @@ export const useForestLayersHandler = () => {
     if (prevCountryIso !== countryIso) return
     const hansenPercentageHasChanged = forestOptions.hansenPercentage !== hansenPercentageOnPreviousMapDraw.current
 
-    layers.forEach(({ key: mapLayerKey }) => {
+    forestLayers.forEach(({ key: mapLayerKey }) => {
       // The layers should only be fetched when they are selected and have opacity greater than 0.
       if (forestOptions.selected.includes(mapLayerKey) && forestOptions.opacity[mapLayerKey] !== 0) {
         // Layer is selected so ensure it's shown on map

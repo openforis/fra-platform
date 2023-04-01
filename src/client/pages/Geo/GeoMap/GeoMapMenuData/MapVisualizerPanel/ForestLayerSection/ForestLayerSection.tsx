@@ -10,7 +10,7 @@ import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import AgreementLevelsControl from '../../MapVisualizerAgreementLevelsControl'
 import LayerOptionsPanel from '../LayerOptionsPanel'
-import { GLOBAL_OPACITY_KEY, layers } from '../layers'
+import { forestLayers, GLOBAL_OPACITY_KEY } from '../layers'
 import CustomAssetControl from './CustomAssetControl'
 
 const RecipeSelector: React.FC = () => {
@@ -54,7 +54,7 @@ const ForestLayerSection: React.FC = () => {
             <LayerOptionsPanel layerKey={GLOBAL_OPACITY_KEY} checked />
           </GeoMapMenuListElement>
         </div>
-        {layers.map((layer) => {
+        {forestLayers.map((layer) => {
           if (layer.key === ForestSource.CustomFnF) return false
           const isLayerChecked = forestOptions.selected.includes(layer.key)
           let status = null
