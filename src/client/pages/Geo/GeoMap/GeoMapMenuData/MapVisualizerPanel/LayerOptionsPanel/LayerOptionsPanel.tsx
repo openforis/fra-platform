@@ -25,13 +25,13 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newValue = Math.round(Number(event.currentTarget.value) / 10) / 10
-    dispatch(GeoActions.setOpacity({ key: layerKey, opacity: newValue }))
+    dispatch(GeoActions.setForestLayerOpacity({ key: layerKey, opacity: newValue }))
     mapController.setEarthEngineLayerOpacity(layerKey, newValue)
   }
 
   const handleHansenPercentageChange = (percentage: HansenPercentage) => {
     batch(() => {
-      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setForestLayersRecipe('custom'))
       dispatch(GeoActions.setHansenPercentage(percentage))
     })
   }
@@ -42,7 +42,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
     forestOptions.selected.forEach((layerKey) =>
       mapController.setEarthEngineLayerOpacity(layerKey, newGlobalOpacityValue)
     )
-    dispatch(GeoActions.setGlobalOpacity(newGlobalOpacityValue))
+    dispatch(GeoActions.setForestGlobalOpacity(newGlobalOpacityValue))
   }
 
   return (

@@ -29,8 +29,8 @@ const CustomAssetControl: React.FC = () => {
       setInputError(true)
     } else {
       setInputError(false)
-      dispatch(GeoActions.setCustomAssetId(inputValue.trim()))
-      dispatch(GeoActions.resetSingleLayerStates(ForestSource.CustomFnF))
+      dispatch(GeoActions.setCustomForestAssetId(inputValue.trim()))
+      dispatch(GeoActions.resetSingleForestLayerStates(ForestSource.CustomFnF))
     }
   }
 

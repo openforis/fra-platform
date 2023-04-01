@@ -39,6 +39,14 @@ const initialState: GeoState = {
     recipe: 'custom',
     customAssetId: null,
   },
+  protectedAreasOptions: {
+    selected: [],
+    fetchedLayers: {},
+    pendingLayers: {},
+    failedLayers: {},
+    opacity: {},
+    customAssetId: null,
+  },
   geoStatistics: {
     forestEstimations: null,
     tabularEstimationData: [],
@@ -108,10 +116,10 @@ export const geoSlice = createSlice({
         })
       }
     },
-    setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
+    setForestLayerOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.forestOptions.opacity[key] = opacity
     },
-    setGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
+    setForestGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.selected.forEach((layerKey) => {
         state.forestOptions.opacity[layerKey] = payload
       })
@@ -141,17 +149,17 @@ export const geoSlice = createSlice({
     setAgreementLayerStatus: (state, { payload }: PayloadAction<LayerStatus>) => {
       state.forestOptions.agreementLayerStatus = payload
     },
-    resetLayersStates: (state) => {
+    resetForestLayersStates: (state) => {
       state.forestOptions.fetchedLayers = initialState.forestOptions.fetchedLayers
       state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
       state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
     },
-    resetSingleLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
+    resetSingleForestLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
       delete state.forestOptions.fetchedLayers[payload]
       delete state.forestOptions.pendingLayers[payload]
       delete state.forestOptions.failedLayers[payload]
     },
-    setRecipe: (state, { payload }: PayloadAction<string>) => {
+    setForestLayersRecipe: (state, { payload }: PayloadAction<string>) => {
       // If the recipe is not custom, reset the failed layers so they are fetched again
       if (payload !== 'custom') state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
       const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
@@ -174,7 +182,7 @@ export const geoSlice = createSlice({
       state.forestOptions.agreementLayerSelected = true
       state.forestOptions.agreementLevel = agreementLevel
     },
-    setCustomAssetId: (state, { payload }: PayloadAction<string>) => {
+    setCustomForestAssetId: (state, { payload }: PayloadAction<string>) => {
       state.forestOptions.customAssetId = payload
     },
     setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {

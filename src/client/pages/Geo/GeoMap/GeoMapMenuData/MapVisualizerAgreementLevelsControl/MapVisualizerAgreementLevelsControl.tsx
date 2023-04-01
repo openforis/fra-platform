@@ -81,7 +81,7 @@ const AgreementLevelsControl: React.FC = () => {
 
   const toggleAgreementLayer = (selected: boolean) => {
     batch(() => {
-      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setForestLayersRecipe('custom'))
       dispatch(GeoActions.setAgreementLayerSelected(selected))
       dispatch(GeoActions.setAgreementLayerStatus(null))
     })

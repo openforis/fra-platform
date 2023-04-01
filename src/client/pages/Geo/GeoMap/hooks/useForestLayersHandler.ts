@@ -39,7 +39,7 @@ export const useForestLayersHandler = () => {
     })
     // Since the country changed, all layers previously fetched need to be cleared
     // This will trigger the loading of the layers in the next useEffect
-    dispatch(GeoActions.resetLayersStates())
+    dispatch(GeoActions.resetForestLayersStates())
   }, [isMapAvailable, countryIso, prevCountryIso, dispatch])
 
   // Handle the cases where the state of the layers themselves change.
