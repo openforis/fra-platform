@@ -1,4 +1,6 @@
+export { useAgreementLayerHandler } from './useAgreementLayerHandler'
 export { useDownloadChart } from './useDownloadChart'
+export { useForestLayersHandler } from './useForestLayersHandler'
 export { useGeoStatisticsHandler } from './useGeoStatisticsHandler'
 export { useMapLayersHandler } from './useMapLayersHandler'
 export { useRecipeLayerPropertyName } from './useRecipeLayerPropertyName'
