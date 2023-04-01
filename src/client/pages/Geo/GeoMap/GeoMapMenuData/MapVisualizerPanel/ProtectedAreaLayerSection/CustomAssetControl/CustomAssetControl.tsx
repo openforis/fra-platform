@@ -14,7 +14,7 @@ const CustomAssetControl: React.FC = () => {
   const dispatch = useAppDispatch()
   const protectedAreasOptions = useProtectedAreasOptions()
 
-  const [inputValue, setInputValue] = useState<string>('')
+  const [inputValue, setInputValue] = useState<string>(protectedAreasOptions.customAssetId)
   const [inputError, setInputError] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
