@@ -1,0 +1,599 @@
+,country,indicator,notes
+0,ALB,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+1,ALB,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+2,ALB,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+3,ALB,6.5,1990: 1992-1994
+4,ALB,6.5,2000: 1999-2001
+5,ALB,6.5,2005: 2004-2006
+6,ALB,6.5,2010: 2009-2011
+7,ALB,6.5,2015: 2014-2016
+8,ALB,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+9,ALB,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+10,ALB,6.5,6.      Report numbers as thousands of persons.
+11,ALB,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+12,ALB,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+13,AND,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+14,AND,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+15,AND,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+16,AND,6.5,1990: 1992-1994
+17,AND,6.5,2000: 1999-2001
+18,AND,6.5,2005: 2004-2006
+19,AND,6.5,2010: 2009-2011
+20,AND,6.5,2015: 2014-2016
+21,AND,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+22,AND,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+23,AND,6.5,6.      Report numbers as thousands of persons.
+24,AND,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+25,AND,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+26,AUT,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+27,AUT,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+28,AUT,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+29,AUT,6.5,1990: 1992-1994
+30,AUT,6.5,2000: 1999-2001
+31,AUT,6.5,2005: 2004-2006
+32,AUT,6.5,2010: 2009-2011
+33,AUT,6.5,2015: 2014-2016
+34,AUT,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+35,AUT,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+36,AUT,6.5,6.      Report numbers as thousands of persons.
+37,AUT,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+38,AUT,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+39,BLR,6.5,1.     Связь с ОЛР/ОВЛР 2020: Эта отчетная форма не имеет аналогов в глобальной отчетности.7a.Соответствующие руководящие принципы  ОЛР/ОВЛР на http://fra-platform.herokuapp.com/ и термины и определения  at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+40,BLR,6.5,"2.     Предварительное заполнение: таблицы были предварительно заполнены. Источник предварительно заполненных данных: соцопрос по трудовым ресурсам ""Евростат"": http://ec.europa.eu/eurostat/data/database (Занятость в лесном хозяйстве и лесной промышленности [for_emp_lfs, for_emp_lfs1]); источник предварительно заполненных данных: Обследование рабочей силы Евростата."
+41,BLR,6.5,"3.      Исходные годы: С целью получения более надежных данных, для предварительного заполнения были рассчитаны средние значения на основе трехлетних периодов:"
+42,BLR,6.5,1990: 1992-1994
+43,BLR,6.5,2000: 1999-2001
+44,BLR,6.5,2005: 2004-2006
+45,BLR,6.5,2010: 2009-2011
+46,BLR,6.5,2015: 2014-2016
+47,BLR,6.5,"4.     Рекомендуемым источником для всех данных является соцопрос трудовых ресурсов (СТР), в котором предоставляют-ся все требуемые классификации. Если не имеются данные СТР, просим предоставить наилучшую статистику или оценки от других источников. При использовании других источников, например, обследования предприятий, примите во внимание, что в желаемом диапазоне находятся самозанятые работники, и что лесное хозяйство (ISIC/ NACE 02) ограничено работающи-ми в основном в лесном хозяйстве, и исключает, например, сельскохозяйственных работников, выполняющих некоторую работу в лесном хозяйстве или правительственных работников, классифицированных как государственная администрация."
+48,BLR,6.5,"5.     Странам следует экстраполировать имеющиеся данные для предоставления оценок на все годы, запрошенные в таблице. Для стран, данные которых основаны на относительно небольших значениях в лесном секторе, рекомендуется объединить данные из нескольких источников и вычислить средние значения для трёх или пятилетних периодов до и после отчетных дат.  Евростат предоставит имеющиеся годовые данные с указанием размеров образцов или других индикаторов надежности, чтобы позволить национальным корреспондентам судить, как представить данные наилучшим образом."
+49,BLR,6.5,6.      В отчете указать значения в тысячах лиц.
+50,BLR,6.5,"7.    При оценке по уровню образования, используя другие источники, примите во внимание, что к категории 0-2 относятся лица, с неполным средним образованием, к категориям 5-6 лица с высшим образованием и к категориям 3-4 все остальные лица (среднее и пост-среднее образование), если нужна дополнительная информация, см. термины и определения."
+51,BLR,6.5,8.     Категория “самозанятые” также должна включать в себя неоплачиваемых работающих членов семьи.
+52,BEL,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+53,BEL,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+54,BEL,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+55,BEL,6.5,1990: 1992-1994
+56,BEL,6.5,2000: 1999-2001
+57,BEL,6.5,2005: 2004-2006
+58,BEL,6.5,2010: 2009-2011
+59,BEL,6.5,2015: 2014-2016
+60,BEL,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+61,BEL,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+62,BEL,6.5,6.      Report numbers as thousands of persons.
+63,BEL,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+64,BEL,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+65,BIH,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+66,BIH,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+67,BIH,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+68,BIH,6.5,1990: 1992-1994
+69,BIH,6.5,2000: 1999-2001
+70,BIH,6.5,2005: 2004-2006
+71,BIH,6.5,2010: 2009-2011
+72,BIH,6.5,2015: 2014-2016
+73,BIH,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+74,BIH,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+75,BIH,6.5,6.      Report numbers as thousands of persons.
+76,BIH,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+77,BIH,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+78,BGR,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+79,BGR,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+80,BGR,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+81,BGR,6.5,1990: 1992-1994
+82,BGR,6.5,2000: 1999-2001
+83,BGR,6.5,2005: 2004-2006
+84,BGR,6.5,2010: 2009-2011
+85,BGR,6.5,2015: 2014-2016
+86,BGR,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+87,BGR,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+88,BGR,6.5,6.      Report numbers as thousands of persons.
+89,BGR,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+90,BGR,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+91,HRV,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+92,HRV,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+93,HRV,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+94,HRV,6.5,1990: 1992-1994
+95,HRV,6.5,2000: 1999-2001
+96,HRV,6.5,2005: 2004-2006
+97,HRV,6.5,2010: 2009-2011
+98,HRV,6.5,2015: 2014-2016
+99,HRV,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+100,HRV,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+101,HRV,6.5,6.      Report numbers as thousands of persons.
+102,HRV,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+103,HRV,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+104,CYP,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+105,CYP,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+106,CYP,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+107,CYP,6.5,1990: 1992-1994
+108,CYP,6.5,2000: 1999-2001
+109,CYP,6.5,2005: 2004-2006
+110,CYP,6.5,2010: 2009-2011
+111,CYP,6.5,2015: 2014-2016
+112,CYP,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+113,CYP,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+114,CYP,6.5,6.      Report numbers as thousands of persons.
+115,CYP,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+116,CYP,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+117,CZE,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+118,CZE,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+119,CZE,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+120,CZE,6.5,1990: 1992-1994
+121,CZE,6.5,2000: 1999-2001
+122,CZE,6.5,2005: 2004-2006
+123,CZE,6.5,2010: 2009-2011
+124,CZE,6.5,2015: 2014-2016
+125,CZE,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+126,CZE,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+127,CZE,6.5,6.      Report numbers as thousands of persons.
+128,CZE,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+129,CZE,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+130,DNK,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+131,DNK,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+132,DNK,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+133,DNK,6.5,1990: 1992-1994
+134,DNK,6.5,2000: 1999-2001
+135,DNK,6.5,2005: 2004-2006
+136,DNK,6.5,2010: 2009-2011
+137,DNK,6.5,2015: 2014-2016
+138,DNK,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+139,DNK,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+140,DNK,6.5,6.      Report numbers as thousands of persons.
+141,DNK,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+142,DNK,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+143,EST,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+144,EST,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+145,EST,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+146,EST,6.5,1990: 1992-1994
+147,EST,6.5,2000: 1999-2001
+148,EST,6.5,2005: 2004-2006
+149,EST,6.5,2010: 2009-2011
+150,EST,6.5,2015: 2014-2016
+151,EST,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+152,EST,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+153,EST,6.5,6.      Report numbers as thousands of persons.
+154,EST,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+155,EST,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+156,FIN,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+157,FIN,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+158,FIN,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+159,FIN,6.5,1990: 1992-1994
+160,FIN,6.5,2000: 1999-2001
+161,FIN,6.5,2005: 2004-2006
+162,FIN,6.5,2010: 2009-2011
+163,FIN,6.5,2015: 2014-2016
+164,FIN,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+165,FIN,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+166,FIN,6.5,6.      Report numbers as thousands of persons.
+167,FIN,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+168,FIN,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+169,FRA,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+170,FRA,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+171,FRA,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+172,FRA,6.5,1990: 1992-1994
+173,FRA,6.5,2000: 1999-2001
+174,FRA,6.5,2005: 2004-2006
+175,FRA,6.5,2010: 2009-2011
+176,FRA,6.5,2015: 2014-2016
+177,FRA,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+178,FRA,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+179,FRA,6.5,6.      Report numbers as thousands of persons.
+180,FRA,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+181,FRA,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+182,GEO,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+183,GEO,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+184,GEO,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+185,GEO,6.5,1990: 1992-1994
+186,GEO,6.5,2000: 1999-2001
+187,GEO,6.5,2005: 2004-2006
+188,GEO,6.5,2010: 2009-2011
+189,GEO,6.5,2015: 2014-2016
+190,GEO,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+191,GEO,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+192,GEO,6.5,6.      Report numbers as thousands of persons.
+193,GEO,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+194,GEO,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+195,DEU,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+196,DEU,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+197,DEU,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+198,DEU,6.5,1990: 1992-1994
+199,DEU,6.5,2000: 1999-2001
+200,DEU,6.5,2005: 2004-2006
+201,DEU,6.5,2010: 2009-2011
+202,DEU,6.5,2015: 2014-2016
+203,DEU,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+204,DEU,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+205,DEU,6.5,6.      Report numbers as thousands of persons.
+206,DEU,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+207,DEU,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+208,GRC,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+209,GRC,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+210,GRC,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+211,GRC,6.5,1990: 1992-1994
+212,GRC,6.5,2000: 1999-2001
+213,GRC,6.5,2005: 2004-2006
+214,GRC,6.5,2010: 2009-2011
+215,GRC,6.5,2015: 2014-2016
+216,GRC,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+217,GRC,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+218,GRC,6.5,6.      Report numbers as thousands of persons.
+219,GRC,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+220,GRC,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+221,VAT,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+222,VAT,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+223,VAT,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+224,VAT,6.5,1990: 1992-1994
+225,VAT,6.5,2000: 1999-2001
+226,VAT,6.5,2005: 2004-2006
+227,VAT,6.5,2010: 2009-2011
+228,VAT,6.5,2015: 2014-2016
+229,VAT,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+230,VAT,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+231,VAT,6.5,6.      Report numbers as thousands of persons.
+232,VAT,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+233,VAT,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+234,HUN,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+235,HUN,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+236,HUN,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+237,HUN,6.5,1990: 1992-1994
+238,HUN,6.5,2000: 1999-2001
+239,HUN,6.5,2005: 2004-2006
+240,HUN,6.5,2010: 2009-2011
+241,HUN,6.5,2015: 2014-2016
+242,HUN,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+243,HUN,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+244,HUN,6.5,6.      Report numbers as thousands of persons.
+245,HUN,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+246,HUN,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+247,ISL,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+248,ISL,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+249,ISL,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+250,ISL,6.5,1990: 1992-1994
+251,ISL,6.5,2000: 1999-2001
+252,ISL,6.5,2005: 2004-2006
+253,ISL,6.5,2010: 2009-2011
+254,ISL,6.5,2015: 2014-2016
+255,ISL,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+256,ISL,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+257,ISL,6.5,6.      Report numbers as thousands of persons.
+258,ISL,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+259,ISL,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+260,IRL,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+261,IRL,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+262,IRL,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+263,IRL,6.5,1990: 1992-1994
+264,IRL,6.5,2000: 1999-2001
+265,IRL,6.5,2005: 2004-2006
+266,IRL,6.5,2010: 2009-2011
+267,IRL,6.5,2015: 2014-2016
+268,IRL,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+269,IRL,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+270,IRL,6.5,6.      Report numbers as thousands of persons.
+271,IRL,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+272,IRL,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+273,ITA,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+274,ITA,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+275,ITA,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+276,ITA,6.5,1990: 1992-1994
+277,ITA,6.5,2000: 1999-2001
+278,ITA,6.5,2005: 2004-2006
+279,ITA,6.5,2010: 2009-2011
+280,ITA,6.5,2015: 2014-2016
+281,ITA,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+282,ITA,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+283,ITA,6.5,6.      Report numbers as thousands of persons.
+284,ITA,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+285,ITA,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+286,LVA,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+287,LVA,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+288,LVA,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+289,LVA,6.5,1990: 1992-1994
+290,LVA,6.5,2000: 1999-2001
+291,LVA,6.5,2005: 2004-2006
+292,LVA,6.5,2010: 2009-2011
+293,LVA,6.5,2015: 2014-2016
+294,LVA,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+295,LVA,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+296,LVA,6.5,6.      Report numbers as thousands of persons.
+297,LVA,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+298,LVA,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+299,LIE,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+300,LIE,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+301,LIE,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+302,LIE,6.5,1990: 1992-1994
+303,LIE,6.5,2000: 1999-2001
+304,LIE,6.5,2005: 2004-2006
+305,LIE,6.5,2010: 2009-2011
+306,LIE,6.5,2015: 2014-2016
+307,LIE,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+308,LIE,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+309,LIE,6.5,6.      Report numbers as thousands of persons.
+310,LIE,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+311,LIE,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+312,LTU,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+313,LTU,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+314,LTU,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+315,LTU,6.5,1990: 1992-1994
+316,LTU,6.5,2000: 1999-2001
+317,LTU,6.5,2005: 2004-2006
+318,LTU,6.5,2010: 2009-2011
+319,LTU,6.5,2015: 2014-2016
+320,LTU,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+321,LTU,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+322,LTU,6.5,6.      Report numbers as thousands of persons.
+323,LTU,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+324,LTU,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+325,LUX,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+326,LUX,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+327,LUX,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+328,LUX,6.5,1990: 1992-1994
+329,LUX,6.5,2000: 1999-2001
+330,LUX,6.5,2005: 2004-2006
+331,LUX,6.5,2010: 2009-2011
+332,LUX,6.5,2015: 2014-2016
+333,LUX,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+334,LUX,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+335,LUX,6.5,6.      Report numbers as thousands of persons.
+336,LUX,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+337,LUX,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+338,MLT,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+339,MLT,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+340,MLT,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+341,MLT,6.5,1990: 1992-1994
+342,MLT,6.5,2000: 1999-2001
+343,MLT,6.5,2005: 2004-2006
+344,MLT,6.5,2010: 2009-2011
+345,MLT,6.5,2015: 2014-2016
+346,MLT,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+347,MLT,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+348,MLT,6.5,6.      Report numbers as thousands of persons.
+349,MLT,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+350,MLT,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+351,MDA,6.5,1.       Связь с ОЛР/ОВЛР 2020: Эта отчетная форма не имеет аналогов в глобальной отчетности.7a.Соответствующие руководящие принципы  ОЛР/ОВЛР на http://fra-platform.herokuapp.com/ и термины и определения  at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+352,MDA,6.5,"2.       Предварительное заполнение: таблицы были предварительно заполнены. Источник предварительно заполненных данных: соцопрос по трудовым ресурсам ""Евростат"": http://ec.europa.eu/eurostat/data/database (Занятость в лесном хозяйстве и лесной промышленности [for_emp_lfs, for_emp_lfs1]); источник предварительно заполненных данных: Обследование рабочей силы Евростата."
+353,MDA,6.5,"3.       Исходные годы: С целью получения более надежных данных, для предварительного заполнения были рассчитаны средние значения на основе трех летних периодов:"
+354,MDA,6.5,1990: 1992-1994
+355,MDA,6.5,2000: 1999-2001
+356,MDA,6.5,2005: 2004-2006
+357,MDA,6.5,2010: 2009-2011
+358,MDA,6.5,2015: 2014-2016
+359,MDA,6.5,"4.     Рекомендуемым источником для всех данных является соцопрос трудовых ресурсов (СТР), в котором предоставляются все требуемые классификации. Если не имеются данные СТР, просим предоставить наилучшую статистику или оценки от других источников. При использовании других источников, например, обследования предприятий, примите во внимание, что в желаемом диапазоне находятся самозанятые работники, и что лесное хозяйство (ISIC/ NACE 02) ограничено работающими в основном в лесном хозяйстве, и исключает, например, сельскохозяйственных работников, выполняющих некоторую работу в лесном хозяйстве или правительственных работников, классифицированных как государственная администрация."
+360,MDA,6.5,"5.      Странам следует экстраполировать имеющиеся данные для предоставления оценок на все годы, запрошенные в таблице. Для стран, данные которых основаны на относительно небольших значениях в лесном секторе, рекомендуется объединить данные из нескольких источников и вычислить средние значения для 3-х или 5-летних периодов до и после отчетных дат.  Евростат предоставит имеющиеся годовые данные с указанием размеров образцов или других индикаторов надежности, чтобы позволить национальным корреспондентам судить, как представить данные наилучшим образом. В отчете указать значения в тысячах лиц."
+361,MDA,6.5,"6.      Данные в отчете, в тыс. чел."
+362,MDA,6.5,"7.     При оценке по уровню образования, используя другие источники, примите во внимание, что к категории 0-2 относятся лица, с неполным средним образованием, к категориям 5-6 лица с высшим образованием и к категориям 3-4 все остальные лица (среднее и пост-среднее образование), если нужна дополнительная информация, см. термины и определения."
+363,MDA,6.5,8.      Категория “самозанятые работники” также должна включать в себя неоплачиваемых работающих членов семьи.
+364,MCO,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+365,MCO,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+366,MCO,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+367,MCO,6.5,1990: 1992-1994
+368,MCO,6.5,2000: 1999-2001
+369,MCO,6.5,2005: 2004-2006
+370,MCO,6.5,2010: 2009-2011
+371,MCO,6.5,2015: 2014-2016
+372,MCO,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+373,MCO,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+374,MCO,6.5,6.      Report numbers as thousands of persons.
+375,MCO,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+376,MCO,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+377,MNE,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+378,MNE,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+379,MNE,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+380,MNE,6.5,1990: 1992-1994
+381,MNE,6.5,2000: 1999-2001
+382,MNE,6.5,2005: 2004-2006
+383,MNE,6.5,2010: 2009-2011
+384,MNE,6.5,2015: 2014-2016
+385,MNE,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+386,MNE,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+387,MNE,6.5,6.      Report numbers as thousands of persons.
+388,MNE,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+389,MNE,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+390,NLD,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+391,NLD,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+392,NLD,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+393,NLD,6.5,1990: 1992-1994
+394,NLD,6.5,2000: 1999-2001
+395,NLD,6.5,2005: 2004-2006
+396,NLD,6.5,2010: 2009-2011
+397,NLD,6.5,2015: 2014-2016
+398,NLD,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+399,NLD,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+400,NLD,6.5,6.      Report numbers as thousands of persons.
+401,NLD,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+402,NLD,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+403,NOR,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+404,NOR,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+405,NOR,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+406,NOR,6.5,1990: 1992-1994
+407,NOR,6.5,2000: 1999-2001
+408,NOR,6.5,2005: 2004-2006
+409,NOR,6.5,2010: 2009-2011
+410,NOR,6.5,2015: 2014-2016
+411,NOR,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+412,NOR,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+413,NOR,6.5,6.      Report numbers as thousands of persons.
+414,NOR,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+415,NOR,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+416,POL,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+417,POL,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+418,POL,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+419,POL,6.5,1990: 1992-1994
+420,POL,6.5,2000: 1999-2001
+421,POL,6.5,2005: 2004-2006
+422,POL,6.5,2010: 2009-2011
+423,POL,6.5,2015: 2014-2016
+424,POL,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+425,POL,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+426,POL,6.5,6.      Report numbers as thousands of persons.
+427,POL,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+428,POL,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+429,PRT,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+430,PRT,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+431,PRT,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+432,PRT,6.5,1990: 1992-1994
+433,PRT,6.5,2000: 1999-2001
+434,PRT,6.5,2005: 2004-2006
+435,PRT,6.5,2010: 2009-2011
+436,PRT,6.5,2015: 2014-2016
+437,PRT,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+438,PRT,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+439,PRT,6.5,6.      Report numbers as thousands of persons.
+440,PRT,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+441,PRT,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+442,ROU,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+443,ROU,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+444,ROU,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+445,ROU,6.5,1990: 1992-1994
+446,ROU,6.5,2000: 1999-2001
+447,ROU,6.5,2005: 2004-2006
+448,ROU,6.5,2010: 2009-2011
+449,ROU,6.5,2015: 2014-2016
+450,ROU,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+451,ROU,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+452,ROU,6.5,6.      Report numbers as thousands of persons.
+453,ROU,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+454,ROU,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+455,RUS,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+456,RUS,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+457,RUS,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+458,RUS,6.5,1990: 1992-1994
+459,RUS,6.5,2000: 1999-2001
+460,RUS,6.5,2005: 2004-2006
+461,RUS,6.5,2010: 2009-2011
+462,RUS,6.5,2015: 2014-2016
+463,RUS,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+464,RUS,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+465,RUS,6.5,6.      Report numbers as thousands of persons.
+466,RUS,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+467,RUS,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+468,SRB,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+469,SRB,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+470,SRB,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+471,SRB,6.5,1990: 1992-1994
+472,SRB,6.5,2000: 1999-2001
+473,SRB,6.5,2005: 2004-2006
+474,SRB,6.5,2010: 2009-2011
+475,SRB,6.5,2015: 2014-2016
+476,SRB,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+477,SRB,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+478,SRB,6.5,6.      Report numbers as thousands of persons.
+479,SRB,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+480,SRB,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+481,SVK,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+482,SVK,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+483,SVK,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+484,SVK,6.5,1990: 1992-1994
+485,SVK,6.5,2000: 1999-2001
+486,SVK,6.5,2005: 2004-2006
+487,SVK,6.5,2010: 2009-2011
+488,SVK,6.5,2015: 2014-2016
+489,SVK,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+490,SVK,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+491,SVK,6.5,6.      Report numbers as thousands of persons.
+492,SVK,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+493,SVK,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+494,SVN,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+495,SVN,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+496,SVN,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+497,SVN,6.5,1990: 1992-1994
+498,SVN,6.5,2000: 1999-2001
+499,SVN,6.5,2005: 2004-2006
+500,SVN,6.5,2010: 2009-2011
+501,SVN,6.5,2015: 2014-2016
+502,SVN,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+503,SVN,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+504,SVN,6.5,6.      Report numbers as thousands of persons.
+505,SVN,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+506,SVN,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+507,ESP,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+508,ESP,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+509,ESP,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+510,ESP,6.5,1990: 1992-1994
+511,ESP,6.5,2000: 1999-2001
+512,ESP,6.5,2005: 2004-2006
+513,ESP,6.5,2010: 2009-2011
+514,ESP,6.5,2015: 2014-2016
+515,ESP,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+516,ESP,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+517,ESP,6.5,6.      Report numbers as thousands of persons.
+518,ESP,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+519,ESP,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+520,SWE,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+521,SWE,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+522,SWE,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+523,SWE,6.5,1990: 1992-1994
+524,SWE,6.5,2000: 1999-2001
+525,SWE,6.5,2005: 2004-2006
+526,SWE,6.5,2010: 2009-2011
+527,SWE,6.5,2015: 2014-2016
+528,SWE,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+529,SWE,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+530,SWE,6.5,6.      Report numbers as thousands of persons.
+531,SWE,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+532,SWE,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+533,CHE,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+534,CHE,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+535,CHE,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+536,CHE,6.5,1990: 1992-1994
+537,CHE,6.5,2000: 1999-2001
+538,CHE,6.5,2005: 2004-2006
+539,CHE,6.5,2010: 2009-2011
+540,CHE,6.5,2015: 2014-2016
+541,CHE,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+542,CHE,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+543,CHE,6.5,6.      Report numbers as thousands of persons.
+544,CHE,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+545,CHE,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+546,MKD,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+547,MKD,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+548,MKD,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+549,MKD,6.5,1990: 1992-1994
+550,MKD,6.5,2000: 1999-2001
+551,MKD,6.5,2005: 2004-2006
+552,MKD,6.5,2010: 2009-2011
+553,MKD,6.5,2015: 2014-2016
+554,MKD,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+555,MKD,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+556,MKD,6.5,6.      Report numbers as thousands of persons.
+557,MKD,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+558,MKD,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+559,TUR,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+560,TUR,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+561,TUR,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+562,TUR,6.5,1990: 1992-1994
+563,TUR,6.5,2000: 1999-2001
+564,TUR,6.5,2005: 2004-2006
+565,TUR,6.5,2010: 2009-2011
+566,TUR,6.5,2015: 2014-2016
+567,TUR,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+568,TUR,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+569,TUR,6.5,6.      Report numbers as thousands of persons.
+570,TUR,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+571,TUR,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+572,UKR,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+573,UKR,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+574,UKR,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+575,UKR,6.5,1990: 1992-1994
+576,UKR,6.5,2000: 1999-2001
+577,UKR,6.5,2005: 2004-2006
+578,UKR,6.5,2010: 2009-2011
+579,UKR,6.5,2015: 2014-2016
+580,UKR,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+581,UKR,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+582,UKR,6.5,6.      Report numbers as thousands of persons.
+583,UKR,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+584,UKR,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
+585,GBR,6.5,1.       Connection with FRA/CFRQ 2020:this reporting form is linked to the Table 7a.Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+586,GBR,6.5,"2.       Prefilling: The tables have been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (Employment in forestry and forest-based industry [for_emp_lfs, for_emp_lfs1]); source of pre-filled data: Eurostat Labour Force Survey."
+587,GBR,6.5,"3.       Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:"
+588,GBR,6.5,1990: 1992-1994
+589,GBR,6.5,2000: 1999-2001
+590,GBR,6.5,2005: 2004-2006
+591,GBR,6.5,2010: 2009-2011
+592,GBR,6.5,2015: 2014-2016
+593,GBR,6.5,"4.      The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration."
+594,GBR,6.5,"5.      Countries should extrapolate from the available data to provide estimates for all years requested in the table. For countries in which sample data are based on relatively small numbers in forest sectors, it is recommended to pool data and calculate averages for 3 or 5-year periods around the reporting dates. EUROSTAT will provide the annual data available, with an indication of sample sizes or other indicators of reliability, to enable national correspondents to judge how best to present the data."
+595,GBR,6.5,6.      Report numbers as thousands of persons.
+596,GBR,6.5,"7.      If estimating the breakdown by education level using other sources, note that categories 0-2 covers those with no more than lower secondary education, categories 5-6 cover those with tertiary (higher) education, and categories 3-4 cover all others ( other secondary and post-secondary), for more details see terms  and definitions."
+597,GBR,6.5,8.      The category ‘self-employed’ should also include unpaid family workers.
