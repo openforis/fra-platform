@@ -34,8 +34,8 @@ module.exports = {
   commentsRelateToDataDefinitions: 'Comments related to data, definitions, etc.',
   commentsOnTrendS: 'Comments on trend(s)',
   commentsOnTrend: 'Comments on trend(s)',
-  pleaseIndicateIfReportedValuesAreAccoringToTheFaoDefinitionOfGrowingStock:
-    'Please indicate if reported values are accoring to the FAO definition of growing stock',
+  valuesAccordingFaoDefinitionGrowingStock:
+    'Please indicate if reported values are according to the FAO definition of growing stock',
   PleaseSpecifyRelevantThresholds: 'Please specify relevant thresholds',
   minimumDiameter: 'Minimum diameter',
   minimumTopDiameterUsed: 'Minimum top diameter used',
