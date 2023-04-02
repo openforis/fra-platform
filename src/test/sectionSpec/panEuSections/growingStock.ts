@@ -2184,7 +2184,7 @@ export const growingStock = {
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.assessementBasedOnEvidence',
+                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },

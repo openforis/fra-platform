@@ -25,7 +25,7 @@ module.exports = {
   howDidYouGenerateValues: 'How did you generate values for 2025',
   theRecentAvailableYear: 'The recent available year',
   extrapolation: 'Extrapolation',
-  assessementBasedOnEvidence:
+  assessmentBasedOnEvidence:
     'assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnTheCategoriesOfTheTable11A: 'Approach to reporting on the categories of the Table 1.1a',
   category: 'Category',
