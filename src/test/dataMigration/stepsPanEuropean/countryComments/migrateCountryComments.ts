@@ -72,6 +72,7 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
     const table = tables[tableName]
 
     // TODO: investigate why tables are not found
+    // 1_3b_3 -> empty csv, no table needed.
     if (!table) {
       Logger.warn(`!!!! Table ${tableName} ${tableIdx} not found`)
       // eslint-disable-next-line no-continue
@@ -99,6 +100,12 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
       const row = rowsData[rowIndex]
 
       // TODO: investigate why rows are not found
+      // 6_9_2 -> CSV is incorrect. It is the same as 6_9_1
+      // 4_9_2 -> There is one empty row per country in the CSV.
+      // 3_4_2 -> There are 4 empty rows per country in the CSV.
+      // 3_4_2 -> Sometimes they are not empty, but the excel have no category per row. Just empty rows there.
+      // 2_5_1 -> CSV does not map the table, by index as expected.
+
       if (!row) {
         Logger.warn(`!!!! Row not found ${tableName} ${rowIndex} ${rowsData.length} ${JSON.stringify(csvRow)}`)
       }

@@ -1957,7 +1957,7 @@ export const carbonStock = {
               'carbonStockInSoil',
               'biomassCarbonConversionFactorUsed',
             ].map((variableName, idx) => ({
-              idx: idx + 1,
+              idx,
               type: 'data',
               variableName,
               cols: [
@@ -1969,7 +1969,7 @@ export const carbonStock = {
                   type: 'header',
                 },
                 { idx: 0, type: 'textarea', colName: 'comment' },
-                { idx: 0, type: 'textarea', colName: 'comment_trends' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
             })),
           ],
