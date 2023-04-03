@@ -1,4 +1,4 @@
-,country,indicator,item,
+,country,indicator,item,comment
 0,ALB,2.5,"Minimum size of degraded FOWL reported, ha:",
 1,ALB,2.5,Other criteria and minimum thresholds used to determine area as “degraded”:,
 2,ALB,2.5,Criteria used to determine primary type of degradation:,
@@ -56,9 +56,7 @@
 54,BGR,2.5,Does your country have a national methodology for land degradation assessment?,
 55,BGR,2.5,"If yes, please specify:",
 56,HRV,2.5,"Minimum size of degraded FOWL reported, ha:",
-57,HRV,2.5,Other criteria and minimum thresholds used to determine area as “degraded”:,We were able to report only on repeated forest fires. 
-We were able to report only on repeated forest fires. ,,,,
-We were able to report only on repeated forest fires. ,,,,No
+57,HRV,2.5,Other criteria and minimum thresholds used to determine area as “degraded”:,"We were able to report only on repeated forest fires."
 58,HRV,2.5,Criteria used to determine primary type of degradation:,No
 59,HRV,2.5,Are degraded areas originating from land uses other than forestry included in the figures you reported?,Partially
 60,HRV,2.5,"In your country, are recently degraded forest areas legally considered as non-forest land?",No
@@ -113,9 +111,9 @@ We were able to report only on repeated forest fires. ,,,,No
 109,FRA,2.5,"In your country, are degraded non-forest areas re-categorised to forest land with the aim to reforest them?",
 110,FRA,2.5,Does your country have a national methodology for land degradation assessment?,
 111,FRA,2.5,"If yes, please specify:",
-112,GEO,2.5,"Minimum size of degraded FOWL reported, ha:","GEO plans to start monitoring of forest degradation from 2018 onwards in the framework of the National Forest Inventory, (the first NFI in GEO will be conducted during 2018-2020). According to the Field Manual of the National Forest Inventory of GEO, the Forest Degradation is defined as "the changes that have been occurred in the forest and negatively affected forest structure and functions. Degradation can be estimated according to its level of severity". The definition given above is not legally approved for this moment. "
+112,GEO,2.5,"Minimum size of degraded FOWL reported, ha:","GEO plans to start monitoring of forest degradation from 2018 onwards in the framework of the National Forest Inventory, (the first NFI in GEO will be conducted during 2018-2020). According to the Field Manual of the National Forest Inventory of GEO, the Forest Degradation is defined as 'the changes that have been occurred in the forest and negatively affected forest structure and functions. Degradation can be estimated according to its level of severity'. The definition given above is not legally approved for this moment."
 113,GEO,2.5,Other criteria and minimum thresholds used to determine area as “degraded”:,No
-114,GEO,2.5,Criteria used to determine primary type of degradation:,"GEO plans to start monitoring of forest degradation from 2018 onwards in the framework of the National Forest Inventory, (the first NFI in GEO will be conducted during 2018-2020). According to the Field Manual of the National Forest Inventory of GEO, the Forest Degradation is defined as "the changes that have been occurred in the forest and negatively affected forest structure and functions. Degradation can be estimated according to its level of severity". The definition given above is not legally approved for this moment. "
+114,GEO,2.5,Criteria used to determine primary type of degradation:,"GEO plans to start monitoring of forest degradation from 2018 onwards in the framework of the National Forest Inventory, (the first NFI in GEO will be conducted during 2018-2020). According to the Field Manual of the National Forest Inventory of GEO, the Forest Degradation is defined as 'the changes that have been occurred in the forest and negatively affected forest structure and functions. Degradation can be estimated according to its level of severity. The definition given above is not legally approved for this moment. "
 115,GEO,2.5,Are degraded areas originating from land uses other than forestry included in the figures you reported?,No
 116,GEO,2.5,"In your country, are recently degraded forest areas legally considered as non-forest land?",No
 117,GEO,2.5,"In your country, are degraded non-forest areas re-categorised to forest land with the aim to reforest them?",No

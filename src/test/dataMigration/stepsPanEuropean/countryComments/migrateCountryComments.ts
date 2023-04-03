@@ -78,12 +78,6 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
       continue
     }
 
-    // TODO: investigate the table below
-    // temp hack
-    if (['2.5_C1.csv'].includes(fileName)) {
-      // eslint-disable-next-line no-continue
-      continue
-    }
     const rowsData = table.rows.filter(
       (r) => ![RowType.header, RowType.placeholder, RowType.noticeMessage].includes(r.props.type)
     )
@@ -115,9 +109,9 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
           const col = row.cols.find((c) => c.props.colName === columnName)
 
           // TODO: investigate why cols are not found
-          if (!col) {
-            Logger.warn(`!!!! Col not found ${tableName} ${row.props.variableName} ${columnName}`)
-          }
+          // if (!col) {
+          //   Logger.warn(`!!!! Col not found ${tableName} ${row.props.variableName} ${columnName}`)
+          // }
           if (col) {
             const nodeRow: NodeRow = {
               country_iso: csvRow.country,

@@ -59,6 +59,7 @@ module.exports = {
   maturePhase: 'Mature phase',
   unspecified: 'Unspecified',
   EvenAgedStands: 'Even-aged stands',
+  forestEvenAgedStands: 'Forest: Even-aged stands',
   totalAreaOfUnevenAgedForest: 'Total area of uneven-aged forest',
   totalVolumeOfUnevenAgedForests: 'Total volume of uneven-aged forests',
   diameterDistributionForUnevenAgedForests: 'Diameter distribution for uneven-aged forests',
@@ -66,8 +67,6 @@ module.exports = {
     'Diameter distribution for uneven-aged forests available for wood supply',
   theYearAndDataReportedFor2025: 'The year and data reported for 2025',
   howDidYouGenerateValuesFor2025: 'How did you generate values for 2025',
-  assessmentBasedOnEvidence:
-    'Assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnGrowingStock: 'Approach to reporting on growing stock',
   ifNotPleaseSpecifyRelevantThresholds: 'If not, please specify relevant thresholds',
   commentsRelatedToDataDefinitions: 'Comments related to data, definitions, etc.',

@@ -31,7 +31,7 @@ import {
 } from './panEuSections/regeneration'
 import { SectionSpec } from './sectionSpec'
 
-export const PanEuropeanSpecs: Record<string, SectionSpec> = {
+export const PanEuropeanSpecs: Record<string, SectionSpec> = -{
   forestArea,
   forestAreaByForestTypes,
   growingStock,
@@ -597,6 +597,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'describeHowYouDetermineDiameterStructure',
                 cols: [
                   {
                     idx: 'header_0',
@@ -605,7 +606,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
                 ],
               },
             ],
@@ -616,7 +617,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['approachToDetermineDiameterStructure'] },
+              columnNames: { '2025': ['comment'] },
             },
           },
         ],
@@ -656,67 +657,27 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'totalAreaOfUnevenAgedForest',
+                'totalVolumeOfUnevenAgedForests',
+                'diameterDistributionForUnevenAgedForests',
+                'diameterDistributionForUnevenAgedForestsAvailableForWoodSupply',
+              ].map((variableName, idx) => ({
+                idx,
                 type: 'data',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.totalAreaOfUnevenAgedForest',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.totalVolumeOfUnevenAgedForests',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.diameterDistributionForUnevenAgedForests',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.diameterDistributionForUnevenAgedForestsAvailableForWoodSupply',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 1, type: 'textarea', colName: 'comment_trends' },
                 ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -725,7 +686,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -2304,63 +2265,26 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'minimumSizeOfDamagedFowlReported',
+                'otherCriteriaAndMinimumThresholdsUsedToDetermineAreaAsDamaged',
+                'criteriaUsedToDetermineWhichAgentsWerePrimarilyDamaging',
+                'areDamageInProtectedForestsIncludedInTheReportedFigures',
+              ].map((variableName, idx) => ({
+                idx: idx + 1,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.minimumSizeOfDamagedFowlReported',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.otherCriteriaAndMinimumThresholdsUsedToDetermineAreaAsDamaged',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.criteriaUsedToDetermineWhichAgentsWerePrimarilyDamaging',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.areDamageInProtectedForestsIncludedInTheReportedFigures',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -2369,7 +2293,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['criteriaAppliedToReportingDamage'] },
+              columnNames: { '2025': ['comment'] },
             },
           },
         ],
@@ -2409,126 +2333,31 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'totalAreaWithDamage',
+                'primarilyDamagedByInsectsAndDisease',
+                'primarilyDamagedByWildlifeAndGrazing',
+                'damagePrimarilyHumanInducedForestOperations',
+                'humanInducedDamagesReportedUnderOther',
+                'primarilyDamagedByAbioticAgents',
+                'primarilyDamagedByFire',
+                'unspecifiedMixedDamage',
+              ].map((variableName, idx) => ({
+                idx: idx + 1,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.totalAreaWithDamage',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 0, type: 'textarea', colName: 'comment_trends' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDamagedByInsectsAndDisease',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDamagedByWildlifeAndGrazing',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.damagePrimarilyHumanInducedForestOperations',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 4,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.humanInducedDamagesReportedUnderOther',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 5,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDamagedByAbioticAgents',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 6,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDamagedByFire',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 7,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.unspecifiedMixedDamage',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -2537,7 +2366,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelateToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -3624,91 +3453,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'doesYourCountryHaveANationalMethodology',
+                'ifYesWhatIsTheNationalDefinition',
+                'ifYesDescribeMonitoringProcessAndResults',
+                'minimumSizeOfDegradedForestReportedHa',
+                'otherCriteriaAndMinimumThresholdsUsedToDetermineForestAsDegraded',
+                'criteriaUsedToDeterminePrimaryTypeOfDegradation',
+              ].map((variableName, idx) => ({
+                idx: idx + 1,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.doesYourCountryHaveANationalMethodology',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'textarea' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.ifYesWhatIsTheNationalDefinition',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'textarea' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.ifYesDescribeMonitoringProcessAndResults',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'textarea' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.minimumSizeOfDegradedForestReportedHa',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'textarea' },
-                ],
-              },
-              {
-                idx: 4,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey:
-                      'panEuropean.countryComments.otherCriteriaAndMinimumThresholdsUsedToDetermineForestAsDegraded',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'textarea' },
-                ],
-              },
-              {
-                idx: 5,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.criteriaUsedToDeterminePrimaryTypeOfDegradation',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'textarea' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -3717,7 +3483,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['criteriaAppliedToReportingDamage'] },
+              columnNames: { '2025': ['comment'] },
             },
           },
         ],
@@ -3757,141 +3523,32 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'totalAreaOfDegradedLand',
+                'primarilyDegradedBy',
+                'primarilyDegradedByGrazing',
+                'primarilyDegradedByRepeatedFires',
+                'primarilyDegradedByAirPollution',
+                'primarilyDegradedByDesertification',
+                'primarilyDegradedBy',
+                'primarilyDegradedBy',
+                'formerDegradedLandRestoredByAfforestationReforestation',
+              ].map((variableName, idx) => ({
+                idx: idx + 1,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.totalAreaOfDegradedLand',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 0, type: 'textarea', colName: 'comment_trends' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDegradedBy',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDegradedByGrazing',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDegradedByRepeatedFires',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 4,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDegradedByAirPollution',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 5,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDegradedByDesertification',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 6,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDegradedBy',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 7,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.primarilyDegradedBy',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 8,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.formerDegradedLandRestoredByAfforestationReforestation',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -3900,7 +3557,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelateToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -4995,6 +4652,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'describeMethodUsedToDetermineFellings',
                 cols: [
                   {
                     idx: 'header_0',
@@ -5003,7 +4661,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
                 ],
               },
             ],
@@ -5014,7 +4672,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['approachToDetermineFellings'] },
+              columnNames: { '2025': ['comment'] },
             },
           },
         ],
@@ -5054,81 +4712,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'grossAnnualIncrement',
+                'naturalLosses',
+                'netAnnualIncrement',
+                'totalFellings',
+                'fellingsOfNaturalLosses',
+              ].map((variableName, idx) => ({
+                idx,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.grossAnnualIncrement',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 0, type: 'textarea', colName: 'comment_trends' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.naturalLosses',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.netAnnualIncrement',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.totalFellings',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 4,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.fellingsOfNaturalLosses',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -5137,7 +4742,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -6835,48 +6440,25 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'ifApplicableBarkConversionFactorFromOverBarkToUnderBark',
+                'approachUsedToDetermineMarketed',
+                'approachUsedToDetermineValue',
+              ].map((variableName, idx) => ({
+                idx: idx + 1,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.ifApplicableBarkConversionFactorFromOverBarkToUnderBark',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.approachUsedToDetermineMarketed',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.approachUsedToDetermineValue',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -6885,7 +6467,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['approachApplieToReportingOnRemovals'] },
+              columnNames: { '2025': ['comment'] },
             },
           },
         ],
@@ -6925,81 +6507,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'generalComments',
+                'industrialRoundwoodRemovalsVolume',
+                'industrialRoundwoodRemovalsValue',
+                'woodfuelRemovalsVolume',
+                'woodfuelRemovalsValue',
+              ].map((variableName, idx) => ({
+                idx,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.generalComments',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 0, type: 'textarea', colName: 'comment_trends' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.industrialRoundwoodRemovalsVolume',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.industrialRoundwoodRemovalsValue',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.woodfuelRemovalsVolume',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 4,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.woodfuelRemovalsValue',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -7008,7 +6537,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -7466,186 +6995,35 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...[
+                'first',
+                'second',
+                'third',
+                'fourth',
+                'fifth',
+                'sixth',
+                'seventh',
+                'eighth',
+                'ninth',
+                'tenth',
+                'allOtherPlantProducts',
+                'allOtherAnimalProducts',
+              ].map((variableName, idx) => ({
+                idx,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.first',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 0, type: 'textarea', colName: 'comment_trends' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.second',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.third',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.fourth',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 4,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.fifth',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 5,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.sixth',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 6,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.seventh',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 7,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.eighth',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 8,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.ninth',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 9,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.tenth',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 10,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.allOtherPlantProducts',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 11,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.allOtherAnimalProducts',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -7654,7 +7032,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['product', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -8047,6 +7425,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             rows: [
               {
                 idx: 'header_0',
+                variableName: 'referenceAreaIfDifferentFromTotalFowlEGOwnershipClassOr1000Ha',
                 cols: [
                   {
                     idx: 0,
@@ -8057,7 +7436,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
                 ],
                 type: 'data',
               },
@@ -8069,7 +7448,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['referenceAreaIfDifferentFromTotalFowlEGOwnershipClassOr1000Ha'] },
+              columnNames: { '2025': ['comment'] },
             },
           },
         ],
@@ -8112,6 +7491,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'generalComments',
                 cols: [
                   {
                     idx: 'header_0',
@@ -8120,8 +7500,8 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 1, type: 'textarea', colName: 'comment_trends' },
                 ],
               },
             ],
@@ -8132,7 +7512,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -8765,41 +8145,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+              ...['minimumSizeOfTreesToBeIncluded', 'referenceAreaForTheAssessment'].map((variableName, idx) => ({
+                idx,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.minimumSizeOfTreesToBeIncluded',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.referenceAreaForTheAssessment',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
             dataExport: true,
             columnsExportAlways: [],
             columnsExport: [],
-            migration: { cycles: ['2025'], columnNames: { '2025': ['approachToReportOnTreeSpeciesComposition'] } },
+            migration: { cycles: ['2025'], columnNames: { '2025': ['comment'] } },
           },
         ],
       },
@@ -8838,66 +8205,28 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 type: 'header',
               },
-              {
-                idx: 0,
+
+              ...[
+                'generalComments',
+                'areaWithNumberOfTreeSpeciesOccurringOnForest',
+                'areaWithNumberOfTreeSpeciesOccurringOnOwl',
+                'areaWithNumberOfTreeSpeciesOccurringOnForestAndOwl',
+              ].map((variableName, idx) => ({
+                idx,
                 type: 'data',
+                variableName,
                 cols: [
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.generalComments',
+                    labelKey: `panEuropean.countryComments.${variableName}`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
+                  { idx: 0, type: 'textarea', colName: 'comment' },
+                  { idx: 0, type: 'textarea', colName: 'comment_trends' },
                 ],
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.areaWithNumberOfTreeSpeciesOccurringOnForest',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.areaWithNumberOfTreeSpeciesOccurringOnOwl',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.countryComments.areaWithNumberOfTreeSpeciesOccurringOnForestAndOwl',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                ],
-              },
+              })),
             ],
             tableDataRequired: [],
             print: { colBreakPoints: [], pageBreakAfter: false },
@@ -8906,7 +8235,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
