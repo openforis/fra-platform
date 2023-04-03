@@ -19,6 +19,12 @@ type Props = {
 
 type CSVRowItem = { country: string; indicator: string; item: string; [key: string]: string }
 
+// ======== TODO
+// ======== 1. fix table.props.columNames to include all data columns
+// ======== 2. add row.props.variableName to all data rows
+// ======== 3. add col.props.colName to all data columns (area,comment,comment_trends)
+// ======== 4. investigate tables/rows/cols missing from TODO below
+
 export const migrateCountryComments = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, cycle } = props
   const schemaAssessment = Schemas.getName(assessment)
@@ -70,7 +76,6 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
       Logger.warn(`!!!! Table ${tableName} ${tableIdx} not found`)
       // eslint-disable-next-line no-continue
       continue
-      // throw new Error(`Table ${tableName} ${tableIdx} not found`)
     }
 
     // TODO: investigate the table below
@@ -102,7 +107,6 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
       // TODO: investigate why rows are not found
       if (!row) {
         Logger.warn(`!!!! Row not found ${tableName} ${rowIndex} ${rowsData.length} ${JSON.stringify(csvRow)}`)
-        // throw new Error(`Row not found ${tableName} ${rowIndex} ${rowsData.length} ${JSON.stringify(csvRow)}`)
       }
       if (row) {
         // convert csv row -> db node type
