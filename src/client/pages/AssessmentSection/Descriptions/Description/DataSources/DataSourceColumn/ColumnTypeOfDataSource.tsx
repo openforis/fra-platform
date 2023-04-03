@@ -12,15 +12,10 @@ type Props = {
   onChange: (key: string, value: string) => void
 }
 
-type Item = {
-  label: string
-  value: string
-}
-
 const ColumnTypeOfDataSource: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, onChange } = props
   const { t } = useTranslation()
-  const _onChange = ({ value }: Item) => onChange('type', value)
+  const _onChange = (value: string) => onChange('type', value)
 
   const items = useMemo(() => {
     return Object.keys(dataSourceType).map((type) => {
@@ -34,7 +29,6 @@ const ColumnTypeOfDataSource: React.FC<Props> = (props: Props) => {
   return (
     <DataColumn className="data-source-column">
       <Autocomplete
-        labelKey="label"
         withArrow
         disabled={disabled}
         onSave={_onChange}

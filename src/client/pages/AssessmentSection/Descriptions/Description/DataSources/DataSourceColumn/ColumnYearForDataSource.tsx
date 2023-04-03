@@ -20,7 +20,12 @@ type Props = {
 const ColumnVariable: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, onChange } = props
   const cycle = useCycle()
-  const columns = cycle ? Arrays.reverse(Arrays.range(1950, Number(cycle.name))).map(String) : []
+  const columns = cycle
+    ? Arrays.reverse(Arrays.range(1950, Number(cycle.name))).map((col) => ({
+        label: String(col),
+        value: String(col),
+      }))
+    : []
 
   const _onChange = (value: string) => onChange('year', value)
 
