@@ -28,8 +28,7 @@ const Multiselect: React.FC<PropsCell> = (props) => {
     <div className="fra-table__select-container multiple" ref={ref}>
       <MultiSelect
         disabled={disabled}
-        localizationPrefix={labelKeyPrefix}
-        options={options.map((option) => option.name)}
+        options={options.map((option) => ({ label: `${labelKeyPrefix}.${option.name}`, value: option.name }))}
         values={values}
         onChange={(values: Array<string>) => {
           onChangeNodeValue({ ...nodeValue, raw: values })

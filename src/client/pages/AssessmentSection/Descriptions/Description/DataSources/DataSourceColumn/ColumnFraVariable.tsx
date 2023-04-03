@@ -24,37 +24,33 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
   const _allColumnsCalculated = (row: Row) =>
     row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
 
-  const rows = table.rows.reduce<Record<string, string>>((acc, row) => {
-    if (row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row)) {
-      const label = t(Cols.getLabel({ cycle, col: row.cols[0], t }))
-      if (!acc[label]) {
-        // eslint-disable-next-line no-param-reassign
-        acc[label] = row.props.variableName
-      }
+  const _filterRow = (row: Row) =>
+    row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row)
+
+  // Get a list of variables to show form the table
+  const rowOptions = table.rows.filter(_filterRow).map((row) => ({
+    label: t(Cols.getLabel({ cycle, col: row.cols[0], t })),
+    value: row.props.variableName,
+  }))
+
+  // Include also the variables from the data source 'include' property
+  const options = dataSourceVariables?.include?.reduce((acc, variableName) => {
+    const _option = { label: t(variableName), value: variableName }
+    const exists = acc.find((option) => t(option.label) === t(_option.label))
+
+    if (!exists) {
+      acc.push(_option)
     }
     return acc
-  }, dataSourceVariables?.include.reduce((acc, variable) => ({ ...acc, [t(variable)]: variable }), {}) ?? {})
+  }, rowOptions)
 
   const _onChange = (value: string[]) => {
-    onChange(
-      'fraVariables',
-      value.map((v) => rows[v])
-    )
+    onChange('fraVariables', value)
   }
 
   return (
     <DataColumn className="data-source-column">
-      <MultiSelect
-        disabled={disabled}
-        values={Object.entries(rows).reduce((acc, [label, variable]) => {
-          if (dataSource.fraVariables?.includes(variable)) {
-            acc.push(label)
-          }
-          return acc
-        }, [])}
-        options={Object.keys(rows)}
-        onChange={_onChange}
-      />
+      <MultiSelect disabled={disabled} values={dataSource.fraVariables} options={options} onChange={_onChange} />
     </DataColumn>
   )
 }
