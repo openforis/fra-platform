@@ -14,7 +14,9 @@ const CustomAssetControl: React.FC = () => {
   const dispatch = useAppDispatch()
   const protectedAreasOptions = useProtectedAreasOptions()
 
-  const [inputValue, setInputValue] = useState<string>(protectedAreasOptions.customAssetId)
+  const [inputValue, setInputValue] = useState<string>(
+    protectedAreasOptions.customAssetId ? protectedAreasOptions.customAssetId : ''
+  )
   const [inputError, setInputError] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -76,7 +78,7 @@ const CustomAssetControl: React.FC = () => {
               placeholder="Asset ID"
               style={{ border: inputError ? '1px solid red' : 'none' }}
             />
-            <button type="button" onClick={handleSubmit}>
+            <button type="button" className="btn-primary" onClick={handleSubmit}>
               Submit
             </button>
           </div>

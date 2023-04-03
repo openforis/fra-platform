@@ -14,7 +14,7 @@ const CustomAssetControl: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
 
-  const [inputValue, setInputValue] = useState<string>(forestOptions.customAssetId)
+  const [inputValue, setInputValue] = useState<string>(forestOptions.customAssetId ? forestOptions.customAssetId : '')
   const [inputError, setInputError] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -76,7 +76,7 @@ const CustomAssetControl: React.FC = () => {
               placeholder="Asset ID"
               style={{ border: inputError ? '1px solid red' : 'none' }}
             />
-            <button type="button" onClick={handleSubmit}>
+            <button type="button" className="btn-primary" onClick={handleSubmit}>
               Submit
             </button>
           </div>
