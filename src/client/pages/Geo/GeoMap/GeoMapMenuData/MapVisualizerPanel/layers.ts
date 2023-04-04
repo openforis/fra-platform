@@ -1,12 +1,18 @@
-import { ForestSource } from '@meta/geo'
+import { ForestSource, ProtectedAreaKey } from '@meta/geo'
 
-export interface Layer {
+export interface ForestLayer {
   key: ForestSource
   title: string
   opacity: number
 }
 
-export const layers: Layer[] = [
+export interface ProtectedAreaLayer {
+  key: ProtectedAreaKey
+  title: string
+  opacity: number
+}
+
+export const forestLayers: ForestLayer[] = [
   {
     key: ForestSource.JAXA,
     title: 'JAXA (2017)',
@@ -54,4 +60,22 @@ export const layers: Layer[] = [
   },
 ]
 
+export const protectedAreaLayers: ProtectedAreaLayer[] = [
+  {
+    key: ProtectedAreaKey.FilteredWDPA,
+    title: 'Filtered WDPA',
+    opacity: 1,
+  },
+  // Commented out until the right implementation for rendering is done
+  // {
+  //   key: ProtectedAreaKey.WDPA,
+  //   title: 'WDPA',
+  //   opacity: 1,
+  // },
+  {
+    key: ProtectedAreaKey.CustomPA,
+    title: 'Custom protected area',
+    opacity: 1,
+  },
+]
 export const GLOBAL_OPACITY_KEY = 'GLOBAL_OPACITY'
