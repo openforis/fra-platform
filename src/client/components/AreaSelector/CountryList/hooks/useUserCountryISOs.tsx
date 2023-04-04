@@ -11,6 +11,7 @@ export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<Cou
   const user = useUser()
   const userCountries = useUserCountries()
   const allCountries = useCountries()
+
   const userCountryISOs: Record<CycleUuid, Record<string, Array<CountryIso>>> = {}
 
   if (Users.isAdministrator(user)) {
@@ -18,7 +19,9 @@ export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<Cou
     if (!userCountryISOs[RoleName.ADMINISTRATOR]) userCountryISOs[RoleName.ADMINISTRATOR] = {}
     userCountryISOs[RoleName.ADMINISTRATOR][cycle.uuid] = [...userCountries]
   } else {
-    user?.roles.forEach((role) => {
+    const userRoleCountries = [...(user?.roles || [])]
+
+    userRoleCountries.sort(UserRoles.sortRolesByRolesAndCountry).forEach((role) => {
       if (role.cycleUuid === cycle.uuid) {
         if (!userCountryISOs[role.role]) userCountryISOs[role.role] = {}
         if (!Array.isArray(userCountryISOs[role.role][role.cycleUuid])) userCountryISOs[role.role][role.cycleUuid] = []
