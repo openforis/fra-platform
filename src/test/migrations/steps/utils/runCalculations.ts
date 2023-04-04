@@ -1,25 +1,34 @@
 import * as pgPromise from 'pg-promise'
 
+import { AssessmentName } from '@meta/assessment'
+
 import { AreaController } from '@server/controller/area'
 import { AssessmentController } from '@server/controller/assessment'
 import { BaseProtocol, Schemas } from '@server/db'
 
-import { getRow } from '@test/migrations/steps/utils/getRow'
+import { calculateRow } from './calculateRow'
+import { getRow } from './getRow'
 
-import { calculateRow } from './utils/calculateRow'
+export const runCalculations = async (
+  props: {
+    assessmentName: AssessmentName
+    cycleName: string
+    metaCache: boolean
+    tableName: string
+    variableName: string
+  },
+  client: BaseProtocol
+): Promise<void> => {
+  const { assessmentName, cycleName, metaCache, tableName, variableName } = props
 
-export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
     {
-      assessmentName: 'fra',
-      metaCache: true,
-      cycleName: '2025',
+      assessmentName,
+      metaCache,
+      cycleName,
     },
     client
   )
-
-  const variableName = 'forestAreaNetChangeFrom1a'
-  const tableName = 'forestAreaChange'
 
   const row = await getRow({ tableName, variableName, cycle, assessment }, client)
 
@@ -50,7 +59,7 @@ export default async (client: BaseProtocol) => {
     }
   )
 
-  // ===== calculation rows
+  // ===== calculation row
   const values = await calculateRow({ assessment, cycle, countryISOs, row, tableName, calculatedVariables }, client)
   const query = `${pgp.helpers.insert(
     values,
