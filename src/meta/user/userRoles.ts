@@ -1,3 +1,6 @@
+import i18n from 'i18next'
+
+import { Areas } from '@meta/area'
 import { AssessmentStatus } from '@meta/area/country'
 import { User } from '@meta/user/user'
 
@@ -42,9 +45,25 @@ const getLastRole = (user: User) => {
   return _roles[0]
 }
 
+const roleNamesOrder = [
+  RoleName.NATIONAL_CORRESPONDENT,
+  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+  RoleName.REVIEWER,
+  RoleName.COLLABORATOR,
+  RoleName.VIEWER,
+]
+
+const sortRolesByRolesAndCountry = (
+  { role: roleA, countryIso: countryIsoA }: UserRole<RoleName>,
+  { role: roleB, countryIso: countryIsoB }: UserRole<RoleName>
+) =>
+  roleNamesOrder.indexOf(roleA) - roleNamesOrder.indexOf(roleB) ||
+  (i18n.t(Areas.getTranslationKey(countryIsoA)) < i18n.t(Areas.getTranslationKey(countryIsoB)) ? -1 : 1)
+
 export const UserRoles = {
   isInvitationExpired,
   noRole,
   getRecipientRoles,
   getLastRole,
+  sortRolesByRolesAndCountry,
 }
