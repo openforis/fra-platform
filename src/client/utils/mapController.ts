@@ -40,6 +40,10 @@ export class MapController {
     this.#map.overlayMapTypes.push(overlay)
   }
 
+  // Render WDPA layer
+  // addFeatureViewAssetLayer(mapLayerKey: string, mapId: any, overwrite = false): void {
+  // }
+
   getLayer(mapLayerKey: string): google.maps.MapType | null {
     if (this.#map === null) return null
     const i = this.#getLayerIndex(mapLayerKey)
