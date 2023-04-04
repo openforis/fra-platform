@@ -23,7 +23,7 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
 
   const config = useMemo<Partial<Jodit['options']>>(
     () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/doc/
+      readonly: false, // all options from https://xdsoft.net/jodit/docs/
       removeButtons,
       uploader: undefined,
     }),
