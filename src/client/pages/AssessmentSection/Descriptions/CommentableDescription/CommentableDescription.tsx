@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Objects } from '@utils/objects'
+import classNames from 'classnames'
 
 import { CommentableDescriptionValue } from '@meta/assessment'
 import { Topics } from '@meta/messageCenter'
@@ -32,11 +33,9 @@ const CommentableDescription: React.FC<Props> = (props) => {
   return (
     <div className="fra-description">
       <div
-        className={
-          Objects.isEqual(openCommentThreadTarget, [name])
-            ? 'fra-description__wrapper fra-row-comments__open'
-            : 'fra-description__wrapper'
-        }
+        className={classNames('fra-description__wrapper', {
+          'fra-row-comments__open': Objects.isEqual(openCommentThreadTarget, [name]),
+        })}
       >
         <Description
           title={title}

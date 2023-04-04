@@ -9,7 +9,7 @@ type Props = {
 const Toggle: React.FC<Props> = (props) => {
   const { setOpen, open } = props
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <span
@@ -17,14 +17,10 @@ const Toggle: React.FC<Props> = (props) => {
       aria-label=""
       tabIndex={0}
       className="link fra-description__link no-print"
-      onClick={() => {
-        setOpen(!open)
-      }}
-      onKeyDown={() => {
-        setOpen(!open)
-      }}
+      onClick={() => setOpen(!open)}
+      onKeyDown={() => setOpen(!open)}
     >
-      {open ? i18n.t<string>('description.done') : i18n.t<string>('description.edit')}
+      {open ? t('description.done') : t('description.edit')}
     </span>
   )
 }

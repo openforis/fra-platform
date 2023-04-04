@@ -17,7 +17,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
   const { canEditData } = props
   const [open, setOpen] = useState<boolean>(false)
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
   const originalDataPoint = useOriginalDataPoint()
   const assessment = useAssessment()
@@ -47,29 +47,28 @@ const CommentsEditor: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   return (
-    <div>
-      <div className="fra-description__header-row">
-        <h3 className="subhead fra-description__header">{i18n.t<string>('review.comments')}</h3>
-        {canEditData && (
-          <div
-            className="link fra-description__link"
-            onClick={() => setOpen(!open)}
-            onKeyDown={() => setOpen(!open)}
-            role="button"
-            tabIndex={0}
-          >
-            {open ? i18n.t<string>('description.done') : i18n.t<string>('description.edit')}
-          </div>
+    <div className="fra-description__header-row">
+      <h3 className="subhead fra-description__header">{t('review.comments')}</h3>
+      {canEditData && (
+        <span
+          role="button"
+          aria-label=""
+          tabIndex={0}
+          className="link fra-description__link no-print"
+          onClick={() => setOpen(!open)}
+          onKeyDown={() => setOpen(!open)}
+        >
+          {open ? t('description.done') : t('description.edit')}
+        </span>
+      )}
+
+      <div className="fra-description__preview">
+        {open ? (
+          <EditorWYSIWYG value={originalDataPoint.description} onChange={onChange} />
+        ) : (
+          <MarkdownPreview value={originalDataPoint.description} />
         )}
       </div>
-      <div className="cke_wrapper" style={{ display: open ? 'block' : 'none' }}>
-        <EditorWYSIWYG value={originalDataPoint.description} onChange={onChange} />
-      </div>
-      {originalDataPoint.description && (
-        <div className="fra-description__preview">
-          <MarkdownPreview value={originalDataPoint.description} />
-        </div>
-      )}
     </div>
   )
 }
