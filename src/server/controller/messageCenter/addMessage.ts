@@ -35,7 +35,7 @@ export const addMessage = async (
     if (!topic) {
       // Country Message board section_uuid = null
       let section
-      if (sectionName)
+      if (type === MessageTopicType.review && sectionName)
         section = await SectionRepository.getOne({
           assessment,
           cycle,
