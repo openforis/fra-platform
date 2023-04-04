@@ -3,6 +3,7 @@ import { DB } from '@server/db'
 import { Logger } from '@server/utils/logger'
 
 import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
+import { migrateCountryComments } from '@test/dataMigration/stepsPanEuropean/countryComments/migrateCountryComments'
 
 const assessmentName = `panEuropean`
 const client = DB
@@ -23,6 +24,10 @@ const migrateCycle = (cycleName: string) =>
     index += 1
     Logger.debug(`    ========== ${index} updateCalculatedNodes ${cycle.name}`)
     await updateCalculatedNodes({ assessment, cycle }, client)
+
+    index += 1
+    Logger.debug(`    ========== ${index} migrateCountryComments ${cycle.name}`)
+    await migrateCountryComments({ assessment, cycle }, client)
   })
 
 describe(`Post Data migration`, () => {

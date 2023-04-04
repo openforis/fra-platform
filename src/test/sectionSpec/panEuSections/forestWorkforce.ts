@@ -1187,6 +1187,7 @@ export const employmentByGenderAndAge = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'commentsOnEmploymentWhichIsNotCoveredByTheSourcesUsed',
               cols: [
                 {
                   idx: 'header_0',
@@ -1195,7 +1196,7 @@ export const employmentByGenderAndAge = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'text' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
           ],
@@ -1207,10 +1208,7 @@ export const employmentByGenderAndAge = {
           migration: {
             cycles: ['2025'],
             columnNames: {
-              '2025': [
-                'scopeOfEmploymentReportedIfNotFromLfs',
-                'commentsOnEmploymentWhichIsNotCoveredByTheSourcesUsed',
-              ],
+              '2025': ['comment'],
             },
           },
         },
@@ -1251,66 +1249,27 @@ export const employmentByGenderAndAge = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'generalComments',
+              'forestry',
+              'manufactureOfWoodAndOfProductsOfWood',
+              'manufactureOfPaperAndPaperProducts',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.generalComments',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forestry',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.manufactureOfWoodAndOfProductsOfWood',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.manufactureOfPaperAndPaperProducts',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1319,7 +1278,7 @@ export const employmentByGenderAndAge = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
