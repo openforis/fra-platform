@@ -1,0 +1,93 @@
+,country,indicator,item,comment
+0,ALB,6.10,Criteria used to include areas in “forests available to the public recreation”,
+1,ALB,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+2,AND,6.10,Criteria used to include areas in “forests available to the public recreation”,
+3,AND,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+4,AUT,6.10,Criteria used to include areas in “forests available to the public recreation”,"FOWL area excluding prohibited forest area due to hunting laws (0,8% of FOWL (1999), used for all reporting years), forest area in military areas (10.200 ha (2005, 2014), used for all reporting years) and regeneration area with trees up to 3 m height (1994: 315.000 ha, 2001: 240.000 ha, 2008: 208.000 ha, 2017: 143.000 ha, extra-/interpolation used)."
+5,AUT,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,"Key forest function area ""recreation"" in Forest Development Plan. The AUTn Forest Act defines four functions: economic, protective, beneficial and recreational function. The key function is those with prior public benefit."
+6,BLR,6.10,"Критерии, используемые для включения площадей в “Обществен-ный доступ в рекреационных целях”","Все леса, за исключением обсолютно заповедных зон"
+7,BLR,6.10,"Критерии, используемые для включения площадей в “Площади с рекреационным использованием, как одной из основных целей управления лесами”",Лесопарковые и лесохозяйственные части лесов зеленых зон
+8,BEL,6.10,Criteria used to include areas in “forests available to the public recreation”,
+9,BEL,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+10,BIH,6.10,Criteria used to include areas in “forests available to the public recreation”,
+11,BIH,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+12,BGR,6.10,Criteria used to include areas in “forests available to the public recreation”,
+13,BGR,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+14,HRV,6.10,Criteria used to include areas in “forests available to the public recreation”,"Beside forests in special category described below, the whole FOWL area is also available for public recreation."
+15,HRV,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Forest law defines special category that includes forests whose primary designation is public recreation and relaxation.
+16,CYP,6.10,Criteria used to include areas in “forests available to the public recreation”,
+17,CYP,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+18,CZE,6.10,Criteria used to include areas in “forests available to the public recreation”,"According to Forest Act, everybody has a right to visit forests. Exceptions of acces restricted to different extent can be found, mainly in military forests and protected forests, but only in unknown part of these is access fully restricted. Therefore 100% is reported"
+19,CZE,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Particular national category suburban and recreational forests.
+20,DNK,6.10,Criteria used to include areas in “forests available to the public recreation”,Accessible on forest roads and paths
+21,DNK,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Public forests well known for providing recreational opportunities to the urban population.
+22,EST,6.10,Criteria used to include areas in “forests available to the public recreation”,"All forests not strictly protected have public access for recreational purposes by law. In present calculation: from the total forest and OWL area the area of MCPFE class 1.1 was deducted (MCPFE class1.1 area include areas with permanent and temporary restrictions for access) . Includes areas where retriction of access may be temporal (part of the year) or limited size of the visitors, specific cases are regulated according to protection regulation of every protection areas."
+23,EST,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+24,FIN,6.10,Criteria used to include areas in “forests available to the public recreation”,"All forests, except those in military and research use"
+25,FIN,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,"Includes 1) forests protected for scenic/landscape values (maisemansuojelualueet), 2) recreation areas (ulkoilureittl, retkeilyalue), 3) Forest and Park service forests with limitations due to game management etc, 4) areas with restrictions set in land use planning (kaavoitusalueet), 5) forests where the vicinity of houses or scenic values are effecting forest management operations"
+26,FRA,6.10,Criteria used to include areas in “forests available to the public recreation”,"All public forests are included, except areas designed for integral biological reserve. A large part of private forests are accessible to the public but the proportion is not known."
+27,FRA,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Public forests play multiple goals simultaneously. Areas where recreation is the main management goal can't be identified (see FRA 2020)
+28,GEO,6.10,Criteria used to include areas in “forests available to the public recreation”,"According to the forest code, the public has a general access right to the forest. In addition, there are some Strict Nature Reserves, where the access is limited, but there is no information available about the percentage of forest cover in these areas. Therefore, the total forest area plus the Other wooded land is indicated here as accessible."
+29,GEO,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Here the area in the category of resort forests (around health resorts) as well as Green zone forests (around cities) has been considered based on the figures provided in the FRA report 2015.
+30,DEU,6.10,Criteria used to include areas in “forests available to the public recreation”,
+31,DEU,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+32,GRC,6.10,Criteria used to include areas in “forests available to the public recreation”,
+33,GRC,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+34,VAT,6.10,Criteria used to include areas in “forests available to the public recreation”,
+35,VAT,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+36,HUN,6.10,,58.281
+37,HUN,6.10,,12.96
+38,ISL,6.10,Criteria used to include areas in “forests available to the public recreation”,
+39,ISL,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+40,IRL,6.10,Criteria used to include areas in “forests available to the public recreation”,"The entire public forest estate remains open for public access. Private forest areas which receive funding for the construction of forest roads now agree to allow public access.  Private forest owners can avail of a Forest Road Scheme, which provides financial assistance to construct a forest road. It is a basic principle of this scheme that any infrastructure funded should be open to the public for recreational use without charge. However, such access may be restricted for a specified period where it is necessary to protect sensitive areas, or where vandalism or dumping is an issue, or to ensure the proper and safe use of the infrastructure. Where measures have been taken to protect any infrastructure from animal trespass, pedestrian access must be provided by a gate or stile or other means. Public access does not confer any permanent rights to individual members of the public and does not extend to access off the forest road. Applicants will not be eligible for grant aid where they do not allow public access to the proposed or built infrastructure."
+41,IRL,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Includes forest parks and high-use recreation areas within the public forest estate only.
+42,ITA,6.10,Criteria used to include areas in “forests available to the public recreation”,Area without any legal restrictions to access
+43,ITA,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,No information available
+44,LVA,6.10,Criteria used to include areas in “forests available to the public recreation”,Free access for society is or isn’t restricted
+45,LVA,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Includes forest areas provided for in national legislation that allows free access of the public to land for recreation on public forests.
+46,LIE,6.10,Criteria used to include areas in “forests available to the public recreation”,
+47,LIE,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+48,LTU,6.10,Criteria used to include areas in “forests available to the public recreation”,Forests of II-IV forest group are available for recreation. Other wooded land is not included in this are. Forest of I forest group are not available to recreation.
+49,LTU,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Subgroup of Recreational forests is designated in forest management schemes.
+50,LUX,6.10,Criteria used to include areas in “forests available to the public recreation”,
+51,LUX,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+52,MLT,6.10,Criteria used to include areas in “forests available to the public recreation”,
+53,MLT,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+54,MDA,6.10,"Критерии, используемые для включения площадей в “Общественный доступ в рекреационных целях”",
+55,MDA,6.10,"Критерии, используемые для включения площадей в “Площади с рекреационным использованием, как одной из основных целей управления лесами”",
+56,MCO,6.10,Criteria used to include areas in “forests available to the public recreation”,
+57,MCO,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+58,MNE,6.10,Criteria used to include areas in “forests available to the public recreation”,
+59,MNE,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+60,NLD,6.10,Criteria used to include areas in “forests available to the public recreation”,85% of the forest area in the NLD is open for public. In all these forests people are allowed to use the paths freely between sunset and sundown.
+61,NLD,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,"In 10% of the Dutch forest area it is allowed to walk everywhere, not just on the paths. This forest area is considered as forest area primarily designated or managed for public recreation."
+62,NOR,6.10,Criteria used to include areas in “forests available to the public recreation”,Forest roads and paths have been defined as roads and paths passing through forest and mires.
+63,NOR,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+64,POL,6.10,Criteria used to include areas in “forests available to the public recreation”,
+65,POL,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+66,PRT,6.10,Criteria used to include areas in “forests available to the public recreation”,
+67,PRT,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+68,ROU,6.10,Criteria used to include areas in “forests available to the public recreation”,
+69,ROU,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+70,RUS,6.10,Criteria used to include areas in “forests available to the public recreation”,
+71,RUS,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+72,SRB,6.10,Criteria used to include areas in “forests available to the public recreation”,
+73,SRB,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+74,SVK,6.10,Criteria used to include areas in “forests available to the public recreation”,"According to the Act on Forests, all forests except for miltary forests, game enclosures and strict nature reserves (see comment below)  are available for public recreation."
+75,SVK,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,"Slovak forest category of special-purpose forests ""suburban recreation forests"" is considered designated for public recreation."
+76,SVN,6.10,Criteria used to include areas in “forests available to the public recreation”,"Act on Forest (Ur.l. RS št. 30/1993), Regulation on protective forests and forests with special purposes (Ur.l. RS št. 88/2005) and expert assessment on areas for military purposes, areas of fenced water pumping areas and game fences."
+77,SVN,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,Area where recreational and/or turistical function are designated and considered to be primary - SFS data.
+78,ESP,6.10,Criteria used to include areas in “forests available to the public recreation”,
+79,ESP,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+80,SWE,6.10,Criteria used to include areas in “forests available to the public recreation”,The right of public access ensures that the public has access toll all FOWL.
+81,SWE,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,There are no compiled information on areas where recrationa is explicitly the main managment objective. Such areas would mainly be forest close to urban areas -often publicly owned. We have opted to use NFI data. Here the inventory crew subjectivley note that the properties of the sample plot make it likely that current recreational use afect management decisions.
+82,CHE,6.10,Criteria used to include areas in “forests available to the public recreation”,all forest are legally accessible to the public in switzerland
+83,CHE,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,questionnaire to the forest guard.
+84,MKD,6.10,Criteria used to include areas in “forests available to the public recreation”,
+85,MKD,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+86,TUR,6.10,Criteria used to include areas in “forests available to the public recreation”,"These areas include not only recreation areas but also general forest functions such as Hydrological, Community Health, Aesthetics, Ecotourism and Recreation under socio-cultural main forest function."
+87,TUR,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+88,UKR,6.10,Criteria used to include areas in “forests available to the public recreation”,
+89,UKR,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,
+90,GBR,6.10,Criteria used to include areas in “forests available to the public recreation”,"Woodlands with permissive public access, as identified by the Woodland Trust's Woods for People database.  Woodlands where the only access is on public rights of way are excluded."
+91,GBR,6.10,Criteria used to include areas in “primarily designated or managed for public recreation”,

@@ -3054,6 +3054,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'howIdYouDistinguishBetweenEvenAgedAndUnevenAgedStands',
               cols: [
                 {
                   idx: 'header_0',
@@ -3062,7 +3063,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
           ],
@@ -3073,7 +3074,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['approachToDelineationBetweenEvenAgedAndUnevenAgedStands'] },
+            columnNames: { '2025': ['comment'] },
           },
         },
       ],
@@ -3100,6 +3101,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'regenerationPhase',
               cols: [
                 {
                   idx: 'header_0',
@@ -3116,51 +3118,24 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
                   className: 'fra-table__header-cell',
                   type: 'placeholder',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
-            {
-              idx: 1,
+            ...['intermediatePhase', 'maturePhase', 'unspecified'].map((variableName, idx) => ({
+              idx: idx + 1,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.intermediatePhase',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.maturePhase',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'textarea' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_1',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.unspecified',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'textarea' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -3169,7 +3144,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['commentsToInterpretationOfDevelopmentPhases'] },
+            columnNames: { '2025': ['comment'] },
           },
         },
       ],
@@ -3209,36 +3184,22 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...['forestEvenAgedStands', 'ofWhichAvailableForWoodSupply'].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forest:EvenAgedStands',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.ofWhichAvailableForWoodSupply',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -3247,7 +3208,7 @@ export const ageClassDistributionAreaOfEvenAgedStands = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrends'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
