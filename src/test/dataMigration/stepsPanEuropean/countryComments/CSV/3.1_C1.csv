@@ -1,0 +1,47 @@
+,country,indicator,item,comment
+0,ALB,3.1,Describe method used to determine “fellings”:,
+1,AND,3.1,Describe method used to determine “fellings”:,
+2,AUT,3.1,Describe method used to determine “fellings”:,
+3,BLR,3.1,Описать метод использованный для определения “рубок”:,"для 1990 года - имеющиеся сведения по рубкам за 1992 год, по всем другим годам- среднее значение за 5 лет объемов заготовки древесины"
+4,BEL,3.1,Describe method used to determine “fellings”:,
+5,BIH,3.1,Describe method used to determine “fellings”:,
+6,BGR,3.1,Describe method used to determine “fellings”:,
+7,HRV,3.1,Describe method used to determine “fellings”:,The total volume of trees that have been marked for felling and which are cut down in a given year.
+8,CYP,3.1,Describe method used to determine “fellings”:,
+9,CZE,3.1,Describe method used to determine “fellings”:,fellings are reported to czech statistical office
+10,DNK,3.1,Describe method used to determine “fellings”:,Fellings are registered at the individual tree level within the NFI.
+11,EST,3.1,Describe method used to determine “fellings”:,"sample plot based NFI since 2000, data for earlier years from felling documentation statistics and modelling"
+12,FIN,3.1,Describe method used to determine “fellings”:,"Data on fellings (of stemwood) are expressed as over bark. Fellings include total removals (commercial roundwood removals, fuelwood in small-scale housing, sawlogs from own forests for household use and energywood made of stemwood) and logging residues. Figures presented here are the averages of each 5-year periods: 1988-1992, 1998-2002, 2003-2007, 2008-2012 and 2013-2017. All fellings originate from ""forests available for wood supply""."
+13,FRA,3.1,Describe method used to determine “fellings”:,The fellings are estimated on NFI plots. All NFI plots are remeasured 5 years after a first inventory. Felled trees during the period are recorded.
+14,GEO,3.1,Describe method used to determine “fellings”:,"No information available from Forest Europe Report 2015, up to now no reliable information available, because of high amount of not authorised fellings!"
+15,DEU,3.1,Describe method used to determine “fellings”:,
+16,GRC,3.1,Describe method used to determine “fellings”:,
+17,VAT,3.1,Describe method used to determine “fellings”:,
+18,HUN,3.1,Describe method used to determine “fellings”:,"GS of harvested stands (gross), over bark, including all woody matter over the cutting surface. Comparable to GS of yield tables."
+19,ISL,3.1,Describe method used to determine “fellings”:,Fellings are defined as commercial roundwood volume o.b. with 10% addition as assessment for felling residue
+20,IRL,3.1,Describe method used to determine “fellings”:,Permanent sample plots are used in our NFI and individual trees are mapped. This facilitates extimation of felling in our forest estate.
+21,ITA,3.1,Describe method used to determine “fellings”:,"Official wood removals multiplied by 1,57  (conversion factor estimated comparing removals and NFI 2005 data on felled wood). This adjustment takes into consideration bark, residues and unmarketed wood."
+22,LVA,3.1,Describe method used to determine “fellings”:,Total fellings only information on removals is available. Roundwood utilization  balance account is a source for information extraction regarding fuelwood. Base for this balance is output volume of wood based products. Specific raw material consumption ratio is used for every kind of manufactured articles to define total necessary removals. Import and export of raw material is taking into account to determine removals.
+23,LIE,3.1,Describe method used to determine “fellings”:,
+24,LTU,3.1,Describe method used to determine “fellings”:,Some small-scale fellings mainly to maintain necesary protective and protected feaches of stands are available in some areas of forests unvailable for wood suply
+25,LUX,3.1,Describe method used to determine “fellings”:,
+26,MLT,3.1,Describe method used to determine “fellings”:,
+27,MDA,3.1,Описать метод использованный для определения “рубок”:,
+28,MCO,3.1,Describe method used to determine “fellings”:,
+29,MNE,3.1,Describe method used to determine “fellings”:,
+30,NLD,3.1,Describe method used to determine “fellings”:,"The growing stock, growth and removal survey (Houtoogststatistiek en prognose oogstbaar hout, HOSP) was a monitoring system of about 3000 permanent plots. 600 of these plots were measured each year in the period 1984 to 1999. The results are representative for the forest area that is available for wood supply in the NLD. By measuring the same plots at different moments in time the volume of wood that is felled was determined. The data from the HOSP was used to determine the fellings in 1990 and 2000. In 2013 the 6th NFI was completed which provided new data on the growing stock, increment and fellings. Comparing this data to that of the 5th NFI, the values for 2005 an 2010 could be calculated. Based on extrapolation and implementation of the new forest area, 2015 has been calculated"
+31,NOR,3.1,Describe method used to determine “fellings”:,"National statistics of removals (including estimates of firewood and household consumption) given as volume under bark are converted into volume over bark by applying species-specific conversion factors. Removals are converted into fellings by assuming certain percentages of harvesting losses. This corresponds fairly well to the average level of fellings obtained from the NFI, where annual or periodic figures cannot be reliably provided."
+32,POL,3.1,Describe method used to determine “fellings”:,
+33,PRT,3.1,Describe method used to determine “fellings”:,
+34,ROU,3.1,Describe method used to determine “fellings”:,"Wood volume from statistic reports, recorded as volume representing the deduction of volume of standing trees not felled, in each felling site (determined by forest managers as standing stock at the end of each year, based on checks and specific documents on the felling site), from the volume calculated in the „Document for assessment of standing timber for marketing” (compulsory to be elaborated by forest managers for any wood harvesting)."
+35,RUS,3.1,Describe method used to determine “fellings”:,
+36,SRB,3.1,Describe method used to determine “fellings”:,
+37,SVK,3.1,Describe method used to determine “fellings”:,Felling is defined as the volume of timber that was felled within the tending and regeneration of forest or as an extraordinary felling in the case of forest removal due to change or limitation of forest land use. The felling can be performed as: intentional (planned) and/or incindental (removal of timber damaged by injurious agents in forests). Volume of felled timber does not include volume of timber naturally dead and permanently left in forest.
+38,SVN,3.1,Describe method used to determine “fellings”:,
+39,ESP,3.1,Describe method used to determine “fellings”:,
+40,SWE,3.1,Describe method used to determine “fellings”:,"In the Swedish NFI stumps are measured if felled during last felling season and permanent sample trees that has been felled are identified, i.e. felled trees identified in the field."
+41,CHE,3.1,Describe method used to determine “fellings”:,The definition used is the same as proposed by SoEF. The determination of fellings is based on subsequent measured trees on permanent sample plots.
+42,MKD,3.1,Describe method used to determine “fellings”:,"Harvested timber, Gross felled timber"
+43,TUR,3.1,Describe method used to determine “fellings”:,Natural loses were accepted as 1% of total increment. This was calculated for carbon estimation before.
+44,UKR,3.1,Describe method used to determine “fellings”:,
+45,GBR,3.1,Describe method used to determine “fellings”:,"Fellings are derived from 5-yearly averages of UK roundwood production, converted from underbark volumes to standing volumes overbark using factors of 1.244 for softwood and 1.270 for hardwood."

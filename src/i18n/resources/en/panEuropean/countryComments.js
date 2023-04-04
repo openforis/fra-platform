@@ -25,8 +25,8 @@ module.exports = {
   howDidYouGenerateValues: 'How did you generate values for 2025',
   theRecentAvailableYear: 'The recent available year',
   extrapolation: 'Extrapolation',
-  assessementBasedOnEvidence:
-    'assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
+  assessmentBasedOnEvidence:
+    'Assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnTheCategoriesOfTheTable11A: 'Approach to reporting on the categories of the Table 1.1a',
   category: 'Category',
   areaEstimate: 'Area estimate (1000 ha)',
@@ -34,8 +34,8 @@ module.exports = {
   commentsRelateToDataDefinitions: 'Comments related to data, definitions, etc.',
   commentsOnTrendS: 'Comments on trend(s)',
   commentsOnTrend: 'Comments on trend(s)',
-  pleaseIndicateIfReportedValuesAreAccoringToTheFaoDefinitionOfGrowingStock:
-    'Please indicate if reported values are accoring to the FAO definition of growing stock',
+  valuesAccordingFaoDefinitionGrowingStock:
+    'Please indicate if reported values are according to the FAO definition of growing stock',
   PleaseSpecifyRelevantThresholds: 'Please specify relevant thresholds',
   minimumDiameter: 'Minimum diameter',
   minimumTopDiameterUsed: 'Minimum top diameter used',
@@ -59,6 +59,7 @@ module.exports = {
   maturePhase: 'Mature phase',
   unspecified: 'Unspecified',
   EvenAgedStands: 'Even-aged stands',
+  forestEvenAgedStands: 'Forest: Even-aged stands',
   totalAreaOfUnevenAgedForest: 'Total area of uneven-aged forest',
   totalVolumeOfUnevenAgedForests: 'Total volume of uneven-aged forests',
   diameterDistributionForUnevenAgedForests: 'Diameter distribution for uneven-aged forests',
@@ -66,8 +67,6 @@ module.exports = {
     'Diameter distribution for uneven-aged forests available for wood supply',
   theYearAndDataReportedFor2025: 'The year and data reported for 2025',
   howDidYouGenerateValuesFor2025: 'How did you generate values for 2025',
-  assessmentBasedOnEvidence:
-    'Assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnGrowingStock: 'Approach to reporting on growing stock',
   ifNotPleaseSpecifyRelevantThresholds: 'If not, please specify relevant thresholds',
   commentsRelatedToDataDefinitions: 'Comments related to data, definitions, etc.',

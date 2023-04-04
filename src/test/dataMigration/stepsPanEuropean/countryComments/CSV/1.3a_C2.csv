@@ -1,0 +1,185 @@
+,country,indicator,item,comment
+0,ALB,1.3a,Regeneration phase,
+1,ALB,1.3a,Intermediate phase,
+2,ALB,1.3a,Mature phase,
+3,ALB,1.3a,Unspecified,
+4,AND,1.3a,Regeneration phase,
+5,AND,1.3a,Intermediate phase,
+6,AND,1.3a,Mature phase,
+7,AND,1.3a,Unspecified,
+8,AUT,1.3a,Regeneration phase,Age class 0 - 20 y
+9,AUT,1.3a,Intermediate phase,Age classes 21 - 100 y
+10,AUT,1.3a,Mature phase,Age classes > 100 y
+11,AUT,1.3a,Unspecified,Clear cut areas and single trees different from the development phase and mean age of the surroundig stand.
+12,BLR,1.3a,Фаза восстановления,насаждения первого класса возраста
+13,BLR,1.3a,Промежуточная фаза,насаждения. которые не отнесены к фазе восстановления и к спелым и перестойным
+14,BLR,1.3a,Фаза зрелости,спелые и перестойные насаждения
+15,BLR,1.3a,Неопределено,
+16,BEL,1.3a,Regeneration phase,from 0 to 20 years
+17,BEL,1.3a,Intermediate phase,from 20 to 60 years
+18,BEL,1.3a,Mature phase,older than 60 years
+19,BEL,1.3a,Unspecified,
+20,BIH,1.3a,Regeneration phase,
+21,BIH,1.3a,Intermediate phase,
+22,BIH,1.3a,Mature phase,
+23,BIH,1.3a,Unspecified,
+24,BGR,1.3a,Regeneration phase,Age <40 years
+25,BGR,1.3a,Intermediate phase,Age 40-80 years
+26,BGR,1.3a,Mature phase,Age >80 years
+27,BGR,1.3a,Unspecified,"Robina sp., Carpinus orientalis, Populus sp."
+28,HRV,1.3a,Regeneration phase,
+29,HRV,1.3a,Intermediate phase,
+30,HRV,1.3a,Mature phase,
+31,HRV,1.3a,Unspecified,
+32,CYP,1.3a,Regeneration phase,
+33,CYP,1.3a,Intermediate phase,
+34,CYP,1.3a,Mature phase,
+35,CYP,1.3a,Unspecified,
+36,CZE,1.3a,Regeneration phase,"according to average rotation for broadleaved and coniferous categories, 20% is up to 20 years both for coniferous and broadleaved"
+37,CZE,1.3a,Intermediate phase,"according to average rotation for broadleaved and coniferous categories, 20 to 100 yearsfor coniferous and 20 to 110 years for broadleaved"
+38,CZE,1.3a,Mature phase,"according to average rotation for broadleaved and coniferous categories, 90% is 100 years for coniferous and 110 years for broadleaved"
+39,CZE,1.3a,Unspecified,as described above - there is very minor part where age could not be used for specification
+40,DNK,1.3a,Regeneration phase,For broadleaves and conifers: 0-20 years
+41,DNK,1.3a,Intermediate phase,"For broadleaves: 20-80 years, For conifers 20-40 years"
+42,DNK,1.3a,Mature phase,"For broadleaves: >80 years, For conifers >40 years"
+43,DNK,1.3a,Unspecified,
+44,EST,1.3a,Regeneration phase,"forest land temporary unstocked and/or under regeneration, including areas where stocking level is below national forest definition (crown coverage less than 30%)"
+45,EST,1.3a,Intermediate phase,stands (mean height > 1.3 m) except in mature phase
+46,EST,1.3a,Mature phase,"stands  which have reached maturity age, which depends on the species and site index"
+47,EST,1.3a,Unspecified,not used
+48,FIN,1.3a,Regeneration phase,"Regeneration sites, seedling stands (below 8 m height)"
+49,FIN,1.3a,Intermediate phase,"Young and advanced thinning stands: Mean height more than 8 meters, majority of trees in pole or timber size."
+50,FIN,1.3a,Mature phase,Growing stock is mature for final felling according to forest management practices. Diameter or age criteria can be aplied.
+51,FIN,1.3a,Unspecified,"Forestry roads, poorly producitve forest land (national class kitumaa)"
+52,FRA,1.3a,Regeneration phase,
+53,FRA,1.3a,Intermediate phase,
+54,FRA,1.3a,Mature phase,
+55,FRA,1.3a,Unspecified,
+56,GEO,1.3a,Regeneration phase,Before 30-40 years
+57,GEO,1.3a,Intermediate phase,40-100 years
+58,GEO,1.3a,Mature phase,More than 100 years
+59,GEO,1.3a,Unspecified,
+60,DEU,1.3a,Regeneration phase,from temporarily unstocked area to pole stand (dhb<20 cm); pioneer phase
+61,DEU,1.3a,Intermediate phase,"minor timber (20 to <35 cm dbh) + medium timber (35 to <50 cm dbh)*0,5"
+62,DEU,1.3a,Mature phase,"medium timber (35 to <50 cm dbh)*0,5 + high forest timber (50 to <70 cm dbh) + old stand (dbh>= 70 cm)"
+63,DEU,1.3a,Unspecified,Rest
+64,GRC,1.3a,Regeneration phase,
+65,GRC,1.3a,Intermediate phase,
+66,GRC,1.3a,Mature phase,
+67,GRC,1.3a,Unspecified,
+68,VAT,1.3a,Regeneration phase,
+69,VAT,1.3a,Intermediate phase,
+70,VAT,1.3a,Mature phase,
+71,VAT,1.3a,Unspecified,
+72,HUN,1.3a,Regeneration phase,mean stand age < 0.2 * planned cutting age + cutting areas where regeneration has not started but will start in a few years
+73,HUN,1.3a,Intermediate phase,mean stand age >= 0.2 * planned cutting age and mean stand age < 0.9 * planned cutting age
+74,HUN,1.3a,Mature phase,mean stand age >= 0.9 * planned cutting age
+75,HUN,1.3a,Unspecified,
+76,ISL,1.3a,Regeneration phase,Up to 20 years after plantation
+77,ISL,1.3a,Intermediate phase,21-59 year old plantations
+78,ISL,1.3a,Mature phase,Plantation older than 60 years
+79,ISL,1.3a,Unspecified,
+80,IRL,1.3a,Regeneration phase,"National development stages: Post establishment, Pre-thicket and thicket"
+81,IRL,1.3a,Intermediate phase,"National development stages: Small pole stage, pole stage, multistoried and incoming high forest"
+82,IRL,1.3a,Mature phase,National development stages: high forest and overmature forest
+83,IRL,1.3a,Unspecified,National development stages: multistoried forest
+84,ITA,1.3a,Regeneration phase,average stand age below 20 years
+85,ITA,1.3a,Intermediate phase,average stand age from 21 to 80 years
+86,ITA,1.3a,Mature phase,average stand age from 81 to over 140 years
+87,ITA,1.3a,Unspecified,"Even-aged  stands where age classes are not applicable or unknown, e.g. Christmas tree plantations."
+88,LVA,1.3a,Regeneration phase,"Includes temporarily unstocked forest areas and pine,  spruce, oak  stands ap to the age 20, other forest stands up to the age of 10"
+89,LVA,1.3a,Intermediate phase,Includes stands that is beyond the “regeneration phase” and has not reached the “mature phase” yet.
+90,LVA,1.3a,Mature phase,"Includes  grey alder stands older than 30, aspen stands older than 40, birch and comon alder stands older than 60, spruce and ash stands older than 70, pine and oak stands older than 90,  other  tree species stands older than 70 years."
+91,LVA,1.3a,Unspecified,
+92,LIE,1.3a,Regeneration phase,
+93,LIE,1.3a,Intermediate phase,
+94,LIE,1.3a,Mature phase,
+95,LIE,1.3a,Unspecified,
+96,LTU,1.3a,Regeneration phase,Stands up to 20 years old
+97,LTU,1.3a,Intermediate phase,Stands since 21 up too felling age
+98,LTU,1.3a,Mature phase,Forest age exceeded felling age. Felling age is determined by forest group and tree species
+99,LTU,1.3a,Unspecified,Forest land not covered by stands
+100,LUX,1.3a,Regeneration phase,
+101,LUX,1.3a,Intermediate phase,
+102,LUX,1.3a,Mature phase,
+103,LUX,1.3a,Unspecified,
+104,MLT,1.3a,Regeneration phase,
+105,MLT,1.3a,Intermediate phase,
+106,MLT,1.3a,Mature phase,
+107,MLT,1.3a,Unspecified,
+108,MDA,1.3a,Фаза восстановления,
+109,MDA,1.3a,Промежуточная фаза,
+110,MDA,1.3a,Фаза зрелости,
+111,MDA,1.3a,Неопределено,
+112,MCO,1.3a,Regeneration phase,
+113,MCO,1.3a,Intermediate phase,
+114,MCO,1.3a,Mature phase,
+115,MCO,1.3a,Unspecified,
+116,MNE,1.3a,Regeneration phase,"Sapling, dominating DBH  below 5 cm and Thicket, dom. DBH 5 - 9 cm,"
+117,MNE,1.3a,Intermediate phase,"Young pole - stand dom. DBH 10 - 20 cm, Old pole-stand dom. DBH 21- 29 cm and Maturing stands dom. DBH 30 - 49 cm"
+118,MNE,1.3a,Mature phase,"Mature stands dom. DBH > 50 cm, Opened matured stands with poor regeneration DBH > 50 cm, Opened matured stands well regenerated DBH > 50 cm"
+119,MNE,1.3a,Unspecified,"Selection stands, group selection stands and other stands with three- or multilayered structure"
+120,NLD,1.3a,Regeneration phase,"Clearcuts, young stage and thicket stage"
+121,NLD,1.3a,Intermediate phase,This is considered to be the pole stage
+122,NLD,1.3a,Mature phase,The different tree stages
+123,NLD,1.3a,Unspecified,
+124,NOR,1.3a,Regeneration phase,"Temporarily unstocked forest and young forest (up to 15-55 years, depending on site quality and tree species)."
+125,NOR,1.3a,Intermediate phase,Forest of an age between regeneration phase and mature phase.
+126,NOR,1.3a,Mature phase,Forest that has reached the minimum recommended age for harvesting.
+127,NOR,1.3a,Unspecified,None
+128,POL,1.3a,Regeneration phase,definition (thresholds) proposed by FE was applied
+129,POL,1.3a,Intermediate phase,definition (thresholds) proposed by FE was applied
+130,POL,1.3a,Mature phase,definition (thresholds) proposed by FE was applied
+131,POL,1.3a,Unspecified,definition proposed by FE was applied
+132,PRT,1.3a,Regeneration phase,Stands development phases were classified  by photointerpretation on aerial images. NFI classes were compatible with the requirement.
+133,PRT,1.3a,Intermediate phase,Stands development phases were classified  by photointerpretation on aerial images. NFI classes were compatible with the requirement.
+134,PRT,1.3a,Mature phase,Stands development phases were classified  by photointerpretation on aerial images. NFI classes were compatible with the requirement.
+135,PRT,1.3a,Unspecified,Stands development phases were classified  by photointerpretation on aerial images. NFI classes were compatible with the requirement.
+136,ROU,1.3a,Regeneration phase,
+137,ROU,1.3a,Intermediate phase,
+138,ROU,1.3a,Mature phase,
+139,ROU,1.3a,Unspecified,
+140,RUS,1.3a,Regeneration phase,
+141,RUS,1.3a,Intermediate phase,
+142,RUS,1.3a,Mature phase,
+143,RUS,1.3a,Unspecified,
+144,SRB,1.3a,Regeneration phase,
+145,SRB,1.3a,Intermediate phase,
+146,SRB,1.3a,Mature phase,
+147,SRB,1.3a,Unspecified,
+148,SVK,1.3a,Regeneration phase,forest stands with age 1-10 years
+149,SVK,1.3a,Intermediate phase,forest stands with age 11-100 years
+150,SVK,1.3a,Mature phase,forest stands with age 101 years and over
+151,SVK,1.3a,Unspecified,unstocked area
+152,SVN,1.3a,Regeneration phase,
+153,SVN,1.3a,Intermediate phase,
+154,SVN,1.3a,Mature phase,
+155,SVN,1.3a,Unspecified,
+156,ESP,1.3a,Regeneration phase,The trees that from the herbaceous stratum reach the sub-shrub strata and the trees initiating the tangency of the crown
+157,ESP,1.3a,Intermediate phase,It comprises from the previous stratum and age class up to trees with dbh<= 20 cm.
+158,ESP,1.3a,Mature phase,Trees with dbh>20 cm and over-mature trees.
+159,ESP,1.3a,Unspecified,
+160,SWE,1.3a,Regeneration phase,"Includes bare ground due to final felling, stands with density below the limit for duty to regenerate. Includes also regenerated stands with mean height below 1.3 m. Only productive forest is included."
+161,SWE,1.3a,Intermediate phase,"Includes regenerated stands with mean height at least 1.3 m up to middle aged forest but below the SFA limits for allowed regeneration felling, i.e. clear cut. Only productive forest is included."
+162,SWE,1.3a,Mature phase,"Includes stands with a stand age above the SFA limits for allowed regeneration felling, i.e. clear cut. Only productive forest is included."
+163,SWE,1.3a,Unspecified,No sample plots on productive forests are unspecified
+164,CHE,1.3a,Regeneration phase,Same as SoEF.
+165,CHE,1.3a,Intermediate phase,Same as SoEF.
+166,CHE,1.3a,Mature phase,Same as SoEF.
+167,CHE,1.3a,Unspecified,Same as SoEF.
+168,MKD,1.3a,Regeneration phase,
+169,MKD,1.3a,Intermediate phase,
+170,MKD,1.3a,Mature phase,
+171,MKD,1.3a,Unspecified,
+172,TUR,1.3a,Regeneration phase,
+173,TUR,1.3a,Intermediate phase,
+174,TUR,1.3a,Mature phase,
+175,TUR,1.3a,Unspecified,
+176,UKR,1.3a,Regeneration phase,
+177,UKR,1.3a,Intermediate phase,
+178,UKR,1.3a,Mature phase,
+179,UKR,1.3a,Unspecified,
+180,GBR,1.3a,Regeneration phase,Aged 10 years or under for all conifers
+181,GBR,1.3a,Intermediate phase,"Aged 11-40 years for spruce & larch, 11-60 years for other conifer species"
+182,GBR,1.3a,Mature phase,"Aged over 40 years for spruce & larch, over 60 years for other conifer species"
+183,GBR,1.3a,Unspecified,Unstocked areas
