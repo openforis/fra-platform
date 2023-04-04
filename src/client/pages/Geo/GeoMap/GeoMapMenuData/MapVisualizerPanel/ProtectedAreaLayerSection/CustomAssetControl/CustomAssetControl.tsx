@@ -3,18 +3,20 @@ import React, { ChangeEvent, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { ForestSource, LayerStatus } from '@meta/geo'
+import { LayerStatus, ProtectedAreaKey } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { GeoActions, useProtectedAreasOptions } from '@client/store/ui/geo'
 
-import LayerOptionsPanel from '../../LayerOptionsPanel'
+import ProtectedAreasLayerOptionsPanel from '../ProtectedAreasLayerOptionsPanel'
 
 const CustomAssetControl: React.FC = () => {
   const dispatch = useAppDispatch()
-  const forestOptions = useForestSourceOptions()
+  const protectedAreasOptions = useProtectedAreasOptions()
 
-  const [inputValue, setInputValue] = useState<string>(forestOptions.customAssetId ? forestOptions.customAssetId : '')
+  const [inputValue, setInputValue] = useState<string>(
+    protectedAreasOptions.customAssetId ? protectedAreasOptions.customAssetId : ''
+  )
   const [inputError, setInputError] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -29,21 +31,21 @@ const CustomAssetControl: React.FC = () => {
       setInputError(true)
     } else {
       setInputError(false)
-      dispatch(GeoActions.setCustomForestAssetId(inputValue.trim()))
-      dispatch(GeoActions.resetSingleForestLayerStates(ForestSource.CustomFnF))
+      dispatch(GeoActions.setCustomProtectedAreaAssetId(inputValue.trim()))
+      dispatch(GeoActions.resetSingleProtectedAreaLayerStates(ProtectedAreaKey.CustomPA))
     }
   }
 
   const toggleCustomLayer = () => {
-    dispatch(GeoActions.toggleForestLayer(ForestSource.CustomFnF))
+    dispatch(GeoActions.toggleProtectedAreaLayer(ProtectedAreaKey.CustomPA))
   }
 
-  const isLayerChecked = forestOptions.selected.includes(ForestSource.CustomFnF)
+  const isLayerChecked = protectedAreasOptions.selected.includes(ProtectedAreaKey.CustomPA)
 
   let loadingStatus = null
-  if (forestOptions.pendingLayers[ForestSource.CustomFnF] !== undefined) loadingStatus = LayerStatus.loading
-  if (forestOptions.fetchedLayers[ForestSource.CustomFnF] !== undefined) loadingStatus = LayerStatus.ready
-  if (forestOptions.failedLayers[ForestSource.CustomFnF] !== undefined) loadingStatus = LayerStatus.failed
+  if (protectedAreasOptions.pendingLayers[ProtectedAreaKey.CustomPA] !== undefined) loadingStatus = LayerStatus.loading
+  if (protectedAreasOptions.fetchedLayers[ProtectedAreaKey.CustomPA] !== undefined) loadingStatus = LayerStatus.ready
+  if (protectedAreasOptions.failedLayers[ProtectedAreaKey.CustomPA] !== undefined) loadingStatus = LayerStatus.failed
 
   let checkBoxContent = null
   if (loadingStatus === LayerStatus.loading) {
@@ -81,7 +83,7 @@ const CustomAssetControl: React.FC = () => {
             </button>
           </div>
         </div>
-        <LayerOptionsPanel layerKey={ForestSource.CustomFnF} checked={isLayerChecked} />
+        <ProtectedAreasLayerOptionsPanel layerKey={ProtectedAreaKey.CustomPA} checked={isLayerChecked} />
       </div>
       <div className="custom-asset-list-element-bottom" />
     </>

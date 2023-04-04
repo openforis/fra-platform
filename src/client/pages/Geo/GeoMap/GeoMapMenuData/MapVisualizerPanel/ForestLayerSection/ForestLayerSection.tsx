@@ -10,7 +10,7 @@ import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import AgreementLevelsControl from '../../MapVisualizerAgreementLevelsControl'
 import LayerOptionsPanel from '../LayerOptionsPanel'
-import { GLOBAL_OPACITY_KEY, layers } from '../layers'
+import { forestLayers, GLOBAL_OPACITY_KEY } from '../layers'
 import CustomAssetControl from './CustomAssetControl'
 
 const RecipeSelector: React.FC = () => {
@@ -23,7 +23,7 @@ const RecipeSelector: React.FC = () => {
       <select
         value={forestOptions.recipe}
         onChange={(e) => {
-          dispatch(GeoActions.setRecipe(e.target.value))
+          dispatch(GeoActions.setForestLayersRecipe(e.target.value))
         }}
       >
         <option value="custom">custom</option>
@@ -41,7 +41,7 @@ const ForestLayerSection: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
   const toggleForestLayer = (key: ForestSource) => {
-    dispatch(GeoActions.setRecipe('custom'))
+    dispatch(GeoActions.setForestLayersRecipe('custom'))
     dispatch(GeoActions.toggleForestLayer(key))
   }
 
@@ -54,7 +54,7 @@ const ForestLayerSection: React.FC = () => {
             <LayerOptionsPanel layerKey={GLOBAL_OPACITY_KEY} checked />
           </GeoMapMenuListElement>
         </div>
-        {layers.map((layer) => {
+        {forestLayers.map((layer) => {
           if (layer.key === ForestSource.CustomFnF) return false
           const isLayerChecked = forestOptions.selected.includes(layer.key)
           let status = null
