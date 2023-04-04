@@ -26,7 +26,7 @@ module.exports = {
   theRecentAvailableYear: 'The recent available year',
   extrapolation: 'Extrapolation',
   assessmentBasedOnEvidence:
-    'assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
+    'Assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnTheCategoriesOfTheTable11A: 'Approach to reporting on the categories of the Table 1.1a',
   category: 'Category',
   areaEstimate: 'Area estimate (1000 ha)',
