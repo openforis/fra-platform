@@ -1,0 +1,139 @@
+,country,indicator,item,comment
+0,ALB,1.4,- the recent available year,
+1,ALB,1.4,- extrapolation,
+2,ALB,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+3,AND,1.4,- the recent available year,
+4,AND,1.4,- extrapolation,
+5,AND,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+6,AUT,1.4,- the recent available year,
+7,AUT,1.4,- extrapolation,"extrapolation according to the last two NFI results (2000-02, 2016-21; from the NFI 2016-21 preliminary results based on 2016-18 assessed sample plots were taken)"
+8,AUT,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+9,BLR,1.4,- последний имеющийся год,
+10,BLR,1.4,- экстраполяция,
+11,BLR,1.4,"- оценка, имеющая обоснование (например, прогноз, перспективы, общегосударственные программы лесоразведения, цели лесной политики)",
+12,BEL,1.4,- the recent available year,
+13,BEL,1.4,- extrapolation,linear extrapolation
+14,BEL,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+15,BIH,1.4,- the recent available year,
+16,BIH,1.4,- extrapolation,
+17,BIH,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+18,BGR,1.4,- the recent available year,
+19,BGR,1.4,- extrapolation,
+20,BGR,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+21,HRV,1.4,- the recent available year,
+22,HRV,1.4,- extrapolation,
+23,HRV,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+24,CYP,1.4,- the recent available year,
+25,CYP,1.4,- extrapolation,
+26,CYP,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+27,CZE,1.4,- the recent available year,
+28,CZE,1.4,- extrapolation,based on the forest area and growing stock values
+29,CZE,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+30,DNK,1.4,- the recent available year,
+31,DNK,1.4,- extrapolation,We calculated the average carbon pools per hectare and scaled this with the expected development in area from table 1.1
+32,DNK,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+33,EST,1.4,- the recent available year,2017
+34,EST,1.4,- extrapolation,no
+35,EST,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",no
+36,FIN,1.4,- the recent available year,"yes, 2015"
+37,FIN,1.4,- extrapolation,no
+38,FIN,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",no
+39,FRA,1.4,- the recent available year,
+40,FRA,1.4,- extrapolation,"Carbon in living biomass : total volume, biomass and carbon expansion and conversion factors are applied to the growing stock volume estimated for year 2020 (cf. 1,2). Carbon in dead wood : see FRA 2020"
+41,FRA,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+42,GEO,1.4,- the recent available year,"The numbers provided here are the same as in SoEF 2015 report. We can only provide correct figures after we complete the first National Forest inventory, which is expected to be finalized in 2020."
+43,GEO,1.4,- extrapolation,
+44,GEO,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+45,DEU,1.4,- the recent available year,biomass and dead wood: NFI 2012; litter and soil: BZE 2006 (Bodenzustandserhebung)
+46,DEU,1.4,- extrapolation,biomass: 2013 to 2015 dead wood extrapolation from 2013 to 2020;   litter and soil extrapolation from 2007 to 2020
+47,DEU,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)","Biomass 2020: according WEHAM-model, see: germany projection report 2017"
+48,GRC,1.4,- the recent available year,
+49,GRC,1.4,- extrapolation,
+50,GRC,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+51,VAT,1.4,- the recent available year,
+52,VAT,1.4,- extrapolation,
+53,VAT,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+54,HUN,1.4,- the recent available year,
+55,HUN,1.4,- extrapolation,linear extrapolation
+56,HUN,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+57,ISL,1.4,- the recent available year,
+58,ISL,1.4,- extrapolation,yes
+59,ISL,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+60,IRL,1.4,- the recent available year,"Based on UNFCCC submission NIR, 2019) preliminary data"
+61,IRL,1.4,- extrapolation,
+62,IRL,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+63,ITA,1.4,- the recent available year,"Provisional results of photointerpretation (first phase of NFI2015) has been used to update Forest and OWL area for the years 2010 and 2015. As the third NFI is still ongoing and the new GS data are not yet available. For these reasons, we did not extrapolated further the GS values to the years 2016-20."
+64,ITA,1.4,- extrapolation,"FOREST: data on C-content available from NFI2005 for the four pools AGB, BGB, DW and Litter have been extrapolated and combined with provisional updated estimates of forest area for the years 2010 and 2015 (see above); the average value of Litter Carbon per hectare from NFI2005 has been used combined with forest area figures to derive the Litter carbon for the year 2015 - as for 1990, 2000, 2010; similarly the average values per hectare of aboveground biomass and deadwood biomass from INFC2005  have been used to calculate the corresponding carbon content for the year 2015, while belowground carbon has been calculated for all years using the ratio between aboveground and belowground biomass suggested by IPCC2006 and the coefficient 0.5 for carbon fraction."
+65,ITA,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+66,LVA,1.4,- the recent available year,
+67,LVA,1.4,- extrapolation,X
+68,LVA,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",X
+69,LIE,1.4,- the recent available year,
+70,LIE,1.4,- extrapolation,
+71,LIE,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+72,LTU,1.4,- the recent available year,
+73,LTU,1.4,- extrapolation,of 2005; 2010; 2015
+74,LTU,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+75,LUX,1.4,- the recent available year,
+76,LUX,1.4,- extrapolation,
+77,LUX,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+78,MLT,1.4,- the recent available year,
+79,MLT,1.4,- extrapolation,
+80,MLT,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+81,MDA,1.4,- последний имеющийся год,
+82,MDA,1.4,- экстраполяция,
+83,MDA,1.4,"- оценка, имеющая обоснование (например, прогноз, перспективы, общегосударственные программы лесоразведения, цели лесной политики)",
+84,MCO,1.4,- the recent available year,
+85,MCO,1.4,- extrapolation,
+86,MCO,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+87,MNE,1.4,- the recent available year,2013
+88,MNE,1.4,- extrapolation,"recent year + The increase in carbon( 1,2481 mil metric tonnes per year)"
+89,MNE,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",Assesment based on Nfi
+90,NLD,1.4,- the recent available year,2017
+91,NLD,1.4,- extrapolation,"The values were calculated using extrapolation based on the data and trend in the recent years, after implementing the newly calculated total forest area."
+92,NLD,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+93,NOR,1.4,- the recent available year,
+94,NOR,1.4,- extrapolation,Linear extrapolation based on 2010-2015.
+95,NOR,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+96,POL,1.4,- the recent available year,dead wood - data from 2015 were used
+97,POL,1.4,- extrapolation,above and below ground biomass - based on extrapolation of growing stock volume
+98,POL,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+99,PRT,1.4,- the recent available year,2015.0
+100,PRT,1.4,- extrapolation,2010.0
+101,PRT,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+102,ROU,1.4,- the recent available year,"National Forest Inventory, 2018"
+103,ROU,1.4,- extrapolation,
+104,ROU,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+105,RUS,1.4,- the recent available year,
+106,RUS,1.4,- extrapolation,
+107,RUS,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+108,SRB,1.4,- the recent available year,
+109,SRB,1.4,- extrapolation,
+110,SRB,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+111,SVK,1.4,- the recent available year,2017
+112,SVK,1.4,- extrapolation,No
+113,SVK,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",No
+114,SVN,1.4,- the recent available year,2018
+115,SVN,1.4,- extrapolation,based on trend between the NFI 2007 and 2018
+116,SVN,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",assessment based on forecast
+117,ESP,1.4,- the recent available year,
+118,ESP,1.4,- extrapolation,We extrapolate to 2020 based on the estimation of mean annual changes for each variable in the period cover by the different NFI cycles (2010-2017).
+119,ESP,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+120,SWE,1.4,- the recent available year,"For OWL there is no obvious trend, so for OWL values for 2020 i latest available year."
+121,SWE,1.4,- extrapolation,For Forest same trend is aplied as between 2015 and 2010.
+122,SWE,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+123,CHE,1.4,- the recent available year,
+124,CHE,1.4,- extrapolation,We extrapolated from the trend between the years 2005 and 2013.
+125,CHE,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+126,MKD,1.4,- the recent available year,Yes.
+127,MKD,1.4,- extrapolation,
+128,MKD,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+129,TUR,1.4,- the recent available year,The data from recent available year were used.
+130,TUR,1.4,- extrapolation,
+131,TUR,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+132,UKR,1.4,- the recent available year,
+133,UKR,1.4,- extrapolation,
+134,UKR,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+135,GBR,1.4,- the recent available year,
+136,GBR,1.4,- extrapolation,"Extrapolated from average carbon content per m3 (living biomass) and per hectare (deadwood, litter and soil carbon) to produce consistent time series."
+137,GBR,1.4,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
