@@ -3,6 +3,8 @@ import { Row, Table } from '@meta/assessment'
 import { AssessmentController } from '@server/controller/assessment'
 import { BaseProtocol, Schemas } from '@server/db'
 
+import { runCalculations } from './utils/runCalculations'
+
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
     { assessmentName: 'fra', cycleName: '2025' },
@@ -32,6 +34,17 @@ export default async (client: BaseProtocol) => {
     {
       assessment,
       cycle,
+    },
+    client
+  )
+
+  await runCalculations(
+    {
+      assessmentName: 'fra',
+      cycleName: '2025',
+      metaCache: true,
+      variableName: 'otherLand',
+      tableName: 'extentOfForest',
     },
     client
   )
