@@ -10,7 +10,7 @@ import { getBoundariesLayer } from './getBoundariesLayer'
 import { getBounds } from './getBounds'
 import { getBurnedAreaLayer } from './getBurnedAreaLayer'
 import { getForestAgreementLayer } from './getForestAgreementLayer'
-import { estimateForestAgreementArea, estimateIntersectionArea, getForestEstimations } from './getForestEstimations'
+import { estimateImageArea, estimateIntersectionArea, getForestEstimations } from './getForestEstimations'
 import { getForestLayer } from './getForestLayer'
 import { getProtectedAreaLayer } from './getProtectedAreaLayer'
 
@@ -39,7 +39,7 @@ export const GeoApi = {
       ApiEndPoint.Geo.Estimations.forestAgreement(),
       ValidationMiddleware.validateRequest(GeoSchemes.forestAgreementEstimationSchema),
       GeeAuthMiddleware.requireLogin,
-      estimateForestAgreementArea
+      estimateImageArea
     )
 
     express.get(ApiEndPoint.Geo.bounds(), ValidationMiddleware.validateRequest(GeoSchemes.countryIsoSchema), getBounds)

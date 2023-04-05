@@ -44,14 +44,14 @@ export const estimateArea = async (props: {
   })
 }
 
-export const estimateForestAgreementArea = async (props: {
+export const estimateImageArea = async (props: {
   countryIso: CountryIso
-  layers: Array<LayerSource>
-  gteAgreementLevel: number
+  layer: LayerSource
   scale?: number
 }): Promise<{ areaHa: number }> => {
-  const { countryIso, layers, gteAgreementLevel, scale = 30 } = props
-  const asset = AssetsController.getForestAgreementAssetData(layers, gteAgreementLevel)
+  const { countryIso, layer, scale = 30 } = props
+
+  const asset = AssetsController.getAssetData(layer)
 
   return estimateArea({ countryIso, maskImage: asset.img.gte(1), scale })
 }
