@@ -915,6 +915,7 @@ export const carbonStock = {
     },
     {
       titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+      descriptionKey: 'panEuropean.reasonabilityChecks.description',
       tableSpecs: [
         {
           name: 'reasonability_check_1_4',

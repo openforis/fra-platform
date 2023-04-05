@@ -1900,6 +1900,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
       },
       {
         titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        descriptionKey: 'panEuropean.reasonabilityChecks.description',
         tableSpecs: [
           {
             name: 'reasonability_check_2_4',
@@ -3990,6 +3991,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
       },
       {
         titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        descriptionKey: 'panEuropean.reasonabilityChecks.description',
         tableSpecs: [
           {
             name: 'reasonability_check_3_1',
@@ -5973,6 +5975,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
       },
       {
         titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        descriptionKey: 'panEuropean.reasonabilityChecks.description',
         tableSpecs: [
           {
             name: 'reasonability_check_3_2',
@@ -8928,6 +8931,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
       },
       {
         titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+        descriptionKey: 'panEuropean.reasonabilityChecks.description',
         tableSpecs: [
           {
             name: 'reasonability_check_4_5',
