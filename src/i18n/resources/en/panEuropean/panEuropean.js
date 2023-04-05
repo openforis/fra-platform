@@ -4,7 +4,9 @@ module.exports = {
   countryComments,
   // ...TODO: Move all reasonability checks out to a separate file
   reasonabilityChecks: {
-    reasonabilityCheck: 'Reasonability check',
+    reasonabilityCheck: 'Reasonableness check',
+    description:
+      'This section is to help national correspondents and reviewers verify data correctness and consistency across different reporting tables. It is non-editable and will not be published.',
     variable: 'Variable - Year',
     forest: 'Forest',
     FAWS: 'FAWS',
