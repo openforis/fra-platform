@@ -7,7 +7,7 @@ import { runCalculations } from './utils/runCalculations'
 
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025' },
+    { assessmentName: 'fra', cycleName: '2025', metaCache: true },
     client
   )
 
@@ -40,9 +40,8 @@ export default async (client: BaseProtocol) => {
 
   await runCalculations(
     {
-      assessmentName: 'fra',
-      cycleName: '2025',
-      metaCache: true,
+      assessment,
+      cycle,
       variableName: 'otherLand',
       tableName: 'extentOfForest',
     },

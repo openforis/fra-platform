@@ -1,9 +1,9 @@
+import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
-import { AssessmentName } from '@meta/assessment'
+import { Assessment, Cycle } from '@meta/assessment'
 
 import { AreaController } from '@server/controller/area'
-import { AssessmentController } from '@server/controller/assessment'
 import { BaseProtocol, Schemas } from '@server/db'
 
 import { calculateRow } from './calculateRow'
@@ -11,24 +11,16 @@ import { getRow } from './getRow'
 
 export const runCalculations = async (
   props: {
-    assessmentName: AssessmentName
-    cycleName: string
-    metaCache: boolean
+    assessment: Assessment
+    cycle: Cycle
     tableName: string
     variableName: string
   },
   client: BaseProtocol
 ): Promise<void> => {
-  const { assessmentName, cycleName, metaCache, tableName, variableName } = props
+  const { assessment, cycle, tableName, variableName } = props
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    {
-      assessmentName,
-      metaCache,
-      cycleName,
-    },
-    client
-  )
+  if (Objects.isEmpty(assessment.metaCache)) throw new Error('Meta cache is missing!')
 
   const row = await getRow({ tableName, variableName, cycle, assessment }, client)
 
