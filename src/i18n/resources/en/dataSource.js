@@ -13,4 +13,5 @@ module.exports = {
   remoteSensingBasedAssessmentWithoutGroundTruthing: 'Remote sensing based assessment without ground truthing',
   vegetationMapping: 'Vegetation mapping',
   registersAndStatistics: 'Registers and statistics',
+  other: '$t(common.otherSpecifyInComments)',
 }

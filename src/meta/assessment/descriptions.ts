@@ -5,4 +5,5 @@ export enum dataSourceType {
   'remoteSensingBasedAssessmentWithoutGroundTruthing' = 'remoteSensingBasedAssessmentWithoutGroundTruthing',
   'vegetationMapping' = 'vegetationMapping',
   'registersAndStatistics' = 'registersAndStatistics',
+  other = 'other',
 }
