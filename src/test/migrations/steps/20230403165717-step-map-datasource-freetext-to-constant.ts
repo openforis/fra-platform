@@ -63,7 +63,7 @@ export default async (client: BaseProtocol) => {
   })
 
   // Duplicate keys only in growingStockComposition (and other, other2025, common.otherSpecifyInComments)
-  const variableMap: Record<string, Record<string, string[]>> = sectionNames.reduce<Record<string, any>>(
+  const variableMap: Record<string, Record<string, string>> = sectionNames.reduce<Record<string, any>>(
     (acc, sectionName) => {
       const section = sections[sectionName]
       return {
@@ -99,7 +99,8 @@ export default async (client: BaseProtocol) => {
         // Total removed from FRA Variables (=calculated row from 1a)
         (fraVariable === 'Total' && sectionName === 'forestOwnership')
 
-      const fixed = sectionVariables[fraVariable]
+      // if fraVariable is already a fixed variable, keep it
+      const fixed = Object.values(sectionVariables).includes(fraVariable) ? fraVariable : sectionVariables[fraVariable]
       if (skip || !fixed) return acc
 
       return acc.concat(fixed)
