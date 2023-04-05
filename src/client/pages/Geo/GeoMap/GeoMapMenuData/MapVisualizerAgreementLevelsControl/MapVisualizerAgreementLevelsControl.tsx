@@ -14,7 +14,7 @@ import { GeoActions, useForestSourceOptions, useGeoStatistics } from '@client/st
 import { useCountryIso } from '@client/hooks'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
-import { layers } from '../MapVisualizerPanel'
+import { forestLayers } from '../MapVisualizerPanel'
 import LayerOptionsPanel from '../MapVisualizerPanel/LayerOptionsPanel'
 
 const AgreementLevelsControl: React.FC = () => {
@@ -81,7 +81,7 @@ const AgreementLevelsControl: React.FC = () => {
 
   const toggleAgreementLayer = (selected: boolean) => {
     batch(() => {
-      dispatch(GeoActions.setRecipe('custom'))
+      dispatch(GeoActions.setForestLayersRecipe('custom'))
       dispatch(GeoActions.setAgreementLayerSelected(selected))
       dispatch(GeoActions.setAgreementLayerStatus(null))
     })
@@ -112,7 +112,7 @@ const AgreementLevelsControl: React.FC = () => {
               </small>
             </p>
             <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
-              {Array(layers.length)
+              {Array(forestLayers.length)
                 .fill(undefined)
                 .map((_, i) => {
                   const level = i + 1

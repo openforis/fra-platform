@@ -22,6 +22,15 @@ export interface ForestOptions {
   customAssetId: string
 }
 
+export interface ProtectedAreasOptions {
+  selected: ProtectedAreaKey[]
+  fetchedLayers: { [key: string]: string }
+  pendingLayers: { [key: string]: string }
+  failedLayers: { [key: string]: string }
+  opacity: { [key: string]: number }
+  customAssetId: string
+}
+
 export const hansenPercentages = [10, 20, 30] as const
 
 export type HansenPercentage = typeof hansenPercentages[number]

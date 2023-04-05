@@ -15,11 +15,6 @@
 .fra-description {
   display: flex;
   justify-content: space-between;
-
-  .cke_wrapper {
-    padding-top: 4px;
-    padding-bottom: 20px;
-  }
 }
 
 .fra-description__wrapper {
@@ -119,8 +114,7 @@
 div.fra-row-comments__open {
   padding: 0 8px;
 
-  .fra-description__preview,
-  .cke_wrapper {
+  .fra-description__preview {
     padding-bottom: 8px;
   }
 }

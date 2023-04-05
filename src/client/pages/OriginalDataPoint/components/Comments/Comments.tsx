@@ -1,5 +1,7 @@
 import React from 'react'
 
+import classNames from 'classnames'
+
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
 
@@ -24,7 +26,7 @@ const Comments: React.FC<Props> = (props) => {
   return (
     <div className="odp__section">
       <div className="fra-description">
-        <div className={`fra-description__wrapper ${className}`}>
+        <div className={classNames('fra-description__wrapper', className)}>
           <CommentsEditor canEditData={canEditData} />
         </div>
 

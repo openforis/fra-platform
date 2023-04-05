@@ -1026,6 +1026,7 @@ export const naturalness = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'theRecentAvailableYear',
               cols: [
                 {
                   idx: 'header_0',
@@ -1042,44 +1043,31 @@ export const naturalness = {
                   className: 'fra-table__header-cell',
                   type: 'placeholder',
                 },
-                { idx: 1, type: 'textarea' },
+                { idx: 1, type: 'textarea', colName: 'comment' },
               ],
             },
-            {
-              idx: 1,
+            ...['extrapolation', 'assessmentBasedOnEvidence'].map((variableName, idx) => ({
+              idx: idx + 1,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'textarea' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
           dataExport: true,
           columnsExportAlways: [],
           columnsExport: [],
-          migration: { cycles: ['2025'], columnNames: { '2025': ['theYearAndDataReportedFor2025'] } },
+          migration: { cycles: ['2025'], columnNames: { '2025': ['comment'] } },
         },
       ],
     },
@@ -1102,42 +1090,31 @@ export const naturalness = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'criteriaOrThresholdsUsedToDelimitUndisturbedByManFromSemiNatural',
+              'criteriaOrThresholdsUsedToDelimitSemiNaturalFromPlantations',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey:
-                    'panEuropean.countryComments.criteriaOrThresholdsUsedToDelimitUndisturbedByManFromSemiNatural',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_1',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.criteriaOrThresholdsUsedToDelimitSemiNaturalFromPlantations',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
           dataExport: true,
           columnsExportAlways: [],
           columnsExport: [],
-          migration: { cycles: ['2025'], columnNames: { '2025': ['approachToDelimniateBetweenCategories'] } },
+          migration: { cycles: ['2025'], columnNames: { '2025': ['comment'] } },
         },
       ],
     },
@@ -1176,51 +1153,23 @@ export const naturalness = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+
+            ...['fowlUndisturbedByMan', 'fowlSemiNatural', 'fowlPlantations'].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fowlUndisturbedByMan',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 0, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fowlSemiNatural',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fowlPlantations',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1229,7 +1178,7 @@ export const naturalness = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
