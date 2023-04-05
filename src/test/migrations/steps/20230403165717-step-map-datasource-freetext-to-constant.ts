@@ -68,7 +68,7 @@ export default async (client: BaseProtocol) => {
       const section = sections[sectionName]
       return {
         ...acc,
-        [sectionName]: _getRowOptions(section[0]?.tables[0]),
+        [sectionName]: _getRowOptions(section[0].tables[0]),
       }
     },
     {}
