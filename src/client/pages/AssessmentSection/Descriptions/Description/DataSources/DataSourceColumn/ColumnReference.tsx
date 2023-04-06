@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import classNames from 'classnames'
 
@@ -21,6 +21,8 @@ interface DataSourceReferenceColumnProps {
 const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
   const { dataSource, placeholder, disabled, onDelete, onChange } = props
 
+  const [toggleLinkField, setToggleLinkField] = useState(false)
+
   const _onChange = useCallback(
     (field: string, value: string) => {
       onChange('reference', {
@@ -39,15 +41,41 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
     >
       <div className="data-source__delete-wrapper">
         {!placeholder && !disabled && (
-          <button type="button" onClick={onDelete}>
-            <Icon className="delete" name="remove" />
-          </button>
+          <>
+            <button type="button" onClick={onDelete}>
+              <Icon className="delete" name="remove" />
+            </button>
+            <button type="button" onClick={() => setToggleLinkField(!toggleLinkField)}>
+              <Icon className={classNames({ delete: toggleLinkField })} name="icon-insert_link" />
+            </button>
+          </>
         )}
-        <VerticallyGrowingTextField
-          disabled={disabled}
-          onChange={(event) => _onChange('text', event.target.value)}
-          value={dataSource.reference?.text ?? ''}
-        />
+
+        {!disabled && !toggleLinkField && (
+          <VerticallyGrowingTextField
+            disabled={disabled}
+            onChange={(event) => _onChange('text', event.target.value)}
+            value={dataSource.reference?.text ?? ''}
+          />
+        )}
+
+        {!disabled && toggleLinkField && (
+          <VerticallyGrowingTextField
+            disabled={disabled}
+            onChange={(event) => _onChange('link', event.target.value)}
+            value={dataSource.reference?.link ?? ''}
+          />
+        )}
+
+        {disabled && (
+          <span className="text-input__readonly-view">
+            {dataSource.reference?.link ? (
+              <a href={dataSource.reference?.link}>{dataSource.reference?.text}</a>
+            ) : (
+              dataSource.reference?.text
+            )}
+          </span>
+        )}
       </div>
     </DataColumn>
   )
