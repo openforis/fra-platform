@@ -46,7 +46,7 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
               <Icon className="delete" name="remove" />
             </button>
             <button type="button" onClick={() => setToggleLinkField(!toggleLinkField)}>
-              <Icon className={classNames({ delete: toggleLinkField })} name="icon-insert_link" />
+              <Icon className={classNames({ delete: toggleLinkField })} name="insert_link" />
             </button>
           </>
         )}
