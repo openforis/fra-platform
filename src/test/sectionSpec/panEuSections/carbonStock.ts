@@ -915,6 +915,7 @@ export const carbonStock = {
     },
     {
       titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+      descriptionKey: 'panEuropean.reasonabilityChecks.description',
       tableSpecs: [
         {
           name: 'reasonability_check_1_4',
@@ -1850,6 +1851,7 @@ export const carbonStock = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'theRecentAvailableYear',
               cols: [
                 {
                   idx: 'header_0',
@@ -1866,12 +1868,13 @@ export const carbonStock = {
                   className: 'fra-table__header-cell',
                   type: 'placeholder',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 1,
               type: 'data',
+              variableName: 'extrapolation',
               cols: [
                 {
                   idx: 'header_0',
@@ -1880,12 +1883,13 @@ export const carbonStock = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 2,
               type: 'data',
+              variableName: 'assessmentBasedOnEvidence',
               cols: [
                 {
                   idx: 'header_0',
@@ -1894,7 +1898,7 @@ export const carbonStock = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
           ],
@@ -1905,7 +1909,7 @@ export const carbonStock = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['theYearAndDataReportedFor2025'] },
+            columnNames: { '2025': ['comment'] },
           },
         },
       ],
@@ -1945,96 +1949,30 @@ export const carbonStock = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+
+            ...[
+              'carbonStockInAboveGroundLivingBiomass',
+              'carbonStockInAboveGroundLivingBiomass',
+              'carbonStockInDeadwood',
+              'carbonStockInLitter',
+              'carbonStockInSoil',
+              'biomassCarbonConversionFactorUsed',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.carbonStockInAboveGroundLivingBiomass',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.carbonStockInAboveGroundLivingBiomass',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.carbonStockInDeadwood',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.carbonStockInLitter',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 4,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.carbonStockInSoil',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 5,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.biomassCarbonConversionFactorUsed',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -2044,7 +1982,7 @@ export const carbonStock = {
           migration: {
             cycles: ['2025'],
             columnNames: {
-              '2025': ['category', 'commentsRelatedToDataDefinitionsConversionFactorsUsed', 'commentsOnTrend'],
+              '2025': ['comment', 'comment_trends'],
             },
           },
         },

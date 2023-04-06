@@ -5,7 +5,7 @@ import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from '@met
 
 import { getBurnedAreaAssetData } from './getBurnedAreaAssetData'
 import { getCountryBoundaries } from './getCountryBoundaries'
-import { getForestAgreementAssetData, getForestAssetData } from './getForestAssetData'
+import { getForestAssetData } from './getForestAssetData'
 import { getProtectedAreaAssetData } from './getProtectedAreaAssetData'
 
 export const getAssetData = (source: LayerSource): { year?: number; img: Image; metadata: any } => {
@@ -24,7 +24,6 @@ export const getAssetData = (source: LayerSource): { year?: number; img: Image; 
 export const AssetsController = {
   getCountryBoundaries,
   getForestAssetData,
-  getForestAgreementAssetData,
   getProtectedAreaAssetData,
   getBurnedAreaAssetData,
   getAssetData,

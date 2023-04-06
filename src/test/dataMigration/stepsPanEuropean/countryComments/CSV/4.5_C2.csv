@@ -1,0 +1,93 @@
+,country,indicator,item,comment,comment_trends
+0,ALB,4.5,Standing deadwood,,
+1,ALB,4.5,Lying deadwood,,
+2,AND,4.5,Standing deadwood,,
+3,AND,4.5,Lying deadwood,,
+4,AUT,4.5,Standing deadwood,"2005 figures are interpolated between 2001 (NFI 2000-2001) and 2008 (NFI 2007-2009). 2010 and 2015 figures are interpolated between 2008 (NFI 2007-2009) and 2017 (NFI 2016-2018), 2000 figures are 2001 results (NFI 2000-2002), 1990 figures are 1994 results (NFI 1992-1996).",
+5,AUT,4.5,Lying deadwood,See above. NFI 2000-2002: Lying deadwood reported (minimum diameter 10 cm) = lying deadwood measured (minimum diameter 20 cm) * ef. ef = NFI 2007-2009 and NFI 2016-2018 result minimum diameter 10 cm/NFI 2007-2009 and NFI 2016-2018 result minimum diameter 20 cm.,
+6,BLR,4.5,Стоящая мертвая древесина,,
+7,BLR,4.5,Поваленная мертвая древесина,,
+8,BEL,4.5,Standing deadwood,,increase
+9,BEL,4.5,Lying deadwood,,increase
+10,BIH,4.5,Standing deadwood,,
+11,BIH,4.5,Lying deadwood,,
+12,BGR,4.5,Standing deadwood,,
+13,BGR,4.5,Lying deadwood,,
+14,HRV,4.5,Standing deadwood,,
+15,HRV,4.5,Lying deadwood,,
+16,CYP,4.5,Standing deadwood,,
+17,CYP,4.5,Lying deadwood,,
+18,CZE,4.5,Standing deadwood,"Includes stumps. Data comes from second cycle of NFI, where methodology was changed slightly (stumps were not included in previous cycle), therefore n/a is used for previous years (2005) as figures are not fully comparable.",
+19,CZE,4.5,Lying deadwood,"Data comes from second cycle of NFI, where methodology was changed slightly (small branches were not included in previous cycle), therefore n/a is used for previous years (2005) as figures are not fully comparable.",
+20,DNK,4.5,Standing deadwood,Includes standing and leaning dead wood,
+21,DNK,4.5,Lying deadwood,,
+22,EST,4.5,Standing deadwood,Deadwood useful at least for firewood. For other wooded land the expert estimate according to NFI results was used over the whole period.,
+23,EST,4.5,Lying deadwood,Deadwood useful at least for firewood. For other wooded land the expert estimate according to NFI results was used over the whole period.,
+24,FIN,4.5,Standing deadwood,,
+25,FIN,4.5,Lying deadwood,,
+26,FRA,4.5,Standing deadwood,"Stem with a 7 cm top end (i.e. only the trunk and the bigger branches up to 7 cm diameter are taken into account, the other branches are not included)",Slight significant decrease resulting from :  - stability for broadleaved species; - decrease for coniferous species (it may be due to a return to a normal situation after the storm Klaus (2009) in the Pinus pinaster plantations)
+27,FRA,4.5,Lying deadwood,"Every deadwood pieces with a diameter above 2.5 cm.  Because of differences in the diameter of the deadwood compartments considered in the 2 categories, the total deadwood volume is not calculated.",No significant evolution
+28,GEO,4.5,Standing deadwood,There is no reliable information available for standing or lying deadwood. Standing and lying dead wood as well as decay status will be assessed during the first GEOn National Forest Inventory. The NFI results are expected to be available in 2020.,
+29,GEO,4.5,Lying deadwood,,
+30,DEU,4.5,Standing deadwood,"From NFI2 to Inventurstudie 2008 the minimum diameter of standing deadwood has changed. Recalculation for 2010 with threshold 20 cm diameter resulted in : Total: 15,0 In NFI1, no deadwood was measured, therefore no data for 1990 are available",
+31,DEU,4.5,Lying deadwood,"IS-2008, NFI-2012: deadwood, < 10 cm is not estimated; Totholz < 10 cm ist nicht enthalten since 2008: threshold: 10 cm at the thicker end, so a larger Proportion of deadwood is measured. 2002: Die Aufnahme schließt alles Totholz mit einem Durchmesser ab 20 cm am dickeren Ende und Stöcke ab 50 cm Höhe oder 60 cm Schnittflächendurchmesser.","The trend between 2000 and 2005 is due to change in methods. The trend 2005 to 2010 is uncertain, because the value for 2005 (=Inventurstudie 2008) comes from the 8 * 8 km-net, while the NFI-net has at least 4*4km-net."
+32,GRC,4.5,Standing deadwood,,
+33,GRC,4.5,Lying deadwood,,
+34,VAT,4.5,Standing deadwood,,
+35,VAT,4.5,Lying deadwood,,
+36,HUN,4.5,Standing deadwood,,
+37,HUN,4.5,Lying deadwood,,
+38,ISL,4.5,Standing deadwood,All standind dead tree are measured in NFI. They are very rare and the stock in NFI insignificant.,
+39,ISL,4.5,Lying deadwood,Lying dead wood with diameter > 9.9 cm  and length > 1.29 m is measured on NFI plots. Lying deadwood Is very rare and the stock in NFI insignificant,
+40,IRL,4.5,Standing deadwood,"The NFI results for 2006, 2012 & 2017 are used to report for the years 2005, 2010 & 2015.",
+41,IRL,4.5,Lying deadwood,"The NFI results for 2006, 2012 & 2017 are used to report for the years 2005, 2010 & 2015.",
+42,ITA,4.5,Standing deadwood,"Original data on deadwood volume in forests provided by NFI2005.  No quantitative information on OWL is available. Data for reporting years 1990, 2000 and 2010 are calculated by multiplying the proportion of deadwood volume, compared to growing stock volume, observed in NFI2005 with growing stock volumes estimated for the same years (as reported in Tab. 1.2)","Due to the calculation method adopted, trend is consistent with growing stock trend"
+43,ITA,4.5,Lying deadwood,As above,As above
+44,LVA,4.5,Standing deadwood,,
+45,LVA,4.5,Lying deadwood,,
+46,LIE,4.5,Standing deadwood,,
+47,LIE,4.5,Lying deadwood,,
+48,LTU,4.5,Standing deadwood,"Deadwood contains volume of dead tree stems – standing and lying with the same threshold as is used for growing stock volume assessment: 1,3 m in height and 2cm in diameter. Volume of deadwood also includes roots and branches of dead trees as well as felled trees, assuming the time decomposition of the wood.",
+49,LTU,4.5,Lying deadwood,,
+50,LUX,4.5,Standing deadwood,,
+51,LUX,4.5,Lying deadwood,,
+52,MLT,4.5,Standing deadwood,,
+53,MLT,4.5,Lying deadwood,,
+54,MDA,4.5,Стоящая мертвая древесина,,
+55,MDA,4.5,Поваленная мертвая древесина,,
+56,MCO,4.5,Standing deadwood,,
+57,MCO,4.5,Lying deadwood,,
+58,MNE,4.5,Standing deadwood,,
+59,MNE,4.5,Lying deadwood,,
+60,NLD,4.5,Standing deadwood,,
+61,NLD,4.5,Lying deadwood,For 1990 and 2000 the amount of lying dead wood is not exactly known. The development of lying dead wood is however assumed to be similar to standing dead wood. Therefore the lying dead wood for 1990 and 2000 has been calculated using the trend from standing dead wood.,
+62,NOR,4.5,Standing deadwood,,
+63,NOR,4.5,Lying deadwood,Minimum diameter: Dbh=10 cm (whole stem) or 10 cm at the thicker end of a piece of a stem,
+64,POL,4.5,Standing deadwood,"only volume of sections of trees with 7 cm at thinner end, including branches, is estimated and reported.",
+65,POL,4.5,Lying deadwood,"Minimum diameter - 7 cm, measured at the thinner end of a piece of wood. Minimum diameter - 10 cm at the thicker end of  piece of wood.",
+66,PRT,4.5,Standing deadwood,,
+67,PRT,4.5,Lying deadwood,,
+68,ROU,4.5,Standing deadwood,,
+69,ROU,4.5,Lying deadwood,,
+70,RUS,4.5,Standing deadwood,,
+71,RUS,4.5,Lying deadwood,,
+72,SRB,4.5,Standing deadwood,,
+73,SRB,4.5,Lying deadwood,,
+74,SVK,4.5,Standing deadwood,"Standing deadwood with DBH≥10 cm including stump, volume over bark , forests on forest land","Slovak NFI register  deadwood in a very detailed way. Standing deadwood is registered as all standing trees over bark with stumps (DBH≥7 cm) and all stumps after felling on inventory plots. Detailed measurements in the year 2005-2006 showed total volume amounting to 12.4 m3 per hectar (tree without stump), or in  2015-2016 17.3 m3 per hectar respectively (tree with stump). For reporting only a part of standing deadwood was selected (sub-dataset with minimum 10 cm diamater); the total volume thus decreased to 8.7 m3 per hectar in 2015, and in 2005 6,6 m3 per hectar respectively. Since 2005, however, the volume increased by 30%."
+75,SVK,4.5,Lying deadwood,"Lying coarse woody debris (>10 cm in the middle, over bark), forests on forest land","Within the lying deadwood we distinguish coarse woody debris, as lying deadwood with minimal diameter 7 cm at the thinner end (all pieces present on an inventory plot are measured), and small-sized lying deadwood with diameter between 1-7 cm (line intersect sampling methods).  Detailed measurements in the year 2005-2006 showed the total volume of lying deadwood 28.2 m3 per hectar (of which small-sized deadwood 10,4 m3), in the year 2015-2016 28.0 m3 per hectar respectively (of it small sized  8.7 m3). For this reporting only a part of lying deadwood  with minimum 10 cm diamater) was selected, the total volume thus decreaesed to 19.3 m3 per hectar. The trend since 2005 is from balanced to slightly increasing."
+76,SVN,4.5,Standing deadwood,Standing deadwood includes standing dead trees and snags,Data for yr. 2005 and 2010 are an estimations made on the basis of linear inter- and ekstrapolation of 2000 and 2007 data. Data for forest 2015 is interpolation between 2012 and 2018. Data for OW and FOWL is interpolated between the value 2010 and 2018. Reason is that in 2018 for the first time the plots were devided on F and OW.
+77,SVN,4.5,Lying deadwood,"Lying deadwood includes lying dead trees, woody tree parts (e.g. branches, broken-off tree tops, twigs …) and stumps",Data for yr. 2005 and 2010 are an estimations made on the basis of linear inter- and ekstrapolation of 2000 and 2007 data. Data for forest 2015 is interpolation between 2012 and 2018. Data for OW and FOWL is interpolated between the value 2010 and 2018. Reason is that in 2018 for the first time the plots were devided on F and OW.
+78,ESP,4.5,Standing deadwood,"Includes standing: trees, regeneration, stumps",Not all the provinces have been measures. Expansions at national level have been used considering the ratio living/ dead biomass by forest type. It is not possible to project to 2020 as there have not been two cycles.
+79,ESP,4.5,Lying deadwood,"Includes lying: trees, regeneration, branches, accumulations",Not all the provinces have been measures. Expansions at national level have been used considering the ratio living/ dead biomass by forest type. It is not possible to project to 2020 as there have not been two cycles.
+80,SWE,4.5,Standing deadwood,Inclination on dead wood objects registered in the field,Increasing
+81,SWE,4.5,Lying deadwood,Inclination on dead wood objects registered in the field,Increasing
+82,CHE,4.5,Standing deadwood,,
+83,CHE,4.5,Lying deadwood,"From a recent subsample of the forest inventory we have information of lying deadwood that corresponds to the definition given by SoEF. The lying deadwood, as it should be reportet is about 1.8 times higher than given in the table above.",
+84,MKD,4.5,Standing deadwood,,
+85,MKD,4.5,Lying deadwood,,
+86,TUR,4.5,Standing deadwood,,
+87,TUR,4.5,Lying deadwood,,
+88,UKR,4.5,Standing deadwood,,
+89,UKR,4.5,Lying deadwood,,
+90,GBR,4.5,Standing deadwood,"Overall deadwood estimates have been revised, but breakdown into standing and lying deadwood is not currently available.",Information on trends is not available.  Data are currently based on a single estimate from the National Forest Inventory.
+91,GBR,4.5,Lying deadwood,As above,As above.

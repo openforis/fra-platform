@@ -1,0 +1,139 @@
+,country,indicator,item,comment
+0,ALB,4.3,- the recent available year,
+1,ALB,4.3,- extrapolation,
+2,ALB,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+3,AND,4.3,- the recent available year,
+4,AND,4.3,- extrapolation,
+5,AND,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+6,AUT,4.3,- the recent available year,"The reported ""Undisturbed by man"" data are based on the hemeroby study (See ""data sources""!). The results of this singular study (Forest + OWL: 3% natural; OWL: 47% natural) are used for breaking down forest and OWL area to all reference years."
+7,AUT,4.3,- extrapolation,Forest and OWL area are linear extrapolated.
+8,AUT,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+9,BLR,4.3,- последний имеющийся год,2017
+10,BLR,4.3,- экстраполяция,экстраполяция
+11,BLR,4.3,"- оценка, имеющая обоснование (например, прогнозы, перспективы, программы лесоразведения, цели лесной политики)",
+12,BEL,4.3,- the recent available year,
+13,BEL,4.3,- extrapolation,linear extrapolation
+14,BEL,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+15,BIH,4.3,- the recent available year,
+16,BIH,4.3,- extrapolation,
+17,BIH,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+18,BGR,4.3,- the recent available year,
+19,BGR,4.3,- extrapolation,yes
+20,BGR,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+21,HRV,4.3,- the recent available year,
+22,HRV,4.3,- extrapolation,
+23,HRV,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+24,CYP,4.3,- the recent available year,
+25,CYP,4.3,- extrapolation,
+26,CYP,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+27,CZE,4.3,- the recent available year,undisturbed by man category relates to 2012 study and total figure is considered as stable for all years
+28,CZE,4.3,- extrapolation,Semi-natural category is calculated based on the estimation of total forest area
+29,CZE,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+30,DNK,4.3,- the recent available year,Yes (measurements 2013-2017)
+31,DNK,4.3,- extrapolation,Yes - total forest area using the extrapolation of FRA 2020)
+32,DNK,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",No
+33,EST,4.3,- the recent available year,2017
+34,EST,4.3,- extrapolation,no
+35,EST,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",no
+36,FIN,4.3,- the recent available year,Yes
+37,FIN,4.3,- extrapolation,
+38,FIN,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+39,FRA,4.3,- the recent available year,
+40,FRA,4.3,- extrapolation,"The 2020 values for ""semi-natural forests"" (4.3a) and ""established by planting"" (4.3b) categories is estimated by extrapolation (see 1.1)"
+41,FRA,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+42,GEO,4.3,- the recent available year,"No forest inventories have been implemented for decades, therefore no reliable information is available until we get the results from the first Georgien National Forest Inventory, which are expected to be available in 2020. Therefore, we took for 2020 the same figures as in 2015 report. As wrong figures hade been provided for the past years they have been corrected according to the Forest Europe definition for forest undisturbed by man and semi-natural forest"
+43,GEO,4.3,- extrapolation,
+44,GEO,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+45,DEU,4.3,- the recent available year,
+46,DEU,4.3,- extrapolation,
+47,DEU,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+48,GRC,4.3,- the recent available year,
+49,GRC,4.3,- extrapolation,
+50,GRC,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+51,VAT,4.3,- the recent available year,
+52,VAT,4.3,- extrapolation,
+53,VAT,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+54,HUN,4.3,- the recent available year,
+55,HUN,4.3,- extrapolation,linear extrapolation
+56,HUN,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+57,ISL,4.3,- the recent available year,
+58,ISL,4.3,- extrapolation,"Mostly extrapolation, also regression. For more details see FRA2020"
+59,ISL,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+60,IRL,4.3,- the recent available year,Basline of 2017 NFI was used
+61,IRL,4.3,- extrapolation,"An afforestation rate of 4,000ha per annum was used."
+62,IRL,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",Forecast of national afforestation programme.
+63,ITA,4.3,- the recent available year,
+64,ITA,4.3,- extrapolation,Figures on seminatural forests and plantations are derived by the percentage of the same categories compared to the total  forest area observed in NFI2005.
+65,ITA,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",The area of the class undisturbed by man was supposed to be stable because of legal restrictions
+66,LVA,4.3,- the recent available year,
+67,LVA,4.3,- extrapolation,linear extrapolation
+68,LVA,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+69,LIE,4.3,- the recent available year,
+70,LIE,4.3,- extrapolation,
+71,LIE,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+72,LTU,4.3,- the recent available year,
+73,LTU,4.3,- extrapolation,of 2005; 2010; 2015
+74,LTU,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+75,LUX,4.3,- the recent available year,
+76,LUX,4.3,- extrapolation,
+77,LUX,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+78,MLT,4.3,- the recent available year,
+79,MLT,4.3,- extrapolation,
+80,MLT,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+81,MDA,4.3,последний имеющийся год,
+82,MDA,4.3,экстраполяция,
+83,MDA,4.3,"оценка, имеющая обоснование (например, прогнозы, перспективы, программы лесоразведения, цели лесной политики)",
+84,MCO,4.3,- the recent available year,
+85,MCO,4.3,- extrapolation,
+86,MCO,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+87,MNE,4.3,- the recent available year,
+88,MNE,4.3,- extrapolation,
+89,MNE,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+90,NLD,4.3,- the recent available year,2017
+91,NLD,4.3,- extrapolation,"Extrapolation was performed using the data from the 5th and 6th NFI, After implementing the newly calculated total forest area."
+92,NLD,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+93,NOR,4.3,- the recent available year,"It is assumed that the area of ""undisturbed by man"" and ""plantations"" will be the same as in 2015."
+94,NOR,4.3,- extrapolation,
+95,NOR,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+96,POL,4.3,- the recent available year,2015 - for plantations and origin of forests
+97,POL,4.3,- extrapolation,total forest area - see comments in table 1.1
+98,POL,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+99,PRT,4.3,- the recent available year,2015
+100,PRT,4.3,- extrapolation,1990 and 2000
+101,PRT,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+102,ROU,4.3,- the recent available year,National Forest Inventory (2018)
+103,ROU,4.3,- extrapolation,
+104,ROU,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+105,RUS,4.3,- the recent available year,
+106,RUS,4.3,- extrapolation,
+107,RUS,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+108,SRB,4.3,- the recent available year,
+109,SRB,4.3,- extrapolation,
+110,SRB,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+111,SVK,4.3,- the recent available year,2017
+112,SVK,4.3,- extrapolation,No
+113,SVK,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",No
+114,SVN,4.3,- the recent available year,2017
+115,SVN,4.3,- extrapolation,no
+116,SVN,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+117,ESP,4.3,- the recent available year,
+118,ESP,4.3,- extrapolation,We extrapolate to 2020 based on the estimation of mean annual changes for each variable in the period cover by the different NFI cycles (1990-2017).
+119,ESP,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+120,SWE,4.3,- the recent available year,
+121,SWE,4.3,- extrapolation,No change
+122,SWE,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+123,CHE,4.3,- the recent available year,For coppice and plantations.
+124,CHE,4.3,- extrapolation,For naturally established and established by planting/seeding.
+125,CHE,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+126,MKD,4.3,- the recent available year,
+127,MKD,4.3,- extrapolation,
+128,MKD,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+129,TUR,4.3,- the recent available year,
+130,TUR,4.3,- extrapolation,
+131,TUR,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",The average of the available years
+132,UKR,4.3,- the recent available year,
+133,UKR,4.3,- extrapolation,
+134,UKR,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+135,GBR,4.3,- the recent available year,Assumed to be little change over time in the area of semi-natural woodland.  Plantations derived as total forest area (from table 1.1) less semi-natural area.
+136,GBR,4.3,- extrapolation,
+137,GBR,4.3,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",

@@ -7,6 +7,7 @@ export {
   useMosaicPending,
   useMosaicSelected,
   useMosaicUrl,
+  useProtectedAreasOptions,
   useSelectedPanel,
   useUiMosaicOptions,
 } from './hooks'

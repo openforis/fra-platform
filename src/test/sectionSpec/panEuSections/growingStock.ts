@@ -1727,6 +1727,7 @@ export const growingStock = {
     },
     {
       titleKey: 'panEuropean.reasonabilityChecks.reasonabilityCheck',
+      descriptionKey: 'panEuropean.reasonabilityChecks.description',
       tableSpecs: [
         {
           name: 'reasonability_check_1_2',
@@ -2144,6 +2145,7 @@ export const growingStock = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'theRecentAvailableYear',
               cols: [
                 {
                   idx: 'header_0',
@@ -2160,12 +2162,13 @@ export const growingStock = {
                   className: 'fra-table__header-cell',
                   type: 'placeholder',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 1, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 1,
               type: 'data',
+              variableName: 'extrapolation',
               cols: [
                 {
                   idx: 'header_0',
@@ -2174,21 +2177,22 @@ export const growingStock = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 2,
               type: 'data',
+              variableName: 'assessmentBasedOnEvidence',
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.assessementBasedOnEvidence',
+                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
           ],
@@ -2199,7 +2203,7 @@ export const growingStock = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['theYearAndDataReported'] },
+            columnNames: { '2025': ['comment'] },
           },
         },
       ],
@@ -2226,21 +2230,22 @@ export const growingStock = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'valuesAccordingFaoDefinitionGrowingStock',
               cols: [
                 {
                   idx: 0,
                   colSpan: 2,
-                  labelKey:
-                    'panEuropean.countryComments.pleaseIndicateIfReportedValuesAreAccoringToTheFaoDefinitionOfGrowingStock',
+                  labelKey: 'panEuropean.countryComments.valuesAccordingFaoDefinitionGrowingStock',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
+                { idx: 1, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 1,
               type: 'data',
+              variableName: 'minimumDiameter',
               cols: [
                 {
                   idx: 'header_0',
@@ -2258,12 +2263,13 @@ export const growingStock = {
                   className: 'fra-table__header-cell',
                   type: 'placeholder',
                 },
-                { idx: 1, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 2,
               type: 'data',
+              variableName: 'minimumTopDiameterUsed',
               cols: [
                 {
                   idx: 'header_0',
@@ -2273,12 +2279,13 @@ export const growingStock = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 3,
               type: 'data',
+              variableName: 'minimumBranchDiameterUsed',
               cols: [
                 {
                   idx: 'header_0',
@@ -2288,12 +2295,13 @@ export const growingStock = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 4,
               type: 'data',
+              variableName: 'isVolumeAboveGroundOrAboveStump',
               cols: [
                 {
                   idx: 'header_0',
@@ -2303,7 +2311,7 @@ export const growingStock = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
           ],
@@ -2314,7 +2322,7 @@ export const growingStock = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['approachToReportingOnGrowingStock'] },
+            columnNames: { '2025': ['comment'] },
           },
         },
       ],
@@ -2354,96 +2362,29 @@ export const growingStock = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'generalComments',
+              'growingStockOnForestArea',
+              'ofWhichAvailableForWoodSupply',
+              'growingStockOnOwl',
+              'growingStockOnFowls',
+              'forestTypes',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.generalComments',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.growingStockOnForestArea',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.ofWhichAvailableForWoodSupply',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.growingStockOnOwl',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 4,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.growingStockOnFowls',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 5,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forestTypes',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -2452,7 +2393,7 @@ export const growingStock = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],

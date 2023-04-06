@@ -1,0 +1,967 @@
+,country,indicator,notes
+0,ALB,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+1,ALB,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+2,ALB,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+3,ALB,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+4,ALB,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+5,ALB,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+6,ALB,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+7,ALB,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+8,ALB,6.2,9.       The main sources for value-added are the following:
+9,ALB,6.2,1)      For EU/EFTA countries
+10,ALB,6.2,a.       Eurostat - National Accounts
+11,ALB,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+12,ALB,6.2,b.      Eurostat – European Forest Accounts (EFA)
+13,ALB,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+14,ALB,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+15,ALB,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+16,ALB,6.2,2)      For other countries (non-EU):
+17,ALB,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+18,ALB,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+19,ALB,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+20,ALB,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+21,AND,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+22,AND,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+23,AND,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+24,AND,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+25,AND,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+26,AND,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+27,AND,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+28,AND,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+29,AND,6.2,9.       The main sources for value-added are the following:
+30,AND,6.2,1)      For EU/EFTA countries
+31,AND,6.2,a.       Eurostat - National Accounts
+32,AND,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+33,AND,6.2,b.      Eurostat – European Forest Accounts (EFA)
+34,AND,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+35,AND,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+36,AND,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+37,AND,6.2,2)      For other countries (non-EU):
+38,AND,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+39,AND,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+40,AND,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+41,AND,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+42,AUT,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+43,AUT,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+44,AUT,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+45,AUT,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+46,AUT,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+47,AUT,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+48,AUT,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+49,AUT,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+50,AUT,6.2,9.       The main sources for value-added are the following:
+51,AUT,6.2,1)      For EU/EFTA countries
+52,AUT,6.2,a.       Eurostat - National Accounts
+53,AUT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+54,AUT,6.2,b.      Eurostat – European Forest Accounts (EFA)
+55,AUT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+56,AUT,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+57,AUT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+58,AUT,6.2,2)      For other countries (non-EU):
+59,AUT,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+60,AUT,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+61,AUT,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+62,AUT,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+63,BLR,6.2,1.     Связь с ОЛР/ОВЛР 2020: эта отчетная форма не имеет аналогов в глобальной отчетности.
+64,BLR,6.2,"2.      Предварительное заполнение: Эта таблица была предварительно заполнена данными, взятыми из базы данных EUROSTAT доступной на: http://ec.europa.eu/eurostat/data/database (национальные счета агрегируют по отраслям [nama_10_a64]). Данные по ежегодным национальным счетам (ВВП и главные компоненты [nama_10_gdp]) были использованны как деноменатор для подсчета процента."
+65,BLR,6.2,"3.     Исходные годы: Значения отчетных годов относятся к состоянию в исходном году “центральном году”  (1990, 2000, 2005, 2010, 2015) указанному в таблице, или к ближайшему году, для которого данные доступны."
+66,BLR,6.2,"4.     Валюта: Данные за каждый год должны быть указаны в отчете в государственной валюте. Страны должны ясно явно указать какая государственная валюта представлена в отчете (и за какие годы, если отличается) в таблице ""Национальная валюта в отчетных годах""."
+67,BLR,6.2,"5.      Для оценки вклада во Внутренний Валовый Продукт (ВВП), должны использоваться данные о Валовой Добавленной Стоимости (ВДС). В ВДС измеряется вклад в экономику каждого отдельного производителя, промышленности или сектора в стране. Связь между ВДС и ВВП может быть определена как: ВДС + налоги на продукцию – дотации на продукцию = ВВП."
+68,BLR,6.2,"6.       Таблица была предварительно заполнена данными Национальных счетов Евростат. В помощь рекомендуется консультация чиновника, ведущего статистику, работающего в системе национальных счетов или статистического корреспондента ИЭЭУЛ в вашей стране. Данные ИЭЭУЛ, если имеются в вашей стране, могут послужить основой для категории ""Лесное хозяйство (ISIC/ NACE 02)""."
+69,BLR,6.2,"7.      Для периода 2010 по 2008, должны использоваться категории NACE/ISIC (02, 16, 17) а для предыдущих лет, бывшие категории NACE/ISIC (02, 20, 21). Внесение поправок при переходе от старых к новым категориям NACE/ISIC не нужно."
+70,BLR,6.2,"8.      Данные по ВДС для каждой экономической деятельности должны иметься от национальных счетов, подготовленные национальным статистическим органом страны. Если используется другой источник, объяснить в заметках."
+71,BLR,6.2,9.       Главными источниками добавленной стоимости являются:
+72,BLR,6.2,1)       Для стран ЕС/ЕАСТ
+73,BLR,6.2,a.       Евростат – Национальные счета
+74,BLR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+75,BLR,6.2,b.       Евростат – Интегрированный экологический и экономический учет лесов (ИЭЭУЛ)
+76,BLR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+77,BLR,6.2,c.       Евростат – Eжегодная подробная статистика предприятий - промышленность и строительство
+78,BLR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+79,BLR,6.2,2)       Для других стран (не ЕС):
+80,BLR,6.2,a.       Международный ежегодный справочник ЮНИДО по промышленной статистике
+81,BLR,6.2,(публикация может быть заказана по адресу  http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) и Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+82,BLR,6.2,b.      Данные UNIDO (Организации Объединенных Наций по промышленному развитию) (http://data.un.org/Explorer.aspx?d=SNA)
+83,BLR,6.2,"3)      Для всех стран (если статистику нельзя получить в Евростате и UNIDO (Организации Объединенных Наций по промышленному развитию), должна проверяться статистика, имеющаяся от национального бюро статистики; основные ссылки на список источников относительно отдельной страны, перечислены в публикации по электронному адресу:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+84,BEL,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+85,BEL,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+86,BEL,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+87,BEL,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+88,BEL,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+89,BEL,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+90,BEL,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+91,BEL,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+92,BEL,6.2,9.       The main sources for value-added are the following:
+93,BEL,6.2,1)      For EU/EFTA countries
+94,BEL,6.2,a.       Eurostat - National Accounts
+95,BEL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+96,BEL,6.2,b.      Eurostat – European Forest Accounts (EFA)
+97,BEL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+98,BEL,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+99,BEL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+100,BEL,6.2,2)      For other countries (non-EU):
+101,BEL,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+102,BEL,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+103,BEL,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+104,BEL,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+105,BIH,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+106,BIH,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+107,BIH,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+108,BIH,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+109,BIH,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+110,BIH,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+111,BIH,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+112,BIH,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+113,BIH,6.2,9.       The main sources for value-added are the following:
+114,BIH,6.2,1)      For EU/EFTA countries
+115,BIH,6.2,a.       Eurostat - National Accounts
+116,BIH,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+117,BIH,6.2,b.      Eurostat – European Forest Accounts (EFA)
+118,BIH,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+119,BIH,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+120,BIH,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+121,BIH,6.2,2)      For other countries (non-EU):
+122,BIH,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+123,BIH,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+124,BIH,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+125,BIH,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+126,BGR,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+127,BGR,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+128,BGR,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+129,BGR,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+130,BGR,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+131,BGR,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+132,BGR,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+133,BGR,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+134,BGR,6.2,9.       The main sources for value-added are the following:
+135,BGR,6.2,1)      For EU/EFTA countries
+136,BGR,6.2,a.       Eurostat - National Accounts
+137,BGR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+138,BGR,6.2,b.      Eurostat – European Forest Accounts (EFA)
+139,BGR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+140,BGR,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+141,BGR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+142,BGR,6.2,2)      For other countries (non-EU):
+143,BGR,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+144,BGR,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+145,BGR,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+146,BGR,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+147,HRV,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+148,HRV,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+149,HRV,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+150,HRV,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+151,HRV,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+152,HRV,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+153,HRV,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+154,HRV,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+155,HRV,6.2,9.       The main sources for value-added are the following:
+156,HRV,6.2,1)      For EU/EFTA countries
+157,HRV,6.2,a.       Eurostat - National Accounts
+158,HRV,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+159,HRV,6.2,b.      Eurostat – European Forest Accounts (EFA)
+160,HRV,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+161,HRV,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+162,HRV,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+163,HRV,6.2,2)      For other countries (non-EU):
+164,HRV,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+165,HRV,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+166,HRV,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+167,HRV,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+168,CYP,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+169,CYP,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+170,CYP,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+171,CYP,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+172,CYP,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+173,CYP,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+174,CYP,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+175,CYP,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+176,CYP,6.2,9.       The main sources for value-added are the following:
+177,CYP,6.2,1)      For EU/EFTA countries
+178,CYP,6.2,a.       Eurostat - National Accounts
+179,CYP,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+180,CYP,6.2,b.      Eurostat – European Forest Accounts (EFA)
+181,CYP,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+182,CYP,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+183,CYP,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+184,CYP,6.2,2)      For other countries (non-EU):
+185,CYP,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+186,CYP,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+187,CYP,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+188,CYP,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+189,CZE,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+190,CZE,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+191,CZE,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+192,CZE,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+193,CZE,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+194,CZE,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+195,CZE,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+196,CZE,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+197,CZE,6.2,9.       The main sources for value-added are the following:
+198,CZE,6.2,1)      For EU/EFTA countries
+199,CZE,6.2,a.       Eurostat - National Accounts
+200,CZE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+201,CZE,6.2,b.      Eurostat – European Forest Accounts (EFA)
+202,CZE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+203,CZE,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+204,CZE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+205,CZE,6.2,2)      For other countries (non-EU):
+206,CZE,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+207,CZE,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+208,CZE,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+209,CZE,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+210,DNK,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+211,DNK,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+212,DNK,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+213,DNK,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+214,DNK,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+215,DNK,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+216,DNK,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+217,DNK,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+218,DNK,6.2,9.       The main sources for value-added are the following:
+219,DNK,6.2,1)      For EU/EFTA countries
+220,DNK,6.2,a.       Eurostat - National Accounts
+221,DNK,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+222,DNK,6.2,b.      Eurostat – European Forest Accounts (EFA)
+223,DNK,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+224,DNK,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+225,DNK,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+226,DNK,6.2,2)      For other countries (non-EU):
+227,DNK,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+228,DNK,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+229,DNK,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+230,DNK,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+231,EST,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+232,EST,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+233,EST,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+234,EST,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+235,EST,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+236,EST,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+237,EST,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+238,EST,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+239,EST,6.2,9.       The main sources for value-added are the following:
+240,EST,6.2,1)      For EU/EFTA countries
+241,EST,6.2,a.       Eurostat - National Accounts
+242,EST,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+243,EST,6.2,b.      Eurostat – European Forest Accounts (EFA)
+244,EST,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+245,EST,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+246,EST,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+247,EST,6.2,2)      For other countries (non-EU):
+248,EST,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+249,EST,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+250,EST,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+251,EST,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+252,FIN,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+253,FIN,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+254,FIN,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+255,FIN,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+256,FIN,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+257,FIN,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+258,FIN,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+259,FIN,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+260,FIN,6.2,9.       The main sources for value-added are the following:
+261,FIN,6.2,1)      For EU/EFTA countries
+262,FIN,6.2,a.       Eurostat - National Accounts
+263,FIN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+264,FIN,6.2,b.      Eurostat – European Forest Accounts (EFA)
+265,FIN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+266,FIN,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+267,FIN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+268,FIN,6.2,2)      For other countries (non-EU):
+269,FIN,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+270,FIN,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+271,FIN,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+272,FIN,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+273,FRA,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+274,FRA,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+275,FRA,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+276,FRA,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+277,FRA,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+278,FRA,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+279,FRA,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+280,FRA,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+281,FRA,6.2,9.       The main sources for value-added are the following:
+282,FRA,6.2,1)      For EU/EFTA countries
+283,FRA,6.2,a.       Eurostat - National Accounts
+284,FRA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+285,FRA,6.2,b.      Eurostat – European Forest Accounts (EFA)
+286,FRA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+287,FRA,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+288,FRA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+289,FRA,6.2,2)      For other countries (non-EU):
+290,FRA,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+291,FRA,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+292,FRA,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+293,FRA,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+294,GEO,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+295,GEO,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+296,GEO,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+297,GEO,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+298,GEO,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+299,GEO,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+300,GEO,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+301,GEO,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+302,GEO,6.2,9.       The main sources for value-added are the following:
+303,GEO,6.2,1)      For EU/EFTA countries
+304,GEO,6.2,a.       Eurostat - National Accounts
+305,GEO,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+306,GEO,6.2,b.      Eurostat – European Forest Accounts (EFA)
+307,GEO,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+308,GEO,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+309,GEO,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+310,GEO,6.2,2)      For other countries (non-EU):
+311,GEO,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+312,GEO,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+313,GEO,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+314,GEO,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+315,DEU,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+316,DEU,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+317,DEU,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+318,DEU,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+319,DEU,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+320,DEU,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+321,DEU,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+322,DEU,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+323,DEU,6.2,9.       The main sources for value-added are the following:
+324,DEU,6.2,1)      For EU/EFTA countries
+325,DEU,6.2,a.       Eurostat - National Accounts
+326,DEU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+327,DEU,6.2,b.      Eurostat – European Forest Accounts (EFA)
+328,DEU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+329,DEU,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+330,DEU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+331,DEU,6.2,2)      For other countries (non-EU):
+332,DEU,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+333,DEU,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+334,DEU,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+335,DEU,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+336,GRC,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+337,GRC,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+338,GRC,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+339,GRC,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+340,GRC,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+341,GRC,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+342,GRC,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+343,GRC,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+344,GRC,6.2,9.       The main sources for value-added are the following:
+345,GRC,6.2,1)      For EU/EFTA countries
+346,GRC,6.2,a.       Eurostat - National Accounts
+347,GRC,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+348,GRC,6.2,b.      Eurostat – European Forest Accounts (EFA)
+349,GRC,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+350,GRC,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+351,GRC,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+352,GRC,6.2,2)      For other countries (non-EU):
+353,GRC,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+354,GRC,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+355,GRC,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+356,GRC,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+357,VAT,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+358,VAT,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+359,VAT,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+360,VAT,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+361,VAT,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+362,VAT,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+363,VAT,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+364,VAT,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+365,VAT,6.2,9.       The main sources for value-added are the following:
+366,VAT,6.2,1)      For EU/EFTA countries
+367,VAT,6.2,a.       Eurostat - National Accounts
+368,VAT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+369,VAT,6.2,b.      Eurostat – European Forest Accounts (EFA)
+370,VAT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+371,VAT,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+372,VAT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+373,VAT,6.2,2)      For other countries (non-EU):
+374,VAT,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+375,VAT,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+376,VAT,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+377,VAT,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+378,HUN,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+379,HUN,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+380,HUN,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+381,HUN,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+382,HUN,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+383,HUN,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+384,HUN,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+385,HUN,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+386,HUN,6.2,9.       The main sources for value-added are the following:
+387,HUN,6.2,1)      For EU/EFTA countries
+388,HUN,6.2,a.       Eurostat - National Accounts
+389,HUN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+390,HUN,6.2,b.      Eurostat – European Forest Accounts (EFA)
+391,HUN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+392,HUN,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+393,HUN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+394,HUN,6.2,2)      For other countries (non-EU):
+395,HUN,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+396,HUN,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+397,HUN,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+398,HUN,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+399,ISL,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+400,ISL,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+401,ISL,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+402,ISL,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+403,ISL,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+404,ISL,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+405,ISL,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+406,ISL,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+407,ISL,6.2,9.       The main sources for value-added are the following:
+408,ISL,6.2,1)      For EU/EFTA countries
+409,ISL,6.2,a.       Eurostat - National Accounts
+410,ISL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+411,ISL,6.2,b.      Eurostat – European Forest Accounts (EFA)
+412,ISL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+413,ISL,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+414,ISL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+415,ISL,6.2,2)      For other countries (non-EU):
+416,ISL,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+417,ISL,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+418,ISL,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+419,ISL,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+420,IRL,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+421,IRL,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+422,IRL,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+423,IRL,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+424,IRL,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+425,IRL,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+426,IRL,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+427,IRL,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+428,IRL,6.2,9.       The main sources for value-added are the following:
+429,IRL,6.2,1)      For EU/EFTA countries
+430,IRL,6.2,a.       Eurostat - National Accounts
+431,IRL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+432,IRL,6.2,b.      Eurostat – European Forest Accounts (EFA)
+433,IRL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+434,IRL,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+435,IRL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+436,IRL,6.2,2)      For other countries (non-EU):
+437,IRL,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+438,IRL,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+439,IRL,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+440,IRL,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+441,ITA,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+442,ITA,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+443,ITA,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+444,ITA,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+445,ITA,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+446,ITA,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+447,ITA,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+448,ITA,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+449,ITA,6.2,9.       The main sources for value-added are the following:
+450,ITA,6.2,1)      For EU/EFTA countries
+451,ITA,6.2,a.       Eurostat - National Accounts
+452,ITA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+453,ITA,6.2,b.      Eurostat – European Forest Accounts (EFA)
+454,ITA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+455,ITA,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+456,ITA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+457,ITA,6.2,2)      For other countries (non-EU):
+458,ITA,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+459,ITA,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+460,ITA,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+461,ITA,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+462,LVA,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+463,LVA,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+464,LVA,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+465,LVA,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+466,LVA,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+467,LVA,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+468,LVA,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+469,LVA,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+470,LVA,6.2,9.       The main sources for value-added are the following:
+471,LVA,6.2,1)      For EU/EFTA countries
+472,LVA,6.2,a.       Eurostat - National Accounts
+473,LVA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+474,LVA,6.2,b.      Eurostat – European Forest Accounts (EFA)
+475,LVA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+476,LVA,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+477,LVA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+478,LVA,6.2,2)      For other countries (non-EU):
+479,LVA,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+480,LVA,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+481,LVA,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+482,LVA,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+483,LIE,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+484,LIE,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+485,LIE,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+486,LIE,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+487,LIE,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+488,LIE,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+489,LIE,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+490,LIE,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+491,LIE,6.2,9.       The main sources for value-added are the following:
+492,LIE,6.2,1)      For EU/EFTA countries
+493,LIE,6.2,a.       Eurostat - National Accounts
+494,LIE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+495,LIE,6.2,b.      Eurostat – European Forest Accounts (EFA)
+496,LIE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+497,LIE,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+498,LIE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+499,LIE,6.2,2)      For other countries (non-EU):
+500,LIE,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+501,LIE,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+502,LIE,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+503,LIE,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+504,LTU,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+505,LTU,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+506,LTU,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+507,LTU,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+508,LTU,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+509,LTU,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+510,LTU,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+511,LTU,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+512,LTU,6.2,9.       The main sources for value-added are the following:
+513,LTU,6.2,1)      For EU/EFTA countries
+514,LTU,6.2,a.       Eurostat - National Accounts
+515,LTU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+516,LTU,6.2,b.      Eurostat – European Forest Accounts (EFA)
+517,LTU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+518,LTU,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+519,LTU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+520,LTU,6.2,2)      For other countries (non-EU):
+521,LTU,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+522,LTU,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+523,LTU,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+524,LTU,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+525,LUX,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+526,LUX,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+527,LUX,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+528,LUX,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+529,LUX,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+530,LUX,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+531,LUX,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+532,LUX,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+533,LUX,6.2,9.       The main sources for value-added are the following:
+534,LUX,6.2,1)      For EU/EFTA countries
+535,LUX,6.2,a.       Eurostat - National Accounts
+536,LUX,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+537,LUX,6.2,b.      Eurostat – European Forest Accounts (EFA)
+538,LUX,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+539,LUX,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+540,LUX,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+541,LUX,6.2,2)      For other countries (non-EU):
+542,LUX,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+543,LUX,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+544,LUX,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+545,LUX,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+546,MLT,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+547,MLT,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+548,MLT,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+549,MLT,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+550,MLT,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+551,MLT,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+552,MLT,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+553,MLT,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+554,MLT,6.2,9.       The main sources for value-added are the following:
+555,MLT,6.2,1)      For EU/EFTA countries
+556,MLT,6.2,a.       Eurostat - National Accounts
+557,MLT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+558,MLT,6.2,b.      Eurostat – European Forest Accounts (EFA)
+559,MLT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+560,MLT,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+561,MLT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+562,MLT,6.2,2)      For other countries (non-EU):
+563,MLT,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+564,MLT,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+565,MLT,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+566,MLT,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+567,MDA,6.2,1.      Связь с ОЛР/ОВЛР 2020: эта отчетная форма не имеет аналогов в глобальной отчетности.
+568,MDA,6.2,"2.      Предварительное заполнение: Эта таблица была предварительно заполнена данными, взятыми из базы данных EUROSTAT доступной на: http://ec.europa.eu/eurostat/data/database (национальные счета агрегируют по отраслям [nama_10_a64]). Данные по ежегодным национальным счетам (ВВП и главные компоненты [nama_10_gdp]) были использованны как деноменатор для подсчета процента."
+569,MDA,6.2,"3.     Исходные годы: Значения отчетных годов относятся к состоянию в исходном году “центральном году”  (1990, 2000, 2005, 2010, 2015) указанному в таблице, или к ближайшему году, для которого данные доступны."
+570,MDA,6.2,"4.      Валюта: Данные за каждый год должны быть указаны в отчете в государственной валюте. Страны должны ясно явно указать какая государственная валюта представлена в отчете(и за какие годы, если отличается) в таблице"
+571,MDA,6.2,"5.      Для оценки вклада во Внутренний Валовый Продукт (ВВП), должны использоваться данные о Валовой Добавленной Стоимости (ВДС). В ВДС измеряется вклад в экономику каждого отдельного производителя, промышленности или сектора в стране. Связь между ВДС и ВВП может быть определена как: ВДС + налоги на продукцию – дотации на продукцию = ВВП."
+572,MDA,6.2,"6.       Таблица была предварительно заполнена данными Национальных счетов Евростат. В помощь рекомендуется консультация чиновника, ведущего статистику, работающего в системе национальных счетов или статистического корреспондента ИЭЭУЛ в вашей стране. Данные ИЭЭУЛ, если имеются в вашей стране, могут послужить основой для категории Лесное хозяйство (ISIC/ NACE 02)."
+573,MDA,6.2,"7.      Для периода 2010 по 2008, должны использоваться категории NACE/ISIC (02, 16, 17) а для предыдущих лет, бывшие категории NACE/ISIC (02, 20, 21). Внесение поправок при переходе от старых к новым категориям NACE/ISIC не нужно."
+574,MDA,6.2,"8.      Данные по ВДС для каждой экономической деятельности должны иметься от национальных счетов, подготовленные национальным статистическим органом страны. Если используется другой источник, объяснить в заметках"
+575,MDA,6.2,9.       Главными источниками добавленной стоимости являются:
+576,MDA,6.2,1)      Для стран ЕС/ЕАСТ
+577,MDA,6.2,a.       Евростат – Национальные счета
+578,MDA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+579,MDA,6.2,b.      Евростат – Интегрированный экологический и экономический учет лесов (ИЭЭУЛ)
+580,MDA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+581,MDA,6.2,c.      Евростат -   ежегодная подробная статистика предприятий - промышленность и строительство
+582,MDA,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+583,MDA,6.2,2)      Для других стран (не ЕС):
+584,MDA,6.2,a.       Международный ежегодный справочник ЮНИДО по промышленной статистике
+585,MDA,6.2,(публикация может быть заказана по адресу  http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) и Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+586,MDA,6.2,b.      Данные  UNIDO (Организации Объединенных Наций по промышленному развитию) (http://data.un.org/Explorer.aspx?d=SNA)
+587,MDA,6.2,"3)     Для всех стран (если статистику нельзя получить в Евростате и UNIDO (Организации Объединенных Наций по промышленному развитию), должна проверяться статистика, имеющаяся от национального бюро статистики; основные ссылки на список источников относительно отдельной страны, перечислены в публикации по электронному адресу:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+588,MCO,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+589,MCO,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+590,MCO,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+591,MCO,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+592,MCO,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+593,MCO,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+594,MCO,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+595,MCO,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+596,MCO,6.2,9.       The main sources for value-added are the following:
+597,MCO,6.2,1)      For EU/EFTA countries
+598,MCO,6.2,a.       Eurostat - National Accounts
+599,MCO,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+600,MCO,6.2,b.      Eurostat – European Forest Accounts (EFA)
+601,MCO,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+602,MCO,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+603,MCO,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+604,MCO,6.2,2)      For other countries (non-EU):
+605,MCO,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+606,MCO,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+607,MCO,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+608,MCO,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+609,MNE,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+610,MNE,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+611,MNE,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+612,MNE,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+613,MNE,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+614,MNE,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+615,MNE,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+616,MNE,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+617,MNE,6.2,9.       The main sources for value-added are the following:
+618,MNE,6.2,1)      For EU/EFTA countries
+619,MNE,6.2,a.       Eurostat - National Accounts
+620,MNE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+621,MNE,6.2,b.      Eurostat – European Forest Accounts (EFA)
+622,MNE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+623,MNE,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+624,MNE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+625,MNE,6.2,2)      For other countries (non-EU):
+626,MNE,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+627,MNE,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+628,MNE,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+629,MNE,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+630,NLD,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+631,NLD,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+632,NLD,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+633,NLD,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+634,NLD,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+635,NLD,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+636,NLD,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+637,NLD,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+638,NLD,6.2,9.       The main sources for value-added are the following:
+639,NLD,6.2,1)      For EU/EFTA countries
+640,NLD,6.2,a.       Eurostat - National Accounts
+641,NLD,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+642,NLD,6.2,b.      Eurostat – European Forest Accounts (EFA)
+643,NLD,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+644,NLD,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+645,NLD,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+646,NLD,6.2,2)      For other countries (non-EU):
+647,NLD,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+648,NLD,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+649,NLD,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+650,NLD,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+651,NOR,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+652,NOR,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+653,NOR,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+654,NOR,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+655,NOR,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+656,NOR,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+657,NOR,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+658,NOR,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+659,NOR,6.2,9.       The main sources for value-added are the following:
+660,NOR,6.2,1)      For EU/EFTA countries
+661,NOR,6.2,a.       Eurostat - National Accounts
+662,NOR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+663,NOR,6.2,b.      Eurostat – European Forest Accounts (EFA)
+664,NOR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+665,NOR,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+666,NOR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+667,NOR,6.2,2)      For other countries (non-EU):
+668,NOR,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+669,NOR,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+670,NOR,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+671,NOR,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+672,POL,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+673,POL,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+674,POL,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+675,POL,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+676,POL,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+677,POL,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+678,POL,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+679,POL,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+680,POL,6.2,9.       The main sources for value-added are the following:
+681,POL,6.2,1)      For EU/EFTA countries
+682,POL,6.2,a.       Eurostat - National Accounts
+683,POL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+684,POL,6.2,b.      Eurostat – European Forest Accounts (EFA)
+685,POL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+686,POL,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+687,POL,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+688,POL,6.2,2)      For other countries (non-EU):
+689,POL,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+690,POL,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+691,POL,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+692,POL,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+693,PRT,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+694,PRT,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+695,PRT,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+696,PRT,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+697,PRT,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+698,PRT,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+699,PRT,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+700,PRT,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+701,PRT,6.2,9.       The main sources for value-added are the following:
+702,PRT,6.2,1)      For EU/EFTA countries
+703,PRT,6.2,a.       Eurostat - National Accounts
+704,PRT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+705,PRT,6.2,b.      Eurostat – European Forest Accounts (EFA)
+706,PRT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+707,PRT,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+708,PRT,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+709,PRT,6.2,2)      For other countries (non-EU):
+710,PRT,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+711,PRT,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+712,PRT,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+713,PRT,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+714,ROU,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+715,ROU,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+716,ROU,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+717,ROU,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+718,ROU,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+719,ROU,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+720,ROU,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+721,ROU,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+722,ROU,6.2,9.       The main sources for value-added are the following:
+723,ROU,6.2,1)      For EU/EFTA countries
+724,ROU,6.2,a.       Eurostat - National Accounts
+725,ROU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+726,ROU,6.2,b.      Eurostat – European Forest Accounts (EFA)
+727,ROU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+728,ROU,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+729,ROU,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+730,ROU,6.2,2)      For other countries (non-EU):
+731,ROU,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+732,ROU,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+733,ROU,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+734,ROU,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+735,RUS,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+736,RUS,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+737,RUS,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+738,RUS,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+739,RUS,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+740,RUS,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+741,RUS,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+742,RUS,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+743,RUS,6.2,9.       The main sources for value-added are the following:
+744,RUS,6.2,1)      For EU/EFTA countries
+745,RUS,6.2,a.       Eurostat - National Accounts
+746,RUS,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+747,RUS,6.2,b.      Eurostat – European Forest Accounts (EFA)
+748,RUS,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+749,RUS,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+750,RUS,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+751,RUS,6.2,2)      For other countries (non-EU):
+752,RUS,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+753,RUS,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+754,RUS,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+755,RUS,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+756,SRB,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+757,SRB,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+758,SRB,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+759,SRB,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+760,SRB,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+761,SRB,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+762,SRB,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+763,SRB,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+764,SRB,6.2,9.       The main sources for value-added are the following:
+765,SRB,6.2,1)      For EU/EFTA countries
+766,SRB,6.2,a.       Eurostat - National Accounts
+767,SRB,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+768,SRB,6.2,b.      Eurostat – European Forest Accounts (EFA)
+769,SRB,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+770,SRB,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+771,SRB,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+772,SRB,6.2,2)      For other countries (non-EU):
+773,SRB,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+774,SRB,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+775,SRB,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+776,SRB,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+777,SVK,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+778,SVK,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+779,SVK,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+780,SVK,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+781,SVK,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+782,SVK,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+783,SVK,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+784,SVK,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+785,SVK,6.2,9.       The main sources for value-added are the following:
+786,SVK,6.2,1)      For EU/EFTA countries
+787,SVK,6.2,a.       Eurostat - National Accounts
+788,SVK,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+789,SVK,6.2,b.      Eurostat – European Forest Accounts (EFA)
+790,SVK,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+791,SVK,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+792,SVK,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+793,SVK,6.2,2)      For other countries (non-EU):
+794,SVK,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+795,SVK,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+796,SVK,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+797,SVK,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+798,SVN,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+799,SVN,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+800,SVN,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+801,SVN,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+802,SVN,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+803,SVN,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+804,SVN,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+805,SVN,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+806,SVN,6.2,9.       The main sources for value-added are the following:
+807,SVN,6.2,1)      For EU/EFTA countries
+808,SVN,6.2,a.       Eurostat - National Accounts
+809,SVN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+810,SVN,6.2,b.      Eurostat – European Forest Accounts (EFA)
+811,SVN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+812,SVN,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+813,SVN,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+814,SVN,6.2,2)      For other countries (non-EU):
+815,SVN,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+816,SVN,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+817,SVN,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+818,SVN,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+819,ESP,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+820,ESP,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+821,ESP,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+822,ESP,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+823,ESP,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+824,ESP,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+825,ESP,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+826,ESP,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+827,ESP,6.2,9.       The main sources for value-added are the following:
+828,ESP,6.2,1)      For EU/EFTA countries
+829,ESP,6.2,a.       Eurostat - National Accounts
+830,ESP,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+831,ESP,6.2,b.      Eurostat – European Forest Accounts (EFA)
+832,ESP,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+833,ESP,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+834,ESP,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+835,ESP,6.2,2)      For other countries (non-EU):
+836,ESP,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+837,ESP,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+838,ESP,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+839,ESP,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+840,SWE,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+841,SWE,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+842,SWE,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+843,SWE,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+844,SWE,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+845,SWE,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+846,SWE,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+847,SWE,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+848,SWE,6.2,9.       The main sources for value-added are the following:
+849,SWE,6.2,1)      For EU/EFTA countries
+850,SWE,6.2,a.       Eurostat - National Accounts
+851,SWE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+852,SWE,6.2,b.      Eurostat – European Forest Accounts (EFA)
+853,SWE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+854,SWE,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+855,SWE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+856,SWE,6.2,2)      For other countries (non-EU):
+857,SWE,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+858,SWE,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+859,SWE,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+860,SWE,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+861,CHE,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+862,CHE,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+863,CHE,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+864,CHE,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+865,CHE,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+866,CHE,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+867,CHE,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+868,CHE,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+869,CHE,6.2,9.       The main sources for value-added are the following:
+870,CHE,6.2,1)      For EU/EFTA countries
+871,CHE,6.2,a.       Eurostat - National Accounts
+872,CHE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+873,CHE,6.2,b.      Eurostat – European Forest Accounts (EFA)
+874,CHE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+875,CHE,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+876,CHE,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+877,CHE,6.2,2)      For other countries (non-EU):
+878,CHE,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+879,CHE,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+880,CHE,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+881,CHE,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+882,MKD,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+883,MKD,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+884,MKD,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+885,MKD,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+886,MKD,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+887,MKD,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+888,MKD,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+889,MKD,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+890,MKD,6.2,9.       The main sources for value-added are the following:
+891,MKD,6.2,1)      For EU/EFTA countries
+892,MKD,6.2,a.       Eurostat - National Accounts
+893,MKD,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+894,MKD,6.2,b.      Eurostat – European Forest Accounts (EFA)
+895,MKD,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+896,MKD,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+897,MKD,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+898,MKD,6.2,2)      For other countries (non-EU):
+899,MKD,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+900,MKD,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+901,MKD,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+902,MKD,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+903,TUR,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+904,TUR,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+905,TUR,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+906,TUR,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+907,TUR,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+908,TUR,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+909,TUR,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+910,TUR,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+911,TUR,6.2,9.       The main sources for value-added are the following:
+912,TUR,6.2,1)      For EU/EFTA countries
+913,TUR,6.2,a.       Eurostat - National Accounts
+914,TUR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+915,TUR,6.2,b.      Eurostat – European Forest Accounts (EFA)
+916,TUR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+917,TUR,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+918,TUR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+919,TUR,6.2,2)      For other countries (non-EU):
+920,TUR,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+921,TUR,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+922,TUR,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+923,TUR,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+924,UKR,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+925,UKR,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+926,UKR,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+927,UKR,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+928,UKR,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+929,UKR,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+930,UKR,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+931,UKR,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+932,UKR,6.2,9.       The main sources for value-added are the following:
+933,UKR,6.2,1)      For EU/EFTA countries
+934,UKR,6.2,a.       Eurostat - National Accounts
+935,UKR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+936,UKR,6.2,b.      Eurostat – European Forest Accounts (EFA)
+937,UKR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+938,UKR,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+939,UKR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+940,UKR,6.2,2)      For other countries (non-EU):
+941,UKR,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+942,UKR,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+943,UKR,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+944,UKR,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."
+945,GBR,6.2,1.       Connection with FRA/CFRQ 2020: this reporting form has not counterparts in global reporting.
+946,GBR,6.2,2.       Prefilling: This table has been prefilled with data extracted from EUROSTAT Database available at http://ec.europa.eu/eurostat/data/database (National accounts aggregates by industry [nama_10_a64]). Data on Annual national accounts (GDP and main components [nama_10_gdp]) were used in denominator to calculate percentage.
+947,GBR,6.2,"3.       Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015) noted in the Table, or in a nearest year for which data is available."
+948,GBR,6.2,4.     Currency: Figures for each year should be reported in national currency. Countries should explicitly state what national currency is reported (and for what years if differing) in the National currency in the reporting years table.
+949,GBR,6.2,"5.       For the estimation of contribution to Gross Domestic Product (GDP), data on Gross Value Added (GVA) should be used. GVA measures the contribution to the economy of each individual producer, industry or sector in the country. (The link between GVA and GDP can be defined as: GVA + taxes on products - subsidies on products = GDP.)"
+950,GBR,6.2,"6.       The table is prefilled with the Eurostat - National Accounts data. Contacting a statistical officer involved in the national accounts or the statistical correspondent for EFA (European Forest Accounts) in your country for assistance is advisable. The EFA data, if available in your country, can serve as a reference for the category Forestry industry (ISIC/NACE 02)."
+951,GBR,6.2,"7.       For 2015 the 2008 NACE Rev.2/ISIC categories (02, 16, 17) should be used, and for previous years using the corresponding former NACE/ISIC categories 02, 20, 21. Adjustments from the old to the new NACE/ISIC are not needed."
+952,GBR,6.2,"8.       Data on GVA for each economic activity should be available from the National Accounts prepared by the country’s national statistical authority. If a different source is used, please explain in comments."
+953,GBR,6.2,9.       The main sources for value-added are the following:
+954,GBR,6.2,1)      For EU/EFTA countries
+955,GBR,6.2,a.       Eurostat - National Accounts
+956,GBR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+957,GBR,6.2,b.      Eurostat – European Forest Accounts (EFA)
+958,GBR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+959,GBR,6.2,c.      Eurostat -   Annual detailed enterprise statistics - industry and construction
+960,GBR,6.2,(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+961,GBR,6.2,2)      For other countries (non-EU):
+962,GBR,6.2,a.       UNIDO International Yearbook of Industrial Statistics
+963,GBR,6.2,(publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+964,GBR,6.2,b.      UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+965,GBR,6.2,"3)      For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65)."

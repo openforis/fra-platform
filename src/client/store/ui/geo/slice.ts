@@ -1,11 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestEstimations, LayerStatus, MosaicOptions, MosaicSource } from '@meta/geo'
+import { ForestEstimations, LayerStatus, MosaicOptions, MosaicSource, ProtectedAreaKey } from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestEstimationData, getForestLayer } from './actions'
+import { getForestEstimationData, getForestLayer, getProtectedAreaLayer } from './actions'
 import { GeoState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
@@ -37,6 +37,14 @@ const initialState: GeoState = {
     agreementLevel: 1,
     agreementPalette: [],
     recipe: 'custom',
+    customAssetId: null,
+  },
+  protectedAreasOptions: {
+    selected: [],
+    fetchedLayers: {},
+    pendingLayers: {},
+    failedLayers: {},
+    opacity: {},
     customAssetId: null,
   },
   geoStatistics: {
@@ -108,10 +116,10 @@ export const geoSlice = createSlice({
         })
       }
     },
-    setOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
+    setForestLayerOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.forestOptions.opacity[key] = opacity
     },
-    setGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
+    setForestGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
       state.forestOptions.selected.forEach((layerKey) => {
         state.forestOptions.opacity[layerKey] = payload
       })
@@ -141,17 +149,17 @@ export const geoSlice = createSlice({
     setAgreementLayerStatus: (state, { payload }: PayloadAction<LayerStatus>) => {
       state.forestOptions.agreementLayerStatus = payload
     },
-    resetLayersStates: (state) => {
+    resetForestLayersStates: (state) => {
       state.forestOptions.fetchedLayers = initialState.forestOptions.fetchedLayers
       state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
       state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
     },
-    resetSingleLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
+    resetSingleForestLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
       delete state.forestOptions.fetchedLayers[payload]
       delete state.forestOptions.pendingLayers[payload]
       delete state.forestOptions.failedLayers[payload]
     },
-    setRecipe: (state, { payload }: PayloadAction<string>) => {
+    setForestLayersRecipe: (state, { payload }: PayloadAction<string>) => {
       // If the recipe is not custom, reset the failed layers so they are fetched again
       if (payload !== 'custom') state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
       const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
@@ -174,8 +182,56 @@ export const geoSlice = createSlice({
       state.forestOptions.agreementLayerSelected = true
       state.forestOptions.agreementLevel = agreementLevel
     },
-    setCustomAssetId: (state, { payload }: PayloadAction<string>) => {
+    setCustomForestAssetId: (state, { payload }: PayloadAction<string>) => {
       state.forestOptions.customAssetId = payload
+    },
+    toggleProtectedAreaLayer: (state, { payload }: PayloadAction<ProtectedAreaKey>) => {
+      const i = state.protectedAreasOptions.selected.findIndex((key) => key === payload)
+      if (i === -1) {
+        delete state.protectedAreasOptions.failedLayers[payload] // In case the loading failed and it is manually re-tried
+        state.protectedAreasOptions.selected.push(payload)
+      } else {
+        state.protectedAreasOptions.selected.splice(i, 1)
+        // Reset opacity
+        delete state.protectedAreasOptions.opacity[payload]
+      }
+    },
+    setProtectedAreasLayers: (
+      state,
+      { payload: { sources, opacity } }: PayloadAction<{ sources: ProtectedAreaKey[]; opacity?: number }>
+    ) => {
+      state.protectedAreasOptions.selected = sources
+      state.protectedAreasOptions.opacity = {}
+
+      if (opacity !== undefined) {
+        state.protectedAreasOptions.selected.forEach((key) => {
+          state.protectedAreasOptions.opacity[key] = opacity
+        })
+      }
+    },
+    setProtectedAreaLayerOpacity: (
+      state,
+      { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>
+    ) => {
+      state.protectedAreasOptions.opacity[key] = opacity
+    },
+    setProtectedAreaGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
+      state.protectedAreasOptions.selected.forEach((layerKey) => {
+        state.protectedAreasOptions.opacity[layerKey] = payload
+      })
+    },
+    resetProtectedAreaLayersStates: (state) => {
+      state.protectedAreasOptions.fetchedLayers = initialState.protectedAreasOptions.fetchedLayers
+      state.protectedAreasOptions.pendingLayers = initialState.protectedAreasOptions.pendingLayers
+      state.protectedAreasOptions.failedLayers = initialState.protectedAreasOptions.failedLayers
+    },
+    resetSingleProtectedAreaLayerStates: (state, { payload }: PayloadAction<ProtectedAreaKey>) => {
+      delete state.protectedAreasOptions.fetchedLayers[payload]
+      delete state.protectedAreasOptions.pendingLayers[payload]
+      delete state.protectedAreasOptions.failedLayers[payload]
+    },
+    setCustomProtectedAreaAssetId: (state, { payload }: PayloadAction<string>) => {
+      state.protectedAreasOptions.customAssetId = payload
     },
     setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {
       state.geoStatistics.forestEstimations = payload
@@ -263,6 +319,26 @@ export const geoSlice = createSlice({
       .addCase(getForestEstimationData.rejected, (state, action) => {
         state.geoStatistics.isLoading = false
         state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
+      })
+      .addCase(getProtectedAreaLayer.fulfilled, (state, { payload: [key, mapId] }) => {
+        state.protectedAreasOptions.fetchedLayers[key] = mapId
+        delete state.protectedAreasOptions.pendingLayers[key]
+        delete state.protectedAreasOptions.failedLayers[key]
+      })
+      .addCase(getProtectedAreaLayer.pending, (state, { meta }) => {
+        state.protectedAreasOptions.pendingLayers[meta.arg.key] = meta.arg.uri
+        delete state.protectedAreasOptions.fetchedLayers[meta.arg.key]
+        delete state.protectedAreasOptions.failedLayers[meta.arg.key]
+      })
+      .addCase(getProtectedAreaLayer.rejected, (state, { meta }) => {
+        state.protectedAreasOptions.failedLayers[meta.arg.key] = meta.arg.uri
+        delete state.protectedAreasOptions.pendingLayers[meta.arg.key]
+        delete state.protectedAreasOptions.fetchedLayers[meta.arg.key]
+        // Un-select the layer if the fetching fails
+        const i = state.protectedAreasOptions.selected.findIndex((key) => key === meta.arg.key)
+        if (i !== -1) {
+          state.protectedAreasOptions.selected.splice(i, 1)
+        }
       })
   },
 })

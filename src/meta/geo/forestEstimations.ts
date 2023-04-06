@@ -55,6 +55,7 @@ export interface ForestEstimationsData {
   fra1aLandArea: number
   fra3bProtected: number
   totalAreaHa: number
+  burnedAreaMODIS: [{ year: number; ba: number; fbaHansen10: number }]
 }
 
 export interface ForestEstimations {

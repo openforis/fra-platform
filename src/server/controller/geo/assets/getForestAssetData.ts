@@ -123,11 +123,10 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
         imgAddition = imgAddition.add(asset.img.unmask())
       })
 
-      return {
+      asset = {
         img: imgAddition.mask(imgAddition.gte(layer.options.agreement.gteAgreementLevel)),
         metadata: sourcesMetadata[layer.key],
       }
-
       break
     }
 
@@ -136,17 +135,4 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
   }
 
   return asset
-}
-
-export const getForestAgreementAssetData = (layers: Array<LayerSource>, gteAgreementLevel = 1): { img: Image } => {
-  let imgAddition = Image(0)
-
-  layers.forEach(function (source) {
-    const asset = getForestAssetData(source)
-    imgAddition = imgAddition.add(asset.img.unmask())
-  })
-
-  return {
-    img: imgAddition.mask(imgAddition.gte(gteAgreementLevel)),
-  }
 }
