@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cols, ColType, DataSource, Row, RowType, Table } from '@meta/assessment'
+import { Cols, ColType, DataSource, RowType, Table } from '@meta/assessment'
 import { DataSourceVariables } from '@meta/assessment/description'
 
 import { useCycle } from '@client/store/assessment'
@@ -21,17 +21,24 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
 
-  const _allColumnsCalculated = (row: Row) =>
-    row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
+  const variableOptions = table.rows.reduce((acc, row) => {
+    if (
+      row.props.variableName &&
+      row.props.type === RowType.data &&
+      !row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
+    ) {
+      const _option = {
+        label: t(Cols.getLabel({ cycle, col: row.cols[0], t })),
+        value: row.props.variableName,
+      }
+      const exists = acc.find((option) => t(option.label) === t(_option.label))
 
-  const _filterRow = (row: Row) =>
-    row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row)
-
-  // Get a list of variables to show form the table
-  const rowOptions = table.rows.filter(_filterRow).map((row) => ({
-    label: t(Cols.getLabel({ cycle, col: row.cols[0], t })),
-    value: row.props.variableName,
-  }))
+      if (!exists) {
+        acc.push(_option)
+      }
+    }
+    return acc
+  }, [] as { label: string; value: string }[])
 
   // Include also the variables from the data source 'include' property
   const options = (dataSourceVariables?.include ?? []).reduce((acc, variableName) => {
@@ -42,7 +49,7 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
       acc.push(_option)
     }
     return acc
-  }, rowOptions)
+  }, variableOptions)
 
   const _onChange = (value: string[]) => {
     onChange('fraVariables', value)
