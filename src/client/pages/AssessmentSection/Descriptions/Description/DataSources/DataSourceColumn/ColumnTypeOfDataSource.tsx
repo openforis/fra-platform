@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { DataSource, dataSourceType } from '@meta/assessment'
@@ -16,14 +16,24 @@ const ColumnTypeOfDataSource: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, onChange } = props
   const { t } = useTranslation()
   const _onChange = (value: string) => onChange('type', value)
+
+  const items = useMemo(() => {
+    return Object.keys(dataSourceType).map((type) => {
+      return {
+        label: t(`dataSource.${type}`),
+        value: type,
+      }
+    })
+  }, [t])
+
   return (
     <DataColumn className="data-source-column">
       <Autocomplete
         withArrow
         disabled={disabled}
         onSave={_onChange}
-        value={dataSource.type}
-        items={Object.keys(dataSourceType).map((type) => t(`dataSource.${type}`))}
+        value={dataSource.type ? t(`dataSource.${dataSource.type}`) : ''}
+        items={items}
       />
     </DataColumn>
   )

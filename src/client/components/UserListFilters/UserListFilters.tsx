@@ -52,9 +52,8 @@ const UserListFilters: React.FC = () => {
           </div>
           <div>
             <MultiSelect
-              localizationPrefix="user.roles"
               values={filters.roles}
-              options={roleNames}
+              options={roleNames.map((roleName: RoleName) => ({ value: roleName, label: `user.roles.${roleName}` }))}
               onChange={(values: Array<RoleName>) => {
                 dispatch(UserManagementActions.updateFilters({ roles: values }))
               }}

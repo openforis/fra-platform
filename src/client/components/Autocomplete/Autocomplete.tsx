@@ -1,5 +1,6 @@
 import './Autocomplete.scss'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
 import classNames from 'classnames'
@@ -7,31 +8,35 @@ import { useCombobox, UseComboboxStateChange } from 'downshift'
 
 import AutocompleteInput from '@client/components/Autocomplete/AutocompleteInput'
 
+type Option = {
+  label: string
+  value: string
+}
+
 type Props = {
-  items: any[]
+  items: Array<Option>
   onSave: (value: string | any) => void
   value: string
   withArrow?: boolean
 
   disabled?: boolean
-  labelKey?: string
   name?: string
   onInputValueChange?: (inputValue: string) => void
 }
 
-const AutocompleteItem = (props: { labelKey: string; item: any; inputValue: string }) => {
-  const { item, labelKey, inputValue } = props
-  const input = item[labelKey] ?? item
+const AutocompleteItem = (props: { item: Option; inputValue: string }) => {
+  const { item, inputValue } = props
+  const input = item.label
   const regExp = new RegExp(inputValue, 'gi')
   const output = input.replace(regExp, '<b>$&</b>')
   return <span dangerouslySetInnerHTML={{ __html: output }} />
 }
 
 const Autocomplete: React.FC<Props> = (props: Props) => {
-  const { value, items, disabled, name, onInputValueChange, labelKey, onSave, withArrow } = props
-
-  const [selectedItem, setSelectedItem] = useState(null)
+  const { value, items, disabled, name, onInputValueChange, onSave, withArrow } = props
+  const [selectedItem, setSelectedItem] = useState<string>(null)
   const [inputValue, setInputValue] = useState(value)
+  const { t } = useTranslation()
 
   useEffect(() => {
     setInputValue(value)
@@ -45,7 +50,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
         changes.type
       )
     ) {
-      onSave(changes.selectedItem ?? inputValue)
+      onSave(changes.selectedItem?.value ?? inputValue)
     }
   }
 
@@ -57,7 +62,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
       },
       items,
       itemToString(item) {
-        return item?.[labelKey] ?? item ?? ''
+        return t(item?.label ?? '')
       },
       selectedItem,
       onSelectedItemChange: ({ inputValue, selectedItem: newSelectedItem }) => {
@@ -89,11 +94,11 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
                   selected: Objects.isEqual(selectedItem, item),
                 })}
                 // eslint-disable-next-line react/no-array-index-key
-                key={`${item[labelKey] ?? item}${index}`}
+                key={`${item.value}_autocomplete_item_${index}`}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...getItemProps({ item, index })}
               >
-                <AutocompleteItem inputValue={inputValue} item={item} labelKey={labelKey} />
+                <AutocompleteItem inputValue={inputValue} item={item} />
               </div>
             )
           })}
@@ -105,7 +110,6 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
 Autocomplete.defaultProps = {
   name: undefined,
   disabled: false,
-  labelKey: undefined,
   onInputValueChange: undefined,
   withArrow: false,
 }

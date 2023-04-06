@@ -93,17 +93,20 @@ const Description: React.FC<Props> = (props) => {
 
   const isDataSources = name === 'dataSources'
   const dataSourceHasTable = isDataSources && descriptionsMetadata.nationalData?.dataSources?.table
+  const hasText = Boolean(descriptionsMetadata.nationalData?.dataSources?.text)
   const dataSourceTextReadOnly = isDataSources && descriptionsMetadata.nationalData?.dataSources?.text?.readOnly
 
-  const showMarkdownEditor = (!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly)
+  const showMarkdownEditor = hasText && ((!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly))
 
+  // 0. text metadata is defined
   const showPreview =
+    hasText &&
     // 1. not data source: Show markdown preview if description is not open and it has text
-    (!isDataSources && !open && text) ||
-    // 2. data source: Show markdown preview if description is not open and it is not read only
-    (isDataSources && !open && !dataSourceTextReadOnly) ||
-    // 3. data source: Show markdown preview if description is open and it is read only (preview of previous cycle) and has text
-    (isDataSources && open && dataSourceTextReadOnly && text)
+    ((!isDataSources && !open && text) ||
+      // 2. data source: Show markdown preview if description is not open and it is not read only
+      (isDataSources && !open && !dataSourceTextReadOnly) ||
+      // 3. data source: Show markdown preview if description is open and it is read only (preview of previous cycle) and has text
+      (isDataSources && open && dataSourceTextReadOnly && text))
 
   return (
     <div className="fra-description__header-row">

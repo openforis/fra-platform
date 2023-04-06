@@ -89,9 +89,11 @@ const DataSources: React.FC<Props> = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
                     disabled={isDisabled}
-                    localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                     values={originalDataPoint.dataSourceMethods ?? []}
-                    options={Object.values(ODPDataSourceMethod)}
+                    options={Object.values(ODPDataSourceMethod).map((method) => ({
+                      value: method,
+                      label: i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${method}`),
+                    }))}
                     onChange={(values: Array<ODPDataSourceMethod>) => {
                       const originalDataPointUpdate = { ...originalDataPoint, dataSourceMethods: values }
                       updateOriginalDataPoint(originalDataPointUpdate)
