@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cols, ColType, DataSource, Row, RowType, Table } from '@meta/assessment'
+import { Cols, ColType, DataSource, RowType, Table } from '@meta/assessment'
 import { DataSourceVariables } from '@meta/assessment/description'
 
 import { useCycle } from '@client/store/assessment'
@@ -12,7 +12,7 @@ type Props = {
   disabled: boolean
   dataSource: DataSource
   table: Table
-  onChange: (key: string, value: string) => void
+  onChange: (key: string, value: string | string[]) => void
   dataSourceVariables: DataSourceVariables
 }
 const ColumnFraVariable: React.FC<Props> = (props: Props) => {
@@ -21,26 +21,43 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
 
-  const _allColumnsCalculated = (row: Row) =>
-    row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
+  const variableOptions = table.rows.reduce((acc, row) => {
+    if (
+      row.props.variableName &&
+      row.props.type === RowType.data &&
+      !row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
+    ) {
+      const _option = {
+        label: t(Cols.getLabel({ cycle, col: row.cols[0], t })),
+        value: row.props.variableName,
+      }
+      const exists = acc.find((option) => t(option.label) === t(_option.label))
 
-  const rows = table.rows.reduce((acc, row) => {
-    if (row.props.variableName && row.props.type === RowType.data && !_allColumnsCalculated(row)) {
-      const label = t(Cols.getLabel({ cycle, col: row.cols[0], t }))
-      if (!acc.includes(label)) {
-        acc.push(label)
+      if (!exists) {
+        acc.push(_option)
       }
     }
     return acc
-  }, dataSourceVariables?.include.map<string>(t) ?? [])
+  }, [] as { label: string; value: string }[])
 
-  const _onChange = (value: any) => {
+  // Include also the variables from the data source 'include' property
+  const options = (dataSourceVariables?.include ?? []).reduce((acc, variableName) => {
+    const _option = { label: t(variableName), value: variableName }
+    const exists = acc.find((option) => t(option.label) === t(_option.label))
+
+    if (!exists) {
+      acc.push(_option)
+    }
+    return acc
+  }, variableOptions)
+
+  const _onChange = (value: string[]) => {
     onChange('fraVariables', value)
   }
 
   return (
     <DataColumn className="data-source-column">
-      <MultiSelect disabled={disabled} values={dataSource.fraVariables ?? []} options={rows} onChange={_onChange} />
+      <MultiSelect disabled={disabled} values={dataSource.fraVariables} options={options} onChange={_onChange} />
     </DataColumn>
   )
 }
