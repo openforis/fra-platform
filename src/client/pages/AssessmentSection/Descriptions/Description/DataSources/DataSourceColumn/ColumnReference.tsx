@@ -14,12 +14,11 @@ interface DataSourceReferenceColumnProps {
   dataSource: DataSource
   placeholder: boolean
   disabled: boolean
-  onDelete: () => void
   onChange: (key: string, value: Record<string, string>) => void
 }
 
 const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
-  const { dataSource, placeholder, disabled, onDelete, onChange } = props
+  const { dataSource, placeholder, disabled, onChange } = props
 
   const [toggleLinkField, setToggleLinkField] = useState(false)
 
@@ -40,17 +39,6 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
       })}
     >
       <div className="data-source__delete-wrapper">
-        {!placeholder && !disabled && (
-          <>
-            <button type="button" onClick={onDelete}>
-              <Icon className="delete" name="remove" />
-            </button>
-            <button type="button" onClick={() => setToggleLinkField(!toggleLinkField)}>
-              {toggleLinkField ? <Icon name="text_fields" /> : <Icon name="insert_link" />}
-            </button>
-          </>
-        )}
-
         {!disabled && !toggleLinkField && (
           <VerticallyGrowingTextField
             disabled={disabled}
@@ -75,6 +63,12 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
               dataSource.reference?.text
             )}
           </span>
+        )}
+
+        {!placeholder && !disabled && (
+          <button type="button" onClick={() => setToggleLinkField(!toggleLinkField)}>
+            {toggleLinkField ? <Icon name="text_fields" /> : <Icon name="insert_link" />}
+          </button>
         )}
       </div>
     </DataColumn>
