@@ -1,25 +1,26 @@
+import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
 
+import { Assessment, Cycle } from '@meta/assessment'
+
 import { AreaController } from '@server/controller/area'
-import { AssessmentController } from '@server/controller/assessment'
 import { BaseProtocol, Schemas } from '@server/db'
 
-import { getRow } from '@test/migrations/steps/utils/getRow'
+import { calculateRow } from './calculateRow'
+import { getRow } from './getRow'
 
-import { calculateRow } from './utils/calculateRow'
+export const runCalculations = async (
+  props: {
+    assessment: Assessment
+    cycle: Cycle
+    tableName: string
+    variableName: string
+  },
+  client: BaseProtocol
+): Promise<void> => {
+  const { assessment, cycle, tableName, variableName } = props
 
-export default async (client: BaseProtocol) => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    {
-      assessmentName: 'fra',
-      metaCache: true,
-      cycleName: '2025',
-    },
-    client
-  )
-
-  const variableName = 'forestAreaNetChangeFrom1a'
-  const tableName = 'forestAreaChange'
+  if (Objects.isEmpty(assessment.metaCache)) throw new Error('Meta cache is missing!')
 
   const row = await getRow({ tableName, variableName, cycle, assessment }, client)
 
@@ -50,7 +51,7 @@ export default async (client: BaseProtocol) => {
     }
   )
 
-  // ===== calculation rows
+  // ===== calculation row
   const values = await calculateRow({ assessment, cycle, countryISOs, row, tableName, calculatedVariables }, client)
   const query = `${pgp.helpers.insert(
     values,
