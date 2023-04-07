@@ -5,7 +5,7 @@ import { Assessment, Cycle, Row } from '@meta/assessment'
 import { BaseProtocol, Schemas } from '@server/db'
 import { ColAdapter } from '@server/repository/adapter'
 
-export const getRows = async (
+export const getRow = async (
   props: {
     tableName: string
     variableName: string
@@ -17,7 +17,7 @@ export const getRows = async (
   const { tableName, variableName, cycle, assessment } = props
   const schema = Schemas.getName(assessment)
 
-  return client.map<Row & { tableName: string }>(
+  return client.one<Row>(
     `
         select r.*,
                t.props ->> 'name'                                                  as table_name,
