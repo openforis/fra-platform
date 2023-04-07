@@ -157,6 +157,11 @@ module.exports = {
   doesYourCountryHaveANationalMethodologyForLandDegradationAssessment:
     'Does your country have a national methodology for land degradation assessment?',
   totalAreaOfDegradedLand: 'Total area of degraded land',
+  primarilyDegradedBy_1: 'Primarily degraded by',
+  primarilyDegradedBy_2: 'Primarily degraded by',
+  primarilyDegradedBy_3: 'Primarily degraded by',
+  primarilyDegradedBy_4: 'Primarily degraded by',
+  primarilyDegradedBy_5: 'Primarily degraded by',
   primarilyDegradedBy: 'Primarily degraded by',
   primarilyDegradedByGrazing: 'Primarily degraded by grazing',
   primarilyDegradedByRepeatedFires: 'Primarily degraded by repeated fires',

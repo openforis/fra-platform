@@ -1,3 +1,4 @@
+import { AssessmentNames } from '../../../src/meta/assessment/assessmentName'
 import { Col, ColType } from '../../../src/meta/assessment/col'
 import { Row, RowType } from '../../../src/meta/assessment/row'
 import { Table } from '../../../src/meta/assessment/table'
@@ -48,6 +49,13 @@ export const getCols = (client: BaseProtocol, schema: string, table: Table): Pro
     }
   )
 
+export const skipPanEuropean = (tableName: string, cycleName: string, assessmentName: string): boolean => {
+  if (tableName === 'table_2_5' && cycleName === '2025' && assessmentName === AssessmentNames.panEuropean) {
+    return false
+  }
+  return true
+}
+
 export const isBasicTable = (tableName: string): boolean =>
   tableName &&
   tableName.trim() !== '' &&
@@ -58,7 +66,6 @@ export const isBasicTable = (tableName: string): boolean =>
     'biomassStock_biomassStockStatus_Description',
     'growingStock_growingStockStatus',
     'growingStock_growingStockStatus_Description',
-
     'contactPersons',
     'extentOfForest',
     'forestCharacteristics',
