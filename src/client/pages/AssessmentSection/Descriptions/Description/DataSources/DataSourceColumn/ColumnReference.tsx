@@ -58,7 +58,9 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
         {disabled && (
           <span className="text-input__readonly-view">
             {dataSource.reference?.link ? (
-              <a href={dataSource.reference?.link}>{dataSource.reference?.text}</a>
+              <a href={dataSource.reference?.link} target="_blank" rel="noreferrer">
+                {dataSource.reference?.text}
+              </a>
             ) : (
               dataSource.reference?.text
             )}
