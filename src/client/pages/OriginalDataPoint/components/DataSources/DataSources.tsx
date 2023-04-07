@@ -62,7 +62,13 @@ const DataSources: React.FC<Props> = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={originalDataPoint.dataSourceReferences || ''}
-                    onChange={(event) => {
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                      const caret = event.target.selectionStart
+                      const element = event.target
+                      window.requestAnimationFrame(() => {
+                        element.selectionStart = caret
+                        element.selectionEnd = caret
+                      })
                       const { value } = event.target
                       const originalDataPointUpdate = {
                         ...originalDataPoint,
@@ -116,7 +122,13 @@ const DataSources: React.FC<Props> = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={originalDataPoint.dataSourceAdditionalComments || ''}
-                    onChange={(event) => {
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                      const caret = event.target.selectionStart
+                      const element = event.target
+                      window.requestAnimationFrame(() => {
+                        element.selectionStart = caret
+                        element.selectionEnd = caret
+                      })
                       const originalDataPointUpdate = {
                         ...originalDataPoint,
                         dataSourceAdditionalComments: event.target.value,
