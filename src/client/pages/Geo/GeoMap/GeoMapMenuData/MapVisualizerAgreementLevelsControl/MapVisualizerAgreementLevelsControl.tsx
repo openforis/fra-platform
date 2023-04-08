@@ -168,9 +168,9 @@ const AgreementLevelsControl: React.FC = () => {
                 handleScalerChange(e)
               }}
             >
-              <option value="30">30 reducer scale</option>
-              <option value="100">100 reducer scale</option>
-              <option value="200">200 reducer scale</option>
+              <option value="30">30m reducer scale</option>
+              <option value="100">100m reducer scale</option>
+              <option value="200">200m reducer scale</option>
             </select>
             <button
               type="button"

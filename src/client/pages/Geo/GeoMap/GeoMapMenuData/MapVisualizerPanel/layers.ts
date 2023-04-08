@@ -1,4 +1,4 @@
-import { ForestSource, ProtectedAreaKey } from '@meta/geo'
+import { BurnedAreaKey, ForestSource, ProtectedAreaKey } from '@meta/geo'
 
 export interface ForestLayer {
   key: ForestSource
@@ -8,6 +8,12 @@ export interface ForestLayer {
 
 export interface ProtectedAreaLayer {
   key: ProtectedAreaKey
+  title: string
+  opacity: number
+}
+
+export interface BurnedAreaLayer {
+  key: BurnedAreaKey
   title: string
   opacity: number
 }
@@ -78,4 +84,13 @@ export const protectedAreaLayers: ProtectedAreaLayer[] = [
     opacity: 1,
   },
 ]
+
+export const burnedAreaLayers: BurnedAreaLayer[] = [
+  {
+    key: BurnedAreaKey.MODIS,
+    title: 'MODIS',
+    opacity: 1,
+  },
+]
+
 export const GLOBAL_OPACITY_KEY = 'GLOBAL_OPACITY'
