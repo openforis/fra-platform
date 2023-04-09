@@ -496,6 +496,118 @@ export const forestAreaWithDamage = {
                   type: 'header',
                   colSpan: 1,
                   labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2014 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2014['total_area_with_damage'],
+                [table_2_4.forest_2014['insects_and_disease'],table_2_4.forest_2014['wildlife_and_grazing'],
+                table_2_4.forest_2014['forest_operations'],table_2_4.forest_2014['other'],
+                table_2_4.forest_2014['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2014['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2014['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2014 },
+              variableExport: 'forest_2014',
+            },
+            {
+              idx: 9,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2013 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2013['total_area_with_damage'],
+                [table_2_4.forest_2013['insects_and_disease'],table_2_4.forest_2013['wildlife_and_grazing'],
+                table_2_4.forest_2013['forest_operations'],table_2_4.forest_2013['other'],
+                table_2_4.forest_2013['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2013['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2013['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2013 },
+              variableExport: 'forest_2013',
+            },
+            {
+              idx: 10,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2012 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2012['total_area_with_damage'],
+                [table_2_4.forest_2012['insects_and_disease'],table_2_4.forest_2012['wildlife_and_grazing'],
+                table_2_4.forest_2012['forest_operations'],table_2_4.forest_2012['other'],
+                table_2_4.forest_2012['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2012['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2012['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2012 },
+              variableExport: 'forest_2012',
+            },
+            {
+              idx: 11,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2011 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2011['total_area_with_damage'],
+                [table_2_4.forest_2011['insects_and_disease'],table_2_4.forest_2011['wildlife_and_grazing'],
+                table_2_4.forest_2011['forest_operations'],table_2_4.forest_2011['other'],
+                table_2_4.forest_2011['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2011['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2011['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2011 },
+              variableExport: 'forest_2011',
+            },
+            {
+              idx: 12,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
@@ -515,7 +627,119 @@ export const forestAreaWithDamage = {
               variableExport: 'forest_2010',
             },
             {
-              idx: 9,
+              idx: 13,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2009 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2009['total_area_with_damage'],
+                [table_2_4.forest_2009['insects_and_disease'],table_2_4.forest_2009['wildlife_and_grazing'],
+                table_2_4.forest_2009['forest_operations'],table_2_4.forest_2009['other'],
+                table_2_4.forest_2009['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2009['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2009['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2009 },
+              variableExport: 'forest_2009',
+            },
+            {
+              idx: 14,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2008 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2008['total_area_with_damage'],
+                [table_2_4.forest_2008['insects_and_disease'],table_2_4.forest_2008['wildlife_and_grazing'],
+                table_2_4.forest_2008['forest_operations'],table_2_4.forest_2008['other'],
+                table_2_4.forest_2008['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2008['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2008['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2008 },
+              variableExport: 'forest_2008',
+            },
+            {
+              idx: 15,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2007 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2007['total_area_with_damage'],
+                [table_2_4.forest_2007['insects_and_disease'],table_2_4.forest_2007['wildlife_and_grazing'],
+                table_2_4.forest_2007['forest_operations'],table_2_4.forest_2007['other'],
+                table_2_4.forest_2007['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2007['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2007['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2007 },
+              variableExport: 'forest_2007',
+            },
+            {
+              idx: 16,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2006 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2006['total_area_with_damage'],
+                [table_2_4.forest_2006['insects_and_disease'],table_2_4.forest_2006['wildlife_and_grazing'],
+                table_2_4.forest_2006['forest_operations'],table_2_4.forest_2006['other'],
+                table_2_4.forest_2006['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2006['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2006['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2006 },
+              variableExport: 'forest_2006',
+            },
+            {
+              idx: 17,
               type: 'data',
               cols: [
                 {
@@ -542,7 +766,119 @@ export const forestAreaWithDamage = {
               variableExport: 'forest_2005',
             },
             {
-              idx: 10,
+              idx: 18,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2004 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2004['total_area_with_damage'],
+                [table_2_4.forest_2004['insects_and_disease'],table_2_4.forest_2004['wildlife_and_grazing'],
+                table_2_4.forest_2004['forest_operations'],table_2_4.forest_2004['other'],
+                table_2_4.forest_2004['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2004['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2004['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2004 },
+              variableExport: 'forest_2004',
+            },
+            {
+              idx: 19,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2003 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2003['total_area_with_damage'],
+                [table_2_4.forest_2003['insects_and_disease'],table_2_4.forest_2003['wildlife_and_grazing'],
+                table_2_4.forest_2003['forest_operations'],table_2_4.forest_2003['other'],
+                table_2_4.forest_2003['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2003['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2003['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2003 },
+              variableExport: 'forest_2003',
+            },
+            {
+              idx: 20,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2002 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2002['total_area_with_damage'],
+                [table_2_4.forest_2002['insects_and_disease'],table_2_4.forest_2002['wildlife_and_grazing'],
+                table_2_4.forest_2002['forest_operations'],table_2_4.forest_2002['other'],
+                table_2_4.forest_2002['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2002['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2002['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2002 },
+              variableExport: 'forest_2002',
+            },
+            {
+              idx: 21,
+              type: 'data',
+              cols: [
+                {
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.forest',
+                  labelParams: { year: 2001 },
+                  className: 'fra-table__category-cell',
+                },
+                ...dataCols,
+              ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: [
+                  `validatorEqualToSum(table_2_4.forest_2001['total_area_with_damage'],
+                [table_2_4.forest_2001['insects_and_disease'],table_2_4.forest_2001['wildlife_and_grazing'],
+                table_2_4.forest_2001['forest_operations'],table_2_4.forest_2001['other'],
+                table_2_4.forest_2001['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2001['primarily_damaged_by_fire_total'],
+                table_2_4.forest_2001['unspecified_mixed_damage']])`,
+                ],
+              },
+              labelKey: 'panEuropean.forestAreaWithDamage.forest',
+              labelParams: { year: 2001 },
+              variableExport: 'forest_2001',
+            },
+            {
+              idx: 22,
               type: 'data',
               cols: [
                 {
@@ -569,7 +905,7 @@ export const forestAreaWithDamage = {
               variableExport: 'forest_2000',
             },
             {
-              idx: 11,
+              idx: 23,
               type: 'data',
               cols: [
                 {
@@ -596,7 +932,7 @@ export const forestAreaWithDamage = {
               variableExport: 'forest_1990',
             },
             {
-              idx: 12,
+              idx: 24,
               type: 'data',
               cols: [
                 {
@@ -617,7 +953,7 @@ export const forestAreaWithDamage = {
               variableExport: 'other_wooded_land_2020',
             },
             {
-              idx: 13,
+              idx: 25,
               type: 'data',
               cols: [
                 {
@@ -635,7 +971,7 @@ export const forestAreaWithDamage = {
               variableExport: 'other_wooded_land_2015',
             },
             {
-              idx: 14,
+              idx: 26,
               type: 'data',
               cols: [
                 {
@@ -653,7 +989,7 @@ export const forestAreaWithDamage = {
               variableExport: 'other_wooded_land_2010',
             },
             {
-              idx: 15,
+              idx: 27,
               type: 'data',
               cols: [
                 {
@@ -671,7 +1007,7 @@ export const forestAreaWithDamage = {
               variableExport: 'other_wooded_land_2005',
             },
             {
-              idx: 16,
+              idx: 28,
               type: 'data',
               cols: [
                 {
@@ -689,7 +1025,7 @@ export const forestAreaWithDamage = {
               variableExport: 'other_wooded_land_2000',
             },
             {
-              idx: 17,
+              idx: 29,
               type: 'data',
               cols: [
                 {
@@ -707,7 +1043,7 @@ export const forestAreaWithDamage = {
               variableExport: 'other_wooded_land_1990',
             },
             {
-              idx: 18,
+              idx: 30,
               type: 'data',
               cols: [
                 {
@@ -748,7 +1084,7 @@ export const forestAreaWithDamage = {
               variableExport: 'total_forest_and_other_wooded_land_2020',
             },
             {
-              idx: 19,
+              idx: 31,
               type: 'data',
               cols: [
                 {
@@ -788,7 +1124,7 @@ export const forestAreaWithDamage = {
               variableExport: 'total_forest_and_other_wooded_land_2015',
             },
             {
-              idx: 20,
+              idx: 32,
               type: 'data',
               cols: [
                 {
@@ -828,7 +1164,7 @@ export const forestAreaWithDamage = {
               variableExport: 'total_forest_and_other_wooded_land_2010',
             },
             {
-              idx: 21,
+              idx: 33,
               type: 'data',
               cols: [
                 {
@@ -868,7 +1204,7 @@ export const forestAreaWithDamage = {
               variableExport: 'total_forest_and_other_wooded_land_2005',
             },
             {
-              idx: 22,
+              idx: 34,
               type: 'data',
               cols: [
                 {
@@ -908,7 +1244,7 @@ export const forestAreaWithDamage = {
               variableExport: 'total_forest_and_other_wooded_land_2000',
             },
             {
-              idx: 23,
+              idx: 35,
               type: 'data',
               cols: [
                 {
