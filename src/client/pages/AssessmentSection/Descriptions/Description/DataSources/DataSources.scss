@@ -5,7 +5,7 @@
 }
 
 .data-source-grid {
-  grid-template-columns: 0.2fr 1fr 1fr repeat(3, 1fr) 0.1fr;
+  grid-template-columns: 1fr 1fr repeat(3, 1fr) 0.1fr;
 }
 
 .data-source-column {
@@ -17,19 +17,25 @@
   border: none !important;
   display: flex;
   align-items: center;
-
-  > button {
-    border: 0;
-    background-color: transparent;
-    > svg.delete {
-      color: $ui-destructive;
-    }
-  }
 }
 
 .data-source__delete-wrapper {
   display: flex;
   height: calc(100% + -1px);
+
+  .data-source__delete-button {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    bottom: 0;
+    margin: 0 auto;
+    border: 0;
+    background-color: transparent;
+
+    svg {
+      color: $ui-destructive;
+    }
+  }
 
   > button {
     border: 0;

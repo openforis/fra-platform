@@ -6,7 +6,6 @@ import { NationalDataDataSourceDescription } from '@meta/assessment/description'
 import { useTableSections } from '@client/store/ui/assessmentSection'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import DataColumn from '@client/components/DataGrid/DataColumn'
-import Icon from '@client/components/Icon'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
 import DataSourceColumn from './DataSourceColumn/DataSourceColumn'
@@ -34,14 +33,6 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const title = `${titleVariable} | ${dataSource.year}`
   return (
     <>
-      <DataColumn className="data-source-review-indicator">
-        {!placeholder && !disabled && (
-          <button type="button" onClick={onDelete}>
-            <Icon className="delete" name="trash-simple" />
-          </button>
-        )}
-      </DataColumn>
-
       {descriptionDataSource.table.columns.map((column) => (
         <DataSourceColumn
           key={column}
