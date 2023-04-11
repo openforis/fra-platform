@@ -31,7 +31,7 @@ const NavigationSection: React.FC<Props> = (props) => {
 
   const [expanded, setExpanded] = useState(false)
 
-  const sectionLabel = Labels.getLabel({ cycle, labels: section.props.labels, t })
+  const sectionLabel = Labels.getCycleLabel({ cycle, labels: section.props.labels, t })
   const assessmentName = assessment.props.name
   const prefix = section.props.anchors[cycle.uuid]
   let children = section.subSections

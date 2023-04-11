@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cols, ColType, DataSource, RowType, Table } from '@meta/assessment'
+import { Cols, ColType, DataSource, Labels, RowType, Table } from '@meta/assessment'
 import { DataSourceVariables } from '@meta/assessment/description'
 
 import { useCycle } from '@client/store/assessment'
@@ -27,11 +27,18 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
       row.props.type === RowType.data &&
       !row.cols.every((col) => [ColType.header, ColType.calculated].includes(col.props.colType))
     ) {
+      let prefix = ''
+      const label = t(Cols.getLabel({ cycle, col: row.cols[0], t }))
+      if (dataSourceVariables?.prefixes?.[row.props.variableName]) {
+        prefix = Labels.getLabel({ label: dataSourceVariables?.prefixes?.[row.props.variableName], t })
+        prefix += ' '
+      }
+
       const _option = {
-        label: t(Cols.getLabel({ cycle, col: row.cols[0], t })),
+        label: `${prefix}${label}`,
         value: row.props.variableName,
       }
-      const exists = acc.find((option) => t(option.label) === t(_option.label))
+      const exists = acc.find((option) => t(option.value) === t(_option.value))
 
       if (!exists) {
         acc.push(_option)
