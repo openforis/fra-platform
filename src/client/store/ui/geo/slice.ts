@@ -1,17 +1,31 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestEstimations, LayerStatus, MosaicOptions, MosaicSource, ProtectedAreaKey } from '@meta/geo'
+import {
+  BurnedAreaKey,
+  BurnedAreasUIOptions,
+  ForestEstimations,
+  LayerStatus,
+  MosaicOptions,
+  MosaicSource,
+  ProtectedAreaKey,
+} from '@meta/geo'
 import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestEstimationData, getForestLayer, getProtectedAreaLayer } from './actions'
+import { getBurnedAreaLayer, getForestEstimationData, getForestLayer, getProtectedAreaLayer } from './actions'
 import { GeoState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
   year: 2020,
   maxCloudCoverage: 30,
+}
+
+const initialBurnedAreasUIOptions: BurnedAreasUIOptions = {
+  startYear: 2000,
+  endYear: new Date().getFullYear(),
+  selectedYear: 2020,
 }
 
 const initialState: GeoState = {
@@ -46,6 +60,15 @@ const initialState: GeoState = {
     failedLayers: {},
     opacity: {},
     customAssetId: null,
+  },
+  burnedAreasOptions: {
+    ui: { ...initialBurnedAreasUIOptions },
+    applied: { ...initialBurnedAreasUIOptions },
+    selected: [],
+    fetchedLayers: {},
+    pendingLayers: {},
+    failedLayers: {},
+    opacity: {},
   },
   geoStatistics: {
     forestEstimations: null,
@@ -233,6 +256,61 @@ export const geoSlice = createSlice({
     setCustomProtectedAreaAssetId: (state, { payload }: PayloadAction<string>) => {
       state.protectedAreasOptions.customAssetId = payload
     },
+    applyBurnedAreasUIOptions: (state) => {
+      // If changes are applied, clear the cache
+      state.burnedAreasOptions.fetchedLayers = initialState.burnedAreasOptions.fetchedLayers
+      state.burnedAreasOptions.pendingLayers = initialState.burnedAreasOptions.pendingLayers
+      state.burnedAreasOptions.failedLayers = initialState.burnedAreasOptions.failedLayers
+      state.burnedAreasOptions.applied = { ...state.burnedAreasOptions.ui }
+    },
+    setBurnedAreasSelectedYear: (state, { payload }: PayloadAction<number>) => {
+      state.burnedAreasOptions.ui.selectedYear = payload
+    },
+    toggleBurnedAreaLayer: (state, { payload }: PayloadAction<BurnedAreaKey>) => {
+      const i = state.burnedAreasOptions.selected.findIndex((key) => key === payload)
+      if (i === -1) {
+        delete state.burnedAreasOptions.failedLayers[payload] // In case the loading failed and it is manually re-tried
+        state.burnedAreasOptions.selected.push(payload)
+      } else {
+        state.burnedAreasOptions.selected.splice(i, 1)
+        // Reset opacity
+        delete state.burnedAreasOptions.opacity[payload]
+      }
+    },
+    setBurnedAreasLayers: (
+      state,
+      { payload: { sources, opacity } }: PayloadAction<{ sources: BurnedAreaKey[]; opacity?: number }>
+    ) => {
+      state.burnedAreasOptions.selected = sources
+      state.burnedAreasOptions.opacity = {}
+
+      if (opacity !== undefined) {
+        state.burnedAreasOptions.selected.forEach((key) => {
+          state.burnedAreasOptions.opacity[key] = opacity
+        })
+      }
+    },
+    setBurnedAreaLayerOpacity: (
+      state,
+      { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>
+    ) => {
+      state.burnedAreasOptions.opacity[key] = opacity
+    },
+    setBurnedAreaGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
+      state.burnedAreasOptions.selected.forEach((layerKey) => {
+        state.burnedAreasOptions.opacity[layerKey] = payload
+      })
+    },
+    resetBurnedAreaLayersStates: (state) => {
+      state.burnedAreasOptions.fetchedLayers = initialState.burnedAreasOptions.fetchedLayers
+      state.burnedAreasOptions.pendingLayers = initialState.burnedAreasOptions.pendingLayers
+      state.burnedAreasOptions.failedLayers = initialState.burnedAreasOptions.failedLayers
+    },
+    resetSingleBurnedAreaLayerStates: (state, { payload }: PayloadAction<BurnedAreaKey>) => {
+      delete state.burnedAreasOptions.fetchedLayers[payload]
+      delete state.burnedAreasOptions.pendingLayers[payload]
+      delete state.burnedAreasOptions.failedLayers[payload]
+    },
     setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {
       state.geoStatistics.forestEstimations = payload
       state.geoStatistics.isLoading = false
@@ -338,6 +416,26 @@ export const geoSlice = createSlice({
         const i = state.protectedAreasOptions.selected.findIndex((key) => key === meta.arg.key)
         if (i !== -1) {
           state.protectedAreasOptions.selected.splice(i, 1)
+        }
+      })
+      .addCase(getBurnedAreaLayer.fulfilled, (state, { payload: [key, mapId] }) => {
+        state.burnedAreasOptions.fetchedLayers[key] = mapId
+        delete state.burnedAreasOptions.pendingLayers[key]
+        delete state.burnedAreasOptions.failedLayers[key]
+      })
+      .addCase(getBurnedAreaLayer.pending, (state, { meta }) => {
+        state.burnedAreasOptions.pendingLayers[meta.arg.key] = meta.arg.uri
+        delete state.burnedAreasOptions.fetchedLayers[meta.arg.key]
+        delete state.burnedAreasOptions.failedLayers[meta.arg.key]
+      })
+      .addCase(getBurnedAreaLayer.rejected, (state, { meta }) => {
+        state.burnedAreasOptions.failedLayers[meta.arg.key] = meta.arg.uri
+        delete state.burnedAreasOptions.pendingLayers[meta.arg.key]
+        delete state.burnedAreasOptions.fetchedLayers[meta.arg.key]
+        // Un-select the layer if the fetching fails
+        const i = state.burnedAreasOptions.selected.findIndex((key) => key === meta.arg.key)
+        if (i !== -1) {
+          state.burnedAreasOptions.selected.splice(i, 1)
         }
       })
   },

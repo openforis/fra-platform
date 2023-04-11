@@ -125,6 +125,12 @@ const NationalClass: React.FC<Props> = (props) => {
         <VerticallyGrowingTextField
           value={definition || ''}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const caret = event.target.selectionStart
+            const element = event.target
+            window.requestAnimationFrame(() => {
+              element.selectionStart = caret
+              element.selectionEnd = caret
+            })
             const { value } = event.target
             const originalDataPointUpdate = ODPs.updateNationalClass({
               odp: originalDataPoint,

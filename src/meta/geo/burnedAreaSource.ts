@@ -8,3 +8,9 @@ export const burnedAreaSourcesMetadata = {
     scale: 500,
   },
 }
+
+export interface BurnedAreasUIOptions {
+  startYear: number
+  endYear: number
+  selectedYear: number
+}

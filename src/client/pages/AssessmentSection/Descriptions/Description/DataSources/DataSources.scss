@@ -5,16 +5,26 @@
 }
 
 .data-source-grid {
-  grid-template-columns: 1fr 1.3fr repeat(3, 1fr) 0.1fr;
+  grid-template-columns: 0.2fr 1fr 1fr repeat(3, 1fr) 0.1fr;
 }
 
 .data-source-column {
   position: relative;
   min-height: 2rem;
 }
+
 .data-source-review-indicator {
   border: none !important;
-  align-items: flex-end;
+  display: flex;
+  align-items: center;
+
+  > button {
+    border: 0;
+    background-color: transparent;
+    > svg.delete {
+      color: $ui-destructive;
+    }
+  }
 }
 
 .data-source__delete-wrapper {
@@ -24,10 +34,6 @@
   > button {
     border: 0;
     background-color: transparent;
-    margin-top: $spacing-xxs;
-    > svg.delete {
-      color: $ui-destructive;
-    }
   }
 
   > div {
@@ -41,5 +47,20 @@
   &:focus-within {
     outline: none;
     box-shadow: 0 0 0 1px $text-body;
+  }
+
+  .jodit-container {
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+  }
+
+  .data-source__markdown-wrapper {
+    padding: 10px;
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
   }
 }

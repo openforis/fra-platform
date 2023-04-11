@@ -33,7 +33,7 @@ const VerticallyGrowingTextField = forwardRef<HTMLTextAreaElement, Props>((props
         rows={1}
         className="vgtf__textarea no-print"
         style={{ minWidth }}
-        defaultValue={value}
+        value={value}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...rest}
       />
