@@ -7,14 +7,13 @@ import { Context } from '../context'
 
 export const validatorNotEmpty: ExpressionFunction<Context> = {
   name: 'validatorNotEmpty',
-  minArity: 2,
+  minArity: 1,
   executor: () => {
     return (value?: string): NodeValueValidation => {
-      const valid = Objects.isEmpty(value)
+      const isEmpty = Objects.isEmpty(value)
+      const valid = !isEmpty // Invert the result of isEmpty
 
-      const messages: Array<NodeValueValidationMessage> = valid
-        ? undefined
-        : [{ key: 'generalValidation.sumNotGreaterThan' }]
+      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key: 'generalValidation.notEmpty' }]
 
       return { valid, messages }
     }
