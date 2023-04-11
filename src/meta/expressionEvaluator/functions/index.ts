@@ -1,6 +1,7 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
 import { Context } from '../context'
+import { maxForestArea } from './maxForestArea'
 import { NWFPProductHasCategory } from './NWFPProductHasCategory'
 import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
 import { validatorEqualToPlantedForest } from './validatorEqualToPlantedForest'
@@ -41,6 +42,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorPlantationForestIntroduced,
   validatorPrimaryForest,
   validatorSubCategory,
+  maxForestArea,
   validatorTotalForest,
   validatorPrivateOwnership,
   validatorSumNotGreaterThan,
