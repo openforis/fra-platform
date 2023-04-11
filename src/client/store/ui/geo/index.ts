@@ -1,5 +1,6 @@
 export {
   useAppliedMosaicOptions,
+  useBurnedAreasOptions,
   useForestSourceOptions,
   useGeoStatistics,
   useIsGeoMapAvailable,

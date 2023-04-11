@@ -1,0 +1,47 @@
+@import 'src/client/style/partials';
+
+.geo-map-menu-forest-layer-opacity-input {
+  display: flex;
+  margin: auto auto auto 5px;
+  width: 120px;
+  justify-content: space-between;
+  > div {
+    height: 100%;
+    vertical-align: middle;
+  }
+  .geo-map-menu-forest-layer-opacity-input-div {
+    flex: 1;
+    margin-left: 0px;
+  }
+
+  .geo-map-menu-burned-area-layer-opacity {
+    margin-left: 15px;
+    width: 10px;
+  }
+
+  input {
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+  }
+  small {
+    height: 100%;
+    vertical-align: middle;
+    font-size: normal;
+    font-weight: bold;
+  }
+}
+
+.burned-area-year-selector-container {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.burned-area-year-selector {
+  height: 24px;
+  width: 170px;
+}
