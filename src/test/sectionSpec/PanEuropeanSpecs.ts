@@ -3627,7 +3627,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 'header_0',
                     colSpan: 1,
-                    labelKey: `panEuropean.countryComments.${variableName}`,
+                    labelKey: `panEuropean.countryComments.primarilyDegradedBy`,
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
