@@ -50,6 +50,18 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
         changes.type
       )
     ) {
+      // Disable saving if selected item is not changed when free text disabled
+      if (withArrow && !changes.selectedItem) {
+        return
+      }
+
+      // When arrow is shown, save only selected item
+      if (withArrow) {
+        onSave(changes.selectedItem ?? '')
+        return
+      }
+
+      // Default behavior: Save both selected value OR input value
       onSave(changes.selectedItem?.value ?? inputValue)
     }
   }

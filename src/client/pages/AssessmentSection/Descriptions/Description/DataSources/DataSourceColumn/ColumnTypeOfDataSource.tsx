@@ -15,7 +15,7 @@ type Props = {
 const ColumnTypeOfDataSource: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, onChange } = props
   const { t } = useTranslation()
-  const _onChange = (value: string) => onChange('type', value)
+  const _onChange = ({ value }: { value: string }) => onChange('type', value)
 
   const items = useMemo(() => {
     return Object.keys(dataSourceType).map((type) => {

@@ -27,7 +27,7 @@ const ColumnVariable: React.FC<Props> = (props: Props) => {
       }))
     : []
 
-  const _onChange = (value: string) => onChange('year', value)
+  const _onChange = ({ value }: { value: string }) => onChange('year', value)
 
   return (
     <DataColumn
