@@ -13,7 +13,11 @@ export const validatorPrivateOwnership: ExpressionFunction<Context> = {
     return (privateOwnership?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
       const emptyValues = subCategoryValues.filter((value) => Objects.isEmpty(value))
 
-      let valid = Objects.isEmpty(privateOwnership) || Numbers.eq(privateOwnership, 0) || emptyValues.length === 2
+      let valid =
+        emptyValues.length === subCategoryValues.length ||
+        Objects.isEmpty(privateOwnership) ||
+        Numbers.eq(privateOwnership, 0) ||
+        emptyValues.length === 2
       let key = ''
 
       if (!valid) {
