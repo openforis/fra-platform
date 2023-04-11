@@ -2561,12 +2561,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
               {
                 idx: 0,
                 type: 'data',
+                variableName: 'agentName',
                 cols: [
                   { idx: 0, type: 'placeholder', migration: { cycles: ['2025'] } },
                   { idx: 1, type: 'placeholder', migration: { cycles: ['2025'] } },
                   {
                     idx: 2,
                     type: 'text',
+                    colName: 'agentOne',
                     migration: {
                       cycles: ['2025'],
                       validateFns: [`validatorNotEmpty(table_2_5.agentName['agentOne'])`],
@@ -2575,6 +2577,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 3,
                     type: 'text',
+                    colName: 'agentTwo',
                     migration: {
                       cycles: ['2025'],
                       validateFns: [`validatorNotEmpty(table_2_5.agentName['agentTwo'])`],
@@ -2583,6 +2586,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 4,
                     type: 'text',
+                    colName: 'agentThree',
                     migration: {
                       cycles: ['2025'],
                       validateFns: [`validatorNotEmpty(table_2_5.agentName['agentThree'])`],
@@ -2591,6 +2595,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 5,
                     type: 'text',
+                    colName: 'agentFour',
                     migration: {
                       cycles: ['2025'],
                       validateFns: [`validatorNotEmpty(table_2_5.agentName['agentFour'])`],
@@ -2599,6 +2604,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 6,
                     type: 'text',
+                    colName: 'agentFive',
                     migration: {
                       cycles: ['2025'],
                       validateFns: [`validatorNotEmpty(table_2_5.agentName['agentFive'])`],
