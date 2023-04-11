@@ -41,8 +41,8 @@ const ColumnFraVariable: React.FC<Props> = (props: Props) => {
   }, [] as { label: string; value: string }[])
 
   // Include also the variables from the data source 'include' property
-  const options = (dataSourceVariables?.include ?? []).reduce((acc, variableName) => {
-    const _option = { label: t(variableName), value: variableName }
+  const options = (dataSourceVariables?.include ?? []).reduce((acc, customKey) => {
+    const _option = { label: t(customKey), value: customKey }
     const exists = acc.find((option) => t(option.label) === t(_option.label))
 
     if (!exists) {
