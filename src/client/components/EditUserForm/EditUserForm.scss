@@ -25,13 +25,11 @@
   display: flex;
   justify-content: center;
 
-  select {
-    width: 100%;
-    border: none;
-  }
-
   &.disabled {
-    color: $text-disabled;
+    input:disabled,
+    select:disabled {
+      color: $text-disabled;
+    }
   }
 }
 

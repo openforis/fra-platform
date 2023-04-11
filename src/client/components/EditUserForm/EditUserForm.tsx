@@ -75,7 +75,11 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles 
 
   return (
     <div className="edit-user__form-container">
-      <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
+      <ProfilePicture
+        onChange={(profilePicture: File) => setProfilePicture(profilePicture)}
+        userId={user.id}
+        enabled={enabled}
+      />
 
       <TextInputField
         name="email"
