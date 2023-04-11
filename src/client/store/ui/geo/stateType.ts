@@ -1,5 +1,12 @@
 import { CountryIso } from '@meta/area'
-import { ForestOptions, GeoStatisticsState, MapPanel, MosaicOptions, ProtectedAreasOptions } from '@meta/geo'
+import {
+  BurnedAreasOptions,
+  ForestOptions,
+  GeoStatisticsState,
+  MapPanel,
+  MosaicOptions,
+  ProtectedAreasOptions,
+} from '@meta/geo'
 
 export type GeoState = {
   isMapAvailable: boolean
@@ -17,4 +24,5 @@ export type GeoState = {
   }
   geoStatistics: GeoStatisticsState
   protectedAreasOptions: ProtectedAreasOptions
+  burnedAreasOptions: BurnedAreasOptions
 }
