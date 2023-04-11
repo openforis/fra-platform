@@ -1,4 +1,4 @@
-import { BurnedAreaKey } from './burnedAreaSource'
+import { BurnedAreaKey, BurnedAreasUIOptions } from './burnedAreaSource'
 import { ProtectedAreaKey } from './protectedAreaSource'
 
 export enum LayerStatus {
@@ -29,6 +29,16 @@ export interface ProtectedAreasOptions {
   failedLayers: { [key: string]: string }
   opacity: { [key: string]: number }
   customAssetId: string
+}
+
+export interface BurnedAreasOptions {
+  ui: BurnedAreasUIOptions
+  applied: BurnedAreasUIOptions
+  selected: BurnedAreaKey[]
+  fetchedLayers: { [key: string]: string }
+  pendingLayers: { [key: string]: string }
+  failedLayers: { [key: string]: string }
+  opacity: { [key: string]: number }
 }
 
 export const hansenPercentages = [10, 20, 30] as const

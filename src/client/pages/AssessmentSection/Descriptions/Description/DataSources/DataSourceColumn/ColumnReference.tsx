@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import classNames from 'classnames'
 
@@ -14,12 +14,13 @@ interface DataSourceReferenceColumnProps {
   dataSource: DataSource
   placeholder: boolean
   disabled: boolean
-  onDelete: () => void
   onChange: (key: string, value: Record<string, string>) => void
 }
 
 const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
-  const { dataSource, placeholder, disabled, onDelete, onChange } = props
+  const { dataSource, placeholder, disabled, onChange } = props
+
+  const [toggleLinkField, setToggleLinkField] = useState(false)
 
   const _onChange = useCallback(
     (field: string, value: string) => {
@@ -38,16 +39,39 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
       })}
     >
       <div className="data-source__delete-wrapper">
+        {!disabled && !toggleLinkField && (
+          <VerticallyGrowingTextField
+            disabled={disabled}
+            onChange={(event) => _onChange('text', event.target.value)}
+            value={dataSource.reference?.text ?? ''}
+          />
+        )}
+
+        {!disabled && toggleLinkField && (
+          <VerticallyGrowingTextField
+            disabled={disabled}
+            onChange={(event) => _onChange('link', event.target.value)}
+            value={dataSource.reference?.link ?? ''}
+          />
+        )}
+
+        {disabled && (
+          <span className="text-input__readonly-view">
+            {dataSource.reference?.link ? (
+              <a href={dataSource.reference?.link} target="_blank" rel="noreferrer">
+                {dataSource.reference?.text}
+              </a>
+            ) : (
+              dataSource.reference?.text
+            )}
+          </span>
+        )}
+
         {!placeholder && !disabled && (
-          <button type="button" onClick={onDelete}>
-            <Icon className="delete" name="remove" />
+          <button type="button" onClick={() => setToggleLinkField(!toggleLinkField)}>
+            {toggleLinkField ? <Icon name="text_fields" /> : <Icon name="insert_link" />}
           </button>
         )}
-        <VerticallyGrowingTextField
-          disabled={disabled}
-          onChange={(event) => _onChange('text', event.target.value)}
-          value={dataSource.reference?.text ?? ''}
-        />
       </div>
     </DataColumn>
   )
