@@ -41,12 +41,14 @@ export const getHtml = async (props: Props): Promise<string> => {
   })
   tocHTML += '</ul><hr/>'
 
+  const bodyClass = props.lang === 'ar' ? 'class="rtl"' : ''
+
   return `<html>
           <head>
             <title>${toc[0].text}</title>
             <link rel="stylesheet" href="/css/definition.css"/>
           </head>
-          <body>
+          <body ${bodyClass}>
           ${tocHTML}
           ${content}
           </body>
