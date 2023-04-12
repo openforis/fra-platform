@@ -43,10 +43,14 @@ const ProfilePicture = (props: Props) => {
       <div className="edit-user__form-field validation-error-sensitive-field">
         <input ref={profilePictureFile} type="file" accept="image/*" style={{ display: 'none' }} onChange={_onChange} />
         <img alt="" ref={profilePicture} src={Users.profilePictureUri(userId)} className="edit-user__picture-img" />
-        <button className="btn btn-primary btn-xs" onClick={_onClick} type="button" disabled={!enabled}>
-          {t('editUser.chooseProfilePicture')}
-        </button>
-        {!valid && <div className="edit-user__picture-img-invalid">{t('editUser.picture1MbMax')}</div>}
+        {enabled && (
+          <>
+            <button className="btn btn-primary btn-xs" onClick={_onClick} type="button" disabled={!enabled}>
+              {t('editUser.chooseProfilePicture')}
+            </button>
+            {!valid && <div className="edit-user__picture-img-invalid">{t('editUser.picture1MbMax')}</div>}
+          </>
+        )}
       </div>
     </div>
   )
