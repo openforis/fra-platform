@@ -29,7 +29,7 @@ const ColumnTypeOfDataSource: React.FC<Props> = (props: Props) => {
   return (
     <DataColumn className="data-source-column">
       <Autocomplete
-        withArrow
+        readOnlyOptions
         disabled={disabled}
         onSave={_onChange}
         value={dataSource.type ? t(`dataSource.${dataSource.type}`) : ''}

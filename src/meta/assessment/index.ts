@@ -8,7 +8,7 @@ export type { AssessmentMetaCache, DependencyCache, DependencyRecord, VariableCa
 export { AssessmentMetaCaches } from './assessmentMetaCaches'
 export type { AssessmentName } from './assessmentName'
 export { AssessmentNames } from './assessmentName'
-export type { Col, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
+export type { Col, ColName, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
 export { ColType } from './col'
 export { Cols } from './cols'
 export type { CommentableDescription, CommentableDescriptionValue, DataSource } from './commentableDescription'
