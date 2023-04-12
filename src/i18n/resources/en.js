@@ -1059,6 +1059,10 @@ The FRA team
     landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a)',
     classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
     classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',
+    valueCannotExceedMaximumValueReportedForForestArea:
+      'Value cannot exceed the maximum value reported for forest area (1a): {{maxForestArea}}',
+    valueCannotExceedMaximumValueReportedForForestAreaYear:
+      'The sum of year {{year}} cannot exceed the maximum value reported for forest area (1a): {{maxForestArea}}',
   },
 
   emoji: {

@@ -6,16 +6,21 @@ import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessmen
 
 import { Context } from '../context'
 
-export const validatorSumNotGreaterThan: ExpressionFunction<Context> = {
-  name: 'validatorSumNotGreaterThan',
+export const validatorColSumNotGreaterThanForest: ExpressionFunction<Context> = {
+  name: 'validatorColSumNotGreaterThanForest',
   minArity: 2,
-  executor: () => {
+  executor: (context) => {
     return (value?: string, maxValue?: string): NodeValueValidation => {
       const valid = Objects.isEmpty(value) || !Numbers.greaterThan(value, maxValue)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.sumNotGreaterThan', params: { maxValue: Numbers.toFixed(maxValue) } }]
+        : [
+            {
+              key: 'generalValidation.valueCannotExceedMaximumValueReportedForForestAreaYear',
+              params: { maxForestArea: Numbers.toFixed(maxValue), year: context.colName },
+            },
+          ]
 
       return { valid, messages }
     }
