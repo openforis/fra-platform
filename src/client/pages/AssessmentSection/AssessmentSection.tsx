@@ -54,7 +54,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
     <div className={`app-view__content assessment-section__${sectionName}`}>
       {showTitle && print && (
         <h2 className="title only-print">
-          {`${onlyTables ? '' : `${anchor} `}${Labels.getLabel({ cycle, labels: subSection.props.labels, t })}`}
+          {`${onlyTables ? '' : `${anchor} `}${Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}`}
         </h2>
       )}
 
@@ -64,8 +64,8 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
       {showTitle && <Title subSection={subSection} />}
 
       {tableSections.map((tableSection) => {
-        const label = Labels.getLabel({ cycle, labels: tableSection.props.labels, t })
-        const description = Labels.getLabel({ cycle, labels: tableSection.props.descriptions, t })
+        const label = Labels.getCycleLabel({ cycle, labels: tableSection.props.labels, t })
+        const description = Labels.getCycleLabel({ cycle, labels: tableSection.props.descriptions, t })
         return (
           <React.Fragment key={tableSection.uuid}>
             {label && <h3 className="subhead assessment-section__table-title">{label}</h3>}

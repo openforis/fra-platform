@@ -41,7 +41,7 @@ const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
 
 const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
   const { cycle, col, t } = props
-  return col.props.colName ?? Labels.getLabel({ cycle, labels: col.props.labels, t })
+  return col.props.colName ?? Labels.getCycleLabel({ cycle, labels: col.props.labels, t })
 }
 
 export const Cols = {
