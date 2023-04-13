@@ -38,7 +38,7 @@ export const UserApi = {
 
     express.post(ApiEndPoint.User.roles(), AuthMiddleware.requireAdmin, updateUserRoles)
     express.post(ApiEndPoint.User.adminRole(), AuthMiddleware.requireAdmin, updateUserAdminRole)
-    express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireEditUser, updateSectionAuth)
+    express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireInviteUser, updateSectionAuth)
     express.post(ApiEndPoint.User.roleProps(), AuthMiddleware.requireEditUser, updateRoleProps)
   },
 }
