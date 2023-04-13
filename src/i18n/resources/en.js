@@ -1035,7 +1035,7 @@ The FRA team
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
     forestAreaDoesNotMatchExtentOfForest: "Doesn't match Forest area (1a)",
-    forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
+    forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a) ({{value}})',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
     remainingLandExceedsExtentOfForest: 'Exceeds Remaining land area (1a)',
     valueMustBePositive: 'Value should be greater than zero',
@@ -1060,9 +1060,9 @@ The FRA team
     classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
     classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',
     valueCannotExceedMaximumValueReportedForForestArea:
-      'Value cannot exceed the maximum value reported for forest area (1a): {{maxForestArea}}',
+      'Value cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
     valueCannotExceedMaximumValueReportedForForestAreaYear:
-      'The sum of year {{year}} cannot exceed the maximum value reported for forest area (1a): {{maxForestArea}}',
+      'The sum of year {{year}} cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
   },
 
   emoji: {
