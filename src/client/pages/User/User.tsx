@@ -64,8 +64,7 @@ const User: React.FC = () => {
 
   const canEditPermissions = !isSelf && isAdministrator && !Areas.isISOGlobal(countryIso) && isCountry
 
-  const canEditRoles =
-    !isSelf && Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0 && Areas.isISOGlobal(countryIso)
+  const canEditRoles = !isSelf && isAdministrator && Areas.isISOGlobal(countryIso)
 
   return (
     <div className="app-view__content user-container">
