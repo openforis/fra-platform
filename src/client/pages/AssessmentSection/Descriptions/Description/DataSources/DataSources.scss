@@ -57,19 +57,4 @@
     outline: none;
     box-shadow: 0 0 0 1px $text-body;
   }
-
-  .jodit-container {
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
-  }
-
-  .data-source__markdown-wrapper {
-    padding: 10px;
-
-    p {
-      margin: 0;
-      padding: 0;
-    }
-  }
 }
