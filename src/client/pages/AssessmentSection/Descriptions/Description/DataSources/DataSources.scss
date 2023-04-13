@@ -5,31 +5,40 @@
 }
 
 .data-source-grid {
-  grid-template-columns: 0.2fr 1fr 1fr repeat(3, 1fr) 0.1fr;
-}
+  grid-template-columns: 0px repeat(5, 1fr) 0px;
 
-.data-source-column {
-  position: relative;
-  min-height: 2rem;
-}
+  .data-source-column {
+    position: relative;
+    min-height: 2rem;
+  }
 
-.data-source-review-indicator {
-  border: none !important;
-  display: flex;
-  align-items: center;
-
-  > button {
+  .data-source__delete-button {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    bottom: 0;
     border: 0;
     background-color: transparent;
-    > svg.delete {
+
+    svg {
       color: $ui-destructive;
+    }
+  }
+
+  .data-source__relative-cell {
+    position: relative;
+
+    .review-indicator {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      align-items: center;
     }
   }
 }
 
-.data-source__delete-wrapper {
+.data-source__reference-wrapper {
   display: flex;
-  height: calc(100% + -1px);
 
   > button {
     border: 0;
@@ -47,20 +56,5 @@
   &:focus-within {
     outline: none;
     box-shadow: 0 0 0 1px $text-body;
-  }
-
-  .jodit-container {
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
-  }
-
-  .data-source__markdown-wrapper {
-    padding: 10px;
-
-    p {
-      margin: 0;
-      padding: 0;
-    }
   }
 }

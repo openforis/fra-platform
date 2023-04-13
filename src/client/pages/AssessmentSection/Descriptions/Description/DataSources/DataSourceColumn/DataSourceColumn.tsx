@@ -29,13 +29,12 @@ interface Props {
   dataSource: DataSource
   disabled: boolean
   onChange: (dataSource: DataSource) => void
-  onDelete: () => void
   placeholder: boolean
   table: Table
   dataSourceVariables?: DataSourceVariables
 }
 const DataSourceColumn: React.FC<Props> = (props: Props) => {
-  const { column, disabled, placeholder, onChange, onDelete, dataSource, table, dataSourceVariables } = props
+  const { column, disabled, placeholder, onChange, dataSource, table, dataSourceVariables } = props
   const Components: Record<string, React.FC<any>> = {
     referenceToTataSource: ColumnReference,
     typeOfDataSource: ColumnTypeOfDataSource,
@@ -67,7 +66,6 @@ const DataSourceColumn: React.FC<Props> = (props: Props) => {
       dataSource={dataSource}
       onChange={_onChange}
       placeholder={placeholder}
-      onDelete={onDelete}
       table={table}
       dataSourceVariables={dataSourceVariables}
     />
