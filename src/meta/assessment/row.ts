@@ -1,5 +1,7 @@
 import { Col, CycledPropsObject, CycleUuid, VariableCache } from '@meta/assessment'
 
+export type VariableName = string
+
 export enum RowType {
   header = 'header',
   data = 'data',
@@ -46,7 +48,7 @@ export interface RowProps {
   linkToSection?: Record<CycleUuid, string>
   readonly?: boolean
   type: RowType
-  variableName?: string
+  variableName?: VariableName
   validateFns?: Record<CycleUuid, Array<string>>
 }
 

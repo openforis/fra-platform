@@ -21,7 +21,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
   return (
     <>
-      <h2 className="headline no-print">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+      <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
 
       {hasOdps && print && !onlyTables && <OriginalDataPointsPrint sectionName={subSection.props.name} />}
     </>

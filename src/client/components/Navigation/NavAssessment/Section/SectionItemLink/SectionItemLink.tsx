@@ -57,7 +57,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       }}
     >
       <div className="nav-section__order">{SubSections.getAnchor({ cycle, subSection })}</div>
-      <div className="nav-section__label">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</div>
+      <div className="nav-section__label">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">
           <ReviewStatusMarker status={reviewStatus} />
