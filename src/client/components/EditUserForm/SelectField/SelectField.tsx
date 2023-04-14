@@ -41,7 +41,11 @@ const SelectField: React.FC<Props> = (props) => {
           error: !valid,
         })}
       >
-        <select value={value} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)}>
+        <select
+          value={value}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)}
+          disabled={!enabled}
+        >
           <option value="">{t('userManagement.placeholder')}</option>
           {Object.entries(options).map(([k, v]) => (
             <option key={k} value={k}>

@@ -2,11 +2,10 @@
 
 .edit-user__form-field {
   &.edit-user__form-select-field {
-    border: none;
     gap: $spacing-xs;
 
     select {
-      border: 1px solid $ui-border;
+      border: none;
       width: 100%;
       padding: 10px;
     }
