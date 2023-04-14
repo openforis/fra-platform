@@ -7,4 +7,10 @@ export interface DescriptionsSpec {
   comments: DescriptionSpec
   introductoryText: DescriptionSpec
   nationalData: DescriptionSpec
+  linkedVariables?: Array<{
+    assessmentName: string
+    cycleName: string
+    sectionName: string
+    variableNames: Array<string>
+  }>
 }

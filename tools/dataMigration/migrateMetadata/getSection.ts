@@ -33,15 +33,18 @@ const panEuropeanColumns: Array<DataSourceColumn> = [
   'comments',
 ]
 
-const panEuropeanDescription = {
-  comments: true,
-  nationalData: {
-    dataSources: {
-      table: {
-        columns: [...panEuropeanColumns],
+const panEuropeanDescription = (descriptions: DescriptionsSpec): Description => {
+  return {
+    comments: true,
+    nationalData: {
+      dataSources: {
+        table: {
+          columns: [...panEuropeanColumns],
+        },
       },
+      linkedVariables: descriptions.linkedVariables, // Add linkedVariables field
     },
-  },
+  }
 }
 
 const transformDescription = (descriptions: DescriptionsSpec, cycleName: string): Description => {
@@ -99,7 +102,7 @@ const getDescriptions = (props: {
     return cycles.reduce(
       (acc, cycle) => ({
         ...acc,
-        [cycle.uuid]: panEuropeanDescription,
+        [cycle.uuid]: panEuropeanDescription(descriptions),
       }),
       {}
     )

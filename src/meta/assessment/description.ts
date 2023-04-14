@@ -32,6 +32,12 @@ export interface NationalDataDescription {
   dataSources?: NationalDataDataSourceDescription
   nationalClassification?: boolean
   originalData?: boolean
+  linkedVariables?: Array<{
+    assessmentName: string
+    cycleName: string
+    sectionName: string
+    variableNames: Array<string>
+  }>
 }
 
 export interface Description {
