@@ -40,7 +40,7 @@ const calculateValues = (nationalClass: ODPNationalClass) => {
     otherPlantedForestPercent: getValueOrNull(otherPlantedForestPercent, rowIsMaxedForestCharacteristics),
     forestPercent: getValueOrNull(forestPercent, rowIsMaxedExtentOfForest),
     otherWoodedLandPercent: getValueOrNull(otherWoodedLandPercent, rowIsMaxedExtentOfForest),
-    forestPlantationIntroducedPercent: forestPlantationIntroducedPercent ?? '0',
+    forestPlantationIntroducedPercent,
   }
 }
 
