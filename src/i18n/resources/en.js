@@ -1056,13 +1056,15 @@ The FRA team
     forestSumAreaExceedsExtentOfForest:
       'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
     valueEqualToSum: 'Total value should be equal to sum of subcategories',
-    landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a)',
+    landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a) ({{value}})',
     classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
     classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',
     valueCannotExceedMaximumValueReportedForForestArea:
       'Value cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
     valueCannotExceedMaximumValueReportedForForestAreaYear:
       'The sum of year {{year}} cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
+    valueCannotExceedMaximumValueReportedForLandArea:
+      'Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)',
   },
 
   emoji: {

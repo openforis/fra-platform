@@ -2,6 +2,7 @@ import { ExpressionFunction } from '@openforis/arena-core/dist/expression/functi
 
 import { Context } from '../context'
 import { maxForestArea } from './maxForestArea'
+import { maxLandArea } from './maxLandArea'
 import { NWFPProductHasCategory } from './NWFPProductHasCategory'
 import { validatorColSumNotGreaterThanForest } from './validatorColSumNotGreaterThanForest'
 import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
@@ -19,6 +20,7 @@ import { validatorNotGreaterThan } from './validatorNotGreaterThan'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
 import { validatorNotGreaterThanForestOrMaxForest } from './validatorNotGreaterThanForestOrMaxForest'
 import { validatorNotGreaterThanLandArea } from './validatorNotGreaterThanLandArea'
+import { validatorNotGreaterThanLandAreaOrMaxLandArea } from './validatorNotGreaterThanLandAreaOrMaxLandArea'
 import { validatorOtherLand } from './validatorOtherLand'
 import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTreeCoverTotal'
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
@@ -31,8 +33,10 @@ import { validatorSumNotGreaterThanForest } from './validatorSumNotGreaterThanFo
 import { validatorTotalForest } from './validatorTotalForest'
 
 export const functions: Array<ExpressionFunction<Context>> = [
+  validatorNotGreaterThanLandAreaOrMaxLandArea,
   NWFPProductHasCategory,
   maxForestArea,
+  maxLandArea,
   validatorColSumNotGreaterThanForest,
   validatorEqualToForestExpansion,
   validatorEqualToPlantedForest,
