@@ -1,3 +1,6 @@
+import { VariableName } from '@meta/assessment'
+import { Label } from '@meta/assessment/label'
+
 import { CycleUuid } from './cycle'
 
 export type DataSourceColumn =
@@ -15,8 +18,9 @@ export interface AnalysisAndProcessingDescription {
 }
 
 export interface DataSourceVariables {
+  // Custom i18n keys to include
   include: Array<string>
-  exclude: Array<string>
+  prefixes?: Record<VariableName, Label>
 }
 
 export interface NationalDataDataSourceDescription {

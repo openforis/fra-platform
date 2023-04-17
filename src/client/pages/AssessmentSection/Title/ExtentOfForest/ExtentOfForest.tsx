@@ -38,7 +38,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   return (
     <>
       <h2 className="headline no-print">
-        {Labels.getLabel({ cycle, labels: subSection.props.labels, t })}
+        {Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}
         {Users.isAdministrator(user) && hasOdps && (
           <button type="button" className="btn-s btn-secondary btn-toggle-odp" onClick={onClick}>
             {t(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}

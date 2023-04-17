@@ -10,16 +10,16 @@ type Props = {
   disabled: boolean
   isOpen: boolean
   openMenu: () => void
-  withArrow?: boolean
+  readOnlyOptions?: boolean
 }
 const AutocompleteInput: React.FC<Props> = (props: Props) => {
-  const { getInputProps, value, disabled, isOpen, withArrow, openMenu } = props
+  const { getInputProps, value, disabled, isOpen, readOnlyOptions, openMenu } = props
 
   const _onFocus = () => {
-    if (withArrow) openMenu()
+    if (readOnlyOptions) openMenu()
   }
 
-  const showArrow = withArrow && !disabled
+  const showArrow = readOnlyOptions && !disabled
 
   return (
     <div className="autocomplete-input__wrapper">
@@ -39,7 +39,7 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
 }
 
 AutocompleteInput.defaultProps = {
-  withArrow: false,
+  readOnlyOptions: false,
 }
 
 export default AutocompleteInput

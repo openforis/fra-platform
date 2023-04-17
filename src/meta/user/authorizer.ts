@@ -39,7 +39,7 @@ const canView = (props: { countryIso: CountryIso; assessment: Assessment; cycle:
  *  @param props.User
  *  @returns boolean
  */
-const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; user: User }): boolean => {
+const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User }): boolean => {
   const { countryIso, user, cycle } = props
   if (Users.isAdministrator(user)) return true
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false

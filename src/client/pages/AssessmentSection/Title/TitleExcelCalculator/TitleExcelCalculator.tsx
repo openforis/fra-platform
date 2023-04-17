@@ -18,7 +18,7 @@ const TitleExcelCalculator: React.FC<Props> = (props) => {
 
   return (
     <div className="title-with-excel-calculator">
-      <h2 className="headline no-print">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+      <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
       {!print && <ExcelCalculatorDownload />}
     </div>
   )

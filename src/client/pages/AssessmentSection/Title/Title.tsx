@@ -26,7 +26,7 @@ const TitleDefault: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const { t } = useTranslation()
 
-  return <h2 className="headline no-print">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+  return <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
 }
 
 const Title: React.FC<Props> = (props) => {

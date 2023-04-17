@@ -70,7 +70,7 @@ const FraPrint: React.FC = () => {
           <div key={section.uuid} id={`section${key}`}>
             {!onlyTables && (
               <h1 className="title only-print">
-                {i === 0 ? '' : key} {Labels.getLabel({ cycle, labels: section.props.labels, t })}
+                {i === 0 ? '' : key} {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
               </h1>
             )}
 
