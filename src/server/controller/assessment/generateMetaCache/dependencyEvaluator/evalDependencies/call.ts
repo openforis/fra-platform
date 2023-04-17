@@ -5,49 +5,19 @@ import {
   ExpressionNodeEvaluator,
   ExpressionNodeType,
   IdentifierExpression,
-  MemberExpression,
 } from '@openforis/arena-core'
+
+import { customDepenendencies } from './customDepenendencies'
 
 export class CallEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, CallExpression> {
   evaluate(expressionNode: CallExpression): any {
     const { callee } = expressionNode
 
-    // max forest area
-    if ((expressionNode.callee as unknown as IdentifierExpression)?.name === 'maxForestArea') {
-      const identifierExtentOfForest: IdentifierExpression = {
-        type: 'Identifier' as ExpressionNodeType.Identifier,
-        name: 'extentOfForest',
-      }
-      const identifierForestArea: IdentifierExpression = {
-        type: 'Identifier' as ExpressionNodeType.Identifier,
-        name: 'forestArea',
-      }
-      const expressionNode: MemberExpression = {
-        type: 'MemberExpression' as ExpressionNodeType.Member,
-        computed: false,
-        object: identifierExtentOfForest,
-        property: identifierForestArea,
-      }
-      return this.evaluator.evaluateNode(expressionNode, this.context)
-    }
+    // custom dependencies
+    if (Object.keys(customDepenendencies).includes((callee as unknown as IdentifierExpression)?.name)) {
+      const name = (callee as unknown as IdentifierExpression)?.name
 
-    // max land area
-    if ((expressionNode.callee as unknown as IdentifierExpression)?.name === 'maxLandArea') {
-      const identifierExtentOfForest: IdentifierExpression = {
-        type: 'Identifier' as ExpressionNodeType.Identifier,
-        name: 'extentOfForest',
-      }
-      const identifierForestArea: IdentifierExpression = {
-        type: 'Identifier' as ExpressionNodeType.Identifier,
-        name: 'totalLandArea',
-      }
-      const expressionNode: MemberExpression = {
-        type: 'MemberExpression' as ExpressionNodeType.Member,
-        computed: false,
-        object: identifierExtentOfForest,
-        property: identifierForestArea,
-      }
-      return this.evaluator.evaluateNode(expressionNode, this.context)
+      return this.evaluator.evaluateNode(customDepenendencies[name], this.context)
     }
 
     return `${this.evaluator.evaluateNode(
