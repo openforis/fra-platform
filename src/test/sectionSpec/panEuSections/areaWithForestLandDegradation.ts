@@ -265,10 +265,17 @@ export const areaWithForestLandDegradation = {
               type: 'data',
               variableName: 'agentName',
               cols: [
-                { idx: 0, type: 'placeholder', migration: { cycles: ['2025'] } },
-                { idx: 1, type: 'placeholder', migration: { cycles: ['2025'] } },
                 {
-                  idx: 2,
+                  idx: 'header_0',
+                  type: 'header',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.areaWithForestLandDegradation.agentName',
+                  labelParams: { year: 2020 },
+                  className: 'fra-table__category-cell',
+                },
+                { idx: 0, type: 'placeholder', migration: { cycles: ['2025'] } },
+                {
+                  idx: 1,
                   type: 'text',
                   colName: 'agentOne',
                   migration: {
@@ -278,7 +285,7 @@ export const areaWithForestLandDegradation = {
                   },
                 },
                 {
-                  idx: 3,
+                  idx: 2,
                   type: 'text',
                   colName: 'agentTwo',
                   migration: {
@@ -288,7 +295,7 @@ export const areaWithForestLandDegradation = {
                   },
                 },
                 {
-                  idx: 4,
+                  idx: 3,
                   type: 'text',
                   colName: 'agentThree',
                   migration: {
@@ -298,7 +305,7 @@ export const areaWithForestLandDegradation = {
                   },
                 },
                 {
-                  idx: 5,
+                  idx: 4,
                   type: 'text',
                   colName: 'agentFour',
                   migration: {
@@ -308,7 +315,7 @@ export const areaWithForestLandDegradation = {
                   },
                 },
                 {
-                  idx: 6,
+                  idx: 5,
                   type: 'text',
                   colName: 'agentFive',
                   migration: {
@@ -317,31 +324,13 @@ export const areaWithForestLandDegradation = {
                     validateFns: { '2025': [`validatorNotEmpty(table_2_5.agentName.agentFive)`] },
                   },
                 },
-                { idx: 7, type: 'placeholder', migration: { cycles: ['2025'] } },
+                { idx: 6, type: 'placeholder', migration: { cycles: ['2025'] } },
               ],
               migration: {
                 cycles: ['2025'],
               },
               labelKey: 'panEuropean.areaWithForestLandDegradation.agentName',
               variableExport: 'agentName',
-            },
-            {
-              idx: 1,
-              variableName: 'thousandHaPlaceholder',
-              cols: [
-                {
-                  idx: 0,
-                  colSpan: 8,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.thousandHa',
-                  className: 'fra-table__header-cell',
-                  migration: {
-                    cycles: ['2025'],
-                  },
-                  type: 'placeholder',
-                },
-              ],
-              type: 'data',
             },
             {
               idx: 2,
