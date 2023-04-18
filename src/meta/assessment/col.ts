@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 import { CycledPropsObject, CycleUuid } from './cycle'
 import { Label } from './label'
 
@@ -30,7 +32,7 @@ export interface ColSelectProps {
   labelKeyPrefix?: string
 }
 
-export interface ColStyle {
+export interface ColStyle extends CSSProperties {
   colSpan?: number
   rowSpan?: number
 }

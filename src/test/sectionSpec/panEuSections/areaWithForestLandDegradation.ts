@@ -266,14 +266,10 @@ export const areaWithForestLandDegradation = {
               variableName: 'agentName',
               cols: [
                 {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.agentName',
-                  labelParams: { year: 2020 },
-                  className: 'fra-table__category-cell',
+                  idx: 0,
+                  type: 'placeholder',
+                  migration: { cycles: ['2025'], style: { '2025': { colSpan: 2, rowSpan: 1, height: '39px' } } },
                 },
-                { idx: 0, type: 'placeholder', migration: { cycles: ['2025'] } },
                 {
                   idx: 1,
                   type: 'text',
