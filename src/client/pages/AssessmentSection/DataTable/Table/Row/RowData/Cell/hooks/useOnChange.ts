@@ -85,28 +85,36 @@ export default (props: Props): UseOnChange => {
     const { clipboardData } = event
     const el = document.createElement('html')
     el.innerHTML = clipboardData.getData('text/html')
+    const rowsToPaste = el.getElementsByTagName('tr')
 
-    const rows = el.getElementsByTagName('tr')
-    const rowSpecs = table.rows.filter((row) => ![RowType.header, RowType.noticeMessage].includes(row.props.type))
+    if (rowsToPaste.length > 0) {
+      const rowIndexProp = Number(row.props.index)
+      const colIndexProp = Number(col.props.index)
 
-    if (rows.length > 0) {
+      const initialRowIndex = table.rows.findIndex((row) => row.props.index === rowIndexProp)
+      const initialColIndex = table.rows[initialRowIndex].cols.findIndex((col) => col.props.index === colIndexProp)
+
+      const colIndexes = table.rows[initialRowIndex].cols
+        .slice(initialColIndex)
+        .filter((col) => ![ColType.calculated, ColType.header].includes(col.props.colType))
+        .map((col) => col.props.index)
+
       const values: Array<NodesBodyValue> = []
 
-      for (let i = 0; i < rows.length; i += 1) {
-        const rowIdxCurrent = Number(row.props.index) + i
-        const rowSpec = rowSpecs.find((rowSpec) => rowSpec.props.index === rowIdxCurrent)
-        if (!rowSpec) break
+      for (let i = 0; i < rowsToPaste.length; i += 1) {
+        const rowSpec = table.rows[initialRowIndex + i]
 
-        const columns = rows[i].getElementsByTagName('td')
-        const colSpecs = rowSpec.cols.filter((col) => col.props.colType !== ColType.header)
+        if (!rowSpec || [RowType.calculated, RowType.header, RowType.noticeMessage].includes(rowSpec.props.type)) break
 
-        for (let j = 0; j < columns.length; j += 1) {
-          const colIdxCurrent = Number(col.props.index) + j
-          const colSpec = colSpecs.find((colSpec) => colSpec.props.index === colIdxCurrent)
+        const columnsToPaste = rowsToPaste[i].getElementsByTagName('td')
+
+        for (let j = 0; j < columnsToPaste.length; j += 1) {
+          const colSpec = rowSpec.cols.find((col) => col.props.index === colIndexes[j])
+
           if (!colSpec) break
 
           const colSpecType = colSpec.props.colType
-          const value = columns[j].innerText
+          const value = columnsToPaste[j].innerText
           const readOnly = Cols.isReadOnly({ col: colSpec, row: rowSpec }) || nodeValue.odp
           const acceptable = Sanitizer.isAcceptable({ type: colSpecType, value })
 
@@ -114,8 +122,8 @@ export default (props: Props): UseOnChange => {
             const nodeValue = TableDatas.getNodeValue({
               data,
               countryIso,
-              colName: col.props.colName,
-              variableName: row.props.variableName,
+              colName: colSpec.props.colName,
+              variableName: rowSpec.props.variableName,
               tableName: table.props.name,
             })
             const valueUpdate = Sanitizer.sanitize({
