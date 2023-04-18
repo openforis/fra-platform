@@ -12,9 +12,10 @@ import { customDepenendencies } from './customDepenendencies'
 export class CallEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, CallExpression> {
   evaluate(expressionNode: CallExpression): any {
     const { callee } = expressionNode
+    const identifier = callee as unknown as IdentifierExpression
 
     // custom dependencies
-    if (Object.keys(customDepenendencies).includes((callee as unknown as IdentifierExpression)?.name)) {
+    if (Object.keys(customDepenendencies).includes(identifier?.name)) {
       const name = (callee as unknown as IdentifierExpression)?.name
 
       return this.evaluator.evaluateNode(customDepenendencies[name], this.context)
