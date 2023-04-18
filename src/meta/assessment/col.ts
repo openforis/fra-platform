@@ -1,6 +1,8 @@
 import { CycledPropsObject, CycleUuid } from './cycle'
 import { Label } from './label'
 
+export type ColName = string
+
 export enum ColType {
   calculated = 'calculated',
   decimal = 'decimal',
@@ -35,7 +37,7 @@ export interface ColStyle {
 
 export interface ColProps {
   calculateFn?: Record<CycleUuid, string>
-  colName?: string
+  colName?: ColName
   colType: ColType
   index?: number | string
   labels?: Record<string, Label> // label by cycle uuid

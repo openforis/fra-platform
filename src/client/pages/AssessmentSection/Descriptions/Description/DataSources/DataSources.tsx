@@ -88,7 +88,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
       )}
 
       <DataGrid className="data-source-grid">
-        <div className="data-source-review-indicator" />
+        <div />
 
         {descriptionDataSource.table.columns.map((column) => (
           <DataColumn key={column} head>
@@ -96,7 +96,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           </DataColumn>
         ))}
 
-        <div className="data-source-review-indicator" />
+        <div />
 
         {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
           <DataSourceRow

@@ -36,7 +36,7 @@ const TableOfContent: React.FC<Props> = (props) => {
         <ol className="table-of-content__list">
           {Object.entries(sections).map(([key, section]) => (
             <li key={key} data-idx={key}>
-              <a href={`#section${key}`}>{Labels.getLabel({ cycle, labels: section.props.labels, t })}</a>
+              <a href={`#section${key}`}>{Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}</a>
             </li>
           ))}
         </ol>

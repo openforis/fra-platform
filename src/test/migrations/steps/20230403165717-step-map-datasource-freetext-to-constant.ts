@@ -54,6 +54,8 @@ export default async (client: BaseProtocol) => {
     (row) => Objects.camelize(row)
   )
 
+  if (descriptions.length < 1) return
+
   const sectionNames = [...new Set(descriptions.map((d) => d.sectionName))]
 
   const sections = await MetadataController.getSectionsMetadata({
