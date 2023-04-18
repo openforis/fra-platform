@@ -138,55 +138,47 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
 }
 
 const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, cycleName, assessmentName } = <Record<string, string>>{ ...req.params, ...req.query }
+  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso as CountryIso, cycle), next)
+  _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle), next)
 }
 
 const requireEditUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, id, cycleName, assessmentName } = <Record<string, string>>{
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  }
-
+  const { id } = { ...req.params, ...req.query, ...req.body } as { id: string }
   const user = Requests.getUser(req)
-
-  const isSelf = String(user?.id) === id
   const isAdministrator = Users.isAdministrator(user)
+  const isSelf = String(user?.id) === id
 
-  if (isAdministrator) {
-    _next(isAdministrator, next)
-  } else if (isSelf) {
-    _next(isSelf, next)
-  } else {
-    const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  _next(isAdministrator || isSelf, next)
+}
 
-    _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso, cycle }).length > 0, next)
-  }
+const requireInviteUser = async (req: Request, _res: Response, next: NextFunction) => {
+  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+  const user = Requests.getUser(req)
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+  _next(Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName } = { ...req.params, ...req.query } as CycleParams
-
+  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
-  _next(Authorizer.canViewUsers({ user, countryIso, cycle, assessment }), next)
+  _next(Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
 const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, cycleName, assessmentName } = <Record<string, string>>{ ...req.params, ...req.query, ...req.body }
+  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
   if (!countryIso) {
     _next(Users.isAdministrator(user), next)
   } else {
-    _next(Users.getRolesAllowedToEdit({ user, countryIso: countryIso as CountryIso, cycle }).length > 0, next)
+    _next(Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
   }
 }
 
@@ -200,6 +192,7 @@ export const AuthMiddleware = {
   requireResolveTopic: tryCatch(requireResolveTopic),
   requireEditMessageTopic: tryCatch(requireEditMessageTopic),
   requireEditUser: tryCatch(requireEditUser),
+  requireInviteUser: tryCatch(requireInviteUser),
   requireViewUsers: tryCatch(requireViewUsers),
   requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
 }

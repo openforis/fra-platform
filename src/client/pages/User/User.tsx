@@ -60,18 +60,24 @@ const User: React.FC = () => {
 
   const isSelf = user.id === userToEdit.id
 
-  const canEditUser = isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
+  const canEditUser = isSelf || isAdministrator
 
-  const canEditPermissions = !isSelf && isAdministrator && !Areas.isISOGlobal(countryIso) && isCountry
+  const canEditPermissions =
+    !isSelf &&
+    Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0 &&
+    !Areas.isISOGlobal(countryIso) &&
+    isCountry
 
-  const canEditRoles =
-    !isSelf && Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0 && Areas.isISOGlobal(countryIso)
+  const canEditRoles = !isSelf && isAdministrator && Areas.isISOGlobal(countryIso)
 
   return (
     <div className="app-view__content user-container">
-      {canEditUser && (
-        <EditUserForm canEditPermissions={canEditPermissions} canEditRoles={canEditRoles} user={userToEdit} />
-      )}
+      <EditUserForm
+        canEditPermissions={canEditPermissions}
+        canEditRoles={canEditRoles}
+        canEditUser={canEditUser}
+        user={userToEdit}
+      />
       <ButtonContinue />
     </div>
   )

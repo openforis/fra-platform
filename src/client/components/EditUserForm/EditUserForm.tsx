@@ -21,9 +21,10 @@ type Props = {
   user: User
   canEditPermissions?: boolean
   canEditRoles?: boolean
+  canEditUser?: boolean
 }
 
-const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles }) => {
+const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles, canEditUser }) => {
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const countryIso = useCountryIso()
@@ -71,11 +72,15 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles 
 
   const userRole = Users.getRole(user, countryIso, cycle)
 
-  const enabled = Users.isAdministrator(userInfo) || user.id === userInfo?.id
+  const enabled = canEditUser
 
   return (
     <div className="edit-user__form-container">
-      <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} />
+      <ProfilePicture
+        onChange={(profilePicture: File) => setProfilePicture(profilePicture)}
+        userId={user.id}
+        enabled={enabled}
+      />
 
       <TextInputField
         name="email"
@@ -119,6 +124,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles 
 EditUserForm.defaultProps = {
   canEditPermissions: false,
   canEditRoles: false,
+  canEditUser: false,
 }
 
 export default EditUserForm

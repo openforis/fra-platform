@@ -17,7 +17,7 @@ type Props = {
   items: Array<Option>
   onSave: (value: string | any) => void
   value: string
-  withArrow?: boolean
+  readOnlyOptions?: boolean
 
   disabled?: boolean
   name?: string
@@ -33,7 +33,7 @@ const AutocompleteItem = (props: { item: Option; inputValue: string }) => {
 }
 
 const Autocomplete: React.FC<Props> = (props: Props) => {
-  const { value, items, disabled, name, onInputValueChange, onSave, withArrow } = props
+  const { value, items, disabled, name, onInputValueChange, onSave, readOnlyOptions } = props
   const [selectedItem, setSelectedItem] = useState<string>(null)
   const [inputValue, setInputValue] = useState(value)
   const { t } = useTranslation()
@@ -50,6 +50,18 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
         changes.type
       )
     ) {
+      // Disable saving if selected item is not changed when free text disabled
+      if (readOnlyOptions && !changes.selectedItem) {
+        return
+      }
+
+      // When readOnlyOptions is true, save only selected item from list
+      if (readOnlyOptions) {
+        onSave(changes.selectedItem ?? '')
+        return
+      }
+
+      // Default behavior: Save both selected value OR input value
       onSave(changes.selectedItem?.value ?? inputValue)
     }
   }
@@ -76,7 +88,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div {...getComboboxProps()} className={classNames('autocomplete', { [name]: name })}>
       <AutocompleteInput
-        withArrow={withArrow}
+        readOnlyOptions={readOnlyOptions}
         openMenu={openMenu}
         isOpen={isOpen}
         disabled={disabled}
@@ -111,7 +123,7 @@ Autocomplete.defaultProps = {
   name: undefined,
   disabled: false,
   onInputValueChange: undefined,
-  withArrow: false,
+  readOnlyOptions: false,
 }
 
 export default Autocomplete

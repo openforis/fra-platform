@@ -90,7 +90,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           {variables.map((variable) => {
             const { variableName } = variable.props
 
-            const label = Labels.getLabel({ cycle, labels: variable.cols[0].props.labels, t })
+            const label = Labels.getCycleLabel({ cycle, labels: variable.cols[0].props.labels, t })
 
             return (
               <option key={variableName} value={variableName}>
@@ -107,7 +107,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
             {variables.map((variable) => {
               const { variableName } = variable.props
 
-              const label = Labels.getLabel({ cycle, labels: variable.cols[0].props.labels, t })
+              const label = Labels.getCycleLabel({ cycle, labels: variable.cols[0].props.labels, t })
 
               const selected = selectionVariables.includes(variableName)
 
