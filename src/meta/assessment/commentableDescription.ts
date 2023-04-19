@@ -9,6 +9,7 @@ export enum CommentableDescriptionName {
   estimationAndForecasting = 'estimationAndForecasting',
   introductoryText = 'introductoryText',
 }
+
 export interface DataSource {
   uuid?: string
   reference: {
