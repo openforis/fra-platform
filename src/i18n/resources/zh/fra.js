@@ -9,12 +9,27 @@ module.exports = {
   areaAffectedByFire: {
     areaAffected: '受影响的面积(1000公顷)',
   },
+
+  biomassStock: {
+    aboveGround2025: '地上生物量',
+    belowGround2025: '地下生物量',
+    deadWood2025: '枯死木',
+    biomassStock2025: '生物量',
+  },
+
   biomassStockAvg: {
     forestBiomass: '森林生物量(t/ha)',
   },
   biomassStockTotal: {
     totalForestBiomass: '森林生物量总量(百万吨)',
   },
+
+  carbonStock: {
+    carbonAboveGroundBiomass2025: '地上生物量碳',
+    carbonBelowGroundBiomass2025: '地下生物量碳',
+    carbonStock2025: '碳储量',
+  },
+
   carbonStockTotal: {
     totalForestCarbon: '森林碳总量(百万吨)',
   },
@@ -36,7 +51,7 @@ module.exports = {
     ifYes: '如果 "是"',
     whatIsDefinition: '国家对 "退化的森林 "的定义是什么？',
     yearOfLatestAssessment: '最近一次评估的年份',
-    other: '$t(common.otherSpecifyInComments)',
+    other: '其他(在评论中阐述)',
     notSelected: '',
     criteriaOfDegradedForest: '定义“退化的森林”时采用的标准',
     changeInForestStructureDecreaseInForestCanopy: '森林结构的变化/森林冠层的减少',
@@ -68,22 +83,32 @@ module.exports = {
     forestDamage: '森林灾害',
     predominantCause: '主要原因',
     forestAreaAffected: '受影响的森林面积（1000公顷）',
+    severeWeatherEvents2025: '极端天气事件',
   },
   extentOfForest: {
     remainingLandArea: '其他土地',
+    totalLandArea2025: '土地面积总和',
   },
+
+  forestAreaChange: {
+    forestExpansion2025: '森林扩张',
+    forestAreaChange2025: '年度森林扩张、砍伐和净变化',
+  },
+
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: '有长期管理计划的森林面积',
   },
   forestCharacteristics: {
     primaryForest: '...其中原生林',
     plantationForestIntroducedArea2025: '...其中引进树种',
+    naturalForestArea2025: '自然再生林',
   },
   forestOwnership: {
     ofWhichCommunities2025: '...其中土著居民和当地社区拥有的部分',
-    other2025: '$t(common.otherSpecifyInComments)',
+    other2025: '其他(在评论中阐述)',
     unknown2025: '不明',
     total2025: '共计',
+    forestOwnership2025: '森林所有权',
   },
   forestRestoration: {
     forestRestoration: '森林恢复',
@@ -97,6 +122,7 @@ module.exports = {
   },
   growingStock: {
     totalForest: '森林总量',
+    naturallyRegeneratingForest2025: '自然再生林',
   },
   growingStockComposition: {
     millionCubicMeter: '百万立方米',
@@ -106,15 +132,22 @@ module.exports = {
     totalGrowingStock: '总立木蓄积',
     totalIntroducedTreeSpecies: '引进树种总数',
     totalNativeTreeSpecies: '乡土树种总数',
+    nativeTreeSpecies2025: '乡土树种',
+    introducedTreeSpecies2025: '引进树种',
   },
   holderOfManagementRights: {
     communities2025: '土著居民和当地社区',
-    other2025: '$t(common.otherSpecifyInComments)',
+    other2025: '其他(在评论中阐述)',
     unknown2025: '不明',
   },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: '非木材林产品采集和价值 2020',
   },
+
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover2025: '有树木覆盖的其他土地',
+  },
+
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: '按气候区划划分的原生林',
     primaryForestBoreal: '......其中北方原生林',
@@ -136,13 +169,17 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: '非木材林产品采集和价值 2020',
+      forestGrowingStockBiomassAndCarbon2025: '森林立木蓄积量、生物量和碳储量',
+      forestDesignationAndManagement2025: '森林的指定用途和管理',
+      forestOwnershipAndManagementRights2025: '森林所有权和管理权',
+      forestDisturbances2025: '森林干扰',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
     header_0: '森林面积等级标准',
     status: {
       high: '数据来源：近期¹国家森林资源调查或遥感（基于样地调查或连续测绘），并进行精度评估/实地数据校准。',
-      medium: '数据来源：老的² 国家森林资源调查或遥感（基于样地的调查或连续测绘），并进行精度评估/实地数据校准。',
+      medium: '数据来源：旧的²国家森林资源调查或遥感（基于样地的调查或连续测绘），并进行精度评估/实地数据校准。',
       low: '数据来源：其他，如登记册、专家估计或未经精度评估/实地数据校准的遥感。',
     },
     trend: {
@@ -155,8 +192,8 @@ module.exports = {
   biomassStock_biomassStockStatus_Description: {
     header_0: '立木蓄积等级标准',
     status: {
-      high: '数据来源：近期¹家森林资源清查或机载激光扫描（ALS）辅以概率实地抽样',
-      medium: '数据来源：老的²国家森林资源清查，部分实地抽样，或者没有辅以概率地面抽样的机载激光扫描（ALS）',
+      high: '数据来源：近期¹国家森林资源清查或机载激光扫描（ALS）辅以概率实地抽样',
+      medium: '数据来源：旧的²国家森林资源清查，部分实地抽样，或者没有辅以概率地面抽样的机载激光扫描（ALS）',
       low: '数据来源：其他数据来源，如卫星数据、登记册、问卷调查或专家评估。',
     },
   },
