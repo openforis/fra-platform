@@ -1,8 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
 
-import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessment'
+import { NodeValueValidation } from '@meta/assessment'
+import { validatorSumNotGreaterThanForest } from '@meta/expressionEvaluator/functions/validatorSumNotGreaterThanForest'
 
 import { Context } from '../context'
 
@@ -11,18 +11,12 @@ export const validatorColSumNotGreaterThanForest: ExpressionFunction<Context> = 
   minArity: 2,
   executor: (context) => {
     return (value?: string, maxValue?: string): NodeValueValidation => {
-      const valid = Objects.isEmpty(value) || !Numbers.greaterThan(value, maxValue)
-
-      const messages: Array<NodeValueValidationMessage> = valid
-        ? undefined
-        : [
-            {
-              key: 'generalValidation.valueCannotExceedMaximumValueReportedForForestAreaYear',
-              params: { maxForestArea: Numbers.toFixed(maxValue), year: context.colName },
-            },
-          ]
-
-      return { valid, messages }
+      return validatorSumNotGreaterThanForest.executor(context)(maxValue, value, [
+        {
+          key: 'generalValidation.valueCannotExceedMaximumValueReportedForForestAreaYear',
+          params: { maxForestArea: Numbers.toFixed(maxValue), year: context.colName },
+        },
+      ])
     }
   },
 }
