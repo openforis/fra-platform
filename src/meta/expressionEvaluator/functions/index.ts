@@ -21,6 +21,7 @@ import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
 import { validatorNotGreaterThanForestOrMaxForest } from './validatorNotGreaterThanForestOrMaxForest'
 import { validatorNotGreaterThanLandArea } from './validatorNotGreaterThanLandArea'
 import { validatorNotGreaterThanLandAreaOrMaxLandArea } from './validatorNotGreaterThanLandAreaOrMaxLandArea'
+import { validatorNotGreaterThanMaxForest } from './validatorNotGreaterThanMaxForest'
 import { validatorOtherLand } from './validatorOtherLand'
 import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTreeCoverTotal'
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
@@ -63,4 +64,5 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorSumNotGreaterThan,
   validatorSumNotGreaterThanForest,
   validatorTotalForest,
+  validatorNotGreaterThanMaxForest,
 ]
