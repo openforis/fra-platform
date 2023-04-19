@@ -33,10 +33,10 @@ const isReadOnly = (props: { col: Col; row: Row }): boolean => {
   )
 }
 
-const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
+const getClasseNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
   const { col, cycle } = props
-  const { style = {} } = col.props
-  return style[cycle.uuid] ?? {}
+  const { classNames = {} } = col.props
+  return classNames[cycle.uuid] ?? []
 }
 
 const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
@@ -44,10 +44,17 @@ const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
   return col.props.colName ?? Labels.getCycleLabel({ cycle, labels: col.props.labels, t })
 }
 
+const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
+  const { col, cycle } = props
+  const { style = {} } = col.props
+  return style[cycle.uuid] ?? {}
+}
+
 export const Cols = {
   getColName,
   isCalculated,
   isReadOnly,
+  getClasseNames,
   getLabel,
   getStyle,
 }

@@ -33,6 +33,7 @@ const RowData: React.FC<Props> = (props) => {
   const variableNo = colHeader.props.variableNo?.[cycle.uuid]
   if (variableNo) colHeaderLabel = `${colHeaderLabel} (${variableNo})`
   const { colSpan, rowSpan, ...colHeaderStyle } = Cols.getStyle({ col: colHeader, cycle })
+  const classes = Cols.getClasseNames({ col: colHeader, cycle })
 
   const colsData = cols.slice(1, cols.length)
   // const className = useClassName(reviewTarget)
@@ -44,11 +45,14 @@ const RowData: React.FC<Props> = (props) => {
   return (
     <tr className={openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''}>
       <th
-        className={classNames({
-          [`fra-table__subcategory${row.props.categoryLevel}-cell`]: subcategory,
-          'fra-table__category-cell': !subcategory && !headerCell,
-          'fra-table__header-cell-left': !subcategory && headerCell,
-        })}
+        className={classNames(
+          {
+            [`fra-table__subcategory${row.props.categoryLevel}-cell`]: subcategory,
+            'fra-table__category-cell': !subcategory && !headerCell,
+            'fra-table__header-cell-left': !subcategory && headerCell,
+          },
+          classes
+        )}
         colSpan={colSpan}
         rowSpan={rowSpan}
         style={colHeaderStyle}
