@@ -1921,11 +1921,25 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
+                    colSpan: 5,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.incrementAndFellingsVolume1000mob',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 1,
                     colSpan: 1,
                     rowSpan: 2,
                     labelKey: 'panEuropean.incrementAndFellings.gross_annual_increment',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 2,
@@ -1934,6 +1948,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.incrementAndFellings.natural_losses',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 3,
@@ -1942,6 +1959,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.incrementAndFellings.net_annual_increment',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
@@ -1950,6 +1970,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.incrementAndFellings.fellings',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
                 type: 'header',
@@ -1960,18 +1983,68 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'panEuropean.incrementAndFellings.gross_annual_increment',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'panEuropean.incrementAndFellings.natural_losses',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'panEuropean.incrementAndFellings.net_annual_increment',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 2,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.fellings',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.incrementAndFellings.fellingsTotal',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
-                    idx: 1,
+                    idx: 5,
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.incrementAndFellings.ofWhichOfNaturalLosses',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
                 type: 'header',
@@ -1981,11 +2054,36 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 cols: [
                   {
                     idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.fellingsTotal',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.ofWhichOfNaturalLosses',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 2,
                     colSpan: 5,
                     rowSpan: 1,
                     labelKey: 'panEuropean.incrementAndFellings.volume1000mob',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
                 type: 'header',
@@ -7916,6 +8014,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.threatenedForestSpecies.total_of_taxa',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 2,
@@ -7924,6 +8025,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: { '2020': { colSpan: 4 }, '2025': { colSpan: 5 } },
+                      label: {
+                        '2025': { key: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesColAbs' },
+                        '2020': { key: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol' },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -7935,15 +8043,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.threatenedForestSpecies.vulnerable',
+                    labelKey: 'panEuropean.threatenedForestSpecies.total_of_taxa',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
                   },
                   {
                     idx: 1,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.threatenedForestSpecies.endangered',
+                    labelKey: 'panEuropean.threatenedForestSpecies.vulnerable',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -7951,12 +8062,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 2,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.threatenedForestSpecies.critically_endangered',
+                    labelKey: 'panEuropean.threatenedForestSpecies.endangered',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
                   {
                     idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.critically_endangered',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.threatenedForestSpecies.extinct_in_the_wild',
@@ -7976,8 +8095,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.threatenedForestSpecies.absoluteNumber',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 type: 'header',
               },
               {
