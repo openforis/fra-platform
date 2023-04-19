@@ -71,6 +71,12 @@ export const forestAreaWithDamage = {
                   labelKey: 'panEuropean.forestAreaWithDamage.areaWithDamageByDifferentAgents',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    label: {
+                      '2020': { key: 'panEuropean.forestAreaWithDamage.areaWithDamageByDifferentAgents' },
+                      '2025': { key: 'panEuropean.forestAreaWithDamage.areaDamageExcFireHa' },
+                    },
+                  },
                 },
                 {
                   idx: 3,
@@ -87,7 +93,7 @@ export const forestAreaWithDamage = {
                   idx: 4,
                   colSpan: 2,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFire',
+                  labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFireHa',
                   className: 'fra-table__header-cell',
                   type: 'header',
                   migration: {
@@ -253,13 +259,13 @@ export const forestAreaWithDamage = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                   migration: {
-                    label: {
-                      '2020': { key: 'panEuropean.forestAreaWithDamage.thousandHa' },
-                      '2025': { key: 'fra.disturbances.forestAreaAffected' },
-                    },
+                    cycles: ['2020'],
                   },
                 },
               ],
+              migration: {
+                cycles: ['2020'],
+              },
               type: 'header',
             },
             {
