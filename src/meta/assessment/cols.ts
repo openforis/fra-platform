@@ -36,7 +36,7 @@ const isReadOnly = (props: { col: Col; row: Row }): boolean => {
 const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
   const { col, cycle } = props
   const { style = {} } = col.props
-  return style[cycle.uuid] ?? { colSpan: undefined, rowSpan: undefined }
+  return style[cycle.uuid] ?? {}
 }
 
 const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {

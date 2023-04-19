@@ -4,6 +4,8 @@ export default {
   section: 'panEuropean_2_5',
   rows: {
     names: [
+      'agentName',
+
       'forest_2020',
       'forest_2015',
       'forest_2010',

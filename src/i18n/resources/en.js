@@ -1045,6 +1045,7 @@ The FRA team
     countryReportYearGreaterThanCurrentYear: 'Value should be greater or equal than {{minValue}}',
     valueNotGreaterThan: 'Value should be not greater than {{maxValue}}',
     sumNotGreaterThan: 'Sum should not exceed {{maxValue}}',
+    notEmpty: 'Value cannot be empty',
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
     mustBeEqualToPrivateOwnership: 'Subcategories sum should be equal to Private Ownership',
