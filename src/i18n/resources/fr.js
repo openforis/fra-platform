@@ -1,6 +1,8 @@
 const area = require('./fr/area')
 const common = require('./fr/common')
+const contentCheck = require('./fr/contentCheck')
 const dataDownload = require('./fr/dataDownload')
+const dataSource = require('./fr/dataSource')
 const fra = require('./fr/fra')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const login = require('./fr/login')
@@ -9,7 +11,9 @@ const uc = require('./fr/uc')
 module.exports.translation = {
   area,
   common,
+  contentCheck,
   dataDownload,
+  dataSource,
   fra,
   statisticalFactsheets,
   login,
@@ -24,6 +28,11 @@ module.exports.translation = {
     zh: '中文',
   },
 
+  page: {
+    assessmentSection: {
+      dataTableHasErrors: 'Cliquez sur la cellule rouge pour voir les détails.',
+    },
+  },
   home: {
     keyFindings: `Le monde compte une superficie forestière totale de 4,06 milliards d'hectares
 (ha), ce qui correspond à 31 pour cent de la superficie totale des terres. Cela
@@ -41,6 +50,7 @@ des domaines boréal, tempéré et sous-tropical`,
     userGuide: "Guide de l'utilisateur",
     sendFeedback: 'Envoyer réactions',
     licenses: 'Autorisations',
+    platformVersion: 'Version de la plate-forme',
   },
 
   disclaimer: {
@@ -73,6 +83,7 @@ des domaines boréal, tempéré et sous-tropical`,
     gt: 'Gt',
     fte1000: '1000 EPT',
     numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
+    growingStockPercent: '% du total',
   },
 
   countrySelection: {
@@ -103,17 +114,14 @@ des domaines boréal, tempéré et sous-tropical`,
       COLLABORATOR: 'Collaborateur',
       ADMINISTRATOR: 'Administrateur',
       noRole: '',
-      // unused?
+      VIEWER: 'Visionneur',
       reviewer_plural: 'Examinateurs',
       nationalCorrespondent_plural: 'Correspondants nationaux',
-      alternateNationalCorrespondent_plural: 'Correspondants nationaux alternatifs',
+      alternateNationalCorrespondent_plural: 'Correspondants nationaux suppléants',
       collaborator_plural: 'Collaborateurs',
-      // deprecated
-      // reviewer: 'Examinateur',
-      // nationalCorrespondent: 'Correspondant national',
-      // alternateNationalCorrespondent: 'Correspondant national alternatif',
-      // collaborator: 'Collaborateur',
-      // administrator: 'Administrateur',
+    },
+    resetPasswordEmail: {
+      subject: 'Plateforme FRA - Réinitialiser le mot de passe',
     },
   },
 
@@ -148,6 +156,11 @@ des domaines boréal, tempéré et sous-tropical`,
       userManagement: 'Gérer collaborateurs',
       externalData: 'Données externes',
       links: 'Liens et Référentiel',
+      contentCheck: 'Contenu / Vérification',
+      versioning: 'Gestion des versions',
+    },
+    dataExport: {
+      downloadData: 'Télécharger les données',
     },
     overview: {
       loadingMap: 'Chargement carte…',
@@ -223,6 +236,8 @@ des domaines boréal, tempéré et sous-tropical`,
       repository: 'Référentiel',
       uploadFile: 'Mettre en ligne un fichier',
       confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
+      fileUploaded: 'Fichier téléchargé avec succès',
+      fileDeleted: 'Fichier supprimé avec succès',
     },
   },
 
@@ -273,6 +288,9 @@ L'équipe de FRA
         "Erreur: L'utilisateur {{user}} dans le rôle {{role}} ne peut pas modifier l'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}",
       assessmentCommentingNotAllowed:
         "Erreur: L'utilisateur {{user}} dans le rôle {{role}} ne peut pas commenter l'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}",
+      userNotAdministrator:
+        "Erreur : l'utilisateur {{user}} a tenté d'accéder à une ressource disponible uniquement pour les administrateurs",
+      userAlreadyAddedToCountry: "Erreur : l'utilisateur {{user}} est déjà ajouté au pays {{countryIso}}",
     },
     assessment: {
       transitionNotAllowed:
@@ -339,12 +357,12 @@ L'équipe de FRA
 
   time: {
     hour: 'Il y a {{count}} heure',
-    hour_plural: 'Il y a {{count}} heures',
     day: 'Il y a {{count}} jour',
-    day_plural: 'Il y a {{count}} jours',
     week: 'Il y a {{count}} semaine',
-    week_plural: 'Il y a {{count}} semaines',
     aMomentAgo: 'Il y a un moment',
+    hour_plural: 'Il y a {{count}} heures',
+    day_plural: 'Il y a {{count}} jours',
+    week_plural: 'il y a {{count}} semaines',
   },
 
   review: {
@@ -359,6 +377,7 @@ L'équipe de FRA
     commentingClosed: 'Période de commentaires terminée',
     add: 'Ajouter',
     cancel: 'Effacer',
+    loading: 'Chargement',
   },
 
   description: {
@@ -427,6 +446,9 @@ L'équipe de FRA
       otherWoodedLand: 'Autre terre boisée',
       otherLand: 'Autre terre',
     },
+    forestCategoriesLabel2025: 'Forêt, autres terres boisées et terres restantes',
+    nationalClassifications: 'Classifications nationales',
+    categories: 'Catégories',
   },
 
   userManagement: {
@@ -476,6 +498,17 @@ L'équipe de FRA fra@fao.org
 {{- url}}
     `,
     },
+    editPermissions: 'Modifier les autorisations',
+    invitationDeleted: "L'invitation a été supprimée",
+    invitationEmailSent: "Un e-mail d'invitation a été envoyé",
+    permissions: 'Autorisations',
+    personalInfoRequired: 'Veuillez compléter vos informations personnelles avant de continuer',
+    userAdded: '{{email}} a été ajouté',
+    userModified: '{{user}} a été modifié',
+    permissionNames: {
+      tableData: 'Données du tableau',
+      descriptions: 'Descriptions',
+    },
   },
 
   // FRA 2020 questionare
@@ -523,6 +556,8 @@ L'équipe de FRA fra@fao.org
     ndpMissingValues: 'Le point de données nationales a des valeurs manquantes',
     showNDPs: 'Afficher les points de données nationaux',
     hideNDPs: 'Cacher les points de données nationaux',
+    forestAreaNetChangeDoesNotMatch:
+      'Le changement net de la superficie forestière ne correspond pas à la valeur attendue : {{value}}',
   },
 
   climaticDomain: {
@@ -563,6 +598,7 @@ L'équipe de FRA fra@fao.org
     copyToClipboard: 'Copier valeurs',
     placeholderSelect: 'Estimation et prévision',
     _1000haYear: '1000 ha/an',
+    generatingFraValues: 'En cours de traitement...',
   },
 
   forestAreaChange: {
@@ -918,6 +954,9 @@ L'équipe de FRA
         next: 'Accepter',
         previous: '',
       },
+      notStarted: {
+        label: 'Pas commencé',
+      },
     },
   },
 
@@ -933,6 +972,23 @@ L'équipe de FRA
     valueMustBePositive: 'La valeur devra être supérieure à zéro',
     emptyField: 'Ce champ est vide',
     mustBeEqualToTotalGrowingStock: 'La valeur doit être égale au Total Matériel sur pied (2a)',
+    remainingLandExceedsExtentOfForest: 'Dépasse la superficie des terres restantes (1a)',
+    valueMustBeYear: 'La valeur doit être une année valide',
+    countryReportYearGreaterThanCurrentYear: 'La valeur doit être supérieure ou égale à {{minValue}}',
+    valueNotGreaterThan: 'La valeur ne doit pas être supérieure à {{maxValue}}',
+    sumNotGreaterThan: 'La somme ne doit pas dépasser {{maxValue}}',
+    valuesAreInconsistentWithNetChange: 'Les valeurs ne correspondent pas au changement net de la superficie de forêt',
+    valuesAreInconsistent1aOr1b:
+      'Les valeurs ne correspondent pas aux superficies indiquées dans les tableaux 1a ou 1b',
+    mustBeEqualToPrivateOwnership: 'La somme des sous-catégories doit être égale à la propriété privée',
+    mustBeEqualToForestExpansion: "La somme des sous-catégories doit être égale à l'expansion de la forêt",
+    mustBeEqualToPlantedForest: 'La somme des sous-catégories doit être égale à la forêt plantée',
+    mustBeEqualToForestArea:
+      'La somme de la forêt naturellement régénérée et de la forêt plantée doit être égale au matériel sur pied total',
+    mustBeLessThanPrivateOwnership: 'La somme des sous-catégories doit être inférieure à la propriété privée',
+    forestSumAreaExceedsExtentOfForest:
+      'La somme des catégories FRA dépasse la superficie de forêt indiquée dans le tableau 1a',
+    valueEqualToSum: 'La valeur totale doit être égale à la somme des sous-catégories',
   },
 
   emoji: {
@@ -964,6 +1020,31 @@ L'équipe de FRA
     done: 'Enregistrer',
     cancel: 'Effacer',
     picture1MbMax: "L'image de profil ne peut pas dépasser 1 Mo",
+    title: 'Appelation',
+    surname: 'Nom(s) de famille',
+    professionalTitle: 'Titre professionnel',
+    organizationalUnit: 'Unité organisationnelle',
+    organization: 'Organisation',
+    street: 'Adresse (rue)',
+    zipCode: 'Code postal',
+    poBox: 'Boîte postale',
+    city: 'Ville',
+    countryIso: 'Pays',
+    primaryEmail: 'Adresse électronique principale',
+    secondaryEmail: 'Adresse électronique secondaire',
+    primaryPhoneNumber: 'Numéro de téléphone principal',
+    secondaryPhoneNumber: 'Numéro de téléphone secondaire',
+    skype: 'Nom sur Skype',
+    contactPreference: 'Mode de contact préféré',
+    contactPreferenceMethod: 'Méthode de contact',
+    platformChat: 'Chat sur la plateforme',
+    signal: 'Signal',
+    whatsapp: 'Whatsapp',
+    activated: 'Activé',
+    status: 'Statut',
+    demoteToUser: "Êtes-vous sûr de vouloir supprimer les privilèges d'administrateur ?",
+    promoteToAdmin: "Êtes-vous sûr de vouloir accorder des privilèges d'administrateur ?",
+    mandatoryFields: '* sont des champs obligatoires',
   },
 
   country: {

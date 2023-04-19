@@ -79,17 +79,19 @@ export const naturalness = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
                   [table_4_3b.forest_2025['naturally_established'],
                    table_4_3b.forest_2025['naturalised_introduced_species'],
                    table_4_3b.forest_2025['established_by_planting_and_or_seeding'],
                    table_4_3b.forest_2025['coppice'],
                    table_4_3b.forest_2025['unknown_origin']])`,
-                  `validatorEqualToSum(table_4_3a.forest_2025['plantations'],
+                    `validatorEqualToSum(table_4_3a.forest_2025['plantations'],
                   [table_4_3b.forest_2025['native_species'],
                    table_4_3b.forest_2025['introduced_species']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2025 },
@@ -112,17 +114,19 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.forest_2020['semi_natural'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.forest_2020['semi_natural'],
                   [table_4_3b.forest_2020['naturally_established'],
                    table_4_3b.forest_2020['naturalised_introduced_species'],
                    table_4_3b.forest_2020['established_by_planting_and_or_seeding'],
                    table_4_3b.forest_2020['coppice'],
                    table_4_3b.forest_2020['unknown_origin']])`,
-                  `validatorEqualToSum(table_4_3a.forest_2020['plantations'],
+                    `validatorEqualToSum(table_4_3a.forest_2020['plantations'],
                   [table_4_3b.forest_2020['native_species'],
                    table_4_3b.forest_2020['introduced_species']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2020 },
@@ -145,17 +149,19 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.forest_2015['semi_natural'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.forest_2015['semi_natural'],
                   [table_4_3b.forest_2015['naturally_established'],
                    table_4_3b.forest_2015['naturalised_introduced_species'],
                    table_4_3b.forest_2015['established_by_planting_and_or_seeding'],
                    table_4_3b.forest_2015['coppice'],
                    table_4_3b.forest_2015['unknown_origin']])`,
-                  `validatorEqualToSum(table_4_3a.forest_2015['plantations'],
+                    `validatorEqualToSum(table_4_3a.forest_2015['plantations'],
                   [table_4_3b.forest_2015['native_species'],
                    table_4_3b.forest_2015['introduced_species']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2015 },
@@ -178,17 +184,19 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.forest_2010['semi_natural'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.forest_2010['semi_natural'],
                   [table_4_3b.forest_2010['naturally_established'],
                    table_4_3b.forest_2010['naturalised_introduced_species'],
                    table_4_3b.forest_2010['established_by_planting_and_or_seeding'],
                    table_4_3b.forest_2010['coppice'],
                    table_4_3b.forest_2010['unknown_origin']])`,
-                  `validatorEqualToSum(table_4_3a.forest_2010['plantations'],
+                    `validatorEqualToSum(table_4_3a.forest_2010['plantations'],
                   [table_4_3b.forest_2010['native_species'],
                    table_4_3b.forest_2010['introduced_species']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2010 },
@@ -211,17 +219,19 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.forest_2005['semi_natural'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.forest_2005['semi_natural'],
                   [table_4_3b.forest_2005['naturally_established'],
                    table_4_3b.forest_2005['naturalised_introduced_species'],
                    table_4_3b.forest_2005['established_by_planting_and_or_seeding'],
                    table_4_3b.forest_2005['coppice'],
                    table_4_3b.forest_2005['unknown_origin']])`,
-                  `validatorEqualToSum(table_4_3a.forest_2005['plantations'],
+                    `validatorEqualToSum(table_4_3a.forest_2005['plantations'],
                   [table_4_3b.forest_2005['native_species'],
                    table_4_3b.forest_2005['introduced_species']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2005 },
@@ -244,17 +254,19 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.forest_2000['semi_natural'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.forest_2000['semi_natural'],
                   [table_4_3b.forest_2000['naturally_established'],
                    table_4_3b.forest_2000['naturalised_introduced_species'],
                    table_4_3b.forest_2000['established_by_planting_and_or_seeding'],
                    table_4_3b.forest_2000['coppice'],
                    table_4_3b.forest_2000['unknown_origin']])`,
-                  `validatorEqualToSum(table_4_3a.forest_2000['plantations'],
+                    `validatorEqualToSum(table_4_3a.forest_2000['plantations'],
                   [table_4_3b.forest_2000['native_species'],
                    table_4_3b.forest_2000['introduced_species']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2000 },
@@ -277,17 +289,19 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.forest_1990['semi_natural'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.forest_1990['semi_natural'],
                   [table_4_3b.forest_1990['naturally_established'],
                    table_4_3b.forest_1990['naturalised_introduced_species'],
                    table_4_3b.forest_1990['established_by_planting_and_or_seeding'],
                    table_4_3b.forest_1990['coppice'],
                    table_4_3b.forest_1990['unknown_origin']])`,
-                  `validatorEqualToSum(table_4_3a.forest_1990['plantations'],
+                    `validatorEqualToSum(table_4_3a.forest_1990['plantations'],
                   [table_4_3b.forest_1990['native_species'],
                    table_4_3b.forest_1990['introduced_species']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 1990 },
@@ -454,14 +468,16 @@ export const naturalness = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['undisturbed_by_man'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['undisturbed_by_man'],
                    [table_4_3a.forest_2025['undisturbed_by_man'],table_4_3a.other_wooded_land_2025['undisturbed_by_man']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['semi_natural'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['semi_natural'],
                    [table_4_3a.forest_2025['semi_natural'],table_4_3a.other_wooded_land_2025['semi_natural']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['plantations'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['plantations'],
                    [table_4_3a.forest_2025['plantations'],table_4_3a.other_wooded_land_2025['plantations']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2025 },
@@ -484,14 +500,16 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2020['undisturbed_by_man'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2020['undisturbed_by_man'],
                      [table_4_3a.forest_2020['undisturbed_by_man'],table_4_3a.other_wooded_land_2020['undisturbed_by_man']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2020['semi_natural'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2020['semi_natural'],
                      [table_4_3a.forest_2020['semi_natural'],table_4_3a.other_wooded_land_2020['semi_natural']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2020['plantations'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2020['plantations'],
                      [table_4_3a.forest_2020['plantations'],table_4_3a.other_wooded_land_2020['plantations']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
@@ -514,14 +532,16 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2015['undisturbed_by_man'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2015['undisturbed_by_man'],
                    [table_4_3a.forest_2015['undisturbed_by_man'],table_4_3a.other_wooded_land_2015['undisturbed_by_man']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2015['semi_natural'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2015['semi_natural'],
                    [table_4_3a.forest_2015['semi_natural'],table_4_3a.other_wooded_land_2015['semi_natural']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2015['plantations'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2015['plantations'],
                    [table_4_3a.forest_2015['plantations'],table_4_3a.other_wooded_land_2015['plantations']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
@@ -544,14 +564,16 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2010['undisturbed_by_man'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2010['undisturbed_by_man'],
                    [table_4_3a.forest_2010['undisturbed_by_man'],table_4_3a.other_wooded_land_2010['undisturbed_by_man']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2010['semi_natural'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2010['semi_natural'],
                    [table_4_3a.forest_2010['semi_natural'],table_4_3a.other_wooded_land_2010['semi_natural']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2010['plantations'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2010['plantations'],
                    [table_4_3a.forest_2010['plantations'],table_4_3a.other_wooded_land_2010['plantations']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
@@ -574,14 +596,16 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2005['undisturbed_by_man'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2005['undisturbed_by_man'],
                    [table_4_3a.forest_2005['undisturbed_by_man'],table_4_3a.other_wooded_land_2005['undisturbed_by_man']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2005['semi_natural'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2005['semi_natural'],
                    [table_4_3a.forest_2005['semi_natural'],table_4_3a.other_wooded_land_2005['semi_natural']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2005['plantations'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2005['plantations'],
                    [table_4_3a.forest_2005['plantations'],table_4_3a.other_wooded_land_2005['plantations']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
@@ -604,14 +628,16 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2000['undisturbed_by_man'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2000['undisturbed_by_man'],
                    [table_4_3a.forest_2000['undisturbed_by_man'],table_4_3a.other_wooded_land_2000['undisturbed_by_man']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2000['semi_natural'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2000['semi_natural'],
                    [table_4_3a.forest_2000['semi_natural'],table_4_3a.other_wooded_land_2000['semi_natural']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2000['plantations'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2000['plantations'],
                    [table_4_3a.forest_2000['plantations'],table_4_3a.other_wooded_land_2000['plantations']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
@@ -634,14 +660,16 @@ export const naturalness = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_1990['undisturbed_by_man'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_1990['undisturbed_by_man'],
                    [table_4_3a.forest_1990['undisturbed_by_man'],table_4_3a.other_wooded_land_1990['undisturbed_by_man']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_1990['semi_natural'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_1990['semi_natural'],
                    [table_4_3a.forest_1990['semi_natural'],table_4_3a.other_wooded_land_1990['semi_natural']])`,
-                  `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_1990['plantations'],
+                    `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_1990['plantations'],
                    [table_4_3a.forest_1990['plantations'],table_4_3a.other_wooded_land_1990['plantations']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },

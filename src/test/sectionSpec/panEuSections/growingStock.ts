@@ -97,19 +97,21 @@ export const growingStock = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.forest_2025['total'],[table_1_2a.forest_2025['coniferous'],table_1_2a.forest_2025['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2025['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.forest_2025['total'],[table_1_2a.forest_2025['coniferous'],table_1_2a.forest_2025['broadleaved']])`,
+                    `validatorEqualToSum(table_1_2a.forest_2025['total'],
                   [table_1_2b.predominantly_coniferous_forest['growing_stock_2025'],
                   table_1_1b.predominantly_broadleaved_forest['growing_stock_2025'],
                   table_1_1b.mixed_forest['growing_stock_2025']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2025['total'],
+                    `validatorEqualToSum(table_1_2a.forest_2025['total'],
                   [table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2025']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2025 },
@@ -137,19 +139,21 @@ export const growingStock = {
                 { idx: 2, type: 'decimal', variableExport: 'pan_european_growing_stock_broadleaved_2020' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.forest_2020['total'],[table_1_2a.forest_2020['coniferous'],table_1_2a.forest_2020['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2020['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.forest_2020['total'],[table_1_2a.forest_2020['coniferous'],table_1_2a.forest_2020['broadleaved']])`,
+                    `validatorEqualToSum(table_1_2a.forest_2020['total'],
                   [table_1_2b.predominantly_coniferous_forest['growing_stock_2020'],
                   table_1_1b.predominantly_broadleaved_forest['growing_stock_2020'],
                   table_1_1b.mixed_forest['growing_stock_2020']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2020['total'],
+                    `validatorEqualToSum(table_1_2a.forest_2020['total'],
                   [table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2020']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2020 },
@@ -172,19 +176,21 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.forest_2015['total'],[table_1_2a.forest_2015['coniferous'],table_1_2a.forest_2015['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2015['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.forest_2015['total'],[table_1_2a.forest_2015['coniferous'],table_1_2a.forest_2015['broadleaved']])`,
+                    `validatorEqualToSum(table_1_2a.forest_2015['total'],
                   [table_1_2b.predominantly_coniferous_forest['growing_stock_2015'],
                   table_1_1b.predominantly_broadleaved_forest['growing_stock_2015'],
                   table_1_1b.mixed_forest['growing_stock_2015']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2015['total'],
+                    `validatorEqualToSum(table_1_2a.forest_2015['total'],
                   [table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2015']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2015 },
@@ -207,19 +213,21 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.forest_2010['total'],[table_1_2a.forest_2010['coniferous'],table_1_2a.forest_2010['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2010['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.forest_2010['total'],[table_1_2a.forest_2010['coniferous'],table_1_2a.forest_2010['broadleaved']])`,
+                    `validatorEqualToSum(table_1_2a.forest_2010['total'],
                   [table_1_2b.predominantly_coniferous_forest['growing_stock_2010'],
                   table_1_1b.predominantly_broadleaved_forest['growing_stock_2010'],
                   table_1_1b.mixed_forest['growing_stock_2010']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2010['total'],
+                    `validatorEqualToSum(table_1_2a.forest_2010['total'],
                   [table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2010']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2010 },
@@ -242,19 +250,21 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.forest_2005['total'],[table_1_2a.forest_2005['coniferous'],table_1_2a.forest_2005['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2005['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.forest_2005['total'],[table_1_2a.forest_2005['coniferous'],table_1_2a.forest_2005['broadleaved']])`,
+                    `validatorEqualToSum(table_1_2a.forest_2005['total'],
                   [table_1_2b.predominantly_coniferous_forest['growing_stock_2005'],
                   table_1_1b.predominantly_broadleaved_forest['growing_stock_2005'],
                   table_1_1b.mixed_forest['growing_stock_2005']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2005['total'],
+                    `validatorEqualToSum(table_1_2a.forest_2005['total'],
                   [table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2005']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2005 },
@@ -277,19 +287,21 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.forest_2000['total'],[table_1_2a.forest_2000['coniferous'],table_1_2a.forest_2000['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2000['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.forest_2000['total'],[table_1_2a.forest_2000['coniferous'],table_1_2a.forest_2000['broadleaved']])`,
+                    `validatorEqualToSum(table_1_2a.forest_2000['total'],
                   [table_1_2b.predominantly_coniferous_forest['growing_stock_2000'],
                   table_1_1b.predominantly_broadleaved_forest['growing_stock_2000'],
                   table_1_1b.mixed_forest['growing_stock_2000']])`,
-                  `validatorEqualToSum(table_1_2a.forest_2000['total'],
+                    `validatorEqualToSum(table_1_2a.forest_2000['total'],
                   [table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2000']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 2000 },
@@ -312,19 +324,21 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.forest_1990['total'],[table_1_2a.forest_1990['coniferous'],table_1_2a.forest_1990['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.forest_1990['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.forest_1990['total'],[table_1_2a.forest_1990['coniferous'],table_1_2a.forest_1990['broadleaved']])`,
+                    `validatorEqualToSum(table_1_2a.forest_1990['total'],
                   [table_1_2b.predominantly_coniferous_forest['growing_stock_1990'],
                   table_1_1b.predominantly_broadleaved_forest['growing_stock_1990'],
                   table_1_1b.mixed_forest['growing_stock_1990']])`,
-                  `validatorEqualToSum(table_1_2a.forest_1990['total'],
+                    `validatorEqualToSum(table_1_2a.forest_1990['total'],
                   [table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_1990']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.forest',
               labelParams: { year: 1990 },
@@ -348,9 +362,11 @@ export const growingStock = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2025['total'],[table_1_2a._of_which_available_for_wood_supply_2025['coniferous'],table_1_2a._of_which_available_for_wood_supply_2025['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2025['total'],[table_1_2a._of_which_available_for_wood_supply_2025['coniferous'],table_1_2a._of_which_available_for_wood_supply_2025['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2025 },
@@ -373,11 +389,13 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2020['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2020['total'],
                   [table_1_2a._of_which_available_for_wood_supply_2020['coniferous'],
                   table_1_2a._of_which_available_for_wood_supply_2020['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2020 },
@@ -400,11 +418,13 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2015['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2015['total'],
                   [table_1_2a._of_which_available_for_wood_supply_2015['coniferous'],
                   table_1_2a._of_which_available_for_wood_supply_2015['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2015 },
@@ -427,11 +447,13 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2010['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2010['total'],
                   [table_1_2a._of_which_available_for_wood_supply_2010['coniferous'],
                   table_1_2a._of_which_available_for_wood_supply_2010['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2010 },
@@ -454,11 +476,13 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2005['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2005['total'],
                   [table_1_2a._of_which_available_for_wood_supply_2005['coniferous'],
                   table_1_2a._of_which_available_for_wood_supply_2005['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2005 },
@@ -481,11 +505,13 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2000['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_2000['total'],
                   [table_1_2a._of_which_available_for_wood_supply_2000['coniferous'],
                   table_1_2a._of_which_available_for_wood_supply_2000['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 2000 },
@@ -508,11 +534,13 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_1990['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a._of_which_available_for_wood_supply_1990['total'],
                   [table_1_2a._of_which_available_for_wood_supply_1990['coniferous'],
                   table_1_2a._of_which_available_for_wood_supply_1990['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock._of_which_available_for_wood_supply',
               labelParams: { year: 1990 },
@@ -536,9 +564,11 @@ export const growingStock = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.other_wooded_land_2025['total'],[table_1_2a.other_wooded_land_2025['coniferous'],table_1_2a.other_wooded_land_2025['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.other_wooded_land_2025['total'],[table_1_2a.other_wooded_land_2025['coniferous'],table_1_2a.other_wooded_land_2025['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2025 },
@@ -561,9 +591,11 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.other_wooded_land_2020['total'],[table_1_2a.other_wooded_land_2020['coniferous'],table_1_2a.other_wooded_land_2020['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.other_wooded_land_2020['total'],[table_1_2a.other_wooded_land_2020['coniferous'],table_1_2a.other_wooded_land_2020['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2020 },
@@ -586,9 +618,11 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.other_wooded_land_2015['total'],[table_1_2a.other_wooded_land_2015['coniferous'],table_1_2a.other_wooded_land_2015['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.other_wooded_land_2015['total'],[table_1_2a.other_wooded_land_2015['coniferous'],table_1_2a.other_wooded_land_2015['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2015 },
@@ -611,9 +645,11 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.other_wooded_land_2010['total'],[table_1_2a.other_wooded_land_2010['coniferous'],table_1_2a.other_wooded_land_2010['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.other_wooded_land_2010['total'],[table_1_2a.other_wooded_land_2010['coniferous'],table_1_2a.other_wooded_land_2010['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2010 },
@@ -636,9 +672,11 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.other_wooded_land_2005['total'],[table_1_2a.other_wooded_land_2005['coniferous'],table_1_2a.other_wooded_land_2005['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.other_wooded_land_2005['total'],[table_1_2a.other_wooded_land_2005['coniferous'],table_1_2a.other_wooded_land_2005['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2005 },
@@ -661,9 +699,11 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.other_wooded_land_2000['total'],[table_1_2a.other_wooded_land_2000['coniferous'],table_1_2a.other_wooded_land_2000['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.other_wooded_land_2000['total'],[table_1_2a.other_wooded_land_2000['coniferous'],table_1_2a.other_wooded_land_2000['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 2000 },
@@ -686,9 +726,11 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.other_wooded_land_1990['total'],[table_1_2a.other_wooded_land_1990['coniferous'],table_1_2a.other_wooded_land_1990['broadleaved']])`,
-                ],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.other_wooded_land_1990['total'],[table_1_2a.other_wooded_land_1990['coniferous'],table_1_2a.other_wooded_land_1990['broadleaved']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.other_wooded_land',
               labelParams: { year: 1990 },
@@ -712,17 +754,19 @@ export const growingStock = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['total'],
                   [table_1_2a.total_forest_and_other_wooded_land_2025['coniferous'],
                   table_1_2a.total_forest_and_other_wooded_land_2025['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['total'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['total'],
                   [table_1_2a.forest_2025['total'], table_1_2a.other_wooded_land_2025['total']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['coniferous'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['coniferous'],
                   [table_1_2a.forest_2025['coniferous'], table_1_2a.other_wooded_land_2025['coniferous']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['broadleaved'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['broadleaved'],
                   [table_1_2a.forest_2025['broadleaved'], table_1_2a.other_wooded_land_2025['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2025 },
@@ -745,17 +789,19 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['total'],
                   [table_1_2a.total_forest_and_other_wooded_land_2020['coniferous'],
                   table_1_2a.total_forest_and_other_wooded_land_2020['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['total'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['total'],
                   [table_1_2a.forest_2020['total'], table_1_2a.other_wooded_land_2020['total']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['coniferous'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['coniferous'],
                   [table_1_2a.forest_2020['coniferous'], table_1_2a.other_wooded_land_2020['coniferous']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['broadleaved'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2020['broadleaved'],
                   [table_1_2a.forest_2020['broadleaved'], table_1_2a.other_wooded_land_2020['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
@@ -778,17 +824,19 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['total'],
                   [table_1_2a.total_forest_and_other_wooded_land_2015['coniferous'],
                   table_1_2a.total_forest_and_other_wooded_land_2015['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['total'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['total'],
                   [table_1_2a.forest_2015['total'], table_1_2a.other_wooded_land_2015['total']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['coniferous'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['coniferous'],
                   [table_1_2a.forest_2015['coniferous'], table_1_2a.other_wooded_land_2015['coniferous']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['broadleaved'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2015['broadleaved'],
                   [table_1_2a.forest_2015['broadleaved'], table_1_2a.other_wooded_land_2015['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
@@ -811,17 +859,19 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['total'],
                   [table_1_2a.total_forest_and_other_wooded_land_2010['coniferous'],
                   table_1_2a.total_forest_and_other_wooded_land_2010['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['total'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['total'],
                   [table_1_2a.forest_2010['total'], table_1_2a.other_wooded_land_2010['total']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['coniferous'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['coniferous'],
                   [table_1_2a.forest_2010['coniferous'], table_1_2a.other_wooded_land_2010['coniferous']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['broadleaved'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2010['broadleaved'],
                   [table_1_2a.forest_2010['broadleaved'], table_1_2a.other_wooded_land_2010['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
@@ -844,17 +894,19 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['total'],
                   [table_1_2a.total_forest_and_other_wooded_land_2005['coniferous'],
                   table_1_2a.total_forest_and_other_wooded_land_2005['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['total'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['total'],
                   [table_1_2a.forest_2005['total'], table_1_2a.other_wooded_land_2005['total']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['coniferous'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['coniferous'],
                   [table_1_2a.forest_2005['coniferous'], table_1_2a.other_wooded_land_2005['coniferous']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['broadleaved'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2005['broadleaved'],
                   [table_1_2a.forest_2005['broadleaved'], table_1_2a.other_wooded_land_2005['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
@@ -877,17 +929,19 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['total'],
                   [table_1_2a.total_forest_and_other_wooded_land_2000['coniferous'],
                   table_1_2a.total_forest_and_other_wooded_land_2000['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['total'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['total'],
                   [table_1_2a.forest_2000['total'], table_1_2a.other_wooded_land_2000['total']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['coniferous'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['coniferous'],
                   [table_1_2a.forest_2000['coniferous'], table_1_2a.other_wooded_land_2000['coniferous']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['broadleaved'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2000['broadleaved'],
                   [table_1_2a.forest_2000['broadleaved'], table_1_2a.other_wooded_land_2000['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
@@ -910,17 +964,19 @@ export const growingStock = {
                 { idx: 2, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['total'],
                   [table_1_2a.total_forest_and_other_wooded_land_1990['coniferous'],
                   table_1_2a.total_forest_and_other_wooded_land_1990['broadleaved']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['total'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['total'],
                   [table_1_2a.forest_1990['total'], table_1_2a.other_wooded_land_1990['total']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['coniferous'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['coniferous'],
                   [table_1_2a.forest_1990['coniferous'], table_1_2a.other_wooded_land_1990['coniferous']])`,
-                  `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['broadleaved'],
+                    `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_1990['broadleaved'],
                   [table_1_2a.forest_1990['broadleaved'], table_1_2a.other_wooded_land_1990['broadleaved']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.growingStock.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
@@ -1624,50 +1680,52 @@ export const growingStock = {
                 { idx: 6, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_1990'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_1990'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_1990']])`,
-                  `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2000'],
+                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2000'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2000']])`,
-                  `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2005'],
+                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2005'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2005']])`,
-                  `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2010'],
+                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2010'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2010']])`,
-                  `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2015'],
+                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2015'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2015']])`,
-                  `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2020'],
+                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2020'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2020']])`,
-                  `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2025'],
+                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2025'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2025']])`,
-                ],
+                  ],
+                },
                 colNames: [
                   'growing_stock_in_forest_1990',
                   'growing_stock_in_forest_2000',

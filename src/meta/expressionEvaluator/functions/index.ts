@@ -13,6 +13,7 @@ import { validatorForestAreaNetChange } from './validatorForestAreaNetChange'
 import { validatorGreaterThanOrZero } from './validatorGreaterThanOrZero'
 import { validatorIsYear } from './validatorIsYear'
 import { validatorNextCountryReportYear } from './validatorNextCountryReportYear'
+import { validatorNotEmpty } from './validatorNotEmpty'
 import { validatorNotGreaterThan } from './validatorNotGreaterThan'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
 import { validatorNotGreaterThanLandArea } from './validatorNotGreaterThanLandArea'
@@ -53,4 +54,5 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorForestAreaComparedTo2020,
   validatorEqualToSum,
   validatorNotGreaterThanLandArea,
+  validatorNotEmpty,
 ]
