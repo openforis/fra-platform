@@ -33,7 +33,7 @@ const RowData: React.FC<Props> = (props) => {
   const variableNo = colHeader.props.variableNo?.[cycle.uuid]
   if (variableNo) colHeaderLabel = `${colHeaderLabel} (${variableNo})`
   const { colSpan, rowSpan, ...colHeaderStyle } = Cols.getStyle({ col: colHeader, cycle })
-  const classes = Cols.getClasseNames({ col: colHeader, cycle })
+  const classes = Cols.getClassNames({ col: colHeader, cycle })
 
   const colsData = cols.slice(1, cols.length)
   // const className = useClassName(reviewTarget)

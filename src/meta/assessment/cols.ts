@@ -33,7 +33,7 @@ const isReadOnly = (props: { col: Col; row: Row }): boolean => {
   )
 }
 
-const getClasseNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
+const getClassNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
   const { col, cycle } = props
   const { classNames = {} } = col.props
   return classNames[cycle.uuid] ?? []
@@ -54,7 +54,7 @@ export const Cols = {
   getColName,
   isCalculated,
   isReadOnly,
-  getClasseNames,
+  getClassNames,
   getLabel,
   getStyle,
 }
