@@ -94,11 +94,13 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: [
-                  `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2020['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2020['total'],
                      [table_6_4a.forestry_isic_nace_02_2020['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2020['planting_of_trees_to_provide_regular_income'],
                      table_6_4a.forestry_isic_nace_02_2020['equipment_and_buildings']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2020 },
@@ -125,11 +127,13 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 { idx: 3, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2015['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2015['total'],
                      [table_6_4a.forestry_isic_nace_02_2015['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2015['planting_of_trees_to_provide_regular_income'],
                      table_6_4a.forestry_isic_nace_02_2015['equipment_and_buildings']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2015 },
@@ -156,11 +160,13 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 { idx: 3, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2010['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2010['total'],
                      [table_6_4a.forestry_isic_nace_02_2010['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2010['planting_of_trees_to_provide_regular_income'],
                      table_6_4a.forestry_isic_nace_02_2010['equipment_and_buildings']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2010 },
@@ -187,11 +193,13 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 { idx: 3, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2005['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2005['total'],
                      [table_6_4a.forestry_isic_nace_02_2005['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2005['planting_of_trees_to_provide_regular_income'],
                      table_6_4a.forestry_isic_nace_02_2005['equipment_and_buildings']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2005 },
@@ -218,11 +226,13 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 { idx: 3, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2000['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2000['total'],
                      [table_6_4a.forestry_isic_nace_02_2000['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2000['planting_of_trees_to_provide_regular_income'],
                      table_6_4a.forestry_isic_nace_02_2000['equipment_and_buildings']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2000 },
@@ -249,11 +259,13 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 { idx: 3, type: 'decimal' },
               ],
               migration: {
-                validateFns: [
-                  `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_1990['total'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_1990['total'],
                      [table_6_4a.forestry_isic_nace_02_1990['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_1990['planting_of_trees_to_provide_regular_income'],
                      table_6_4a.forestry_isic_nace_02_1990['equipment_and_buildings']])`,
-                ],
+                  ],
+                },
               },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 1990 },
