@@ -8,7 +8,6 @@
   .statistical-factsheets .fra-table tbody th,
   .text-input__input-field,
   .text-input__readonly-view,
-  .fra-table__header-cell-left,
   .fra-table__category-cell,
   .fra-table__subcategory-cell,
   .fra-table__header-cell-left,
@@ -205,5 +204,9 @@
   .country-select .modal-footer .btn.btn-primary {
     left: initial;
     right: -100px;
+  }
+
+  .text-end {
+    text-align: left !important;
   }
 }
