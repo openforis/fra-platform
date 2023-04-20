@@ -10,13 +10,17 @@ export const validatorSumNotGreaterThanForest: ExpressionFunction<Context> = {
   name: 'validatorSumNotGreaterThanForest',
   minArity: 2,
   executor: () => {
-    return (forestArea?: string, value?: string): NodeValueValidation => {
+    return (
+      forestArea?: string,
+      value?: string,
+      _messages?: Array<NodeValueValidationMessage>
+    ): NodeValueValidation => {
       const valid =
         Objects.isEmpty(forestArea) || Objects.isEmpty(value) || Numbers.greaterThanWithTolerance(forestArea, value)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.forestSumAreaExceedsExtentOfForest' }]
+        : _messages ?? [{ key: 'generalValidation.forestSumAreaExceedsExtentOfForest' }]
 
       return { valid, messages }
     }

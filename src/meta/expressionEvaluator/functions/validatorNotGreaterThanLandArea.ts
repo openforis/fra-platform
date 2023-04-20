@@ -16,7 +16,7 @@ export const validatorNotGreaterThanLandArea: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.landAreaExceedsTotalLandArea' }]
+        : [{ key: 'generalValidation.landAreaExceedsTotalLandArea', params: { value: Numbers.toFixed(landArea) } }]
 
       return { valid, messages }
     }
