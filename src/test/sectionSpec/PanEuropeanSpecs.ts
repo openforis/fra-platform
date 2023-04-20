@@ -4879,6 +4879,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      hidden: true,
+    },
   },
   nonWoodGoods2015: {
     sectionName: 'nonWoodGoods2015',
@@ -12605,6 +12608,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      hidden: true,
+    },
   },
   factorIncomeAndEntrepreneurialIncome: {
     sectionName: 'factorIncomeAndEntrepreneurialIncome',
@@ -12861,6 +12867,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      hidden: true,
     },
   },
   totalGrossFixedCapitalFormationInForestsAndForestry,
@@ -13581,6 +13590,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      hidden: true,
+    },
   },
   tradeInWood: {
     sectionName: 'tradeInWood',
@@ -14119,6 +14131,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      hidden: true,
     },
   },
   totalEnergySupplyFromWood: {
@@ -15211,6 +15226,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      hidden: true,
     },
   },
   accessibilityForRecreation,

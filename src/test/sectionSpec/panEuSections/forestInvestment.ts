@@ -687,6 +687,7 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
       '2020': '6.4a',
       '2025': '6.4',
     },
+    hidden: true,
   },
 }
 export const totalFixedCapitalConsumptionInForestsAndForestry = {
