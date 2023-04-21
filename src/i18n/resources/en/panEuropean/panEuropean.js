@@ -223,6 +223,7 @@ module.exports = {
     litterCarbon: 'Litter',
     soil_carbon: 'Soil carbon',
     millionMetricTonnes: 'Million metric tonnes',
+    carbonMillionMetricTonnes: 'Forest Carbon (million metric tonnes)',
     forest: 'Forest - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',
     total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
@@ -242,11 +243,13 @@ module.exports = {
     forestAreaWithDamage: 'Forest area with damage',
     categoryYear: 'Category - Year',
     areaDamageExcFire: 'Area with damage by different agents (excluding fire)',
+    areaDamageExcFireHa: 'Area with damage by different agents (excluding fire) (1000ha)',
     areaWithDamageByDifferentAgents: 'Area with damage by different agents',
     total: 'Total',
     primarilyDamagedByBioticAgents: 'Primarily damaged by biotic agents',
     damagePrimarilyHumanInduced: 'Damage primarily human induced',
     primarilyDamagedByFire: 'Primarily damaged by fire',
+    primarilyDamagedByFireHa: 'Primarily damaged by fire (1000ha)',
     thousandHa: '1000 ha',
     affectedThousandHa: 'Forest area affected (1000 ha)',
     total_area_with_damage: 'Total area with damage',
@@ -274,9 +277,9 @@ module.exports = {
   areaWithForestLandDegradation: {
     areaWithForestLandDegradation: 'Area with forest land degradation',
     categoryYear: 'Category - Year',
-    totalAreaOfDegradedLand: 'Total area of degraded land',
-    areaPrimarilyDegradedBy: 'Area primarily degraded by',
-    formerDegradedLandRestored: 'Former degraded land restored',
+    totalAreaOfDegradedLand: 'Total area of degraded land (1000 ha)',
+    areaPrimarilyDegradedBy: 'Area primarily degraded by (1000 ha)',
+    formerDegradedLandRestored: 'Former degraded land restored (1000 ha)',
     grazing: 'Grazing',
     agentOne: 'Agent 1',
     agentTwo: 'Agent 2',
@@ -291,6 +294,7 @@ module.exports = {
     other3: 'Other 3',
     unknownMixedDegradation: 'Unknown / Mixed degradation',
     nA: '',
+    agentName: '',
     thousandHa: '1000 ha',
     forest: 'Forest - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',
@@ -307,6 +311,7 @@ module.exports = {
 
   // table 3.1
   incrementAndFellings: {
+    incrementAndFellingsVolume1000mob: 'Increment and fellings volume (1000 m³ o. b.)',
     incrementAndFellings: 'Increment and fellings',
     categoryYear: 'Category - Year',
     fellings: 'Fellings',
@@ -584,6 +589,7 @@ module.exports = {
     threatenedForestSpecies: 'Threatened forest species',
     categoryYear: 'Category - Year',
     threatenedForestSpeciesCol: 'Threatened forest species',
+    threatenedForestSpeciesColAbs: 'Threatened forest species (Absolute number)',
     absoluteNumber: 'Absolute number',
     total_of_taxa: 'Total of taxa',
     vulnerable: 'Vulnerable',
@@ -707,6 +713,7 @@ module.exports = {
 
   // table 6.5a
   employmentByGenderAndAge: {
+    employmentByGenderAge1000p: 'Employment by gender and age (1000 people)',
     employmentByGenderAndAge: 'Employment by gender and age',
     categoryYear: 'Category - Year',
     total: 'Total',
