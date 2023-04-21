@@ -1,5 +1,3 @@
-import { Objects } from '@utils/objects'
-
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle, DataSource } from '@meta/assessment'
 
@@ -37,5 +35,6 @@ export const getDataSources = async (props: Props, client: BaseProtocol = DB): P
       ;
   `
 
-  return client.one<Returned>(query, [countryIso, sectionName], Objects.camelize)
+  // eslint-disable-next-line camelcase
+  return client.one<Returned>(query, [countryIso, sectionName], ({ data_sources }) => ({ dataSources: data_sources }))
 }

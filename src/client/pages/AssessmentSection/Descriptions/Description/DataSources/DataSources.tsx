@@ -102,8 +102,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           <DataSourceRow
             descriptionDataSource={descriptionDataSource}
             onChange={(dataSource: DataSource) => _onChange(dataSource)}
-            // eslint-disable-next-line react/no-array-index-key
-            key={`dataSource_${i}`}
+            key={String(`dataSource_${i}`)}
             disabled={disabled}
             sectionName={sectionName}
             dataSource={dataSource}

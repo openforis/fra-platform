@@ -160,6 +160,7 @@ forestIndicatorsImport()
   .then(() => {
     // eslint-disable-next-line no-console
     console.log('=== process finished')
+    process.exit(0)
   })
   .catch((error) => {
     // eslint-disable-next-line no-console
