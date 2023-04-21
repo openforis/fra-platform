@@ -2,9 +2,9 @@
 
 (Sorted in order of SFM indicators, not in alphabetical order)
 
-# Criterion I
+## Criterion I
 
-## 1.1
+# 1.1 Indicator 1.1
 
 ### Forest
 >Land spanning more than 0.5 hectares with trees higher than 5 meters and a canopy cover of more than 10 percent, or trees able to reach these thresholds in situ. It does not include land that is predominantly under agricultural or urban land use.
@@ -114,7 +114,7 @@
 
 *(Source: SoEF 2003, modified)*
 
-## 1.2
+# 1.2 Indicator 1.2
 
 ### Growing stock
 
@@ -142,7 +142,7 @@
 
 *(Source: TBFRA 2000)*
 
-## 1.3
+# 1.3 Indicator 1.3
 
 ### Heading Stand
 
@@ -198,7 +198,7 @@
 
 *(Source: IUFRO, 2000, modified)*
 
-## 1.4
+# 1.4 Indicator 1.4
 
 ### Carbon in above-ground biomass
 
@@ -259,11 +259,11 @@
 
 # Criterion II
 
-## 2.1 - 2.3
+# 2.1 - 2.3
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in separate document prepared for your information.
 
-## 2.4
+# 2.4 Indicator 2.4
 
 ### Damage to forest
 
@@ -309,7 +309,7 @@ Damage primarily human induced - Other:
 
 >Forest or other wooded land damaged by  more than one group of causing agents (e.g. both biotic and abiotic) and/or identification of primary cause not possible. Note: if the causing agent is unidentified but known to belong to insects or diseases, area should be reported in that category.
 
-## 2.5
+# 2.5 Indicator 2.5
 
 ### Degraded forest land
 
@@ -318,7 +318,7 @@ Damage primarily human induced - Other:
 
 # Criterion III
 
-## 3.1
+# 3.1 Indicator 3.1
 
 ### Fellings (annual)
 
@@ -348,7 +348,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000, modified, FRA 2015)*
 
-## 3.2
+# 3.2 Indicator 3.2
 
 ### Total wood removals
 
@@ -394,7 +394,7 @@ Damage primarily human induced - Other:
 
 *(Source: FRA 2010 - Non-wood forest products, Working paper 180, page 12, modified)*
 
-## 3.3
+# 3.3 Indicator 3.3
 
 ### Non-wood goods (NWG)
 
@@ -434,7 +434,7 @@ Damage primarily human induced - Other:
 
 *(Source: FRA 2025)*
 
-## 3.4
+# 3.4 Indicator 3.4
 
 ### Marketed forest services
 
@@ -454,7 +454,7 @@ Damage primarily human induced - Other:
 
 # Criteria IV-V
 
-## 4.1
+# 4.1 Indicator 4.1
 
 ### Tree
 
@@ -464,7 +464,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000)*
 
-## 4.2
+# 4.2 Indicator 4.2
 
 ### Forest expansion
 
@@ -526,7 +526,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000)*
 
-## 4.3
+# 4.3 Indicator 4.3
 
 ### Naturalness
 
@@ -578,7 +578,7 @@ Damage primarily human induced - Other:
 
 *(Source: FRA 2025, Plantation forest)*
 
-## 4.4
+# 4.4 Indicator 4.4
 
 ### Introduced tree species
 
@@ -602,7 +602,7 @@ Damage primarily human induced - Other:
 
 *(Source: UNEP/CBD/COP/6/18/Add.1/Rev.1; 2002)*
 
-## 4.5
+# 4.5 Indicator 4.5
 
 ### Deadwood
 
@@ -612,15 +612,15 @@ Damage primarily human induced - Other:
 
 1. Excludes woody biomass contained in the litter, stumps or dead roots.
 
-## 4.6
+# 4.6 Indicator 4.6
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-## 4.7
+# 4.7 Indicator 4.7
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-## 4.8
+# 4.8 Indicator 4.8
 
 ### Forest species
 
@@ -652,7 +652,9 @@ Damage primarily human induced - Other:
 
 *(Source: MCPFE 2003, from IUCN, 1998)*
 
-### 4.9, 5.1
+# 4.9 Indicator 4.9
+
+# 5.1 Indicator 5.1
 
 **MCPFE Class**
 
@@ -714,7 +716,7 @@ Damage primarily human induced - Other:
 
 *(Source: MCPFE 2003)*
 
-## 4.10
+# 4.10 Indicator 4.10
 
 ### Common forest bird species
 
@@ -722,7 +724,7 @@ Damage primarily human induced - Other:
 
 # Criterion VI
 
-## 6.1
+# 6.1 Indicator 6.1
 
 ### Forest ownership
 
@@ -770,7 +772,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000, definition as published in SoEF 2007).*
 
-## 6.2
+## 6.2 Indicator 6.2
 
 ### Gross Domestic Product
 
@@ -832,7 +834,7 @@ Damage primarily human induced - Other:
 
 *(Source: International Standard Industrial Classification of All Economic Activities (ISIC), Revision 4, Department of Economic and Social Affairs, Statistical Division, United Nations, New York, 2008, page 105)*
 
-## 6.3
+## 6.3 Indicator 6.3
 
 ### Factor income
 
@@ -846,7 +848,7 @@ Damage primarily human induced - Other:
 
 >Net entrepreneurial income measures the return to the forestry business owner, and consists of the compensation of unpaid labour, remuneration from land belonging to units and the yield arising from the use of capital. It can be derived from factor income by subtracting compensation of employees to get operating surplus, and then adding any interest received by forestry units organized as companies and deducting any rent and interest payments.
 
-## 6.4
+# 6.4 Indicator 6.4
 
 ### HeadingCapital transfers
 
@@ -866,7 +868,7 @@ Damage primarily human induced - Other:
 
 >“Other gross fixed capital formation” includes software, management plans, major improvements to forest land (drainage, preparing soil, protection structure etc.) and other.
 
-## 6.5
+# 6.5 indicator 6.5
 
 ### Labour Force Survey
 
@@ -902,7 +904,7 @@ Damage primarily human induced - Other:
 
 1. For the purpose of this reporting unpaid family workers should be included in self-employed.
 
-## 6.6
+# 6.6 indicator 6.6
 
 ### Occupational accident
 
@@ -920,15 +922,15 @@ Damage primarily human induced - Other:
 
 *(Source: ILO, 1998).*
 
-## 6.7
+# 6.7 indicator 6.7
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-## 6.8
+# 6.8 indicator 6.8
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-## 6.9
+# 6.9 indicator 6.9
 
 ### Total (national) Primary Energy Supply
 
@@ -998,7 +1000,7 @@ Damage primarily human induced - Other:
 
 *Source: UNECE/FAO Joint Wood Energy Enquiry 2011, Taken from FAO Unified Bioenergy Terminology (http://www.unece.org/fileadmin/DAM/timber/wood_energy/jwee-2011-eng.xlsx and http://www.unece.org/fileadmin/DAM/timber/wood_energy/JWEE2011manual.pdf).*
 
-## 6.10:
+# 6.10 Indicator 6.10
 
 ### Area available for public recreation
 
