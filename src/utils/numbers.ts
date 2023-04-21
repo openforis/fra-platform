@@ -75,7 +75,7 @@ const eq = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'eq')
 const eqWithTolerance = (x: BigNumberInput, y: BigNumberInput, tolerance = 1) =>
   lessThanOrEqualTo(abs(sub(x, y)), tolerance)
 
-const toFixed = (value: number | BigNumber, precision = 2): string | null =>
+const toFixed = (value: string | number | BigNumber, precision = 2): string | null =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toFixed(precision)
 
 const toString = (value: number | BigNumber): null | string =>
