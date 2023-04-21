@@ -1,6 +1,6 @@
 # Criterion I
 
-## 1.1
+# 1.1 Indicator 1.1
 
 **Reporting notes:**
 
@@ -17,7 +17,7 @@
 6. The country approach to the calculation / specification of  “Forest available for wood supply” (FAWS), as well as the list of national categories included into the FAWS calculation, should be noted in “Country comments”.
 
 
-## 1.2
+# 1.2 Indicator 1.2
 
 **Reporting notes:**
 
@@ -31,7 +31,7 @@
 
 
 
-## 1.3a
+# 1.3a Indicator 1.3a
 
 **Reporting notes:**
 
@@ -50,7 +50,7 @@
 
 7. National Correspondents are invited to provide additional information on the distribution by species of different rotation lengths in a separate note or under “Country comments”.
 
-## 1.3b
+# 1.3b Indicator 1.3b
 
 **Reporting notes:**
 
@@ -69,8 +69,7 @@
 7. The upper limits of classes are inclusive, i.e. in the diameter class ≤20 - the 20 cm diameter is included, in the diameter class 21-40cm – the 40 cm diameter is included in this class, etc.
 
 
-## 1.4
-
+# 1.4 Indicator 1.4
 **Reporting notes:**
 
 1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T2c and T2d. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
@@ -94,20 +93,20 @@
 
 # Criterion II
 
-## 2.1
+# 2.1 Indicator 2.1
 
 >No reporting notes.
 
-## 2.2
+# 2.2 Indicator 2.2
 
 >No reporting notes.
 
-## 2.3
+# 2.3 Indicator 2.3
 
 >No reporting notes.
 
 
-## 2.4
+# 2.4 Indicator 2.4
 
 **Reporting notes:**
 
@@ -140,7 +139,7 @@
 13. Total area damaged should be the sum of damage by individual sub-classes, excluding "damaged by fire", which should be reported as a seperate variable.
 
 
-## 2.5
+# 2.5 Indicator 2.5
 
 **Reporting notes:**
 
@@ -164,7 +163,7 @@
 
 # Criterion III
 
-## 3.1
+# 3.1 Indicator 3.1
 
 **Reporting notes:**
 
@@ -182,7 +181,7 @@
 6. If no national data on “Gross annual increment”, “Natural losses” or “Fellings of natural losses” exist, the country should report default values based on the information provided in Tables 1, 2 or 3 (below), rather than leaving the fields empty. If this option is used, it should be clearly indicated under “Country comments”.
 
 
-## 3.2
+# 3.2 Indicator 3.2
 
 **Reporting notes:**
 
@@ -202,7 +201,7 @@
 
 
 
-## 3.3
+# 3.3 Indicator 3.3
 
 **Reporting notes:**
 
@@ -251,7 +250,7 @@
 
 13. “Wild meat” (in tonnes) and “Living animals” (in 1000 pieces) “from forest and other wooded land” is to be understood to include game whose habitat is forest-related or –dependent. Please use expert judgment in classifications and provide information on game classes included under “country comments”. Meat and harvest from game farms are to be excluded. Note that marketed game only is to be included. Licenses for hunting are to be reported as “Marketed Service” under “Reporting Form 3.4: Services”. Only those marketed living animals that were caught in their natural habitat, should be reported under category “Living animals”.
 
-## 3.4
+# 3.4 Indicator 3.4
 **Reporting notes:**
 
 1.  Connection with FRA/CFRQ 2025: this reporting form has not direct counterparts in the global reporting.
@@ -301,7 +300,7 @@
 
 # Criteria IV-V
 
-## 4.1
+# 4.1 Indicator 4.1
 
 **Reporting notes:**
 
@@ -317,7 +316,7 @@
 
 6.  Whenever possible, the reference area for the assessment should be the forest stand.
 
-## 4.2
+# 4.2 Indicator 4.2
 
 **Reporting notes:**
 
@@ -343,7 +342,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 10.  In case of those forms of regeneration, where assessment of regenerated area is unfeasible  (some partial or selective final fellings) please report the area that corresponds to the share (volume, basal area or crown cover) of felled trees in the regenerated stand. Please explain in comments.
 
-## 4.3
+# 4.3 indicator 4.3
 
 **Reporting notes:**
 
@@ -357,7 +356,7 @@ Table 4.2b: Annual forest expansion and regeneration
 5. Please ensure that the areas of introduced species included in the category “plantations” for this indicator are consistent with the areas reported as “dominated by introduced tree species” in Reporting Form 4.4.
 
 
-## 4.4
+# 4.4 Indicator 4.4
 
 **Reporting notes:**
 
@@ -379,7 +378,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 
 
-## 4.5
+# 4.5 Indicator 4.5
 
 **Reporting notes:**
 
@@ -401,15 +400,15 @@ Table 4.2b: Annual forest expansion and regeneration
 
 
 
-## 4.6
+# 4.6 Indicator 4.6
 
 >No reporting notes.
 
-## 4.7
+# 4.7 Indicator 4.7
 
 >No reporting notes.
 
-## 4.8
+# 4.8 Indicator 4.8
 
 **Reporting notes:**
 
@@ -423,7 +422,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 5. Detailed national Red Lists should be used whenever possible.
 
-## 4.9
+# 4.9 Indicator 4.9
 
 Reporting notes:
 
@@ -440,13 +439,13 @@ Reporting notes:
 
 
 
-## 4.10
+# 4.10 Indicator 4.10
 
 >No reporting notes.
 
 # Criterion V
 
-## 5.1
+# 5.1 Indicator 5.1
 
 **Reporting notes:**
 
@@ -466,7 +465,7 @@ Reporting notes:
 
 # Criterion VI
 
-## 6.1
+# 6.1 Indicator 6.1
 
 **Reporting notes:**
 
@@ -482,7 +481,7 @@ Reporting notes:
 5. Unknown is a category where ownership is unknown, includes areas where ownership is unclear or disputed.
 
 
-## 6.2
+# 6.2 Indicator 6.2
 
 **Reporting notes:**
 
@@ -527,7 +526,7 @@ Reporting notes:
 	3)  For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65).
 
 
-## 6.3
+# 6.3 Indicator 6.3
 
 **Reporting notes:**
 
@@ -547,7 +546,7 @@ Reporting notes:
 
 8.  Source of definitions: Manual on the economic accounts for Agriculture and Forestry EAA/EAF 97 (Rev. 1.1.) http://epp.eurostat.ec.europa.eu/cache/ITY_OFFPUB/KS-27-00-782/EN/KS-27-00-782-EN.PDF and the European System of Accounts (ESA 2010).
 
-## 6.4
+# 6.4 Indicator 6.4
 
 **Reporting notes:**
 
@@ -575,7 +574,7 @@ Reporting notes:
 
 12.  “Capital transfers” include all receivable capital transfers, i.e. investment grants and other capital transfers. Investments grants are capital transfers, in cash or kind, effected by general government or the rest of the world to other resident or non-resident institutional units with the aim of financing, in part or in full, the cost of acquiring fixed capital goods. Investments grants from the rest of the world comprise those granted directly by the institutions of the European Union. Interest subsidies are not included under investments grants, even if they are intended to facilitate investments transactions. Other capital transfers cover transfers which redistribute saving or wealth among the different sectors of the economy. Other capital transfers may take the form of compensation to owners of capital goods that had been destroyed by acts of war or natural disasters, such as floods, etc. Other capital transfers also include compensation for exceptional losses of fixed capital goods used in the production of forestry goods and grants to compensate for reduction in the value of assets or to reduce debts. Investments grants and other capital transfers should be recorded when payment is due.
 
-## 6.5
+# 6.5 Indicator 6.5
 
 **Reporting notes:**
 
@@ -607,7 +606,7 @@ Reporting notes:
 
 8.  The category ‘self-employed’ should also include unpaid family workers.
 
-## 6.6
+# 6.6 Indicator 6.6
 
 **Reporting notes:**
 
@@ -634,14 +633,14 @@ Reporting notes:
 11.  If data are not available please indicate to what extent fatal and non-fatal occupational accidents in forestry are an issue in your country.
 
 
-## 6.7
+# 6.7 Indicator 6.7
 >No reporting notes.
 
-## 6.8
+# 6.8 Indicator 6.8
 
 >No reporting notes.
 
-## 6.9
+# 6.9 Indicator 6.9
 
 **Reporting notes:**
 
@@ -660,7 +659,7 @@ Reporting notes:
 7.  Reporting on bioenergy is also requested by the European Union - National Renewable Energy Action Plan (NREAP). Countries are encouraged to consult NREAP data. (http://ec.europa.eu/energy/renewables/action_plan_en.htm ), if applicable.
 
 
-## 6.10:
+# 6.10 Indicator 6.10
 
 **Reporting notes:**
 

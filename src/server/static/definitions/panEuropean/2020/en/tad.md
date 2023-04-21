@@ -2,9 +2,9 @@
 
 (Sorted in order of SFM indicators, not in alphabetical order)
 
-# Criterion I
+## Criterion I
 
-## Indicator 1.1
+# 1.1 Indicator 1.1
 
 ### Forest
 >Land spanning more than 0.5 hectares with trees higher than 5 meters and a canopy cover of more than 10 percent, or trees able to reach these thresholds in situ. It does not include land that is predominantly under agricultural or urban land use.
@@ -60,9 +60,9 @@
 
 1. The definition above has two options:
 
-	a. The canopy cover of trees is between 5 and 10 percent; trees should be higher than 5 meters or able to reach 5 meters, or
+   a. The canopy cover of trees is between 5 and 10 percent; trees should be higher than 5 meters or able to reach 5 meters, or
 
-	b. The canopy cover of trees is less than 5 percent but the combined cover of shrubs, bushes and trees is more than 10 percent. Includes areas of shrubs and bushes where no trees are present.
+   b. The canopy cover of trees is less than 5 percent but the combined cover of shrubs, bushes and trees is more than 10 percent. Includes areas of shrubs and bushes where no trees are present.
 
 2. Includes areas with trees that will not reach a height of  at least 5 meters and with a canopy cover of 10 percent or more, e.g. some alpine tree vegetation types, arid zone mangroves, etc.
 
@@ -74,12 +74,12 @@
 
 **Explanatory notes**
 
-1. For the purpose of reporting to FRA, the “Other land” is calculated by subtracting the area of forest and other wooded land from the total land area (as maintained by FAOSTAT).	
+1. For the purpose of reporting to FRA, the “Other land” is calculated by subtracting the area of forest and other wooded land from the total land area (as maintained by FAOSTAT).
 
 2. Includes agricultural land, meadows and pastures, built-up areas, barren land, land under permanent ice, etc.
 
 3. Includes all areas classified under the sub-category “Other land with tree cover”. 															
-*(Source: FRA 2025)*
+   *(Source: FRA 2025)*
 
 ### Remaining land with tree cover (sub-category)
 
@@ -87,20 +87,20 @@
 
 **Explanatory notes**
 
-1. Land use is the key criteria for distinguishing between forest and other land with tree cover.	
+1. Land use is the key criteria for distinguishing between forest and other land with tree cover.
 
-2. Specifically includes: palms (oil, coconut, dates, etc), tree orchards (fruit, nuts, olive, etc), agroforestry and trees in urban settings.		
+2. Specifically includes: palms (oil, coconut, dates, etc), tree orchards (fruit, nuts, olive, etc), agroforestry and trees in urban settings.
 
-3. Includes groups of trees and scattered trees (e g trees outside forest) in agricultural landscapes, parks, gardens and around buildings, provided that area, height and canopy cover criteria are met.							
+3. Includes groups of trees and scattered trees (e g trees outside forest) in agricultural landscapes, parks, gardens and around buildings, provided that area, height and canopy cover criteria are met.
 
 4. Includes tree stands in agricultural production systems, such as fruit tree plantations/orchards. In these cases the height threshold can be lower than 5 meters.
 
-5. Includes agroforestry systems when crops are grown under tree cover and tree plantations established mainly for other purposes than wood, such as oil palm plantations.	
+5. Includes agroforestry systems when crops are grown under tree cover and tree plantations established mainly for other purposes than wood, such as oil palm plantations.
 
-6. The different sub-categories of “reamaining land area with tree cover” are exclusive and area reported under one sub-category should not be reported for any other sub-categories.		
+6. The different sub-categories of “reamaining land area with tree cover” are exclusive and area reported under one sub-category should not be reported for any other sub-categories.
 
 7. Excludes scattered trees with a canopy cover less than 10 percent, small groups of trees covering less than 0.5 hectares and tree lines less than 20 meters wide. 															
-*(Source: FRA 2025)*
+   *(Source: FRA 2025)*
 
 ### Forest types
 
@@ -114,7 +114,7 @@
 
 *(Source: SoEF 2003, modified)*
 
-## Indicator 1.2
+# 1.2 Indicator 1.2
 
 ### Growing stock
 
@@ -142,7 +142,7 @@
 
 *(Source: TBFRA 2000)*
 
-## Indicator 1.3
+# 1.3 Indicator 1.3
 
 ### Heading Stand
 
@@ -190,15 +190,15 @@
 
 1. Includes:
 
-	a. protected forests, recreation areas etc. undergoing a process of formation of uneven-aged structure, where forest management activities are abandoned or support this process,
+   a. protected forests, recreation areas etc. undergoing a process of formation of uneven-aged structure, where forest management activities are abandoned or support this process,
 
-	b. previously even-aged stands, in which active management was (intentionally or unintentionally) abandoned and as a result a process of formation of uneven aged structure has started, conditions of site and structure of stand allow for a continuation of that process, and the managerial goal is to continue this process or is not known.
+   b. previously even-aged stands, in which active management was (intentionally or unintentionally) abandoned and as a result a process of formation of uneven aged structure has started, conditions of site and structure of stand allow for a continuation of that process, and the managerial goal is to continue this process or is not known.
 
 2. Excludes even-aged stands under regeneration, with both mature and young trees present.
 
 *(Source: IUFRO, 2000, modified)*
 
-## Indicator 1.4
+# 1.4 Indicator 1.4
 
 ### Carbon in above-ground biomass
 
@@ -259,11 +259,11 @@
 
 # Criterion II
 
-## Indicators 2.1 - 2.3
+# 2.1 - 2.3
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in separate document prepared for your information.
 
-## Indicator 2.4
+# 2.4 Indicator 2.4
 
 ### Damage to forest
 
@@ -297,10 +297,10 @@
 
 ### Primarily human induced
 
-Damage primarily human induced – Forest operations: 
+Damage primarily human induced – Forest operations:
 >these include damages incurred in the process of the road building and landings setting, or harvesting damage, incl. through skidding tracks, hauling and transport.
 
-Damage primarily human induced - Other: 
+Damage primarily human induced - Other:
 >these include e.g. damages caused by pollution from known local sources, damage from visitors to forests; vandalism, etc. Note that human induced fire is not to be reported in this class.
 
 *(Source: MCPFE 2003, TBFRA 2000)*
@@ -309,16 +309,16 @@ Damage primarily human induced - Other:
 
 >Forest or other wooded land damaged by  more than one group of causing agents (e.g. both biotic and abiotic) and/or identification of primary cause not possible. Note: if the causing agent is unidentified but known to belong to insects or diseases, area should be reported in that category.
 
-## Indicator 2.5
+# 2.5 Indicator 2.5
 
 ### Degraded forest land
 
->no additional information 
+>no additional information
 
 
 # Criterion III
 
-## Indicator 3.1
+# 3.1 Indicator 3.1
 
 ### Fellings (annual)
 
@@ -348,7 +348,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000, modified, FRA 2015)*
 
-## Indicator 3.2
+# 3.2 Indicator 3.2
 
 ### Total wood removals
 
@@ -394,7 +394,7 @@ Damage primarily human induced - Other:
 
 *(Source: FRA 2010 - Non-wood forest products, Working paper 180, page 12, modified)*
 
-## Indicator 3.3
+# 3.3 Indicator 3.3
 
 ### Non-wood goods (NWG)
 
@@ -434,27 +434,27 @@ Damage primarily human induced - Other:
 
 *(Source: FRA 2025)*
 
-## Indicator 3.4
+# 3.4 Indicator 3.4
 
 ### Marketed forest services
 
 >Marketed forest services comprise recreational, environmental and protective services that are forest-dependent or mainly forest-related, but are not necessarily marketed by forest owners.
 
 |Ecological services |Marketed ecological services include those related to indicators 5.1 and 5.2 (soil, water and other environmental functions as well as infrastructure and managed natural resources) on a voluntary contractual basis with compensation or other payments from private or public bodies.|Water protection Soil protection Health infrastructure Infrastructure protection
-|--|--|--| 
+|--|--|--|
 | Biospheric services | Marketed biospheric services include services related to indicator 4.6 (in-situ or ex-situ gene conservation of genetic resources) as well as indicator 4.9 (protected forest area) e.g. nature protection on a voluntary contractual basis with compensation or other payments from private or public bodies (this includes Natura 2000). This class also includes carbon-sequestration related afforestation projects in the context of the Kyoto Protocol – should such projects be included, please specify the amount under “country comments”. |Biodiversity protection Climate regulation
 |Social services  | Marketed social services include e.g. hunting or fishing licences, renting of huts and houses as well as forest-based leisure, sport and outdoor adventure activities and educational services that are not free of cost to consumers (the public, schools, ...).  |Tourism Recreation Sport activities
 |Amenity services| Amenity services include those related to spiritual, cultural and historical functions, e.g. sacred, religious, or other forms of spiritual inspiration, sites of worship , landscape features (mountains and waterfalls), “memories’’ in the landscape from past cultural ties, aesthetic enjoyment and inspiration, historic artefacts.  |Spiritual services Cultural services Historical services
 | Other marketed services | Other marketed services include e.g. payments to woodland owners for licences for gravel extraction, telecommunication masts, wind farms and electricity distribution. |
 
-**Note:** 
+**Note:**
 >the above terms & definitions were formulated in the process of the elaboration of the SoEF 2007 Enquiry on the basis of existing definitions in different processes.
 
 *(Source: Study on the Development and Marketing of Non-Market Forest Products and Services, European Commission 2008)*
 
 # Criteria IV-V
 
-## Indicator 4.1
+# 4.1 Indicator 4.1
 
 ### Tree
 
@@ -464,7 +464,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000)*
 
-## Indicator 4.2
+# 4.2 Indicator 4.2
 
 ### Forest expansion
 
@@ -526,7 +526,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000)*
 
-## Indicator 4.3
+# 4.3 Indicator 4.3
 
 ### Naturalness
 
@@ -578,7 +578,7 @@ Damage primarily human induced - Other:
 
 *(Source: FRA 2025, Plantation forest)*
 
-## Indicator 4.4
+# 4.4 Indicator 4.4
 
 ### Introduced tree species
 
@@ -602,7 +602,7 @@ Damage primarily human induced - Other:
 
 *(Source: UNEP/CBD/COP/6/18/Add.1/Rev.1; 2002)*
 
-## Indicator 4.5
+# 4.5 Indicator 4.5
 
 ### Deadwood
 
@@ -612,11 +612,15 @@ Damage primarily human induced - Other:
 
 1. Excludes woody biomass contained in the litter, stumps or dead roots.
 
-## Indicators 4.6, 4.7
+# 4.6 Indicator 4.6
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-## Indicator 4.8
+# 4.7 Indicator 4.7
+
+>Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
+
+# 4.8 Indicator 4.8
 
 ### Forest species
 
@@ -648,7 +652,9 @@ Damage primarily human induced - Other:
 
 *(Source: MCPFE 2003, from IUCN, 1998)*
 
-### Indicators 4.9, 5.1
+# 4.9 Indicator 4.9
+
+# 5.1 Indicator 5.1
 
 **MCPFE Class**
 
@@ -656,61 +662,61 @@ Damage primarily human induced - Other:
 
 - **MCPFE Class 1.1**: Main Management Objective Biodiversity “No Active Intervention”
 
-	· The main management objective is biodiversity
+  · The main management objective is biodiversity
 
-	· No active, direct human intervention is taking place
+  · No active, direct human intervention is taking place
 
-	· Activities other than limited public access and non-destructive research not detrimental to the management objective are prevented in the protected area
+  · Activities other than limited public access and non-destructive research not detrimental to the management objective are prevented in the protected area
 
 - **MCPFE Class 1.2:** Main Management Objective Biodiversity “Minimum Intervention”
 
-	· The main management objective is biodiversity
+  · The main management objective is biodiversity
 
-	· Human intervention is limited to a minimum
+  · Human intervention is limited to a minimum
 
-	· Activities other than listed below are prevented in the protected area:
+  · Activities other than listed below are prevented in the protected area:
 
-	· Ungulate/game control
+  · Ungulate/game control
 
-	· Control of diseases/insect outbreaks
+  · Control of diseases/insect outbreaks
 
-	· Public access
+  · Public access
 
-	· Fire intervention
+  · Fire intervention
 
-	· Non-destructive research not detrimental to the management objective
+  · Non-destructive research not detrimental to the management objective
 
-	· Subsistence resource use
+  · Subsistence resource use
 
 - **MCPFE Class 1.3:** Main Management Objective Biodiversity “Conservation Through Active Management”
 
-	· The main management objective is biodiversity
+  · The main management objective is biodiversity
 
-	· A management with active interventions directed to achieve the specific conservation goal of the protected area is taking place
+  · A management with active interventions directed to achieve the specific conservation goal of the protected area is taking place
 
-	· Any resource extraction, harvesting, silvicultural measures detrimental to the management objective as well as other activities negatively affecting the conservation goal are prevented in the protected area
+  · Any resource extraction, harvesting, silvicultural measures detrimental to the management objective as well as other activities negatively affecting the conservation goal are prevented in the protected area
 
 - **MCPFE Class 2:** Main Management Objective “Protection of Landscapes and Specific Natural Elements”
 
-	· Interventions are clearly directed to achieve the management goals landscape diversity, cultural, aesthetic, spiritual and historical values, recreation, specific natural elements
+  · Interventions are clearly directed to achieve the management goals landscape diversity, cultural, aesthetic, spiritual and historical values, recreation, specific natural elements
 
-	· The use of forest resources is restricted
+  · The use of forest resources is restricted
 
-	· A clear long-term commitment and an explicit designation as specific protection regime defining a limited area is existing
+  · A clear long-term commitment and an explicit designation as specific protection regime defining a limited area is existing
 
-	· Activities negatively affecting characteristics of landscapes or/and specific natural elements mentioned are prevented in the protected area
+  · Activities negatively affecting characteristics of landscapes or/and specific natural elements mentioned are prevented in the protected area
 
 - **MCPFE Class 3:** Main Management Objective “Protective Functions”
 
-	· The management is clearly directed to protect soil and its properties or water quality and quantity or other forest ecosystem functions, or to protect infrastructure and managed natural resources against natural hazards
+  · The management is clearly directed to protect soil and its properties or water quality and quantity or other forest ecosystem functions, or to protect infrastructure and managed natural resources against natural hazards
 
-	· Forests and other wooded lands are explicitly designated to fulfil protective functions in management plans or other legally authorised equivalents
+  · Forests and other wooded lands are explicitly designated to fulfil protective functions in management plans or other legally authorised equivalents
 
-	· Any operation negatively affecting soil or water or the ability to protect other ecosystem functions, or the ability to protect infrastructure and managed natural resources against natural hazards is prevented
+  · Any operation negatively affecting soil or water or the ability to protect other ecosystem functions, or the ability to protect infrastructure and managed natural resources against natural hazards is prevented
 
 *(Source: MCPFE 2003)*
 
-## Indicator 4.10
+# 4.10 Indicator 4.10
 
 ### Common forest bird species
 
@@ -718,7 +724,7 @@ Damage primarily human induced - Other:
 
 # Criterion VI
 
-## Indicator 6.1
+# 6.1 Indicator 6.1
 
 ### Forest ownership
 
@@ -766,7 +772,7 @@ Damage primarily human induced - Other:
 
 *(Source: TBFRA 2000, definition as published in SoEF 2007).*
 
-## Indicator 6.2
+## 6.2 Indicator 6.2
 
 ### Gross Domestic Product
 
@@ -828,7 +834,7 @@ Damage primarily human induced - Other:
 
 *(Source: International Standard Industrial Classification of All Economic Activities (ISIC), Revision 4, Department of Economic and Social Affairs, Statistical Division, United Nations, New York, 2008, page 105)*
 
-## Indicator 6.3
+## 6.3 Indicator 6.3
 
 ### Factor income
 
@@ -838,11 +844,11 @@ Damage primarily human induced - Other:
 
 >Net operating surplus can be derived from factor income by subtracting compensation of employees.
 
-### Net entrepreneurial income 
+### Net entrepreneurial income
 
 >Net entrepreneurial income measures the return to the forestry business owner, and consists of the compensation of unpaid labour, remuneration from land belonging to units and the yield arising from the use of capital. It can be derived from factor income by subtracting compensation of employees to get operating surplus, and then adding any interest received by forestry units organized as companies and deducting any rent and interest payments.
 
-## Indicator 6.4
+# 6.4 Indicator 6.4
 
 ### HeadingCapital transfers
 
@@ -850,7 +856,7 @@ Damage primarily human induced - Other:
 
 ### Fixed capital consumption
 
->“Fixed capital consumption” is the value of the depreciation of fixed capital goods as a result of normal wear and tear in the course of production process. 
+>“Fixed capital consumption” is the value of the depreciation of fixed capital goods as a result of normal wear and tear in the course of production process.
 
 ### Gross fixed capital formation
 
@@ -862,7 +868,7 @@ Damage primarily human induced - Other:
 
 >“Other gross fixed capital formation” includes software, management plans, major improvements to forest land (drainage, preparing soil, protection structure etc.) and other.
 
-## Indicator 6.5
+# 6.5 indicator 6.5
 
 ### Labour Force Survey
 
@@ -898,7 +904,7 @@ Damage primarily human induced - Other:
 
 1. For the purpose of this reporting unpaid family workers should be included in self-employed.
 
-## Indicator 6.6
+# 6.6 indicator 6.6
 
 ### Occupational accident
 
@@ -916,11 +922,15 @@ Damage primarily human induced - Other:
 
 *(Source: ILO, 1998).*
 
-## Indicators 6.7, 6.8
+# 6.7 indicator 6.7
 
 >Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-## Indicator 6.9
+# 6.8 indicator 6.8
+
+>Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
+
+# 6.9 indicator 6.9
 
 ### Total (national) Primary Energy Supply
 
@@ -990,7 +1000,7 @@ Damage primarily human induced - Other:
 
 *Source: UNECE/FAO Joint Wood Energy Enquiry 2011, Taken from FAO Unified Bioenergy Terminology (http://www.unece.org/fileadmin/DAM/timber/wood_energy/jwee-2011-eng.xlsx and http://www.unece.org/fileadmin/DAM/timber/wood_energy/JWEE2011manual.pdf).*
 
-## Indicator 6.10:
+# 6.10 Indicator 6.10
 
 ### Area available for public recreation
 
