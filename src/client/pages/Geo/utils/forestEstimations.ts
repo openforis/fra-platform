@@ -1,4 +1,4 @@
-import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestKey, sourcesMetadata } from 'meta/geo'
+import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestKey, forestLayersMetadata } from 'meta/geo'
 import { hansenPercentages } from 'meta/geo/forest'
 
 /**
@@ -19,8 +19,8 @@ export const builForestEstimationsDataTable = (
   const fra1ALandArea = fetchedForestEstimations.data.fra1aLandArea
   const reportedFra1aForestArea = fetchedForestEstimations.data.fra1aForestArea
 
-  Object.keys(sourcesMetadata).forEach((key: ForestKey) => {
-    const metadata = sourcesMetadata[key]
+  Object.keys(forestLayersMetadata).forEach((key: ForestKey) => {
+    const metadata = forestLayersMetadata[key]
 
     if (!('forestAreaDataProperty' in metadata)) return
 

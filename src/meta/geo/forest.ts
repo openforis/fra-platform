@@ -90,7 +90,7 @@ export const agreementPalette = [
   '#000000', // black
 ]
 
-export const sourcesMetadata = {
+export const forestLayersMetadata = {
   [ForestKey.JAXA]: {
     scale: 24.7376,
     palette: ['#800080'], // purple
