@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { ForestSource, LayerStatus } from 'meta/geo'
+import { ForestKey, LayerStatus } from 'meta/geo'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useForestSourceOptions } from 'client/store/ui/geo'
@@ -30,20 +30,20 @@ const CustomAssetControl: React.FC = () => {
     } else {
       setInputError(false)
       dispatch(GeoActions.setCustomForestAssetId(inputValue.trim()))
-      dispatch(GeoActions.resetSingleForestLayerStates(ForestSource.CustomFnF))
+      dispatch(GeoActions.resetSingleForestLayerStates(ForestKey.CustomFnF))
     }
   }
 
   const toggleCustomLayer = () => {
-    dispatch(GeoActions.toggleForestLayer(ForestSource.CustomFnF))
+    dispatch(GeoActions.toggleForestLayer(ForestKey.CustomFnF))
   }
 
-  const isLayerChecked = forestOptions.selected.includes(ForestSource.CustomFnF)
+  const isLayerChecked = forestOptions.selected.includes(ForestKey.CustomFnF)
 
   let loadingStatus = null
-  if (forestOptions.pendingLayers[ForestSource.CustomFnF] !== undefined) loadingStatus = LayerStatus.loading
-  if (forestOptions.fetchedLayers[ForestSource.CustomFnF] !== undefined) loadingStatus = LayerStatus.ready
-  if (forestOptions.failedLayers[ForestSource.CustomFnF] !== undefined) loadingStatus = LayerStatus.failed
+  if (forestOptions.pendingLayers[ForestKey.CustomFnF] !== undefined) loadingStatus = LayerStatus.loading
+  if (forestOptions.fetchedLayers[ForestKey.CustomFnF] !== undefined) loadingStatus = LayerStatus.ready
+  if (forestOptions.failedLayers[ForestKey.CustomFnF] !== undefined) loadingStatus = LayerStatus.failed
 
   let checkBoxContent = null
   if (loadingStatus === LayerStatus.loading) {
@@ -81,7 +81,7 @@ const CustomAssetControl: React.FC = () => {
             </button>
           </div>
         </div>
-        <LayerOptionsPanel layerKey={ForestSource.CustomFnF} checked={isLayerChecked} />
+        <LayerOptionsPanel layerKey={ForestKey.CustomFnF} checked={isLayerChecked} />
       </div>
       <div className="custom-asset-list-element-bottom" />
     </>

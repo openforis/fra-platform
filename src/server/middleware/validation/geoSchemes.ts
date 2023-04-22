@@ -1,8 +1,8 @@
 import { body, query } from 'express-validator'
 
-import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from 'meta/geo'
+import { BurnedAreaKey, ForestKey, LayerSource, ProtectedAreaKey } from 'meta/geo'
 
-const sourceKeys = Object.keys(ForestSource).concat(Object.keys(ProtectedAreaKey)).concat(Object.keys(BurnedAreaKey))
+const sourceKeys = Object.keys(ForestKey).concat(Object.keys(ProtectedAreaKey)).concat(Object.keys(BurnedAreaKey))
 
 const countryIsoQuery = query('countryIso')
   .exists()
@@ -27,7 +27,7 @@ export const layerSchema = [
     .withMessage('validation.errors.invalidValue'),
 
   body('layer.options.gteTreeCoverPercent')
-    .if(body('layer.key').equals(ForestSource.Hansen))
+    .if(body('layer.key').equals(ForestKey.Hansen))
     .exists()
     .withMessage('validation.errors.requiredValue')
     .bail()
@@ -45,7 +45,7 @@ export const layerSchema = [
     .toInt(),
 
   body('layer.options.assetId')
-    .if(body('layer.key').equals(ForestSource.CustomFnF))
+    .if(body('layer.key').equals(ForestKey.CustomFnF))
     .exists()
     .withMessage('validation.errors.requiredValue')
     .bail()
@@ -78,8 +78,8 @@ export const forestAgreementLayerSchema = [
     })
     .custom((layers) => {
       let valid = true
-      if (layers.length >= 1 && layers.every((ls: LayerSource) => Object.keys(ForestSource).includes(ls.key))) {
-        const lsHansen = layers.find((ls: LayerSource) => ls.key === ForestSource.Hansen)
+      if (layers.length >= 2 && layers.every((ls: LayerSource) => Object.keys(ForestKey).includes(ls.key))) {
+        const lsHansen = layers.find((ls: LayerSource) => ls.key === ForestKey.Hansen)
         if (
           lsHansen !== undefined &&
           (lsHansen.options?.gteTreeCoverPercent === undefined ||
@@ -88,7 +88,7 @@ export const forestAgreementLayerSchema = [
         ) {
           valid = false
         } else {
-          const lsCustom = layers.find((ls: LayerSource) => ls.key === ForestSource.CustomFnF)
+          const lsCustom = layers.find((ls: LayerSource) => ls.key === ForestKey.CustomFnF)
           if (lsCustom !== undefined && lsCustom.options?.assetId === undefined) {
             valid = false
           }

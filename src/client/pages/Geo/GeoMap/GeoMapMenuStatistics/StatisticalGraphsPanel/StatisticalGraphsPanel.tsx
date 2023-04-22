@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Numbers } from 'utils/numbers'
 import { ChartOptions, Plugin } from 'chart.js'
 
-import { ExtraEstimation, extraEstimationsMetadata, ForestSource, sourcesMetadata } from 'meta/geo'
+import { ExtraEstimation, extraEstimationsMetadata, ForestKey, sourcesMetadata } from 'meta/geo'
 
 import Chart from 'client/components/Chart'
 import { displayPercentagesPlugin, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
@@ -42,12 +42,12 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
     })
 
     const backgroundColors = data.map((row) => {
-      const source = row[0] as ForestSource | ExtraEstimation
+      const source = row[0] as ForestKey | ExtraEstimation
       if (Object.values(ExtraEstimation).includes(source as ExtraEstimation)) {
         return extraEstimationsMetadata[source as ExtraEstimation].palette[0]
       }
-      if (source.toUpperCase().indexOf(ForestSource.Hansen.toUpperCase()) === -1) {
-        return sourcesMetadata[source as ForestSource].palette[0]
+      if (source.toUpperCase().indexOf(ForestKey.Hansen.toUpperCase()) === -1) {
+        return sourcesMetadata[source as ForestKey].palette[0]
       }
       return sourcesMetadata.Hansen.palette[0]
     })

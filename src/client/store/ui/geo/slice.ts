@@ -10,7 +10,7 @@ import {
   MosaicSource,
   ProtectedAreaKey,
 } from 'meta/geo'
-import { forestAgreementRecipes, ForestSource, HansenPercentage } from 'meta/geo/forest'
+import { forestAgreementRecipes, ForestKey, HansenPercentage } from 'meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getBurnedAreaLayer, getForestEstimationData, getForestLayer, getProtectedAreaLayer } from './actions'
@@ -115,7 +115,7 @@ export const geoSlice = createSlice({
     updateForestOptions: (state, { payload }) => {
       state.forestOptions = payload
     },
-    toggleForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
+    toggleForestLayer: (state, { payload }: PayloadAction<ForestKey>) => {
       const i = state.forestOptions.selected.findIndex((key) => key === payload)
       if (i === -1) {
         delete state.forestOptions.failedLayers[payload] // In case the loading failed and it is manually re-tried
@@ -128,7 +128,7 @@ export const geoSlice = createSlice({
     },
     setForestLayers: (
       state,
-      { payload: { sources, opacity } }: PayloadAction<{ sources: ForestSource[]; opacity?: number }>
+      { payload: { sources, opacity } }: PayloadAction<{ sources: ForestKey[]; opacity?: number }>
     ) => {
       state.forestOptions.selected = sources
       state.forestOptions.opacity = {}
@@ -177,7 +177,7 @@ export const geoSlice = createSlice({
       state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
       state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
     },
-    resetSingleForestLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
+    resetSingleForestLayerStates: (state, { payload }: PayloadAction<ForestKey>) => {
       delete state.forestOptions.fetchedLayers[payload]
       delete state.forestOptions.pendingLayers[payload]
       delete state.forestOptions.failedLayers[payload]

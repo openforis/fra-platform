@@ -6,7 +6,7 @@ import axios from 'axios'
 import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ExtraEstimation, ForestSource } from 'meta/geo'
+import { ExtraEstimation, ForestKey } from 'meta/geo'
 import { LayerSource } from 'meta/geo/forest'
 
 import { useAppDispatch } from 'client/store'
@@ -37,8 +37,8 @@ const AgreementLevelsControl: React.FC = () => {
     setEstimationError(null)
 
     const layers: Array<LayerSource> = forestOptions.selected.map((key) => {
-      const isHansen = key === ForestSource.Hansen
-      const isCustomAsset = key === ForestSource.CustomFnF
+      const isHansen = key === ForestKey.Hansen
+      const isCustomAsset = key === ForestKey.CustomFnF
       const layer: LayerSource = {
         key,
       }

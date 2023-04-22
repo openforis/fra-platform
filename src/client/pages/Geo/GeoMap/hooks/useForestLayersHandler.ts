@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ForestSource } from 'meta/geo'
+import { ForestKey } from 'meta/geo'
 import { HansenPercentage } from 'meta/geo/forest'
 
 import { useAppDispatch } from 'client/store'
@@ -52,8 +52,8 @@ export const useForestLayersHandler = () => {
       // The layers should only be fetched when they are selected and have opacity greater than 0.
       if (forestOptions.selected.includes(mapLayerKey) && forestOptions.opacity[mapLayerKey] !== 0) {
         // Layer is selected so ensure it's shown on map
-        const isHansen = mapLayerKey === ForestSource.Hansen
-        const isCustomAsset = mapLayerKey === ForestSource.CustomFnF
+        const isHansen = mapLayerKey === ForestKey.Hansen
+        const isCustomAsset = mapLayerKey === ForestKey.CustomFnF
         const key = mapLayerKey + (isHansen ? `__${forestOptions.hansenPercentage}` : '')
 
         // If the layer is pending or has failed, do not fetch it again.
@@ -77,7 +77,7 @@ export const useForestLayersHandler = () => {
           const requestBody: GetForestLayerRequestBody = {
             countryIso,
             layer: {
-              key: isHansen ? ForestSource.Hansen : mapLayerKey,
+              key: isHansen ? ForestKey.Hansen : mapLayerKey,
             },
           }
           if (isHansen) {

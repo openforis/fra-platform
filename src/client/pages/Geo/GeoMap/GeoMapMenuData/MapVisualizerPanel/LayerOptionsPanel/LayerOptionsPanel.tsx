@@ -2,7 +2,7 @@ import './LayerOptionsPanel.scss'
 import React, { useState } from 'react'
 import { batch } from 'react-redux'
 
-import { ForestSource, HansenPercentage, hansenPercentages } from 'meta/geo/forest'
+import { ForestKey, HansenPercentage, hansenPercentages } from 'meta/geo/forest'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useForestSourceOptions, useIsGeoMapAvailable } from 'client/store/ui/geo'
@@ -62,7 +62,7 @@ const LayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) => {
           <small>{`${(layerKey === GLOBAL_OPACITY_KEY ? globalOpacity : opacity) * 100}%`}</small>
         </div>
       </div>
-      {layerKey === ForestSource.Hansen && isLayerEnabled ? (
+      {layerKey === ForestKey.Hansen && isLayerEnabled ? (
         <div className="geo-map-menu-forest-hansen-layer-inputs">
           <div>
             <div>

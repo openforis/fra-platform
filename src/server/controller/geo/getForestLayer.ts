@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { ForestSource, Layer, LayerSource } from 'meta/geo'
+import { ForestKey, Layer, LayerSource } from 'meta/geo'
 
 import { AssetsController } from 'server/controller/geo/assets'
 
@@ -16,7 +16,7 @@ export const getForestLayer = async (props: Props): Promise<Layer> => {
   const asset = AssetsController.getForestAssetData(layer)
   let style: { palette: string[]; min?: number; max?: number }
 
-  if (layer.key === ForestSource.Agreement) {
+  if (layer.key === ForestKey.Agreement) {
     style = {
       palette: asset.metadata.palette.slice(
         layer.options.agreement.gteAgreementLevel - 1,

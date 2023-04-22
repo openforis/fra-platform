@@ -1,7 +1,7 @@
 import './ForestLayerSection.scss'
 import React from 'react'
 
-import { ForestSource, LayerStatus } from 'meta/geo'
+import { ForestKey, LayerStatus } from 'meta/geo'
 import { forestAgreementRecipes } from 'meta/geo/forest'
 
 import { useAppDispatch } from 'client/store'
@@ -40,7 +40,7 @@ const RecipeSelector: React.FC = () => {
 const ForestLayerSection: React.FC = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
-  const toggleForestLayer = (key: ForestSource) => {
+  const toggleForestLayer = (key: ForestKey) => {
     dispatch(GeoActions.setForestLayersRecipe('custom'))
     dispatch(GeoActions.toggleForestLayer(key))
   }
@@ -55,7 +55,7 @@ const ForestLayerSection: React.FC = () => {
           </GeoMapMenuListElement>
         </div>
         {forestLayers.map((layer) => {
-          if (layer.key === ForestSource.CustomFnF) return false
+          if (layer.key === ForestKey.CustomFnF) return false
           const isLayerChecked = forestOptions.selected.includes(layer.key)
           let status = null
           if (forestOptions.pendingLayers[layer.key] !== undefined) status = LayerStatus.loading
