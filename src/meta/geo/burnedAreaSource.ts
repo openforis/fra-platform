@@ -2,7 +2,7 @@ export enum BurnedAreaKey {
   MODIS = 'MODIS',
 }
 
-export const burnedAreaSourcesMetadata = {
+export const burnedAreaLayersMetadata = {
   [BurnedAreaKey.MODIS]: {
     palette: ['#FF0000'],
     scale: 500,
