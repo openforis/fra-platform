@@ -1,6 +1,6 @@
 export type { Bounds } from './bounds'
 export type { BurnedAreasUIOptions } from './burnedAreaSource'
-export { BurnedAreaKey, burnedAreaSourcesMetadata } from './burnedAreaSource'
+export { BurnedAreaKey, burnedAreaLayersMetadata } from './burnedAreaSource'
 export type { Layer } from './forest'
 export type { BurnedAreasOptions, ForestOptions, LayerSource, ProtectedAreasOptions } from './forest'
 export { LayerStatus } from './forest'
