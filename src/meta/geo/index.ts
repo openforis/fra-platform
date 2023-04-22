@@ -9,5 +9,5 @@ export type { ForestEstimations, ForestEstimationsData } from './forestEstimatio
 export { ExtraEstimation, extraEstimationsMetadata } from './forestEstimations'
 export type { GeoStatisticsState } from './geoStatistics'
 export type { MosaicOptions, MosaicSource } from './mosaic'
-export { ProtectedAreaKey, protectedAreaSourcesMetadata } from './protectedAreaSource'
+export { ProtectedAreaKey, protectedAreaLayersMetadata } from './protectedAreaSource'
 export type { MapPanel } from './ui'

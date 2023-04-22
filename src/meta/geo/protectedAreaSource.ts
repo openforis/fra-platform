@@ -4,7 +4,7 @@ export enum ProtectedAreaKey {
   CustomPA = 'CustomPA',
 }
 
-export const protectedAreaSourcesMetadata = {
+export const protectedAreaLayersMetadata = {
   [ProtectedAreaKey.FilteredWDPA]: {
     palette: ['#0f9ba6'],
     scale: 30,
