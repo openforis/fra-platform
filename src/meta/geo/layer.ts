@@ -29,3 +29,35 @@ export interface Recipe {
   forestAreaDataProperty: string
   recipeLabel: string
 }
+
+export type LayerMetadata = {
+  scale?: number
+  palette?: Array<string>
+  citation?: string
+  forestAreaDataProperty?: string
+}
+
+export type LayerOptions = {
+  minTreeCoverPercentage?: Array<number>
+  agreementLayer?: { agreementLevels: Array<number>; reducerScales: Array<number> }
+  years?: Array<number>
+}
+
+export type Layer = {
+  key: ForestKey | ProtectedAreaKey | BurnedAreaKey
+  isCustomAsset?: boolean
+  options?: LayerOptions
+  metadata?: LayerMetadata
+}
+
+export enum LayerSectionKey {
+  Forest = 'Forest',
+  ProtectedArea = 'ProtectedArea',
+  BurnedArea = 'BurnedArea',
+}
+
+export type LayerSection = {
+  key: LayerSectionKey
+  layers: Array<Layer>
+  recipes?: Array<Recipe>
+}
