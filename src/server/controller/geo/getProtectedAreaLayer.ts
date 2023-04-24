@@ -2,7 +2,7 @@
 import { data } from '@google/earthengine'
 
 import { CountryIso } from '@meta/area'
-import { Layer, LayerSource, ProtectedAreaKey } from '@meta/geo'
+import { LayerConfig, LayerSource, ProtectedAreaKey } from '@meta/geo'
 
 import { AssetsController } from '@server/controller/geo/assets'
 
@@ -13,7 +13,7 @@ type Props = {
   layer: LayerSource
 }
 
-export const getProtectedAreaLayer = async (props: Props): Promise<Layer> => {
+export const getProtectedAreaLayer = async (props: Props): Promise<LayerConfig> => {
   const { countryIso, layer } = props
 
   const asset = AssetsController.getProtectedAreaAssetData(layer)

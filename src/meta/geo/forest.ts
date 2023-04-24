@@ -26,7 +26,7 @@ export enum ForestKey {
   Agreement = 'Agreement',
 }
 
-export type Layer = {
+export type LayerConfig = {
   mapId: string
   palette: Array<string>
   year?: number

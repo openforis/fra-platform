@@ -1,7 +1,7 @@
 export type { Bounds } from './bounds'
 export type { BurnedAreasUIOptions } from './burnedAreaSource'
 export { BurnedAreaKey, burnedAreaLayersMetadata } from './burnedAreaSource'
-export type { Layer } from './forest'
+export type { LayerConfig } from './forest'
 export type { LayerSource } from './forest'
 export { agreementPalette, ForestKey, forestLayersMetadata, getRecipeAgreementAreaProperty } from './forest'
 export type { ForestEstimations, ForestEstimationsData } from './forestEstimations'
