@@ -8,10 +8,11 @@ export const getManyMetadata = async (
     assessment: Assessment
     sectionNames: Array<string>
     cycle: Cycle
+    showHidden?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<Record<string, Array<TableSection>>> => {
-  const { cycle, sectionNames, assessment } = props
+  const { cycle, sectionNames, assessment, showHidden = false } = props
   const schemaName = Schemas.getName(assessment)
 
   return client.result<Record<string, Array<TableSection>>>(
@@ -55,6 +56,7 @@ export const getManyMetadata = async (
                          and t.props -> 'cycles' ? $2
                          and r.props -> 'cycles' ? $2
                          and c.props -> 'cycles' ? $2
+                         and ($3 = true or (coalesce(ts.props ->> 'hidden', 'false') = 'false' and $3 = false))
                        group by s.props ->> 'name',
                                 to_jsonb(ts.*),
                                 to_jsonb(t.*),
@@ -86,7 +88,7 @@ export const getManyMetadata = async (
         ;
 
     `,
-    [sectionNames, cycle.uuid],
+    [sectionNames, cycle.uuid, showHidden],
     (result) => {
       return result.rows.reduce((prev, current) => {
         return {
