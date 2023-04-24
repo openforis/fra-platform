@@ -56,7 +56,7 @@ export const getManyMetadata = async (
                          and t.props -> 'cycles' ? $2
                          and r.props -> 'cycles' ? $2
                          and c.props -> 'cycles' ? $2
-                         and ($3 = true or (coalesce(ts.props ->> 'hidden', 'false') = 'false' and $3 = false))
+                         and ($3 = true or (coalesce(s.props ->> 'hidden', 'false') = 'false' and $3 = false))
                        group by s.props ->> 'name',
                                 to_jsonb(ts.*),
                                 to_jsonb(t.*),

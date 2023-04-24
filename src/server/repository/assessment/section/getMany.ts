@@ -17,6 +17,7 @@ export const getMany = async (
                     from ${schemaName}.section s
                     where s.parent_id is not null
                       and props -> 'cycles' ? $1
+                      and coalesce(s.props ->> 'hidden', 'false') = 'false'
                     group by s.parent_id
                     order by s.parent_id),
              s as (select s.*,
