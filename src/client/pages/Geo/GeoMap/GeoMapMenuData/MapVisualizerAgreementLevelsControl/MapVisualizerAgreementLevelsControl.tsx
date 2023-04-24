@@ -7,7 +7,7 @@ import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ExtraEstimation, ForestKey } from 'meta/geo'
-import { LayerSource } from 'meta/geo/forest'
+import { LayerSource } from 'meta/geo/layer'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useForestSourceOptions, useGeoStatistics } from 'client/store/ui/geo'
