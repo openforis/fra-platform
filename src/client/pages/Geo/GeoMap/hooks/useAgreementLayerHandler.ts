@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ForestKey, Layer, LayerSource, LayerStatus } from 'meta/geo'
+import { ForestKey, LayerConfig, LayerSource, LayerStatus } from 'meta/geo'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useForestSourceOptions } from 'client/store/ui/geo'
@@ -14,7 +14,7 @@ import { mapController } from 'client/utils'
 export const useAgreementLayerHandler = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
-  const agreementLayerCache = useRef<{ [key: string]: Layer }>({})
+  const agreementLayerCache = useRef<{ [key: string]: LayerConfig }>({})
   const agreementLayerKey = 'Agreement'
   const countryIso = useCountryIso()
 

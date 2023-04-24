@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { ForestKey, Layer, LayerSource } from 'meta/geo'
+import { ForestKey, LayerConfig, LayerSource } from 'meta/geo'
 
 import { AssetsController } from 'server/controller/geo/assets'
 
@@ -10,7 +10,7 @@ type Props = {
   layer: LayerSource
 }
 
-export const getForestLayer = async (props: Props): Promise<Layer> => {
+export const getForestLayer = async (props: Props): Promise<LayerConfig> => {
   const { countryIso, layer } = props
 
   const asset = AssetsController.getForestAssetData(layer)
