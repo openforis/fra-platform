@@ -3,8 +3,7 @@ import { useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ForestKey, Layer } from 'meta/geo'
-import { LayerSource, LayerStatus } from 'meta/geo/forest'
+import { ForestKey, Layer, LayerSource, LayerStatus } from 'meta/geo'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useForestSourceOptions } from 'client/store/ui/geo'

@@ -1,47 +1,5 @@
-import { BurnedAreaKey, BurnedAreasUIOptions } from './burnedAreaSource'
+import { BurnedAreaKey } from './burnedAreaSource'
 import { ProtectedAreaKey } from './protectedAreaSource'
-
-export enum LayerStatus {
-  loading = 'loading',
-  failed = 'failed',
-  ready = 'ready',
-}
-
-export interface ForestOptions {
-  selected: ForestKey[]
-  fetchedLayers: { [key: string]: string }
-  pendingLayers: { [key: string]: string }
-  failedLayers: { [key: string]: string }
-  opacity: { [key: string]: number }
-  hansenPercentage: HansenPercentage
-  agreementLayerSelected: boolean
-  agreementLayerStatus: LayerStatus
-  agreementLevel: number
-  agreementPalette: Array<string>
-  recipe: string
-  customAssetId: string
-}
-
-export interface ProtectedAreasOptions {
-  selected: ProtectedAreaKey[]
-  fetchedLayers: { [key: string]: string }
-  pendingLayers: { [key: string]: string }
-  failedLayers: { [key: string]: string }
-  opacity: { [key: string]: number }
-  customAssetId: string
-}
-
-export interface BurnedAreasOptions {
-  ui: BurnedAreasUIOptions
-  applied: BurnedAreasUIOptions
-  selected: BurnedAreaKey[]
-  fetchedLayers: { [key: string]: string }
-  pendingLayers: { [key: string]: string }
-  failedLayers: { [key: string]: string }
-  opacity: { [key: string]: number }
-}
-
-export type BurnedAreaModis = [{ year: number; ba: number; fbaHansen10: number }]
 
 export const hansenPercentages = [10, 20, 30] as const
 
