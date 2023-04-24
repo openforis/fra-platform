@@ -1,5 +1,4 @@
-import { BurnedAreaKey } from './burnedAreaSource'
-import { ProtectedAreaKey } from './protectedAreaSource'
+import { Recipe } from './layer'
 
 export const hansenPercentages = [10, 20, 30] as const
 
@@ -24,14 +23,6 @@ export enum ForestKey {
   MODIS = 'MODIS',
   CustomFnF = 'CustomFnF',
   Agreement = 'Agreement',
-}
-
-export type LayerConfig = {
-  mapId: string
-  palette: Array<string>
-  year?: number
-  scale?: number
-  citation?: string
 }
 
 export const agreementPalette = [
@@ -112,26 +103,6 @@ export const forestLayersMetadata = {
     citation: '',
     scale: 0,
   },
-}
-
-export interface LayerSource {
-  key: ForestKey | ProtectedAreaKey | BurnedAreaKey
-  options?: {
-    gteTreeCoverPercent?: number
-    assetId?: string
-    year?: number
-    agreement?: {
-      layers: Array<LayerSource>
-      gteAgreementLevel: number
-    }
-  }
-}
-
-export interface Recipe {
-  layers: Array<ForestKey>
-  gteHansenTreeCoverPerc?: HansenPercentage
-  forestAreaDataProperty: string
-  recipeLabel: string
 }
 
 export const forestAgreementRecipes: Array<Recipe> = [
