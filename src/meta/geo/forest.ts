@@ -1,4 +1,6 @@
-import { Recipe } from './layer'
+import { Arrays } from '@utils/arrays'
+
+import { LayerMetadata, LayerSection, LayerSectionKey, Recipe } from './layer'
 
 export const hansenPercentages = [10, 20, 30] as const
 
@@ -39,7 +41,7 @@ export const agreementPalette = [
   '#000000', // black
 ]
 
-export const forestLayersMetadata = {
+export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.JAXA]: {
     scale: 24.7376,
     palette: ['#800080'], // purple
@@ -178,4 +180,65 @@ export const getRecipeAgreementAreaProperty = (
   })
 
   return recipe === undefined ? null : `${recipe.forestAreaDataProperty}Gte${gteAgreementLevel}`
+}
+
+export const forestLayers: LayerSection = {
+  key: LayerSectionKey.Forest,
+  recipes: forestAgreementRecipes,
+  layers: [
+    {
+      key: ForestKey.JAXA,
+      metadata: forestLayersMetadata.JAXA,
+    },
+    {
+      key: ForestKey.TandemX,
+      metadata: forestLayersMetadata.TandemX,
+    },
+    {
+      key: ForestKey.GlobeLand,
+      metadata: forestLayersMetadata.GlobeLand,
+    },
+    {
+      key: ForestKey.ESAGlobCover,
+      metadata: forestLayersMetadata.ESAGlobCover,
+    },
+    {
+      key: ForestKey.Copernicus,
+      metadata: forestLayersMetadata.Copernicus,
+    },
+    {
+      key: ForestKey.ESRI,
+      metadata: forestLayersMetadata.ESRI,
+    },
+    {
+      key: ForestKey.ESAWorldCover,
+      metadata: forestLayersMetadata.ESAGlobCover,
+    },
+    {
+      key: ForestKey.Hansen,
+      options: {
+        minTreeCoverPercentage: hansenPercentages.map((percentage) => percentage),
+      },
+      metadata: forestLayersMetadata.Hansen,
+    },
+    {
+      key: ForestKey.MODIS,
+      metadata: forestLayersMetadata.MODIS,
+    },
+    {
+      key: ForestKey.CustomFnF,
+      isCustomAsset: true,
+      metadata: forestLayersMetadata.CustomFnF,
+    },
+    {
+      key: ForestKey.Agreement,
+      options: {
+        agreementLayer: {
+          agreementLevels: Arrays.range(1, Object.keys(ForestKey).length, 1),
+          reducerScales: [10, 20, 30],
+        },
+      },
+      metadata: forestLayersMetadata.JAXA,
+    },
+  ],
 }
