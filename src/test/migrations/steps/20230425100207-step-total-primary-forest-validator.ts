@@ -24,7 +24,7 @@ export default async (client: BaseProtocol) => {
   await client.query(
     `update ${schemaName}.row r set props = jsonb_set(r.props, '{validateFns, ${cycle.uuid}}',
     ('[
-      "(!primaryForestByClimaticDomain.primaryForestBoreal || !primaryForestByClimaticDomain.primaryForestTemperate || !primaryForestByClimaticDomain.primaryForestSubTropical || !primaryForestByClimaticDomain.primaryForestTropical) ? validatorSumNotGreaterThan(primaryForestByClimaticDomain.totalPrimaryForest, forestCharacteristics.primaryForest, true) : validatorEqualToSum(forestCharacteristics.primaryForest, [(primaryForestByClimaticDomain.primaryForestBoreal || 0), (primaryForestByClimaticDomain.primaryForestTemperate || 0), (primaryForestByClimaticDomain.primaryForestSubTropical || 0), (primaryForestByClimaticDomain.primaryForestTropical || 0)])"
+      "(!primaryForestByClimaticDomain.primaryForestBoreal || !primaryForestByClimaticDomain.primaryForestTemperate || !primaryForestByClimaticDomain.primaryForestSubTropical || !primaryForestByClimaticDomain.primaryForestTropical) ? validatorSumNotGreaterThan(primaryForestByClimaticDomain.totalPrimaryForest, forestCharacteristics.primaryForest, true) : validatorEqualToPrimaryForest(forestCharacteristics.primaryForest, [(primaryForestByClimaticDomain.primaryForestBoreal || 0), (primaryForestByClimaticDomain.primaryForestTemperate || 0), (primaryForestByClimaticDomain.primaryForestSubTropical || 0), (primaryForestByClimaticDomain.primaryForestTropical || 0)])"
     ]'::text)::jsonb)
     where id = $1;`,
     row.id
