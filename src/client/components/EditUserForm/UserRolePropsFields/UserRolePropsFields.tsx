@@ -46,7 +46,7 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
         mandatory
       />
 
-      {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(role.role) && (
+      {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(role?.role) && (
         <>
           <TextInputField
             name="street"
