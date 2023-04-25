@@ -3,8 +3,7 @@ import { useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
-import { ForestSource, Layer } from '@meta/geo'
-import { LayerSource, LayerStatus } from '@meta/geo/forest'
+import { ForestKey, LayerConfig, LayerSource, LayerStatus } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
@@ -15,7 +14,7 @@ import { mapController } from '@client/utils'
 export const useAgreementLayerHandler = () => {
   const dispatch = useAppDispatch()
   const forestOptions = useForestSourceOptions()
-  const agreementLayerCache = useRef<{ [key: string]: Layer }>({})
+  const agreementLayerCache = useRef<{ [key: string]: LayerConfig }>({})
   const agreementLayerKey = 'Agreement'
   const countryIso = useCountryIso()
 
@@ -54,7 +53,7 @@ export const useAgreementLayerHandler = () => {
 
     const layerQuery = forestOptions.selected.map((key) => `&layer=${key}`).join('')
     const agreementLevelQuery = `&gteAgreementLevel=${forestOptions.agreementLevel}`
-    const hansenQuery = forestOptions.selected.includes(ForestSource.Hansen)
+    const hansenQuery = forestOptions.selected.includes(ForestKey.Hansen)
       ? `&gteHansenTreeCoverPerc=${forestOptions.hansenPercentage}`
       : ''
     const cacheKey = `${ApiEndPoint.Geo.Layers.forestAgreement()}/?countryIso=${countryIso}${layerQuery}${agreementLevelQuery}${hansenQuery}`
@@ -71,8 +70,8 @@ export const useAgreementLayerHandler = () => {
 
     // Otherwise, fetch a new map id from server and cache it for later use
     const layers: Array<LayerSource> = forestOptions.selected.map((key) => {
-      const isHansen = key === ForestSource.Hansen
-      const isCustomAsset = key === ForestSource.CustomFnF
+      const isHansen = key === ForestKey.Hansen
+      const isCustomAsset = key === ForestKey.CustomFnF
       const layer: LayerSource = {
         key,
       }
