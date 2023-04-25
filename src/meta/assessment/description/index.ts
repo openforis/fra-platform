@@ -1,0 +1,6 @@
+export type { AnalysisAndProcessingDescription } from './analysisAndProcessingDescription'
+export type { DataSourceColumn } from './dataSourceColumn'
+export type { DataSourceVariables } from './dataSourceVariables'
+export type { Description, Descriptions } from './description'
+export type { NationalDataDataSourceDescription } from './nationalDataDataSourceDescription'
+export type { NationalDataDescription } from './nationalDataDescription'
