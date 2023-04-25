@@ -28,5 +28,6 @@ export interface SectionSpec {
     cycles?: Array<string>
     anchors?: Record<string, string>
     label?: Record<string, Label>
+    hidden?: boolean
   }
 }

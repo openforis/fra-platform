@@ -13,6 +13,7 @@ export interface SubSectionProps extends SectionProps {
   name: string
   showTitle: boolean
   dataExport?: boolean
+  hidden?: boolean
 }
 
 export interface Section extends CycledPropsObject<SectionProps> {
