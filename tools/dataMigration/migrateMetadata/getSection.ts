@@ -1,6 +1,6 @@
-import { Description } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
-import { DataSourceColumn } from '../../../src/meta/assessment/description'
+import { AssessmentNames } from '../../../src/meta/assessment/assessmentName'
+import { DataSourceColumn, Description } from '../../../src/meta/assessment/description'
 import { Section, SubSection } from '../../../src/meta/assessment/section'
 import { DescriptionsSpec, SectionSpec } from '../../../src/test/sectionSpec'
 import { CycleUuid, getCycleUuids, getLabels } from './utils'
@@ -38,11 +38,11 @@ const panEuropeanDescription = (descriptions: DescriptionsSpec): Description => 
     comments: true,
     nationalData: {
       dataSources: {
+        linkedVariables: descriptions.linkedVariables,
         table: {
           columns: [...panEuropeanColumns],
         },
       },
-      linkedVariables: descriptions.linkedVariables, // Add linkedVariables field
     },
   }
 }
@@ -96,7 +96,7 @@ const getDescriptions = (props: {
     props: { name },
     cycles,
   } = assessment
-  const isPanEuropean = name === 'panEuropean'
+  const isPanEuropean = name === AssessmentNames.panEuropean
 
   if (isPanEuropean) {
     return cycles.reduce(

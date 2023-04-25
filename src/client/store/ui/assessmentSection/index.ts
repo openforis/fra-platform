@@ -1,6 +1,7 @@
 export {
   useHasOriginalDataPointData,
   useIsEstimationPending,
+  useLinkedDataSources,
   useNodeValueValidation,
   useOriginalDataPointYears,
   useShowOriginalDatapoints,

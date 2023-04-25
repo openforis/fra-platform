@@ -8,7 +8,8 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   sectionName: string
-  variableNames: Array<string>
+  tableName: string
+  variableName: string
 }
 
 type Returned = {
@@ -16,7 +17,7 @@ type Returned = {
 }
 
 export const getDataSources = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { countryIso, assessment, cycle, sectionName, variableNames } = props
+  const { countryIso, assessment, cycle, sectionName, variableName } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -29,9 +30,7 @@ export const getDataSources = async (props: Props, client: BaseProtocol = DB): P
                   and d.section_name = $2)
       select jsonb_agg(e.data_sources) as data_sources
       from elements e
-      where e.data_sources -> 'fraVariables' @> '[${variableNames
-        .map((variableName) => `"${variableName}"`)
-        .join(',')}]'::jsonb
+      where e.data_sources -> 'fraVariables' @> '["${variableName}"]'::jsonb
       ;
   `
 

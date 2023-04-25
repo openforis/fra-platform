@@ -6,6 +6,7 @@ import { NodeUpdate, NodeUpdates, TableDatas } from '@meta/data'
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { getDescription } from './actions/getDescription'
+import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
 import { getTableSections } from './actions/getTableSections'
@@ -17,11 +18,12 @@ import { AssessmentSectionState } from './stateType'
 
 const initialState: AssessmentSectionState = {
   data: null,
-  tableSections: {},
-  showOriginalDataPoint: true,
-  nodeValueValidation: {},
   descriptions: {},
   estimationPending: false,
+  linkedDataSources: {},
+  nodeValueValidation: {},
+  showOriginalDataPoint: true,
+  tableSections: {},
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -114,6 +116,12 @@ export const assessmentSectionSlice = createSlice({
       state.descriptions[sectionName][name] = value
     })
 
+    builder.addCase(getLinkedDataSources.fulfilled, (state, { payload }) => {
+      const { dataSources, sectionName } = payload
+      if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
+      state.linkedDataSources[sectionName] = dataSources
+    })
+
     builder.addCase(updateDescription.pending, (state, { meta }) => {
       const { sectionName, name, value } = meta.arg
 
@@ -136,6 +144,7 @@ export const AssessmentSectionActions = {
   clearTableData,
   copyPreviousDatasources,
   getDescription,
+  getLinkedDataSources,
   getOriginalDataPointData,
   getTableData,
   getTableSections,

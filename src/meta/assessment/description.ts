@@ -23,7 +23,16 @@ export interface DataSourceVariables {
   prefixes?: Record<VariableName, Label>
 }
 
+export type DataSourceLinkedVariable = {
+  assessmentName: string
+  cycleName: string
+  sectionName: string
+  tableName: string
+  variableName: string
+}
+
 export interface NationalDataDataSourceDescription {
+  linkedVariables?: Array<DataSourceLinkedVariable>
   table?: { columns: Array<DataSourceColumn>; dataSourceVariables?: DataSourceVariables }
   text?: { readOnly?: boolean }
 }
@@ -32,18 +41,11 @@ export interface NationalDataDescription {
   dataSources?: NationalDataDataSourceDescription
   nationalClassification?: boolean
   originalData?: boolean
-  linkedVariables?: Array<{
-    assessmentName: string
-    cycleName: string
-    sectionName: string
-    variableNames: Array<string>
-  }>
 }
 
 export interface Description {
   analysisAndProcessing?: AnalysisAndProcessingDescription
   nationalData?: NationalDataDescription
-
   comments?: boolean
   introductoryText?: boolean
 }

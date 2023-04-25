@@ -12,6 +12,7 @@ import DataGrid from '@client/components/DataGrid'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import ButtonCopyDataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/ButtonCopyDataSources'
 import DataSourceRow from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceRow'
+import { useGetLinkedDataSources } from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/hooks/useGetLinkedDataSources'
 
 import { useDescriptions } from '../../Descriptions'
 
@@ -35,6 +36,8 @@ const placeholder: DataSource = {
 
 export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName, disabled, description, onChange } = props
+
+  const { t } = useTranslation()
   const cycle = useCycle()
   const subSection = useAssessmentSection(sectionName)
   const descriptions = useDescriptions({
@@ -42,11 +45,9 @@ export const DataSources: React.FC<Props> = (props: Props) => {
     sectionName,
     descriptions: subSection.props.descriptions[cycle.uuid],
   })
+  const { linkedDataSources } = useGetLinkedDataSources({ descriptions, sectionName })
 
   const { dataSources: descriptionDataSource } = descriptions.nationalData
-
-  const { t } = useTranslation()
-
   const { dataSources = [] } = description
 
   const _onChange = useCallback(
@@ -78,7 +79,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
     [description, onChange]
   )
 
-  if (!dataSources.length && disabled) return null
+  if (!dataSources.length && !linkedDataSources?.length && disabled) return null
   const copyDisabled = dataSources.length !== 0
 
   return (
@@ -97,6 +98,20 @@ export const DataSources: React.FC<Props> = (props: Props) => {
         ))}
 
         <div />
+
+        {linkedDataSources &&
+          linkedDataSources.map((dataSource, i) => (
+            <DataSourceRow
+              key={String(`linkedDataSource_${i}`)}
+              descriptionDataSource={descriptionDataSource}
+              onChange={() => ({})}
+              disabled
+              sectionName={sectionName}
+              dataSource={dataSource}
+              placeholder={false}
+              onDelete={() => ({})}
+            />
+          ))}
 
         {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => (
           <DataSourceRow

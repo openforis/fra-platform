@@ -6,9 +6,12 @@ import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
 import Requests from '@server/utils/requests'
 
-export const getDataSources = async (req: CycleDataRequest<{ variableNames: Array<string> }>, res: Response) => {
+export const getDataSources = async (
+  req: CycleDataRequest<{ tableName: string; variableName: string }>,
+  res: Response
+) => {
   try {
-    const { assessmentName, countryIso, cycleName, sectionName, variableNames } = req.query
+    const { assessmentName, countryIso, cycleName, sectionName, tableName, variableName } = req.query
 
     const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -17,7 +20,8 @@ export const getDataSources = async (req: CycleDataRequest<{ variableNames: Arra
       countryIso,
       cycle,
       sectionName,
-      variableNames,
+      tableName,
+      variableName,
     })
 
     Requests.send(res, dataSources)

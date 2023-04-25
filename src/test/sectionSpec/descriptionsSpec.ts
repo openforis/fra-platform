@@ -11,6 +11,7 @@ export interface DescriptionsSpec {
     assessmentName: string
     cycleName: string
     sectionName: string
-    variableNames: Array<string>
+    tableName: string
+    variableName: string
   }>
 }
