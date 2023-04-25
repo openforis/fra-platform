@@ -1035,7 +1035,7 @@ The FRA team
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
     forestAreaDoesNotMatchExtentOfForest: "Doesn't match Forest area (1a)",
-    forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
+    forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a) ({{value}})',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
     remainingLandExceedsExtentOfForest: 'Exceeds Remaining land area (1a)',
     valueMustBePositive: 'Value should be greater than zero',
@@ -1045,6 +1045,7 @@ The FRA team
     countryReportYearGreaterThanCurrentYear: 'Value should be greater or equal than {{minValue}}',
     valueNotGreaterThan: 'Value should be not greater than {{maxValue}}',
     sumNotGreaterThan: 'Sum should not exceed {{maxValue}}',
+    notEmpty: 'Value cannot be empty',
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
     mustBeEqualToPrivateOwnership: 'Subcategories sum should be equal to Private Ownership',
@@ -1056,9 +1057,15 @@ The FRA team
     forestSumAreaExceedsExtentOfForest:
       'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
     valueEqualToSum: 'Total value should be equal to sum of subcategories',
-    landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a)',
+    landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a) ({{value}})',
     classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
     classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',
+    valueCannotExceedMaximumValueReportedForForestArea:
+      'Value cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
+    valueCannotExceedMaximumValueReportedForForestAreaYear:
+      'The sum of year {{year}} cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
+    valueCannotExceedMaximumValueReportedForLandArea:
+      'Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)',
   },
 
   emoji: {

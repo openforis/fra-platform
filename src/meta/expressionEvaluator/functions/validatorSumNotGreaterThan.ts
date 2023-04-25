@@ -15,7 +15,7 @@ export const validatorSumNotGreaterThan: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.sumNotGreaterThan', params: { maxValue } }]
+        : [{ key: 'generalValidation.sumNotGreaterThan', params: { maxValue: Numbers.toFixed(maxValue) } }]
 
       return { valid, messages }
     }

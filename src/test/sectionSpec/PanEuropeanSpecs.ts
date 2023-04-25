@@ -3,6 +3,7 @@ import {
   ageClassDistributionAreaOfEvenAgedStands,
   ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply,
 } from './panEuSections/ageClassDistribution'
+import { areaWithForestLandDegradation } from './panEuSections/areaWithForestLandDegradation'
 import { carbonStock, carbonStockInHarvestedWoodProductsHWP } from './panEuSections/carbonStock'
 import { forestArea, forestAreaByForestTypes } from './panEuSections/forestArea'
 import { forestAreaWithDamage } from './panEuSections/forestAreaWithDamage'
@@ -161,12 +162,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2020['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2020['total_volume'],
                     [table_1_3b.forest_uneven_aged_stands_2020['less_or_equal_20_cm'],table_1_3b.forest_uneven_aged_stands_2020['_21_40_cm'],
                     table_1_3b.forest_uneven_aged_stands_2020['_41_60_cm'],table_1_3b.forest_uneven_aged_stands_2020['greater_60_cm'],
                     table_1_3b.forest_uneven_aged_stands_2020['unspecified']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
                 labelParams: { year: 2020 },
@@ -199,12 +202,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 6, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2015['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2015['total_volume'],
                   [table_1_3b.forest_uneven_aged_stands_2015['less_or_equal_20_cm'],table_1_3b.forest_uneven_aged_stands_2015['_21_40_cm'],
                   table_1_3b.forest_uneven_aged_stands_2015['_41_60_cm'],table_1_3b.forest_uneven_aged_stands_2015['greater_60_cm'],
                   table_1_3b.forest_uneven_aged_stands_2015['unspecified']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
                 labelParams: { year: 2015 },
@@ -237,12 +242,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 6, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2010['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2010['total_volume'],
                   [table_1_3b.forest_uneven_aged_stands_2010['less_or_equal_20_cm'],table_1_3b.forest_uneven_aged_stands_2010['_21_40_cm'],
                   table_1_3b.forest_uneven_aged_stands_2010['_41_60_cm'],table_1_3b.forest_uneven_aged_stands_2010['greater_60_cm'],
                   table_1_3b.forest_uneven_aged_stands_2010['unspecified']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
                 labelParams: { year: 2010 },
@@ -275,12 +282,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 6, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2005['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2005['total_volume'],
                   [table_1_3b.forest_uneven_aged_stands_2005['less_or_equal_20_cm'],table_1_3b.forest_uneven_aged_stands_2005['_21_40_cm'],
                   table_1_3b.forest_uneven_aged_stands_2005['_41_60_cm'],table_1_3b.forest_uneven_aged_stands_2005['greater_60_cm'],
                   table_1_3b.forest_uneven_aged_stands_2005['unspecified']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
                 labelParams: { year: 2005 },
@@ -313,12 +322,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 6, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2000['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_2000['total_volume'],
                   [table_1_3b.forest_uneven_aged_stands_2000['less_or_equal_20_cm'],table_1_3b.forest_uneven_aged_stands_2000['_21_40_cm'],
                   table_1_3b.forest_uneven_aged_stands_2000['_41_60_cm'],table_1_3b.forest_uneven_aged_stands_2000['greater_60_cm'],
                   table_1_3b.forest_uneven_aged_stands_2000['unspecified']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
                 labelParams: { year: 2000 },
@@ -351,12 +362,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 6, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_1990['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_3b.forest_uneven_aged_stands_1990['total_volume'],
                   [table_1_3b.forest_uneven_aged_stands_1990['less_or_equal_20_cm'],table_1_3b.forest_uneven_aged_stands_1990['_21_40_cm'],
                   table_1_3b.forest_uneven_aged_stands_1990['_41_60_cm'],table_1_3b.forest_uneven_aged_stands_1990['greater_60_cm'],
                   table_1_3b.forest_uneven_aged_stands_1990['unspecified']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands',
                 labelParams: { year: 1990 },
@@ -707,1197 +720,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
   carbonStockInHarvestedWoodProductsHWP,
   // Section 2
   forestAreaWithDamage,
-  areaWithForestLandDegradation: {
-    sectionName: 'areaWithForestLandDegradation',
-    sectionAnchor: '2.5',
-    tableSections: [
-      {
-        tableSpecs: [
-          {
-            name: 'table_2_5',
-            rows: [
-              {
-                idx: 'header_0',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 3,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.categoryYear',
-                    className: 'fra-table__header-cell-left',
-                    type: 'header',
-                  },
-                  {
-                    idx: 1,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.totalAreaOfDegradedLand',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 2,
-                    colSpan: 6,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.areaPrimarilyDegradedBy',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                    migration: {
-                      style: {
-                        '2020': { colSpan: 8, rowSpan: 1 },
-                        '2025': { colSpan: 6, rowSpan: 1 },
-                      },
-                    },
-                  },
-                  {
-                    idx: 3,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.formerDegradedLandRestored',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                    migration: { cycles: ['2020'] },
-                  },
-                ],
-                type: 'header',
-              },
-              {
-                idx: 'header_1',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentOne',
-                    migration: {
-                      label: {
-                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.grazing' },
-                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentOne' },
-                      },
-                    },
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 1,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentTwo',
-                    migration: {
-                      label: {
-                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.repeatedFires' },
-                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentTwo' },
-                      },
-                    },
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 2,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentThree',
-                    migration: {
-                      label: {
-                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.airPollution' },
-                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentThree' },
-                      },
-                    },
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 3,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentFour',
-                    migration: {
-                      label: {
-                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.desertification' },
-                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentFour' },
-                      },
-                    },
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 4,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.agentFive',
-                    migration: {
-                      label: {
-                        '2020': { key: 'panEuropean.areaWithForestLandDegradation.other1' },
-                        '2025': { key: 'panEuropean.areaWithForestLandDegradation.agentFive' },
-                      },
-                    },
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 5,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other2',
-                    migration: { cycles: ['2020'] },
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 6,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other3',
-                    migration: { cycles: ['2020'] },
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 7,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.unknownMixedDegradation',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                ],
-                type: 'header',
-              },
-              {
-                idx: 'header_2',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 7,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.thousandHa',
-                    className: 'fra-table__header-cell',
-                    migration: {
-                      style: {
-                        '2020': { colSpan: 10, rowSpan: 1 },
-                        '2025': { colSpan: 7, rowSpan: 1 },
-                      },
-                    },
-                    type: 'header',
-                  },
-                ],
-                type: 'header',
-              },
-              {
-                idx: 0,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                    labelParams: { year: 2020 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 8, type: 'decimal' },
-                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
-                ],
-                migration: {
-                  cycles: ['2025', '2020'],
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.forest_2020['total_area_of_degraded_land'],
-                     [table_2_5.forest_2020['repeated_fires'],table_2_5.forest_2020['air_pollution'],
-                     table_2_5.forest_2020['desertification'],table_2_5.forest_2020['other_1'],
-                     table_2_5.forest_2020['other_2'],table_2_5.forest_2020['other_3'],
-                     table_2_5.forest_2020['unknown'], table_2_5.forest_2020['grazing']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                labelParams: { year: 2020 },
-                variableExport: 'forest_2020',
-              },
-              {
-                idx: 1,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                    labelParams: { year: 2015 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 8, type: 'decimal' },
-                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
-                ],
-                migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.forest_2015['total_area_of_degraded_land'],
-                     [table_2_5.forest_2015['repeated_fires'],table_2_5.forest_2015['air_pollution'],
-                     table_2_5.forest_2015['desertification'],table_2_5.forest_2015['other_1'],
-                     table_2_5.forest_2015['other_2'],table_2_5.forest_2015['other_3'],
-                     table_2_5.forest_2015['unknown'], table_2_5.forest_2015['grazing']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                labelParams: { year: 2015 },
-                variableExport: 'forest_2015',
-              },
-              {
-                idx: 2,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                    labelParams: { year: 2010 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 8, type: 'decimal' },
-                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
-                ],
-                migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.forest_2010['total_area_of_degraded_land'],
-                     [table_2_5.forest_2010['repeated_fires'],table_2_5.forest_2010['air_pollution'],
-                     table_2_5.forest_2010['desertification'],table_2_5.forest_2010['other_1'],
-                     table_2_5.forest_2010['other_2'],table_2_5.forest_2010['other_3'],
-                     table_2_5.forest_2010['unknown'], table_2_5.forest_2010['grazing']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                labelParams: { year: 2010 },
-                variableExport: 'forest_2010',
-              },
-              {
-                idx: 3,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                    labelParams: { year: 2005 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 8, type: 'decimal' },
-                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
-                ],
-                migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.forest_2005['total_area_of_degraded_land'],
-                     [table_2_5.forest_2005['repeated_fires'],table_2_5.forest_2005['air_pollution'],
-                     table_2_5.forest_2005['desertification'],table_2_5.forest_2005['other_1'],
-                     table_2_5.forest_2005['other_2'],table_2_5.forest_2005['other_3'],
-                     table_2_5.forest_2005['unknown'], table_2_5.forest_2005['grazing']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                labelParams: { year: 2005 },
-                variableExport: 'forest_2005',
-              },
-              {
-                idx: 4,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                    labelParams: { year: 2000 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 8, type: 'decimal' },
-                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
-                ],
-                migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.forest_2000['total_area_of_degraded_land'],
-                     [table_2_5.forest_2000['repeated_fires'],table_2_5.forest_2000['air_pollution'],
-                     table_2_5.forest_2000['desertification'],table_2_5.forest_2000['other_1'],
-                     table_2_5.forest_2000['other_2'],table_2_5.forest_2000['other_3'],
-                     table_2_5.forest_2000['unknown'], table_2_5.forest_2000['grazing']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                labelParams: { year: 2000 },
-                variableExport: 'forest_2000',
-              },
-              {
-                idx: 5,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                    labelParams: { year: 1990 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 7, type: 'decimal', migration: { cycles: ['2020'] } },
-                  { idx: 8, type: 'decimal' },
-                  { idx: 9, type: 'decimal', migration: { cycles: ['2020'] } },
-                ],
-                migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.forest_1990['total_area_of_degraded_land'],
-                     [table_2_5.forest_1990['repeated_fires'],table_2_5.forest_1990['air_pollution'],
-                     table_2_5.forest_1990['desertification'],table_2_5.forest_1990['other_1'],
-                     table_2_5.forest_1990['other_2'],table_2_5.forest_1990['other_3'],
-                     table_2_5.forest_1990['unknown'], table_2_5.forest_1990['grazing']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.forest',
-                labelParams: { year: 1990 },
-                variableExport: 'forest_1990',
-              },
-              {
-                idx: 6,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                    labelParams: { year: 2020 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                labelParams: { year: 2020 },
-                variableExport: 'other_wooded_land_2020',
-              },
-              {
-                idx: 7,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                    labelParams: { year: 2015 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                labelParams: { year: 2015 },
-                variableExport: 'other_wooded_land_2015',
-              },
-              {
-                idx: 8,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                    labelParams: { year: 2010 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                labelParams: { year: 2010 },
-                variableExport: 'other_wooded_land_2010',
-              },
-              {
-                idx: 9,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                    labelParams: { year: 2005 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                labelParams: { year: 2005 },
-                variableExport: 'other_wooded_land_2005',
-              },
-              {
-                idx: 10,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                    labelParams: { year: 2000 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                labelParams: { year: 2000 },
-                variableExport: 'other_wooded_land_2000',
-              },
-              {
-                idx: 11,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                    labelParams: { year: 1990 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.other_wooded_land',
-                labelParams: { year: 1990 },
-                variableExport: 'other_wooded_land_1990',
-              },
-              {
-                idx: 12,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2020 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['total_area_of_degraded_land'],
-                    [table_2_5.forest_2020['total_area_of_degraded_land'],table_2_5.other_wooded_land_2020['total_area_of_degraded_land']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['grazing'],
-                    [table_2_5.forest_2020['grazing'],table_2_5.other_wooded_land_2020['grazing']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['repeated_fires'],
-                    [table_2_5.forest_2020['repeated_fires'],table_2_5.other_wooded_land_2020['repeated_fires']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['air_pollution'],
-                    [table_2_5.forest_2020['air_pollution'],table_2_5.other_wooded_land_2020['air_pollution']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['desertification'],
-                    [table_2_5.forest_2020['desertification'],table_2_5.other_wooded_land_2020['desertification']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['other_1'],
-                    [table_2_5.forest_2020['other_1'],table_2_5.other_wooded_land_2020['other_1']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['other_2'],
-                    [table_2_5.forest_2020['other_2'],table_2_5.other_wooded_land_2020['other_2']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['other_3'],
-                    [table_2_5.forest_2020['other_3'],table_2_5.other_wooded_land_2020['other_3']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['unknown'],
-                    [table_2_5.forest_2020['unknown'],table_2_5.other_wooded_land_2020['unknown']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2020['former_degraded_land_restored'],
-                    [table_2_5.forest_2020['former_degraded_land_restored'],table_2_5.other_wooded_land_2020['former_degraded_land_restored']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                labelParams: { year: 2020 },
-                variableExport: 'total_forest_and_other_wooded_land_2020',
-              },
-              {
-                idx: 13,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2015 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['total_area_of_degraded_land'],
-                    [table_2_5.forest_2015['total_area_of_degraded_land'],table_2_5.other_wooded_land_2015['total_area_of_degraded_land']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['grazing'],
-                    [table_2_5.forest_2015['grazing'],table_2_5.other_wooded_land_2015['grazing']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['repeated_fires'],
-                    [table_2_5.forest_2015['repeated_fires'],table_2_5.other_wooded_land_2015['repeated_fires']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['air_pollution'],
-                    [table_2_5.forest_2015['air_pollution'],table_2_5.other_wooded_land_2015['air_pollution']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['desertification'],
-                    [table_2_5.forest_2015['desertification'],table_2_5.other_wooded_land_2015['desertification']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['other_1'],
-                    [table_2_5.forest_2015['other_1'],table_2_5.other_wooded_land_2015['other_1']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['other_2'],
-                    [table_2_5.forest_2015['other_2'],table_2_5.other_wooded_land_2015['other_2']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['other_3'],
-                    [table_2_5.forest_2015['other_3'],table_2_5.other_wooded_land_2015['other_3']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['unknown'],
-                    [table_2_5.forest_2015['unknown'],table_2_5.other_wooded_land_2015['unknown']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2015['former_degraded_land_restored'],
-                    [table_2_5.forest_2015['former_degraded_land_restored'],table_2_5.other_wooded_land_2015['former_degraded_land_restored']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                labelParams: { year: 2015 },
-                variableExport: 'total_forest_and_other_wooded_land_2015',
-              },
-              {
-                idx: 14,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2010 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['total_area_of_degraded_land'],
-                    [table_2_5.forest_2010['total_area_of_degraded_land'],table_2_5.other_wooded_land_2010['total_area_of_degraded_land']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['grazing'],
-                    [table_2_5.forest_2010['grazing'],table_2_5.other_wooded_land_2010['grazing']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['repeated_fires'],
-                    [table_2_5.forest_2010['repeated_fires'],table_2_5.other_wooded_land_2010['repeated_fires']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['air_pollution'],
-                    [table_2_5.forest_2010['air_pollution'],table_2_5.other_wooded_land_2010['air_pollution']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['desertification'],
-                    [table_2_5.forest_2010['desertification'],table_2_5.other_wooded_land_2010['desertification']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['other_1'],
-                    [table_2_5.forest_2010['other_1'],table_2_5.other_wooded_land_2010['other_1']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['other_2'],
-                    [table_2_5.forest_2010['other_2'],table_2_5.other_wooded_land_2010['other_2']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['other_3'],
-                    [table_2_5.forest_2010['other_3'],table_2_5.other_wooded_land_2010['other_3']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['unknown'],
-                    [table_2_5.forest_2010['unknown'],table_2_5.other_wooded_land_2010['unknown']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2010['former_degraded_land_restored'],
-                    [table_2_5.forest_2010['former_degraded_land_restored'],table_2_5.other_wooded_land_2010['former_degraded_land_restored']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                labelParams: { year: 2010 },
-                variableExport: 'total_forest_and_other_wooded_land_2010',
-              },
-              {
-                idx: 15,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2005 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['total_area_of_degraded_land'],
-                    [table_2_5.forest_2005['total_area_of_degraded_land'],table_2_5.other_wooded_land_2005['total_area_of_degraded_land']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['grazing'],
-                    [table_2_5.forest_2005['grazing'],table_2_5.other_wooded_land_2005['grazing']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['repeated_fires'],
-                    [table_2_5.forest_2005['repeated_fires'],table_2_5.other_wooded_land_2005['repeated_fires']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['air_pollution'],
-                    [table_2_5.forest_2005['air_pollution'],table_2_5.other_wooded_land_2005['air_pollution']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['desertification'],
-                    [table_2_5.forest_2005['desertification'],table_2_5.other_wooded_land_2005['desertification']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['other_1'],
-                    [table_2_5.forest_2005['other_1'],table_2_5.other_wooded_land_2005['other_1']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['other_2'],
-                    [table_2_5.forest_2005['other_2'],table_2_5.other_wooded_land_2005['other_2']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['other_3'],
-                    [table_2_5.forest_2005['other_3'],table_2_5.other_wooded_land_2005['other_3']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['unknown'],
-                    [table_2_5.forest_2005['unknown'],table_2_5.other_wooded_land_2005['unknown']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2005['former_degraded_land_restored'],
-                    [table_2_5.forest_2005['former_degraded_land_restored'],table_2_5.other_wooded_land_2005['former_degraded_land_restored']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                labelParams: { year: 2005 },
-                variableExport: 'total_forest_and_other_wooded_land_2005',
-              },
-              {
-                idx: 16,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                    labelParams: { year: 2000 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['total_area_of_degraded_land'],
-                    [table_2_5.forest_2000['total_area_of_degraded_land'],table_2_5.other_wooded_land_2000['total_area_of_degraded_land']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['grazing'],
-                    [table_2_5.forest_2000['grazing'],table_2_5.other_wooded_land_2000['grazing']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['repeated_fires'],
-                    [table_2_5.forest_2000['repeated_fires'],table_2_5.other_wooded_land_2000['repeated_fires']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['air_pollution'],
-                    [table_2_5.forest_2000['air_pollution'],table_2_5.other_wooded_land_2000['air_pollution']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['desertification'],
-                    [table_2_5.forest_2000['desertification'],table_2_5.other_wooded_land_2000['desertification']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['other_1'],
-                    [table_2_5.forest_2000['other_1'],table_2_5.other_wooded_land_2000['other_1']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['other_2'],
-                    [table_2_5.forest_2000['other_2'],table_2_5.other_wooded_land_2000['other_2']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['other_3'],
-                    [table_2_5.forest_2000['other_3'],table_2_5.other_wooded_land_2000['other_3']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['unknown'],
-                    [table_2_5.forest_2000['unknown'],table_2_5.other_wooded_land_2000['unknown']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_2000['former_degraded_land_restored'],
-                    [table_2_5.forest_2000['former_degraded_land_restored'],table_2_5.other_wooded_land_2000['former_degraded_land_restored']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                labelParams: { year: 2000 },
-                variableExport: 'total_forest_and_other_wooded_land_2000',
-              },
-              {
-                idx: 17,
-                type: 'data',
-                cols: [
-                  {
-                    idx: 'header_0',
-                    type: 'header',
-                    colSpan: 1,
-                    labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                    labelParams: { year: 1990 },
-                    className: 'fra-table__category-cell',
-                  },
-                  { idx: 0, type: 'decimal' },
-                  { idx: 1, type: 'decimal' },
-                  {
-                    idx: 2,
-                    type: 'decimal',
-                  },
-                  { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
-                  {
-                    idx: 5,
-                    type: 'decimal',
-                  },
-                  { idx: 6, type: 'decimal' },
-                  { idx: 7, type: 'decimal' },
-                  {
-                    idx: 8,
-                    type: 'decimal',
-                  },
-                  { idx: 9, type: 'decimal' },
-                ],
-                migration: {
-                  cycles: ['2020'],
-                  validateFns: [
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['total_area_of_degraded_land'],
-                    [table_2_5.forest_1990['total_area_of_degraded_land'],table_2_5.other_wooded_land_1990['total_area_of_degraded_land']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['grazing'],
-                    [table_2_5.forest_1990['grazing'],table_2_5.other_wooded_land_1990['grazing']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['repeated_fires'],
-                    [table_2_5.forest_1990['repeated_fires'],table_2_5.other_wooded_land_1990['repeated_fires']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['air_pollution'],
-                    [table_2_5.forest_1990['air_pollution'],table_2_5.other_wooded_land_1990['air_pollution']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['desertification'],
-                    [table_2_5.forest_1990['desertification'],table_2_5.other_wooded_land_1990['desertification']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['other_1'],
-                    [table_2_5.forest_1990['other_1'],table_2_5.other_wooded_land_1990['other_1']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['other_2'],
-                    [table_2_5.forest_1990['other_2'],table_2_5.other_wooded_land_1990['other_2']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['other_3'],
-                    [table_2_5.forest_1990['other_3'],table_2_5.other_wooded_land_1990['other_3']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['unknown'],
-                    [table_2_5.forest_1990['unknown'],table_2_5.other_wooded_land_1990['unknown']])`,
-                    `validatorEqualToSum(table_2_5.total_forest_and_other_wooded_land_1990['former_degraded_land_restored'],
-                    [table_2_5.forest_1990['former_degraded_land_restored'],table_2_5.other_wooded_land_1990['former_degraded_land_restored']])`,
-                  ],
-                },
-                labelKey: 'panEuropean.areaWithForestLandDegradation.total_forest_and_other_wooded_land',
-                labelParams: { year: 1990 },
-                variableExport: 'total_forest_and_other_wooded_land_1990',
-              },
-            ],
-            tableDataRequired: [],
-            print: { colBreakPoints: [], pageBreakAfter: false },
-            dataExport: true,
-            columnsExportAlways: [],
-            unit: 'haThousand',
-            columnsExport: [
-              'total_area_of_degraded_land',
-              'grazing',
-              'repeated_fires',
-              'air_pollution',
-              'desertification',
-              'other_1',
-              'other_2',
-              'other_3',
-              'unknown',
-              'former_degraded_land_restored',
-            ],
-          },
-        ],
-      },
-      {
-        titleKey: 'panEuropean.countryComments.countryComments',
-        tableSpecs: [
-          {
-            name: 'country_comments_2_5_1',
-            rows: [
-              {
-                idx: 'header_0',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 2,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.countryComments.criteriaAppliedToReportingDamage',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                ],
-                type: 'header',
-              },
-              ...[
-                'doesYourCountryHaveANationalMethodology',
-                'ifYesWhatIsTheNationalDefinition',
-                'ifYesDescribeMonitoringProcessAndResults',
-                'minimumSizeOfDegradedForestReportedHa',
-                'otherCriteriaAndMinimumThresholdsUsedToDetermineForestAsDegraded',
-                'criteriaUsedToDeterminePrimaryTypeOfDegradation',
-              ].map((variableName, idx) => ({
-                idx: idx + 1,
-                type: 'data',
-                variableName,
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: `panEuropean.countryComments.${variableName}`,
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'textarea', colName: 'comment' },
-                ],
-              })),
-            ],
-            tableDataRequired: [],
-            print: { colBreakPoints: [], pageBreakAfter: false },
-            dataExport: true,
-            columnsExportAlways: [],
-            columnsExport: [],
-            migration: {
-              cycles: ['2025'],
-              columnNames: { '2025': ['comment'] },
-            },
-          },
-        ],
-      },
-      {
-        tableSpecs: [
-          {
-            name: 'country_comments_2_5_2',
-            rows: [
-              {
-                idx: 'header_0',
-                cols: [
-                  {
-                    idx: 0,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.countryComments.category',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 1,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.countryComments.commentsRelateToDataDefinitions',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 2,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.countryComments.commentsOnTrend',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                ],
-                type: 'header',
-              },
-              ...[
-                'totalAreaOfDegradedLand',
-                'primarilyDegradedBy',
-                'primarilyDegradedByGrazing',
-                'primarilyDegradedByRepeatedFires',
-                'primarilyDegradedByAirPollution',
-                'primarilyDegradedByDesertification',
-                'primarilyDegradedBy',
-                'primarilyDegradedBy',
-                'formerDegradedLandRestoredByAfforestationReforestation',
-              ].map((variableName, idx) => ({
-                idx: idx + 1,
-                type: 'data',
-                variableName,
-                cols: [
-                  {
-                    idx: 'header_0',
-                    colSpan: 1,
-                    labelKey: `panEuropean.countryComments.${variableName}`,
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  { idx: 0, type: 'textarea', colName: 'comment' },
-                  { idx: 0, type: 'textarea', colName: 'comment_trends' },
-                ],
-              })),
-            ],
-            tableDataRequired: [],
-            print: { colBreakPoints: [], pageBreakAfter: false },
-            dataExport: true,
-            columnsExportAlways: [],
-            columnsExport: [],
-            migration: {
-              cycles: ['2025'],
-              columnNames: { '2025': ['comment', 'comment_trends'] },
-            },
-          },
-        ],
-      },
-    ],
-    showTitle: true,
-    descriptions: {
-      analysisAndProcessing: true,
-      comments: true,
-      introductoryText: false,
-      nationalData: true,
-    },
-    dataExport: {
-      included: true,
-    },
-  },
+  areaWithForestLandDegradation,
   // Section 3
   incrementAndFellings: {
     sectionName: 'incrementAndFellings',
@@ -1921,11 +744,25 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   {
                     idx: 1,
+                    colSpan: 5,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.incrementAndFellingsVolume1000mob',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 1,
                     colSpan: 1,
                     rowSpan: 2,
                     labelKey: 'panEuropean.incrementAndFellings.gross_annual_increment',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 2,
@@ -1934,6 +771,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.incrementAndFellings.natural_losses',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 3,
@@ -1942,6 +782,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.incrementAndFellings.net_annual_increment',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 4,
@@ -1950,6 +793,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.incrementAndFellings.fellings',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
                 type: 'header',
@@ -1960,18 +806,68 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   {
                     idx: 0,
                     colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'panEuropean.incrementAndFellings.gross_annual_increment',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'panEuropean.incrementAndFellings.natural_losses',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 2,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    labelKey: 'panEuropean.incrementAndFellings.net_annual_increment',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 3,
+                    colSpan: 2,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.fellings',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 4,
+                    colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.incrementAndFellings.fellingsTotal',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
-                    idx: 1,
+                    idx: 5,
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.incrementAndFellings.ofWhichOfNaturalLosses',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
                 type: 'header',
@@ -1981,11 +877,36 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 cols: [
                   {
                     idx: 0,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.fellingsTotal',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 1,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.incrementAndFellings.ofWhichOfNaturalLosses',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
+                  },
+                  {
+                    idx: 2,
                     colSpan: 5,
                     rowSpan: 1,
                     labelKey: 'panEuropean.incrementAndFellings.volume1000mob',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
                 type: 'header',
@@ -3216,10 +2137,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 2022 },
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2022['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2022['total_volume'],
                     [table_3_2.roundwood_2022['woodfuel_volume'],table_3_2.roundwood_2022['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'roundwood_2022',
               },
@@ -3248,10 +2171,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 2021 },
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2021['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2021['total_volume'],
                      [table_3_2.roundwood_2021['woodfuel_volume'],table_3_2.roundwood_2021['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'roundwood_2021',
               },
@@ -3280,10 +2205,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 2020 },
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2020['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2020['total_volume'],
                      [table_3_2.roundwood_2020['woodfuel_volume'],table_3_2.roundwood_2020['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'roundwood_2020',
               },
@@ -3312,10 +2239,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 2019 },
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2019['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2019['total_volume'],
                      [table_3_2.roundwood_2019['woodfuel_volume'],table_3_2.roundwood_2019['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'roundwood_2019',
               },
@@ -3344,10 +2273,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelParams: { year: 2018 },
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2018['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2018['total_volume'],
                      [table_3_2.roundwood_2018['woodfuel_volume'],table_3_2.roundwood_2018['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'roundwood_2018',
               },
@@ -3373,10 +2304,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2017['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2017['total_volume'],
                      [table_3_2.roundwood_2017['woodfuel_volume'],table_3_2.roundwood_2017['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2017 },
@@ -3404,10 +2337,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2016['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2016['total_volume'],
                      [table_3_2.roundwood_2016['woodfuel_volume'],table_3_2.roundwood_2016['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2016 },
@@ -3435,10 +2370,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2015['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2015['total_volume'],
                      [table_3_2.roundwood_2015['woodfuel_volume'],table_3_2.roundwood_2015['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2015 },
@@ -3468,10 +2405,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2014 },
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2014['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2014['total_volume'],
                      [table_3_2.roundwood_2014['woodfuel_volume'],table_3_2.roundwood_2014['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'roundwood_2014',
               },
@@ -3497,10 +2436,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2013['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2013['total_volume'],
                      [table_3_2.roundwood_2013['woodfuel_volume'],table_3_2.roundwood_2013['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2013 },
@@ -3528,10 +2469,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2012['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2012['total_volume'],
                      [table_3_2.roundwood_2012['woodfuel_volume'],table_3_2.roundwood_2012['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2012 },
@@ -3559,10 +2502,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2011['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2011['total_volume'],
                      [table_3_2.roundwood_2011['woodfuel_volume'],table_3_2.roundwood_2011['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2011 },
@@ -3590,10 +2535,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2010['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2010['total_volume'],
                      [table_3_2.roundwood_2010['woodfuel_volume'],table_3_2.roundwood_2010['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2010 },
@@ -3621,10 +2568,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2009['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2009['total_volume'],
                      [table_3_2.roundwood_2009['woodfuel_volume'],table_3_2.roundwood_2009['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2009 },
@@ -3652,10 +2601,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2008['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2008['total_volume'],
                      [table_3_2.roundwood_2008['woodfuel_volume'],table_3_2.roundwood_2008['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2008 },
@@ -3683,10 +2634,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2007['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2007['total_volume'],
                      [table_3_2.roundwood_2007['woodfuel_volume'],table_3_2.roundwood_2007['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2007 },
@@ -3714,10 +2667,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2006['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2006['total_volume'],
                      [table_3_2.roundwood_2006['woodfuel_volume'],table_3_2.roundwood_2006['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2006 },
@@ -3745,10 +2700,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2005['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2005['total_volume'],
                      [table_3_2.roundwood_2005['woodfuel_volume'],table_3_2.roundwood_2005['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2005 },
@@ -3776,10 +2733,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2004['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2004['total_volume'],
                      [table_3_2.roundwood_2004['woodfuel_volume'],table_3_2.roundwood_2004['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2004 },
@@ -3807,10 +2766,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2003['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2003['total_volume'],
                      [table_3_2.roundwood_2003['woodfuel_volume'],table_3_2.roundwood_2003['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2003 },
@@ -3838,10 +2799,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2002['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2002['total_volume'],
                      [table_3_2.roundwood_2002['woodfuel_volume'],table_3_2.roundwood_2002['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2002 },
@@ -3869,10 +2832,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2001['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2001['total_volume'],
                      [table_3_2.roundwood_2001['woodfuel_volume'],table_3_2.roundwood_2001['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2001 },
@@ -3900,10 +2865,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_2000['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_2000['total_volume'],
                      [table_3_2.roundwood_2000['woodfuel_volume'],table_3_2.roundwood_2000['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 2000 },
@@ -3931,10 +2898,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1999['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1999['total_volume'],
                      [table_3_2.roundwood_1999['woodfuel_volume'],table_3_2.roundwood_1999['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1999 },
@@ -3962,10 +2931,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1998['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1998['total_volume'],
                      [table_3_2.roundwood_1998['woodfuel_volume'],table_3_2.roundwood_1998['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1998 },
@@ -3993,10 +2964,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1997['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1997['total_volume'],
                      [table_3_2.roundwood_1997['woodfuel_volume'],table_3_2.roundwood_1997['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1997 },
@@ -4024,10 +2997,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1996['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1996['total_volume'],
                      [table_3_2.roundwood_1996['woodfuel_volume'],table_3_2.roundwood_1996['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1996 },
@@ -4055,10 +3030,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1995['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1995['total_volume'],
                      [table_3_2.roundwood_1995['woodfuel_volume'],table_3_2.roundwood_1995['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1995 },
@@ -4086,10 +3063,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1994['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1994['total_volume'],
                      [table_3_2.roundwood_1994['woodfuel_volume'],table_3_2.roundwood_1994['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1994 },
@@ -4117,10 +3096,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1993['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1993['total_volume'],
                      [table_3_2.roundwood_1993['woodfuel_volume'],table_3_2.roundwood_1993['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1993 },
@@ -4148,10 +3129,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1992['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1992['total_volume'],
                      [table_3_2.roundwood_1992['woodfuel_volume'],table_3_2.roundwood_1992['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1992 },
@@ -4179,10 +3162,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1991['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1991['total_volume'],
                      [table_3_2.roundwood_1991['woodfuel_volume'],table_3_2.roundwood_1991['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1991 },
@@ -4210,10 +3195,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1990['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1990['total_volume'],
                      [table_3_2.roundwood_1990['woodfuel_volume'],table_3_2.roundwood_1990['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1990 },
@@ -4241,10 +3228,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1989['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1989['total_volume'],
                      [table_3_2.roundwood_1989['woodfuel_volume'],table_3_2.roundwood_1989['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1989 },
@@ -4272,10 +3261,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_2.roundwood_1988['total_volume'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_2.roundwood_1988['total_volume'],
                      [table_3_2.roundwood_1988['woodfuel_volume'],table_3_2.roundwood_1988['industrial_roundwood_volume']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.removals.roundwood',
                 labelParams: { year: 1988 },
@@ -5259,14 +4250,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 1, type: 'placeholder' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_3.total['name_of_groups_of_product'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_3.total['name_of_groups_of_product'],
                      [table_3_3._10th['market_value_1000_national_currency'],table_3_3._09th['market_value_1000_national_currency'],
                      table_3_3._08th['market_value_1000_national_currency'],table_3_3._07th['market_value_1000_national_currency'],
                      table_3_3._06th['market_value_1000_national_currency'],table_3_3._05th['market_value_1000_national_currency'],
                      table_3_3._04th['market_value_1000_national_currency'],table_3_3._03rd['market_value_1000_national_currency'],
                      table_3_3._02nd['market_value_1000_national_currency'],table_3_3._01st['market_value_1000_national_currency']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'total',
                 labelKey: 'panEuropean.nonWoodGoods2015.total',
@@ -5718,14 +4711,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 1, type: 'placeholder' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_3_4.total['name_of_service_product'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_3_4.total['name_of_service_product'],
                     [table_3_4._10th['service_provision_value_1000_national_currency'],table_3_4._09th['service_provision_value_1000_national_currency'],
                     table_3_4._08th['service_provision_value_1000_national_currency'],table_3_4._07th['service_provision_value_1000_national_currency'],
                     table_3_4._06th['service_provision_value_1000_national_currency'],table_3_4._05th['service_provision_value_1000_national_currency'],
                     table_3_4._04th['service_provision_value_1000_national_currency'],table_3_4._03rd['service_provision_value_1000_national_currency'],
                     table_3_4._02nd['service_provision_value_1000_national_currency'],table_3_4._01st['service_provision_value_1000_national_currency']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'total',
                 labelKey: 'panEuropean.marketedServices2015.total',
@@ -6404,16 +5399,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_1'],
                      [table_4_1.forest_2020['area_with_number_of_tree_species_occurring_1'],table_4_1.other_wooded_land_2020['area_with_number_of_tree_species_occurring_1']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_2_3'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_2_3'],
                      [table_4_1.forest_2020['area_with_number_of_tree_species_occurring_2_3'],table_4_1.other_wooded_land_2020['area_with_number_of_tree_species_occurring_2_3']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_4_5'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_4_5'],
                      [table_4_1.forest_2020['area_with_number_of_tree_species_occurring_4_5'],table_4_1.other_wooded_land_2020['area_with_number_of_tree_species_occurring_4_5']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_6_pl'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2020['area_with_number_of_tree_species_occurring_6_pl'],
                      [table_4_1.forest_2020['area_with_number_of_tree_species_occurring_6_pl'],table_4_1.other_wooded_land_2020['area_with_number_of_tree_species_occurring_6_pl']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
                 labelParams: { year: 2020 },
@@ -6440,16 +5437,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_1'],
                      [table_4_1.forest_2015['area_with_number_of_tree_species_occurring_1'],table_4_1.other_wooded_land_2015['area_with_number_of_tree_species_occurring_1']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_2_3'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_2_3'],
                      [table_4_1.forest_2015['area_with_number_of_tree_species_occurring_2_3'],table_4_1.other_wooded_land_2015['area_with_number_of_tree_species_occurring_2_3']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_4_5'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_4_5'],
                      [table_4_1.forest_2015['area_with_number_of_tree_species_occurring_4_5'],table_4_1.other_wooded_land_2015['area_with_number_of_tree_species_occurring_4_5']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_6_pl'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2015['area_with_number_of_tree_species_occurring_6_pl'],
                      [table_4_1.forest_2015['area_with_number_of_tree_species_occurring_6_pl'],table_4_1.other_wooded_land_2015['area_with_number_of_tree_species_occurring_6_pl']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
                 labelParams: { year: 2015 },
@@ -6476,16 +5475,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_1'],
                      [table_4_1.forest_2010['area_with_number_of_tree_species_occurring_1'],table_4_1.other_wooded_land_2010['area_with_number_of_tree_species_occurring_1']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_2_3'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_2_3'],
                      [table_4_1.forest_2010['area_with_number_of_tree_species_occurring_2_3'],table_4_1.other_wooded_land_2010['area_with_number_of_tree_species_occurring_2_3']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_4_5'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_4_5'],
                      [table_4_1.forest_2010['area_with_number_of_tree_species_occurring_4_5'],table_4_1.other_wooded_land_2010['area_with_number_of_tree_species_occurring_4_5']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_6_pl'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2010['area_with_number_of_tree_species_occurring_6_pl'],
                      [table_4_1.forest_2010['area_with_number_of_tree_species_occurring_6_pl'],table_4_1.other_wooded_land_2010['area_with_number_of_tree_species_occurring_6_pl']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
                 labelParams: { year: 2010 },
@@ -6512,16 +5513,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_1'],
                      [table_4_1.forest_2005['area_with_number_of_tree_species_occurring_1'],table_4_1.other_wooded_land_2005['area_with_number_of_tree_species_occurring_1']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_2_3'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_2_3'],
                      [table_4_1.forest_2005['area_with_number_of_tree_species_occurring_2_3'],table_4_1.other_wooded_land_2005['area_with_number_of_tree_species_occurring_2_3']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_4_5'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_4_5'],
                      [table_4_1.forest_2005['area_with_number_of_tree_species_occurring_4_5'],table_4_1.other_wooded_land_2005['area_with_number_of_tree_species_occurring_4_5']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_6_pl'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2005['area_with_number_of_tree_species_occurring_6_pl'],
                      [table_4_1.forest_2005['area_with_number_of_tree_species_occurring_6_pl'],table_4_1.other_wooded_land_2005['area_with_number_of_tree_species_occurring_6_pl']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
                 labelParams: { year: 2005 },
@@ -6548,16 +5551,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_1'],
                      [table_4_1.forest_2000['area_with_number_of_tree_species_occurring_1'],table_4_1.other_wooded_land_2000['area_with_number_of_tree_species_occurring_1']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_2_3'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_2_3'],
                      [table_4_1.forest_2000['area_with_number_of_tree_species_occurring_2_3'],table_4_1.other_wooded_land_2000['area_with_number_of_tree_species_occurring_2_3']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_4_5'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_4_5'],
                      [table_4_1.forest_2000['area_with_number_of_tree_species_occurring_4_5'],table_4_1.other_wooded_land_2000['area_with_number_of_tree_species_occurring_4_5']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_6_pl'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_2000['area_with_number_of_tree_species_occurring_6_pl'],
                      [table_4_1.forest_2000['area_with_number_of_tree_species_occurring_6_pl'],table_4_1.other_wooded_land_2000['area_with_number_of_tree_species_occurring_6_pl']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
                 labelParams: { year: 2000 },
@@ -6584,16 +5589,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_1'],
                      [table_4_1.forest_1990['area_with_number_of_tree_species_occurring_1'],table_4_1.other_wooded_land_1990['area_with_number_of_tree_species_occurring_1']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_2_3'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_2_3'],
                      [table_4_1.forest_1990['area_with_number_of_tree_species_occurring_2_3'],table_4_1.other_wooded_land_1990['area_with_number_of_tree_species_occurring_2_3']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_4_5'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_4_5'],
                      [table_4_1.forest_1990['area_with_number_of_tree_species_occurring_4_5'],table_4_1.other_wooded_land_1990['area_with_number_of_tree_species_occurring_4_5']])`,
-                    `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_6_pl'],
+                      `validatorEqualToSum(table_4_1.total_forest_and_other_wooded_land_1990['area_with_number_of_tree_species_occurring_6_pl'],
                      [table_4_1.forest_1990['area_with_number_of_tree_species_occurring_6_pl'],table_4_1.other_wooded_land_1990['area_with_number_of_tree_species_occurring_6_pl']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.treeSpeciesComposition.total_forest_and_other_wooded_land',
                 labelParams: { year: 1990 },
@@ -6828,10 +5835,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.forest_2020['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.forest_2020['total'],
                      [table_4_5.forest_2020['standing'],table_4_5.forest_2020['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.forest',
                 labelParams: { year: 2020 },
@@ -6854,10 +5863,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.forest_2015['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.forest_2015['total'],
                      [table_4_5.forest_2015['standing'],table_4_5.forest_2015['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.forest',
                 labelParams: { year: 2015 },
@@ -6880,10 +5891,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.forest_2010['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.forest_2010['total'],
                      [table_4_5.forest_2010['standing'],table_4_5.forest_2010['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.forest',
                 labelParams: { year: 2010 },
@@ -6906,10 +5919,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.forest_2005['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.forest_2005['total'],
                      [table_4_5.forest_2005['standing'],table_4_5.forest_2005['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.forest',
                 labelParams: { year: 2005 },
@@ -6932,10 +5947,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.forest_2000['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.forest_2000['total'],
                      [table_4_5.forest_2000['standing'],table_4_5.forest_2000['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.forest',
                 labelParams: { year: 2000 },
@@ -6958,10 +5975,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.forest_1990['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.forest_1990['total'],
                      [table_4_5.forest_1990['standing'],table_4_5.forest_1990['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.forest',
                 labelParams: { year: 1990 },
@@ -7108,20 +6127,22 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['total'],
                    [table_4_5.forest_2020['total'],table_4_5.other_wooded_land_2020['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['lying'],
                    [table_4_5.forest_2020['lying'],table_4_5.other_wooded_land_2020['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['standing'],
                    [table_4_5.forest_2020['standing'],table_4_5.other_wooded_land_2020['standing']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['total'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['total'],
                    [table_4_5.coniferous_2020['total'],table_4_5.broadleaved_2020['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['lying'],
                    [table_4_5.coniferous_2020['lying'],table_4_5.broadleaved_2020['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['standing'],
                    [table_4_5.coniferous_2020['standing'],table_4_5.broadleaved_2020['standing']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
                 labelParams: { year: 2020 },
@@ -7144,20 +6165,22 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['total'],
                    [table_4_5.forest_2015['total'],table_4_5.other_wooded_land_2015['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['lying'],
                    [table_4_5.forest_2015['lying'],table_4_5.other_wooded_land_2015['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['standing'],
                    [table_4_5.forest_2015['standing'],table_4_5.other_wooded_land_2015['standing']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['total'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['total'],
                    [table_4_5.coniferous_2015['total'],table_4_5.broadleaved_2015['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['lying'],
                    [table_4_5.coniferous_2015['lying'],table_4_5.broadleaved_2015['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['standing'],
                    [table_4_5.coniferous_2015['standing'],table_4_5.broadleaved_2015['standing']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
                 labelParams: { year: 2015 },
@@ -7180,14 +6203,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2010['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2010['total'],
                    [table_4_5.forest_2010['total'],table_4_5.other_wooded_land_2010['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2010['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2010['lying'],
                    [table_4_5.forest_2010['lying'],table_4_5.other_wooded_land_2010['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2010['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2010['standing'],
                    [table_4_5.forest_2010['standing'],table_4_5.other_wooded_land_2010['standing']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
                 labelParams: { year: 2010 },
@@ -7210,14 +6235,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2005['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2005['total'],
                      [table_4_5.forest_2005['total'],table_4_5.other_wooded_land_2005['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2005['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2005['lying'],
                      [table_4_5.forest_2005['lying'],table_4_5.other_wooded_land_2005['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2005['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2005['standing'],
                      [table_4_5.forest_2005['standing'],table_4_5.other_wooded_land_2005['standing']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
                 labelParams: { year: 2005 },
@@ -7240,14 +6267,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2000['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2000['total'],
                      [table_4_5.forest_2000['total'],table_4_5.other_wooded_land_2000['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2000['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2000['lying'],
                      [table_4_5.forest_2000['lying'],table_4_5.other_wooded_land_2000['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2000['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2000['standing'],
                      [table_4_5.forest_2000['standing'],table_4_5.other_wooded_land_2000['standing']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
                 labelParams: { year: 2000 },
@@ -7270,14 +6299,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_1990['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_1990['total'],
                      [table_4_5.forest_1990['total'],table_4_5.other_wooded_land_1990['total']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_1990['lying'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_1990['lying'],
                      [table_4_5.forest_1990['lying'],table_4_5.other_wooded_land_1990['lying']])`,
-                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_1990['standing'],
+                      `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_1990['standing'],
                      [table_4_5.forest_1990['standing'],table_4_5.other_wooded_land_1990['standing']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
                 labelParams: { year: 1990 },
@@ -7317,10 +6348,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.coniferous_2020['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.coniferous_2020['total'],
                      [table_4_5.coniferous_2020['standing'],table_4_5.coniferous_2020['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.coniferous',
                 labelParams: { year: 2020 },
@@ -7343,10 +6376,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.coniferous_2015['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.coniferous_2015['total'],
                      [table_4_5.coniferous_2015['standing'],table_4_5.coniferous_2015['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.coniferous',
                 labelParams: { year: 2015 },
@@ -7370,10 +6405,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.broadleaved_2020['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.broadleaved_2020['total'],
                      [table_4_5.broadleaved_2020['standing'],table_4_5.broadleaved_2020['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.broadleaved',
                 labelParams: { year: 2020 },
@@ -7396,10 +6433,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_5.broadleaved_2015['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_5.broadleaved_2015['total'],
                     [table_4_5.broadleaved_2015['standing'],table_4_5.broadleaved_2015['lying']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.deadwood.broadleaved',
                 labelParams: { year: 2015 },
@@ -7919,6 +6958,9 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.threatenedForestSpecies.total_of_taxa',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                   {
                     idx: 2,
@@ -7927,6 +6969,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      style: { '2020': { colSpan: 4 }, '2025': { colSpan: 5 } },
+                      label: {
+                        '2025': { key: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesColAbs' },
+                        '2020': { key: 'panEuropean.threatenedForestSpecies.threatenedForestSpeciesCol' },
+                      },
+                    },
                   },
                 ],
                 type: 'header',
@@ -7938,15 +6987,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 0,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.threatenedForestSpecies.vulnerable',
+                    labelKey: 'panEuropean.threatenedForestSpecies.total_of_taxa',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2025'],
+                    },
                   },
                   {
                     idx: 1,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.threatenedForestSpecies.endangered',
+                    labelKey: 'panEuropean.threatenedForestSpecies.vulnerable',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -7954,12 +7006,20 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     idx: 2,
                     colSpan: 1,
                     rowSpan: 1,
-                    labelKey: 'panEuropean.threatenedForestSpecies.critically_endangered',
+                    labelKey: 'panEuropean.threatenedForestSpecies.endangered',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
                   {
                     idx: 3,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    labelKey: 'panEuropean.threatenedForestSpecies.critically_endangered',
+                    className: 'fra-table__header-cell',
+                    type: 'header',
+                  },
+                  {
+                    idx: 4,
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.threatenedForestSpecies.extinct_in_the_wild',
@@ -7979,8 +7039,14 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelKey: 'panEuropean.threatenedForestSpecies.absoluteNumber',
                     className: 'fra-table__header-cell',
                     type: 'header',
+                    migration: {
+                      cycles: ['2020'],
+                    },
                   },
                 ],
+                migration: {
+                  cycles: ['2020'],
+                },
                 type: 'header',
               },
               {
@@ -8006,11 +7072,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.trees_2020['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.trees_2020['total_of_taxa'],
                      [table_4_8.trees_2020['vulnerable'],table_4_8.trees_2020['endangered'],
                       table_4_8.trees_2020['critically_endangered'],table_4_8.trees_2020['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2020 },
@@ -8038,11 +7106,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.trees_2015['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.trees_2015['total_of_taxa'],
                      [table_4_8.trees_2015['vulnerable'],table_4_8.trees_2015['endangered'],
                       table_4_8.trees_2015['critically_endangered'],table_4_8.trees_2015['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2015 },
@@ -8070,11 +7140,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.trees_2010['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.trees_2010['total_of_taxa'],
                      [table_4_8.trees_2010['vulnerable'],table_4_8.trees_2010['endangered'],
                       table_4_8.trees_2010['critically_endangered'],table_4_8.trees_2010['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2010 },
@@ -8102,11 +7174,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.trees_2005['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.trees_2005['total_of_taxa'],
                      [table_4_8.trees_2005['vulnerable'],table_4_8.trees_2005['endangered'],
                       table_4_8.trees_2005['critically_endangered'],table_4_8.trees_2005['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2005 },
@@ -8134,11 +7208,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.trees_2000['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.trees_2000['total_of_taxa'],
                      [table_4_8.trees_2000['vulnerable'],table_4_8.trees_2000['endangered'],
                       table_4_8.trees_2000['critically_endangered'],table_4_8.trees_2000['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2000 },
@@ -8166,11 +7242,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.trees_1990['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.trees_1990['total_of_taxa'],
                      [table_4_8.trees_1990['vulnerable'],table_4_8.trees_1990['endangered'],
                       table_4_8.trees_1990['critically_endangered'],table_4_8.trees_1990['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 1990 },
@@ -8200,11 +7278,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.birds_2020['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.birds_2020['total_of_taxa'],
                      [table_4_8.birds_2020['vulnerable'],table_4_8.birds_2020['endangered'],
                       table_4_8.birds_2020['critically_endangered'],table_4_8.birds_2020['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2020 },
@@ -8232,11 +7312,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.birds_2015['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.birds_2015['total_of_taxa'],
                      [table_4_8.birds_2015['vulnerable'],table_4_8.birds_2015['endangered'],
                       table_4_8.birds_2015['critically_endangered'],table_4_8.birds_2015['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2015 },
@@ -8264,11 +7346,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.birds_2010['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.birds_2010['total_of_taxa'],
                      [table_4_8.birds_2010['vulnerable'],table_4_8.birds_2010['endangered'],
                       table_4_8.birds_2010['critically_endangered'],table_4_8.birds_2010['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2010 },
@@ -8296,11 +7380,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.birds_2005['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.birds_2005['total_of_taxa'],
                      [table_4_8.birds_2005['vulnerable'],table_4_8.birds_2005['endangered'],
                       table_4_8.birds_2005['critically_endangered'],table_4_8.birds_2005['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2005 },
@@ -8328,11 +7414,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.birds_2000['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.birds_2000['total_of_taxa'],
                      [table_4_8.birds_2000['vulnerable'],table_4_8.birds_2000['endangered'],
                       table_4_8.birds_2000['critically_endangered'],table_4_8.birds_2000['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2000 },
@@ -8360,11 +7448,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.birds_1990['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.birds_1990['total_of_taxa'],
                      [table_4_8.birds_1990['vulnerable'],table_4_8.birds_1990['endangered'],
                       table_4_8.birds_1990['critically_endangered'],table_4_8.birds_1990['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 1990 },
@@ -8394,11 +7484,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.mammals_2020['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.mammals_2020['total_of_taxa'],
                      [table_4_8.mammals_2020['vulnerable'],table_4_8.mammals_2020['endangered'],
                       table_4_8.mammals_2020['critically_endangered'],table_4_8.mammals_2020['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2020 },
@@ -8426,11 +7518,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.mammals_2015['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.mammals_2015['total_of_taxa'],
                      [table_4_8.mammals_2015['vulnerable'],table_4_8.mammals_2015['endangered'],
                       table_4_8.mammals_2015['critically_endangered'],table_4_8.mammals_2015['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2015 },
@@ -8458,11 +7552,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.mammals_2010['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.mammals_2010['total_of_taxa'],
                      [table_4_8.mammals_2010['vulnerable'],table_4_8.mammals_2010['endangered'],
                       table_4_8.mammals_2010['critically_endangered'],table_4_8.mammals_2010['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2010 },
@@ -8490,11 +7586,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.mammals_2005['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.mammals_2005['total_of_taxa'],
                      [table_4_8.mammals_2005['vulnerable'],table_4_8.mammals_2005['endangered'],
                       table_4_8.mammals_2005['critically_endangered'],table_4_8.mammals_2005['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2005 },
@@ -8522,11 +7620,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.mammals_2000['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.mammals_2000['total_of_taxa'],
                      [table_4_8.mammals_2000['vulnerable'],table_4_8.mammals_2000['endangered'],
                       table_4_8.mammals_2000['critically_endangered'],table_4_8.mammals_2000['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2000 },
@@ -8554,11 +7654,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.mammals_1990['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.mammals_1990['total_of_taxa'],
                      [table_4_8.mammals_1990['vulnerable'],table_4_8.mammals_1990['endangered'],
                       table_4_8.mammals_1990['critically_endangered'],table_4_8.mammals_1990['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 1990 },
@@ -8588,11 +7690,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.other_vertebrates_2020['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.other_vertebrates_2020['total_of_taxa'],
                      [table_4_8.other_vertebrates_2020['vulnerable'],table_4_8.other_vertebrates_2020['endangered'],
                       table_4_8.other_vertebrates_2020['critically_endangered'],table_4_8.other_vertebrates_2020['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2020 },
@@ -8620,11 +7724,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.other_vertebrates_2015['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.other_vertebrates_2015['total_of_taxa'],
                      [table_4_8.other_vertebrates_2015['vulnerable'],table_4_8.other_vertebrates_2015['endangered'],
                       table_4_8.other_vertebrates_2015['critically_endangered'],table_4_8.other_vertebrates_2015['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2015 },
@@ -8652,11 +7758,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.other_vertebrates_2010['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.other_vertebrates_2010['total_of_taxa'],
                      [table_4_8.other_vertebrates_2010['vulnerable'],table_4_8.other_vertebrates_2010['endangered'],
                       table_4_8.other_vertebrates_2010['critically_endangered'],table_4_8.other_vertebrates_2010['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2010 },
@@ -8684,11 +7792,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.other_vertebrates_2005['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.other_vertebrates_2005['total_of_taxa'],
                      [table_4_8.other_vertebrates_2005['vulnerable'],table_4_8.other_vertebrates_2005['endangered'],
                       table_4_8.other_vertebrates_2005['critically_endangered'],table_4_8.other_vertebrates_2005['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2005 },
@@ -8716,11 +7826,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.other_vertebrates_2000['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.other_vertebrates_2000['total_of_taxa'],
                      [table_4_8.other_vertebrates_2000['vulnerable'],table_4_8.other_vertebrates_2000['endangered'],
                       table_4_8.other_vertebrates_2000['critically_endangered'],table_4_8.other_vertebrates_2000['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2000 },
@@ -8748,11 +7860,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.other_vertebrates_1990['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.other_vertebrates_1990['total_of_taxa'],
                      [table_4_8.other_vertebrates_1990['vulnerable'],table_4_8.other_vertebrates_1990['endangered'],
                       table_4_8.other_vertebrates_1990['critically_endangered'],table_4_8.other_vertebrates_1990['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 1990 },
@@ -8782,11 +7896,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.invertebrates_2020['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.invertebrates_2020['total_of_taxa'],
                      [table_4_8.invertebrates_2020['vulnerable'],table_4_8.invertebrates_2020['endangered'],
                       table_4_8.invertebrates_2020['critically_endangered'],table_4_8.invertebrates_2020['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2020 },
@@ -8814,11 +7930,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.invertebrates_2015['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.invertebrates_2015['total_of_taxa'],
                      [table_4_8.invertebrates_2015['vulnerable'],table_4_8.invertebrates_2015['endangered'],
                       table_4_8.invertebrates_2015['critically_endangered'],table_4_8.invertebrates_2015['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2015 },
@@ -8846,11 +7964,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.invertebrates_2010['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.invertebrates_2010['total_of_taxa'],
                      [table_4_8.invertebrates_2010['vulnerable'],table_4_8.invertebrates_2010['endangered'],
                       table_4_8.invertebrates_2010['critically_endangered'],table_4_8.invertebrates_2010['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2010 },
@@ -8880,11 +8000,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2005 },
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.invertebrates_2005['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.invertebrates_2005['total_of_taxa'],
                      [table_4_8.invertebrates_2005['vulnerable'],table_4_8.invertebrates_2005['endangered'],
                       table_4_8.invertebrates_2005['critically_endangered'],table_4_8.invertebrates_2005['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'invertebrates_2005',
               },
@@ -8912,11 +8034,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2000 },
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.invertebrates_2000['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.invertebrates_2000['total_of_taxa'],
                      [table_4_8.invertebrates_2000['vulnerable'],table_4_8.invertebrates_2000['endangered'],
                       table_4_8.invertebrates_2000['critically_endangered'],table_4_8.invertebrates_2000['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'invertebrates_2000',
               },
@@ -8942,11 +8066,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.invertebrates_1990['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.invertebrates_1990['total_of_taxa'],
                      [table_4_8.invertebrates_1990['vulnerable'],table_4_8.invertebrates_1990['endangered'],
                       table_4_8.invertebrates_1990['critically_endangered'],table_4_8.invertebrates_1990['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 1990 },
@@ -8976,11 +8102,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.vascular_plants_2020['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.vascular_plants_2020['total_of_taxa'],
                      [table_4_8.vascular_plants_2020['vulnerable'],table_4_8.vascular_plants_2020['endangered'],
                       table_4_8.vascular_plants_2020['critically_endangered'],table_4_8.vascular_plants_2020['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2020 },
@@ -9008,11 +8136,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.vascular_plants_2015['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.vascular_plants_2015['total_of_taxa'],
                      [table_4_8.vascular_plants_2015['vulnerable'],table_4_8.vascular_plants_2015['endangered'],
                       table_4_8.vascular_plants_2015['critically_endangered'],table_4_8.vascular_plants_2015['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2015 },
@@ -9040,11 +8170,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.vascular_plants_2010['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.vascular_plants_2010['total_of_taxa'],
                      [table_4_8.vascular_plants_2010['vulnerable'],table_4_8.vascular_plants_2010['endangered'],
                       table_4_8.vascular_plants_2010['critically_endangered'],table_4_8.vascular_plants_2010['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2010 },
@@ -9074,11 +8206,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2005 },
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.vascular_plants_2005['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.vascular_plants_2005['total_of_taxa'],
                      [table_4_8.vascular_plants_2005['vulnerable'],table_4_8.vascular_plants_2005['endangered'],
                       table_4_8.vascular_plants_2005['critically_endangered'],table_4_8.vascular_plants_2005['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'vascular_plants_2005',
               },
@@ -9106,11 +8240,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2000 },
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.vascular_plants_2000['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.vascular_plants_2000['total_of_taxa'],
                      [table_4_8.vascular_plants_2000['vulnerable'],table_4_8.vascular_plants_2000['endangered'],
                       table_4_8.vascular_plants_2000['critically_endangered'],table_4_8.vascular_plants_2000['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'vascular_plants_2000',
               },
@@ -9136,11 +8272,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.vascular_plants_1990['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.vascular_plants_1990['total_of_taxa'],
                      [table_4_8.vascular_plants_1990['vulnerable'],table_4_8.vascular_plants_1990['endangered'],
                       table_4_8.vascular_plants_1990['critically_endangered'],table_4_8.vascular_plants_1990['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 1990 },
@@ -9170,11 +8308,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2020['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2020['total_of_taxa'],
                      [table_4_8.cryptogams_and_fungi_2020['vulnerable'],table_4_8.cryptogams_and_fungi_2020['endangered'],
                       table_4_8.cryptogams_and_fungi_2020['critically_endangered'],table_4_8.cryptogams_and_fungi_2020['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2020 },
@@ -9202,11 +8342,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2015['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2015['total_of_taxa'],
                      [table_4_8.cryptogams_and_fungi_2015['vulnerable'],table_4_8.cryptogams_and_fungi_2015['endangered'],
                       table_4_8.cryptogams_and_fungi_2015['critically_endangered'],table_4_8.cryptogams_and_fungi_2015['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2015 },
@@ -9234,11 +8376,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2010['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2010['total_of_taxa'],
                      [table_4_8.cryptogams_and_fungi_2010['vulnerable'],table_4_8.cryptogams_and_fungi_2010['endangered'],
                       table_4_8.cryptogams_and_fungi_2010['critically_endangered'],table_4_8.cryptogams_and_fungi_2010['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2010 },
@@ -9266,11 +8410,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2005['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2005['total_of_taxa'],
                      [table_4_8.cryptogams_and_fungi_2005['vulnerable'],table_4_8.cryptogams_and_fungi_2005['endangered'],
                       table_4_8.cryptogams_and_fungi_2005['critically_endangered'],table_4_8.cryptogams_and_fungi_2005['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2005 },
@@ -9298,11 +8444,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2000['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2000['total_of_taxa'],
                      [table_4_8.cryptogams_and_fungi_2000['vulnerable'],table_4_8.cryptogams_and_fungi_2000['endangered'],
                       table_4_8.cryptogams_and_fungi_2000['critically_endangered'],table_4_8.cryptogams_and_fungi_2000['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2000 },
@@ -9330,11 +8478,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 4, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_8.cryptogams_and_fungi_1990['total_of_taxa'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_1990['total_of_taxa'],
                      [table_4_8.cryptogams_and_fungi_1990['vulnerable'],table_4_8.cryptogams_and_fungi_1990['endangered'],
                       table_4_8.cryptogams_and_fungi_1990['critically_endangered'],table_4_8.cryptogams_and_fungi_1990['extinct_in_the_wild']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 1990 },
@@ -9928,16 +9078,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_1'],
                      [table_4_9.forest_2025['mcpfe_class_1_1'],table_4_9.other_wooded_land_2025['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_2'],
                      [table_4_9.forest_2025['mcpfe_class_1_2'],table_4_9.other_wooded_land_2025['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_3'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_3'],
                      [table_4_9.forest_2025['mcpfe_class_1_3'],table_4_9.other_wooded_land_2025['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_2'],
                      [table_4_9.forest_2025['mcpfe_class_2'],table_4_9.other_wooded_land_2025['mcpfe_class_2']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
                 labelParams: { year: 2025 },
@@ -9964,16 +9116,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_1'],
                      [table_4_9.forest_2020['mcpfe_class_1_1'],table_4_9.other_wooded_land_2020['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_2'],
                      [table_4_9.forest_2020['mcpfe_class_1_2'],table_4_9.other_wooded_land_2020['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_3'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_3'],
                      [table_4_9.forest_2020['mcpfe_class_1_3'],table_4_9.other_wooded_land_2020['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_2'],
                      [table_4_9.forest_2020['mcpfe_class_2'],table_4_9.other_wooded_land_2020['mcpfe_class_2']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
                 labelParams: { year: 2020 },
@@ -10000,16 +9154,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_1'],
                      [table_4_9.forest_2015['mcpfe_class_1_1'],table_4_9.other_wooded_land_2015['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_2'],
                      [table_4_9.forest_2015['mcpfe_class_1_2'],table_4_9.other_wooded_land_2015['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_3'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_3'],
                      [table_4_9.forest_2015['mcpfe_class_1_3'],table_4_9.other_wooded_land_2015['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_2'],
                      [table_4_9.forest_2015['mcpfe_class_2'],table_4_9.other_wooded_land_2015['mcpfe_class_2']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
                 labelParams: { year: 2015 },
@@ -10036,16 +9192,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_1'],
                      [table_4_9.forest_2010['mcpfe_class_1_1'],table_4_9.other_wooded_land_2010['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_2'],
                      [table_4_9.forest_2010['mcpfe_class_1_2'],table_4_9.other_wooded_land_2010['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_3'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_3'],
                      [table_4_9.forest_2010['mcpfe_class_1_3'],table_4_9.other_wooded_land_2010['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_2'],
                      [table_4_9.forest_2010['mcpfe_class_2'],table_4_9.other_wooded_land_2010['mcpfe_class_2']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
                 labelParams: { year: 2010 },
@@ -10072,16 +9230,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_1'],
                      [table_4_9.forest_2005['mcpfe_class_1_1'],table_4_9.other_wooded_land_2005['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_2'],
                      [table_4_9.forest_2005['mcpfe_class_1_2'],table_4_9.other_wooded_land_2005['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_3'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_3'],
                      [table_4_9.forest_2005['mcpfe_class_1_3'],table_4_9.other_wooded_land_2005['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_2'],
                      [table_4_9.forest_2005['mcpfe_class_2'],table_4_9.other_wooded_land_2005['mcpfe_class_2']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
                 labelParams: { year: 2005 },
@@ -10108,16 +9268,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_1'],
                      [table_4_9.forest_2000['mcpfe_class_1_1'],table_4_9.other_wooded_land_2000['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_2'],
                      [table_4_9.forest_2000['mcpfe_class_1_2'],table_4_9.other_wooded_land_2000['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_3'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_3'],
                      [table_4_9.forest_2000['mcpfe_class_1_3'],table_4_9.other_wooded_land_2000['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_2'],
                      [table_4_9.forest_2000['mcpfe_class_2'],table_4_9.other_wooded_land_2000['mcpfe_class_2']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
                 labelParams: { year: 2000 },
@@ -10144,16 +9306,18 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_1'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_1'],
                      [table_4_9.forest_1990['mcpfe_class_1_1'],table_4_9.other_wooded_land_1990['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_2'],
                      [table_4_9.forest_1990['mcpfe_class_1_2'],table_4_9.other_wooded_land_1990['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_3'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_3'],
                      [table_4_9.forest_1990['mcpfe_class_1_3'],table_4_9.other_wooded_land_1990['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_2'],
+                      `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_2'],
                      [table_4_9.forest_1990['mcpfe_class_2'],table_4_9.other_wooded_land_1990['mcpfe_class_2']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
                 labelParams: { year: 1990 },
@@ -10403,11 +9567,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.forest_2025['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.forest_2025['total'],
                      [table_5_1.forest_2025['infrastructure_and_managed_natural_resources'],
                      table_5_1.forest_2025['soil_water_and_other_forest_ecosystem_functions']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                 labelParams: { year: 2025 },
@@ -10430,11 +9596,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.forest_2020['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.forest_2020['total'],
                      [table_5_1.forest_2020['infrastructure_and_managed_natural_resources'],
                      table_5_1.forest_2020['soil_water_and_other_forest_ecosystem_functions']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                 labelParams: { year: 2020 },
@@ -10457,11 +9625,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.forest_2015['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.forest_2015['total'],
                      [table_5_1.forest_2015['infrastructure_and_managed_natural_resources'],
                      table_5_1.forest_2015['soil_water_and_other_forest_ecosystem_functions']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                 labelParams: { year: 2015 },
@@ -10484,11 +9654,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.forest_2010['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.forest_2010['total'],
                      [table_5_1.forest_2010['infrastructure_and_managed_natural_resources'],
                      table_5_1.forest_2010['soil_water_and_other_forest_ecosystem_functions']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                 labelParams: { year: 2010 },
@@ -10511,11 +9683,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.forest_2005['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.forest_2005['total'],
                      [table_5_1.forest_2005['infrastructure_and_managed_natural_resources'],
                      table_5_1.forest_2005['soil_water_and_other_forest_ecosystem_functions']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                 labelParams: { year: 2005 },
@@ -10538,11 +9712,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.forest_2000['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.forest_2000['total'],
                      [table_5_1.forest_2000['infrastructure_and_managed_natural_resources'],
                      table_5_1.forest_2000['soil_water_and_other_forest_ecosystem_functions']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                 labelParams: { year: 2000 },
@@ -10565,11 +9741,13 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.forest_1990['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.forest_1990['total'],
                      [table_5_1.forest_1990['infrastructure_and_managed_natural_resources'],
                      table_5_1.forest_1990['soil_water_and_other_forest_ecosystem_functions']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.forest',
                 labelParams: { year: 1990 },
@@ -10739,14 +9917,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2025['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2025['total'],
                      [table_5_1.forest_2025['total'],table_5_1.other_wooded_land_2025['total']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2025['soil_water_and_other_forest_ecosystem_functions'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2025['soil_water_and_other_forest_ecosystem_functions'],
                      [table_5_1.forest_2025['soil_water_and_other_forest_ecosystem_functions'],table_5_1.other_wooded_land_2025['soil_water_and_other_forest_ecosystem_functions']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2025['infrastructure_and_managed_natural_resources'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2025['infrastructure_and_managed_natural_resources'],
                      [table_5_1.forest_2025['infrastructure_and_managed_natural_resources'],table_5_1.other_wooded_land_2025['infrastructure_and_managed_natural_resources']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey:
                   'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
@@ -10771,14 +9951,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2020['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2020['total'],
                        [table_5_1.forest_2020['total'],table_5_1.other_wooded_land_2020['total']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2020['soil_water_and_other_forest_ecosystem_functions'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2020['soil_water_and_other_forest_ecosystem_functions'],
                        [table_5_1.forest_2020['soil_water_and_other_forest_ecosystem_functions'],table_5_1.other_wooded_land_2020['soil_water_and_other_forest_ecosystem_functions']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2020['infrastructure_and_managed_natural_resources'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2020['infrastructure_and_managed_natural_resources'],
                        [table_5_1.forest_2020['infrastructure_and_managed_natural_resources'],table_5_1.other_wooded_land_2020['infrastructure_and_managed_natural_resources']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey:
                   'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
@@ -10803,14 +9985,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2015['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2015['total'],
                      [table_5_1.forest_2015['total'],table_5_1.other_wooded_land_2015['total']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2015['soil_water_and_other_forest_ecosystem_functions'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2015['soil_water_and_other_forest_ecosystem_functions'],
                      [table_5_1.forest_2015['soil_water_and_other_forest_ecosystem_functions'],table_5_1.other_wooded_land_2015['soil_water_and_other_forest_ecosystem_functions']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2015['infrastructure_and_managed_natural_resources'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2015['infrastructure_and_managed_natural_resources'],
                      [table_5_1.forest_2015['infrastructure_and_managed_natural_resources'],table_5_1.other_wooded_land_2015['infrastructure_and_managed_natural_resources']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey:
                   'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
@@ -10835,14 +10019,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2010['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2010['total'],
                      [table_5_1.forest_2010['total'],table_5_1.other_wooded_land_2010['total']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2010['soil_water_and_other_forest_ecosystem_functions'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2010['soil_water_and_other_forest_ecosystem_functions'],
                      [table_5_1.forest_2010['soil_water_and_other_forest_ecosystem_functions'],table_5_1.other_wooded_land_2010['soil_water_and_other_forest_ecosystem_functions']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2010['infrastructure_and_managed_natural_resources'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2010['infrastructure_and_managed_natural_resources'],
                      [table_5_1.forest_2010['infrastructure_and_managed_natural_resources'],table_5_1.other_wooded_land_2010['infrastructure_and_managed_natural_resources']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey:
                   'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
@@ -10867,14 +10053,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2005['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2005['total'],
                      [table_5_1.forest_2005['total'],table_5_1.other_wooded_land_2005['total']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2005['soil_water_and_other_forest_ecosystem_functions'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2005['soil_water_and_other_forest_ecosystem_functions'],
                      [table_5_1.forest_2005['soil_water_and_other_forest_ecosystem_functions'],table_5_1.other_wooded_land_2005['soil_water_and_other_forest_ecosystem_functions']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2005['infrastructure_and_managed_natural_resources'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2005['infrastructure_and_managed_natural_resources'],
                      [table_5_1.forest_2005['infrastructure_and_managed_natural_resources'],table_5_1.other_wooded_land_2005['infrastructure_and_managed_natural_resources']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey:
                   'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
@@ -10899,14 +10087,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2000['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2000['total'],
                      [table_5_1.forest_2000['total'],table_5_1.other_wooded_land_2000['total']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2000['soil_water_and_other_forest_ecosystem_functions'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2000['soil_water_and_other_forest_ecosystem_functions'],
                      [table_5_1.forest_2000['soil_water_and_other_forest_ecosystem_functions'],table_5_1.other_wooded_land_2000['soil_water_and_other_forest_ecosystem_functions']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2000['infrastructure_and_managed_natural_resources'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_2000['infrastructure_and_managed_natural_resources'],
                      [table_5_1.forest_2000['infrastructure_and_managed_natural_resources'],table_5_1.other_wooded_land_2000['infrastructure_and_managed_natural_resources']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey:
                   'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
@@ -10931,14 +10121,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 2, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_1990['total'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_1990['total'],
                      [table_5_1.forest_1990['total'],table_5_1.other_wooded_land_1990['total']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_1990['soil_water_and_other_forest_ecosystem_functions'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_1990['soil_water_and_other_forest_ecosystem_functions'],
                      [table_5_1.forest_1990['soil_water_and_other_forest_ecosystem_functions'],table_5_1.other_wooded_land_1990['soil_water_and_other_forest_ecosystem_functions']])`,
-                    `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_1990['infrastructure_and_managed_natural_resources'],
+                      `validatorEqualToSum(table_5_1.total_forest_and_other_wooded_land_1990['infrastructure_and_managed_natural_resources'],
                      [table_5_1.forest_1990['infrastructure_and_managed_natural_resources'],table_5_1.other_wooded_land_1990['infrastructure_and_managed_natural_resources']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey:
                   'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total_forest_and_other_wooded_land',
@@ -11269,14 +10461,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2020['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2020['total_forest_area'],
                      [table_6_1.in_public_ownership_2020['less_10_ha_area'],table_6_1.in_public_ownership_2020['_11_500_ha_area'],
                      table_6_1.in_public_ownership_2020['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2020['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2020['total_number_of_holdings'],
                      [table_6_1.in_public_ownership_2020['less_10_ha_number'],table_6_1.in_public_ownership_2020['_11_500_ha_number'],
                      table_6_1.in_public_ownership_2020['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_public_ownership',
                 labelParams: { year: 2020 },
@@ -11310,14 +10504,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2015['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2015['total_forest_area'],
                      [table_6_1.in_public_ownership_2015['less_10_ha_area'],table_6_1.in_public_ownership_2015['_11_500_ha_area'],
                      table_6_1.in_public_ownership_2015['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2015['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2015['total_number_of_holdings'],
                      [table_6_1.in_public_ownership_2015['less_10_ha_number'],table_6_1.in_public_ownership_2015['_11_500_ha_number'],
                      table_6_1.in_public_ownership_2015['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_public_ownership',
                 labelParams: { year: 2015 },
@@ -11351,14 +10547,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2010['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2010['total_forest_area'],
                      [table_6_1.in_public_ownership_2010['less_10_ha_area'],table_6_1.in_public_ownership_2010['_11_500_ha_area'],
                      table_6_1.in_public_ownership_2010['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2010['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2010['total_number_of_holdings'],
                      [table_6_1.in_public_ownership_2010['less_10_ha_number'],table_6_1.in_public_ownership_2010['_11_500_ha_number'],
                      table_6_1.in_public_ownership_2010['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_public_ownership',
                 labelParams: { year: 2010 },
@@ -11392,14 +10590,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2005['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2005['total_forest_area'],
                      [table_6_1.in_public_ownership_2005['less_10_ha_area'],table_6_1.in_public_ownership_2005['_11_500_ha_area'],
                      table_6_1.in_public_ownership_2005['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2005['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2005['total_number_of_holdings'],
                      [table_6_1.in_public_ownership_2005['less_10_ha_number'],table_6_1.in_public_ownership_2005['_11_500_ha_number'],
                      table_6_1.in_public_ownership_2005['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_public_ownership',
                 labelParams: { year: 2005 },
@@ -11433,14 +10633,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2000['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2000['total_forest_area'],
                      [table_6_1.in_public_ownership_2000['less_10_ha_area'],table_6_1.in_public_ownership_2000['_11_500_ha_area'],
                      table_6_1.in_public_ownership_2000['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2000['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_public_ownership_2000['total_number_of_holdings'],
                      [table_6_1.in_public_ownership_2000['less_10_ha_number'],table_6_1.in_public_ownership_2000['_11_500_ha_number'],
                      table_6_1.in_public_ownership_2000['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_public_ownership',
                 labelParams: { year: 2000 },
@@ -11474,14 +10676,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_1990['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_public_ownership_1990['total_forest_area'],
                      [table_6_1.in_public_ownership_1990['less_10_ha_area'],table_6_1.in_public_ownership_1990['_11_500_ha_area'],
                      table_6_1.in_public_ownership_1990['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_1990['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_public_ownership_1990['total_number_of_holdings'],
                      [table_6_1.in_public_ownership_1990['less_10_ha_number'],table_6_1.in_public_ownership_1990['_11_500_ha_number'],
                      table_6_1.in_public_ownership_1990['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_public_ownership',
                 labelParams: { year: 1990 },
@@ -11516,14 +10720,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2020['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2020['total_forest_area'],
                      [table_6_1.in_private_ownership_2020['less_10_ha_area'],table_6_1.in_private_ownership_2020['_11_500_ha_area'],
                      table_6_1.in_private_ownership_2020['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2020['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2020['total_number_of_holdings'],
                      [table_6_1.in_private_ownership_2020['less_10_ha_number'],table_6_1.in_private_ownership_2020['_11_500_ha_number'],
                      table_6_1.in_private_ownership_2020['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_private_ownership',
                 labelParams: { year: 2020 },
@@ -11557,14 +10763,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2015['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2015['total_forest_area'],
                      [table_6_1.in_private_ownership_2015['less_10_ha_area'],table_6_1.in_private_ownership_2015['_11_500_ha_area'],
                      table_6_1.in_private_ownership_2015['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2015['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2015['total_number_of_holdings'],
                      [table_6_1.in_private_ownership_2015['less_10_ha_number'],table_6_1.in_private_ownership_2015['_11_500_ha_number'],
                      table_6_1.in_private_ownership_2015['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_private_ownership',
                 labelParams: { year: 2015 },
@@ -11598,14 +10806,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2010['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2010['total_forest_area'],
                      [table_6_1.in_private_ownership_2010['less_10_ha_area'],table_6_1.in_private_ownership_2010['_11_500_ha_area'],
                      table_6_1.in_private_ownership_2010['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2010['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2010['total_number_of_holdings'],
                      [table_6_1.in_private_ownership_2010['less_10_ha_number'],table_6_1.in_private_ownership_2010['_11_500_ha_number'],
                      table_6_1.in_private_ownership_2010['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_private_ownership',
                 labelParams: { year: 2010 },
@@ -11639,14 +10849,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2005['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2005['total_forest_area'],
                      [table_6_1.in_private_ownership_2005['less_10_ha_area'],table_6_1.in_private_ownership_2005['_11_500_ha_area'],
                      table_6_1.in_private_ownership_2005['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2005['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2005['total_number_of_holdings'],
                      [table_6_1.in_private_ownership_2005['less_10_ha_number'],table_6_1.in_private_ownership_2005['_11_500_ha_number'],
                      table_6_1.in_private_ownership_2005['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_private_ownership',
                 labelParams: { year: 2005 },
@@ -11680,14 +10892,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2000['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2000['total_forest_area'],
                      [table_6_1.in_private_ownership_2000['less_10_ha_area'],table_6_1.in_private_ownership_2000['_11_500_ha_area'],
                      table_6_1.in_private_ownership_2000['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2000['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_private_ownership_2000['total_number_of_holdings'],
                      [table_6_1.in_private_ownership_2000['less_10_ha_number'],table_6_1.in_private_ownership_2000['_11_500_ha_number'],
                      table_6_1.in_private_ownership_2000['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_private_ownership',
                 labelParams: { year: 2000 },
@@ -11721,14 +10935,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_1990['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.in_private_ownership_1990['total_forest_area'],
                      [table_6_1.in_private_ownership_1990['less_10_ha_area'],table_6_1.in_private_ownership_1990['_11_500_ha_area'],
                      table_6_1.in_private_ownership_1990['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_1990['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.in_private_ownership_1990['total_number_of_holdings'],
                      [table_6_1.in_private_ownership_1990['less_10_ha_number'],table_6_1.in_private_ownership_1990['_11_500_ha_number'],
                      table_6_1.in_private_ownership_1990['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.in_private_ownership',
                 labelParams: { year: 1990 },
@@ -11763,14 +10979,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2020['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2020['total_forest_area'],
                      [table_6_1.other_types_of_ownership_unknown_2020['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2020['_11_500_ha_area'],
                      table_6_1.other_types_of_ownership_unknown_2020['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2020['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2020['total_number_of_holdings'],
                      [table_6_1.other_types_of_ownership_unknown_2020['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2020['_11_500_ha_number'],
                      table_6_1.other_types_of_ownership_unknown_2020['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
                 labelParams: { year: 2020 },
@@ -11804,14 +11022,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2015['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2015['total_forest_area'],
                      [table_6_1.other_types_of_ownership_unknown_2015['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2015['_11_500_ha_area'],
                      table_6_1.other_types_of_ownership_unknown_2015['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2015['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2015['total_number_of_holdings'],
                      [table_6_1.other_types_of_ownership_unknown_2015['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2015['_11_500_ha_number'],
                      table_6_1.other_types_of_ownership_unknown_2015['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
                 labelParams: { year: 2015 },
@@ -11845,14 +11065,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2010['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2010['total_forest_area'],
                      [table_6_1.other_types_of_ownership_unknown_2010['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2010['_11_500_ha_area'],
                      table_6_1.other_types_of_ownership_unknown_2010['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2010['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2010['total_number_of_holdings'],
                      [table_6_1.other_types_of_ownership_unknown_2010['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2010['_11_500_ha_number'],
                      table_6_1.other_types_of_ownership_unknown_2010['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
                 labelParams: { year: 2010 },
@@ -11886,14 +11108,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2005['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2005['total_forest_area'],
                      [table_6_1.other_types_of_ownership_unknown_2005['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2005['_11_500_ha_area'],
                      table_6_1.other_types_of_ownership_unknown_2005['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2005['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2005['total_number_of_holdings'],
                      [table_6_1.other_types_of_ownership_unknown_2005['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2005['_11_500_ha_number'],
                      table_6_1.other_types_of_ownership_unknown_2005['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
                 labelParams: { year: 2005 },
@@ -11927,14 +11151,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2000['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2000['total_forest_area'],
                      [table_6_1.other_types_of_ownership_unknown_2000['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2000['_11_500_ha_area'],
                      table_6_1.other_types_of_ownership_unknown_2000['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2000['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2000['total_number_of_holdings'],
                      [table_6_1.other_types_of_ownership_unknown_2000['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2000['_11_500_ha_number'],
                      table_6_1.other_types_of_ownership_unknown_2000['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
                 labelParams: { year: 2000 },
@@ -11968,14 +11194,16 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 7, type: 'decimal' },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_1990['total_forest_area'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_1990['total_forest_area'],
                      [table_6_1.other_types_of_ownership_unknown_1990['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_1990['_11_500_ha_area'],
                      table_6_1.other_types_of_ownership_unknown_1990['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_1990['total_number_of_holdings'],
+                      `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_1990['total_number_of_holdings'],
                      [table_6_1.other_types_of_ownership_unknown_1990['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_1990['_11_500_ha_number'],
                      table_6_1.other_types_of_ownership_unknown_1990['more_500_ha_number']])`,
-                  ],
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
                 labelParams: { year: 1990 },
@@ -14478,92 +13706,94 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2007'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2007'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['tj_2007'],table_6_9.of_which_from_forests['tj_2007'],
                      table_6_9.of_which_from_other_wooded_land['tj_2007'],table_6_9.energy_from_co_products['tj_2007'],
                      table_6_9.of_which_solid_residues['tj_2007'],table_6_9.energy_from_processed_wood_based_fuels['tj_2007'],
                      table_6_9.of_which_imported['tj_2007'],table_6_9.energy_from_post_consumer_recovered_wood['tj_2007'],
                      table_6_9.energy_from_unknown_unspecified_sources['tj_2007']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2007'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2007'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2007'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2007'],
                      table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2007'],table_6_9.energy_from_co_products['_1000_metric_tonnes_dry_matter_2007'],
                      table_6_9.of_which_solid_residues['_1000_metric_tonnes_dry_matter_2007'],table_6_9.energy_from_processed_wood_based_fuels['_1000_metric_tonnes_dry_matter_2007'],
                      table_6_9.of_which_imported['_1000_metric_tonnes_dry_matter_2007'],table_6_9.energy_from_post_consumer_recovered_wood['_1000_metric_tonnes_dry_matter_2007'],
                      table_6_9.energy_from_unknown_unspecified_sources['_1000_metric_tonnes_dry_matter_2007']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2009'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2009'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['tj_2009'],table_6_9.of_which_from_forests['tj_2009'],
                      table_6_9.of_which_from_other_wooded_land['tj_2009'],table_6_9.energy_from_co_products['tj_2009'],
                      table_6_9.of_which_solid_residues['tj_2009'],table_6_9.energy_from_processed_wood_based_fuels['tj_2009'],
                      table_6_9.of_which_imported['tj_2009'],table_6_9.energy_from_post_consumer_recovered_wood['tj_2009'],
                      table_6_9.energy_from_unknown_unspecified_sources['tj_2009']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2009'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2009'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2009'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2009'],
                      table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2009'],table_6_9.energy_from_co_products['_1000_metric_tonnes_dry_matter_2009'],
                      table_6_9.of_which_solid_residues['_1000_metric_tonnes_dry_matter_2009'],table_6_9.energy_from_processed_wood_based_fuels['_1000_metric_tonnes_dry_matter_2009'],
                      table_6_9.of_which_imported['_1000_metric_tonnes_dry_matter_2009'],table_6_9.energy_from_post_consumer_recovered_wood['_1000_metric_tonnes_dry_matter_2009'],
                      table_6_9.energy_from_unknown_unspecified_sources['_1000_metric_tonnes_dry_matter_2009']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2011'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2011'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['tj_2011'],table_6_9.of_which_from_forests['tj_2011'],
                      table_6_9.of_which_from_other_wooded_land['tj_2011'],table_6_9.energy_from_co_products['tj_2011'],
                      table_6_9.of_which_solid_residues['tj_2011'],table_6_9.energy_from_processed_wood_based_fuels['tj_2011'],
                      table_6_9.of_which_imported['tj_2011'],table_6_9.energy_from_post_consumer_recovered_wood['tj_2011'],
                      table_6_9.energy_from_unknown_unspecified_sources['tj_2011']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2011'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2011'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2011'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2011'],
                      table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2011'],table_6_9.energy_from_co_products['_1000_metric_tonnes_dry_matter_2011'],
                      table_6_9.of_which_solid_residues['_1000_metric_tonnes_dry_matter_2011'],table_6_9.energy_from_processed_wood_based_fuels['_1000_metric_tonnes_dry_matter_2011'],
                      table_6_9.of_which_imported['_1000_metric_tonnes_dry_matter_2011'],table_6_9.energy_from_post_consumer_recovered_wood['_1000_metric_tonnes_dry_matter_2011'],
                      table_6_9.energy_from_unknown_unspecified_sources['_1000_metric_tonnes_dry_matter_2011']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2013'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2013'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['tj_2013'],table_6_9.of_which_from_forests['tj_2013'],
                      table_6_9.of_which_from_other_wooded_land['tj_2013'],table_6_9.energy_from_co_products['tj_2013'],
                      table_6_9.of_which_solid_residues['tj_2013'],table_6_9.energy_from_processed_wood_based_fuels['tj_2013'],
                      table_6_9.of_which_imported['tj_2013'],table_6_9.energy_from_post_consumer_recovered_wood['tj_2013'],
                      table_6_9.energy_from_unknown_unspecified_sources['tj_2013']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2013'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2013'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2013'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2013'],
                      table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2013'],table_6_9.energy_from_co_products['_1000_metric_tonnes_dry_matter_2013'],
                      table_6_9.of_which_solid_residues['_1000_metric_tonnes_dry_matter_2013'],table_6_9.energy_from_processed_wood_based_fuels['_1000_metric_tonnes_dry_matter_2013'],
                      table_6_9.of_which_imported['_1000_metric_tonnes_dry_matter_2013'],table_6_9.energy_from_post_consumer_recovered_wood['_1000_metric_tonnes_dry_matter_2013'],
                      table_6_9.energy_from_unknown_unspecified_sources['_1000_metric_tonnes_dry_matter_2013']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2015'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2015'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['tj_2015'],table_6_9.of_which_from_forests['tj_2015'],
                      table_6_9.of_which_from_other_wooded_land['tj_2015'],table_6_9.energy_from_co_products['tj_2015'],
                      table_6_9.of_which_solid_residues['tj_2015'],table_6_9.energy_from_processed_wood_based_fuels['tj_2015'],
                      table_6_9.of_which_imported['tj_2015'],table_6_9.energy_from_post_consumer_recovered_wood['tj_2015'],
                      table_6_9.energy_from_unknown_unspecified_sources['tj_2015']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2015'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2015'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2015'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2015'],
                      table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2015'],table_6_9.energy_from_co_products['_1000_metric_tonnes_dry_matter_2015'],
                      table_6_9.of_which_solid_residues['_1000_metric_tonnes_dry_matter_2015'],table_6_9.energy_from_processed_wood_based_fuels['_1000_metric_tonnes_dry_matter_2015'],
                      table_6_9.of_which_imported['_1000_metric_tonnes_dry_matter_2015'],table_6_9.energy_from_post_consumer_recovered_wood['_1000_metric_tonnes_dry_matter_2015'],
                      table_6_9.energy_from_unknown_unspecified_sources['_1000_metric_tonnes_dry_matter_2015']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2019'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2019'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['tj_2019'],table_6_9.of_which_from_forests['tj_2019'],
                      table_6_9.of_which_from_other_wooded_land['tj_2019'],table_6_9.energy_from_co_products['tj_2019'],
                      table_6_9.of_which_solid_residues['tj_2019'],table_6_9.energy_from_processed_wood_based_fuels['tj_2019'],
                      table_6_9.of_which_imported['tj_2019'],table_6_9.energy_from_post_consumer_recovered_wood['tj_2019'],
                      table_6_9.energy_from_unknown_unspecified_sources['tj_2019']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2019'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2019'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2019'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2019'],
                      table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2019'],table_6_9.energy_from_co_products['_1000_metric_tonnes_dry_matter_2019'],
                      table_6_9.of_which_solid_residues['_1000_metric_tonnes_dry_matter_2019'],table_6_9.energy_from_processed_wood_based_fuels['_1000_metric_tonnes_dry_matter_2019'],
                      table_6_9.of_which_imported['_1000_metric_tonnes_dry_matter_2019'],table_6_9.energy_from_post_consumer_recovered_wood['_1000_metric_tonnes_dry_matter_2019'],
                      table_6_9.energy_from_unknown_unspecified_sources['_1000_metric_tonnes_dry_matter_2019']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2021'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['tj_2021'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['tj_2021'],table_6_9.of_which_from_forests['tj_2021'],
                      table_6_9.of_which_from_other_wooded_land['tj_2021'],table_6_9.energy_from_co_products['tj_2021'],
                      table_6_9.of_which_solid_residues['tj_2021'],table_6_9.energy_from_processed_wood_based_fuels['tj_2021'],
                      table_6_9.of_which_imported['tj_2021'],table_6_9.energy_from_post_consumer_recovered_wood['tj_2021'],
                      table_6_9.energy_from_unknown_unspecified_sources['tj_2021']])`,
-                    `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2021'],
+                      `validatorEqualToSum(table_6_9.total_energy_supply_from_wood['_1000_metric_tonnes_dry_matter_2021'],
                      [table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2021'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2021'],
                      table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2021'],table_6_9.energy_from_co_products['_1000_metric_tonnes_dry_matter_2021'],
                      table_6_9.of_which_solid_residues['_1000_metric_tonnes_dry_matter_2021'],table_6_9.energy_from_processed_wood_based_fuels['_1000_metric_tonnes_dry_matter_2021'],
                      table_6_9.of_which_imported['_1000_metric_tonnes_dry_matter_2021'],table_6_9.energy_from_post_consumer_recovered_wood['_1000_metric_tonnes_dry_matter_2021'],
                      table_6_9.energy_from_unknown_unspecified_sources['_1000_metric_tonnes_dry_matter_2021']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'total_energy_supply_from_wood',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.total_energy_supply_from_wood',
@@ -14616,36 +13846,38 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                 ],
                 migration: {
-                  validateFns: [
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2007'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2007'],
                      [table_6_9.of_which_from_other_wooded_land['tj_2007'],table_6_9.of_which_from_forests['tj_2007']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2007'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2007'],
                      [table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2007'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2007']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2009'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2009'],
                      [table_6_9.of_which_from_other_wooded_land['tj_2009'],table_6_9.of_which_from_forests['tj_2009']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2009'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2009'],
                      [table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2009'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2009']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2011'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2011'],
                      [table_6_9.of_which_from_other_wooded_land['tj_2011'],table_6_9.of_which_from_forests['tj_2011']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2011'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2011'],
                      [table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2011'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2011']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2013'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2013'],
                      [table_6_9.of_which_from_other_wooded_land['tj_2013'],table_6_9.of_which_from_forests['tj_2013']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2013'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2013'],
                      [table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2013'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2013']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2015'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2015'],
                      [table_6_9.of_which_from_other_wooded_land['tj_2015'],table_6_9.of_which_from_forests['tj_2015']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2015'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2015'],
                      [table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2015'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2015']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2019'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2019'],
                      [table_6_9.of_which_from_other_wooded_land['tj_2019'],table_6_9.of_which_from_forests['tj_2019']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2019'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2019'],
                      [table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2019'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2019']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2021'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['tj_2021'],
                      [table_6_9.of_which_from_other_wooded_land['tj_2021'],table_6_9.of_which_from_forests['tj_2021']])`,
-                    `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2021'],
+                      `validatorEqualToSum(table_6_9.energy_from_direct_wood_fibre_sources['_1000_metric_tonnes_dry_matter_2021'],
                      [table_6_9.of_which_from_other_wooded_land['_1000_metric_tonnes_dry_matter_2021'],table_6_9.of_which_from_forests['_1000_metric_tonnes_dry_matter_2021']])`,
-                  ],
+                    ],
+                  },
                 },
                 variableExport: 'energy_from_direct_wood_fibre_sources',
                 labelKey: 'panEuropean.totalEnergySupplyFromWood.energy_from_direct_wood_fibre_sources',

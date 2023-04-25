@@ -1,7 +1,10 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
 import { Context } from '../context'
+import { maxForestArea } from './maxForestArea'
+import { maxLandArea } from './maxLandArea'
 import { NWFPProductHasCategory } from './NWFPProductHasCategory'
+import { validatorColSumNotGreaterThanForest } from './validatorColSumNotGreaterThanForest'
 import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
 import { validatorEqualToPlantedForest } from './validatorEqualToPlantedForest'
 import { validatorEqualToSum } from './validatorEqualToSum'
@@ -13,9 +16,13 @@ import { validatorForestAreaNetChange } from './validatorForestAreaNetChange'
 import { validatorGreaterThanOrZero } from './validatorGreaterThanOrZero'
 import { validatorIsYear } from './validatorIsYear'
 import { validatorNextCountryReportYear } from './validatorNextCountryReportYear'
+import { validatorNotEmpty } from './validatorNotEmpty'
 import { validatorNotGreaterThan } from './validatorNotGreaterThan'
 import { validatorNotGreaterThanForest } from './validatorNotGreaterThanForest'
+import { validatorNotGreaterThanForestOrMaxForest } from './validatorNotGreaterThanForestOrMaxForest'
 import { validatorNotGreaterThanLandArea } from './validatorNotGreaterThanLandArea'
+import { validatorNotGreaterThanLandAreaOrMaxLandArea } from './validatorNotGreaterThanLandAreaOrMaxLandArea'
+import { validatorNotGreaterThanMaxForest } from './validatorNotGreaterThanMaxForest'
 import { validatorOtherLand } from './validatorOtherLand'
 import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTreeCoverTotal'
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
@@ -28,29 +35,36 @@ import { validatorSumNotGreaterThanForest } from './validatorSumNotGreaterThanFo
 import { validatorTotalForest } from './validatorTotalForest'
 
 export const functions: Array<ExpressionFunction<Context>> = [
+  NWFPProductHasCategory,
+  maxForestArea,
+  maxLandArea,
+  validatorColSumNotGreaterThanForest,
+  validatorEqualToForestExpansion,
+  validatorEqualToPlantedForest,
+  validatorEqualToSum,
+  validatorEqualToTotalForest,
   validatorEqualToTotalGrowingStock,
   validatorForestAreaComparedTo2015,
-  validatorNextCountryReportYear,
-  validatorIsYear,
+  validatorForestAreaComparedTo2020,
+  validatorForestAreaNetChange,
   validatorGreaterThanOrZero,
+  validatorIsYear,
+  validatorNextCountryReportYear,
+  validatorNotEmpty,
   validatorNotGreaterThan,
   validatorNotGreaterThanForest,
-  validatorRemainingLandWithTreeCoverTotal,
+  validatorNotGreaterThanForestOrMaxForest,
+  validatorNotGreaterThanLandArea,
+  validatorNotGreaterThanLandAreaOrMaxLandArea,
+  validatorNotGreaterThanMaxForest,
   validatorOtherLand,
   validatorOtherLandWithTreeCoverTotal,
   validatorPlantationForestIntroduced,
   validatorPrimaryForest,
-  validatorSubCategory,
-  validatorTotalForest,
   validatorPrivateOwnership,
+  validatorRemainingLandWithTreeCoverTotal,
+  validatorSubCategory,
   validatorSumNotGreaterThan,
-  validatorForestAreaNetChange,
-  validatorEqualToForestExpansion,
-  validatorEqualToPlantedForest,
-  validatorEqualToTotalForest,
-  NWFPProductHasCategory,
   validatorSumNotGreaterThanForest,
-  validatorForestAreaComparedTo2020,
-  validatorEqualToSum,
-  validatorNotGreaterThanLandArea,
+  validatorTotalForest,
 ]
