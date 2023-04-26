@@ -2471,13 +2471,6 @@ export const growingStock = {
         tableName: 'growingStock',
         variableName: 'forest',
       },
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'growingStock',
-        tableName: 'growingStock',
-        variableName: 'other_wooded_land',
-      },
     ],
   },
   dataExport: {

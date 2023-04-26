@@ -347,7 +347,7 @@ module.exports = {
 
   // table 3.3
   nonWoodGoods2015: {
-    nonWoodGoods2015: 'Non-wood goods (2015)',
+    nonWoodGoods2015: 'Non-wood goods',
     rankValue: 'Rank (value)',
     nameOfGroupsOfProduct: 'Name of (groups of) product',
     keySpecies: 'Key species',
@@ -379,7 +379,7 @@ module.exports = {
 
   // table 3.4
   marketedServices2015: {
-    marketedServices2015: 'Marketed services (2015)',
+    marketedServices2015: 'Marketed services',
     rankValue: 'Rank (value)',
     nameOfServiceProduct: 'Name of service/product',
     unit: 'Unit',

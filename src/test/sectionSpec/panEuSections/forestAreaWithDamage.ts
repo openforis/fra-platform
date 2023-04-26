@@ -1874,36 +1874,36 @@ export const forestAreaWithDamage = {
     comments: true,
     introductoryText: false,
     nationalData: true,
-    linkedVariables: [
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'disturbances',
-        tableName: 'disturbances',
-        variableName: 'insects', // TODO: Variables don't match. insect row + diseases row are a column here.
-      },
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'disturbances',
-        tableName: 'disturbances',
-        variableName: 'diseases',
-      },
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'disturbances',
-        tableName: 'disturbances',
-        variableName: 'severe_weather_events',
-      },
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'areaAffectedByFire',
-        tableName: 'areaAffectedByFire',
-        variableName: 'total_land_area_affected_by_fire',
-      },
-    ],
+    // linkedVariables: [
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'disturbances',
+    //     tableName: 'disturbances',
+    //     variableName: 'insects', // TODO: Variables don't match. insect row + diseases row are a column here.
+    //   },
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'disturbances',
+    //     tableName: 'disturbances',
+    //     variableName: 'diseases',
+    //   },
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'disturbances',
+    //     tableName: 'disturbances',
+    //     variableName: 'severe_weather_events',
+    //   },
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'areaAffectedByFire',
+    //     tableName: 'areaAffectedByFire',
+    //     variableName: 'total_land_area_affected_by_fire',
+    //   },
+    // ],
   },
   dataExport: {
     included: true,

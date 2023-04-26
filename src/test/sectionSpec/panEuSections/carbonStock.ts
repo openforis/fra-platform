@@ -2077,15 +2077,15 @@ export const carbonStock = {
     comments: true,
     introductoryText: false,
     nationalData: true,
-    linkedVariables: [
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'carbonStock',
-        tableName: 'carbonStock',
-        variableName: 'forest',
-      },
-    ],
+    // linkedVariables: [
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'carbonStock',
+    //     tableName: 'carbonStock',
+    //     variableName: 'forest',
+    //   },
+    // ],
   },
   dataExport: {
     included: true,

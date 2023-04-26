@@ -1525,36 +1525,36 @@ export const forestArea = {
     comments: true,
     introductoryText: false,
     nationalData: true,
-    linkedVariables: [
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'extentOfForest',
-        tableName: 'extentOfForest',
-        variableName: 'forest',
-      },
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'extentOfForest',
-        tableName: 'extentOfForest',
-        variableName: 'other_wooded_land',
-      },
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'extentOfForest',
-        tableName: 'extentOfForest',
-        variableName: 'other_land',
-      },
-      {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        sectionName: 'otherLandWithTreeCover',
-        tableName: 'otherLandWithTreeCover',
-        variableName: '_of_which_with_tree_cover', // NOT SURE OF THE VARIABLE HERE
-      },
-    ],
+    // linkedVariables: [
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'extentOfForest',
+    //     tableName: 'extentOfForest',
+    //     variableName: 'forest',
+    //   },
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'extentOfForest',
+    //     tableName: 'extentOfForest',
+    //     variableName: 'other_wooded_land',
+    //   },
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'extentOfForest',
+    //     tableName: 'extentOfForest',
+    //     variableName: 'other_land',
+    //   },
+    //   {
+    //     assessmentName: 'fra',
+    //     cycleName: '2025',
+    //     sectionName: 'otherLandWithTreeCover',
+    //     tableName: 'otherLandWithTreeCover',
+    //     variableName: '_of_which_with_tree_cover', // NOT SURE OF THE VARIABLE HERE
+    //   },
+    // ],
   },
   dataExport: {
     included: true,
