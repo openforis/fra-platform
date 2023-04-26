@@ -152,5 +152,7 @@ export const getSubSection = (props: { assessment: Assessment; spec: SectionSpec
   if (spec.dataExport?.included) {
     section.props.dataExport = spec.dataExport.included
   }
+  if (spec.migration?.hidden) section.props.hidden = spec.migration.hidden
+
   return section
 }
