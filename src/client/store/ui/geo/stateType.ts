@@ -1,15 +1,12 @@
 import { CountryIso } from 'meta/area'
 import {
   BurnedAreaKey,
-  BurnedAreasOptions,
   ForestKey,
-  ForestOptions,
   GeoStatisticsState,
   LayerSectionKey,
   MapPanel,
   MosaicOptions,
   ProtectedAreaKey,
-  ProtectedAreasOptions,
 } from 'meta/geo'
 
 export enum LayerFetchStatus {
@@ -47,7 +44,6 @@ export type GeoState = {
   sections: Record<LayerSectionKey, LayersSectionState>
   isMapAvailable: boolean
   selectedPanel: MapPanel
-  forestOptions: ForestOptions
   mosaicOptions: {
     ui: MosaicOptions
     applied: MosaicOptions
@@ -59,6 +55,4 @@ export type GeoState = {
     }
   }
   geoStatistics: GeoStatisticsState
-  protectedAreasOptions: ProtectedAreasOptions
-  burnedAreasOptions: BurnedAreasOptions
 }

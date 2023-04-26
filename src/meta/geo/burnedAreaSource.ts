@@ -13,12 +13,6 @@ export const burnedAreaLayersMetadata: Record<BurnedAreaKey, LayerMetadata> = {
   },
 }
 
-export interface BurnedAreasUIOptions {
-  startYear: number
-  endYear: number
-  selectedYear: number
-}
-
 export const burnedAreaLayers: LayerSection = {
   key: LayerSectionKey.BurnedArea,
   layers: [

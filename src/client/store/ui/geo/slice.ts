@@ -1,15 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import {
-  BurnedAreaKey,
-  BurnedAreasUIOptions,
-  ForestEstimations,
-  LayerStatus,
-  MosaicOptions,
-  MosaicSource,
-  ProtectedAreaKey,
-} from 'meta/geo'
+import { BurnedAreaKey, ForestEstimations, MosaicOptions, MosaicSource, ProtectedAreaKey } from 'meta/geo'
 import { forestAgreementRecipes, ForestKey, HansenPercentage } from 'meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
@@ -22,7 +14,7 @@ const initialMosaicOptions: MosaicOptions = {
   maxCloudCoverage: 30,
 }
 
-const initialBurnedAreasUIOptions: BurnedAreasUIOptions = {
+const initialBurnedAreasUIOptions = {
   startYear: 2000,
   endYear: new Date().getFullYear(),
   selectedYear: 2020,
