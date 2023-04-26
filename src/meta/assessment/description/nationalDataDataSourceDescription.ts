@@ -24,7 +24,7 @@ export interface NationalDataDataSourceDescription {
 
 export interface DataSourceVariable {
   value: string
-  label?: Label
+  label: Label
   prefixLabel?: Label
 }
 

@@ -16,8 +16,7 @@ export interface DataSource {
     link?: string
   }
   type: string
-  fraVariables?: string[]
-  variable?: string
+  variables?: string[]
   year: string
   comments: string
 }
