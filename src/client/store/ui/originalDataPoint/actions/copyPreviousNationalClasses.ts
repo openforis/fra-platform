@@ -5,28 +5,20 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
 import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
 
-import { RootState } from '@client/store'
-
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 
 export const copyPreviousNationalClasses = createAsyncThunk<
   void,
-  CycleParams & { originalDataPoint: OriginalDataPoint }
+  CycleParams & { originalDataPoint: OriginalDataPoint; year: number }
 >(
   'originalDataPoint/copy/previousNationalClasses',
-  async ({ countryIso, assessmentName, cycleName, originalDataPoint }, { dispatch, getState }) => {
-    const state = getState()
-    const { reservedYears } = (state as RootState).ui.originalDataPoint
-    const { year } = originalDataPoint
-
-    const previousODPYear = ODPs.getPreviousODPYear(year, reservedYears)
-
+  async ({ countryIso, assessmentName, cycleName, originalDataPoint, year }, { dispatch }) => {
     const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.one(), {
       params: {
         countryIso,
         assessmentName,
         cycleName,
-        year: previousODPYear,
+        year,
       },
     })
 
