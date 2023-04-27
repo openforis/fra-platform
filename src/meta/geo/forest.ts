@@ -168,7 +168,7 @@ export const getRecipeAgreementAreaProperty = (
     return (
       recipe.layers.length === selectedLayers.length &&
       (recipe.gteHansenTreeCoverPerc === gteHansenTreeCoverPerc || recipe.gteHansenTreeCoverPerc === undefined) &&
-      recipe.layers.every((layer) => selectedLayers.includes(layer))
+      recipe.layers.every((layer) => selectedLayers.includes(layer as ForestKey))
     )
   })
 
@@ -210,7 +210,7 @@ export const forestLayers: LayerSection = {
     {
       key: ForestKey.Hansen,
       options: {
-        minTreeCoverPercentage: hansenPercentages.map((percentage) => percentage),
+        minTreeCoverPercentage: [...hansenPercentages],
       },
       metadata: forestLayersMetadata.Hansen,
     },
@@ -231,7 +231,7 @@ export const forestLayers: LayerSection = {
           reducerScales: [10, 20, 30],
         },
       },
-      metadata: forestLayersMetadata.JAXA,
+      metadata: forestLayersMetadata.Agreement,
     },
   ],
 }
