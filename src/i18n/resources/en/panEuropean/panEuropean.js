@@ -255,6 +255,8 @@ module.exports = {
     total_area_with_damage: 'Total area with damage',
     insects_and_disease: 'Biotic agents: Insects and disease',
     insectsAndDisease: 'Insects and disease',
+    disease: 'Disease',
+    insects: 'Insects',
     wildlife_and_grazing: 'Biotic agents: Wildlife and grazing',
     wildlifeAndGrazing: 'Wildlife and grazing',
     forest_operations: 'Human induced: Forest operations',
