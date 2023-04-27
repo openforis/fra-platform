@@ -7,6 +7,7 @@ import { NWFPProductHasCategory } from './NWFPProductHasCategory'
 import { validatorColSumNotGreaterThanForest } from './validatorColSumNotGreaterThanForest'
 import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
 import { validatorEqualToPlantedForest } from './validatorEqualToPlantedForest'
+import { validatorEqualToPrimaryForest } from './validatorEqualToPrimaryForest'
 import { validatorEqualToSum } from './validatorEqualToSum'
 import { validatorEqualToTotalForest } from './validatorEqualToTotalForest'
 import { validatorEqualToTotalGrowingStock } from './validatorEqualToTotalGrowingStock'
@@ -41,6 +42,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorColSumNotGreaterThanForest,
   validatorEqualToForestExpansion,
   validatorEqualToPlantedForest,
+  validatorEqualToPrimaryForest,
   validatorEqualToSum,
   validatorEqualToTotalForest,
   validatorEqualToTotalGrowingStock,
