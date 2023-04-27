@@ -1,11 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestEstimations, MosaicOptions, MosaicSource } from 'meta/geo'
+import { ForestEstimations, ForestKey, LayerKey, LayerSectionKey, MosaicOptions, MosaicSource } from 'meta/geo'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestEstimationData } from './actions'
-import { GeoState } from './stateType'
+import { getForestEstimationData, postLayer } from './actions'
+import { GeoState, LayerFetchStatus, LayersSectionState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -14,6 +14,7 @@ const initialMosaicOptions: MosaicOptions = {
 }
 
 const initialState: GeoState = {
+  sections: {} as Record<LayerSectionKey, LayersSectionState>,
   isMapAvailable: false,
   selectedPanel: null,
   mosaicOptions: {
@@ -100,6 +101,82 @@ export const geoSlice = createSlice({
         state.geoStatistics.tabularEstimationData.splice(index, 0, entry)
       }
     },
+    toggleLayer: (
+      state,
+      { payload: { sectionKey, layerKey } }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+    ) => {
+      state.sections[sectionKey][layerKey].selected = !state.sections[sectionKey][layerKey].selected
+    },
+    setLayerOpacity: (
+      state,
+      {
+        payload: { sectionKey, layerKey, opacity },
+      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
+    ) => {
+      state.sections[sectionKey][layerKey].opacity = opacity
+    },
+    setAssetId: (
+      state,
+      {
+        payload: { sectionKey, layerKey, assetId },
+      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
+    ) => {
+      state.sections[sectionKey][layerKey].assetId = assetId
+    },
+    setLayerMinTreeCoverPercentage: (
+      state,
+      {
+        payload: { sectionKey, layerKey, minTreeCoverPercentage },
+      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; minTreeCoverPercentage: number }>
+    ) => {
+      state.sections[sectionKey][layerKey].options.minTreeCoverPercentage = minTreeCoverPercentage
+    },
+    setAgreementLevel: (
+      state,
+      {
+        payload: { sectionKey, layerKey, level },
+      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
+    ) => {
+      state.sections[sectionKey][layerKey].options.agreementLayer.level = level
+    },
+    setAgreementReducerScale: (
+      state,
+      {
+        payload: { sectionKey, layerKey, reducerScale },
+      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; reducerScale: number }>
+    ) => {
+      state.sections[sectionKey][layerKey].options.agreementLayer.reducerScale = reducerScale
+    },
+    setAgreementPalette: (
+      state,
+      {
+        payload: { sectionKey, layerKey, palette },
+      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; palette: Array<string> }>
+    ) => {
+      state.sections[sectionKey][layerKey].options.agreementLayer.palette = palette
+    },
+    setSectionGlobalOpacity: (
+      state,
+      { payload: { sectionKey, opacity } }: PayloadAction<{ sectionKey: LayerSectionKey; opacity: number }>
+    ) => {
+      Object.keys(state.sections[sectionKey]).forEach((layerKey) => {
+        if (layerKey === ForestKey.Agreement) return // Ignore the agreement layer.
+        state.sections[sectionKey][layerKey as LayerKey].opacity = opacity
+      })
+    },
+    resetLayerStatus: (
+      state,
+      { payload: { sectionKey, layerKey } }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+    ) => {
+      state.sections[sectionKey][layerKey].status = LayerFetchStatus.Unfetched
+    },
+    resetAllLayersStatus: (state) => {
+      Object.keys(state.sections).forEach((sectionKey) => {
+        Object.keys(state.sections[sectionKey as LayerSectionKey]).forEach((layerKey) => {
+          state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].status = LayerFetchStatus.Unfetched
+        })
+      })
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -132,6 +209,17 @@ export const geoSlice = createSlice({
       .addCase(getForestEstimationData.rejected, (state, action) => {
         state.geoStatistics.isLoading = false
         state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
+      })
+      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, mapId] }) => {
+        state.sections[sectionKey][layerKey].status = LayerFetchStatus.Ready
+        state.sections[sectionKey][layerKey].mapId = mapId
+      })
+      .addCase(postLayer.pending, (state, { meta }) => {
+        state.sections[meta.arg.sectionKey][meta.arg.layerKey].status = LayerFetchStatus.Loading
+      })
+      .addCase(postLayer.rejected, (state, { meta }) => {
+        state.sections[meta.arg.sectionKey][meta.arg.layerKey].status = LayerFetchStatus.Failed
+        state.sections[meta.arg.sectionKey][meta.arg.layerKey].selected = false
       })
   },
 })
