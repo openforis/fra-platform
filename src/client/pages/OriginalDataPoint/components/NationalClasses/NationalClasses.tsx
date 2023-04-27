@@ -36,23 +36,23 @@ const NationalClasses: React.FC<Props> = (props) => {
   const reservedYears = useOriginalDataPointReservedYears() ?? []
   const previousYears = year ? ODPs.getPreviousODPYears(year, reservedYears) : []
 
-  const hasPreviousYears = Boolean(previousYears?.length > 0)
-  const canCopy = ODPs.canCopyPreviousValues(originalDataPoint)
-  // Copying is disabled if: nationalClass(1+) exist, odp doesn't have a year, there is no previous years or previous year is not selected
-  const copyDisabled = !canCopy || !year || year === -1 || originalDataPointUpdating || !hasPreviousYears
+  // Copying is disabled if: odp doesn't have a year, there is no previous years or previous year is not selected
+  const copyDisabled = !year || year === -1 || originalDataPointUpdating
 
   const onCopyClick = useCallback(() => {
-    dispatch(
-      OriginalDataPointActions.copyPreviousNationalClasses({
-        originalDataPoint,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-        year: Number(selectedPreviousYear),
-      })
-    )
-    setSelectedPreviousYear('')
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, originalDataPoint, selectedPreviousYear])
+    if (window.confirm(t('nationalDataPoint.confirmCopyPreviousValues'))) {
+      dispatch(
+        OriginalDataPointActions.copyPreviousNationalClasses({
+          originalDataPoint,
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          countryIso,
+          year: Number(selectedPreviousYear),
+        })
+      )
+      setSelectedPreviousYear('')
+    }
+  }, [assessment.props.name, countryIso, cycle.name, dispatch, originalDataPoint, selectedPreviousYear, t])
 
   return (
     <div className="odp__section">
