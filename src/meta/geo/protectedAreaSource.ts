@@ -21,8 +21,8 @@ export const protectedAreaLayersMetadata: Record<ProtectedAreaKey, LayerMetadata
   },
 }
 
-export const burnedAreaLayers: LayerSection = {
-  key: LayerSectionKey.BurnedArea,
+export const protectedAreaLayers: LayerSection = {
+  key: LayerSectionKey.ProtectedArea,
   layers: [
     {
       key: ProtectedAreaKey.FilteredWDPA,

@@ -1,13 +1,5 @@
 import { CountryIso } from 'meta/area'
-import {
-  BurnedAreaKey,
-  ForestKey,
-  GeoStatisticsState,
-  LayerSectionKey,
-  MapPanel,
-  MosaicOptions,
-  ProtectedAreaKey,
-} from 'meta/geo'
+import { GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
 
 export enum LayerFetchStatus {
   Loading = 'Loading',
@@ -36,9 +28,10 @@ export type LayerState = {
   status: LayerFetchStatus
   assetId?: string
   options?: LayerStateOptions
+  mapId: string | null
 }
 
-export type LayersSectionState = Record<ForestKey | BurnedAreaKey | ProtectedAreaKey, LayerState>
+export type LayersSectionState = Record<LayerKey, LayerState>
 
 export type GeoState = {
   sections: Record<LayerSectionKey, LayersSectionState>
