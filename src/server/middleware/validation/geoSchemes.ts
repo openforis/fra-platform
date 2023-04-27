@@ -36,7 +36,7 @@ export const layerSchema = [
     .toInt(),
 
   body('layer.options.year')
-    .if(body('layer.key').equals(BurnedAreaKey.MODIS))
+    .if(body('layer.key').equals(BurnedAreaKey.MODIS_FIRE))
     .exists()
     .withMessage('validation.errors.requiredValue')
     .bail()

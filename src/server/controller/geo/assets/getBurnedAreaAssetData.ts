@@ -7,7 +7,7 @@ export const getBurnedAreaAssetData = (layer: LayerSource): { year?: number; img
   let asset = {} as { year?: number; img: Image; metadata: any }
 
   switch (layer.key) {
-    case BurnedAreaKey.MODIS: {
+    case BurnedAreaKey.MODIS_FIRE: {
       const imcMODIS = ImageCollection('MODIS/061/MCD64A1').filter(
         Filter.date(`${layer.options.year}-01-01`, `${layer.options.year}-12-31`)
       )
