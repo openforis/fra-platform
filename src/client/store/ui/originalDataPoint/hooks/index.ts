@@ -9,10 +9,11 @@ export const useOriginalDataPoint = () => useAppSelector((state) => state.ui.ori
 export const useIsOriginalDataPointUpdating = () => useAppSelector((state) => state.ui.originalDataPoint?.updating)
 
 export const useOriginalDataPointReservedYears = () =>
-  useAppSelector((state) => state.ui.originalDataPoint.reservedYears)
+  useAppSelector((state) => state.ui.originalDataPoint.reservedYears.map((reservedYear) => reservedYear.year))
 
 export const useODPYears = (cycle: Cycle): { years: Array<number>; reservedYears: Array<number> } => {
   const years = cycle ? Arrays.reverse(Arrays.range(1950, Number(cycle.name))) : []
+
   const reservedYears = useOriginalDataPointReservedYears() ?? []
 
   return {
