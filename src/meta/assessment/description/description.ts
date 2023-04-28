@@ -1,7 +1,6 @@
-import { AnalysisAndProcessingDescription } from '@meta/assessment/description/analysisAndProcessingDescription'
-import { NationalDataDescription } from '@meta/assessment/description/nationalDataDescription'
-
 import { CycleUuid } from '../cycle'
+import { AnalysisAndProcessingDescription } from './analysisAndProcessingDescription'
+import { NationalDataDescription } from './nationalDataDescription'
 
 export interface Description {
   analysisAndProcessing?: AnalysisAndProcessingDescription
