@@ -274,7 +274,7 @@ export const areaWithForestLandDegradation = {
                   idx: 1,
                   type: 'text',
                   colName: 'agentOne',
-                  inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
+                  inputPlaceholder: 'Write Agent Name...',
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,

@@ -14,7 +14,16 @@ const Text: React.FC<PropsCell> = (props) => {
   const [Component, componentProps] =
     col.props.colType === ColType.text ? [TextInput, {}] : [VerticallyGrowingTextField, { minWidth: 350 }]
 
-  return React.createElement(Component, { ...componentProps, value, onChange, onPaste, disabled })
+  const { inputPlaceholder } = col.props
+
+  return React.createElement(Component, {
+    ...componentProps,
+    value,
+    onChange,
+    onPaste,
+    disabled,
+    placeholder: inputPlaceholder || 'write here',
+  })
 }
 
 export default Text
