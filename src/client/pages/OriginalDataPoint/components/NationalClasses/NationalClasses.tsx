@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { OriginalDataPoint } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -33,8 +33,9 @@ const NationalClasses: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const { print } = useIsPrint()
   const originalDataPointUpdating = useIsOriginalDataPointUpdating()
-  const reservedYears = useOriginalDataPointReservedYears() ?? []
-  const previousYears = year ? ODPs.getPreviousODPYears(year, reservedYears) : []
+  const reservedYearsWithClasses = (useOriginalDataPointReservedYears() ?? [])
+    .filter((reservedYear) => reservedYear.nationalClasses > 0)
+    .map((reservedYear) => reservedYear.year)
 
   // Copying is disabled if: odp doesn't have a year, there is no previous years or previous year is not selected
   const copyDisabled = !year || year === -1 || originalDataPointUpdating
@@ -74,9 +75,9 @@ const NationalClasses: React.FC<Props> = (props) => {
                 disabled={copyDisabled}
               >
                 <option value="">{t('nationalDataPoint.selectYear')}</option>
-                {previousYears?.map((previousYear: number) => (
-                  <option key={previousYear} value={previousYear}>
-                    {previousYear}
+                {reservedYearsWithClasses?.map((reservedYear: number) => (
+                  <option key={reservedYear} value={reservedYear}>
+                    {reservedYear}
                   </option>
                 ))}
               </select>
