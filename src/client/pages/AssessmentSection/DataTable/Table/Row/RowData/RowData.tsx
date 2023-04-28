@@ -39,7 +39,7 @@ const RowData: React.FC<Props> = (props) => {
   // const className = useClassName(reviewTarget)
 
   const openTopics = useTopicKeys()
-  const headerCell = cols.every((col) => Cols.isReadOnly({ row, col }))
+  const headerCell = cols.every((col) => Cols.isReadOnly({ cycle, row, col }))
   const subcategory = row.props.categoryLevel > 0
 
   return (

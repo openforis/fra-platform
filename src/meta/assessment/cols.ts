@@ -24,12 +24,18 @@ const isCalculated = (props: { col: Col; row: Row }): boolean => {
   )
 }
 
-const isReadOnly = (props: { col: Col; row: Row }): boolean => {
-  const { col, row } = props
+const hasLinkedNodes = (props: { cycle: Cycle; col: Col }): boolean => {
+  const { col, cycle } = props
+  return Boolean(col.props?.linkedNodes?.[cycle.uuid])
+}
+
+const isReadOnly = (props: { cycle: Cycle; col: Col; row: Row }): boolean => {
+  const { cycle, col, row } = props
   return !!(
     isCalculated(props) ||
     row.props.readonly ||
-    [ColType.header, ColType.noticeMessage].includes(col.props.colType)
+    [ColType.header, ColType.noticeMessage].includes(col.props.colType) ||
+    hasLinkedNodes({ cycle, col })
   )
 }
 
@@ -57,4 +63,5 @@ export const Cols = {
   getClassNames,
   getLabel,
   getStyle,
+  hasLinkedNodes,
 }

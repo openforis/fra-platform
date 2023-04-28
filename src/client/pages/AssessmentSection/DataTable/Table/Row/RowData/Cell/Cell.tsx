@@ -1,7 +1,7 @@
 import './Cell.scss'
 import React, { useCallback } from 'react'
 
-import { AssessmentName, Col, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
+import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 import { Authorizer } from '@meta/user'
 
@@ -46,7 +46,7 @@ type Props = {
 }
 
 const Cell: React.FC<Props> = (props) => {
-  const { data, assessmentName, sectionName, table, disabled, rowIndex, col, row } = props
+  const { data, assessmentName, sectionName, table, disabled: disabledProps, rowIndex, col, row } = props
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
@@ -61,8 +61,9 @@ const Cell: React.FC<Props> = (props) => {
   const params = { data, countryIso, tableName, variableName, colName }
   const nodeValue = TableDatas.getNodeValue(params)
   const valid = !Authorizer.canEditData({ country, cycle, section, user }) || NodeValueValidations.isValid(nodeValue)
+  const disabled = disabledProps || nodeValue?.odp || Cols.hasLinkedNodes({ cycle, col })
 
-  const className = useClassName({ col, row, tableName, valid })
+  const className = useClassName({ cycle, col, row, tableName, valid })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
 
   const Component = Components[col.props.colType]
@@ -83,7 +84,7 @@ const Cell: React.FC<Props> = (props) => {
         assessmentName={assessmentName}
         sectionName={sectionName}
         table={table}
-        disabled={disabled || nodeValue?.odp}
+        disabled={disabled}
         rowIndex={rowIndex}
         col={col}
         row={row}
