@@ -297,6 +297,7 @@ module.exports = {
     unknownMixedDegradation: 'Unknown / Mixed degradation',
     nA: '',
     agentName: '',
+    writeName: 'Write Agent Name...',
     thousandHa: '1000 ha',
     forest: 'Forest - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',

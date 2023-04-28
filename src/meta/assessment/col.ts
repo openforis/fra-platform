@@ -49,6 +49,7 @@ export interface ColProps {
   classNames: Record<string, Array<string>> // classes by cycle uuid
   validateFns?: Record<CycleUuid, Array<string>>
   variableNo?: Record<string, string> // variable number by cycle uuid
+  inputPlaceholder?: string
 }
 
 export interface Col extends CycledPropsObject<ColProps> {
