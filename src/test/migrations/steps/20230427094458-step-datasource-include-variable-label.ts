@@ -1,13 +1,46 @@
-import { ColType, DataSourceDescriptionTable, DataSourceVariable, Row, RowType, SubSection } from '@meta/assessment'
-import { DataSourceColumn, DataSourceVariables } from '@meta/assessment/description'
+import * as pgPromise from 'pg-promise'
+
+import {
+  ColType,
+  CommentableDescription,
+  DataSource,
+  DataSourceDescriptionTable,
+  DataSourceVariable,
+  Row,
+  RowType,
+  SubSection,
+} from '@meta/assessment'
+import { DataSourceVariables } from '@meta/assessment/description'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { MetadataController } from '@server/controller/metadata'
 import { BaseProtocol, Schemas } from '@server/db'
 
+type DataSourceColumnDeprecated =
+  | 'referenceToTataSource'
+  | 'typeOfDataSource'
+  | 'typeOfDataSourceText'
+  | 'fraVariable'
+  | 'variable'
+  | 'yearForDataSource'
+  | 'comments'
+
 interface NationalDataDataSourceDescriptionDeprecated {
-  table?: { columns: Array<DataSourceColumn>; dataSourceVariables?: DataSourceVariables }
+  table?: { columns: Array<DataSourceColumnDeprecated>; dataSourceVariables?: DataSourceVariables }
   text?: { readOnly?: boolean }
+}
+
+export interface DataSourceValueDeprecated {
+  uuid?: string
+  reference: {
+    text: string
+    link?: string
+  }
+  type: string
+  fraVariables?: string[]
+  variable?: string
+  year: string
+  comments: string
 }
 
 const _filterRow = (row: Row) =>
@@ -29,6 +62,7 @@ export default async (client: BaseProtocol) => {
       if (cycle.name === '2020' && assessment.props.name === 'fra') {
         return
       }
+      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
       // eslint-disable-next-line no-await-in-loop
       const sectionsMetadata = await MetadataController.getSectionsMetadata({ cycle, assessment }, client)
       // eslint-disable-next-line no-await-in-loop
@@ -92,6 +126,7 @@ export default async (client: BaseProtocol) => {
         subSection.props.descriptions[cycle.uuid].nationalData.dataSources.table = dsTable
       }
 
+      // Update section metadata
       for (let x = 0; x < sections.length; x += 1) {
         const section = sections[x]
         for (let y = 0; y < section.subSections.length; y += 1) {
@@ -105,6 +140,60 @@ export default async (client: BaseProtocol) => {
             await client.query(query)
           }
         }
+      }
+
+      // Update description values
+      // eslint-disable-next-line no-await-in-loop
+      const descriptions = await client.query(
+        `select * from ${schemaCycle}.descriptions where name = 'dataSources' and value -> 'dataSources' is not null`
+      )
+
+      for (let k = 0; k < descriptions.length; k += 1) {
+        const description = descriptions[k]
+        description.value.dataSources = description.value.dataSources.map((dataSource: DataSourceValueDeprecated) => {
+          const dataSourceValue = {} as DataSource
+          if (dataSource.reference) {
+            dataSourceValue.reference = dataSource.reference
+          }
+          if (dataSource.type) {
+            dataSourceValue.type = dataSource.type
+          }
+          if (dataSource.fraVariables) {
+            dataSourceValue.variables = dataSource.fraVariables
+          }
+          if (dataSource.variable) {
+            dataSourceValue.variables = [dataSource.variable]
+          }
+          if (dataSource.year) {
+            dataSourceValue.year = dataSource.year
+          }
+          if (dataSource.comments) {
+            dataSourceValue.comments = dataSource.comments
+          }
+          return dataSourceValue
+        })
+
+        const pgp = pgPromise()
+        const cs = new pgp.helpers.ColumnSet<CommentableDescription>(
+          [
+            {
+              name: 'value',
+              cast: 'jsonb',
+            },
+            {
+              name: 'id',
+              cast: 'bigint',
+              cnd: true,
+            },
+          ],
+          {
+            table: { table: 'descriptions', schema: schemaCycle },
+          }
+        )
+
+        const query = `${pgp.helpers.update(descriptions, cs)} where v.id = t.id;`
+        // eslint-disable-next-line no-await-in-loop
+        await client.query(query)
       }
     }
   }
