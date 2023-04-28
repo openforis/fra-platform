@@ -2,31 +2,33 @@
 
 const dataCols = [
   { idx: 0, type: 'decimal', colName: 'total_area_with_damage', migration: { forceColName: true } },
-  { idx: 1, type: 'decimal', colName: 'insects_and_disease', migration: { forceColName: true } },
-  { idx: 2, type: 'decimal', colName: 'wildlife_and_grazing', migration: { forceColName: true } },
-  { idx: 3, type: 'decimal', colName: 'forest_operations', migration: { forceColName: true } },
-  { idx: 4, type: 'decimal', colName: 'other', migration: { forceColName: true } },
+  { idx: 1, type: 'decimal', colName: 'insects', migration: { forceColName: true, cycles: ['2025'] } },
+  { idx: 2, type: 'decimal', colName: 'disease', migration: { forceColName: true, cycles: ['2025'] } },
+  { idx: 3, type: 'decimal', colName: 'insects_and_disease', migration: { forceColName: true, cycles: ['2020'] } },
+  { idx: 4, type: 'decimal', colName: 'wildlife_and_grazing', migration: { forceColName: true } },
+  { idx: 5, type: 'decimal', colName: 'forest_operations', migration: { forceColName: true } },
+  { idx: 6, type: 'decimal', colName: 'other', migration: { forceColName: true } },
   {
-    idx: 5,
+    idx: 7,
     type: 'decimal',
     colName: 'primarily_damaged_by_abiotic_agents',
     migration: { forceColName: true },
   },
   {
-    idx: 6,
+    idx: 8,
     type: 'decimal',
     colName: 'unspecified_mixed_damage_2025',
     migration: { cycles: ['2025'], forceColName: true },
   },
   {
-    idx: 7,
+    idx: 9,
     type: 'decimal',
     colName: 'primarily_damaged_by_fire_total',
     migration: { forceColName: true },
   },
-  { idx: 8, type: 'decimal', colName: 'of_which_human_induced', migration: { forceColName: true } },
+  { idx: 10, type: 'decimal', colName: 'of_which_human_induced', migration: { forceColName: true } },
   {
-    idx: 9,
+    idx: 11,
     type: 'decimal',
     colName: 'unspecified_mixed_damage',
     migration: { cycles: ['2020'], forceColName: true },
@@ -76,6 +78,10 @@ export const forestAreaWithDamage = {
                       '2020': { key: 'panEuropean.forestAreaWithDamage.areaWithDamageByDifferentAgents' },
                       '2025': { key: 'panEuropean.forestAreaWithDamage.areaDamageExcFireHa' },
                     },
+                    style: {
+                      '2020': { colSpan: 7 },
+                      '2025': { colSpan: 8 },
+                    },
                   },
                 },
                 {
@@ -119,11 +125,18 @@ export const forestAreaWithDamage = {
                 },
                 {
                   idx: 1,
-                  colSpan: 2,
+                  colSpan: 3,
                   rowSpan: 1,
                   labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByBioticAgents',
                   className: 'fra-table__header-cell',
                   type: 'header',
+
+                  migration: {
+                    style: {
+                      '2020': { colSpan: 2 },
+                      '2025': { colSpan: 3 },
+                    },
+                  },
                 },
                 {
                   idx: 2,
@@ -195,12 +208,37 @@ export const forestAreaWithDamage = {
                   idx: 0,
                   colSpan: 1,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.forestAreaWithDamage.insectsAndDisease',
+                  labelKey: 'panEuropean.forestAreaWithDamage.insects',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
                 },
                 {
                   idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.disease',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.forestAreaWithDamage.insectsAndDisease',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
+                },
+                {
+                  idx: 3,
                   colSpan: 1,
                   rowSpan: 1,
                   labelKey: 'panEuropean.forestAreaWithDamage.wildlifeAndGrazing',
@@ -208,7 +246,7 @@ export const forestAreaWithDamage = {
                   type: 'header',
                 },
                 {
-                  idx: 2,
+                  idx: 4,
                   colSpan: 1,
                   rowSpan: 1,
                   labelKey: 'panEuropean.forestAreaWithDamage.forestOperations',
@@ -216,7 +254,7 @@ export const forestAreaWithDamage = {
                   type: 'header',
                 },
                 {
-                  idx: 3,
+                  idx: 5,
                   colSpan: 1,
                   rowSpan: 1,
                   labelKey: 'panEuropean.forestAreaWithDamage.otherHumanInduced',
@@ -224,7 +262,7 @@ export const forestAreaWithDamage = {
                   type: 'header',
                 },
                 {
-                  idx: 4,
+                  idx: 6,
                   colSpan: 1,
                   rowSpan: 1,
                   labelKey: 'panEuropean.forestAreaWithDamage.primarilyDamagedByFireTotal',
@@ -235,7 +273,7 @@ export const forestAreaWithDamage = {
                   },
                 },
                 {
-                  idx: 5,
+                  idx: 7,
                   colSpan: 1,
                   rowSpan: 1,
                   labelKey: 'panEuropean.forestAreaWithDamage.ofWhichHumanInduced',
@@ -1379,7 +1417,8 @@ export const forestAreaWithDamage = {
               ],
               '2025': [
                 'total_area_with_damage',
-                'insects_and_disease',
+                'insects',
+                'disease',
                 'wildlife_and_grazing',
                 'forest_operations',
                 'other',
