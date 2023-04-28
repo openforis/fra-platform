@@ -274,6 +274,7 @@ export const areaWithForestLandDegradation = {
                   idx: 1,
                   type: 'text',
                   colName: 'agentOne',
+                  inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
@@ -284,6 +285,7 @@ export const areaWithForestLandDegradation = {
                   idx: 2,
                   type: 'text',
                   colName: 'agentTwo',
+                  inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
@@ -294,6 +296,7 @@ export const areaWithForestLandDegradation = {
                   idx: 3,
                   type: 'text',
                   colName: 'agentThree',
+                  inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
@@ -304,6 +307,7 @@ export const areaWithForestLandDegradation = {
                   idx: 4,
                   type: 'text',
                   colName: 'agentFour',
+                  inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
@@ -314,6 +318,7 @@ export const areaWithForestLandDegradation = {
                   idx: 5,
                   type: 'text',
                   colName: 'agentFive',
+                  inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
