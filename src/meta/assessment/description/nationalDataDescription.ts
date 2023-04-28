@@ -1,7 +1,7 @@
-import { NationalDataDataSourceDescription } from '@meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSourceDescription } from './nationalDataDataSourceDescription'
 
 export interface NationalDataDescription {
-  dataSources?: NationalDataDataSourceDescription
+  dataSources?: DataSourceDescription
   nationalClassification?: boolean
   originalData?: boolean
 }

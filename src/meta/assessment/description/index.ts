@@ -2,6 +2,10 @@ export type { AnalysisAndProcessingDescription } from './analysisAndProcessingDe
 export type { DataSourceColumn } from './dataSourceColumn'
 export type { DataSourceVariables } from './dataSourceVariables'
 export type { Description, Descriptions } from './description'
-export type { NationalDataDataSourceDescription } from './nationalDataDataSourceDescription'
+export type {
+  DataSourceDescription,
+  DataSourceDescriptionTable,
+  DataSourceVariable,
+} from './nationalDataDataSourceDescription'
 export type { NationalDataDescription } from './nationalDataDescription'
 export { dataSourceType } from '@meta/assessment/description/dataSourceType'
