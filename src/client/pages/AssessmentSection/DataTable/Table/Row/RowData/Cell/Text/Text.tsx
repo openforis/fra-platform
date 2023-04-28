@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ColType } from '@meta/assessment'
 
@@ -10,6 +11,7 @@ import { PropsCell } from '../props'
 const Text: React.FC<PropsCell> = (props) => {
   const { onChange, onPaste, col, nodeValue, disabled } = props
   const value = nodeValue?.raw || ''
+  const { t } = useTranslation()
 
   const [Component, componentProps] =
     col.props.colType === ColType.text ? [TextInput, {}] : [VerticallyGrowingTextField, { minWidth: 350 }]
@@ -22,7 +24,7 @@ const Text: React.FC<PropsCell> = (props) => {
     onChange,
     onPaste,
     disabled,
-    placeholder: inputPlaceholder || 'write here',
+    placeholder: t(inputPlaceholder),
   })
 }
 
