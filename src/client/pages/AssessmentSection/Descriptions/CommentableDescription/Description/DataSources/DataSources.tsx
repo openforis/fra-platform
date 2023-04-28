@@ -105,13 +105,14 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
         <div />
 
-        {dataSourceValues.concat(disabled ? [] : placeholder).map((dataSourceValue) => {
+        {dataSourceValues.concat(disabled ? [] : placeholder).map((dataSourceValue, i) => {
           return (
             <DataSourceRow
               dataSourceMetadata={dataSourceMetadata as unknown as DataSourceDescription}
               dataSourceValue={dataSourceValue}
               disabled={disabled}
-              key={`dataSource_${dataSourceValue.uuid ?? 'placeholder'}`}
+              // eslint-disable-next-line react/no-array-index-key
+              key={`data-source-row-${i}`}
               onChange={_onChange}
               onDelete={() => _onDelete(dataSourceValue.uuid)}
               placeholder={!dataSourceValue.uuid}
