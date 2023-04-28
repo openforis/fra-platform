@@ -118,21 +118,6 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             />
           )
         })}
-
-        {/*  {dataSources.concat(disabled ? [] : placeholder).map((dataSource, i) => ( */}
-        {/*    <DataSourceRow */}
-        {/*      descriptionDataSource={descriptionDataSource} */}
-        {/*      onChange={(dataSource: DataSource) => _onChange(dataSource)} */}
-        {/*      // eslint-disable-next-line react/no-array-index-key */}
-        {/*      key={`dataSource_${i}`} */}
-        {/*      disabled={disabled} */}
-        {/*      sectionName={sectionName} */}
-        {/*      dataSource={dataSource} */}
-        {/*      // if we don't have uuid, it's a placeholder */}
-        {/*      placeholder={!dataSource.uuid} */}
-        {/*      onDelete={() => _onDelete(dataSource.uuid)} */}
-        {/*    /> */}
-        {/*  ))} */}
       </DataGrid>
     </div>
   )
