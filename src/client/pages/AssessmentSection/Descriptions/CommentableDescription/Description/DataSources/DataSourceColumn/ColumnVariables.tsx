@@ -11,7 +11,7 @@ import VerticallyGrowingTextField from '@client/components/VerticallyGrowingText
 type Props = {
   disabled: boolean
   dataSourceValue: DataSource
-  onChange: any // (key: string, value: string | string[]) => void
+  onChange: (key: keyof DataSource, value: any) => void
   dataSourceMetadata: DataSourceDescription
 }
 
