@@ -43,7 +43,21 @@ export const forestArea = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '2025',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 cycles: ['2025'],
@@ -92,7 +106,21 @@ export const forestArea = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '2020',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 validateFns: {
