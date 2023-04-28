@@ -1411,6 +1411,7 @@ export const employmentByGenderAndAge = {
       '2020': '6.5a',
       '2025': '6.5',
     },
+    hidden: true,
   },
 }
 export const employmentByEducationAndJobCharacteristics = {

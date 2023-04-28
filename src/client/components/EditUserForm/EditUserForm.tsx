@@ -106,7 +106,8 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
 
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
         userRole?.role
-      ) && <UserRolePropsFields role={roleToEdit} onChange={changeUserRoleProp} enabled={enabled} />}
+      ) &&
+        roleToEdit && <UserRolePropsFields role={roleToEdit} onChange={changeUserRoleProp} enabled={enabled} />}
 
       <div className="edit-user__form-item">
         <div className="edit-user__form-label">{t('editUser.mandatoryFields')}</div>

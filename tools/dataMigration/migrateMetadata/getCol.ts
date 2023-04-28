@@ -81,6 +81,7 @@ export const getCol = (props: {
       calculateFn: _getCalculateFn(colSpec, cycles, assessment),
       validateFns: _getValidateFns(colSpec, cycles, assessment),
       style,
+      classNames: {},
     },
     rowId: row.id,
   }
