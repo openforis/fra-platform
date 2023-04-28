@@ -66,9 +66,11 @@ export default async (client: BaseProtocol) => {
     for (let j = 0; j < assessment.cycles.length; j += 1) {
       const cycle = assessment.cycles[j]
       // dataSource not supported in fra 2020
-      if (cycle.name === '2020' && assessment.props.name === 'fra') {
-        return
+      if (assessment.props.name === 'fra' && cycle.name === '2020') {
+        // eslint-disable-next-line no-continue
+        continue
       }
+
       const schemaCycle = Schemas.getNameCycle(assessment, cycle)
       // eslint-disable-next-line no-await-in-loop
       const sectionsMetadata = await MetadataController.getSectionsMetadata({ cycle, assessment }, client)
