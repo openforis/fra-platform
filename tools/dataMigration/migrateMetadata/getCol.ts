@@ -1,4 +1,4 @@
-import { Assessment, Col, ColStyle, ColType, Label, Row } from '../../../src/meta/assessment'
+import { Assessment, Col, ColLinkedNode, ColStyle, ColType, CycleUuid, Label, Row } from '../../../src/meta/assessment'
 import { ColSpec } from '../../../src/test/sectionSpec'
 import { getCycleUuids, getLabels } from './utils'
 
@@ -71,6 +71,17 @@ export const getCol = (props: {
     )
   }
 
+  let linkedNodes
+  if (colSpec.migration?.linkedNodes) {
+    linkedNodes = Object.entries(colSpec.migration.linkedNodes).reduce<Record<CycleUuid, ColLinkedNode>>(
+      (acc, [cycleName, linkedNode]) => ({
+        ...acc,
+        [assessment.cycles.find((c) => c.name === cycleName).uuid]: linkedNode,
+      }),
+      {}
+    )
+  }
+
   const col: Col & { forceColName?: boolean } = {
     props: {
       cycles,
@@ -83,6 +94,7 @@ export const getCol = (props: {
       style,
       classNames: {},
       inputPlaceholder: colSpec.inputPlaceholder,
+      linkedNodes,
     },
     rowId: row.id,
   }

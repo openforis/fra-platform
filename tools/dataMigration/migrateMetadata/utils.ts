@@ -1,7 +1,4 @@
-import { Assessment, Label } from '../../../src/meta/assessment'
-
-export type CycleName = string
-export type CycleUuid = string
+import { Assessment, CycleName, CycleUuid, Label } from '../../../src/meta/assessment'
 
 export const getCycleUuids = (props: {
   assessment: Assessment

@@ -1,9 +1,10 @@
 import { Description } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
+import { CycleUuid } from '../../../src/meta/assessment/cycle'
 import { DataSourceColumn } from '../../../src/meta/assessment/description'
 import { Section, SubSection } from '../../../src/meta/assessment/section'
 import { DescriptionsSpec, SectionSpec } from '../../../src/test/sectionSpec'
-import { CycleUuid, getCycleUuids, getLabels } from './utils'
+import { getCycleUuids, getLabels } from './utils'
 
 export const getSection = (props: { assessment: Assessment; index: number; labelKey: string }): Section => {
   const { assessment, index, labelKey } = props

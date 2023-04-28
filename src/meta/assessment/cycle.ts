@@ -8,9 +8,11 @@ export interface CycledPropsObject<Props = void> {
 
 export type CycleUuid = string
 
+export type CycleName = string
+
 export interface Cycle {
   id: number
-  name: string // 2020 or 2025
+  name: CycleName
   uuid: CycleUuid
   published: boolean
 }
