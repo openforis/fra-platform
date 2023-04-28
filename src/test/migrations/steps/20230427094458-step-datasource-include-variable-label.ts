@@ -6,15 +6,22 @@ import {
   DataSource,
   DataSourceDescriptionTable,
   DataSourceVariable,
+  Label,
   Row,
   RowType,
   SubSection,
+  VariableName,
 } from '@meta/assessment'
-import { DataSourceVariables } from '@meta/assessment/description'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { MetadataController } from '@server/controller/metadata'
 import { BaseProtocol, Schemas } from '@server/db'
+
+interface DataSourceVariablesDeprecated {
+  // Custom i18n keys to include
+  include: Array<string>
+  prefixes?: Record<VariableName, Label>
+}
 
 type DataSourceColumnDeprecated =
   | 'referenceToTataSource'
@@ -26,7 +33,7 @@ type DataSourceColumnDeprecated =
   | 'comments'
 
 interface NationalDataDataSourceDescriptionDeprecated {
-  table?: { columns: Array<DataSourceColumnDeprecated>; dataSourceVariables?: DataSourceVariables }
+  table?: { columns: Array<DataSourceColumnDeprecated>; dataSourceVariables?: DataSourceVariablesDeprecated }
   text?: { readOnly?: boolean }
 }
 
