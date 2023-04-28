@@ -11,10 +11,10 @@ import { DataSourceDescription } from '@meta/assessment/description/nationalData
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import DataGrid from '@client/components/DataGrid'
 import DataColumn from '@client/components/DataGrid/DataColumn'
-import ButtonCopyDataSources from '@client/pages/AssessmentSection/Descriptions/CommentableDescription/Description/DataSources/ButtonCopyDataSources'
-import DataSourceRow from '@client/pages/AssessmentSection/Descriptions/CommentableDescription/Description/DataSources/DataSourceRow'
 
 import { useDescriptions } from '../../../Descriptions'
+import ButtonCopyDataSources from './ButtonCopyDataSources'
+import DataSourceRow from './DataSourceRow'
 
 type Props = {
   disabled: boolean
