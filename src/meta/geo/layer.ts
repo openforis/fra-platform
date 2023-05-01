@@ -10,8 +10,10 @@ export type LayerConfig = {
   citation?: string
 }
 
+export type LayerKey = ForestKey | ProtectedAreaKey | BurnedAreaKey
+
 export interface LayerSource {
-  key: ForestKey | ProtectedAreaKey | BurnedAreaKey
+  key: LayerKey
   options?: {
     gteTreeCoverPercent?: number
     assetId?: string
@@ -24,7 +26,7 @@ export interface LayerSource {
 }
 
 export interface Recipe {
-  layers: Array<ForestKey>
+  layers: Array<LayerKey>
   gteHansenTreeCoverPerc?: HansenPercentage
   forestAreaDataProperty: string
   recipeLabel: string
@@ -44,7 +46,7 @@ export type LayerOptions = {
 }
 
 export type Layer = {
-  key: ForestKey | ProtectedAreaKey | BurnedAreaKey
+  key: LayerKey
   isCustomAsset?: boolean
   options?: LayerOptions
   metadata?: LayerMetadata

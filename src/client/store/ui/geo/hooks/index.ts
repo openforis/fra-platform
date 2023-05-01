@@ -1,12 +1,5 @@
 import { CountryIso } from '@meta/area'
-import {
-  BurnedAreasOptions,
-  ForestOptions,
-  GeoStatisticsState,
-  MapPanel,
-  MosaicOptions,
-  ProtectedAreasOptions,
-} from '@meta/geo'
+import { GeoStatisticsState, MapPanel, MosaicOptions } from '@meta/geo'
 
 import { useAppSelector } from '@client/store'
 
@@ -25,13 +18,6 @@ export const useAppliedMosaicOptions = (): MosaicOptions => useAppSelector((stat
 
 export const useSelectedPanel = (): MapPanel => useAppSelector((state) => state.geo?.selectedPanel)
 
-export const useForestSourceOptions = (): ForestOptions => useAppSelector((state) => state.geo?.forestOptions)
-
 export const useIsGeoMapAvailable = (): boolean => useAppSelector((state) => state.geo?.isMapAvailable)
 
 export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)
-
-export const useProtectedAreasOptions = (): ProtectedAreasOptions =>
-  useAppSelector((state) => state.geo?.protectedAreasOptions)
-
-export const useBurnedAreasOptions = (): BurnedAreasOptions => useAppSelector((state) => state.geo?.burnedAreasOptions)

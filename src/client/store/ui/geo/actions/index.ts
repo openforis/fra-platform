@@ -1,5 +1,3 @@
-export { getBurnedAreaLayer } from './getBurnedAreaLayer'
 export { getForestEstimationData } from './getForestEstimationData'
-export { getForestLayer } from './getForestLayer'
-export { getProtectedAreaLayer } from './getProtectedAreaLayer'
+export { postLayer } from './postLayer'
 export { postMosaicOptions } from './postMosaicOptions'

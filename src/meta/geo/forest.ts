@@ -6,13 +6,6 @@ export const hansenPercentages = [10, 20, 30] as const
 
 export type HansenPercentage = typeof hansenPercentages[number]
 
-export interface ForestSourceWithOptions {
-  key: ForestKey
-  options: {
-    [key: string]: string
-  }
-}
-
 export enum ForestKey {
   JAXA = 'JAXA',
   TandemX = 'TandemX',
@@ -175,7 +168,7 @@ export const getRecipeAgreementAreaProperty = (
     return (
       recipe.layers.length === selectedLayers.length &&
       (recipe.gteHansenTreeCoverPerc === gteHansenTreeCoverPerc || recipe.gteHansenTreeCoverPerc === undefined) &&
-      recipe.layers.every((layer) => selectedLayers.includes(layer))
+      recipe.layers.every((layer) => selectedLayers.includes(layer as ForestKey))
     )
   })
 
@@ -217,7 +210,7 @@ export const forestLayers: LayerSection = {
     {
       key: ForestKey.Hansen,
       options: {
-        minTreeCoverPercentage: hansenPercentages.map((percentage) => percentage),
+        minTreeCoverPercentage: [...hansenPercentages],
       },
       metadata: forestLayersMetadata.Hansen,
     },
@@ -238,7 +231,7 @@ export const forestLayers: LayerSection = {
           reducerScales: [10, 20, 30],
         },
       },
-      metadata: forestLayersMetadata.JAXA,
+      metadata: forestLayersMetadata.Agreement,
     },
   ],
 }
