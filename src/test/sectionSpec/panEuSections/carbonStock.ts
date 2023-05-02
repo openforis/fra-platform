@@ -1,4 +1,92 @@
 // @ts-nocheck
+const dataCols = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'carbonStockTotal',
+          variableName: 'carbon_forest_above_ground',
+          colName: '2025',
+        },
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'carbonStockTotal',
+          variableName: 'carbon_forest_below_ground',
+          colName: '2025',
+        },
+      },
+    },
+  },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'carbonStockTotal',
+          variableName: 'carbon_forest_deadwood',
+          colName: '2025',
+        },
+      },
+    },
+  },
+  {
+    idx: 3,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'carbonStockTotal',
+          variableName: 'carbon_forest_litter',
+          colName: '2025',
+        },
+      },
+    },
+  },
+  {
+    idx: 4,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'carbonStockTotal',
+          variableName: 'carbon_forest_soil',
+          colName: '2025',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataCols = (colName) =>
+  dataCols.map((col) => ({
+    ...col,
+    migration: {
+      ...col.migration,
+      linkedNodes: Object.fromEntries(
+        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+      ),
+    },
+  }))
 
 export const carbonStock = {
   sectionName: 'carbonStock',
@@ -179,14 +267,7 @@ export const carbonStock = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...linkedDataCols('2025'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -207,14 +288,7 @@ export const carbonStock = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...linkedDataCols('2020'),
               ],
               labelKey: 'panEuropean.carbonStock.forest',
               labelParams: { year: 2020 },
@@ -232,14 +306,7 @@ export const carbonStock = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...linkedDataCols('2015'),
               ],
               labelKey: 'panEuropean.carbonStock.forest',
               labelParams: { year: 2015 },
@@ -257,14 +324,7 @@ export const carbonStock = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...linkedDataCols('2010'),
               ],
               labelKey: 'panEuropean.carbonStock.forest',
               labelParams: { year: 2010 },
@@ -307,14 +367,7 @@ export const carbonStock = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...linkedDataCols('2000'),
               ],
               labelKey: 'panEuropean.carbonStock.forest',
               labelParams: { year: 2000 },
@@ -332,14 +385,7 @@ export const carbonStock = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...linkedDataCols('1990'),
               ],
               labelKey: 'panEuropean.carbonStock.forest',
               labelParams: { year: 1990 },
