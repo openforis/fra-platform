@@ -61,8 +61,10 @@ const greaterThanOrEqualTo = (x: BigNumberInput, y: BigNumberInput) => applyComp
 const lessThanOrEqualTo = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'lte')
 
 const greaterThan = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'gt')
-const greaterThanWithTolerance = (x: BigNumberInput, y: BigNumberInput, tolerance = -1) =>
-  greaterThan(sub(x, y), tolerance)
+
+const greaterThanWithTolerance = (x: BigNumberInput, y: BigNumberInput, tolerance = 1) => {
+  return greaterThan(sub(x, y), tolerance)
+}
 
 const lessThan = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'lt')
 

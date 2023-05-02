@@ -4,6 +4,7 @@ import { CycledPropsObject, CycleUuid } from './cycle'
 import { Label } from './label'
 
 export type ColName = string
+export type InputPlaceholder = string
 
 export enum ColType {
   calculated = 'calculated',
@@ -49,6 +50,7 @@ export interface ColProps {
   classNames?: Record<string, Array<string>> // classes by cycle uuid
   validateFns?: Record<CycleUuid, Array<string>>
   variableNo?: Record<string, string> // variable number by cycle uuid
+  inputPlaceholder?: InputPlaceholder
 }
 
 export interface Col extends CycledPropsObject<ColProps> {
