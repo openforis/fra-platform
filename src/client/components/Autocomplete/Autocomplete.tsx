@@ -17,7 +17,7 @@ type Option = {
 type Props = {
   items: Array<Option>
   onSave: (value: string | any) => void
-  onPaste: OnPaste
+  onPaste?: OnPaste
   value: string
   readOnlyOptions?: boolean
 
@@ -54,6 +54,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     ) {
       // Disable saving if selected item is not changed when free text disabled
       if (readOnlyOptions && !changes.selectedItem) {
+        onSave({ value: items.find(({ value }) => value === inputValue) ? inputValue : '' })
         return
       }
 
@@ -127,6 +128,7 @@ Autocomplete.defaultProps = {
   disabled: false,
   onInputValueChange: undefined,
   readOnlyOptions: false,
+  onPaste: null,
 }
 
 export default Autocomplete
