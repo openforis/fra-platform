@@ -19,7 +19,7 @@ export const isODPCell = async (props: Props, client: BaseProtocol) => {
 
   const [country, odpYears] = await Promise.all([
     AreaController.getCountry(props, client),
-    OriginalDataPointRepository.getReservedYears(props, client),
+    OriginalDataPointRepository.getReservedYears(props, client).map((reservedYear) => reservedYear.year),
   ])
 
   const useOriginalDataPoint =
