@@ -3,6 +3,7 @@ import React from 'react'
 import { GetPropsCommonOptions, UseComboboxGetInputPropsOptions } from 'downshift'
 
 import Icon from '@client/components/Icon'
+import { OnPaste } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/hooks/useOnChange'
 
 type Props = {
   getInputProps: (options?: UseComboboxGetInputPropsOptions, otherOptions?: GetPropsCommonOptions) => any
@@ -10,10 +11,11 @@ type Props = {
   disabled: boolean
   isOpen: boolean
   openMenu: () => void
+  onPaste: OnPaste
   readOnlyOptions?: boolean
 }
 const AutocompleteInput: React.FC<Props> = (props: Props) => {
-  const { getInputProps, value, disabled, isOpen, readOnlyOptions, openMenu } = props
+  const { getInputProps, value, disabled, isOpen, readOnlyOptions, openMenu, onPaste } = props
 
   const _onFocus = () => {
     if (readOnlyOptions) openMenu()
@@ -32,6 +34,7 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
           disabled,
           className: 'text-input__input-field',
         })}
+        onPaste={onPaste}
       />
       {showArrow && <Icon name={isOpen ? 'small-up' : 'small-down'} />}
     </div>

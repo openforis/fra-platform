@@ -10,7 +10,7 @@ import Autocomplete from '@client/components/Autocomplete'
 import { PropsCell } from '../props'
 
 const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
-  const { onChangeNodeValue, disabled, nodeValue } = props
+  const { onChangeNodeValue, onPaste, disabled, nodeValue } = props
   const [items, setItems] = React.useState([])
 
   const onSave = (value: string | TaxonType) => {
@@ -61,6 +61,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
         name="taxon"
         onInputValueChange={onInputValueChange}
         onSave={onSave}
+        onPaste={onPaste}
         value={nodeValue.raw}
       />
     </div>

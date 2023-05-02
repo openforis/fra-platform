@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { useCombobox, UseComboboxStateChange } from 'downshift'
 
 import AutocompleteInput from '@client/components/Autocomplete/AutocompleteInput'
+import { OnPaste } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/hooks/useOnChange'
 
 type Option = {
   label: string
@@ -16,6 +17,7 @@ type Option = {
 type Props = {
   items: Array<Option>
   onSave: (value: string | any) => void
+  onPaste: OnPaste
   value: string
   readOnlyOptions?: boolean
 
@@ -33,7 +35,7 @@ const AutocompleteItem = (props: { item: Option; inputValue: string }) => {
 }
 
 const Autocomplete: React.FC<Props> = (props: Props) => {
-  const { value, items, disabled, name, onInputValueChange, onSave, readOnlyOptions } = props
+  const { value, items, disabled, name, onInputValueChange, onPaste, onSave, readOnlyOptions } = props
   const [selectedItem, setSelectedItem] = useState<string>(null)
   const [inputValue, setInputValue] = useState(value)
   const { t } = useTranslation()
@@ -93,6 +95,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
         isOpen={isOpen}
         disabled={disabled}
         value={inputValue}
+        onPaste={onPaste}
         getInputProps={getInputProps}
       />
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
