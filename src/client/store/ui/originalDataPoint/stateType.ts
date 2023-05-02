@@ -1,5 +1,4 @@
-import { OriginalDataPoint } from '@meta/assessment'
-import { ODPReservedYear } from '@meta/assessment/originalDataPoint'
+import { ODPReservedYear, OriginalDataPoint } from '@meta/assessment'
 
 export type OriginalDataPointState = {
   data?: OriginalDataPoint

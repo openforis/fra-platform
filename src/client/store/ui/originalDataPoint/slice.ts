@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { ODPReservedYear } from '@meta/assessment/originalDataPoint'
+import { ODPReservedYear } from '@meta/assessment'
 
 import { getOriginalDataPointReservedYears } from '@client/store/ui/originalDataPoint/actions/getOriginalDataPointReservedYears'
 
