@@ -623,6 +623,22 @@ export const totalForestAreaByExpansionAndRegenerationType = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestAreaChange',
+        tableName: 'forestAreaChange',
+        variableName: 'afforestation',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestAreaChange',
+        tableName: 'forestAreaChange',
+        variableName: 'natural_expansion',
+      },
+    ],
   },
   dataExport: {
     included: true,
