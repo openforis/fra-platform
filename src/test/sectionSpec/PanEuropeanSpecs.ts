@@ -4456,6 +4456,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     dataExport: {
       included: true,
     },
+    migration: {
+      label: {
+        '2020': { key: 'panEuropean.nonWoodGoods2015.nonWoodGoods2015' },
+        '2025': { key: 'panEuropean.nonWoodGoods2015.nonWoodGoods' },
+      },
+    },
   },
   marketedServices2015: {
     sectionName: 'marketedServices2015',
@@ -5097,6 +5103,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      label: {
+        '2020': { key: 'panEuropean.marketedServices2015.marketedServices2015' },
+        '2025': { key: 'panEuropean.marketedServices2015.marketedServices' },
+      },
     },
   },
   // Section 4
