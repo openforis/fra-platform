@@ -95,7 +95,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'forest',
                         colName: '2025',
                       },
@@ -148,7 +148,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'forest',
                         colName: '2020',
                       },
@@ -199,7 +199,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'forest',
                         colName: '2015',
                       },
@@ -250,7 +250,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'forest',
                         colName: '2010',
                       },
@@ -338,7 +338,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'forest',
                         colName: '2000',
                       },
@@ -389,7 +389,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'forest',
                         colName: '1990',
                       },
@@ -642,7 +642,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'otherWoodedLand',
                         colName: '2025',
                       },
@@ -684,7 +684,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'otherWoodedLand',
                         colName: '2020',
                       },
@@ -725,7 +725,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'otherWoodedLand',
                         colName: '2015',
                       },
@@ -766,7 +766,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'otherWoodedLand',
                         colName: '2010',
                       },
@@ -834,7 +834,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'otherWoodedLand',
                         colName: '2000',
                       },
@@ -875,7 +875,7 @@ export const growingStock = {
                       '2025': {
                         assessmentName: 'fra',
                         cycleName: '2025',
-                        tableName: 'growingStock',
+                        tableName: 'growingStockTotal',
                         variableName: 'otherWoodedLand',
                         colName: '1990',
                       },
