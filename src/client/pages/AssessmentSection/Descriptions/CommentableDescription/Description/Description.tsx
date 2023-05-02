@@ -9,16 +9,16 @@ import { CommentableDescriptionValue } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
-import useDescription from '@client/store/ui/assessmentSection/hooks/useDescription'
+import useCommentableDescriptionValue from '@client/store/ui/assessmentSection/hooks/useCommentableDescriptionValue'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import EditorWYSIWYG from '@client/components/EditorWYSIWYG'
 import MarkdownPreview from '@client/components/MarkdownPreview'
-import DataSources from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSources'
+import DataSources from '@client/pages/AssessmentSection/Descriptions/CommentableDescription/Description/DataSources/DataSources'
 
-import { useDescriptions } from '../Descriptions'
+import { useDescriptions } from '../../Descriptions'
 import Title from './Title'
 import Toggle from './Toggle'
 
@@ -47,7 +47,7 @@ const Description: React.FC<Props> = (props) => {
 
   const user = useUser()
   const { print } = useIsPrint()
-  const description = useDescription({ name, sectionName, template })
+  const commentableDescriptionValue = useCommentableDescriptionValue({ name, sectionName, template })
   const isDataLocked = useIsDataLocked()
   const { t } = useTranslation()
 
@@ -69,8 +69,8 @@ const Description: React.FC<Props> = (props) => {
     [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
   )
 
-  const error = user && showAlertEmptyContent && !description
-  let text = description.text || template.text
+  const error = user && showAlertEmptyContent && !commentableDescriptionValue
+  let text = commentableDescriptionValue.text || template.text
   if (print) text = text?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
@@ -115,14 +115,22 @@ const Description: React.FC<Props> = (props) => {
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
       {dataSourceHasTable && (
-        <DataSources description={description} onChange={onChange} disabled={!open} sectionName={sectionName} />
+        <DataSources
+          commentableDescriptionValue={commentableDescriptionValue}
+          onChange={onChange}
+          disabled={!open}
+          sectionName={sectionName}
+        />
       )}
       {open && !Objects.isEmpty(text) && dataSourceTextReadOnly && (
         <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p>
       )}
       {showMarkdownEditor && (
         <div className="fra-description__preview">
-          <EditorWYSIWYG value={text} onChange={(content) => onChange({ ...description, text: content })} />
+          <EditorWYSIWYG
+            value={text}
+            onChange={(content) => onChange({ ...commentableDescriptionValue, text: content })}
+          />
         </div>
       )}
       {showPreview && (
