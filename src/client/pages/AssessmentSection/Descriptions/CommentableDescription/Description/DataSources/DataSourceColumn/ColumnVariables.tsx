@@ -29,7 +29,7 @@ const Variables: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
 
-  const options = dataSourceMetadata.table.variables.map(({ value, label: _label, prefixLabel }) => {
+  const options = dataSourceMetadata.table.variables.map(({ variableName, label: _label, prefixLabel }) => {
     let label = ''
     if (prefixLabel) {
       label = Labels.getLabel({ label: prefixLabel, t })
@@ -39,7 +39,7 @@ const Variables: React.FC<Props> = (props: Props) => {
 
     return {
       label,
-      value,
+      value: variableName,
     }
   })
 

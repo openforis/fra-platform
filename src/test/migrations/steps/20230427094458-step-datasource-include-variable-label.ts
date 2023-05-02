@@ -105,7 +105,7 @@ export default async (client: BaseProtocol) => {
         if (!dataSourceDescriptionOld.table) {
           return
         }
-        const dsTable: DataSourceDescriptionTable = { variables: [] }
+        const dsTable: DataSourceDescriptionTable = {}
 
         if (dataSourceDescriptionOld.table.columns?.includes('typeOfDataSourceText')) {
           dsTable.typeOfDataSourceText = true
@@ -120,7 +120,7 @@ export default async (client: BaseProtocol) => {
 
         dsTable.variables = tableVariables.map((variable) => {
           const dsVariable: DataSourceVariable = {
-            value: variable,
+            variableName: variable,
             label: tableVariableMap.variablename_to_label[variable][cycle.uuid],
           }
 
