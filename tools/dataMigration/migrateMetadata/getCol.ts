@@ -82,6 +82,7 @@ export const getCol = (props: {
       validateFns: _getValidateFns(colSpec, cycles, assessment),
       style,
       classNames: {},
+      inputPlaceholder: colSpec.inputPlaceholder,
     },
     rowId: row.id,
   }

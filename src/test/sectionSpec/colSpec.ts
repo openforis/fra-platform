@@ -23,6 +23,7 @@ export interface ColSpec {
   className?: string
   rowSpan?: number
   colSpan?: number
+  inputPlaceholder?: string
   // left?: boolean // TODO: is it only in factory?
   validator?: Validator
   formatFn?: FormatValue
