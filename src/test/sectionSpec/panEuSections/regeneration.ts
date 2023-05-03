@@ -1,5 +1,49 @@
 // @ts-nocheck
 
+const dataColsB = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestAreaChange',
+          variableName: 'afforestation',
+          colName: '1990-2000',
+        },
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestAreaChange',
+          variableName: 'natural_expansion',
+          colName: '1990-2000',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataColsB = (colName) =>
+  dataColsB.map((col) => ({
+    ...col,
+    migration: {
+      ...col.migration,
+      linkedNodes: Object.fromEntries(
+        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+      ),
+    },
+  }))
+
 export const totalForestAreaByExpansionAndRegenerationType = {
   sectionName: 'totalForestAreaByExpansionAndRegenerationType',
   sectionAnchor: '4.2a',
@@ -339,8 +383,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                     },
                   },
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2020-2025'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -377,8 +420,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                     },
                   },
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2015-2020'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -412,8 +454,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2010-2015'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -475,8 +516,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2000-2010'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -510,8 +550,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('1990-2000'),
                 {
                   idx: 2,
                   type: 'decimal',
