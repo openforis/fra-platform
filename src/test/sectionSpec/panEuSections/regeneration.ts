@@ -1,5 +1,49 @@
 // @ts-nocheck
 
+const dataColsA = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'naturalForestArea',
+          colName: '2025',
+        },
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantedForest',
+          colName: '2025',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataColsA = (colName) =>
+  dataColsA.map((col) => ({
+    ...col,
+    migration: {
+      ...col.migration,
+      linkedNodes: Object.fromEntries(
+        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+      ),
+    },
+  }))
+
 const dataColsB = [
   {
     idx: 0,
@@ -120,8 +164,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2025'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
@@ -143,8 +186,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2020'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
@@ -166,8 +208,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2015'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
@@ -186,8 +227,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2010'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
@@ -226,8 +266,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2000'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
@@ -246,8 +285,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('1990'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',

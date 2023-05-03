@@ -68,8 +68,8 @@ const linkedDataCols = (colName) => {
       '2025': {
         assessmentName: 'fra',
         cycleName: '2025',
-        tableName: 'disturbances',
-        variableName: 'total',
+        tableName: 'areaAffectedByFire',
+        variableName: 'of_which_on_forest',
         colName,
       },
     },

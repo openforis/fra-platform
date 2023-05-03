@@ -419,7 +419,21 @@ export const nonWoodGoods2015 = {
                   labelKey: 'panEuropean.nonWoodGoods2015.total',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 4, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'nonWoodForestProductsRemovals',
+                        variableName: 'totalValue',
+                        colName: 'value',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'placeholder' },
               ],
               migration: {
