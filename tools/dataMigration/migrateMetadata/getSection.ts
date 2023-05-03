@@ -1,9 +1,18 @@
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { AssessmentNames } from '../../../src/meta/assessment/assessmentName'
-import { DataSourceColumn, Description } from '../../../src/meta/assessment/description'
+import { Description } from '../../../src/meta/assessment/description'
 import { Section, SubSection } from '../../../src/meta/assessment/section'
 import { DescriptionsSpec, SectionSpec } from '../../../src/test/sectionSpec'
 import { CycleUuid, getCycleUuids, getLabels } from './utils'
+
+type DataSourceColumnDeprecated =
+  | 'referenceToTataSource'
+  | 'typeOfDataSource'
+  | 'typeOfDataSourceText'
+  | 'fraVariable'
+  | 'variable'
+  | 'yearForDataSource'
+  | 'comments'
 
 export const getSection = (props: { assessment: Assessment; index: number; labelKey: string }): Section => {
   const { assessment, index, labelKey } = props
@@ -18,14 +27,14 @@ export const getSection = (props: { assessment: Assessment; index: number; label
   }
 }
 
-const fraColumns: Array<DataSourceColumn> = [
+const fraColumns: Array<DataSourceColumnDeprecated> = [
   'referenceToTataSource',
   'typeOfDataSource',
   'fraVariable',
   'yearForDataSource',
   'comments',
 ]
-const panEuropeanColumns: Array<DataSourceColumn> = [
+const panEuropeanColumns: Array<DataSourceColumnDeprecated> = [
   'referenceToTataSource',
   'typeOfDataSource',
   'variable',

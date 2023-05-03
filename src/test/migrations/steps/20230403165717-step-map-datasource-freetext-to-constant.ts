@@ -12,6 +12,19 @@ import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentC
 
 import * as dataSourceTypeTranslations from '../../../i18n/resources/en/dataSource'
 
+export interface DataSourceValueDeprecated {
+  uuid?: string
+  reference: {
+    text: string
+    link?: string
+  }
+  type: string
+  fraVariables?: string[]
+  variable?: string
+  year: string
+  comments: string
+}
+
 const dataSourceTypeTranslationsReversed: Record<string, string> = Object.entries(dataSourceTypeTranslations).reduce(
   (acc, [key, value]) => ({
     ...acc,
@@ -83,7 +96,7 @@ export default async (client: BaseProtocol) => {
     dataSource.type = dataSourceTypeTranslationsReversed[dataSource.type] ?? ''
   }
 
-  const _fixFraVariables = (dataSource: DataSource, sectionName: string) => {
+  const _fixFraVariables = (dataSource: DataSourceValueDeprecated, sectionName: string) => {
     if (!dataSource.fraVariables) {
       // eslint-disable-next-line no-param-reassign
       dataSource.fraVariables = []

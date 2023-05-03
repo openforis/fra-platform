@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { CommentableDescriptionValue } from '@meta/assessment'
@@ -10,7 +9,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import ReviewIndicator from '@client/components/ReviewIndicator'
 
-import Description from '../Description'
+import Description from './Description'
 
 type Props = {
   disabled?: boolean
@@ -28,15 +27,9 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const openCommentThreadTarget = '' // TODO: useSelector(ReviewState.getOpenThreadTarget)
-
   return (
     <div className="fra-description">
-      <div
-        className={classNames('fra-description__wrapper', {
-          'fra-row-comments__open': Objects.isEqual(openCommentThreadTarget, [name]),
-        })}
-      >
+      <div className={classNames('fra-description__wrapper')}>
         <Description
           title={title}
           sectionName={sectionName}
