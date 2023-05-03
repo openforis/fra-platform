@@ -11,12 +11,22 @@ export { AssessmentNames } from './assessmentName'
 export type { Col, ColName, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
 export { ColType } from './col'
 export { Cols } from './cols'
-export type { CommentableDescription, CommentableDescriptionValue, DataSource } from './commentableDescription'
+export type {
+  CommentableDescription,
+  CommentableDescriptionValue,
+  DataSource,
+  DataSourceLinked,
+} from './commentableDescription'
 export { CommentableDescriptionName } from './commentableDescription'
 export type { Cycle, CycledPropsObject, CycleUuid } from './cycle'
-export type { DataSourceDescriptionTable, DataSourceVariable, Descriptions } from './description'
-export type { Description } from './description'
-export { dataSourceType } from './description'
+export type {
+  DataSourceDescriptionTable,
+  DataSourceLinkedVariable,
+  DataSourceVariable,
+  Description,
+  Descriptions,
+} from './description'
+export { DataSourceType } from './description'
 export type { Label } from './label'
 export { Labels } from './labels'
 export type { Node, NodeValue } from './node'

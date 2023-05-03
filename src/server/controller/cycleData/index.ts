@@ -33,6 +33,7 @@ export const CycleDataController = {
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
   // description
+  getDataSources: DescriptionRepository.getDataSources,
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
   getActivities: ActivityLogRepository.getCycleDataActivities,

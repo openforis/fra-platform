@@ -1,17 +1,9 @@
-import { Description } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
+import { AssessmentNames } from '../../../src/meta/assessment/assessmentName'
+import { Description } from '../../../src/meta/assessment/description'
 import { Section, SubSection } from '../../../src/meta/assessment/section'
 import { DescriptionsSpec, SectionSpec } from '../../../src/test/sectionSpec'
 import { CycleUuid, getCycleUuids, getLabels } from './utils'
-
-type DataSourceColumnDeprecated =
-  | 'referenceToTataSource'
-  | 'typeOfDataSource'
-  | 'typeOfDataSourceText'
-  | 'fraVariable'
-  | 'variable'
-  | 'yearForDataSource'
-  | 'comments'
 
 export const getSection = (props: { assessment: Assessment; index: number; labelKey: string }): Section => {
   const { assessment, index, labelKey } = props
@@ -26,30 +18,16 @@ export const getSection = (props: { assessment: Assessment; index: number; label
   }
 }
 
-const fraColumns: Array<DataSourceColumnDeprecated> = [
-  'referenceToTataSource',
-  'typeOfDataSource',
-  'fraVariable',
-  'yearForDataSource',
-  'comments',
-]
-const panEuropeanColumns: Array<DataSourceColumnDeprecated> = [
-  'referenceToTataSource',
-  'typeOfDataSource',
-  'variable',
-  'yearForDataSource',
-  'comments',
-]
-
-const panEuropeanDescription = {
-  comments: true,
-  nationalData: {
-    dataSources: {
-      table: {
-        columns: [...panEuropeanColumns],
+const panEuropeanDescription = (descriptions: DescriptionsSpec): Description => {
+  return {
+    comments: true,
+    nationalData: {
+      dataSources: {
+        linkedVariables: descriptions.linkedVariables,
+        table: {},
       },
     },
-  },
+  }
 }
 
 const transformDescription = (descriptions: DescriptionsSpec, cycleName: string): Description => {
@@ -75,18 +53,14 @@ const transformDescription = (descriptions: DescriptionsSpec, cycleName: string)
   if (descriptions.nationalData) {
     description.nationalData = {
       dataSources: {
-        table: is2025
-          ? {
-              columns: [...fraColumns],
-            }
-          : undefined,
+        table: is2025 ? {} : undefined,
         text: {
           readOnly: is2025,
         },
       },
       nationalClassification: true,
       originalData: true,
-    } as unknown as any
+    }
   }
 
   return description
@@ -101,13 +75,13 @@ const getDescriptions = (props: {
     props: { name },
     cycles,
   } = assessment
-  const isPanEuropean = name === 'panEuropean'
+  const isPanEuropean = name === AssessmentNames.panEuropean
 
   if (isPanEuropean) {
     return cycles.reduce(
       (acc, cycle) => ({
         ...acc,
-        [cycle.uuid]: panEuropeanDescription,
+        [cycle.uuid]: panEuropeanDescription(descriptions),
       }),
       {}
     )

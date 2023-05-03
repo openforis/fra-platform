@@ -1525,6 +1525,36 @@ export const forestArea = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'extentOfForest',
+        tableName: 'extentOfForest',
+        variableName: 'forestArea',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'extentOfForest',
+        tableName: 'extentOfForest',
+        variableName: 'otherWoodedLand',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'extentOfForest',
+        tableName: 'extentOfForest',
+        variableName: 'otherLand',
+      },
+      //   {
+      //     assessmentName: 'fra',
+      //     cycleName: '2025',
+      //     sectionName: 'otherLandWithTreeCover',
+      //     tableName: 'otherLandWithTreeCover',
+      //     variableName: 'otherLandWithTreeCoverTotal', // NOT SURE OF THE VARIABLE HERE - 2020 cycle
+      //   },
+    ],
   },
   dataExport: {
     included: true,

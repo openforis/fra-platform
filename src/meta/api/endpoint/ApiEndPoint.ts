@@ -31,8 +31,9 @@ export const ApiEndPoint = {
   },
 
   CycleData: {
-    descriptions: () => apiPath('cycle-data', 'descriptions'),
     activities: () => apiPath('cycle-data', 'activities'),
+    descriptions: () => apiPath('cycle-data', 'descriptions'),
+    descriptionsDataSources: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
 
     OriginalDataPoint: {
       one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
