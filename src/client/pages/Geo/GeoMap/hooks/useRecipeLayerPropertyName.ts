@@ -1,24 +1,24 @@
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 
-import { getRecipeAgreementAreaProperty } from '@meta/geo/forest'
+// import { getRecipeAgreementAreaProperty } from '@meta/geo/forest'
 
-import { useForestSourceOptions } from '@client/store/ui/geo'
+// import { useForestSourceOptions } from '@client/store/ui/geo'
 
-export const useRecipeLayerPropertyName = () => {
-  const [recipeLayerPropertyName, setRecipeLayerPropertyName] = useState(null)
-  const forestOptions = useForestSourceOptions()
+// export const useRecipeLayerPropertyName = () => {
+//   const [recipeLayerPropertyName, setRecipeLayerPropertyName] = useState(null)
+//   const forestOptions = useForestSourceOptions()
 
-  useEffect(() => {
-    setRecipeLayerPropertyName(
-      getRecipeAgreementAreaProperty(
-        forestOptions.selected,
-        forestOptions.agreementLevel,
-        forestOptions.hansenPercentage
-      )
-    )
-  }, [forestOptions.selected, forestOptions.agreementLevel, forestOptions.hansenPercentage])
+//   useEffect(() => {
+//     setRecipeLayerPropertyName(
+//       getRecipeAgreementAreaProperty(
+//         forestOptions.selected,
+//         forestOptions.agreementLevel,
+//         forestOptions.hansenPercentage
+//       )
+//     )
+//   }, [forestOptions.selected, forestOptions.agreementLevel, forestOptions.hansenPercentage])
 
-  return recipeLayerPropertyName
-}
+//   return recipeLayerPropertyName
+// }
 
-export default useRecipeLayerPropertyName
+// export default useRecipeLayerPropertyName

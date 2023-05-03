@@ -1,1 +1,1 @@
-export { default } from './BurnedAreaLayerSection'
+// export { default } from './BurnedAreaLayerSection'

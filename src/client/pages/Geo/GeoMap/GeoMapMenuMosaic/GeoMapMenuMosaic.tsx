@@ -1,8 +1,6 @@
 import './GeoMapMenuMosaic.scss'
 import React, { useEffect } from 'react'
 
-import { LayerStatus } from '@meta/geo'
-
 import { useAppDispatch } from '@client/store'
 import {
   GeoActions,
@@ -13,6 +11,7 @@ import {
   useMosaicUrl,
   useSelectedPanel,
 } from '@client/store/ui/geo'
+import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
 import { useCountryIso } from '@client/hooks'
 import { mapController } from '@client/utils'
 
@@ -60,9 +59,9 @@ const GeoMapMenuMosaic: React.FC = () => {
   }, [mosaicSelected, mosaicPending, mosaicFailed, appliedMosaicOptions, mosaicUrl, countryIso, dispatch])
 
   let status = null
-  if (mosaicPending) status = LayerStatus.loading
-  if (mosaicUrl) status = LayerStatus.ready
-  if (mosaicFailed) status = LayerStatus.failed
+  if (mosaicPending) status = LayerFetchStatus.Loading
+  if (mosaicUrl) status = LayerFetchStatus.Ready
+  if (mosaicFailed) status = LayerFetchStatus.Failed
   return (
     <div className="geo-map-menu-item">
       <GeoMapMenuButton panel="mosaic" text="Background" icon="radar" />
