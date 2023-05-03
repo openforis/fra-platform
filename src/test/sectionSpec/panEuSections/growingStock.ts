@@ -2463,6 +2463,22 @@ export const growingStock = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'growingStock',
+        tableName: 'growingStock',
+        variableName: 'forest',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'growingStock',
+        tableName: 'growingStock',
+        variableName: 'otherWoodedLand',
+      },
+    ],
   },
   dataExport: {
     included: true,

@@ -4,10 +4,9 @@ import { NationalDataDescription } from './nationalDataDescription'
 
 export interface Description {
   analysisAndProcessing?: AnalysisAndProcessingDescription
-  nationalData?: NationalDataDescription
-
   comments?: boolean
   introductoryText?: boolean
+  nationalData?: NationalDataDescription
 }
 
 export type Descriptions = Record<CycleUuid, Description>
