@@ -1,1 +1,1 @@
-export { default } from './BurnedAreasLayerOptionsPanel'
+// export { default } from './BurnedAreasLayerOptionsPanel'
