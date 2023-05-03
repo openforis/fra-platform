@@ -3,7 +3,6 @@ import React from 'react'
 import { GetPropsCommonOptions, UseComboboxGetInputPropsOptions } from 'downshift'
 
 import Icon from '@client/components/Icon'
-import { OnPaste } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/hooks/useOnChange'
 
 type Props = {
   getInputProps: (options?: UseComboboxGetInputPropsOptions, otherOptions?: GetPropsCommonOptions) => any
@@ -11,7 +10,7 @@ type Props = {
   disabled: boolean
   isOpen: boolean
   openMenu: () => void
-  onPaste: OnPaste
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   readOnlyOptions?: boolean
 }
 const AutocompleteInput: React.FC<Props> = (props: Props) => {
@@ -42,6 +41,7 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
 }
 
 AutocompleteInput.defaultProps = {
+  onPaste: null,
   readOnlyOptions: false,
 }
 

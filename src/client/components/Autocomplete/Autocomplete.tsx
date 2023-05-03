@@ -7,7 +7,6 @@ import classNames from 'classnames'
 import { useCombobox, UseComboboxStateChange } from 'downshift'
 
 import AutocompleteInput from '@client/components/Autocomplete/AutocompleteInput'
-import { OnPaste } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/hooks/useOnChange'
 
 type Option = {
   label: string
@@ -17,7 +16,7 @@ type Option = {
 type Props = {
   items: Array<Option>
   onSave: (value: string | any) => void
-  onPaste?: OnPaste
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   value: string
   readOnlyOptions?: boolean
 
@@ -54,7 +53,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     ) {
       // Disable saving if selected item is not changed when free text disabled
       if (readOnlyOptions && !changes.selectedItem) {
-        onSave({ value: items.find(({ value }) => value === inputValue) ? inputValue : '' })
+        onSave({ value: items.find(({ value }) => value === inputValue)?.value ?? '' })
         return
       }
 
@@ -127,8 +126,8 @@ Autocomplete.defaultProps = {
   name: undefined,
   disabled: false,
   onInputValueChange: undefined,
-  readOnlyOptions: false,
   onPaste: null,
+  readOnlyOptions: false,
 }
 
 export default Autocomplete
