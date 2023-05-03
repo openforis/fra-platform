@@ -16,6 +16,7 @@ type Option = {
 type Props = {
   items: Array<Option>
   onSave: (value: string | any) => void
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   value: string
   readOnlyOptions?: boolean
 
@@ -33,7 +34,7 @@ const AutocompleteItem = (props: { item: Option; inputValue: string }) => {
 }
 
 const Autocomplete: React.FC<Props> = (props: Props) => {
-  const { value, items, disabled, name, onInputValueChange, onSave, readOnlyOptions } = props
+  const { value, items, disabled, name, onInputValueChange, onPaste, onSave, readOnlyOptions } = props
   const [selectedItem, setSelectedItem] = useState<string>(null)
   const [inputValue, setInputValue] = useState(value)
   const { t } = useTranslation()
@@ -52,6 +53,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     ) {
       // Disable saving if selected item is not changed when free text disabled
       if (readOnlyOptions && !changes.selectedItem) {
+        onSave({ value: items.find(({ value }) => value === inputValue)?.value ?? '' })
         return
       }
 
@@ -93,6 +95,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
         isOpen={isOpen}
         disabled={disabled}
         value={inputValue}
+        onPaste={onPaste}
         getInputProps={getInputProps}
       />
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -123,6 +126,7 @@ Autocomplete.defaultProps = {
   name: undefined,
   disabled: false,
   onInputValueChange: undefined,
+  onPaste: null,
   readOnlyOptions: false,
 }
 
