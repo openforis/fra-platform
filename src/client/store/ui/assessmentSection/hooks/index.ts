@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { DataSource, NodeValue, Table, TableNames, TableSection } from '@meta/assessment'
+import { DataSourceLinked, NodeValue, Table, TableNames, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
@@ -92,5 +92,5 @@ export const useOriginalDataPointYears = () => {
 export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined =>
   useAppSelector((state) => state.ui.assessmentSection.nodeValueValidation[props.tableName])
 
-export const useLinkedDataSources = (props: { sectionName: string }): Array<DataSource> | undefined =>
+export const useDataSourcesLinked = (props: { sectionName: string }): Array<DataSourceLinked> | undefined =>
   useAppSelector((state) => state.ui.assessmentSection.linkedDataSources[props.sectionName])

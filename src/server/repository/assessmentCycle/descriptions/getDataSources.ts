@@ -1,5 +1,5 @@
 import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, DataSource } from '@meta/assessment'
+import { Assessment, Cycle, DataSourceLinked } from '@meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
@@ -12,28 +12,33 @@ type Props = {
   variableName: string
 }
 
-type Returned = {
-  dataSources?: Array<DataSource>
-}
-
-export const getDataSources = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
+export const getDataSources = async (props: Props, client: BaseProtocol = DB): Promise<Array<DataSourceLinked>> => {
   const { countryIso, assessment, cycle, sectionName, variableName } = props
 
+  const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   const query = `
       with elements as
-               (select d.id, jsonb_array_elements(d.value -> 'dataSources') as data_sources
+               (select d.id,
+                       jsonb_array_elements(d.value -> 'dataSources') as data,
+                       jsonb_extract_path(
+                               s.props,
+                               'descriptions',
+                               '${cycle.uuid}',
+                               'nationalData',
+                               'dataSources'
+                           )                                          as meta
                 from ${schemaCycle}.descriptions d
+                         left join ${schemaAssessment}.section s
+                                   on d.section_name = s.props ->> 'name'
                 where d.name = 'dataSources'
                   and d.country_iso = $1
                   and d.section_name = $2)
-      select jsonb_agg(e.data_sources) as data_sources
+      select e.data, e.meta
       from elements e
-      where e.data_sources -> 'fraVariables' @> '["${variableName}"]'::jsonb
-      ;
+      where e.data -> 'variables' @> '["${variableName}"]'::jsonb;
   `
 
-  // eslint-disable-next-line camelcase
-  return client.one<Returned>(query, [countryIso, sectionName], ({ data_sources }) => ({ dataSources: data_sources }))
+  return client.manyOrNone<DataSourceLinked>(query, [countryIso, sectionName])
 }

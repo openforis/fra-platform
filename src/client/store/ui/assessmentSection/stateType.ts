@@ -1,4 +1,4 @@
-import { CommentableDescriptionValue, DataSource, TableSection } from '@meta/assessment'
+import { CommentableDescriptionValue, DataSourceLinked, TableSection } from '@meta/assessment'
 import { NodeUpdate, TableData } from '@meta/data'
 
 export type AssessmentSectionState = {
@@ -7,7 +7,7 @@ export type AssessmentSectionState = {
   descriptions: Record<string, Record<string, CommentableDescriptionValue>>
   estimationPending: boolean
   // sectionName -> Array<DataSource>
-  linkedDataSources: Record<string, Array<DataSource>>
+  linkedDataSources: Record<string, Array<DataSourceLinked>>
   // tableName -> nodeUpdate
   nodeValueValidation: Record<string, NodeUpdate>
   showOriginalDataPoint?: boolean

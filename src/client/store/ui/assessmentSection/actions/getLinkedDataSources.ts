@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
-import { DataSource, DataSourceLinkedVariable } from '@meta/assessment'
+import { DataSourceLinked, DataSourceLinkedVariable } from '@meta/assessment'
 
 type Params = {
   countryIso: CountryIso
@@ -12,7 +12,7 @@ type Params = {
 }
 
 type Returned = {
-  dataSources: Array<DataSource>
+  dataSources: Array<DataSourceLinked>
   sectionName: string
 }
 
@@ -21,14 +21,14 @@ export const getLinkedDataSources = createAsyncThunk<Returned, Params>(
   async ({ countryIso, linkedVariables, sectionName }) => {
     const responses = await Promise.all(
       linkedVariables.map((linkedVariable) =>
-        axios.get<{ dataSources: Array<DataSource> | null }>(ApiEndPoint.CycleData.descriptionsDataSources(), {
+        axios.get<Array<DataSourceLinked> | null>(ApiEndPoint.CycleData.descriptionsDataSources(), {
           params: { countryIso, ...linkedVariable },
         })
       )
     )
 
-    const dataSources = responses.reduce<Array<DataSource>>((dataSourcesAcc, response) => {
-      const { dataSources: dataSourcesResp } = response.data
+    const dataSources = responses.reduce<Array<DataSourceLinked>>((dataSourcesAcc, response) => {
+      const dataSourcesResp = response.data
       if (dataSourcesResp?.length) return [...dataSourcesAcc, ...dataSourcesResp]
       return dataSourcesAcc
     }, [])

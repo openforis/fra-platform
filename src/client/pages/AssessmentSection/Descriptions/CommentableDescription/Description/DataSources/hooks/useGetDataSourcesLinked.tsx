@@ -1,20 +1,20 @@
 import { useEffect } from 'react'
 
-import { DataSource, Description } from '@meta/assessment'
+import { DataSourceLinked, Description } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions, useLinkedDataSources } from '@client/store/ui/assessmentSection'
+import { AssessmentSectionActions, useDataSourcesLinked } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
-export const useGetLinkedDataSources = (props: {
+export const useGetDataSourcesLinked = (props: {
   descriptions: Description
   sectionName: string
-}): { linkedDataSources: Array<DataSource> | undefined } => {
+}): { dataSourcesLinked: Array<DataSourceLinked> | undefined } => {
   const { descriptions, sectionName } = props
 
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
-  const linkedDataSources = useLinkedDataSources({ sectionName })
+  const linkedDataSources = useDataSourcesLinked({ sectionName })
 
   useEffect(() => {
     const linkedVariables = descriptions.nationalData?.dataSources?.linkedVariables ?? []
@@ -23,5 +23,5 @@ export const useGetLinkedDataSources = (props: {
     }
   }, [countryIso, descriptions.nationalData?.dataSources?.linkedVariables, dispatch, sectionName])
 
-  return { linkedDataSources }
+  return { dataSourcesLinked: linkedDataSources }
 }
