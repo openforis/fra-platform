@@ -161,6 +161,9 @@ export default async (client: BaseProtocol) => {
         const description = descriptions[k]
         description.value.dataSources = description.value.dataSources.map((dataSource: DataSourceValueDeprecated) => {
           const dataSourceValue = {} as DataSource
+          if (dataSource.uuid) {
+            dataSourceValue.uuid = dataSource.uuid
+          }
           if (dataSource.reference) {
             dataSourceValue.reference = dataSource.reference
           }
