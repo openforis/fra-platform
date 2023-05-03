@@ -10,8 +10,7 @@ import { hansenPercentages } from 'meta/geo/forest'
  * @public
  */
 export const builForestEstimationsDataTable = (
-  fetchedForestEstimations: ForestEstimations,
-  recipeLayerName: string
+  fetchedForestEstimations: ForestEstimations
 ): [string, number, number][] => {
   if (!fetchedForestEstimations) throw Error('Data unavailable.')
 
@@ -48,20 +47,6 @@ export const builForestEstimationsDataTable = (
       })
     }
   })
-
-  // Adding the precalculated recipe data if available.
-  if (recipeLayerName && recipeLayerName in fetchedForestEstimations.data) {
-    const precalculatedRecipeLabel = ExtraEstimation.PrecalculatedRecipe
-    const precalculatedRecipeAreaEstimation = fetchedForestEstimations.data[
-      recipeLayerName as keyof ForestEstimationsData
-    ] as number
-    const precalculatedRecipeAreaPercentage = (precalculatedRecipeAreaEstimation * 100) / (fra1ALandArea * 1000)
-    estimationsData.push([
-      precalculatedRecipeLabel,
-      precalculatedRecipeAreaEstimation,
-      Number(precalculatedRecipeAreaPercentage.toFixed(2)),
-    ])
-  }
 
   // Adding the reported Forest Area to the data.
   const reportedToFraLabel = ExtraEstimation.ReportedToFRA
