@@ -24,12 +24,13 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
   loadingStatus,
 }) => {
   let checkBoxContent = null
+  const style = checked ? { backgroundColor } : {}
   if (loadingStatus === LayerFetchStatus.Loading) {
     checkBoxContent = <div className="loading-spinner" />
   } else if (loadingStatus === LayerFetchStatus.Failed) {
     checkBoxContent = <div className={classNames('fra-checkbox', 'failed')} />
   } else {
-    checkBoxContent = <div className={classNames('fra-checkbox', { checked })} />
+    checkBoxContent = <div style={style} className={classNames('fra-checkbox', { checked })} />
   }
   return (
     <>
@@ -37,7 +38,7 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
         <div className="geo-map-menu-item-title">
           {checked !== null ? (
             <div
-              className={`geo-map-menu-list-element-checkbox ${backgroundColor}`}
+              className="geo-map-menu-list-element-checkbox"
               role="checkbox"
               aria-checked={checked}
               tabIndex={tabIndex}

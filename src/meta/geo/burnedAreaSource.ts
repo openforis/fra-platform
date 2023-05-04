@@ -19,6 +19,7 @@ export const burnedAreaLayers: LayerSection = {
     {
       key: BurnedAreaKey.MODIS_FIRE,
       options: { years: Arrays.range(2000, new Date().getFullYear() + 1, 1) },
+      metadata: burnedAreaLayersMetadata.MODIS_FIRE,
     },
   ],
 }
