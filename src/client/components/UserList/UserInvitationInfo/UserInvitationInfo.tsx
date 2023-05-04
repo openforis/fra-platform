@@ -39,7 +39,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
               type="button"
               onClick={() => {
                 navigator.clipboard.writeText(url).then(() => {
-                  toaster.info(t('userManagement.userAdded'))
+                  toaster.info(t('userManagement.invitationLinkCopied'))
                   onClose()
                 })
               }}
