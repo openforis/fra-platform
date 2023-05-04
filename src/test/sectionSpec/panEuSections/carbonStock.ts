@@ -2123,6 +2123,43 @@ export const carbonStock = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'carbonStock',
+        tableName: 'carbonStock',
+        variableName: 'carbon_forest_above_ground',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'carbonStock',
+        tableName: 'carbonStock',
+        variableName: 'carbon_forest_below_ground',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'carbonStock',
+        tableName: 'carbonStock',
+        variableName: 'carbon_forest_deadwood',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'carbonStock',
+        tableName: 'carbonStock',
+        variableName: 'carbon_forest_litter',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'carbonStock',
+        tableName: 'carbonStock',
+        variableName: 'carbon_forest_soil',
+      },
+    ],
   },
   dataExport: {
     included: true,

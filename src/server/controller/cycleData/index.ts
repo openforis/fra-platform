@@ -8,7 +8,6 @@ import { clearTableData } from './clearTableData'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { getBulkDownload } from './getBulkDownload'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
-import { getOriginalDataPointReservedYears } from './getOriginalDataPointReservedYears'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues } from './persistNodeValues'
@@ -27,13 +26,14 @@ export const CycleDataController = {
   createOriginalDataPoint,
   getOriginalDataPoint,
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
-  getOriginalDataPointReservedYears,
+  getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
   updateOriginalDataPoint,
   // review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
   // description
+  getDataSources: DescriptionRepository.getDataSources,
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
   getActivities: ActivityLogRepository.getCycleDataActivities,

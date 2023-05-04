@@ -6,24 +6,25 @@ import { DataSource } from '@meta/assessment'
 
 import DataColumn from '@client/components/DataGrid/DataColumn'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
-import { datasourceValidators } from '@client/pages/AssessmentSection/Descriptions/Description/DataSources/DataSourceColumn/DataSourceColumn'
+
+import { datasourceValidators } from './datasourceValidators'
 
 type Props = {
   disabled: boolean
-  dataSource: DataSource
+  dataSourceValue: DataSource
   onChange: (key: string, value: string) => void
 }
 
 const ColumnComments: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, onChange } = props
+  const { dataSourceValue, disabled, onChange } = props
   const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('comments', event.target.value)
   return (
     <DataColumn
       className={classNames('data-source-column', {
-        'validation-error': datasourceValidators.comment(dataSource.comments),
+        'validation-error': datasourceValidators.comment(dataSourceValue.comments),
       })}
     >
-      <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSource.comments} />
+      <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.comments} />
     </DataColumn>
   )
 }

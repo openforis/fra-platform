@@ -8,34 +8,34 @@ import DataColumn from '@client/components/DataGrid/DataColumn'
 import Icon from '@client/components/Icon'
 import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
 
-import { datasourceValidators } from './DataSourceColumn'
+import { datasourceValidators } from './datasourceValidators'
 
 interface DataSourceReferenceColumnProps {
-  dataSource: DataSource
+  dataSourceValue: DataSource
   placeholder: boolean
   disabled: boolean
   onChange: (key: string, value: Record<string, string>) => void
 }
 
 const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
-  const { dataSource, placeholder, disabled, onChange } = props
+  const { dataSourceValue, placeholder, disabled, onChange } = props
 
   const [toggleLinkField, setToggleLinkField] = useState(false)
 
   const _onChange = useCallback(
     (field: string, value: string) => {
       onChange('reference', {
-        ...(dataSource.reference ?? {}),
+        ...(dataSourceValue.reference ?? {}),
         [field]: value,
       })
     },
-    [dataSource.reference, onChange]
+    [dataSourceValue.reference, onChange]
   )
 
   return (
     <DataColumn
       className={classNames('data-source-column', {
-        'validation-error': datasourceValidators.referenceText(dataSource.reference?.text),
+        'validation-error': datasourceValidators.referenceText(dataSourceValue.reference?.text),
       })}
     >
       <div className="data-source__reference-wrapper">
@@ -43,7 +43,7 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
           <VerticallyGrowingTextField
             disabled={disabled}
             onChange={(event) => _onChange('text', event.target.value)}
-            value={dataSource.reference?.text ?? ''}
+            value={dataSourceValue.reference?.text ?? ''}
           />
         )}
 
@@ -51,18 +51,18 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
           <VerticallyGrowingTextField
             disabled={disabled}
             onChange={(event) => _onChange('link', event.target.value)}
-            value={dataSource.reference?.link ?? ''}
+            value={dataSourceValue.reference?.link ?? ''}
           />
         )}
 
         {disabled && (
           <span className="text-input__readonly-view">
-            {dataSource.reference?.link ? (
-              <a href={dataSource.reference?.link} target="_blank" rel="noreferrer">
-                {dataSource.reference?.text}
+            {dataSourceValue.reference?.link ? (
+              <a href={dataSourceValue.reference?.link} target="_blank" rel="noreferrer">
+                {dataSourceValue.reference?.text}
               </a>
             ) : (
-              dataSource.reference?.text
+              dataSourceValue.reference?.text
             )}
           </span>
         )}

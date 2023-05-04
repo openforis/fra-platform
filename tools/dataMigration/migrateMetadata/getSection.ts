@@ -1,7 +1,7 @@
-import { Description } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
+import { AssessmentNames } from '../../../src/meta/assessment/assessmentName'
 import { CycleUuid } from '../../../src/meta/assessment/cycle'
-import { DataSourceColumn } from '../../../src/meta/assessment/description'
+import { Description } from '../../../src/meta/assessment/description'
 import { Section, SubSection } from '../../../src/meta/assessment/section'
 import { DescriptionsSpec, SectionSpec } from '../../../src/test/sectionSpec'
 import { getCycleUuids, getLabels } from './utils'
@@ -19,30 +19,16 @@ export const getSection = (props: { assessment: Assessment; index: number; label
   }
 }
 
-const fraColumns: Array<DataSourceColumn> = [
-  'referenceToTataSource',
-  'typeOfDataSource',
-  'fraVariable',
-  'yearForDataSource',
-  'comments',
-]
-const panEuropeanColumns: Array<DataSourceColumn> = [
-  'referenceToTataSource',
-  'typeOfDataSource',
-  'variable',
-  'yearForDataSource',
-  'comments',
-]
-
-const panEuropeanDescription = {
-  comments: true,
-  nationalData: {
-    dataSources: {
-      table: {
-        columns: [...panEuropeanColumns],
+const panEuropeanDescription = (descriptions: DescriptionsSpec): Description => {
+  return {
+    comments: true,
+    nationalData: {
+      dataSources: {
+        linkedVariables: descriptions.linkedVariables,
+        table: {},
       },
     },
-  },
+  }
 }
 
 const transformDescription = (descriptions: DescriptionsSpec, cycleName: string): Description => {
@@ -68,11 +54,7 @@ const transformDescription = (descriptions: DescriptionsSpec, cycleName: string)
   if (descriptions.nationalData) {
     description.nationalData = {
       dataSources: {
-        table: is2025
-          ? {
-              columns: [...fraColumns],
-            }
-          : undefined,
+        table: is2025 ? {} : undefined,
         text: {
           readOnly: is2025,
         },
@@ -94,13 +76,13 @@ const getDescriptions = (props: {
     props: { name },
     cycles,
   } = assessment
-  const isPanEuropean = name === 'panEuropean'
+  const isPanEuropean = name === AssessmentNames.panEuropean
 
   if (isPanEuropean) {
     return cycles.reduce(
       (acc, cycle) => ({
         ...acc,
-        [cycle.uuid]: panEuropeanDescription,
+        [cycle.uuid]: panEuropeanDescription(descriptions),
       }),
       {}
     )

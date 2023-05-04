@@ -1,4 +1,4 @@
-export enum dataSourceType {
+export enum DataSourceType {
   'nationalForestInventory' = 'nationalForestInventory',
   'remoteSensingBasedAssessmentWithGroundTruthing' = 'remoteSensingBasedAssessmentWithGroundTruthing',
   'statisticalRemoteSensingSurveyWithAccuracyAssessment' = 'statisticalRemoteSensingSurveyWithAccuracyAssessment',

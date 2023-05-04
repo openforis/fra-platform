@@ -1967,6 +1967,36 @@ export const forestAreaWithDamage = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'disturbances',
+        tableName: 'disturbances',
+        variableName: 'insects',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'disturbances',
+        tableName: 'disturbances',
+        variableName: 'diseases',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'disturbances',
+        tableName: 'disturbances',
+        variableName: 'severe_weather_events',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'areaAffectedByFire',
+        tableName: 'areaAffectedByFire',
+        variableName: 'total',
+      },
+    ],
   },
   dataExport: {
     included: true,

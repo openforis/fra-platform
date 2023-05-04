@@ -2041,6 +2041,15 @@ export const introducedTreeSpecies = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestCharacteristics',
+        tableName: 'forestCharacteristics',
+        variableName: 'plantationForestIntroducedArea', // TODO: not sure of the variable
+      },
+    ],
   },
   dataExport: {
     included: true,

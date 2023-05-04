@@ -1,6 +1,15 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const countryComments = require('./countryComments')
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const _2020 = require('./2020')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const _2025 = require('./2025')
+
 module.exports = {
+  2020: _2020,
+  2025: _2025,
+
   countryComments,
   // ...TODO: Move all reasonability checks out to a separate file
   reasonabilityChecks: {
@@ -351,6 +360,7 @@ module.exports = {
   // table 3.3
   nonWoodGoods2015: {
     nonWoodGoods2015: 'Non-wood goods (2015)',
+    nonWoodGoods: 'Non-wood goods',
     rankValue: 'Rank (value)',
     nameOfGroupsOfProduct: 'Name of (groups of) product',
     keySpecies: 'Key species',
@@ -383,6 +393,7 @@ module.exports = {
   // table 3.4
   marketedServices2015: {
     marketedServices2015: 'Marketed services (2015)',
+    marketedServices: 'Marketed services',
     rankValue: 'Rank (value)',
     nameOfServiceProduct: 'Name of service/product',
     unit: 'Unit',
