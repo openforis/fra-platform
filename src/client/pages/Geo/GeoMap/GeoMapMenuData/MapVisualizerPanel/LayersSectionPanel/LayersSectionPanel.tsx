@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { LayerKey, LayerSection } from '@meta/geo'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
+import CustomAssetControl from './components/CustomAssetControl'
 import LayerOpacityControl from './components/LayerOpacityControl'
 
 interface Props {
@@ -35,6 +36,18 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
           </GeoMapMenuListElement>
         )}
         {section.layers.map((layer) => {
+          if (layer.isCustomAsset)
+            return (
+              <CustomAssetControl
+                key={`${section.key}-${layer.key}`}
+                onToggle={toggleLayer}
+                onOpacityChange={handleOpacityChange}
+                checked={checked}
+                layerKey={layer.key}
+                backgroundColor={layer.metadata?.palette?.[0]}
+              />
+            )
+
           return (
             <GeoMapMenuListElement
               key={`${section.key}-${layer.key}`}
