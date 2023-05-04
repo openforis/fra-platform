@@ -6,13 +6,13 @@ import { Objects } from '@utils/objects'
 import { UUIDs } from '@utils/uuids'
 
 import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
-import { DataSourceDescription } from '@meta/assessment/description/nationalDataDataSourceDescription'
 
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
 import DataGrid from '@client/components/DataGrid'
 import DataColumn from '@client/components/DataGrid/DataColumn'
 
 import { useDescriptions } from '../../../Descriptions'
+import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 import ButtonCopyDataSources from './ButtonCopyDataSources'
 import DataSourceRow from './DataSourceRow'
 
@@ -40,13 +40,9 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const subSection = useAssessmentSection(sectionName)
-  const {
-    nationalData: { dataSources: dataSourceMetadata },
-  } = useDescriptions({
-    disabled,
-    sectionName,
-    descriptions: subSection.props.descriptions[cycle.uuid],
-  })
+  const descriptionMeta = subSection.props.descriptions[cycle.uuid]
+  const descriptions = useDescriptions({ disabled, sectionName, descriptions: descriptionMeta })
+  const { dataSourcesLinked } = useGetDataSourcesLinked({ descriptions, sectionName })
 
   const { dataSources: dataSourceValues = [] } = commentableDescriptionValue
 
@@ -79,9 +75,9 @@ export const DataSources: React.FC<Props> = (props: Props) => {
     [commentableDescriptionValue, onChange]
   )
 
-  if (!dataSourceValues.length && disabled) return null
-  const copyDisabled = dataSourceValues.length !== 0
+  if (!dataSourceValues.length && !dataSourcesLinked?.length && disabled) return null
 
+  const copyDisabled = dataSourceValues.length !== 0
   const keyPrefix = `${assessment.props.name}.${cycle.name}.description.dataSource`
 
   return (
@@ -105,14 +101,26 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
         <div />
 
+        {dataSourcesLinked &&
+          dataSourcesLinked.map((dataSource, i) => (
+            <DataSourceRow
+              dataSourceMetadata={dataSource.meta}
+              dataSourceValue={dataSource.data}
+              disabled
+              key={String(`linkedDataSource_${i}`)}
+              onChange={() => ({})}
+              onDelete={() => ({})}
+              placeholder={false}
+            />
+          ))}
+
         {dataSourceValues.concat(disabled ? [] : placeholder).map((dataSourceValue, i) => {
           return (
             <DataSourceRow
-              dataSourceMetadata={dataSourceMetadata as unknown as DataSourceDescription}
+              dataSourceMetadata={descriptions.nationalData.dataSources}
               dataSourceValue={dataSourceValue}
               disabled={disabled}
-              // eslint-disable-next-line react/no-array-index-key
-              key={`data-source-row-${i}`}
+              key={String(`data-source-row-${i}`)}
               onChange={_onChange}
               onDelete={() => _onDelete(dataSourceValue.uuid)}
               placeholder={!dataSourceValue.uuid}

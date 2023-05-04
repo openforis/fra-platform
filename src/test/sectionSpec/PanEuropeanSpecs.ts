@@ -4366,9 +4366,101 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
       comments: true,
       introductoryText: false,
       nationalData: true,
+      linkedVariables: [
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#1',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#2',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#3',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#4',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#5',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#6',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#7',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#8',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#9',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: '#10',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: 'all_other_plant_products',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'nonWoodForestProductsRemovals',
+          tableName: 'nonWoodForestProductsRemovals',
+          variableName: 'all_other_animal_products',
+        },
+      ],
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      label: {
+        '2020': { key: 'panEuropean.nonWoodGoods2015.nonWoodGoods2015' },
+        '2025': { key: 'panEuropean.nonWoodGoods2015.nonWoodGoods' },
+      },
     },
   },
   marketedServices2015: {
@@ -5011,6 +5103,12 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
     },
     dataExport: {
       included: true,
+    },
+    migration: {
+      label: {
+        '2020': { key: 'panEuropean.marketedServices2015.marketedServices2015' },
+        '2025': { key: 'panEuropean.marketedServices2015.marketedServices' },
+      },
     },
   },
   // Section 4
@@ -11337,6 +11435,29 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
       comments: true,
       introductoryText: false,
       nationalData: true,
+      linkedVariables: [
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'forestOwnership',
+          tableName: 'forestOwnership',
+          variableName: 'public_ownership',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'forestOwnership',
+          tableName: 'forestOwnership',
+          variableName: 'private_ownership',
+        },
+        {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          sectionName: 'forestOwnership',
+          tableName: 'forestOwnership',
+          variableName: 'other_or_unknown',
+        },
+      ],
     },
     dataExport: {
       included: true,

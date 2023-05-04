@@ -1218,6 +1218,22 @@ export const naturalness = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestCharacteristics',
+        tableName: 'forestCharacteristics',
+        variableName: 'naturalForestArea',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestCharacteristics',
+        tableName: 'forestCharacteristics',
+        variableName: 'plantationForestArea',
+      },
+    ],
   },
   dataExport: {
     included: true,

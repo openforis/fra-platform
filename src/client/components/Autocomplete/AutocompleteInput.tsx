@@ -10,10 +10,11 @@ type Props = {
   disabled: boolean
   isOpen: boolean
   openMenu: () => void
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   readOnlyOptions?: boolean
 }
 const AutocompleteInput: React.FC<Props> = (props: Props) => {
-  const { getInputProps, value, disabled, isOpen, readOnlyOptions, openMenu } = props
+  const { getInputProps, value, disabled, isOpen, readOnlyOptions, openMenu, onPaste } = props
 
   const _onFocus = () => {
     if (readOnlyOptions) openMenu()
@@ -32,6 +33,7 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
           disabled,
           className: 'text-input__input-field',
         })}
+        onPaste={onPaste}
       />
       {showArrow && <Icon name={isOpen ? 'small-up' : 'small-down'} />}
     </div>
@@ -39,6 +41,7 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
 }
 
 AutocompleteInput.defaultProps = {
+  onPaste: null,
   readOnlyOptions: false,
 }
 
