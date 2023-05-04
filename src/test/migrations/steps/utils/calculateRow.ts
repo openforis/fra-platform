@@ -56,8 +56,8 @@ export const calculateRow = async (
       const colName = table.props.columnNames[cycle.uuid][j]
 
       const col = row.cols.find((c) => c.props.colName === colName)
-      // eslint-disable-next-line consistent-return
-      if (!col) return
+      // eslint-disable-next-line no-continue
+      if (!col) continue
 
       const expression = row.props.calculateFn?.[cycle.uuid] ?? col.props.calculateFn?.[cycle.uuid]
 
