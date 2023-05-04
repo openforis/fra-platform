@@ -17,7 +17,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
   const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const { toaster } = useToaster()
 
   const { invitationUuid } = Users.getRole(user, countryIso, cycle)
@@ -27,38 +27,45 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
     cycleName: cycle.name,
   })}?invitationUuid=${invitationUuid}`
   return (
-    <div className="user-list__invitation-info">
-      <div>
-        <div>
-          {`${i18n.t('userManagement.invitationLink')}: ${url}`}
-          <button
-            title={i18n.t('common.copyToClipboard')}
-            className="btn-transparent"
-            type="button"
-            onClick={() => {
-              navigator.clipboard.writeText(url)
-            }}
-          >
-            &#x2398;
-          </button>
-        </div>
-        <div>
+    <div className="invitation-info-box">
+      <div className="label">{t('userManagement.invitationLink')}</div>
+      <ul>
+        <li>
+          <div className="input-buttons-wrapper">
+            <input type="text" value={url} />
+            <button
+              className="btn-transparent"
+              title={t('common.copyToClipboard')}
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText(url).then(() => {
+                  toaster.info(t('userManagement.userAdded'))
+                  onClose()
+                })
+              }}
+            >
+              <Icon name="content_copy" className="icon-no-margin icon-sub" />
+            </button>
+          </div>
+        </li>
+        <li>
           <button
             className="btn-s btn-link"
-            onClick={async () => {
+            type="button"
+            onClick={() => {
               dispatch(UserManagementActions.sendInvitationEmail({ countryIso, invitationUuid })).then(() => {
-                toaster.success(i18n.t<string>('userManagement.invitationEmailSent'))
+                toaster.success(t('userManagement.invitationEmailSent'))
                 onClose()
               })
             }}
-            type="button"
           >
-            {i18n.t<string>('userManagement.sendInvitation')}
+            {t('userManagement.sendInvitation')}
           </button>
-        </div>
-      </div>
-      <div onClick={onClose} role="button" tabIndex={0} aria-hidden="true">
-        <Icon name="remove" />
+        </li>
+      </ul>
+
+      <div className="invitation-info-box-close" onClick={onClose} role="button" tabIndex={0} aria-hidden="true">
+        <Icon name="remove" className="icon-no-margin icon-sub" />
       </div>
     </div>
   )
