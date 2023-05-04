@@ -4,6 +4,8 @@ import { BaseProtocol, Schemas } from '@server/db'
 import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
 import { getRow } from '@test/migrations/steps/utils/getRow'
 
+import { runCalculations } from './utils/runCalculations'
+
 const tableName = 'growingStockComposition2025'
 const colName = 'growingStockPercent'
 
@@ -119,4 +121,28 @@ export default async (client: BaseProtocol) => {
     },
     client
   )
+
+  const variableNames = [
+    ...Array.from({ length: 10 }, (_, i) => `nativeRank${i + 1}`),
+    ...Array.from({ length: 5 }, (_, i) => `introducedRank${i + 1}`),
+    'totalGrowingStock',
+    'totalNative',
+    'totalIntroduced',
+    'remainingIntroduced',
+    'remainingNative',
+  ]
+
+  for (let i = 0; i < variableNames.length; i += 1) {
+    const variableName = variableNames[i]
+    // eslint-disable-next-line no-await-in-loop
+    await runCalculations(
+      {
+        assessment,
+        cycle,
+        variableName,
+        tableName,
+      },
+      client
+    )
+  }
 }
