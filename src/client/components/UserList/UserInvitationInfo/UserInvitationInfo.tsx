@@ -20,11 +20,14 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+
   const { invitationUuid } = Users.getRole(user, countryIso, cycle)
 
   const url = `${window.location.origin}${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({
-    assessmentName: assessment.props.name,
-    cycleName: cycle.name,
+    assessmentName,
+    cycleName,
   })}?invitationUuid=${invitationUuid}`
   return (
     <div className="invitation-info-box">
@@ -53,7 +56,14 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
             className="btn-s btn-link"
             type="button"
             onClick={() => {
-              dispatch(UserManagementActions.sendInvitationEmail({ countryIso, invitationUuid })).then(() => {
+              dispatch(
+                UserManagementActions.sendInvitationEmail({
+                  assessmentName,
+                  countryIso,
+                  cycleName,
+                  invitationUuid,
+                })
+              ).then(() => {
                 toaster.success(t('userManagement.invitationEmailSent'))
                 onClose()
               })
