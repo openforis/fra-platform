@@ -33,12 +33,17 @@ const initialState: GeoState = {
   },
 }
 
-const getLayerState = (state: Draft<GeoState>, sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState => {
+const getSectionState = (state: Draft<GeoState>, sectionKey: LayerSectionKey): LayersSectionState => {
   // Default the states to an empty object if they don't exist yet
   state.sections[sectionKey] ??= {} as LayersSectionState
-  state.sections[sectionKey][layerKey] ??= {}
+  return state.sections[sectionKey]
+}
 
-  return state.sections[sectionKey][layerKey]
+const getLayerState = (state: Draft<GeoState>, sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState => {
+  // Default the states to an empty object if they don't exist yet
+  const sectionState = getSectionState(state, sectionKey)
+  sectionState[layerKey] ??= {}
+  return sectionState[layerKey]
 }
 
 export const geoSlice = createSlice({
@@ -128,12 +133,12 @@ export const geoSlice = createSlice({
       state.sections[sectionKey][layerKey] = newLayerState
     },
     setLayerOpacity: (
-      state,
-      {
-        payload: { sectionKey, layerKey, opacity },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
     ) => {
-      state.sections[sectionKey][layerKey].opacity = opacity
+      const { sectionKey, layerKey, opacity } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, opacity }
     },
     setAssetId: (
       state,
@@ -176,11 +181,20 @@ export const geoSlice = createSlice({
       state.sections[sectionKey][layerKey].options.agreementLayer.palette = palette
     },
     setSectionGlobalOpacity: (
-      state,
-      { payload: { sectionKey, opacity } }: PayloadAction<{ sectionKey: LayerSectionKey; opacity: number }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; opacity: number }>
     ) => {
-      Object.keys(state.sections[sectionKey]).forEach((layerKey) => {
-        if (layerKey === ForestKey.Agreement) return // Ignore the agreement layer.
+      const { sectionKey, opacity } = action.payload
+
+      // Safely get the object with the layer keys of the section
+      const sectionState = getSectionState(state, sectionKey)
+
+      Object.keys(sectionState).forEach((layerKey) => {
+        if (layerKey === ForestKey.Agreement) return // Ignore the agreement layer
+
+        const layerSelectState = state.sections[sectionKey][layerKey as LayerKey].selected
+        if (layerSelectState === undefined || !layerSelectState) return // Ignore non-selected layers
+
         state.sections[sectionKey][layerKey as LayerKey].opacity = opacity
       })
     },
