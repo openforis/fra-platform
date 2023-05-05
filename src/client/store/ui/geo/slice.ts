@@ -141,12 +141,12 @@ export const geoSlice = createSlice({
       state.sections[sectionKey][layerKey] = { ...layerState, opacity }
     },
     setAssetId: (
-      state,
-      {
-        payload: { sectionKey, layerKey, assetId },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
     ) => {
-      state.sections[sectionKey][layerKey].assetId = assetId
+      const { sectionKey, layerKey, assetId } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, assetId }
     },
     setLayerMinTreeCoverPercentage: (
       state,
@@ -199,10 +199,12 @@ export const geoSlice = createSlice({
       })
     },
     resetLayerStatus: (
-      state,
-      { payload: { sectionKey, layerKey } }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
     ) => {
-      state.sections[sectionKey][layerKey].status = LayerFetchStatus.Unfetched
+      const { sectionKey, layerKey } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, status: LayerFetchStatus.Unfetched }
     },
     resetAllLayersStatus: (state) => {
       Object.keys(state.sections).forEach((sectionKey) => {

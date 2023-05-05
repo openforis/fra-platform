@@ -61,6 +61,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
                 onOpacityChange={handleOpacityChange}
                 opacity={opacity}
                 checked={isLayerSelected}
+                sectionKey={section.key}
                 layerKey={layer.key}
                 backgroundColor={layer.metadata?.palette?.[0]}
               />

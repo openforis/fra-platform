@@ -1,5 +1,6 @@
 export {
   useAppliedMosaicOptions,
+  useGeoLayer,
   useGeoLayerSection,
   useGeoStatistics,
   useIsGeoMapAvailable,
