@@ -1,19 +1,64 @@
 @import 'src/client/style/partials';
 
-.user-list__invitation-info {
+.invitation-info-box {
   position: absolute;
-  top: -25%;
-  right: 0;
-  height: 150%;
+  top: -1px;
+  right: -1px;
+  left: -200%;
   background-color: $ui-bg;
   color: $text-body;
   border: 1px solid $ui-border-dark;
-  left: -600px;
-  display: flex;
-  justify-content: space-between;
-  padding: 14px;
+  text-align: left;
 
-  .icon-close {
+  .label {
+    margin: $spacing-xs;
+    font-weight: 600;
+  }
+
+  ul {
+    padding: 0;
+    margin-bottom: 0;
+
+    li {
+      list-style: none;
+      padding: $spacing-xs;
+      border-bottom: 1px solid $ui-border-dark;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        border: none;
+      }
+
+      .input-buttons-wrapper {
+        border: 1px solid $ui-border-dark;
+        display: flex;
+
+        input {
+          background-color: transparent;
+          border: none;
+          padding: 4px;
+          flex: auto;
+        }
+
+        button {
+          border-left: 1px solid $ui-border-dark;
+        }
+      }
+
+      .btn-link {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  .invitation-info-box-close {
+    position: absolute;
+    top: $spacing-xxs;
+    right: $spacing-xxs;
     cursor: pointer;
   }
 }
