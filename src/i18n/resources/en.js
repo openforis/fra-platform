@@ -1049,6 +1049,7 @@ The FRA team
     valueNotGreaterThan: 'Value should be not greater than {{maxValue}}',
     sumNotGreaterThan: 'Sum should not exceed {{maxValue}}',
     notEmpty: 'Value cannot be empty',
+    notEmptyAgent: 'If the column has values, you should specify the name of the agent ',
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
     mustBeEqualToPrivateOwnership: 'Subcategories sum should be equal to Private Ownership',

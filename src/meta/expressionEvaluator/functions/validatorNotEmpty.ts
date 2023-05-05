@@ -9,11 +9,19 @@ export const validatorNotEmpty: ExpressionFunction<Context> = {
   name: 'validatorNotEmpty',
   minArity: 1,
   executor: () => {
-    return (value?: string): NodeValueValidation => {
-      const isEmpty = Objects.isEmpty(value)
-      const valid = !isEmpty // Invert the result of isEmpty
+    return (value?: string, decimalValues?: Array<number>): NodeValueValidation => {
+      const shouldCheckEmpty =
+        decimalValues &&
+        decimalValues.length > 0 &&
+        decimalValues.some((val) => val !== null) &&
+        decimalValues.some((val) => val !== undefined)
 
-      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key: 'generalValidation.notEmpty' }]
+      const isEmpty = shouldCheckEmpty ? Objects.isEmpty(value) : false
+      const valid = !isEmpty
+
+      const messages: Array<NodeValueValidationMessage> = valid
+        ? undefined
+        : [{ key: 'generalValidation.notEmptyAgent' }]
 
       return { valid, messages }
     }
