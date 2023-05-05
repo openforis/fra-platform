@@ -1,10 +1,23 @@
 import './MapVisualizerPanel.scss'
 import React from 'react'
 
+import { sections } from '@meta/geo'
+
 import GeoMenuItem from '../../GeoMapMenuItem'
+import LayersSectionPanel from './LayersSectionPanel'
 
 const MapVisualizerPanel: React.FC = () => {
-  return <GeoMenuItem title="Section" checked={null} tabIndex={-1} />
+  return (
+    <div>
+      {sections.map((layerSection) => {
+        return (
+          <GeoMenuItem key={layerSection.key} title={layerSection.key} checked={null} tabIndex={0}>
+            <LayersSectionPanel section={layerSection} />
+          </GeoMenuItem>
+        )
+      })}
+    </div>
+  )
 }
 
 export default MapVisualizerPanel
