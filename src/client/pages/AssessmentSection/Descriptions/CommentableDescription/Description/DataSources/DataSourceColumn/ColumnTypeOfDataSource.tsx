@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { DataSource, dataSourceType } from '@meta/assessment'
+import { DataSource, DataSourceType } from '@meta/assessment'
 import { DataSourceDescription } from '@meta/assessment/description/nationalDataDataSourceDescription'
 
 import Autocomplete from '@client/components/Autocomplete'
@@ -33,7 +33,7 @@ const SelectInput: React.FC<Props> = (props: Props) => {
   const _onChange = ({ value }: { value: string }) => onChange('type', value)
 
   const items = useMemo(() => {
-    return Object.keys(dataSourceType).map((type) => {
+    return Object.keys(DataSourceType).map((type) => {
       return {
         label: t(`dataSource.${type}`),
         value: type,
