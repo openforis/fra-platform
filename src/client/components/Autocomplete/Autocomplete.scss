@@ -3,6 +3,7 @@
 
 .autocomplete {
   transition: all 0.1s ease-out;
+  height: 100%;
 
   &[aria-expanded='true'] .autocomplete-dropdown {
     border-top: 1px solid $text-link;
@@ -14,6 +15,14 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  height: 100%;
+  justify-content: center;
+
+  &.arrow {
+    background-position: right 10px top 50%;
+    background-repeat: no-repeat;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNyIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDcgMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8dGl0bGU+CiAgICAgICAgY29sbGFwc2UKICAgIDwvdGl0bGU+CiAgICA8cGF0aCBkPSJNMy41IDBMNyA1SDBsMy41LTV6bTAgMTJMMCA3aDdsLTMuNSA1eiIgZmlsbC1ydWxlPSJub256ZXJvIiBmaWxsPSIjMzMzIi8+Cjwvc3ZnPgo=);
+  }
 
   > svg {
     margin: $spacing-xxs;

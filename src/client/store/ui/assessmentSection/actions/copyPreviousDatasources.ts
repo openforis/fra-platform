@@ -27,8 +27,8 @@ export const copyPreviousDatasources = createAsyncThunk<
       updateDescription({
         value: {
           ...currentValue,
-          dataSources: value.dataSources?.map(({ fraVariables: _fraVariables, ...rest }: DataSource) => {
-            return { ...rest, uuid: UUIDs.v4() }
+          dataSources: value.dataSources?.map(({ variables: _variables, ...rest }: DataSource) => {
+            return { ...rest, variables: [] as Array<string>, uuid: UUIDs.v4() }
           }),
         },
         name,

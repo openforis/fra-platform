@@ -37,8 +37,9 @@
   }
 }
 
-.data-source__reference-wrapper {
+.data-source__text-area-wrapper {
   display: flex;
+  height: 100%;
 
   > button {
     border: 0;

@@ -92,7 +92,6 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
       <AutocompleteInput
         readOnlyOptions={readOnlyOptions}
         openMenu={openMenu}
-        isOpen={isOpen}
         disabled={disabled}
         value={inputValue}
         onPaste={onPaste}

@@ -38,7 +38,7 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
         'validation-error': datasourceValidators.referenceText(dataSourceValue.reference?.text),
       })}
     >
-      <div className="data-source__reference-wrapper">
+      <div className="data-source__text-area-wrapper">
         {!disabled && !toggleLinkField && (
           <VerticallyGrowingTextField
             disabled={disabled}
