@@ -1,11 +1,11 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
+import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { ForestEstimations, ForestKey, LayerKey, LayerSectionKey, MosaicOptions, MosaicSource } from '@meta/geo'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestEstimationData, postLayer } from './actions'
-import { GeoState, LayerFetchStatus, LayersSectionState } from './stateType'
+import { GeoState, LayerFetchStatus, LayersSectionState, LayerState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -31,6 +31,14 @@ const initialState: GeoState = {
     isLoading: false,
     error: null,
   },
+}
+
+const getLayerState = (state: Draft<GeoState>, sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState => {
+  // Default the states to an empty object if they don't exist yet
+  state.sections[sectionKey] ??= {} as LayersSectionState
+  state.sections[sectionKey][layerKey] ??= {}
+
+  return state.sections[sectionKey][layerKey]
 }
 
 export const geoSlice = createSlice({
@@ -102,10 +110,22 @@ export const geoSlice = createSlice({
       }
     },
     toggleLayer: (
-      state,
-      { payload: { sectionKey, layerKey } }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
     ) => {
-      state.sections[sectionKey][layerKey].selected = !state.sections[sectionKey][layerKey].selected
+      const { sectionKey, layerKey } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+
+      let newLayerState = {}
+      // If the property is not defined, it means the layer has not been selected before,
+      // so toggle to selected and intialize the opacity
+      if (layerState.selected === undefined) {
+        newLayerState = { ...layerState, selected: true, opacity: 1 }
+      } else {
+        // Otherwise, toggle the previous state
+        newLayerState = { ...layerState, selected: !layerState.selected }
+      }
+      state.sections[sectionKey][layerKey] = newLayerState
     },
     setLayerOpacity: (
       state,

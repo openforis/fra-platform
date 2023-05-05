@@ -1,7 +1,10 @@
 import './LayersSectionPanel.scss'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { LayerKey, LayerSection } from '@meta/geo'
+
+import { useAppDispatch } from '@client/store'
+import { GeoActions, useGeoLayerSection } from '@client/store/ui/geo'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import CustomAssetControl from './components/CustomAssetControl'
@@ -12,14 +15,15 @@ interface Props {
 }
 
 const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section }) => {
+  const dispatch = useAppDispatch()
+  const sectionState = useGeoLayerSection(section.key)
+
   const handleOpacityChange = (value: number, layerKey: LayerKey | 'global') => {
     return [value, layerKey] // Placeholder for logic
   }
-  const [checked, setChecked] = useState(false)
 
   const toggleLayer = (layerKey: LayerKey) => {
-    setChecked((current) => !current)
-    return layerKey // Placeholder for logic
+    dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
   }
 
   return (
@@ -36,13 +40,14 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
           </GeoMapMenuListElement>
         )}
         {section.layers.map((layer) => {
+          const isLayerSelected = sectionState?.[layer.key]?.selected || false // default to false
           if (layer.isCustomAsset)
             return (
               <CustomAssetControl
                 key={`${section.key}-${layer.key}`}
                 onToggle={toggleLayer}
                 onOpacityChange={handleOpacityChange}
-                checked={checked}
+                checked={isLayerSelected}
                 layerKey={layer.key}
                 backgroundColor={layer.metadata?.palette?.[0]}
               />
@@ -53,11 +58,11 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
               key={`${section.key}-${layer.key}`}
               title={layer.key}
               tabIndex={0}
-              checked={checked}
+              checked={isLayerSelected}
               onCheckboxClick={() => toggleLayer(layer.key)}
               backgroundColor={layer.metadata?.palette?.[0]}
             >
-              <LayerOpacityControl onChange={handleOpacityChange} checked={checked} layerKey={layer.key} />
+              <LayerOpacityControl onChange={handleOpacityChange} checked={isLayerSelected} layerKey={layer.key} />
             </GeoMapMenuListElement>
           )
         })}
