@@ -11,10 +11,7 @@ export const validatorNotEmpty: ExpressionFunction<Context> = {
   executor: () => {
     return (value?: string, decimalValues?: Array<number>): NodeValueValidation => {
       const shouldCheckEmpty =
-        decimalValues &&
-        decimalValues.length > 0 &&
-        decimalValues.some((val) => val !== null) &&
-        decimalValues.some((val) => val !== undefined)
+        decimalValues && decimalValues.length > 0 && decimalValues.some((val) => val !== null && val !== undefined)
 
       const isEmpty = shouldCheckEmpty ? Objects.isEmpty(value) : false
       const valid = !isEmpty
