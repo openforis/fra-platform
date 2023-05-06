@@ -1,7 +1,17 @@
 import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestEstimations, ForestKey, LayerKey, LayerSectionKey, MosaicOptions, MosaicSource } from '@meta/geo'
+import {
+  ForestEstimations,
+  ForestKey,
+  LayerKey,
+  LayerSectionKey,
+  MapLayerKey,
+  MosaicOptions,
+  MosaicSource,
+} from '@meta/geo'
+
+import { mapController } from '@client/utils'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestEstimationData, postLayer } from './actions'
@@ -44,6 +54,35 @@ const getLayerState = (state: Draft<GeoState>, sectionKey: LayerSectionKey, laye
   const sectionState = getSectionState(state, sectionKey)
   sectionState[layerKey] ??= {}
   return sectionState[layerKey]
+}
+
+const handlePostLayerStatus = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey,
+  status: LayerFetchStatus,
+  mapId = ''
+): LayerState => {
+  const layerState = getLayerState(state, sectionKey, layerKey)
+  let newLayerState = { ...layerState, status, mapId }
+  const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+
+  switch (status) {
+    case LayerFetchStatus.Ready:
+      if (newLayerState.selected && mapId) mapController.addEarthEngineLayer(mapLayerKey, mapId)
+      break
+    case LayerFetchStatus.Loading:
+      mapController.removeLayer(mapLayerKey)
+      break
+    case LayerFetchStatus.Failed:
+      newLayerState = { ...newLayerState, selected: false }
+      mapController.removeLayer(mapLayerKey)
+      break
+    default:
+      return null
+  }
+  state.sections[sectionKey][layerKey] = newLayerState
+  return newLayerState
 }
 
 export const geoSlice = createSlice({
@@ -131,6 +170,15 @@ export const geoSlice = createSlice({
         newLayerState = { ...layerState, selected: !layerState.selected }
       }
       state.sections[sectionKey][layerKey] = newLayerState
+
+      // Render or remove layer from the map
+      const { selected, mapId } = state.sections[sectionKey][layerKey]
+      const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+      if (selected && mapId) {
+        mapController.addEarthEngineLayer(mapLayerKey, mapId)
+      } else {
+        mapController.removeLayer(mapLayerKey)
+      }
     },
     setLayerOpacity: (
       state: Draft<GeoState>,
@@ -247,15 +295,13 @@ export const geoSlice = createSlice({
         state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
       })
       .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, mapId] }) => {
-        state.sections[sectionKey][layerKey].status = LayerFetchStatus.Ready
-        state.sections[sectionKey][layerKey].mapId = mapId
+        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, mapId)
       })
       .addCase(postLayer.pending, (state, { meta }) => {
-        state.sections[meta.arg.sectionKey][meta.arg.layerKey].status = LayerFetchStatus.Loading
+        handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Loading)
       })
       .addCase(postLayer.rejected, (state, { meta }) => {
-        state.sections[meta.arg.sectionKey][meta.arg.layerKey].status = LayerFetchStatus.Failed
-        state.sections[meta.arg.sectionKey][meta.arg.layerKey].selected = false
+        handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Failed)
       })
   },
 })
