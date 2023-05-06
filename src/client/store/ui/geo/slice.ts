@@ -1,11 +1,11 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
+import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { ForestEstimations, ForestKey, LayerKey, LayerSectionKey, MosaicOptions, MosaicSource } from '@meta/geo'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestEstimationData, postLayer } from './actions'
-import { GeoState, LayerFetchStatus, LayersSectionState } from './stateType'
+import { GeoState, LayerFetchStatus, LayersSectionState, LayerState } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -31,6 +31,19 @@ const initialState: GeoState = {
     isLoading: false,
     error: null,
   },
+}
+
+const getSectionState = (state: Draft<GeoState>, sectionKey: LayerSectionKey): LayersSectionState => {
+  // Default the states to an empty object if they don't exist yet
+  state.sections[sectionKey] ??= {} as LayersSectionState
+  return state.sections[sectionKey]
+}
+
+const getLayerState = (state: Draft<GeoState>, sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState => {
+  // Default the states to an empty object if they don't exist yet
+  const sectionState = getSectionState(state, sectionKey)
+  sectionState[layerKey] ??= {}
+  return sectionState[layerKey]
 }
 
 export const geoSlice = createSlice({
@@ -102,26 +115,38 @@ export const geoSlice = createSlice({
       }
     },
     toggleLayer: (
-      state,
-      { payload: { sectionKey, layerKey } }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
     ) => {
-      state.sections[sectionKey][layerKey].selected = !state.sections[sectionKey][layerKey].selected
+      const { sectionKey, layerKey } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+
+      let newLayerState = {}
+      // If the property is not defined, it means the layer has not been selected before,
+      // so toggle to selected and intialize the opacity
+      if (layerState.selected === undefined) {
+        newLayerState = { ...layerState, selected: true, opacity: 1 }
+      } else {
+        // Otherwise, toggle the previous state
+        newLayerState = { ...layerState, selected: !layerState.selected }
+      }
+      state.sections[sectionKey][layerKey] = newLayerState
     },
     setLayerOpacity: (
-      state,
-      {
-        payload: { sectionKey, layerKey, opacity },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
     ) => {
-      state.sections[sectionKey][layerKey].opacity = opacity
+      const { sectionKey, layerKey, opacity } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, opacity }
     },
     setAssetId: (
-      state,
-      {
-        payload: { sectionKey, layerKey, assetId },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
     ) => {
-      state.sections[sectionKey][layerKey].assetId = assetId
+      const { sectionKey, layerKey, assetId } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, assetId }
     },
     setLayerMinTreeCoverPercentage: (
       state,
@@ -156,19 +181,30 @@ export const geoSlice = createSlice({
       state.sections[sectionKey][layerKey].options.agreementLayer.palette = palette
     },
     setSectionGlobalOpacity: (
-      state,
-      { payload: { sectionKey, opacity } }: PayloadAction<{ sectionKey: LayerSectionKey; opacity: number }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; opacity: number }>
     ) => {
-      Object.keys(state.sections[sectionKey]).forEach((layerKey) => {
-        if (layerKey === ForestKey.Agreement) return // Ignore the agreement layer.
+      const { sectionKey, opacity } = action.payload
+
+      // Safely get the object with the layer keys of the section
+      const sectionState = getSectionState(state, sectionKey)
+
+      Object.keys(sectionState).forEach((layerKey) => {
+        if (layerKey === ForestKey.Agreement) return // Ignore the agreement layer
+
+        const layerSelectState = state.sections[sectionKey][layerKey as LayerKey].selected
+        if (layerSelectState === undefined || !layerSelectState) return // Ignore non-selected layers
+
         state.sections[sectionKey][layerKey as LayerKey].opacity = opacity
       })
     },
     resetLayerStatus: (
-      state,
-      { payload: { sectionKey, layerKey } }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
     ) => {
-      state.sections[sectionKey][layerKey].status = LayerFetchStatus.Unfetched
+      const { sectionKey, layerKey } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, status: LayerFetchStatus.Unfetched }
     },
     resetAllLayersStatus: (state) => {
       Object.keys(state.sections).forEach((sectionKey) => {

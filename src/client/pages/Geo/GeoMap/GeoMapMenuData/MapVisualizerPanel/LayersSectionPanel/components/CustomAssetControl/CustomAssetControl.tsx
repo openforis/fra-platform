@@ -3,20 +3,36 @@ import React, { ChangeEvent, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { LayerKey } from '@meta/geo'
+import { LayerKey, LayerSectionKey } from '@meta/geo'
+
+import { useAppDispatch } from '@client/store'
+import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
 
 import LayerOpacityControl from '../LayerOpacityControl'
 
 interface Props {
   checked: boolean
+  opacity: number
   onOpacityChange: (value: number, layerKey: LayerKey) => void
   onToggle: (layerKey: LayerKey) => void
+  sectionKey: LayerSectionKey
   layerKey: LayerKey
   backgroundColor?: string
 }
 
-const CustomAssetControl: React.FC<Props> = ({ checked, onToggle, onOpacityChange, layerKey, backgroundColor }) => {
-  const [inputValue, setInputValue] = useState<string>('')
+const CustomAssetControl: React.FC<Props> = ({
+  checked,
+  opacity,
+  onToggle,
+  onOpacityChange,
+  sectionKey,
+  layerKey,
+  backgroundColor,
+}) => {
+  const dispatch = useAppDispatch()
+  const layerState = useGeoLayer(sectionKey, layerKey)
+
+  const [inputValue, setInputValue] = useState<string>(layerState?.assetId ?? '')
   const [inputError, setInputError] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -31,6 +47,8 @@ const CustomAssetControl: React.FC<Props> = ({ checked, onToggle, onOpacityChang
       setInputError(true)
     } else {
       setInputError(false)
+      dispatch(GeoActions.setAssetId({ sectionKey, layerKey, assetId: inputValue.trim() }))
+      dispatch(GeoActions.resetLayerStatus({ sectionKey, layerKey }))
     }
   }
 
@@ -61,7 +79,7 @@ const CustomAssetControl: React.FC<Props> = ({ checked, onToggle, onOpacityChang
             </button>
           </div>
         </div>
-        <LayerOpacityControl layerKey={layerKey} checked={checked} onChange={onOpacityChange} />
+        <LayerOpacityControl layerKey={layerKey} checked={checked} onChange={onOpacityChange} opacity={opacity} />
       </div>
       <div className="custom-asset-list-element-bottom" />
     </>
