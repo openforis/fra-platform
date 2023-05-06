@@ -187,6 +187,8 @@ export const geoSlice = createSlice({
       const { sectionKey, layerKey, opacity } = action.payload
       const layerState = getLayerState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey] = { ...layerState, opacity }
+      const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+      mapController.setEarthEngineLayerOpacity(mapLayerKey, opacity)
     },
     setAssetId: (
       state: Draft<GeoState>,
@@ -244,6 +246,8 @@ export const geoSlice = createSlice({
         if (layerSelectState === undefined || !layerSelectState) return // Ignore non-selected layers
 
         state.sections[sectionKey][layerKey as LayerKey].opacity = opacity
+        const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey as LayerKey}`
+        mapController.setEarthEngineLayerOpacity(mapLayerKey, opacity)
       })
     },
     resetLayerStatus: (
