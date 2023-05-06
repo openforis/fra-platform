@@ -1,7 +1,9 @@
 import { CountryIso } from 'meta/area'
-import { GeoStatisticsState, MapPanel, MosaicOptions } from 'meta/geo'
+import { GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
 
 import { RootState, useAppSelector } from 'client/store'
+
+import { LayersSectionState, LayerState } from '../stateType'
 
 export const useMosaicUrl = (countryIso: CountryIso): string =>
   useAppSelector((state) => state.geo?.mosaicOptions.mosaicUrl[countryIso])
@@ -21,3 +23,9 @@ export const useSelectedPanel = (): MapPanel => useAppSelector((state) => state.
 export const useIsGeoMapAvailable = (): boolean => useAppSelector((state) => state.geo?.isMapAvailable)
 
 export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)
+
+export const useGeoLayerSection = (sectionKey: LayerSectionKey): LayersSectionState | undefined =>
+  useAppSelector((state) => state.geo.sections[sectionKey])
+
+export const useGeoLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState | undefined =>
+  useAppSelector((state) => state.geo.sections[sectionKey]?.[layerKey])

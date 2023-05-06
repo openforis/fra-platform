@@ -23,12 +23,12 @@ export type LayerStateOptions = {
 }
 
 export type LayerState = {
-  selected: boolean
-  opacity: number
-  status: LayerFetchStatus
+  selected?: boolean
+  opacity?: number
+  status?: LayerFetchStatus
   assetId?: string
   options?: LayerStateOptions
-  mapId: string | null
+  mapId?: string
 }
 
 export type LayersSectionState = Record<LayerKey, LayerState>

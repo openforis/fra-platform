@@ -15,5 +15,5 @@ export type { Layer, LayerConfig, LayerKey, LayerMetadata, LayerOptions, LayerSe
 export { LayerSectionKey } from './layer'
 export type { MosaicOptions, MosaicSource } from './mosaic'
 export { ProtectedAreaKey, protectedAreaLayers, protectedAreaLayersMetadata } from './protectedAreaSource'
-export { sections } from './sections'
+export { GLOBAL_OPACITY_KEY, sections } from './sections'
 export type { MapPanel } from './ui'
