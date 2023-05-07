@@ -1,6 +1,8 @@
 // @ts-ignore
 import ee from '@google/earthengine'
 
+import { MapLayerKey } from '@meta/geo'
+
 export class MapController {
   #map: google.maps.Map
 
@@ -16,7 +18,7 @@ export class MapController {
     this.#map = map
   }
 
-  #getLayerIndex(mapLayerKey: string): number {
+  #getLayerIndex(mapLayerKey: MapLayerKey): number {
     return this.#map.overlayMapTypes.getArray().findIndex(({ name }) => name === mapLayerKey)
   }
 
@@ -24,7 +26,7 @@ export class MapController {
     return this.#map === null
   }
 
-  addEarthEngineLayer(mapLayerKey: string, mapId: string, overwrite = false): void {
+  addEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, overwrite = false): void {
     if (this.#map === null) return
 
     if (overwrite) {
@@ -44,13 +46,13 @@ export class MapController {
   // addFeatureViewAssetLayer(mapLayerKey: string, mapId: any, overwrite = false): void {
   // }
 
-  getLayer(mapLayerKey: string): google.maps.MapType | null {
+  getLayer(mapLayerKey: MapLayerKey): google.maps.MapType | null {
     if (this.#map === null) return null
     const i = this.#getLayerIndex(mapLayerKey)
     return i >= 0 ? this.#map.overlayMapTypes.getAt(i) : null
   }
 
-  removeLayer(mapLayerKey: string): boolean {
+  removeLayer(mapLayerKey: MapLayerKey): boolean {
     if (this.#map === null) return false
 
     const i = this.#getLayerIndex(mapLayerKey)
@@ -61,7 +63,7 @@ export class MapController {
     return true
   }
 
-  setEarthEngineLayerOpacity(mapLayerKey: string, opacity: number): boolean {
+  setEarthEngineLayerOpacity(mapLayerKey: MapLayerKey, opacity: number): boolean {
     if (this.#map === null) return false
     // For some reason, `google.maps.MapType` type is lacking `setOpacity` so extend it here
     interface MapTypeWithSetOpacity extends google.maps.MapType {
@@ -76,7 +78,7 @@ export class MapController {
     return true
   }
 
-  addSepalLayer(mapLayerKey: string, urlTemplate: string) {
+  addSepalLayer(mapLayerKey: MapLayerKey, urlTemplate: string) {
     if (this.#map === null) return
 
     if (this.getLayer(mapLayerKey)) return // prevent duplicates

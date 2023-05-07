@@ -1,10 +1,15 @@
 import './LayersSectionPanel.scss'
 import React, { useState } from 'react'
+import { batch } from 'react-redux'
 
-import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection } from '@meta/geo'
+import { LayerRequestBody } from '@meta/api/request/geo/layer'
+import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection, sectionsApiEndpoint } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayerSection } from '@client/store/ui/geo'
+import { postLayer } from '@client/store/ui/geo/actions'
+import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
+import { useCountryIso } from '@client/hooks'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import CustomAssetControl from './components/CustomAssetControl'
@@ -18,6 +23,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
   const dispatch = useAppDispatch()
   const sectionState = useGeoLayerSection(section.key)
   const [globalOpacity, setGlobalOpacity] = useState(0.5)
+  const countryIso = useCountryIso()
 
   const handleOpacityChange = (opacity: number, layerKey: LayerKey | typeof GLOBAL_OPACITY_KEY) => {
     if (layerKey === GLOBAL_OPACITY_KEY) {
@@ -29,7 +35,24 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
   }
 
   const toggleLayer = (layerKey: LayerKey) => {
-    dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
+    const layerState = sectionState?.[layerKey]
+    const newSelectedState = !layerState?.selected
+    const currentMapId = layerState?.mapId
+    batch(() => {
+      // If the layer is selected and doesn't have a mapId cached, fetch it
+      if (newSelectedState && !currentMapId) {
+        const requestBody: LayerRequestBody = {
+          countryIso,
+          layer: {
+            key: layerKey as LayerKey,
+            ...(layerState?.options && { options: { ...layerState.options } }),
+          },
+        }
+        const uri = sectionsApiEndpoint[section.key]
+        dispatch(postLayer({ sectionKey: section.key, layerKey, uri, body: requestBody }))
+      }
+      dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
+    })
   }
 
   return (
@@ -53,6 +76,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
         {section.layers.map((layer) => {
           const isLayerSelected = sectionState?.[layer.key]?.selected || false // default to false
           const opacity = sectionState?.[layer.key]?.opacity ?? 1
+          const loadingStatus = sectionState?.[layer.key]?.status ?? LayerFetchStatus.Unfetched
           if (layer.isCustomAsset)
             return (
               <CustomAssetControl
@@ -74,6 +98,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
               checked={isLayerSelected}
               onCheckboxClick={() => toggleLayer(layer.key)}
               backgroundColor={layer.metadata?.palette?.[0]}
+              loadingStatus={loadingStatus}
             >
               <LayerOpacityControl
                 onChange={handleOpacityChange}
