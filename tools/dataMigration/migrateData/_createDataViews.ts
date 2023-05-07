@@ -1,10 +1,30 @@
-import { Col } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
+import { Col } from '../../../src/meta/assessment/col'
 import { Cycle } from '../../../src/meta/assessment/cycle'
-import { Table } from '../../../src/meta/assessment/table'
-import { BaseProtocol } from '../../../src/server/db'
+import { Table, TableNames } from '../../../src/meta/assessment/table'
+import { BaseProtocol, Tables } from '../../../src/server/db'
 import { DBNames } from '../_DBNames'
 import { getCols } from './_repos'
+
+const getColLinkedNodeUnion = (props: { col: Col & { variableName?: string }; cycle: Cycle }): string => {
+  const { col, cycle } = props
+  const { assessmentName, cycleName, tableName, variableName, colName } = col.props.linkedNodes[cycle.uuid]
+
+  const viewName = [TableNames.extentOfForest, TableNames.forestCharacteristics].includes(tableName as TableNames)
+    ? Tables.getTableDataWithOdpViewName({ tableName })
+    : tableName
+
+  return `
+    union
+    select e.country_iso
+     , '${col.variableName}'      as variable_name
+     , '${col.props.colName}'     as col_name
+     , e.value
+    from ${DBNames.getCycleSchema(assessmentName, cycleName)}.${viewName} e
+    where e.col_name = '${colName}'
+      and e.variable_name = '${variableName}'
+  `
+}
 
 export const getCreateViewDDL = async (
   props: {
@@ -21,21 +41,6 @@ export const getCreateViewDDL = async (
 
   const cols = await getCols(client, schema, table)
   const colsLinkedNodes = cols.filter((col) => Boolean(col.props.linkedNodes?.[cycle.uuid]))
-
-  const getColLinkedNodeUnion = (col: Col & { variableName: string }): string => {
-    const linkedNode = col.props.linkedNodes[cycle.uuid]
-
-    return `
-    union
-    select e.country_iso
-     , '${col.variableName}'      as variable_name
-     , '${col.props.colName}'     as col_name
-     , e.value
-    from ${DBNames.getCycleSchema(linkedNode.assessmentName, linkedNode.cycleName)}.${linkedNode.tableName} e
-    where e.col_name = '${linkedNode.colName}'
-      and e.variable_name = '${linkedNode.variableName}'
-  `
-  }
 
   const query = `
   create or replace view ${schemaCycle}.${table.props.name} as
@@ -57,7 +62,7 @@ export const getCreateViewDDL = async (
              and c.props -> 'linkedNodes' -> '${cycle.uuid}' is null
   ${
     colsLinkedNodes.length
-      ? `${colsLinkedNodes.map(getColLinkedNodeUnion).join(`
+      ? `${colsLinkedNodes.map((col) => getColLinkedNodeUnion({ col, cycle })).join(`
   `)}`
       : ''
   }             
