@@ -7,6 +7,7 @@ import { LayerKey, LayerSectionKey } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
+import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
 
 import LayerOpacityControl from '../LayerOpacityControl'
 
@@ -18,6 +19,7 @@ interface Props {
   sectionKey: LayerSectionKey
   layerKey: LayerKey
   backgroundColor?: string
+  loadingStatus: LayerFetchStatus
 }
 
 const CustomAssetControl: React.FC<Props> = ({
@@ -28,11 +30,12 @@ const CustomAssetControl: React.FC<Props> = ({
   sectionKey,
   layerKey,
   backgroundColor,
+  loadingStatus,
 }) => {
   const dispatch = useAppDispatch()
   const layerState = useGeoLayer(sectionKey, layerKey)
 
-  const [inputValue, setInputValue] = useState<string>(layerState?.assetId ?? '')
+  const [inputValue, setInputValue] = useState<string>(layerState?.options?.assetId ?? '')
   const [inputError, setInputError] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -64,7 +67,15 @@ const CustomAssetControl: React.FC<Props> = ({
             onClick={() => onToggle(layerKey)}
             onKeyDown={() => onToggle(layerKey)}
           >
-            <div style={checked ? { backgroundColor } : {}} className={classNames('fra-checkbox', { checked })} />
+            <div
+              style={checked && loadingStatus !== LayerFetchStatus.Loading ? { backgroundColor } : {}}
+              className={classNames({
+                'fra-checkbox': loadingStatus !== LayerFetchStatus.Loading,
+                checked,
+                'loading-spinner': loadingStatus === LayerFetchStatus.Loading,
+                failed: loadingStatus === LayerFetchStatus.Failed,
+              })}
+            />
           </div>
           <div className="custom-input-container">
             <input
@@ -72,7 +83,7 @@ const CustomAssetControl: React.FC<Props> = ({
               value={inputValue}
               onChange={handleInputChange}
               placeholder="Asset ID"
-              className={classNames('custom-input', inputError ? 'error' : '')}
+              className={classNames('custom-input', { error: inputError })}
             />
             <button type="button" className="btn-primary" onClick={handleSubmit}>
               Submit
