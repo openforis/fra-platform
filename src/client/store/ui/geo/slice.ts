@@ -15,7 +15,7 @@ import { mapController } from '@client/utils'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestEstimationData, postLayer } from './actions'
-import { GeoState, LayerFetchStatus, LayersSectionState, LayerState } from './stateType'
+import { GeoState, LayerFetchStatus, LayersSectionState, LayerState, LayerStateOptions } from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -54,6 +54,16 @@ const getLayerState = (state: Draft<GeoState>, sectionKey: LayerSectionKey, laye
   const sectionState = getSectionState(state, sectionKey)
   sectionState[layerKey] ??= {}
   return sectionState[layerKey]
+}
+
+const getLayerStateOptions = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey
+): LayerStateOptions => {
+  const layerState = getLayerState(state, sectionKey, layerKey)
+  layerState.options ??= {}
+  return layerState.options
 }
 
 const handlePostLayerStatus = (
@@ -195,8 +205,8 @@ export const geoSlice = createSlice({
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
     ) => {
       const { sectionKey, layerKey, assetId } = action.payload
-      const layerState = getLayerState(state, sectionKey, layerKey)
-      state.sections[sectionKey][layerKey] = { ...layerState, assetId }
+      const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options = { ...layerStateOptions, assetId }
     },
     setLayerMinTreeCoverPercentage: (
       state,
