@@ -17,6 +17,7 @@ export type AgreementLevelState = {
 // Similar to the type LayerOptions, but in this case it has the selected
 // value instead of the list options.
 export type LayerStateOptions = {
+  assetId?: string
   minTreeCoverPercentage?: number
   agreementLayer?: AgreementLevelState
   year?: number
@@ -26,7 +27,6 @@ export type LayerState = {
   selected?: boolean
   opacity?: number
   status?: LayerFetchStatus
-  assetId?: string
   options?: LayerStateOptions
   mapId?: string
 }
