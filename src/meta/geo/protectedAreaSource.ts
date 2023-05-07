@@ -28,10 +28,10 @@ export const protectedAreaLayers: LayerSection = {
       key: ProtectedAreaKey.FilteredWDPA,
       metadata: protectedAreaLayersMetadata.FilteredWDPA,
     },
-    {
-      key: ProtectedAreaKey.WDPA,
-      metadata: protectedAreaLayersMetadata.WDPA,
-    },
+    // {
+    //   key: ProtectedAreaKey.WDPA, // <- Layer not yet implemented in the backend
+    //   metadata: protectedAreaLayersMetadata.WDPA,
+    // },
     {
       key: ProtectedAreaKey.CustomPA,
       isCustomAsset: true,

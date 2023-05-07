@@ -205,7 +205,7 @@ export const forestLayers: LayerSection = {
     },
     {
       key: ForestKey.ESAWorldCover,
-      metadata: forestLayersMetadata.ESAGlobCover,
+      metadata: forestLayersMetadata.ESAWorldCover,
     },
     {
       key: ForestKey.Hansen,
@@ -214,10 +214,10 @@ export const forestLayers: LayerSection = {
       },
       metadata: forestLayersMetadata.Hansen,
     },
-    {
-      key: ForestKey.MODIS,
-      metadata: forestLayersMetadata.MODIS,
-    },
+    // {
+    //   key: ForestKey.MODIS, // <- Layer not yet implemented in the backend
+    //   metadata: forestLayersMetadata.MODIS,
+    // },
     {
       key: ForestKey.CustomFnF,
       isCustomAsset: true,
