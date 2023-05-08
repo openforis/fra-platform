@@ -93,7 +93,7 @@ const Invitation: React.FC = () => {
     <div className="login__formWrapper">
       <h3>
         {t('login.invitationMessage', {
-          assessment: assessment.props.name,
+          assessment: t(`fra.labels.${assessment.props.name}`),
           cycle: cycle.name,
           role: t(Users.getI18nRoleLabelKey(userRole.role)),
           country: t(`area.${userRole.countryIso}.listName`),

@@ -42,7 +42,9 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
       {role !== UserRoles.noRole.role && (
         <div className="country-selection-list__header">
           <span className="country-selection-list__primary-col">{i18n.t<string>(Users.getI18nRoleLabelKey(role))}</span>
-          <span className="country-selection-list__secondary-col uppercase">{`${assessment.props.name} ${cycle.name}`}</span>
+          <span className="country-selection-list__secondary-col">
+            {`${i18n.t(`${assessment.props.name}.labels.short`)} ${cycle.name}`}
+          </span>
           <span className="country-selection-list__secondary-col">{i18n.t<string>('audit.edited')}</span>
         </div>
       )}

@@ -27,7 +27,7 @@ export const userInvite = async (props: {
 
   const emailProps = {
     country: i18n.t(`area.${countryIso}.listName`),
-    assessmentName,
+    assessmentName: i18n.t(`${assessmentName}.labels.short`),
     cycleName,
     invitedUser: Users.getFullName(userToInvite),
     role: roleName,
