@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom'
 import { Strings } from '@utils/strings'
 
 import { Country, CountryIso, RegionGroup } from '@meta/area'
-import { Assessment, Section, SubSection } from '@meta/assessment'
+import { Assessment, AssessmentName, Section, SubSection } from '@meta/assessment'
 
 import { useAppSelector } from '@client/store'
 import { useCountryIso } from '@client/hooks'
 
-export { useCycle } from './useCycle'
+import { useCycle } from './useCycle'
+
+export { useCycle }
 
 // TODO: Move elsewhere <>
 const getLocale = (isoCode: string): string => {
@@ -30,18 +32,29 @@ const getCompareListName =
 
 // </>
 
-export const useAssessment = (): Assessment => useAppSelector((state) => state.assessment?.assessment)
+export const useAssessment = (assessmentName?: AssessmentName): Assessment => {
+  const { assessmentName: _assessmentName } = useParams<{ assessmentName: string }>()
+  return useAppSelector((state) => state.assessment?.[assessmentName ?? _assessmentName])
+}
+
+const _useCountries = (): Record<CountryIso, Country> => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  return useAppSelector((state) => state.assessment[assessment.props.name][cycle.name]?.countries ?? {})
+}
 
 export const useCountries = (): Array<Country> => {
-  const countries = useAppSelector((state) => state.assessment.countries ?? {}) as Record<CountryIso, Country>
+  const countries = _useCountries()
   const { i18n } = useTranslation()
   const compareListName = getCompareListName(i18n)
 
   return Object.values(countries).sort((c1, c2) => compareListName(c1.countryIso, c2.countryIso))
 }
 
-export const useCountry = (countryIso: CountryIso): Country =>
-  useAppSelector((state) => state.assessment.countries?.[countryIso])
+export const useCountry = (countryIso: CountryIso): Country => {
+  const countries = _useCountries()
+  return countries[countryIso]
+}
 
 export const useAssessmentCountry = (): Country => {
   const countryIso = useCountryIso()
@@ -49,10 +62,18 @@ export const useAssessmentCountry = (): Country => {
   return useCountry(countryIso)
 }
 
-export const useRegionGroups = (): Record<string, RegionGroup> =>
-  useAppSelector((state) => state.assessment?.regionGroups ?? {})
+export const useRegionGroups = (): Record<string, RegionGroup> => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  return useAppSelector((state) => state.assessment[assessment.props.name][cycle.name]?.regionGroups ?? {})
+}
 
-export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)
+export const useAssessmentSections = (): Array<Section> => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  return useAppSelector((state) => state.assessment[assessment.props.name][cycle.name]?.sections)
+}
+
 export const useAssessmentSection = (sectionNameParam?: string): SubSection => {
   const sections = useAssessmentSections()
   const { sectionName: s } = useParams<{ sectionName: string }>()

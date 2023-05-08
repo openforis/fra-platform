@@ -15,27 +15,55 @@ export const assessmentSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getAreas.fulfilled, (state, { payload }) => {
+    builder.addCase(getAreas.fulfilled, (state, { payload, meta }) => {
       const { countries, regionGroups } = payload
+      const {
+        arg: { assessmentName, cycleName },
+      } = meta
 
-      state.countries = countries.reduce(
+      if (!state[assessmentName]) {
+        state[assessmentName] = {}
+      }
+
+      if (!state[assessmentName][cycleName]) {
+        state[assessmentName][cycleName] = {}
+      }
+
+      state[assessmentName][cycleName].countries = countries.reduce(
         (countriesAcc, country) => ({ ...countriesAcc, [country.countryIso]: country }),
         {}
       )
 
-      state.regionGroups = regionGroups
+      state[assessmentName][cycleName].regionGroups = regionGroups
     })
 
     builder.addCase(getAssessment.fulfilled, (state, { payload }) => {
-      state.assessment = payload
+      state[payload.props.name] = payload
     })
 
-    builder.addCase(getSections.fulfilled, (state, { payload }) => {
-      state.sections = payload
+    builder.addCase(getSections.fulfilled, (state, { payload, meta }) => {
+      const {
+        arg: { assessmentName, cycleName },
+      } = meta
+      if (!state[assessmentName]) {
+        state[assessmentName] = {}
+      }
+
+      if (!state[assessmentName][cycleName]) {
+        state[assessmentName][cycleName] = {}
+      }
+
+      state[assessmentName][cycleName].sections = payload
     })
 
-    builder.addCase(updateCountry.fulfilled, (state, { payload }) => {
-      state.countries[payload.countryIso] = { ...state.countries[payload.countryIso], ...payload }
+    builder.addCase(updateCountry.fulfilled, (state, { payload, meta }) => {
+      const {
+        arg: { assessmentName, cycleName },
+      } = meta
+      state[assessmentName][cycleName].countries[payload.countryIso] = {
+        ...state.countries[payload.countryIso],
+        ...payload,
+      }
     })
 
     builder.addCase(updateCountryProp.pending, (state, reducer) => {
@@ -43,9 +71,12 @@ export const assessmentSlice = createSlice({
         meta: { arg },
       } = reducer
 
-      const { countryIso, countryProp } = arg
+      const { countryIso, countryProp, assessmentName, cycleName } = arg
 
-      state.countries[countryIso].props = { ...state.countries[countryIso].props, ...countryProp }
+      state[assessmentName][cycleName].countries[countryIso].props = {
+        ...state.countries[countryIso].props,
+        ...countryProp,
+      }
     })
 
     builder.addCase(initApp.pending, (state) => {
@@ -57,8 +88,9 @@ export const assessmentSlice = createSlice({
     })
 
     builder.addCase(updateNodeValues.fulfilled, (state, payload) => {
-      const { countryIso } = payload.meta.arg
-      if (state.countries[countryIso]) state.countries[countryIso].lastEdit = new Date().toISOString()
+      const { countryIso, assessmentName, cycleName } = payload.meta.arg
+      if (state[assessmentName][cycleName].countries[countryIso])
+        state[assessmentName][cycleName].countries[countryIso].lastEdit = new Date().toISOString()
     })
   },
 })

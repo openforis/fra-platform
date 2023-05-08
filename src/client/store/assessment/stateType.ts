@@ -1,11 +1,18 @@
-import { Country, CountryIso, RegionGroup } from '@meta/area'
-import { Assessment, Section } from '@meta/assessment'
+import { Country, CountryIso } from '@meta/area'
 
 type Countries = {
   [key in CountryIso]?: Country
 }
 
-export interface AssessmentState {
+// TODO: Specify this as
+/*
+ * {
+ *   appIniitalized:
+ *   [key = assessmentName]: Assessment & { [cycleName]: countries, regionGroups, sections }
+ *
+ *
+ * */
+export type AssessmentState = any /* {
   assessment?: Assessment
   countries?: Countries
   regionGroups?: Record<string, RegionGroup>
@@ -13,3 +20,4 @@ export interface AssessmentState {
 
   appInitialized: boolean
 }
+*/

@@ -6,7 +6,7 @@ import { Country, RegionGroup } from '@meta/area'
 
 export const getAreas = createAsyncThunk<
   { countries: Array<Country>; regionGroups: Record<string, RegionGroup> },
-  { assessmentName: string; cycleName?: string } | void
+  { assessmentName: string; cycleName: string }
 >('assessment/areas/get', async (params) => {
   const { data } = await axios.get(ApiEndPoint.Area.areas(), { params })
   return data

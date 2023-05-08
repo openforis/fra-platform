@@ -11,10 +11,10 @@ import { useAppSelector } from '@client/store'
  * @returns Cycle
  */
 export const useCycle = (cycleUuid?: CycleUuid): Cycle | undefined => {
-  const { cycleName } = useParams<{ cycleName: string }>()
-  const defaultCycleUuid = useAppSelector((state) => state.assessment?.assessment?.props.defaultCycle)
+  const { cycleName, assessmentName } = useParams<{ cycleName: string; assessmentName: string }>()
+  const defaultCycleUuid = useAppSelector((state) => state.assessment?.[assessmentName]?.props.defaultCycle)
   const cycle = useAppSelector((state) => {
-    const { cycles } = state.assessment?.assessment ?? { cycles: [] as Array<Cycle> }
+    const { cycles } = state.assessment?.[assessmentName] ?? { cycles: [] as Array<Cycle> }
 
     if (cycleUuid) {
       return cycles.find(({ uuid }) => uuid === cycleUuid)
