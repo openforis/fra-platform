@@ -24,7 +24,9 @@ const ColumnComments: React.FC<Props> = (props: Props) => {
         'validation-error': datasourceValidators.comment(dataSourceValue.comments),
       })}
     >
-      <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.comments} />
+      <div className="data-source__text-area-wrapper">
+        <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.comments} />
+      </div>
     </DataColumn>
   )
 }
