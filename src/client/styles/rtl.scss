@@ -209,4 +209,15 @@
   .text-end {
     text-align: left !important;
   }
+
+  .invitation-info-box {
+    left: -1px;
+    right: -200%;
+    text-align: right;
+
+    .invitation-info-box-close {
+      right: auto;
+      left: 8px;
+    }
+  }
 }
