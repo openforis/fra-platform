@@ -16,9 +16,7 @@ export const validatorNotEmpty: ExpressionFunction<Context> = {
       const isEmpty = shouldCheckEmpty ? Objects.isEmpty(value) : false
       const valid = !isEmpty
 
-      const messages: Array<NodeValueValidationMessage> = valid
-        ? undefined
-        : [{ key: 'generalValidation.notEmptyAgent' }]
+      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key: 'generalValidation.notEmpty' }]
 
       return { valid, messages }
     }
