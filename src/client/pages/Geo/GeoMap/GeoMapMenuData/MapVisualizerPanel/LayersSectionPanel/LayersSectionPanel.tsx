@@ -88,6 +88,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
                 sectionKey={section.key}
                 layerKey={layer.key}
                 backgroundColor={layer.metadata?.palette?.[0]}
+                loadingStatus={loadingStatus}
               />
             )
           return (
