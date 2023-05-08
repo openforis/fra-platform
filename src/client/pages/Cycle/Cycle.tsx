@@ -1,6 +1,6 @@
 import './Cycle.scss'
 import React, { useEffect } from 'react'
-import { Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 import { AssessmentName, AssessmentNames } from '@meta/assessment'
@@ -8,6 +8,7 @@ import { AssessmentName, AssessmentNames } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
+import { useUserCycles } from '@client/store/user'
 import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from '@client/hooks/useIsPath'
 import AssessmentSwitch from '@client/components/AssessmentSwitch'
 import PageLayout from '@client/components/PageLayout'
@@ -41,6 +42,8 @@ const Cycle: React.FC = () => {
   const isAdmin = useIsAdmin()
   const isLogin = useIsLogin()
   const isUserEditPage = useIsUserEditPage()
+  const navigate = useNavigate()
+  const userCycles = useUserCycles()
 
   useEffect(() => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
@@ -55,7 +58,16 @@ const Cycle: React.FC = () => {
     }
   }, [cycleName, dispatch])
 
-  if (!assessment || !cycle) return null
+  useEffect(() => {
+    // If user is accessing login page, do not redirect
+    if (!isLogin && !userCycles?.find((userCycle) => userCycle.id === cycle.id)) {
+      navigate('/')
+    }
+  }, [userCycles, cycle, navigate, isLogin])
+
+  if (!assessment || !cycle) {
+    return null
+  }
 
   return (
     <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage}>

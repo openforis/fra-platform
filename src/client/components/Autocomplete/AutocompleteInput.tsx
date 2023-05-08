@@ -1,20 +1,18 @@
 import React from 'react'
 
+import classNames from 'classnames'
 import { GetPropsCommonOptions, UseComboboxGetInputPropsOptions } from 'downshift'
-
-import Icon from '@client/components/Icon'
 
 type Props = {
   getInputProps: (options?: UseComboboxGetInputPropsOptions, otherOptions?: GetPropsCommonOptions) => any
   value: string
   disabled: boolean
-  isOpen: boolean
   openMenu: () => void
   onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   readOnlyOptions?: boolean
 }
 const AutocompleteInput: React.FC<Props> = (props: Props) => {
-  const { getInputProps, value, disabled, isOpen, readOnlyOptions, openMenu, onPaste } = props
+  const { getInputProps, value, disabled, readOnlyOptions, openMenu, onPaste } = props
 
   const _onFocus = () => {
     if (readOnlyOptions) openMenu()
@@ -23,7 +21,7 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
   const showArrow = readOnlyOptions && !disabled
 
   return (
-    <div className="autocomplete-input__wrapper">
+    <div className={classNames('autocomplete-input__wrapper', { arrow: showArrow })}>
       <input
         type="text"
         // eslint-disable-next-line react/jsx-props-no-spreading
@@ -35,7 +33,6 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
         })}
         onPaste={onPaste}
       />
-      {showArrow && <Icon name={isOpen ? 'small-up' : 'small-down'} />}
     </div>
   )
 }
