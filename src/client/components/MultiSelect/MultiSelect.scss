@@ -33,6 +33,9 @@
 .multi-select__closed-content {
   padding: 10px 24px 10px 10px;
   white-space: normal;
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
 
 .multi-select__opened {
@@ -43,8 +46,10 @@
   z-index: $z-index-popover;
   background-color: white;
   border-radius: 2px;
-  box-shadow: $shadow-3;
   padding: 4px 0;
+  border: 1px solid $text-link;
+  border-top: initial;
+  min-width: 100%;
 }
 
 .multi-select__opened-item {
