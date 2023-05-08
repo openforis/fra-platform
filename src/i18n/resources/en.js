@@ -539,6 +539,7 @@ The FRA team
     insufficientPrivileges: 'Insufficient privileges',
     invitationDeleted: 'The invitation has been deleted',
     invitationEmailSent: 'An invitation email has been sent',
+    invitationLinkCopied: 'The invitation link has been copied',
     invitationLink: 'Invitation link',
     loginEmail: 'Login',
     manageCollaborators: 'Manage collaborators',
