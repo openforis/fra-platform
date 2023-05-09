@@ -3,11 +3,10 @@ import React, { ChangeEvent, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { LayerKey, LayerSectionKey, sectionsApiEndpoint } from '@meta/geo'
+import { LayerKey, LayerSectionKey } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
-import { _getLayerRequestBody } from '@client/store/ui/geo/actions'
 import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
 import { useCountryIso } from '@client/hooks'
 
@@ -51,9 +50,7 @@ const CustomAssetControl: React.FC<Props> = ({
       setValidInput(false)
     } else {
       setValidInput(true)
-      const requestBody = _getLayerRequestBody(countryIso, layerKey, layerState)
-      const uri = sectionsApiEndpoint[sectionKey]
-      dispatch(GeoActions.postLayer({ sectionKey, layerKey, uri, body: requestBody }))
+      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey, layerState }))
     }
   }
 
