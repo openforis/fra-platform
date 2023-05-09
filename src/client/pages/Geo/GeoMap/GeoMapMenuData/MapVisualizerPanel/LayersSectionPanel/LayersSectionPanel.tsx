@@ -7,7 +7,6 @@ import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection, sectionsApiEndpoint } from 
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayerSection } from '@client/store/ui/geo'
-import { postLayer } from '@client/store/ui/geo/actions'
 import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
 import { useCountryIso } from '@client/hooks'
 
@@ -49,7 +48,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
           },
         }
         const uri = sectionsApiEndpoint[section.key]
-        dispatch(postLayer({ sectionKey: section.key, layerKey, uri, body: requestBody }))
+        dispatch(GeoActions.postLayer({ sectionKey: section.key, layerKey, uri, body: requestBody }))
       }
       dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
     })

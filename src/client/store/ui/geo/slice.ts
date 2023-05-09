@@ -323,6 +323,7 @@ export const geoSlice = createSlice({
 export const GeoActions = {
   ...geoSlice.actions,
   postMosaicOptions,
+  postLayer,
 }
 
 export default geoSlice.reducer as Reducer<GeoState>
