@@ -11,7 +11,7 @@ import { UserRepository } from '@server/repository/public/user'
 
 import { sendMail } from './mail'
 
-export const createMail = async (props: {
+const createMail = async (props: {
   status: AssessmentStatus
   user: User
   recipient: User

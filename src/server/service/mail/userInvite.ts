@@ -2,7 +2,7 @@ import { createI18nPromise } from '@i18n/i18nFactory'
 
 import { ClientRoutes } from '@meta/app'
 import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName, Assessments } from '@meta/assessment'
 import { RoleName, User, UserRole, Users } from '@meta/user'
 
 import { sendMail } from './mail'
@@ -27,7 +27,7 @@ export const userInvite = async (props: {
 
   const emailProps = {
     country: i18n.t(`area.${countryIso}.listName`),
-    assessmentName,
+    assessmentName: i18n.t(Assessments.getShortLabel(assessmentName)),
     cycleName,
     invitedUser: Users.getFullName(userToInvite),
     role: roleName,
