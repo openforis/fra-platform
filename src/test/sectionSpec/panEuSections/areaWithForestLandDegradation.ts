@@ -278,7 +278,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: { '2025': [`validatorNotEmpty(table_2_5.agentName.agentOne)`] },
+                    validateFns: {
+                      '2025': [
+                        `validatorNotEmpty(table_2_5.agentName.agentOne, 
+                    [table_2_5.forest_2020.agentOne, table_2_5.forest_2015.agentOne, table_2_5.forest_2010.agentOne, table_2_5.forest_2005.agentOne, table_2_5.forest_2000.agentOne, table_2_5.forest_1990.agentOne])`,
+                      ],
+                    },
                   },
                 },
                 {
@@ -289,7 +294,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: { '2025': [`validatorNotEmpty(table_2_5.agentName.agentTwo)`] },
+                    validateFns: {
+                      '2025': [
+                        `validatorNotEmpty(table_2_5.agentName.agentTwo,
+                    [table_2_5.forest_2020.agentTwo, table_2_5.forest_2015.agentTwo, table_2_5.forest_2010.agentTwo, table_2_5.forest_2005.agentTwo, table_2_5.forest_2000.agentTwo, table_2_5.forest_1990.agentTwo])`,
+                      ],
+                    },
                   },
                 },
                 {
@@ -300,7 +310,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: { '2025': [`validatorNotEmpty(table_2_5.agentName.agentThree)`] },
+                    validateFns: {
+                      '2025': [
+                        `validatorNotEmpty(table_2_5.agentName.agentThree,
+                    [table_2_5.forest_2020.agentThree, table_2_5.forest_2015.agentThree, table_2_5.forest_2010.agentThree, table_2_5.forest_2005.agentThree, table_2_5.forest_2000.agentThree, table_2_5.forest_1990.agentThree])`,
+                      ],
+                    },
                   },
                 },
                 {
@@ -311,7 +326,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: { '2025': [`validatorNotEmpty(table_2_5.agentName.agentFour)`] },
+                    validateFns: {
+                      '2025': [
+                        `validatorNotEmpty(table_2_5.agentName.agentFour,
+                    [table_2_5.forest_2020.agentFour, table_2_5.forest_2015.agentFour, table_2_5.forest_2010.agentFour, table_2_5.forest_2005.agentFour, table_2_5.forest_2000.agentFour, table_2_5.forest_1990.agentFour])`,
+                      ],
+                    },
                   },
                 },
                 {
@@ -322,7 +342,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: { '2025': [`validatorNotEmpty(table_2_5.agentName.agentFive)`] },
+                    validateFns: {
+                      '2025': [
+                        `validatorNotEmpty(table_2_5.agentName.agentFive,
+                    [table_2_5.forest_2020.agentFive, table_2_5.forest_2015.agentFive, table_2_5.forest_2010.agentFive, table_2_5.forest_2005.agentFive, table_2_5.forest_2000.agentFive, table_2_5.forest_1990.agentFive])`,
+                      ],
+                    },
                   },
                 },
                 { idx: 6, type: 'placeholder', migration: { cycles: ['2025'] } },
