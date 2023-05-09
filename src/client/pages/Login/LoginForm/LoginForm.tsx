@@ -24,7 +24,7 @@ const LoginForm: React.FC = () => {
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const loginError = Urls.getRequestParam('loginError')
+  const loginError = Urls.getRequestParam('loginError')?.replace('#', '')
 
   const [isLocal, setIsLocal] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
