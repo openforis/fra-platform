@@ -9,7 +9,7 @@ export { AssessmentMetaCaches } from './assessmentMetaCaches'
 export type { AssessmentName } from './assessmentName'
 export { AssessmentNames } from './assessmentName'
 export { Assessments } from './assessments'
-export type { Col, ColName, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
+export type { Col, ColLinkedNode, ColName, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
 export { ColType } from './col'
 export { Cols } from './cols'
 export type {
@@ -19,7 +19,7 @@ export type {
   DataSourceLinked,
 } from './commentableDescription'
 export { CommentableDescriptionName } from './commentableDescription'
-export type { Cycle, CycledPropsObject, CycleUuid } from './cycle'
+export type { Cycle, CycledPropsObject, CycleName, CycleUuid } from './cycle'
 export type {
   DataSourceDescriptionTable,
   DataSourceLinkedVariable,
@@ -42,7 +42,7 @@ export { RowType } from './row'
 export type { Section, SectionProps, SubSection, SubSectionProps } from './section'
 export type { Settings } from './settings'
 export { SubSections } from './subSections'
-export type { Table, TableColumnNames, TableProps } from './table'
+export type { Table, TableColumnNames, TableName, TableProps } from './table'
 export { TableNames } from './table'
 export type { TableSection, TableSectionProps } from './tableSection'
 export { Unit } from './unit'

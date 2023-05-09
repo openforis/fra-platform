@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-import { ColStyle, CycleUuid, Label } from '@meta/assessment'
+import { ColLinkedNode, ColStyle, CycleUuid, Label } from '@meta/assessment'
 
 import { TypeSpec } from './typeSpec'
 import { Validator } from './validation'
@@ -33,7 +33,6 @@ export interface ColSpec {
   optionName?: string
   variableNo?: string
   linkToSection?: string // TODO: remove? (check if used - probably not)
-
   // migration
   colName?: string
   migration?: {
@@ -44,5 +43,6 @@ export interface ColSpec {
     label?: Record<string, Label>
     style?: Record<string, ColStyle>
     variableNo?: Record<string, string>
+    linkedNodes?: Record<CycleUuid, ColLinkedNode>
   }
 }

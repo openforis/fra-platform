@@ -26,15 +26,17 @@ export const getRows = (client: BaseProtocol, schema: string, table: Table): Pro
     }
   )
 
-export const getCols = (client: BaseProtocol, schema: string, table: Table): Promise<Array<Col>> =>
+export const getCols = (
+  client: BaseProtocol,
+  schema: string,
+  table: Table
+): Promise<Array<Col & { variableName?: string }>> =>
   client.map<Col>(
-    `select *
+    `select c.*,r.props->>'variableName' as variable_name
      from ${schema}.col c
-     where c.row_id in (
-         select r.id
-         from ${schema}.row r
-         where table_id = $1
-     )
+              left join ${schema}.row r
+                        on c.row_id = r.id
+     where r.table_id = $1
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
     [table.id],
     (col) => {
@@ -43,6 +45,7 @@ export const getCols = (client: BaseProtocol, schema: string, table: Table): Pro
         props: {
           ...Objects.camelize(col.props),
           calculateFn: col.props.calculateFn,
+          linkedNodes: col.props.linkedNodes,
           validateFns: col.props.validateFns,
         },
       }

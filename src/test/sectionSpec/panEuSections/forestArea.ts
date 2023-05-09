@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+// TODO: Missing Node link for `_of_which_with_tree_cover`. We need to ask which variable is linked to this one.
 export const forestArea = {
   sectionName: 'forestArea',
   sectionAnchor: '1.1a', // customize per cycle
@@ -43,7 +44,21 @@ export const forestArea = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '2025',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 cycles: ['2025'],
@@ -92,7 +107,21 @@ export const forestArea = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '2020',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 validateFns: {
@@ -140,7 +169,21 @@ export const forestArea = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '2015',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.forest',
               migration: {
@@ -188,7 +231,21 @@ export const forestArea = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '2010',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.forest',
               migration: {
@@ -284,7 +341,21 @@ export const forestArea = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '2000',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 validateFns: {
@@ -332,7 +403,21 @@ export const forestArea = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'forestArea',
+                        colName: '1990',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 validateFns: {
@@ -509,7 +594,21 @@ export const forestArea = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherWoodedLand',
+                        colName: '2025',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 cycles: ['2025'],
@@ -530,7 +629,21 @@ export const forestArea = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherWoodedLand',
+                        colName: '2020',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_wooded_land',
               labelParams: { year: 2020 },
@@ -548,7 +661,21 @@ export const forestArea = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherWoodedLand',
+                        colName: '2015',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_wooded_land',
               labelParams: { year: 2015 },
@@ -566,7 +693,21 @@ export const forestArea = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherWoodedLand',
+                        colName: '2010',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_wooded_land',
               labelParams: { year: 2010 },
@@ -602,7 +743,21 @@ export const forestArea = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherWoodedLand',
+                        colName: '2000',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_wooded_land',
               labelParams: { year: 2000 },
@@ -620,7 +775,21 @@ export const forestArea = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherWoodedLand',
+                        colName: '1990',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_wooded_land',
               labelParams: { year: 1990 },
@@ -768,7 +937,21 @@ export const forestArea = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherLand',
+                        colName: '2025',
+                      },
+                    },
+                  },
+                },
               ],
               migration: {
                 cycles: ['2025'],
@@ -793,7 +976,21 @@ export const forestArea = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherLand',
+                        colName: '2020',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_land',
               labelParams: { year: 2020 },
@@ -815,7 +1012,21 @@ export const forestArea = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherLand',
+                        colName: '2015',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_land',
               labelParams: { year: 2015 },
@@ -837,7 +1048,21 @@ export const forestArea = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherLand',
+                        colName: '2010',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_land',
               labelParams: { year: 2010 },
@@ -881,7 +1106,21 @@ export const forestArea = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherLand',
+                        colName: '2000',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_land',
               labelParams: { year: 2000 },
@@ -903,7 +1142,21 @@ export const forestArea = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'extentOfForest',
+                        variableName: 'otherLand',
+                        colName: '1990',
+                      },
+                    },
+                  },
+                },
               ],
               labelKey: 'panEuropean.forestArea.other_land',
               labelParams: { year: 1990 },

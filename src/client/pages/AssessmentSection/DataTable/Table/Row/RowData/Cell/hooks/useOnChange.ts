@@ -115,7 +115,7 @@ export default (props: Props): UseOnChange => {
 
           const colSpecType = colSpec.props.colType
           const value = columnsToPaste[j].innerText
-          const readOnly = Cols.isReadOnly({ col: colSpec, row: rowSpec }) || nodeValue.odp
+          const readOnly = Cols.isReadOnly({ cycle, col: colSpec, row: rowSpec }) || nodeValue.odp
           const acceptable = Sanitizer.isAcceptable({ type: colSpecType, value })
 
           if (!readOnly && acceptable) {
