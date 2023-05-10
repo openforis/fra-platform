@@ -8,6 +8,7 @@ import { LayerKey, LayerSectionKey } from '@meta/geo'
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
 import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
+import { useCountryIso } from '@client/hooks'
 
 import LayerOpacityControl from '../LayerOpacityControl'
 
@@ -21,7 +22,6 @@ interface Props {
   backgroundColor?: string
   loadingStatus: LayerFetchStatus
 }
-
 const CustomAssetControl: React.FC<Props> = ({
   checked,
   opacity,
@@ -34,24 +34,23 @@ const CustomAssetControl: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch()
   const layerState = useGeoLayer(sectionKey, layerKey)
-
-  const [inputValue, setInputValue] = useState<string>(layerState?.options?.assetId ?? '')
-  const [inputError, setInputError] = useState(false)
-
+  const countryIso = useCountryIso()
+  const [validInput, setValidInput] = useState(true)
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value)
-    if (inputError && event.target.value.trim() !== '') {
-      setInputError(false)
+    const newAssetId = event.target.value.trim()
+    dispatch(GeoActions.setAssetId({ sectionKey, layerKey, assetId: newAssetId }))
+    if (newAssetId !== '') {
+      setValidInput(true)
+    } else {
+      setValidInput(false)
     }
   }
-
   const handleSubmit = (): void => {
-    if (inputValue.trim() === '') {
-      setInputError(true)
+    if ((layerState?.options?.assetId ?? '') === '') {
+      setValidInput(false)
     } else {
-      setInputError(false)
-      dispatch(GeoActions.setAssetId({ sectionKey, layerKey, assetId: inputValue.trim() }))
-      dispatch(GeoActions.resetLayerStatus({ sectionKey, layerKey }))
+      setValidInput(true)
+      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey, layerState }))
     }
   }
 
@@ -80,10 +79,10 @@ const CustomAssetControl: React.FC<Props> = ({
           <div className="custom-input-container">
             <input
               type="text"
-              value={inputValue}
+              value={layerState?.options?.assetId ?? ''}
               onChange={handleInputChange}
               placeholder="Asset ID"
-              className={classNames('custom-input', { error: inputError })}
+              className={classNames('custom-input', { error: !validInput })}
             />
             <button type="button" className="btn-primary" onClick={handleSubmit}>
               Submit

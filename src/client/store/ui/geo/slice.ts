@@ -1,15 +1,7 @@
 import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import {
-  ForestEstimations,
-  ForestKey,
-  LayerKey,
-  LayerSectionKey,
-  MapLayerKey,
-  MosaicOptions,
-  MosaicSource,
-} from 'meta/geo'
+import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOptions, MosaicSource } from 'meta/geo'
 
 import { mapController } from 'client/utils'
 
@@ -250,7 +242,7 @@ export const geoSlice = createSlice({
       const sectionState = getSectionState(state, sectionKey)
 
       Object.keys(sectionState).forEach((layerKey) => {
-        if (layerKey === ForestKey.Agreement) return // Ignore the agreement layer
+        if (layerKey === 'Agreement') return // Ignore any agreement layer
 
         const layerSelectState = state.sections[sectionKey][layerKey as LayerKey].selected
         if (layerSelectState === undefined || !layerSelectState) return // Ignore non-selected layers
@@ -323,6 +315,7 @@ export const geoSlice = createSlice({
 export const GeoActions = {
   ...geoSlice.actions,
   postMosaicOptions,
+  postLayer,
 }
 
 export default geoSlice.reducer as Reducer<GeoState>
