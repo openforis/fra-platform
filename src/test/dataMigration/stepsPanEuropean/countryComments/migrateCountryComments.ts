@@ -64,6 +64,11 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
     const tableName = `country_comments_${tableIdx}`
     Logger.info(`==== ${i + 1}/${fileNames.length} (${Numbers.format(p)})%  -> ${fileName} `)
     const table = tables[tableName]
+    if (!table) {
+      Logger.error(`Table not found for tableName: ${tableName}`)
+      // eslint-disable-next-line no-continue
+      continue
+    }
 
     const rowsData = table.rows.filter(
       (r) => ![RowType.header, RowType.placeholder, RowType.noticeMessage].includes(r.props.type)
