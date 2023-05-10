@@ -174,7 +174,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
-            topicKey={`${originalDataPoint.id}-class-${uuid}-extentOfForest`}
+            topicKey={`odp-${originalDataPoint.year}-${originalDataPoint.id}-class-${uuid}-extentOfForest`}
           />
         </td>
       )}

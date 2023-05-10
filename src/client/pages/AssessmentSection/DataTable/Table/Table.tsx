@@ -60,7 +60,7 @@ const Table: React.FC<Props> = (props) => {
         <ButtonCopyValues tableRef={tableRef} table={table} />
 
         <table id={table.props.name} ref={tableRef} className="fra-table data-table">
-          <TableHead data={data} assessmentName={assessmentName} headers={headers} table={table} />
+          <TableHead data={data} headers={headers} table={table} />
           <TableBody
             data={data}
             sectionName={sectionName}
