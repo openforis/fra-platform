@@ -14,46 +14,68 @@ import { postEstimate } from './actions/postEstimate'
 import { setTableSections } from './actions/setTableSections'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
-import { AssessmentSectionState } from './stateType'
+import { AssessmentSectionBaseState, AssessmentSectionState } from './stateType'
 
-const initialState: AssessmentSectionState = {
+const baseState: AssessmentSectionBaseState = {
   data: null,
   descriptions: {},
-  estimationPending: false,
   linkedDataSources: {},
   nodeValueValidation: {},
-  showOriginalDataPoint: true,
   tableSections: {},
+}
+
+const initialState: AssessmentSectionState = {
+  estimationPending: false,
+  showOriginalDataPoint: true,
 }
 
 export const assessmentSectionSlice = createSlice({
   name: 'assessmentSection',
   initialState,
   reducers: {
-    reset: () => initialState,
-    resetData: (state) => {
-      state.data = initialState.data
-    },
     toggleShowOriginalDataPoint: (state) => {
       state.showOriginalDataPoint = !state.showOriginalDataPoint
     },
 
     setNodeValues: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
       const { nodeUpdates } = action.payload
-      const { countryIso, nodes } = nodeUpdates
+      const { countryIso, nodes, assessment, cycle } = nodeUpdates
+
+      if (!state[assessment.props.name]) {
+        state[assessment.props.name] = {}
+      }
+
+      if (!state[assessment.props.name][cycle.name]) {
+        state[assessment.props.name][cycle.name] = baseState
+      }
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.data = TableDatas.updateDatum({ data: state.data, countryIso, tableName, variableName, colName, value })
+        state[assessment.props.name][cycle.name].data = TableDatas.updateDatum({
+          data: state[assessment.props.name][cycle.name].data,
+          countryIso,
+          tableName,
+          variableName,
+          colName,
+          value,
+        })
       })
     },
 
     setNodeValidations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
       const { nodeUpdates } = action.payload
-      const { countryIso, nodes } = nodeUpdates
+      const { countryIso, nodes, assessment, cycle } = nodeUpdates
+
+      if (!state[assessment.props.name]) {
+        state[assessment.props.name] = {}
+      }
+
+      if (!state[assessment.props.name][cycle.name]) {
+        state[assessment.props.name][cycle.name] = baseState
+      }
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.data = TableDatas.updateDatumValidation({
-          data: state.data,
+        state[assessment.props.name][cycle.name].data = TableDatas.updateDatumValidation({
+          data: state[assessment.props.name][cycle.name].data,
           countryIso,
           tableName,
           variableName,
@@ -65,68 +87,169 @@ export const assessmentSectionSlice = createSlice({
 
     setNodeCalculations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
       const { nodeUpdates } = action.payload
-      const { countryIso, nodes } = nodeUpdates
+      const { countryIso, nodes, assessment, cycle } = nodeUpdates
+
+      if (!state[assessment.props.name]) {
+        state[assessment.props.name] = {}
+      }
+
+      if (!state[assessment.props.name][cycle.name]) {
+        state[assessment.props.name][cycle.name] = baseState
+      }
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.data = TableDatas.updateDatum({ data: state.data, countryIso, tableName, variableName, colName, value })
+        state[assessment.props.name][cycle.name].data = TableDatas.updateDatum({
+          data: state[assessment.props.name][cycle.name].data,
+          countryIso,
+          tableName,
+          variableName,
+          colName,
+          value,
+        })
       })
     },
-    setNodeValidationToDisplay: (state, { payload }: PayloadAction<{ nodeUpdate: NodeUpdate }>) => {
+    setNodeValidationToDisplay: (
+      state,
+      { payload }: PayloadAction<{ nodeUpdate: NodeUpdate & { assessmentName: string; cycleName: string } }>
+    ) => {
       const { nodeUpdate } = payload
-      state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
+      const { assessmentName, cycleName } = nodeUpdate
+
+      if (!state[assessmentName]) {
+        state[assessmentName] = {}
+      }
+
+      if (!state[assessmentName][cycleName]) {
+        state[assessmentName][cycleName] = baseState
+      }
+
+      state[assessmentName][cycleName].nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
     },
-    deleteOriginalDataPoint: (state, { payload }: PayloadAction<{ countryIso: CountryIso; year: string }>) => {
+    deleteOriginalDataPoint: (
+      state,
+      { payload }: PayloadAction<{ assessmentName: string; cycleName: string; countryIso: CountryIso; year: string }>
+    ) => {
       // Delete reference from state for deleted ODP
-      const { countryIso, year } = payload
-      const odpReference = state.data?.[countryIso]?.originalDataPointValue?.[year]
-      if (odpReference) delete state.data?.[countryIso]?.originalDataPointValue?.[year]
+      const { countryIso, year, cycleName, assessmentName } = payload
+      const odpReference = state[assessmentName][cycleName].data?.[countryIso]?.originalDataPointValue?.[year]
+      if (odpReference) delete state[assessmentName][cycleName].data?.[countryIso]?.originalDataPointValue?.[year]
     },
   },
   extraReducers: (builder) => {
+    // TODO: Listen to init assessment and initialise base state for assessment
     builder.addCase(setTableSections, (state, { payload }) => {
-      const { tableSections } = payload
-      state.tableSections = { ...state.tableSections, ...tableSections }
-    })
+      const { tableSections, assessmentName, cycleName } = payload
+      if (!state[assessmentName]) {
+        state[assessmentName] = {}
+      }
 
-    builder.addCase(getTableData.fulfilled, (state, { payload }) => {
-      const countryIso = Object.keys(payload || {})[0] as CountryIso
-      if (countryIso) {
-        const countryData = state.data?.[countryIso] ?? {}
-        state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
+      if (!state[assessmentName][cycleName]) {
+        state[assessmentName][cycleName] = baseState
+      }
+
+      state[assessmentName][cycleName].tableSections = {
+        ...state[assessmentName][cycleName].tableSections,
+        ...tableSections,
       }
     })
 
-    builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
+    builder.addCase(getTableData.fulfilled, (state, { payload, meta }) => {
+      const countryIso = Object.keys(payload || {})[0] as CountryIso
+      const { assessmentName, cycleName } = meta.arg
+      if (!state[assessmentName]) state[assessmentName] = {}
+      if (!state[assessmentName][cycleName]) state[assessmentName][cycleName] = baseState
+      // state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
+
+      if (countryIso) {
+        const countryData = state[assessmentName][cycleName].data?.[countryIso] ?? {}
+        state[assessmentName][cycleName].data = {
+          ...state[assessmentName][cycleName].data,
+          [countryIso]: { ...countryData, ...payload[countryIso] },
+        }
+      }
+    })
+
+    builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload, meta }) => {
       const countryIso = Object.keys(payload)[0] as CountryIso
-      const countryData = state.data?.[countryIso] ?? {}
-      state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
+      const { assessmentName, cycleName } = meta.arg
+      if (!state[assessmentName]) {
+        state[assessmentName] = {}
+      }
+
+      if (!state[assessmentName][cycleName]) {
+        state[assessmentName][cycleName] = baseState
+      }
+
+      // const countryData = state.data?.[countryIso] ?? {}
+      // state.data = { ...state.data, [countryIso]: { ...countryData, ...payload[countryIso] } }
+      const countryData = state[assessmentName][cycleName].data?.[countryIso] ?? {}
+      state[assessmentName][cycleName].data = {
+        ...state[assessmentName][cycleName].data,
+        [countryIso]: { ...countryData, ...payload[countryIso] },
+      }
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
-      const { countryIso, tableName, values } = meta.arg
+      const { countryIso, tableName, values, cycleName, assessmentName } = meta.arg
+      if (!state[assessmentName]) {
+        state[assessmentName] = {}
+      }
+
+      if (!state[assessmentName][cycleName]) {
+        state[assessmentName][cycleName] = baseState
+      }
+
       values.forEach((valueUpdate) => {
         const { colName, value, variableName } = valueUpdate
-        state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
+        // state.data = TableDatas.updateDatum({ colName, countryIso, tableName, data: state.data, variableName, value })
+        state[assessmentName][cycleName].data = TableDatas.updateDatum({
+          colName,
+          countryIso,
+          tableName,
+          data: state[assessmentName][cycleName].data,
+          variableName,
+          value,
+        })
       })
     })
 
-    builder.addCase(getDescription.fulfilled, (state, { payload }) => {
+    builder.addCase(getDescription.fulfilled, (state, { payload, meta }) => {
       const { name, sectionName, value } = payload
-      if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
-      state.descriptions[sectionName][name] = value
+      const { assessmentName, cycleName } = meta.arg
+
+      if (!state[assessmentName]) state[assessmentName] = {}
+      if (!state[assessmentName][cycleName]) state[assessmentName][cycleName] = baseState
+      if (!state[assessmentName][cycleName].descriptions) state[assessmentName][cycleName].descriptions = {}
+      if (!state[assessmentName][cycleName].descriptions[sectionName])
+        state[assessmentName][cycleName].descriptions[sectionName] = {}
+      state[assessmentName][cycleName].descriptions[sectionName][name] = value
+      // if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
+      // state.descriptions[sectionName][name] = value
     })
 
-    builder.addCase(getLinkedDataSources.fulfilled, (state, { payload }) => {
+    builder.addCase(getLinkedDataSources.fulfilled, (state, { payload, meta }) => {
       const { dataSources, sectionName } = payload
-      if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
-      state.linkedDataSources[sectionName] = dataSources
+      const { assessmentName, cycleName } = meta.arg
+
+      if (!state[assessmentName]) state[assessmentName] = {}
+      if (!state[assessmentName][cycleName]) state[assessmentName][cycleName] = baseState
+      if (!state[assessmentName][cycleName].linkedDataSources) state[assessmentName][cycleName].linkedDataSources = {}
+
+      state[assessmentName][cycleName].linkedDataSources[sectionName] = dataSources
     })
 
     builder.addCase(updateDescription.pending, (state, { meta }) => {
-      const { sectionName, name, value } = meta.arg
+      const { sectionName, name, value, assessmentName, cycleName } = meta.arg
 
-      if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
-      state.descriptions[sectionName][name] = value
+      if (!state[assessmentName]) state[assessmentName] = {}
+      if (!state[assessmentName][cycleName]) state[assessmentName][cycleName] = baseState
+      if (!state[assessmentName][cycleName].descriptions) state[assessmentName][cycleName].descriptions = {}
+      if (!state[assessmentName][cycleName].descriptions[sectionName])
+        state[assessmentName][cycleName].descriptions[sectionName] = {}
+      state[assessmentName][cycleName].descriptions[sectionName][name] = value
+
+      // if (!state.descriptions[sectionName]) state.descriptions[sectionName] = {}
+      // state.descriptions[sectionName][name] = value
     })
 
     builder.addCase(postEstimate.pending, (state) => {

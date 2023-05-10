@@ -4,7 +4,7 @@ import { DataSourceLinked, NodeValue, Table, TableNames, TableSection } from '@m
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
-import { useAssessmentCountry } from '@client/store/assessment'
+import { useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 
 export { useIsEstimationPending } from './useIsEstimatePending'
@@ -12,12 +12,26 @@ export { useIsEstimationPending } from './useIsEstimatePending'
 export const useShowOriginalDatapoints = () =>
   useAppSelector((state) => state.ui.assessmentSection.showOriginalDataPoint)
 
-export const useTableSections = (props: { sectionName: string }): Array<TableSection> =>
-  useAppSelector((state) => state.ui.assessmentSection.tableSections[props.sectionName] ?? [])
+export const useTableSections = (props: { sectionName: string }): Array<TableSection> => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
+  return useAppSelector(
+    (state) => state.ui.assessmentSection?.[assessment.props.name]?.[cycle.name]?.tableSections[props.sectionName] ?? []
+  )
+}
 
 const useOriginalDataPointData = (): Record<string, Record<string, NodeValue>> | undefined => {
   const countryIso = useCountryIso()
-  return useAppSelector((state) => state.ui.assessmentSection.data?.[countryIso]?.[TableNames.originalDataPointValue])
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
+  return useAppSelector(
+    (state) =>
+      state.ui.assessmentSection?.[assessment.props.name]?.[cycle.name]?.data?.[countryIso]?.[
+        TableNames.originalDataPointValue
+      ]
+  )
 }
 
 export const useHasOriginalDataPointData = (): boolean => Object.keys(useOriginalDataPointData() ?? {}).length > 0
@@ -27,7 +41,10 @@ export const useTableData = (props: { table: Table }): TableData => {
   const countryIso = useCountryIso()
   const { odp } = table.props
   const country = useAssessmentCountry()
-  const tableData = useAppSelector((state) => state.ui.assessmentSection.data)
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
+  const tableData = useAppSelector((state) => state.ui.assessmentSection?.[assessment.props.name]?.[cycle.name]?.data)
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
@@ -52,7 +69,10 @@ export const useTableData = (props: { table: Table }): TableData => {
 
 export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
   const countryIso = useCountryIso()
-  const { data } = useAppSelector((state) => state.ui.assessmentSection)
+  const assessment = useAssessment()
+  const cycle = useCycle()
+
+  const { data } = useAppSelector((state) => state.ui.assessmentSection?.[assessment.props.name]?.[cycle.name] || {})
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
   const sectionTableNames = useMemo(
@@ -89,8 +109,19 @@ export const useOriginalDataPointYears = () => {
   return Object.keys(odpData)
 }
 
-export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined =>
-  useAppSelector((state) => state.ui.assessmentSection.nodeValueValidation[props.tableName])
+export const useNodeValueValidation = (props: { tableName: string }): NodeUpdate | undefined => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
 
-export const useDataSourcesLinked = (props: { sectionName: string }): Array<DataSourceLinked> | undefined =>
-  useAppSelector((state) => state.ui.assessmentSection.linkedDataSources[props.sectionName])
+  return useAppSelector(
+    (state) => state.ui.assessmentSection?.[assessment.props.name]?.[cycle.name]?.nodeValueValidation[props.tableName]
+  )
+}
+
+export const useDataSourcesLinked = (props: { sectionName: string }): Array<DataSourceLinked> | undefined => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  return useAppSelector(
+    (state) => state.ui.assessmentSection?.[assessment.props.name]?.[cycle.name]?.linkedDataSources[props.sectionName]
+  )
+}

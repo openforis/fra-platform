@@ -3,10 +3,12 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
-import { DataSourceLinked, DataSourceLinkedVariable } from '@meta/assessment'
+import { AssessmentName, CycleName, DataSourceLinked, DataSourceLinkedVariable } from '@meta/assessment'
 
 type Params = {
   countryIso: CountryIso
+  assessmentName: AssessmentName
+  cycleName: CycleName
   linkedVariables: Array<DataSourceLinkedVariable>
   sectionName: string
 }

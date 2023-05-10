@@ -25,10 +25,6 @@ const Assessment: React.FC = () => {
   useOnUpdate(() => {
     if (assessment && assessment.props.name !== assessmentName) {
       dispatch(AssessmentActions.getAssessment({ assessmentName }))
-
-      return () => {
-        dispatch(AssessmentActions.reset())
-      }
     }
     return undefined
   }, [assessment, assessmentName, dispatch])

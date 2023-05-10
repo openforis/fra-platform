@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Strings } from '@utils/strings'
 
 import { Country, CountryIso, RegionGroup } from '@meta/area'
-import { Assessment, AssessmentName, Section, SubSection } from '@meta/assessment'
+import { Assessment, AssessmentName, AssessmentNames, Section, SubSection } from '@meta/assessment'
 
 import { useAppSelector } from '@client/store'
 import { useCountryIso } from '@client/hooks'
@@ -33,8 +33,9 @@ const getCompareListName =
 // </>
 
 export const useAssessment = (assessmentName?: AssessmentName): Assessment => {
+  const assessmentNameDefault = AssessmentNames.fra
   const { assessmentName: _assessmentName } = useParams<{ assessmentName: string }>()
-  return useAppSelector((state) => state.assessment?.[assessmentName ?? _assessmentName])
+  return useAppSelector((state) => state.assessment?.[assessmentName ?? _assessmentName ?? assessmentNameDefault])
 }
 
 const _useCountries = (): Record<CountryIso, Country> => {

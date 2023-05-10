@@ -18,7 +18,7 @@ export const useODPDeleteListener = (props: { assessmentName: string; cycleName:
 
     const listener = (args: [{ year: string; countryIso: CountryIso }]): void => {
       const [{ year, countryIso }] = args
-      dispatch(AssessmentSectionActions.deleteOriginalDataPoint({ year, countryIso }))
+      dispatch(AssessmentSectionActions.deleteOriginalDataPoint({ year, countryIso, assessmentName, cycleName }))
     }
 
     SocketClient.on(nodeUpdateEvent, listener)

@@ -18,7 +18,7 @@ export type {
   DataSourceLinked,
 } from './commentableDescription'
 export { CommentableDescriptionName } from './commentableDescription'
-export type { Cycle, CycledPropsObject, CycleUuid } from './cycle'
+export type { Cycle, CycledPropsObject, CycleName, CycleUuid } from './cycle'
 export type {
   DataSourceDescriptionTable,
   DataSourceLinkedVariable,
