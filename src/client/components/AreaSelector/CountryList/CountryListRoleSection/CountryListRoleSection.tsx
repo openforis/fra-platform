@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { i18n } from 'i18next'
 
 import { Areas, Country, CountryIso, Global, RegionCode } from '@meta/area'
+import { Assessments } from '@meta/assessment'
 import { RoleName, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
@@ -42,7 +43,9 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
       {role !== UserRoles.noRole.role && (
         <div className="country-selection-list__header">
           <span className="country-selection-list__primary-col">{i18n.t<string>(Users.getI18nRoleLabelKey(role))}</span>
-          <span className="country-selection-list__secondary-col uppercase">{`${assessment.props.name} ${cycle.name}`}</span>
+          <span className="country-selection-list__secondary-col">
+            {`${i18n.t(Assessments.getShortLabel(assessment.props.name))} ${cycle.name}`}
+          </span>
           <span className="country-selection-list__secondary-col">{i18n.t<string>('audit.edited')}</span>
         </div>
       )}

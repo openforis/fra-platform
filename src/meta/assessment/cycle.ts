@@ -11,7 +11,7 @@ export type CycleName = string
 
 export interface Cycle {
   id: number
-  name: CycleName // 2020 or 2025
+  name: CycleName
   uuid: CycleUuid
   published: boolean
 }

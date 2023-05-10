@@ -23,12 +23,14 @@ export enum TableNames {
 // array of column names indexed by cycle uuid
 export type TableColumnNames = Record<string, Array<string>>
 
+export type TableName = string
+
 export interface TableProps {
   columnNames: TableColumnNames
   columnsExport?: TableColumnNames
   columnsExportAlways?: TableColumnNames
   dataExport: boolean
-  name: string
+  name: TableName
   odp?: boolean
   print?: { pageBreakAfter: boolean }
   readonly?: boolean

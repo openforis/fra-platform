@@ -9,6 +9,7 @@
   color: $text-body;
   border: 1px solid $ui-border-dark;
   text-align: left;
+  z-index: 1;
 
   .label {
     margin: $spacing-xs;

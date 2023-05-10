@@ -90,7 +90,17 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'decimal',
-                  variableExport: 'pan_european_growing_stock_forest_2025',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'forest',
+                        colName: '2025',
+                      },
+                    },
+                  },
                 },
                 { idx: 1, type: 'decimal', variableExport: 'pan_european_growing_stock_coniferus_2025' },
                 { idx: 2, type: 'decimal', variableExport: 'pan_european_growing_stock_broadleaved_2025' },
@@ -133,7 +143,17 @@ export const growingStock = {
                 {
                   idx: 0,
                   type: 'decimal',
-                  variableExport: 'pan_european_growing_stock_forest_2020',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'forest',
+                        colName: '2020',
+                      },
+                    },
+                  },
                 },
                 { idx: 1, type: 'decimal', variableExport: 'pan_european_growing_stock_coniferus_2020' },
                 { idx: 2, type: 'decimal', variableExport: 'pan_european_growing_stock_broadleaved_2020' },
@@ -171,7 +191,21 @@ export const growingStock = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'forest',
+                        colName: '2015',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -208,7 +242,21 @@ export const growingStock = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'forest',
+                        colName: '2010',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -282,7 +330,21 @@ export const growingStock = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'forest',
+                        colName: '2000',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -319,7 +381,21 @@ export const growingStock = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'forest',
+                        colName: '1990',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -558,7 +634,21 @@ export const growingStock = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'otherWoodedLand',
+                        colName: '2025',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -586,7 +676,21 @@ export const growingStock = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'otherWoodedLand',
+                        colName: '2020',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -613,7 +717,21 @@ export const growingStock = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'otherWoodedLand',
+                        colName: '2015',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -640,7 +758,21 @@ export const growingStock = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'otherWoodedLand',
+                        colName: '2010',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -694,7 +826,21 @@ export const growingStock = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'otherWoodedLand',
+                        colName: '2000',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
@@ -721,7 +867,21 @@ export const growingStock = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    linkedNodes: {
+                      '2025': {
+                        assessmentName: 'fra',
+                        cycleName: '2025',
+                        tableName: 'growingStockTotal',
+                        variableName: 'otherWoodedLand',
+                        colName: '1990',
+                      },
+                    },
+                  },
+                },
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],

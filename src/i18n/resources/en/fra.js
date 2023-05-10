@@ -7,6 +7,12 @@ const _2025 = require('./2025')
 module.exports = {
   2020: _2020,
   2025: _2025,
+
+  // assessment labels
+  labels: {
+    short: 'FRA',
+  },
+
   // common
   area100HaYear: 'Area (1000 ha/year)',
   area100Ha: 'Area (1000 ha)',

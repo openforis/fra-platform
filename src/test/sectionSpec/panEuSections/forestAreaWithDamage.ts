@@ -35,6 +35,60 @@ const dataCols = [
   },
 ]
 
+const linkedDataCols = (colName) => {
+  const linkedNodesToAdd = {
+    1: {
+      '2025': {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        tableName: 'disturbances',
+        variableName: 'insects',
+        colName,
+      },
+    },
+    2: {
+      '2025': {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        tableName: 'disturbances',
+        variableName: 'diseases',
+        colName,
+      },
+    },
+    7: {
+      '2025': {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        tableName: 'disturbances',
+        variableName: 'severe_weather_events',
+        colName,
+      },
+    },
+    9: {
+      '2025': {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        tableName: 'areaAffectedByFire',
+        variableName: 'of_which_on_forest',
+        colName,
+      },
+    },
+  }
+
+  return dataCols.map((col) => {
+    if (Object.prototype.hasOwnProperty.call(linkedNodesToAdd, col.idx)) {
+      return {
+        ...col,
+        migration: {
+          ...col.migration,
+          linkedNodes: linkedNodesToAdd[col.idx],
+        },
+      }
+    }
+    return col
+  })
+}
+
 export const forestAreaWithDamage = {
   sectionName: 'forestAreaWithDamage',
   sectionAnchor: '2.4',
@@ -318,7 +372,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2022 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2022'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -348,7 +402,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2021 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2021'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -378,7 +432,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2020'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -408,7 +462,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2019 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2019'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -438,7 +492,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2018 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2018'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -468,7 +522,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2017 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2017'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -498,7 +552,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2016 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2016'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -528,7 +582,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2015'),
               ],
               migration: {
                 ValidateFns: {
@@ -557,7 +611,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2014 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2014'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -587,7 +641,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2013 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2013'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -617,7 +671,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2012 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2012'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -647,7 +701,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2011 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2011'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -677,7 +731,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2010'),
               ],
               migration: {
                 ValidateFns: {
@@ -706,7 +760,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2009 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2009'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -736,7 +790,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2008 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2008'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -766,7 +820,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2007 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2007'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -796,7 +850,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2006 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2006'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -826,7 +880,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2005'),
               ],
               migration: {
                 ValidateFns: {
@@ -855,7 +909,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2004 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2004'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -885,7 +939,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2003 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2003'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -915,7 +969,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2002 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2002'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -945,7 +999,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2001 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2001'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -975,7 +1029,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...linkedDataCols('2000'),
               ],
               migration: {
                 ValidateFns: {

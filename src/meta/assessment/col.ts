@@ -1,6 +1,10 @@
 import { CSSProperties } from 'react'
 
-import { CycledPropsObject, CycleUuid } from './cycle'
+import { AssessmentName } from '@meta/assessment/assessmentName'
+import { CycledPropsObject, CycleName, CycleUuid } from '@meta/assessment/cycle'
+import { VariableName } from '@meta/assessment/row'
+import { TableName } from '@meta/assessment/table'
+
 import { Label } from './label'
 
 export type ColName = string
@@ -38,19 +42,28 @@ export interface ColStyle extends CSSProperties {
   rowSpan?: number
 }
 
+export type ColLinkedNode = {
+  assessmentName: AssessmentName
+  cycleName: CycleName
+  tableName: TableName
+  variableName: VariableName
+  colName: ColName
+}
+
 export interface ColProps {
   calculateFn?: Record<CycleUuid, string>
+  classNames?: Record<CycleUuid, Array<string>>
   colName?: ColName
   colType: ColType
   index?: number | string
-  labels?: Record<string, Label> // label by cycle uuid
+  inputPlaceholder?: InputPlaceholder
+  labels?: Record<CycleUuid, Label>
+  linkedNodes?: Record<CycleUuid, ColLinkedNode>
   readonly?: boolean
   select?: ColSelectProps
-  style: Record<string, ColStyle> // style by cycle uuid
-  classNames?: Record<string, Array<string>> // classes by cycle uuid
+  style: Record<CycleUuid, ColStyle>
   validateFns?: Record<CycleUuid, Array<string>>
-  variableNo?: Record<string, string> // variable number by cycle uuid
-  inputPlaceholder?: InputPlaceholder
+  variableNo?: Record<CycleUuid, string>
 }
 
 export interface Col extends CycledPropsObject<ColProps> {

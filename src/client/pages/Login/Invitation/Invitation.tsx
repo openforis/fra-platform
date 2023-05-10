@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { ClientRoutes } from '@meta/app'
+import { Assessments } from '@meta/assessment'
 import { AuthProvider, Users } from '@meta/user'
 import { UserRoles } from '@meta/user/userRoles'
 
@@ -93,7 +94,7 @@ const Invitation: React.FC = () => {
     <div className="login__formWrapper">
       <h3>
         {t('login.invitationMessage', {
-          assessment: assessment.props.name,
+          assessment: t(Assessments.getShortLabel(assessment.props.name)),
           cycle: cycle.name,
           role: t(Users.getI18nRoleLabelKey(userRole.role)),
           country: t(`area.${userRole.countryIso}.listName`),

@@ -10,6 +10,11 @@ module.exports = {
   2020: _2020,
   2025: _2025,
 
+  // assessment labels
+  labels: {
+    short: 'panEuropean',
+  },
+
   countryComments,
   // ...TODO: Move all reasonability checks out to a separate file
   reasonabilityChecks: {
