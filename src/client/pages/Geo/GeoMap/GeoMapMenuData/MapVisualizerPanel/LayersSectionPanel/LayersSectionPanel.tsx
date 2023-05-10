@@ -2,12 +2,10 @@ import './LayersSectionPanel.scss'
 import React, { useState } from 'react'
 import { batch } from 'react-redux'
 
-import { LayerRequestBody } from '@meta/api/request/geo/layer'
-import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection, sectionsApiEndpoint } from '@meta/geo'
+import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayerSection } from '@client/store/ui/geo'
-import { postLayer } from '@client/store/ui/geo/actions'
 import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
 import { useCountryIso } from '@client/hooks'
 
@@ -41,15 +39,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
     batch(() => {
       // If the layer is selected and doesn't have a mapId cached, fetch it
       if (newSelectedState && !currentMapId) {
-        const requestBody: LayerRequestBody = {
-          countryIso,
-          layer: {
-            key: layerKey as LayerKey,
-            ...(layerState?.options && { options: { ...layerState.options } }),
-          },
-        }
-        const uri = sectionsApiEndpoint[section.key]
-        dispatch(postLayer({ sectionKey: section.key, layerKey, uri, body: requestBody }))
+        dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey, layerState }))
       }
       dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
     })
