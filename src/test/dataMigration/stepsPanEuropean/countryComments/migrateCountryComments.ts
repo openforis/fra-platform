@@ -35,7 +35,11 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
     ({ name }) => name
   )
   // ======== get all sections metadata
-  const sectionsMetadata = await MetadataController.getSectionsMetadata({ assessment, cycle, sectionNames }, client)
+  const showHidden = true
+  const sectionsMetadata = await MetadataController.getSectionsMetadata(
+    { assessment, cycle, sectionNames, showHidden },
+    client
+  )
   // ======== create convenient record<tableName,Table>
   const tables = Object.values(sectionsMetadata).reduce<Record<string, Table>>((acc, tableSections) => {
     const result = { ...acc }
@@ -66,8 +70,6 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
     const table = tables[tableName]
     if (!table) {
       Logger.error(`Table not found for tableName: ${tableName}`)
-      // eslint-disable-next-line no-continue
-      continue
     }
 
     const rowsData = table.rows.filter(
