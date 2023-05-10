@@ -1062,6 +1062,7 @@ The FRA team
     forestSumAreaExceedsExtentOfForest:
       'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
     valueEqualToSum: 'Total value should be equal to sum of subcategories',
+    valueEqualToSumParent: 'The sum of subcategories is not equal to {{parent}} ({{value}})',
     landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a) ({{value}})',
     classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
     classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',

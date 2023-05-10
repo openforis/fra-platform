@@ -148,7 +148,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelParams: { year: 2020 },
                     className: 'fra-table__category-cell',
                   },
-                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 0,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_1_3a1.forest_even_aged_stands_of_which_2020['total_area'], 
+                   table_1_3b.forest_uneven_aged_stands_2020['area']], "Total Forest (1.1)")`,
+                        ],
+                      },
+                    },
+                  },
                   { idx: 1, type: 'decimal' },
                   {
                     idx: 2,
@@ -189,7 +201,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelParams: { year: 2015 },
                     className: 'fra-table__category-cell',
                   },
-                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 0,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_1_3a1.forest_even_aged_stands_of_which_2015['total_area'], 
+                   table_1_3b.forest_uneven_aged_stands_2015['area']], "Total Forest (1.1)")`,
+                        ],
+                      },
+                    },
+                  },
                   { idx: 1, type: 'decimal' },
                   {
                     idx: 2,
@@ -229,7 +253,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelParams: { year: 2010 },
                     className: 'fra-table__category-cell',
                   },
-                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 0,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_1_3a1.forest_even_aged_stands_of_which_2010['total_area'], 
+                   table_1_3b.forest_uneven_aged_stands_2010['area']], "Total Forest (1.1)")`,
+                        ],
+                      },
+                    },
+                  },
                   { idx: 1, type: 'decimal' },
                   {
                     idx: 2,
@@ -269,7 +305,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelParams: { year: 2005 },
                     className: 'fra-table__category-cell',
                   },
-                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 0,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_1_3a1.forest_even_aged_stands_of_which_2005['total_area'], 
+                   table_1_3b.forest_uneven_aged_stands_2005['area']], "Total Forest (1.1)")`,
+                        ],
+                      },
+                    },
+                  },
                   { idx: 1, type: 'decimal' },
                   {
                     idx: 2,
@@ -309,7 +357,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelParams: { year: 2000 },
                     className: 'fra-table__category-cell',
                   },
-                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 0,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_1_3a1.forest_even_aged_stands_of_which_2000['total_area'], 
+                   table_1_3b.forest_uneven_aged_stands_2000['area']], "Total Forest (1.1)")`,
+                        ],
+                      },
+                    },
+                  },
                   { idx: 1, type: 'decimal' },
                   {
                     idx: 2,
@@ -349,7 +409,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     labelParams: { year: 1990 },
                     className: 'fra-table__category-cell',
                   },
-                  { idx: 0, type: 'decimal' },
+                  {
+                    idx: 0,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_1_3a1.forest_even_aged_stands_of_which_1990['total_area'], 
+                   table_1_3b.forest_uneven_aged_stands_1990['area']], "Total Forest (1.1)")`,
+                        ],
+                      },
+                    },
+                  },
                   { idx: 1, type: 'decimal' },
                   {
                     idx: 2,
@@ -4611,6 +4683,15 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_4_1.forest_2020['area_with_number_of_tree_species_occurring_1'], 
+                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_2_3'],
+                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_4_5'],
+                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                    ],
+                  },
                 },
                 labelKey: 'panEuropean.treeSpeciesComposition.forest',
                 labelParams: { year: 2020 },
@@ -4636,6 +4717,17 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 3, type: 'decimal' },
                 ],
+                migration: {
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_4_1.forest_2015['area_with_number_of_tree_species_occurring_1'], 
+                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_2_3'],
+                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_4_5'],
+                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                    ],
+                  },
+                },
                 labelKey: 'panEuropean.treeSpeciesComposition.forest',
                 labelParams: { year: 2015 },
                 variableExport: 'forest_2015',
@@ -4660,6 +4752,17 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 3, type: 'decimal' },
                 ],
+                migration: {
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_4_1.forest_2010['area_with_number_of_tree_species_occurring_1'], 
+                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_2_3'],
+                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_4_5'],
+                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                    ],
+                  },
+                },
                 labelKey: 'panEuropean.treeSpeciesComposition.forest',
                 labelParams: { year: 2010 },
                 variableExport: 'forest_2010',
@@ -4684,6 +4787,17 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 3, type: 'decimal' },
                 ],
+                migration: {
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_4_1.forest_2005['area_with_number_of_tree_species_occurring_1'], 
+                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_2_3'],
+                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_4_5'],
+                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                    ],
+                  },
+                },
                 labelKey: 'panEuropean.treeSpeciesComposition.forest',
                 labelParams: { year: 2005 },
                 variableExport: 'forest_2005',
@@ -4708,6 +4822,17 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 3, type: 'decimal' },
                 ],
+                migration: {
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_4_1.forest_2000['area_with_number_of_tree_species_occurring_1'], 
+                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_2_3'],
+                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_4_5'],
+                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                    ],
+                  },
+                },
                 labelKey: 'panEuropean.treeSpeciesComposition.forest',
                 labelParams: { year: 2000 },
                 variableExport: 'forest_2000',
@@ -4732,6 +4857,17 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   },
                   { idx: 3, type: 'decimal' },
                 ],
+                migration: {
+                  validateFns: {
+                    '2025': [
+                      `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_4_1.forest_1990['area_with_number_of_tree_species_occurring_1'], 
+                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_2_3'],
+                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_4_5'],
+                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                    ],
+                  },
+                },
                 labelKey: 'panEuropean.treeSpeciesComposition.forest',
                 labelParams: { year: 1990 },
                 variableExport: 'forest_1990',

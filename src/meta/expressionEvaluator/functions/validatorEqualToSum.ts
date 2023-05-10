@@ -10,14 +10,14 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
   name: 'validatorEqualToSum',
   minArity: 2,
   executor: () => {
-    return (value: string, otherValues: Array<string>): NodeValueValidation => {
+    return (value: string, otherValues: Array<string>, parent = 'parent'): NodeValueValidation => {
       const valid =
         Objects.isEmpty(value) ||
         Numbers.eqWithTolerance(value, Numbers.sum(otherValues?.filter((v) => !Objects.isEmpty(v))))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.valueEqualToSum' }]
+        : [{ key: 'generalValidation.valueEqualToSumParent', params: { parent, value } }]
 
       return { valid, messages }
     }

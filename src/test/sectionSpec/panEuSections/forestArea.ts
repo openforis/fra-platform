@@ -65,25 +65,13 @@ export const forestArea = {
                 validateFns: {
                   '2025': [
                     `validatorEqualToSum(table_1_1a.forest_2025['area'],
-                  [table_1_1b.predominantly_coniferous_forest['forest_area_2025'],
-                  table_1_1b.predominantly_broadleaved_forest['forest_area_2025'],
-                  table_1_1b.mixed_forest['forest_area_2025']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
-                  [table_1_3a1.forest_even_aged_stands_of_which_2025['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2025['area']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
-                  [table_4_1.forest_2025['area_with_number_of_tree_species_occurring_1'], 
-                   table_4_1.forest_2025['area_with_number_of_tree_species_occurring_2_3'],
-                   table_4_1.forest_2025['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2025['area_with_number_of_tree_species_occurring_6_pl']])`,
+                  [table_4_3a.forest_2025['undisturbed_by_man'],
+                   table_4_3a.forest_2025['semi_natural'],
+                   table_4_3a.forest_2025['plantations']])`,
                     `validatorEqualToSum(table_1_1a.forest_2025['area'],
                   [table_4_2a.forest_2025['natural_expansion_and_natural_regeneration'],
                    table_4_2a.forest_2025['afforestation_and_regeneration_by_planting_and_or_seeding'],
                    table_4_2a.forest_2025['coppice']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
-                  [table_4_3a.forest_2025['undisturbed_by_man'],
-                   table_4_3a.forest_2025['semi_natural'],
-                   table_4_3a.forest_2025['plantations']])`,
                     `validatorEqualToSum(table_1_1a.forest_2025['area'],
                   [table_6_1.in_private_ownership_2025['total_forest_area'],
                    table_6_1.in_public_ownership_2025['total_forest_area'],
@@ -126,18 +114,6 @@ export const forestArea = {
               migration: {
                 validateFns: {
                   '2025': [
-                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
-                  [table_1_1b.predominantly_coniferous_forest['forest_area_2020'],
-                  table_1_1b.predominantly_broadleaved_forest['forest_area_2020'],
-                  table_1_1b.mixed_forest['forest_area_2020']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
-                  [table_1_3a1.forest_even_aged_stands_of_which_2020['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2020['area']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
-                  [table_4_1.forest_2020['area_with_number_of_tree_species_occurring_1'], 
-                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_2_3'],
-                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_6_pl']])`,
                     `validatorEqualToSum(table_1_1a.forest_2020['area'],
                   [table_4_2a.forest_2020['natural_expansion_and_natural_regeneration'],
                    table_4_2a.forest_2020['afforestation_and_regeneration_by_planting_and_or_seeding'],
@@ -190,18 +166,6 @@ export const forestArea = {
                 validateFns: {
                   '2025': [
                     `validatorEqualToSum(table_1_1a.forest_2015['area'],
-                  [table_1_1b.predominantly_coniferous_forest['forest_area_2015'],
-                  table_1_1b.predominantly_broadleaved_forest['forest_area_2015'],
-                  table_1_1b.mixed_forest['forest_area_2015']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
-                  [table_1_3a1.forest_even_aged_stands_of_which_2015['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2015['area']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
-                  [table_4_1.forest_2015['area_with_number_of_tree_species_occurring_1'], 
-                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_2_3'],
-                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_6_pl']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
                   [table_4_2a.forest_2015['natural_expansion_and_natural_regeneration'],
                    table_4_2a.forest_2015['afforestation_and_regeneration_by_planting_and_or_seeding'],
                    table_4_2a.forest_2015['coppice']])`,
@@ -252,18 +216,6 @@ export const forestArea = {
                 validateFns: {
                   '2025': [
                     `validatorEqualToSum(table_1_1a.forest_2010['area'],
-                  [table_1_1b.predominantly_coniferous_forest['forest_area_2010'],
-                  table_1_1b.predominantly_broadleaved_forest['forest_area_2010'],
-                  table_1_1b.mixed_forest['forest_area_2010']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
-                  [table_1_3a1.forest_even_aged_stands_of_which_2010['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2010['area']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
-                  [table_4_1.forest_2010['area_with_number_of_tree_species_occurring_1'], 
-                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_2_3'],
-                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_6_pl']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
                   [table_4_2a.forest_2010['natural_expansion_and_natural_regeneration'],
                    table_4_2a.forest_2010['afforestation_and_regeneration_by_planting_and_or_seeding'],
                    table_4_2a.forest_2010['coppice']])`,
@@ -298,18 +250,6 @@ export const forestArea = {
               migration: {
                 validateFns: {
                   '2025': [
-                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
-                  [table_1_1b.predominantly_coniferous_forest['forest_area_2005'],
-                  table_1_1b.predominantly_broadleaved_forest['forest_area_2005'],
-                  table_1_1b.mixed_forest['forest_area_2005']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
-                  [table_1_3a1.forest_even_aged_stands_of_which_2005['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2005['area']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
-                  [table_4_1.forest_2005['area_with_number_of_tree_species_occurring_1'], 
-                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_2_3'],
-                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_6_pl']])`,
                     `validatorEqualToSum(table_1_1a.forest_2005['area'],
                   [table_4_2a.forest_2005['natural_expansion_and_natural_regeneration'],
                    table_4_2a.forest_2005['afforestation_and_regeneration_by_planting_and_or_seeding'],
@@ -361,18 +301,6 @@ export const forestArea = {
                 validateFns: {
                   '2025': [
                     `validatorEqualToSum(table_1_1a.forest_2000['area'],
-                  [table_1_1b.predominantly_coniferous_forest['forest_area_2000'],
-                  table_1_1b.predominantly_broadleaved_forest['forest_area_2000'],
-                  table_1_1b.mixed_forest['forest_area_2000']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
-                  [table_1_3a1.forest_even_aged_stands_of_which_2000['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2000['area']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
-                  [table_4_1.forest_2000['area_with_number_of_tree_species_occurring_1'], 
-                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_2_3'],
-                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_6_pl']])`,
-                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
                   [table_4_2a.forest_2000['natural_expansion_and_natural_regeneration'],
                    table_4_2a.forest_2000['afforestation_and_regeneration_by_planting_and_or_seeding'],
                    table_4_2a.forest_2000['coppice']])`,
@@ -422,18 +350,6 @@ export const forestArea = {
               migration: {
                 validateFns: {
                   '2025': [
-                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
-                  [table_1_1b.predominantly_coniferous_forest['forest_area_1990'],
-                  table_1_1b.predominantly_broadleaved_forest['forest_area_1990'],
-                  table_1_1b.mixed_forest['forest_area_1990']])`,
-                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
-                  [table_1_3a1.forest_even_aged_stands_of_which_1990['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_1990['area']])`,
-                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
-                  [table_4_1.forest_1990['area_with_number_of_tree_species_occurring_1'], 
-                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_2_3'],
-                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_6_pl']])`,
                     `validatorEqualToSum(table_1_1a.forest_1990['area'],
                   [table_4_2a.forest_1990['natural_expansion_and_natural_regeneration'],
                    table_4_2a.forest_1990['afforestation_and_regeneration_by_planting_and_or_seeding'],
@@ -1407,13 +1323,112 @@ export const forestArea = {
                   labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                { idx: 5, type: 'decimal' },
-                { idx: 6, type: 'decimal', colName: 'forest_area_2025', migration: { cycles: ['2025'] } },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_1990'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_1990'],
+                  table_1_1b.mixed_forest['forest_area_1990']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 1,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2000'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2000'],
+                  table_1_1b.mixed_forest['forest_area_2000']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 2,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2005'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2005'],
+                  table_1_1b.mixed_forest['forest_area_2005']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 3,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2010'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2010'],
+                  table_1_1b.mixed_forest['forest_area_2010']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2015'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2015'],
+                  table_1_1b.mixed_forest['forest_area_2015']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 5,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2020'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2020'],
+                  table_1_1b.mixed_forest['forest_area_2020']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 6,
+                  type: 'decimal',
+                  colName: 'forest_area_2025',
+                  migration: {
+                    cycles: ['2025'],
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2025'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2025'],
+                  table_1_1b.mixed_forest['forest_area_2025']], "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
               ],
               variableExport: 'predominantly_coniferous_forest',
               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_coniferous_forest',
@@ -1429,16 +1444,112 @@ export const forestArea = {
                   labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_broadleaved_forest',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_1990'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_1990'],
+                  table_1_1b.mixed_forest['forest_area_1990']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 1,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2000'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2000'],
+                  table_1_1b.mixed_forest['forest_area_2000']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
                 {
                   idx: 2,
                   type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2005'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2005'],
+                  table_1_1b.mixed_forest['forest_area_2005']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
                 },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                { idx: 5, type: 'decimal' },
-                { idx: 6, type: 'decimal', colName: 'forest_area_2025', migration: { cycles: ['2025'] } },
+                {
+                  idx: 3,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2010'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2010'],
+                  table_1_1b.mixed_forest['forest_area_2010']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2015'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2015'],
+                  table_1_1b.mixed_forest['forest_area_2015']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 5,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2020'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2020'],
+                  table_1_1b.mixed_forest['forest_area_2020']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 6,
+                  type: 'decimal',
+                  colName: 'forest_area_2025',
+                  migration: {
+                    cycles: ['2025'],
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2025'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2025'],
+                  table_1_1b.mixed_forest['forest_area_2025']], "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
               ],
               variableExport: 'predominantly_broadleaved_forest',
               labelKey: 'panEuropean.forestAreaByForestTypes.predominantly_broadleaved_forest',
@@ -1454,16 +1565,112 @@ export const forestArea = {
                   labelKey: 'panEuropean.forestAreaByForestTypes.mixed_forest',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                {
+                  idx: 0,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_1990'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_1990'],
+                  table_1_1b.mixed_forest['forest_area_1990']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 1,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2000'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2000'],
+                  table_1_1b.mixed_forest['forest_area_2000']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
                 {
                   idx: 2,
                   type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2005'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2005'],
+                  table_1_1b.mixed_forest['forest_area_2005']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
                 },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                { idx: 5, type: 'decimal' },
-                { idx: 6, type: 'decimal', colName: 'forest_area_2025', migration: { cycles: ['2025'] } },
+                {
+                  idx: 3,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2010'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2010'],
+                  table_1_1b.mixed_forest['forest_area_2010']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2015'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2015'],
+                  table_1_1b.mixed_forest['forest_area_2015']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 5,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2020'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2020'],
+                  table_1_1b.mixed_forest['forest_area_2020']], 
+                  "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 6,
+                  type: 'decimal',
+                  colName: 'forest_area_2025',
+                  migration: {
+                    cycles: ['2025'],
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_1_1b.predominantly_coniferous_forest['forest_area_2025'],
+                  table_1_1b.predominantly_broadleaved_forest['forest_area_2025'],
+                  table_1_1b.mixed_forest['forest_area_2025']], "Total Forest")`,
+                      ],
+                    },
+                  },
+                },
               ],
               variableExport: 'mixed_forest',
               labelKey: 'panEuropean.forestAreaByForestTypes.mixed_forest',
