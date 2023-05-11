@@ -44,11 +44,9 @@ const HeaderCell: React.FC<Props> = (props) => {
             sectionName,
           })}
         >
-          <div>{columnName}</div>
-          <div className="nav-section__status-content">
-            <ReviewStatusMarker status={reviewStatus} />
-          </div>
+          {columnName}
         </Link>
+        <ReviewStatusMarker status={reviewStatus} />
       </Tooltip>
     </th>
   ) : (
