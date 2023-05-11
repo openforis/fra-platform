@@ -24,7 +24,8 @@ export const getOdpReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where not m.deleted and mt.key like $1 || '-%'
+        where not m.deleted
+          ${odpId ? `and mt.key like 'odp-%-${odpId}-%'` : ''}
         group by topic_id
       )
       select
@@ -38,12 +39,12 @@ export const getOdpReviewStatus = async (
           on m.last_message_time = msg.created_time
         left join ${cycleSchema}.message_topic_user mtu
           on mtu.topic_id = m.topic_id
-          and mtu.user_id = $2
+          and mtu.user_id = $1
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-      where mt.country_iso = $3
+      where mt.country_iso = $2
     `,
-    [odpId, user.id, countryIso],
+    [user.id, countryIso],
     (row) => Objects.camelize(row)
   )
 }
