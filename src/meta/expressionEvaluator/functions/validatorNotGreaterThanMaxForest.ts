@@ -8,7 +8,7 @@ import { Context } from '../context'
 
 export const validatorNotGreaterThanMaxForest: ExpressionFunction<Context> = {
   name: 'validatorNotGreaterThanMaxForest',
-  minArity: 3,
+  minArity: 2,
   executor: () => {
     return (maxForestArea?: string, value?: string): NodeValueValidation => {
       const valid =
