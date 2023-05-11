@@ -19,7 +19,7 @@ export default async (client: BaseProtocol) => {
   )
 
   await client.query(
-    `update ${schemaName}.col c set props = jsonb_set(c.props, '{style,${cycle.uuid},rowSpan}', '14') where c.props->>'index' = '0' and row_id = $1;`,
+    `update ${schemaName}.col c set props = jsonb_set(c.props, '{style,${cycle.uuid},rowSpan}', '2') where c.props->>'index' = '0' and row_id = $1;`,
     row.id
   )
 }
