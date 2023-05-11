@@ -17,12 +17,12 @@ export const isODPCell = async (props: Props, client: BaseProtocol) => {
   const { colName, tableName } = props
   if (![TableNames.forestCharacteristics, TableNames.extentOfForest].includes(tableName as TableNames)) return false
 
-  const [country, odpYears] = await Promise.all([
-    AreaController.getCountry(props, client),
-    OriginalDataPointRepository.getReservedYears(props, client).map((reservedYear) => reservedYear.year),
-  ])
+  const country = await AreaController.getCountry(props, client)
+  const odpYears = (await OriginalDataPointRepository.getReservedYears(props, client)).map((reservedYear) =>
+    String(reservedYear.year)
+  )
 
   const useOriginalDataPoint =
     tableName === TableNames.extentOfForest || country.props.forestCharacteristics.useOriginalDataPoint
-  return useOriginalDataPoint && odpYears.map(String).includes(colName)
+  return useOriginalDataPoint && odpYears.includes(colName)
 }
