@@ -1,5 +1,34 @@
 // @ts-nocheck
 
+const dataCol = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestIntroducedArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataCol = (colName) =>
+  dataCol.map((col) => ({
+    ...col,
+    migration: {
+      ...col.migration,
+      linkedNodes: Object.fromEntries(
+        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+      ),
+    },
+  }))
+
 export const introducedTreeSpecies = {
   sectionName: 'introducedTreeSpecies',
   sectionAnchor: '4.4a',
@@ -65,7 +94,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...linkedDataCol('2025'),
                 { idx: 1, type: 'decimal' },
               ],
               migration: {
@@ -101,7 +130,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...linkedDataCol('2020'),
                 { idx: 1, type: 'decimal' },
               ],
               migration: {
@@ -136,7 +165,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...linkedDataCol('2015'),
                 { idx: 1, type: 'decimal' },
               ],
               migration: {
@@ -171,7 +200,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...linkedDataCol('2010'),
                 { idx: 1, type: 'decimal' },
               ],
               migration: {
@@ -241,7 +270,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...linkedDataCol('2000'),
                 { idx: 1, type: 'decimal' },
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.forest',
@@ -260,7 +289,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...linkedDataCol('1990'),
                 { idx: 1, type: 'decimal' },
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.forest',

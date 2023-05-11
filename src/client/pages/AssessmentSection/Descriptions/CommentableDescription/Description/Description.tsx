@@ -92,10 +92,10 @@ const Description: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   const isDataSources = name === 'dataSources'
-  const isIntroductoryText = name === 'introductoryText'
+  const shouldShowEditor = ['introductoryText', 'generalComments'].includes(name)
 
   const dataSourceHasTable = isDataSources && descriptionsMetadata.nationalData?.dataSources?.table
-  const hasText = isIntroductoryText || Boolean(descriptionsMetadata.nationalData?.dataSources?.text)
+  const hasText = shouldShowEditor || Boolean(descriptionsMetadata.nationalData?.dataSources?.text)
   const dataSourceTextReadOnly = isDataSources && descriptionsMetadata.nationalData?.dataSources?.text?.readOnly
 
   const showMarkdownEditor = hasText && ((!isDataSources && open) || (isDataSources && open && !dataSourceTextReadOnly))

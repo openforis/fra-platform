@@ -1,5 +1,99 @@
 // @ts-nocheck
 
+const dataColsA = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'primaryForest',
+          colName: '2020',
+        },
+      },
+    },
+  },
+  { idx: 1, type: 'decimal' },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataColsA = (colName: string) =>
+  dataColsA.map((col) => {
+    if ('migration' in col) {
+      return {
+        ...col,
+        migration: {
+          ...col.migration,
+          linkedNodes: Object.fromEntries(
+            Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+          ),
+        },
+      }
+    }
+    return col
+  })
+
+const dataColsB = [
+  {
+    idx: 5,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+  {
+    idx: 6,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestIntroducedArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataColsB = (colName) =>
+  dataColsB.map((col) => ({
+    ...col,
+    migration: {
+      ...col.migration,
+      linkedNodes: Object.fromEntries(
+        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+      ),
+    },
+  }))
+
 export const naturalness = {
   sectionName: 'naturalness',
   sectionAnchor: '4.3a',
@@ -73,9 +167,7 @@ export const naturalness = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2025'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -109,9 +201,7 @@ export const naturalness = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2020'),
               ],
               migration: {
                 validateFns: {
@@ -144,9 +234,7 @@ export const naturalness = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2015'),
               ],
               migration: {
                 validateFns: {
@@ -179,9 +267,7 @@ export const naturalness = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2010'),
               ],
               migration: {
                 validateFns: {
@@ -249,9 +335,7 @@ export const naturalness = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2000'),
               ],
               migration: {
                 validateFns: {
@@ -284,9 +368,7 @@ export const naturalness = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('1990'),
               ],
               migration: {
                 validateFns: {
@@ -817,11 +899,7 @@ export const naturalness = {
                 },
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2025'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -850,11 +928,7 @@ export const naturalness = {
                 },
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2020'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2020 },
@@ -880,11 +954,7 @@ export const naturalness = {
                 },
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2015'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2015 },
@@ -910,11 +980,7 @@ export const naturalness = {
                 },
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2010'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2010 },
@@ -970,11 +1036,7 @@ export const naturalness = {
                 },
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2000'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2000 },
@@ -1000,11 +1062,7 @@ export const naturalness = {
                 },
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('1990'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 1990 },
