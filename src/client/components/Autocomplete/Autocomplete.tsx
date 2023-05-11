@@ -60,7 +60,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
       // Default behavior: Save both selected value OR input value
       onSave(changes.selectedItem?.value ?? inputValue)
     } else if (changes.type === useCombobox.stateChangeTypes.InputBlur) {
-      const value = items.find(({ value }) => value === inputValue)?.value ?? ''
+      const value = items.find(({ label }) => label === inputValue)?.value ?? ''
       if (value === '') setInputValue('')
       onSave({ value })
     }
