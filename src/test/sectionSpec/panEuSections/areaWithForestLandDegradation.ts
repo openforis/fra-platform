@@ -48,7 +48,7 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     style: {
                       '2020': { colSpan: 1, rowSpan: 3 },
-                      '2025': { colSpan: 1, rowSpan: 4 },
+                      '2025': { colSpan: 1, rowSpan: 2 },
                     },
                   },
                 },
