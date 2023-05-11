@@ -173,6 +173,11 @@ export const naturalness = {
                 cycles: ['2025'],
                 validateFns: {
                   '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_4_3a.forest_2025['undisturbed_by_man'],
+                   table_4_3a.forest_2025['semi_natural'],
+                   table_4_3a.forest_2025['plantations']], "table_1_1a.forest_2025")`,
+
                     `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
                   [table_4_3b.forest_2025['naturally_established'],
                    table_4_3b.forest_2025['naturalised_introduced_species'],
@@ -206,6 +211,11 @@ export const naturalness = {
               migration: {
                 validateFns: {
                   '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_4_3a.forest_2020['undisturbed_by_man'],
+                   table_4_3a.forest_2020['semi_natural'],
+                   table_4_3a.forest_2020['plantations']], "table_1_1a.forest_2020")`,
+
                     `validatorEqualToSum(table_4_3a.forest_2020['semi_natural'],
                   [table_4_3b.forest_2020['naturally_established'],
                    table_4_3b.forest_2020['naturalised_introduced_species'],
@@ -239,6 +249,11 @@ export const naturalness = {
               migration: {
                 validateFns: {
                   '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_4_3a.forest_2015['undisturbed_by_man'],
+                   table_4_3a.forest_2015['semi_natural'],
+                   table_4_3a.forest_2015['plantations']], "table_1_1a.forest_2015")`,
+
                     `validatorEqualToSum(table_4_3a.forest_2015['semi_natural'],
                   [table_4_3b.forest_2015['naturally_established'],
                    table_4_3b.forest_2015['naturalised_introduced_species'],
@@ -272,6 +287,11 @@ export const naturalness = {
               migration: {
                 validateFns: {
                   '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_4_3a.forest_2010['undisturbed_by_man'],
+                   table_4_3a.forest_2010['semi_natural'],
+                   table_4_3a.forest_2010['plantations']], "table_1_1a.forest_2010")`,
+
                     `validatorEqualToSum(table_4_3a.forest_2010['semi_natural'],
                   [table_4_3b.forest_2010['naturally_established'],
                    table_4_3b.forest_2010['naturalised_introduced_species'],
@@ -307,6 +327,11 @@ export const naturalness = {
               migration: {
                 validateFns: {
                   '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_4_3a.forest_2005['undisturbed_by_man'],
+                   table_4_3a.forest_2005['semi_natural'],
+                   table_4_3a.forest_2005['plantations']], "table_1_1a.forest_2005")`,
+
                     `validatorEqualToSum(table_4_3a.forest_2005['semi_natural'],
                   [table_4_3b.forest_2005['naturally_established'],
                    table_4_3b.forest_2005['naturalised_introduced_species'],
@@ -340,6 +365,11 @@ export const naturalness = {
               migration: {
                 validateFns: {
                   '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_4_3a.forest_2000['undisturbed_by_man'],
+                   table_4_3a.forest_2000['semi_natural'],
+                   table_4_3a.forest_2000['plantations']], "table_1_1a.forest_2000")`,
+
                     `validatorEqualToSum(table_4_3a.forest_2000['semi_natural'],
                   [table_4_3b.forest_2000['naturally_established'],
                    table_4_3b.forest_2000['naturalised_introduced_species'],
@@ -373,6 +403,11 @@ export const naturalness = {
               migration: {
                 validateFns: {
                   '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_4_3a.forest_1990['undisturbed_by_man'],
+                   table_4_3a.forest_1990['semi_natural'],
+                   table_4_3a.forest_1990['plantations']], "table_1_1a.forest_1990")`,
+
                     `validatorEqualToSum(table_4_3a.forest_1990['semi_natural'],
                   [table_4_3b.forest_1990['naturally_established'],
                    table_4_3b.forest_1990['naturalised_introduced_species'],

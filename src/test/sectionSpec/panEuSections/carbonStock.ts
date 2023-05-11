@@ -1,92 +1,87 @@
 // @ts-nocheck
-const dataCols = [
-  {
-    idx: 0,
-    type: 'decimal',
-    migration: {
-      linkedNodes: {
-        '2025': {
-          assessmentName: 'fra',
-          cycleName: '2025',
-          tableName: 'carbonStockTotal',
-          variableName: 'carbon_forest_above_ground',
-          colName: '2025',
-        },
-      },
-    },
-  },
-  {
-    idx: 1,
-    type: 'decimal',
-    migration: {
-      linkedNodes: {
-        '2025': {
-          assessmentName: 'fra',
-          cycleName: '2025',
-          tableName: 'carbonStockTotal',
-          variableName: 'carbon_forest_below_ground',
-          colName: '2025',
-        },
-      },
-    },
-  },
-  {
-    idx: 2,
-    type: 'decimal',
-    migration: {
-      linkedNodes: {
-        '2025': {
-          assessmentName: 'fra',
-          cycleName: '2025',
-          tableName: 'carbonStockTotal',
-          variableName: 'carbon_forest_deadwood',
-          colName: '2025',
-        },
-      },
-    },
-  },
-  {
-    idx: 3,
-    type: 'decimal',
-    migration: {
-      linkedNodes: {
-        '2025': {
-          assessmentName: 'fra',
-          cycleName: '2025',
-          tableName: 'carbonStockTotal',
-          variableName: 'carbon_forest_litter',
-          colName: '2025',
-        },
-      },
-    },
-  },
-  {
-    idx: 4,
-    type: 'decimal',
-    migration: {
-      linkedNodes: {
-        '2025': {
-          assessmentName: 'fra',
-          cycleName: '2025',
-          tableName: 'carbonStockTotal',
-          variableName: 'carbon_forest_soil',
-          colName: '2025',
-        },
-      },
-    },
-  },
+const variableNames = [
+  'carbon_forest_above_ground',
+  'carbon_forest_below_ground',
+  'carbon_forest_deadwood',
+  'carbon_forest_litter',
+  'carbon_forest_soil',
 ]
 
-const linkedDataCols = (colName) =>
-  dataCols.map((col) => ({
-    ...col,
-    migration: {
-      ...col.migration,
-      linkedNodes: Object.fromEntries(
-        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
-      ),
+const dataColsForest = variableNames.map((variableName, idx) => ({
+  idx,
+  type: 'decimal',
+  migration: {
+    validateFns: {
+      '2025': [
+        `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['${variableName.split('_').pop()}'],
+        [table_1_4a.other_wooded_land_2025['${variableName.split('_').pop()}'], table_1_4a.forest_2025['${variableName
+          .split('_')
+          .pop()}']])`,
+      ],
     },
-  }))
+    linkedNodes: {
+      '2025': {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        tableName: 'carbonStockTotal',
+        variableName,
+        colName: '2025',
+      },
+    },
+  },
+}))
+
+const dataColsOther = variableNames.map((variableName, idx) => ({
+  idx,
+  type: 'decimal',
+  migration: {
+    validateFns: {
+      '2025': [
+        `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['${variableName.split('_').pop()}'],
+        [table_1_4a.other_wooded_land_2025['${variableName.split('_').pop()}'], table_1_4a.forest_2025['${variableName
+          .split('_')
+          .pop()}']])`,
+      ],
+    },
+  },
+}))
+
+const linkedDataCols = (colName: string) =>
+  dataColsForest.map((col) => {
+    const validateFns = {
+      ...col.migration.validateFns,
+      '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/2025/g, colName)),
+    }
+
+    const migration =
+      colName === '2005'
+        ? { ...col.migration, validateFns }
+        : {
+            ...col.migration,
+            validateFns,
+            linkedNodes: Object.fromEntries(
+              Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+            ),
+          }
+
+    return { ...col, migration }
+  })
+
+const otherWoodCols = (colName: string) =>
+  dataColsOther.map((col) => {
+    const validateFns = {
+      ...col.migration.validateFns,
+      '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/2025/g, colName)),
+    }
+
+    return {
+      ...col,
+      migration: {
+        ...col.migration,
+        validateFns,
+      },
+    }
+  })
 
 export const carbonStock = {
   sectionName: 'carbonStock',
@@ -403,14 +398,7 @@ export const carbonStock = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...otherWoodCols('2025'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -431,14 +419,7 @@ export const carbonStock = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...otherWoodCols('2020'),
               ],
               labelKey: 'panEuropean.carbonStock.other_wooded_land',
               labelParams: { year: 2020 },
@@ -456,14 +437,7 @@ export const carbonStock = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...otherWoodCols('2015'),
               ],
               labelKey: 'panEuropean.carbonStock.other_wooded_land',
               labelParams: { year: 2015 },
@@ -481,14 +455,7 @@ export const carbonStock = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...otherWoodCols('2010'),
               ],
               labelKey: 'panEuropean.carbonStock.other_wooded_land',
               labelParams: { year: 2010 },
@@ -506,14 +473,7 @@ export const carbonStock = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...otherWoodCols('2005'),
               ],
               labelKey: 'panEuropean.carbonStock.other_wooded_land',
               labelParams: { year: 2005 },
@@ -531,14 +491,7 @@ export const carbonStock = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...otherWoodCols('2000'),
               ],
               labelKey: 'panEuropean.carbonStock.other_wooded_land',
               labelParams: { year: 2000 },
@@ -556,14 +509,7 @@ export const carbonStock = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
+                ...otherWoodCols('1990'),
               ],
               labelKey: 'panEuropean.carbonStock.other_wooded_land',
               labelParams: { year: 1990 },
@@ -592,20 +538,6 @@ export const carbonStock = {
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['above_ground'],
-                  [table_1_4a.other_wooded_land_2025['above_ground'],table_1_4a.forest_2025['above_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['below_ground'],
-                  [table_1_4a.other_wooded_land_2025['below_ground'],table_1_4a.forest_2025['below_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['deadwood'],
-                  [table_1_4a.other_wooded_land_2025['deadwood'],table_1_4a.forest_2025['deadwood']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['litter'],
-                  [table_1_4a.other_wooded_land_2025['litter'],table_1_4a.forest_2025['litter']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['soil_carbon'],
-                  [table_1_4a.other_wooded_land_2025['soil_carbon'],table_1_4a.forest_2025['soil_carbon']])`,
-                  ],
-                },
               },
               labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2025 },
@@ -632,22 +564,6 @@ export const carbonStock = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2020['above_ground'],
-                  [table_1_4a.other_wooded_land_2020['above_ground'],table_1_4a.forest_2020['above_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2020['below_ground'],
-                  [table_1_4a.other_wooded_land_2020['below_ground'],table_1_4a.forest_2020['below_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2020['deadwood'],
-                  [table_1_4a.other_wooded_land_2020['deadwood'],table_1_4a.forest_2020['deadwood']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2020['litter'],
-                  [table_1_4a.other_wooded_land_2020['litter'],table_1_4a.forest_2020['litter']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2020['soil_carbon'],
-                  [table_1_4a.other_wooded_land_2020['soil_carbon'],table_1_4a.forest_2020['soil_carbon']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
               variableExport: 'total_forest_and_other_wooded_land_2020',
@@ -673,22 +589,6 @@ export const carbonStock = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2015['above_ground'],
-                  [table_1_4a.other_wooded_land_2015['above_ground'],table_1_4a.forest_2015['above_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2015['below_ground'],
-                  [table_1_4a.other_wooded_land_2015['below_ground'],table_1_4a.forest_2015['below_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2015['deadwood'],
-                  [table_1_4a.other_wooded_land_2015['deadwood'],table_1_4a.forest_2015['deadwood']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2015['litter'],
-                  [table_1_4a.other_wooded_land_2015['litter'],table_1_4a.forest_2015['litter']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2015['soil_carbon'],
-                  [table_1_4a.other_wooded_land_2015['soil_carbon'],table_1_4a.forest_2015['soil_carbon']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'total_forest_and_other_wooded_land_2015',
@@ -714,22 +614,6 @@ export const carbonStock = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2010['above_ground'],
-                  [table_1_4a.other_wooded_land_2010['above_ground'],table_1_4a.forest_2010['above_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2010['below_ground'],
-                  [table_1_4a.other_wooded_land_2010['below_ground'],table_1_4a.forest_2010['below_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2010['deadwood'],
-                  [table_1_4a.other_wooded_land_2010['deadwood'],table_1_4a.forest_2010['deadwood']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2010['litter'],
-                  [table_1_4a.other_wooded_land_2010['litter'],table_1_4a.forest_2010['litter']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2010['soil_carbon'],
-                  [table_1_4a.other_wooded_land_2010['soil_carbon'],table_1_4a.forest_2010['soil_carbon']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'total_forest_and_other_wooded_land_2010',
@@ -755,22 +639,6 @@ export const carbonStock = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2005['above_ground'],
-                  [table_1_4a.other_wooded_land_2005['above_ground'],table_1_4a.forest_2005['above_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2005['below_ground'],
-                  [table_1_4a.other_wooded_land_2005['below_ground'],table_1_4a.forest_2005['below_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2005['deadwood'],
-                  [table_1_4a.other_wooded_land_2005['deadwood'],table_1_4a.forest_2005['deadwood']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2005['litter'],
-                  [table_1_4a.other_wooded_land_2005['litter'],table_1_4a.forest_2005['litter']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2005['soil_carbon'],
-                  [table_1_4a.other_wooded_land_2005['soil_carbon'],table_1_4a.forest_2005['soil_carbon']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'total_forest_and_other_wooded_land_2005',
@@ -796,22 +664,6 @@ export const carbonStock = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2000['above_ground'],
-                  [table_1_4a.other_wooded_land_2000['above_ground'],table_1_4a.forest_2000['above_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2000['below_ground'],
-                  [table_1_4a.other_wooded_land_2000['below_ground'],table_1_4a.forest_2000['below_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2000['deadwood'],
-                  [table_1_4a.other_wooded_land_2000['deadwood'],table_1_4a.forest_2000['deadwood']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2000['litter'],
-                  [table_1_4a.other_wooded_land_2000['litter'],table_1_4a.forest_2000['litter']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2000['soil_carbon'],
-                  [table_1_4a.other_wooded_land_2000['soil_carbon'],table_1_4a.forest_2000['soil_carbon']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'total_forest_and_other_wooded_land_2000',
@@ -837,22 +689,6 @@ export const carbonStock = {
                 { idx: 3, type: 'decimal' },
                 { idx: 4, type: 'decimal' },
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_1990['above_ground'],
-                  [table_1_4a.other_wooded_land_1990['above_ground'],table_1_4a.forest_1990['above_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_1990['below_ground'],
-                  [table_1_4a.other_wooded_land_1990['below_ground'],table_1_4a.forest_1990['below_ground']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_1990['deadwood'],
-                  [table_1_4a.other_wooded_land_1990['deadwood'],table_1_4a.forest_1990['deadwood']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_1990['litter'],
-                  [table_1_4a.other_wooded_land_1990['litter'],table_1_4a.forest_1990['litter']])`,
-                    `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_1990['soil_carbon'],
-                  [table_1_4a.other_wooded_land_1990['soil_carbon'],table_1_4a.forest_1990['soil_carbon']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.carbonStock.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'total_forest_and_other_wooded_land_1990',

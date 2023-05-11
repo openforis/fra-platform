@@ -171,6 +171,14 @@ export const totalForestAreaByExpansionAndRegenerationType = {
               labelParams: { year: 2025 },
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_4_2a.forest_2025['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2025['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2025['coppice']], "table_1_1a.forest_2025")`,
+                  ],
+                },
               },
               variableExport: 'forest_2025',
             },
@@ -193,6 +201,14 @@ export const totalForestAreaByExpansionAndRegenerationType = {
               labelParams: { year: 2020 },
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_4_2a.forest_2020['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2020['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2020['coppice']], "table_1_1a.forest_2020")`,
+                  ],
+                },
               },
               variableExport: 'forest_2020',
             },
@@ -211,6 +227,16 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                 ...linkedDataColsA('2015'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_4_2a.forest_2015['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2015['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2015['coppice']], "table_1_1a.forest_2015")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2015 },
               variableExport: 'forest_2015',
@@ -230,6 +256,16 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                 ...linkedDataColsA('2010'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_4_2a.forest_2010['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2010['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2010['coppice']], "table_1_1a.forest_2010")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2010 },
               variableExport: 'forest_2010',
@@ -250,6 +286,16 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_4_2a.forest_2005['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2005['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2005['coppice']], "table_1_1a.forest_2005")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2005 },
               variableExport: 'forest_2005',
@@ -269,6 +315,16 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                 ...linkedDataColsA('2000'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_4_2a.forest_2000['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2000['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2000['coppice']], "table_1_1a.forest_2000")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2000 },
               variableExport: 'forest_2000',
@@ -288,6 +344,16 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                 ...linkedDataColsA('1990'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_4_2a.forest_1990['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_1990['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_1990['coppice']], "table_1_1a.forest_1990")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',

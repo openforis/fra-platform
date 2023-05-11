@@ -4,6 +4,14 @@ const dataCols = [
     idx: 0,
     type: 'decimal',
     migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_6_1.in_private_ownership_1990['total_forest_area'],
+                   table_6_1.in_public_ownership_1990['total_forest_area'],
+                   table_6_1.other_types_of_ownership_unknown_1990['total_forest_area']])`,
+        ],
+      },
       linkedNodes: {
         '2025': {
           assessmentName: 'fra',
@@ -17,16 +25,27 @@ const dataCols = [
   },
 ]
 
-const linkedDataCol = (variableName, colName) =>
-  dataCols.map((col) => ({
-    ...col,
-    migration: {
-      ...col.migration,
-      linkedNodes: Object.fromEntries(
-        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, variableName, colName }])
-      ),
-    },
-  }))
+const linkedDataCol = (variableName: string, colName: string) =>
+  dataCols.map((col) => {
+    const validationFn = `validatorEqualToSum(table_1_1a.forest_${colName}['area'],
+                  [table_6_1.in_private_ownership_${colName}['total_forest_area'],
+                   table_6_1.in_public_ownership_${colName}['total_forest_area'],
+                   table_6_1.other_types_of_ownership_unknown_${colName}['total_forest_area']], "table_1_1a.forest_${colName}")`
+
+    return {
+      ...col,
+      migration: {
+        ...col.migration,
+        validateFns: {
+          '2025': [validationFn],
+        },
+        linkedNodes: Object.fromEntries(
+          Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, variableName, colName }])
+        ),
+      },
+    }
+    return col
+  })
 
 export const forestHoldings = {
   sectionName: 'forestHoldings',

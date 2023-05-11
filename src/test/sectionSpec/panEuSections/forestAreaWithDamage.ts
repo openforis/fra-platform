@@ -1,5 +1,186 @@
 // @ts-nocheck
 
+const dataColsWithValidation = [
+  {
+    idx: 0,
+    type: 'decimal',
+    colName: 'total_area_with_damage',
+    migration: {
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['total_area_with_damage'],
+                    [table_2_4.forest_2020['total_area_with_damage'],table_2_4.other_wooded_land_2020['total_area_with_damage']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    colName: 'insects',
+    migration: {
+      forceColName: true,
+      cycles: ['2025'],
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['insects'],
+                    [table_2_4.forest_2020['insects'],table_2_4.other_wooded_land_2020['insects']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 2,
+    type: 'decimal',
+    colName: 'disease',
+    migration: {
+      forceColName: true,
+      cycles: ['2025'],
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['disease'],
+                    [table_2_4.forest_2020['disease'],table_2_4.other_wooded_land_2020['disease']])`,
+        ],
+      },
+    },
+  },
+  { idx: 3, type: 'decimal', colName: 'insects_and_disease', migration: { forceColName: true, cycles: ['2020'] } },
+  {
+    idx: 4,
+    type: 'decimal',
+    colName: 'wildlife_and_grazing',
+    migration: {
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['wildlife_and_grazing'],
+                    [table_2_4.forest_2020['wildlife_and_grazing'],table_2_4.other_wooded_land_2020['wildlife_and_grazing']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 5,
+    type: 'decimal',
+    colName: 'forest_operations',
+    migration: {
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['forest_operations'],
+                    [table_2_4.forest_2020['forest_operations'],table_2_4.other_wooded_land_2020['forest_operations']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 6,
+    type: 'decimal',
+    colName: 'other',
+    migration: {
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['other'],
+                    [table_2_4.forest_2020['other'],table_2_4.other_wooded_land_2020['other']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 7,
+    type: 'decimal',
+    colName: 'primarily_damaged_by_abiotic_agents',
+    migration: {
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['primarily_damaged_by_abiotic_agents'],
+                    [table_2_4.forest_2020['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_2020['primarily_damaged_by_abiotic_agents']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 8,
+    type: 'decimal',
+    colName: 'unspecified_mixed_damage_2025',
+    migration: {
+      cycles: ['2025'],
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['unspecified_mixed_damage_2025'],
+                    [table_2_4.forest_2020['unspecified_mixed_damage_2025'],table_2_4.other_wooded_land_2020['unspecified_mixed_damage_2025']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 9,
+    type: 'decimal',
+    colName: 'primarily_damaged_by_fire_total',
+    migration: {
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['primarily_damaged_by_fire_total'],
+                    [table_2_4.forest_2020['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_2020['primarily_damaged_by_fire_total']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 10,
+    type: 'decimal',
+    colName: 'of_which_human_induced',
+    migration: {
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['of_which_human_induced'],
+                    [table_2_4.forest_2020['of_which_human_induced'],table_2_4.other_wooded_land_2020['of_which_human_induced']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 11,
+    type: 'decimal',
+    colName: 'unspecified_mixed_damage',
+    migration: {
+      cycles: ['2020'],
+      forceColName: true,
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['unspecified_mixed_damage'],
+                    [table_2_4.forest_2020['unspecified_mixed_damage'],table_2_4.other_wooded_land_2020['unspecified_mixed_damage']])`,
+        ],
+      },
+    },
+  },
+]
+
+const updatedDataColsValidation = (year: string) =>
+  dataColsWithValidation.map((col) => {
+    if (col.migration && col.migration.validateFns && col.migration.validateFns['2025']) {
+      const validateFns = {
+        ...col.migration.validateFns,
+        '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/2020/g, year)),
+      }
+
+      return {
+        ...col,
+        migration: {
+          ...col.migration,
+          validateFns,
+        },
+      }
+    }
+    return col
+  })
+
 const dataCols = [
   { idx: 0, type: 'decimal', colName: 'total_area_with_damage', migration: { forceColName: true } },
   { idx: 1, type: 'decimal', colName: 'insects', migration: { forceColName: true, cycles: ['2025'] } },
@@ -379,7 +560,7 @@ export const forestAreaWithDamage = {
                 validateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2022['total_area_with_damage'],
-                    [table_2_4.forest_2022['insects_and_disease'],table_2_4.forest_2022['wildlife_and_grazing'],
+                    [table_2_4.forest_2022['insects'], table_2_4.forest_2022['disease'],table_2_4.forest_2022['wildlife_and_grazing'],
                     table_2_4.forest_2022['forest_operations'],table_2_4.forest_2022['other'],
                     table_2_4.forest_2022['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2022['primarily_damaged_by_fire_total'],
                     table_2_4.forest_2022['unspecified_mixed_damage']])`,
@@ -409,7 +590,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2021['total_area_with_damage'],
-                     [table_2_4.forest_2021['insects_and_disease'],table_2_4.forest_2021['wildlife_and_grazing'],
+                     [table_2_4.forest_2021['insects'], table_2_4.forest_2021['disease'],table_2_4.forest_2021['wildlife_and_grazing'],
                      table_2_4.forest_2021['forest_operations'],table_2_4.forest_2021['other'],
                      table_2_4.forest_2021['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2021['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2021['unspecified_mixed_damage']])`,
@@ -439,7 +620,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2020['total_area_with_damage'],
-                     [table_2_4.forest_2020['insects_and_disease'],table_2_4.forest_2020['wildlife_and_grazing'],
+                     [table_2_4.forest_2020['insects'], table_2_4.forest_2020['disease'],table_2_4.forest_2020['wildlife_and_grazing'],
                      table_2_4.forest_2020['forest_operations'],table_2_4.forest_2020['other'],
                      table_2_4.forest_2020['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2020['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2020['unspecified_mixed_damage']])`,
@@ -469,7 +650,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2019['total_area_with_damage'],
-                     [table_2_4.forest_2019['insects_and_disease'],table_2_4.forest_2019['wildlife_and_grazing'],
+                     [table_2_4.forest_2019['insects'], table_2_4.forest_2019['disease'],table_2_4.forest_2019['wildlife_and_grazing'],
                      table_2_4.forest_2019['forest_operations'],table_2_4.forest_2019['other'],
                      table_2_4.forest_2019['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2019['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2019['unspecified_mixed_damage']])`,
@@ -499,7 +680,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2018['total_area_with_damage'],
-                     [table_2_4.forest_2018['insects_and_disease'],table_2_4.forest_2018['wildlife_and_grazing'],
+                     [table_2_4.forest_2018['insects'], table_2_4.forest_2018['disease'],table_2_4.forest_2018['wildlife_and_grazing'],
                      table_2_4.forest_2018['forest_operations'],table_2_4.forest_2018['other'],
                      table_2_4.forest_2018['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2018['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2018['unspecified_mixed_damage']])`,
@@ -529,7 +710,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2017['total_area_with_damage'],
-                     [table_2_4.forest_2017['insects_and_disease'],table_2_4.forest_2017['wildlife_and_grazing'],
+                     [table_2_4.forest_2017['insects'], table_2_4.forest_2017['disease'],table_2_4.forest_2017['wildlife_and_grazing'],
                      table_2_4.forest_2017['forest_operations'],table_2_4.forest_2017['other'],
                      table_2_4.forest_2017['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2017['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2017['unspecified_mixed_damage']])`,
@@ -559,7 +740,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2016['total_area_with_damage'],
-                     [table_2_4.forest_2016['insects_and_disease'],table_2_4.forest_2016['wildlife_and_grazing'],
+                     [table_2_4.forest_2016['insects'], table_2_4.forest_2016['disease'],table_2_4.forest_2016['wildlife_and_grazing'],
                      table_2_4.forest_2016['forest_operations'],table_2_4.forest_2016['other'],
                      table_2_4.forest_2016['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2016['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2016['unspecified_mixed_damage']])`,
@@ -588,7 +769,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2015['total_area_with_damage'],
-                     [table_2_4.forest_2015['insects_and_disease'],table_2_4.forest_2015['wildlife_and_grazing'],
+                     [table_2_4.forest_2015['insects'], table_2_4.forest_2015['disease'],table_2_4.forest_2015['wildlife_and_grazing'],
                      table_2_4.forest_2015['forest_operations'],table_2_4.forest_2015['other'],
                      table_2_4.forest_2015['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2015['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2015['unspecified_mixed_damage']])`,
@@ -618,7 +799,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2014['total_area_with_damage'],
-                [table_2_4.forest_2014['insects_and_disease'],table_2_4.forest_2014['wildlife_and_grazing'],
+                [table_2_4.forest_2014['insects'], table_2_4.forest_2014['disease'],table_2_4.forest_2014['wildlife_and_grazing'],
                 table_2_4.forest_2014['forest_operations'],table_2_4.forest_2014['other'],
                 table_2_4.forest_2014['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2014['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2014['unspecified_mixed_damage']])`,
@@ -648,7 +829,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2013['total_area_with_damage'],
-                [table_2_4.forest_2013['insects_and_disease'],table_2_4.forest_2013['wildlife_and_grazing'],
+                [table_2_4.forest_2013['insects'], table_2_4.forest_2013['disease'],table_2_4.forest_2013['wildlife_and_grazing'],
                 table_2_4.forest_2013['forest_operations'],table_2_4.forest_2013['other'],
                 table_2_4.forest_2013['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2013['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2013['unspecified_mixed_damage']])`,
@@ -678,7 +859,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2012['total_area_with_damage'],
-                [table_2_4.forest_2012['insects_and_disease'],table_2_4.forest_2012['wildlife_and_grazing'],
+                [table_2_4.forest_2012['insects'], table_2_4.forest_2012['disease'],table_2_4.forest_2012['wildlife_and_grazing'],
                 table_2_4.forest_2012['forest_operations'],table_2_4.forest_2012['other'],
                 table_2_4.forest_2012['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2012['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2012['unspecified_mixed_damage']])`,
@@ -708,7 +889,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2011['total_area_with_damage'],
-                [table_2_4.forest_2011['insects_and_disease'],table_2_4.forest_2011['wildlife_and_grazing'],
+                [table_2_4.forest_2011['insects'], table_2_4.forest_2011['disease'],table_2_4.forest_2011['wildlife_and_grazing'],
                 table_2_4.forest_2011['forest_operations'],table_2_4.forest_2011['other'],
                 table_2_4.forest_2011['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2011['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2011['unspecified_mixed_damage']])`,
@@ -737,7 +918,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2010['total_area_with_damage'],
-                     [table_2_4.forest_2010['insects_and_disease'],table_2_4.forest_2010['wildlife_and_grazing'],
+                     [table_2_4.forest_2010['insects'], table_2_4.forest_2010['disease'],table_2_4.forest_2010['wildlife_and_grazing'],
                      table_2_4.forest_2010['forest_operations'],table_2_4.forest_2010['other'],
                      table_2_4.forest_2010['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2010['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2010['unspecified_mixed_damage']])`,
@@ -767,7 +948,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2009['total_area_with_damage'],
-                [table_2_4.forest_2009['insects_and_disease'],table_2_4.forest_2009['wildlife_and_grazing'],
+                [table_2_4.forest_2009['insects'], table_2_4.forest_2009['disease'],table_2_4.forest_2009['wildlife_and_grazing'],
                 table_2_4.forest_2009['forest_operations'],table_2_4.forest_2009['other'],
                 table_2_4.forest_2009['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2009['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2009['unspecified_mixed_damage']])`,
@@ -797,7 +978,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2008['total_area_with_damage'],
-                [table_2_4.forest_2008['insects_and_disease'],table_2_4.forest_2008['wildlife_and_grazing'],
+                [table_2_4.forest_2008['insects'], table_2_4.forest_2008['disease'],table_2_4.forest_2008['wildlife_and_grazing'],
                 table_2_4.forest_2008['forest_operations'],table_2_4.forest_2008['other'],
                 table_2_4.forest_2008['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2008['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2008['unspecified_mixed_damage']])`,
@@ -827,7 +1008,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2007['total_area_with_damage'],
-                [table_2_4.forest_2007['insects_and_disease'],table_2_4.forest_2007['wildlife_and_grazing'],
+                [table_2_4.forest_2007['insects'], table_2_4.forest_2007['disease'],table_2_4.forest_2007['wildlife_and_grazing'],
                 table_2_4.forest_2007['forest_operations'],table_2_4.forest_2007['other'],
                 table_2_4.forest_2007['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2007['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2007['unspecified_mixed_damage']])`,
@@ -857,7 +1038,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2006['total_area_with_damage'],
-                [table_2_4.forest_2006['insects_and_disease'],table_2_4.forest_2006['wildlife_and_grazing'],
+                [table_2_4.forest_2006['insects'], table_2_4.forest_2006['disease'],table_2_4.forest_2006['wildlife_and_grazing'],
                 table_2_4.forest_2006['forest_operations'],table_2_4.forest_2006['other'],
                 table_2_4.forest_2006['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2006['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2006['unspecified_mixed_damage']])`,
@@ -886,7 +1067,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2005['total_area_with_damage'],
-                     [table_2_4.forest_2005['insects_and_disease'],table_2_4.forest_2005['wildlife_and_grazing'],
+                     [table_2_4.forest_2020['insects'], table_2_4.forest_2020['disease'],table_2_4.forest_2005['wildlife_and_grazing'],
                      table_2_4.forest_2005['forest_operations'],table_2_4.forest_2005['other'],
                      table_2_4.forest_2005['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2005['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2005['unspecified_mixed_damage']])`,
@@ -916,7 +1097,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2004['total_area_with_damage'],
-                [table_2_4.forest_2004['insects_and_disease'],table_2_4.forest_2004['wildlife_and_grazing'],
+                [table_2_4.forest_2004['insects'], table_2_4.forest_2004['disease'],table_2_4.forest_2004['wildlife_and_grazing'],
                 table_2_4.forest_2004['forest_operations'],table_2_4.forest_2004['other'],
                 table_2_4.forest_2004['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2004['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2004['unspecified_mixed_damage']])`,
@@ -946,7 +1127,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2003['total_area_with_damage'],
-                [table_2_4.forest_2003['insects_and_disease'],table_2_4.forest_2003['wildlife_and_grazing'],
+                [table_2_4.forest_2003['insects'], table_2_4.forest_2003['disease'],table_2_4.forest_2003['wildlife_and_grazing'],
                 table_2_4.forest_2003['forest_operations'],table_2_4.forest_2003['other'],
                 table_2_4.forest_2003['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2003['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2003['unspecified_mixed_damage']])`,
@@ -976,7 +1157,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2002['total_area_with_damage'],
-                [table_2_4.forest_2002['insects_and_disease'],table_2_4.forest_2002['wildlife_and_grazing'],
+                [table_2_4.forest_2002['insects'], table_2_4.forest_2002['disease'],table_2_4.forest_2002['wildlife_and_grazing'],
                 table_2_4.forest_2002['forest_operations'],table_2_4.forest_2002['other'],
                 table_2_4.forest_2002['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2002['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2002['unspecified_mixed_damage']])`,
@@ -1006,7 +1187,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2001['total_area_with_damage'],
-                [table_2_4.forest_2001['insects_and_disease'],table_2_4.forest_2001['wildlife_and_grazing'],
+                [table_2_4.forest_2001['insects'], table_2_4.forest_2001['disease'],table_2_4.forest_2001['wildlife_and_grazing'],
                 table_2_4.forest_2001['forest_operations'],table_2_4.forest_2001['other'],
                 table_2_4.forest_2001['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2001['primarily_damaged_by_fire_total'],
                 table_2_4.forest_2001['unspecified_mixed_damage']])`,
@@ -1035,7 +1216,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2000['total_area_with_damage'],
-                     [table_2_4.forest_2000['insects_and_disease'],table_2_4.forest_2000['wildlife_and_grazing'],
+                     [table_2_4.forest_2000['insects'], table_2_4.forest_2000['disease'],table_2_4.forest_2000['wildlife_and_grazing'],
                      table_2_4.forest_2000['forest_operations'],table_2_4.forest_2000['other'],
                      table_2_4.forest_2000['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2000['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2000['unspecified_mixed_damage']])`,
@@ -1064,7 +1245,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_1990['total_area_with_damage'],
-                     [table_2_4.forest_1990['insects_and_disease'],table_2_4.forest_1990['wildlife_and_grazing'],
+                     [table_2_4.forest_1990['insects'], table_2_4.forest_1990['disease'],table_2_4.forest_1990['wildlife_and_grazing'],
                      table_2_4.forest_1990['forest_operations'],table_2_4.forest_1990['other'],
                      table_2_4.forest_1990['primarily_damaged_by_abiotic_agents'],table_2_4.forest_1990['primarily_damaged_by_fire_total'],
                      table_2_4.forest_1990['unspecified_mixed_damage']])`,
@@ -1087,7 +1268,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2020'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -1108,7 +1289,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2015'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2015 },
@@ -1126,7 +1307,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2010'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2010 },
@@ -1144,7 +1325,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2005'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2005 },
@@ -1162,7 +1343,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2000'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2000 },
@@ -1180,7 +1361,7 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('1990'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 1990 },
@@ -1198,32 +1379,10 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2020'),
               ],
               migration: {
                 cycles: ['2025'],
-                ValidateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['total_area_with_damage'],
-                    [table_2_4.forest_2020['total_area_with_damage'],table_2_4.other_wooded_land_2020['total_area_with_damage']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['insects_and_disease'],
-                    [table_2_4.forest_2020['insects_and_disease'],table_2_4.other_wooded_land_2020['insects_and_disease']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['wildlife_and_grazing'],
-                    [table_2_4.forest_2020['wildlife_and_grazing'],table_2_4.other_wooded_land_2020['wildlife_and_grazing']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['forest_operations'],
-                    [table_2_4.forest_2020['forest_operations'],table_2_4.other_wooded_land_2020['forest_operations']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['other'],
-                    [table_2_4.forest_2020['other'],table_2_4.other_wooded_land_2020['other']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['primarily_damaged_by_abiotic_agents'],
-                    [table_2_4.forest_2020['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_2020['primarily_damaged_by_abiotic_agents']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['primarily_damaged_by_fire_total'],
-                    [table_2_4.forest_2020['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_2020['primarily_damaged_by_fire_total']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['of_which_human_induced'],
-                    [table_2_4.forest_2020['of_which_human_induced'],table_2_4.other_wooded_land_2020['of_which_human_induced']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['unspecified_mixed_damage'],
-                    [table_2_4.forest_2020['unspecified_mixed_damage'],table_2_4.other_wooded_land_2020['unspecified_mixed_damage']])`,
-                  ],
-                },
               },
               labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
@@ -1241,32 +1400,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2015'),
               ],
-              migration: {
-                ValidateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['total_area_with_damage'],
-                     [table_2_4.forest_2015['total_area_with_damage'],table_2_4.other_wooded_land_2015['total_area_with_damage']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['insects_and_disease'],
-                     [table_2_4.forest_2015['insects_and_disease'],table_2_4.other_wooded_land_2015['insects_and_disease']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['wildlife_and_grazing'],
-                     [table_2_4.forest_2015['wildlife_and_grazing'],table_2_4.other_wooded_land_2015['wildlife_and_grazing']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['forest_operations'],
-                      [table_2_4.forest_2015['forest_operations'],table_2_4.other_wooded_land_2015['forest_operations']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['other'],
-                      [table_2_4.forest_2015['other'],table_2_4.other_wooded_land_2015['other']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['primarily_damaged_by_abiotic_agents'],
-                      [table_2_4.forest_2015['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_2015['primarily_damaged_by_abiotic_agents']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['primarily_damaged_by_fire_total'],
-                      [table_2_4.forest_2015['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_2015['primarily_damaged_by_fire_total']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['of_which_human_induced'],
-                      [table_2_4.forest_2015['of_which_human_induced'],table_2_4.other_wooded_land_2015['of_which_human_induced']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2015['unspecified_mixed_damage'],
-                      [table_2_4.forest_2015['unspecified_mixed_damage'],table_2_4.other_wooded_land_2015['unspecified_mixed_damage']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'total_forest_and_other_wooded_land_2015',
@@ -1283,32 +1418,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2010'),
               ],
-              migration: {
-                ValidateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['total_area_with_damage'],
-                      [table_2_4.forest_2010['total_area_with_damage'],table_2_4.other_wooded_land_2010['total_area_with_damage']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['insects_and_disease'],
-                      [table_2_4.forest_2010['insects_and_disease'],table_2_4.other_wooded_land_2010['insects_and_disease']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['wildlife_and_grazing'],
-                      [table_2_4.forest_2010['wildlife_and_grazing'],table_2_4.other_wooded_land_2010['wildlife_and_grazing']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['forest_operations'],
-                      [table_2_4.forest_2010['forest_operations'],table_2_4.other_wooded_land_2010['forest_operations']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['other'],
-                      [table_2_4.forest_2010['other'],table_2_4.other_wooded_land_2010['other']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['primarily_damaged_by_abiotic_agents'],
-                      [table_2_4.forest_2010['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_2010['primarily_damaged_by_abiotic_agents']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['primarily_damaged_by_fire_total'],
-                      [table_2_4.forest_2010['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_2010['primarily_damaged_by_fire_total']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['of_which_human_induced'],
-                      [table_2_4.forest_2010['of_which_human_induced'],table_2_4.other_wooded_land_2010['of_which_human_induced']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2010['unspecified_mixed_damage'],
-                      [table_2_4.forest_2010['unspecified_mixed_damage'],table_2_4.other_wooded_land_2010['unspecified_mixed_damage']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'total_forest_and_other_wooded_land_2010',
@@ -1325,32 +1436,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2005'),
               ],
-              migration: {
-                ValidateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['total_area_with_damage'],
-                      [table_2_4.forest_2005['total_area_with_damage'],table_2_4.other_wooded_land_2005['total_area_with_damage']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['insects_and_disease'],
-                      [table_2_4.forest_2005['insects_and_disease'],table_2_4.other_wooded_land_2005['insects_and_disease']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['wildlife_and_grazing'],
-                      [table_2_4.forest_2005['wildlife_and_grazing'],table_2_4.other_wooded_land_2005['wildlife_and_grazing']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['forest_operations'],
-                      [table_2_4.forest_2005['forest_operations'],table_2_4.other_wooded_land_2005['forest_operations']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['other'],
-                      [table_2_4.forest_2005['other'],table_2_4.other_wooded_land_2005['other']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['primarily_damaged_by_abiotic_agents'],
-                      [table_2_4.forest_2005['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_2005['primarily_damaged_by_abiotic_agents']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['primarily_damaged_by_fire_total'],
-                      [table_2_4.forest_2005['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_2005['primarily_damaged_by_fire_total']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['of_which_human_induced'],
-                      [table_2_4.forest_2005['of_which_human_induced'],table_2_4.other_wooded_land_2005['of_which_human_induced']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2005['unspecified_mixed_damage'],
-                      [table_2_4.forest_2005['unspecified_mixed_damage'],table_2_4.other_wooded_land_2005['unspecified_mixed_damage']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'total_forest_and_other_wooded_land_2005',
@@ -1367,32 +1454,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('2000'),
               ],
-              migration: {
-                ValidateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['total_area_with_damage'],
-                      [table_2_4.forest_2000['total_area_with_damage'],table_2_4.other_wooded_land_2000['total_area_with_damage']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['insects_and_disease'],
-                      [table_2_4.forest_2000['insects_and_disease'],table_2_4.other_wooded_land_2000['insects_and_disease']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['wildlife_and_grazing'],
-                      [table_2_4.forest_2000['wildlife_and_grazing'],table_2_4.other_wooded_land_2000['wildlife_and_grazing']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['forest_operations'],
-                      [table_2_4.forest_2000['forest_operations'],table_2_4.other_wooded_land_2000['forest_operations']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['other'],
-                      [table_2_4.forest_2000['other'],table_2_4.other_wooded_land_2000['other']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['primarily_damaged_by_abiotic_agents'],
-                      [table_2_4.forest_2000['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_2000['primarily_damaged_by_abiotic_agents']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['primarily_damaged_by_fire_total'],
-                      [table_2_4.forest_2000['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_2000['primarily_damaged_by_fire_total']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['of_which_human_induced'],
-                      [table_2_4.forest_2000['of_which_human_induced'],table_2_4.other_wooded_land_2000['of_which_human_induced']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2000['unspecified_mixed_damage'],
-                      [table_2_4.forest_2000['unspecified_mixed_damage'],table_2_4.other_wooded_land_2000['unspecified_mixed_damage']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'total_forest_and_other_wooded_land_2000',
@@ -1409,32 +1472,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                ...dataCols,
+                ...updatedDataColsValidation('1990'),
               ],
-              migration: {
-                ValidateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['total_area_with_damage'],
-                      [table_2_4.forest_1990['total_area_with_damage'],table_2_4.other_wooded_land_1990['total_area_with_damage']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['insects_and_disease'],
-                      [table_2_4.forest_1990['insects_and_disease'],table_2_4.other_wooded_land_1990['insects_and_disease']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['wildlife_and_grazing'],
-                      [table_2_4.forest_1990['wildlife_and_grazing'],table_2_4.other_wooded_land_1990['wildlife_and_grazing']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['forest_operations'],
-                      [table_2_4.forest_1990['forest_operations'],table_2_4.other_wooded_land_1990['forest_operations']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['other'],
-                      [table_2_4.forest_1990['other'],table_2_4.other_wooded_land_1990['other']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['primarily_damaged_by_abiotic_agents'],
-                      [table_2_4.forest_1990['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_1990['primarily_damaged_by_abiotic_agents']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['primarily_damaged_by_fire_total'],
-                      [table_2_4.forest_1990['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_1990['primarily_damaged_by_fire_total']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['of_which_human_induced'],
-                      [table_2_4.forest_1990['of_which_human_induced'],table_2_4.other_wooded_land_1990['of_which_human_induced']])`,
-                    `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_1990['unspecified_mixed_damage'],
-                      [table_2_4.forest_1990['unspecified_mixed_damage'],table_2_4.other_wooded_land_1990['unspecified_mixed_damage']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'total_forest_and_other_wooded_land_1990',
