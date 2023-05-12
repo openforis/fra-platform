@@ -1,6 +1,6 @@
 import { CommentableDescriptionValue } from '@meta/assessment'
 
-import { useAppSelector } from '@client/store'
+import { useSectionCycleState } from './index'
 
 export default (props: {
   name: string
@@ -8,7 +8,6 @@ export default (props: {
   template: CommentableDescriptionValue
 }): CommentableDescriptionValue => {
   const { name, sectionName, template } = props
-  return useAppSelector((state) => {
-    return state.ui.assessmentSection.descriptions?.[sectionName]?.[name] ?? template
-  })
+  const sectionCycleState = useSectionCycleState()
+  return sectionCycleState.descriptions?.[sectionName]?.[name] ?? template
 }
