@@ -40,7 +40,7 @@ export type LayerMetadata = {
 }
 
 export type LayerOptions = {
-  minTreeCoverPercentage?: Array<number>
+  gteTreeCoverPercent?: Array<number>
   agreementLayer?: { agreementLevels: Array<number>; reducerScales: Array<number> }
   years?: Array<number>
 }

@@ -210,7 +210,7 @@ export const forestLayers: LayerSection = {
     {
       key: ForestKey.Hansen,
       options: {
-        minTreeCoverPercentage: [...hansenPercentages],
+        gteTreeCoverPercent: [...hansenPercentages],
       },
       metadata: forestLayersMetadata.Hansen,
     },
