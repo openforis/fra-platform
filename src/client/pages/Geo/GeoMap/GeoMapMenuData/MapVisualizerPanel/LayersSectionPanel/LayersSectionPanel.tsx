@@ -12,6 +12,7 @@ import { useCountryIso } from '@client/hooks'
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import CustomAssetControl from './components/CustomAssetControl'
 import LayerOpacityControl from './components/LayerOpacityControl'
+import TreeCoverPercentageControl from './components/TreeCoverPercentageControl/TreeCoverPercentageControl'
 
 interface Props {
   section: LayerSection
@@ -32,13 +33,13 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
     }
   }
 
-  const toggleLayer = (layerKey: LayerKey) => {
+  const toggleLayer = (layerKey: LayerKey, fetch = true) => {
     const layerState = sectionState?.[layerKey]
     const newSelectedState = !layerState?.selected
     const currentMapId = layerState?.mapId
     batch(() => {
       // If the layer is selected and doesn't have a mapId cached, fetch it
-      if (newSelectedState && !currentMapId) {
+      if (newSelectedState && !currentMapId && fetch) {
         dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey, layerState }))
       }
       dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
@@ -65,6 +66,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
         )}
         {section.layers.map((layer) => {
           const isLayerSelected = sectionState?.[layer.key]?.selected || false // default to false
+          const hasGteTreeCoverPercent = layer.options?.gteTreeCoverPercent !== undefined
           const opacity = sectionState?.[layer.key]?.opacity ?? 1
           const loadingStatus = sectionState?.[layer.key]?.status ?? LayerFetchStatus.Unfetched
           if (layer.isCustomAsset)
@@ -87,7 +89,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
               title={layer.key}
               tabIndex={0}
               checked={isLayerSelected}
-              onCheckboxClick={() => toggleLayer(layer.key)}
+              onCheckboxClick={() => toggleLayer(layer.key, !hasGteTreeCoverPercent)}
               backgroundColor={layer.metadata?.palette?.[0]}
               loadingStatus={loadingStatus}
             >
@@ -97,6 +99,15 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
                 layerKey={layer.key}
                 opacity={opacity}
               />
+              {isLayerSelected && hasGteTreeCoverPercent && (
+                <TreeCoverPercentageControl
+                  key={`${section.key}-${layer.key}`}
+                  sectionKey={section.key}
+                  layerKey={layer.key}
+                  layer={layer}
+                  layerState={sectionState?.[layer.key]}
+                />
+              )}
             </GeoMapMenuListElement>
           )
         })}

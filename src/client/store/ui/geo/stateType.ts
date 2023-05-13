@@ -18,7 +18,7 @@ export type AgreementLevelState = {
 // value instead of the list options.
 export type LayerStateOptions = {
   assetId?: string
-  minTreeCoverPercentage?: number
+  gteTreeCoverPercent?: number
   agreementLayer?: AgreementLevelState
   year?: number
 }

@@ -200,13 +200,13 @@ export const geoSlice = createSlice({
       const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey].options = { ...layerStateOptions, assetId }
     },
-    setLayerMinTreeCoverPercentage: (
-      state,
-      {
-        payload: { sectionKey, layerKey, minTreeCoverPercentage },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; minTreeCoverPercentage: number }>
+    setLayerGteTreeCoverPercent: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; gteTreeCoverPercent: number }>
     ) => {
-      state.sections[sectionKey][layerKey].options.minTreeCoverPercentage = minTreeCoverPercentage
+      const { sectionKey, layerKey, gteTreeCoverPercent } = action.payload
+      const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options = { ...layerStateOptions, gteTreeCoverPercent }
     },
     setAgreementLevel: (
       state,
