@@ -146,12 +146,15 @@ const requireResolveTopic = async (req: Request, _res: Response, next: NextFunct
 }
 
 const requireEditUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { id } = { ...req.params, ...req.query, ...req.body } as { id: string }
+  const { assessmentName, countryIso, cycleName, id } = { ...req.params, ...req.query, ...req.body } as CycleParams & {
+    id: string
+  }
   const user = Requests.getUser(req)
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const isAdministrator = Users.isAdministrator(user)
   const isSelf = String(user?.id) === id
 
-  _next(isAdministrator || isSelf, next)
+  _next(isAdministrator || isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
 }
 
 const requireInviteUser = async (req: Request, _res: Response, next: NextFunction) => {
