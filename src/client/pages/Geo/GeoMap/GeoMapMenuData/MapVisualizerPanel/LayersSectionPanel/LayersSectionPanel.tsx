@@ -10,6 +10,7 @@ import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
 import { useCountryIso } from '@client/hooks'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
+import AgreementLevelControl from './components/AgreementLevelControl/AgreementLevelControl'
 import CustomAssetControl from './components/CustomAssetControl'
 import LayerOpacityControl from './components/LayerOpacityControl'
 import TreeCoverPercentageControl from './components/TreeCoverPercentageControl/TreeCoverPercentageControl'
@@ -40,7 +41,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
     batch(() => {
       // If the layer is selected and doesn't have a mapId cached, fetch it
       if (newSelectedState && !currentMapId && fetch) {
-        dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey, layerState }))
+        dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey, layerState, sectionState }))
       }
       dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
     })
@@ -69,7 +70,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
           const hasGteTreeCoverPercent = layer.options?.gteTreeCoverPercent !== undefined
           const opacity = sectionState?.[layer.key]?.opacity ?? 1
           const loadingStatus = sectionState?.[layer.key]?.status ?? LayerFetchStatus.Unfetched
-          if (layer.isCustomAsset)
+          if (layer.isCustomAsset) {
             return (
               <CustomAssetControl
                 key={`${section.key}-${layer.key}`}
@@ -83,6 +84,23 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
                 loadingStatus={loadingStatus}
               />
             )
+          }
+          if (layer.key === 'Agreement') {
+            return (
+              <AgreementLevelControl
+                key={`${section.key}-${layer.key}`}
+                onToggle={toggleLayer}
+                onOpacityChange={handleOpacityChange}
+                opacity={opacity}
+                checked={isLayerSelected}
+                sectionKey={section.key}
+                layerKey={layer.key}
+                loadingStatus={loadingStatus}
+                section={section}
+                sectionState={sectionState}
+              />
+            )
+          }
           return (
             <GeoMapMenuListElement
               key={`${section.key}-${layer.key}`}
