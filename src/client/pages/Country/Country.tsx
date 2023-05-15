@@ -11,7 +11,7 @@ import { Sockets } from '@meta/socket'
 import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useCountries, useCountry, useCycle } from '@client/store/assessment'
+import { AssessmentActions, useCountries, useCountry, useCycle } from '@client/store/assessment'
 import { useNavigationVisible } from '@client/store/ui/navigation'
 import { ReviewActions } from '@client/store/ui/review'
 import { useUser } from '@client/store/user'
@@ -36,7 +36,6 @@ const Country: React.FC = () => {
   const user = useUser()
   const navigationVisible = useNavigationVisible()
   const countryIso = useCountryIso()
-  const assessment = useAssessment()
   const cycle = useCycle()
   const countries = useCountries()
   const country = useCountry(countryIso)
@@ -79,7 +78,7 @@ const Country: React.FC = () => {
 
   if (countries?.length === 0) return null
 
-  if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ countryIso, assessment, cycle, user }))
+  if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ countryIso, cycle, user }))
     window.location.href = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
 
   return (
