@@ -1,6 +1,7 @@
 import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { LayerResponseData } from '@meta/api/request/geo/layer'
 import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOptions, MosaicSource } from '@meta/geo'
 
 import { mapController } from '@client/utils'
@@ -63,15 +64,16 @@ const handlePostLayerStatus = (
   sectionKey: LayerSectionKey,
   layerKey: LayerKey,
   status: LayerFetchStatus,
-  mapId = ''
+  layerData: LayerResponseData = undefined
 ): LayerState => {
   const layerState = getLayerState(state, sectionKey, layerKey)
-  let newLayerState = { ...layerState, status, mapId }
+  let newLayerState = { ...layerState, status, mapId: layerData?.mapId }
+
   const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
 
   switch (status) {
     case LayerFetchStatus.Ready:
-      if (newLayerState.selected && mapId) mapController.addEarthEngineLayer(mapLayerKey, mapId)
+      if (newLayerState.selected && layerData?.mapId) mapController.addEarthEngineLayer(mapLayerKey, layerData.mapId)
       break
     case LayerFetchStatus.Loading:
       mapController.removeLayer(mapLayerKey)
@@ -300,8 +302,8 @@ export const geoSlice = createSlice({
         state.geoStatistics.isLoading = false
         state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
       })
-      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, mapId] }) => {
-        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, mapId)
+      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, layerData] }) => {
+        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, layerData)
       })
       .addCase(postLayer.pending, (state, { meta }) => {
         handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Loading)
