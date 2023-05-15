@@ -4,7 +4,7 @@ import { DataSourceLinked, Description } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions, useDataSourcesLinked } from '@client/store/ui/assessmentSection'
+import { DataActions, useDataSourcesLinked } from '@client/store/data'
 import { useCountryIso } from '@client/hooks'
 
 export const useGetDataSourcesLinked = (props: {
@@ -21,9 +21,10 @@ export const useGetDataSourcesLinked = (props: {
 
   useEffect(() => {
     const linkedVariables = descriptions.nationalData?.dataSources?.linkedVariables ?? []
+
     if (linkedVariables.length) {
       dispatch(
-        AssessmentSectionActions.getLinkedDataSources({
+        DataActions.getLinkedDataSources({
           countryIso,
           linkedVariables,
           sectionName,

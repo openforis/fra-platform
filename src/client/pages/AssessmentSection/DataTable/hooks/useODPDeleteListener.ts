@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { CountryIso } from '@meta/area'
 import { Sockets } from '@meta/socket'
 
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
+import { DataActions } from '@client/store/data'
 import { SocketClient } from '@client/service/socket'
 
 // Listen to websocket updates for deleting an odp
@@ -18,7 +18,7 @@ export const useODPDeleteListener = (props: { assessmentName: string; cycleName:
 
     const listener = (args: [{ year: string; countryIso: CountryIso }]): void => {
       const [{ year, countryIso }] = args
-      dispatch(AssessmentSectionActions.deleteOriginalDataPoint({ year, countryIso, assessmentName, cycleName }))
+      dispatch(DataActions.deleteOriginalDataPoint({ year, countryIso, assessmentName, cycleName }))
     }
 
     SocketClient.on(nodeUpdateEvent, listener)

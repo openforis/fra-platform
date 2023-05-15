@@ -9,8 +9,8 @@ import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
+import { DataActions } from '@client/store/data'
 import { addAppListener } from '@client/store/middleware/listener'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 export const useCalculations = (props: { table: Table }): void => {
@@ -42,13 +42,11 @@ export const useCalculations = (props: { table: Table }): void => {
   useEffect(() => {
     const unsubscribe = dispatch(
       addAppListener({
-        matcher: isAnyOf(
-          AssessmentSectionActions.updateNodeValues.pending,
-          AssessmentSectionActions.postEstimate.fulfilled
-        ),
+        matcher: isAnyOf(DataActions.updateNodeValues.pending, DataActions.postEstimate.fulfilled),
         effect: ({ meta, payload }, { getState }) => {
           const state = getState()
-          const { data } = state.ui.assessmentSection
+          // TODO ------ FIX This
+          const { data } = state.data
           const changedVariables = meta.arg.values ?? payload
           const nodes: Array<NodeUpdate> = []
 
@@ -104,7 +102,7 @@ export const useCalculations = (props: { table: Table }): void => {
           )
 
           dispatch(
-            AssessmentSectionActions.setNodeCalculations({
+            DataActions.setNodeCalculations({
               nodeUpdates: {
                 assessment,
                 cycle,
