@@ -35,34 +35,33 @@ const TableHead: React.FC<Props> = (props) => {
         <tr key={row.uuid}>
           {row.cols.map((col: TypeCol, colIndex: number) => {
             const { index } = col.props
-            const { colSpan, rowSpan } = Cols.getStyle({ cycle, col })
+
+            const { colSpan: defaultColSpan, rowSpan } = Cols.getStyle({ cycle, col })
+
             const columnName = headers[colIndex]
 
-            let isOdpHeader = isOdp && showODP && !col.props.labels && odpYears?.includes(columnName)
+            let isOdpHeaderCell = showODP && isOdp && !col.props.labels && odpYears?.includes(columnName)
 
             if (table.props.name === 'forestCharacteristics')
-              isOdpHeader = isOdpHeader && country.props.forestCharacteristics.useOriginalDataPoint
+              isOdpHeaderCell = isOdpHeaderCell && country.props.forestCharacteristics.useOriginalDataPoint
 
             const headerLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
 
             const className = `fra-table__header-cell${headerLeft ? '-left' : ''}`
 
-            return isOdpHeader ? (
+            const colSpan = isOdp && !defaultColSpan ? getODPColSpan({ headers, table, data }) : defaultColSpan
+
+            return isOdpHeaderCell ? (
               <OdpHeaderCell
                 key={col.uuid}
                 className={rowIndex > 0 ? 'odp-header-cell' : className}
-                colSpan={!colSpan ? getODPColSpan({ headers, table, data }) : colSpan}
+                colSpan={colSpan}
                 rowSpan={rowSpan}
                 columnName={columnName}
                 sectionName={table.props.name}
               />
             ) : (
-              <th
-                key={col.uuid}
-                className={className}
-                colSpan={!colSpan ? getODPColSpan({ headers, table, data }) : colSpan}
-                rowSpan={rowSpan}
-              >
+              <th key={col.uuid} className={className} colSpan={colSpan} rowSpan={rowSpan}>
                 {Cols.getLabel({ cycle, col, t })}
               </th>
             )

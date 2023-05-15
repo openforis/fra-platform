@@ -1,5 +1,7 @@
 import React, { useRef } from 'react'
 
+import classNames from 'classnames'
+
 import { AssessmentName, Table as TableType } from '@meta/assessment'
 import { TableData } from '@meta/data'
 
@@ -44,7 +46,7 @@ const Table: React.FC<Props> = (props) => {
   const showClearButton = !print && !isDataLocked && !table.props.readonly
 
   return (
-    <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
+    <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
       <div className="fra-table__scroll-wrapper">
         {!print && <ButtonTableExport tableRef={tableRef} filename={`${sectionAnchor} ${name}`} />}
 
