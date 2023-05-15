@@ -8,7 +8,14 @@ import { mapController } from '@client/utils'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestEstimationData, postLayer } from './actions'
-import { GeoState, LayerFetchStatus, LayersSectionState, LayerState, LayerStateOptions } from './stateType'
+import {
+  AgreementLevelState,
+  GeoState,
+  LayerFetchStatus,
+  LayersSectionState,
+  LayerState,
+  LayerStateOptions,
+} from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -59,6 +66,16 @@ const getLayerStateOptions = (
   return layerState.options
 }
 
+const getAgreementOptionsState = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey
+): AgreementLevelState => {
+  const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+  layerStateOptions.agreementLayer ??= {} as AgreementLevelState
+  return layerStateOptions.agreementLayer
+}
+
 const handlePostLayerStatus = (
   state: Draft<GeoState>,
   sectionKey: LayerSectionKey,
@@ -74,6 +91,12 @@ const handlePostLayerStatus = (
   switch (status) {
     case LayerFetchStatus.Ready:
       if (newLayerState.selected && layerData?.mapId) mapController.addEarthEngineLayer(mapLayerKey, layerData.mapId)
+      if (layerKey === 'Agreement') {
+        const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
+        const newAgreementOptionsState = { ...agreementOptionsState, palette: layerData.palette }
+        newLayerState.options ??= {} as LayerStateOptions
+        newLayerState.options.agreementLayer = newAgreementOptionsState
+      }
       break
     case LayerFetchStatus.Loading:
       mapController.removeLayer(mapLayerKey)
@@ -211,12 +234,12 @@ export const geoSlice = createSlice({
       state.sections[sectionKey][layerKey].options = { ...layerStateOptions, gteTreeCoverPercent }
     },
     setAgreementLevel: (
-      state,
-      {
-        payload: { sectionKey, layerKey, level },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
     ) => {
-      state.sections[sectionKey][layerKey].options.agreementLayer.level = level
+      const { sectionKey, layerKey, level } = action.payload
+      const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options.agreementLayer = { ...agreementOptionsState, level }
     },
     setAgreementReducerScale: (
       state,
