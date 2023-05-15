@@ -1,17 +1,120 @@
 // @ts-nocheck
-const dataCols = [
+
+import { updatedDataCol } from '../panEuHelpers/updatedDataCol'
+
+const dataColsPublic2005 = [
   {
     idx: 0,
     type: 'decimal',
     migration: {
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_1_1a.forest_1990['area'],
-                  [table_6_1.in_private_ownership_1990['total_forest_area'],
-                   table_6_1.in_public_ownership_1990['total_forest_area'],
-                   table_6_1.other_types_of_ownership_unknown_1990['total_forest_area']])`,
+          `validatorEqualToSum(table_1_1a.forest_yearPlaceholder['area'],
+                  [table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
+                   table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
+                   table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area']],
+                   "1_1a.forest_yearPlaceholder[area]")`,
         ],
       },
+    },
+  },
+  { idx: 1, type: 'decimal' },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
+                     [table_6_1.in_public_ownership_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.in_public_ownership_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.in_public_ownership_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.in_public_ownership_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 3,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_public_ownership_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.in_public_ownership_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.in_public_ownership_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.in_public_ownership_yearPlaceholder['more_500_ha_number']],
+                     "6_1.in_public_ownership_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 4,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
+                     [table_6_1.in_public_ownership_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.in_public_ownership_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.in_public_ownership_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.in_public_ownership_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 5,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_public_ownership_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.in_public_ownership_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.in_public_ownership_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.in_public_ownership_yearPlaceholder['more_500_ha_number']],
+                     "6_1.in_public_ownership_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 6,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
+                     [table_6_1.in_public_ownership_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.in_public_ownership_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.in_public_ownership_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.in_public_ownership_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 7,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_public_ownership_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.in_public_ownership_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.in_public_ownership_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.in_public_ownership_yearPlaceholder['more_500_ha_number']],
+                     "6_1.in_public_ownership_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+]
+const dataColsPublic = [
+  {
+    ...dataColsPublic2005[0],
+    migration: {
+      ...dataColsPublic2005[0].migration,
       linkedNodes: {
         '2025': {
           assessmentName: 'fra',
@@ -23,29 +126,243 @@ const dataCols = [
       },
     },
   },
+  ...dataColsPublic2005.slice(1),
+]
+const dataColsPrivate2005 = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_1_1a.forest_yearPlaceholder['area'],
+                  [table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
+                   table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
+                   table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area']],
+                   "1_1a.forest_yearPlaceholder[area]")`,
+        ],
+      },
+    },
+  },
+  { idx: 1, type: 'decimal' },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
+                     [table_6_1.in_private_ownership_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.in_private_ownership_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.in_private_ownership_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.in_private_ownership_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 3,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_private_ownership_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.in_private_ownership_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.in_private_ownership_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.in_private_ownership_yearPlaceholder['more_500_ha_number']],
+                     "6_1.in_private_ownership_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 4,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
+                     [table_6_1.in_private_ownership_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.in_private_ownership_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.in_private_ownership_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.in_private_ownership_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 5,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_private_ownership_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.in_private_ownership_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.in_private_ownership_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.in_private_ownership_yearPlaceholder['more_500_ha_number']],
+                     "6_1.in_private_ownership_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 6,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
+                     [table_6_1.in_private_ownership_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.in_private_ownership_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.in_private_ownership_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.in_private_ownership_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 7,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.in_private_ownership_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.in_private_ownership_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.in_private_ownership_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.in_private_ownership_yearPlaceholder['more_500_ha_number']],
+                     "6_1.in_private_ownership_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+]
+const dataColsPrivate = [
+  {
+    ...dataColsPrivate2005[0],
+    migration: {
+      ...dataColsPrivate2005[0].migration,
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestOwnership',
+          variableName: 'private_ownership',
+          colName: '2020',
+        },
+      },
+    },
+  },
+  ...dataColsPrivate2005.slice(1),
 ]
 
-const linkedDataCol = (variableName: string, colName: string) =>
-  dataCols.map((col) => {
-    const validationFn = `validatorEqualToSum(table_1_1a.forest_${colName}['area'],
-                  [table_6_1.in_private_ownership_${colName}['total_forest_area'],
-                   table_6_1.in_public_ownership_${colName}['total_forest_area'],
-                   table_6_1.other_types_of_ownership_unknown_${colName}['total_forest_area']], "table_1_1a.forest_${colName}")`
-
-    return {
-      ...col,
-      migration: {
-        ...col.migration,
-        validateFns: {
-          '2025': [validationFn],
-        },
-        linkedNodes: Object.fromEntries(
-          Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, variableName, colName }])
-        ),
+const dataColsOther = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_1_1a.forest_yearPlaceholder['area'],
+                  [table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
+                   table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
+                   table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area']],
+                   "1_1a.forest_yearPlaceholder[area]")`,
+        ],
       },
-    }
-    return col
-  })
+    },
+  },
+  { idx: 1, type: 'decimal' },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area'],
+                     [table_6_1.other_types_of_ownership_unknown_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.other_types_of_ownership_unknown_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 3,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.other_types_of_ownership_unknown_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['more_500_ha_number']],
+                     "6_1.other_types_of_ownership_unknown_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 4,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area'],
+                     [table_6_1.other_types_of_ownership_unknown_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.other_types_of_ownership_unknown_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 5,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.other_types_of_ownership_unknown_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['more_500_ha_number']],
+                     "6_1.other_types_of_ownership_unknown_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 6,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area'],
+                     [table_6_1.other_types_of_ownership_unknown_yearPlaceholder['less_10_ha_area'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['_11_500_ha_area'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['more_500_ha_area']],
+                     "table_6_1.other_types_of_ownership_unknown_yearPlaceholder[total_forest_area]")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 7,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_number_of_holdings'],
+                     [table_6_1.other_types_of_ownership_unknown_yearPlaceholder['less_10_ha_number'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['_11_500_ha_number'],
+                     table_6_1.other_types_of_ownership_unknown_yearPlaceholder['more_500_ha_number']],
+                     "6_1.other_types_of_ownership_unknown_yearPlaceholder[total_number_of_holdings]")`,
+        ],
+      },
+    },
+  },
+]
 
 export const forestHoldings = {
   sectionName: 'forestHoldings',
@@ -190,33 +507,10 @@ export const forestHoldings = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('public_ownership', '2020'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPublic, '2020', 'public_ownership'),
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2020['total_forest_area'],
-                     [table_6_1.in_public_ownership_2020['less_10_ha_area'],table_6_1.in_public_ownership_2020['_11_500_ha_area'],
-                     table_6_1.in_public_ownership_2020['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2020['total_number_of_holdings'],
-                     [table_6_1.in_public_ownership_2020['less_10_ha_number'],table_6_1.in_public_ownership_2020['_11_500_ha_number'],
-                     table_6_1.in_public_ownership_2020['more_500_ha_number']])`,
-                  ],
-                },
               },
               labelKey: 'panEuropean.forestHoldings.in_public_ownership',
               labelParams: { year: 2020 },
@@ -234,33 +528,8 @@ export const forestHoldings = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('public_ownership', '2015'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPublic, '2015', 'public_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2015['total_forest_area'],
-                     [table_6_1.in_public_ownership_2015['less_10_ha_area'],table_6_1.in_public_ownership_2015['_11_500_ha_area'],
-                     table_6_1.in_public_ownership_2015['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2015['total_number_of_holdings'],
-                     [table_6_1.in_public_ownership_2015['less_10_ha_number'],table_6_1.in_public_ownership_2015['_11_500_ha_number'],
-                     table_6_1.in_public_ownership_2015['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_public_ownership',
               labelParams: { year: 2015 },
               variableExport: 'in_public_ownership_2015',
@@ -277,33 +546,8 @@ export const forestHoldings = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('public_ownership', '2010'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPublic, '2010', 'public_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2010['total_forest_area'],
-                     [table_6_1.in_public_ownership_2010['less_10_ha_area'],table_6_1.in_public_ownership_2010['_11_500_ha_area'],
-                     table_6_1.in_public_ownership_2010['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2010['total_number_of_holdings'],
-                     [table_6_1.in_public_ownership_2010['less_10_ha_number'],table_6_1.in_public_ownership_2010['_11_500_ha_number'],
-                     table_6_1.in_public_ownership_2010['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_public_ownership',
               labelParams: { year: 2010 },
               variableExport: 'in_public_ownership_2010',
@@ -320,33 +564,8 @@ export const forestHoldings = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPublic2005, '2005', 'public_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2005['total_forest_area'],
-                     [table_6_1.in_public_ownership_2005['less_10_ha_area'],table_6_1.in_public_ownership_2005['_11_500_ha_area'],
-                     table_6_1.in_public_ownership_2005['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2005['total_number_of_holdings'],
-                     [table_6_1.in_public_ownership_2005['less_10_ha_number'],table_6_1.in_public_ownership_2005['_11_500_ha_number'],
-                     table_6_1.in_public_ownership_2005['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_public_ownership',
               labelParams: { year: 2005 },
               variableExport: 'in_public_ownership_2005',
@@ -363,33 +582,8 @@ export const forestHoldings = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('public_ownership', '2000'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPublic, '2000', 'public_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2000['total_forest_area'],
-                     [table_6_1.in_public_ownership_2000['less_10_ha_area'],table_6_1.in_public_ownership_2000['_11_500_ha_area'],
-                     table_6_1.in_public_ownership_2000['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_2000['total_number_of_holdings'],
-                     [table_6_1.in_public_ownership_2000['less_10_ha_number'],table_6_1.in_public_ownership_2000['_11_500_ha_number'],
-                     table_6_1.in_public_ownership_2000['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_public_ownership',
               labelParams: { year: 2000 },
               variableExport: 'in_public_ownership_2000',
@@ -406,33 +600,8 @@ export const forestHoldings = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('public_ownership', '1990'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPublic, '1990', 'public_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_public_ownership_1990['total_forest_area'],
-                     [table_6_1.in_public_ownership_1990['less_10_ha_area'],table_6_1.in_public_ownership_1990['_11_500_ha_area'],
-                     table_6_1.in_public_ownership_1990['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_public_ownership_1990['total_number_of_holdings'],
-                     [table_6_1.in_public_ownership_1990['less_10_ha_number'],table_6_1.in_public_ownership_1990['_11_500_ha_number'],
-                     table_6_1.in_public_ownership_1990['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_public_ownership',
               labelParams: { year: 1990 },
               variableExport: 'in_public_ownership_1990',
@@ -449,33 +618,10 @@ export const forestHoldings = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('private_ownership', '2020'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPrivate, '2020', 'private_ownership'),
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2020['total_forest_area'],
-                     [table_6_1.in_private_ownership_2020['less_10_ha_area'],table_6_1.in_private_ownership_2020['_11_500_ha_area'],
-                     table_6_1.in_private_ownership_2020['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2020['total_number_of_holdings'],
-                     [table_6_1.in_private_ownership_2020['less_10_ha_number'],table_6_1.in_private_ownership_2020['_11_500_ha_number'],
-                     table_6_1.in_private_ownership_2020['more_500_ha_number']])`,
-                  ],
-                },
               },
               labelKey: 'panEuropean.forestHoldings.in_private_ownership',
               labelParams: { year: 2020 },
@@ -493,33 +639,8 @@ export const forestHoldings = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('private_ownership', '2015'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPrivate, '2015', 'private_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2015['total_forest_area'],
-                     [table_6_1.in_private_ownership_2015['less_10_ha_area'],table_6_1.in_private_ownership_2015['_11_500_ha_area'],
-                     table_6_1.in_private_ownership_2015['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2015['total_number_of_holdings'],
-                     [table_6_1.in_private_ownership_2015['less_10_ha_number'],table_6_1.in_private_ownership_2015['_11_500_ha_number'],
-                     table_6_1.in_private_ownership_2015['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_private_ownership',
               labelParams: { year: 2015 },
               variableExport: 'in_private_ownership_2015',
@@ -536,33 +657,8 @@ export const forestHoldings = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('private_ownership', '2010'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPrivate, '2010', 'private_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2010['total_forest_area'],
-                     [table_6_1.in_private_ownership_2010['less_10_ha_area'],table_6_1.in_private_ownership_2010['_11_500_ha_area'],
-                     table_6_1.in_private_ownership_2010['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2010['total_number_of_holdings'],
-                     [table_6_1.in_private_ownership_2010['less_10_ha_number'],table_6_1.in_private_ownership_2010['_11_500_ha_number'],
-                     table_6_1.in_private_ownership_2010['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_private_ownership',
               labelParams: { year: 2010 },
               variableExport: 'in_private_ownership_2010',
@@ -579,33 +675,8 @@ export const forestHoldings = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPrivate2005, '2005', 'private_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2005['total_forest_area'],
-                     [table_6_1.in_private_ownership_2005['less_10_ha_area'],table_6_1.in_private_ownership_2005['_11_500_ha_area'],
-                     table_6_1.in_private_ownership_2005['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2005['total_number_of_holdings'],
-                     [table_6_1.in_private_ownership_2005['less_10_ha_number'],table_6_1.in_private_ownership_2005['_11_500_ha_number'],
-                     table_6_1.in_private_ownership_2005['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_private_ownership',
               labelParams: { year: 2005 },
               variableExport: 'in_private_ownership_2005',
@@ -622,33 +693,8 @@ export const forestHoldings = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('private_ownership', '2000'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPrivate, '2000', 'private_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2000['total_forest_area'],
-                     [table_6_1.in_private_ownership_2000['less_10_ha_area'],table_6_1.in_private_ownership_2000['_11_500_ha_area'],
-                     table_6_1.in_private_ownership_2000['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_2000['total_number_of_holdings'],
-                     [table_6_1.in_private_ownership_2000['less_10_ha_number'],table_6_1.in_private_ownership_2000['_11_500_ha_number'],
-                     table_6_1.in_private_ownership_2000['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_private_ownership',
               labelParams: { year: 2000 },
               variableExport: 'in_private_ownership_2000',
@@ -665,33 +711,8 @@ export const forestHoldings = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                ...linkedDataCol('private_ownership', '1990'),
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsPrivate, '1990', 'private_ownership'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.in_private_ownership_1990['total_forest_area'],
-                     [table_6_1.in_private_ownership_1990['less_10_ha_area'],table_6_1.in_private_ownership_1990['_11_500_ha_area'],
-                     table_6_1.in_private_ownership_1990['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.in_private_ownership_1990['total_number_of_holdings'],
-                     [table_6_1.in_private_ownership_1990['less_10_ha_number'],table_6_1.in_private_ownership_1990['_11_500_ha_number'],
-                     table_6_1.in_private_ownership_1990['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.in_private_ownership',
               labelParams: { year: 1990 },
               variableExport: 'in_private_ownership_1990',
@@ -708,33 +729,10 @@ export const forestHoldings = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsOther, '2020'),
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2020['total_forest_area'],
-                     [table_6_1.other_types_of_ownership_unknown_2020['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2020['_11_500_ha_area'],
-                     table_6_1.other_types_of_ownership_unknown_2020['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2020['total_number_of_holdings'],
-                     [table_6_1.other_types_of_ownership_unknown_2020['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2020['_11_500_ha_number'],
-                     table_6_1.other_types_of_ownership_unknown_2020['more_500_ha_number']])`,
-                  ],
-                },
               },
               labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
               labelParams: { year: 2020 },
@@ -752,33 +750,8 @@ export const forestHoldings = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsOther, '2015'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2015['total_forest_area'],
-                     [table_6_1.other_types_of_ownership_unknown_2015['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2015['_11_500_ha_area'],
-                     table_6_1.other_types_of_ownership_unknown_2015['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2015['total_number_of_holdings'],
-                     [table_6_1.other_types_of_ownership_unknown_2015['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2015['_11_500_ha_number'],
-                     table_6_1.other_types_of_ownership_unknown_2015['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
               labelParams: { year: 2015 },
               variableExport: 'other_types_of_ownership_unknown_2015',
@@ -795,33 +768,8 @@ export const forestHoldings = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsOther, '2010'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2010['total_forest_area'],
-                     [table_6_1.other_types_of_ownership_unknown_2010['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2010['_11_500_ha_area'],
-                     table_6_1.other_types_of_ownership_unknown_2010['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2010['total_number_of_holdings'],
-                     [table_6_1.other_types_of_ownership_unknown_2010['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2010['_11_500_ha_number'],
-                     table_6_1.other_types_of_ownership_unknown_2010['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
               labelParams: { year: 2010 },
               variableExport: 'other_types_of_ownership_unknown_2010',
@@ -838,33 +786,8 @@ export const forestHoldings = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsOther, '2005'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2005['total_forest_area'],
-                     [table_6_1.other_types_of_ownership_unknown_2005['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2005['_11_500_ha_area'],
-                     table_6_1.other_types_of_ownership_unknown_2005['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2005['total_number_of_holdings'],
-                     [table_6_1.other_types_of_ownership_unknown_2005['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2005['_11_500_ha_number'],
-                     table_6_1.other_types_of_ownership_unknown_2005['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
               labelParams: { year: 2005 },
               variableExport: 'other_types_of_ownership_unknown_2005',
@@ -881,33 +804,8 @@ export const forestHoldings = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsOther, '2000'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2000['total_forest_area'],
-                     [table_6_1.other_types_of_ownership_unknown_2000['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_2000['_11_500_ha_area'],
-                     table_6_1.other_types_of_ownership_unknown_2000['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_2000['total_number_of_holdings'],
-                     [table_6_1.other_types_of_ownership_unknown_2000['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_2000['_11_500_ha_number'],
-                     table_6_1.other_types_of_ownership_unknown_2000['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
               labelParams: { year: 2000 },
               variableExport: 'other_types_of_ownership_unknown_2000',
@@ -924,33 +822,8 @@ export const forestHoldings = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
-                { idx: 7, type: 'decimal' },
+                ...updatedDataCol(dataColsOther, '1990'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_1990['total_forest_area'],
-                     [table_6_1.other_types_of_ownership_unknown_1990['less_10_ha_area'],table_6_1.other_types_of_ownership_unknown_1990['_11_500_ha_area'],
-                     table_6_1.other_types_of_ownership_unknown_1990['more_500_ha_area']])`,
-                    `validatorEqualToSum(table_6_1.other_types_of_ownership_unknown_1990['total_number_of_holdings'],
-                     [table_6_1.other_types_of_ownership_unknown_1990['less_10_ha_number'],table_6_1.other_types_of_ownership_unknown_1990['_11_500_ha_number'],
-                     table_6_1.other_types_of_ownership_unknown_1990['more_500_ha_number']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.forestHoldings.other_types_of_ownership_unknown',
               labelParams: { year: 1990 },
               variableExport: 'other_types_of_ownership_unknown_1990',

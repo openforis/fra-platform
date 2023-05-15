@@ -1,4 +1,56 @@
 // @ts-nocheck
+import { updatedDataCol } from '../panEuHelpers/updatedDataCol'
+
+const totalForestCols = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_yearPlaceholder['mcpfe_class_1_1'],
+                     [table_4_9.forest_yearPlaceholder['mcpfe_class_1_1'],table_4_9.other_wooded_land_yearPlaceholder['mcpfe_class_1_1']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_yearPlaceholder['mcpfe_class_1_2'],
+                     [table_4_9.forest_yearPlaceholder['mcpfe_class_1_2'],table_4_9.other_wooded_land_yearPlaceholder['mcpfe_class_1_2']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_yearPlaceholder['mcpfe_class_1_3'],
+                     [table_4_9.forest_yearPlaceholder['mcpfe_class_1_3'],table_4_9.other_wooded_land_yearPlaceholder['mcpfe_class_1_3']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 3,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_yearPlaceholder['mcpfe_class_2'],
+                     [table_4_9.forest_yearPlaceholder['mcpfe_class_2'],table_4_9.other_wooded_land_yearPlaceholder['mcpfe_class_2']])`,
+        ],
+      },
+    },
+  },
+]
 
 export const protectedForests = {
   sectionName: 'protectedForests',
@@ -426,28 +478,10 @@ export const protectedForests = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
+                ...updatedDataCol(totalForestCols, '2025'),
               ],
               migration: {
                 cycles: ['2025'],
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_1'],
-                     [table_4_9.forest_2025['mcpfe_class_1_1'],table_4_9.other_wooded_land_2025['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_2'],
-                     [table_4_9.forest_2025['mcpfe_class_1_2'],table_4_9.other_wooded_land_2025['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_1_3'],
-                     [table_4_9.forest_2025['mcpfe_class_1_3'],table_4_9.other_wooded_land_2025['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2025['mcpfe_class_2'],
-                     [table_4_9.forest_2025['mcpfe_class_2'],table_4_9.other_wooded_land_2025['mcpfe_class_2']])`,
-                  ],
-                },
               },
               labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
               labelParams: { year: 2025 },
@@ -465,28 +499,8 @@ export const protectedForests = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
+                ...updatedDataCol(totalForestCols, '2020'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_1'],
-                     [table_4_9.forest_2020['mcpfe_class_1_1'],table_4_9.other_wooded_land_2020['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_2'],
-                     [table_4_9.forest_2020['mcpfe_class_1_2'],table_4_9.other_wooded_land_2020['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_1_3'],
-                     [table_4_9.forest_2020['mcpfe_class_1_3'],table_4_9.other_wooded_land_2020['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2020['mcpfe_class_2'],
-                     [table_4_9.forest_2020['mcpfe_class_2'],table_4_9.other_wooded_land_2020['mcpfe_class_2']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
               variableExport: 'total_forest_and_other_wooded_land_2020',
@@ -503,28 +517,8 @@ export const protectedForests = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
+                ...updatedDataCol(totalForestCols, '2015'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_1'],
-                     [table_4_9.forest_2015['mcpfe_class_1_1'],table_4_9.other_wooded_land_2015['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_2'],
-                     [table_4_9.forest_2015['mcpfe_class_1_2'],table_4_9.other_wooded_land_2015['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_1_3'],
-                     [table_4_9.forest_2015['mcpfe_class_1_3'],table_4_9.other_wooded_land_2015['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2015['mcpfe_class_2'],
-                     [table_4_9.forest_2015['mcpfe_class_2'],table_4_9.other_wooded_land_2015['mcpfe_class_2']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'total_forest_and_other_wooded_land_2015',
@@ -541,28 +535,8 @@ export const protectedForests = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
+                ...updatedDataCol(totalForestCols, '2010'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_1'],
-                     [table_4_9.forest_2010['mcpfe_class_1_1'],table_4_9.other_wooded_land_2010['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_2'],
-                     [table_4_9.forest_2010['mcpfe_class_1_2'],table_4_9.other_wooded_land_2010['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_1_3'],
-                     [table_4_9.forest_2010['mcpfe_class_1_3'],table_4_9.other_wooded_land_2010['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2010['mcpfe_class_2'],
-                     [table_4_9.forest_2010['mcpfe_class_2'],table_4_9.other_wooded_land_2010['mcpfe_class_2']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'total_forest_and_other_wooded_land_2010',
@@ -579,28 +553,8 @@ export const protectedForests = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
+                ...updatedDataCol(totalForestCols, '2005'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_1'],
-                     [table_4_9.forest_2005['mcpfe_class_1_1'],table_4_9.other_wooded_land_2005['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_2'],
-                     [table_4_9.forest_2005['mcpfe_class_1_2'],table_4_9.other_wooded_land_2005['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_1_3'],
-                     [table_4_9.forest_2005['mcpfe_class_1_3'],table_4_9.other_wooded_land_2005['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2005['mcpfe_class_2'],
-                     [table_4_9.forest_2005['mcpfe_class_2'],table_4_9.other_wooded_land_2005['mcpfe_class_2']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'total_forest_and_other_wooded_land_2005',
@@ -617,28 +571,8 @@ export const protectedForests = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
+                ...updatedDataCol(totalForestCols, '2000'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_1'],
-                     [table_4_9.forest_2000['mcpfe_class_1_1'],table_4_9.other_wooded_land_2000['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_2'],
-                     [table_4_9.forest_2000['mcpfe_class_1_2'],table_4_9.other_wooded_land_2000['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_1_3'],
-                     [table_4_9.forest_2000['mcpfe_class_1_3'],table_4_9.other_wooded_land_2000['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_2000['mcpfe_class_2'],
-                     [table_4_9.forest_2000['mcpfe_class_2'],table_4_9.other_wooded_land_2000['mcpfe_class_2']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'total_forest_and_other_wooded_land_2000',
@@ -655,28 +589,8 @@ export const protectedForests = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
+                ...updatedDataCol(totalForestCols, '1990'),
               ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_1'],
-                     [table_4_9.forest_1990['mcpfe_class_1_1'],table_4_9.other_wooded_land_1990['mcpfe_class_1_1']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_2'],
-                     [table_4_9.forest_1990['mcpfe_class_1_2'],table_4_9.other_wooded_land_1990['mcpfe_class_1_2']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_1_3'],
-                     [table_4_9.forest_1990['mcpfe_class_1_3'],table_4_9.other_wooded_land_1990['mcpfe_class_1_3']])`,
-                    `validatorEqualToSum(table_4_9.total_forest_and_other_wooded_land_1990['mcpfe_class_2'],
-                     [table_4_9.forest_1990['mcpfe_class_2'],table_4_9.other_wooded_land_1990['mcpfe_class_2']])`,
-                  ],
-                },
-              },
               labelKey: 'panEuropean.protectedForests.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'total_forest_and_other_wooded_land_1990',
