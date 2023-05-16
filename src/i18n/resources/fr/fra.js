@@ -7,6 +7,7 @@ module.exports = {
   area100Ha: 'Superficie (1 000 ha)',
   areaAffectedByFire: {
     areaAffected: 'Superficie touchée (1 000 ha)',
+    areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
   },
   biomassStockAvg: {
     forestBiomass: 'Biomasse de la forêt (t/ha)',
@@ -71,9 +72,11 @@ module.exports = {
   },
   extentOfForest: {
     remainingLandArea: 'Terres restantes',
+    extentOfForest2025: '$t(extentOfForest.extentOfForest)',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Superficie de forêt soumise à un plan de gestion à long terme',
+    forestAreaWithinProtectedAreas2025: '$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)',
   },
   forestCharacteristics: {
     primaryForest: '...dont les forêts primaires',
@@ -141,6 +144,8 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Extraction et valeur des produits forestiers non ligneuz en 2020',
+      forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
+      forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
