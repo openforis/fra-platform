@@ -5,8 +5,8 @@ import { Layer, LayerKey, LayerSectionKey } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions } from '@client/store/ui/geo'
-import { useGteTreeCoverPercent } from '@client/store/ui/geo/hooks/'
 import { LayerState } from '@client/store/ui/geo/stateType'
+import { useFetchGteTreeCoverPercentLayer } from '@client/pages/Geo/GeoMap/hooks'
 
 interface Props {
   sectionKey: LayerSectionKey
@@ -17,7 +17,7 @@ interface Props {
 const TreeCoverPercentageControl: React.FC<Props> = ({ sectionKey, layerKey, layerState, layer }) => {
   const dispatch = useAppDispatch()
 
-  useGteTreeCoverPercent(sectionKey, layerKey)
+  useFetchGteTreeCoverPercentLayer(sectionKey, layerKey)
 
   const handlePercentageChange = (percentage: number) => {
     dispatch(GeoActions.setLayerGteTreeCoverPercent({ sectionKey, layerKey, gteTreeCoverPercent: percentage }))

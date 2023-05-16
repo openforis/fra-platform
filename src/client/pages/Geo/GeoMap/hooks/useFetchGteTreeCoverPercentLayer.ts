@@ -3,12 +3,10 @@ import { useEffect } from 'react'
 import { LayerKey, LayerSectionKey } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
+import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
 import { useCountryIso, usePrevious } from '@client/hooks'
 
-import { GeoActions } from '../slice'
-import { useGeoLayer } from '.'
-
-export const useGteTreeCoverPercent = (sectionKey: LayerSectionKey, layerKey: LayerKey) => {
+export const useFetchGteTreeCoverPercentLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const layerState = useGeoLayer(sectionKey, layerKey)
