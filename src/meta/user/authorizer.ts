@@ -32,7 +32,7 @@ const canView = (props: { countryIso: CountryIso; cycle: Cycle; user: User }): b
 
 /**
  *  CanViewUsers
- *  Admin can view, any other logged user who are allowed to edit at least one role
+ *  Admin can view, any other logged user who have a role in that country for that cycle can view
  *  @param props
  *  @param props.countryIso
  *  @param props.cycle
@@ -41,9 +41,14 @@ const canView = (props: { countryIso: CountryIso; cycle: Cycle; user: User }): b
  */
 const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User }): boolean => {
   const { countryIso, user, cycle } = props
+  if (Users.isAdministrator(user)) return true
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
 
-  return Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
+  const userHasRoleForCountryInCycle = user?.roles.some((role) => {
+    return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
+  })
+
+  return userHasRoleForCountryInCycle
 }
 
 /**
