@@ -55,7 +55,7 @@ const FieldsOption: React.FC<Props> = (props) => {
       {fields.map((field, fieldIdx) => {
         const { variableName, labelKey, selected, annualChangeRates } = field
         return (
-          <div className="field" key={variableName}>
+          <React.Fragment key={variableName}>
             <ButtonCheckBox checked={selected} label={labelKey} onClick={() => toggleSelected(fieldIdx)} />
 
             {method === Method.annualChange && (
@@ -75,7 +75,7 @@ const FieldsOption: React.FC<Props> = (props) => {
                 <div className="annual-change-rates__unit">{i18n.t('tableWithOdp._1000haYear')}</div>
               </div>
             )}
-          </div>
+          </React.Fragment>
         )
       })}
     </>
