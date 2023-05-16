@@ -65,9 +65,9 @@ const requireView = async (req: Request, _res: Response, next: NextFunction) => 
   }
   const user = Requests.getUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(Authorizer.canView({ user, countryIso, cycle, assessment }), next)
+  _next(Authorizer.canView({ user, countryIso, cycle }), next)
 }
 
 const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {
@@ -162,6 +162,19 @@ const requireInviteUser = async (req: Request, _res: Response, next: NextFunctio
   _next(Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
 }
 
+const requireViewUser = async (req: Request, _res: Response, next: NextFunction) => {
+  const { id, assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams & {
+    id: string
+  }
+  const user = Requests.getUser(req)
+  const isAdministrator = Users.isAdministrator(user)
+  const isSelf = String(user?.id) === id
+
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+  _next(isAdministrator || isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
+}
+
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
   const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
@@ -193,6 +206,7 @@ export const AuthMiddleware = {
   requireEditMessageTopic: tryCatch(requireEditMessageTopic),
   requireEditUser: tryCatch(requireEditUser),
   requireInviteUser: tryCatch(requireInviteUser),
+  requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),
   requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
 }
