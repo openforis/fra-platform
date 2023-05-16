@@ -7,6 +7,7 @@ module.exports = {
   area100Ha: 'Площадь (1000 га)',
   areaAffectedByFire: {
     areaAffected: 'Пройденная площадь (1000 га)',
+    areaAffectedByFire2025: 'Площади, пройденные пожарами',
   },
   biomassStockAvg: {
     forestBiomass: 'Биомасса лесов (тонн/га)',
@@ -70,9 +71,12 @@ module.exports = {
   },
   extentOfForest: {
     remainingLandArea: 'Остальные земельные площади',
+    extentOfForest2025: 'Площадь лесов и прочих лесистых земель',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Площадь лесов с долгосрочным планом управления',
+    forestAreaWithinProtectedAreas2025:
+      'Площадь лесов на охраняемых территориях и лесов с долгосрочным планом управления',
   },
   forestCharacteristics: {
     primaryForest: '…в том числе первичные леса',
@@ -114,6 +118,9 @@ module.exports = {
     other2025: 'Прочее (укажите в комментариях)',
     unknown2025: 'Неизвестно',
   },
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover2025: 'Прочие земли с древесным покровом',
+  },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Вывозка и стоимость недревесной лесной продукции 2020',
   },
@@ -138,6 +145,9 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Вывозка и стоимость недревесной лесной продукции 2020',
+      forestExtentCharacteristicsAndChanges2025: 'Площадь, характеристики и изменения лесов',
+      forestPolicyAndLegislation2025: 'Политика и законодательство в отношении лесов',
+      forestDisturbances2025: 'Нарушения состояния лесов',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

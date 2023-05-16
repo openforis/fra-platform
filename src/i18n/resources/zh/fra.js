@@ -8,6 +8,7 @@ module.exports = {
   area100Ha: '面积(1000公顷)',
   areaAffectedByFire: {
     areaAffected: '受影响的面积(1000公顷)',
+    areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
   },
 
   biomassStock: {
@@ -88,6 +89,7 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: '其他土地',
     totalLandArea2025: '土地面积总和',
+    extentOfForest2025: '$t(extentOfForest.extentOfForest)',
   },
 
   forestAreaChange: {
@@ -97,6 +99,7 @@ module.exports = {
 
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: '有长期管理计划的森林面积',
+    forestAreaWithinProtectedAreas2025: '$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)',
   },
   forestCharacteristics: {
     primaryForest: '...其中原生林',
@@ -173,6 +176,8 @@ module.exports = {
       forestDesignationAndManagement2025: '森林的指定用途和管理',
       forestOwnershipAndManagementRights2025: '森林所有权和管理权',
       forestDisturbances2025: '森林干扰',
+      forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
+      forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
