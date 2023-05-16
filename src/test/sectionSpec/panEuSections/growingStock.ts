@@ -10,7 +10,7 @@ const dataColsATotalAndOtherWoodedLand = [
           `validatorEqualToSum(table_1_2a.total_forest_and_other_wooded_land_2025['total'],
                          [table_1_2a.forest_2025['total'], table_1_2a.other_wooded_land_2025['total']],
                          "1_2a.total_forest_and_other_wooded_land_2025[total]",
-                         "[1_2a.forest_2025[total], 1_2a.other_wooded_land_2025[total]]")`,
+                         "panEuropean.growingStock.total_forest_and_other_wooded_land", "1.2a")`,
         ],
       },
     },
