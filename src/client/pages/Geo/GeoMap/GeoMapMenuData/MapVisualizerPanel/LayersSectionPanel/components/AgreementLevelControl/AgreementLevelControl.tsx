@@ -5,9 +5,9 @@ import { LayerKey, LayerSection, LayerSectionKey } from '@meta/geo/layer'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
-import { useAgreementLevel } from '@client/store/ui/geo/hooks'
 import { LayerFetchStatus, LayersSectionState } from '@client/store/ui/geo/stateType'
 import GeoMapMenuListElement from '@client/pages/Geo/GeoMap/GeoMapMenuListElement'
+import { useFetchAgreementLevelLayer } from '@client/pages/Geo/GeoMap/hooks'
 
 import LayerOpacityControl from '../LayerOpacityControl/LayerOpacityControl'
 import AgreementLevelSelector from './AgreementLevelSelector/AgreementLevelSelector'
@@ -36,7 +36,7 @@ const AgreementLevelControl: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch()
   const layerState = useGeoLayer(sectionKey, layerKey)
-  useAgreementLevel(sectionKey, layerKey)
+  useFetchAgreementLevelLayer(sectionKey, layerKey)
 
   const setAgreementLevel = (level: number) => {
     dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level }))

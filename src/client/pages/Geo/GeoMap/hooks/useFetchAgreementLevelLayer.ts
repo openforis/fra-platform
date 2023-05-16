@@ -3,12 +3,10 @@ import { useEffect } from 'react'
 import { LayerKey, LayerSectionKey } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
+import { GeoActions, useGeoLayerSection } from '@client/store/ui/geo'
 import { useCountryIso } from '@client/hooks'
 
-import { GeoActions } from '../slice'
-import { useGeoLayerSection } from '.'
-
-export const useAgreementLevel = (sectionKey: LayerSectionKey, layerKey: LayerKey) => {
+export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const sectionState = useGeoLayerSection(sectionKey)
