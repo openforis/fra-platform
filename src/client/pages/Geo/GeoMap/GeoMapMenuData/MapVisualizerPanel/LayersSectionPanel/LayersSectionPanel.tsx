@@ -41,7 +41,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
     batch(() => {
       // If the layer is selected and doesn't have a mapId cached, fetch it
       if (newSelectedState && !currentMapId && fetch) {
-        dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey, layerState, sectionState }))
+        dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey }))
       }
       dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
     })

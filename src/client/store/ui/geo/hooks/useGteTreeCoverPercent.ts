@@ -20,6 +20,6 @@ export const useGteTreeCoverPercent = (sectionKey: LayerSectionKey, layerKey: La
     if (gteTreeCoverPercent === undefined) return // Skip when the property is not set
     if (prevGteTreeCoverPercent === null) return // Skip with initial prev. value
 
-    dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey, layerState }))
+    dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
   }, [countryIso, layerKey, layerState, gteTreeCoverPercent, prevGteTreeCoverPercent, sectionKey, dispatch])
 }
