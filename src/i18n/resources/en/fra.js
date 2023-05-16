@@ -33,11 +33,11 @@ module.exports = {
   },
 
   biomassStockAvg: {
-    forestBiomass: 'Forest Biomass (tones/ha)',
+    forestBiomass: 'Forest Biomass (tonnes/ha)',
   },
 
   biomassStockTotal: {
-    totalForestBiomass: 'Total forest Biomass (million tones)',
+    totalForestBiomass: 'Total forest Biomass (million tonnes)',
   },
 
   carbonStock: {
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   carbonStockTotal: {
-    totalForestCarbon: 'Total forest carbon (million tones)',
+    totalForestCarbon: 'Total forest carbon (million tonnes)',
   },
 
   climaticDomain: {
