@@ -13,22 +13,22 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
     return (
       value: string,
       otherValues: Array<string>,
-      parent = '',
-      table = '',
-      subcategories = ''
+      parentVariable = '',
+      parentCol = '',
+      table = ''
     ): NodeValueValidation => {
       const valid =
         Objects.isEmpty(value) ||
         Numbers.eqWithTolerance(value, Numbers.sum(otherValues?.filter((v) => !Objects.isEmpty(v))))
 
       const valueRounded = parseFloat(value).toFixed(2)
-      const parentTable = table === '' ? `[${table}]` : table
+      const parentTable = table === '' ? table : `(${table})`
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
         : [
             {
               key: 'generalValidation.valueEqualToSumParent',
-              params: { parent, parentTable, value: valueRounded, subcategories },
+              params: { parentVariable, parentCol, parentTable, valueRounded },
             },
           ]
 
