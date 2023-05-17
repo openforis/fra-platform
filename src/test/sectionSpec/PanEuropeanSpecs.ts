@@ -159,7 +159,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         '2025': [
                           `validatorEqualToSum(table_1_1a.forest_2020['area'],
                   [table_1_3a1.forest_even_aged_stands_of_which_2020['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2020['area']], "Total Forest (1.1)")`,
+                   table_1_3b.forest_uneven_aged_stands_2020['area']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                         ],
                       },
                     },
@@ -212,7 +212,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         '2025': [
                           `validatorEqualToSum(table_1_1a.forest_2015['area'],
                   [table_1_3a1.forest_even_aged_stands_of_which_2015['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2015['area']], "Total Forest (1.1)")`,
+                   table_1_3b.forest_uneven_aged_stands_2015['area']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                         ],
                       },
                     },
@@ -264,7 +264,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         '2025': [
                           `validatorEqualToSum(table_1_1a.forest_2010['area'],
                   [table_1_3a1.forest_even_aged_stands_of_which_2010['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2010['area']], "Total Forest (1.1)")`,
+                   table_1_3b.forest_uneven_aged_stands_2010['area']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                         ],
                       },
                     },
@@ -316,7 +316,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         '2025': [
                           `validatorEqualToSum(table_1_1a.forest_2005['area'],
                   [table_1_3a1.forest_even_aged_stands_of_which_2005['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2005['area']], "Total Forest (1.1)")`,
+                   table_1_3b.forest_uneven_aged_stands_2005['area']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                         ],
                       },
                     },
@@ -368,7 +368,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         '2025': [
                           `validatorEqualToSum(table_1_1a.forest_2000['area'],
                   [table_1_3a1.forest_even_aged_stands_of_which_2000['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_2000['area']], "Total Forest (1.1)")`,
+                   table_1_3b.forest_uneven_aged_stands_2000['area']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                         ],
                       },
                     },
@@ -420,7 +420,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         '2025': [
                           `validatorEqualToSum(table_1_1a.forest_1990['area'],
                   [table_1_3a1.forest_even_aged_stands_of_which_1990['total_area'], 
-                   table_1_3b.forest_uneven_aged_stands_1990['area']], "Total Forest (1.1)")`,
+                   table_1_3b.forest_uneven_aged_stands_1990['area']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                         ],
                       },
                     },
@@ -798,7 +798,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
   // Section 2
   forestAreaWithDamage,
   areaWithForestLandDegradation,
-  // Section 3
+  // Section 3git
   incrementAndFellings: {
     sectionName: 'incrementAndFellings',
     sectionAnchor: '3.1',
@@ -4695,7 +4695,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   [table_4_1.forest_2020['area_with_number_of_tree_species_occurring_1'], 
                    table_4_1.forest_2020['area_with_number_of_tree_species_occurring_2_3'],
                    table_4_1.forest_2020['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                   table_4_1.forest_2020['area_with_number_of_tree_species_occurring_6_pl']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                     ],
                   },
                 },
@@ -4730,7 +4730,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   [table_4_1.forest_2015['area_with_number_of_tree_species_occurring_1'], 
                    table_4_1.forest_2015['area_with_number_of_tree_species_occurring_2_3'],
                    table_4_1.forest_2015['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                   table_4_1.forest_2015['area_with_number_of_tree_species_occurring_6_pl']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                     ],
                   },
                 },
@@ -4765,7 +4765,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   [table_4_1.forest_2010['area_with_number_of_tree_species_occurring_1'], 
                    table_4_1.forest_2010['area_with_number_of_tree_species_occurring_2_3'],
                    table_4_1.forest_2010['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                   table_4_1.forest_2010['area_with_number_of_tree_species_occurring_6_pl']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                     ],
                   },
                 },
@@ -4800,7 +4800,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   [table_4_1.forest_2005['area_with_number_of_tree_species_occurring_1'], 
                    table_4_1.forest_2005['area_with_number_of_tree_species_occurring_2_3'],
                    table_4_1.forest_2005['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                   table_4_1.forest_2005['area_with_number_of_tree_species_occurring_6_pl']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                     ],
                   },
                 },
@@ -4835,7 +4835,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   [table_4_1.forest_2000['area_with_number_of_tree_species_occurring_1'], 
                    table_4_1.forest_2000['area_with_number_of_tree_species_occurring_2_3'],
                    table_4_1.forest_2000['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                   table_4_1.forest_2000['area_with_number_of_tree_species_occurring_6_pl']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                     ],
                   },
                 },
@@ -4870,7 +4870,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   [table_4_1.forest_1990['area_with_number_of_tree_species_occurring_1'], 
                    table_4_1.forest_1990['area_with_number_of_tree_species_occurring_2_3'],
                    table_4_1.forest_1990['area_with_number_of_tree_species_occurring_4_5'],
-                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_6_pl']], "Total Forest (1.1)")`,
+                   table_4_1.forest_1990['area_with_number_of_tree_species_occurring_6_pl']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
                     ],
                   },
                 },
