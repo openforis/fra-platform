@@ -23,6 +23,7 @@ module.exports = {
   // tables
   areaAffectedByFire: {
     areaAffected: 'Area affected (1000 ha)',
+    areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
   },
 
   biomassStock: {
@@ -33,11 +34,11 @@ module.exports = {
   },
 
   biomassStockAvg: {
-    forestBiomass: 'Forest Biomass (tones/ha)',
+    forestBiomass: 'Forest Biomass (tonnes/ha)',
   },
 
   biomassStockTotal: {
-    totalForestBiomass: 'Total forest Biomass (million tones)',
+    totalForestBiomass: 'Total forest Biomass (million tonnes)',
   },
 
   carbonStock: {
@@ -47,7 +48,7 @@ module.exports = {
   },
 
   carbonStockTotal: {
-    totalForestCarbon: 'Total forest carbon (million tones)',
+    totalForestCarbon: 'Total forest carbon (million tonnes)',
   },
 
   climaticDomain: {
@@ -118,6 +119,7 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'Remaining land area',
     totalLandArea2025: '$t(extentOfForest.totalLandArea)',
+    extentOfForest2025: '$t(extentOfForest.extentOfForest)',
   },
 
   forestAreaChange: {
@@ -127,6 +129,7 @@ module.exports = {
 
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Forest area with long-term management plan',
+    forestAreaWithinProtectedAreas2025: '$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)',
   },
 
   forestCharacteristics: {
@@ -222,6 +225,8 @@ module.exports = {
       forestDesignationAndManagement2025: '$t(navigation.sectionHeaders.forestDesignationAndManagement)',
       forestOwnershipAndManagementRights2025: '$t(navigation.sectionHeaders.forestOwnershipAndManagementRights)',
       forestDisturbances2025: '$t(navigation.sectionHeaders.forestDisturbances)',
+      forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
+      forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
     },
   },
 

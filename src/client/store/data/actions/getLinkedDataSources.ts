@@ -30,8 +30,22 @@ export const getLinkedDataSources = createAsyncThunk<Returned, Params>(
     )
 
     const dataSources = responses.reduce<Array<DataSourceLinked>>((dataSourcesAcc, response) => {
-      const dataSourcesResp = response.data
-      if (dataSourcesResp?.length) return [...dataSourcesAcc, ...dataSourcesResp]
+      const dataSourcesResp = response.data as Array<DataSourceLinked>
+      if (dataSourcesResp?.length) {
+        const linkedVariablesNames = linkedVariables.map(({ variableName }) => variableName)
+        dataSourcesResp.forEach((dataSource) => {
+          const alreadyAdded = Boolean(dataSourcesAcc.find((value) => value.data.uuid === dataSource.data.uuid))
+          // do not add duplicates (it's possible two or more linked variables are added to the same data source)
+          if (!alreadyAdded) {
+            // filters non linked data source variables out
+            const variables = dataSource.data.variables.filter((variable) => linkedVariablesNames.includes(variable))
+            dataSourcesAcc.push({
+              ...dataSource,
+              data: { ...dataSource.data, variables },
+            })
+          }
+        })
+      }
       return dataSourcesAcc
     }, [])
 

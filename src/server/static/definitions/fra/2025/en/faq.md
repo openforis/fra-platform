@@ -1,12 +1,12 @@
 # FAQ
 
-_FRA 2020_
+_FRA 2025_
 
 # 1a Extent of forest and other wooded land
 
 ### Can I correct or change previously reported figures?
 
-If new data have become available since last reporting, you may need to also change the historical figures as the new data most likely will affect the trends. Likewise, if you notice that some errors were made in the estimations for FRA 2015, these should be corrected accordingly. Whenever, previously reported figures are changed, the justification should be clearly documented in the comments to the table.
+If new data have become available since last reporting, you may need to also change the historical figures as the new data most likely will affect the trends. Likewise, if you notice that some errors were made in the estimations for FRA 2020, these should be corrected accordingly. Whenever, previously reported figures are changed, the justification should be clearly documented in the comments to the table.
 
 ### Can sub-national level information on forest area be used to improve/generate national level estimates? 
 
@@ -38,7 +38,7 @@ It depends on how you consider the future land use. Long fallows, in which the w
 
 ### How should “young forests” be classified? 
 
-Young forest should be classified as “forest” if the land use criterion is met and the trees are capable of reaching 5 m in height. The area should also be reported on under the sub-category “…of which temporarily unstocked and/or recently regenerated”.
+Young forest should be classified as “forest” if the land use criterion is met and the trees are capable of reaching 5 m in height.
 
 ### Where should line be drawn between “forest” and agricultural tree crops (fruit plantations, rubber plantations, etc.). For example: How to classify a plantation of Pinus pinea with the main objective of harvesting pine nuts? Is it an agricultural tree crop or is it a forest where NWFP are harvested? 
 
@@ -80,24 +80,6 @@ If it is not possible to distinguish whether planted or naturally regenerated, a
 
 Areas with naturalized species that are naturally regenerated should be reported as “naturally regenerating forest”. 
 
-# 1c Annual forest expansion, deforestation and net change
-
-### When do I consider that abandoned land has reverted to forest and therefore should be included under “natural expansion of forest”?
-
-It should fulfil the following:
-	-	having been abandoned from previous land use for a period of time and be expected to revert to forest. There should not be any indications that it will go back to previous land use. The period of time may be chosen by the country and should be documented in a note in appropriate comment field. 
-	-	have regeneration of trees that are expected to comply to the definitions of forest.
-
-### What is the difference between afforestation and reforestation?
-
-Afforestation is the planting/seeding of trees on areas that previously were either other wooded land or other land. Reforestation on the other hand takes place in areas that already are classified as forest and does not imply any change of land use from a non-forest use to forest. 
-
-### Are the FRA definitions of afforestation and reforestation the same as is used in the IPCC guidelines for greenhouse gas reporting?
-
-No, the terminology on afforestation and reforestation is different. In the IPCC guidelines, both afforestation and reforestation imply a land use change and correspond to the FRA term afforestation, while the IPCC term revegetation corresponds approximately to the FRA term reforestation. 
-
-# 1e Specific forest categories
-
 ### How should I interpret “clearly visible indication of human activities” in order to distinguish between “primary forest” and “naturally regenerating forest”? 
 
 Almost all forests have been affected one way or another by human activities for commercial or for subsistence purposes by logging and/or collection of non-wood forest products, either recently or in the distant past. The general rule is that if the activities have been of such a low impact that the ecological processes have not been visibly disturbed, the forest should be classified as Primary. This would allow for including activities such as a non-destructive collection of NWFP. Likewise it may include areas where a few trees have been extracted as long as this happened a long time ago. 
@@ -112,25 +94,21 @@ ITTO defines primary forest as follows:
 
 _“Forest which has never been subject to human disturbance, or has been so little affected by hunting and gathering that its natural structure, functions and dynamics have not undergone any unnatural change.”_
 
-This category can be considered equivalent to the FRA 2020 definition of primary forest. ITTO defines a degraded primary forest as follows:
+This category can be considered equivalent to the FRA definition of primary forest. ITTO defines a degraded primary forest as follows:
 
 _“Primary forest in which the initial cover has been adversely affected by the unsustainable harvesting of wood and/or non-wood forest products so that its structure, processes, functions and dynamics are altered beyond the short-term resilience of the ecosystem; that is, the capacity of the forest to fully recover from exploitation in the near to medium term has been compromised).”_
 
-This definition falls within the FRA 2020 definition of “naturally regenerating forests”. ITTO defines a managed primary forest as follows:
+This definition falls within the FRA definition of “naturally regenerating forests”. ITTO defines a managed primary forest as follows:
 
 _“Forest in which sustainable timber and non-wood harvesting (e.g. through integrated harvesting and silvicultural treatments), wildlife management and other uses have changed forest structure and species composition from the original primary forest. All major goods and services are maintained.”_ 
 
-Also this definition falls within the FRA 2020 definition of “naturally regenerating forests”.
+Also this definition falls within the FRA definition of “naturally regenerating forests” and outside the FRA definition of primary forest.
 
 ### Some forests are regularly affected by severe disturbances (such as hurricanes) and will never reach a “stable” climax state, but still there are substantial areas with no visible human impact.  Should these be classified as primary forest (despite the visible hurricane impact)?  
 
-A disturbed forest with no visible human impact and with a species composition and structure that resembles a mature or close-to-mature forest should be classified as “primary”, while a severely damaged forest with an age structure and species composition which is significantly different from a mature forest should be classified as a “naturally regenerating forest”. See also Explanatory note 1 to the definition of Primary Forest.
+Yes, a disturbed forest with no visible human impact and with a species composition and structure that resembles a mature or close-to-mature forest should be classified as “primary”, while a severely damaged forest with an age structure and species composition which is significantly different from a mature forest should be classified as a “naturally regenerating forest”. See also Explanatory note 1 to the definition of Primary Forest.
 
-# 1f Other land with tree cover
-
-### How should areas under multiple land use (agroforestry, forest grazing, etc.) be classified in a consistent way, when no land use is considered significantly more important than the others?
-
-Agroforestry systems where crops are grown under tree cover are generally classified as “Other land with tree cover”, however some agroforestry systems such as the Taungya system where crops are grown only during the first years of the forest rotation should be classified as “forest”. In the case of forest grazing (i.e. grazing on land that fulfil the requirements of canopy cover and tree height), the general rule is to include the forest pastures in the area of Forest, unless the grazing is so intensive that it becomes the predominant land use, in which case the land should be classified as “Other land with tree cover”. 
+# 1c Specific forest categories
 
 ### What species should be considered as mangroves? 
 
@@ -175,6 +153,28 @@ FRA uses the definition of mangroves as of Tomlinson’s Botany of Mangroves, wh
 | Excoecaria agallocha         | Pelliciera rhizophorae       |       
 | Excoecaria indica            |                              |
 
+# 1d Annual forest expansion, deforestation and net change
+
+### When do I consider that abandoned land has reverted to forest and therefore should be included under “natural expansion of forest”?
+
+It should fulfil the following:
+	-	having been abandoned from previous land use for a period of time and be expected to revert to forest. There should not be any indications that it will go back to previous land use. The period of time may be chosen by the country and should be documented in a note in appropriate comment field. 
+	-	have regeneration of trees that are expected to comply to the definitions of forest.
+
+### What is the difference between afforestation and reforestation?
+
+Afforestation is the planting/seeding of trees on areas that previously were either other wooded land or other land. Reforestation on the other hand takes place in areas that already are classified as forest and does not imply any change of land use from a non-forest use to forest. 
+
+### Are the FRA definitions of afforestation and reforestation the same as is used in the IPCC guidelines for greenhouse gas reporting?
+
+No, the terminology on afforestation and reforestation is different. In the IPCC guidelines, both afforestation and reforestation imply a land use change and correspond to the FRA term afforestation, while the IPCC term revegetation corresponds approximately to the FRA term reforestation. 
+
+# 1e Other land with tree cover
+
+### How should areas under multiple land use (agroforestry, forest grazing, etc.) be classified in a consistent way, when no land use is considered significantly more important than the others?
+
+Agroforestry systems where crops are grown under tree cover are generally classified as “Other land with tree cover”, however some agroforestry systems such as the Taungya system where crops are grown only during the first years of the forest rotation should be classified as “forest”. In the case of forest grazing (i.e. grazing on land that fulfil the requirements of canopy cover and tree height), the general rule is to include the forest pastures in the area of Forest, unless the grazing is so intensive that it becomes the predominant land use, in which case the land should be classified as “Other land with tree cover”. 
+
 ### How to classify seed orchards?
 
 Seed orchards of forest tree species are considered as forest. 
@@ -203,7 +203,7 @@ No. All the table refer to both natural and planted forests of both native and i
 
 ### Which reporting year should be used as reference for compiling the species list?
 
-The ranking of species is according to volume for the year 2015.
+The ranking of species is according to volume for the year 2020.
 
 ### In table 2b, should the ranking of species be by volume, area or number of trees? 
 

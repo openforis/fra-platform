@@ -8,6 +8,7 @@ module.exports = {
   area100Ha: 'Área (1000 ha)',
   areaAffectedByFire: {
     areaAffected: 'Área afectada (1000 ha)',
+    areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
   },
 
   biomassStock: {
@@ -89,6 +90,7 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'Superficie terrestre restante',
     totalLandArea2025: 'Superficie terrestre total',
+    extentOfForest2025: '$t(extentOfForest.extentOfForest)',
   },
 
   forestAreaChange: {
@@ -98,6 +100,7 @@ module.exports = {
 
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Área de bosque con planes de gestión a largo plazo',
+    forestAreaWithinProtectedAreas2025: '$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)',
   },
   forestCharacteristics: {
     primaryForest: '...del cual es bosque primario',
@@ -181,6 +184,8 @@ module.exports = {
       forestDesignationAndManagement2025: 'Designación y gestión forestal',
       forestOwnershipAndManagementRights2025: 'Propiedad forestal y derechos de gestión',
       forestDisturbances2025: 'Perturbaciones forestales',
+      forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
+      forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
