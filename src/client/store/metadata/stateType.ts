@@ -1,9 +1,7 @@
-import { AssessmentName, CycleName, TableName, TableSection } from '@meta/assessment'
+import { AssessmentName, CycleName, TableSection } from '@meta/assessment'
 import { SectionName } from '@meta/assessment/section'
-import { NodeUpdate } from '@meta/data'
 
 export interface MetadataBaseState {
-  nodeValueValidation?: Record<TableName, NodeUpdate>
   tableSections?: Record<SectionName, Array<TableSection>>
 }
 
