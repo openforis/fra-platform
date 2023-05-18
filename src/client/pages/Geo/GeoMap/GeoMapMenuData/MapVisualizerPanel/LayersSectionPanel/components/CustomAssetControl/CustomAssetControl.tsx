@@ -50,7 +50,7 @@ const CustomAssetControl: React.FC<Props> = ({
       setValidInput(false)
     } else {
       setValidInput(true)
-      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey, layerState }))
+      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
     }
   }
 

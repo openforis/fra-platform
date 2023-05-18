@@ -29,5 +29,3 @@ export const useGeoLayerSection = (sectionKey: LayerSectionKey): LayersSectionSt
 
 export const useGeoLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState | undefined =>
   useAppSelector((state) => state.geo.sections[sectionKey]?.[layerKey])
-
-export { useGteTreeCoverPercent } from './useGteTreeCoverPercent'

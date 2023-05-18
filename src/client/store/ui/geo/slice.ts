@@ -1,13 +1,21 @@
 import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { LayerResponseData } from 'meta/api/request/geo/layer'
 import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOptions, MosaicSource } from 'meta/geo'
 
 import { mapController } from 'client/utils'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getForestEstimationData, postLayer } from './actions'
-import { GeoState, LayerFetchStatus, LayersSectionState, LayerState, LayerStateOptions } from './stateType'
+import {
+  AgreementLevelState,
+  GeoState,
+  LayerFetchStatus,
+  LayersSectionState,
+  LayerState,
+  LayerStateOptions,
+} from './stateType'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -58,20 +66,37 @@ const getLayerStateOptions = (
   return layerState.options
 }
 
+const getAgreementOptionsState = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey
+): AgreementLevelState => {
+  const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+  layerStateOptions.agreementLayer ??= {} as AgreementLevelState
+  return layerStateOptions.agreementLayer
+}
+
 const handlePostLayerStatus = (
   state: Draft<GeoState>,
   sectionKey: LayerSectionKey,
   layerKey: LayerKey,
   status: LayerFetchStatus,
-  mapId = ''
+  layerData: LayerResponseData = undefined
 ): LayerState => {
   const layerState = getLayerState(state, sectionKey, layerKey)
-  let newLayerState = { ...layerState, status, mapId }
+  let newLayerState = { ...layerState, status, mapId: layerData?.mapId }
+
   const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
 
   switch (status) {
     case LayerFetchStatus.Ready:
-      if (newLayerState.selected && mapId) mapController.addEarthEngineLayer(mapLayerKey, mapId)
+      if (newLayerState.selected && layerData?.mapId) mapController.addEarthEngineLayer(mapLayerKey, layerData.mapId)
+      if (layerKey === 'Agreement') {
+        const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
+        const newAgreementOptionsState = { ...agreementOptionsState, palette: layerData.palette }
+        newLayerState.options ??= {} as LayerStateOptions
+        newLayerState.options.agreementLayer = newAgreementOptionsState
+      }
       break
     case LayerFetchStatus.Loading:
       mapController.removeLayer(mapLayerKey)
@@ -209,12 +234,12 @@ export const geoSlice = createSlice({
       state.sections[sectionKey][layerKey].options = { ...layerStateOptions, gteTreeCoverPercent }
     },
     setAgreementLevel: (
-      state,
-      {
-        payload: { sectionKey, layerKey, level },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
     ) => {
-      state.sections[sectionKey][layerKey].options.agreementLayer.level = level
+      const { sectionKey, layerKey, level } = action.payload
+      const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options.agreementLayer = { ...agreementOptionsState, level }
     },
     setAgreementReducerScale: (
       state,
@@ -300,8 +325,8 @@ export const geoSlice = createSlice({
         state.geoStatistics.isLoading = false
         state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
       })
-      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, mapId] }) => {
-        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, mapId)
+      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, layerData] }) => {
+        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, layerData)
       })
       .addCase(postLayer.pending, (state, { meta }) => {
         handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Loading)
