@@ -20,4 +20,7 @@ module.exports = {
   variable: 'ОЛР Переменная',
   year: 'Год',
   filterCountries: 'Отфильтровать страны',
+  forestCategoriesLabel2025: 'Леса, прочие лесистые земли и остальные земельные площади',
+  nationalClassifications: 'Национальные классификации',
+  categories: 'Категории',
 }

@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { updateNodeValues } from '../ui/assessmentSection/actions/updateNodeValues'
+import { updateNodeValues } from '../data/actions/updateNodeValues'
 import { getAreas, getAssessment, getSections, initApp, updateCountry, updateCountryProp } from './actions'
 import { AssessmentState } from './stateType'
 

@@ -5,7 +5,8 @@ import { Col as TypeCol, Cols, Row as TypeRow, RowType, Table } from '@meta/asse
 import { TableData } from '@meta/data'
 
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
-import { useOriginalDataPointYears, useShowOriginalDatapoints } from '@client/store/ui/assessmentSection'
+import { useOriginalDataPointYears } from '@client/store/data'
+import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection'
 import { getODPColSpan } from '@client/pages/AssessmentSection/DataTable/Table/utils/getODPColSpan'
 
 import OdpHeaderCell from './OdpHeaderCell'

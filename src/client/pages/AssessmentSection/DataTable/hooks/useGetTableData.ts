@@ -5,7 +5,7 @@ import { CountryIso } from '@meta/area'
 import { AssessmentName, Table, TableNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
+import { DataActions } from '@client/store/data/slice'
 import { useCanEdit } from '@client/store/user'
 
 type Props = {
@@ -66,10 +66,10 @@ export const useGetTableData = (props: Props) => {
           [TableNames.extentOfForest, TableNames.forestCharacteristics].includes(_tableName as TableNames)
         )
         const getTableDataProps = { assessmentName, countryIso, cycleName, tableNames: [_tableName], mergeOdp }
-        dispatch(AssessmentSectionActions.getTableData(getTableDataProps))
+        dispatch(DataActions.getTableData(getTableDataProps))
       })
       if (odp) {
-        dispatch(AssessmentSectionActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
+        dispatch(DataActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
       }
     })
   }, [assessmentName, countryIso, cycleName, dispatch, odp, tableName, tableNames])

@@ -17,7 +17,7 @@ export default () => {
   const user = useUser()
 
   useEffect(() => {
-    if (Authorizer.canViewUsers({ countryIso, assessment, cycle, user })) {
+    if (Authorizer.canViewUsers({ countryIso, cycle, user })) {
       dispatch(
         UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
       )
