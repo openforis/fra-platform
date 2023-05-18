@@ -6,7 +6,7 @@ import { CommentableDescriptionValue } from '@meta/assessment'
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { usePreviousSection } from '@client/store/assessment/hooks/usePreviousSection'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
+import { DataActions } from '@client/store/data'
 import { useCountryIso } from '@client/hooks'
 
 interface Props {
@@ -26,7 +26,7 @@ export const ButtonCopyDataSources: React.FC<Props> = (props: Props) => {
 
   const onCopyClick = useCallback(() => {
     dispatch(
-      AssessmentSectionActions.copyPreviousDatasources({
+      DataActions.copyPreviousDatasources({
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,

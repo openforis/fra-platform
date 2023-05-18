@@ -8,8 +8,7 @@ import { CommentableDescriptionValue } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
-import useCommentableDescriptionValue from '@client/store/ui/assessmentSection/hooks/useCommentableDescriptionValue'
+import { DataActions, useCommentableDescriptionValue } from '@client/store/data'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -56,7 +55,7 @@ const Description: React.FC<Props> = (props) => {
   const onChange = useCallback(
     (value: CommentableDescriptionValue) => {
       dispatch(
-        AssessmentSectionActions.updateDescription({
+        DataActions.updateDescription({
           countryIso,
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
@@ -75,7 +74,7 @@ const Description: React.FC<Props> = (props) => {
 
   useEffect(() => {
     dispatch(
-      AssessmentSectionActions.getDescription({
+      DataActions.getDescription({
         countryIso,
         assessmentName: assessment.props.name,
         cycleName: cycle.name,

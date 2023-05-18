@@ -8,7 +8,7 @@ import { Cols, Row } from '@meta/assessment'
 import { Unit, UnitFactors } from '@meta/dataExport'
 
 import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/ui/assessmentSection'
+import { useTableSections } from '@client/store/metadata'
 import { getUnitLabelKey } from '@client/pages/DataExport/utils'
 
 type Props = {
