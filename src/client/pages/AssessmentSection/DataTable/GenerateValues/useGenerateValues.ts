@@ -6,7 +6,8 @@ import { TableData } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions, useIsEstimationPending } from '@client/store/ui/assessmentSection'
+import { DataActions } from '@client/store/data'
+import { useIsEstimationPending } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 import { GenerateValuesField } from './field'
@@ -75,7 +76,7 @@ const useGenerateValues = (
           : null
 
       dispatch(
-        AssessmentSectionActions.postEstimate({
+        DataActions.postEstimate({
           countryIso,
           assessmentName,
           cycleName: cycle.name,

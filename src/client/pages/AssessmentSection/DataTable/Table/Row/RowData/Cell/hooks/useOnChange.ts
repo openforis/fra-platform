@@ -6,7 +6,7 @@ import { TableData, TableDatas } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
+import { DataActions } from '@client/store/data'
 import { useCountryIso } from '@client/hooks'
 import { Sanitizer } from '@client/utils/sanitizer'
 
@@ -48,7 +48,7 @@ export default (props: Props): UseOnChange => {
       })
 
       dispatch(
-        AssessmentSectionActions.updateNodeValues({
+        DataActions.updateNodeValues({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           sectionName: assessmentSection.props.name,
@@ -152,7 +152,7 @@ export default (props: Props): UseOnChange => {
 
       if (values.length > 0) {
         dispatch(
-          AssessmentSectionActions.updateNodeValues({
+          DataActions.updateNodeValues({
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
             sectionName: assessmentSection.props.name,

@@ -6,7 +6,7 @@ import { NodeUpdates } from '@meta/data'
 import { Sockets } from '@meta/socket'
 
 import { useAppDispatch } from '@client/store'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
+import { DataActions } from '@client/store/data'
 import { SocketClient } from '@client/service/socket'
 
 type Props = {
@@ -26,7 +26,7 @@ export const useListenValidationsUpdate = (props: Props): void => {
     if (canEditTableData) {
       const listener = (args: [{ validations: NodeUpdates }]): void => {
         const [{ validations }] = args
-        dispatch(AssessmentSectionActions.setNodeValues({ nodeUpdates: validations }))
+        dispatch(DataActions.setNodeValues({ nodeUpdates: validations }))
       }
 
       SocketClient.on(nodeUpdateEvent, listener)
