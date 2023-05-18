@@ -16,7 +16,7 @@ export const validatorSumNotGreaterThanForest: ExpressionFunction<Context> = {
       _messages?: Array<NodeValueValidationMessage>
     ): NodeValueValidation => {
       const valid =
-        Objects.isEmpty(forestArea) || Objects.isEmpty(value) || Numbers.greaterThanWithTolerance(forestArea, value)
+        Objects.isEmpty(forestArea) || Objects.isEmpty(value) || !Numbers.greaterThanWithTolerance(value, forestArea)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
