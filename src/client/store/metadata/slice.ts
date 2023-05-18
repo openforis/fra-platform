@@ -8,7 +8,6 @@ import { MetadataBaseState, MetadataState } from './stateType'
 
 const initialMetadata: MetadataBaseState = {
   tableSections: {},
-  nodeValueValidation: {},
 }
 
 const initialState: MetadataState = {}
