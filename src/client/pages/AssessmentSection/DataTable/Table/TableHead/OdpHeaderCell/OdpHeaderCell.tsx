@@ -15,12 +15,13 @@ type Props = {
   className: string
   colSpan: number
   rowSpan: number
-  columnName: string
+  odpId: string
+  odpYear: string
   sectionName: string
 }
 
 const HeaderCell: React.FC<Props> = (props) => {
-  const { className, colSpan, rowSpan, columnName, sectionName } = props
+  const { className, colSpan, rowSpan, odpId, odpYear, sectionName } = props
 
   const assessment = useAssessment()
   const countryIso = useCountryIso()
@@ -29,7 +30,7 @@ const HeaderCell: React.FC<Props> = (props) => {
   const { print } = useIsPrint()
   const { t } = useTranslation()
 
-  const reviewStatus = useOdpReviewSummary(columnName)
+  const reviewStatus = useOdpReviewSummary(odpId)
 
   return !print ? (
     <th className="odp-header-cell" colSpan={colSpan} rowSpan={rowSpan}>
@@ -40,18 +41,18 @@ const HeaderCell: React.FC<Props> = (props) => {
             countryIso,
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
-            year: columnName,
+            year: odpYear,
             sectionName,
           })}
         >
-          {columnName}
+          {odpYear}
         </Link>
         <ReviewStatusMarker status={reviewStatus} />
       </Tooltip>
     </th>
   ) : (
     <th className={className} colSpan={colSpan} rowSpan={rowSpan}>
-      {columnName}
+      {odpYear}
     </th>
   )
 }

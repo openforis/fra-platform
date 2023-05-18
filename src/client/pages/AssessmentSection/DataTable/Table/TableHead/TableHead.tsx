@@ -41,10 +41,11 @@ const TableHead: React.FC<Props> = (props) => {
 
             const columnName = headers[colIndex]
 
-            let isOdpHeaderCell = showODP && isOdp && !col.props.labels && odpYears?.includes(columnName)
+            let odpHeader =
+              showODP && table.props.odp && !col.props.labels && odpYears?.find((odp) => odp.year === columnName)
 
             if (table.props.name === 'forestCharacteristics')
-              isOdpHeaderCell = isOdpHeaderCell && country.props.forestCharacteristics.useOriginalDataPoint
+              odpHeader = country.props.forestCharacteristics.useOriginalDataPoint && odpHeader
 
             const headerLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
 
@@ -52,13 +53,14 @@ const TableHead: React.FC<Props> = (props) => {
 
             const colSpan = isOdp && !defaultColSpan ? getODPColSpan({ headers, table, data }) : defaultColSpan
 
-            return isOdpHeaderCell ? (
+            return odpHeader ? (
               <OdpHeaderCell
                 key={col.uuid}
                 className={rowIndex > 0 ? 'odp-header-cell' : className}
                 colSpan={colSpan}
                 rowSpan={rowSpan}
-                columnName={columnName}
+                odpId={odpHeader.id}
+                odpYear={odpHeader.year}
                 sectionName={table.props.name}
               />
             ) : (

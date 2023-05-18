@@ -11,13 +11,12 @@ export default async (client: BaseProtocol) => {
 
   await client.query(`
     update ${schemaCycle}.message_topic mt
-    set key=CONCAT('odp-', temprow.year, '-', temprow.key)
+    set key=CONCAT('odp-', temprow.key)
     from (
-      select mt.id, mt.key, odp.year, split_part(mt.key, '-', 1) as odp_id
-      from ${schemaCycle}.message_topic mt
-      left join ${schemaCycle}.original_data_point odp on odp.id = CAST(split_part(mt.key, '-', 1) as INTEGER)
+      select mt.id, mt.key from ${schemaCycle}.message_topic mt
       where split_part(mt.key, '-', 2) in ('dataSourceReferences', 'dataSourceMethods', 'dataSourceAdditionalComments', 'class')
       and mt.key not like 'odp-%'
+      and mt.key not like '-%'
     ) temprow
     where mt.id=temprow.id`)
 }

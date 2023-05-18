@@ -24,7 +24,7 @@ export const getOdpReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where not m.deleted and mt.key like 'odp-%-$1:value-%'
+        where not m.deleted and mt.key like 'odp-$1:value-%'
         group by topic_id
       )
       select

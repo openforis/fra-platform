@@ -6,6 +6,7 @@ export interface NodeValue {
   estimated?: boolean
   calculated?: boolean
   odp?: boolean
+  odpId?: string
   validation?: NodeValueValidation
   taxonCode?: string
 }

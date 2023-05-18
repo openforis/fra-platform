@@ -84,7 +84,7 @@ const DataSources: React.FC<Props> = (props) => {
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.references')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
-                      topicKey={`odp-${originalDataPoint.year}-${originalDataPoint.id}-dataSourceReferences`}
+                      topicKey={`odp-${originalDataPoint.id}-dataSourceReferences`}
                     />
                   </td>
                 )}
@@ -111,7 +111,7 @@ const DataSources: React.FC<Props> = (props) => {
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.methodsUsed')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
-                      topicKey={`odp-${originalDataPoint.year}-${originalDataPoint.id}-dataSourceMethods`}
+                      topicKey={`odp-${originalDataPoint.id}-dataSourceMethods`}
                     />
                   </td>
                 )}
@@ -143,7 +143,7 @@ const DataSources: React.FC<Props> = (props) => {
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.additionalComments')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
-                      topicKey={`odp-${originalDataPoint.year}-${originalDataPoint.id}-dataSourceAdditionalComments`}
+                      topicKey={`odp-${originalDataPoint.id}-dataSourceAdditionalComments`}
                     />
                   </td>
                 )}

@@ -6,10 +6,10 @@ import { useAppSelector } from '@client/store'
 export const useReviewStatus = (key: string): ReviewStatus =>
   useAppSelector((state) => state.ui.review.status[key] || ({} as ReviewStatus))
 
-export const useOdpReviewSummary = (odpYear: string): ReviewStatus => {
+export const useOdpReviewSummary = (odpId: string): ReviewStatus => {
   const statuses = useAppSelector((state) =>
     Object.values(
-      Object.fromEntries(Object.entries(state.ui.review.status).filter(([key]) => key.includes(`odp-${odpYear}-`)))
+      Object.fromEntries(Object.entries(state.ui.review.status).filter(([key]) => key.includes(`odp-${odpId}-`)))
     )
   )
 

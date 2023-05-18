@@ -99,7 +99,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.naturallyRegeneratingForest')}
-            topicKey={`odp-${originalDataPoint.year}-${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-naturallyRegeneratingForestoFwhichPrimary`}
+            topicKey={`odp-${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-naturallyRegeneratingForestoFwhichPrimary`}
           />
         </td>
       )}

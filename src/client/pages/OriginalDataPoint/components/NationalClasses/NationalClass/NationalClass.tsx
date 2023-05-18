@@ -163,7 +163,7 @@ const NationalClass: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.nationalDataPoint')}
-            topicKey={`odp-${originalDataPoint.year}-${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-definition`}
+            topicKey={`odp-${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-definition`}
           />
         </td>
       )}
