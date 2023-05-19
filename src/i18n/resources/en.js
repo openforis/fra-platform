@@ -19,10 +19,11 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
-  statisticalFactsheets,
   login,
-  uc,
+  panEuropean,
   print,
+  statisticalFactsheets,
+  uc,
 
   page: {
     assessmentSection,
@@ -1157,6 +1158,4 @@ The FRA team
     messageBoardDesc: 'Messages posted here are visible to all country members',
     oneToOneMessages: 'One To One Messages',
   },
-
-  panEuropean,
 }
