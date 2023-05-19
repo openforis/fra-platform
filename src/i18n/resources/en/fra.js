@@ -120,6 +120,7 @@ module.exports = {
     remainingLandArea: 'Remaining land area',
     totalLandArea2025: '$t(extentOfForest.totalLandArea)',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
 
   forestAreaChange: {

@@ -75,6 +75,7 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'Остальные земельные площади',
     extentOfForest2025: 'Площадь лесов и прочих лесистых земель',
+    otherWoodedLand: 'Прочие лесистые земли',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Площадь лесов с долгосрочным планом управления',
