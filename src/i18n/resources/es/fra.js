@@ -91,6 +91,7 @@ module.exports = {
     remainingLandArea: 'Superficie terrestre restante',
     totalLandArea2025: 'Superficie terrestre total',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
 
   forestAreaChange: {
