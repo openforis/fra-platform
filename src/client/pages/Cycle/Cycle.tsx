@@ -12,7 +12,7 @@ import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from '@client/h
 import AssessmentSwitch from '@client/components/AssessmentSwitch'
 import PageLayout from '@client/components/PageLayout'
 import Partners from '@client/components/Partners'
-import Description from '@client/pages/AssessmentHome/PanEuropeanHome/Description'
+import Overview from '@client/pages/AssessmentHome/PanEuropeanHome/Overview'
 
 import Admin from '../Admin'
 import Country from '../Country'
@@ -29,7 +29,7 @@ const Components: { [key: AssessmentName]: React.FC } = {
       <Partners />
     </>
   ),
-  [AssessmentNames.panEuropean]: Description,
+  [AssessmentNames.panEuropean]: Overview,
 }
 
 const Cycle: React.FC = () => {
