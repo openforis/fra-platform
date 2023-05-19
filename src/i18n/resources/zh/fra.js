@@ -90,6 +90,7 @@ module.exports = {
     remainingLandArea: '其他土地',
     totalLandArea2025: '土地面积总和',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
 
   forestAreaChange: {

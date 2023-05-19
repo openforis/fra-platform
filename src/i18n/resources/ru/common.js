@@ -23,4 +23,17 @@ module.exports = {
   forestCategoriesLabel2025: 'Леса, прочие лесистые земли и остальные земельные площади',
   nationalClassifications: 'Национальные классификации',
   categories: 'Категории',
+  areYouSureYouWantToDeleteAllTableData: 'Вы уверены, что хотите удалить все данные из таблицы?',
+  clearTable: 'Очистить таблицу',
+  continue: 'Продолжить',
+  copyToClipboard: 'Скопировать в буфер обмена',
+  dashboard: 'Панель упраления',
+  status: 'Статус',
+  tier: 'Уровень',
+  tiers: {
+    high: 'Высокий',
+    low: 'Низкий',
+    notSelected: '',
+  },
+  trend: 'Тренд',
 }

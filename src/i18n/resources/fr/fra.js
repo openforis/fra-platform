@@ -73,6 +73,7 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'Terres restantes',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Superficie de forêt soumise à un plan de gestion à long terme',
