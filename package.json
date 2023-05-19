@@ -259,7 +259,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.0.0-alpha.10",
+  "version": "3.0.0-alpha.11",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
