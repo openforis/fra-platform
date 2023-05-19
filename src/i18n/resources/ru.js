@@ -101,6 +101,7 @@ module.exports.translation = {
   definition: {
     definitionLabel: 'См. определения',
     faqLabel: 'Часто задаваемые вопросы',
+    seeReportingNotes: 'См. Примечания к отчетам',
   },
 
   audit: {
@@ -481,6 +482,11 @@ module.exports.translation = {
     forestCategoriesLabel2025: 'Леса, прочие лесистые земли и остальные земельные площади',
     nationalClassifications: 'Национальные классификации',
     categories: 'Категории',
+    prefill: 'Предварительно заполнить',
+    prefillWith: 'Предварительно заполнить с',
+    dataSource2025ExplanatoryText:
+      'Перечисленные источники данных были представлены в ОЛР-2020. Просьба скопировать и вставить соответствующие источники данных в таблицу выше.',
+    confirmCopyPreviousValues: 'Вы хотите изменить предыдущие значения? Эту операцию нельзя отменить.',
   },
 
   userManagement: {
@@ -541,6 +547,7 @@ module.exports.translation = {
       tableData: 'Данные таблицы',
       descriptions: 'Описания',
     },
+    invitationLinkCopied: 'Ссылка на приглашение была скопирована',
   },
 
   // FRA 2020 questionare
@@ -639,6 +646,7 @@ module.exports.translation = {
     deforestation: 'Обезлесение',
     forestAreaNetChange: 'Чистое изменение лесной площади',
     netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади',
+    forestAreaNetChangeFrom1a: 'Чистое изменение площади лесов  из таблицы 1а',
   },
 
   annualReforestation: {
@@ -1017,6 +1025,17 @@ module.exports.translation = {
     mustBeLessThanPrivateOwnership: 'Сумма подкатегорий должна быть меньше, чем частная собственность',
     forestSumAreaExceedsExtentOfForest: 'Сумма категорий ОЛР превышает площадь лесов, указанную в таблице 1а',
     valueEqualToSum: 'Общее значение должно быть равным сумме подкатегорий',
+    notEmpty: 'Значение не может быть пустым',
+    mustBeEqualToPrimaryForest: 'Сумма подкатегорий должна быть равна первичным лесам',
+    landAreaExceedsTotalLandArea: 'Земельная площадь превышает общую площадь земель (1a) ({{value}})',
+    classValueNotGreaterThan: '{{name}} не должно быть больше, чем {{value}}',
+    classValuesMustBeEqualTo: '{{name}} сумма должна быть равна {{value}}',
+    valueCannotExceedMaximumValueReportedForForestArea:
+      'Значение не может превышать максимальное значение ({{maxforestarea}}), указанное для площади лесов (1a)',
+    valueCannotExceedMaximumValueReportedForForestAreaYear:
+      'Сумма для {{year}} года не может превышать максимальное значение ({{maxforestarea}}), указанное для площади лесов (1a)',
+    valueCannotExceedMaximumValueReportedForLandArea:
+      'Значение не может превышать максимальное значение ({{maxlandarea}}), указанное для площади земель (1a)',
   },
 
   emoji: {
