@@ -74,6 +74,7 @@ const AgreementLevelControl: React.FC<Props> = ({
             countLayersSelected={countLayersSelected}
             layerState={layerState}
             section={section}
+            layerKey={layerKey}
             onChange={setAgreementLevel}
           />
         </div>

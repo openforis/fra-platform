@@ -10,13 +10,6 @@ export type LayerRequestBody = {
 
 export type LayerRequest = Request<never, never, LayerRequestBody, never>
 
-export type LayerResponseData = {
-  mapId: string
-  year?: number
-  scale?: number
-  palette?: string[]
-}
-
 export type ForestAgreementLayerRequest = Request<
   never,
   never,

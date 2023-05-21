@@ -1,7 +1,6 @@
 import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { LayerResponseData } from '@meta/api/request/geo/layer'
 import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOptions, MosaicSource } from '@meta/geo'
 
 import { mapController } from '@client/utils'
@@ -81,21 +80,20 @@ const handlePostLayerStatus = (
   sectionKey: LayerSectionKey,
   layerKey: LayerKey,
   status: LayerFetchStatus,
-  layerData: LayerResponseData = undefined
+  mapId = ''
 ): LayerState => {
   const layerState = getLayerState(state, sectionKey, layerKey)
-  let newLayerState = { ...layerState, status, mapId: layerData?.mapId }
+  let newLayerState = { ...layerState, status, mapId }
 
   const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
 
   switch (status) {
     case LayerFetchStatus.Ready:
-      if (newLayerState.selected && layerData?.mapId) mapController.addEarthEngineLayer(mapLayerKey, layerData.mapId)
+      if (newLayerState.selected && mapId) mapController.addEarthEngineLayer(mapLayerKey, mapId)
       if (layerKey === 'Agreement') {
         const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
-        const newAgreementOptionsState = { ...agreementOptionsState, palette: layerData.palette }
         newLayerState.options ??= {} as LayerStateOptions
-        newLayerState.options.agreementLayer = newAgreementOptionsState
+        newLayerState.options.agreementLayer = agreementOptionsState
       }
       break
     case LayerFetchStatus.Loading:
@@ -249,14 +247,6 @@ export const geoSlice = createSlice({
     ) => {
       state.sections[sectionKey][layerKey].options.agreementLayer.reducerScale = reducerScale
     },
-    setAgreementPalette: (
-      state,
-      {
-        payload: { sectionKey, layerKey, palette },
-      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; palette: Array<string> }>
-    ) => {
-      state.sections[sectionKey][layerKey].options.agreementLayer.palette = palette
-    },
     setSectionGlobalOpacity: (
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; opacity: number }>
@@ -325,8 +315,8 @@ export const geoSlice = createSlice({
         state.geoStatistics.isLoading = false
         state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
       })
-      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, layerData] }) => {
-        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, layerData)
+      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, mapId] }) => {
+        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, mapId)
       })
       .addCase(postLayer.pending, (state, { meta }) => {
         handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Loading)
