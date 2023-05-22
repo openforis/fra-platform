@@ -13,6 +13,21 @@ type Props = {
   table: Table
 }
 
+// @ts-ignore
+const translateIfKey = (t: any, text: any) => {
+  // Assuming that a 'key' is a string
+  if (typeof text === 'string') {
+    // Try to translate text, if it isn't a key, translation will return the same text
+    return t(text)
+  }
+  // In case text is an array (like subcategories), translate each item
+  if (Array.isArray(text)) {
+    return `(${text.map((item: any) => translateIfKey(t, item)).join(', ')})`
+  }
+  // Return original text if it isn't a key or an array
+  return text
+}
+
 const DataValidations: React.FC<Props> = (props) => {
   const { table } = props
   const tableName = table.props.name
@@ -33,7 +48,10 @@ const DataValidations: React.FC<Props> = (props) => {
       {nodeUpdate ? (
         nodeUpdate.value.validation.messages.map(({ key, params }) => (
           <div key={key} className="msg">
-            {t<string>(key, params)}
+            {t<string>(
+              key,
+              params && Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateIfKey(t, v)]))
+            )}
           </div>
         ))
       ) : (

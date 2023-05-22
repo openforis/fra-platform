@@ -14,8 +14,9 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
       value: string,
       otherValues: Array<string>,
       parentVariable = '',
-      parentCol = '',
-      table = ''
+      col = '',
+      table = '',
+      subcategories = ''
     ): NodeValueValidation => {
       const valid =
         Objects.isEmpty(value) ||
@@ -23,12 +24,13 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
 
       const valueRounded = parseFloat(value).toFixed(2)
       const parentTable = table === '' ? table : `(${table})`
+      const parentCol = col === '' ? col : `[${col}]`
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
         : [
             {
               key: 'generalValidation.valueEqualToSumParent',
-              params: { parentVariable, parentCol, parentTable, valueRounded },
+              params: { parentVariable, subcategories, parentCol, parentTable, valueRounded },
             },
           ]
 
