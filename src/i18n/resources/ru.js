@@ -154,7 +154,7 @@ module.exports.translation = {
 
   fraClass: {
     forest: 'Леса',
-    otherWoodedLand: 'Прочие лесопокрытые земли',
+    otherWoodedLand: 'Прочие лесистые земли',
     otherLand: 'Другие земельные площади',
   },
 
@@ -476,7 +476,7 @@ module.exports.translation = {
     },
     appliesToVariablesOptions: {
       forest: 'Леса',
-      otherWoodedLand: 'Прочие лесопокрытые земли',
+      otherWoodedLand: 'Прочие лесистые земли',
       otherLand: 'Другие земельные площади',
     },
     forestCategoriesLabel2025: 'Леса, прочие лесистые земли и остальные земельные площади',
@@ -644,7 +644,7 @@ module.exports.translation = {
     ofWhichAfforestation: '…в том числе лесоразведение',
     ofWhichNaturalExpansion: '…в том числе естественное расширение лесов',
     deforestation: 'Обезлесение',
-    forestAreaNetChange: 'Чистое изменение лесной площади',
+    forestAreaNetChange: 'Чистое изменение площади лесов',
     netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади',
     forestAreaNetChangeFrom1a: 'Чистое изменение площади лесов  из таблицы 1а',
   },
@@ -692,7 +692,7 @@ module.exports.translation = {
     plantationForest: '…в том числе плантационные лесные культуры',
     otherPlantedForest: '…в том числе другие лесные культуры',
     forest: 'Леса',
-    otherWoodedLand: 'Прочие лесопокрытые земли',
+    otherWoodedLand: 'Прочие лесистые земли',
     copyToClipboard: 'Скопировать значения',
   },
 
