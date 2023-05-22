@@ -11,12 +11,14 @@ export const getFraYearsData = async (props: Props) => {
   const { assessment, cycle, countries } = props
   const climaticData = await climaticDomain(props)
   const tableNames = entries.map(({ tableName }) => tableName)
-  const data = await getData({
+  const tableData = await getData({
     assessment,
     cycle,
     countries,
     tableNames,
   })
+
+  const data = tableData[assessment.props.name][cycle.name]
 
   // Unique years
   const years = getYears({
@@ -32,10 +34,10 @@ export const getFraYearsData = async (props: Props) => {
         iso3: countryIso,
         name: countryIso,
         year,
-        boreal: getClimaticValue('boreal', countryIso, climaticData),
-        temperate: getClimaticValue('temperate', countryIso, climaticData),
-        tropical: getClimaticValue('tropical', countryIso, climaticData),
-        subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
+        boreal: getClimaticValue('boreal', countryIso, climaticData[assessment.props.name][cycle.name]),
+        temperate: getClimaticValue('temperate', countryIso, climaticData[assessment.props.name][cycle.name]),
+        tropical: getClimaticValue('tropical', countryIso, climaticData[assessment.props.name][cycle.name]),
+        subtropical: getClimaticValue('sub_tropical', countryIso, climaticData[assessment.props.name][cycle.name]),
       }
 
       entries.forEach(({ variables, tableName }) => {

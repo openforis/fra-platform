@@ -74,7 +74,7 @@ export const updateOriginalDataPointDependentNodes = async (
             variableName,
             tableName,
             countryIso,
-            data,
+            data: data[assessmentName][cycleName],
           }),
           colName,
           tableName: TableNames.originalDataPointValue,

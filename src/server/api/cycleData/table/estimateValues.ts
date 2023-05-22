@@ -45,7 +45,7 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
 
     const nodes = EstimationEngine.estimateValues(
       years,
-      originalDataPointValues,
+      originalDataPointValues[assessment.props.name][cycle.name],
       generateSpec as GenerateSpec,
       tableSpec.props.name
     )

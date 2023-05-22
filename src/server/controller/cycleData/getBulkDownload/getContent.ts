@@ -18,7 +18,7 @@ export const getContent = async (
   })
 
   const years = getYears({
-    data,
+    data: data[assessment.props.name][cycle.name],
     countries,
     tableNames,
   })
@@ -30,15 +30,16 @@ export const getContent = async (
         iso3: countryIso,
         name: countryIso,
         year,
-        boreal: getClimaticValue('boreal', countryIso, climaticData),
-        temperate: getClimaticValue('temperate', countryIso, climaticData),
-        tropical: getClimaticValue('tropical', countryIso, climaticData),
-        subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
+        boreal: getClimaticValue('boreal', countryIso, climaticData[assessment.props.name][cycle.name]),
+        temperate: getClimaticValue('temperate', countryIso, climaticData[assessment.props.name][cycle.name]),
+        tropical: getClimaticValue('tropical', countryIso, climaticData[assessment.props.name][cycle.name]),
+        subtropical: getClimaticValue('sub_tropical', countryIso, climaticData[assessment.props.name][cycle.name]),
       }
 
       entries.forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
-          base[csvColumn] = data[countryIso][tableName]?.[year]?.[variableName]?.raw ?? null
+          base[csvColumn] =
+            data[assessment.props.name][cycle.name][countryIso][tableName]?.[year]?.[variableName]?.raw ?? null
         })
       })
 
