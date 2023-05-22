@@ -12,9 +12,9 @@ export const validatorSumNotGreaterThan: ExpressionFunction<Context> = {
   executor: () => {
     return (value?: string, maxValue?: string, tolerance?: boolean): NodeValueValidation => {
       const valid =
-        Objects.isEmpty(value) || tolerance
-          ? Numbers.greaterThanWithTolerance(maxValue, value)
-          : !Numbers.greaterThan(value, maxValue)
+        Objects.isEmpty(value) ||
+        Objects.isEmpty(maxValue) ||
+        (tolerance ? Numbers.greaterThanWithTolerance(maxValue, value) : !Numbers.greaterThan(value, maxValue))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
