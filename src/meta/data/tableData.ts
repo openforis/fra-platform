@@ -6,7 +6,7 @@ export type ColumnName = string
 export type RecordRowData = Record<VariableName, NodeValue>
 export type RecordColumnData = Record<ColumnName, RecordRowData>
 export type RecordTableData = Record<TableName, RecordColumnData>
-export type RecordCountryData = Record<CountryIso, RecordTableData>
+export type RecordCountryData = { [key in CountryIso]?: RecordTableData }
 export type RecordCycleData = Record<CycleName, RecordCountryData>
 export type RecordAssessmentData = Record<AssessmentName, RecordCycleData>
 

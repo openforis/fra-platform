@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, CycleName } from '@meta/assessment'
-import { NodeUpdates, TableData, TableDatas } from '@meta/data'
+import { NodeUpdates, TableDatas } from '@meta/data'
 
 import { AssessmentActions } from '@client/store/assessment'
 
@@ -18,12 +16,13 @@ import { updateNodeValues } from './actions/updateNodeValues'
 import { DataBaseState, DataState } from './stateType'
 
 const baseState: DataBaseState = {
-  tableData: {} as TableData,
   descriptions: {},
   linkedDataSources: {},
 }
 
-const initialState: DataState = {}
+const initialState: DataState = {
+  tableData: {},
+}
 
 export const dataSlice = createSlice({
   name: 'data',
@@ -34,8 +33,10 @@ export const dataSlice = createSlice({
       const { countryIso, nodes, assessment, cycle } = nodeUpdates
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state[assessment.props.name][cycle.name].tableData = TableDatas.updateDatum({
-          data: state[assessment.props.name][cycle.name].tableData,
+        state.tableData = TableDatas.updateRecordAssessmentData({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          data: state.tableData,
           countryIso,
           tableName,
           variableName,
@@ -49,8 +50,10 @@ export const dataSlice = createSlice({
       const { countryIso, nodes, assessment, cycle } = nodeUpdates
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state[assessment.props.name][cycle.name].tableData = TableDatas.updateDatum({
-          data: state[assessment.props.name][cycle.name].tableData,
+        state.tableData = TableDatas.updateRecordAssessmentData({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          data: state.tableData,
           countryIso,
           tableName,
           variableName,
@@ -64,8 +67,10 @@ export const dataSlice = createSlice({
       const { countryIso, nodes, assessment, cycle } = nodeUpdates
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state[assessment.props.name][cycle.name].tableData = TableDatas.updateDatumValidation({
-          data: state[assessment.props.name][cycle.name].tableData,
+        state.tableData = TableDatas.updateRecordAssessmentDataValidation({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          data: state.tableData,
           countryIso,
           tableName,
           variableName,
@@ -75,18 +80,20 @@ export const dataSlice = createSlice({
       })
     },
 
-    deleteOriginalDataPoint: (
-      state,
-      {
-        payload,
-      }: PayloadAction<{ countryIso: CountryIso; year: string; assessmentName: AssessmentName; cycleName: CycleName }>
-    ) => {
-      // Delete reference from state for deleted ODP
-      const { countryIso, year, cycleName, assessmentName } = payload
-      const odpReference = state[assessmentName][cycleName].tableData[countryIso]?.originalDataPointValue?.[year]
-      if (odpReference) delete state[assessmentName][cycleName].tableData[countryIso]?.originalDataPointValue?.[year]
-    },
+    // // TODO
+    // deleteOriginalDataPoint: (
+    //   state,
+    //   {
+    //     payload,
+    //   }: PayloadAction<{ countryIso: CountryIso; year: string; assessmentName: AssessmentName; cycleName: CycleName }>
+    // ) => {
+    //   // Delete reference from state for deleted ODP
+    //   const { countryIso, year, cycleName, assessmentName } = payload
+    //   const odpReference = state.tableData[assessmentName][cycleName][countryIso]?.originalDataPointValue?.[year]
+    //   if (odpReference) delete state.tableData[assessmentName][cycleName][countryIso]?.originalDataPointValue?.[year]
+    // },
   },
+
   extraReducers: (builder) => {
     // Initialise state[assessmentName].[cycleName] with baseState
     builder.addCase(AssessmentActions.getAssessment.fulfilled, (state, { payload }) => {
@@ -94,50 +101,51 @@ export const dataSlice = createSlice({
         state[payload.props.name] = {}
         payload.cycles.forEach((cycle) => {
           state[payload.props.name][cycle.name] = baseState
+
+          state.tableData = {
+            ...state.tableData,
+            [payload.props.name]: {
+              ...state.tableData[payload.props.name],
+              [cycle.name]: {
+                ...(state.tableData[payload.props.name]?.[cycle.name] ?? {}),
+              },
+            },
+          }
         })
       }
     })
 
     // Table data
-    builder.addCase(getTableData.fulfilled, (state, { payload, meta }) => {
-      const {
-        arg: { assessmentName, cycleName },
-      } = meta
-      const countryIso = Object.keys(payload || {})[0] as CountryIso
-      if (countryIso) {
-        const countryData = state[assessmentName][cycleName].tableData[countryIso] ?? {}
-        state[assessmentName][cycleName].tableData = {
-          ...state[assessmentName][cycleName].tableData,
-          [countryIso]: { ...countryData, ...payload[countryIso] },
-        }
-      }
+    builder.addCase(getTableData.fulfilled, (state, { payload }) => {
+      state.tableData = TableDatas.mergeRecordAssessmentData({
+        tableData: state.tableData,
+        newTableData: payload,
+      })
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
       const { countryIso, tableName, values, assessmentName, cycleName } = meta.arg
       values.forEach((valueUpdate) => {
         const { colName, value, variableName } = valueUpdate
-        state[assessmentName][cycleName].tableData = TableDatas.updateDatum({
+
+        state.tableData = TableDatas.updateRecordAssessmentData({
+          assessmentName,
+          cycleName,
           colName,
           countryIso,
           tableName,
-          data: state[assessmentName][cycleName].tableData,
+          data: state.tableData,
           variableName,
           value,
         })
       })
     })
 
-    builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload, meta }) => {
-      const {
-        arg: { assessmentName, cycleName },
-      } = meta
-      const countryIso = Object.keys(payload)[0] as CountryIso
-      const countryData = state[assessmentName][cycleName].tableData?.[countryIso] ?? {}
-      state[assessmentName][cycleName].tableData = {
-        ...state[assessmentName][cycleName].tableData,
-        [countryIso]: { ...countryData, ...payload[countryIso] },
-      }
+    builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
+      state.tableData = TableDatas.mergeRecordAssessmentData({
+        tableData: state.tableData,
+        newTableData: payload,
+      })
     })
 
     // descriptions

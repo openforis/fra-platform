@@ -70,11 +70,13 @@ export const updateOriginalDataPointDependentNodes = async (
       nodes: originalDataPointVariables.map(({ variableName, tableName }) => {
         return {
           value: TableDatas.getNodeValue({
+            assessmentName,
+            cycleName,
             colName,
             variableName,
             tableName,
             countryIso,
-            data: data[assessmentName][cycleName],
+            data,
           }),
           colName,
           tableName: TableNames.originalDataPointValue,

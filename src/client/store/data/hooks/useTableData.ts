@@ -1,5 +1,5 @@
 import { Table, TableNames } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordCountryData } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
@@ -8,7 +8,7 @@ import { useCountryIso } from '@client/hooks'
 
 import { useOriginalDataPointData } from './useOriginalDataPointData'
 
-export const useTableData = (props: { table: Table }): TableData => {
+export const useTableData = (props: { table: Table }): RecordCountryData => {
   const { table } = props
   const countryIso = useCountryIso()
   const { odp } = table.props
@@ -16,11 +16,11 @@ export const useTableData = (props: { table: Table }): TableData => {
   const cycle = useCycle()
   const country = useAssessmentCountry()
 
-  const tableData = useAppSelector((state) => state.data[assessment.props.name][cycle.name].tableData)
+  const tableData = useAppSelector((state) => state.data.tableData[assessment.props.name][cycle.name])
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
-  if (!tableData?.[countryIso]) return {} as TableData
+  if (!tableData?.[countryIso]) return {}
 
   const shouldReturnWithoutODP =
     !odp ||
@@ -37,5 +37,5 @@ export const useTableData = (props: { table: Table }): TableData => {
     },
   }
 
-  return tableDataWithODP as TableData
+  return tableDataWithODP
 }

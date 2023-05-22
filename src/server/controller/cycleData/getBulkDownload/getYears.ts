@@ -1,7 +1,11 @@
 import { Country } from '@meta/area'
-import { TableData } from '@meta/data'
+import { RecordCountryData, TableData } from '@meta/data'
 
-export const getYears = (props: { countries: Country[]; tableNames: string[]; data: TableData }) => {
+export const getYears = (props: {
+  countries: Country[]
+  tableNames: string[]
+  data: TableData | RecordCountryData
+}) => {
   const { tableNames, data, countries } = props
   return new Array(
     ...new Set(
