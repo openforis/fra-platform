@@ -31,7 +31,7 @@ export const useValidations = (props: { table: Table }): void => {
         ),
         effect: (_, { getState }) => {
           const state = getState()
-          const { data } = state.ui.assessmentSection
+          const { tableData: data } = state.data[assessment.props.name][cycle.name]
           const nodes: Array<NodeUpdate> = []
 
           rowsData.forEach((row) => {
