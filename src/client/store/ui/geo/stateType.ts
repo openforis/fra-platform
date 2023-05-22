@@ -11,7 +11,6 @@ export enum LayerFetchStatus {
 export type AgreementLevelState = {
   level: number
   reducerScale: number
-  palette: Array<string>
 }
 
 // Similar to the type LayerOptions, but in this case it has the selected

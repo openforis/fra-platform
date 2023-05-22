@@ -3,7 +3,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { LayerSection } from '@meta/geo/layer'
+import { LayerKey, LayerSection } from '@meta/geo/layer'
 
 import { LayerState } from '@client/store/ui/geo/stateType'
 
@@ -11,16 +11,20 @@ interface Props {
   countLayersSelected: number
   layerState: LayerState
   section: LayerSection
+  layerKey: LayerKey
   onChange: (value: number) => void
 }
-const AgreementLevelSelector: React.FC<Props> = ({ countLayersSelected, layerState, section, onChange }) => {
+const AgreementLevelSelector: React.FC<Props> = ({ countLayersSelected, layerState, section, layerKey, onChange }) => {
+  const currentSelectedLevel = layerState?.options?.agreementLayer?.level
+  let palette = section.layers.find((layer) => layer.key === layerKey)?.metadata?.palette
+  palette =
+    palette && currentSelectedLevel !== undefined ? palette.slice(currentSelectedLevel - 1, countLayersSelected) : []
   return (
     <div className="geo-map-menu-data-visualizer-agreement-level-boxes">
       {Array(section.layers.length - 1) // Layers excluding Agreement
         .fill(undefined)
         .map((_, i) => {
-          const currentSelectedLevel = layerState?.options?.agreementLayer?.level
-          const currentAgreementPaletteLength = layerState?.options?.agreementLayer?.palette?.length
+          const currentAgreementPaletteLength = palette ? palette.length : 0
           const level = i + 1
           const id = `${section.key}-agreement-${level}`
           const disabled = level > countLayersSelected
@@ -31,14 +35,14 @@ const AgreementLevelSelector: React.FC<Props> = ({ countLayersSelected, layerSta
             level <= countLayersSelected &&
             agreementLevelOffset < currentAgreementPaletteLength
               ? {
-                  backgroundColor: `${layerState?.options?.agreementLayer?.palette?.[agreementLevelOffset]}`,
+                  backgroundColor: `${palette?.[agreementLevelOffset]}`,
                 }
               : {}
           const selectedStyle =
             currentAgreementPaletteLength > 0
               ? {
-                  backgroundColor: `${layerState?.options?.agreementLayer?.palette?.[agreementLevelOffset]}`,
-                  boxShadow: `0px 0px 3px 3px ${layerState?.options?.agreementLayer?.palette?.[agreementLevelOffset]}30`,
+                  backgroundColor: `${palette?.[agreementLevelOffset]}`,
+                  boxShadow: `0px 0px 3px 3px ${palette?.[agreementLevelOffset]}30`,
                 }
               : {}
 

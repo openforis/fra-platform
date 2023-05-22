@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { LayerResponseData } from '@meta/api/request/geo/layer'
 import { CountryIso } from '@meta/area'
 import { LayerKey, LayerSectionKey, sectionsApiEndpoint } from '@meta/geo'
 
@@ -15,7 +14,7 @@ export interface PostLayerProps {
   layerKey: LayerKey
 }
 
-export const postLayer = createAsyncThunk<[LayerSectionKey, LayerKey, LayerResponseData], PostLayerProps>(
+export const postLayer = createAsyncThunk<[LayerSectionKey, LayerKey, string], PostLayerProps>(
   'geo/post/layer',
   async ({ countryIso, sectionKey, layerKey }, { getState }) => {
     const state = getState()
@@ -23,7 +22,9 @@ export const postLayer = createAsyncThunk<[LayerSectionKey, LayerKey, LayerRespo
     const layerState = sectionState?.[layerKey]
     const body = _getLayerRequestBody(countryIso, layerKey, layerState, sectionState)
     const url = sectionsApiEndpoint[sectionKey]
-    const { data } = await axios({ method: 'POST', url, data: body })
-    return [sectionKey, layerKey, data]
+    const {
+      data: { mapId },
+    } = await axios({ method: 'POST', url, data: body })
+    return [sectionKey, layerKey, mapId]
   }
 )
