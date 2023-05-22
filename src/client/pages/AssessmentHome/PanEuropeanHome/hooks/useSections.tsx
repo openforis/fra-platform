@@ -9,7 +9,7 @@ import Collaborators from '@client/pages/AssessmentHome/FraHome/Collaborators'
 import CountryMessageBoard from '@client/pages/AssessmentHome/FraHome/CountryMessageBoard'
 import RecentActivity from '@client/pages/AssessmentHome/FraHome/RecentActivity'
 
-import Description from '../Description'
+import Overview from '../Overview'
 
 enum SectionNames {
   overview = 'overview',
@@ -28,7 +28,7 @@ export const useSections = (): Array<Section> => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const sections: Array<Section> = [{ name: SectionNames.overview, component: Description }]
+  const sections: Array<Section> = [{ name: SectionNames.overview, component: Overview }]
 
   if (user) {
     sections.push({ name: SectionNames.messageBoard, component: CountryMessageBoard })

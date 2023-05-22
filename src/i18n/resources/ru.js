@@ -1,21 +1,31 @@
 const area = require('./ru/area')
 const common = require('./ru/common')
 const dataDownload = require('./ru/dataDownload')
+const dataSource = require('./ru/dataSource')
 const fra = require('./ru/fra')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
 const login = require('./ru/login')
 const uc = require('./ru/uc')
 const print = require('./ru/print')
+const contentCheck = require('./ru/contentCheck')
 
 module.exports.translation = {
   area,
   common,
+  contentCheck,
+  dataSource,
   dataDownload,
   fra,
   statisticalFactsheets,
   login,
   uc,
   print,
+
+  page: {
+    assessmentSection: {
+      dataTableHasErrors: 'Нажмите на красную ячейку, чтобы увидеть детали.',
+    },
+  },
 
   language: {
     en: 'English',
@@ -38,6 +48,7 @@ module.exports.translation = {
     userGuide: 'Руководство пользователя',
     sendFeedback: 'Направить отзыв',
     licenses: 'Лицензирование',
+    platformVersion: 'Версия платформы',
   },
 
   disclaimer: {
@@ -80,6 +91,7 @@ module.exports.translation = {
     annualNumberOfVisitsMillion: 'ежегодное число посещений (млн)',
     millionNationalCurrency: 'млн ед. нац. валюты',
     facilityLengthIn1000Km: 'объект (протяжённость в 1000 км)',
+    growingStockPercent: '% от общего запаса древостоя',
   },
 
   countrySelection: {
@@ -89,6 +101,7 @@ module.exports.translation = {
   definition: {
     definitionLabel: 'См. определения',
     faqLabel: 'Часто задаваемые вопросы',
+    seeReportingNotes: 'См. Примечания к отчетам',
   },
 
   audit: {
@@ -128,6 +141,14 @@ module.exports.translation = {
       // collaborator_1: 'Сотрудника',
       // collaborator_2: 'Сотрудников',
       // administrator: 'Администратор',
+      VIEWER: 'Наблюдатель',
+      reviewer_plural: 'Рецензенты',
+      nationalCorrespondent_plural: 'Национальные корреспонденты',
+      alternateNationalCorrespondent_plural: 'Заместители национального корреспондента',
+      collaborator_plural: 'Сотрудники',
+    },
+    resetPasswordEmail: {
+      subject: 'Платформа ОЛР - сменить пароль',
     },
   },
 
@@ -162,6 +183,8 @@ module.exports.translation = {
       userManagement: 'Координировать сотрудников',
       externalData: 'Внешние данные',
       links: 'Ссылки и хранилище данных',
+      contentCheck: 'Содержание / проверка',
+      versioning: 'Версии',
     },
     overview: {
       loadingMap: 'Загрузка карты…',
@@ -237,6 +260,11 @@ module.exports.translation = {
       repository: 'Хранилище данных',
       uploadFile: 'Загрузить файл',
       confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',
+      fileUploaded: 'Файл успешно загружен',
+      fileDeleted: 'Файл успешно удален',
+    },
+    dataExport: {
+      downloadData: 'Загрузить данные',
     },
   },
 
@@ -287,6 +315,9 @@ module.exports.translation = {
         'Ошибка: Пользователь {{user}} в роли {{role}} не может редактировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
       assessmentCommentingNotAllowed:
         'Ошибка: Пользователь {{user}} в роли {{role}} не может комментировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
+      userNotAdministrator:
+        'Ошибка: пользователь {{user}} попытался получить доступ к ресурсу, доступному только для администраторов',
+      userAlreadyAddedToCountry: 'Ошибка: пользователь {{user}} уже добавлен к стране {{sturniso}}',
     },
     assessment: {
       transitionNotAllowed: 'Ошибка: Переход от {{currentStatus}} к {{status}} не разрешается для роли {{role}}',
@@ -362,6 +393,9 @@ module.exports.translation = {
     week_1: '{{count}} недели назад',
     week_2: '{{count}} недель назад',
     aMomentAgo: 'минуту назад',
+    hour_plural: '{{count}} несколько часов назад',
+    day_plural: '{{count}} несколько дней назад',
+    week_plural: '{{count}} Несколько недель назад',
   },
 
   review: {
@@ -376,6 +410,7 @@ module.exports.translation = {
     commentingClosed: 'Комментирование закрыто',
     add: 'Добавить',
     cancel: 'Отмена',
+    loading: 'Загрузка',
   },
 
   description: {
@@ -444,6 +479,14 @@ module.exports.translation = {
       otherWoodedLand: 'Прочие лесопокрытые земли',
       otherLand: 'Другие земельные площади',
     },
+    forestCategoriesLabel2025: 'Леса, прочие лесистые земли и остальные земельные площади',
+    nationalClassifications: 'Национальные классификации',
+    categories: 'Категории',
+    prefill: 'Предварительно заполнить',
+    prefillWith: 'Предварительно заполнить с',
+    dataSource2025ExplanatoryText:
+      'Перечисленные источники данных были представлены в ОЛР-2020. Просьба скопировать и вставить соответствующие источники данных в таблицу выше.',
+    confirmCopyPreviousValues: 'Вы хотите изменить предыдущие значения? Эту операцию нельзя отменить.',
   },
 
   userManagement: {
@@ -493,6 +536,18 @@ module.exports.translation = {
 {{- url}}
     `,
     },
+    editPermissions: 'Изменить разрешения',
+    invitationDeleted: 'Приглашение было удалено',
+    invitationEmailSent: 'Письмо с приглашением было отправлено',
+    permissions: 'Разрешения',
+    personalInfoRequired: 'Пожалуйста, заполните вашу личную информацию, прежде чем продолжить',
+    userAdded: '{{email}} был добавлен',
+    userModified: '{{user}} был изменен',
+    permissionNames: {
+      tableData: 'Данные таблицы',
+      descriptions: 'Описания',
+    },
+    invitationLinkCopied: 'Ссылка на приглашение была скопирована',
   },
 
   // FRA 2020 questionare
@@ -537,6 +592,7 @@ module.exports.translation = {
     ndpMissingValues: 'Национальный отчетный год имеет отсутствующие значения',
     showNDPs: 'Показать национальные отчетные годы',
     hideNDPs: 'Скрыть национальные отчетные годы',
+    forestAreaNetChangeDoesNotMatch: 'Изменение сети лесов не соответствует ожидаемому значению: {{value}}',
   },
 
   climaticDomain: {
@@ -577,6 +633,7 @@ module.exports.translation = {
     copyToClipboard: 'Скопировать значения',
     placeholderSelect: 'Оценка и прогнозирование',
     _1000haYear: '1000 га/год',
+    generatingFraValues: 'Генерируется ...',
   },
 
   forestAreaChange: {
@@ -589,6 +646,7 @@ module.exports.translation = {
     deforestation: 'Обезлесение',
     forestAreaNetChange: 'Чистое изменение лесной площади',
     netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади',
+    forestAreaNetChangeFrom1a: 'Чистое изменение площади лесов  из таблицы 1а',
   },
 
   annualReforestation: {
@@ -932,6 +990,11 @@ module.exports.translation = {
         next: 'Принять',
         previous: '',
       },
+      status: {
+        notStarted: {
+          label: 'Не начат',
+        },
+      },
     },
   },
 
@@ -947,6 +1010,32 @@ module.exports.translation = {
     valueMustBePositive: 'Значение должно быть больше нуля',
     emptyField: 'Пустое поле',
     mustBeEqualToTotalGrowingStock: 'Значение должно равняться Общему запасу древостоя (2a)',
+    remainingLandExceedsExtentOfForest: 'Превышает остальные земельные площади (1a)',
+    valueMustBeYear: 'Значение должно быть действительным годом',
+    countryReportYearGreaterThanCurrentYear: 'Значение должно быть больше или равно {{minvalue}}',
+    valueNotGreaterThan: 'Значение должно быть не больше, чем {{maxValue}}',
+    sumNotGreaterThan: 'Сумма не должна превышать {{maxValue}}',
+    valuesAreInconsistentWithNetChange: 'Значения не совместимы с изменением площади лесов',
+    valuesAreInconsistent1aOr1b: 'Значения не соответствуют площадям, указанным в таблицах 1a или 1b',
+    mustBeEqualToPrivateOwnership: 'Сумма подкатегорий должна быть равна частной собственности',
+    mustBeEqualToForestExpansion: 'Сумма подкатегорий должна быть равна расширению леса',
+    mustBeEqualToPlantedForest: 'Сумма подкатегорий должна быть равна лесным культурам',
+    mustBeEqualToForestArea:
+      'Сумма естественно возобновляемых лесов и лесных культур должна быть равна общему запасу древостоя',
+    mustBeLessThanPrivateOwnership: 'Сумма подкатегорий должна быть меньше, чем частная собственность',
+    forestSumAreaExceedsExtentOfForest: 'Сумма категорий ОЛР превышает площадь лесов, указанную в таблице 1а',
+    valueEqualToSum: 'Общее значение должно быть равным сумме подкатегорий',
+    notEmpty: 'Значение не может быть пустым',
+    mustBeEqualToPrimaryForest: 'Сумма подкатегорий должна быть равна первичным лесам',
+    landAreaExceedsTotalLandArea: 'Земельная площадь превышает общую площадь земель (1a) ({{value}})',
+    classValueNotGreaterThan: '{{name}} не должно быть больше, чем {{value}}',
+    classValuesMustBeEqualTo: '{{name}} сумма должна быть равна {{value}}',
+    valueCannotExceedMaximumValueReportedForForestArea:
+      'Значение не может превышать максимальное значение ({{maxforestarea}}), указанное для площади лесов (1a)',
+    valueCannotExceedMaximumValueReportedForForestAreaYear:
+      'Сумма для {{year}} года не может превышать максимальное значение ({{maxforestarea}}), указанное для площади лесов (1a)',
+    valueCannotExceedMaximumValueReportedForLandArea:
+      'Значение не может превышать максимальное значение ({{maxlandarea}}), указанное для площади земель (1a)',
   },
 
   emoji: {
@@ -980,6 +1069,31 @@ module.exports.translation = {
     deactivate: 'Деактивировать',
     activate: 'Активировать',
     picture1MbMax: 'Картинка в профиле не может превышать 1MB',
+    title: 'Апелляция',
+    surname: 'Фамилия',
+    professionalTitle: 'Должность',
+    organizationalUnit: 'Организационное подразделение',
+    organization: 'Организация',
+    street: 'Адрес ',
+    zipCode: 'Почтовый индекс',
+    poBox: 'Абонентский ящик',
+    city: 'Город',
+    countryIso: 'Страна',
+    primaryEmail: 'Основной адрес электронной почты',
+    secondaryEmail: 'Дополнительный адрес электронной почты',
+    primaryPhoneNumber: 'Основной телефон',
+    secondaryPhoneNumber: 'Второй номер телефона',
+    skype: 'Имя пользователя Skype',
+    contactPreference: 'Предпочтительный способ контакта',
+    contactPreferenceMethod: 'Метод контакта',
+    platformChat: 'Чат на платформе',
+    signal: 'Signal',
+    whatsapp: 'WhatsApp',
+    activated: 'Активирован',
+    status: 'Статус',
+    demoteToUser: 'Вы уверены, что хотите удалить привилегии администратора?',
+    promoteToAdmin: 'Вы уверены, что хотите предоставить административные привилегии?',
+    mandatoryFields: '* Обязательные поля',
   },
 
   country: {

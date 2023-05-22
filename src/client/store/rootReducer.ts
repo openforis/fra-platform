@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
 import AssessmentSlice from './assessment/slice'
+import DataSlice from './data/slice'
 import LoginSlice from './login/slice'
+import MetadataSlice from './metadata/slice'
 import assessmentFilesSlice from './ui/assessmentFiles/slice'
 import AssessmentSectionSlice from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -20,6 +22,8 @@ export default {
   assessment: AssessmentSlice,
   login: LoginSlice,
   user: UserSlice,
+  data: DataSlice,
+  metadata: MetadataSlice,
   ui: combineReducers({
     assessmentFiles: assessmentFilesSlice,
     assessmentSection: AssessmentSectionSlice,

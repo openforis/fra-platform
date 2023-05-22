@@ -6,7 +6,7 @@ import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleDataParams } from '@meta/api/request'
 import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
 
-import { updateDescription } from '@client/store/ui/assessmentSection/actions/updateDescription'
+import { updateDescription } from './updateDescription'
 
 export const copyPreviousDatasources = createAsyncThunk<
   void,

@@ -67,19 +67,36 @@ const Cell: React.FC<Props> = (props) => {
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
 
   const Component = Components[col.props.colType]
+  const { colSpan, rowSpan, ...style } = Cols.getStyle({ col, cycle })
 
+  /**
+   * @deprecated. TODO: on hover, show tooltip
+   */
   const showError = useCallback(() => {
     if (!valid) {
       const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value: nodeValue }
-      dispatch(AssessmentSectionActions.setNodeValidationToDisplay({ nodeUpdate }))
+      dispatch(
+        AssessmentSectionActions.setNodeValidationToDisplay({
+          nodeUpdate,
+          assessmentName,
+          cycleName: cycle.name,
+        })
+      )
     }
-  }, [colName, dispatch, nodeValue, tableName, valid, variableName])
+  }, [assessmentName, colName, cycle.name, dispatch, nodeValue, tableName, valid, variableName])
 
   if (!Component) return null
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    <td className={className} onClick={showError} onKeyDown={showError}>
+    <td
+      colSpan={colSpan}
+      className={className}
+      onClick={showError}
+      onKeyDown={showError}
+      rowSpan={rowSpan}
+      style={style}
+    >
       <Component
         assessmentName={assessmentName}
         sectionName={sectionName}

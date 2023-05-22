@@ -24,7 +24,7 @@ export const UserApi = {
   init: (express: Express): void => {
     express.put(ApiEndPoint.User.many(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
-    express.get(ApiEndPoint.User.one(), AuthMiddleware.requireEditUser, getUser)
+    express.get(ApiEndPoint.User.one(), AuthMiddleware.requireViewUser, getUser)
 
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
     express.get(ApiEndPoint.User.invitation(), getInvitation)

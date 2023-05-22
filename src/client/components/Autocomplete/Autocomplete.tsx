@@ -45,15 +45,9 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
 
   // Handle saving on input field blur or item selected
   const _onStateChange: (changes: UseComboboxStateChange<any>) => void = (changes) => {
-    if (
-      [useCombobox.stateChangeTypes.InputBlur, useCombobox.stateChangeTypes.ItemClick].includes(
-        // @ts-ignore
-        changes.type
-      )
-    ) {
+    if (changes.type === useCombobox.stateChangeTypes.ItemClick) {
       // Disable saving if selected item is not changed when free text disabled
       if (readOnlyOptions && !changes.selectedItem) {
-        onSave({ value: items.find(({ value }) => value === inputValue)?.value ?? '' })
         return
       }
 
@@ -65,6 +59,10 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
 
       // Default behavior: Save both selected value OR input value
       onSave(changes.selectedItem?.value ?? inputValue)
+    } else if (changes.type === useCombobox.stateChangeTypes.InputBlur) {
+      const value = items.find(({ label }) => label === inputValue)?.value ?? ''
+      if (value === '') setInputValue('')
+      onSave({ value })
     }
   }
 

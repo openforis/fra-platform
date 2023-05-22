@@ -7,13 +7,12 @@ import { AssessmentName, AssessmentNames } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useUserCycles } from '@client/store/user'
 import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from '@client/hooks/useIsPath'
 import AssessmentSwitch from '@client/components/AssessmentSwitch'
 import PageLayout from '@client/components/PageLayout'
 import Partners from '@client/components/Partners'
-import Description from '@client/pages/AssessmentHome/PanEuropeanHome/Description'
+import Overview from '@client/pages/AssessmentHome/PanEuropeanHome/Overview'
 
 import Admin from '../Admin'
 import Country from '../Country'
@@ -30,7 +29,7 @@ const Components: { [key: AssessmentName]: React.FC } = {
       <Partners />
     </>
   ),
-  [AssessmentNames.panEuropean]: Description,
+  [AssessmentNames.panEuropean]: Overview,
 }
 
 const Cycle: React.FC = () => {
@@ -49,14 +48,6 @@ const Cycle: React.FC = () => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
     // TODO: reset areas on return
   }, [assessmentName, cycleName, dispatch])
-
-  // On cycle change, reset metadata, data
-  useEffect(() => {
-    return () => {
-      dispatch(AssessmentSectionActions.resetData())
-      dispatch(AssessmentSectionActions.reset())
-    }
-  }, [cycleName, dispatch])
 
   useEffect(() => {
     // If user is accessing login page, do not redirect

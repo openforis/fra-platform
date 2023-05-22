@@ -1,0 +1,8 @@
+export { useCommentableDescriptionValue } from './hooks/useCommentableDescriptionValue'
+export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
+export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
+export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
+export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'
+export { useTableData } from './hooks/useTableData'
+export { DataActions } from './slice'
+export type { DataState } from './stateType'
