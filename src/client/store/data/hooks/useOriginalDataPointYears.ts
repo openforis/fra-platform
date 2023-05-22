@@ -1,6 +1,6 @@
 import { useOriginalDataPointData } from './useOriginalDataPointData'
 
-export const useOriginalDataPointYears = (): Array<{ year: string; id: string }> => {
+export const useOriginalDataPointYears = (): Array<{ year: string; id: number }> => {
   const odpData = useOriginalDataPointData()
 
   if (!odpData) return null

@@ -6,19 +6,17 @@ import { useAppSelector } from '@client/store'
 export const useReviewStatus = (key: string): ReviewStatus =>
   useAppSelector((state) => state.ui.review.status[key] || ({} as ReviewStatus))
 
-export const useOdpReviewSummary = (odpId: string): ReviewStatus => {
-  const statuses = useAppSelector((state) =>
-    Object.values(
-      Object.fromEntries(Object.entries(state.ui.review.status).filter(([key]) => key.includes(`odp-${odpId}-`)))
-    )
-  )
+export const useOdpReviewSummary = (odpId: number): ReviewStatus => {
+  const statuses = useAppSelector((state) => Object.values(Object.fromEntries(Object.entries(state.ui.review.status))))
 
   return statuses.reduce(
     (curr, acc) => {
-      return {
-        hasUnreadMessages: curr.hasUnreadMessages || acc.hasUnreadMessages,
-        status: curr.status !== MessageTopicStatus.resolved ? MessageTopicStatus.opened : acc.status,
-      }
+      return curr.key.startsWith(`odp-${odpId}-`)
+        ? {
+            hasUnreadMessages: curr.hasUnreadMessages || acc.hasUnreadMessages,
+            status: curr.status !== MessageTopicStatus.resolved ? MessageTopicStatus.opened : acc.status,
+          }
+        : acc
     },
     {
       hasUnreadMessages: false,

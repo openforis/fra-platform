@@ -15,7 +15,7 @@ type Props = {
   className: string
   colSpan: number
   rowSpan: number
-  odpId: string
+  odpId: number
   odpYear: string
   sectionName: string
 }
