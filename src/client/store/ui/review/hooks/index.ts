@@ -10,14 +10,13 @@ export const useOdpReviewSummary = (odpId: number): ReviewStatus => {
   const statuses = useAppSelector((state) => Object.values(Object.fromEntries(Object.entries(state.ui.review.status))))
 
   return statuses.reduce(
-    (curr, acc) => {
-      return curr.key.startsWith(`odp-${odpId}-`)
+    (acc, curr) =>
+      curr.key.startsWith(`odp-${odpId}-`)
         ? {
             hasUnreadMessages: curr.hasUnreadMessages || acc.hasUnreadMessages,
             status: curr.status !== MessageTopicStatus.resolved ? MessageTopicStatus.opened : acc.status,
           }
-        : acc
-    },
+        : acc,
     {
       hasUnreadMessages: false,
       status: MessageTopicStatus.resolved,
