@@ -8,7 +8,7 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { useOdpReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
-import ReviewStatusMarker from '@client/components/Navigation/NavAssessment/Section/ReviewStatusMarker'
+import ReviewSummaryIndicator from '@client/components/ReviewSummaryIndicator'
 import Tooltip from '@client/components/Tooltip'
 
 type Props = {
@@ -47,7 +47,7 @@ const HeaderCell: React.FC<Props> = (props) => {
         >
           {odpYear}
         </Link>
-        <ReviewStatusMarker status={reviewStatus} />
+        <ReviewSummaryIndicator status={reviewStatus} />
       </Tooltip>
     </th>
   ) : (

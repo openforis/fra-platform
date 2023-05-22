@@ -1,6 +1,6 @@
 @import 'src/client/style/partials';
 
-.nav-review-status {
+.review-summary-status {
   &.read {
     @include mixin-status-base($ui-accent);
   }
