@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from '@utils/objects'
 
 import { ODPDataSourceMethod, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
+import { Topics } from '@meta/messageCenter'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -84,7 +85,7 @@ const DataSources: React.FC<Props> = (props) => {
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.references')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
-                      topicKey={`odp-${originalDataPoint.id}-dataSourceReferences`}
+                      topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceReferences')}
                     />
                   </td>
                 )}
@@ -111,7 +112,7 @@ const DataSources: React.FC<Props> = (props) => {
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.methodsUsed')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
-                      topicKey={`odp-${originalDataPoint.id}-dataSourceMethods`}
+                      topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceMethods')}
                     />
                   </td>
                 )}
@@ -143,7 +144,7 @@ const DataSources: React.FC<Props> = (props) => {
                     <ReviewIndicator
                       title={i18n.t('nationalDataPoint.additionalComments')}
                       subtitle={i18n.t('nationalDataPoint.dataSources')}
-                      topicKey={`odp-${originalDataPoint.id}-dataSourceAdditionalComments`}
+                      topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceAdditionalComments')}
                     />
                   </td>
                 )}

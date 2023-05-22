@@ -5,6 +5,7 @@ import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 
 import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { Topics } from '@meta/messageCenter'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -163,7 +164,7 @@ const NationalClass: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.nationalDataPoint')}
-            topicKey={`odp-${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-definition`}
+            topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'definition')}
           />
         </td>
       )}

@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 import { ODPNationalClass, OriginalDataPoint } from '@meta/assessment'
 import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
+import { Topics } from '@meta/messageCenter'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -176,7 +177,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={t('nationalDataPoint.forestCharacteristics')}
-            topicKey={`odp-${originalDataPoint.id}-class-${uuid}-forestCharacteristics`}
+            topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'forestCharacteristics')}
           />
         </td>
       )}
