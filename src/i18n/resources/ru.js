@@ -154,7 +154,7 @@ module.exports.translation = {
 
   fraClass: {
     forest: 'Леса',
-    otherWoodedLand: 'Прочие лесистые земли',
+    otherWoodedLand: 'Прочие лесопокрытые земли',
     otherLand: 'Другие земельные площади',
   },
 
@@ -476,7 +476,7 @@ module.exports.translation = {
     },
     appliesToVariablesOptions: {
       forest: 'Леса',
-      otherWoodedLand: 'Прочие лесистые земли',
+      otherWoodedLand: 'Прочие лесопокрытые земли',
       otherLand: 'Другие земельные площади',
     },
     forestCategoriesLabel2025: 'Леса, прочие лесистые земли и остальные земельные площади',
@@ -692,7 +692,7 @@ module.exports.translation = {
     plantationForest: '…в том числе плантационные лесные культуры',
     otherPlantedForest: '…в том числе другие лесные культуры',
     forest: 'Леса',
-    otherWoodedLand: 'Прочие лесистые земли',
+    otherWoodedLand: 'Прочие лесопокрытые земли',
     copyToClipboard: 'Скопировать значения',
   },
 

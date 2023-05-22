@@ -125,6 +125,9 @@ module.exports = {
   otherLandWithTreeCover: {
     otherLandWithTreeCover2025: 'Прочие земли с древесным покровом',
   },
+  otherWoodedLand: {
+    otherWoodedLand2025: 'Прочие лесистые земли',
+  },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Вывозка и стоимость недревесной лесной продукции 2020',
   },
