@@ -1,9 +1,9 @@
 import { AssessmentName, Row, Table } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 export type Props = {
   assessmentName: AssessmentName
-  data: TableData
+  data: RecordAssessmentData
   sectionName: string
   table: Table
   row: Row

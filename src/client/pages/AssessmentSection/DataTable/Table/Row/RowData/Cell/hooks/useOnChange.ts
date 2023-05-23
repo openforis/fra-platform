@@ -2,7 +2,7 @@ import React from 'react'
 
 import { NodesBodyValue } from '@meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
-import { TableData, TableDatas } from '@meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
@@ -15,7 +15,7 @@ type Props = {
   row: Row
   col: Col
   nodeValue: NodeValue
-  data: TableData
+  data: RecordAssessmentData
   sectionName: string
 }
 export type OnChangeNodeValue = (value: NodeValue) => void
@@ -119,7 +119,9 @@ export default (props: Props): UseOnChange => {
           const acceptable = Sanitizer.isAcceptable({ type: colSpecType, value })
 
           if (!readOnly && acceptable) {
-            const nodeValue = TableDatas.getNodeValue({
+            const nodeValue = RecordAssessmentDatas.getNodeValue({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
               data,
               countryIso,
               colName: colSpec.props.colName,
