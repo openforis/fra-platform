@@ -2,8 +2,10 @@ import { useEffect } from 'react'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions, useTableSections } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
+
+import { MetadataActions } from '../slice'
+import { useTableSections } from './useTableSections'
 
 export const useGetTableSections = () => {
   const dispatch = useAppDispatch()
@@ -19,7 +21,7 @@ export const useGetTableSections = () => {
     // Fetch sections if current section empty
     if (tableSections.length < 1) {
       dispatch(
-        AssessmentSectionActions.getTableSections({
+        MetadataActions.getTableSections({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           sectionNames: [section?.props.name],

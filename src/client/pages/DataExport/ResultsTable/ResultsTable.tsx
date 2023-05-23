@@ -10,7 +10,7 @@ import { AssessmentName } from '@meta/assessment'
 import { Unit } from '@meta/dataExport'
 
 import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/ui/assessmentSection'
+import { useTableSections } from '@client/store/metadata'
 import { useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
 import ButtonTableExport from '@client/components/ButtonTableExport'
 import { convertValue, formatValue, getColumnLabelKeys } from '@client/pages/DataExport/utils'

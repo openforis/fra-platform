@@ -1,7 +1,7 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
 import { TableSection } from '@meta/assessment'
 
@@ -14,6 +14,6 @@ export const getTableSections = createAsyncThunk<void, CycleParams & { sectionNa
       await axios.get(ApiEndPoint.MetaData.sectionsMetadata(), { params })
     )
 
-    dispatch(setTableSections({ tableSections }))
+    dispatch(setTableSections({ tableSections, assessmentName: params.assessmentName, cycleName: params.cycleName }))
   }
 )

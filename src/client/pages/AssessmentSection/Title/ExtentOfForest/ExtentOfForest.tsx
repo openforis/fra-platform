@@ -6,11 +6,8 @@ import { Users } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import {
-  AssessmentSectionActions,
-  useOriginalDataPointYears,
-  useShowOriginalDatapoints,
-} from '@client/store/ui/assessmentSection'
+import { useOriginalDataPointYears } from '@client/store/data'
+import { AssessmentSectionActions, useShowOriginalDatapoints } from '@client/store/ui/assessmentSection'
 import { useUser } from '@client/store/user'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import OriginalDataPointsPrint from '@client/pages/AssessmentPrint/OriginalDataPointsPrint'

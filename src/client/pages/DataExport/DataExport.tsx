@@ -8,7 +8,7 @@ import { Row } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/ui/assessmentSection'
+import { useTableSections } from '@client/store/metadata'
 import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
 import { useCountryIso } from '@client/hooks'
 
@@ -52,7 +52,7 @@ const DataExport: React.FC = () => {
     return () => {
       dispatch(DataExportActions.reset())
     }
-  }, [countryIso])
+  }, [countryIso, dispatch])
 
   return (
     <div className="app-view__content export">

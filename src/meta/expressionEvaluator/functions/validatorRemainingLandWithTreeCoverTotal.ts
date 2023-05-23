@@ -14,7 +14,7 @@ export const validatorRemainingLandWithTreeCoverTotal: ExpressionFunction<Contex
       const valid =
         Objects.isEmpty(remainingLand) ||
         Objects.isEmpty(otherLandWithTreeCoverTotal) ||
-        !Numbers.greaterThanWithTolerance(remainingLand, otherLandWithTreeCoverTotal)
+        Numbers.greaterThanWithTolerance(otherLandWithTreeCoverTotal, remainingLand)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined

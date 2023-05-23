@@ -48,7 +48,7 @@ module.exports = {
   returnHomeClick: 'here.',
 
   alreadyAcceptedInvitation: 'This invitation has already been accepted',
-  invitationMessage: 'You have been invited to {{assessment}} {{cycle}} as {{role}} for {{country}}',
+  invitationMessage: 'You have been invited to {{assessment}} {{cycle}} as {{role}} for {{- country}}',
   invitationProvidersRegistered: 'You already have an account registered with {{authProviderNames}}',
   acceptInvitation: 'Accept Invitation',
   acceptInvitationWithFra: 'Accept Invitation with FRA',

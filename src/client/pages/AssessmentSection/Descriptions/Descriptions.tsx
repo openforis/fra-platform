@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
-import { Description, TableNames } from '@meta/assessment'
+import { Description } from '@meta/assessment'
 
-import { useAssessmentCountry, useCycle } from '@client/store/assessment'
-import { useHasOriginalDataPointData } from '@client/store/ui/assessmentSection'
+import { useAssessmentCountry } from '@client/store/assessment'
+import { useHasOriginalDataPointData } from '@client/store/data'
 import { useIsPrint } from '@client/hooks/useIsPath'
 
 import AnalysisDescriptions from './AnalysisDescriptions'
@@ -18,50 +18,29 @@ type Props = {
 export const useDescriptions = (props: Props): Description => {
   const { descriptions, sectionName } = props
   const { onlyTables } = useIsPrint()
-  const cycle = useCycle()
 
   const country = useAssessmentCountry()
   const hasOriginalDataPointData = useHasOriginalDataPointData()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
-  const bySections = useMemo(() => {
-    const getDescriptions = (hasDescriptions: boolean) => {
-      if (hasDescriptions) {
-        return {
-          analysisAndProcessing: {
-            estimationAndForecasting: true,
-            reclassification: true,
-          },
-          nationalData: {
-            dataSources: {
-              table: {
-                columns: ['referenceToTataSource', 'typeOfDataSource', 'fraVariable', 'yearForDataSource', 'comments'],
-              },
-              text: { readOnly: cycle.name !== '2020' },
-            },
-            nationalClassification: true,
-            originalData: true,
-          },
-        }
-      }
-      return undefined
-    }
-    return {
-      [TableNames.extentOfForest]: getDescriptions(!hasOriginalDataPointData),
-      [TableNames.forestCharacteristics]: getDescriptions(!useOriginalDataPoint),
-    }
-  }, [cycle.name, hasOriginalDataPointData, useOriginalDataPoint])
-
   if (onlyTables) {
     return {}
   }
 
-  // @ts-ignore
-  const bySection = bySections[sectionName]
+  // Only show comments if section has ODP data
+  const onlyComments =
+    (sectionName === 'extentOfForest' && hasOriginalDataPointData) ||
+    (sectionName === 'forestCharacteristics' && useOriginalDataPoint)
+
+  if (onlyComments) {
+    return {
+      comments: true,
+    }
+  }
 
   return {
-    nationalData: bySection?.nationalData ?? descriptions.nationalData,
-    analysisAndProcessing: bySection?.analysisAndProcessing ?? descriptions.analysisAndProcessing,
+    nationalData: descriptions.nationalData,
+    analysisAndProcessing: descriptions.analysisAndProcessing,
   }
 }
 
@@ -75,7 +54,6 @@ const Descriptions: React.FC<Props> = (props: Props) => {
     sectionName,
     disabled,
   })
-
   return (
     <>
       {nationalData && (

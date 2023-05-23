@@ -48,7 +48,7 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     style: {
                       '2020': { colSpan: 1, rowSpan: 3 },
-                      '2025': { colSpan: 1, rowSpan: 4 },
+                      '2025': { colSpan: 1, rowSpan: 1 },
                     },
                   },
                 },
@@ -62,7 +62,7 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     style: {
                       '2020': { colSpan: 1, rowSpan: 2 },
-                      '2025': { colSpan: 1, rowSpan: 2 },
+                      '2025': { colSpan: 1, rowSpan: 1 },
                     },
                   },
                 },
@@ -91,75 +91,11 @@ export const areaWithForestLandDegradation = {
                 },
               ],
               type: 'header',
+              migration: { cycles: ['2020'] },
             },
             {
               idx: 'header_1',
               cols: [
-                {
-                  idx: 1,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.agentOne',
-                  migration: {
-                    cycles: ['2025'],
-                  },
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 2,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.agentTwo',
-                  migration: {
-                    cycles: ['2025'],
-                  },
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 3,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.agentThree',
-                  migration: {
-                    cycles: ['2025'],
-                  },
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 4,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.agentFour',
-                  migration: {
-                    cycles: ['2025'],
-                  },
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 5,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.agentFive',
-                  migration: {
-                    cycles: ['2025'],
-                  },
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 6,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.unknownMixedDegradation',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                  migration: { cycles: ['2025'] },
-                },
-
                 {
                   idx: 7,
                   colSpan: 1,
@@ -244,6 +180,7 @@ export const areaWithForestLandDegradation = {
                 },
               ],
               type: 'header',
+              migration: { cycles: ['2020'] },
             },
             {
               idx: 'header_2',
@@ -260,18 +197,51 @@ export const areaWithForestLandDegradation = {
               type: 'header',
               migration: { cycles: ['2020'] },
             },
+
             {
               idx: 0,
               type: 'data',
-              variableName: 'agentName',
+              variableName: 'header_2025',
               cols: [
                 {
                   idx: 0,
+                  labelKey: 'panEuropean.areaWithForestLandDegradation.categoryYear',
                   type: 'placeholder',
-                  migration: { cycles: ['2025'], style: { '2025': { colSpan: 2, rowSpan: 1, height: '39px' } } },
+                  migration: { cycles: ['2025'], style: { '2025': { colSpan: 1, rowSpan: 2, fontWeight: 600 } } },
                 },
                 {
                   idx: 1,
+                  labelKey: 'panEuropean.areaWithForestLandDegradation.totalAreaOfDegradedLand',
+                  type: 'placeholder',
+                  migration: {
+                    cycles: ['2025'],
+                    style: { '2025': { colSpan: 1, rowSpan: 2, fontWeight: 600, textAlign: 'center' } },
+                  },
+                },
+                {
+                  idx: 2,
+                  labelKey: 'panEuropean.areaWithForestLandDegradation.areaPrimarilyDegradedBy',
+                  type: 'placeholder',
+                  migration: {
+                    cycles: ['2025'],
+                    style: { '2025': { colSpan: 6, rowSpan: 1, fontWeight: 600, textAlign: 'center' } },
+                  }, // , height: '39px'
+                },
+              ],
+              migration: { cycles: ['2025'] },
+            },
+            {
+              idx: 1,
+              type: 'data',
+              variableName: 'agentName',
+              cols: [
+                // {
+                //   idx: 0,
+                //   type: 'placeholder',
+                //   migration: { cycles: ['2025'], style: { '2025': { colSpan: 1, rowSpan: 1, height: '39px' } } },
+                // },
+                {
+                  idx: 2,
                   type: 'text',
                   colName: 'agentOne',
                   inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
@@ -284,10 +254,11 @@ export const areaWithForestLandDegradation = {
                     [table_2_5.forest_2020.agentOne, table_2_5.forest_2015.agentOne, table_2_5.forest_2010.agentOne, table_2_5.forest_2005.agentOne, table_2_5.forest_2000.agentOne, table_2_5.forest_1990.agentOne])`,
                       ],
                     },
+                    style: { '2025': { minWidth: '145px' } },
                   },
                 },
                 {
-                  idx: 2,
+                  idx: 3,
                   type: 'text',
                   colName: 'agentTwo',
                   inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
@@ -300,10 +271,11 @@ export const areaWithForestLandDegradation = {
                     [table_2_5.forest_2020.agentTwo, table_2_5.forest_2015.agentTwo, table_2_5.forest_2010.agentTwo, table_2_5.forest_2005.agentTwo, table_2_5.forest_2000.agentTwo, table_2_5.forest_1990.agentTwo])`,
                       ],
                     },
+                    style: { '2025': { minWidth: '145px' } },
                   },
                 },
                 {
-                  idx: 3,
+                  idx: 4,
                   type: 'text',
                   colName: 'agentThree',
                   inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
@@ -316,10 +288,11 @@ export const areaWithForestLandDegradation = {
                     [table_2_5.forest_2020.agentThree, table_2_5.forest_2015.agentThree, table_2_5.forest_2010.agentThree, table_2_5.forest_2005.agentThree, table_2_5.forest_2000.agentThree, table_2_5.forest_1990.agentThree])`,
                       ],
                     },
+                    style: { '2025': { minWidth: '145px' } },
                   },
                 },
                 {
-                  idx: 4,
+                  idx: 5,
                   type: 'text',
                   colName: 'agentFour',
                   inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
@@ -332,10 +305,11 @@ export const areaWithForestLandDegradation = {
                     [table_2_5.forest_2020.agentFour, table_2_5.forest_2015.agentFour, table_2_5.forest_2010.agentFour, table_2_5.forest_2005.agentFour, table_2_5.forest_2000.agentFour, table_2_5.forest_1990.agentFour])`,
                       ],
                     },
+                    style: { '2025': { minWidth: '145px' } },
                   },
                 },
                 {
-                  idx: 5,
+                  idx: 6,
                   type: 'text',
                   colName: 'agentFive',
                   inputPlaceholder: 'panEuropean.areaWithForestLandDegradation.writeName',
@@ -348,9 +322,15 @@ export const areaWithForestLandDegradation = {
                     [table_2_5.forest_2020.agentFive, table_2_5.forest_2015.agentFive, table_2_5.forest_2010.agentFive, table_2_5.forest_2005.agentFive, table_2_5.forest_2000.agentFive, table_2_5.forest_1990.agentFive])`,
                       ],
                     },
+                    style: { '2025': { minWidth: '145px' } },
                   },
                 },
-                { idx: 6, type: 'placeholder', migration: { cycles: ['2025'] } },
+                {
+                  idx: 7,
+                  type: 'placeholder',
+                  labelKey: 'panEuropean.areaWithForestLandDegradation.unknownMixedDegradation',
+                  migration: { cycles: ['2025'], style: { '2025': { fontWeight: 600, textAlign: 'center' } } },
+                },
               ],
               migration: {
                 cycles: ['2025'],

@@ -8,8 +8,8 @@ import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
+import { DataActions } from '@client/store/data'
 import { addAppListener } from '@client/store/middleware/listener'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 
 export const useValidations = (props: { table: Table }): void => {
@@ -25,13 +25,13 @@ export const useValidations = (props: { table: Table }): void => {
       addAppListener({
         matcher: isAnyOf(
           // AssessmentSectionActions.updateNodeValues.fulfilled,
-          AssessmentSectionActions.getTableData.fulfilled,
-          AssessmentSectionActions.setNodeCalculations,
-          AssessmentSectionActions.setNodeValues
+          DataActions.getTableData.fulfilled,
+          DataActions.setNodeCalculations,
+          DataActions.setNodeValues
         ),
         effect: (_, { getState }) => {
           const state = getState()
-          const { data } = state.ui.assessmentSection
+          const { tableData: data } = state.data[assessment.props.name][cycle.name]
           const nodes: Array<NodeUpdate> = []
 
           rowsData.forEach((row) => {
@@ -82,7 +82,7 @@ export const useValidations = (props: { table: Table }): void => {
             })
           })
           dispatch(
-            AssessmentSectionActions.setNodeValidations({
+            DataActions.setNodeValidations({
               nodeUpdates: {
                 assessment,
                 cycle,

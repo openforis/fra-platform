@@ -8,7 +8,7 @@ import { Table } from '@meta/assessment'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
+import { DataActions } from '@client/store/data'
 import { useIsDataLocked } from '@client/store/ui/dataLock'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
@@ -35,7 +35,7 @@ const ButtonTableClear: React.FC<Props> = (props) => {
   const _onClick = useCallback(() => {
     if (window.confirm(t('common.areYouSureYouWantToDeleteAllTableData'))) {
       dispatch(
-        AssessmentSectionActions.clearTableData({
+        DataActions.clearTableData({
           countryIso,
           assessmentName,
           cycleName: cycle.name,

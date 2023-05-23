@@ -35,7 +35,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
       <ul>
         <li>
           <div className="input-buttons-wrapper">
-            <input type="text" value={url} />
+            <input type="text" defaultValue={url} />
             <button
               className="btn-transparent"
               title={t('common.copyToClipboard')}

@@ -5,7 +5,8 @@ import { TFunction, useTranslation } from 'react-i18next'
 import { Table } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
-import { useNodeValueValidation, useTableData } from '@client/store/ui/assessmentSection'
+import { useTableData } from '@client/store/data'
+import { useNodeValueValidation } from '@client/store/ui/assessmentSection'
 import { useCountryIso } from '@client/hooks'
 import Icon from '@client/components/Icon'
 

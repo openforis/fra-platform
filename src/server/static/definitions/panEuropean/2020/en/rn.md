@@ -4,7 +4,7 @@
 
 **Reporting notes:**
 
-1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T1a, 1e. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
+1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T1a, 1e. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 2. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 https://fra-data.fao.org/assessments/panEuropean/2020/   National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
@@ -21,7 +21,7 @@
 
 **Reporting notes:**
 
-1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T2a and T2b. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
+1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T2a and T2b. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 2. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 https://fra-data.fao.org/assessments/panEuropean/2020/ . National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
@@ -70,6 +70,7 @@
 
 
 # 1.4 Indicator 1.4
+
 **Reporting notes:**
 
 1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T2c and T2d. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
@@ -110,7 +111,7 @@
 
 **Reporting notes:**
 
-1. Connection with FRA/CFRQ 2025: global reporting covers disturbances in forests in Table T5a and T5b. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
+1. Connection with FRA/CFRQ 2025: global reporting covers disturbances in forests in Table T5a and T5b. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 2. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 (https://fra-data.fao.org/assessments/panEuropean/2020/)  National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
@@ -143,7 +144,7 @@
 
 **Reporting notes:**
 
-1. Connection with FRA/CFRQ 2025: global reporting covers degraded forests in Table T5c.
+1. Connection with FRA/CFRQ 2025: global reporting covers degraded forests in Table T5c. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 2. Prefilling: This table has not been prefilled.
 
@@ -320,11 +321,11 @@
 
 **Reporting notes:**
 
-1. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 (https://fra-data.fao.org/assessments/panEuropean/2020/)   National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
+1. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 (https://fra-data.fao.org/assessments/panEuropean/2020/) National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
 2.  The term “regeneration” used in this reporting should be understood as a synonym of the term “reforestation”  used in the FRA/CFRQ, which also includes coppice (http://www.fao.org/forestry/fra/83059/en). Table 4.2a: Origin of total forest area by regeneration
 
-3.  Connection with FRA/CFRQ 2020: this reporting form has direct counterparts in T1b of the global reporting. Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a
+3.  Connection with FRA/CFRQ 2020: this reporting form has direct counterparts in T1b of the global reporting. Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 4.  Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015, 2020) noted in the Table, or in a nearest year for which data is available.
 
@@ -346,7 +347,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 **Reporting notes:**
 
-1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T1b. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
+1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T1b. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 2. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 (https://fra-data.fao.org/assessments/panEuropean/2020/)   National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
@@ -360,7 +361,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 **Reporting notes:**
 
-1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T1b. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
+1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T1b. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 2. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 (https://fra-data.fao.org/assessments/panEuropean/2020/)  National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
@@ -469,7 +470,7 @@ Reporting notes:
 
 **Reporting notes:**
 
-1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T4a. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform.
+1. Connection with FRA/CFRQ 2025: this reporting form is linked to the Table T4a. Overlapping FRA categories and JPEDC variables are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. **Please note, that the JPED variable “Other types of ownership/unknown” is linked with the corresponding FRA variables ” Other ownership” and Unknown”, which cannot be automatically prefilled, but values reported for FRA can be used for JPEDC, and have to be calculated manually.**
 
 2. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 (https://fra-data.fao.org/assessments/panEuropean/2020/). National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
@@ -503,27 +504,27 @@ Reporting notes:
 
 9.  The main sources for value-added are the following:
 
-	1)  For EU/EFTA countries
+    1)  For EU/EFTA countries
 
-		a.  Eurostat - National Accounts
+        a.  Eurostat - National Accounts
 
-		(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
+        (http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nama_10_a64 )
 
-		b.  Eurostat – European Forest Accounts (EFA)
+        b.  Eurostat – European Forest Accounts (EFA)
 
-		(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
+        (http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=for_eco_cp)
 
-		c.  Eurostat -  Annual detailed enterprise statistics - industry and construction
+        c.  Eurostat -  Annual detailed enterprise statistics - industry and construction
 
-		(http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
+        (http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=sbs_na_sca_r2)
 
-	2)  For other countries (non-EU):
+    2)  For other countries (non-EU):
 
-		a.  UNIDO International Yearbook of Industrial Statistics (publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
+        a.  UNIDO International Yearbook of Industrial Statistics (publication can be ordered at http://www.unido.org/resources/publications/flagship-publications/international-yearbook-of-industrial-statistics.html ) and Statistical Country Briefs (http://www.unido.org/resources/statistics/statistical-country-briefs.html)
 
-		b.  UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
+        b.  UNdata - National Accounts Official Country Data (http://data.un.org/Explorer.aspx?d=SNA)
 
-	3)  For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65).
+    3)  For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at:  http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65).
 
 
 # 6.3 Indicator 6.3
@@ -584,17 +585,17 @@ Reporting notes:
 
 3.  Reference years: In order to obtain more reliable data, average values from three years have been calculated for pre-filling:
 
-	1990: 1992-1994
+    1990: 1992-1994
 
-	2000: 1999-2001
+    2000: 1999-2001
 
-	2005: 2004-2006
+    2005: 2004-2006
 
-	2010: 2009-2011
+    2010: 2009-2011
 
-	2015: 2014-2016
+    2015: 2014-2016
 
-	2020: 2019-2021
+    2020: 2019-2021
 
 4.  The recommended source for all data is the Labour Force Survey (LFS), which provides all the breakdowns requested. If LFS data are not available, please provide the best statistics or estimates from other sources. If using other sources, e.g. survey of businesses, note that the desired scope includes the self-employed, and that forestry (ISIC/NACE 02) is limited to those working primarily in forestry, so excludes e.g. agricultural workers who undertakes some forestry work, or government employees classified as public administration.
 

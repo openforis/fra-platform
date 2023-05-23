@@ -8,6 +8,7 @@ module.exports = {
   area100Ha: 'المساحة (١٠٠٠  هكتار)',
   areaAffectedByFire: {
     areaAffected: 'المساحة المتضررة (١٠٠٠  هكتار)',
+    areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
   },
   biomassStockAvg: {
     forestBiomass: 'الكتلة الحيوية للغابات (طن / هكتار)',
@@ -71,9 +72,12 @@ module.exports = {
   },
   extentOfForest: {
     remainingLandArea: 'مساحة الأرض المتبقية',
+    extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'منطقة الغابات مع خطة إدارة طويلة الأجل',
+    forestAreaWithinProtectedAreas2025: '$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)',
   },
   forestCharacteristics: {
     primaryForest: '... منها غابة أولية',
@@ -138,6 +142,8 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'عمليات إزالة المنتجات الحرجية غير الخشبية وقيمتها ٢٠٢٠ ',
+      forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
+      forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
