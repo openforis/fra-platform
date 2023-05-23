@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
 import { Col as TypeCol, Cols, Row as TypeRow, RowType, Table } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useOriginalDataPointYears } from '@client/store/data'
@@ -18,7 +18,7 @@ type Props = {
   headers: string[]
   table: Table
   assessmentName: string
-  data: TableData
+  data: RecordAssessmentData
 }
 
 const TableHead: React.FC<Props> = (props) => {
@@ -83,7 +83,11 @@ const TableHead: React.FC<Props> = (props) => {
               <th
                 key={col.uuid}
                 className={className}
-                colSpan={odp && !colSpan ? getODPColSpan({ headers, table, data }) : colSpan}
+                colSpan={
+                  odp && !colSpan
+                    ? getODPColSpan({ assessmentName, cycleName: cycle.name, headers, table, data })
+                    : colSpan
+                }
                 rowSpan={rowSpan}
               >
                 {getColumnName()}
