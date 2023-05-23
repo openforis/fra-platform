@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Row as TypeRow, RowType, Table } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 import Row from '@client/pages/AssessmentSection/DataTable/Table/Row'
 
@@ -10,7 +10,7 @@ type Props = {
   table: Table
   sectionName: string
   assessmentName: string
-  data: TableData
+  data: RecordAssessmentData
 }
 
 const TableBody: React.FC<Props> = (props) => {

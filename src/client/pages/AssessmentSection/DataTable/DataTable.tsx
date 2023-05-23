@@ -73,6 +73,7 @@ const DataTable: React.FC<Props> = (props) => {
       {generateValues && (
         <GenerateValues
           assessmentName={assessmentName}
+          cycleName={cycleName}
           sectionName={sectionName}
           tableName={table.props.name}
           rows={rows}

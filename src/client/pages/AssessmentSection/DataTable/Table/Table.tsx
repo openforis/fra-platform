@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 import { AssessmentName, Table as TableType } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 import { useCycle } from '@client/store/assessment'
 import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection/hooks'
@@ -22,7 +22,7 @@ type Props = {
   sectionName: string
   sectionAnchor: string
   table: TableType
-  data: TableData
+  data: RecordAssessmentData
   disabled: boolean
 }
 
@@ -37,7 +37,7 @@ const Table: React.FC<Props> = (props) => {
   const { print } = useIsPrint()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, table } = parseTable({ countryIso, cycle, data, showODP, table: tableProps })
+  const { headers, table } = parseTable({ assessmentName, cycle, countryIso, data, showODP, table: tableProps })
   const { secondary, name } = table.props
 
   const isDataLocked = useIsDataLocked()
