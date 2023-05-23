@@ -14,6 +14,7 @@ import AgreementLevelControl from './components/AgreementLevelControl/AgreementL
 import CustomAssetControl from './components/CustomAssetControl'
 import LayerOpacityControl from './components/LayerOpacityControl'
 import TreeCoverPercentageControl from './components/TreeCoverPercentageControl/TreeCoverPercentageControl'
+import YearControl from './components/YearControl'
 
 interface Props {
   section: LayerSection
@@ -68,6 +69,8 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
         {section.layers.map((layer) => {
           const isLayerSelected = sectionState?.[layer.key]?.selected || false // default to false
           const hasGteTreeCoverPercent = layer.options?.gteTreeCoverPercent !== undefined
+          const hasYearSelector = layer.options?.years !== undefined
+          const fetchOnSelect = !hasGteTreeCoverPercent && !hasYearSelector
           const opacity = sectionState?.[layer.key]?.opacity ?? 1
           const loadingStatus = sectionState?.[layer.key]?.status ?? LayerFetchStatus.Unfetched
           if (layer.isCustomAsset) {
@@ -107,7 +110,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
               title={layer.key}
               tabIndex={0}
               checked={isLayerSelected}
-              onCheckboxClick={() => toggleLayer(layer.key, !hasGteTreeCoverPercent)}
+              onCheckboxClick={() => toggleLayer(layer.key, fetchOnSelect)}
               backgroundColor={layer.metadata?.palette?.[0]}
               loadingStatus={loadingStatus}
             >
@@ -119,6 +122,15 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
               />
               {isLayerSelected && hasGteTreeCoverPercent && (
                 <TreeCoverPercentageControl
+                  key={`${section.key}-${layer.key}`}
+                  sectionKey={section.key}
+                  layerKey={layer.key}
+                  layer={layer}
+                  layerState={sectionState?.[layer.key]}
+                />
+              )}
+              {isLayerSelected && hasYearSelector && (
+                <YearControl
                   key={`${section.key}-${layer.key}`}
                   sectionKey={section.key}
                   layerKey={layer.key}
