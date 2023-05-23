@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { AssessmentName } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 import { useDataExportSelection } from '@client/store/ui/dataExport'
 import { useCountryIso, useGetRequest } from '@client/hooks'
@@ -16,7 +16,7 @@ type Props = {
 }
 
 type UseFetchResults = {
-  results: TableData
+  results: RecordAssessmentData
   resultsLoading: boolean
 }
 
