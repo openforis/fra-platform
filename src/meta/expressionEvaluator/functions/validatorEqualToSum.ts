@@ -10,14 +10,29 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
   name: 'validatorEqualToSum',
   minArity: 2,
   executor: () => {
-    return (value: string, otherValues: Array<string>): NodeValueValidation => {
+    return (
+      value: string,
+      otherValues: Array<string>,
+      parentVariable = 'parent',
+      col = '',
+      table = '',
+      subcategories = ''
+    ): NodeValueValidation => {
       const valid =
         Objects.isEmpty(value) ||
         Numbers.eqWithTolerance(value, Numbers.sum(otherValues?.filter((v) => !Objects.isEmpty(v))))
 
+      const valueRounded = parseFloat(value).toFixed(2)
+      const parentTable = table === '' ? table : `(${table})`
+      const parentCol = col === '' ? col : `[${col}]`
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.valueEqualToSum' }]
+        : [
+            {
+              key: 'generalValidation.valueEqualToSumParent',
+              params: { parentVariable, subcategories, parentCol, parentTable, valueRounded },
+            },
+          ]
 
       return { valid, messages }
     }

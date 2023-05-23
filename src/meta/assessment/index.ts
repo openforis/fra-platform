@@ -31,7 +31,11 @@ export { DataSourceType } from './description'
 export type { Label } from './label'
 export { Labels } from './labels'
 export type { Node, NodeValue } from './node'
-export type { NodeValueValidation, NodeValueValidationMessage } from './nodeValueValidation'
+export type {
+  NodeValueValidation,
+  NodeValueValidationMessage,
+  NodeValueValidationMessageParam,
+} from './nodeValueValidation'
 export { NodeValueValidations } from './nodeValueValidations'
 export type { ODPNationalClass, ODPReservedYear } from './originalDataPoint'
 export { ODPNationalClassFactory, ODPs } from './originalDataPoint'
