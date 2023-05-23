@@ -2,7 +2,9 @@ import './DataValidations.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Table } from '@meta/assessment'
+import { TFunction } from 'i18next'
+
+import { NodeValueValidationMessageParam, Table } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
 import { useTableData } from '@client/store/data'
@@ -12,6 +14,13 @@ import Icon from '@client/components/Icon'
 
 type Props = {
   table: Table
+}
+
+const translateErrorMessageParams = (t: TFunction, text: NodeValueValidationMessageParam): string => {
+  if (Array.isArray(text)) {
+    return `(${text.map((item) => translateErrorMessageParams(t, item)).join(', ')})`
+  }
+  return t(String(text))
 }
 
 const DataValidations: React.FC<Props> = (props) => {
@@ -34,7 +43,11 @@ const DataValidations: React.FC<Props> = (props) => {
       {nodeUpdate ? (
         nodeUpdate.value.validation.messages.map(({ key, params }) => (
           <div key={key} className="msg">
-            {t<string>(key, params)}
+            {t<string>(
+              key,
+              params &&
+                Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateErrorMessageParams(t, v)]))
+            )}
           </div>
         ))
       ) : (
