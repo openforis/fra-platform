@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentName, ColType, Row, RowType } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { AssessmentName, ColType, CycleName, Row, RowType } from '@meta/assessment'
+import { RecordAssessmentData, RecordCountryData } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
@@ -23,7 +23,7 @@ export interface UseGenerateValues {
   valid: boolean
 }
 
-const isTableWithOdpEmpty = (data: TableData) => {
+const isTableWithOdpEmpty = (data: RecordCountryData) => {
   return (
     Object.values(data).flatMap((section) =>
       Object.values(section).flatMap((year) =>
@@ -35,10 +35,11 @@ const isTableWithOdpEmpty = (data: TableData) => {
 
 const useGenerateValues = (
   assessmentName: AssessmentName,
+  cycleName: CycleName,
   sectionName: string,
   tableName: string,
   rows: Array<Row>,
-  data: TableData
+  data: RecordAssessmentData
 ): UseGenerateValues => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
@@ -64,7 +65,10 @@ const useGenerateValues = (
   )
 
   const generateValues = () => {
-    if (isTableWithOdpEmpty(data) || window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
+    if (
+      isTableWithOdpEmpty(data[assessmentName][cycleName]) ||
+      window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))
+    ) {
       const fieldsToUpdate = fields.filter((field) => field.selected === true)
       const changeRates =
         method === Method.annualChange
@@ -95,7 +99,7 @@ const useGenerateValues = (
     }
   }
 
-  const valid = Methods.isValid({ data: data?.[countryIso]?.[tableName], method, fields })
+  const valid = Methods.isValid({ data: data?.[assessmentName]?.[cycleName][countryIso]?.[tableName], method, fields })
 
   return {
     method,
