@@ -4,7 +4,7 @@ import { isAnyOf } from '@reduxjs/toolkit'
 import { Objects } from '@utils/objects'
 
 import { AssessmentMetaCaches, NodeValueValidation, RowType, Table, VariableCache } from '@meta/assessment'
-import { NodeUpdate, TableDatas } from '@meta/data'
+import { NodeUpdate, RecordAssessmentDatas } from '@meta/data'
 import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { useAppDispatch } from '@client/store'
@@ -45,7 +45,7 @@ export const useCalculations = (props: { table: Table }): void => {
         matcher: isAnyOf(DataActions.updateNodeValues.pending, DataActions.postEstimate.fulfilled),
         effect: ({ meta, payload }, { getState }) => {
           const state = getState()
-          const { tableData: data } = state.data[assessment.props.name][cycle.name]
+          const data = state.data.tableData[assessment.props.name][cycle.name]
           const changedVariables = meta.arg.values ?? payload
           const nodes: Array<NodeUpdate> = []
 
@@ -68,7 +68,9 @@ export const useCalculations = (props: { table: Table }): void => {
 
                 const calculateFn = col?.props.calculateFn?.[cycle.uuid] ?? row?.props.calculateFn?.[cycle.uuid]
 
-                let nodeValue = TableDatas.getNodeValue({
+                let nodeValue = RecordAssessmentDatas.getNodeValue({
+                  assessmentName: assessment.props.name,
+                  cycleName: cycle.name,
                   data,
                   colName: changedColName,
                   countryIso,
