@@ -1,5 +1,5 @@
 import { Table, TableNames } from '@meta/assessment'
-import { RecordCountryData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
@@ -8,7 +8,7 @@ import { useCountryIso } from '@client/hooks'
 
 import { useOriginalDataPointData } from './useOriginalDataPointData'
 
-export const useTableData = (props: { table: Table }): RecordCountryData => {
+export const useTableData = (props: { table: Table }): RecordAssessmentData => {
   const { table } = props
   const countryIso = useCountryIso()
   const { odp } = table.props
@@ -16,11 +16,11 @@ export const useTableData = (props: { table: Table }): RecordCountryData => {
   const cycle = useCycle()
   const country = useAssessmentCountry()
 
-  const tableData = useAppSelector((state) => state.data.tableData[assessment.props.name][cycle.name])
+  const tableData = useAppSelector((state) => state.data.tableData)
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
-  if (!tableData?.[countryIso]) return {}
+  if (!tableData?.[assessment.props.name]?.[cycle.name]?.[countryIso]) return {}
 
   const shouldReturnWithoutODP =
     !odp ||
@@ -29,11 +29,19 @@ export const useTableData = (props: { table: Table }): RecordCountryData => {
 
   if (shouldReturnWithoutODP) return tableData
 
-  const currData = tableData[countryIso][table.props.name]
-
   const tableDataWithODP = {
-    [countryIso]: {
-      [table.props.name]: { ...currData, ...odpData },
+    [assessment.props.name]: {
+      ...(tableData[assessment.props.name] || {}),
+      [cycle.name]: {
+        ...(tableData[assessment.props.name][cycle.name] || {}),
+        [countryIso]: {
+          ...(tableData[assessment.props.name][cycle.name][countryIso] || {}),
+          [table.props.name]: {
+            ...(tableData[assessment.props.name][cycle.name][countryIso][table.props.name] || {}),
+            ...odpData,
+          },
+        },
+      },
     },
   }
 

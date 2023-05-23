@@ -11,7 +11,7 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const data = useAppSelector((state) => state.data[assessment.props.name][cycle.name].tableData)
+  const data = useAppSelector((state) => state.data.tableData[assessment.props.name][cycle.name])
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
   const sectionTableNames = useMemo(
@@ -25,6 +25,8 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
     dataLoaded &&
     sectionTableNames.every((tableName) =>
       TableDatas.isTableDataEmpty({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         data,
         tableName,
         countryIso,
