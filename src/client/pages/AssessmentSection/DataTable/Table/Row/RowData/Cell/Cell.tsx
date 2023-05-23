@@ -1,5 +1,6 @@
 import './Cell.scss'
 import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
 import { NodeUpdate, TableData, TableDatas } from '@meta/data'
@@ -10,6 +11,7 @@ import { useAssessmentSection, useCountry, useCycle } from '@client/store/assess
 import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
+import Tooltip from '@client/components/Tooltip'
 
 import useClassName from './hooks/useClassName'
 import useOnChange from './hooks/useOnChange'
@@ -54,6 +56,7 @@ const Cell: React.FC<Props> = (props) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
+  const { t } = useTranslation()
 
   const tableName = table.props.name
   const { variableName } = row.props
@@ -87,6 +90,24 @@ const Cell: React.FC<Props> = (props) => {
 
   if (!Component) return null
 
+  const component = (
+    <Component
+      assessmentName={assessmentName}
+      sectionName={sectionName}
+      table={table}
+      disabled={disabled}
+      rowIndex={rowIndex}
+      col={col}
+      row={row}
+      nodeValue={nodeValue}
+      onChange={onChange}
+      onChangeNodeValue={onChangeNodeValue}
+      onPaste={onPaste}
+    />
+  )
+
+  const dataValidations = nodeValue.validation?.messages?.map(({ key, params }) => t(key, params))
+
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <td
@@ -97,19 +118,13 @@ const Cell: React.FC<Props> = (props) => {
       rowSpan={rowSpan}
       style={style}
     >
-      <Component
-        assessmentName={assessmentName}
-        sectionName={sectionName}
-        table={table}
-        disabled={disabled}
-        rowIndex={rowIndex}
-        col={col}
-        row={row}
-        nodeValue={nodeValue}
-        onChange={onChange}
-        onChangeNodeValue={onChangeNodeValue}
-        onPaste={onPaste}
-      />
+      {!valid ? (
+        <Tooltip error text={dataValidations.join('<br />')}>
+          {component}
+        </Tooltip>
+      ) : (
+        component
+      )}
     </td>
   )
 }
