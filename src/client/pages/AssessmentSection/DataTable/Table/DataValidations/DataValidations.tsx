@@ -1,8 +1,10 @@
 import './DataValidations.scss'
 import React from 'react'
-import { TFunction, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
-import { Table } from '@meta/assessment'
+import { TFunction } from 'i18next'
+
+import { NodeValueValidationMessageParam, Table } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
 
 import { useTableData } from '@client/store/data'
@@ -14,18 +16,11 @@ type Props = {
   table: Table
 }
 
-const translateIfKey = (t: TFunction, text: any): string => {
-  // Assuming that a 'key' is a string
-  if (typeof text === 'string') {
-    // Try to translate text, if it isn't a key, translation will return the same text
-    return t(text)
-  }
-  // In case text is an array (like subcategories), translate each item
+const translateErrorMessageParams = (t: TFunction, text: NodeValueValidationMessageParam): string => {
   if (Array.isArray(text)) {
-    return `(${text.map((item: any) => translateIfKey(t, item)).join(', ')})`
+    return `(${text.map((item) => translateErrorMessageParams(t, item)).join(', ')})`
   }
-  // Return original text if it isn't a key or an array
-  return text
+  return t(String(text))
 }
 
 const DataValidations: React.FC<Props> = (props) => {
@@ -50,7 +45,8 @@ const DataValidations: React.FC<Props> = (props) => {
           <div key={key} className="msg">
             {t<string>(
               key,
-              params && Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateIfKey(t, v)]))
+              params &&
+                Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateErrorMessageParams(t, v)]))
             )}
           </div>
         ))
