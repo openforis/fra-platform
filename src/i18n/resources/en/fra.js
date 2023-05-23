@@ -189,6 +189,10 @@ module.exports = {
     unknown2025: 'Unknown',
   },
 
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
+  },
+
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
   },

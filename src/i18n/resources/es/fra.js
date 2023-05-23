@@ -151,6 +151,9 @@ module.exports = {
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Desconocido',
   },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
+  },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Extracción y valor de productos forestales no madereros en 2020',
   },
