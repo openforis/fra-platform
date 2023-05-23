@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { NodeUpdates, TableDatas } from '@meta/data'
+import { NodeUpdates, RecordAssessmentDatas, TableDatas } from '@meta/data'
 
 import { AssessmentActions } from '@client/store/assessment'
 
@@ -117,7 +117,7 @@ export const dataSlice = createSlice({
 
     // Table data
     builder.addCase(getTableData.fulfilled, (state, { payload }) => {
-      state.tableData = TableDatas.mergeRecordAssessmentData({
+      state.tableData = RecordAssessmentDatas.mergeData({
         tableData: state.tableData,
         newTableData: payload,
       })
@@ -142,7 +142,7 @@ export const dataSlice = createSlice({
     })
 
     builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
-      state.tableData = TableDatas.mergeRecordAssessmentData({
+      state.tableData = RecordAssessmentDatas.mergeData({
         tableData: state.tableData,
         newTableData: payload,
       })
