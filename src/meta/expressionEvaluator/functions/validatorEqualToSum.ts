@@ -13,7 +13,7 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
     return (
       value: string,
       otherValues: Array<string>,
-      parentVariable = '',
+      parentVariable = 'parent',
       col = '',
       table = '',
       subcategories = ''

@@ -1,6 +1,6 @@
 import './DataValidations.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { TFunction, useTranslation } from 'react-i18next'
 
 import { Table } from '@meta/assessment'
 import { TableDatas } from '@meta/data'
@@ -13,8 +13,7 @@ type Props = {
   table: Table
 }
 
-// @ts-ignore
-const translateIfKey = (t: any, text: any) => {
+const translateIfKey = (t: TFunction, text: any): string => {
   // Assuming that a 'key' is a string
   if (typeof text === 'string') {
     // Try to translate text, if it isn't a key, translation will return the same text
