@@ -59,7 +59,7 @@ module.exports = {
     unece: 'UNECE',
     technicalSupport: 'with the technical support of',
     and: 'and',
-    forestEurope: 'Forest Europe',
+    forestEurope: 'FOREST EUROPE',
     govSwitzerland: 'Government of Switzerland',
     part1: 'The website has been produced with the assistance of the',
     sweden: 'Sweden',
