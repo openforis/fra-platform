@@ -6,6 +6,5 @@ export type {
   RecordCycleData,
   RecordRowData,
   RecordTableData,
-  TableData,
-} from './tableData'
-export { TableDatas } from './tableDatas'
+} from './RecordAssessmentData'
+export { RecordAssessmentDatas } from './recordAssessmentDatas'
