@@ -242,6 +242,25 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           created_at timestamp with time zone default now(),
           updated_at timestamp with time zone default now()
       );
+      
+      create table ${assessmentCycleSchemaName}.node_values_estimation
+      (
+          id          bigserial                       not null
+              constraint node_values_estimation_pk
+                  primary key,
+          uuid        uuid default uuid_generate_v4() not null,
+          country_iso varchar(3)                      not null
+              constraint node_values_estimation_country_fk
+                  references country (country_iso)
+                  on update cascade on delete cascade,
+          table_uuid  uuid                            not null
+              constraint node_values_estimation_table_fk
+                  references ${assessmentSchemaName}."table" (uuid)
+                  on update cascade on delete cascade,
+          method      varchar(255)                    not null,
+          variables   jsonb                           not null,
+          unique (uuid)
+      );
   `
 }
 
