@@ -1,3 +1,7 @@
+import { UUIDs } from '@utils/uuids'
+
+import { NodeValueEstimationMethod, NodeValuesEstimation } from '@meta/assessment'
+
 import { dataset1, dataset1Expected } from '@server/service/estimates/datasets/dataset1'
 import { dataset2, dataset2Expected } from '@server/service/estimates/datasets/dataset2'
 import { dataset3, dataset3Expected } from '@server/service/estimates/datasets/dataset3'
@@ -5,41 +9,64 @@ import { dataset4, dataset4Expected } from '@server/service/estimates/datasets/d
 import { dataset5, dataset5Expected } from '@server/service/estimates/datasets/dataset5'
 import { dataset6, dataset6Expected } from '@server/service/estimates/datasets/dataset6'
 
-import { EstimationEngine, GenerateSpecMethod } from './estimationEngine'
+import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from './estimationEngine'
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2025]
 
 const _defaultFields = ['forestArea', 'otherWoodedLand']
 const _defaultTableName = 'extentOfForest'
 
+/**
+ * @deprecated
+ */
+const generateSpecToEstimation = (props: { generateSpec: GenerateSpec }): NodeValuesEstimation => {
+  const { generateSpec } = props
+
+  const variables = generateSpec.fields.reduce<NodeValuesEstimation['variables']>((acc, field) => {
+    const options = generateSpec.method === 'annualChange' ? { changeRates: generateSpec.changeRates?.[field] } : {}
+    return { ...acc, [field]: options }
+  }, {})
+
+  return {
+    method: generateSpec.method as NodeValueEstimationMethod,
+    uuid: UUIDs.v4(),
+    tableUuid: 'fake-table-uuid',
+    variables,
+  }
+}
+
 const _estimateWithDefaults = (
   dataset: any,
   method: GenerateSpecMethod,
   changeRates: Record<string, { rateFuture: number; ratePast: number }> = undefined
 ) => {
+  const generateSpec = {
+    method,
+    changeRates,
+    fields: _defaultFields,
+  }
   return EstimationEngine.estimateValues(
     years,
     dataset,
-    {
-      method,
-      changeRates,
-      fields: _defaultFields,
-    },
-    _defaultTableName
+    generateSpec,
+    _defaultTableName,
+    generateSpecToEstimation({ generateSpec })
   )
 }
 
 describe('Estimation Engine test:', () => {
   describe('dataset1:', () => {
     test('Interpolates and extrapolates linearly', () => {
+      const generateSpec: GenerateSpec = {
+        method: 'linear',
+        fields: ['forestArea', 'otherWoodedLand'],
+      }
       const estimated = EstimationEngine.estimateValues(
         years,
         dataset1,
-        {
-          method: 'linear',
-          fields: ['forestArea', 'otherWoodedLand'],
-        },
-        'extentOfForest'
+        generateSpec,
+        'extentOfForest',
+        generateSpecToEstimation({ generateSpec })
       )
 
       const expected = dataset1Expected['Interpolates and extrapolates linearly']
@@ -49,14 +76,16 @@ describe('Estimation Engine test:', () => {
   })
   describe('dataset2:', () => {
     test('Extrapolates with repeat last value', () => {
+      const generateSpec: GenerateSpec = {
+        method: 'repeatLast',
+        fields: ['forestArea', 'otherWoodedLand'],
+      }
       const estimated = EstimationEngine.estimateValues(
         years,
         dataset2,
-        {
-          method: 'repeatLast',
-          fields: ['forestArea', 'otherWoodedLand'],
-        },
-        'extentOfForest'
+        generateSpec,
+        'extentOfForest',
+        generateSpecToEstimation({ generateSpec })
       )
 
       const expected = dataset2Expected['Extrapolates with repeat last value']
@@ -64,18 +93,20 @@ describe('Estimation Engine test:', () => {
       expect(estimated).toStrictEqual(expected)
     })
     test('Extrapolates with annual change rate', () => {
+      const generateSpec: GenerateSpec = {
+        method: 'annualChange',
+        changeRates: {
+          forestArea: { ratePast: -10, rateFuture: 20 },
+          otherWoodedLand: { ratePast: -5, rateFuture: 10 },
+        },
+        fields: ['forestArea', 'otherWoodedLand'],
+      }
       const estimated = EstimationEngine.estimateValues(
         years,
         dataset2,
-        {
-          method: 'annualChange',
-          changeRates: {
-            forestArea: { ratePast: -10, rateFuture: 20 },
-            otherWoodedLand: { ratePast: -5, rateFuture: 10 },
-          },
-          fields: ['forestArea', 'otherWoodedLand'],
-        },
-        'extentOfForest'
+        generateSpec,
+        'extentOfForest',
+        generateSpecToEstimation({ generateSpec })
       )
       const expected = dataset2Expected['Extrapolates with annual change rate']
       expect(estimated).toStrictEqual(expected)
