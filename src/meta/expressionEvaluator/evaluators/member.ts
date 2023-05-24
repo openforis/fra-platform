@@ -2,7 +2,7 @@ import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 
 import { AssessmentMetaCaches } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { RecordAssessmentDatas } from '@meta/data'
 
 import { Context } from '../context'
 
@@ -24,7 +24,15 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
       // @ts-ignore
       const colName = isCol ? property.name ?? property.value : colNameContext
 
-      return TableDatas.getDatum({ data, countryIso, tableName, variableName, colName })
+      return RecordAssessmentDatas.getDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        data,
+        countryIso,
+        tableName,
+        variableName,
+        colName,
+      })
     }
 
     return super.evaluate(expressionNode)
