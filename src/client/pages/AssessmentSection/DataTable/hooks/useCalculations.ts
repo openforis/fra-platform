@@ -45,7 +45,7 @@ export const useCalculations = (props: { table: Table }): void => {
         matcher: isAnyOf(DataActions.updateNodeValues.pending, DataActions.postEstimate.fulfilled),
         effect: ({ meta, payload }, { getState }) => {
           const state = getState()
-          const data = state.data.tableData[assessment.props.name][cycle.name]
+          const data = state.data.tableData
           const changedVariables = meta.arg.values ?? payload
           const nodes: Array<NodeUpdate> = []
 
