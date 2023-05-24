@@ -121,6 +121,9 @@ module.exports = {
     other2025: 'Autres formes de droits de gestion (préciser dans les commentaires)',
     unknown2025: 'Droits de gestion inconnus',
   },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
+  },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Extraction et valeur des produits forestiers non ligneux en 2020',
   },
