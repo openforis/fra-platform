@@ -32,6 +32,11 @@ export type { Label } from './label'
 export { Labels } from './labels'
 export type { Node, NodeValue } from './node'
 export type {
+  NodeValueEstimationMethod,
+  NodeValuesEstimation,
+  NodeValuesEstimationVariableOptions,
+} from './nodeValuesEstimation'
+export type {
   NodeValueValidation,
   NodeValueValidationMessage,
   NodeValueValidationMessageParam,
