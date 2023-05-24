@@ -7,6 +7,7 @@ import classNames from 'classnames'
 
 import { OriginalDataPoint } from '@meta/assessment'
 import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
+import { Topics } from '@meta/messageCenter'
 
 import { useAppDispatch } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -174,7 +175,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
-            topicKey={`${originalDataPoint.id}-class-${uuid}-extentOfForest`}
+            topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'extentOfForest')}
           />
         </td>
       )}

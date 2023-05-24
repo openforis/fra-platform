@@ -5,7 +5,11 @@ export interface NodeValue {
   raw: any
   estimated?: boolean
   calculated?: boolean
+  /**
+   * @deprecated Use odpId instead.
+   */
   odp?: boolean
+  odpId?: number
   validation?: NodeValueValidation
   taxonCode?: string
 }

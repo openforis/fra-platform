@@ -1,4 +1,4 @@
-import './ReviewStatusMarker.scss'
+import './ReviewSummaryIndicator.scss'
 import React from 'react'
 
 import classNames from 'classnames'
@@ -10,7 +10,7 @@ type Props = {
   status: ReviewStatus
 }
 
-const ReviewStatusMarker: React.FC<Props> = (props) => {
+const ReviewSummaryIndicator: React.FC<Props> = (props) => {
   const { status } = props
 
   if (status.status !== MessageTopicStatus.opened) {
@@ -19,7 +19,7 @@ const ReviewStatusMarker: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={classNames('nav-review-status', {
+      className={classNames('review-summary-status', {
         read: !status.hasUnreadMessages,
         unread: status.hasUnreadMessages,
       })}
@@ -27,4 +27,4 @@ const ReviewStatusMarker: React.FC<Props> = (props) => {
   )
 }
 
-export default ReviewStatusMarker
+export default ReviewSummaryIndicator
