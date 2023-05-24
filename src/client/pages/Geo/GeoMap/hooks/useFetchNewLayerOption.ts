@@ -4,16 +4,21 @@ import { LayerKey, LayerSectionKey } from '@meta/geo'
 
 import { useAppDispatch } from '@client/store'
 import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
+import { LayerStateOptions } from '@client/store/ui/geo/stateType'
 import { useCountryIso } from '@client/hooks'
 
-export const useFetchGteTreeCoverPercentLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey) => {
+export const useFetchNewLayerOption = (
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey,
+  layerOptionKey: keyof Omit<LayerStateOptions, 'agreementLayer'>
+) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const layerState = useGeoLayer(sectionKey, layerKey)
-  const gteTreeCoverPercent = layerState?.options?.gteTreeCoverPercent
+  const layerOptionValue = layerState?.options?.[layerOptionKey]
 
   useEffect(() => {
-    if (gteTreeCoverPercent === undefined) return // Skip when the property is not set
+    if (layerOptionValue === undefined) return // Skip when the property is not set
     dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
-  }, [countryIso, layerKey, gteTreeCoverPercent, sectionKey, dispatch])
+  }, [countryIso, layerKey, layerOptionValue, sectionKey, dispatch])
 }

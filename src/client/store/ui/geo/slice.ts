@@ -231,6 +231,14 @@ export const geoSlice = createSlice({
       const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey].options = { ...layerStateOptions, gteTreeCoverPercent }
     },
+    setLayerYear: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; year: number }>
+    ) => {
+      const { sectionKey, layerKey, year } = action.payload
+      const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options = { ...layerStateOptions, year }
+    },
     setAgreementLevel: (
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
