@@ -4,6 +4,7 @@ import { NodeValueValidation } from '@meta/assessment/nodeValueValidation'
 export interface NodeValue {
   raw: any
   estimated?: boolean
+  estimationUuid?: string
   calculated?: boolean
   /**
    * @deprecated Use odpId instead.

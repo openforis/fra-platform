@@ -3,7 +3,7 @@ import { NodeUpdate } from '@meta/data'
 import { Sockets } from '@meta/socket'
 
 import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
-import { DB } from '@server/db'
+import { BaseProtocol, DB } from '@server/db'
 import { SocketServer } from '@server/service/socket'
 import { Logger } from '@server/utils/logger'
 
@@ -11,12 +11,13 @@ import { persistNode } from './persistNode'
 import { PersistNodeValuesProps } from './props'
 
 export const persistNodeValues = async (
-  props: PersistNodeValuesProps & { activityLogMessage?: ActivityLogMessage }
+  props: PersistNodeValuesProps & { activityLogMessage?: ActivityLogMessage },
+  client: BaseProtocol = DB
 ): Promise<void> => {
   const { user, nodeUpdates, activityLogMessage, sectionName } = props
   const { assessment, cycle, countryIso } = nodeUpdates
 
-  await DB.tx(async (client) => {
+  await client.tx(async (client) => {
     try {
       await client.func('pg_advisory_xact_lock', [1])
 
