@@ -5,8 +5,9 @@ import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { RecordAssessmentDatas } from '@meta/data'
 
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 
@@ -15,6 +16,8 @@ import { commonOptions, preferences, scaleLabel } from '../utils/preferences'
 
 const ForestArea = () => {
   const i18n = useTranslation()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const section = 'forestArea'
   const columns = ['1990', '2000', '2010', '2020']
   const countryIso = useCountryIso()
@@ -38,7 +41,15 @@ const ForestArea = () => {
         unit,
 
         data: tableNames
-          .map((tableName) => TableDatas.getTableData({ tableName, data: tableData, countryIso }))
+          .map((tableName) =>
+            RecordAssessmentDatas.getTableData({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              tableName,
+              data: tableData,
+              countryIso,
+            })
+          )
           .flatMap(Object.values)
           .flatMap(Object.values)
           .map(({ raw }) => (!isIsoCountry ? raw / 1000 : raw)),
