@@ -1,4 +1,4 @@
-import { Row, SubSection } from '@meta/assessment'
+import { SubSection } from '@meta/assessment'
 
 import { BaseProtocol, Schemas } from '@server/db'
 
@@ -35,41 +35,35 @@ export default async (client: BaseProtocol) => {
 
   await client.query(query)
 
-  const rowGrowingStockTotal = await client.one<Row>(
+  await client.query(
     `
-      select * from ${schemaName}.row r
-      where table_id = (select id from ${schemaName}.table where props->>'name' = $1)
-        and props->>'type' = 'data'
-        and props->>'index' = '7';
-    `,
-    'growingStockTotal'
+      update ${schemaName}.col c
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherWoodedLand.otherWoodedLand2025"')
+      where id in (
+        select c.id
+        from ${schemaName}.table t
+          left join ${schemaName}.row r on t.id = r.table_id
+          left join ${schemaName}.col c on r.id = c.row_id
+        where t.props ->> 'name' = 'growingStockTotal'
+          and r.props ->> 'variableName' = 'otherWoodedLand'
+          and c.props->>'index' = 'header_0'
+      );
+    `
   )
 
   await client.query(
     `
-      update ${schemaName}.col c set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherWoodedLand.otherWoodedLand2025"')
-      where row_id = $1
-        and props->>'index' = 'header_0';
-    `,
-    rowGrowingStockTotal.id
-  )
-
-  const rowGrowingStockAvg = await client.one<Row>(
+      update ${schemaName}.col c
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherWoodedLand.otherWoodedLand2025"')
+      where id in (
+        select c.id
+        from ${schemaName}.table t
+          left join ${schemaName}.row r on t.id = r.table_id
+          left join ${schemaName}.col c on r.id = c.row_id
+        where t.props ->> 'name' = 'growingStockAvg'
+          and r.props ->> 'variableName' = 'otherWoodedLand'
+          and c.props->>'index' = 'header_0'
+      );
     `
-      select * from ${schemaName}.row r
-      where table_id = (select id from ${schemaName}.table where props->>'name' = $1)
-        and props->>'type' = 'data'
-        and props->>'index' = '7';
-    `,
-    'growingStockAvg'
-  )
-
-  await client.query(
-    `
-      update ${schemaName}.col c set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherWoodedLand.otherWoodedLand2025"')
-      where row_id = $1
-        and props->>'index' = 'header_0';
-    `,
-    rowGrowingStockAvg.id
   )
 }
