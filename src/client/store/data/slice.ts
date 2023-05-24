@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
+import { CountryIso } from '@meta/area'
+import { AssessmentName, CycleName, TableNames } from '@meta/assessment'
 import { NodeUpdates, RecordAssessmentDatas } from '@meta/data'
 
 import { AssessmentActions } from '@client/store/assessment'
@@ -80,18 +82,22 @@ export const dataSlice = createSlice({
       })
     },
 
-    // // TODO
-    // deleteOriginalDataPoint: (
-    //   state,
-    //   {
-    //     payload,
-    //   }: PayloadAction<{ countryIso: CountryIso; year: string; assessmentName: AssessmentName; cycleName: CycleName }>
-    // ) => {
-    //   // Delete reference from state for deleted ODP
-    //   const { countryIso, year, cycleName, assessmentName } = payload
-    //   const odpReference = state.tableData[assessmentName][cycleName][countryIso]?.originalDataPointValue?.[year]
-    //   if (odpReference) delete state.tableData[assessmentName][cycleName][countryIso]?.originalDataPointValue?.[year]
-    // },
+    deleteOriginalDataPoint: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{ countryIso: CountryIso; year: string; assessmentName: AssessmentName; cycleName: CycleName }>
+    ) => {
+      // Delete reference from state for deleted ODP
+      const { countryIso, year, cycleName, assessmentName } = payload
+      const odpReference =
+        // @ts-ignore
+        state.tableData[assessmentName][cycleName][countryIso]?.[TableNames.originalDataPointValue]?.[year]
+      if (odpReference) {
+        // @ts-ignore
+        delete state.tableData[assessmentName][cycleName][countryIso][TableNames.originalDataPointValue][year]
+      }
+    },
   },
 
   extraReducers: (builder) => {
