@@ -6,7 +6,11 @@ export interface NodeValue {
   estimated?: boolean
   estimationUuid?: string
   calculated?: boolean
+  /**
+   * @deprecated Use odpId instead.
+   */
   odp?: boolean
+  odpId?: number
   validation?: NodeValueValidation
   taxonCode?: string
 }

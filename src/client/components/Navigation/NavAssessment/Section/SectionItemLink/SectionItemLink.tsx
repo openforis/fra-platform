@@ -13,9 +13,8 @@ import { useAssessment, useCycle } from '@client/store/assessment'
 import { NavigationActions } from '@client/store/ui/navigation'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import ReviewSummaryIndicator from '@client/components/ReviewSummaryIndicator'
 import { Breakpoints } from '@client/utils'
-
-import ReviewStatusMarker from '../ReviewStatusMarker'
 
 type Props = {
   subSection: SubSection
@@ -60,7 +59,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       <div className="nav-section__label">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">
-          <ReviewStatusMarker status={reviewStatus} />
+          <ReviewSummaryIndicator status={reviewStatus} />
         </div>
       )}
     </NavLink>
