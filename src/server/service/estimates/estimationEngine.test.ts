@@ -1,6 +1,7 @@
 import { UUIDs } from '@utils/uuids'
 
 import { NodeValueEstimationMethod, NodeValuesEstimation } from '@meta/assessment'
+import { NodeUpdate } from '@meta/data'
 
 import { dataset1, dataset1Expected } from '@server/service/estimates/datasets/dataset1'
 import { dataset2, dataset2Expected } from '@server/service/estimates/datasets/dataset2'
@@ -54,6 +55,15 @@ const _estimateWithDefaults = (
   )
 }
 
+const verifyEstimation = (estimated: Array<NodeUpdate>, expected: Array<NodeUpdate>): void => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const actual = estimated.map(({ value: { estimationUuid, ...value }, ...nodeUpdate }) => ({
+    ...nodeUpdate,
+    value: { ...value },
+  }))
+  expect(actual).toStrictEqual(expected)
+}
+
 describe('Estimation Engine test:', () => {
   describe('dataset1:', () => {
     test('Interpolates and extrapolates linearly', () => {
@@ -71,7 +81,7 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset1Expected['Interpolates and extrapolates linearly']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
   })
   describe('dataset2:', () => {
@@ -90,7 +100,7 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset2Expected['Extrapolates with repeat last value']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Extrapolates with annual change rate', () => {
       const generateSpec: GenerateSpec = {
@@ -109,7 +119,7 @@ describe('Estimation Engine test:', () => {
         generateSpecToEstimation({ generateSpec })
       )
       const expected = dataset2Expected['Extrapolates with annual change rate']
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
   })
 
@@ -119,14 +129,14 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset3Expected['Linear - {1992, 2002}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Repeat last - {1992, 2002}', () => {
       const estimated = _estimateWithDefaults(dataset3, 'repeatLast')
 
       const expected = dataset3Expected['Repeat last - {1992, 2002}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
   })
   describe('dataset4:', () => {
@@ -135,14 +145,14 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset4Expected['Repeat last - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('2 - Linear - {1992, 2016}', () => {
       const estimated = _estimateWithDefaults(dataset4, 'linear')
 
       const expected = dataset4Expected['Linear - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
   })
   describe('dataset5:', () => {
@@ -151,14 +161,14 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset5Expected['Linear - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Repeat Last - {1992, 2016}', () => {
       const estimated = _estimateWithDefaults(dataset5, 'repeatLast')
 
       const expected = dataset5Expected['Repeat Last - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Annual Change - {1992, 2016}', () => {
       const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
@@ -168,7 +178,7 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset5Expected['Annual Change - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Annual Change - {1992, 2016, negative values ratePast}', () => {
       const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
@@ -178,7 +188,7 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset5Expected['Annual Change - {1992, 2016, negative values ratePast}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Annual Change - {1992, 2016, negative values ratePast and rateFuture}', () => {
       const estimated = _estimateWithDefaults(dataset5, 'annualChange', {
@@ -188,7 +198,7 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset5Expected['Annual Change - {1992, 2016, negative values ratePast and rateFuture}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
   })
   describe('dataset6:', () => {
@@ -196,13 +206,13 @@ describe('Estimation Engine test:', () => {
       const estimated = _estimateWithDefaults(dataset6, 'linear')
       const expected = dataset6Expected['Linear - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Repeat last - {1992, 2016}', () => {
       const estimated = _estimateWithDefaults(dataset6, 'repeatLast')
       const expected = dataset6Expected['Repeat last - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Annual Change - {1992, 2016}', () => {
       const estimated = _estimateWithDefaults(dataset6, 'annualChange', {
@@ -218,7 +228,7 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset6Expected['Annual Change - {1992, 2016}']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
     test('Annual Change - {1992, 2016} - 2', () => {
       const estimated = _estimateWithDefaults(dataset6, 'annualChange', {
@@ -234,7 +244,7 @@ describe('Estimation Engine test:', () => {
 
       const expected = dataset6Expected['Annual Change - {1992, 2016} - 2']
 
-      expect(estimated).toStrictEqual(expected)
+      verifyEstimation(estimated, expected)
     })
   })
 })
