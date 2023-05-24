@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { NodeUpdates, RecordAssessmentDatas, TableDatas } from '@meta/data'
+import { NodeUpdates, RecordAssessmentDatas } from '@meta/data'
 
 import { AssessmentActions } from '@client/store/assessment'
 
@@ -33,7 +33,7 @@ export const dataSlice = createSlice({
       const { countryIso, nodes, assessment, cycle } = nodeUpdates
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = TableDatas.updateRecordAssessmentData({
+        state.tableData = RecordAssessmentDatas.updateDatum({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           data: state.tableData,
@@ -50,7 +50,7 @@ export const dataSlice = createSlice({
       const { countryIso, nodes, assessment, cycle } = nodeUpdates
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = TableDatas.updateRecordAssessmentData({
+        state.tableData = RecordAssessmentDatas.updateDatum({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           data: state.tableData,
@@ -67,7 +67,7 @@ export const dataSlice = createSlice({
       const { countryIso, nodes, assessment, cycle } = nodeUpdates
 
       nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = TableDatas.updateRecordAssessmentDataValidation({
+        state.tableData = RecordAssessmentDatas.updateDatumValidation({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           data: state.tableData,
@@ -128,7 +128,7 @@ export const dataSlice = createSlice({
       values.forEach((valueUpdate) => {
         const { colName, value, variableName } = valueUpdate
 
-        state.tableData = TableDatas.updateRecordAssessmentData({
+        state.tableData = RecordAssessmentDatas.updateDatum({
           assessmentName,
           cycleName,
           colName,
