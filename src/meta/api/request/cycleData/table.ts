@@ -1,5 +1,8 @@
 import { NodeValue } from '@meta/assessment'
 
+/**
+ * @deprecated
+ */
 export type EstimateBody = {
   fields: Array<{ annualChangeRates: { past: string; future: string }; variableName: string }>
   method: string
