@@ -44,7 +44,13 @@ describe('Data Export comparison', () => {
           } else {
             const hasOnlyDataLegacy = countryDataLegacy && !countryDataLocal
             const hasOnlyDataLocal = !countryDataLegacy && countryDataLocal
-            const hasDataLocalEmpty = TableDatas.isTableDataEmpty({ data: dataLocal, tableName, countryIso })
+            const hasDataLocalEmpty = TableDatas.isTableDataEmpty({
+              assessmentName: 'fra',
+              cycleName: '2020',
+              data: dataLocal,
+              tableName,
+              countryIso,
+            })
             if (hasOnlyDataLegacy || (hasOnlyDataLocal && !hasDataLocalEmpty)) {
               const diff: ValueDiff = {
                 countryIso,
