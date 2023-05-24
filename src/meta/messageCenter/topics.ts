@@ -4,6 +4,13 @@ import { User } from '@meta/user'
 
 const getDataReviewTopicKey = (row: Row): string => row.uuid
 
+const getOdpReviewTopicKeyPrefix = (odpId: number) => `odp-${odpId}-`
+
+const getOdpClassReviewTopicKey = (odpId: number, uuid: string, rowId: string): string =>
+  `${getOdpReviewTopicKeyPrefix(odpId)}class-${uuid}-${rowId}`
+
+const getOdpReviewTopicKey = (odpId: number, rowId: string): string => `${getOdpReviewTopicKeyPrefix(odpId)}${rowId}`
+
 const getMessageBoardCountryKey = (): string => `message_board`
 
 const getMessageBoardChatKey = (userA: User, userB: User): string => {
@@ -22,6 +29,9 @@ const getCommentableDescriptionKey = (
 
 export const Topics = {
   getDataReviewTopicKey,
+  getOdpReviewTopicKeyPrefix,
+  getOdpClassReviewTopicKey,
+  getOdpReviewTopicKey,
   getMessageBoardCountryKey,
   getMessageBoardChatKey,
   getCommentableDescriptionKey,
