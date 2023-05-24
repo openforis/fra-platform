@@ -88,7 +88,7 @@ export const calculateRow = async (
             assessment,
             countryIso,
             cycle,
-            data: data[assessment.props.name][cycle.name],
+            data,
             colName,
             row,
             formula: expression,

@@ -113,7 +113,7 @@ export const validateNodes = async (
         variableName,
         colName,
         row,
-        data: data[assessment.props.name][cycle.name],
+        data,
         validateFns: row.props.validateFns?.[cycle.uuid] ?? col.props.validateFns?.[cycle.uuid],
       },
       client
