@@ -1,5 +1,5 @@
 import { ReviewStatus } from '@meta/assessment'
-import { MessageTopicStatus } from '@meta/messageCenter'
+import { MessageTopicStatus, Topics } from '@meta/messageCenter'
 
 import { useAppSelector } from '@client/store'
 
@@ -11,7 +11,7 @@ export const useOdpReviewSummary = (odpId: number): ReviewStatus => {
 
   return statuses.reduce(
     (acc, curr) =>
-      curr.key.startsWith(`odp-${odpId}-`)
+      curr.key.startsWith(Topics.getOdpReviewTopicKeyPrefix(odpId))
         ? {
             hasUnreadMessages: curr.hasUnreadMessages || acc.hasUnreadMessages,
             status: curr.status !== MessageTopicStatus.resolved ? MessageTopicStatus.opened : acc.status,
