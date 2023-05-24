@@ -1,5 +1,5 @@
 import { Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
-import { NodeUpdate, NodeUpdates, TableDatas } from '@meta/data'
+import { NodeUpdate, NodeUpdates, RecordAssessmentDatas } from '@meta/data'
 import { Sockets } from '@meta/socket'
 import { User } from '@meta/user'
 
@@ -69,7 +69,7 @@ export const updateOriginalDataPointDependentNodes = async (
       countryIso,
       nodes: originalDataPointVariables.map(({ variableName, tableName }) => {
         return {
-          value: TableDatas.getNodeValue({
+          value: RecordAssessmentDatas.getNodeValue({
             assessmentName,
             cycleName,
             colName,

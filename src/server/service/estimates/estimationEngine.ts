@@ -2,7 +2,7 @@ import { BigNumberInput, Numbers } from '@utils/numbers'
 import { Objects } from '@utils/objects'
 import BigNumber from 'bignumber.js'
 
-import { NodeUpdate, TableData } from '@meta/data'
+import { NodeUpdate, RecordCountryData } from '@meta/data'
 
 const assert = (condition: any, message: string) => {
   if (!condition) {
@@ -256,7 +256,7 @@ const formatArray = (arr: Deprecated_TableDatum[], tableName: string, fields: st
 
 export const estimateValues = (
   years: Array<number>,
-  values: Partial<TableData>,
+  values: Partial<RecordCountryData>,
   generateSpec: Partial<GenerateSpec>,
   tableName: string
 ): Array<NodeUpdate> => {
