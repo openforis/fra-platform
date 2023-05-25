@@ -56,7 +56,15 @@ export const getChartData = (data: any, property: any) => {
     estimated: v[`${property}Estimated`],
     dataSourceMethods: v.dataSourceMethods,
   })
-  return data.filter((d: Record<string, string>) => !!d[property]).map(toChartDataObj)
+
+  return data
+    .reduce((acc: any, d: Record<string, string>) => {
+      if (d[property]) {
+        acc.push(toChartDataObj(d))
+      }
+      return acc
+    }, [])
+    .sort((a: { year: number }, b: { year: number }) => a.year - b.year)
 }
 
 export const hasData = (data: any) =>
