@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
-import { TableData } from '@meta/data'
+import { RecordCountryData } from '@meta/data'
 
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
@@ -20,7 +20,7 @@ import * as Chart from './chart'
 import useChartData from './useChartData'
 
 type ChartContainerProps = {
-  data: TableData
+  data: RecordCountryData
   trends: Array<{
     name: string
     label: string
@@ -29,7 +29,7 @@ type ChartContainerProps = {
   wrapperWidth: number
 }
 
-const toObject = (tableData: TableData, countryIso: CountryIso): Array<Record<string, string>> => {
+const toObject = (tableData: RecordCountryData, countryIso: CountryIso): Array<Record<string, string>> => {
   const newData: Array<Record<string, string>> = []
   const countryValues = tableData?.[countryIso]
   if (!countryValues) return []
@@ -62,6 +62,7 @@ const ChartContainer = (props: ChartContainerProps) => {
   const { data: _data, trends, wrapperWidth } = props
   const countryIso = useCountryIso()
   const data = toObject(_data, countryIso)
+
   const { i18n } = useTranslation()
   const { print } = useIsPrint()
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)
