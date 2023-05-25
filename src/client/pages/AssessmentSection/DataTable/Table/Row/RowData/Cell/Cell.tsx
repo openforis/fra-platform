@@ -1,17 +1,15 @@
 import './Cell.scss'
-import React, { useCallback } from 'react'
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
-import { NodeUpdate, TableData, TableDatas } from '@meta/data'
+import { TableData, TableDatas } from '@meta/data'
 import { Authorizer } from '@meta/user'
 
-import { useAppDispatch } from '@client/store'
 import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
-import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
-import Tooltip from '@client/components/Tooltip'
 
 import useClassName from './hooks/useClassName'
 import useOnChange from './hooks/useOnChange'
@@ -50,7 +48,6 @@ type Props = {
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled: disabledProps, rowIndex, col, row } = props
 
-  const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
   const user = useUser()
@@ -72,22 +69,6 @@ const Cell: React.FC<Props> = (props) => {
   const Component = Components[col.props.colType]
   const { colSpan, rowSpan, ...style } = Cols.getStyle({ col, cycle })
 
-  /**
-   * @deprecated. TODO: on hover, show tooltip
-   */
-  const showError = useCallback(() => {
-    if (!valid) {
-      const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value: nodeValue }
-      dispatch(
-        AssessmentSectionActions.setNodeValidationToDisplay({
-          nodeUpdate,
-          assessmentName,
-          cycleName: cycle.name,
-        })
-      )
-    }
-  }, [assessmentName, colName, cycle.name, dispatch, nodeValue, tableName, valid, variableName])
-
   if (!Component) return null
 
   const component = (
@@ -106,25 +87,28 @@ const Cell: React.FC<Props> = (props) => {
     />
   )
 
-  const dataValidations = nodeValue.validation?.messages?.map(({ key, params }) => t(key, params))
+  const dataValidationMessages = nodeValue?.validation?.messages?.map(({ key, params }) => t(key, params)) ?? []
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <td
       colSpan={colSpan}
       className={className}
-      onClick={showError}
-      onKeyDown={showError}
       rowSpan={rowSpan}
       style={style}
+      data-tooltip-id="error-tooltip"
+      data-tooltip-html={
+        !valid && dataValidationMessages.length > 0
+          ? ReactDOMServer.renderToStaticMarkup(
+              <ul>
+                {dataValidationMessages?.map((dataValidationMessage) => (
+                  <li key="data-validation-message">{dataValidationMessage}</li>
+                ))}
+              </ul>
+            )
+          : null
+      }
     >
-      {!valid ? (
-        <Tooltip error text={dataValidations.join('<br />')}>
-          {component}
-        </Tooltip>
-      ) : (
-        component
-      )}
+      {component}
     </td>
   )
 }

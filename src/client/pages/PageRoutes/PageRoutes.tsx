@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { Tooltip } from 'react-tooltip'
 
 import { ClientRoutes } from '@meta/app'
 
@@ -52,6 +53,8 @@ const PageRoutes: React.FC = () => {
 
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
+
+      <Tooltip id="error-tooltip" />
     </>
   )
 }
