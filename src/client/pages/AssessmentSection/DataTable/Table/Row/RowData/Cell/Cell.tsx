@@ -100,7 +100,7 @@ const Cell: React.FC<Props> = (props) => {
         !valid && dataValidationMessages.length > 0
           ? ReactDOMServer.renderToStaticMarkup(
               <ul>
-                {dataValidationMessages?.map((dataValidationMessage) => (
+                {dataValidationMessages.map((dataValidationMessage) => (
                   <li key="data-validation-message">{dataValidationMessage}</li>
                 ))}
               </ul>
