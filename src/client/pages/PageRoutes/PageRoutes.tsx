@@ -1,3 +1,4 @@
+import './PageRoutes.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'
@@ -54,7 +55,15 @@ const PageRoutes: React.FC = () => {
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
 
-      <Tooltip id="error-tooltip" />
+      <div className="tooltips-container">
+        <Tooltip id="data-error-tooltip" className="data-error-tooltip" classNameArrow="data-error-tooltip-arrow" />
+
+        <Tooltip
+          id="odp-header-cell-tooltip"
+          className="odp-header-cell-tooltip"
+          classNameArrow="odp-header-cell-tooltip-arrow"
+        />
+      </div>
     </>
   )
 }

@@ -63,7 +63,7 @@ const Cell: React.FC<Props> = (props) => {
   const valid = !Authorizer.canEditData({ country, cycle, section, user }) || NodeValueValidations.isValid(nodeValue)
   const disabled = disabledProps || nodeValue?.odp || Cols.hasLinkedNodes({ cycle, col })
 
-  const className = useClassName({ cycle, col, row, tableName, valid })
+  const className = useClassName({ cycle, col, row, valid })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
 
   const Component = Components[col.props.colType]
@@ -95,7 +95,7 @@ const Cell: React.FC<Props> = (props) => {
       className={className}
       rowSpan={rowSpan}
       style={style}
-      data-tooltip-id="error-tooltip"
+      data-tooltip-id="data-error-tooltip"
       data-tooltip-html={
         !valid && dataValidationMessages.length > 0
           ? ReactDOMServer.renderToStaticMarkup(

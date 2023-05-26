@@ -1,0 +1,43 @@
+@import 'src/client/styles/config';
+
+.tooltips-container {
+  .react-tooltip {
+    &.data-error-tooltip {
+      color: black;
+      background-color: lighten($ui-destructive, 55%);
+      border: 1px solid $ui-destructive;
+
+      .data-error-tooltip-arrow {
+        border-bottom: 1px solid $ui-destructive;
+        border-right: 1px solid $ui-destructive;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding-left: 1em;
+          text-indent: -1em;
+        }
+
+        li::before {
+          content: '> ';
+          color: $ui-destructive;
+        }
+      }
+    }
+
+    &.odp-header-cell-tooltip {
+      color: black;
+      background-color: lighten($ui-accent, 55%);
+      border: 1px solid $ui-accent;
+
+      .odp-header-cell-tooltip-arrow {
+        border-bottom: 1px solid $ui-accent;
+        border-right: 1px solid $ui-accent;
+      }
+    }
+  }
+}
