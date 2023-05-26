@@ -77,10 +77,10 @@ const mergeData = (props: { newTableData: RecordAssessmentData; tableData: Recor
                   ...accTable,
                   [tableName]: newTableData[assessmentName][cycleName][countryIso][tableName],
                 }),
-                tableData[assessmentName][cycleName][countryIso] ?? {}
+                tableData[assessmentName]?.[cycleName]?.[countryIso] ?? {}
               ),
             }),
-            tableData[assessmentName][cycleName] ?? {}
+            tableData[assessmentName]?.[cycleName] ?? {}
           ),
         }),
         tableData[assessmentName] ?? {}
