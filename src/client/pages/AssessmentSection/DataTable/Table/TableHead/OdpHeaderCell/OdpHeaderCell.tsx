@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
+import { TooltipId } from '@meta/tooltip'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useOdpReviewSummary } from '@client/store/ui/review/hooks'
@@ -36,7 +37,7 @@ const HeaderCell: React.FC<Props> = (props) => {
       className="odp-header-cell"
       colSpan={colSpan}
       rowSpan={rowSpan}
-      data-tooltip-id="odp-header-cell-tooltip"
+      data-tooltip-id={TooltipId.info}
       data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
     >
       <Link

@@ -29,12 +29,13 @@
       }
     }
 
-    &.odp-header-cell-tooltip {
+    &.info-tooltip {
       color: black;
       background-color: lighten($ui-accent, 55%);
       border: 1px solid $ui-accent;
+      max-width: 240px;
 
-      .odp-header-cell-tooltip-arrow {
+      .info-tooltip-arrow {
         border-bottom: 1px solid $ui-accent;
         border-right: 1px solid $ui-accent;
       }

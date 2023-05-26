@@ -63,11 +63,7 @@ const PageRoutes: React.FC = () => {
           classNameArrow={`${TooltipId.dataError}-arrow`}
         />
 
-        <Tooltip
-          id={TooltipId.odpHeaderCell}
-          className={TooltipId.odpHeaderCell}
-          classNameArrow={`${TooltipId.odpHeaderCell}-arrow`}
-        />
+        <Tooltip id={TooltipId.info} className={TooltipId.info} classNameArrow={`${TooltipId.info}-arrow`} />
       </div>
     </>
   )
