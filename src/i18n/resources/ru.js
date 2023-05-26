@@ -644,7 +644,7 @@ module.exports.translation = {
     ofWhichAfforestation: '…в том числе лесоразведение',
     ofWhichNaturalExpansion: '…в том числе естественное расширение лесов',
     deforestation: 'Обезлесение',
-    forestAreaNetChange: 'Чистое изменение лесной площади',
+    forestAreaNetChange: 'Чистое изменение площади лесов',
     netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади',
     forestAreaNetChangeFrom1a: 'Чистое изменение площади лесов  из таблицы 1а',
   },

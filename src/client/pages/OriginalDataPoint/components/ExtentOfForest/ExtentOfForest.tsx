@@ -73,7 +73,9 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.class')}</th>
                 <th className="fra-table__header-cell fra-table__divider">{t('nationalDataPoint.area')}</th>
                 <th className="fra-table__header-cell">{t('fraClass.forest')}</th>
-                <th className="fra-table__header-cell">{t('fraClass.otherWoodedLand')}</th>
+                <th className="fra-table__header-cell">
+                  {t(`${cycle.name === '2025' ? 'fra.extentOfForest.otherWoodedLand' : 'fraClass.otherWoodedLand'}`)}
+                </th>
                 <th className="fra-table__header-cell">
                   {t(`${cycle.name === '2025' ? 'fra.extentOfForest.remainingLandArea' : 'fraClass.otherLand'}`)}
                 </th>

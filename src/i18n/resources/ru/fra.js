@@ -122,6 +122,9 @@ module.exports = {
     other2025: 'Прочее (укажите в комментариях)',
     unknown2025: 'Неизвестно',
   },
+  otherWoodedLand: {
+    otherWoodedLand2025: 'Прочие лесистые земли',
+  },
   otherLandWithTreeCover: {
     otherLandWithTreeCover2025: 'Прочие земли с древесным покровом',
   },

@@ -118,6 +118,9 @@ module.exports = {
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'غير معروف',
   },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
+  },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'عمليات إزالة المنتجات الحرجية غير الخشبية وقيمتها ٢٠٢٠ ',
   },

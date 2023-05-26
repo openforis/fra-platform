@@ -144,6 +144,9 @@ module.exports = {
     other2025: '其他(在评论中阐述)',
     unknown2025: '不明',
   },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
+  },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: '非木材林产品采集和价值 2020',
   },
