@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
+import { TooltipId } from '@meta/tooltip'
 import { Authorizer } from '@meta/user'
 
 import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
@@ -95,7 +96,7 @@ const Cell: React.FC<Props> = (props) => {
       className={className}
       rowSpan={rowSpan}
       style={style}
-      data-tooltip-id="data-error-tooltip"
+      data-tooltip-id={TooltipId.dataError}
       data-tooltip-html={
         !valid && dataValidationMessages.length > 0
           ? ReactDOMServer.renderToStaticMarkup(

@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
 
 import { ClientRoutes } from '@meta/app'
+import { TooltipId } from '@meta/tooltip'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useIsAppInitialized } from '@client/store/assessment'
@@ -56,12 +57,16 @@ const PageRoutes: React.FC = () => {
       </Routes>
 
       <div className="tooltips-container">
-        <Tooltip id="data-error-tooltip" className="data-error-tooltip" classNameArrow="data-error-tooltip-arrow" />
+        <Tooltip
+          id={TooltipId.dataError}
+          className={TooltipId.dataError}
+          classNameArrow={`${TooltipId.dataError}-arrow`}
+        />
 
         <Tooltip
-          id="odp-header-cell-tooltip"
-          className="odp-header-cell-tooltip"
-          classNameArrow="odp-header-cell-tooltip-arrow"
+          id={TooltipId.odpHeaderCell}
+          className={TooltipId.odpHeaderCell}
+          classNameArrow={`${TooltipId.odpHeaderCell}-arrow`}
         />
       </div>
     </>
