@@ -577,7 +577,7 @@ You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for
 <b><a href="{{- link}}">Accept this invitation and access the platform</a></b>
 <br/><br/>
 <b>Please access the platform within two weeks after receiving the invitation after that the invitation is invalid. Should you need a new invitation then please contact <a href="mailto:fra@fao.org">fra@fao.org</a>.</b>
-<br />br />
+<br /><br />
 Happy reporting!
 <br/><br/>
 The FRA team fra@fao.org
