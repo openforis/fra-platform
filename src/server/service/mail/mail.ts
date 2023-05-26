@@ -1,6 +1,7 @@
 import * as nodemailer from 'nodemailer'
 
 import { ProcessEnv } from '@server/utils'
+import { Logger } from '@server/utils/logger'
 
 import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 import { resetPassword } from './resetPassword'
@@ -38,8 +39,11 @@ export interface MailServiceEmail {
 // @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sendMail = async (email: MailServiceEmail) => {
-  if (ProcessEnv.nodeEnv !== 'test') {
+  if (ProcessEnv.nodeEnv !== 'test' && ProcessEnv.fraMailEnabled) {
     await mailTransport.sendMail({ ...emailDefaults, ...email })
+  } else {
+    Logger.debug('MailService.sendMail')
+    Logger.debug(JSON.stringify({ email }, null, 2))
   }
 }
 
