@@ -37,6 +37,7 @@ export const ProcessEnv = {
   pgDatabase,
   pgMaxConnections: Number(process.env.PG_MAX_CONNECTIONS ?? 20),
   pgSsl: process.env.PGSSL === 'true',
+  fraMailEnabled: process.env.FRA_MAIL_ENABLED === 'true',
 
   // Redis
   // process.env.REDISCLOUD_URL -> heroku Redis Enterprise Cloud add-ons
