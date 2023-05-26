@@ -1,20 +1,29 @@
 @import 'src/client/style/partials';
 
 .pan-eu-home {
+  display: grid;
+  grid-row-gap: $spacing-m;
+  padding: $spacing-m;
+
   .description {
-    padding: $spacing-xs;
+    max-width: 800px;
+    justify-self: center;
+    text-align: center;
   }
 
   .partners {
+    max-width: 800px;
     padding: 0;
     display: grid;
     justify-items: center;
     grid-row-gap: 32px;
+    justify-self: center;
+  }
 
-    hr {
-      justify-self: normal;
-      margin-bottom: 0;
-    }
+  hr {
+    justify-self: flex-start;
+    margin: 0;
+    width: 100%;
   }
 
   .partners__disclaimer {
@@ -37,7 +46,7 @@
     }
 
     img.forestEurope {
-      height: 70px;
+      height: 100px;
     }
   }
 

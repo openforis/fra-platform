@@ -19,10 +19,11 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
-  statisticalFactsheets,
   login,
-  uc,
+  panEuropean,
   print,
+  statisticalFactsheets,
+  uc,
 
   page: {
     assessmentSection,
@@ -1062,6 +1063,8 @@ The FRA team
     forestSumAreaExceedsExtentOfForest:
       'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
     valueEqualToSum: 'Total value should be equal to sum of subcategories',
+    valueEqualToSumParent:
+      'The sum of subcategories {{subcategories}} is not equal to {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>',
     landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a) ({{value}})',
     classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
     classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',
@@ -1157,6 +1160,4 @@ The FRA team
     messageBoardDesc: 'Messages posted here are visible to all country members',
     oneToOneMessages: 'One To One Messages',
   },
-
-  panEuropean,
 }

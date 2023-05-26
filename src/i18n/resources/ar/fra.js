@@ -73,6 +73,7 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'مساحة الأرض المتبقية',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'منطقة الغابات مع خطة إدارة طويلة الأجل',
@@ -116,6 +117,9 @@ module.exports = {
     communities2025: 'الشعوب الأصلية والمجتمعات المحلية',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'غير معروف',
+  },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
   },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'عمليات إزالة المنتجات الحرجية غير الخشبية وقيمتها ٢٠٢٠ ',

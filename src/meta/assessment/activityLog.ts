@@ -13,6 +13,7 @@ export enum ActivityLogMessage {
   descriptionUpdate = 'descriptionUpdate',
   nodeValueUpdate = 'nodeValueUpdate',
   nodeValueEstimate = 'nodeValueEstimate',
+  nodeValuesEstimationCreate = 'nodeValuesEstimationCreate',
   tableValuesClear = 'tableValuesClear',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
   messageCreate = 'messageCreate',

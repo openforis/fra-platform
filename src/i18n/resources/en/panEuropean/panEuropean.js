@@ -50,20 +50,19 @@ module.exports = {
   },
   home: {
     description1:
-      'This dataset consists of information provided by the National Correspondents in response to the joint FOREST EUROPE, UNECE, FAO questionnaire on the quantitative pan-European indicators for sustainable forest management.',
-    description2: `The pan-European reporting 2020 was carried out in parallel to FRA 2020. Although separate processes, some variables appear in both. Please note, however, that this platform presents pan-European dataset as collected until June 2019 and may not reflect updates made in consultation with the national correspondents at the later stages, e.g. for the elaboration of the`,
-    stateOfEuropeForest: `State of Europe's Forests 2020`,
-    description3: `report.`,
+      'This platform provides an online interface for national reporting to the joint UNECE, FAO, FOREST EUROPE data collection on the quantitative pan-European indicators for sustainable forest management.',
+    description2: `The 2025 pan-European data collection is carried out in parallel to the Global Forest Resources Assessment (FRA) 2025.`,
   },
   disclaimer: {
     platformDeveloped: `This platform was developed jointly by`,
     fao: 'FAO',
     unece: 'UNECE',
-    technicalSupport: 'with the technical support from',
+    technicalSupport: 'with the technical support of',
     and: 'and',
     forestEurope: 'FOREST EUROPE',
     govSwitzerland: 'Government of Switzerland',
     part1: 'The website has been produced with the assistance of the',
+    sweden: 'Sweden',
   },
 
   // navigation

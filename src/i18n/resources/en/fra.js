@@ -120,6 +120,7 @@ module.exports = {
     remainingLandArea: 'Remaining land area',
     totalLandArea2025: '$t(extentOfForest.totalLandArea)',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
 
   forestAreaChange: {
@@ -186,6 +187,10 @@ module.exports = {
     communities2025: 'Indigenous Peoples and local communities',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
+  },
+
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
   },
 
   nonWoodForestProductsRemovals: {

@@ -9,8 +9,8 @@ import { Labels, Section } from '@meta/assessment'
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import ReviewSummaryIndicator from '@client/components/ReviewSummaryIndicator'
 
-import ReviewStatusMarker from './ReviewStatusMarker'
 import SectionItemLink from './SectionItemLink'
 
 type Props = {
@@ -78,7 +78,7 @@ const NavigationSection: React.FC<Props> = (props) => {
         <div className="nav-section__label">{sectionLabel}</div>
         {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
-            <ReviewStatusMarker status={reviewStatus} />
+            <ReviewSummaryIndicator status={reviewStatus} />
           </div>
         )}
       </div>

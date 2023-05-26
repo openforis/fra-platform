@@ -91,6 +91,7 @@ module.exports = {
     remainingLandArea: 'Superficie terrestre restante',
     totalLandArea2025: 'Superficie terrestre total',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
 
   forestAreaChange: {
@@ -149,6 +150,9 @@ module.exports = {
     communities2025: 'Pueblos Indígenas y comunidades locales',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Desconocido',
+  },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
   },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Extracción y valor de productos forestales no madereros en 2020',

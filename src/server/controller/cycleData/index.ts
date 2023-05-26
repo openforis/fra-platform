@@ -10,7 +10,7 @@ import { getOriginalDataPoint } from './getOriginalDataPoint'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
-import { persistNodeValues } from './persistNodeValues'
+import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
 import { removeOriginalDataPoint } from './removeOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { upsertDescription } from './upsertDescription'
@@ -18,6 +18,7 @@ import { upsertDescription } from './upsertDescription'
 export const CycleDataController = {
   // node
   persistNodeValues,
+  persistNodeValuesEstimated,
   // table data
   getOriginalDataPointData,
   getTableData,

@@ -90,6 +90,7 @@ module.exports = {
     remainingLandArea: '其他土地',
     totalLandArea2025: '土地面积总和',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
 
   forestAreaChange: {
@@ -142,6 +143,9 @@ module.exports = {
     communities2025: '土著居民和当地社区',
     other2025: '其他(在评论中阐述)',
     unknown2025: '不明',
+  },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
   },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: '非木材林产品采集和价值 2020',

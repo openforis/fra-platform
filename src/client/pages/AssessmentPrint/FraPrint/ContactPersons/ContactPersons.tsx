@@ -31,10 +31,9 @@ const ContactPersons: React.FC = () => {
   const users = useUsers().filter((user) => {
     const userRole = Users.getRole(user, countryIso, cycle)
     return (
-      ([UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
-        allowedRoleNames.includes(userRole.role) &&
-        userRole.role !== RoleName.COLLABORATOR) ||
-      (userRole.props as CollaboratorPermissions).sections !== 'none'
+      [UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
+      allowedRoleNames.includes(userRole.role) &&
+      (userRole.role !== RoleName.COLLABORATOR || (userRole.props as CollaboratorPermissions).sections !== 'none')
     )
   })
 

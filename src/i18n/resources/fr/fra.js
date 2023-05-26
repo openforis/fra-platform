@@ -73,6 +73,7 @@ module.exports = {
   extentOfForest: {
     remainingLandArea: 'Terres restantes',
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
+    otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Superficie de forêt soumise à un plan de gestion à long terme',
@@ -119,6 +120,9 @@ module.exports = {
     communities2025: 'Peuples autochtones et communautés locales ',
     other2025: 'Autres formes de droits de gestion (préciser dans les commentaires)',
     unknown2025: 'Droits de gestion inconnus',
+  },
+  otherWoodedLand: {
+    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
   },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Extraction et valeur des produits forestiers non ligneux en 2020',

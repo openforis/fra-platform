@@ -242,6 +242,25 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           created_at timestamp with time zone default now(),
           updated_at timestamp with time zone default now()
       );
+      
+      create table ${assessmentCycleSchemaName}.node_values_estimation
+      (
+          id          bigserial                       not null
+              constraint node_values_estimation_pk
+                  primary key,
+          uuid        uuid default uuid_generate_v4() not null,
+          country_iso varchar(3)                      not null
+              constraint node_values_estimation_country_fk
+                  references country (country_iso)
+                  on update cascade on delete cascade,
+          table_uuid  uuid                            not null
+              constraint node_values_estimation_table_fk
+                  references ${assessmentSchemaName}."table" (uuid)
+                  on update cascade on delete cascade,
+          method      varchar(255)                    not null,
+          variables   jsonb                           not null,
+          unique (uuid)
+      );
   `
 }
 
@@ -249,7 +268,8 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
   return `
       create or replace view ${assessmentCycleSchemaName}.original_data_point_data as
       with classes as (
-          select o.country_iso,
+          select o.id,
+                 o.country_iso,
                  o.year,
                  jsonb_array_elements(
                    case when jsonb_array_length( o.national_classes ) = 0 then '[{}]' else o.national_classes end
@@ -274,7 +294,8 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                   left join country_years cy on c.country_iso = cy.country_iso
            ),
            raw_values as (
-               select c.country_iso,
+               select c.id,
+                      c.country_iso,
                       c.year,
                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
                           100::numeric)                                                                as forest_area,
@@ -304,8 +325,8 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                           ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
                           100::numeric)                                                                as other_planted_forest_area
                from classes c
-               group by c.country_iso, c.year
-               order by c.country_iso, c.year),
+               group by c.id, c.country_iso, c.year
+               order by c.id, c.country_iso, c.year),
             raw_values_2 as
             (select rv.*,
                  case
@@ -347,7 +368,8 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                          coalesce(rv.planted_forest, 0) + coalesce(rv.natural_forest_area, 0)
                  else null
                  end                                                               as total_forest_area,
-             rv.primary_forest
+             rv.primary_forest,
+             rv.id
       from raw_values_2 rv
                left join total_land_area tla
                          on tla.country_iso = rv.country_iso
