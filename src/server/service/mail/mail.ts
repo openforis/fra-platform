@@ -10,6 +10,11 @@ const mailTransport = nodemailer.createTransport({
   host: process.env.FRA_MAIL_HOST,
   port: Number(process.env.FRA_MAIL_PORT),
   secure: process.env.FRA_MAIL_SECURE === 'true',
+  tls: {
+    ciphers: 'SSLv3',
+    rejectUnauthorized: false,
+    requestCert: true,
+  },
   auth: {
     user: process.env.FRA_MAIL_USER,
     pass: process.env.FRA_MAIL_PASSWORD,
