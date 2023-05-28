@@ -13,6 +13,7 @@ import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import AgreementLevelControl from './components/AgreementLevelControl/AgreementLevelControl'
 import CustomAssetControl from './components/CustomAssetControl'
 import LayerOpacityControl from './components/LayerOpacityControl'
+import RecipeSelector from './components/RecipeSelector/RecipeSelector'
 import TreeCoverPercentageControl from './components/TreeCoverPercentageControl/TreeCoverPercentageControl'
 import YearControl from './components/YearControl'
 
@@ -51,6 +52,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
   return (
     <div className="geo-map-section-panel-container">
       <div className="geo-map-section-panel-layers">
+        {section.recipes !== undefined && <RecipeSelector sectionKey={section.key} recipes={section.recipes} />}
         {section.layers.length > 2 && (
           <GeoMapMenuListElement
             key={`${section.key}-global-opacity`}
