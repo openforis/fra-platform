@@ -1,5 +1,5 @@
 import { BurnedAreaKey } from './burnedAreaSource'
-import { ForestKey, HansenPercentage } from './forest'
+import { ForestKey } from './forest'
 import { ProtectedAreaKey } from './protectedAreaSource'
 
 export type LayerConfig = {
@@ -26,8 +26,7 @@ export interface LayerSource {
 }
 
 export interface Recipe {
-  layers: Array<LayerKey>
-  gteHansenTreeCoverPerc?: HansenPercentage
+  layers: Array<LayerSource>
   forestAreaDataProperty: string
   recipeLabel: string
 }

@@ -6,7 +6,7 @@ export {
   ForestKey,
   forestLayers,
   forestLayersMetadata,
-  getRecipeAgreementAreaProperty,
+  // getRecipeAgreementAreaProperty,
 } from './forest'
 export type { ForestEstimations, ForestEstimationsData } from './forestEstimations'
 export { ExtraEstimation, extraEstimationsMetadata } from './forestEstimations'
