@@ -6,7 +6,7 @@ import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOption
 import { mapController } from '@client/utils'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestEstimationData, postLayer } from './actions'
+import { getForestEstimationData, postLayer, setLayerSectionRecipe } from './actions'
 import {
   AgreementLevelState,
   GeoState,
@@ -352,6 +352,7 @@ export const GeoActions = {
   ...geoSlice.actions,
   postMosaicOptions,
   postLayer,
+  setLayerSectionRecipe,
 }
 
 export default geoSlice.reducer as Reducer<GeoState>
