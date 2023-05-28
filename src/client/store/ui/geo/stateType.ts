@@ -34,6 +34,7 @@ export type LayersSectionState = Record<LayerKey, LayerState>
 
 export type GeoState = {
   sections: Record<LayerSectionKey, LayersSectionState>
+  recipes: Record<LayerSectionKey, string>
   isMapAvailable: boolean
   selectedPanel: MapPanel
   mosaicOptions: {
