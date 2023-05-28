@@ -29,3 +29,6 @@ export const useGeoLayerSection = (sectionKey: LayerSectionKey): LayersSectionSt
 
 export const useGeoLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState | undefined =>
   useAppSelector((state) => state.geo.sections[sectionKey]?.[layerKey])
+
+export const useGeoLayerSectionRecipeName = (sectionKey: LayerSectionKey): string | undefined =>
+  useAppSelector((state) => state.geo.recipes[sectionKey])

@@ -2,6 +2,7 @@ export {
   useAppliedMosaicOptions,
   useGeoLayer,
   useGeoLayerSection,
+  useGeoLayerSectionRecipeName,
   useGeoStatistics,
   useIsGeoMapAvailable,
   useMosaicFailed,
