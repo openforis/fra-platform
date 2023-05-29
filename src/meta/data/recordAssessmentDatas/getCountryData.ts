@@ -5,5 +5,5 @@ import { Props } from './props'
 export const getCountryData = (
   props: Pick<Props, 'assessmentName' | 'cycleName' | 'countryIso' | 'data'>
 ): RecordTableData => {
-  return getCycleData(props)?.[props.countryIso] ?? {}
+  return getCycleData(props)[props.countryIso] ?? {}
 }
