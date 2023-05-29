@@ -2,7 +2,7 @@ import { Arrays } from '@utils/arrays'
 import { Objects } from '@utils/objects'
 
 import { AssessmentName, CycleName, Table } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 
 export const getODPColSpan = (props: {
   assessmentName: AssessmentName
@@ -14,7 +14,7 @@ export const getODPColSpan = (props: {
   const { assessmentName, cycleName, data, headers, table } = props
   if (Objects.isEmpty(props.data?.[assessmentName]?.[cycleName])) return headers.length
 
-  const [[, tableData]] = Object.entries(data[assessmentName][cycleName])
+  const [[, tableData]] = Object.entries(RecordAssessmentDatas.getCycleData({ assessmentName, cycleName, data }))
   const tableDataKeys = Object.keys(tableData?.[table.props.name] || {})
 
   const keysDifference = Arrays.difference(tableDataKeys, headers)

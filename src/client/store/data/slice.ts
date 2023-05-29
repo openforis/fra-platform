@@ -90,9 +90,13 @@ export const dataSlice = createSlice({
     ) => {
       // Delete reference from state for deleted ODP
       const { countryIso, year, cycleName, assessmentName } = payload
-      const odpReference =
-        // @ts-ignore
-        state.tableData[assessmentName][cycleName][countryIso]?.[TableNames.originalDataPointValue]?.[year]
+      const odpReference = RecordAssessmentDatas.getTableData({
+        data: state.tableData,
+        assessmentName,
+        cycleName,
+        countryIso,
+        tableName: TableNames.originalDataPointValue,
+      })[year]
       if (odpReference) {
         // @ts-ignore
         delete state.tableData[assessmentName][cycleName][countryIso][TableNames.originalDataPointValue][year]

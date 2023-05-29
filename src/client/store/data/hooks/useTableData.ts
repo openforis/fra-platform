@@ -1,5 +1,7 @@
+import { Objects } from '@utils/objects'
+
 import { Table, TableNames } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
@@ -20,7 +22,18 @@ export const useTableData = (props: { table: Table }): RecordAssessmentData => {
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
-  if (!tableData?.[assessment.props.name]?.[cycle.name]?.[countryIso]) return {}
+  if (
+    Objects.isEmpty(
+      RecordAssessmentDatas.getTableData({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        data: tableData,
+        countryIso,
+        tableName: table.props.name,
+      })
+    )
+  )
+    return {}
 
   const shouldReturnWithoutODP =
     !odp ||

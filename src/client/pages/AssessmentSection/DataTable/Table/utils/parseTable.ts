@@ -3,7 +3,7 @@ import { UUIDs } from '@utils/uuids'
 
 import { CountryIso } from '@meta/area'
 import { AssessmentName, Col as TypeCol, Cycle, Row as TypeRow, RowType, Table } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 
 type Props = {
   assessmentName: AssessmentName
@@ -19,9 +19,17 @@ const getHeaders = (props: Props): string[] => {
 
   const headers = table.props.columnNames[cycle.uuid]
   if (table.props.odp && showODP) {
-    const headersDiff = data?.[assessmentName]?.[cycle.name]
+    const headersDiff = RecordAssessmentDatas.getCycleData({ data, assessmentName, cycleName: cycle.name })
       ? Arrays.difference(
-          Object.keys(data?.[assessmentName]?.[cycle.name]?.[countryIso]?.[table.props.name] ?? {}),
+          Object.keys(
+            RecordAssessmentDatas.getTableData({
+              data,
+              assessmentName,
+              cycleName: cycle.name,
+              tableName: table.props.name,
+              countryIso,
+            })
+          ),
           headers
         )
       : []

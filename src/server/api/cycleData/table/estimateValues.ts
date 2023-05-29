@@ -3,6 +3,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest, EstimateBody } from '@meta/api/request'
 import { NodeValueEstimationMethod, NodeValuesEstimation, Table } from '@meta/assessment'
+import { RecordAssessmentDatas } from '@meta/data'
 
 import { AssessmentController } from '@server/controller/assessment'
 import { CycleDataController } from '@server/controller/cycleData'
@@ -68,8 +69,13 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     const estimation = generateSpecToEstimation({ generateSpec, table })
     const nodes = EstimationEngine.estimateValues(
       years,
-      originalDataPointValues[assessment.props.name][cycle.name],
-      generateSpec as GenerateSpec,
+      // originalDataPointValues[assessment.props.name][cycle.name],
+      RecordAssessmentDatas.getCycleData({
+        data: originalDataPointValues,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+      }),
+      generateSpec,
       table.props.name,
       estimation
     )

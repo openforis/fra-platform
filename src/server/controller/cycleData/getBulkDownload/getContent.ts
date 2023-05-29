@@ -1,3 +1,5 @@
+import { RecordAssessmentDatas } from '@meta/data'
+
 import { climaticDomain } from '@server/controller/cycleData/getBulkDownload/climaticDomain'
 import { getClimaticValue } from '@server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from '@server/controller/cycleData/getBulkDownload/getData'
@@ -8,7 +10,12 @@ export const getContent = async (
   props: Props & { entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[] }
 ) => {
   const { assessment, cycle, countries, entries } = props
-  const climaticData = await climaticDomain(props)
+  const _climaticData = await climaticDomain(props)
+  const climaticData = RecordAssessmentDatas.getCycleData({
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+    data: _climaticData,
+  })
   const tableNames = entries.map(({ tableName }) => tableName)
   const data = await getData({
     assessment,
@@ -30,16 +37,24 @@ export const getContent = async (
         iso3: countryIso,
         name: countryIso,
         year,
-        boreal: getClimaticValue('boreal', countryIso, climaticData[assessment.props.name][cycle.name]),
-        temperate: getClimaticValue('temperate', countryIso, climaticData[assessment.props.name][cycle.name]),
-        tropical: getClimaticValue('tropical', countryIso, climaticData[assessment.props.name][cycle.name]),
-        subtropical: getClimaticValue('sub_tropical', countryIso, climaticData[assessment.props.name][cycle.name]),
+        boreal: getClimaticValue('boreal', countryIso, climaticData),
+        temperate: getClimaticValue('temperate', countryIso, climaticData),
+        tropical: getClimaticValue('tropical', countryIso, climaticData),
+        subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
       }
 
       entries.forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
           base[csvColumn] =
-            data[assessment.props.name][cycle.name][countryIso][tableName]?.[year]?.[variableName]?.raw ?? null
+            RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data,
+              countryIso,
+              tableName,
+              variableName,
+              colName: year,
+            }) ?? null
         })
       })
 

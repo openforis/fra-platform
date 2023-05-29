@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, ColType, CycleName, Row, RowType } from '@meta/assessment'
-import { RecordAssessmentData, RecordCountryData } from '@meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from '@meta/data'
 
 import { useAppDispatch } from '@client/store'
 import { useCycle } from '@client/store/assessment'
@@ -66,7 +66,7 @@ const useGenerateValues = (
 
   const generateValues = () => {
     if (
-      isTableWithOdpEmpty(data[assessmentName][cycleName]) ||
+      isTableWithOdpEmpty(RecordAssessmentDatas.getCycleData({ data, assessmentName, cycleName })) ||
       window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))
     ) {
       const fieldsToUpdate = fields.filter((field) => field.selected === true)

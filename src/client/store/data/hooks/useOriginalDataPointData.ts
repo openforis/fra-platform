@@ -1,5 +1,5 @@
 import { TableNames } from '@meta/assessment'
-import { RecordColumnData } from '@meta/data'
+import { RecordAssessmentDatas, RecordColumnData } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -10,8 +10,13 @@ export const useOriginalDataPointData = (): RecordColumnData | undefined => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
 
-  return useAppSelector(
-    (state) =>
-      state.data.tableData?.[assessment.props.name]?.[cycle.name]?.[countryIso]?.[TableNames.originalDataPointValue]
+  return useAppSelector((state) =>
+    RecordAssessmentDatas.getTableData({
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+      data: state.data.tableData,
+      countryIso,
+      tableName: TableNames.originalDataPointValue,
+    })
   ) as RecordColumnData | undefined
 }
