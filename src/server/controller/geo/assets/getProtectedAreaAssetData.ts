@@ -8,12 +8,10 @@ export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; 
 
   switch (layer.key) {
     case ProtectedAreaKey.FilteredWDPA: {
-      const imgFilteredWDPA = Image('users/geofra/protected_areas/PAs_WDPA_polygons_filtered_image_Bin_30m_World_v2')
-        .eq(1)
-        .selfMask()
+      const imgFilteredWDPA = Image('users/geofra/protected_areas/v1/PAs_WDPA_Bin_30m_World_2020').eq(1).selfMask()
 
       asset = {
-        year: 2017,
+        year: 2020,
         img: imgFilteredWDPA,
         metadata: protectedAreaSourcesMetadata[layer.key],
       }
