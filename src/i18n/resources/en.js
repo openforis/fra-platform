@@ -492,7 +492,7 @@ The FRA team
     additionalComments: 'Additional comments',
     edit: 'Edit',
     confirmCopyPreviousValues: 'Do you want to override previous values? This operation cannot be undone.',
-    copyPreviousValues: 'Copy previous values',
+    copyPreviousValues: 'Copy previous references',
     nationalClassifications: 'National classifications',
     nationalClass: 'National class',
     nationalClasses: 'Classifications and definitions',
