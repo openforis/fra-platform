@@ -57,11 +57,7 @@ const PageRoutes: React.FC = () => {
       </Routes>
 
       <div className="tooltips-container">
-        <Tooltip
-          id={TooltipId.dataError}
-          className={TooltipId.dataError}
-          classNameArrow={`${TooltipId.dataError}-arrow`}
-        />
+        <Tooltip id={TooltipId.error} className={TooltipId.error} classNameArrow={`${TooltipId.error}-arrow`} />
 
         <Tooltip id={TooltipId.info} className={TooltipId.info} classNameArrow={`${TooltipId.info}-arrow`} />
       </div>

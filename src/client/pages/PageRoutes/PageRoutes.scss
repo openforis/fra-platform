@@ -2,12 +2,12 @@
 
 .tooltips-container {
   .react-tooltip {
-    &.data-error-tooltip {
+    &.error-tooltip {
       color: black;
       background-color: lighten($ui-destructive, 55%);
       border: 1px solid $ui-destructive;
 
-      .data-error-tooltip-arrow {
+      .error-tooltip-arrow {
         border-bottom: 1px solid $ui-destructive;
         border-right: 1px solid $ui-destructive;
       }

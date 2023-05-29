@@ -1,4 +1,4 @@
 export enum TooltipId {
-  dataError = 'data-error-tooltip',
+  error = 'error-tooltip',
   info = 'info-tooltip',
 }

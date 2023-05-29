@@ -20,7 +20,7 @@ const Title: React.FC<Props> = (props) => {
   return (
     <h3
       className={classNames('subhead', 'fra-description__header', { 'icon-red': error })}
-      data-tooltip-id={TooltipId.dataError}
+      data-tooltip-id={TooltipId.error}
       data-tooltip-content={error ? t('generalValidation.emptyField') : null}
     >
       <span>

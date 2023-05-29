@@ -96,7 +96,7 @@ const Cell: React.FC<Props> = (props) => {
       className={className}
       rowSpan={rowSpan}
       style={style}
-      data-tooltip-id={TooltipId.dataError}
+      data-tooltip-id={TooltipId.error}
       data-tooltip-html={
         !valid && dataValidationMessages.length > 0
           ? ReactDOMServer.renderToStaticMarkup(
