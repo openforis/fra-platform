@@ -3,10 +3,10 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CountryIso } from '@meta/area'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 export const getOriginalDataPointData = createAsyncThunk<
-  TableData,
+  RecordAssessmentData,
   { countryIso: CountryIso; assessmentName: string; cycleName: string }
 >('section/get/originalDataPointData', async ({ countryIso, assessmentName, cycleName }) => {
   const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.data(), {

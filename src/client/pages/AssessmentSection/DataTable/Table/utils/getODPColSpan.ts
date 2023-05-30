@@ -1,14 +1,20 @@
 import { Arrays } from '@utils/arrays'
 import { Objects } from '@utils/objects'
 
-import { Table } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { AssessmentName, CycleName, Table } from '@meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 
-export const getODPColSpan = (props: { data: TableData; headers: Array<string>; table: Table }): number => {
-  const { data, headers, table } = props
-  if (Objects.isEmpty(props.data)) return headers.length
+export const getODPColSpan = (props: {
+  assessmentName: AssessmentName
+  cycleName: CycleName
+  data: RecordAssessmentData
+  headers: Array<string>
+  table: Table
+}): number => {
+  const { assessmentName, cycleName, data, headers, table } = props
+  if (Objects.isEmpty(props.data?.[assessmentName]?.[cycleName])) return headers.length
 
-  const [[, tableData]] = Object.entries(data)
+  const [[, tableData]] = Object.entries(RecordAssessmentDatas.getCycleData({ assessmentName, cycleName, data }))
   const tableDataKeys = Object.keys(tableData?.[table.props.name] || {})
 
   const keysDifference = Arrays.difference(tableDataKeys, headers)

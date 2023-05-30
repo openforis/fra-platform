@@ -1,5 +1,5 @@
 import { AssessmentMetaCaches, NodeValueValidation, NodeValueValidations, Row } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { getTableData } from '@server/controller/cycleData/getTableData'
@@ -7,7 +7,11 @@ import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeV
 import { BaseProtocol } from '@server/db'
 
 export const validateNode = async (
-  props: Omit<PersistNodeValueProps, 'value' | 'user'> & { row: Row; data?: TableData; validateFns: string[] },
+  props: Omit<PersistNodeValueProps, 'value' | 'user'> & {
+    row: Row
+    data?: RecordAssessmentData
+    validateFns: string[]
+  },
   client: BaseProtocol
 ): Promise<NodeValueValidation> => {
   const { assessment, colName, countryIso, cycle, data: dataProps, row, tableName, variableName, validateFns } = props

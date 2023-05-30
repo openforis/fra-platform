@@ -6,9 +6,9 @@ import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { RecordAssessmentDatas } from '@meta/data'
 
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 import { ChartDataType } from '@client/components/Chart/Chart'
@@ -24,6 +24,7 @@ const cycleVariables: Record<string, Array<string>> = {
 }
 
 const ForestOwnership = () => {
+  const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
@@ -46,20 +47,22 @@ const ForestOwnership = () => {
   }
 
   const props = {
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
     countryIso,
     data: tableData,
     tableName,
     colName: column,
   }
 
-  const privateOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'private_ownership' }))
-  const publicOwnership = Number(TableDatas.getDatum({ ...props, variableName: 'public_ownership' }))
+  const privateOwnership = Number(RecordAssessmentDatas.getDatum({ ...props, variableName: 'private_ownership' }))
+  const publicOwnership = Number(RecordAssessmentDatas.getDatum({ ...props, variableName: 'public_ownership' }))
   const otherOrUnknown =
     cycle.name === '2020'
-      ? Number(TableDatas.getDatum({ ...props, variableName: 'other_or_unknown' }))
+      ? Number(RecordAssessmentDatas.getDatum({ ...props, variableName: 'other_or_unknown' }))
       : Numbers.sum([
-          Number(TableDatas.getDatum({ ...props, variableName: 'other' })),
-          Number(TableDatas.getDatum({ ...props, variableName: 'unknown' })),
+          Number(RecordAssessmentDatas.getDatum({ ...props, variableName: 'other' })),
+          Number(RecordAssessmentDatas.getDatum({ ...props, variableName: 'unknown' })),
         ])
 
   const data = {

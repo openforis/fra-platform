@@ -4,11 +4,11 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
-import { TableData, TableDatas } from '@meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 import { TooltipId } from '@meta/tooltip'
 import { Authorizer } from '@meta/user'
 
-import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
+import { useAssessment, useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
@@ -37,7 +37,7 @@ const Components: Record<string, React.FC<PropsCell>> = {
 }
 
 type Props = {
-  data: TableData
+  data: RecordAssessmentData
   assessmentName: AssessmentName
   sectionName: string
   table: Table
@@ -55,12 +55,22 @@ const Cell: React.FC<Props> = (props) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
+  const assessment = useAssessment()
 
   const tableName = table.props.name
   const { variableName } = row.props
   const { colName } = col.props
-  const params = { data, countryIso, tableName, variableName, colName }
-  const nodeValue = TableDatas.getNodeValue(params)
+  const params = {
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+    data,
+    countryIso,
+    tableName,
+    variableName,
+    colName,
+  }
+  const nodeValue = RecordAssessmentDatas.getNodeValue(params)
+
   const valid = !Authorizer.canEditData({ country, cycle, section, user }) || NodeValueValidations.isValid(nodeValue)
   const disabled = disabledProps || nodeValue?.odp || Cols.hasLinkedNodes({ cycle, col })
 
@@ -97,7 +107,7 @@ const Cell: React.FC<Props> = (props) => {
       rowSpan={rowSpan}
       style={style}
       data-tooltip-id={TooltipId.error}
-      data-tooltip-content={!valid ? errorMessages : null}
+      data-tooltip-html={!valid ? errorMessages : null}
     >
       {component}
     </td>

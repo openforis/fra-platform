@@ -1,5 +1,7 @@
+import { Objects } from '@utils/objects'
+
 import { Table, TableNames } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
@@ -8,7 +10,7 @@ import { useCountryIso } from '@client/hooks'
 
 import { useOriginalDataPointData } from './useOriginalDataPointData'
 
-export const useTableData = (props: { table: Table }): TableData => {
+export const useTableData = (props: { table: Table }): RecordAssessmentData => {
   const { table } = props
   const countryIso = useCountryIso()
   const { odp } = table.props
@@ -16,11 +18,22 @@ export const useTableData = (props: { table: Table }): TableData => {
   const cycle = useCycle()
   const country = useAssessmentCountry()
 
-  const tableData = useAppSelector((state) => state.data[assessment.props.name][cycle.name].tableData)
+  const tableData = useAppSelector((state) => state.data.tableData)
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
-  if (!tableData?.[countryIso]) return {} as TableData
+  if (
+    Objects.isEmpty(
+      RecordAssessmentDatas.getTableData({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        data: tableData,
+        countryIso,
+        tableName: table.props.name,
+      })
+    )
+  )
+    return {}
 
   const shouldReturnWithoutODP =
     !odp ||
@@ -29,13 +42,21 @@ export const useTableData = (props: { table: Table }): TableData => {
 
   if (shouldReturnWithoutODP) return tableData
 
-  const currData = tableData[countryIso][table.props.name]
-
   const tableDataWithODP = {
-    [countryIso]: {
-      [table.props.name]: { ...currData, ...odpData },
+    [assessment.props.name]: {
+      ...(tableData[assessment.props.name] || {}),
+      [cycle.name]: {
+        ...(tableData[assessment.props.name][cycle.name] || {}),
+        [countryIso]: {
+          ...(tableData[assessment.props.name][cycle.name][countryIso] || {}),
+          [table.props.name]: {
+            ...(tableData[assessment.props.name][cycle.name][countryIso][table.props.name] || {}),
+            ...odpData,
+          },
+        },
+      },
     },
   }
 
-  return tableDataWithODP as TableData
+  return tableDataWithODP
 }

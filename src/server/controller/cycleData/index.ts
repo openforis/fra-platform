@@ -1,4 +1,3 @@
-import { DataRepository } from '@server/repository/assessmentCycle/data'
 import { DescriptionRepository } from '@server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
@@ -8,6 +7,7 @@ import { clearTableData } from './clearTableData'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { getBulkDownload } from './getBulkDownload'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
+import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
@@ -20,7 +20,7 @@ export const CycleDataController = {
   persistNodeValues,
   persistNodeValuesEstimated,
   // table data
-  getOriginalDataPointData: DataRepository.getOriginalDataPointData,
+  getOriginalDataPointData,
   getTableData,
   clearTableData,
   // original data points

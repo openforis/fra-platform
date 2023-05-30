@@ -1,3 +1,10 @@
 export type { NodeUpdate, NodeUpdates } from './nodeUpdates'
-export type { TableData } from './tableData'
-export { TableDatas } from './tableDatas'
+export type {
+  RecordAssessmentData,
+  RecordColumnData,
+  RecordCountryData,
+  RecordCycleData,
+  RecordRowData,
+  RecordTableData,
+} from './RecordAssessmentData'
+export { RecordAssessmentDatas } from './recordAssessmentDatas'
