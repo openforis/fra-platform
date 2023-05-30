@@ -64,7 +64,7 @@ const Cell: React.FC<Props> = (props) => {
   const valid = !Authorizer.canEditData({ country, cycle, section, user }) || NodeValueValidations.isValid(nodeValue)
   const disabled = disabledProps || nodeValue?.odp || Cols.hasLinkedNodes({ cycle, col })
 
-  const className = useClassName({ cycle, col, row, valid })
+  const className = useClassName({ cycle, col, row })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
 
   const Component = Components[col.props.colType]

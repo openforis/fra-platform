@@ -4,11 +4,10 @@ type Props = {
   cycle: Cycle
   col: Col
   row: Row
-  valid: boolean
 }
 
 export default (props: Props): string => {
-  const { cycle, col, row, valid } = props
+  const { cycle, col, row } = props
   const { colType } = col.props
 
   let className = 'fra-table__cell'
@@ -16,7 +15,6 @@ export default (props: Props): string => {
   if ([ColType.text, ColType.textarea, ColType.select, ColType.taxon].includes(colType))
     className = 'fra-table__cell-left'
   if (colType === ColType.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
-  if (!valid) className += ' validation-error'
 
   return className
 }
