@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { TableData } from '@meta/data'
+import { RecordCountryData } from '@meta/data'
 
 import { useOnResize } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
@@ -9,7 +9,7 @@ import { DOMs } from '@client/utils/dom'
 import ChartContainer from './chartContainer'
 
 type Props = {
-  data: TableData
+  data: RecordCountryData
   trends: any[]
 }
 

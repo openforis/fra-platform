@@ -3,7 +3,7 @@ import { Objects } from '@utils/objects'
 import BigNumber from 'bignumber.js'
 
 import { NodeValuesEstimation } from '@meta/assessment'
-import { NodeUpdate, TableData } from '@meta/data'
+import { NodeUpdate, RecordCountryData } from '@meta/data'
 
 // TODO: refactor everything
 
@@ -296,7 +296,7 @@ const formatArray = (
 // TODO: refactor all this file
 export const estimateValues = (
   years: Array<number>,
-  values: Partial<TableData>,
+  values: Partial<RecordCountryData>,
   generateSpec: Partial<GenerateSpec>,
   tableName: string,
   estimation: NodeValuesEstimation

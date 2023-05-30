@@ -129,6 +129,8 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                   {variables.map((variable) =>
                     columnsResults.map((column) => {
                       const { columnKey, value } = formatValue(
+                        assessmentName,
+                        cycleName,
                         String(column),
                         countryIso as CountryIso,
                         results,

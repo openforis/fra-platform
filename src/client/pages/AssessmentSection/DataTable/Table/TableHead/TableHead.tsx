@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Col as TypeCol, Cols, Row as TypeRow, RowType, Table } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 import { useAssessmentCountry, useCycle } from '@client/store/assessment'
 import { useOriginalDataPointYears } from '@client/store/data'
@@ -14,11 +14,12 @@ import OdpHeaderCell from './OdpHeaderCell'
 type Props = {
   headers: string[]
   table: Table
-  data: TableData
+  assessmentName: string
+  data: RecordAssessmentData
 }
 
 const TableHead: React.FC<Props> = (props) => {
-  const { headers, table, data } = props
+  const { headers, table, data, assessmentName } = props
 
   const { t } = useTranslation()
 
@@ -51,7 +52,10 @@ const TableHead: React.FC<Props> = (props) => {
 
             const className = `fra-table__header-cell${headerLeft ? '-left' : ''}`
 
-            const colSpan = isOdp && !defaultColSpan ? getODPColSpan({ headers, table, data }) : defaultColSpan
+            const colSpan =
+              isOdp && !defaultColSpan
+                ? getODPColSpan({ assessmentName, cycleName: cycle.name, headers, table, data })
+                : defaultColSpan
 
             return odpHeader ? (
               <OdpHeaderCell

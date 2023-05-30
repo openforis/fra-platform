@@ -4,6 +4,7 @@ import { Objects } from '@utils/objects'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { Areas } from '@meta/area'
+import { RecordAssessmentData } from '@meta/data'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useHomeCountriesFilter } from '@client/store/ui/home'
@@ -15,7 +16,7 @@ interface Props {
   tableNames: string[]
 }
 
-export default (props: Props) => {
+export default (props: Props): { data: RecordAssessmentData; loaded: boolean } => {
   const { variables, columns, tableNames } = props
   const countryIso = useCountryIso()
   const assessment = useAssessment()
