@@ -23,7 +23,8 @@ module.exports.translation = {
 
   page: {
     assessmentSection: {
-      dataTableHasErrors: 'Нажмите на красную ячейку, чтобы увидеть детали.',
+      dataTableHasErrors:
+        'Данные таблицы содержат ошибки. Наведите курсор на красную ячейку, чтобы посмотреть подробности.',
     },
   },
 
