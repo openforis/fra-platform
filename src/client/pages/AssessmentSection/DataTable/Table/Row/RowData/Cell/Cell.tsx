@@ -110,6 +110,8 @@ const Cell: React.FC<Props> = (props) => {
       data-tooltip-html={!valid ? errorMessages : null}
     >
       {component}
+
+      {nodeValue?.estimationUuid ? <div className="estimation-mark">E</div> : null}
     </td>
   )
 }
