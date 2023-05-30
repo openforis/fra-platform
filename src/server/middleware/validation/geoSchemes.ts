@@ -78,7 +78,7 @@ export const forestAgreementLayerSchema = [
     })
     .custom((layers) => {
       let valid = true
-      if (layers.length >= 2 && layers.every((ls: LayerSource) => Object.keys(ForestSource).includes(ls.key))) {
+      if (layers.length >= 1 && layers.every((ls: LayerSource) => Object.keys(ForestSource).includes(ls.key))) {
         const lsHansen = layers.find((ls: LayerSource) => ls.key === ForestSource.Hansen)
         if (
           lsHansen !== undefined &&

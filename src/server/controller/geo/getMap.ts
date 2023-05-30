@@ -25,7 +25,7 @@ export const getMap = async (
   }
 
   return new Promise((resolve, reject) => {
-    finalImage.selfMask().getMap(style, (mapProperties: any, err: any) => {
+    finalImage.getMap(style, (mapProperties: any, err: any) => {
       if (err) {
         reject(err)
         return
