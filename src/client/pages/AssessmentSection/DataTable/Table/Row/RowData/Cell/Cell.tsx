@@ -120,7 +120,7 @@ const Cell: React.FC<Props> = (props) => {
         onChangeNodeValue={onChangeNodeValue}
         onPaste={onPaste}
       />
-      {nodeValue?.estimated ? <div className="estimation-mark">E</div> : null}
+      {nodeValue?.estimationUuid ? <div className="estimation-mark">E</div> : null}
     </td>
   )
 }
