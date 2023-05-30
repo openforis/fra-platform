@@ -2,11 +2,11 @@ import './Cell.scss'
 import React, { useCallback } from 'react'
 
 import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
-import { NodeUpdate, TableData, TableDatas } from '@meta/data'
+import { NodeUpdate, RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
 import { Authorizer } from '@meta/user'
 
 import { useAppDispatch } from '@client/store'
-import { useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
+import { useAssessment, useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
 import { AssessmentSectionActions } from '@client/store/ui/assessmentSection'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
@@ -35,7 +35,7 @@ const Components: Record<string, React.FC<PropsCell>> = {
 }
 
 type Props = {
-  data: TableData
+  data: RecordAssessmentData
   assessmentName: AssessmentName
   sectionName: string
   table: Table
@@ -54,12 +54,22 @@ const Cell: React.FC<Props> = (props) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
+  const assessment = useAssessment()
 
   const tableName = table.props.name
   const { variableName } = row.props
   const { colName } = col.props
-  const params = { data, countryIso, tableName, variableName, colName }
-  const nodeValue = TableDatas.getNodeValue(params)
+  const params = {
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+    data,
+    countryIso,
+    tableName,
+    variableName,
+    colName,
+  }
+  const nodeValue = RecordAssessmentDatas.getNodeValue(params)
+
   const valid = !Authorizer.canEditData({ country, cycle, section, user }) || NodeValueValidations.isValid(nodeValue)
   const disabled = disabledProps || nodeValue?.odp || Cols.hasLinkedNodes({ cycle, col })
 

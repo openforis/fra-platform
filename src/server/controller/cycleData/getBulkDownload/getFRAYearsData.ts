@@ -1,3 +1,5 @@
+import { RecordAssessmentDatas } from '@meta/data'
+
 import { entries } from '@server/controller/cycleData/getBulkDownload/entries/FRAYears'
 import { genders } from '@server/controller/cycleData/getBulkDownload/genders'
 import { getClimaticValue } from '@server/controller/cycleData/getBulkDownload/getClimaticValue'
@@ -9,13 +11,24 @@ import { Props } from './props'
 
 export const getFraYearsData = async (props: Props) => {
   const { assessment, cycle, countries } = props
-  const climaticData = await climaticDomain(props)
+  const _climaticData = await climaticDomain(props)
+  const climaticData = RecordAssessmentDatas.getCycleData({
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+    data: _climaticData,
+  })
   const tableNames = entries.map(({ tableName }) => tableName)
-  const data = await getData({
+  const tableData = await getData({
     assessment,
     cycle,
     countries,
     tableNames,
+  })
+
+  const data = RecordAssessmentDatas.getCycleData({
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+    data: tableData,
   })
 
   // Unique years
@@ -41,13 +54,39 @@ export const getFraYearsData = async (props: Props) => {
       entries.forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
           if (tableName === 'carbonstocksoildepth')
-            base[csvColumn] = data[countryIso][tableName]?.[variableName]?.[variableName]?.raw ?? null
+            base[csvColumn] = RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data,
+              countryIso,
+              tableName,
+              variableName,
+              colName: variableName,
+            })
           else if (tableName === 'graduationofstudents' || tableName === 'employment') {
             genders.forEach((gender) => {
               base[`${csvColumn}_${gender.csv}`] =
-                data[countryIso][tableName]?.[`${year}_${gender.variable}`]?.[variableName]?.raw ?? null
+                RecordAssessmentDatas.getDatum({
+                  assessmentName: assessment.props.name,
+                  cycleName: cycle.name,
+                  data,
+                  countryIso,
+                  tableName,
+                  variableName,
+                  colName: `${year}_${gender.variable}`,
+                }) ?? null
             })
-          } else base[csvColumn] = data[countryIso][tableName]?.[year]?.[variableName]?.raw ?? null
+          } else
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data,
+                countryIso,
+                tableName,
+                variableName,
+                colName: year,
+              }) ?? null
         })
       })
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { TableSection } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { RecordAssessmentDatas } from '@meta/data'
 
 import { useAppSelector } from '@client/store'
 import { useAssessment, useCycle } from '@client/store/assessment'
@@ -11,7 +11,7 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const data = useAppSelector((state) => state.data[assessment.props.name][cycle.name].tableData)
+  const data = useAppSelector((state) => state.data.tableData)
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
   const sectionTableNames = useMemo(
@@ -19,12 +19,17 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
     [tableSections]
   )
 
-  const dataLoaded = useMemo(() => Boolean(data?.[countryIso]), [countryIso, data])
+  const dataLoaded = useMemo(
+    () => Boolean(data?.[assessment.props.name]?.[cycle.name]?.[countryIso]),
+    [assessment.props.name, countryIso, cycle.name, data]
+  )
 
   const allTablesEmpty =
     dataLoaded &&
     sectionTableNames.every((tableName) =>
-      TableDatas.isTableDataEmpty({
+      RecordAssessmentDatas.isTableDataEmpty({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         data,
         tableName,
         countryIso,

@@ -2,7 +2,7 @@ import { Objects } from '@utils/objects'
 
 import { CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordCountryData } from '@meta/data'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
@@ -12,11 +12,11 @@ type Props = {
   cycle: Cycle
 }
 
-export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
+export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
   const { assessment, cycle, countryISOs } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<TableData>(
+  return client.one<RecordCountryData>(
     `
         with data as (
             select o.country_iso,
