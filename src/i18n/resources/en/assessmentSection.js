@@ -1,3 +1,3 @@
 module.exports = {
-  dataTableHasErrors: 'Tables contains errors. Hover on the cell to see details.',
+  dataTableHasErrors: 'Table data contains errors. Hover the red cell to see details.',
 }
