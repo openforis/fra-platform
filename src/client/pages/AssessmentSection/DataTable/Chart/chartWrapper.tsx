@@ -29,6 +29,8 @@ const ChartWrapper = (props: Props) => {
       setWidth(widthUpdate)
     }
   }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(onChangeWidth, [window.innerWidth])
 
   // on mount and on resize, update width

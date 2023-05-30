@@ -1,0 +1,44 @@
+@import 'src/client/style/partials';
+
+.tooltip-container {
+  .react-tooltip {
+    &.error-tooltip {
+      color: black;
+      background-color: lighten($ui-destructive, 55%);
+      border: 1px solid $ui-destructive;
+
+      .error-tooltip-arrow {
+        border-bottom: 1px solid $ui-destructive;
+        border-right: 1px solid $ui-destructive;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding-left: $spacing-xxs;
+          text-indent: -$spacing-xxs;
+        }
+
+        li::before {
+          content: '• ';
+          color: $ui-destructive;
+        }
+      }
+    }
+
+    &.info-tooltip {
+      color: black;
+      background-color: lighten($ui-accent, 55%);
+      border: 1px solid $ui-accent;
+      max-width: 240px;
+
+      .info-tooltip-arrow {
+        border-bottom: 1px solid $ui-accent;
+        border-right: 1px solid $ui-accent;
+      }
+    }
+  }
+}

@@ -1,9 +1,5 @@
 @import 'src/client/style/partials';
 
-.data-table .cell-error-highlight {
-  background-color: rgba($ui-destructive, 0.2);
-}
-
 .fra-table__select-container {
   &.multiple {
     overflow: visible;

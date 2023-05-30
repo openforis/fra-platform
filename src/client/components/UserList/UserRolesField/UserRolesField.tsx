@@ -2,9 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Areas } from '@meta/area'
+import { TooltipId } from '@meta/tooltip'
 import { RoleName, User, Users } from '@meta/user'
-
-import Tooltip from '@client/components/Tooltip'
 
 const UserRolesField: React.FC<{ roleName: RoleName; user: User }> = ({ roleName, user }) => {
   const { t } = useTranslation()
@@ -17,14 +16,14 @@ const UserRolesField: React.FC<{ roleName: RoleName; user: User }> = ({ roleName
         : t(Areas.getTranslationKey(role.countryIso))
     )
 
+  const firstThreeRoles = roles.length > 3 ? `${roles.slice(0, 3).join(', ')}...` : roles.join(', ')
+
+  const otherRoles = roles.length > 3 ? roles.join(', ') : null
+
   return (
     <td className="user-list__cell">
-      <div className="user-list__cell--read-only">
-        {roles.length > 3 ? (
-          <Tooltip text={roles.join(', ')}>{`${roles.slice(0, 3).join(', ')}...`}</Tooltip>
-        ) : (
-          <>{roles.join(', ')}</>
-        )}
+      <div className="user-list__cell--read-only" data-tooltip-id={TooltipId.info} data-tooltip-content={otherRoles}>
+        {firstThreeRoles}
       </div>
     </td>
   )
