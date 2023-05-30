@@ -7,9 +7,9 @@ import { ChartOptions } from 'chart.js'
 
 import { Areas } from '@meta/area'
 import { TableNames } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { RecordAssessmentDatas } from '@meta/data'
 
-import { useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from '@client/store/assessment'
 import { useCountryIso } from '@client/hooks'
 import Chart from '@client/components/Chart'
 
@@ -29,6 +29,7 @@ const cycleVariableName: Record<string, string> = {
 
 const PrimaryForest = () => {
   const countryIso = useCountryIso()
+  const assessment = useAssessment()
   const cycle = useCycle()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
@@ -56,10 +57,22 @@ const PrimaryForest = () => {
   }
 
   const otherForest = Number(
-    TableDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' })
+    RecordAssessmentDatas.getDatum({
+      ...props,
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+      tableName: tableNameSecondary,
+      variableName: 'forestArea',
+    })
   )
   const primaryForest = Number(
-    TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: cycleVariableName[cycle.name] })
+    RecordAssessmentDatas.getDatum({
+      ...props,
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+      tableName: tableNamePrimary,
+      variableName: cycleVariableName[cycle.name],
+    })
   )
 
   const primaryForestAsPercentage = Numbers.mul(100, Numbers.div(primaryForest, otherForest))?.toNumber()

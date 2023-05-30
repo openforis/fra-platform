@@ -1,6 +1,6 @@
 import { Areas, CountryIso } from '@meta/area'
 import { Assessment, Cycle } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordCountryData } from '@meta/data'
 
 import { BaseProtocol, DB, Schemas } from '@server/db'
 
@@ -12,7 +12,7 @@ type Props = {
   columns: string[]
 }
 // Only for regions
-export const getAggregatedTableData = async (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
+export const getAggregatedTableData = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
   const { assessment, countryISOs, cycle, variables, columns } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const isRegion = Areas.isRegion(countryISOs[0])
@@ -41,7 +41,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
   const shouldAppend2015 = variables.includes('totalLandArea') && !columns.includes('2015')
   const _columns = shouldAppend2015 ? [...columns, '2015'] : columns
 
-  return client.one<TableData>(
+  return client.one<RecordCountryData>(
     `
       with agg0 as (
 

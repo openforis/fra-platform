@@ -1,9 +1,5 @@
 @import 'src/client/style/partials';
 
-.data-table .cell-error-highlight {
-  background-color: rgba($ui-destructive, 0.2);
-}
-
 .fra-table__select-container {
   &.multiple {
     overflow: visible;
@@ -11,4 +7,17 @@
   .multi-select {
     width: 100%;
   }
+}
+
+.estimation-mark {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border: 1px solid $ui-border-dark;
+  width: 12px;
+  height: 12px;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

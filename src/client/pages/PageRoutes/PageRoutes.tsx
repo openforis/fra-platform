@@ -7,6 +7,7 @@ import { ClientRoutes } from '@meta/app'
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useIsAppInitialized } from '@client/store/assessment'
 import Toaster from '@client/components/Toaster'
+import Tooltips from '@client/components/Tooltips'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
@@ -52,6 +53,8 @@ const PageRoutes: React.FC = () => {
 
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
+
+      <Tooltips />
     </>
   )
 }

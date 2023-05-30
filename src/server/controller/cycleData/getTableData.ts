@@ -2,7 +2,7 @@ import { Objects } from '@utils/objects'
 
 import { Country, CountryIso } from '@meta/area'
 import { Assessment, Cycle, TableNames, VariableCache } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 import { BaseProtocol, DB } from '@server/db'
 import { CountryRepository } from '@server/repository/assessmentCycle/country'
@@ -24,7 +24,7 @@ export const getTableData = async (
     dependencies?: Array<VariableCache>
   },
   client: BaseProtocol = DB
-): Promise<TableData> => {
+): Promise<RecordAssessmentData> => {
   const { tableNames, aggregate, assessment, cycle, countryISOs, variables, columns, mergeOdp, dependencies } = props
 
   const tables: Record<string, { columns: Array<string>; variables: Array<string> }> = {}
@@ -33,7 +33,14 @@ export const getTableData = async (
   })
 
   if (aggregate)
-    return DataRepository.getAggregatedTableData({ assessment, cycle, countryISOs, variables, columns }, client)
+    return {
+      [assessment.props.name]: {
+        [cycle.name]: await DataRepository.getAggregatedTableData(
+          { assessment, cycle, countryISOs, variables, columns },
+          client
+        ),
+      },
+    }
 
   const tableData = await DataRepository.getTableData({ assessment, cycle, tables, countryISOs, dependencies }, client)
 
@@ -77,5 +84,9 @@ export const getTableData = async (
     })
   }
 
-  return tableData
+  return {
+    [assessment.props.name]: {
+      [cycle.name]: tableData,
+    },
+  }
 }

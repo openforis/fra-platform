@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react'
 import { isAnyOf } from '@reduxjs/toolkit'
 
 import { NodeValueValidation, NodeValueValidations, RowType, Table } from '@meta/assessment'
-import { NodeUpdate, TableDatas } from '@meta/data'
+import { NodeUpdate, RecordAssessmentDatas } from '@meta/data'
 import { ExpressionEvaluator } from '@meta/expressionEvaluator'
 
 import { useAppDispatch } from '@client/store'
@@ -31,7 +31,7 @@ export const useValidations = (props: { table: Table }): void => {
         ),
         effect: (_, { getState }) => {
           const state = getState()
-          const { tableData: data } = state.data[assessment.props.name][cycle.name]
+          const data = state.data.tableData
           const nodes: Array<NodeUpdate> = []
 
           rowsData.forEach((row) => {
@@ -60,7 +60,9 @@ export const useValidations = (props: { table: Table }): void => {
                 validation = NodeValueValidations.merge(validations)
               }
 
-              const nodeValue = TableDatas.getNodeValue({
+              const nodeValue = RecordAssessmentDatas.getNodeValue({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
                 data,
                 colName,
                 countryIso,

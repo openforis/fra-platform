@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from '@utils/objects'
 
-import { AssessmentName, Row } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { AssessmentName, CycleName, Row } from '@meta/assessment'
+import { RecordAssessmentData } from '@meta/data'
 
 import FieldsOption from './FieldsOption'
 import { Method } from './method'
@@ -13,18 +13,20 @@ import useGenerateValues from './useGenerateValues'
 
 type Props = {
   assessmentName: AssessmentName
+  cycleName: CycleName
   sectionName: string
   tableName: string
   rows: Array<Row>
-  data: TableData
+  data: RecordAssessmentData
 }
 
 const GenerateValues: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, tableName, rows, data } = props
+  const { assessmentName, cycleName, sectionName, tableName, rows, data } = props
 
   const { t } = useTranslation()
   const { method, setMethod, fields, setFields, valid, generateValues, isEstimationPending } = useGenerateValues(
     assessmentName,
+    cycleName,
     sectionName,
     tableName,
     rows,

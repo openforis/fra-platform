@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { ClientRoutes } from '@meta/app'
+import { TooltipId } from '@meta/tooltip'
 
 import { useAssessment, useCycle } from '@client/store/assessment'
 import { useOdpReviewSummary } from '@client/store/ui/review/hooks'
 import { useCountryIso } from '@client/hooks'
 import { useIsPrint } from '@client/hooks/useIsPath'
 import ReviewSummaryIndicator from '@client/components/ReviewSummaryIndicator'
-import Tooltip from '@client/components/Tooltip'
 
 type Props = {
   className: string
@@ -33,22 +33,26 @@ const HeaderCell: React.FC<Props> = (props) => {
   const reviewStatus = useOdpReviewSummary(odpId)
 
   return !print ? (
-    <th className="odp-header-cell" colSpan={colSpan} rowSpan={rowSpan}>
-      <Tooltip text={t('nationalDataPoint.clickOnNDP')}>
-        <Link
-          className="link"
-          to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
-            countryIso,
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-            year: odpYear,
-            sectionName,
-          })}
-        >
-          {odpYear}
-        </Link>
-        <ReviewSummaryIndicator status={reviewStatus} />
-      </Tooltip>
+    <th
+      className="odp-header-cell"
+      colSpan={colSpan}
+      rowSpan={rowSpan}
+      data-tooltip-id={TooltipId.info}
+      data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
+    >
+      <Link
+        className="link"
+        to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+          countryIso,
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          year: odpYear,
+          sectionName,
+        })}
+      >
+        {odpYear}
+      </Link>
+      <ReviewSummaryIndicator status={reviewStatus} />
     </th>
   ) : (
     <th className={className} colSpan={colSpan} rowSpan={rowSpan}>

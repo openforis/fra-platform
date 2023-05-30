@@ -3,10 +3,10 @@ import axios from 'axios'
 
 import { ApiEndPoint } from '@meta/api/endpoint'
 import { CycleParams } from '@meta/api/request'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 export const getTableData = createAsyncThunk<
-  TableData,
+  RecordAssessmentData,
   CycleParams & { tableNames: Array<string>; mergeOdp?: boolean }
 >('section/get/data', async ({ countryIso, assessmentName, cycleName, tableNames, mergeOdp = false }) => {
   const { data } = await axios.get(ApiEndPoint.CycleData.Table.tableData(), {
