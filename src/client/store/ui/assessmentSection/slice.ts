@@ -1,7 +1,4 @@
-import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
-
-import { AssessmentName, CycleName } from '@meta/assessment'
-import { NodeUpdate } from '@meta/data'
+import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { DataActions } from '@client/store/data'
 
@@ -11,7 +8,6 @@ import { AssessmentSectionState } from './stateType'
 const initialState: AssessmentSectionState = {
   estimationPending: false,
   showOriginalDataPoint: true,
-  nodeValueValidation: {},
 }
 
 export const assessmentSectionSlice = createSlice({
@@ -21,14 +17,6 @@ export const assessmentSectionSlice = createSlice({
     reset: () => initialState,
     toggleShowOriginalDataPoint: (state) => {
       state.showOriginalDataPoint = !state.showOriginalDataPoint
-    },
-
-    setNodeValidationToDisplay: (
-      state,
-      { payload }: PayloadAction<{ nodeUpdate: NodeUpdate; assessmentName: AssessmentName; cycleName: CycleName }>
-    ) => {
-      const { nodeUpdate } = payload
-      state.nodeValueValidation[nodeUpdate.tableName] = nodeUpdate
     },
   },
   extraReducers: (builder) => {
