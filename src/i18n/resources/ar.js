@@ -23,7 +23,7 @@ module.exports.translation = {
 
   page: {
     assessmentSection: {
-      dataTableHasErrors: 'اضغط على الخلية الحمراء لرؤية التفاصيل.',
+      dataTableHasErrors: 'بيانات الجدول تحتوي على أخطاء. يُرجى التمرير فوق الخلية الحمراء للاطلاع على التفاصيل.',
     },
   },
 
