@@ -6,7 +6,7 @@ export interface DataBaseState {
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
 }
 
-interface State1 {
+interface TableDataState {
   tableData?: {
     [assessmentName: AssessmentName]: {
       [cycleName: CycleName]: RecordAssessmentData
@@ -14,6 +14,6 @@ interface State1 {
   }
 }
 
-type State2 = Record<AssessmentName, Record<CycleName, DataBaseState>>
+type BaseState = Record<AssessmentName, Record<CycleName, DataBaseState>>
 
-export type DataState = State1 & State2
+export type DataState = TableDataState & BaseState
