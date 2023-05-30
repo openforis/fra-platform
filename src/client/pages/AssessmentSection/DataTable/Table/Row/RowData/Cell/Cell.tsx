@@ -3,6 +3,8 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
 import { TableData, TableDatas } from '@meta/data'
 import { TooltipId } from '@meta/tooltip'
@@ -93,7 +95,7 @@ const Cell: React.FC<Props> = (props) => {
   return (
     <td
       colSpan={colSpan}
-      className={className}
+      className={classNames(className, { 'validation-error': !valid })}
       rowSpan={rowSpan}
       style={style}
       data-tooltip-id={TooltipId.error}
