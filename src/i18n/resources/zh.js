@@ -2007,7 +2007,7 @@ FRA工作组
 
   page: {
     assessmentSection: {
-      dataTableHasErrors: '点击红色单元格，查看详情',
+      dataTableHasErrors: '表格数据包含错误,将鼠标悬停在红色单元格上以查看详细信息。',
     },
   },
 }

@@ -30,7 +30,8 @@ module.exports.translation = {
 
   page: {
     assessmentSection: {
-      dataTableHasErrors: 'Cliquez sur la cellule rouge pour voir les détails.',
+      dataTableHasErrors:
+        'Le tableau contient des erreurs. Placer votre souris sur les cellules rouges pour voir le détail.',
     },
   },
   home: {

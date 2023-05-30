@@ -1046,7 +1046,8 @@ El equipo de FRA
 
   page: {
     assessmentSection: {
-      dataTableHasErrors: 'Haga clic en la celda roja para ver los detalles.',
+      dataTableHasErrors:
+        'Los datos de la tabla contienen errores. Pase el ratón sobre la celda roja para ver los detalles.',
     },
   },
 }
