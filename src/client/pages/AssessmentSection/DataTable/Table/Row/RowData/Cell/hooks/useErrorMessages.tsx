@@ -20,11 +20,11 @@ export default (props: Props): string => {
 
   const { t } = useTranslation()
 
-  const dataValidationMessages = nodeValue.validation.messages.map(({ key, params }) =>
+  const dataValidationMessages = nodeValue?.validation?.messages?.map(({ key, params }) =>
     t(key, params && Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateErrorMessageParams(t, v)])))
   )
 
-  return dataValidationMessages.length > 0
+  return dataValidationMessages?.length > 0
     ? ReactDOMServer.renderToStaticMarkup(
         <ul>
           {dataValidationMessages.map((dataValidationMessage) => (
