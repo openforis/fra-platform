@@ -1,13 +1,19 @@
 import { AssessmentName, CommentableDescriptionValue, CycleName, DataSourceLinked, SectionName } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { RecordAssessmentData } from '@meta/data'
 
 export interface DataBaseState {
-  tableData: TableData
   descriptions: Record<SectionName, Record<string, CommentableDescriptionValue>>
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
 }
-export interface DataState {
-  [assessmentName: AssessmentName]: {
-    [cycleName: CycleName]: DataBaseState
+
+interface TableDataState {
+  tableData?: {
+    [assessmentName: AssessmentName]: {
+      [cycleName: CycleName]: RecordAssessmentData
+    }
   }
 }
+
+type BaseState = Record<AssessmentName, Record<CycleName, DataBaseState>>
+
+export type DataState = TableDataState & BaseState
