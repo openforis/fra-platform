@@ -1,7 +1,5 @@
 import './Cell.scss'
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
@@ -15,6 +13,7 @@ import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
 import useClassName from './hooks/useClassName'
+import useErrorMessages from './hooks/useErrorMessages'
 import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
 import Multiselect from './Multiselect'
@@ -56,7 +55,6 @@ const Cell: React.FC<Props> = (props) => {
   const user = useUser()
   const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
-  const { t } = useTranslation()
 
   const tableName = table.props.name
   const { variableName } = row.props
@@ -71,6 +69,8 @@ const Cell: React.FC<Props> = (props) => {
 
   const Component = Components[col.props.colType]
   const { colSpan, rowSpan, ...style } = Cols.getStyle({ col, cycle })
+
+  const errorMessages = useErrorMessages({ nodeValue })
 
   if (!Component) return null
 
@@ -90,8 +90,6 @@ const Cell: React.FC<Props> = (props) => {
     />
   )
 
-  const dataValidationMessages = nodeValue?.validation?.messages?.map(({ key, params }) => t(key, params)) ?? []
-
   return (
     <td
       colSpan={colSpan}
@@ -99,17 +97,7 @@ const Cell: React.FC<Props> = (props) => {
       rowSpan={rowSpan}
       style={style}
       data-tooltip-id={TooltipId.error}
-      data-tooltip-html={
-        !valid && dataValidationMessages.length > 0
-          ? ReactDOMServer.renderToStaticMarkup(
-              <ul>
-                {dataValidationMessages.map((dataValidationMessage) => (
-                  <li key="data-validation-message">{dataValidationMessage}</li>
-                ))}
-              </ul>
-            )
-          : null
-      }
+      data-tooltip-content={!valid ? errorMessages : null}
     >
       {component}
     </td>
