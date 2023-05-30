@@ -1,6 +1,6 @@
-@import 'src/client/styles/config';
+@import 'src/client/style/partials';
 
-.tooltips-container {
+.tooltip-container {
   .react-tooltip {
     &.error-tooltip {
       color: black;
@@ -18,12 +18,12 @@
         margin: 0;
 
         li {
-          padding-left: 1em;
-          text-indent: -1em;
+          padding-left: $spacing-xxs;
+          text-indent: -$spacing-xxs;
         }
 
         li::before {
-          content: '> ';
+          content: '• ';
           color: $ui-destructive;
         }
       }

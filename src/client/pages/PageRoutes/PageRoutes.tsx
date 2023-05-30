@@ -1,15 +1,13 @@
-import './PageRoutes.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Tooltip } from 'react-tooltip'
 
 import { ClientRoutes } from '@meta/app'
-import { TooltipId } from '@meta/tooltip'
 
 import { useAppDispatch } from '@client/store'
 import { AssessmentActions, useIsAppInitialized } from '@client/store/assessment'
 import Toaster from '@client/components/Toaster'
+import Tooltips from '@client/components/Tooltips'
 import { SocketClient } from '@client/service/socket'
 import { Urls } from '@client/utils'
 
@@ -56,11 +54,7 @@ const PageRoutes: React.FC = () => {
         <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
       </Routes>
 
-      <div className="tooltips-container">
-        <Tooltip id={TooltipId.error} className={TooltipId.error} classNameArrow={`${TooltipId.error}-arrow`} />
-
-        <Tooltip id={TooltipId.info} className={TooltipId.info} classNameArrow={`${TooltipId.info}-arrow`} />
-      </div>
+      <Tooltips />
     </>
   )
 }
