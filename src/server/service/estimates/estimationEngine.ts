@@ -106,7 +106,7 @@ export const applyEstimationFunction = (
 ): number => {
   const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
 
-  return estimated?.isLessThan(0) ? 0 : estimated?.toNumber()
+  return estimated?.toNumber()
 }
 
 export const linearExtrapolation = (year: number, values: ValueArray, _: ODPValueArray, field: Field): number => {
