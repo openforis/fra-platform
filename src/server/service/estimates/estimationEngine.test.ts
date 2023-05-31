@@ -9,6 +9,7 @@ import { dataset3, dataset3Expected } from '@server/service/estimates/datasets/d
 import { dataset4, dataset4Expected } from '@server/service/estimates/datasets/dataset4'
 import { dataset5, dataset5Expected } from '@server/service/estimates/datasets/dataset5'
 import { dataset6, dataset6Expected } from '@server/service/estimates/datasets/dataset6'
+import { dataset7, dataset7Expected } from '@server/service/estimates/datasets/dataset7'
 
 import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from './estimationEngine'
 
@@ -243,6 +244,32 @@ describe('Estimation Engine test:', () => {
       })
 
       const expected = dataset6Expected['Annual Change - {1992, 2016} - 2']
+
+      verifyEstimation(estimated, expected)
+    })
+  })
+
+  describe('dataset7:', () => {
+    test('Extrapolates with repeat last value', () => {
+      const generateSpec: GenerateSpec = {
+        method: 'repeatLast',
+        fields: [
+          'naturalForestArea',
+          'primaryForest',
+          'plantationForestArea',
+          'plantationForestIntroducedArea',
+          'otherPlantedForestArea',
+        ],
+      }
+      const estimated = EstimationEngine.estimateValues(
+        years,
+        dataset7,
+        generateSpec,
+        'extentOfForest',
+        generateSpecToEstimation({ generateSpec })
+      )
+
+      const expected = dataset7Expected['Extrapolates with repeat last value']
 
       verifyEstimation(estimated, expected)
     })
