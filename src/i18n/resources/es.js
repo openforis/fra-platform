@@ -418,7 +418,7 @@ El equipo de FRA
     dataSources: 'Fuentes de datos',
     additionalComments: 'Comentarios adicionales',
     edit: 'Editar',
-    copyPreviousValues: 'Copiar valores anteriores',
+    copyPreviousValues: 'Copiar las referencias anteriores',
     nationalClass: 'Clase nacional',
     nationalClasses: 'Clasificaciones y definiciones',
     definition: 'Definición',
