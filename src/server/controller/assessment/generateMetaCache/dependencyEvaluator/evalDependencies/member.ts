@@ -10,11 +10,84 @@ const includesVariableCache = (variables: Array<VariableCache>, variable: Variab
 const excludeDependant = (row: Row, tableName: string, variableName: string): boolean =>
   Boolean(row.props?.dependantsExclude?.find((v) => v.tableName === tableName && v.variableName === variableName))
 
+// Normal case when parsing a member expression: extentOfForest.forestArea
+// {
+//   "type": "MemberExpression",
+//   "computed": false,
+//   "object": {
+//     "type": "Identifier",
+//     "name": "extentOfForest"
+//   },
+//   "property": {
+//     "type": "Identifier",
+//     "name": "forestArea"
+//   }
+// }
+
+// Case when parsing a member expression: extentOfForest.forestArea['2025']
+// {
+//   type: 'MemberExpression',
+//   computed: true,
+//   object: {
+//     type: 'MemberExpression',
+//     computed: false,
+//     object: {
+//       type: 'Identifier',
+//       name: 'extentOfForest',
+//     },
+//     property: {
+//       type: 'Identifier',
+//       name: 'forestArea',
+//     },
+//   },
+//   property: {
+//     type: 'Literal',
+//     value: '2025',
+//     raw: "'2025'",
+//   },
+// }
+
+// Case when parsing a member expression: fra['2025'].extentOfForest.forestArea
+// {
+//   type: 'MemberExpression',
+//   computed: false,
+//   object: {
+//     type: 'MemberExpression',
+//     computed: false,
+//     object: {
+//       type: 'MemberExpression',
+//       computed: true,
+//       object: {
+//         type: 'Identifier',
+//         name: 'fra',
+//       },
+//       property: {
+//         type: 'Literal',
+//         value: '2025',
+//         raw: "'2025'",
+//       },
+//     },
+//     property: {
+//       type: 'Identifier',
+//       name: 'extentOfForest',
+//     },
+//   },
+//   property: {
+//     type: 'Identifier',
+//     name: 'forestArea',
+//   },
+// }
+
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): string {
     const { object, property } = expressionNode
 
     const { assessmentMetaCache, row, tableName, type } = this.context
+
+    // Todo: Identify the following cases:
+    // Case 1: extentOfForest.forestArea (2) [extentOfForest, forestArea]
+    // Case 2: extentOfForest.forestArea['2025'] (3) [extentOfForest, forestArea]
+    // Case 3: fra['2025'].extentOfForest.forestArea (4) [fra, '2025', extentOfForest, forestArea]
 
     // @ts-ignore
     const objectName = object?.object?.name ?? object.name

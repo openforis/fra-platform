@@ -1,8 +1,15 @@
+import { AssessmentName } from '@meta/assessment/assessmentName'
+import { CycleName } from '@meta/assessment/cycle'
+import { VariableName } from '@meta/assessment/row'
+import { TableName } from '@meta/assessment/table'
+
 export type VariablesByTableCache = Record<string, Record<string, VariableCache>>
 
 export interface VariableCache {
-  tableName: string
-  variableName: string
+  tableName: TableName
+  variableName: VariableName
+  cycleName?: CycleName
+  assessmentName?: AssessmentName
 }
 
 /**
