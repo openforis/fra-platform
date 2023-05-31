@@ -1,10 +1,10 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { MetadataController } from '@server/controller/metadata'
-import { UserController } from '@server/controller/user'
+import { AssessmentController } from 'server/controller/assessment'
+import { MetadataController } from 'server/controller/metadata'
+import { UserController } from 'server/controller/user'
 
-import { assessmentParams } from '@test/integration/mock/assessment'
-import { tableSectionParams } from '@test/integration/mock/tableSection'
-import { userMockTest } from '@test/integration/mock/user'
+import { assessmentParams } from 'test/integration/mock/assessment'
+import { tableSectionParams } from 'test/integration/mock/tableSection'
+import { userMockTest } from 'test/integration/mock/user'
 
 // test remove table section
 export default () =>

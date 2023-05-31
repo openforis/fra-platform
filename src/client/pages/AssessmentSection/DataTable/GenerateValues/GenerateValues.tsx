@@ -2,10 +2,10 @@ import './GenerateValues.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { AssessmentName, CycleName, Row } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { AssessmentName, CycleName, Row } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
 import FieldsOption from './FieldsOption'
 import { Method } from './method'

@@ -1,4 +1,4 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 import { differenceInDays, differenceInHours, differenceInMonths, differenceInWeeks, format, parseISO } from 'date-fns'
 import { i18n } from 'i18next'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { RowType } from '@meta/assessment'
+import { RowType } from 'meta/assessment'
 
 import { Props } from './props'
 import RowData from './RowData'

@@ -1,16 +1,16 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 import { Request } from 'express'
 import { PassportStatic } from 'passport'
 import { VerifiedCallback } from 'passport-jwt'
 import * as passportLocal from 'passport-local'
 
-import { AuthProvider, Users } from '@meta/user'
-import { AuthProviderLocalProps } from '@meta/user/userAuth'
+import { AuthProvider, Users } from 'meta/user'
+import { AuthProviderLocalProps } from 'meta/user/userAuth'
 
-import { passwordCompare, passwordHash } from '@server/api/auth/utils/passwordUtils'
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { UserProviderController } from '@server/controller/userProvider'
+import { passwordCompare, passwordHash } from 'server/api/auth/utils/passwordUtils'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { UserProviderController } from 'server/controller/userProvider'
 
 const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: VerifiedCallback) => {
   const sendErr = (message: string) => done(null, false, { message })

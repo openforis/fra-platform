@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-import { ColLinkedNode, ColStyle, CycleUuid, Label } from '@meta/assessment'
+import { ColLinkedNode, ColStyle, CycleUuid, Label } from 'meta/assessment'
 
 import { TypeSpec } from './typeSpec'
 import { Validator } from './validation'

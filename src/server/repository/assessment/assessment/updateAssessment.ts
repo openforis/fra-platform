@@ -1,7 +1,7 @@
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
-import { getOne } from '@server/repository/assessment/assessment/getOne'
+import { BaseProtocol, DB } from 'server/db'
+import { getOne } from 'server/repository/assessment/assessment/getOne'
 
 export const updateDefaultCycle = async (
   params: {

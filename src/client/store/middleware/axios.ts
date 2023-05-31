@@ -1,8 +1,8 @@
-import { UUIDs } from '@utils/uuids'
+import { UUIDs } from 'utils/uuids'
 import axios, { AxiosStatic } from 'axios'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
 
-import { NotificationActions } from '@client/store/ui/notification/slice'
+import { NotificationActions } from 'client/store/ui/notification/slice'
 
 const createAxiosMiddleware =
   (axios: AxiosStatic): Middleware =>

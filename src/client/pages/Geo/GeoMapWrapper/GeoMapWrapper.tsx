@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Status, Wrapper } from '@googlemaps/react-wrapper'
 
-import Loading from '@client/components/Loading'
+import Loading from 'client/components/Loading'
 
 import GeoMap from '../GeoMap'
 import GeoMapMenuData from '../GeoMap/GeoMapMenuData'

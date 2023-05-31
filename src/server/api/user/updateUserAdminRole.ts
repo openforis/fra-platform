@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 
-import { RoleName, Users } from '@meta/user'
+import { RoleName, Users } from 'meta/user'
 
-import { UserController } from '@server/controller/user'
-import { Requests } from '@server/utils'
+import { UserController } from 'server/controller/user'
+import { Requests } from 'server/utils'
 
 export const updateUserAdminRole = async (req: Request<{ userId: string }>, res: Response) => {
   try {

@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { Layer, LayerSource, ProtectedAreaKey } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { Layer, LayerSource, ProtectedAreaKey } from 'meta/geo'
 
-import { AssetsController } from '@server/controller/geo/assets'
+import { AssetsController } from 'server/controller/geo/assets'
 
 import { getMap } from './getMap'
 

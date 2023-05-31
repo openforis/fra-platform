@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle, TableSection } from '@meta/assessment'
+import { Assessment, Cycle, TableSection } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 // get One element from table_section table in database
 export const getOne = async (

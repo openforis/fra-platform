@@ -1,6 +1,6 @@
-import { SectionRepository } from '@server/repository/assessment/section'
-import { TableRepository } from '@server/repository/assessment/table'
-import { TableSectionRepository } from '@server/repository/assessment/tableSection'
+import { SectionRepository } from 'server/repository/assessment/section'
+import { TableRepository } from 'server/repository/assessment/table'
+import { TableSectionRepository } from 'server/repository/assessment/tableSection'
 
 import { createSection } from './createSection'
 import { createSubSection } from './createSubSection'

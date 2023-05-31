@@ -15,7 +15,6 @@
       "@i18n/*": ["src/i18n/*"],
       "@meta/*": ["src/meta/*"],
       "@server/*": ["src/server/*"],
-      "@utils/*": ["src/utils/*"]
     },
     "target": "es2020",
     "lib": ["es2020", "esnext", "dom"]

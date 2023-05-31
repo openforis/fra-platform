@@ -1,8 +1,8 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { MessageTopic, MessageTopicStatus } from '@meta/messageCenter'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 import { getOneOrNone } from './getOneOrNone'
 

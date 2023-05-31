@@ -1,6 +1,6 @@
 import { i18n } from 'i18next'
 
-import { Users } from '@meta/user'
+import { Users } from 'meta/user'
 
 import { ActivityLog, ActivityLogMessage } from './activityLog'
 

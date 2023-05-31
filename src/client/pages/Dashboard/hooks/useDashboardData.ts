@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Areas } from '@meta/area'
-import { RecordAssessmentData } from '@meta/data'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Areas } from 'meta/area'
+import { RecordAssessmentData } from 'meta/data'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useHomeCountriesFilter } from '@client/store/ui/home'
-import { useCountryIso, useGetRequest } from '@client/hooks'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useHomeCountriesFilter } from 'client/store/ui/home'
+import { useCountryIso, useGetRequest } from 'client/hooks'
 
 interface Props {
   variables: string[]

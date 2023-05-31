@@ -1,11 +1,11 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { RoleName, User, UserRole } from '@meta/user'
-import { UserRoleBaseProps, UserRoleExtendedProps } from '@meta/user/userRole'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RoleName, User, UserRole } from 'meta/user'
+import { UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const create = async (
   props: {

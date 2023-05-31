@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router'
 
-import { CountryIso, Global, RegionCode } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CountryIso, Global, RegionCode } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
 
 type ClientRoute<Params> = {
   path: {

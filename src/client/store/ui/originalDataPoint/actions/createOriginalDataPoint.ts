@@ -2,9 +2,9 @@ import { NavigateFunction } from 'react-router-dom'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { CycleParams } from '@meta/api/request'
-import { ClientRoutes } from '@meta/app'
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { CycleParams } from 'meta/api/request'
+import { ClientRoutes } from 'meta/app'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
 export const createOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,

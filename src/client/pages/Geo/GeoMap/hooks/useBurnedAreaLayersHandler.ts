@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { BurnedAreaKey } from '@meta/geo'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { BurnedAreaKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useBurnedAreasOptions, useIsGeoMapAvailable } from '@client/store/ui/geo'
-import { getBurnedAreaLayer } from '@client/store/ui/geo/actions'
-import { GetBurnedAreaLayerRequestBody } from '@client/store/ui/geo/actions/getBurnedAreaLayer'
-import { useCountryIso, usePrevious } from '@client/hooks'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useBurnedAreasOptions, useIsGeoMapAvailable } from 'client/store/ui/geo'
+import { getBurnedAreaLayer } from 'client/store/ui/geo/actions'
+import { GetBurnedAreaLayerRequestBody } from 'client/store/ui/geo/actions/getBurnedAreaLayer'
+import { useCountryIso, usePrevious } from 'client/hooks'
+import { mapController } from 'client/utils'
 
 import { burnedAreaLayers } from '../GeoMapMenuData/MapVisualizerPanel'
 

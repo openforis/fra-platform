@@ -1,9 +1,9 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol, DB } from '@server/db'
-import { DataRepository } from '@server/repository/assessmentCycle/data'
+import { BaseProtocol, DB } from 'server/db'
+import { DataRepository } from 'server/repository/assessmentCycle/data'
 
 export const getOriginalDataPointData = async (
   props: {

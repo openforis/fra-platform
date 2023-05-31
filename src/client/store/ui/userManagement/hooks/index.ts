@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { RoleName, User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { RoleName, User } from 'meta/user'
 
-import { useAppSelector } from '@client/store/store'
+import { useAppSelector } from 'client/store/store'
 
 const roleNames = [
   RoleName.ADMINISTRATOR,

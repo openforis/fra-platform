@@ -1,9 +1,9 @@
-import { Arrays } from '@utils/arrays'
-import { UUIDs } from '@utils/uuids'
+import { Arrays } from 'utils/arrays'
+import { UUIDs } from 'utils/uuids'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, Col as TypeCol, Cycle, Row as TypeRow, RowType, Table } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, Col as TypeCol, Cycle, Row as TypeRow, RowType, Table } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 type Props = {
   assessmentName: AssessmentName

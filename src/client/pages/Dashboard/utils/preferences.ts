@@ -1,4 +1,4 @@
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
 export enum ChartColors {
   // Greens

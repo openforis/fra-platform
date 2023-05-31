@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { Route, Routes, useParams } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { AssessmentName } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { AssessmentName } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment } from '@client/store/assessment'
-import { useOnUpdate } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { AssessmentActions, useAssessment } from 'client/store/assessment'
+import { useOnUpdate } from 'client/hooks'
 
 import Cycle from '../Cycle'
 

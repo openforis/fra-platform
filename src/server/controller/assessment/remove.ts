@@ -1,7 +1,7 @@
-import { Assessment } from '@meta/assessment'
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
-import { CycleRepository } from '@server/repository/assessmentCycle/cycle'
+import { Assessment } from 'meta/assessment'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
+import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 
 export const remove = async (
   props: { assessment: Assessment },

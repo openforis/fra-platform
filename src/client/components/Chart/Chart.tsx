@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ChartData, ChartOptions, DefaultDataPoint, Plugin } from 'chart.js'
 import Chart, { ChartTypeRegistry } from 'chart.js/auto'
 
-import { useOnUpdate } from '@client/hooks'
+import { useOnUpdate } from 'client/hooks'
 
 export type ChartDataType = ChartData<keyof ChartTypeRegistry, DefaultDataPoint<keyof ChartTypeRegistry>, unknown>
 

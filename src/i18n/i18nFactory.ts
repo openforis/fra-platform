@@ -1,7 +1,7 @@
 import * as i18next from 'i18next'
 
 import { TFunction } from 'i18next'
-import { Lang } from '@meta/lang'
+import { Lang } from 'meta/lang'
 import * as enTranslation from './resources/en'
 import * as frTranslation from './resources/fr'
 import * as esTranslation from './resources/es'

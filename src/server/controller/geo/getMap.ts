@@ -1,9 +1,9 @@
 // @ts-ignore
 import { Image } from '@google/earthengine'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
-import { AssetsController } from '@server/controller/geo/assets'
+import { AssetsController } from 'server/controller/geo/assets'
 
 type Props = {
   image: Image

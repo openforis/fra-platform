@@ -1,13 +1,13 @@
 import { NavigateFunction } from 'react-router-dom'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { UUIDs } from '@utils/uuids'
+import { UUIDs } from 'utils/uuids'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { AssessmentName } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { AssessmentName } from 'meta/assessment'
 
-import { NotificationActions, NotificationMessage } from '@client/store/ui/notification'
+import { NotificationActions, NotificationMessage } from 'client/store/ui/notification'
 
 export const createResetPassword = createAsyncThunk<
   { message?: string; error?: string },

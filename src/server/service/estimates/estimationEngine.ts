@@ -1,9 +1,9 @@
-import { BigNumberInput, Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { BigNumberInput, Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 import BigNumber from 'bignumber.js'
 
-import { NodeValuesEstimation } from '@meta/assessment'
-import { NodeUpdate, RecordCountryData } from '@meta/data'
+import { NodeValuesEstimation } from 'meta/assessment'
+import { NodeUpdate, RecordCountryData } from 'meta/data'
 
 // TODO: refactor everything
 

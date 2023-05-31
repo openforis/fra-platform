@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { Areas } from '@meta/area'
+import { ClientRoutes } from 'meta/app'
+import { Areas } from 'meta/area'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { NavigationActions } from '@client/store/ui/navigation'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { NavigationActions } from 'client/store/ui/navigation'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 import NavAssessment from '../NavAssessment'
 

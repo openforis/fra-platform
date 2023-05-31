@@ -4,11 +4,11 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
-import { Areas } from '@meta/area'
+import { ClientRoutes } from 'meta/app'
+import { Areas } from 'meta/area'
 
-import { useCountryIso } from '@client/hooks'
-import User from '@client/pages/User'
+import { useCountryIso } from 'client/hooks'
+import User from 'client/pages/User'
 
 import { useSections } from './hooks/useSections'
 import ButtonDownloadDashboard from './ButtonDownloadDashboard'

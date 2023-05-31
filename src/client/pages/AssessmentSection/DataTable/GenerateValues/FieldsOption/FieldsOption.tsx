@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
 
 import { GenerateValuesField } from '../field'
 import { Method } from '../method'

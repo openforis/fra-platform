@@ -1,10 +1,10 @@
-import { ActivityLogMessage } from '@meta/assessment'
-import { RoleName, User, UserRole } from '@meta/user'
+import { ActivityLogMessage } from 'meta/assessment'
+import { RoleName, User, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
-import { UserRepository } from '@server/repository/public/user'
-import { UserRoleRepository } from '@server/repository/public/userRole'
+import { BaseProtocol, DB } from 'server/db'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { UserRepository } from 'server/repository/public/user'
+import { UserRoleRepository } from 'server/repository/public/userRole'
 
 export const updateUserRoles = async (
   props: {

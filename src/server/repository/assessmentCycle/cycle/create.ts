@@ -1,7 +1,7 @@
-import { Assessment, AssessmentMetaCache, Cycle } from '@meta/assessment'
+import { Assessment, AssessmentMetaCache, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
 const defaultMetaCache: AssessmentMetaCache = {
   calculations: { dependants: {}, dependencies: {} },

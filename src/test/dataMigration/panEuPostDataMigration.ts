@@ -1,9 +1,9 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { DB } from '@server/db'
-import { Logger } from '@server/utils/logger'
+import { AssessmentController } from 'server/controller/assessment'
+import { DB } from 'server/db'
+import { Logger } from 'server/utils/logger'
 
-import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
-import { migrateCountryComments } from '@test/dataMigration/stepsPanEuropean/countryComments/migrateCountryComments'
+import { updateCalculatedNodes } from 'test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
+import { migrateCountryComments } from 'test/dataMigration/stepsPanEuropean/countryComments/migrateCountryComments'
 
 const assessmentName = `panEuropean`
 const client = DB

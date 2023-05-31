@@ -1,4 +1,4 @@
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName } from 'meta/assessment'
 
 export type Props = {
   assessmentName: AssessmentName

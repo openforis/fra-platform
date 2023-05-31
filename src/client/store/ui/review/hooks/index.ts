@@ -1,7 +1,7 @@
-import { ReviewStatus } from '@meta/assessment'
-import { MessageTopicStatus, Topics } from '@meta/messageCenter'
+import { ReviewStatus } from 'meta/assessment'
+import { MessageTopicStatus, Topics } from 'meta/messageCenter'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export const useReviewStatus = (key: string): ReviewStatus =>
   useAppSelector((state) => state.ui.review.status[key] || ({} as ReviewStatus))

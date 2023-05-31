@@ -1,12 +1,12 @@
-import { CountryIso } from '@meta/area'
-import { AssessmentMetaCaches } from '@meta/assessment'
-import { Assessment } from '@meta/assessment/assessment'
-import { VariableCache } from '@meta/assessment/assessmentMetaCache'
-import { Cycle } from '@meta/assessment/cycle'
-import { TableNames } from '@meta/assessment/table'
+import { CountryIso } from 'meta/area'
+import { AssessmentMetaCaches } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { VariableCache } from 'meta/assessment/assessmentMetaCache'
+import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 
-import { isODPVariable } from '@server/controller/cycleData/getOriginalDataPointVariables'
-import { BaseProtocol } from '@server/db'
+import { isODPVariable } from 'server/controller/cycleData/getOriginalDataPointVariables'
+import { BaseProtocol } from 'server/db'
 
 import { isODPCell } from './isODPCell'
 

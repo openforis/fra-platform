@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
 
-import { Areas, CountryIso, Global, Region, RegionCode } from '@meta/area'
-import { UserRoles } from '@meta/user/userRoles'
+import { Areas, CountryIso, Global, Region, RegionCode } from 'meta/area'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountries, useCycle, useRegionGroups } from '@client/store/assessment'
-import { useIsPanEuropean } from '@client/hooks'
-import { checkMatch } from '@client/utils'
+import { useCountries, useCycle, useRegionGroups } from 'client/store/assessment'
+import { useIsPanEuropean } from 'client/hooks'
+import { checkMatch } from 'client/utils'
 
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
 import CountryListDownload from './CountryListDownload'

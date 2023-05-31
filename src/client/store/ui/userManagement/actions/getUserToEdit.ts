@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleParams } from '@meta/api/request'
-import { User } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleParams } from 'meta/api/request'
+import { User } from 'meta/user'
 
 type Params = (CycleParams & { id: number }) | { id: number }
 

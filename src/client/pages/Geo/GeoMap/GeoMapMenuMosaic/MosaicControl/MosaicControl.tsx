@@ -1,8 +1,8 @@
 import './MosaicControl.scss'
 import React from 'react'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useMosaicSelected } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useMosaicSelected } from 'client/store/ui/geo'
 
 import GeoMenuItem from '../../GeoMapMenuItem'
 import SatelliteSourcePanel from '../SatelliteSourcePanel'

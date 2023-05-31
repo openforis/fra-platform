@@ -6,9 +6,9 @@ import * as cookieParser from 'cookie-parser'
 import * as express from 'express'
 import * as morgan from 'morgan'
 
-import { Api } from '@server/api'
-import { Proxy } from '@server/proxy/proxy'
-import { SocketServer } from '@server/service/socket'
+import { Api } from 'server/api'
+import { Proxy } from 'server/proxy/proxy'
+import { SocketServer } from 'server/service/socket'
 
 import { sendErr } from './utils/requests'
 import * as resourceCacheControl from './resourceCacheControl'

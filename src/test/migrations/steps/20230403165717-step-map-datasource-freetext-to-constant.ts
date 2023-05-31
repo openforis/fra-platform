@@ -1,14 +1,14 @@
-import { createI18nPromise } from '@i18n/i18nFactory'
-import { Objects } from '@utils/objects'
+import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
-import { Cols, ColType, CommentableDescription, DataSource, Row, RowType, Table } from '@meta/assessment'
+import { Cols, ColType, CommentableDescription, DataSource, Row, RowType, Table } from 'meta/assessment'
 
-import { MetadataController } from '@server/controller/metadata'
-import { BaseProtocol, Schemas } from '@server/db'
+import { MetadataController } from 'server/controller/metadata'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
+import { AssessmentCycleUtil } from 'test/migrations/steps/utils/getAssessmentCycle'
 
 import * as dataSourceTypeTranslations from '../../../i18n/resources/en/dataSource'
 

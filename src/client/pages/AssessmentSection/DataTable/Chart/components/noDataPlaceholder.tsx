@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import * as d3 from 'd3'
 
-import { usePrevious } from '@client/hooks'
+import { usePrevious } from 'client/hooks'
 
 import { defaultTransitionDuration, hasData as _hasData } from '../chart'
 

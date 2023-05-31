@@ -1,9 +1,9 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, TableNames } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, TableNames } from 'meta/assessment'
 
-import { AreaController } from '@server/controller/area'
-import { BaseProtocol } from '@server/db'
-import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
+import { AreaController } from 'server/controller/area'
+import { BaseProtocol } from 'server/db'
+import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
 type Props = {
   assessment: Assessment

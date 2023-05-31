@@ -1,4 +1,4 @@
-import { ForestEstimations } from '@meta/geo'
+import { ForestEstimations } from 'meta/geo'
 
 export interface GeoStatisticsState {
   forestEstimations: ForestEstimations | null

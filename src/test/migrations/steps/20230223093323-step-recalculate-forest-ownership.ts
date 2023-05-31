@@ -1,10 +1,10 @@
 import * as pgPromise from 'pg-promise'
 
-import { AreaController } from '@server/controller/area'
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AreaController } from 'server/controller/area'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { getRow } from '@test/migrations/steps/utils/getRow'
+import { getRow } from 'test/migrations/steps/utils/getRow'
 
 import { calculateRow } from './utils/calculateRow'
 

@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Filter, Image, ImageCollection, Reducer } from '@google/earthengine'
 
-import { BurnedAreaKey, burnedAreaSourcesMetadata, LayerSource } from '@meta/geo'
+import { BurnedAreaKey, burnedAreaSourcesMetadata, LayerSource } from 'meta/geo'
 
 export const getBurnedAreaAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
   let asset = {} as { year?: number; img: Image; metadata: any }

@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { OriginalDataPoint } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { OriginalDataPoint } from 'meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso, useGetRequest } from '@client/hooks'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso, useGetRequest } from 'client/hooks'
 
 export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDataPoint>; loading: boolean } => {
   const assessment = useAssessment()

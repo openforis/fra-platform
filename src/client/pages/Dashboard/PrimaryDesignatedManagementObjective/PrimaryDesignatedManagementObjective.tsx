@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
 
-import { useCountryIso } from '@client/hooks'
-import useStatisticalFactsheetsState from '@client/pages/Dashboard/hooks/useDashboardData'
+import { useCountryIso } from 'client/hooks'
+import useStatisticalFactsheetsState from 'client/pages/Dashboard/hooks/useDashboardData'
 
 import Table from '../components/Table'
 

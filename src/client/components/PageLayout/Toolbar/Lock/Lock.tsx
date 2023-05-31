@@ -2,10 +2,10 @@ import './Lock.scss'
 import React from 'react'
 import MediaQuery from 'react-responsive'
 
-import { useAppDispatch } from '@client/store'
-import { DataLockActions, useIsDataLocked } from '@client/store/ui/dataLock'
-import Icon from '@client/components/Icon'
-import { Breakpoints } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
+import Icon from 'client/components/Icon'
+import { Breakpoints } from 'client/utils'
 
 const Lock: React.FC = () => {
   const dispatch = useAppDispatch()

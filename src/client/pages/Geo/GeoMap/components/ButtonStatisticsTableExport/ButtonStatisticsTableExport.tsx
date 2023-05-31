@@ -2,7 +2,7 @@ import './ButtonStatisticsTableExport.scss'
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { CSVLink } from 'react-csv'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 import * as Utils from './utils'
 

@@ -3,9 +3,9 @@ import React from 'react'
 import classNames from 'classnames'
 
 // import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 
-// import { useCountryIso } from '@client/hooks'
+// import { useCountryIso } from 'client/hooks'
 // import { useTranslation } from 'react-i18next'
 import { useNationalClassNameComments } from '../../hooks'
 import CommentsEditor from './CommentsEditor'

@@ -1,7 +1,7 @@
-import { Assessment, Section } from '@meta/assessment'
+import { Assessment, Section } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { SectionAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { SectionAdapter } from 'server/repository/adapter'
 
 export const remove = async (
   params: {

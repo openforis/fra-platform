@@ -3,7 +3,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { LayerStatus } from '@meta/geo'
+import { LayerStatus } from 'meta/geo'
 
 interface Props {
   title: string

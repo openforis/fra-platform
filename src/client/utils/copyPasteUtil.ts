@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Sanitizer } from '@client/utils/sanitizer'
+import { Sanitizer } from 'client/utils/sanitizer'
 
 const parseValue = (raw: any, type: any) => {
   if (type === 'integer') {

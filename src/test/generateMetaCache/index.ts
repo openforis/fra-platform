@@ -1,10 +1,10 @@
-import { Objects } from '@utils/index'
+import { Objects } from 'utils/index'
 
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { DB } from '@server/db'
-import { Logger } from '@server/utils/logger'
+import { AssessmentController } from 'server/controller/assessment'
+import { DB } from 'server/db'
+import { Logger } from 'server/utils/logger'
 
 const client = DB
 
