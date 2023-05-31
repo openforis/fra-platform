@@ -12,7 +12,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
   try {
     const time = new Date().getTime()
     Logger.debug(
-      `[updateDependenciesWorker] job in thread started ${job.id}. ${job.data.nodeUpdates.nodes.length} nodes.`
+      `[updateDependenciesWorker] job-${job.id} in thread started. ${job.data.nodeUpdates.nodes.length} nodes.`
     )
 
     const { nodeUpdates, isODP, sectionName, user } = job.data
@@ -36,7 +36,15 @@ export default async (job: Job<UpdateDependenciesProps>) => {
     // const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
     const result = results.reduce<{ nodeUpdates: NodeUpdates }>(
       (acc, item) => {
-        acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
+        if (item?.nodeUpdates?.nodes) acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
+        else
+          Logger.error(
+            `[updateDependenciesWorker] job-${
+              job.id
+            } Error STRANGE. item.nodeUpdates.nodes is undefined? item: ${JSON.stringify(
+              item
+            )}. job data ${JSON.stringify(job.data)}`
+          )
         // acc.validations.nodes.push(...item.validations.nodes)
         return acc
       },
@@ -52,7 +60,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
 
     return Promise.resolve(result)
   } catch (error) {
-    Logger.error(`[updateDependenciesWorker] Error in job ${job.id}.`)
+    Logger.error(`[updateDependenciesWorker] job-${job.id} Error.`)
     Logger.error(error)
     return Promise.reject(error)
   }
