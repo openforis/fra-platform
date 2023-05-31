@@ -14,6 +14,8 @@ export const scheduleUpdateDependencies = (props: UpdateDependenciesProps): Prom
     'updateDependencies',
     props,
     {
+      attempts: 5,
+      backoff: { delay: 1000, type: 'fixed' },
       removeOnComplete: true,
       removeOnFail: {
         age: 24 * 3600, // keep up to 24 hours

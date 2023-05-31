@@ -1,4 +1,4 @@
-import { Queue, Worker } from 'bullmq'
+import { Queue, QueueOptions, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { CountryIso } from '@meta/area'
@@ -29,7 +29,7 @@ const getInstance = (props: {
 
   workers[key] = WorkerFactory.newInstance({ key })
 
-  const opts = {
+  const opts: QueueOptions = {
     connection,
     streams: { events: { maxLen: 10 } },
   }
