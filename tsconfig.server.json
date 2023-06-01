@@ -10,12 +10,8 @@
     "moduleResolution": "Node",
     "noImplicitAny": true,
     "outDir": "./dist/",
-    "baseUrl": ".",
-    "paths": {
-      "@i18n/*": ["src/i18n/*"],
-      "@meta/*": ["src/meta/*"],
-      "@server/*": ["src/server/*"],
-    },
+    "baseUrl": "./src",
+    "rootDir": "./src",
     "target": "es2020",
     "lib": ["es2020", "esnext", "dom"]
   }

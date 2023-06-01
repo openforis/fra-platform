@@ -48,7 +48,7 @@ export const serverInit = () => {
   // sending the uncaught errors as json instead of HTML
   // http://expressjs.com/en/guide/error-handling.html
   // NB: This must not be an arrow function to make express detect this as an error handler.
-  app.use(function (err: any, _req: any, res: any, _: any) {
+  app.use((err: any, _req: any, res: any, _: any) => {
     if (err) sendErr(res, err)
   })
 
