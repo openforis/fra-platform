@@ -449,7 +449,7 @@ module.exports.translation = {
     dataSources: 'Источники данных',
     additionalComments: 'Дополнительные комментарии',
     edit: 'Редактировать',
-    copyPreviousValues: 'Копировать предыдущие значения',
+    copyPreviousValues: 'Копировать предыдущие ссылки',
     nationalClass: 'Национальный класс',
     nationalClasses: 'Классификации и определения',
     definition: 'Определение',

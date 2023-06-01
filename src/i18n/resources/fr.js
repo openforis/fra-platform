@@ -416,7 +416,7 @@ L'équipe de FRA
     dataSources: 'Source des données',
     additionalComments: 'Commentaires supplémentaires',
     edit: 'Modifier',
-    copyPreviousValues: 'Copier valeurs précédentes',
+    copyPreviousValues: 'Copier les références précédentes',
     nationalClass: 'Classe nationale',
     nationalClasses: 'Classifications et définitions',
     definition: 'Définition',
@@ -611,6 +611,7 @@ L'équipe de FRA fra@fao.org
     ofWhichNaturalExpansion: '…dont expansion naturelle',
     deforestation: 'Déforestation',
     forestAreaNetChange: 'Changement net de la superficie forestière',
+    forestAreaNetChangeFrom1a: 'Changement net de la superficie de forêt  obtenu à partir du tableau 1a',
     netChangeDoesNotMatch: 'Ne correspond pas au changement net de la superficie forestière',
   },
 
