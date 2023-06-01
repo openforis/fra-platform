@@ -67,6 +67,7 @@ export const useGetTableData = (props: Props) => {
         )
         const getTableDataProps = { assessmentName, countryIso, cycleName, tableNames: [_tableName], mergeOdp }
         dispatch(DataActions.getTableData(getTableDataProps))
+        dispatch(DataActions.getTableEstimations({ assessmentName, countryIso, cycleName, tableName: _tableName }))
       })
       if (odp) {
         dispatch(DataActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))

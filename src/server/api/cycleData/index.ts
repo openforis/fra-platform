@@ -21,6 +21,7 @@ import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { estimateValues } from './table/estimateValues'
 import { getTableData } from './table/getTableData'
+import { getTableEstimations } from './table/getTableEstimations'
 import { persistNodeValues } from './table/persistNodeValues'
 import { getActivities } from './getActivities'
 
@@ -28,6 +29,7 @@ export const CycleDataApi = {
   init: (express: Express): void => {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
+    express.get(ApiEndPoint.CycleData.Table.tableEstimations(), AuthMiddleware.requireView, getTableEstimations)
     express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
     express.post(
       ApiEndPoint.CycleData.Table.estimate(),
