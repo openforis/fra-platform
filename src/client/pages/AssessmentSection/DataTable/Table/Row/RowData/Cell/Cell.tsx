@@ -9,6 +9,7 @@ import { TooltipId } from '@meta/tooltip'
 import { Authorizer } from '@meta/user'
 
 import { useAssessment, useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
+import { useTableEstimations } from '@client/store/data'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
@@ -82,6 +83,8 @@ const Cell: React.FC<Props> = (props) => {
 
   const errorMessages = useErrorMessages({ nodeValue })
 
+  const tableEstimations = useTableEstimations()
+
   if (!Component) return null
 
   const component = (
@@ -111,7 +114,15 @@ const Cell: React.FC<Props> = (props) => {
     >
       {component}
 
-      {nodeValue?.estimationUuid ? <div className="estimation-mark">E</div> : null}
+      {nodeValue?.estimationUuid ? (
+        <div
+          className="estimation-mark"
+          data-tooltip-id={TooltipId.info}
+          data-tooltip-html={tableEstimations[nodeValue?.estimationUuid]?.method ?? null}
+        >
+          E
+        </div>
+      ) : null}
     </td>
   )
 }

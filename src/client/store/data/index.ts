@@ -4,5 +4,6 @@ export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
 export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'
 export { useTableData } from './hooks/useTableData'
+export { useTableEstimations } from './hooks/useTableEstimations'
 export { DataActions } from './slice'
 export type { DataState } from './stateType'
