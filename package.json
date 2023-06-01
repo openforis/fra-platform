@@ -19,7 +19,7 @@
     "run:dev": "run-p build:dev:client run:dev:server",
     "run:dev:server": "ts-node-dev src/server/start",
     "run:prod": "run-s yarn build yarn start",
-    "migration-steps:run": "ts-node-dev --project tsconfig.json src/test/migrations/",
+    "migration-steps:run": "ts-node-dev src/test/migrations/",
     "watch-debug": "run-p build:dev-server watch:server-debug",
     "watch:server-debug": "cross-env NODE_ENV=development nodemon -e js --inspect --watch server src/server/serverLocal.js",
     "create-migration": "./src/server/db/migration/create-migration.sh",
