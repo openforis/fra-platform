@@ -1,7 +1,5 @@
 import './Cell.scss'
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
@@ -11,7 +9,6 @@ import { TooltipId } from '@meta/tooltip'
 import { Authorizer } from '@meta/user'
 
 import { useAssessment, useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
-import { useTableEstimations } from '@client/store/data'
 import { useUser } from '@client/store/user'
 import { useCountryIso } from '@client/hooks'
 
@@ -19,6 +16,7 @@ import useClassName from './hooks/useClassName'
 import useErrorMessages from './hooks/useErrorMessages'
 import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
+import EstimationMark from './EstimationMark'
 import Multiselect from './Multiselect'
 import Number from './Number'
 import Placeholder from './Placeholder'
@@ -59,7 +57,6 @@ const Cell: React.FC<Props> = (props) => {
   const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
   const assessment = useAssessment()
-  const { t } = useTranslation()
 
   const tableName = table.props.name
   const { variableName } = row.props
@@ -85,8 +82,6 @@ const Cell: React.FC<Props> = (props) => {
   const { colSpan, rowSpan, ...style } = Cols.getStyle({ col, cycle })
 
   const errorMessages = useErrorMessages({ nodeValue })
-
-  const tableEstimations = useTableEstimations()
 
   if (!Component) return null
 
@@ -117,25 +112,7 @@ const Cell: React.FC<Props> = (props) => {
     >
       {component}
 
-      {nodeValue?.estimationUuid ? (
-        <div
-          className="estimation-mark"
-          data-tooltip-id={TooltipId.info}
-          data-tooltip-html={
-            tableEstimations[nodeValue?.estimationUuid]
-              ? ReactDOMServer.renderToStaticMarkup(
-                  <div>
-                    <div>
-                      Method: {t(`tableWithOdp.${tableEstimations[nodeValue?.estimationUuid].method}Extrapolation`)}
-                    </div>
-                  </div>
-                )
-              : null
-          }
-        >
-          E
-        </div>
-      ) : null}
+      {nodeValue?.estimationUuid && <EstimationMark estimationUuid={nodeValue.estimationUuid} />}
     </td>
   )
 }
