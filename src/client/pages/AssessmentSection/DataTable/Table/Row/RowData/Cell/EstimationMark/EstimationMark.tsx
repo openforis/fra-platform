@@ -25,7 +25,7 @@ const getEstimationDetails = (tableEstimation: NodeValuesEstimation, t: TFunctio
       <span>Variables:</span>
       <ul>
         {Object.entries(variables).map(([key, _]) => (
-          <li>{key}</li>
+          <li key={key}>{key}</li>
         ))}
       </ul>
     </div>
