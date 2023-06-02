@@ -72,8 +72,9 @@ const Cell: React.FC<Props> = (props) => {
   }
   const nodeValue = RecordAssessmentDatas.getNodeValue(params)
 
-  const valid = !Authorizer.canEditData({ country, cycle, section, user }) || NodeValueValidations.isValid(nodeValue)
-  const disabled = disabledProps || nodeValue?.odp || Cols.hasLinkedNodes({ cycle, col })
+  const canEditData = Authorizer.canEditData({ country, cycle, section, user })
+  const valid = !canEditData || NodeValueValidations.isValid(nodeValue)
+  const disabled = disabledProps || !!nodeValue?.estimationUuid || Cols.hasLinkedNodes({ cycle, col })
 
   const className = useClassName({ cycle, col, row })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
@@ -112,7 +113,7 @@ const Cell: React.FC<Props> = (props) => {
     >
       {component}
 
-      {nodeValue?.estimationUuid && (
+      {canEditData && nodeValue?.estimationUuid && (
         <EstimationMark estimationUuid={nodeValue.estimationUuid} variableName={row.props.variableName} />
       )}
     </td>

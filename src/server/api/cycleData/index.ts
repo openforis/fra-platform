@@ -29,7 +29,11 @@ export const CycleDataApi = {
   init: (express: Express): void => {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
-    express.get(ApiEndPoint.CycleData.Table.tableEstimations(), AuthMiddleware.requireView, getTableEstimations)
+    express.get(
+      ApiEndPoint.CycleData.Table.tableEstimations(),
+      AuthMiddleware.requireEditTableData,
+      getTableEstimations
+    )
     express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
     express.post(
       ApiEndPoint.CycleData.Table.estimate(),
