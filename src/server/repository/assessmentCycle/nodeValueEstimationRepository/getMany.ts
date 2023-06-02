@@ -22,12 +22,11 @@ export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<
     `
       with estimations_ranked as (
         select e.uuid,
-          row_number() over (partition by jsonb_object_keys(e.variables) order by a.time desc) as row_number
+          row_number() over (partition by jsonb_object_keys(e.variables) order by e.uuid desc) as row_number
         from ${schemaCycle}.node_values_estimation e
-          left join public.activity_log a on a.target ->> 'uuid' = e.uuid::text
         where e.table_uuid = $1
           and e.country_iso = $2
-        order by a.time desc
+        order by e.uuid desc
       )
       select e.uuid, e.country_iso, e.table_uuid, e.method, e.variables
       from ${schemaCycle}.node_values_estimation e
