@@ -112,7 +112,9 @@ const Cell: React.FC<Props> = (props) => {
     >
       {component}
 
-      {nodeValue?.estimationUuid && <EstimationMark estimationUuid={nodeValue.estimationUuid} />}
+      {nodeValue?.estimationUuid && (
+        <EstimationMark estimationUuid={nodeValue.estimationUuid} variableName={row.props.variableName} />
+      )}
     </td>
   )
 }
