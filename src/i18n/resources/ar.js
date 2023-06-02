@@ -475,7 +475,7 @@ The FRA team
     dataSources: 'مصادر البيانات',
     additionalComments: 'تعليقات إضافية',
     edit: 'تعديل',
-    copyPreviousValues: 'نسخ القيم السابقة',
+    copyPreviousValues: 'نسخ المراجع السابقة',
     nationalClass: 'شريحة وطنية',
     nationalClasses: 'شرائح وتعاريف',
     fraClasses: 'شرائح تقييم الموارد الحرجية',
@@ -668,6 +668,7 @@ The FRA team
     ofWhichNaturalExpansion: '...منها اتساع طبيعي',
     deforestation: 'إزالة الغابة',
     forestAreaNetChange: 'صافي التغيير في مساحة الغابة',
+    forestAreaNetChangeFrom1a: 'تغير صافي مساحة الغابات من الجدول 1a',
     netChangeDoesNotMatch: 'غير مطابق لصافي التغيير في مساحة الغابة',
   },
 
@@ -833,7 +834,7 @@ The FRA team
     areaAffectedByFire: 'المساحة المتضررة بالحرائق',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
     areaUnitLabel: 'المساحة (1000 هـ)',
-    totalLandAreaAffectedByFire: 'إجمالي مساحة الغابة المتضررة بالحرائق',
+    totalLandAreaAffectedByFire: 'إجمالي مساحة الأراضي المتأثرة بالحرائق',
     ofWhichForest: '...منها في الغابات',
   },
 

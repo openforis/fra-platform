@@ -463,7 +463,7 @@ FRA工作组
     dataSources: '数据来源',
     additionalComments: '额外评论',
     edit: '编辑',
-    copyPreviousValues: '复制前述数值',
+    copyPreviousValues: '复制先前的参考文献',
     nationalClass: '国家界定的类别',
     nationalClasses: '分类和定义',
     definition: '定义',
@@ -654,6 +654,7 @@ FRA工作组 fra@fao.org
     ofWhichNaturalExpansion: '自然扩张',
     deforestation: '砍伐',
     forestAreaNetChange: '森林面积净变化',
+    forestAreaNetChangeFrom1a: '表1a中森林面积净变化',
     netChangeDoesNotMatch: '与森林面积净变化不匹配',
   },
 
