@@ -1,5 +1,7 @@
 import './Cell.scss'
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
@@ -57,6 +59,7 @@ const Cell: React.FC<Props> = (props) => {
   const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
   const assessment = useAssessment()
+  const { t } = useTranslation()
 
   const tableName = table.props.name
   const { variableName } = row.props
@@ -118,7 +121,17 @@ const Cell: React.FC<Props> = (props) => {
         <div
           className="estimation-mark"
           data-tooltip-id={TooltipId.info}
-          data-tooltip-html={tableEstimations[nodeValue?.estimationUuid]?.method ?? null}
+          data-tooltip-html={
+            tableEstimations[nodeValue?.estimationUuid]
+              ? ReactDOMServer.renderToStaticMarkup(
+                  <div>
+                    <div>
+                      Method: {t(`tableWithOdp.${tableEstimations[nodeValue?.estimationUuid].method}Extrapolation`)}
+                    </div>
+                  </div>
+                )
+              : null
+          }
         >
           E
         </div>
