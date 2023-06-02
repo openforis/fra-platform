@@ -8,7 +8,6 @@
   "scripts": {
     "migrate-panEuropean:migration": "ts-node tools/dataMigration/panEuropean.ts && yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/dataMigration/jest.config.panEu.js",
     "build": "run-s build:prod:client build:prod:server build:prod:server:resources",
-    "build:dev:client": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
     "build:prod:client": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
     "build:prod:server": "yarn tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
     "build:prod:server:resources": "shx cp -Rf src/server/db/migration/* dist/server/db/migration/. && shx cp -Rf web-resources dist/ && shx cp -Rf src/server/static dist/server/",
@@ -20,7 +19,8 @@
     "migrations:run": "./src/server/db/migration/run-migrations.sh",
     "migration-steps:run": "ts-node src/test/migrations/",
     "migration-steps:create": "src/test/migrations/create-migration-step.sh",
-    "run:dev": "run-p build:dev:client run:dev:server",
+    "run:dev": "run-p run:dev:client run:dev:server",
+    "run:dev:client": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
     "run:dev:server": "ts-node-dev src/server/start",
     "run:prod": "run-s yarn build yarn start",
     "run:prod:server": "node dist/server/start",
