@@ -1,15 +1,13 @@
 import 'tsconfig-paths/register'
+import 'dotenv/config'
 
 import * as fs from 'fs'
 import * as path from 'path'
-import { config } from 'dotenv'
 
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
 import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
-
-config({ path: path.resolve(__dirname, '..', '..', '..', '.env') })
 
 const client = DB
 let migrationSteps: Array<string>
