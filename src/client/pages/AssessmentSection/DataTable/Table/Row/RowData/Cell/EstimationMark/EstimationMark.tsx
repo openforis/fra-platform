@@ -15,13 +15,19 @@ type Props = {
 const getEstimationDetails = (tableEstimation: NodeValuesEstimation, t: TFunction) => {
   if (!tableEstimation) return null
 
-  const { method } = tableEstimation
+  const { method, variables } = tableEstimation
 
   return ReactDOMServer.renderToStaticMarkup(
     <div>
       <div>
         {t('common.method')}: {t(`tableWithOdp.${method}Extrapolation`)}
       </div>
+      <span>Variables:</span>
+      <ul>
+        {Object.entries(variables).map(([key, _]) => (
+          <li>{key}</li>
+        ))}
+      </ul>
     </div>
   )
 }
