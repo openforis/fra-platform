@@ -1,6 +1,7 @@
+import { Numbers } from 'utils/numbers'
+
 import { CountryIso } from 'meta/area'
 
-import { Numbers } from '../../../utils'
 import { ODPs } from './odps'
 import { OriginalDataPoint } from './originalDataPoint'
 

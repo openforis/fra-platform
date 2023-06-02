@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Objects } from 'utils/index'
+import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ClientRoutes } from 'meta/app'
@@ -105,10 +105,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="login__formWrapper">
       <div>
-        <a
-          className="btn"
-          href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${cycle.name}`}
-        >
+        <a className="btn" href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${cycle.name}`}>
           {t('login.signInGoogle')}
         </a>
 
