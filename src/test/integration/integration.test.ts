@@ -1,5 +1,5 @@
-import * as QueueFactory from 'server/controller/cycleData/updateDependencies/queueFactory'
-import * as WorkerFactory from 'server/controller/cycleData/updateDependencies/workerFactory'
+import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
+import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
 import { DB } from 'server/db'
 
 import assessmentCreate from 'test/integration/assessment/createAssessment'
@@ -29,7 +29,7 @@ afterAll(async () => {
   await DB.$pool.end()
   // quick and dirty workaround to close redis connection after running integration tests
   // TODO: find a better strategy to handle Redis connections
-  QueueFactory.connection.quit()
+  UpdateDependenciesQueueFactory.connection.quit()
   WorkerFactory.connection.quit()
 })
 
