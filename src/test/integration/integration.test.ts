@@ -1,4 +1,6 @@
-import 'dotenv/config'
+import 'tsconfig-paths/register'
+import * as path from 'path'
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env.test') })
 
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
