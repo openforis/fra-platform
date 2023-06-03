@@ -60,14 +60,81 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
   // ======== read CSV content files and add them to insert values
   const values: Array<NodeRow> = []
   // eslint-disable-next-line no-restricted-syntax
+  // for (let i = 0; i < fileNames.length; i += 1) {
+  //   const fileName = fileNames[i]
+  //   const p = ((i + 1) / fileNames.length) * 100
+  //   // ======== prepare metadata
+  //   const tableIdx = fileName.replace('.csv', '').replace('_C', '_').replace('.', '_')
+  //   const tableName = `country_comments_${tableIdx}`
+  //   Logger.info(`==== ${i + 1}/${fileNames.length} (${Numbers.format(p)})%  -> ${fileName} -> ${tableName}`)
+  //   const table = tables[tableName]
+  //   if (!table) {
+  //     Logger.error(`Table not found for tableName: ${tableName}`)
+  //   }
+  //
+  //   const rowsData = table.rows.filter(
+  //     (r) => ![RowType.header, RowType.placeholder, RowType.noticeMessage].includes(r.props.type)
+  //   )
+  //
+  //   // ======== read CSV file content
+  //   const pathCsvFile = path.resolve(pathCSV, fileName)
+  //   // eslint-disable-next-line no-await-in-loop
+  //   const csvRows = await FileCSV.read<CSVRowItem>(pathCsvFile, { escape: '"', quote: '"' })
+  //   // ======== iterate csv rows
+  //   let countryIso = ''
+  //   let rowIndex = -1
+  //   csvRows.forEach((csvRow) => {
+  //     if (csvRow.country !== countryIso) {
+  //       countryIso = csvRow.country
+  //       rowIndex = -1
+  //     }
+  //     // ======== get row and cols
+  //     rowIndex += 1
+  //     const row = rowsData[rowIndex]
+  //
+  //     // TODO: investigate why rows are not found
+  //     // 6_9_2 -> CSV is incorrect. It is the same as 6_9_1
+  //     // 4_9_2 -> There is one empty row per country in the CSV.
+  //     // 3_4_2 -> There are 4 empty rows per country in the CSV.
+  //     // 3_4_2 -> Sometimes they are not empty, but the excel have no category per row. Just empty rows there.
+  //     // 2_5_1 -> CSV does not map the table, by index as expected.
+  //
+  //     if (!row) {
+  //       Logger.warn(`!!!! Row not found ${tableName} ${rowIndex} ${rowsData.length} ${JSON.stringify(csvRow)}`)
+  //     }
+  //     if (row) {
+  //       // convert csv row -> db node type
+  //       const columnNames = table.props.columnNames[cycle.uuid]
+  //       columnNames.forEach((columnName) => {
+  //         const col = row.cols.find((c) => c.props.colName === columnName)
+  //
+  //         if (col) {
+  //           const nodeRow: NodeRow = {
+  //             country_iso: csvRow.country,
+  //             row_uuid: row.uuid,
+  //             col_uuid: col.uuid,
+  //             value: { raw: csvRow[columnName] ?? null },
+  //           }
+  //           values.push(nodeRow)
+  //         }
+  //       })
+  //     }
+  //   })
+  // }
+
+  // ======== LOOP WITH LOGS FOR TABLE 442
   for (let i = 0; i < fileNames.length; i += 1) {
     const fileName = fileNames[i]
     const p = ((i + 1) / fileNames.length) * 100
     // ======== prepare metadata
     const tableIdx = fileName.replace('.csv', '').replace('_C', '_').replace('.', '_')
     const tableName = `country_comments_${tableIdx}`
-    Logger.info(`==== ${i + 1}/${fileNames.length} (${Numbers.format(p)})%  -> ${fileName} `)
+    Logger.info(`==== ${i + 1}/${fileNames.length} (${Numbers.format(p)})%  -> ${fileName} -> ${tableName}`)
+
     const table = tables[tableName]
+    if (tableName === 'country_comments_4_4_2' || tableName === 'country_comments_4_4_1') {
+      Logger.info(`Table data: ${JSON.stringify(table)}`)
+    }
     if (!table) {
       Logger.error(`Table not found for tableName: ${tableName}`)
     }
@@ -80,6 +147,12 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
     const pathCsvFile = path.resolve(pathCSV, fileName)
     // eslint-disable-next-line no-await-in-loop
     const csvRows = await FileCSV.read<CSVRowItem>(pathCsvFile, { escape: '"', quote: '"' })
+    //
+    // // Log raw CSV data only for the specified table
+    // if (tableName === 'country_comments_4_4_2') {
+    //   Logger.info(`CSV data: ${JSON.stringify(csvRows)}`)
+    // }
+
     // ======== iterate csv rows
     let countryIso = ''
     let rowIndex = -1
@@ -92,35 +165,38 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
       rowIndex += 1
       const row = rowsData[rowIndex]
 
-      // TODO: investigate why rows are not found
-      // 6_9_2 -> CSV is incorrect. It is the same as 6_9_1
-      // 4_9_2 -> There is one empty row per country in the CSV.
-      // 3_4_2 -> There are 4 empty rows per country in the CSV.
-      // 3_4_2 -> Sometimes they are not empty, but the excel have no category per row. Just empty rows there.
-      // 2_5_1 -> CSV does not map the table, by index as expected.
-
       if (!row) {
         Logger.warn(`!!!! Row not found ${tableName} ${rowIndex} ${rowsData.length} ${JSON.stringify(csvRow)}`)
+        return // skip to the next row if the current row isn't found
       }
-      if (row) {
-        // convert csv row -> db node type
-        const columnNames = table.props.columnNames[cycle.uuid]
-        columnNames.forEach((columnName) => {
-          const col = row.cols.find((c) => c.props.colName === columnName)
 
-          if (col) {
-            const nodeRow: NodeRow = {
-              country_iso: csvRow.country,
-              row_uuid: row.uuid,
-              col_uuid: col.uuid,
-              value: { raw: csvRow[columnName] ?? null },
-            }
-            values.push(nodeRow)
+      // convert csv row -> db node type
+      const columnNames = table.props.columnNames[cycle.uuid]
+      columnNames.forEach((columnName) => {
+        // Log each column name and available columns for the specified table
+        // if (tableName === 'country_comments_4_4_2' || tableName === 'country_comments_4_4_1') {
+        //   Logger.info(`Searching for column '${columnName}' in available columns: ${JSON.stringify(row.cols)}`)
+        // }
+        const col = row.cols.find((c) => c.props.colName === columnName)
+
+        if (col) {
+          const nodeRow: NodeRow = {
+            country_iso: csvRow.country,
+            row_uuid: row.uuid,
+            col_uuid: col.uuid,
+            value: { raw: csvRow[columnName] ?? null },
           }
-        })
-      }
+          values.push(nodeRow)
+
+          // Log added NodeRow only for the specified table
+          if (tableName === 'country_comments_4_4_2') {
+            Logger.info(`Adding NodeRow: ${JSON.stringify(nodeRow)}`)
+          }
+        }
+      })
     })
   }
+  // ======== END LOOP WITH LOGS FOR TABLE 442
 
   // prepare db column set
   const pgp = pgPromise()
@@ -129,5 +205,9 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
   const cs = new pgp.helpers.ColumnSet(columns, options)
   // insert values into db
   const query = pgp.helpers.insert(values, cs)
-  await client.query(query)
+  try {
+    await client.query(query)
+  } catch (err) {
+    Logger.error(`An error occurred when executing the query: ${err}`)
+  }
 }

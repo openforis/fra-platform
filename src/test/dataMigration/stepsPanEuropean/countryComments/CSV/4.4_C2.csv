@@ -1,139 +1,139 @@
 ,country,indicator,item,comment
 0,ALB,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-1,ALB,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-2,ALB,4.4,Criteria or thresholds used to classify species as “invasive”:,
+1,ALB,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+2,ALB,4.4,"Criteria or thresholds used to classify species as invasive:",
 3,AND,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-4,AND,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-5,AND,4.4,Criteria or thresholds used to classify species as “invasive”:,
+4,AND,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+5,AND,4.4,"Criteria or thresholds used to classify species as invasive:",
 6,AUT,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",0.03
-7,AUT,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",250
-8,AUT,4.4,Criteria or thresholds used to classify species as “invasive”:,regeneration and enlargement of area without activ silvicultural measures
-9,BLR,4.4,Исходная площадь для оценки (размер пробного участка / среднее насаждение):,"0,1 га"
-10,BLR,4.4,"Исходный период, использованный для классификации как “интродуцированные” (годы после интродукции), годы:",Ранее не произрастающий вид
-11,BLR,4.4,"Критерии или пороговые значения, использованные для классификации пород как “инвазивные”","Нежелательный вид, ранее не произрастающий"
+7,AUT,4.4,"Reference period used to classify as introduced (years since introduction), years:",250
+8,AUT,4.4,"Criteria or thresholds used to classify species as invasive:",regeneration and enlargement of area without activ silvicultural measures
+9,BLR,4.4,"Исходная площадь для оценки (размер пробного участка / среднее насаждение):","0,1 га"
+10,BLR,4.4,"Исходный период, использованный для классификации как интродуцированные (годы после интродукции), годы:",Ранее не произрастающий вид
+11,BLR,4.4,"Критерии или пороговые значения, использованные для классификации пород как инвазивные","Нежелательный вид, ранее не произрастающий"
 12,BEL,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-13,BEL,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-14,BEL,4.4,Criteria or thresholds used to classify species as “invasive”:,
+13,BEL,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+14,BEL,4.4,"Criteria or thresholds used to classify species as invasive:",
 15,BIH,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-16,BIH,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-17,BIH,4.4,Criteria or thresholds used to classify species as “invasive”:,
+16,BIH,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+17,BIH,4.4,"Criteria or thresholds used to classify species as invasive:",
 18,BGR,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-19,BGR,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-20,BGR,4.4,Criteria or thresholds used to classify species as “invasive”:,
+19,BGR,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+20,BGR,4.4,"Criteria or thresholds used to classify species as invasive:",
 21,HRV,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-22,HRV,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-23,HRV,4.4,Criteria or thresholds used to classify species as “invasive”:,
+22,HRV,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+23,HRV,4.4,"Criteria or thresholds used to classify species as invasive:",
 24,CYP,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-25,CYP,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-26,CYP,4.4,Criteria or thresholds used to classify species as “invasive”:,
+25,CYP,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+26,CYP,4.4,"Criteria or thresholds used to classify species as invasive:",
 27,CZE,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","average area of forest unit which is assesed was 1,16 ha  in 2005"
-28,CZE,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-29,CZE,4.4,Criteria or thresholds used to classify species as “invasive”:,
+28,CZE,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+29,CZE,4.4,"Criteria or thresholds used to classify species as invasive:",
 30,DNK,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-31,DNK,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-32,DNK,4.4,Criteria or thresholds used to classify species as “invasive”:,
+31,DNK,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+32,DNK,4.4,"Criteria or thresholds used to classify species as invasive:",
 33,EST,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",Sample plot with 20m radius.
-34,EST,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",According to used FRA definition.
-35,EST,4.4,Criteria or thresholds used to classify species as “invasive”:,According to used FRA definition.
+34,EST,4.4,"Reference period used to classify as introduced (years since introduction), years:",According to used FRA definition.
+35,EST,4.4,"Criteria or thresholds used to classify species as invasive:",According to used FRA definition.
 36,FIN,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","stand, closest 0,25 hectares"
-37,FIN,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",10 000 (latest Ice Period)
-38,FIN,4.4,Criteria or thresholds used to classify species as “invasive”:,Introduced species that regenerates more effectively than the native ones and is expanding
+37,FIN,4.4,"Reference period used to classify as introduced (years since introduction), years:",10 000 (latest Ice Period)
+38,FIN,4.4,"Criteria or thresholds used to classify species as invasive:",Introduced species that regenerates more effectively than the native ones and is expanding
 39,FRA,4.4,Approach applied to reporting on introduced/invasive species,
 40,FRA,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","When a species is the first species in the tree cover of the plot (25 m radius) then it become the ""main tree species"" of the NFI plot."
-41,FRA,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",About 1492
+41,FRA,4.4,"Reference period used to classify as introduced (years since introduction), years:",About 1492
 42,GEO,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-43,GEO,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-44,GEO,4.4,Criteria or thresholds used to classify species as “invasive”:,
+43,GEO,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+44,GEO,4.4,"Criteria or thresholds used to classify species as invasive:",
 45,DEU,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-46,DEU,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-47,DEU,4.4,Criteria or thresholds used to classify species as “invasive”:,
+46,DEU,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+47,DEU,4.4,"Criteria or thresholds used to classify species as invasive:",
 48,GRC,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-49,GRC,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-50,GRC,4.4,Criteria or thresholds used to classify species as “invasive”:,
+49,GRC,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+50,GRC,4.4,"Criteria or thresholds used to classify species as invasive:",
 51,VAT,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-52,VAT,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-53,VAT,4.4,Criteria or thresholds used to classify species as “invasive”:,
+52,VAT,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+53,VAT,4.4,"Criteria or thresholds used to classify species as invasive:",
 54,HUN,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-55,HUN,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",A species was regarded as introduced if it does not occur naturally within the country borders. Note that formerly - due to the definition of SOEF 2015 - a different definition was applied: natural dispersion of a species was analyzed on a within-country scale.
-56,HUN,4.4,Criteria or thresholds used to classify species as “invasive”:,
+55,HUN,4.4,"Reference period used to classify as introduced (years since introduction), years:",A species was regarded as introduced if it does not occur naturally within the country borders. Note that formerly - due to the definition of SOEF 2015 - a different definition was applied: natural dispersion of a species was analyzed on a within-country scale.
+56,HUN,4.4,"Criteria or thresholds used to classify species as invasive:",
 57,ISL,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",Sample plot. Size 200 m2
-58,ISL,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",Not numbered or described in the ISLic Flora from 1948
-59,ISL,4.4,Criteria or thresholds used to classify species as “invasive”:,Classified by the governmental specialist committe of import and spreading of alien organism as invasive
+58,ISL,4.4,"Reference period used to classify as introduced (years since introduction), years:",Not numbered or described in the ISLic Flora from 1948
+59,ISL,4.4,"Criteria or thresholds used to classify species as invasive:",Classified by the governmental specialist committe of import and spreading of alien organism as invasive
 60,IRL,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",NFI Sample Plot Data
-61,IRL,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-62,IRL,4.4,Criteria or thresholds used to classify species as “invasive”:,
+61,IRL,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+62,IRL,4.4,"Criteria or thresholds used to classify species as invasive:",
 63,ITA,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",530 m2 (plot size for tree measurements)
-64,ITA,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-65,ITA,4.4,Criteria or thresholds used to classify species as “invasive”:,A species is considered invasive if its basal area per hectare is at least 2 m2
+64,ITA,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+65,ITA,4.4,"Criteria or thresholds used to classify species as invasive:",A species is considered invasive if its basal area per hectare is at least 2 m2
 66,LVA,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-67,LVA,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",more than 250
-68,LVA,4.4,Criteria or thresholds used to classify species as “invasive”:,
+67,LVA,4.4,"Reference period used to classify as introduced (years since introduction), years:",more than 250
+68,LVA,4.4,"Criteria or thresholds used to classify species as invasive:",
 69,LIE,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-70,LIE,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-71,LIE,4.4,Criteria or thresholds used to classify species as “invasive”:,
+70,LIE,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+71,LIE,4.4,"Criteria or thresholds used to classify species as invasive:",
 72,LTU,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","0,1 ha"
-73,LTU,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-74,LTU,4.4,Criteria or thresholds used to classify species as “invasive”:,
+73,LTU,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+74,LTU,4.4,"Criteria or thresholds used to classify species as invasive:",
 75,LUX,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-76,LUX,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-77,LUX,4.4,Criteria or thresholds used to classify species as “invasive”:,
+76,LUX,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+77,LUX,4.4,"Criteria or thresholds used to classify species as invasive:",
 78,MLT,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-79,MLT,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-80,MLT,4.4,Criteria or thresholds used to classify species as “invasive”:,
+79,MLT,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+80,MLT,4.4,"Criteria or thresholds used to classify species as invasive:",
 81,MDA,4.4,Исходная площадь для оценки (размер пробного участка / среднее насаждение):,
-82,MDA,4.4,"Исходный период, использованный для классификации как “интродуцированные” (годы после интродукции), годы:",
-83,MDA,4.4,"Критерии или пороговые значения, использованные для классификации пород как “инвазивные”",
+82,MDA,4.4,"Исходный период, использованный для классификации как интродуцированные (годы после интродукции), годы:",
+83,MDA,4.4,"Критерии или пороговые значения, использованные для классификации пород как инвазивные",
 84,MCO,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-85,MCO,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-86,MCO,4.4,Criteria or thresholds used to classify species as “invasive”:,
+85,MCO,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+86,MCO,4.4,"Criteria or thresholds used to classify species as invasive:",
 87,MNE,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-88,MNE,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-89,MNE,4.4,Criteria or thresholds used to classify species as “invasive”:,
-90,NLD,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","For the year 1990 data from the 4th national forest inventory were used, which was a stand wise inventory. The dominant tree species of the stand is used to determine the area of introduced tree species for 1990 and 2000. For 2005 and 2015 basal area data from the 5th and 6th national forest inventory were used respectively, which was a plot based system. A plot in the NFI's represent a forest area of app. 121 ha and app. 117 ha respectively. The area for the year 2010 is the result of interpolation between the 2005 and 2015 areas. the area for 2020 is an extrapolation based on 2005 and 2015 with the newly calculated forest area implemented."
-91,NLD,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",A species is considered as introduced if it hasn't established itself in the NLD. It is brought to the NLD by human intervention. Also see country comments.
-92,NLD,4.4,Criteria or thresholds used to classify species as “invasive”:,A species is considered as invasive when it is settled outside of its natural habitat and by their presence or growth threatens native populations
+88,MNE,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+89,MNE,4.4,"Criteria or thresholds used to classify species as invasive:",
+90,NLD,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","For the year 1990 data from the 4th national forest inventory were used, which was a stand wise inventory. The dominant tree species of the stand is used to determine the area of introduced tree species for 1990 and 2000. For 2005 and 2015 basal area data from the 5th and 6th national forest inventory were used respectively, which was a plot based system. A plot in the NFIs represent a forest area of app. 121 ha and app. 117 ha respectively. The area for the year 2010 is the result of interpolation between the 2005 and 2015 areas. the area for 2020 is an extrapolation based on 2005 and 2015 with the newly calculated forest area implemented."
+91,NLD,4.4,"Reference period used to classify as introduced (years since introduction), years:",A species is considered as introduced if it hasnt established itself in the NLD. It is brought to the NLD by human intervention. Also see country comments.
+92,NLD,4.4,"Criteria or thresholds used to classify species as invasive:",A species is considered as invasive when it is settled outside of its natural habitat and by their presence or growth threatens native populations
 93,NOR,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","Reference area is NFI sample plot, 250 sq.m."
-94,NOR,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-95,NOR,4.4,Criteria or thresholds used to classify species as “invasive”:,
+94,NOR,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+95,NOR,4.4,"Criteria or thresholds used to classify species as invasive:",
 96,POL,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-97,POL,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-98,POL,4.4,Criteria or thresholds used to classify species as “invasive”:,
+97,POL,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+98,POL,4.4,"Criteria or thresholds used to classify species as invasive:",
 99,PRT,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-100,PRT,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-101,PRT,4.4,Criteria or thresholds used to classify species as “invasive”:,
+100,PRT,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+101,PRT,4.4,"Criteria or thresholds used to classify species as invasive:",
 102,ROU,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-103,ROU,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-104,ROU,4.4,Criteria or thresholds used to classify species as “invasive”:,
+103,ROU,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+104,ROU,4.4,"Criteria or thresholds used to classify species as invasive:",
 105,RUS,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-106,RUS,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-107,RUS,4.4,Criteria or thresholds used to classify species as “invasive”:,
+106,RUS,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+107,RUS,4.4,"Criteria or thresholds used to classify species as invasive:",
 108,SRB,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-109,SRB,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-110,SRB,4.4,Criteria or thresholds used to classify species as “invasive”:,
+109,SRB,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+110,SRB,4.4,"Criteria or thresholds used to classify species as invasive:",
 111,SVK,4.4,Approach applied to reporting on introduced/invasive species,
 112,SVK,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","Average area of forest stand in 2015 was 4,43 ha"
-113,SVK,4.4,"Reference period used to classify as “introduced” (years since introduction), years:","Anytime in history, no introduced species in SVK is officially considered naturalised."
+113,SVK,4.4,"Reference period used to classify as introduced (years since introduction), years:","Anytime in history, no introduced species in SVK is officially considered naturalised."
 114,SVN,4.4,"Reference area for assessment (size of sample plot/average stand), ha:","Stand inventory (except Ailanthus altissima- expert survey (dr. Kutnar Lado and SVN Forest Service, 2013))"
-115,SVN,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",All not native species in SVNn forests
-116,SVN,4.4,Criteria or thresholds used to classify species as “invasive”:,"Project Life Artemis (list of species, https://www.tujerodne-vrste.info/en/project-life-artemis/)"
+115,SVN,4.4,"Reference period used to classify as introduced (years since introduction), years:",All not native species in SVNn forests
+116,SVN,4.4,"Criteria or thresholds used to classify species as invasive:","Project Life Artemis (list of species, https://www.tujerodne-vrste.info/en/project-life-artemis/)"
 117,ESP,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",sample plot
-118,ESP,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-119,ESP,4.4,Criteria or thresholds used to classify species as “invasive”:,"Based on the official list on species with invasive potential. Reference: RD 630/2013, de 2 de agosto, por el que se regula el Catálogo español de especies exóticas invasoras"
+118,ESP,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+119,ESP,4.4,"Criteria or thresholds used to classify species as invasive:","Based on the official list on species with invasive potential. Reference: RD 630/2013, de 2 de agosto, por el que se regula el Catálogo español de especies exóticas invasoras"
 120,SWE,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",10 and 7 m radius plots
-121,SWE,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",1950
-122,SWE,4.4,Criteria or thresholds used to classify species as “invasive”:,
+121,SWE,4.4,"Reference period used to classify as introduced (years since introduction), years:",1950
+122,SWE,4.4,"Criteria or thresholds used to classify species as invasive:",
 123,CHE,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",0.05 ha  (0.25 ha)
-124,CHE,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",1492
-125,CHE,4.4,Criteria or thresholds used to classify species as “invasive”:,Rhus typhina is the only species considered as woody invasive species by law.
+124,CHE,4.4,"Reference period used to classify as introduced (years since introduction), years:",1492
+125,CHE,4.4,"Criteria or thresholds used to classify species as invasive:",Rhus typhina is the only species considered as woody invasive species by law.
 126,MKD,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-127,MKD,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-128,MKD,4.4,Criteria or thresholds used to classify species as “invasive”:,
+127,MKD,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+128,MKD,4.4,"Criteria or thresholds used to classify species as invasive:",
 129,TUR,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-130,TUR,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-131,TUR,4.4,Criteria or thresholds used to classify species as “invasive”:,
+130,TUR,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+131,TUR,4.4,"Criteria or thresholds used to classify species as invasive:",
 132,UKR,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",
-133,UKR,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",
-134,UKR,4.4,Criteria or thresholds used to classify species as “invasive”:,
+133,UKR,4.4,"Reference period used to classify as introduced (years since introduction), years:",
+134,UKR,4.4,"Criteria or thresholds used to classify species as invasive:",
 135,GBR,4.4,"Reference area for assessment (size of sample plot/average stand), ha:",Components within 1 hectare sample squares
-136,GBR,4.4,"Reference period used to classify as “introduced” (years since introduction), years:",400
-137,GBR,4.4,Criteria or thresholds used to classify species as “invasive”:,
+136,GBR,4.4,"Reference period used to classify as introduced (years since introduction), years:",400
+137,GBR,4.4,"Criteria or thresholds used to classify species as invasive:",
