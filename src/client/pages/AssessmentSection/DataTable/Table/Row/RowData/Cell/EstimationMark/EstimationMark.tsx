@@ -6,7 +6,7 @@ import { TFunction, useTranslation } from 'react-i18next'
 import { NodeValuesEstimation } from '@meta/assessment'
 import { TooltipId } from '@meta/tooltip'
 
-import { useTableEstimations } from '@client/store/data'
+import { useNodeValuesEstimations } from '@client/store/data'
 
 type Props = {
   estimationUuid: string
@@ -33,7 +33,7 @@ const getEstimationDetails = (tableEstimation: NodeValuesEstimation, variableNam
 const EstimationMark: React.FC<Props> = (props) => {
   const { estimationUuid, variableName } = props
 
-  const tableEstimations = useTableEstimations()
+  const tableEstimations = useNodeValuesEstimations()
   const { t } = useTranslation()
 
   const tableEstimation = tableEstimations[estimationUuid]

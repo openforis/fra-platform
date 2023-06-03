@@ -5,7 +5,7 @@ import { BaseProtocol, DB } from '@server/db'
 import { TableRepository } from '@server/repository/assessment/table'
 import { NodeValueEstimationRepository } from '@server/repository/assessmentCycle/nodeValueEstimationRepository'
 
-export const getTableEstimations = async (
+export const getNodeValuesEstimations = async (
   props: {
     assessment: Assessment
     countryIso: CountryIso

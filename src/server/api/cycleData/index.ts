@@ -20,8 +20,8 @@ import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataP
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { estimateValues } from './table/estimateValues'
+import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
-import { getTableEstimations } from './table/getTableEstimations'
 import { persistNodeValues } from './table/persistNodeValues'
 import { getActivities } from './getActivities'
 
@@ -30,9 +30,9 @@ export const CycleDataApi = {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
     express.get(
-      ApiEndPoint.CycleData.Table.tableEstimations(),
+      ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
       AuthMiddleware.requireEditTableData,
-      getTableEstimations
+      getNodeValuesEstimations
     )
     express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
     express.post(

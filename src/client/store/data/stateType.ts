@@ -19,7 +19,7 @@ interface TableDataState {
       [cycleName: CycleName]: RecordAssessmentData
     }
   }
-  tableEstimations?: Record<string, NodeValuesEstimation>
+  nodeValuesEstimations?: Record<string, NodeValuesEstimation>
 }
 
 type BaseState = Record<AssessmentName, Record<CycleName, DataBaseState>>

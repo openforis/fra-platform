@@ -10,9 +10,9 @@ import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
+import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
-import { getTableEstimations } from './actions/getTableEstimations'
 import { postEstimate } from './actions/postEstimate'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
@@ -25,7 +25,7 @@ const baseState: DataBaseState = {
 
 const initialState: DataState = {
   tableData: {},
-  tableEstimations: {},
+  nodeValuesEstimations: {},
 }
 
 export const dataSlice = createSlice({
@@ -135,8 +135,8 @@ export const dataSlice = createSlice({
       })
     })
 
-    builder.addCase(getTableEstimations.fulfilled, (state, { payload }) => {
-      state.tableEstimations = payload
+    builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {
+      state.nodeValuesEstimations = payload
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
@@ -203,7 +203,7 @@ export const DataActions = {
   clearTableData,
   getTableData,
   updateNodeValues,
-  getTableEstimations,
+  getNodeValuesEstimations,
 
   // Original Data Point Table data
   getOriginalDataPointData,
