@@ -61,7 +61,7 @@ export const getOriginalDataPointVariables = (cycle: Cycle) => {
 // Find given variable from ODPVariables
 export const isODPVariable = (cycle: Cycle, variable: VariableCache): boolean => {
   return getOriginalDataPointVariables(cycle).some((odpVariable) => {
-    const keys: Array<keyof VariableCache> = ['tableName', 'variableName']
+    const keys: ['tableName', 'variableName'] = ['tableName', 'variableName']
     return keys.every((key) => variable[key] === odpVariable[key])
   })
 }
