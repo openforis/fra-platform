@@ -11,19 +11,19 @@ export const getOne = async (
   const { assessment, cycle } = props
   const schemaName = Schemas.getName(assessment)
 
-  return client.oneOrNone<Table>(
+  return client.one<Table>(
     `
           select t.*
           from ${schemaName}.table t
-          where props ->> 'name' = $2
+          where props ->> 'name' = $2 
             and props -> 'cycles' ? $1;
       `,
     [cycle.uuid, props.tableName],
-    (data) => {
-      if (!data) return null
+    (table) => {
+      const { props, ...rest } = table
       return {
-        ...Objects.camelize(data),
-        props: data.props,
+        ...Objects.camelize(rest),
+        props,
       }
     }
   )
