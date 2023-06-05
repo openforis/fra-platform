@@ -139,6 +139,10 @@ export const dataSlice = createSlice({
       state.nodeValuesEstimations = payload
     })
 
+    builder.addCase(postEstimate.fulfilled, (state, { payload }) => {
+      state.nodeValuesEstimations = payload.nodeValueEstimations
+    })
+
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
       const { countryIso, tableName, values, assessmentName, cycleName } = meta.arg
       values.forEach((valueUpdate) => {
