@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle, Row } from '@meta/assessment'
+import { Assessment, Cycle, Row } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter'
+import { BaseProtocol, Schemas } from 'server/db'
+import { ColAdapter } from 'server/repository/adapter'
 
 export const getRow = async (
   props: {

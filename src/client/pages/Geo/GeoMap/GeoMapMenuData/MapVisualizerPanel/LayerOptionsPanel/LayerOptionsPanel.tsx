@@ -2,11 +2,11 @@ import './LayerOptionsPanel.scss'
 import React, { useState } from 'react'
 import { batch } from 'react-redux'
 
-import { ForestSource, HansenPercentage, hansenPercentages } from '@meta/geo/forest'
+import { ForestSource, HansenPercentage, hansenPercentages } from 'meta/geo/forest'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions, useIsGeoMapAvailable } from '@client/store/ui/geo'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useForestSourceOptions, useIsGeoMapAvailable } from 'client/store/ui/geo'
+import { mapController } from 'client/utils'
 
 import { GLOBAL_OPACITY_KEY } from '..'
 

@@ -1,19 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { ODPDataSourceMethod, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
-import { Topics } from '@meta/messageCenter'
+import { ODPDataSourceMethod, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions } from '@client/store/ui/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import MultiSelect from '@client/components/MultiSelect'
-import ReviewIndicator from '@client/components/ReviewIndicator'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
+import { useCountryIso } from 'client/hooks'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import MultiSelect from 'client/components/MultiSelect'
+import ReviewIndicator from 'client/components/ReviewIndicator'
+import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 type Props = {
   canEditData: boolean

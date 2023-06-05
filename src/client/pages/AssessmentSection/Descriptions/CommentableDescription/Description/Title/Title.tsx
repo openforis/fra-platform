@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { TooltipId } from '@meta/tooltip'
+import { TooltipId } from 'meta/tooltip'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 type Props = {
   error?: boolean

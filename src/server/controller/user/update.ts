@@ -1,9 +1,9 @@
-import { ActivityLogMessage } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
-import { UserRepository } from '@server/repository/public/user'
+import { BaseProtocol, DB } from 'server/db'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { UserRepository } from 'server/repository/public/user'
 
 export const update = async (
   props: {

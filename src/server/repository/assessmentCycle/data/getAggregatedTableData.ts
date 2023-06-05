@@ -1,8 +1,8 @@
-import { Areas, CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { RecordCountryData } from '@meta/data'
+import { Areas, CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RecordCountryData } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment

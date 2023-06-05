@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
 
 import { MetadataActions } from '../slice'
 import { useTableSections } from './useTableSections'

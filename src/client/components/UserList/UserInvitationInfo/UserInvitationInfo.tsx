@@ -2,15 +2,15 @@ import './UserInvitationInfo.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ClientRoutes } from '@meta/app'
-import { User, Users } from '@meta/user'
+import { ClientRoutes } from 'meta/app'
+import { User, Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useCountryIso } from 'client/hooks'
+import { useToaster } from 'client/hooks/useToaster'
+import Icon from 'client/components/Icon'
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const dispatch = useAppDispatch()

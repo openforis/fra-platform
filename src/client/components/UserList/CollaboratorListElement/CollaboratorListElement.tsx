@@ -2,12 +2,12 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { User, Users, UserStatus } from '@meta/user'
+import { User, Users, UserStatus } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import InvitationColumn from '@client/components/UserList/CollaboratorListElement/InvitationColumn'
-import UserEditColumn from '@client/components/UserList/CollaboratorListElement/UserEditColumn'
+import { useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import InvitationColumn from 'client/components/UserList/CollaboratorListElement/InvitationColumn'
+import UserEditColumn from 'client/components/UserList/CollaboratorListElement/UserEditColumn'
 
 import UserField from '../UserField'
 import UserRoleField from '../UserRoleField'

@@ -1,10 +1,10 @@
-import { Country, CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { User } from '@meta/user'
+import { Country, CountryIso } from 'meta/area'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { CountryRepository } from '@server/repository/assessmentCycle/country'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 export const updateCountry = async (
   props: {

@@ -1,10 +1,10 @@
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import landArea from '@test/dataMigration/steps/updateCalculatedNodes/landArea'
+import landArea from 'test/dataMigration/steps/updateCalculatedNodes/landArea'
 
 export const migrateNodeExt = async (
   props: { assessment: Assessment; cycle: Cycle },

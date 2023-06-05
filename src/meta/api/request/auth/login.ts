@@ -1,6 +1,6 @@
 import { Request } from 'express'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName } from 'meta/assessment'
 
 export type LoginRequest = Request<
   unknown,

@@ -1,11 +1,11 @@
 import './ForestLayerSection.scss'
 import React from 'react'
 
-import { ForestSource, LayerStatus } from '@meta/geo'
-import { forestAgreementRecipes } from '@meta/geo/forest'
+import { ForestSource, LayerStatus } from 'meta/geo'
+import { forestAgreementRecipes } from 'meta/geo/forest'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useForestSourceOptions } from 'client/store/ui/geo'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import AgreementLevelsControl from '../../MapVisualizerAgreementLevelsControl'

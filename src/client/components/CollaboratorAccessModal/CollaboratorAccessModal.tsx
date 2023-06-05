@@ -2,15 +2,15 @@ import './collaboratorAccessModal.scss'
 import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SubSections } from '@meta/assessment'
-import { Collaborator, CollaboratorEditPropertyType } from '@meta/user'
+import { SubSections } from 'meta/assessment'
+import { Collaborator, CollaboratorEditPropertyType } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useCountryIso, useOnUpdate } from '@client/hooks'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useAssessmentSections, useCycle } from 'client/store/assessment'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useCountryIso, useOnUpdate } from 'client/hooks'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import { Modal, ModalBody, ModalClose, ModalHeader } from 'client/components/Modal'
 
 import { useActions } from './hooks/useActions'
 

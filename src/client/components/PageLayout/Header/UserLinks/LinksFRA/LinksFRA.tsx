@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom'
 
 import { i18n } from 'i18next'
 
-import { ClientRoutes } from '@meta/app'
-import { CountryIso, Global } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { User, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ClientRoutes } from 'meta/app'
+import { CountryIso, Global } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { User, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { AppDispatch, useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserActions, useUser } from '@client/store/user'
-import { useCountryIso, useIsLogin } from '@client/hooks'
-import { ToasterHook, useToaster } from '@client/hooks/useToaster'
-import Icon from '@client/components/Icon'
-import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
+import { AppDispatch, useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserActions, useUser } from 'client/store/user'
+import { useCountryIso, useIsLogin } from 'client/hooks'
+import { ToasterHook, useToaster } from 'client/hooks/useToaster'
+import Icon from 'client/components/Icon'
+import PopoverControl, { PopoverItem } from 'client/components/PopoverControl'
 
 const getLinks = (
   i18nInstance: i18n,

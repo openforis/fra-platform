@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { RoleName, UserRole } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { RoleName, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const update = async (
   props: { cycleUuid?: string; roles: Array<Partial<UserRole<RoleName>>>; userId: number },

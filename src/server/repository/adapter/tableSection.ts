@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { TableSection, TableSectionProps } from '@meta/assessment'
+import { TableSection, TableSectionProps } from 'meta/assessment'
 
-import { TableAdapter, TableDB } from '@server/repository/adapter/table'
+import { TableAdapter, TableDB } from 'server/repository/adapter/table'
 
 export interface TableSectionDB {
   id: number

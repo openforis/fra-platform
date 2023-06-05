@@ -1,6 +1,6 @@
 import { ExpressionContext } from '@openforis/arena-core'
 
-import { AssessmentMetaCache, Row } from '@meta/assessment'
+import { AssessmentMetaCache, Row } from 'meta/assessment'
 
 export interface Context extends ExpressionContext {
   assessmentMetaCache: AssessmentMetaCache

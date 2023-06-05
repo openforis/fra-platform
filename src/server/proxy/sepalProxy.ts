@@ -1,7 +1,7 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { Request, Response } from 'express'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
 const authString = `Basic ${Buffer.from(`${process.env.SEPAL_USER}:${process.env.SEPAL_PASSWORD}`).toString('base64')}`
 

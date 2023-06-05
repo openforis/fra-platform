@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Row, RowProps } from '@meta/assessment'
+import { Row, RowProps } from 'meta/assessment'
 
-import { ColAdapter, ColDB } from '@server/repository/adapter/col'
+import { ColAdapter, ColDB } from 'server/repository/adapter/col'
 
 export interface RowDB {
   id: number

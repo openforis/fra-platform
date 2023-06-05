@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as fastCsv from 'fast-csv'
 
-import { RawFile, RawFileRow } from '@test/bulkDownloadComparison/types'
+import { RawFile, RawFileRow } from 'test/bulkDownloadComparison/types'
 
 export const readCSV = async (fileName: string, options?: fastCsv.ParserOptions): Promise<RawFile> => {
   const opts = {

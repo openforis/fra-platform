@@ -3,13 +3,13 @@ import { PassportStatic } from 'passport'
 import * as GoogleStrategy from 'passport-google-oauth'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { AuthProvider } from '@meta/user'
-import { AuthProviderGoogleProps } from '@meta/user/userAuth'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { AuthProvider } from 'meta/user'
+import { AuthProviderGoogleProps } from 'meta/user/userAuth'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { UserProviderController } from '@server/controller/userProvider'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { UserProviderController } from 'server/controller/userProvider'
 
 const googleStrategyVerifyCallback = async (
   req: Request,

@@ -2,9 +2,9 @@ import './CountryRole.scss'
 import React, { MouseEventHandler } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RoleName, User, UserRole, Users } from '@meta/user'
+import { RoleName, User, UserRole, Users } from 'meta/user'
 
-import { useUser } from '@client/store/user'
+import { useUser } from 'client/store/user'
 
 type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>

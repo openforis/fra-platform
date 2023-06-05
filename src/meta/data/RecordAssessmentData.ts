@@ -1,5 +1,5 @@
-import { CountryIso } from '@meta/area'
-import { AssessmentName, ColName, CycleName, NodeValue, TableName, VariableName } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, ColName, CycleName, NodeValue, TableName, VariableName } from 'meta/assessment'
 
 export type RecordRowData = Record<VariableName, NodeValue>
 export type RecordColumnData = Record<ColName, RecordRowData>

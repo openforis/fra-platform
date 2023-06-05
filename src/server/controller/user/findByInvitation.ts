@@ -1,11 +1,11 @@
-import { Assessment } from '@meta/assessment'
-import { AuthProvider, RoleName, User, UserRole } from '@meta/user'
+import { Assessment } from 'meta/assessment'
+import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
-import { UserRepository } from '@server/repository/public/user'
-import { UserProviderRepository } from '@server/repository/public/userProvider'
-import { UserRoleRepository } from '@server/repository/public/userRole'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
+import { UserRepository } from 'server/repository/public/user'
+import { UserProviderRepository } from 'server/repository/public/userProvider'
+import { UserRoleRepository } from 'server/repository/public/userRole'
 
 export const findByInvitation = async (
   props: { invitationUuid: string },

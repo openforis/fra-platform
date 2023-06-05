@@ -3,10 +3,10 @@ import React, { ChangeEvent, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { LayerStatus, ProtectedAreaKey } from '@meta/geo'
+import { LayerStatus, ProtectedAreaKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useProtectedAreasOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useProtectedAreasOptions } from 'client/store/ui/geo'
 
 import ProtectedAreasLayerOptionsPanel from '../ProtectedAreasLayerOptionsPanel'
 

@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Cycle } from '@meta/assessment'
-import { RoleName, User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Cycle } from 'meta/assessment'
+import { RoleName, User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 import { fields } from './fields'
 

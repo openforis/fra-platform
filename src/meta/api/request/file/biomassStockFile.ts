@@ -1,6 +1,6 @@
 import { Request } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
 export type BiomassStockFileRequest = Request<
   never,

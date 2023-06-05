@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { CycleDataParams, CycleParams } from '@meta/api/request'
-import { CountryIso } from '@meta/area'
-import { MessageTopicStatus } from '@meta/messageCenter'
-import { Authorizer, CollaboratorEditPropertyType, Users } from '@meta/user'
+import { CycleDataParams, CycleParams } from 'meta/api/request'
+import { CountryIso } from 'meta/area'
+import { MessageTopicStatus } from 'meta/messageCenter'
+import { Authorizer, CollaboratorEditPropertyType, Users } from 'meta/user'
 
-import { AreaController } from '@server/controller/area'
-import { AssessmentController } from '@server/controller/assessment'
-import { MessageCenterController } from '@server/controller/messageCenter'
-import { MetadataController } from '@server/controller/metadata'
-import { tryCatch } from '@server/middleware/tryCatch'
-import { Requests } from '@server/utils'
+import { AreaController } from 'server/controller/area'
+import { AssessmentController } from 'server/controller/assessment'
+import { MessageCenterController } from 'server/controller/messageCenter'
+import { MetadataController } from 'server/controller/metadata'
+import { tryCatch } from 'server/middleware/tryCatch'
+import { Requests } from 'server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
   if (allowed) return next()

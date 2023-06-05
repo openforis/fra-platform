@@ -3,9 +3,9 @@ import { NavigateFunction } from 'react-router-dom'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { initApp } from '@client/store/assessment/actions/initApp'
+import { initApp } from 'client/store/assessment/actions/initApp'
 
 export const localLogin = createAsyncThunk<
   void,

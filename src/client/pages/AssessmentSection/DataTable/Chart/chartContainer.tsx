@@ -2,13 +2,13 @@ import './style.scss'
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { RecordCountryData } from '@meta/data'
+import { CountryIso } from 'meta/area'
+import { RecordCountryData } from 'meta/data'
 
-import { useCountryIso } from '@client/hooks'
-import { useIsPrint } from '@client/hooks/useIsPath'
+import { useCountryIso } from 'client/hooks'
+import { useIsPrint } from 'client/hooks/useIsPath'
 
 import DataTrend from './components/dataTrend'
 import Legend from './components/legend'

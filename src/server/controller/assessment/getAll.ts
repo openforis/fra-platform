@@ -1,7 +1,7 @@
-import { Assessment } from '@meta/assessment'
+import { Assessment } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
 type Props = { metaCache?: boolean }
 

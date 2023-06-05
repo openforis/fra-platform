@@ -1,15 +1,15 @@
 import { useEffect, useRef } from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ForestSource } from '@meta/geo'
-import { HansenPercentage } from '@meta/geo/forest'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ForestSource } from 'meta/geo'
+import { HansenPercentage } from 'meta/geo/forest'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions, useIsGeoMapAvailable } from '@client/store/ui/geo'
-import { getForestLayer } from '@client/store/ui/geo/actions'
-import { GetForestLayerRequestBody } from '@client/store/ui/geo/actions/getForestLayer'
-import { useCountryIso, usePrevious } from '@client/hooks'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useForestSourceOptions, useIsGeoMapAvailable } from 'client/store/ui/geo'
+import { getForestLayer } from 'client/store/ui/geo/actions'
+import { GetForestLayerRequestBody } from 'client/store/ui/geo/actions/getForestLayer'
+import { useCountryIso, usePrevious } from 'client/hooks'
+import { mapController } from 'client/utils'
 
 import { forestLayers } from '../GeoMapMenuData/MapVisualizerPanel'
 

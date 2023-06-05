@@ -1,7 +1,7 @@
 import { Express } from 'express'
 import * as passport from 'passport'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { AuthConfig } from './config'
 import { getGoogleCallback, getGoogleLogin, postLocalLogin } from './login'

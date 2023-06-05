@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, AssessmentNames, Labels, Row } from '@meta/assessment'
+import { AssessmentName, AssessmentNames, Labels, Row } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
-import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/ui/dataExport'
-import { DataExportActionType } from '@client/store/ui/dataExport/actionTypes'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import DefinitionLink from '@client/components/DefinitionLink'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
+import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
+import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import DefinitionLink from 'client/components/DefinitionLink'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const Heading: Record<string, string> = {
   [AssessmentNames.fra]: 'common.variable',

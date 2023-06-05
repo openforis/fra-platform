@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleParams } from '@meta/api/request'
-import { RecordAssessmentData } from '@meta/data'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleParams } from 'meta/api/request'
+import { RecordAssessmentData } from 'meta/data'
 
 export const getTableData = createAsyncThunk<
   RecordAssessmentData,

@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle } from '@meta/assessment'
-import { MessageTopic } from '@meta/messageCenter'
-import { User } from '@meta/user'
+import { Assessment, Cycle } from 'meta/assessment'
+import { MessageTopic } from 'meta/messageCenter'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const create = async (
   props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic; user: User },

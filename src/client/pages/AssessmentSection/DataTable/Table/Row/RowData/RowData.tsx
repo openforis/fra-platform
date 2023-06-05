@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cols, ColType } from '@meta/assessment'
-import { Topics } from '@meta/messageCenter'
+import { Cols, ColType } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
 
-import { useCycle } from '@client/store/assessment'
-import { useTopicKeys } from '@client/store/ui/messageCenter/hooks'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useCycle } from 'client/store/assessment'
+import { useTopicKeys } from 'client/store/ui/messageCenter/hooks'
+import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import { Props } from '../props'
 import Cell from './Cell'

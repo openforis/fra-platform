@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { useAssessmentSections } from '@client/store/assessment'
+import { useAssessmentSections } from 'client/store/assessment'
 
 import Header from './Header'
 import NavigationSection from './Section'

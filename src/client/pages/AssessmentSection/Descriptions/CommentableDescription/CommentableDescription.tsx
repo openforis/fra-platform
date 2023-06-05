@@ -2,12 +2,12 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { CommentableDescriptionValue } from '@meta/assessment'
-import { Topics } from '@meta/messageCenter'
+import { CommentableDescriptionValue } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import Description from './Description'
 

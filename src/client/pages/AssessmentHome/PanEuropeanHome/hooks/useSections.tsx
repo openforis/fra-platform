@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { Users } from '@meta/user'
+import { Users } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import Collaborators from '@client/pages/AssessmentHome/FraHome/Collaborators'
-import CountryMessageBoard from '@client/pages/AssessmentHome/FraHome/CountryMessageBoard'
-import RecentActivity from '@client/pages/AssessmentHome/FraHome/RecentActivity'
+import { useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import Collaborators from 'client/pages/AssessmentHome/FraHome/Collaborators'
+import CountryMessageBoard from 'client/pages/AssessmentHome/FraHome/CountryMessageBoard'
+import RecentActivity from 'client/pages/AssessmentHome/FraHome/RecentActivity'
 
 import Overview from '../Overview'
 

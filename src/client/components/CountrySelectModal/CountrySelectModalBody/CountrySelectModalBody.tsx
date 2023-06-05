@@ -5,10 +5,10 @@ import MediaQuery from 'react-responsive'
 
 import classNames from 'classnames'
 
-import { Country } from '@meta/area'
+import { Country } from 'meta/area'
 
-import { ModalBody } from '@client/components/Modal'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { ModalBody } from 'client/components/Modal'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 type Props = {
   countries: Array<Country>

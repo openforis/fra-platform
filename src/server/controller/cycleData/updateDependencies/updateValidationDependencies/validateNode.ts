@@ -1,10 +1,10 @@
-import { AssessmentMetaCaches, NodeValueValidation, NodeValueValidations, Row } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
-import { ExpressionEvaluator } from '@meta/expressionEvaluator'
+import { AssessmentMetaCaches, NodeValueValidation, NodeValueValidations, Row } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
+import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
-import { getTableData } from '@server/controller/cycleData/getTableData'
-import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
-import { BaseProtocol } from '@server/db'
+import { getTableData } from 'server/controller/cycleData/getTableData'
+import { PersistNodeValueProps } from 'server/controller/cycleData/persistNodeValues/props'
+import { BaseProtocol } from 'server/db'
 
 export const validateNode = async (
   props: Omit<PersistNodeValueProps, 'value' | 'user'> & {

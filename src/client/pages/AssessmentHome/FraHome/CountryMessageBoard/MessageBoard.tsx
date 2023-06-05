@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@meta/area'
-import { MessageTopicType, Topics } from '@meta/messageCenter'
+import { Areas } from 'meta/area'
+import { MessageTopicType, Topics } from 'meta/messageCenter'
 
-import { useCountryIso } from '@client/hooks'
+import { useCountryIso } from 'client/hooks'
 
 import MessageButton from './MessageButton'
 

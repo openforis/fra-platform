@@ -2,7 +2,7 @@ import './UserList.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { User } from '@meta/user'
+import { User } from 'meta/user'
 
 import AdministrationListElement from './AdministrationListElement'
 import CollaboratorListElement from './CollaboratorListElement'

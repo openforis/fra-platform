@@ -1,5 +1,5 @@
-import { AssessmentName, CommentableDescriptionValue, CycleName, DataSourceLinked, SectionName } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { AssessmentName, CommentableDescriptionValue, CycleName, DataSourceLinked, SectionName } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
   descriptions: Record<SectionName, Record<string, CommentableDescriptionValue>>

@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { AssessmentName, CycleName, NodeValueValidations, TableName } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
-import { getTableData } from '@meta/data/recordAssessmentDatas/getTableData'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, CycleName, NodeValueValidations, TableName } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
+import { getTableData } from 'meta/data/recordAssessmentDatas/getTableData'
 
 export const hasErrors = (props: {
   assessmentName: AssessmentName

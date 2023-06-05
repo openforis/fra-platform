@@ -1,9 +1,9 @@
 import './Header.scss'
 import React from 'react'
 
-import { AssessmentName, AssessmentNames } from '@meta/assessment'
+import { AssessmentName, AssessmentNames } from 'meta/assessment'
 
-import AssessmentSwitch from '@client/components/AssessmentSwitch'
+import AssessmentSwitch from 'client/components/AssessmentSwitch'
 
 import FraHeader from './FraHeader'
 import PanEuropeanHeader from './PanEuropeanHeader'

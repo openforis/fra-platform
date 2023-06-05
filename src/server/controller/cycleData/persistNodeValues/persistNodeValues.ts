@@ -1,11 +1,11 @@
-import { ActivityLogMessage } from '@meta/assessment'
-import { NodeUpdate } from '@meta/data'
-import { Sockets } from '@meta/socket'
+import { ActivityLogMessage } from 'meta/assessment'
+import { NodeUpdate } from 'meta/data'
+import { Sockets } from 'meta/socket'
 
-import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
-import { BaseProtocol, DB } from '@server/db'
-import { SocketServer } from '@server/service/socket'
-import { Logger } from '@server/utils/logger'
+import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { BaseProtocol, DB } from 'server/db'
+import { SocketServer } from 'server/service/socket'
+import { Logger } from 'server/utils/logger'
 
 import { persistNode } from './persistNode'
 import { PersistNodeValuesProps } from './props'

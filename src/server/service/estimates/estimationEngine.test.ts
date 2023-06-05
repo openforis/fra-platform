@@ -1,15 +1,15 @@
-import { UUIDs } from '@utils/uuids'
+import { UUIDs } from 'utils/uuids'
 
-import { NodeValueEstimationMethod, NodeValuesEstimation } from '@meta/assessment'
-import { NodeUpdate } from '@meta/data'
+import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment'
+import { NodeUpdate } from 'meta/data'
 
-import { dataset1, dataset1Expected } from '@server/service/estimates/datasets/dataset1'
-import { dataset2, dataset2Expected } from '@server/service/estimates/datasets/dataset2'
-import { dataset3, dataset3Expected } from '@server/service/estimates/datasets/dataset3'
-import { dataset4, dataset4Expected } from '@server/service/estimates/datasets/dataset4'
-import { dataset5, dataset5Expected } from '@server/service/estimates/datasets/dataset5'
-import { dataset6, dataset6Expected } from '@server/service/estimates/datasets/dataset6'
-import { dataset7, dataset7Expected } from '@server/service/estimates/datasets/dataset7'
+import { dataset1, dataset1Expected } from 'server/service/estimates/datasets/dataset1'
+import { dataset2, dataset2Expected } from 'server/service/estimates/datasets/dataset2'
+import { dataset3, dataset3Expected } from 'server/service/estimates/datasets/dataset3'
+import { dataset4, dataset4Expected } from 'server/service/estimates/datasets/dataset4'
+import { dataset5, dataset5Expected } from 'server/service/estimates/datasets/dataset5'
+import { dataset6, dataset6Expected } from 'server/service/estimates/datasets/dataset6'
+import { dataset7, dataset7Expected } from 'server/service/estimates/datasets/dataset7'
 
 import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from './estimationEngine'
 

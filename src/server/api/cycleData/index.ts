@@ -2,10 +2,10 @@ import { Express } from 'express'
 // @ts-ignore
 import * as queue from 'express-queue'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { clearTable } from '@server/api/cycleData/table/clearTable'
-import { AuthMiddleware } from '@server/middleware/auth'
+import { clearTable } from 'server/api/cycleData/table/clearTable'
+import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'

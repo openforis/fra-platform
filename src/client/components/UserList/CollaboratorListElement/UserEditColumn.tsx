@@ -2,12 +2,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { User, Users } from '@meta/user'
+import { ClientRoutes } from 'meta/app'
+import { User, Users } from 'meta/user'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
 
 interface Props {
   id: number
