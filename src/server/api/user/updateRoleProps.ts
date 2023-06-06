@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
-import { UserController } from '@server/controller/user'
-import { Requests } from '@server/utils'
+import { UserController } from 'server/controller/user'
+import { Requests } from 'server/utils'
 
 export const updateRoleProps = async (req: Request, res: Response) => {
   try {

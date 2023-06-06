@@ -1,8 +1,8 @@
 // TODO implement useCountryLandingSections
 import React from 'react'
-import { useUser } from '@client/store/user'
-import { User } from '@meta/user'
-import { CountryIso } from '@meta/area'
+import { useUser } from 'client/store/user'
+import { User } from 'meta/user'
+import { CountryIso } from 'meta/area'
 import { useCountryIso } from './useCountryIso'
 
 type Section = {

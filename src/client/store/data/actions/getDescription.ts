@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleDataParams } from '@meta/api/request'
-import { CommentableDescriptionValue } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleDataParams } from 'meta/api/request'
+import { CommentableDescriptionValue } from 'meta/assessment'
 
 export const getDescription = createAsyncThunk<
   Record<string, string> & { value: CommentableDescriptionValue },

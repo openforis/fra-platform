@@ -2,11 +2,11 @@ import './Autocomplete.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 import classNames from 'classnames'
 import { useCombobox, UseComboboxStateChange } from 'downshift'
 
-import AutocompleteInput from '@client/components/Autocomplete/AutocompleteInput'
+import AutocompleteInput from 'client/components/Autocomplete/AutocompleteInput'
 
 type Option = {
   label: string

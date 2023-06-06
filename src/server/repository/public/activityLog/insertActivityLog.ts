@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { ActivityLog, Assessment, Cycle } from '@meta/assessment'
+import { ActivityLog, Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const insertActivityLog = async (
   params: {

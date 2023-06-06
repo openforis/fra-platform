@@ -1,4 +1,4 @@
-import { getOne } from '@server/repository/geo/bounds/getOne'
+import { getOne } from 'server/repository/geo/bounds/getOne'
 
 export const BoundsRepository = {
   getOne,

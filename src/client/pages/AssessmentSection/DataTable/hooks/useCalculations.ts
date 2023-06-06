@@ -1,17 +1,17 @@
 import { useEffect, useMemo } from 'react'
 
 import { isAnyOf } from '@reduxjs/toolkit'
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { AssessmentMetaCaches, NodeValueValidation, RowType, Table, VariableCache } from '@meta/assessment'
-import { NodeUpdate, RecordAssessmentDatas } from '@meta/data'
-import { ExpressionEvaluator } from '@meta/expressionEvaluator'
+import { AssessmentMetaCaches, NodeValueValidation, RowType, Table, VariableCache } from 'meta/assessment'
+import { NodeUpdate, RecordAssessmentDatas } from 'meta/data'
+import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { DataActions } from '@client/store/data'
-import { addAppListener } from '@client/store/middleware/listener'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { DataActions } from 'client/store/data'
+import { addAppListener } from 'client/store/middleware/listener'
+import { useCountryIso } from 'client/hooks'
 
 export const useCalculations = (props: { table: Table }): void => {
   const { table } = props

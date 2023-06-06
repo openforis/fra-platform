@@ -5,7 +5,7 @@ import { Col } from '../../../src/meta/assessment/col'
 import { Row } from '../../../src/meta/assessment/row'
 import { TableNames } from '../../../src/meta/assessment/table'
 import { BaseProtocol } from '../../../src/server/db'
-import { Objects } from '../../../src/utils'
+import { Objects } from '../../../src/utils/objects'
 import { DBNames } from '../_DBNames'
 import { DependencyEvaluator } from './dependencyEvaluator'
 

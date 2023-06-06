@@ -1,7 +1,7 @@
 import './geo.scss'
 import React, { Suspense } from 'react'
 
-import Loading from '@client/components/Loading'
+import Loading from 'client/components/Loading'
 
 const GeoMapWrapper = React.lazy(() => import('./GeoMapWrapper'))
 

@@ -1,7 +1,7 @@
-import { User } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { User } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useUsers } from '@client/store/ui/userManagement'
+import { useUsers } from 'client/store/ui/userManagement'
 
 import { StatusTransition } from './types'
 

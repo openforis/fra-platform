@@ -1,11 +1,11 @@
-import { Assessment, Cycle } from '@meta/assessment'
-import { RoleName, User, UserRole, UserStatus } from '@meta/user'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RoleName, User, UserRole, UserStatus } from 'meta/user'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
 
-import { assessmentParams } from '@test/integration/mock/assessment'
-import { userMockTest, userMockUnknown } from '@test/integration/mock/user'
+import { assessmentParams } from 'test/integration/mock/assessment'
+import { userMockTest, userMockUnknown } from 'test/integration/mock/user'
 
 export default (): void =>
   describe('User Invite', () => {

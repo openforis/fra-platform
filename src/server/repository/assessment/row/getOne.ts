@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Row } from '@meta/assessment'
+import { Assessment, Row } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter/col'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { ColAdapter } from 'server/repository/adapter/col'
 
 type Props = {
   assessment: Assessment

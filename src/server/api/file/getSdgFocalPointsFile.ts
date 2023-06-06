@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { FileRepository, fileTypes } from '@server/service/file'
+import { FileRepository, fileTypes } from 'server/service/file'
 
 export const getSdgFocalPointsFile = async (_: Request, res: Response) => {
   try {

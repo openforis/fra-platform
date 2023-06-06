@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle, Table } from '@meta/assessment'
+import { Assessment, Cycle, Table } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getOne = async (
   props: { assessment: Assessment; cycle: Cycle; tableName: string },

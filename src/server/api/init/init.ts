@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import Requests from '@server/utils/requests'
+import Requests from 'server/utils/requests'
 
 export const init = async (req: Request, res: Response) => {
   try {

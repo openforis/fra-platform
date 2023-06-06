@@ -1,9 +1,9 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { CycleDataController } from '@server/controller/cycleData'
-import { Requests } from '@server/utils'
+import { CycleDataController } from 'server/controller/cycleData'
+import { Requests } from 'server/utils'
 
 export const getOriginalDataPoint = async (req: CycleRequest, res: Response) => {
   try {

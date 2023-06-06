@@ -2,9 +2,9 @@ import './UsersCount.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Users } from '@meta/user'
+import { Users } from 'meta/user'
 
-import { useRoleNames, useUsersCount } from '@client/store/ui/userManagement'
+import { useRoleNames, useUsersCount } from 'client/store/ui/userManagement'
 
 const UsersCount: React.FC = () => {
   const { t } = useTranslation()

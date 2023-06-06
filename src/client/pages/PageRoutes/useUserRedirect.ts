@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ClientRoutes } from 'meta/app'
+import { Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useAssessment, useCycle, useIsAppInitialized } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
+import { useAssessment, useCycle, useIsAppInitialized } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
 
 export const useUserRedirect = (): void => {
   const isAppInitialized = useIsAppInitialized()

@@ -5,16 +5,16 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
-import { Labels, SubSection, SubSections } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { Labels, SubSection, SubSections } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { NavigationActions } from '@client/store/ui/navigation'
-import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
-import { useCountryIso, useIsDataExportView } from '@client/hooks'
-import ReviewSummaryIndicator from '@client/components/ReviewSummaryIndicator'
-import { Breakpoints } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { NavigationActions } from 'client/store/ui/navigation'
+import { useSectionReviewSummary } from 'client/store/ui/review/hooks'
+import { useCountryIso, useIsDataExportView } from 'client/hooks'
+import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
+import { Breakpoints } from 'client/utils'
 
 type Props = {
   subSection: SubSection

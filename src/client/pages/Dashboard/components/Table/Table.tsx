@@ -1,16 +1,16 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import ButtonTableExport from '@client/components/ButtonTableExport'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import ButtonTableExport from 'client/components/ButtonTableExport'
 
 import { formatValue } from '../../utils/numberUtils'
 

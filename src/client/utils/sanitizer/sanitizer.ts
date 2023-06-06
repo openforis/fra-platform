@@ -1,4 +1,4 @@
-import { ColSelectOption, ColType } from '@meta/assessment'
+import { ColSelectOption, ColType } from 'meta/assessment'
 
 import { acceptableAsDecimal, acceptNextDecimal } from './decimal'
 import { acceptableAsInteger, acceptNextInteger } from './integer'

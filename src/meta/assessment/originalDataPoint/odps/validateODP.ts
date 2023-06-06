@@ -1,7 +1,7 @@
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { ODPNationalClass } from '@meta/assessment'
+import { ODPNationalClass } from 'meta/assessment'
 
 import { OriginalDataPoint } from '../originalDataPoint'
 

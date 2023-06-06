@@ -1,8 +1,8 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
-import { getRow } from '@test/migrations/steps/utils/getRow'
+import { AssessmentCycleUtil } from 'test/migrations/steps/utils/getAssessmentCycle'
+import { getRow } from 'test/migrations/steps/utils/getRow'
 
 import { runCalculations } from './utils/runCalculations'
 

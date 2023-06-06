@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AssessmentNames } from '@meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
 
 import ExtentOfForest from './ExtentOfForest'
 import ForestCharacteristics from './ForestCharacteristics'

@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { Users } from '@meta/user'
+import { Users } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useUsers } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import InviteUserForm from '@client/components/InviteUserForm'
-import UserList from '@client/components/UserList'
+import { useCycle } from 'client/store/assessment'
+import { useUsers } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import InviteUserForm from 'client/components/InviteUserForm'
+import UserList from 'client/components/UserList'
 
 const Collaborators: React.FC = () => {
   const user = useUser()

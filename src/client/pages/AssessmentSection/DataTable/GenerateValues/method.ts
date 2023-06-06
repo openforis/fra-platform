@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { NodeValue } from '@meta/assessment'
+import { NodeValue } from 'meta/assessment'
 
-import { GenerateValuesField } from '@client/pages/AssessmentSection/DataTable/GenerateValues/field'
+import { GenerateValuesField } from 'client/pages/AssessmentSection/DataTable/GenerateValues/field'
 
 export enum Method {
   placeholder = 'placeholder',

@@ -1,6 +1,6 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, Row } from '@meta/assessment'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, Row } from 'meta/assessment'
+import { User } from 'meta/user'
 
 const getDataReviewTopicKey = (row: Row): string => row.uuid
 

@@ -1,10 +1,10 @@
 import './BurnedAreaLayerSection.scss'
 import React from 'react'
 
-import { BurnedAreaKey, LayerStatus } from '@meta/geo'
+import { BurnedAreaKey, LayerStatus } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useBurnedAreasOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useBurnedAreasOptions } from 'client/store/ui/geo'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import { burnedAreaLayers, GLOBAL_OPACITY_KEY } from '../layers'

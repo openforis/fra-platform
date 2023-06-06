@@ -1,4 +1,4 @@
-import { BurnedAreaKey, ForestSource, ProtectedAreaKey } from '@meta/geo'
+import { BurnedAreaKey, ForestSource, ProtectedAreaKey } from 'meta/geo'
 
 export interface ForestLayer {
   key: ForestSource

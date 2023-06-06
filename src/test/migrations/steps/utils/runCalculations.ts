@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { AreaController } from '@server/controller/area'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AreaController } from 'server/controller/area'
+import { BaseProtocol, Schemas } from 'server/db'
 
 import { calculateRow } from './calculateRow'
 import { getRow } from './getRow'

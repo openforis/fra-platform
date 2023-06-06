@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { UUIDs } from '@utils/uuids'
+import { UUIDs } from 'utils/uuids'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleDataParams } from '@meta/api/request'
-import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleDataParams } from 'meta/api/request'
+import { CommentableDescriptionValue, DataSource } from 'meta/assessment'
 
 import { updateDescription } from './updateDescription'
 

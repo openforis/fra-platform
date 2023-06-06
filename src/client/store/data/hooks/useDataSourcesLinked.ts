@@ -1,7 +1,7 @@
-import { DataSourceLinked } from '@meta/assessment'
+import { DataSourceLinked } from 'meta/assessment'
 
-import { useAppSelector } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAppSelector } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
 
 export const useDataSourcesLinked = (props: { sectionName: string }): Array<DataSourceLinked> | undefined => {
   const assessment = useAssessment()

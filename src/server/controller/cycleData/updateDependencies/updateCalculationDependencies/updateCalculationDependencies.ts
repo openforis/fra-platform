@@ -1,10 +1,10 @@
-import { Row, VariableCache } from '@meta/assessment'
-import { NodeUpdates } from '@meta/data'
+import { Row, VariableCache } from 'meta/assessment'
+import { NodeUpdates } from 'meta/data'
 
-import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
-import { BaseProtocol } from '@server/db'
-import { RowRepository } from '@server/repository/assessment/row'
-import { Logger } from '@server/utils/logger'
+import { PersistNodeValueProps } from 'server/controller/cycleData/persistNodeValues/props'
+import { BaseProtocol } from 'server/db'
+import { RowRepository } from 'server/repository/assessment/row'
+import { Logger } from 'server/utils/logger'
 
 import { getDependants } from '../utils/getDependants'
 import { isODPCell } from '../utils/isODPCell'

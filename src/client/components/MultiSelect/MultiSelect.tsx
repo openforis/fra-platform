@@ -2,10 +2,10 @@ import './MultiSelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 import classNames from 'classnames'
 
-import { Option } from '@client/components/MultiSelect/option'
+import { Option } from 'client/components/MultiSelect/option'
 
 const optionClick = (currentValues: string[], onChange: (values: string[]) => void, option: string) => (evt: any) => {
   evt.stopPropagation()

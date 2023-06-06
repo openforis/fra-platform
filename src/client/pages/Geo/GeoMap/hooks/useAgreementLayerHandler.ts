@@ -2,15 +2,15 @@ import { useEffect, useRef } from 'react'
 
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ForestSource, Layer } from '@meta/geo'
-import { LayerSource, LayerStatus } from '@meta/geo/forest'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ForestSource, Layer } from 'meta/geo'
+import { LayerSource, LayerStatus } from 'meta/geo/forest'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
-import { GetForestLayerRequestBody } from '@client/store/ui/geo/actions/getForestLayer'
-import { useCountryIso } from '@client/hooks'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useForestSourceOptions } from 'client/store/ui/geo'
+import { GetForestLayerRequestBody } from 'client/store/ui/geo/actions/getForestLayer'
+import { useCountryIso } from 'client/hooks'
+import { mapController } from 'client/utils'
 
 export const useAgreementLayerHandler = () => {
   const dispatch = useAppDispatch()

@@ -1,7 +1,7 @@
-import { CommentableDescriptionValue } from '@meta/assessment'
+import { CommentableDescriptionValue } from 'meta/assessment'
 
-import { useAppSelector } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAppSelector } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
 
 export const useCommentableDescriptionValue = (props: {
   name: string

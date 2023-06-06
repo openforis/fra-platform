@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import DataSources from '@client/pages/OriginalDataPoint/components/DataSources'
-import ExtentOfForest from '@client/pages/OriginalDataPoint/components/ExtentOfForest'
-import ForestCharacteristics from '@client/pages/OriginalDataPoint/components/ForestCharacteristics'
-import NationalClasses from '@client/pages/OriginalDataPoint/components/NationalClasses'
+import DataSources from 'client/pages/OriginalDataPoint/components/DataSources'
+import ExtentOfForest from 'client/pages/OriginalDataPoint/components/ExtentOfForest'
+import ForestCharacteristics from 'client/pages/OriginalDataPoint/components/ForestCharacteristics'
+import NationalClasses from 'client/pages/OriginalDataPoint/components/NationalClasses'
 
 import { useOriginalDataPoints } from './useOriginalDataPoints'
 

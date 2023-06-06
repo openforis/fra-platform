@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
-import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
-import { Users } from '@meta/user'
+import { ClientRoutes } from 'meta/app'
+import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
+import { Users } from 'meta/user'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useIsGeoPage } from '@client/hooks'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useIsGeoPage } from 'client/hooks'
 
 import Icon from '../Icon'
 import CountryList from './CountryList'

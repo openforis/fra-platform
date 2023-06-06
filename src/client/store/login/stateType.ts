@@ -1,5 +1,5 @@
-import { Assessment } from '@meta/assessment'
-import { AuthProvider, RoleName, User, UserRole } from '@meta/user'
+import { Assessment } from 'meta/assessment'
+import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
 
 export interface LoginState {
   login: {

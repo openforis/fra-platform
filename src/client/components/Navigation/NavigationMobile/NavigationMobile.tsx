@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 
 import classNames from 'classnames'
 
-import { useAppDispatch } from '@client/store'
-import { NavigationActions, useNavigationVisible } from '@client/store/ui/navigation'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { NavigationActions, useNavigationVisible } from 'client/store/ui/navigation'
+import Icon from 'client/components/Icon'
 
 import NavAssessment from '../NavAssessment'
 

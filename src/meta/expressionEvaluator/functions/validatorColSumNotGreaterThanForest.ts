@@ -1,8 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { NodeValueValidation } from '@meta/assessment'
-import { validatorSumNotGreaterThanForest } from '@meta/expressionEvaluator/functions/validatorSumNotGreaterThanForest'
+import { NodeValueValidation } from 'meta/assessment'
+import { validatorSumNotGreaterThanForest } from 'meta/expressionEvaluator/functions/validatorSumNotGreaterThanForest'
 
 import { Context } from '../context'
 

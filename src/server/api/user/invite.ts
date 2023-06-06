@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
-import { RoleName } from '@meta/user'
+import { CycleRequest } from 'meta/api/request'
+import { RoleName } from 'meta/user'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { Requests } from '@server/utils'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { Requests } from 'server/utils'
 
 export const invite = async (
   req: CycleRequest<{

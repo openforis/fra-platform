@@ -1,8 +1,8 @@
-import { Arrays } from '@utils/arrays'
-import { Objects } from '@utils/objects'
+import { Arrays } from 'utils/arrays'
+import { Objects } from 'utils/objects'
 
-import { AssessmentName, CycleName, Table } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
+import { AssessmentName, CycleName, Table } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 export const getODPColSpan = (props: {
   assessmentName: AssessmentName

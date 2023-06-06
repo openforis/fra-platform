@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import DefinitionLink from '@client/components/DefinitionLink'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import DefinitionLink from 'client/components/DefinitionLink'
 
 import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'

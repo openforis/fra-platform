@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ColType } from '@meta/assessment'
+import { ColType } from 'meta/assessment'
 
-import TextInput from '@client/components/TextInput'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import TextInput from 'client/components/TextInput'
+import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 import { PropsCell } from '../props'
 

@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 
-import { Cycle } from '@meta/assessment/cycle'
-import { Label } from '@meta/assessment/label'
+import { Cycle } from 'meta/assessment/cycle'
+import { Label } from 'meta/assessment/label'
 
 const getLabel = (props: { label: Label; t: TFunction }): string | undefined => {
   const { label = {}, t } = props

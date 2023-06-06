@@ -1,7 +1,7 @@
-import { Assessment, Cycle, TableSection } from '@meta/assessment'
+import { Assessment, Cycle, TableSection } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { TableSectionAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { TableSectionAdapter } from 'server/repository/adapter'
 
 export const getManyMetadata = async (
   props: {

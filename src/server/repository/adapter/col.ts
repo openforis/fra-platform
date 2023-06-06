@@ -1,6 +1,6 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Col, ColProps } from '@meta/assessment'
+import { Col, ColProps } from 'meta/assessment'
 
 export interface ColDB {
   id: number

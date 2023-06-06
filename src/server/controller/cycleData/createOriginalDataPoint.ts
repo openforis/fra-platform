@@ -1,9 +1,9 @@
-import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 export const createOriginalDataPoint = async (
   props: {

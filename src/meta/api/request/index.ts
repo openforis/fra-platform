@@ -1,6 +1,6 @@
 import { Request } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
 // base params
 export type CycleParams = {

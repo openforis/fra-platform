@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/ui/dataExport'
-import { DataExportActionType } from '@client/store/ui/dataExport/actionTypes'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import { getColumnLabelKeys } from '@client/pages/DataExport/utils'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { useAppDispatch } from 'client/store'
+import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
+import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import { getColumnLabelKeys } from 'client/pages/DataExport/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   const dispatch = useAppDispatch()

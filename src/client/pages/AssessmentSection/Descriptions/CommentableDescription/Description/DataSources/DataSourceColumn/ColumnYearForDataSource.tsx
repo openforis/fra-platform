@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { Arrays } from '@utils/arrays'
+import { Arrays } from 'utils/arrays'
 import classNames from 'classnames'
 
-import { DataSource } from '@meta/assessment'
+import { DataSource } from 'meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
-import Autocomplete from '@client/components/Autocomplete'
-import DataColumn from '@client/components/DataGrid/DataColumn'
+import { useCycle } from 'client/store/assessment'
+import Autocomplete from 'client/components/Autocomplete'
+import DataColumn from 'client/components/DataGrid/DataColumn'
 
 import { datasourceValidators } from './datasourceValidators'
 

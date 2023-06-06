@@ -1,4 +1,4 @@
-import { MessageTopic } from '@meta/messageCenter'
+import { MessageTopic } from 'meta/messageCenter'
 
 export type MessageCenterState = {
   topics: Array<MessageTopic>

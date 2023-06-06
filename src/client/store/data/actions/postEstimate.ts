@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleDataParams, EstimateBody } from '@meta/api/request'
-import { RecordAssessmentData } from '@meta/data'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleDataParams, EstimateBody } from 'meta/api/request'
+import { RecordAssessmentData } from 'meta/data'
 
 export const postEstimate = createAsyncThunk<RecordAssessmentData, CycleDataParams & EstimateBody>(
   'section/post/estimate',

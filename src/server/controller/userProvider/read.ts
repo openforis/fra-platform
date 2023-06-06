@@ -1,7 +1,7 @@
-import { AuthProvider, User, UserAuthProvider } from '@meta/user'
+import { AuthProvider, User, UserAuthProvider } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { UserProviderRepository } from '@server/repository/public/userProvider'
+import { BaseProtocol, DB } from 'server/db'
+import { UserProviderRepository } from 'server/repository/public/userProvider'
 
 export const read = async <P>(
   props: {
