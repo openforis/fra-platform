@@ -76,10 +76,11 @@ module.exports = {
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Superficie de forêt soumise à un plan de gestion à long terme',
-    forestAreaWithinProtectedAreas2025: '$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)',
+    forestAreaWithinProtectedAreas2025:
+      'Superficie de forêt se trouvant à l’intérieur d’aires protégées juridiquement constituées et superficie de forêt soumise à des plans de gestion à long terme',
   },
   forestCharacteristics: {
-    primaryForest: '...dont les forêts primaires',
+    primaryForest: '...dont forêt primaire',
     plantationForestIntroducedArea2025: "... dont d'espèces introduite",
   },
   forestOwnership: {
@@ -149,6 +150,12 @@ module.exports = {
       employmentEducationAndNwfp2025: 'Extraction et valeur des produits forestiers non ligneuz en 2020',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: 'Politiques et législations forestières',
+      forestPolicy2025:
+        'Politiques, législation et plateforme nationale de participation des parties prenantes à l’élaboration des politiques forestières',
+      areaOfPermanentForestEstate2025: 'Superficie des domaines forestiers permanents',
+      holderOfManagementRights2025: 'Droits de gestion des forêts publiques',
+      designatedManagementObjective2025: 'Objectif de gestion fixés',
+      forestDesignationAndManagement2025: 'Affectation et gestion des forêts',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

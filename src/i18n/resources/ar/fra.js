@@ -95,8 +95,7 @@ module.exports = {
     isThereALawOrOtherGovernmentMandateInSupportOfRestoration: 'هل هناك قانون أو تفويض حكومي آخر لدعم الاستصلاح ؟',
     isThereANationalDefinitionOfRestoration:
       'هل يوجد تعريف وطني لـ "الاستصلاح " إذا كانت الإجابة بنعم ، قدِّم تعريفًا لعملية المراقبة والنتائج.',
-    whatAreasInNeedOfRestorationHaveBeenIdentified:
-      'ما هي المناطق التي تحتاج إلى استصلاحها والتي تم تحديدها وكيف تم تحديدها؟',
+    whatAreasInNeedOfRestorationHaveBeenIdentified: 'ما هي المناطق التي تحتاج إلى استصلاحها والتي تم تحديدها وكيف تم تحديدها؟',
     whatAreTheTargetsSetForTheRestoration: 'ما هي أهداف جهود التعافي؟ على سبيل المثال: (xxxx) هكتار إلى (yyyy) سنة.',
     howManyHectaresOfForestHaveBeenRestoredToDate: 'كم هكتار من الغابات تم استصلاحها حتى الآن؟',
     ifYes: 'اذا نعم"',
@@ -146,7 +145,12 @@ module.exports = {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'عمليات إزالة المنتجات الحرجية غير الخشبية وقيمتها ٢٠٢٠ ',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
+      forestDesignationAndManagement2025: '$t(navigation.sectionHeaders.forestDesignationAndManagement)',
       forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
+      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
+      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

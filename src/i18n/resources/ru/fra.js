@@ -79,8 +79,7 @@ module.exports = {
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Площадь лесов с долгосрочным планом управления',
-    forestAreaWithinProtectedAreas2025:
-      'Площадь лесов на охраняемых территориях и лесов с долгосрочным планом управления',
+    forestAreaWithinProtectedAreas2025: 'Площадь лесов на охраняемых территориях и лесов с долгосрочным планом управления',
   },
   forestCharacteristics: {
     primaryForest: '…в том числе первичные леса',
@@ -153,8 +152,13 @@ module.exports = {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Вывозка и стоимость недревесной лесной продукции 2020',
       forestExtentCharacteristicsAndChanges2025: 'Площадь, характеристики и изменения лесов',
+      forestDesignationAndManagement2025: '$t(navigation.sectionHeaders.forestDesignationAndManagement)',
       forestPolicyAndLegislation2025: 'Политика и законодательство в отношении лесов',
       forestDisturbances2025: 'Нарушения состояния лесов',
+      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
+      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
@@ -173,8 +177,7 @@ module.exports = {
     },
     footer1:
       '¹ Данные не старше 5 лет с момента представления доклада (2018 год или более поздняя дата для страновых докладов по ОЛР-2025)',
-    footer2:
-      '² Данные старше 5 лет с момента представления доклада (старше 2018 года для страновых докладов по ОЛР-2025)',
+    footer2: '² Данные старше 5 лет с момента представления доклада (старше 2018 года для страновых докладов по ОЛР-2025)',
     footer3: '³ Совместимы с точки зрения используемых методов, категорий и определений',
   },
   biomassStock_biomassStockStatus_Description: {
@@ -194,8 +197,7 @@ module.exports = {
         'Применение общих аллометрических уравнений на уровне биома или комбинации специфических коэффициентов пересчета для страны/биома и стандартных коэффициентов расширения биомассы МГЭИК',
       low: 'Стандартные коэффициенты пересчета и расширения биомассы МГЭИК (например, с использованием "калькулятора биомассы") или оценки, основанные на картах биомассы, составленных с помощью дистанционного зондирования.',
     },
-    footer1:
-      '¹ Данные не старше 10 лет с момента представления доклада (начиная с 2013 года для страновых докладов по ОЛР-2025)',
+    footer1: '¹ Данные не старше 10 лет с момента представления доклада (начиная с 2013 года для страновых докладов по ОЛР-2025)',
     footer2: '² Данные старше 10 лет с момента представления доклада (до 2013 года для страновых докладов по ОЛР-2025)',
   },
 }

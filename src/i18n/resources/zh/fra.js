@@ -182,6 +182,10 @@ module.exports = {
       forestDisturbances2025: '森林干扰',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
+      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
+      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

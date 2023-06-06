@@ -55,8 +55,7 @@ module.exports = {
     other: 'Otro (explíquelo en los comentarios)',
     notSelected: '',
     criteriaOfDegradedForest: 'Criterios aplicados en la definición de bosque degradado',
-    changeInForestStructureDecreaseInForestCanopy:
-      'Cambio en la estructura del bosque / Disminución del dosel forestal',
+    changeInForestStructureDecreaseInForestCanopy: 'Cambio en la estructura del bosque / Disminución del dosel forestal',
     forestDisturbances: 'Perturbaciones forestales',
     lossOfProductivityAndForestGoods: 'Pérdida de productividad y de bienes proprocionados por el bosque',
     lossOfForestServices: 'Pérdida de servicios ecosistémicos del bosque',
@@ -119,8 +118,7 @@ module.exports = {
   forestRestoration: {
     forestRestoration: 'Restauración forestal',
     hasYourCountryForestRestorationCommitments: '¿Tiene su país objetivos concretos de restauración forestal?',
-    isThereALawOrOtherGovernmentMandateInSupportOfRestoration:
-      '¿Existe alguna ley u otro mandato gubernamental que apoye la restauración?',
+    isThereALawOrOtherGovernmentMandateInSupportOfRestoration: '¿Existe alguna ley u otro mandato gubernamental que apoye la restauración?',
     isThereANationalDefinitionOfRestoration:
       '¿Existe una definición nacional de "restauración"? En caso afirmativo, indique la definición, el proceso de seguimiento y los resultados.',
     whatAreasInNeedOfRestorationHaveBeenIdentified:
@@ -190,6 +188,10 @@ module.exports = {
       forestDisturbances2025: 'Perturbaciones forestales',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
+      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
+      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
