@@ -148,7 +148,7 @@ module.exports = {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Extraction et valeur des produits forestiers non ligneuz en 2020',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
-      forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
+      forestPolicyAndLegislation2025: 'Politiques et législations forestières',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {
