@@ -1,16 +1,10 @@
-import { CountryIso } from '@meta/area'
-import {
-  ActivityLogMessage,
-  Assessment,
-  CommentableDescriptionName,
-  CommentableDescriptionValue,
-  Cycle,
-} from '@meta/assessment'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { ActivityLogMessage, Assessment, CommentableDescriptionName, CommentableDescriptionValue, Cycle } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { DescriptionRepository } from '@server/repository/assessmentCycle/descriptions'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 export const upsertDescription = async (
   props: {

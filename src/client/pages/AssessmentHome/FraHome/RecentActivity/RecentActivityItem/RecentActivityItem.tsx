@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ClientRoutes } from '@meta/app'
-import { ActivityLog, ActivityLogs } from '@meta/assessment'
-import { Users } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ClientRoutes } from 'meta/app'
+import { ActivityLog, ActivityLogs } from 'meta/assessment'
+import { Users } from 'meta/user'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import { Dates } from '@client/utils'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import { Dates } from 'client/utils'
 
 type Props = {
   activity: ActivityLog<any>
@@ -28,11 +28,7 @@ const RecentActivityItem: React.FC<Props> = ({ activity }) => {
 
   return (
     <div className="landing__activity-item">
-      <img
-        className="landing__activity-avatar"
-        src={ApiEndPoint.User.profilePicture(String(user.id))}
-        alt={Users.getFullName(user)}
-      />
+      <img className="landing__activity-avatar" src={ApiEndPoint.User.profilePicture(String(user.id))} alt={Users.getFullName(user)} />
       <div className="landing__activity-name">
         <strong>{Users.getFullName(user)}</strong>
         <span>{ActivityLogs.getLabelAction(activity, i18n)}</span>

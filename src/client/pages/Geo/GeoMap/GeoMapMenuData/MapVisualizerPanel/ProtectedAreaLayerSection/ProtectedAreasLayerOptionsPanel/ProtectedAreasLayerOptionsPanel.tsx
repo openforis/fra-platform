@@ -1,9 +1,9 @@
 import './ProtectedAreasLayerOptionsPanel.scss'
 import React, { useState } from 'react'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useIsGeoMapAvailable, useProtectedAreasOptions } from '@client/store/ui/geo'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useIsGeoMapAvailable, useProtectedAreasOptions } from 'client/store/ui/geo'
+import { mapController } from 'client/utils'
 
 import { GLOBAL_OPACITY_KEY } from '../..'
 
@@ -29,9 +29,7 @@ const ProtectedAreasLayerOptionsPanel: React.FC<Props> = ({ layerKey, checked })
   const handleGlobalOpacityChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newGlobalOpacityValue = Math.round(Number(event.currentTarget.value) / 10) / 10
     setGlobalOpacity(newGlobalOpacityValue)
-    protectedAreasOptions.selected.forEach((layerKey) =>
-      mapController.setEarthEngineLayerOpacity(layerKey, newGlobalOpacityValue)
-    )
+    protectedAreasOptions.selected.forEach((layerKey) => mapController.setEarthEngineLayerOpacity(layerKey, newGlobalOpacityValue))
     dispatch(GeoActions.setProtectedAreaGlobalOpacity(newGlobalOpacityValue))
   }
 

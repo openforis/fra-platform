@@ -1,11 +1,19 @@
+/* eslint-disable react/static-property-placement */
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable react/sort-comp */
+/* eslint-disable react/no-find-dom-node */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-string-refs */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
+import { Numbers } from 'utils/numbers'
 
 import { defaultTransitionDuration } from '../chart'
 
@@ -43,7 +51,7 @@ class DataPoint extends Component<Props, {}> {
         .transition()
         .duration(defaultTransitionDuration)
         .ease(d3.easePolyOut)
-        .attr('cy', (d: any) => yScale(0))
+        .attr('cy', (_d: any) => yScale(0))
         .style('opacity', '0')
         .remove()
       // enter
@@ -53,8 +61,8 @@ class DataPoint extends Component<Props, {}> {
         .on('mouseover', this.toolTip.show)
         .on('mouseout', this.toolTip.hide)
         .attr('r', 0)
-        .attr('cx', (d: any) => xScale(1990))
-        .attr('cy', (d: any) => yScale(0))
+        .attr('cx', (_d: any) => xScale(1990))
+        .attr('cy', (_d: any) => yScale(0))
         .style('fill', '#ffffff')
         .attr('cx', (d: any) => xScale(d.year))
         .transition()
@@ -78,10 +86,7 @@ class DataPoint extends Component<Props, {}> {
       <div>
         <div className="chart__tooltip-heading">{data.year}</div>
         <div className="chart__tooltip-value-container">
-          <div
-            className="chart__tooltip-marker"
-            style={{ backgroundColor: data.type === 'fra' ? '#ffffff' : (this.props as any).color }}
-          />
+          <div className="chart__tooltip-marker" style={{ backgroundColor: data.type === 'fra' ? '#ffffff' : (this.props as any).color }} />
           <div className="chart__tooltip-value">{Numbers.format(data.value, precision)}</div>
           <div className="chart__tooltip-unit">(1000 ha)</div>
         </div>
@@ -106,15 +111,17 @@ class DataPoint extends Component<Props, {}> {
       .offset([-10, 0])
       .html((d: any) => ReactDOMServer.renderToString(this.htmlTooltip(d)))
     // @ts-ignore
+    // eslint-disable-next-line react/no-string-refs
     d3.select(this.refs.circles).call(this.toolTip)
     this.update(this.props)
   }
 
-  componentDidUpdate(prevProps: Props, prevState: any) {
+  componentDidUpdate(_prevProps: Props, _prevState: any) {
     this.update(this.props)
   }
 
   render() {
+    // eslint-disable-next-line react/no-string-refs
     return <g ref="circles" className="chart__data-points" />
   }
 }

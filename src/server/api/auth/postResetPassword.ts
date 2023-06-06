@@ -1,11 +1,11 @@
-import { Objects } from '@utils/objects'
 import { Request, Response } from 'express'
+import { Objects } from 'utils/objects'
 
-import { AuthProvider, Users, UserStatus } from '@meta/user'
+import { AuthProvider, Users, UserStatus } from 'meta/user'
 
-import { UserController } from '@server/controller/user'
-import { UserProviderController } from '@server/controller/userProvider'
-import { Requests } from '@server/utils'
+import { UserController } from 'server/controller/user'
+import { UserProviderController } from 'server/controller/userProvider'
+import { Requests } from 'server/utils'
 
 export const postResetPassword = async (req: Request, res: Response) => {
   try {

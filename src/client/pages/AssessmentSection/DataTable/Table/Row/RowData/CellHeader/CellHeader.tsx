@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
-import { AssessmentName, Col, Cols, Row } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { AssessmentName, Col, Cols, Row } from 'meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
+import { useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
 
 const CellHeader: React.FC<{ assessmentName: AssessmentName; col: Col; row: Row }> = (props) => {
   const { assessmentName, col, row } = props

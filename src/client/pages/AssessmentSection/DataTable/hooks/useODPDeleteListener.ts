@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { CountryIso } from '@meta/area'
-import { Sockets } from '@meta/socket'
+import { CountryIso } from 'meta/area'
+import { Sockets } from 'meta/socket'
 
-import { DataActions } from '@client/store/data'
-import { SocketClient } from '@client/service/socket'
+import { DataActions } from 'client/store/data'
+import { SocketClient } from 'client/service/socket'
 
 // Listen to websocket updates for deleting an odp
 // ODP deleted from data by countryIso, year

@@ -3,17 +3,17 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { RoleName, User, UserRole, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { RoleName, User, UserRole, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
-import Icon from '@client/components/Icon'
-import UserInvitationInfo from '@client/components/UserList/UserInvitationInfo'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import { useToaster } from 'client/hooks/useToaster'
+import Icon from 'client/components/Icon'
+import UserInvitationInfo from 'client/components/UserList/UserInvitationInfo'
 
 interface Props {
   invitationUuid: string

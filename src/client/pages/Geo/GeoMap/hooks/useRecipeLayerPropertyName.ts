@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { getRecipeAgreementAreaProperty } from '@meta/geo/forest'
+import { getRecipeAgreementAreaProperty } from 'meta/geo/forest'
 
-import { useForestSourceOptions } from '@client/store/ui/geo'
+import { useForestSourceOptions } from 'client/store/ui/geo'
 
 export const useRecipeLayerPropertyName = () => {
   const [recipeLayerPropertyName, setRecipeLayerPropertyName] = useState(null)
@@ -10,11 +10,7 @@ export const useRecipeLayerPropertyName = () => {
 
   useEffect(() => {
     setRecipeLayerPropertyName(
-      getRecipeAgreementAreaProperty(
-        forestOptions.selected,
-        forestOptions.agreementLevel,
-        forestOptions.hansenPercentage
-      )
+      getRecipeAgreementAreaProperty(forestOptions.selected, forestOptions.agreementLevel, forestOptions.hansenPercentage)
     )
   }, [forestOptions.selected, forestOptions.agreementLevel, forestOptions.hansenPercentage])
 

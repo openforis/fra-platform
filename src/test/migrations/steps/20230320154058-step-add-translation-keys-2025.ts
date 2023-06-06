@@ -1,11 +1,8 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025' },
-    client
-  )
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName: 'fra', cycleName: '2025' }, client)
 
   const schemaName = Schemas.getName(assessment)
 
@@ -43,10 +40,7 @@ export default async (client: BaseProtocol) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const col of cols) {
     // eslint-disable-next-line no-await-in-loop
-    await client.query(`update ${schemaName}.col set props = $1::jsonb where id = $2`, [
-      JSON.stringify(col.props),
-      col.id,
-    ])
+    await client.query(`update ${schemaName}.col set props = $1::jsonb where id = $2`, [JSON.stringify(col.props), col.id])
   }
 
   // update label keys for given sections:
@@ -78,9 +72,6 @@ export default async (client: BaseProtocol) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const section of sections) {
     // eslint-disable-next-line no-await-in-loop
-    await client.query(`update ${schemaName}.section set props = $1::jsonb where id = $2`, [
-      JSON.stringify(section.props),
-      section.id,
-    ])
+    await client.query(`update ${schemaName}.section set props = $1::jsonb where id = $2`, [JSON.stringify(section.props), section.id])
   }
 }

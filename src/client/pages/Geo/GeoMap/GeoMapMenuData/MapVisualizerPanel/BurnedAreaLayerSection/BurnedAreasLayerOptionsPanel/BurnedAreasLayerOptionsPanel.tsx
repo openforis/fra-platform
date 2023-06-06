@@ -2,11 +2,11 @@ import './BurnedAreasLayerOptionsPanel.scss'
 import React, { useState } from 'react'
 import { batch } from 'react-redux'
 
-import { BurnedAreaKey } from '@meta/geo'
+import { BurnedAreaKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useBurnedAreasOptions, useIsGeoMapAvailable } from '@client/store/ui/geo'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useBurnedAreasOptions, useIsGeoMapAvailable } from 'client/store/ui/geo'
+import { mapController } from 'client/utils'
 
 import { GLOBAL_OPACITY_KEY } from '../..'
 
@@ -36,9 +36,7 @@ const BurnedAreasLayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) =>
   const handleGlobalOpacityChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newGlobalOpacityValue = Math.round(Number(event.currentTarget.value) / 10) / 10
     setGlobalOpacity(newGlobalOpacityValue)
-    burnedAreasOptions.selected.forEach((layerKey) =>
-      mapController.setEarthEngineLayerOpacity(layerKey, newGlobalOpacityValue)
-    )
+    burnedAreasOptions.selected.forEach((layerKey) => mapController.setEarthEngineLayerOpacity(layerKey, newGlobalOpacityValue))
     dispatch(GeoActions.setBurnedAreaGlobalOpacity(newGlobalOpacityValue))
   }
 
@@ -69,11 +67,7 @@ const BurnedAreasLayerOptionsPanel: React.FC<Props> = ({ layerKey, checked }) =>
       {layerKey === BurnedAreaKey.MODIS && isLayerEnabled ? (
         <div className="burned-area-year-selector-container">
           <p>Select a year</p>
-          <select
-            className="burned-area-year-selector"
-            value={burnedAreasOptions.ui.selectedYear}
-            onChange={handleYearChange}
-          >
+          <select className="burned-area-year-selector" value={burnedAreasOptions.ui.selectedYear} onChange={handleYearChange}>
             {years.map((year) => (
               <option key={year}>{year}</option>
             ))}

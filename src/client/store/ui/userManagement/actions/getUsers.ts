@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Functions } from '@utils/functions'
 import axios from 'axios'
 import { Dispatch } from 'redux'
+import { Functions } from 'utils/functions'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { RoleName } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { RoleName } from 'meta/user'
 
 import { UserManagementActions } from '../slice'
 

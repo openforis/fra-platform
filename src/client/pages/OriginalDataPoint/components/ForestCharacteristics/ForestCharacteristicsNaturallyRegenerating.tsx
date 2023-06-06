@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { ODPs } from '@meta/assessment'
-import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
+import { ODPs } from 'meta/assessment'
+import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 
-import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 
 import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsNaturallyRegeneratingRow from './ForestCharacteristicsNaturallyRegeneratingRow'
@@ -29,9 +29,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
         <table className="fra-table odp__sub-table">
           <thead>
             <tr>
-              <th className="fra-table__header-cell-left">
-                {t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}
-              </th>
+              <th className="fra-table__header-cell-left">{t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
               <th className="fra-table__header-cell fra-table__divider">{t('nationalDataPoint.area')}</th>
               <th className="fra-table__header-cell">{t('fraForestCharacteristicsClass.ofWhichPrimaryForest')}</th>
             </tr>

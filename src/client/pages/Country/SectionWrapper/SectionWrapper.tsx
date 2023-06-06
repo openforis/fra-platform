@@ -1,19 +1,19 @@
 import React, { useEffect, useLayoutEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
-import { Sockets } from '@meta/socket'
+import { AssessmentName } from 'meta/assessment'
+import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessmentSections } from '@client/store/assessment'
-import { useGetTableSections, useTableSections } from '@client/store/metadata'
-import { useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import { ReviewActions } from '@client/store/ui/review'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import MessageCenter from '@client/components/MessageCenter'
-import { SocketClient } from '@client/service/socket'
-import { DOMs } from '@client/utils/dom'
+import { useAppDispatch } from 'client/store'
+import { useAssessmentSections } from 'client/store/assessment'
+import { useGetTableSections, useTableSections } from 'client/store/metadata'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { ReviewActions } from 'client/store/ui/review'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import MessageCenter from 'client/components/MessageCenter'
+import { SocketClient } from 'client/service/socket'
+import { DOMs } from 'client/utils/dom'
 
 type Props = {
   children: JSX.Element

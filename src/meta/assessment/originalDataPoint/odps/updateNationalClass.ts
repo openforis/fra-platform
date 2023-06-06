@@ -1,5 +1,5 @@
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 import { ODPNationalClass, ODPNationalClassFactory } from '../odpNationalClass'
 import { OriginalDataPoint } from '../originalDataPoint'

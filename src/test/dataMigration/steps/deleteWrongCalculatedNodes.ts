@@ -1,11 +1,8 @@
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
-export const deleteWrongCalculatedNodes = async (
-  props: { assessment: Assessment; cycle: Cycle },
-  client: BaseProtocol
-): Promise<void> => {
+export const deleteWrongCalculatedNodes = async (props: { assessment: Assessment; cycle: Cycle }, client: BaseProtocol): Promise<void> => {
   const { assessment, cycle } = props
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)

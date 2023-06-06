@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentNames } from '@meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
 
 type Props = {
   components: Record<string, React.FC<{ query?: string }>>

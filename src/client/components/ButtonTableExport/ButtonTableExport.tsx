@@ -4,9 +4,9 @@ import { CSVLink } from 'react-csv'
 
 import classNames from 'classnames'
 
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import Icon from '@client/components/Icon'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import Icon from 'client/components/Icon'
 
 import * as Utils from './utils'
 

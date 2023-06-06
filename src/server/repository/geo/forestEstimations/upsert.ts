@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { ForestEstimations } from '@meta/geo'
+import { ForestEstimations } from 'meta/geo'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const upsert = async (
   props: {

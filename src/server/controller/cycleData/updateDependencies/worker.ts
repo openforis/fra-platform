@@ -1,9 +1,9 @@
 import { Job } from 'bullmq'
 
-import { NodeUpdates } from '@meta/data'
+import { NodeUpdates } from 'meta/data'
 
-import { DB } from '@server/db'
-import { Logger } from '@server/utils/logger'
+import { DB } from 'server/db'
+import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesProps } from './props'
 import { updateNodeDependencies } from './updateNodeDependencies'
@@ -11,9 +11,7 @@ import { updateNodeDependencies } from './updateNodeDependencies'
 export default async (job: Job<UpdateDependenciesProps>) => {
   try {
     const time = new Date().getTime()
-    Logger.debug(
-      `[updateDependenciesWorker] job-${job.id} in thread started. ${job.data.nodeUpdates.nodes.length} nodes.`
-    )
+    Logger.debug(`[updateDependenciesWorker] job-${job.id} in thread started. ${job.data.nodeUpdates.nodes.length} nodes.`)
 
     const { nodeUpdates, isODP, sectionName, user } = job.data
     const { assessment, cycle, countryIso, nodes } = nodeUpdates
@@ -39,9 +37,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
         if (item?.nodeUpdates?.nodes) acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
         else
           Logger.error(
-            `[updateDependenciesWorker] job-${
-              job.id
-            } Error STRANGE. item.nodeUpdates.nodes is undefined? item: ${JSON.stringify(
+            `[updateDependenciesWorker] job-${job.id} Error STRANGE. item.nodeUpdates.nodes is undefined? item: ${JSON.stringify(
               item
             )}. job data ${JSON.stringify(job.data)}`
           )
@@ -54,9 +50,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
       }
     )
 
-    Logger.debug(
-      `[updateDependenciesWorker] job-${job.id} in thread ended in ${(new Date().getTime() - time) / 1000} seconds.`
-    )
+    Logger.debug(`[updateDependenciesWorker] job-${job.id} in thread ended in ${(new Date().getTime() - time) / 1000} seconds.`)
 
     return Promise.resolve(result)
   } catch (error) {

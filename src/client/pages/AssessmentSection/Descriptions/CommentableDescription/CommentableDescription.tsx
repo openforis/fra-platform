@@ -2,12 +2,12 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { CommentableDescriptionValue } from '@meta/assessment'
-import { Topics } from '@meta/messageCenter'
+import { CommentableDescriptionValue } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import Description from './Description'
 
@@ -42,10 +42,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
       </div>
       <div className="fra-description__review-indicator-wrapper">
         {!disabled && (
-          <ReviewIndicator
-            title={title}
-            topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, sectionName, name)}
-          />
+          <ReviewIndicator title={title} topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, sectionName, name)} />
         )}
       </div>
     </div>

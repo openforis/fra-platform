@@ -2,14 +2,14 @@ import './InviteUserForm.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RoleName, Users } from '@meta/user'
+import { RoleName, Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import { useToaster } from 'client/hooks/useToaster'
 
 const validateName = (name: string) => !!name.trim()
 const validateRole = (role: string) => !!role
@@ -78,17 +78,12 @@ const InviteUserForm: React.FC = () => {
             value={userToInvite.name}
             type="text"
             placeholder={i18n.t('userManagement.name')}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUserToInvite({ ...userToInvite, name: e.target.value })
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserToInvite({ ...userToInvite, name: e.target.value })}
           />
         </div>
         <div>
           <div className="label">{i18n.t<string>('userManagement.role')}</div>
-          <select
-            value={userToInvite.role}
-            onChange={(e) => setUserToInvite({ ...userToInvite, role: e.target.value as RoleName })}
-          >
+          <select value={userToInvite.role} onChange={(e) => setUserToInvite({ ...userToInvite, role: e.target.value as RoleName })}>
             <option value="">{i18n.t<string>('userManagement.placeholder')}</option>
             {Users.getRolesAllowedToEdit({ user, countryIso, cycle }).map((role: RoleName) => (
               <option key={role} value={role}>
@@ -105,9 +100,7 @@ const InviteUserForm: React.FC = () => {
             value={userToInvite.email}
             type="text"
             placeholder={i18n.t('userManagement.email')}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUserToInvite({ ...userToInvite, email: e.target.value })
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserToInvite({ ...userToInvite, email: e.target.value })}
           />
         </div>
         <div>

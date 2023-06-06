@@ -1,9 +1,9 @@
-import { TableNames } from '@meta/assessment'
-import { RecordAssessmentDatas, RecordColumnData } from '@meta/data'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
-import { useAppSelector } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
+import { useAppSelector } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
 
 export const useOriginalDataPointData = (): RecordColumnData | undefined => {
   const assessment = useAssessment()

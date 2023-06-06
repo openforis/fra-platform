@@ -1,7 +1,7 @@
-import { Row, Table } from '@meta/assessment'
+import { Row, Table } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 import { runCalculations } from './utils/runCalculations'
 
@@ -13,9 +13,7 @@ export default async (client: BaseProtocol) => {
 
   const schemaName = Schemas.getName(assessment)
 
-  const table = await client.one<Table>(`select * from ${schemaName}.table where props->>'name' = $1;`, [
-    'extentOfForest',
-  ])
+  const table = await client.one<Table>(`select * from ${schemaName}.table where props->>'name' = $1;`, ['extentOfForest'])
 
   const row = await client.one<Row>(
     `select * from ${schemaName}.row r where r.props->>'type' = 'data' and r.props->>'index' = '2' and table_id = $1;`,

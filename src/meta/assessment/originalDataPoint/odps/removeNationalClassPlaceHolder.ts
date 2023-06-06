@@ -1,4 +1,4 @@
-import { OriginalDataPoint } from '@meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment'
 
 export const removeNationalClassPlaceHolder = (odp: OriginalDataPoint): OriginalDataPoint => ({
   ...odp,

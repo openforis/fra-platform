@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
 
-import { Areas, CountryIso, Global, Region, RegionCode } from '@meta/area'
-import { UserRoles } from '@meta/user/userRoles'
+import { Areas, CountryIso, Global, Region, RegionCode } from 'meta/area'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountries, useCycle, useRegionGroups } from '@client/store/assessment'
-import { useIsPanEuropean } from '@client/hooks'
-import { checkMatch } from '@client/utils'
+import { useCountries, useCycle, useRegionGroups } from 'client/store/assessment'
+import { useIsPanEuropean } from 'client/hooks'
+import { checkMatch } from 'client/utils'
 
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
 import CountryListDownload from './CountryListDownload'
@@ -38,16 +38,7 @@ const filterRegions = (props: { regions: Array<Region>; query: string; i18n: i18
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
-  const {
-    enableDownload,
-    includeCountries,
-    includeGlobals,
-    includeRegions,
-    selectedValue,
-    showCountryRole,
-    onElementSelect,
-    query,
-  } = props
+  const { enableDownload, includeCountries, includeGlobals, includeRegions, selectedValue, showCountryRole, onElementSelect, query } = props
 
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()

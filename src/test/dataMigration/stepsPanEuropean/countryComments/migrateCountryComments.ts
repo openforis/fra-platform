@@ -1,16 +1,16 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
-import { Numbers } from '@utils/numbers'
 import * as pgPromise from 'pg-promise'
+import { Numbers } from 'utils/numbers'
 
-import { Assessment, Cycle, RowType, Table } from '@meta/assessment'
+import { Assessment, Cycle, RowType, Table } from 'meta/assessment'
 
-import { MetadataController } from '@server/controller/metadata'
-import { BaseProtocol, Schemas } from '@server/db'
-import { FileCSV } from '@server/utils/fileCSV'
-import { Logger } from '@server/utils/logger'
+import { MetadataController } from 'server/controller/metadata'
+import { BaseProtocol, Schemas } from 'server/db'
+import { FileCSV } from 'server/utils/fileCSV'
+import { Logger } from 'server/utils/logger'
 
-import { NodeRow } from '@test/dataMigration/types'
+import { NodeRow } from 'test/dataMigration/types'
 
 type Props = {
   assessment: Assessment
@@ -36,10 +36,7 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
   )
   // ======== get all sections metadata
   const showHidden = true
-  const sectionsMetadata = await MetadataController.getSectionsMetadata(
-    { assessment, cycle, sectionNames, showHidden },
-    client
-  )
+  const sectionsMetadata = await MetadataController.getSectionsMetadata({ assessment, cycle, sectionNames, showHidden }, client)
   // ======== create convenient record<tableName,Table>
   const tables = Object.values(sectionsMetadata).reduce<Record<string, Table>>((acc, tableSections) => {
     const result = { ...acc }
@@ -72,9 +69,7 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
       Logger.error(`Table not found for tableName: ${tableName}`)
     }
 
-    const rowsData = table.rows.filter(
-      (r) => ![RowType.header, RowType.placeholder, RowType.noticeMessage].includes(r.props.type)
-    )
+    const rowsData = table.rows.filter((r) => ![RowType.header, RowType.placeholder, RowType.noticeMessage].includes(r.props.type))
 
     // ======== read CSV file content
     const pathCsvFile = path.resolve(pathCSV, fileName)

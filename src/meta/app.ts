@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router'
 
-import { CountryIso, Global, RegionCode } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CountryIso, Global, RegionCode } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
 
 type ClientRoute<Params> = {
   path: {
@@ -11,9 +11,7 @@ type ClientRoute<Params> = {
   getLink: (params?: Params) => string
 }
 
-const newInstance = <Params extends { [x: string]: string | number | boolean }>(
-  ...parts: Array<string>
-): ClientRoute<Params> => {
+const newInstance = <Params extends { [x: string]: string | number | boolean }>(...parts: Array<string>): ClientRoute<Params> => {
   const absolute = `/${parts.join('/')}`
   return {
     path: {
@@ -60,11 +58,7 @@ export const ClientRoutes = {
       Landing: newInstance<CycleParams>('assessments', ':assessmentName', ':cycleName'),
       Admin: {
         Root: newInstance<CycleParams>(...cycleParts, 'admin'),
-        Section: newInstance<CycleParams & { sectionName: AssessmentHomeRouteNames }>(
-          ...cycleParts,
-          'admin',
-          ':sectionName'
-        ),
+        Section: newInstance<CycleParams & { sectionName: AssessmentHomeRouteNames }>(...cycleParts, 'admin', ':sectionName'),
       },
       Login: {
         Root: newInstance<CycleParams>(...cycleParts, 'login'),
@@ -80,11 +74,7 @@ export const ClientRoutes = {
         Geo: newInstance<AssessmentParams>(...assessmentParts, 'geo'),
         Home: {
           Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
-          Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
-            ...assessmentParts,
-            'home',
-            ':sectionName'
-          ),
+          Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(...assessmentParts, 'home', ':sectionName'),
         },
         OriginalDataPoint: {
           Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(

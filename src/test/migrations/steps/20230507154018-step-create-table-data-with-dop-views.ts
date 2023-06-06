@@ -1,9 +1,9 @@
-import { TableNames } from '@meta/assessment'
+import { TableNames } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { MetadataController } from '@server/controller/metadata'
-import { BaseProtocol, DB } from '@server/db'
-import { getTableDataWithODPCreateViewDDL } from '@server/repository/assessmentCycle/data/ddl/getTableDataWithODPCreateViewDDL'
+import { AssessmentController } from 'server/controller/assessment'
+import { MetadataController } from 'server/controller/metadata'
+import { BaseProtocol, DB } from 'server/db'
+import { getTableDataWithODPCreateViewDDL } from 'server/repository/assessmentCycle/data/ddl/getTableDataWithODPCreateViewDDL'
 
 export default async (client: BaseProtocol) => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra' }, client)

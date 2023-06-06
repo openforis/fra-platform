@@ -1,20 +1,20 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
-import { Topics } from '@meta/messageCenter'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions } from '@client/store/ui/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import Icon from '@client/components/Icon'
-import ReviewIndicator from '@client/components/ReviewIndicator'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
+import { useCountryIso } from 'client/hooks'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import Icon from 'client/components/Icon'
+import ReviewIndicator from 'client/components/ReviewIndicator'
+import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 import { useNationalClassNameComments } from '../../../hooks'
 
@@ -74,9 +74,7 @@ const NationalClass: React.FC<Props> = (props) => {
             <input
               className="odp__nc-table__input validation-error-sensitive-field"
               type="text"
-              placeholder={
-                placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
-              }
+              placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
               defaultValue={name || ''}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const { value } = event.target

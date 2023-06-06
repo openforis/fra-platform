@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import { AssessmentName, CycleName, TableSection } from '@meta/assessment'
+import { AssessmentName, CycleName, TableSection } from 'meta/assessment'
 
 export const setTableSections = createAction<{
   tableSections: Record<string, Array<TableSection>>

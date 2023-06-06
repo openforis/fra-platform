@@ -1,9 +1,9 @@
-import { ActivityLogMessage, Assessment, TableSection } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage, Assessment, TableSection } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { TableSectionRepository } from '@server/repository/assessment/tableSection'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { TableSectionRepository } from 'server/repository/assessment/tableSection'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 // Controller to update TableSection
 export const updateTableSection = async (

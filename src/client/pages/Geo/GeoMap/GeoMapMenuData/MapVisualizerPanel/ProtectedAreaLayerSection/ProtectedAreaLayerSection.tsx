@@ -1,10 +1,10 @@
 import './ProtectedAreaLayerSection.scss'
 import React from 'react'
 
-import { LayerStatus, ProtectedAreaKey } from '@meta/geo'
+import { LayerStatus, ProtectedAreaKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useProtectedAreasOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useProtectedAreasOptions } from 'client/store/ui/geo'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import { GLOBAL_OPACITY_KEY, protectedAreaLayers } from '../layers'

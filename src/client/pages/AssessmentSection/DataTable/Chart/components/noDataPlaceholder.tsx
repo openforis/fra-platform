@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import * as d3 from 'd3'
 
-import { usePrevious } from '@client/hooks'
+import { usePrevious } from 'client/hooks'
 
 import { defaultTransitionDuration, hasData as _hasData } from '../chart'
 
@@ -62,13 +62,7 @@ const NoDataPlaceholder = (props: Props) => {
 
   return (
     <g className="chart__no-data-placeholder" ref={container}>
-      <image
-        href="/img/tucan.svg"
-        width={toucanWidth}
-        height={toucanHeight}
-        x={(wrapperWidth - toucanWidth) / 2}
-        y={toucanY}
-      />
+      <image href="/img/tucan.svg" width={toucanWidth} height={toucanHeight} x={(wrapperWidth - toucanWidth) / 2} y={toucanY} />
       <g>
         <text dominantBaseline="middle" textAnchor="middle" x={centerX} y={textY + 20}>
           {t('extentOfForest.chart.placeholderLine1')}

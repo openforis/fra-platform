@@ -2,9 +2,9 @@ import './linkHome.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
+import { ClientRoutes } from 'meta/app'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
 
 const LinkHome: React.FC = () => {
   const assessment = useAssessment()

@@ -1,7 +1,7 @@
 import './TreeCoverAreaPanel.scss'
 import React from 'react'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
 import StatisticsTable from '../../components/StatisticsTable'
 
@@ -32,14 +32,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
   return (
     <div>
       <h3 className="table-title">{title}</h3>
-      <StatisticsTable
-        columns={columns}
-        units={units}
-        loaded={loaded}
-        tableData={formattedTableData}
-        countryIso={countryIso}
-        year={year}
-      />
+      <StatisticsTable columns={columns} units={units} loaded={loaded} tableData={formattedTableData} countryIso={countryIso} year={year} />
     </div>
   )
 }

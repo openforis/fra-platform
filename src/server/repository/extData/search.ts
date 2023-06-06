@@ -1,13 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Taxon } from '@meta/extData'
+import { Taxon } from 'meta/extData'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
-export const search = async (
-  props: { query: string; limit: string },
-  client: BaseProtocol = DB
-): Promise<Array<Taxon>> => {
+export const search = async (props: { query: string; limit: string }, client: BaseProtocol = DB): Promise<Array<Taxon>> => {
   const { limit, query } = props
 
   return client.map<Taxon>(

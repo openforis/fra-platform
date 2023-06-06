@@ -3,10 +3,10 @@ import React, { ChangeEvent, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { ForestSource, LayerStatus } from '@meta/geo'
+import { ForestSource, LayerStatus } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useForestSourceOptions } from 'client/store/ui/geo'
 
 import LayerOptionsPanel from '../../LayerOptionsPanel'
 

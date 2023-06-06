@@ -1,6 +1,6 @@
 import { Express } from 'express'
 
-import { ExtDataApi } from '@server/api/extData'
+import { ExtDataApi } from 'server/api/extData'
 
 import { AdminApi } from './admin'
 import { AreaApi } from './area'

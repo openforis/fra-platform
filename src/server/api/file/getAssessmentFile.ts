@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { FileController } from '@server/controller/file'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { FileController } from 'server/controller/file'
+import Requests from 'server/utils/requests'
 
 export const getAssessmentFile = async (req: CycleRequest, res: Response) => {
   try {

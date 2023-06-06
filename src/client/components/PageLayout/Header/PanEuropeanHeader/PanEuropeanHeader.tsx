@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useCycle } from '@client/store/assessment'
-import LinkHome from '@client/components/LinkHome'
+import { useCycle } from 'client/store/assessment'
+import LinkHome from 'client/components/LinkHome'
 
 import CycleSwitcher from '../CycleSwitcher'
 import LanguageSelector, { LanguageSelectorMobile } from '../LanguageSelector'

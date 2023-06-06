@@ -3,9 +3,9 @@ import React, { useCallback, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { LayerStatus } from '@meta/geo'
+import { LayerStatus } from 'meta/geo'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 interface Props {
   title: string
@@ -15,14 +15,7 @@ interface Props {
   loadingStatus?: string
 }
 
-const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
-  title,
-  tabIndex,
-  checked,
-  onCheckboxClick,
-  children,
-  loadingStatus,
-}) => {
+const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({ title, tabIndex, checked, onCheckboxClick, children, loadingStatus }) => {
   let checkBoxContent = null
   if (loadingStatus === LayerStatus.loading) {
     checkBoxContent = <div className="loading-spinner" />

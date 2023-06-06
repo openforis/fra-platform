@@ -2,13 +2,13 @@ import './CollaboratorPermissions.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { SubSections } from '@meta/assessment'
-import { Collaborator, CollaboratorPermissions as CollabPermissions } from '@meta/user'
+import { SubSections } from 'meta/assessment'
+import { Collaborator, CollaboratorPermissions as CollabPermissions } from 'meta/user'
 
-import { useAssessmentSections, useCycle } from '@client/store/assessment'
-import CollaboratorAccessModal from '@client/components/CollaboratorAccessModal'
+import { useAssessmentSections, useCycle } from 'client/store/assessment'
+import CollaboratorAccessModal from 'client/components/CollaboratorAccessModal'
 
 type Props = {
   userRole: Collaborator

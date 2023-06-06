@@ -1,9 +1,9 @@
-import { NodeValue, Row, TableNames } from '@meta/assessment'
-import { NodeUpdate, NodeUpdates } from '@meta/data'
+import { NodeValue, Row, TableNames } from 'meta/assessment'
+import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { BaseProtocol } from '@server/db'
-import { RowRepository } from '@server/repository/assessment/row'
-import { NodeRepository } from '@server/repository/assessmentCycle/node'
+import { BaseProtocol } from 'server/db'
+import { RowRepository } from 'server/repository/assessment/row'
+import { NodeRepository } from 'server/repository/assessmentCycle/node'
 
 import { getDependants } from '../utils/getDependants'
 import { validateNode } from './validateNode'
@@ -27,9 +27,7 @@ export const updateValidationDependencies = async (props: Props, client: BasePro
     const queueItem = queue.shift()
     const { variableName, tableName, colName } = queueItem
     // console.log('==== validating ', countryIso, tableName, variableName, colName)
-    const visited = visitedVariables.find(
-      (v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName
-    )
+    const visited = visitedVariables.find((v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName)
     // if (visited) {
     // throw new Error(
     //   `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`

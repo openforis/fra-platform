@@ -4,7 +4,7 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "jsx": "react",
     "isolatedModules": true,
     "module": "CommonJS",
@@ -13,15 +13,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist/",
-    "paths": {
-      "@i18n/*": ["./src/i18n/*"],
-      "@client/*": ["./src/client/*"],
-      "@meta/*": ["./src/meta/*"],
-      "@server/*": ["./src/server/*"],
-      "@test/*": ["./src/test/*"],
-      "@utils/*": ["./src/utils/*"]
-    },
-    //    "strict": true,
+//    "paths": {
+//      "i18n/*": ["./src/i18n/*"],
+//      "client/*": ["./src/client/*"],
+//      "meta/*": ["./src/meta/*"],
+//      "server/*": ["./src/server/*"],
+//      "test/*": ["./src/test/*"],
+//      "utils/*": ["./src/utils/*"]
+//    },
+//    "strict": true,
     "target": "ESNext"
   }
 }

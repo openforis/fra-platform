@@ -2,16 +2,16 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { ClientRoutes } from '@meta/app'
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useODPYears, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions, useODPYears, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useCountryIso } from 'client/hooks'
 
 type Props = {
   canEditData: boolean

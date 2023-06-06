@@ -1,10 +1,10 @@
 import { Express } from 'express'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { GeeAuthMiddleware } from '@server/middleware/geeAuth'
-import { ValidationMiddleware } from '@server/middleware/validation'
-import { GeoSchemes } from '@server/middleware/validation/geoSchemes'
+import { GeeAuthMiddleware } from 'server/middleware/geeAuth'
+import { ValidationMiddleware } from 'server/middleware/validation'
+import { GeoSchemes } from 'server/middleware/validation/geoSchemes'
 
 import { getBoundariesLayer } from './getBoundariesLayer'
 import { getBounds } from './getBounds'
@@ -60,10 +60,6 @@ export const GeoApi = {
       getBurnedAreaLayer
     )
 
-    express.post(
-      ApiEndPoint.Geo.Estimations.intersectionArea(),
-      GeeAuthMiddleware.requireLogin,
-      estimateIntersectionArea
-    )
+    express.post(ApiEndPoint.Geo.Estimations.intersectionArea(), GeeAuthMiddleware.requireLogin, estimateIntersectionArea)
   },
 }

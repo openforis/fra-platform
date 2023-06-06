@@ -1,8 +1,8 @@
-import { SubSection } from '@meta/assessment'
+import { SubSection } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
+import { AssessmentCycleUtil } from 'test/migrations/steps/utils/getAssessmentCycle'
 
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentCycleUtil.getFra2025(client)
@@ -11,9 +11,7 @@ export default async (client: BaseProtocol) => {
 
   const sectionName = 'growingStock'
 
-  const subSection = await client.one<SubSection>(
-    `select * from ${schemaName}.section s where s.props ->> 'name' = '${sectionName}'`
-  )
+  const subSection = await client.one<SubSection>(`select * from ${schemaName}.section s where s.props ->> 'name' = '${sectionName}'`)
 
   const variables = subSection.props.descriptions[cycle.uuid].nationalData.dataSources.table.variables.reduce(
     (acc, curr) => [
@@ -27,9 +25,9 @@ export default async (client: BaseProtocol) => {
 
   const query = `
       update ${schemaName}.section
-      set props = jsonb_set(props, '{descriptions,"${
-        cycle.uuid
-      }",nationalData,dataSources,table,variables}', '${JSON.stringify(variables)}')
+      set props = jsonb_set(props, '{descriptions,"${cycle.uuid}",nationalData,dataSources,table,variables}', '${JSON.stringify(
+    variables
+  )}')
       where id = ${subSection.id};
     `
 

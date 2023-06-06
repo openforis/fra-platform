@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 const acceptedMessages = [
   ActivityLogMessage.invitationAccept,

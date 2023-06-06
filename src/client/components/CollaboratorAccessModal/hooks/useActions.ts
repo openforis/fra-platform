@@ -1,15 +1,13 @@
 import { useState } from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Collaborator, CollaboratorEditPropertyType, CollaboratorSectionsPermission } from '@meta/user'
+import { Collaborator, CollaboratorEditPropertyType, CollaboratorSectionsPermission } from 'meta/user'
 
 export const useActions = (props: { options: Record<string, string>; userRole: Collaborator }) => {
   const { options, userRole } = props
 
-  const [selectedSections, setSelectedSections] = useState<CollaboratorSectionsPermission>(
-    userRole.permissions?.sections ?? 'all'
-  )
+  const [selectedSections, setSelectedSections] = useState<CollaboratorSectionsPermission>(userRole.permissions?.sections ?? 'all')
 
   const toggleOptions = (permission: CollaboratorEditPropertyType, checked: boolean): void => {
     const newSelectedSections = typeof selectedSections !== 'string' ? Objects.cloneDeep(selectedSections) : {}

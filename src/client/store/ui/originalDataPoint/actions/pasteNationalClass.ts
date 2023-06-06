@@ -2,9 +2,9 @@ import React from 'react'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { ODPNationalClass, OriginalDataPoint } from '@meta/assessment'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
 
-import { readPasteClipboard } from '@client/utils/copyPasteUtil'
+import { readPasteClipboard } from 'client/utils/copyPasteUtil'
 
 import handlePaste from './handlePaste'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
@@ -25,17 +25,7 @@ export const pasteNationalClass = createAsyncThunk<
 >(
   'originalDataPoint/pasteNationalClass',
   async (
-    {
-      odp,
-      rowIndex,
-      event,
-      colIndex,
-      columns,
-      allowedClass = () => true,
-      allowGrow = false,
-      assessmentName,
-      cycleName,
-    },
+    { odp, rowIndex, event, colIndex, columns, allowedClass = () => true, allowGrow = false, assessmentName, cycleName },
     { dispatch }
   ) => {
     const rawPastedData = readPasteClipboard(event, 'string')

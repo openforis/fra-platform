@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 
-import { usePrevious } from '@client/hooks'
+import { usePrevious } from 'client/hooks'
 
 import * as Chart from '../chart'
 
@@ -55,6 +55,7 @@ const DataPath = (props: Props) => {
         .attrTween('d', () => interpolatePath(pathPrev, pathNext))
         .style('opacity', opacity)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return <path ref={pathElementRef} style={{ ...style, opacity: 0 }} className="chart__data-path" d={null} />

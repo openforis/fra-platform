@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ClientRoutes } from '@meta/app'
-import { Assessments } from '@meta/assessment'
-import { AuthProvider, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ClientRoutes } from 'meta/app'
+import { Assessments } from 'meta/assessment'
+import { AuthProvider, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useAppDispatch } from '@client/store'
-import { LoginActions, useInvitation } from '@client/store/login'
-import { useUser } from '@client/store/user'
-import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
-import { Urls } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { LoginActions, useInvitation } from 'client/store/login'
+import { useUser } from 'client/store/user'
+import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
+import { Urls } from 'client/utils'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -30,8 +30,7 @@ const Invitation: React.FC = () => {
   const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const showPassword2 =
-    (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
+  const showPassword2 = (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
 
   useEffect(() => {
     if (invitationUuid) {
@@ -101,9 +100,7 @@ const Invitation: React.FC = () => {
         })}
       </h3>
 
-      {userProviders?.length > 0 && (
-        <h3>{t('login.invitationProvidersRegistered', { authProviderNames: userProviders.join(', ') })}</h3>
-      )}
+      {userProviders?.length > 0 && <h3>{t('login.invitationProvidersRegistered', { authProviderNames: userProviders.join(', ') })}</h3>}
 
       {loggedUser?.email === invitedUser.email ? (
         <button type="button" className="btn" onClick={onAccept}>

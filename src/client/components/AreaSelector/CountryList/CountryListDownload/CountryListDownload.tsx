@@ -3,13 +3,13 @@ import React from 'react'
 import { CSVLink } from 'react-csv'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@meta/area'
-import { Users } from '@meta/user'
+import { Areas } from 'meta/area'
+import { Users } from 'meta/user'
 
-import { useCountries } from '@client/store/assessment'
-import { useUser, useUserCountries } from '@client/store/user'
-import Icon from '@client/components/Icon'
-import { Dates } from '@client/utils'
+import { useCountries } from 'client/store/assessment'
+import { useUser, useUserCountries } from 'client/store/user'
+import Icon from 'client/components/Icon'
+import { Dates } from 'client/utils'
 
 const CountryListDownload: React.FC = () => {
   const user = useUser()

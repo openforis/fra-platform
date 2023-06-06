@@ -2,13 +2,13 @@ import './EditUserForm.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Collaborator, RoleName, User, UserRole, Users } from '@meta/user'
+import { Collaborator, RoleName, User, UserRole, Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso, useOnUpdate } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso, useOnUpdate } from 'client/hooks'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
@@ -38,8 +38,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
 
   const changeUser = (name: string, value: string) => setUserToEdit({ ...user, [name]: value })
 
-  const changeUserProp = (name: string, value: any) =>
-    setUserToEdit({ ...user, props: { ...user.props, [name]: value } })
+  const changeUserProp = (name: string, value: any) => setUserToEdit({ ...user, props: { ...user.props, [name]: value } })
 
   const changeUserRoleProp = (name: string, value: string) =>
     setRoleToEdit({ ...roleToEdit, props: { ...roleToEdit.props, [name]: value } })
@@ -76,20 +75,9 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
 
   return (
     <div className="edit-user__form-container">
-      <ProfilePicture
-        onChange={(profilePicture: File) => setProfilePicture(profilePicture)}
-        userId={user.id}
-        enabled={enabled}
-      />
+      <ProfilePicture onChange={(profilePicture: File) => setProfilePicture(profilePicture)} userId={user.id} enabled={enabled} />
 
-      <TextInputField
-        name="email"
-        value={user.email}
-        onChange={changeUser}
-        validator={Users.validEmailField}
-        enabled={enabled}
-        mandatory
-      />
+      <TextInputField name="email" value={user.email} onChange={changeUser} validator={Users.validEmailField} enabled={enabled} mandatory />
 
       <SelectField
         name="title"
@@ -104,18 +92,14 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
 
       <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} mandatory />
 
-      {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
-        userRole?.role
-      ) &&
+      {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(userRole?.role) &&
         roleToEdit && <UserRolePropsFields role={roleToEdit} onChange={changeUserRoleProp} enabled={enabled} />}
 
       <div className="edit-user__form-item">
         <div className="edit-user__form-label">{t('editUser.mandatoryFields')}</div>
       </div>
 
-      {canEditPermissions && userRole?.role === RoleName.COLLABORATOR && (
-        <CollaboratorPermissions userRole={userRole as Collaborator} />
-      )}
+      {canEditPermissions && userRole?.role === RoleName.COLLABORATOR && <CollaboratorPermissions userRole={userRole as Collaborator} />}
 
       {canEditRoles && <CountryRoles user={user} />}
     </div>

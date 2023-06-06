@@ -1,18 +1,18 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass } from '@meta/assessment'
-import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
-import { Topics } from '@meta/messageCenter'
+import { ODPNationalClass } from 'meta/assessment'
+import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
+import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import PercentInput from '@client/components/PercentInput'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import PercentInput from 'client/components/PercentInput'
+import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -42,9 +42,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const plantationIntroduced = area
-    ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
-    : null
+  const plantationIntroduced = area ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000)) : null
 
   if (!allowedClass(nationalClass)) {
     return null

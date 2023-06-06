@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
-import { Assessment, ColProps, ColType, Row, RowType } from '@meta/assessment'
+import { Assessment, ColProps, ColType, Row, RowType } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment

@@ -1,7 +1,7 @@
 import './geoMapMenuData.scss'
 import React from 'react'
 
-import { useSelectedPanel } from '@client/store/ui/geo'
+import { useSelectedPanel } from 'client/store/ui/geo'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
 import MapVisualizerPanel from './MapVisualizerPanel'

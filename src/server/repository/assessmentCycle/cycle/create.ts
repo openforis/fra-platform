@@ -1,7 +1,7 @@
-import { Assessment, AssessmentMetaCache, Cycle } from '@meta/assessment'
+import { Assessment, AssessmentMetaCache, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
 const defaultMetaCache: AssessmentMetaCache = {
   calculations: { dependants: {}, dependencies: {} },
@@ -19,10 +19,7 @@ export const create = async (
   const { assessment, name } = params
 
   await DB.query(
-    AssessmentRepository.getCreateSchemaCycleDDL(
-      Schemas.getName(assessment),
-      Schemas.getNameCycle(assessment, { name } as Cycle)
-    )
+    AssessmentRepository.getCreateSchemaCycleDDL(Schemas.getName(assessment), Schemas.getNameCycle(assessment, { name } as Cycle))
   )
 
   const cycle = await client.one<Cycle>(

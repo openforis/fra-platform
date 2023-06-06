@@ -1,12 +1,12 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Table, TableNames } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
+import { Table, TableNames } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAppSelector } from '@client/store'
-import { useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
-import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection/hooks'
-import { useCountryIso } from '@client/hooks'
+import { useAppSelector } from 'client/store'
+import { useAssessment, useAssessmentCountry, useCycle } from 'client/store/assessment'
+import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hooks'
+import { useCountryIso } from 'client/hooks'
 
 import { useOriginalDataPointData } from './useOriginalDataPointData'
 

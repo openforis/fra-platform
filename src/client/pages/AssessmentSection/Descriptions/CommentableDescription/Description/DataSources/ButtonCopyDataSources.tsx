@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionValue } from '@meta/assessment'
+import { CommentableDescriptionValue } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { usePreviousSection } from '@client/store/assessment/hooks/usePreviousSection'
-import { DataActions } from '@client/store/data'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { usePreviousSection } from 'client/store/assessment/hooks/usePreviousSection'
+import { DataActions } from 'client/store/data'
+import { useCountryIso } from 'client/hooks'
 
 interface Props {
   disabled: boolean
@@ -40,12 +40,7 @@ export const ButtonCopyDataSources: React.FC<Props> = (props: Props) => {
   const copyDisabled = disabled || !previousSection
 
   return (
-    <button
-      type="button"
-      className="btn-s btn-primary btn-copy-prev-values"
-      disabled={copyDisabled}
-      onClick={onCopyClick}
-    >
+    <button type="button" className="btn-s btn-primary btn-copy-prev-values" disabled={copyDisabled} onClick={onCopyClick}>
       {t('nationalDataPoint.copyPreviousValues')}
     </button>
   )

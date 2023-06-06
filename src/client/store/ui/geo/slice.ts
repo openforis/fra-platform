@@ -9,8 +9,8 @@ import {
   MosaicOptions,
   MosaicSource,
   ProtectedAreaKey,
-} from '@meta/geo'
-import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
+} from 'meta/geo'
+import { forestAgreementRecipes, ForestSource, HansenPercentage } from 'meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getBurnedAreaLayer, getForestEstimationData, getForestLayer, getProtectedAreaLayer } from './actions'
@@ -126,10 +126,7 @@ export const geoSlice = createSlice({
         delete state.forestOptions.opacity[payload]
       }
     },
-    setForestLayers: (
-      state,
-      { payload: { sources, opacity } }: PayloadAction<{ sources: ForestSource[]; opacity?: number }>
-    ) => {
+    setForestLayers: (state, { payload: { sources, opacity } }: PayloadAction<{ sources: ForestSource[]; opacity?: number }>) => {
       state.forestOptions.selected = sources
       state.forestOptions.opacity = {}
 
@@ -232,10 +229,7 @@ export const geoSlice = createSlice({
         })
       }
     },
-    setProtectedAreaLayerOpacity: (
-      state,
-      { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>
-    ) => {
+    setProtectedAreaLayerOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.protectedAreasOptions.opacity[key] = opacity
     },
     setProtectedAreaGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
@@ -277,10 +271,7 @@ export const geoSlice = createSlice({
         delete state.burnedAreasOptions.opacity[payload]
       }
     },
-    setBurnedAreasLayers: (
-      state,
-      { payload: { sources, opacity } }: PayloadAction<{ sources: BurnedAreaKey[]; opacity?: number }>
-    ) => {
+    setBurnedAreasLayers: (state, { payload: { sources, opacity } }: PayloadAction<{ sources: BurnedAreaKey[]; opacity?: number }>) => {
       state.burnedAreasOptions.selected = sources
       state.burnedAreasOptions.opacity = {}
 
@@ -290,10 +281,7 @@ export const geoSlice = createSlice({
         })
       }
     },
-    setBurnedAreaLayerOpacity: (
-      state,
-      { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>
-    ) => {
+    setBurnedAreaLayerOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
       state.burnedAreasOptions.opacity[key] = opacity
     },
     setBurnedAreaGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
@@ -328,10 +316,7 @@ export const geoSlice = createSlice({
       state.geoStatistics.error = payload
       state.geoStatistics.isLoading = false
     },
-    insertTabularEstimationEntry: (
-      state,
-      { payload: [index, entry] }: PayloadAction<[number, [string, number, number]]>
-    ) => {
+    insertTabularEstimationEntry: (state, { payload: [index, entry] }: PayloadAction<[number, [string, number, number]]>) => {
       let replaced = false
       state.geoStatistics.tabularEstimationData = state.geoStatistics.tabularEstimationData.map((row) => {
         let newRow: [string, number, number] = [...row]

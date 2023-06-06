@@ -2,11 +2,11 @@ import './Autocomplete.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 import { useCombobox, UseComboboxStateChange } from 'downshift'
+import { Objects } from 'utils/objects'
 
-import AutocompleteInput from '@client/components/Autocomplete/AutocompleteInput'
+import AutocompleteInput from 'client/components/Autocomplete/AutocompleteInput'
 
 type Option = {
   label: string
@@ -66,23 +66,22 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     }
   }
 
-  const { isOpen, getMenuProps, getInputProps, getComboboxProps, highlightedIndex, getItemProps, openMenu } =
-    useCombobox({
-      onInputValueChange(changes) {
-        setInputValue(changes.inputValue)
-        onInputValueChange?.(changes.inputValue)
-      },
-      items,
-      itemToString(item) {
-        return t(item?.label ?? '')
-      },
-      selectedItem,
-      onSelectedItemChange: ({ inputValue, selectedItem: newSelectedItem }) => {
-        setInputValue(inputValue)
-        setSelectedItem(newSelectedItem)
-      },
-      onStateChange: _onStateChange,
-    })
+  const { isOpen, getMenuProps, getInputProps, getComboboxProps, highlightedIndex, getItemProps, openMenu } = useCombobox({
+    onInputValueChange(changes) {
+      setInputValue(changes.inputValue)
+      onInputValueChange?.(changes.inputValue)
+    },
+    items,
+    itemToString(item) {
+      return t(item?.label ?? '')
+    },
+    selectedItem,
+    onSelectedItemChange: ({ inputValue, selectedItem: newSelectedItem }) => {
+      setInputValue(inputValue)
+      setSelectedItem(newSelectedItem)
+    },
+    onStateChange: _onStateChange,
+  })
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { MosaicOptions } from '@meta/geo'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { MosaicOptions } from 'meta/geo'
 
 const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
   const { sources, year, maxCloudCoverage } = mosaicOptions
@@ -66,15 +66,15 @@ interface PostMosaicOptionsProps {
   countryIso: CountryIso
 }
 
-export const postMosaicOptions = createAsyncThunk<
-  { urlTemplate: string; countryIso: CountryIso },
-  PostMosaicOptionsProps
->('geo/post/mosaic', async ({ mosaicOptions, countryIso }) => {
-  const body = getReqBody(mosaicOptions, countryIso)
-  const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
+export const postMosaicOptions = createAsyncThunk<{ urlTemplate: string; countryIso: CountryIso }, PostMosaicOptionsProps>(
+  'geo/post/mosaic',
+  async ({ mosaicOptions, countryIso }) => {
+    const body = getReqBody(mosaicOptions, countryIso)
+    const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
 
-  return {
-    urlTemplate: data.urlTemplate,
-    countryIso,
+    return {
+      urlTemplate: data.urlTemplate,
+      countryIso,
+    }
   }
-})
+)

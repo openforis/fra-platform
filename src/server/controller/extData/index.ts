@@ -1,4 +1,4 @@
-import { TaxonRepository } from '@server/repository/extData'
+import { TaxonRepository } from 'server/repository/extData'
 
 export const ExtDataController = {
   searchTaxa: TaxonRepository.search,

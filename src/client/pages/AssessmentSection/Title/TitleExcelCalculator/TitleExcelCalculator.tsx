@@ -2,10 +2,10 @@ import './TitleExcelCalculator.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels } from '@meta/assessment'
+import { Labels } from 'meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
-import { useIsPrint } from '@client/hooks/useIsPath'
+import { useCycle } from 'client/store/assessment'
+import { useIsPrint } from 'client/hooks/useIsPath'
 
 import { Props } from '../props'
 import ExcelCalculatorDownload from './ExcelCalculatorDownload'

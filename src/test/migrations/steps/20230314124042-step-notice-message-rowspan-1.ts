@@ -1,5 +1,5 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra' }, client)
@@ -30,9 +30,6 @@ export default async (client: BaseProtocol) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const col of cols) {
     // eslint-disable-next-line no-await-in-loop
-    await client.query(`update ${schemaName}.col set props = $1::jsonb where id = $2`, [
-      JSON.stringify(col.props),
-      col.id,
-    ])
+    await client.query(`update ${schemaName}.col set props = $1::jsonb where id = $2`, [JSON.stringify(col.props), col.id])
   }
 }

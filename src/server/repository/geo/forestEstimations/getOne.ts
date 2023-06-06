@@ -1,14 +1,11 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { ForestEstimations } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { ForestEstimations } from 'meta/geo'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
-export const getOne = async (
-  props: { countryIso: CountryIso; year: number },
-  client: BaseProtocol = DB
-): Promise<ForestEstimations> => {
+export const getOne = async (props: { countryIso: CountryIso; year: number }, client: BaseProtocol = DB): Promise<ForestEstimations> => {
   const { countryIso, year } = props
 
   const forestEstimations = await client.oneOrNone<ForestEstimations>(

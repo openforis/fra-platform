@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { Cycle } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { Cycle } from 'meta/assessment'
 
 import type { User, UserProps } from './user'
 import {
@@ -22,19 +22,15 @@ const isAdministrator = (user: User) => {
 const getRole = (user: User, countryIso: CountryIso, cycle: Cycle): UserRole<RoleName, any> => {
   if (isAdministrator(user)) return user.roles[0]
 
-  return user?.roles?.find(
-    (userRole: UserRole<any>) => userRole?.countryIso === countryIso && userRole?.cycleUuid === cycle.uuid
-  )
+  return user?.roles?.find((userRole: UserRole<any>) => userRole?.countryIso === countryIso && userRole?.cycleUuid === cycle.uuid)
 }
 
 const isRole = (user: User, role: RoleName, countryIso: CountryIso, cycle: Cycle) =>
   Boolean(getRole(user, countryIso, cycle)?.role === role)
 
-const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
-  isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
+const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
 
-const isReviewer = (user: User, countryIso: CountryIso, cycle: Cycle) =>
-  isRole(user, RoleName.REVIEWER, countryIso, cycle)
+const isReviewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.REVIEWER, countryIso, cycle)
 
 const isNationalCorrespondent = (user: User, countryIso: CountryIso, cycle: Cycle) =>
   isRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso, cycle)
@@ -71,8 +67,7 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycl
   return []
 }
 
-const getI18nRoleLabelKey = (role: RoleName | string): string =>
-  role ? `user.roles.${role}` : UserRoles.noRole.labelKey
+const getI18nRoleLabelKey = (role: RoleName | string): string => (role ? `user.roles.${role}` : UserRoles.noRole.labelKey)
 
 export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePicture(String(userId))
 
@@ -108,32 +103,23 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
   if (!user || isAdministrator(user) || !role) return false
 
   // Only National Correspondant, Alternate NC, and Collaborator required to fill information
-  const hasCorrectRole = [
-    RoleName.NATIONAL_CORRESPONDENT,
-    RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
-    RoleName.COLLABORATOR,
-  ].includes(role.role)
-
-  const missingUserProperties = ['title', 'name', 'surname'].some((propName: keyof UserProps) =>
-    Objects.isEmpty(user.props[propName])
-  )
-
-  const hasExtendedRoleProps = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(
+  const hasCorrectRole = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
     role.role
   )
+
+  const missingUserProperties = ['title', 'name', 'surname'].some((propName: keyof UserProps) => Objects.isEmpty(user.props[propName]))
+
+  const hasExtendedRoleProps = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(role.role)
 
   const roleBaseProps = ['organization']
 
   const roleExtendedProps = roleBaseProps.concat(['address', 'primaryPhoneNumber'])
 
-  const validateAddress = (prop: any) =>
-    ['street', 'zipCode', 'city'].some((propName) => Objects.isEmpty(prop?.[propName]))
+  const validateAddress = (prop: any) => ['street', 'zipCode', 'city'].some((propName) => Objects.isEmpty(prop?.[propName]))
 
   const validateContactPreference = (prop: UserContactPreference) => {
     return (
-      ([UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(
-        prop?.method
-      ) &&
+      ([UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(prop?.method) &&
         Objects.isEmpty(prop.options?.phone)) ||
       Objects.isEmpty(prop?.method)
     )

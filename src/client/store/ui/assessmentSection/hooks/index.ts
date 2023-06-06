@@ -1,6 +1,5 @@
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export { useIsEstimationPending } from './useIsEstimatePending'
 
-export const useShowOriginalDatapoints = () =>
-  useAppSelector((state) => state.ui.assessmentSection.showOriginalDataPoint)
+export const useShowOriginalDatapoints = () => useAppSelector((state) => state.ui.assessmentSection.showOriginalDataPoint)

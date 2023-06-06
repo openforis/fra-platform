@@ -1,11 +1,8 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
-  const { assessment, cycle: cycle2020 } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2020' },
-    client
-  )
+  const { assessment, cycle: cycle2020 } = await AssessmentController.getOneWithCycle({ assessmentName: 'fra', cycleName: '2020' }, client)
 
   const schemaAssessment = Schemas.getName(assessment)
 

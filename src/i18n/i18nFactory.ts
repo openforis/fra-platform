@@ -1,12 +1,13 @@
 import * as i18next from 'i18next'
-
 import { TFunction } from 'i18next'
-import { Lang } from '@meta/lang'
-import * as enTranslation from './resources/en'
-import * as frTranslation from './resources/fr'
-import * as esTranslation from './resources/es'
-import * as ruTranslation from './resources/ru'
+
+import { Lang } from 'meta/lang'
+
 import * as arTranslation from './resources/ar'
+import * as enTranslation from './resources/en'
+import * as esTranslation from './resources/es'
+import * as frTranslation from './resources/fr'
+import * as ruTranslation from './resources/ru'
 import * as zhTranslation from './resources/zh'
 
 // @ts-ignore

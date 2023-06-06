@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from '@meta/api/request'
+import { CycleDataRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import Requests from 'server/utils/requests'
 
 export const getActivities = async (req: CycleDataRequest, res: Response) => {
   try {

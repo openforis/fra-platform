@@ -1,6 +1,7 @@
-import { Settings } from '@meta/assessment/settings'
-import { BaseProtocol, DB } from '@server/db'
-import { SettingsRepository } from '@server/repository/public/settings'
+import { Settings } from 'meta/assessment/settings'
+
+import { BaseProtocol, DB } from 'server/db'
+import { SettingsRepository } from 'server/repository/public/settings'
 
 export const update = async (
   props: {

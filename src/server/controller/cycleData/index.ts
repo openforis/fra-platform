@@ -1,7 +1,7 @@
-import { DescriptionRepository } from '@server/repository/assessmentCycle/descriptions'
-import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
-import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
+import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
+import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { clearTableData } from './clearTableData'
 import { createOriginalDataPoint } from './createOriginalDataPoint'

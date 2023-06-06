@@ -1,10 +1,10 @@
 import './BurnedAreaLayerSection.scss'
 import React from 'react'
 
-import { BurnedAreaKey, LayerStatus } from '@meta/geo'
+import { BurnedAreaKey, LayerStatus } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useBurnedAreasOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useBurnedAreasOptions } from 'client/store/ui/geo'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import { burnedAreaLayers, GLOBAL_OPACITY_KEY } from '../layers'
@@ -28,8 +28,7 @@ const BurnedAreasLayerSection: React.FC = () => {
           </div>
         )}
         {burnedAreaLayers.map((layer) => {
-          const key =
-            layer.key + (layer.key === BurnedAreaKey.MODIS ? `__${burnedAreasOptions.applied.selectedYear}` : '')
+          const key = layer.key + (layer.key === BurnedAreaKey.MODIS ? `__${burnedAreasOptions.applied.selectedYear}` : '')
           const isLayerChecked = burnedAreasOptions.selected.includes(layer.key)
           let status = null
           if (burnedAreasOptions.pendingLayers[key] !== undefined) status = LayerStatus.loading

@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { ForestSource, Layer, LayerSource } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { ForestSource, Layer, LayerSource } from 'meta/geo'
 
-import { AssetsController } from '@server/controller/geo/assets'
+import { AssetsController } from 'server/controller/geo/assets'
 
 import { getMap } from './getMap'
 
@@ -18,10 +18,7 @@ export const getForestLayer = async (props: Props): Promise<Layer> => {
 
   if (layer.key === ForestSource.Agreement) {
     style = {
-      palette: asset.metadata.palette.slice(
-        layer.options.agreement.gteAgreementLevel - 1,
-        layer.options.agreement.layers.length
-      ),
+      palette: asset.metadata.palette.slice(layer.options.agreement.gteAgreementLevel - 1, layer.options.agreement.layers.length),
       min: layer.options.agreement.gteAgreementLevel,
       max: layer.options.agreement.layers.length,
     }

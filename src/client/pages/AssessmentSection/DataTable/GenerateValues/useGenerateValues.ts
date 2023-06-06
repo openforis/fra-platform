@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentName, ColType, CycleName, Row, RowType } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from '@meta/data'
+import { AssessmentName, ColType, CycleName, Row, RowType } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 
-import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
-import { DataActions } from '@client/store/data'
-import { useIsEstimationPending } from '@client/store/ui/assessmentSection'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
+import { DataActions } from 'client/store/data'
+import { useIsEstimationPending } from 'client/store/ui/assessmentSection'
+import { useCountryIso } from 'client/hooks'
 
 import { GenerateValuesField } from './field'
 import { Method, Methods } from './method'
@@ -26,9 +26,7 @@ export interface UseGenerateValues {
 const isTableWithOdpEmpty = (data: RecordCountryData) => {
   return (
     Object.values(data).flatMap((section) =>
-      Object.values(section).flatMap((year) =>
-        Object.values(year).flatMap((v) => Object.values(v).filter((variable) => !variable.odp))
-      )
+      Object.values(section).flatMap((year) => Object.values(year).flatMap((v) => Object.values(v).filter((variable) => !variable.odp)))
     ).length > 0
   )
 }

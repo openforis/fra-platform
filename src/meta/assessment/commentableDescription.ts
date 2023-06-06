@@ -1,5 +1,5 @@
-import { CountryIso } from '@meta/area'
-import { DataSourceDescription } from '@meta/assessment/description'
+import { CountryIso } from 'meta/area'
+import { DataSourceDescription } from 'meta/assessment/description'
 
 // TODO: merge this with description
 

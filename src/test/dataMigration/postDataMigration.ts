@@ -1,20 +1,20 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { DB } from '@server/db'
-import { Logger } from '@server/utils/logger'
+import { AssessmentController } from 'server/controller/assessment'
+import { DB } from 'server/db'
+import { Logger } from 'server/utils/logger'
 
-import { add2025Columns } from '@test/dataMigration/steps/add2025Columns/add2025Columns'
-import { cleanupCountryProps } from '@test/dataMigration/steps/cleanupCountryProps'
-import { deleteAtlantisData } from '@test/dataMigration/steps/deleteAtlantisData/deleteAtlantisData'
-import { deleteInvalid2025Nodes } from '@test/dataMigration/steps/deleteInvalid2025Nodes/deleteInvalid2025Nodes'
-import { deleteWrongCalculatedNodes } from '@test/dataMigration/steps/deleteWrongCalculatedNodes'
-import { metadataFix } from '@test/dataMigration/steps/metadataFix/metadataFix'
-import { migrateBiomassAndCarbonStockData } from '@test/dataMigration/steps/migrateBiomassAndCarbonStockData'
-import { migrateDescriptions } from '@test/dataMigration/steps/migrateDescriptions'
-import { migrateMessageBoard } from '@test/dataMigration/steps/migrateMessageBoard'
-import { migrateNodeExt } from '@test/dataMigration/steps/migrateNodeExt/migrateNodeExt'
-import { migratePrimaryForestData } from '@test/dataMigration/steps/migratePrimaryForestData'
-import { postMetadataFix } from '@test/dataMigration/steps/postMetadataFix/postMetadataFix'
-import { updateCalculatedNodes } from '@test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
+import { add2025Columns } from 'test/dataMigration/steps/add2025Columns/add2025Columns'
+import { cleanupCountryProps } from 'test/dataMigration/steps/cleanupCountryProps'
+import { deleteAtlantisData } from 'test/dataMigration/steps/deleteAtlantisData/deleteAtlantisData'
+import { deleteInvalid2025Nodes } from 'test/dataMigration/steps/deleteInvalid2025Nodes/deleteInvalid2025Nodes'
+import { deleteWrongCalculatedNodes } from 'test/dataMigration/steps/deleteWrongCalculatedNodes'
+import { metadataFix } from 'test/dataMigration/steps/metadataFix/metadataFix'
+import { migrateBiomassAndCarbonStockData } from 'test/dataMigration/steps/migrateBiomassAndCarbonStockData'
+import { migrateDescriptions } from 'test/dataMigration/steps/migrateDescriptions'
+import { migrateMessageBoard } from 'test/dataMigration/steps/migrateMessageBoard'
+import { migrateNodeExt } from 'test/dataMigration/steps/migrateNodeExt/migrateNodeExt'
+import { migratePrimaryForestData } from 'test/dataMigration/steps/migratePrimaryForestData'
+import { postMetadataFix } from 'test/dataMigration/steps/postMetadataFix/postMetadataFix'
+import { updateCalculatedNodes } from 'test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
 
 const assessmentName = `fra`
 const client = DB
@@ -27,10 +27,7 @@ afterAll(async () => {
 
 const migrateCycle = (cycleName: string) =>
   test(`Cycle ${cycleName} migration`, async () => {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-      { assessmentName, cycleName, metaCache: true },
-      client
-    )
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache: true }, client)
 
     index += 1
     Logger.debug(`    ========== ${index} deleteWrongCalculatedNodes ${cycle.name}`)

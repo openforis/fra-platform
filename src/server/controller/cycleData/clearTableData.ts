@@ -1,14 +1,14 @@
-import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { NodeUpdate } from '@meta/data'
-import { Sockets } from '@meta/socket'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { NodeUpdate } from 'meta/data'
+import { Sockets } from 'meta/socket'
+import { User } from 'meta/user'
 
-import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
-import { BaseProtocol, DB } from '@server/db'
-import { DataRepository } from '@server/repository/assessmentCycle/data'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
-import { SocketServer } from '@server/service/socket'
+import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { BaseProtocol, DB } from 'server/db'
+import { DataRepository } from 'server/repository/assessmentCycle/data'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { SocketServer } from 'server/service/socket'
 
 type Props = {
   assessment: Assessment

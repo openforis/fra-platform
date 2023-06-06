@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Strings } from '@utils/strings'
+import { Strings } from 'utils/strings'
 
-import { Country, CountryIso, RegionGroup } from '@meta/area'
-import { Assessment, Section, SubSection } from '@meta/assessment'
+import { Country, CountryIso, RegionGroup } from 'meta/area'
+import { Assessment, Section, SubSection } from 'meta/assessment'
 
-import { useAppSelector } from '@client/store'
-import { useCountryIso } from '@client/hooks'
+import { useAppSelector } from 'client/store'
+import { useCountryIso } from 'client/hooks'
 
 export { useCycle } from './useCycle'
 
@@ -40,8 +40,7 @@ export const useCountries = (): Array<Country> => {
   return Object.values(countries).sort((c1, c2) => compareListName(c1.countryIso, c2.countryIso))
 }
 
-export const useCountry = (countryIso: CountryIso): Country =>
-  useAppSelector((state) => state.assessment.countries?.[countryIso])
+export const useCountry = (countryIso: CountryIso): Country => useAppSelector((state) => state.assessment.countries?.[countryIso])
 
 export const useAssessmentCountry = (): Country => {
   const countryIso = useCountryIso()
@@ -49,8 +48,7 @@ export const useAssessmentCountry = (): Country => {
   return useCountry(countryIso)
 }
 
-export const useRegionGroups = (): Record<string, RegionGroup> =>
-  useAppSelector((state) => state.assessment?.regionGroups ?? {})
+export const useRegionGroups = (): Record<string, RegionGroup> => useAppSelector((state) => state.assessment?.regionGroups ?? {})
 
 export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)
 export const useAssessmentSection = (sectionNameParam?: string): SubSection => {

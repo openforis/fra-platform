@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { getHtml } from '@server/api/definitions/utils/getHtml'
+import { getHtml } from 'server/api/definitions/utils/getHtml'
 
 import { readAllowedParameter, readParameterWithAllowedValues } from '../../utils/sanityChecks'
 

@@ -1,17 +1,14 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
-import { Country } from '@meta/area'
+import { CycleRequest } from 'meta/api/request'
+import { Country } from 'meta/area'
 
-import { AreaController } from '@server/controller/area'
-import { AssessmentController } from '@server/controller/assessment'
-import { MailService } from '@server/service'
-import Requests from '@server/utils/requests'
+import { AreaController } from 'server/controller/area'
+import { AssessmentController } from 'server/controller/assessment'
+import { MailService } from 'server/service'
+import Requests from 'server/utils/requests'
 
-export const postCountry = async (
-  req: CycleRequest<{ notifyUsers: string }, { country: Country; message: string }>,
-  res: Response
-) => {
+export const postCountry = async (req: CycleRequest<{ notifyUsers: string }, { country: Country; message: string }>, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, notifyUsers } = req.query
 

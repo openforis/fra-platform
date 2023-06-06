@@ -1,9 +1,9 @@
-import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
 
@@ -19,10 +19,7 @@ export const updateOriginalDataPoint = async (
   const { assessment, cycle, originalDataPoint, user } = props
 
   return client.tx(async (t) => {
-    const updatedOriginalDataPoint = await OriginalDataPointRepository.update(
-      { assessment, cycle, originalDataPoint },
-      t
-    )
+    const updatedOriginalDataPoint = await OriginalDataPointRepository.update({ assessment, cycle, originalDataPoint }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {

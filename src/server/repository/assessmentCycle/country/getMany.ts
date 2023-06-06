@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Country } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
+import { Country } from 'meta/area'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { isAtlantisAllowed } from '@server/repository/assessmentCycle/country/isAtlantisAllowed'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 const activityLogMessageUpdates = [
   ActivityLogMessage.nodeValueUpdate,
@@ -17,10 +17,7 @@ const activityLogMessageUpdates = [
   .map((a) => `'${a}'`)
   .join(',')
 
-export const getMany = async (
-  props: { assessment: Assessment; cycle: Cycle },
-  client: BaseProtocol = DB
-): Promise<Array<Country>> => {
+export const getMany = async (props: { assessment: Assessment; cycle: Cycle }, client: BaseProtocol = DB): Promise<Array<Country>> => {
   const { assessment, cycle } = props
 
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)

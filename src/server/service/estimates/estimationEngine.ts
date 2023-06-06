@@ -1,9 +1,9 @@
-import { BigNumberInput, Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
 import BigNumber from 'bignumber.js'
+import { BigNumberInput, Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { NodeValuesEstimation } from '@meta/assessment'
-import { NodeUpdate, RecordCountryData } from '@meta/data'
+import { NodeValuesEstimation } from 'meta/assessment'
+import { NodeUpdate, RecordCountryData } from 'meta/data'
 
 // TODO: refactor everything
 
@@ -90,12 +90,9 @@ export const linearExtrapolationBackwards = (
 ): BigNumber => Numbers.add(yb, Numbers.mul(Numbers.div(Numbers.sub(xb, x), Numbers.sub(xb, xa)), Numbers.sub(ya, yb)))
 
 export const getNextValues = (year: number, values: ValueArray) =>
-  values
-    .filter((v: Deprecated_TableDatum) => v.year > year)
-    .sort((a: Deprecated_TableDatum, b: Deprecated_TableDatum) => a.year - b.year)
+  values.filter((v: Deprecated_TableDatum) => v.year > year).sort((a: Deprecated_TableDatum, b: Deprecated_TableDatum) => a.year - b.year)
 
-export const getPreviousValues = (year: number, values: ValueArray) =>
-  values.filter((v) => v.year < year).sort((a, b) => b.year - a.year)
+export const getPreviousValues = (year: number, values: ValueArray) => values.filter((v) => v.year < year).sort((a, b) => b.year - a.year)
 
 export const applyEstimationFunction = (
   year: number,

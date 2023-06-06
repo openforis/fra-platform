@@ -1,9 +1,9 @@
-import { ActivityLogMessage, Assessment, SubSection } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage, Assessment, SubSection } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { SectionRepository } from '@server/repository/assessment/section'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { SectionRepository } from 'server/repository/assessment/section'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 export const updateSubSection = async (
   props: { user: User; assessment: Assessment; section: SubSection; parentSectionId?: number },

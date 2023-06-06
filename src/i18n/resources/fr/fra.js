@@ -39,8 +39,7 @@ module.exports = {
     other: 'Autre (expliquer dans les commentaires)',
     notSelected: '',
     criteriaOfDegradedForest: 'Critères utilisés dans la définition de la forêt dégradée',
-    changeInForestStructureDecreaseInForestCanopy:
-      'Changement dans la structure de la forêt / Diminution du couvert forestier',
+    changeInForestStructureDecreaseInForestCanopy: 'Changement dans la structure de la forêt / Diminution du couvert forestier',
     forestDisturbances: 'Perturbations forestières',
     lossOfProductivityAndForestGoods: 'Pertes de la productivité et de biens forestiers',
     lossOfForestServices: 'Perte de services forestiers',
@@ -91,8 +90,7 @@ module.exports = {
   },
   forestRestoration: {
     forestRestoration: 'Restauration des forêts',
-    hasYourCountryForestRestorationCommitments:
-      'Votre pays a-t-il pris des engagements en faveur de la restauration des forêts? ',
+    hasYourCountryForestRestorationCommitments: 'Votre pays a-t-il pris des engagements en faveur de la restauration des forêts? ',
     isThereALawOrOtherGovernmentMandateInSupportOfRestoration:
       'Existe-t-il une loi ou un autre mandat gouvernemental en soutien à la restauration des forêts ?',
     isThereANationalDefinitionOfRestoration:
@@ -166,6 +164,11 @@ module.exports = {
         'Estimations reposant sur des inventaires forestiers nationaux répétés compatibles³ dont les données du plus récent remontent à plus de cinq ans ; et/ou analyse des données de télédétection multitemporelles pour une période qui a pris fin il y a plus de cinq ans ; ou comparaison de cartes compatibles sans analyse multitemporelle',
       low: 'Autres sources de données – par exemple, estimations d’experts ou estimations reposant sur des évaluations non compatibles.',
     },
+    footer1:
+      '¹ Données ne remontant pas à plus de 5 ans à compter de l’année de soumission du rapport (2018 ou plus récent pour les rapports nationaux de FRA 2025)',
+    footer2:
+      '² Données remontant à plus de 5 ans à partir de l’année de soumission du rapport (antérieures à 2018 pour les rapports nationaux de FRA 2025)',
+    footer3: '³ Compatibles en termes de méthodes, de catégories et de définitions utilisées',
   },
   biomassStock_biomassStockStatus_Description: {
     header_0: 'Critères d’évaluation du niveau pour le Matériel sur pied',

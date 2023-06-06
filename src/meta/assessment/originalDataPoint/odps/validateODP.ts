@@ -1,7 +1,7 @@
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { ODPNationalClass } from '@meta/assessment'
+import { ODPNationalClass } from 'meta/assessment'
 
 import { OriginalDataPoint } from '../originalDataPoint'
 
@@ -15,8 +15,7 @@ export const validateYear = (originalDataPoint: OriginalDataPoint) => {
 
 // National Class Validations:
 // == Name must not be empty or longer than 1024
-const _validateClassName = (nationalClass: ODPNationalClass) =>
-  !Objects.isEmpty(nationalClass?.name) && nationalClass?.name?.length < 1024
+const _validateClassName = (nationalClass: ODPNationalClass) => !Objects.isEmpty(nationalClass?.name) && nationalClass?.name?.length < 1024
 
 // == Area must not be null
 const _validateArea = (nationalClass: ODPNationalClass) => Number.isNaN(+nationalClass.area)

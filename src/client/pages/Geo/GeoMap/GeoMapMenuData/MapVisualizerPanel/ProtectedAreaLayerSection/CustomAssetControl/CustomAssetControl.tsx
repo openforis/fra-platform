@@ -3,10 +3,10 @@ import React, { ChangeEvent, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { LayerStatus, ProtectedAreaKey } from '@meta/geo'
+import { LayerStatus, ProtectedAreaKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useProtectedAreasOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useProtectedAreasOptions } from 'client/store/ui/geo'
 
 import ProtectedAreasLayerOptionsPanel from '../ProtectedAreasLayerOptionsPanel'
 
@@ -14,9 +14,7 @@ const CustomAssetControl: React.FC = () => {
   const dispatch = useAppDispatch()
   const protectedAreasOptions = useProtectedAreasOptions()
 
-  const [inputValue, setInputValue] = useState<string>(
-    protectedAreasOptions.customAssetId ? protectedAreasOptions.customAssetId : ''
-  )
+  const [inputValue, setInputValue] = useState<string>(protectedAreasOptions.customAssetId ? protectedAreasOptions.customAssetId : '')
   const [inputError, setInputError] = useState(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {

@@ -1,17 +1,11 @@
-import { CountryIso } from '@meta/area'
-import { Cycle } from '@meta/assessment'
-import { Authorizer, CollaboratorEditPropertyType, User, Users } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Cycle } from 'meta/assessment'
+import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
-import { useAppSelector } from '@client/store'
-import {
-  useAssessment,
-  useAssessmentCountry,
-  useAssessmentSection,
-  useCountries,
-  useCycle,
-} from '@client/store/assessment'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { useIsPrint } from '@client/hooks/useIsPath'
+import { useAppSelector } from 'client/store'
+import { useAssessment, useAssessmentCountry, useAssessmentSection, useCountries, useCycle } from 'client/store/assessment'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsPrint } from 'client/hooks/useIsPath'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
@@ -31,9 +25,7 @@ export const useUserCycles = (): Array<Cycle> => {
   const isAdministrator = Users.isAdministrator(user)
   if (isAdministrator) return assessment.cycles
   // Return only current assessment cycles for user
-  return assessment.cycles.filter(
-    (cycle) => cycle.published || user?.roles.some((role) => cycle.uuid === role.cycleUuid)
-  )
+  return assessment.cycles.filter((cycle) => cycle.published || user?.roles.some((role) => cycle.uuid === role.cycleUuid))
 }
 
 export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
@@ -59,8 +51,7 @@ const useCanEditSection = (sectionName: string, permission: CollaboratorEditProp
   return !print && !isDataLocked && canEdit
 }
 
-export const useIsEditTableDataEnabled = (sectionName: string) =>
-  useCanEditSection(sectionName, CollaboratorEditPropertyType.tableData)
+export const useIsEditTableDataEnabled = (sectionName: string) => useCanEditSection(sectionName, CollaboratorEditPropertyType.tableData)
 
 export const useIsEditDescriptionsEnabled = (sectionName: string) =>
   useCanEditSection(sectionName, CollaboratorEditPropertyType.descriptions)

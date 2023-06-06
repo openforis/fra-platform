@@ -1,6 +1,6 @@
-import { Assessment, AssessmentFile } from '@meta/assessment'
+import { Assessment, AssessmentFile } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getOne = async (
   props: { assessment: Assessment; uuid: string },
@@ -10,9 +10,8 @@ export const getOne = async (
 
   const schemaName = Schemas.getName(assessment)
 
-  return client.oneOrNone<AssessmentFile | undefined>(
-    `select * from ${schemaName}.file where uuid = $1`,
-    [uuid],
-    (row) => ({ ...row, fileName: row.file_name })
-  )
+  return client.oneOrNone<AssessmentFile | undefined>(`select * from ${schemaName}.file where uuid = $1`, [uuid], (row) => ({
+    ...row,
+    fileName: row.file_name,
+  }))
 }

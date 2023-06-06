@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
-import { Global } from '@meta/area'
-import { RoleName, User, Users, UserStatus } from '@meta/user'
+import { ClientRoutes } from 'meta/app'
+import { Global } from 'meta/area'
+import { RoleName, User, Users, UserStatus } from 'meta/user'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useFilteredRoleNames } from '@client/store/ui/userManagement'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useFilteredRoleNames } from 'client/store/ui/userManagement'
 
 import UserRolesField from '../UserRolesField'
 

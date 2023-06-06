@@ -1,10 +1,10 @@
-import { CountryIso } from '@meta/area'
-import { CycleUuid } from '@meta/assessment'
-import { RoleName, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { CountryIso } from 'meta/area'
+import { CycleUuid } from 'meta/assessment'
+import { RoleName, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountries, useCycle } from '@client/store/assessment'
-import { useUser, useUserCountries } from '@client/store/user'
+import { useCountries, useCycle } from 'client/store/assessment'
+import { useUser, useUserCountries } from 'client/store/user'
 
 export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<CountryIso>>> => {
   const cycle = useCycle()

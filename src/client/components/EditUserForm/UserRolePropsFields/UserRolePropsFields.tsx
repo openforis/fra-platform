@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { RoleName, UserContactPreference, UserRole } from '@meta/user/userRole'
+import { RoleName, UserContactPreference, UserRole } from 'meta/user/userRole'
 
 import ContactMethodField from '../ContactMethodField'
 import CountrySelectField from '../CountrySelectField'
@@ -24,84 +24,29 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
   return (
     <>
-      <TextInputField
-        name="professionalTitle"
-        value={roleProps.professionalTitle}
-        onChange={onChange}
-        enabled={enabled}
-      />
+      <TextInputField name="professionalTitle" value={roleProps.professionalTitle} onChange={onChange} enabled={enabled} />
 
-      <TextInputField
-        name="organizationalUnit"
-        value={roleProps.organizationalUnit}
-        onChange={onChange}
-        enabled={enabled}
-      />
+      <TextInputField name="organizationalUnit" value={roleProps.organizationalUnit} onChange={onChange} enabled={enabled} />
 
-      <TextInputField
-        name="organization"
-        value={roleProps.organization}
-        onChange={onChange}
-        enabled={enabled}
-        mandatory
-      />
+      <TextInputField name="organization" value={roleProps.organization} onChange={onChange} enabled={enabled} mandatory />
 
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT].includes(role.role) && (
         <>
-          <TextInputField
-            name="street"
-            value={roleProps.address?.street}
-            onChange={changeAddress}
-            enabled={enabled}
-            mandatory
-          />
+          <TextInputField name="street" value={roleProps.address?.street} onChange={changeAddress} enabled={enabled} mandatory />
 
-          <TextInputField
-            name="zipCode"
-            value={roleProps.address?.zipCode}
-            onChange={changeAddress}
-            enabled={enabled}
-            mandatory
-          />
+          <TextInputField name="zipCode" value={roleProps.address?.zipCode} onChange={changeAddress} enabled={enabled} mandatory />
 
           <TextInputField name="poBox" value={roleProps.address?.poBox} onChange={changeAddress} enabled={enabled} />
 
-          <TextInputField
-            name="city"
-            value={roleProps.address?.city}
-            onChange={changeAddress}
-            enabled={enabled}
-            mandatory
-          />
+          <TextInputField name="city" value={roleProps.address?.city} onChange={changeAddress} enabled={enabled} mandatory />
 
-          <CountrySelectField
-            name="countryIso"
-            value={roleProps.address?.countryIso}
-            onChange={changeAddress}
-            enabled
-          />
+          <CountrySelectField name="countryIso" value={roleProps.address?.countryIso} onChange={changeAddress} enabled />
 
-          <TextInputField
-            name="secondaryEmail"
-            value={roleProps.secondaryEmail}
-            onChange={onChange}
-            enabled={enabled}
-          />
+          <TextInputField name="secondaryEmail" value={roleProps.secondaryEmail} onChange={onChange} enabled={enabled} />
 
-          <PhoneField
-            name="primaryPhoneNumber"
-            value={roleProps.primaryPhoneNumber}
-            onChange={onChange}
-            enabled={enabled}
-            mandatory
-          />
+          <PhoneField name="primaryPhoneNumber" value={roleProps.primaryPhoneNumber} onChange={onChange} enabled={enabled} mandatory />
 
-          <PhoneField
-            name="secondaryPhoneNumber"
-            value={roleProps.secondaryPhoneNumber}
-            onChange={onChange}
-            enabled={enabled}
-          />
+          <PhoneField name="secondaryPhoneNumber" value={roleProps.secondaryPhoneNumber} onChange={onChange} enabled={enabled} />
 
           <TextInputField name="skype" value={roleProps.skype} onChange={onChange} enabled={enabled} />
 

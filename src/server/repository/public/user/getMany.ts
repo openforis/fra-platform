@@ -1,11 +1,11 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { RoleName, User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RoleName, User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { UserRoleAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB } from 'server/db'
+import { UserRoleAdapter } from 'server/repository/adapter'
 
 import { fields } from './fields'
 
@@ -27,9 +27,7 @@ export const getMany = async (
 ): Promise<Array<User>> => {
   const { countryIso, assessment, cycle, limit, offset, countries, fullName, roles, administrators } = props
 
-  const selectedCountries = !Objects.isEmpty(countries)
-    ? countries.map((countryIso) => `'${countryIso}'`).join(',')
-    : null
+  const selectedCountries = !Objects.isEmpty(countries) ? countries.map((countryIso) => `'${countryIso}'`).join(',') : null
 
   const selectedRoles = !Objects.isEmpty(roles) ? roles.map((roleName) => `'${roleName}'`).join(',') : null
 

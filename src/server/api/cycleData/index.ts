@@ -2,10 +2,10 @@ import { Express } from 'express'
 // @ts-ignore
 import * as queue from 'express-queue'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { clearTable } from '@server/api/cycleData/table/clearTable'
-import { AuthMiddleware } from '@server/middleware/auth'
+import { clearTable } from 'server/api/cycleData/table/clearTable'
+import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
@@ -29,18 +29,9 @@ export const CycleDataApi = {
   init: (express: Express): void => {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
-    express.get(
-      ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
-      AuthMiddleware.requireEditTableData,
-      getNodeValuesEstimations
-    )
+    express.get(ApiEndPoint.CycleData.Table.nodeValuesEstimations(), AuthMiddleware.requireEditTableData, getNodeValuesEstimations)
     express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
-    express.post(
-      ApiEndPoint.CycleData.Table.estimate(),
-      queue({ activeLimit: 1 }),
-      AuthMiddleware.requireEditTableData,
-      estimateValues
-    )
+    express.post(ApiEndPoint.CycleData.Table.estimate(), queue({ activeLimit: 1 }), AuthMiddleware.requireEditTableData, estimateValues)
     express.post(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
 
     // Descriptions
@@ -51,22 +42,10 @@ export const CycleDataApi = {
     // OriginalDataPoints
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(), AuthMiddleware.requireView, getReservedYears)
 
-    express.post(
-      ApiEndPoint.CycleData.OriginalDataPoint.one(),
-      AuthMiddleware.requireEditTableData,
-      createOriginalDataPoint
-    )
-    express.delete(
-      ApiEndPoint.CycleData.OriginalDataPoint.one(),
-      AuthMiddleware.requireEditTableData,
-      deleteOriginalDataPoint
-    )
+    express.post(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEditTableData, createOriginalDataPoint)
+    express.delete(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEditTableData, deleteOriginalDataPoint)
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
-    express.put(
-      ApiEndPoint.CycleData.OriginalDataPoint.one(),
-      AuthMiddleware.requireEditTableData,
-      updateOriginalDataPoint
-    )
+    express.put(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireEditTableData, updateOriginalDataPoint)
 
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)
 

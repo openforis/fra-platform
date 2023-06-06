@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { OriginalDataPoint } from '@meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import {
   OriginalDataPointActions,
   useIsOriginalDataPointUpdating,
   useOriginalDataPointReservedYears,
-} from '@client/store/ui/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
-import { useIsPrint } from '@client/hooks/useIsPath'
+} from 'client/store/ui/originalDataPoint'
+import { useCountryIso } from 'client/hooks'
+import { useIsPrint } from 'client/hooks/useIsPath'
 
 import NationalClass from './NationalClass'
 
@@ -60,9 +60,7 @@ const NationalClasses: React.FC<Props> = (props) => {
       {!print && (
         <>
           <div className="odp__section-header">
-            <h3 className="subhead">
-              {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
-            </h3>
+            <h3 className="subhead">{t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}</h3>
           </div>
 
           {canEditData && (
@@ -110,12 +108,7 @@ const NationalClasses: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.definition')}</th>
               </tr>
               {nationalClasses.map((nationalClass, idx) => (
-                <NationalClass
-                  originalDataPoint={originalDataPoint}
-                  key={nationalClass.uuid}
-                  index={idx}
-                  canEditData={canEditData}
-                />
+                <NationalClass originalDataPoint={originalDataPoint} key={nationalClass.uuid} index={idx} canEditData={canEditData} />
               ))}
             </tbody>
           </table>

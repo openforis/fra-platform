@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { ForestAgreementLayerRequest } from '@meta/api/request'
-import { ForestSource } from '@meta/geo'
+import { ForestAgreementLayerRequest } from 'meta/api/request'
+import { ForestSource } from 'meta/geo'
 
-import { GeoController } from '@server/controller/geo'
-import Requests from '@server/utils/requests'
+import { GeoController } from 'server/controller/geo'
+import Requests from 'server/utils/requests'
 
 export const getForestAgreementLayer = async (req: ForestAgreementLayerRequest, res: Response) => {
   try {

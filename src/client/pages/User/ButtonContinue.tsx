@@ -2,11 +2,11 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ClientRoutes } from 'meta/app'
+import { Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useUserToEdit } from '@client/store/ui/userManagement/hooks'
+import { useUserToEdit } from 'client/store/ui/userManagement/hooks'
 
 const ButtonContinue = () => {
   const { t } = useTranslation()

@@ -2,14 +2,14 @@ import './CycleSwitcher.scss'
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { Cycle } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { Cycle } from 'meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useUserCycles } from '@client/store/user/hooks'
-import { useCountryIso, useIsAdmin, useIsDataExportView } from '@client/hooks'
-import Icon from '@client/components/Icon'
-import PopoverControl from '@client/components/PopoverControl'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useUserCycles } from 'client/store/user/hooks'
+import { useCountryIso, useIsAdmin, useIsDataExportView } from 'client/hooks'
+import Icon from 'client/components/Icon'
+import PopoverControl from 'client/components/PopoverControl'
 
 const CycleSwitcher = () => {
   const countryIso = useCountryIso()
@@ -25,8 +25,7 @@ const CycleSwitcher = () => {
 
   const onCycleChange = useCallback(
     (cycleName: string) => {
-      if (countryIso)
-        navigate(ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName }))
+      if (countryIso) navigate(ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName }))
       else if (isAdmin) navigate(ClientRoutes.Assessment.Cycle.Admin.Root.getLink({ assessmentName, cycleName }))
       else navigate(ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName }))
     },

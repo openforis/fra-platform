@@ -1,11 +1,11 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Areas, Country, CountryIso } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
-import { Cycle, Section, SubSection } from '@meta/assessment'
-import { User } from '@meta/user/user'
-import { Collaborator, CollaboratorEditPropertyType } from '@meta/user/userRole'
-import { Users } from '@meta/user/users'
+import { Areas, Country, CountryIso } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
+import { Cycle, Section, SubSection } from 'meta/assessment'
+import { User } from 'meta/user/user'
+import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
+import { Users } from 'meta/user/users'
 
 /**
  *  CanView
@@ -88,10 +88,7 @@ const canEditData = (props: {
   if (Users.isViewer(user, countryIso, cycle)) return false
   if (Users.isAdministrator(user)) return true
 
-  if (
-    Users.isNationalCorrespondent(user, countryIso, cycle) ||
-    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
-  )
+  if (Users.isNationalCorrespondent(user, countryIso, cycle) || Users.isAlternateNationalCorrespondent(user, countryIso, cycle))
     return status === AssessmentStatus.editing
 
   if (Users.isReviewer(user, countryIso, cycle)) {
@@ -134,10 +131,7 @@ const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User
   if (Users.isViewer(user, countryIso, cycle)) return false
   if (Users.isAdministrator(user)) return true
 
-  if (
-    Users.isNationalCorrespondent(user, countryIso, cycle) ||
-    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
-  )
+  if (Users.isNationalCorrespondent(user, countryIso, cycle) || Users.isAlternateNationalCorrespondent(user, countryIso, cycle))
     return status === AssessmentStatus.editing
 
   if (Users.isReviewer(user, countryIso, cycle)) {

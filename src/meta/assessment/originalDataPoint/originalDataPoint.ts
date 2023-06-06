@@ -1,4 +1,4 @@
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
 import { ODPDataSourceMethod } from './odpDataSource' // import { ODPEditStatus } from './odpEditStatus'
 import { ODPNationalClass } from './odpNationalClass' // import { ODPValidation } from './odpValidation'

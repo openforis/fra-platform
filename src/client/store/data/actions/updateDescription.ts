@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Functions } from '@utils/functions'
 import axios from 'axios'
+import { Functions } from 'utils/functions'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleDataParams } from '@meta/api/request'
-import { CommentableDescriptionValue } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleDataParams } from 'meta/api/request'
+import { CommentableDescriptionValue } from 'meta/assessment'
 
 type Props = CycleDataParams & { name: string; value: CommentableDescriptionValue }
 

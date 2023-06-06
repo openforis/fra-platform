@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import DefinitionLink from '@client/components/DefinitionLink'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import DefinitionLink from 'client/components/DefinitionLink'
 
 import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
@@ -46,13 +46,9 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
   // Display primary_forest only for ODP/Cycle2025
   const hasNaturallyRegeneratingForest =
-    cycle.name === '2025' &&
-    naturallyRegeneratingForestTotal &&
-    Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
+    cycle.name === '2025' && naturallyRegeneratingForestTotal && Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
-  const nationalClassValidations = nationalClasses.map((_, index) =>
-    ODPs.validateNationalClass(originalDataPoint, index)
-  )
+  const nationalClassValidations = nationalClasses.map((_, index) => ODPs.validateNationalClass(originalDataPoint, index))
 
   return (
     <div className="odp__section">
@@ -92,9 +88,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.class')}</th>
                 <th className="fra-table__header-cell fra-table__divider">{t('nationalDataPoint.area')}</th>
-                <th className="fra-table__header-cell">
-                  {t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}
-                </th>
+                <th className="fra-table__header-cell">{t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
                 <th className="fra-table__header-cell">{t('fraForestCharacteristicsClass.plantationForest')}</th>
                 <th className="fra-table__header-cell">{t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
               </tr>
@@ -154,18 +148,10 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
       </div>
 
       {hasNaturallyRegeneratingForest && (
-        <ForestCharacteristicsNaturallyRegenerating
-          canEditData={canEditData}
-          nationalClassValidations={nationalClassValidations}
-        />
+        <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} nationalClassValidations={nationalClassValidations} />
       )}
 
-      {hasPlantation && (
-        <ForestCharacteristicsPlantation
-          canEditData={canEditData}
-          nationalClassValidations={nationalClassValidations}
-        />
-      )}
+      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} nationalClassValidations={nationalClassValidations} />}
     </div>
   )
 }

@@ -1,7 +1,7 @@
-import { assessmentParams } from '@test/integration/mock/assessment'
+import { AssessmentController } from 'server/controller/assessment'
+import { SettingsController } from 'server/controller/settings'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { SettingsController } from '@server/controller/settings'
+import { assessmentParams } from 'test/integration/mock/assessment'
 
 export default (): void =>
   test('Default assessment', async () => {

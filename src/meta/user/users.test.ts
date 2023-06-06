@@ -1,5 +1,5 @@
-import { CountryIso } from '@meta/area'
-import { Cycle } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Cycle } from 'meta/assessment'
 
 import { User } from './user'
 import { RoleName } from './userRole'
@@ -8,8 +8,7 @@ import { Users } from './users'
 const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'
 
-const getUserInfo = (countryIso: CountryIso, role: RoleName) =>
-  ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
+const getUserInfo = (countryIso: CountryIso, role: RoleName) => ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
 const cycle = { uuid: cycleUuid } as Cycle
 
 describe('User allowance tests:', () => {

@@ -1,6 +1,6 @@
-import { Assessment, Cycle, OriginalDataPoint } from '@meta/assessment'
+import { Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 import { getOne } from './getOne'
 

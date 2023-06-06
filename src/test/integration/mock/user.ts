@@ -1,4 +1,4 @@
-import { User } from '@meta/user'
+import { User } from 'meta/user'
 
 export const userMockTest: Pick<User, 'email' | 'props'> = {
   email: 'test@fra-platform.com',

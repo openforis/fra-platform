@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { NodeValue } from '@meta/assessment'
+import { NodeValue } from 'meta/assessment'
 
-import { GenerateValuesField } from '@client/pages/AssessmentSection/DataTable/GenerateValues/field'
+import { GenerateValuesField } from 'client/pages/AssessmentSection/DataTable/GenerateValues/field'
 
 export enum Method {
   placeholder = 'placeholder',
@@ -12,11 +12,7 @@ export enum Method {
 }
 
 export const Methods = {
-  isValid: (props: {
-    data?: Record<string, Record<string, NodeValue>>
-    method: Method
-    fields: Array<GenerateValuesField>
-  }): boolean => {
+  isValid: (props: { data?: Record<string, Record<string, NodeValue>>; method: Method; fields: Array<GenerateValuesField> }): boolean => {
     const { data, method, fields } = props
     const fieldsSelected = fields.filter((field) => field.selected === true)
 

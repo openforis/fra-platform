@@ -1,8 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment'
 
 import { Context } from '../context'
 
@@ -16,9 +16,7 @@ export const validatorOtherLandWithTreeCoverTotal: ExpressionFunction<Context> =
         Objects.isEmpty(otherLandWithTreeCoverTotal) ||
         Numbers.greaterThanWithTolerance(otherLandWithTreeCoverTotal, otherLand)
 
-      const messages: Array<NodeValueValidationMessage> = valid
-        ? undefined
-        : [{ key: 'generalValidation.otherLandExceedsExtentOfForest' }]
+      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key: 'generalValidation.otherLandExceedsExtentOfForest' }]
 
       return { valid, messages }
     }

@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
+import { ODPs, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import DefinitionLink from '@client/components/DefinitionLink'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import DefinitionLink from 'client/components/DefinitionLink'
 
 import NationalClassValidations from '../NationalClassValidations'
 import ExtentOfForestRow from './ExtentOfForestRow'
@@ -30,17 +30,13 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
 
-  const nationalClassValidations = nationalClasses.map((_, index) =>
-    ODPs.validateNationalClass(originalDataPoint, index)
-  )
+  const nationalClassValidations = nationalClasses.map((_, index) => ODPs.validateNationalClass(originalDataPoint, index))
 
   return (
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
-          <h3 className="subhead">
-            {t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
-          </h3>
+          <h3 className="subhead">{t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}</h3>
           <DefinitionLink
             assessmentName={assessment.props.name}
             cycleName={cycle.name}
@@ -102,9 +98,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                 <td className="fra-table__calculated-cell">
                   {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' }))}
                 </td>
-                <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint }))}
-                </td>
+                <td className="fra-table__calculated-cell">{Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint }))}</td>
               </tr>
             </tbody>
           </table>

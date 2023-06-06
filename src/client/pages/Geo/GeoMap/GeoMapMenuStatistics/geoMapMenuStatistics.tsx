@@ -1,9 +1,9 @@
 import './geoMapMenuStatistics.scss'
 import React from 'react'
 
-import { useGeoStatistics, useSelectedPanel } from '@client/store/ui/geo'
-import { useCountryIso } from '@client/hooks'
-import { useGeoStatisticsHandler } from '@client/pages/Geo/GeoMap/hooks'
+import { useGeoStatistics, useSelectedPanel } from 'client/store/ui/geo'
+import { useCountryIso } from 'client/hooks'
+import { useGeoStatisticsHandler } from 'client/pages/Geo/GeoMap/hooks'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
 import GeoMenuItem from '../GeoMapMenuItem'
@@ -23,13 +23,9 @@ const GeoMapMenuStatistics: React.FC = () => {
       {selectedPanel === 'statistics' && (
         <div>
           <GeoMenuItem title="Tree Cover Area" checked={null} tabIndex={-1}>
-            {!isLoading && statisticsData.length > 0 && (
-              <TreeCoverAreaPanel data={statisticsData} countryIso={countryIso} year={year} />
-            )}
+            {!isLoading && statisticsData.length > 0 && <TreeCoverAreaPanel data={statisticsData} countryIso={countryIso} year={year} />}
             {!isLoading && statisticsData.length === 0 && !error && <p>Found no data.</p>}
-            {!isLoading && error && (
-              <p className="geo-map-alt-message">An error has occured while fetching the statistics: {error}</p>
-            )}
+            {!isLoading && error && <p className="geo-map-alt-message">An error has occured while fetching the statistics: {error}</p>}
             {isLoading && <p className="geo-map-alt-message">Loading...</p>}
           </GeoMenuItem>
           <div className="geo-map-menu-separator" />
@@ -38,9 +34,7 @@ const GeoMapMenuStatistics: React.FC = () => {
               <StatisticalGraphsPanel data={statisticsData} countryIso={countryIso} year={year} />
             )}
             {!isLoading && statisticsData.length === 0 && !error && <p>Found no data.</p>}
-            {!isLoading && error && (
-              <p className="geo-map-alt-message">An error has occured while fetching the statistics: {error}</p>
-            )}
+            {!isLoading && error && <p className="geo-map-alt-message">An error has occured while fetching the statistics: {error}</p>}
             {isLoading && <p className="geo-map-alt-message">Loading...</p>}
           </GeoMenuItem>
         </div>

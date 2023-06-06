@@ -10,13 +10,7 @@ module.exports = {
       jsx: true,
     },
   },
-  extends: [
-    'prettier',
-    'airbnb',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'plugin:react-hooks/recommended',
-  ],
+  extends: ['prettier', 'airbnb', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'plugin:react-hooks/recommended'],
   env: {
     browser: true,
     commonjs: true,
@@ -24,7 +18,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  plugins: ['prettier', 'simple-import-sort', 'react-hooks'],
+  plugins: ['prettier', 'simple-import-sort', 'react-hooks', 'import'],
   rules: {
     'no-underscore-dangle': 0,
     'prettier/prettier': 1,
@@ -75,15 +69,10 @@ module.exports = {
             '^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)',
             '^@?\\w',
           ],
-          ['^@meta(\\/\\w)*'],
-          [
-            '^@client\\/store(\\/\\w)*',
-            '^@client\\/hooks(\\/\\w)*',
-            '^@client\\components(\\/\\w)*',
-            '^@client(\\/\\w)*',
-          ],
-          ['^@server(\\/\\w)*'],
-          ['^@test(\\/\\w)*'],
+          ['^meta(\\/\\w)*'],
+          ['^client\\/store(\\/\\w)*', '^client\\/hooks(\\/\\w)*', '^client\\components(\\/\\w)*', '^client(\\/\\w)*'],
+          ['^server(\\/\\w)*'],
+          ['^test(\\/\\w)*'],
           [
             '^\\.\\.(?!/?$)',
             '^\\.\\./?$', // Parent imports. Put `..` last.
@@ -100,10 +89,19 @@ module.exports = {
       version: 'detect',
     },
     'import/resolver': {
-      node: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
       webpack: {
         config: 'webpack.config.babel.js',
       },
+      // typescript: {},
     },
+    // 'import/resolver': {
+    //   node: {},
+    //   webpack: {
+    //     config: 'webpack.config.babel.js',
+    //   },
+    // },
   },
 }

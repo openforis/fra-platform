@@ -1,5 +1,5 @@
-import { AssessmentName, Row, Table } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { AssessmentName, Row, Table } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
 export type Props = {
   assessmentName: AssessmentName

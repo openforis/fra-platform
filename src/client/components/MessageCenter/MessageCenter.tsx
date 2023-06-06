@@ -1,9 +1,9 @@
 import './MessageCenter.scss'
 import React from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { useTopics } from '@client/store/ui/messageCenter'
+import { useTopics } from 'client/store/ui/messageCenter'
 
 import Topic from './Topic'
 

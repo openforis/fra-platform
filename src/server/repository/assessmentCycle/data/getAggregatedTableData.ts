@@ -1,8 +1,8 @@
-import { Areas, CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { RecordCountryData } from '@meta/data'
+import { Areas, CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RecordCountryData } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
@@ -30,11 +30,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
   }
 
   if (isGlobal) {
-    _countryISOs = await client.map<CountryIso>(
-      `select country_iso from ${schemaCycle}.country`,
-      [],
-      (res) => res.country_iso
-    )
+    _countryISOs = await client.map<CountryIso>(`select country_iso from ${schemaCycle}.country`, [], (res) => res.country_iso)
   }
 
   // totalLandArea only for year 2015

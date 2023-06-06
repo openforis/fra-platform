@@ -1,12 +1,12 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Country, CountryIso } from '@meta/area'
-import { Assessment, Cycle, TableNames, VariableCache } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { Country, CountryIso } from 'meta/area'
+import { Assessment, Cycle, TableNames, VariableCache } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol, DB } from '@server/db'
-import { CountryRepository } from '@server/repository/assessmentCycle/country'
-import { DataRepository } from '@server/repository/assessmentCycle/data'
+import { BaseProtocol, DB } from 'server/db'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { DataRepository } from 'server/repository/assessmentCycle/data'
 
 export const getTableData = async (
   props: {
@@ -35,24 +35,15 @@ export const getTableData = async (
   if (aggregate)
     return {
       [assessment.props.name]: {
-        [cycle.name]: await DataRepository.getAggregatedTableData(
-          { assessment, cycle, countryISOs, variables, columns },
-          client
-        ),
+        [cycle.name]: await DataRepository.getAggregatedTableData({ assessment, cycle, countryISOs, variables, columns }, client),
       },
     }
 
   const tableData = await DataRepository.getTableData({ assessment, cycle, tables, countryISOs, dependencies }, client)
 
   const allTableNames = [...tableNames, ...(dependencies ? dependencies.map((d) => d.tableName) : [])]
-  if (
-    mergeOdp &&
-    (allTableNames.includes(TableNames.extentOfForest) || allTableNames.includes(TableNames.forestCharacteristics))
-  ) {
-    const originalDataPointData = await DataRepository.getOriginalDataPointData(
-      { assessment, cycle, countryISOs },
-      client
-    )
+  if (mergeOdp && (allTableNames.includes(TableNames.extentOfForest) || allTableNames.includes(TableNames.forestCharacteristics))) {
+    const originalDataPointData = await DataRepository.getOriginalDataPointData({ assessment, cycle, countryISOs }, client)
     const countries = await CountryRepository.getMany({ assessment, cycle }, client)
     const countryMap = countries.reduce<Record<CountryIso, Country>>(
       (acc, country) => ({ ...acc, [country.countryIso]: country }),

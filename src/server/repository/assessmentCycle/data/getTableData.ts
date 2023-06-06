@@ -1,8 +1,8 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, VariableCache } from '@meta/assessment'
-import { RecordCountryData } from '@meta/data'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, VariableCache } from 'meta/assessment'
+import { RecordCountryData } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export type TablesCondition = Record<string, { variables?: Array<string>; columns?: Array<string> }>
 
@@ -60,11 +60,7 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<R
                  jsonb_object_agg(e.variable_name, e.value) as data
           from ${schemaCycle}.${tableName} e
           where e.country_iso in ($1:csv)
-              ${
-                tableProps?.columns && tableProps?.columns?.length
-                  ? `and e.col_name in ${asQueryStringArray(tableProps.columns)}`
-                  : ''
-              }
+              ${tableProps?.columns && tableProps?.columns?.length ? `and e.col_name in ${asQueryStringArray(tableProps.columns)}` : ''}
               ${
                 tableProps?.variables && tableProps?.variables?.length
                   ? `and e.variable_name in ${asQueryStringArray(tableProps.variables)}`

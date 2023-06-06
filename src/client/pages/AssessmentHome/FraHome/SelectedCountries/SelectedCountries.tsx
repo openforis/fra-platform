@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from '@meta/area'
+import { Areas, CountryIso } from 'meta/area'
 
-import { useHomeCountriesFilter } from '@client/store/ui/home'
+import { useHomeCountriesFilter } from 'client/store/ui/home'
 
 const SelectedCountries: React.FC = () => {
   const { i18n } = useTranslation()
