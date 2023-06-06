@@ -110,7 +110,7 @@ import { MemberExpression } from '@openforis/arena-core'
 
 export const parseExpression = (
   expressionNode: MemberExpression
-): { tableName: string; variableName: string; assessmentName?: string; cycleName?: string } => {
+): { tableName: string; variableName: string; colName?: string; assessmentName?: string; cycleName?: string } => {
   // Case when parsing a member expression: fra['2025'].extentOfForest.forestArea['2025']
   if (
     expressionNode.object.type === 'MemberExpression' &&
@@ -126,6 +126,8 @@ export const parseExpression = (
       tableName: expressionNode.object.object.property.name,
       // @ts-ignore
       variableName: expressionNode.object.property.name,
+      // @ts-ignore
+      colName: expressionNode.property.value ?? expressionNode.property.name,
       // @ts-ignore
       assessmentName: expressionNode.object.object.object.object.name,
       // @ts-ignore
@@ -146,6 +148,7 @@ export const parseExpression = (
       tableName: expressionNode.object.property.name,
       // @ts-ignore
       variableName: expressionNode.property.name,
+      colName: undefined,
       // @ts-ignore
       assessmentName: expressionNode.object.object.object.name,
       // @ts-ignore
@@ -167,6 +170,8 @@ export const parseExpression = (
       tableName: expressionNode.object.object.name,
       // @ts-ignore
       variableName: expressionNode.object.property.name,
+      // @ts-ignore
+      colName: expressionNode.property.value ?? expressionNode.property.name,
       assessmentName: undefined,
       cycleName: undefined,
     }
@@ -179,6 +184,7 @@ export const parseExpression = (
       tableName: expressionNode.object.name,
       // @ts-ignore
       variableName: expressionNode.property.name,
+      colName: undefined,
       assessmentName: undefined,
       cycleName: undefined,
     }
