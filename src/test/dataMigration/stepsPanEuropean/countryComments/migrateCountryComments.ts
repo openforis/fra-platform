@@ -147,11 +147,6 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
     const pathCsvFile = path.resolve(pathCSV, fileName)
     // eslint-disable-next-line no-await-in-loop
     const csvRows = await FileCSV.read<CSVRowItem>(pathCsvFile, { escape: '"', quote: '"' })
-    //
-    // // Log raw CSV data only for the specified table
-    // if (tableName === 'country_comments_4_4_2') {
-    //   Logger.info(`CSV data: ${JSON.stringify(csvRows)}`)
-    // }
 
     // ======== iterate csv rows
     let countryIso = ''
@@ -173,10 +168,6 @@ export const migrateCountryComments = async (props: Props, client: BaseProtocol)
       // convert csv row -> db node type
       const columnNames = table.props.columnNames[cycle.uuid]
       columnNames.forEach((columnName) => {
-        // Log each column name and available columns for the specified table
-        // if (tableName === 'country_comments_4_4_2' || tableName === 'country_comments_4_4_1') {
-        //   Logger.info(`Searching for column '${columnName}' in available columns: ${JSON.stringify(row.cols)}`)
-        // }
         const col = row.cols.find((c) => c.props.colName === columnName)
 
         if (col) {
