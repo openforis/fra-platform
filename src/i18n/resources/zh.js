@@ -336,10 +336,8 @@ FRA工作组
       userAlreadyAddedToCountry: '错误: 用户 {{user}} 已被添加至国家 {{countryIso}}',
       invitationAlreadyUsed: '错误: 邀请函 {{invitationUuid}}已被使用，不得通过{{loginEmail}}加以劫持!',
       countryDoesNotMatch: '错误: 国家 {{countyryIso}} 不匹配',
-      assessmentEditingNotAllowed:
-        '错误: 用户{{user}}为 {{role}}身份，不得编辑状态为{{assessmentStatus}}的国家{{countryIso}}评估报告',
-      assessmentCommentingNotAllowed:
-        '错误: 用户{{user}}为 {{role}}身份，不得评论状态为{{assessmentStatus}}的国家{{countryIso}}评估报告',
+      assessmentEditingNotAllowed: '错误: 用户{{user}}为 {{role}}身份，不得编辑状态为{{assessmentStatus}}的国家{{countryIso}}评估报告',
+      assessmentCommentingNotAllowed: '错误: 用户{{user}}为 {{role}}身份，不得评论状态为{{assessmentStatus}}的国家{{countryIso}}评估报告',
     },
     assessment: {
       transitionNotAllowed: '错误: 身份为{{role}}的用户，不得将{{currentStatus}}变更为{{status}}',
@@ -638,7 +636,6 @@ FRA工作组 fra@fao.org
     annualChangeExtrapolation: '年度变化',
     placeholderFuture: '未来',
     placeholderPast: '过去',
-    clearTable: '清除表格',
     copyToClipboard: '复制数值',
     placeholderSelect: '估算和预测',
     _1000haYear: '1000公顷/年',
@@ -1683,8 +1680,7 @@ FRA工作组
 
     // table 5.1
     protectiveForestsSoilWaterAndOtherEcosystemFunctions: {
-      protectiveForestsSoilWaterAndOtherEcosystemFunctions:
-        '受保护的森林–土壤、水及其他生态系统功能;基础设施及得到管理的自然资源',
+      protectiveForestsSoilWaterAndOtherEcosystemFunctions: '受保护的森林–土壤、水及其他生态系统功能;基础设施及得到管理的自然资源',
       categoryYear: '类别-年份',
       protectiveForestsMCPFEClass31000ha: '受保护的森林-欧洲大森林地区森林保护部长级会议（MCPFE） 类别 3 (1000公顷)',
       soil_water_and_other_forest_ecosystem_functions: '土壤、水及其他森林生态系统功能',
@@ -1938,8 +1934,7 @@ FRA工作组
       areaAvailableForPublicRecreation: '可供公众休闲的面积',
       total1000Ha: '总和(1000公顷)',
       _oftotal: '占总数百分比',
-      areaPrimarilyDesignatedOrManagedForPublicRecreation:
-        '主要指定用于公共休闲区域的面积或主要按公共休闲区域加以管理的面积',
+      areaPrimarilyDesignatedOrManagedForPublicRecreation: '主要指定用于公共休闲区域的面积或主要按公共休闲区域加以管理的面积',
       area_available_for_public_recreation_total: '可供公众休闲的面积: 总和 (1000公顷)',
       area_available_for_public_recreation_percent: '可供公众休闲的面积: 占总数百分比',
       area_designated_or_managed_for_public_recreation_total:
@@ -1955,12 +1950,10 @@ FRA工作组
       categoryYear: '类别-年份',
       annualNumberOfVisitsMillion: '年访问量( 百万人次)',
       areaAvailableForPublicRecreation: '可供公众休闲的面积',
-      areaPrimarilyDesignatedAndOrManagedForPublicRecreation:
-        '主要指定用于公共休闲区域的面积或主要按公共休闲区域加以管理的面积',
+      areaPrimarilyDesignatedAndOrManagedForPublicRecreation: '主要指定用于公共休闲区域的面积或主要按公共休闲区域加以管理的面积',
       total_forest_and_other_wooded_land: '森林及其他林地总和 - {{year}}',
       area_available_for_public_recreation: '可供公众休闲的面积',
-      area_designated_and_or_managed_for_public_recreation:
-        '主要指定用于公共休闲区域的面积或主要按公共休闲区域加以管理的面积',
+      area_designated_and_or_managed_for_public_recreation: '主要指定用于公共休闲区域的面积或主要按公共休闲区域加以管理的面积',
     },
 
     // table 6.10c

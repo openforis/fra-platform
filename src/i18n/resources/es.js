@@ -54,8 +54,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
   },
 
   disclaimer: {
-    statisticalFactsheets:
-      'Descargo de responsabilidad: puede contener estimaciones de la FAO, puede contener valores faltantes',
+    statisticalFactsheets: 'Descargo de responsabilidad: puede contener estimaciones de la FAO, puede contener valores faltantes',
     part1: 'Este portal se ha realizado con la asistencia de la ',
     europeanUnion: 'Unión Europea',
     part2: ', el ',
@@ -280,31 +279,26 @@ El equipo de FRA
   // error messages
   error: {
     access: {
-      countryRoleNotSpecified:
-        'Error: El usuario {{user}} intentó acceder {{countryIso}} pero no se había especificado ninguna función',
+      countryRoleNotSpecified: 'Error: El usuario {{user}} intentó acceder {{countryIso}} pero no se había especificado ninguna función',
       countryUserNotReviewer: 'Error: El usuario {{user}} intentó acceder {{countryIso}}, del cual no es evaluador',
       roleChangeNotAllowed:
         'Error: El usuario {{user}} intentó asignar otra función de usuario a {{role}}, lo que está prohibido para el usuario conectado',
-      invitationAlreadyUsed:
-        'Error: La invitación {{invitationUuid}} ya se ha utilizado, ¡el robo del {{loginEmail}} está prohibido!',
+      invitationAlreadyUsed: 'Error: La invitación {{invitationUuid}} ya se ha utilizado, ¡el robo del {{loginEmail}} está prohibido!',
       countryDoesNotMatch: 'Error: El país {{countyryIso}} no coincide',
       assessmentEditingNotAllowed:
         'Error: El usuario {{user}} en función {{role}} no puede editar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}',
       assessmentCommentingNotAllowed:
         'Error: El usuario {{user}} en función {{role}} no puede comentar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}',
-      userNotAdministrator:
-        'Error: El usuario {{user}} ha intentado acceder a un recurso disponible sólo para administradores',
+      userNotAdministrator: 'Error: El usuario {{user}} ha intentado acceder a un recurso disponible sólo para administradores',
       userAlreadyAddedToCountry: 'Error: El usuario {{user}} ya está añadido al país {{country Iso}}',
     },
     assessment: {
-      transitionNotAllowed:
-        'Error: El paso de {{currentStatus}} a {{status}} está prohibido en el caso de la función {{role}}',
+      transitionNotAllowed: 'Error: El paso de {{currentStatus}} a {{status}} está prohibido en el caso de la función {{role}}',
       deskStudyNotAllowed: 'Error: El administrador es el único que puede cambiar el estado del estudio técnico',
     },
     review: {
       commentDeleteNotOwner: 'Error: El usuario {{user}} intentó borrar un comentario que no es suyo',
-      commentEnterResolvedIssue:
-        'Error: El usuario {{user}} intentó introducir un comentario a un asunto que ya se había resuelto',
+      commentEnterResolvedIssue: 'Error: El usuario {{user}} intentó introducir un comentario a un asunto que ya se había resuelto',
     },
     ndp: {
       previousNdpNotFound: 'No es posible encontrar ningún punto de información nacional anterior a {{year}}',
@@ -556,13 +550,11 @@ El equipo de FRA
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
     whatIsThis: '¿Qué significa esto?',
-    tableNoticeMessage:
-      'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
+    tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
     ndpMissingValues: 'El punto de dato nacional tiene valores faltantes',
     showNDPs: 'Mostrar puntos de datos nacionales',
     hideNDPs: 'Esconder puntos de datos nacionales',
-    forestAreaNetChangeDoesNotMatch:
-      'El cambio neto de la superficie forestal no coincide con el valor esperado: {{value}}',
+    forestAreaNetChangeDoesNotMatch: 'El cambio neto de la superficie forestal no coincide con el valor esperado: {{value}}',
   },
 
   climaticDomain: {
@@ -599,7 +591,6 @@ El equipo de FRA
     annualChangeExtrapolation: 'Cambio anual',
     placeholderFuture: 'Futuro',
     placeholderPast: 'Pasado',
-    clearTable: 'Despejar la tabla',
     copyToClipboard: 'Copiar valores',
     placeholderSelect: 'Estimación y proyección',
     _1000haYear: '1000 ha/año',
@@ -795,8 +786,7 @@ El equipo de FRA
   },
 
   forestPolicy: {
-    forestPolicy:
-      'Políticas, legislación y plataforma nacional para la participación de los grupos de interés en la política forestal',
+    forestPolicy: 'Políticas, legislación y plataforma nacional para la participación de los grupos de interés en la política forestal',
     categoryHeader: 'Indicar la existencia de',
     areaUnitLabel: 'Booleana (Sí/No)',
     national: 'Nacional',
@@ -889,8 +879,7 @@ El equipo de FRA
     forestAreaAnnualNetChangeRate: 'Porcentaje anual de cambio neto en el área de bosque',
     aboveGroundBiomassStockForests: 'Biomasa aérea en los bosques',
     percent2015ForestAreaBaseline: 'Porcentaje (referencia del área de bosque en 2015)',
-    proportionForestAreaLegallyEstablishedProtectedAreas:
-      'Proporción de área de bosque dentro de áreas protegidas legalmente establecidas',
+    proportionForestAreaLegallyEstablishedProtectedAreas: 'Proporción de área de bosque dentro de áreas protegidas legalmente establecidas',
     proportionForestAreaLongTermForestManagement: 'Proporción de área de bosque con planes de gestión a largo plazo',
     forestArea1000Ha: 'Área de bosque (1000 ha)',
     forestAreaVerifiedForestManagement:
@@ -994,8 +983,7 @@ El equipo de FRA
     mustBeEqualToForestArea:
       'La suma de Bosque con Procesos de Regeneración Natural y Bosque Plantado debe ser igual al total de Existencias Forestales en Formación',
     mustBeLessThanPrivateOwnership: 'La suma de las subcategorías debe ser inferior a Propiedad privada',
-    forestSumAreaExceedsExtentOfForest:
-      'La suma de las cifras introducidas supera el valor de área de bosque introducido en el cuadro 1a',
+    forestSumAreaExceedsExtentOfForest: 'La suma de las cifras introducidas supera el valor de área de bosque introducido en el cuadro 1a',
     valueEqualToSum: 'El valor total debe ser igual a la suma de las subcategorías',
   },
 
@@ -1046,8 +1034,7 @@ El equipo de FRA
 
   page: {
     assessmentSection: {
-      dataTableHasErrors:
-        'Los datos de la tabla contienen errores. Pase el ratón sobre la celda roja para ver los detalles.',
+      dataTableHasErrors: 'Los datos de la tabla contienen errores. Pase el ratón sobre la celda roja para ver los detalles.',
     },
   },
 }

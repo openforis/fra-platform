@@ -2,6 +2,7 @@ module.exports = {
   resetAll: '重置所有',
   done: '完成',
   apply: '应用',
+  clearTable: '清除表格',
   column: '栏目',
   countries: '国家',
   dataExport: '数据输出',
