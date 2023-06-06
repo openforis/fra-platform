@@ -1,16 +1,16 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
 import { ChartOptions } from 'chart.js'
+import { Numbers } from 'utils/numbers'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { RecordAssessmentDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import Chart from '@client/components/Chart'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Chart from 'client/components/Chart'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { ChartColors, commonOptions } from '../utils/preferences'
@@ -46,9 +46,7 @@ const ForestAreaWithinProtectedAreas = () => {
     data: tableData,
   }
 
-  const forestArea = Number(
-    RecordAssessmentDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' })
-  )
+  const forestArea = Number(RecordAssessmentDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' }))
   const forestAreaWithinProtectedAreas = Number(
     RecordAssessmentDatas.getDatum({
       ...props,
@@ -57,10 +55,7 @@ const ForestAreaWithinProtectedAreas = () => {
     })
   )
 
-  const primaryForestAsPercentage = Numbers.mul(
-    100,
-    Numbers.div(forestAreaWithinProtectedAreas, forestArea)
-  )?.toNumber()
+  const primaryForestAsPercentage = Numbers.mul(100, Numbers.div(forestAreaWithinProtectedAreas, forestArea))?.toNumber()
 
   const data = {
     datasets: [

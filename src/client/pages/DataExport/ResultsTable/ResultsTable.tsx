@@ -3,17 +3,17 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
-import { Unit } from '@meta/dataExport'
+import { Areas, CountryIso } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
+import { Unit } from 'meta/dataExport'
 
-import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/metadata'
-import { useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
-import ButtonTableExport from '@client/components/ButtonTableExport'
-import { convertValue, formatValue, getColumnLabelKeys } from '@client/pages/DataExport/utils'
+import { useCycle } from 'client/store/assessment'
+import { useTableSections } from 'client/store/metadata'
+import { useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
+import ButtonTableExport from 'client/components/ButtonTableExport'
+import { convertValue, formatValue, getColumnLabelKeys } from 'client/pages/DataExport/utils'
 
 import RowFooter from './RowFooter'
 import Title from './Title'
@@ -81,11 +81,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   return (
     <div className="fra-table__container results-table">
       <div className="fra-table__scroll-wrapper">
-        <ButtonTableExport
-          tableRef={tableRef}
-          filename={`${assessmentName}-${sectionName}`}
-          disabled={exportDisabled}
-        />
+        <ButtonTableExport tableRef={tableRef} filename={`${assessmentName}-${sectionName}`} disabled={exportDisabled} />
 
         <table ref={tableRef} className="fra-table data-table">
           <thead>
@@ -95,12 +91,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
               </th>
               {variables.map((variable) => (
                 <th key={variable} className="fra-table__header-cell" colSpan={columnsResults.length}>
-                  <Title
-                    baseUnit={baseUnit}
-                    variable={variable}
-                    onUnitChange={onUnitChange}
-                    resultsLoading={resultsLoading}
-                  />
+                  <Title baseUnit={baseUnit} variable={variable} onUnitChange={onUnitChange} resultsLoading={resultsLoading} />
                 </th>
               ))}
             </tr>
@@ -140,9 +131,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
 
                       return (
                         <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">
-                          <div className="number-input__readonly-view">
-                            {convertValue(value, baseUnit, units[variable])}
-                          </div>
+                          <div className="number-input__readonly-view">{convertValue(value, baseUnit, units[variable])}</div>
                         </td>
                       )
                     })

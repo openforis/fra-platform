@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { ActivityLog, Assessment, Cycle } from '@meta/assessment'
+import { ActivityLog, Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const insertActivityLog = async (
   params: {
@@ -24,15 +24,7 @@ export const insertActivityLog = async (
 
   return client.one<ActivityLog<any>>(
     query,
-    [
-      user.id,
-      countryIso,
-      section,
-      message,
-      JSON.stringify(target),
-      assessment ? assessment.uuid : null,
-      cycle ? cycle.uuid : null,
-    ],
+    [user.id, countryIso, section, message, JSON.stringify(target), assessment ? assessment.uuid : null, cycle ? cycle.uuid : null],
     Objects.camelize
   )
 }

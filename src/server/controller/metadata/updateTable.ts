@@ -1,9 +1,9 @@
-import { ActivityLogMessage, Assessment, Table } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage, Assessment, Table } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { TableRepository } from '@server/repository/assessment/table'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { TableRepository } from 'server/repository/assessment/table'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 // Controller to update Table
 export const updateTable = async (

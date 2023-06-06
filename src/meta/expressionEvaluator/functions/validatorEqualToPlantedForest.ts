@@ -1,7 +1,7 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment'
 
 import { Context } from '../context'
 
@@ -11,13 +11,9 @@ export const validatorEqualToPlantedForest: ExpressionFunction<Context> = {
   executor: () => {
     return (plantedForest?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
       const valid =
-        !subCategoryValues?.every(Boolean) ||
-        Numbers.eq(plantedForest, 0) ||
-        Numbers.eq(plantedForest, Numbers.sum(subCategoryValues))
+        !subCategoryValues?.every(Boolean) || Numbers.eq(plantedForest, 0) || Numbers.eq(plantedForest, Numbers.sum(subCategoryValues))
 
-      const messages: Array<NodeValueValidationMessage> = valid
-        ? undefined
-        : [{ key: 'generalValidation.mustBeEqualToPlantedForest' }]
+      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key: 'generalValidation.mustBeEqualToPlantedForest' }]
 
       return { valid, messages }
     }

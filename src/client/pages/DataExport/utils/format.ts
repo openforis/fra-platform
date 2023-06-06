@@ -1,11 +1,11 @@
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, AssessmentNames, CycleName } from '@meta/assessment'
-import { RecordAssessmentDatas, RecordCountryData } from '@meta/data'
-import { Unit, UnitConverter, UnitFactors } from '@meta/dataExport'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, AssessmentNames, CycleName } from 'meta/assessment'
+import { RecordAssessmentDatas, RecordCountryData } from 'meta/data'
+import { Unit, UnitConverter, UnitFactors } from 'meta/dataExport'
 
-// import { getPanEuropeanTableMapping } from '@client/pages/DataExport/utils/panEuropean'
+// import { getPanEuropeanTableMapping } from 'client/pages/DataExport/utils/panEuropean'
 
 const sections: Record<string, string> = {
   designatedManagementObjective: 'primary_designated_management_objective',
@@ -51,9 +51,7 @@ export const formatValue = (
 }
 
 export const convertValue = (value: string, base: Unit, unit: Unit): string =>
-  base && base !== unit && Object.keys(UnitFactors).includes(base)
-    ? UnitConverter.convertValue(value, base, unit)
-    : value
+  base && base !== unit && Object.keys(UnitFactors).includes(base) ? UnitConverter.convertValue(value, base, unit) : value
 
 /**
  * Helper function to handle datamase mapping for table names

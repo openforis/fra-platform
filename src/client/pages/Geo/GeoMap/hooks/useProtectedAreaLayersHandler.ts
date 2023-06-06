@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ProtectedAreaKey } from '@meta/geo'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ProtectedAreaKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useIsGeoMapAvailable, useProtectedAreasOptions } from '@client/store/ui/geo'
-import { getProtectedAreaLayer } from '@client/store/ui/geo/actions'
-import { GetProtectedAreaLayerRequestBody } from '@client/store/ui/geo/actions/getProtectedAreaLayer'
-import { useCountryIso, usePrevious } from '@client/hooks'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useIsGeoMapAvailable, useProtectedAreasOptions } from 'client/store/ui/geo'
+import { getProtectedAreaLayer } from 'client/store/ui/geo/actions'
+import { GetProtectedAreaLayerRequestBody } from 'client/store/ui/geo/actions/getProtectedAreaLayer'
+import { useCountryIso, usePrevious } from 'client/hooks'
+import { mapController } from 'client/utils'
 
 import { protectedAreaLayers } from '../GeoMapMenuData/MapVisualizerPanel'
 
@@ -60,8 +60,7 @@ export const useProtectedAreaLayersHandler = () => {
           } else {
             mapController.addEarthEngineLayer(mapLayerKey, mapId)
           }
-          const opacity =
-            protectedAreasOptions.opacity[mapLayerKey] !== undefined ? protectedAreasOptions.opacity[mapLayerKey] : 1
+          const opacity = protectedAreasOptions.opacity[mapLayerKey] !== undefined ? protectedAreasOptions.opacity[mapLayerKey] : 1
           mapController.setEarthEngineLayerOpacity(mapLayerKey, opacity)
         } else {
           // Cache miss, fetch layer from server

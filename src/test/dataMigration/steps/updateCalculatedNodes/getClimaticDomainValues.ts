@@ -1,13 +1,10 @@
-import { Cycle } from '@meta/assessment'
+import { Cycle } from 'meta/assessment'
 
-import { BaseProtocol } from '@server/db'
+import { BaseProtocol } from 'server/db'
 
-import { NodeRow } from '@test/dataMigration/types'
+import { NodeRow } from 'test/dataMigration/types'
 
-export const getClimaticDomainValues = async (
-  props: { cycle: Cycle },
-  client: BaseProtocol
-): Promise<Array<NodeRow>> => {
+export const getClimaticDomainValues = async (props: { cycle: Cycle }, client: BaseProtocol): Promise<Array<NodeRow>> => {
   const { cycle } = props
   const cycleCondition = `props -> 'cycles' ? '${cycle.uuid}'`
 

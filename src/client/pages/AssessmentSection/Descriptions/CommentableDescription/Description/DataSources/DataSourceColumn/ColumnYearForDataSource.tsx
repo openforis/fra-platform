@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { Arrays } from '@utils/arrays'
 import classNames from 'classnames'
+import { Arrays } from 'utils/arrays'
 
-import { DataSource } from '@meta/assessment'
+import { DataSource } from 'meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
-import Autocomplete from '@client/components/Autocomplete'
-import DataColumn from '@client/components/DataGrid/DataColumn'
+import { useCycle } from 'client/store/assessment'
+import Autocomplete from 'client/components/Autocomplete'
+import DataColumn from 'client/components/DataGrid/DataColumn'
 
 import { datasourceValidators } from './datasourceValidators'
 
@@ -35,13 +35,7 @@ const ColumnVariable: React.FC<Props> = (props: Props) => {
         'validation-error': datasourceValidators.year(dataSourceValue.year),
       })}
     >
-      <Autocomplete
-        readOnlyOptions
-        disabled={disabled}
-        onSave={_onChange}
-        value={dataSourceValue.year}
-        items={columns}
-      />
+      <Autocomplete readOnlyOptions disabled={disabled} onSave={_onChange} value={dataSourceValue.year} items={columns} />
     </DataColumn>
   )
 }

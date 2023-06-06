@@ -5,13 +5,13 @@ import { batch } from 'react-redux'
 import axios from 'axios'
 import classNames from 'classnames'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ExtraEstimation, ForestSource } from '@meta/geo'
-import { LayerSource } from '@meta/geo/forest'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ExtraEstimation, ForestSource } from 'meta/geo'
+import { LayerSource } from 'meta/geo/forest'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions, useGeoStatistics } from '@client/store/ui/geo'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useForestSourceOptions, useGeoStatistics } from 'client/store/ui/geo'
+import { useCountryIso } from 'client/hooks'
 
 import GeoMapMenuListElement from '../../GeoMapMenuListElement'
 import { forestLayers } from '../MapVisualizerPanel'
@@ -107,8 +107,8 @@ const AgreementLevelsControl: React.FC = () => {
           <div className="geo-map-menu-data-visualizer-agreement-levels-control">
             <p>
               <small>
-                Choose the min. agreement level between selected layers. Agreement level <i>N</i> means that at least{' '}
-                <i>N</i> of the selected data sources need to agree that a certain pixel is forest area.
+                Choose the min. agreement level between selected layers. Agreement level <i>N</i> means that at least <i>N</i> of the
+                selected data sources need to agree that a certain pixel is forest area.
               </small>
             </p>
             <div className="geo-map-menu-data-visualizer-agreement-levels-boxes">
@@ -140,10 +140,7 @@ const AgreementLevelsControl: React.FC = () => {
                   const style = level === forestOptions.agreementLevel ? selectedStyle : genericStyle
 
                   return (
-                    <span
-                      className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })}
-                      key={level}
-                    >
+                    <span className={classNames('geo-map-menu-data-visualizer-agreement-level', { disabled })} key={level}>
                       <input
                         id={id}
                         className="geo-map-menu-data-visualizer-agreement-levels-box"
@@ -183,9 +180,7 @@ const AgreementLevelsControl: React.FC = () => {
           </div>
         )}
         {forestOptions.agreementLayerSelected && estimationError && (
-          <p className="estimation-error-message">
-            An error has occured while calculating the estimation: {estimationError}
-          </p>
+          <p className="estimation-error-message">An error has occured while calculating the estimation: {estimationError}</p>
         )}
       </>
     </GeoMapMenuListElement>

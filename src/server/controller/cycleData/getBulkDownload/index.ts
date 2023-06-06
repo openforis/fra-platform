@@ -1,12 +1,12 @@
-import { createI18nPromise } from '@i18n/i18nFactory'
+import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 
-import { Areas, CountryIso, RegionCode } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
+import { Areas, CountryIso, RegionCode } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { getContent } from '@server/controller/cycleData/getBulkDownload/getContent'
-import { getFraYearsData } from '@server/controller/cycleData/getBulkDownload/getFRAYearsData'
-import { CountryRepository } from '@server/repository/assessmentCycle/country'
+import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
+import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
 import { entries as annualEntries } from './entries/AnnualData'
 import { entries as intervalEntries } from './entries/Intervals'
@@ -18,8 +18,7 @@ const _convertToCSV = (arr: Array<Record<string, string>>): string =>
 const _getFileName = (name: string): string => {
   const date = new Date()
   const year = date.getFullYear()
-  const month =
-    (date.getMonth() + 1).toString().length > 1 ? date.getMonth() + 1 : `0${(date.getMonth() + 1).toString()}`
+  const month = (date.getMonth() + 1).toString().length > 1 ? date.getMonth() + 1 : `0${(date.getMonth() + 1).toString()}`
   const day = date.getDate().toString().length > 1 ? date.getDate() : `0${date.getDate().toString()}`
   const timestamp = `${year}_${month}_${day}`
   return `${name}_${timestamp}.csv`

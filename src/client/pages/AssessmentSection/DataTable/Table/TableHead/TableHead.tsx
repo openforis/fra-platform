@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Col as TypeCol, Cols, Row as TypeRow, RowType, Table } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { Col as TypeCol, Cols, Row as TypeRow, RowType, Table } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
-import { useAssessmentCountry, useCycle } from '@client/store/assessment'
-import { useOriginalDataPointYears } from '@client/store/data'
-import { useShowOriginalDatapoints } from '@client/store/ui/assessmentSection'
-import { getODPColSpan } from '@client/pages/AssessmentSection/DataTable/Table/utils/getODPColSpan'
+import { useAssessmentCountry, useCycle } from 'client/store/assessment'
+import { useOriginalDataPointYears } from 'client/store/data'
+import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { getODPColSpan } from 'client/pages/AssessmentSection/DataTable/Table/utils/getODPColSpan'
 
 import OdpHeaderCell from './OdpHeaderCell'
 
@@ -42,8 +42,7 @@ const TableHead: React.FC<Props> = (props) => {
 
             const columnName = headers[colIndex]
 
-            let odpHeader =
-              showODP && table.props.odp && !col.props.labels && odpYears?.find((odp) => odp.year === columnName)
+            let odpHeader = showODP && table.props.odp && !col.props.labels && odpYears?.find((odp) => odp.year === columnName)
 
             if (table.props.name === 'forestCharacteristics')
               odpHeader = country.props.forestCharacteristics.useOriginalDataPoint && odpHeader
@@ -53,9 +52,7 @@ const TableHead: React.FC<Props> = (props) => {
             const className = `fra-table__header-cell${headerLeft ? '-left' : ''}`
 
             const colSpan =
-              isOdp && !defaultColSpan
-                ? getODPColSpan({ assessmentName, cycleName: cycle.name, headers, table, data })
-                : defaultColSpan
+              isOdp && !defaultColSpan ? getODPColSpan({ assessmentName, cycleName: cycle.name, headers, table, data }) : defaultColSpan
 
             return odpHeader ? (
               <OdpHeaderCell

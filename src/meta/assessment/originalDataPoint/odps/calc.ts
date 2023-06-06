@@ -1,28 +1,21 @@
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 import { ODPNationalClass } from '../odpNationalClass'
 import { OriginalDataPoint } from '../originalDataPoint'
 
 export const calcTotalArea = (props: { originalDataPoint: OriginalDataPoint }): number => {
   const { originalDataPoint } = props
-  const areas = originalDataPoint.nationalClasses
-    .map((nationalClass) => nationalClass.area)
-    .filter((area) => !Objects.isNil(area))
+  const areas = originalDataPoint.nationalClasses.map((nationalClass) => nationalClass.area).filter((area) => !Objects.isNil(area))
   return Numbers.sum(areas)
 }
 
-export const calcTotalFieldArea = (props: {
-  originalDataPoint: OriginalDataPoint
-  field: keyof ODPNationalClass
-}): number => {
+export const calcTotalFieldArea = (props: { originalDataPoint: OriginalDataPoint; field: keyof ODPNationalClass }): number => {
   const { originalDataPoint, field } = props
   const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) => !Objects.isNil(nationalClass.area) && !Objects.isNil(nationalClass[field])
   )
-  const values = nationalClasses.map((nationalClass) =>
-    Numbers.mul(nationalClass.area, nationalClass[field] as string).div(100.0)
-  )
+  const values = nationalClasses.map((nationalClass) => Numbers.mul(nationalClass.area, nationalClass[field] as string).div(100.0))
   return Numbers.sum(values)
 }
 
@@ -33,10 +26,7 @@ export const calcTotalSubFieldArea = (props: {
 }): number => {
   const { originalDataPoint, field, subField } = props
   const nationalClasses = originalDataPoint.nationalClasses.filter(
-    (nationalClass) =>
-      !Objects.isNil(nationalClass.area) &&
-      !Objects.isNil(nationalClass[field]) &&
-      !Objects.isNil(nationalClass[subField])
+    (nationalClass) => !Objects.isNil(nationalClass.area) && !Objects.isNil(nationalClass[field]) && !Objects.isNil(nationalClass[subField])
   )
   const values = nationalClasses.map((nationalClass) => {
     const x = Numbers.mul(nationalClass.area, nationalClass[field] as string)

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { LayerSource } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { LayerSource } from 'meta/geo'
 
 export interface GenericLayerConfig {
   countryIso: CountryIso
@@ -25,12 +25,9 @@ interface GetForestLayerProps {
   body: GetForestLayerRequestBody
 }
 
-export const getForestLayer = createAsyncThunk<[string, string], GetForestLayerProps>(
-  'geo/get/forestLayer',
-  async ({ key, uri, body }) => {
-    const {
-      data: { mapId },
-    } = await axios({ method: 'POST', url: uri, data: body })
-    return [key, mapId]
-  }
-)
+export const getForestLayer = createAsyncThunk<[string, string], GetForestLayerProps>('geo/get/forestLayer', async ({ key, uri, body }) => {
+  const {
+    data: { mapId },
+  } = await axios({ method: 'POST', url: uri, data: body })
+  return [key, mapId]
+})

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cols } from '@meta/assessment'
+import { Cols } from 'meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 
 import { Props } from '../props'
 

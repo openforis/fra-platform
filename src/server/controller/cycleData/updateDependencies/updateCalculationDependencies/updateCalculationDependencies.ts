@@ -1,10 +1,10 @@
-import { Row, VariableCache } from '@meta/assessment'
-import { NodeUpdates } from '@meta/data'
+import { Row, VariableCache } from 'meta/assessment'
+import { NodeUpdates } from 'meta/data'
 
-import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
-import { BaseProtocol } from '@server/db'
-import { RowRepository } from '@server/repository/assessment/row'
-import { Logger } from '@server/utils/logger'
+import { PersistNodeValueProps } from 'server/controller/cycleData/persistNodeValues/props'
+import { BaseProtocol } from 'server/db'
+import { RowRepository } from 'server/repository/assessment/row'
+import { Logger } from 'server/utils/logger'
 
 import { getDependants } from '../utils/getDependants'
 import { isODPCell } from '../utils/isODPCell'
@@ -38,9 +38,7 @@ export const updateCalculationDependencies = async (
     const variableCache = queue.shift()
     Logger.debug(`${debugKey} processing queue item ${JSON.stringify(variableCache)}`)
 
-    const visited = visitedVariables.find(
-      (v) => v.tableName === variableCache.tableName && v.variableName === variableCache.variableName
-    )
+    const visited = visitedVariables.find((v) => v.tableName === variableCache.tableName && v.variableName === variableCache.variableName)
     // if (visited) {
     // throw new Error(
     //   `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`
@@ -71,10 +69,7 @@ export const updateCalculationDependencies = async (
         // make sure in target table there's a matching column
         if (row.cols.find((c) => c.props.colName === colName)) {
           // eslint-disable-next-line no-await-in-loop
-          await calculateNode(
-            { ...evaluateProps, mergeOdp, formula: row.props.calculateFn[cycle.uuid], nodeUpdates },
-            client
-          )
+          await calculateNode({ ...evaluateProps, mergeOdp, formula: row.props.calculateFn[cycle.uuid], nodeUpdates }, client)
         }
       } else {
         // eslint-disable-next-line no-await-in-loop

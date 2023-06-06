@@ -4,15 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { User } from '@meta/user'
-import { UserProps } from '@meta/user/user'
-import {
-  UserContactPreference,
-  UserContactPreferenceMethod,
-  UserContactPreferencePhoneOption,
-} from '@meta/user/userRole'
+import { User } from 'meta/user'
+import { UserProps } from 'meta/user/user'
+import { UserContactPreference, UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/userRole'
 
-import { useOnUpdate } from '@client/hooks'
+import { useOnUpdate } from 'client/hooks'
 
 type Props = {
   name: string
@@ -41,9 +37,7 @@ const ContactMethodField: React.FC<Props> = (props) => {
 
   const [method, setMethod] = useState(value?.method)
   const [phoneOption, setPhoneOption] = useState(
-    [UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(
-      value?.method
-    )
+    [UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(value?.method)
       ? value.options?.phone
       : ''
   )
@@ -88,11 +82,7 @@ const ContactMethodField: React.FC<Props> = (props) => {
             setPhoneOption(e.target.value)
           }}
           disabled={
-            !enabled ||
-            ![
-              UserContactPreferenceMethod.primaryPhoneNumber,
-              UserContactPreferenceMethod.secondaryPhoneNumber,
-            ].includes(method)
+            !enabled || ![UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(method)
           }
         >
           <option value="">{t('userManagement.placeholder')}</option>

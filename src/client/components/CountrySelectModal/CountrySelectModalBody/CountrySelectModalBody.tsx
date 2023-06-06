@@ -5,10 +5,10 @@ import MediaQuery from 'react-responsive'
 
 import classNames from 'classnames'
 
-import { Country } from '@meta/area'
+import { Country } from 'meta/area'
 
-import { ModalBody } from '@client/components/Modal'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { ModalBody } from 'client/components/Modal'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 type Props = {
   countries: Array<Country>
@@ -23,8 +23,7 @@ type Props = {
 const CountrySelectModalBody: React.FC<Props> = (props) => {
   const { countries, onChange, onChangeAll, onChangeMany, selection, unselectableCountries, excludedRegions } = props
   const allSelectedInRegion = useCallback(
-    (region: string[], selection: string[]) =>
-      region.every((v) => selection.includes(v) || unselectableCountries.includes(v)),
+    (region: string[], selection: string[]) => region.every((v) => selection.includes(v) || unselectableCountries.includes(v)),
     [unselectableCountries]
   )
 
@@ -36,24 +35,21 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
   const i18n = useTranslation()
 
   // Sort given countries (from props) to hashmap: {regionCode}: [{countryIso},..]
-  const regionCountries: Record<string, Array<string>> = countries.reduce<Record<string, Array<string>>>(
-    (accumulator, country) => {
-      const { countryIso, regionCodes } = country
-      regionCodes.forEach((regionCode: string) => {
-        // We can have excluded regions, ignore these
-        const excluded = excludedRegions.includes(regionCode)
-        if (!excluded) {
-          if (!Array.isArray(accumulator[regionCode])) {
-            // eslint-disable-next-line no-param-reassign
-            accumulator[regionCode] = []
-          }
-          accumulator[regionCode].push(countryIso)
+  const regionCountries: Record<string, Array<string>> = countries.reduce<Record<string, Array<string>>>((accumulator, country) => {
+    const { countryIso, regionCodes } = country
+    regionCodes.forEach((regionCode: string) => {
+      // We can have excluded regions, ignore these
+      const excluded = excludedRegions.includes(regionCode)
+      if (!excluded) {
+        if (!Array.isArray(accumulator[regionCode])) {
+          // eslint-disable-next-line no-param-reassign
+          accumulator[regionCode] = []
         }
-      })
-      return accumulator
-    },
-    {}
-  )
+        accumulator[regionCode].push(countryIso)
+      }
+    })
+    return accumulator
+  }, {})
 
   return (
     <ModalBody>
@@ -93,9 +89,7 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
                 value={countryISOs.filter((countryIso) => selection.includes(countryIso))}
                 onChange={(event) => {
                   const currentSelection = Array.from(event.target.selectedOptions, (option) => String(option.value))
-                  onChangeAll(
-                    selection.filter((countryIso) => !countryISOs.includes(countryIso)).concat(currentSelection)
-                  )
+                  onChangeAll(selection.filter((countryIso) => !countryISOs.includes(countryIso)).concat(currentSelection))
                 }}
               >
                 {countryISOs.map((countryIso: string) => {

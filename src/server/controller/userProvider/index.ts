@@ -1,4 +1,4 @@
-import { UserProviderRepository } from '@server/repository/public/userProvider'
+import { UserProviderRepository } from 'server/repository/public/userProvider'
 
 import { create } from './create'
 import { read } from './read'

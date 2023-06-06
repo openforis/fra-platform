@@ -1,15 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import useStatisticalFactsheetsState from '@client/pages/Dashboard/hooks/useDashboardData'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import useStatisticalFactsheetsState from 'client/pages/Dashboard/hooks/useDashboardData'
 
 import Table from '../components/Table'
 
@@ -38,9 +38,7 @@ const CarbonGrowingStock = () => {
   const variablesCountry = [...variablesCountryCarbonStock, 'forest']
   const variables = isIsoCountry ? variablesCountry : variablesRegion
 
-  const units = isIsoCountry
-    ? ['millionsCubicMeterOverBark', 'tonnesPerHa', 'tonnesPerHa']
-    : ['billionCubicMeter', 'gt', 'gt']
+  const units = isIsoCountry ? ['millionsCubicMeterOverBark', 'tonnesPerHa', 'tonnesPerHa'] : ['billionCubicMeter', 'gt', 'gt']
   const tableNamesCountry = [cycleTableName[cycle.name], TableNames.growingStockTotal]
   const tableNames = isIsoCountry ? tableNamesCountry : [TableNames.valueAggregate]
   const sectionName = 'carbonAndGrowingStock'

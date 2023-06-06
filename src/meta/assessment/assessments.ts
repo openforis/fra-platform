@@ -1,5 +1,5 @@
-import { Areas, Country, CountryIso } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
+import { Areas, Country, CountryIso } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
 
 import { User, Users } from '../user'
 import { AssessmentName } from './assessmentName'
@@ -11,12 +11,7 @@ export interface AssessmentStatusTransition {
 }
 
 export const AssessmentStatusTransitions = {
-  getAllowedTransition: (props: {
-    country: Country
-    countryIso: CountryIso
-    user: User
-    cycle: Cycle
-  }): AssessmentStatusTransition => {
+  getAllowedTransition: (props: { country: Country; countryIso: CountryIso; user: User; cycle: Cycle }): AssessmentStatusTransition => {
     const { country, countryIso, cycle, user } = props
 
     const status = Areas.getStatus(country)

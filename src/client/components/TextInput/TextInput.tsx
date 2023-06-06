@@ -7,10 +7,11 @@ import React from 'react'
 
 import { isEmpty } from 'ramda'
 
-import { DOMs } from '@client/utils/dom'
+import { DOMs } from 'client/utils/dom'
 
 type State = any
 type Props = {
+  // eslint-disable-next-line react/require-default-props
   placeholder?: string
   value: any
   onChange: any

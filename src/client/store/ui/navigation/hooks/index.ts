@@ -1,5 +1,5 @@
-import { useCountryIso } from '@client/hooks'
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
+import { useCountryIso } from 'client/hooks'
 
 export const useNavigationVisible = (): boolean => {
   const countryIso = useCountryIso()

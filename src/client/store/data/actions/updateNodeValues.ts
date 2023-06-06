@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Functions } from '@utils/functions'
 import axios from 'axios'
+import { Functions } from 'utils/functions'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleDataParams, NodesBody } from '@meta/api/request'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleDataParams, NodesBody } from 'meta/api/request'
 
 type Props = CycleDataParams & NodesBody
 
@@ -20,8 +20,7 @@ const patchNodeValues = (id: string) =>
     id
   )
 
-const getDebounceId = (props: Props) =>
-  `${props.countryIso}-${props.tableName}-${props.values[0].variableName}-${props.values[0].colName}`
+const getDebounceId = (props: Props) => `${props.countryIso}-${props.tableName}-${props.values[0].variableName}-${props.values[0].colName}`
 
 export const updateNodeValues = createAsyncThunk<void, Props>('section/nodeValues/update', (props) => {
   patchNodeValues(getDebounceId(props))(props)

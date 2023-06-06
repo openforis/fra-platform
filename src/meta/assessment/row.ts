@@ -1,4 +1,4 @@
-import { Col, CycledPropsObject, CycleUuid, VariableCache } from '@meta/assessment'
+import { Col, CycledPropsObject, CycleUuid, VariableCache } from 'meta/assessment'
 
 export type VariableName = string
 

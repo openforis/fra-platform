@@ -1,6 +1,6 @@
-import { Objects } from '@utils/objects'
 import { differenceInDays, differenceInHours, differenceInMonths, differenceInWeeks, format, parseISO } from 'date-fns'
 import { i18n } from 'i18next'
+import { Objects } from 'utils/objects'
 
 const getRelativeDate = (rawDate: string, i18n: i18n) => {
   const timestamp = parseISO(rawDate)

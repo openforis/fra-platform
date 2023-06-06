@@ -1,20 +1,20 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { OriginalDataPoint } from '@meta/assessment'
-import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
-import { Topics } from '@meta/messageCenter'
+import { OriginalDataPoint } from 'meta/assessment'
+import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
+import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions } from '@client/store/ui/originalDataPoint'
-import PercentInput from '@client/components/PercentInput'
-import ReviewIndicator from '@client/components/ReviewIndicator'
-import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
+import PercentInput from 'client/components/PercentInput'
+import ReviewIndicator from 'client/components/ReviewIndicator'
+import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
 
 import { useNationalClassNameComments } from '../../hooks'
 

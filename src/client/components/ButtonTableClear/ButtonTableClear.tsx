@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Table } from '@meta/assessment'
+import { Table } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
-import { DataActions } from '@client/store/data'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { useCountryIso } from '@client/hooks'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
+import { DataActions } from 'client/store/data'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useCountryIso } from 'client/hooks'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import Icon from 'client/components/Icon'
 
 type Props = {
   disabled?: boolean

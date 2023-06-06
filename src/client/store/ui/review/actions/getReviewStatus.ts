@@ -1,9 +1,9 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { ReviewStatus } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { ReviewStatus } from 'meta/assessment'
 
 type Params = {
   countryIso: CountryIso

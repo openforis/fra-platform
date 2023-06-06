@@ -1,20 +1,14 @@
-import { Row, Table } from '@meta/assessment'
+import { Row, Table } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025' },
-    client
-  )
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName: 'fra', cycleName: '2025' }, client)
 
   const schemaName = Schemas.getName(assessment)
 
-  const table = await client.one<Table>(
-    `select * from ${schemaName}.table where props->>'name' = $1;`,
-    'forestAreaChange'
-  )
+  const table = await client.one<Table>(`select * from ${schemaName}.table where props->>'name' = $1;`, 'forestAreaChange')
 
   const ofWhichAfforestation = await client.one<Row>(
     `select * from ${schemaName}.row r where props->>'variableName' = $1 and table_id = $2;`,

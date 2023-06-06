@@ -1,10 +1,12 @@
+/* eslint-disable react/no-string-refs */
+/* eslint-disable react/destructuring-assignment */
 import './PercentInput.scss'
 import React from 'react'
 
-import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
+import { Numbers } from 'utils/numbers'
 
-import { Sanitizer } from '@client/utils/sanitizer'
+import { Sanitizer } from 'client/utils/sanitizer'
 
 type State = any
 type Props = {
@@ -25,10 +27,7 @@ export class PercentInput extends React.Component<Props, State> {
     const value = this.state.inputValue || numberValue
     return (
       <div className="percent-input__container validation-error-sensitive-field" ref="wrapper">
-        <div
-          className="percent-input__readonly-view"
-          style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}
-        >
+        <div className="percent-input__readonly-view" style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}>
           {Numbers.format(numberValue)}
         </div>
         <input

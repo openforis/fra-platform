@@ -1,4 +1,4 @@
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 import { AssessmentFilesState } from '../stateType'
 

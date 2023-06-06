@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ForestEstimations } from '@meta/geo'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ForestEstimations } from 'meta/geo'
 
 interface GetForestEstimationDataProps {
   countryIso: string

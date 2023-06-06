@@ -1,10 +1,10 @@
-import { RecordAssessmentDatas } from '@meta/data'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { entries } from '@server/controller/cycleData/getBulkDownload/entries/FRAYears'
-import { genders } from '@server/controller/cycleData/getBulkDownload/genders'
-import { getClimaticValue } from '@server/controller/cycleData/getBulkDownload/getClimaticValue'
-import { getData } from '@server/controller/cycleData/getBulkDownload/getData'
-import { getYears } from '@server/controller/cycleData/getBulkDownload/getYears'
+import { entries } from 'server/controller/cycleData/getBulkDownload/entries/FRAYears'
+import { genders } from 'server/controller/cycleData/getBulkDownload/genders'
+import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
+import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
+import { getYears } from 'server/controller/cycleData/getBulkDownload/getYears'
 
 import { climaticDomain } from './climaticDomain'
 import { Props } from './props'

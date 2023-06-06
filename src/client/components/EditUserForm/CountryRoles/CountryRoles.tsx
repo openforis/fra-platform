@@ -5,25 +5,20 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { CountryIso, Region, RegionCode } from '@meta/area'
-import { RoleName, User, UserRole, Users } from '@meta/user'
+import { CountryIso, Region, RegionCode } from 'meta/area'
+import { RoleName, User, UserRole, Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useCountries } from '@client/store/assessment'
-import { useAssessment, useCycle, useSecondaryRegion } from '@client/store/assessment/hooks'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import CountrySelectModal from '@client/components/CountrySelectModal'
+import { useAppDispatch } from 'client/store'
+import { useCountries } from 'client/store/assessment'
+import { useAssessment, useCycle, useSecondaryRegion } from 'client/store/assessment/hooks'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import CountrySelectModal from 'client/components/CountrySelectModal'
 
 import CountryRole from './CountryRole'
 
 // properties used to render ui form fields
-const roles = [
-  RoleName.REVIEWER,
-  RoleName.NATIONAL_CORRESPONDENT,
-  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
-  RoleName.COLLABORATOR,
-]
+const roles = [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
 
 type ModalOptionsProps = {
   open: boolean
@@ -97,13 +92,9 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
           const shouldShow = !Users.isAdministrator(user) && (Users.isAdministrator(userInfo) || hasCurrentRole)
           if (!shouldShow) return null
 
-          const unselectableCountries = userRoles
-            .filter(({ role: _role }) => _role !== role)
-            .map(({ countryIso }) => countryIso)
+          const unselectableCountries = userRoles.filter(({ role: _role }) => _role !== role).map(({ countryIso }) => countryIso)
 
-          const initialSelection = userRoles
-            .filter(({ role: _role }) => _role === role)
-            .map(({ countryIso }) => countryIso)
+          const initialSelection = userRoles.filter(({ role: _role }) => _role === role).map(({ countryIso }) => countryIso)
 
           const _onClick = () => {
             setModalOptions({
@@ -132,10 +123,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
       <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
-        excludedRegions={[
-          RegionCode.FE,
-          ...(secondaryRegions ? secondaryRegions.regions.map((r: Region) => r.regionCode) : []),
-        ]}
+        excludedRegions={[RegionCode.FE, ...(secondaryRegions ? secondaryRegions.regions.map((r: Region) => r.regionCode) : [])]}
         headerLabel={t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
         onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}

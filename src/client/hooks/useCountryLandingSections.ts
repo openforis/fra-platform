@@ -1,8 +1,11 @@
 // TODO implement useCountryLandingSections
 import React from 'react'
-import { useUser } from '@client/store/user'
-import { User } from '@meta/user'
-import { CountryIso } from '@meta/area'
+
+import { CountryIso } from 'meta/area'
+import { User } from 'meta/user'
+
+import { useUser } from 'client/store/user'
+
 import { useCountryIso } from './useCountryIso'
 
 type Section = {
@@ -11,7 +14,9 @@ type Section = {
 }
 
 const getSections = (countryIso: CountryIso, user: User): Array<Section> => {
+  // eslint-disable-next-line no-console
   console.debug({ countryIso })
+  // eslint-disable-next-line no-console
   console.debug({ user })
   return []
 }

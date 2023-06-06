@@ -2,13 +2,13 @@ import './Dashboard.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { Areas } from '@meta/area'
+import { Areas } from 'meta/area'
 
-import { useHomeCountriesFilter } from '@client/store/ui/home'
-import { useCountryIso } from '@client/hooks'
+import { useHomeCountriesFilter } from 'client/store/ui/home'
+import { useCountryIso } from 'client/hooks'
 
 import CarbonGrowingStock from './CarbonGrowingStock'
 import ForestArea from './ForestArea'

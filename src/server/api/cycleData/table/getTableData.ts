@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from '@meta/api/request'
-import { CountryIso } from '@meta/area'
+import { CycleDataRequest } from 'meta/api/request'
+import { CountryIso } from 'meta/area'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import Requests from 'server/utils/requests'
 
 export const getTableData = async (
   req: CycleDataRequest<{
@@ -19,16 +19,7 @@ export const getTableData = async (
   res: Response
 ) => {
   try {
-    const {
-      assessmentName,
-      cycleName,
-      tableNames = [],
-      countryISOs,
-      variables,
-      columns,
-      mergeOdp,
-      aggregate,
-    } = req.query
+    const { assessmentName, cycleName, tableNames = [], countryISOs, variables, columns, mergeOdp, aggregate } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

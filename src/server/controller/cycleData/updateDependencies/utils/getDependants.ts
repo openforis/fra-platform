@@ -1,12 +1,12 @@
-import { CountryIso } from '@meta/area'
-import { AssessmentMetaCaches } from '@meta/assessment'
-import { Assessment } from '@meta/assessment/assessment'
-import { VariableCache } from '@meta/assessment/assessmentMetaCache'
-import { Cycle } from '@meta/assessment/cycle'
-import { TableNames } from '@meta/assessment/table'
+import { CountryIso } from 'meta/area'
+import { AssessmentMetaCaches } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { VariableCache } from 'meta/assessment/assessmentMetaCache'
+import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 
-import { isODPVariable } from '@server/controller/cycleData/getOriginalDataPointVariables'
-import { BaseProtocol } from '@server/db'
+import { isODPVariable } from 'server/controller/cycleData/getOriginalDataPointVariables'
+import { BaseProtocol } from 'server/db'
 
 import { isODPCell } from './isODPCell'
 
@@ -33,9 +33,7 @@ type Props = {
 export const getDependants = async (props: Props, client: BaseProtocol): Promise<VariableCache[]> => {
   const { isODP, type, ...rest } = props
   const dependants =
-    type === 'calculations'
-      ? AssessmentMetaCaches.getCalculationsDependants(rest)
-      : AssessmentMetaCaches.getValidationsDependants(rest)
+    type === 'calculations' ? AssessmentMetaCaches.getCalculationsDependants(rest) : AssessmentMetaCaches.getValidationsDependants(rest)
 
   // Case1
   if (isODP) {

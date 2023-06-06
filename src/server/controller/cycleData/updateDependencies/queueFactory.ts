@@ -1,11 +1,11 @@
 import { Queue, QueueOptions, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { ProcessEnv } from '@server/utils'
-import { Logger } from '@server/utils/logger'
+import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesProps } from './props'
 import { WorkerFactory } from './workerFactory'
@@ -13,13 +13,9 @@ import { WorkerFactory } from './workerFactory'
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
 
-export const connection = new IORedis(ProcessEnv.redisUrl)
+const connection = new IORedis(ProcessEnv.redisUrl)
 
-const getInstance = (props: {
-  assessment: Assessment
-  cycle: Cycle
-  countryIso: CountryIso
-}): Queue<UpdateDependenciesProps> => {
+const getInstance = (props: { assessment: Assessment; cycle: Cycle; countryIso: CountryIso }): Queue<UpdateDependenciesProps> => {
   const { assessment, cycle, countryIso } = props
 
   const key = `persistNodeValue/dependenciesUpdate/${assessment.props.name}/${cycle.name}/${countryIso}`
@@ -45,5 +41,6 @@ process.on('SIGTERM', async () => {
 })
 
 export const UpdateDependenciesQueueFactory = {
+  connection,
   getInstance,
 }

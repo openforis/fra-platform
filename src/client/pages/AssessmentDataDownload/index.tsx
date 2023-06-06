@@ -2,10 +2,10 @@ import './dataDownload.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
-import { DOMs } from '@client/utils/dom'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
+import { DOMs } from 'client/utils/dom'
 
 import resources from './resources'
 
@@ -18,6 +18,7 @@ const AssessmentDataDownload: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(DOMs.scrollTo, [])
 
   const href = `/api/file/bulk-download?assessmentName=${assessment.props.name}&cycleName=${cycle.name}&countryIso=${countryIso}`
@@ -46,17 +47,11 @@ const AssessmentDataDownload: React.FC = () => {
               {`${resource.idx}. `}
               {i18n.t<string>(resource.labelKey)}
             </div>
-            <a
-              className="btn-s btn-primary nav__bulk-download"
-              href={_url(`${resource.idx}_${resource.name}`, 'ods', i18n.language)}
-            >
+            <a className="btn-s btn-primary nav__bulk-download" href={_url(`${resource.idx}_${resource.name}`, 'ods', i18n.language)}>
               <Icon className="icon-sub icon-white" name="hit-down" />
               ODS
             </a>
-            <a
-              className="btn-s btn-primary nav__bulk-download"
-              href={_url(`${resource.idx}_${resource.name}`, 'xlsx', i18n.language)}
-            >
+            <a className="btn-s btn-primary nav__bulk-download" href={_url(`${resource.idx}_${resource.name}`, 'xlsx', i18n.language)}>
               <Icon className="icon-sub icon-white" name="hit-down" />
               XLS
             </a>

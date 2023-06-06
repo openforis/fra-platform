@@ -1,6 +1,6 @@
-import { NodeUpdate, NodeUpdates } from '@meta/data'
+import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { BaseProtocol } from '@server/db'
+import { BaseProtocol } from 'server/db'
 
 import { PersistNodeValueProps } from '../persistNodeValues/props'
 import { updateCalculationDependencies } from './updateCalculationDependencies'

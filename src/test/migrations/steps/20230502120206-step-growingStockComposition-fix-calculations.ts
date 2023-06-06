@@ -1,8 +1,8 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
-import { getRow } from '@test/migrations/steps/utils/getRow'
+import { AssessmentCycleUtil } from 'test/migrations/steps/utils/getAssessmentCycle'
+import { getRow } from 'test/migrations/steps/utils/getRow'
 
 import { runCalculations } from './utils/runCalculations'
 
@@ -45,10 +45,7 @@ const _updateTotalIntroducedTreeSpecies = async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentCycleUtil.getFra2025(client)
   const schemaName = Schemas.getName(assessment)
 
-  const totalIntroducedTreeSpecies = await getRow(
-    { tableName, variableName: 'totalIntroduced', cycle, assessment },
-    client
-  )
+  const totalIntroducedTreeSpecies = await getRow({ tableName, variableName: 'totalIntroduced', cycle, assessment }, client)
   const col = totalIntroducedTreeSpecies.cols.find((col) => col.props.colName === colName)
 
   await client.query(
@@ -61,10 +58,7 @@ const _updateRemainingSpecies = async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentCycleUtil.getFra2025(client)
   const schemaName = Schemas.getName(assessment)
 
-  const remainingIntroduced = await getRow(
-    { tableName, variableName: 'remainingIntroduced', cycle, assessment },
-    client
-  )
+  const remainingIntroduced = await getRow({ tableName, variableName: 'remainingIntroduced', cycle, assessment }, client)
 
   const remainingNative = await getRow({ tableName, variableName: 'remainingNative', cycle, assessment }, client)
 

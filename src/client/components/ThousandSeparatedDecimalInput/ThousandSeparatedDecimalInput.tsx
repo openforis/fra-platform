@@ -1,10 +1,12 @@
+/* eslint-disable react/no-string-refs */
+/* eslint-disable react/destructuring-assignment */
 import './ThousandSeparatedDecimalInput.scss'
 import React from 'react'
 
-import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
+import { Numbers } from 'utils/numbers'
 
-import { Sanitizer } from '@client/utils/sanitizer'
+import { Sanitizer } from 'client/utils/sanitizer'
 
 type State = any
 type Props = any

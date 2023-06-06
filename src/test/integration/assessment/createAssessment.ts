@@ -1,8 +1,8 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
 
-import { assessmentCycleName, assessmentParams } from '@test/integration/mock/assessment'
-import { userMockTest } from '@test/integration/mock/user'
+import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
+import { userMockTest } from 'test/integration/mock/user'
 
 export default () =>
   test('Expect assessment to be created', async () => {

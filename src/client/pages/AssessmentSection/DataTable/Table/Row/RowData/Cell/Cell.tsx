@@ -3,14 +3,14 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
-import { TooltipId } from '@meta/tooltip'
-import { Authorizer } from '@meta/user'
+import { AssessmentName, Col, Cols, ColType, NodeValueValidations, Row, Table } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { TooltipId } from 'meta/tooltip'
+import { Authorizer } from 'meta/user'
 
-import { useAssessment, useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useAssessment, useAssessmentSection, useCountry, useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
 
 import useClassName from './hooks/useClassName'
 import useErrorMessages from './hooks/useErrorMessages'

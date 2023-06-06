@@ -1,17 +1,17 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
 import { ChartOptions } from 'chart.js'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { RecordAssessmentDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import Chart from '@client/components/Chart'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Chart from 'client/components/Chart'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { ChartColors, commonOptions } from '../utils/preferences'
@@ -87,10 +87,7 @@ const PrimaryForest = () => {
         unit: '%',
       },
     ],
-    labels: [
-      i18n.t<string>('statisticalFactsheets.rowName.primaryForest'),
-      i18n.t<string>('statisticalFactsheets.rowName.otherForest'),
-    ],
+    labels: [i18n.t<string>('statisticalFactsheets.rowName.primaryForest'), i18n.t<string>('statisticalFactsheets.rowName.otherForest')],
   }
 
   const options: ChartOptions<any> = {

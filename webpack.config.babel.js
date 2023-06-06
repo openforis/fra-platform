@@ -35,9 +35,7 @@ const plugins = [
     __BUST__: `"${uuidv4()}"`,
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
     __GOOGLE_MAPS_API_KEY__: JSON.stringify(process.env.FRA_GOOGLE_MAPS_API_KEY),
-    __APPLICATION_VERSION__: gitRevisionPlugin
-      ? JSON.stringify(gitRevisionPlugin.version())
-      : JSON.stringify(process.env.APP_VERSION),
+    __APPLICATION_VERSION__: gitRevisionPlugin ? JSON.stringify(gitRevisionPlugin.version()) : JSON.stringify(process.env.APP_VERSION),
     __BUILD_DATE__: JSON.stringify(new Date().toISOString().split('T')[0]),
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   }),
@@ -60,12 +58,12 @@ const appConfig = {
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      '@i18n': path.resolve(__dirname, 'src/i18n/'),
-      '@client': path.resolve(__dirname, 'src/client/'),
-      '@meta': path.resolve(__dirname, 'src/meta/'),
-      '@server': path.resolve(__dirname, 'src/server/'),
-      '@test': path.resolve(__dirname, 'src/test/'),
-      '@utils': path.resolve(__dirname, 'src/utils/'),
+      i18n: path.resolve(__dirname, 'src/i18n/'),
+      client: path.resolve(__dirname, 'src/client/'),
+      meta: path.resolve(__dirname, 'src/meta/'),
+      server: path.resolve(__dirname, 'src/server/'),
+      test: path.resolve(__dirname, 'src/test/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
     },
   },
   output: {

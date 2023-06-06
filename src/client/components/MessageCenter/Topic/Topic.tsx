@@ -3,20 +3,20 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
-import { Sockets } from '@meta/socket'
-import { Users } from '@meta/user'
+import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
+import { Sockets } from 'meta/socket'
+import { Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { MessageCenterActions } from '@client/store/ui/messageCenter'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
-import { SocketClient } from '@client/service/socket'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { MessageCenterActions } from 'client/store/ui/messageCenter'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
+import { SocketClient } from 'client/service/socket'
 
 import Message from './Message'
 
@@ -128,12 +128,7 @@ const Topic: React.FC<TopicProps> = (props) => {
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
         {!Objects.isEmpty(topic.messages) ? (
           topic.messages.map((message) => (
-            <Message
-              key={message.id}
-              message={message}
-              isMine={Number(message.userId) === Number(user.id)}
-              deleteFunc={deleteMessage}
-            />
+            <Message key={message.id} message={message} isMine={Number(message.userId) === Number(user.id)} deleteFunc={deleteMessage} />
           ))
         ) : (
           <div className="no-comments">
@@ -146,20 +141,10 @@ const Topic: React.FC<TopicProps> = (props) => {
       </div>
       <div className="topic-footer">
         {(topic.status === MessageTopicStatus.opened ||
-          (topic.status === MessageTopicStatus.resolved &&
-            (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)))) && (
+          (topic.status === MessageTopicStatus.resolved && (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)))) && (
           <div className="topic-form">
-            <textarea
-              value={message}
-              placeholder={i18n.t('review.writeComment')}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button
-              className="btn-s btn-primary"
-              disabled={Objects.isEmpty(message)}
-              onClick={postMessage}
-              type="submit"
-            >
+            <textarea value={message} placeholder={i18n.t('review.writeComment')} onChange={(e) => setMessage(e.target.value)} />
+            <button className="btn-s btn-primary" disabled={Objects.isEmpty(message)} onClick={postMessage} type="submit">
               {i18n.t<string>('review.add')}
             </button>
           </div>

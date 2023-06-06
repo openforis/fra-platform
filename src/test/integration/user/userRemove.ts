@@ -1,6 +1,6 @@
-import { UserRepository } from '@server/repository/public/user'
+import { UserRepository } from 'server/repository/public/user'
 
-import { userMockTest } from '@test/integration/mock/user'
+import { userMockTest } from 'test/integration/mock/user'
 
 export default () =>
   test('Expect user to be removed', async () => {

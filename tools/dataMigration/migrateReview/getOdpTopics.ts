@@ -1,7 +1,7 @@
 import { Assessment } from '../../../src/meta/assessment/assessment'
 import { Cycle } from '../../../src/meta/assessment/cycle'
 import { BaseProtocol } from '../../../src/server/db'
-import { Objects } from '../../../src/utils'
+import { Objects } from '../../../src/utils/objects'
 import { DBNames } from '../_DBNames'
 import { getIssuesLegacy } from './getIssuesLegacy'
 import { MessageTopicRow } from './messageTopicRow'

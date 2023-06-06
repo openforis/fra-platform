@@ -2,18 +2,18 @@ import './Links.scss'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { Users } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { AssessmentFilesActions } from '@client/store/ui/assessmentFiles'
-import { useAssessmentFiles } from '@client/store/ui/assessmentFiles/hooks'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { AssessmentFilesActions } from 'client/store/ui/assessmentFiles'
+import { useAssessmentFiles } from 'client/store/ui/assessmentFiles/hooks'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import { useToaster } from 'client/hooks/useToaster'
+import Icon from 'client/components/Icon'
 
 const Links: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -85,9 +85,7 @@ const Links: React.FC = () => {
       key: 'unfcccFocalPoints',
     },
     {
-      href: `${ApiEndPoint.File.sdgFocalPoints()}?assessmentName=${
-        assessment.props.name
-      }&countryIso=${countryIso}&cycleName=${cycle.name}`,
+      href: `${ApiEndPoint.File.sdgFocalPoints()}?assessmentName=${assessment.props.name}&countryIso=${countryIso}&cycleName=${cycle.name}`,
       key: 'sdgFocalPoints',
     },
     { href: 'https://slms4redd.github.io/', key: 'reddPortal' },
@@ -101,12 +99,7 @@ const Links: React.FC = () => {
 
         {isAdmin && (
           <>
-            <input
-              ref={globalFileRef}
-              type="file"
-              style={{ display: 'none' }}
-              onChange={() => uploadAssessmentFile()}
-            />
+            <input ref={globalFileRef} type="file" style={{ display: 'none' }} onChange={() => uploadAssessmentFile()} />
             <button
               className="btn-s btn-primary"
               onClick={() => {
@@ -169,12 +162,7 @@ const Links: React.FC = () => {
 
         {isAllowedToEdit && (
           <>
-            <input
-              ref={countryFileRef}
-              type="file"
-              style={{ display: 'none' }}
-              onChange={() => uploadAssessmentFile(countryIso)}
-            />
+            <input ref={countryFileRef} type="file" style={{ display: 'none' }} onChange={() => uploadAssessmentFile(countryIso)} />
             <button
               className="btn-s btn-primary"
               onClick={() => {

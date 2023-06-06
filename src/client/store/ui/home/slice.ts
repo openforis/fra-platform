@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
-import { AssessmentActions } from '@client/store/assessment'
+import { AssessmentActions } from 'client/store/assessment'
 
 import { HomeState } from './stateType'
 

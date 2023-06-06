@@ -1,9 +1,9 @@
-import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 export const updateDefaultCycle = async (
   props: { user: User; assessment: Assessment; cycle: Cycle },

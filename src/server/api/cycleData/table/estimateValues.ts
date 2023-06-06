@@ -1,15 +1,15 @@
-import { UUIDs } from '@utils/uuids'
 import { Response } from 'express'
+import { UUIDs } from 'utils/uuids'
 
-import { CycleDataRequest, EstimateBody } from '@meta/api/request'
-import { NodeValueEstimationMethod, NodeValuesEstimation, Table } from '@meta/assessment'
-import { RecordAssessmentDatas } from '@meta/data'
+import { CycleDataRequest, EstimateBody } from 'meta/api/request'
+import { NodeValueEstimationMethod, NodeValuesEstimation, Table } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import { MetadataController } from '@server/controller/metadata'
-import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from '@server/service/estimates/estimationEngine'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import { MetadataController } from 'server/controller/metadata'
+import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from 'server/service/estimates/estimationEngine'
+import Requests from 'server/utils/requests'
 
 /**
  * @deprecated

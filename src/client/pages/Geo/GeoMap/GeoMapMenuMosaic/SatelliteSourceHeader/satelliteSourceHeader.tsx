@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 
 import classNames from 'classnames'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 interface Props {
   title: string
@@ -14,16 +14,10 @@ interface Props {
   onExpandClick: (isOpen: boolean) => void
 }
 
-const SatelliteSourceHeader: React.FC<Props> = ({
-  title,
-  checked,
-  isOpen,
-  tabIndex,
-  onCheckboxClick,
-  onExpandClick,
-}) => {
+const SatelliteSourceHeader: React.FC<Props> = ({ title, checked, isOpen, tabIndex, onCheckboxClick, onExpandClick }) => {
   const handleExpandClick = useCallback(() => {
     onExpandClick(!isOpen)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
   return (

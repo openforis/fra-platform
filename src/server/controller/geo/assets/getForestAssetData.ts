@@ -1,17 +1,14 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestSource, LayerSource, sourcesMetadata } from '@meta/geo'
+import { ForestSource, LayerSource, sourcesMetadata } from 'meta/geo'
 
 export const getForestAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
   let asset = {} as { year?: number; img: Image; metadata: any }
 
   switch (layer.key) {
     case ForestSource.JAXA: {
-      const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF')
-        .filterDate('2017-01-01', '2017-12-31')
-        .mosaic()
-        .eq(1)
+      const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF').filterDate('2017-01-01', '2017-12-31').mosaic().eq(1)
 
       asset = {
         year: 2017,
@@ -93,10 +90,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       const lossyear = imcHansen.select('lossyear')
       const hlost = lossyear.gte(1).and(lossyear.lte(20))
       const hgain = imcHansen.select('gain')
-      const imgForestHansen = hforest2000
-        .gte(layer.options.gteTreeCoverPercent)
-        .where(hgain.eq(1), 1)
-        .where(hlost.eq(1), 0)
+      const imgForestHansen = hforest2000.gte(layer.options.gteTreeCoverPercent).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
 
       asset = {
         year: 2020,

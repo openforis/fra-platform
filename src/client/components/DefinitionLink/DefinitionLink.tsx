@@ -1,8 +1,8 @@
 import './DefinitionLink.scss'
 import React from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Lang } from '@meta/lang'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Lang } from 'meta/lang'
 
 type Props = {
   assessmentName: string
@@ -17,6 +17,7 @@ type Props = {
 const DefinitionLink: React.FC<Props> = (props: Props) => {
   const { className, document, anchor, title, lang, assessmentName, cycleName } = props
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       className={`definition-link ${className} no-print`}
       onClick={() =>

@@ -1,5 +1,5 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, NodeValue } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, NodeValue } from 'meta/assessment'
 
 export type NodeUpdate = {
   tableName: string

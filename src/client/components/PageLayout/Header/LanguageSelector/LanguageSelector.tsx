@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Lang, LanguageCodes } from '@meta/lang'
+import { Lang, LanguageCodes } from 'meta/lang'
 
-import Icon from '@client/components/Icon'
-import PopoverControl from '@client/components/PopoverControl'
+import Icon from 'client/components/Icon'
+import PopoverControl from 'client/components/PopoverControl'
 
 const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation()

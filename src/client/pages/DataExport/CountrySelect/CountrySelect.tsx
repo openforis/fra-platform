@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { Functions } from '@utils/functions'
-import { Strings } from '@utils/strings'
+import { Functions } from 'utils/functions'
+import { Strings } from 'utils/strings'
 
-import { Areas, Country } from '@meta/area'
+import { Areas, Country } from 'meta/area'
 
-import { useAppDispatch } from '@client/store'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
-import { DataExportActionType } from '@client/store/ui/dataExport/actionTypes'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { useAppDispatch } from 'client/store'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
+import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const CountrySelect: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -27,6 +27,7 @@ const CountrySelect: React.FC = () => {
   const getDeskStudyLabel = useCallback((country: Country): string => {
     const { deskStudy } = country.props
     return deskStudy ? `(${i18n.t('assessment.deskStudy')})` : null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const filterCountries = useCallback(() => {
@@ -42,8 +43,10 @@ const CountrySelect: React.FC = () => {
         })
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countries])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const filterCountriesThrottle = useCallback(Functions.throttle(filterCountries, 250, { trailing: true }), [countries])
 
   const updateSelection = (countryISOs: Array<string>): void => {
@@ -72,8 +75,7 @@ const CountrySelect: React.FC = () => {
           checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
           label={selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
           onClick={() => {
-            const countryISOs: Array<string> =
-              selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
+            const countryISOs: Array<string> = selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
             updateSelection(countryISOs)
           }}
         />

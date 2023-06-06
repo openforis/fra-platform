@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Authorizer } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Authorizer } from 'meta/user'
 
-import { useAssessment, useAssessmentSection, useCountry, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useAssessment, useAssessmentSection, useCountry, useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
 
 const domains: Array<string> = ['boreal', 'temperate', 'tropical', 'subtropical']
 
@@ -21,9 +21,7 @@ const ExcelCalculatorDownload: React.FC = () => {
   const userInfo = useUser()
   const countryDomain = country?.props?.domain
 
-  const [selectedDomain, setSelectedDomain] = useState<string>(
-    domains.includes(countryDomain) ? countryDomain : 'boreal'
-  )
+  const [selectedDomain, setSelectedDomain] = useState<string>(domains.includes(countryDomain) ? countryDomain : 'boreal')
 
   const calculatorFilePath = ApiEndPoint.File.biomassStock({
     assessmentName: assessment?.props?.name,

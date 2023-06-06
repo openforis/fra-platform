@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Functions } from '@utils/functions'
 import axios from 'axios'
 import { Dispatch } from 'redux'
+import { Functions } from 'utils/functions'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
-import { RoleName } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
+import { RoleName } from 'meta/user'
 
 import { UserManagementActions } from '../slice'
 
@@ -34,9 +34,6 @@ const throttledGetUsersCount = Functions.throttle(
   { leading: true, trailing: true }
 )
 
-export const getUsersCount = createAsyncThunk<void, Params>(
-  'userManagement/get/usersCount',
-  async (params, { dispatch }) => {
-    throttledGetUsersCount(params, dispatch)
-  }
-)
+export const getUsersCount = createAsyncThunk<void, Params>('userManagement/get/usersCount', async (params, { dispatch }) => {
+  throttledGetUsersCount(params, dispatch)
+})

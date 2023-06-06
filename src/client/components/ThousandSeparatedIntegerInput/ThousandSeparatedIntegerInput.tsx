@@ -4,8 +4,8 @@
 import './ThousandSeparatedIntegerInput.scss'
 import React from 'react'
 
-import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
+import { Numbers } from 'utils/numbers'
 
 type State = any
 type Props = any

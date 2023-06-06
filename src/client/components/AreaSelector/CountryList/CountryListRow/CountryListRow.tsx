@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Areas, CountryIso, Global, RegionCode } from '@meta/area'
-import { UserRoles } from '@meta/user/userRoles'
+import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountry } from '@client/store/assessment'
-import { useIsCycleLanding } from '@client/hooks'
-import { Dates } from '@client/utils'
+import { useCountry } from 'client/store/assessment'
+import { useIsCycleLanding } from 'client/hooks'
+import { Dates } from 'client/utils'
 
 type Props = {
   country: { countryIso: CountryIso | Global | RegionCode }

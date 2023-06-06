@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { User } from '@meta/user'
-import { UserProps } from '@meta/user/user'
+import { User } from 'meta/user'
+import { UserProps } from 'meta/user/user'
 
 type Props = {
   name: string
@@ -41,11 +41,7 @@ const SelectField: React.FC<Props> = (props) => {
           error: !valid,
         })}
       >
-        <select
-          value={value}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)}
-          disabled={!enabled}
-        >
+        <select value={value} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)} disabled={!enabled}>
           <option value="">{t('userManagement.placeholder')}</option>
           {Object.entries(options).map(([k, v]) => (
             <option key={k} value={k}>

@@ -1,10 +1,10 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { MetadataController } from '@server/controller/metadata'
-import { UserController } from '@server/controller/user'
+import { AssessmentController } from 'server/controller/assessment'
+import { MetadataController } from 'server/controller/metadata'
+import { UserController } from 'server/controller/user'
 
-import { assessmentParams } from '@test/integration/mock/assessment'
-import { subSectionParams } from '@test/integration/mock/section'
-import { userMockTest } from '@test/integration/mock/user'
+import { assessmentParams } from 'test/integration/mock/assessment'
+import { subSectionParams } from 'test/integration/mock/section'
+import { userMockTest } from 'test/integration/mock/user'
 
 export default () => {
   return test('Expect section to be updated', async () => {

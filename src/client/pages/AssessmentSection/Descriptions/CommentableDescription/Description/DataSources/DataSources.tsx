@@ -2,14 +2,14 @@ import './DataSources.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
-import { UUIDs } from '@utils/uuids'
+import { Objects } from 'utils/objects'
+import { UUIDs } from 'utils/uuids'
 
-import { CommentableDescriptionValue, DataSource } from '@meta/assessment'
+import { CommentableDescriptionValue, DataSource } from 'meta/assessment'
 
-import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import DataGrid from '@client/components/DataGrid'
-import DataColumn from '@client/components/DataGrid/DataColumn'
+import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
+import DataGrid from 'client/components/DataGrid'
+import DataColumn from 'client/components/DataGrid/DataColumn'
 
 import { useDescriptions } from '../../../Descriptions'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
@@ -82,13 +82,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="data-source wrapper">
-      {!disabled && (
-        <ButtonCopyDataSources
-          disabled={copyDisabled}
-          currentValue={commentableDescriptionValue}
-          sectionName={sectionName}
-        />
-      )}
+      {!disabled && <ButtonCopyDataSources disabled={copyDisabled} currentValue={commentableDescriptionValue} sectionName={sectionName} />}
 
       <DataGrid className="data-source-grid">
         <div />

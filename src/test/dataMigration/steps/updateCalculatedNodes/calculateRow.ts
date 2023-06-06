@@ -1,12 +1,12 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, AssessmentMetaCaches, Cycle, Row, VariableCache } from '@meta/assessment'
-import { ExpressionEvaluator } from '@meta/expressionEvaluator'
+import { CountryIso } from 'meta/area'
+import { Assessment, AssessmentMetaCaches, Cycle, Row, VariableCache } from 'meta/assessment'
+import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
-import { CycleDataController } from '@server/controller/cycleData'
-import { MetadataController } from '@server/controller/metadata'
-import { BaseProtocol } from '@server/db'
+import { CycleDataController } from 'server/controller/cycleData'
+import { MetadataController } from 'server/controller/metadata'
+import { BaseProtocol } from 'server/db'
 
-import { NodeRow } from '@test/dataMigration/types'
+import { NodeRow } from 'test/dataMigration/types'
 
 const hasBeenCalculated = (props: {
   variable: VariableCache
@@ -14,9 +14,7 @@ const hasBeenCalculated = (props: {
   calculatedVariables: Record<string, Record<string, boolean>>
 }): boolean => {
   const { variable, variablesToCalculate, calculatedVariables } = props
-  const variableToCalc = variablesToCalculate.find(
-    (v) => v.tableName === variable.tableName && v.variableName === variable.variableName
-  )
+  const variableToCalc = variablesToCalculate.find((v) => v.tableName === variable.tableName && v.variableName === variable.variableName)
   if (variableToCalc) {
     return Boolean(calculatedVariables[variable.tableName]?.[variable.variableName])
   }
@@ -99,12 +97,7 @@ export const calculateRow = async (
             col_uuid: col.uuid,
             value: { raw: raw ? String(raw) : null, calculated: true },
           }
-          if (
-            values.find(
-              (v) =>
-                v.country_iso === value.country_iso && v.row_uuid === value.row_uuid && v.col_uuid === value.col_uuid
-            )
-          ) {
+          if (values.find((v) => v.country_iso === value.country_iso && v.row_uuid === value.row_uuid && v.col_uuid === value.col_uuid)) {
             throw new Error(`Duplicate node ${JSON.stringify(value)}`)
           }
 

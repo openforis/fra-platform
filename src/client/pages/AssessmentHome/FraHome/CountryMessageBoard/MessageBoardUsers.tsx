@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { MessageTopicType, Topics } from '@meta/messageCenter'
-import { Users } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { MessageTopicType, Topics } from 'meta/messageCenter'
+import { Users } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useUsers } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useCycle } from 'client/store/assessment'
+import { useUsers } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
 
 import MessageButton from './MessageButton'
 
@@ -41,12 +41,8 @@ const MessageBoardUsers: React.FC = () => {
             <div className="landing__user-header">
               <img alt="" className="landing__user-avatar" src={ApiEndPoint.User.profilePicture(String(_user.id))} />
               <div className="landing__user-info">
-                <div className={classNames('landing__user-name', { 'session-user': user.id === _user.id })}>
-                  {Users.getFullName(_user)}
-                </div>
-                <div className="landing__user-role">
-                  {t(Users.getI18nRoleLabelKey(Users.getRole(_user, countryIso, cycle)?.role))}
-                </div>
+                <div className={classNames('landing__user-name', { 'session-user': user.id === _user.id })}>{Users.getFullName(_user)}</div>
+                <div className="landing__user-role">{t(Users.getI18nRoleLabelKey(Users.getRole(_user, countryIso, cycle)?.role))}</div>
                 {user.id !== _user.id && (
                   <MessageButton
                     topicKey={Topics.getMessageBoardChatKey(user, _user)}

@@ -1,9 +1,12 @@
-import { CountryIso } from '@meta/area'
+import { Numbers } from 'utils/numbers'
 
-import { getFileName } from '@test/bulkDownloadComparison/getFileName'
-import { readCSV } from '@test/bulkDownloadComparison/readCSV'
-import { RawFile, RawFileRow, Value, ValueDiff } from '@test/bulkDownloadComparison/types'
-import { parseValue } from '@test/dataExportComparison/parseValue'
+import { CountryIso } from 'meta/area'
+
+import { getFileName } from 'test/bulkDownloadComparison/getFileName'
+import { readCSV } from 'test/bulkDownloadComparison/readCSV'
+import { RawFile, RawFileRow, Value, ValueDiff } from 'test/bulkDownloadComparison/types'
+
+export const parseValue = (val: string): number => Math.abs(Number(Numbers.toFixed(Number(val))))
 
 const skip: Array<string> = ['regions', 'name', '4a_fo_unknown', '3a_prim_no_unknown']
 

@@ -2,9 +2,9 @@ import './Toaster.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Icon from '@client/components/Icon'
-import { NotificationMessage, NotificationActions, useNotification } from '@client/store/ui/notification'
-import { useAppDispatch } from '@client/store'
+import { useAppDispatch } from 'client/store'
+import { NotificationActions, NotificationMessage, useNotification } from 'client/store/ui/notification'
+import Icon from 'client/components/Icon'
 
 type ToastProps = {
   notification: NotificationMessage

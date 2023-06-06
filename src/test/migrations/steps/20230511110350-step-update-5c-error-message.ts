@@ -1,7 +1,7 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
+import { AssessmentCycleUtil } from 'test/migrations/steps/utils/getAssessmentCycle'
 
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentCycleUtil.getFra2025(client)
@@ -18,11 +18,7 @@ export default async (client: BaseProtocol) => {
         set props = props || jsonb_build_object('validateFns', jsonb_build_object($2, $3))
         where id = $1
         returning *`,
-    [
-      row.id,
-      cycle.uuid,
-      ['validatorNotGreaterThanMaxForest(maxForestArea(),degradedForestMonitoring2025.degradedAreaForThatYear)'],
-    ]
+    [row.id, cycle.uuid, ['validatorNotGreaterThanMaxForest(maxForestArea(),degradedForestMonitoring2025.degradedAreaForThatYear)']]
   )
 
   await AssessmentController.generateMetaCache(

@@ -1,14 +1,14 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, AssessmentMetaCaches, Cycle, Row } from '@meta/assessment'
-import { ExpressionEvaluator } from '@meta/expressionEvaluator'
+import { CountryIso } from 'meta/area'
+import { Assessment, AssessmentMetaCaches, Cycle, Row } from 'meta/assessment'
+import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
-import { CycleDataController } from '@server/controller/cycleData'
-import { MetadataController } from '@server/controller/metadata'
-import { BaseProtocol } from '@server/db'
+import { CycleDataController } from 'server/controller/cycleData'
+import { MetadataController } from 'server/controller/metadata'
+import { BaseProtocol } from 'server/db'
 
-import { NodeRow } from '@test/dataMigration/types'
+import { NodeRow } from 'test/dataMigration/types'
 
 export const calculateRow = async (
   props: {
@@ -78,11 +78,7 @@ export const calculateRow = async (
         value: { raw: !Objects.isEmpty(raw) ? String(raw) : null, calculated: true },
       }
 
-      if (
-        values.find(
-          (v) => v.country_iso === value.country_iso && v.row_uuid === value.row_uuid && v.col_uuid === value.col_uuid
-        )
-      ) {
+      if (values.find((v) => v.country_iso === value.country_iso && v.row_uuid === value.row_uuid && v.col_uuid === value.col_uuid)) {
         throw new Error(`Duplicate node ${JSON.stringify(value)}`)
       }
 

@@ -1,10 +1,10 @@
 import './SatelliteSourcePanel.scss'
 import React from 'react'
 
-import { LayerStatus, MosaicOptions, MosaicSource } from '@meta/geo'
+import { LayerStatus, MosaicOptions, MosaicSource } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useAppliedMosaicOptions, useUiMosaicOptions } from '@client/store/ui/geo'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useAppliedMosaicOptions, useUiMosaicOptions } from 'client/store/ui/geo'
 
 interface ControlProps {
   label: string
@@ -54,9 +54,7 @@ const SatelliteSourcePanel: React.FC<Props> = ({ loadingStatus }) => {
   return (
     <div className="geo-map-menu-mosaic-satellite-panel">
       {loadingStatus === LayerStatus.failed && (
-        <p className="geo-map-menu-mosaic-satellite-error-message">
-          Error: No mosaic available for the selected configuration.
-        </p>
+        <p className="geo-map-menu-mosaic-satellite-error-message">Error: No mosaic available for the selected configuration.</p>
       )}
       <div>
         <Control label="Sources">
@@ -78,10 +76,7 @@ const SatelliteSourcePanel: React.FC<Props> = ({ loadingStatus }) => {
       </div>
       <div>
         <Control label="Year">
-          <select
-            value={uiMosaicOptions.year}
-            onChange={(e) => dispatch(GeoActions.setMosaicYear(Number(e.target.value)))}
-          >
+          <select value={uiMosaicOptions.year} onChange={(e) => dispatch(GeoActions.setMosaicYear(Number(e.target.value)))}>
             {years.map((year) => (
               <option key={year}>{year}</option>
             ))}

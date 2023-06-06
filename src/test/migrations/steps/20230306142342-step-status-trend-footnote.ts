@@ -1,7 +1,7 @@
-import { Cycle } from '@meta/assessment'
+import { Cycle } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 const _getMaxRowIndex = (tableName: string, client: BaseProtocol) =>
   client.one(
@@ -21,24 +21,14 @@ const _insertRow = (schemaName: string, cycle: Cycle, tableName: string, maxRowI
   values ('{"type": "noticeMessage", "index": ${maxRowIndex}, "cycles": ["${cycle.uuid}"]}'::jsonb, (select id from ${schemaName}.table where props ->> 'name' = '${tableName}'))
   returning *;`)
 
-const _insertCol = (
-  schemaName: string,
-  cycle: Cycle,
-  tableName: string,
-  rowId: number,
-  label: string,
-  client: BaseProtocol
-) =>
+const _insertCol = (schemaName: string, cycle: Cycle, tableName: string, rowId: number, label: string, client: BaseProtocol) =>
   client.query(`
   insert into ${schemaName}.col (props, row_id)
   values ('{"index": 0, "style": {"${cycle.uuid}": {"colSpan": 2, "rowSpan": 1}}, "cycles": ["${cycle.uuid}"], "labels": {"${cycle.uuid}": {"key": "fra.${tableName}.${label}"}}, "colType": "noticeMessage"}'::jsonb,
     ${rowId}::bigint) returning *;`)
 
 export default async (client: BaseProtocol) => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025' },
-    client
-  )
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName: 'fra', cycleName: '2025' }, client)
 
   const schemaName = Schemas.getName(assessment)
 

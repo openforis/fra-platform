@@ -2,10 +2,10 @@ import './NationalClassValidations.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ODPNationalClass } from '@meta/assessment'
-import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
+import { ODPNationalClass } from 'meta/assessment'
+import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 type Props = {
   nationalClasses: Array<ODPNationalClass>
@@ -33,9 +33,7 @@ const NationalClassValidations: React.FC<Props> = (props) => {
             <div className="msg" key={nationalClasses[index].name}>
               {t(
                 `generalValidation.${
-                  variable === 'validForestCharacteristicsPercentage'
-                    ? 'classValuesMustBeEqualTo'
-                    : 'classValueNotGreaterThan'
+                  variable === 'validForestCharacteristicsPercentage' ? 'classValuesMustBeEqualTo' : 'classValueNotGreaterThan'
                 }`,
                 {
                   name: nationalClasses[index].name,

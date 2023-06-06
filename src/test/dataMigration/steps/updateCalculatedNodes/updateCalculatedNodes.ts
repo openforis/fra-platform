@@ -1,21 +1,18 @@
-import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
-import { Assessment, AssessmentNames, Cycle, Row, VariableCache } from '@meta/assessment'
+import { Assessment, AssessmentNames, Cycle, Row, VariableCache } from 'meta/assessment'
 
-import { AreaController } from '@server/controller/area'
-import { BaseProtocol, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter'
+import { AreaController } from 'server/controller/area'
+import { BaseProtocol, Schemas } from 'server/db'
+import { ColAdapter } from 'server/repository/adapter'
 
-import { calculateRow } from '@test/dataMigration/steps/updateCalculatedNodes/calculateRow'
-import { getCertifiedAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
-import { getClimaticDomainValues } from '@test/dataMigration/steps/updateCalculatedNodes/getClimaticDomainValues'
-import { getTotalLandAreaValues } from '@test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
+import { calculateRow } from 'test/dataMigration/steps/updateCalculatedNodes/calculateRow'
+import { getCertifiedAreaValues } from 'test/dataMigration/steps/updateCalculatedNodes/getCertifiedAreaValues'
+import { getClimaticDomainValues } from 'test/dataMigration/steps/updateCalculatedNodes/getClimaticDomainValues'
+import { getTotalLandAreaValues } from 'test/dataMigration/steps/updateCalculatedNodes/getTotalLandAreaValues'
 
-export const updateCalculatedNodes = async (
-  props: { assessment: Assessment; cycle: Cycle },
-  client: BaseProtocol
-): Promise<void> => {
+export const updateCalculatedNodes = async (props: { assessment: Assessment; cycle: Cycle }, client: BaseProtocol): Promise<void> => {
   const { assessment, cycle } = props
 
   const schema = Schemas.getName(assessment)

@@ -1,5 +1,5 @@
-import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestSource, sourcesMetadata } from '@meta/geo'
-import { hansenPercentages } from '@meta/geo/forest'
+import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestSource, sourcesMetadata } from 'meta/geo'
+import { hansenPercentages } from 'meta/geo/forest'
 
 /**
  * Turns the Forest Estimations object into a table, and adds the area reported
@@ -35,8 +35,7 @@ export const builForestEstimationsDataTable = (
     } else {
       hansenPercentages.forEach((number: number) => {
         const source = `${key} ${number}`
-        const area =
-          fetchedForestEstimations.data[(metadata.forestAreaDataProperty + number) as keyof ForestEstimationsData]
+        const area = fetchedForestEstimations.data[(metadata.forestAreaDataProperty + number) as keyof ForestEstimationsData]
 
         if (typeof area === 'undefined') return
 
@@ -49,8 +48,7 @@ export const builForestEstimationsDataTable = (
   // Adding the precalculated recipe data if available.
   if (recipeLayerName && recipeLayerName in fetchedForestEstimations.data) {
     const precalculatedRecipeLabel = ExtraEstimation.PrecalculatedRecipe
-    const precalculatedRecipeAreaEstimation =
-      fetchedForestEstimations.data[recipeLayerName as keyof ForestEstimationsData]
+    const precalculatedRecipeAreaEstimation = fetchedForestEstimations.data[recipeLayerName as keyof ForestEstimationsData]
     const precalculatedRecipeAreaPercentage = (precalculatedRecipeAreaEstimation * 100) / (fra1ALandArea * 1000)
     estimationsData.push([
       precalculatedRecipeLabel,

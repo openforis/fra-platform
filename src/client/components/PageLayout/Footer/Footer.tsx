@@ -2,10 +2,10 @@ import './Footer.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { useUser } from '@client/store/user'
-import { useIsPrint } from '@client/hooks/useIsPath'
+import { useUser } from 'client/store/user'
+import { useIsPrint } from 'client/hooks/useIsPath'
 
 import SendFeedback from './SendFeedback'
 

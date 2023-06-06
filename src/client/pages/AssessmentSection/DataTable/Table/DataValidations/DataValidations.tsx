@@ -2,13 +2,13 @@ import './DataValidations.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Table } from '@meta/assessment'
-import { RecordAssessmentDatas } from '@meta/data'
+import { Table } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useTableData } from '@client/store/data'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useTableData } from 'client/store/data'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 type Props = {
   table: Table

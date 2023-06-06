@@ -3,13 +3,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, matchPath, useLocation } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { AssessmentHomeRouteNames, ClientRoutes } from '@meta/app'
-import { Areas } from '@meta/area'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { AssessmentHomeRouteNames, ClientRoutes } from 'meta/app'
+import { Areas } from 'meta/area'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 const ButtonDownloadDashboard: React.FC = () => {
   const { pathname } = useLocation()
@@ -36,9 +36,9 @@ const ButtonDownloadDashboard: React.FC = () => {
   return (
     <Link
       className="btn-s btn-primary landing__btn-download"
-      to={`${ApiEndPoint.File.dashboard()}?assessmentName=${assessment.props.name}&countryIso=${countryIso}&cycleName=${
-        cycle.name
-      }&lang=${i18n.language}`}
+      to={`${ApiEndPoint.File.dashboard()}?assessmentName=${assessment.props.name}&countryIso=${countryIso}&cycleName=${cycle.name}&lang=${
+        i18n.language
+      }`}
       target="_top"
     >
       <Icon name="hit-down" className="icon-hit-down icon-white" />

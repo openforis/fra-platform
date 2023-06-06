@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSource, Labels } from '@meta/assessment'
-import { DataSourceDescription } from '@meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSource, Labels } from 'meta/assessment'
+import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import DataColumn from '@client/components/DataGrid/DataColumn'
-import MultiSelect from '@client/components/MultiSelect'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import DataColumn from 'client/components/DataGrid/DataColumn'
+import MultiSelect from 'client/components/MultiSelect'
+import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 type Props = {
   disabled: boolean
@@ -47,14 +47,7 @@ const Variables: React.FC<Props> = (props: Props) => {
     onChange('variables', value)
   }
 
-  return (
-    <MultiSelect
-      disabled={disabled}
-      values={(dataSourceValue as any).variables}
-      options={options}
-      onChange={_onChange}
-    />
-  )
+  return <MultiSelect disabled={disabled} values={(dataSourceValue as any).variables} options={options} onChange={_onChange} />
 }
 
 const ColumnVariables: React.FC<Props> = (props: Props) => {

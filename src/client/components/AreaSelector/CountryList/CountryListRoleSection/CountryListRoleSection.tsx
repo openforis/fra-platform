@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
 
-import { Areas, Country, CountryIso, Global, RegionCode } from '@meta/area'
-import { Assessments } from '@meta/assessment'
-import { RoleName, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { Areas, Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { Assessments } from 'meta/assessment'
+import { RoleName, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useAssessment, useCountries, useCycle } from '@client/store/assessment'
-import { checkMatch } from '@client/utils'
+import { useAssessment, useCountries, useCycle } from 'client/store/assessment'
+import { checkMatch } from 'client/utils'
 
 import CountryListRow from '../CountryListRow'
 

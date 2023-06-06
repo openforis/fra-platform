@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, AssessmentNames, Labels, Row } from '@meta/assessment'
+import { AssessmentName, AssessmentNames, Labels, Row } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
-import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/ui/dataExport'
-import { DataExportActionType } from '@client/store/ui/dataExport/actionTypes'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import DefinitionLink from '@client/components/DefinitionLink'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
+import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
+import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import DefinitionLink from 'client/components/DefinitionLink'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const Heading: Record<string, string> = {
   [AssessmentNames.fra]: 'common.variable',
@@ -69,9 +69,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
           label={selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
           onClick={() => {
-            updateSelection(
-              selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)
-            )
+            updateSelection(selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName))
           }}
         />
       </div>

@@ -2,15 +2,15 @@ import { useEffect, useRef } from 'react'
 
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ForestSource, Layer } from '@meta/geo'
-import { LayerSource, LayerStatus } from '@meta/geo/forest'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ForestSource, Layer } from 'meta/geo'
+import { LayerSource, LayerStatus } from 'meta/geo/forest'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useForestSourceOptions } from '@client/store/ui/geo'
-import { GetForestLayerRequestBody } from '@client/store/ui/geo/actions/getForestLayer'
-import { useCountryIso } from '@client/hooks'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useForestSourceOptions } from 'client/store/ui/geo'
+import { GetForestLayerRequestBody } from 'client/store/ui/geo/actions/getForestLayer'
+import { useCountryIso } from 'client/hooks'
+import { mapController } from 'client/utils'
 
 export const useAgreementLayerHandler = () => {
   const dispatch = useAppDispatch()
@@ -22,12 +22,9 @@ export const useAgreementLayerHandler = () => {
   // Keep track of the opacity
   // Done this way to avoid having 'forestOptions.opacity' in the following dependency
   // arrays (which eslint demands, although it's not necessary in this case)
-  const opacity = useRef(
-    forestOptions.opacity[agreementLayerKey] !== undefined ? forestOptions.opacity[agreementLayerKey] : 1
-  )
+  const opacity = useRef(forestOptions.opacity[agreementLayerKey] !== undefined ? forestOptions.opacity[agreementLayerKey] : 1)
   useEffect(() => {
-    opacity.current =
-      forestOptions.opacity[agreementLayerKey] !== undefined ? forestOptions.opacity[agreementLayerKey] : 1
+    opacity.current = forestOptions.opacity[agreementLayerKey] !== undefined ? forestOptions.opacity[agreementLayerKey] : 1
   }, [forestOptions.opacity])
   useEffect(() => {
     if (mapController.isMapUnavailable()) return

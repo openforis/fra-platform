@@ -1,4 +1,4 @@
-import { Lang } from '@meta/lang'
+import { Lang } from 'meta/lang'
 
 import { AssessmentType } from '../assessment'
 import { Role } from './role'

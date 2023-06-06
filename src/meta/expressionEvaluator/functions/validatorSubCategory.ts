@@ -1,8 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment'
 
 import { Context } from '../context'
 
@@ -18,9 +18,7 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
         !subCategoryValues?.every(Boolean) ||
         Numbers.greaterThanWithTolerance(categoryValue, Numbers.sum(nonEmptySubCategoryValues))
 
-      const messages: Array<NodeValueValidationMessage> = valid
-        ? undefined
-        : [{ key: 'generalValidation.subCategoryExceedsParent' }]
+      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key: 'generalValidation.subCategoryExceedsParent' }]
 
       return { valid, messages }
     }

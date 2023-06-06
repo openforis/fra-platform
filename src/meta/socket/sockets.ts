@@ -1,12 +1,8 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, AssessmentName, Cycle } from '@meta/assessment'
-import { MessageTopic } from '@meta/messageCenter'
+import { CountryIso } from 'meta/area'
+import { Assessment, AssessmentName, Cycle } from 'meta/assessment'
+import { MessageTopic } from 'meta/messageCenter'
 
-const getRequestReviewSummaryEvent = (props: {
-  countryIso: CountryIso
-  assessmentName: AssessmentName
-  cycleName: string
-}) => {
+const getRequestReviewSummaryEvent = (props: { countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }) => {
   const { countryIso, assessmentName, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-request-review-summary`
 }
@@ -41,20 +37,12 @@ const getODPDeleteEvent = (props: { countryIso: CountryIso; assessmentName: stri
   return `${countryIso}-${assessmentName}-${cycleName}-odpDelete`
 }
 
-const getNodeValidationsUpdateEvent = (props: {
-  countryIso: CountryIso
-  assessmentName: AssessmentName
-  cycleName: string
-}) => {
+const getNodeValidationsUpdateEvent = (props: { countryIso: CountryIso; assessmentName: AssessmentName; cycleName: string }) => {
   const { assessmentName, cycleName, countryIso } = props
   return `${countryIso}-${assessmentName}-${cycleName}-validationsUpdate`
 }
 
-const getNodeValuesUpdateEvent = (props: {
-  countryIso: CountryIso
-  assessmentName: string
-  cycleName: string
-}): string => {
+const getNodeValuesUpdateEvent = (props: { countryIso: CountryIso; assessmentName: string; cycleName: string }): string => {
   const { countryIso, assessmentName, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-nodeUpdates`
 }

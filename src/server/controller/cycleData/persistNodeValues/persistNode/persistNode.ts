@@ -1,8 +1,8 @@
-import { ActivityLog, ActivityLogMessage, Node } from '@meta/assessment'
+import { ActivityLog, ActivityLogMessage, Node } from 'meta/assessment'
 
-import { BaseProtocol } from '@server/db'
-import { NodeRepository } from '@server/repository/assessmentCycle/node'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol } from 'server/db'
+import { NodeRepository } from 'server/repository/assessmentCycle/node'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { PersistNodeValueProps } from '../props'
 

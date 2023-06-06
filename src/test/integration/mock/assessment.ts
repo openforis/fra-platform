@@ -1,5 +1,5 @@
-import { OriginalDataPoint } from '@meta/assessment'
-import { AssessmentNames } from '@meta/assessment/assessmentName'
+import { OriginalDataPoint } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessmentName'
 
 export const assessmentParams = {
   props: {

@@ -1,7 +1,7 @@
-import { DB } from '@server/db'
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import { UserController } from '@server/controller/user'
+import { DB } from 'server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import { UserController } from 'server/controller/user'
 
 afterAll(async () => {
   await DB.$pool.end()

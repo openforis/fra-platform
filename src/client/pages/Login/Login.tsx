@@ -2,9 +2,9 @@ import './Login.scss'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
+import { ClientRoutes } from 'meta/app'
 
-import Partners from '@client/components/Partners'
+import Partners from 'client/components/Partners'
 
 import Invitation from './Invitation'
 import LoginForm from './LoginForm'

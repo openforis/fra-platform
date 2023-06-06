@@ -1,18 +1,18 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass } from '@meta/assessment'
-import { NationalClassValidation } from '@meta/assessment/originalDataPoint/odps/validateODP'
-import { Topics } from '@meta/messageCenter'
+import { ODPNationalClass } from 'meta/assessment'
+import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
+import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import PercentInput from '@client/components/PercentInput'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import PercentInput from 'client/components/PercentInput'
+import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -38,14 +38,11 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, forestPercent, forestNaturalPercent, forestNaturalForestOfWhichPrimaryForestPercent, uuid } =
-    nationalClass
+  const { name, area, forestPercent, forestNaturalPercent, forestNaturalForestOfWhichPrimaryForestPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const ofWhichPrimary = area
-    ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
-    : null
+  const ofWhichPrimary = area ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000)) : null
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -100,11 +97,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.naturallyRegeneratingForest')}
-            topicKey={Topics.getOdpClassReviewTopicKey(
-              originalDataPoint.id,
-              uuid,
-              'naturallyRegeneratingForestoFwhichPrimary'
-            )}
+            topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'naturallyRegeneratingForestoFwhichPrimary')}
           />
         </td>
       )}

@@ -1,4 +1,4 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
 const emailRegex = /.+@.+\..+/
 

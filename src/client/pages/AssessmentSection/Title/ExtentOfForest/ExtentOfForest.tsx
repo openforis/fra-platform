@@ -1,16 +1,16 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels } from '@meta/assessment'
-import { Users } from '@meta/user'
+import { Labels } from 'meta/assessment'
+import { Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
-import { useOriginalDataPointYears } from '@client/store/data'
-import { AssessmentSectionActions, useShowOriginalDatapoints } from '@client/store/ui/assessmentSection'
-import { useUser } from '@client/store/user'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import OriginalDataPointsPrint from '@client/pages/AssessmentPrint/OriginalDataPointsPrint'
+import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
+import { useOriginalDataPointYears } from 'client/store/data'
+import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { useUser } from 'client/store/user'
+import { useIsPrint } from 'client/hooks/useIsPath'
+import OriginalDataPointsPrint from 'client/pages/AssessmentPrint/OriginalDataPointsPrint'
 
 import { Props } from '../props'
 

@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { User, UserResetPassword } from '@meta/user'
+import { User, UserResetPassword } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const create = async (
   props: {
@@ -16,9 +16,5 @@ export const create = async (
 
   await client.none(`update public.users_reset_password set active = false where user_id = $1;`, [userId])
 
-  return client.one(
-    `insert into public.users_reset_password (user_id) values ($1) returning *;`,
-    [userId],
-    Objects.camelize
-  )
+  return client.one(`insert into public.users_reset_password (user_id) values ($1) returning *;`, [userId], Objects.camelize)
 }

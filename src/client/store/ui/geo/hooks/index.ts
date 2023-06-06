@@ -1,17 +1,9 @@
-import { CountryIso } from '@meta/area'
-import {
-  BurnedAreasOptions,
-  ForestOptions,
-  GeoStatisticsState,
-  MapPanel,
-  MosaicOptions,
-  ProtectedAreasOptions,
-} from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { BurnedAreasOptions, ForestOptions, GeoStatisticsState, MapPanel, MosaicOptions, ProtectedAreasOptions } from 'meta/geo'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
-export const useMosaicUrl = (countryIso: CountryIso): string =>
-  useAppSelector((state) => state.geo?.mosaicOptions.mosaicUrl[countryIso])
+export const useMosaicUrl = (countryIso: CountryIso): string => useAppSelector((state) => state.geo?.mosaicOptions.mosaicUrl[countryIso])
 
 export const useMosaicSelected = (): boolean => useAppSelector((state) => state.geo?.mosaicOptions.mosaicSelected)
 
@@ -31,7 +23,6 @@ export const useIsGeoMapAvailable = (): boolean => useAppSelector((state) => sta
 
 export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)
 
-export const useProtectedAreasOptions = (): ProtectedAreasOptions =>
-  useAppSelector((state) => state.geo?.protectedAreasOptions)
+export const useProtectedAreasOptions = (): ProtectedAreasOptions => useAppSelector((state) => state.geo?.protectedAreasOptions)
 
 export const useBurnedAreasOptions = (): BurnedAreasOptions => useAppSelector((state) => state.geo?.burnedAreasOptions)

@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react'
 import { batch } from 'react-redux'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, Table, TableNames } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, Table, TableNames } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { DataActions } from '@client/store/data/slice'
-import { useCanEdit } from '@client/store/user'
+import { useAppDispatch } from 'client/store'
+import { DataActions } from 'client/store/data/slice'
+import { useCanEdit } from 'client/store/user'
 
 type Props = {
   assessmentName: AssessmentName
@@ -32,15 +32,11 @@ const useTableNames = (props: Props): Array<string> => {
     dependencyTables[tableName]?.forEach((t) => tableNamesSet.add(t))
 
     if (canEdit && validationDependencies) {
-      Object.values(validationDependencies).forEach((variables) =>
-        variables.forEach((variable) => tableNamesSet.add(variable.tableName))
-      )
+      Object.values(validationDependencies).forEach((variables) => variables.forEach((variable) => tableNamesSet.add(variable.tableName)))
     }
 
     if (calculationDependencies) {
-      Object.values(calculationDependencies).forEach((variables) =>
-        variables.forEach((variable) => tableNamesSet.add(variable.tableName))
-      )
+      Object.values(calculationDependencies).forEach((variables) => variables.forEach((variable) => tableNamesSet.add(variable.tableName)))
     }
 
     return Array.from(tableNamesSet)
@@ -61,18 +57,13 @@ export const useGetTableData = (props: Props) => {
       tableNames.forEach((_tableName) => {
         const isTableProps = _tableName === tableName
         // merge odp is true when table 1a and 1b are included as dependency
-        const mergeOdp = !(
-          isTableProps &&
-          [TableNames.extentOfForest, TableNames.forestCharacteristics].includes(_tableName as TableNames)
-        )
+        const mergeOdp = !(isTableProps && [TableNames.extentOfForest, TableNames.forestCharacteristics].includes(_tableName as TableNames))
         const getTableDataProps = { assessmentName, countryIso, cycleName, tableNames: [_tableName], mergeOdp }
         dispatch(DataActions.getTableData(getTableDataProps))
       })
       if (odp) {
         dispatch(DataActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
-        dispatch(
-          DataActions.getNodeValuesEstimations({ assessmentName, countryIso, cycleName, tableName, sectionName })
-        )
+        dispatch(DataActions.getNodeValuesEstimations({ assessmentName, countryIso, cycleName, tableName, sectionName }))
       }
     })
   }, [assessmentName, countryIso, cycleName, dispatch, odp, sectionName, tableName, tableNames])

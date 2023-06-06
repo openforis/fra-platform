@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ColType } from '@meta/assessment'
+import { ColType } from 'meta/assessment'
 
-import TextInput from '@client/components/TextInput'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import TextInput from 'client/components/TextInput'
+import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 import { PropsCell } from '../props'
 
@@ -13,8 +13,7 @@ const Text: React.FC<PropsCell> = (props) => {
   const value = nodeValue?.raw || ''
   const { t } = useTranslation()
 
-  const [Component, componentProps] =
-    col.props.colType === ColType.text ? [TextInput, {}] : [VerticallyGrowingTextField, { minWidth: 350 }]
+  const [Component, componentProps] = col.props.colType === ColType.text ? [TextInput, {}] : [VerticallyGrowingTextField, { minWidth: 350 }]
 
   const { inputPlaceholder } = col.props
 

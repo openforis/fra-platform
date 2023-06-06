@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentNames, Labels, SubSections } from '@meta/assessment'
+import { AssessmentNames, Labels, SubSections } from 'meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import DefinitionLink from '@client/components/DefinitionLink'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import DefinitionLink from 'client/components/DefinitionLink'
 
 import ExtentOfForest from './ExtentOfForest/ExtentOfForest'
 import ForestCharacteristics from './ForestCharacteristics/ForestCharacteristics'

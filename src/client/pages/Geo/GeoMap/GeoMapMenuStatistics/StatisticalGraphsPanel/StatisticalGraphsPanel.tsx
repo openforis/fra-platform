@@ -1,13 +1,13 @@
 import './StatisticalGraphsPanel.scss'
 import React, { useEffect, useState } from 'react'
 
-import { Numbers } from '@utils/numbers'
 import { ChartOptions, Plugin } from 'chart.js'
+import { Numbers } from 'utils/numbers'
 
-import { ExtraEstimation, extraEstimationsMetadata, ForestSource, sourcesMetadata } from '@meta/geo'
+import { ExtraEstimation, extraEstimationsMetadata, ForestSource, sourcesMetadata } from 'meta/geo'
 
-import Chart from '@client/components/Chart'
-import { displayPercentagesPlugin, whiteBackgroundplugin } from '@client/pages/Geo/utils/chartPlugins'
+import Chart from 'client/components/Chart'
+import { displayPercentagesPlugin, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
 
 type Props = {
   data: [string, number, number][]

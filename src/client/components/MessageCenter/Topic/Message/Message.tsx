@@ -2,14 +2,14 @@ import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getRelativeDate } from '@utils/dates'
 import classNames from 'classnames'
+import { getRelativeDate } from 'utils/dates'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Message as MessageType } from '@meta/messageCenter/message'
-import { Users } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Message as MessageType } from 'meta/messageCenter/message'
+import { Users } from 'meta/user'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 type MessageProps = {
   message: MessageType
@@ -36,11 +36,7 @@ const Message: React.FC<MessageProps> = (props) => {
           <div className={classNames('message-author', { 'author-me': isMine })}>{Users.getFullName(message.user)}</div>
 
           {isMine && !deleted && message.message !== 'Marked as resolved' && (
-            <button
-              type="button"
-              className="btn-xs btn-secondary btn-remove-msg"
-              onClick={() => deleteFunc(message.id)}
-            >
+            <button type="button" className="btn-xs btn-secondary btn-remove-msg" onClick={() => deleteFunc(message.id)}>
               <Icon name="trash-simple" />
             </button>
           )}

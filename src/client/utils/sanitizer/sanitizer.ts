@@ -1,17 +1,15 @@
-import { ColSelectOption, ColType } from '@meta/assessment'
+import { ColSelectOption, ColType } from 'meta/assessment'
 
 import { acceptableAsDecimal, acceptNextDecimal } from './decimal'
 import { acceptableAsInteger, acceptNextInteger } from './integer'
 import { acceptNextSelectOption } from './select'
 
-const sanitizerFnByType: Record<
-  string,
-  (value: string | number, valuePrev: string | number, options?: Array<ColSelectOption>) => string
-> = {
-  [ColType.decimal]: acceptNextDecimal,
-  [ColType.integer]: acceptNextInteger,
-  [ColType.select]: acceptNextSelectOption,
-}
+const sanitizerFnByType: Record<string, (value: string | number, valuePrev: string | number, options?: Array<ColSelectOption>) => string> =
+  {
+    [ColType.decimal]: acceptNextDecimal,
+    [ColType.integer]: acceptNextInteger,
+    [ColType.select]: acceptNextSelectOption,
+  }
 
 const acceptableFnByType: Record<string, (value: string | number) => boolean> = {
   [ColType.decimal]: acceptableAsDecimal,
@@ -27,12 +25,7 @@ const isAcceptable = (props: { type: ColType; value: string }): boolean => {
   return true
 }
 
-export const sanitize = (props: {
-  value: string
-  type: ColType
-  valuePrev: string
-  options?: Array<ColSelectOption>
-}): string => {
+export const sanitize = (props: { value: string; type: ColType; valuePrev: string; options?: Array<ColSelectOption> }): string => {
   const { type, value, valuePrev, options } = props
   const sanitizerFn = sanitizerFnByType[type]
   if (sanitizerFn) {

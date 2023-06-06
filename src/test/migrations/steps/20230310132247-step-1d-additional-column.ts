@@ -1,28 +1,18 @@
-import { Row, Section, Table, TableSection } from '@meta/assessment'
+import { Row, Section, Table, TableSection } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025' },
-    client
-  )
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName: 'fra', cycleName: '2025' }, client)
 
   const schemaName = Schemas.getName(assessment)
 
-  const section = await client.one<Section>(
-    `select * from ${schemaName}.section where props->>'name' = 'forestAreaChange';`
-  )
+  const section = await client.one<Section>(`select * from ${schemaName}.section where props->>'name' = 'forestAreaChange';`)
 
-  const tableSection = await client.one<TableSection>(
-    `select * from ${schemaName}.table_section where section_id = $1;`,
-    [section.id]
-  )
+  const tableSection = await client.one<TableSection>(`select * from ${schemaName}.table_section where section_id = $1;`, [section.id])
 
-  const table = await client.one<Table>(`select * from ${schemaName}.table where table_section_id = $1;`, [
-    tableSection.id,
-  ])
+  const table = await client.one<Table>(`select * from ${schemaName}.table where table_section_id = $1;`, [tableSection.id])
 
   await client.query(
     `update ${schemaName}.row r set props = jsonb_set(r.props, '{index}', '7') where r.props->>'index' = '6' and table_id = $1;`,
@@ -43,10 +33,10 @@ export default async (client: BaseProtocol) => {
     "linkToSection": "extentOfForest"
   }`
 
-  const row = await client.one<Row>(
-    `insert into ${schemaName}.row (table_id, props) values ($1, $2::jsonb) returning *;`,
-    [table.id, newRow]
-  )
+  const row = await client.one<Row>(`insert into ${schemaName}.row (table_id, props) values ($1, $2::jsonb) returning *;`, [
+    table.id,
+    newRow,
+  ])
 
   const colHeader0 = `{
     "index": "header_0",

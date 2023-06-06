@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { Requests } from '@server/utils'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { Requests } from 'server/utils'
 
 export const acceptInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
   try {

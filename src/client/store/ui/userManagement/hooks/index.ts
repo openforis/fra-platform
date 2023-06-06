@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { RoleName, User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { RoleName, User } from 'meta/user'
 
-import { useAppSelector } from '@client/store/store'
+import { useAppSelector } from 'client/store/store'
 
 const roleNames = [
   RoleName.ADMINISTRATOR,
@@ -22,9 +22,7 @@ export const useFilters = (): { countries: Array<CountryIso>; fullName: string; 
   useAppSelector((state) => state.ui.userManagement.filters)
 
 export const useFilteredRoleNames = (): Array<RoleName> =>
-  useAppSelector((state) =>
-    Objects.isEmpty(state.ui.userManagement.filters.roles) ? roleNames : state.ui.userManagement.filters.roles
-  )
+  useAppSelector((state) => (Objects.isEmpty(state.ui.userManagement.filters.roles) ? roleNames : state.ui.userManagement.filters.roles))
 
 export const useRoleNames = (): Array<RoleName> => roleNames
 

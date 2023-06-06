@@ -2,10 +2,10 @@ import './ButtonCopyValues.scss'
 import React, { MutableRefObject, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Table, TableNames } from '@meta/assessment'
+import { Table, TableNames } from 'meta/assessment'
 
-import { useUser } from '@client/store/user'
-import { getData } from '@client/components/ButtonTableExport/utils'
+import { useUser } from 'client/store/user'
+import { getData } from 'client/components/ButtonTableExport/utils'
 
 type CopyValuesProps = {
   tableRef: MutableRefObject<HTMLTableElement>
@@ -59,11 +59,7 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
   if (!user || !showButton) return null
 
   return (
-    <button
-      type="button"
-      onClick={_onClick}
-      className="fra-table__btn-export btn-xs btn-primary no-print btn-copy-values"
-    >
+    <button type="button" onClick={_onClick} className="fra-table__btn-export btn-xs btn-primary no-print btn-copy-values">
       {t('tableWithOdp.copyToClipboard')}
     </button>
   )

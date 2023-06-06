@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { RoleName } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ClientRoutes } from 'meta/app'
+import { RoleName } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
+import { useAppDispatch } from 'client/store'
+import { AssessmentActions, useAssessment, useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
 
 const Landing: React.FC = () => {
   const dispatch = useAppDispatch()

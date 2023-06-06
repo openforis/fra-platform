@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 
-import { DataSource } from '@meta/assessment'
-import { DataSourceDescription } from '@meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSource } from 'meta/assessment'
+import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import Icon from '@client/components/Icon'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import Icon from 'client/components/Icon'
+import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import ColumnComments from './DataSourceColumn/ColumnComments'
 import ColumnReference from './DataSourceColumn/ColumnReference'
@@ -50,24 +50,14 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         )}
       </div>
 
-      <ColumnReference
-        dataSourceValue={dataSourceValue}
-        onChange={_onChange}
-        disabled={disabled}
-        placeholder={placeholder}
-      />
+      <ColumnReference dataSourceValue={dataSourceValue} onChange={_onChange} disabled={disabled} placeholder={placeholder} />
       <ColumnTypeOfDataSource
         dataSourceMetadata={dataSourceMetadata}
         dataSourceValue={dataSourceValue}
         onChange={_onChange}
         disabled={disabled}
       />
-      <ColumnVariables
-        dataSourceValue={dataSourceValue}
-        dataSourceMetadata={dataSourceMetadata}
-        onChange={_onChange}
-        disabled={disabled}
-      />
+      <ColumnVariables dataSourceValue={dataSourceValue} dataSourceMetadata={dataSourceMetadata} onChange={_onChange} disabled={disabled} />
       <ColumnYearForDataSource disabled={disabled} dataSourceValue={dataSourceValue} onChange={_onChange} />
       <ColumnComments disabled={disabled} dataSourceValue={dataSourceValue} onChange={_onChange} />
 
