@@ -24,7 +24,7 @@
     "run:prod": "run-s build start",
     "run:prod:server": "node dist/server/start",
     "start": "run-s migrations:run run:prod:server",
-    "generate-metacache": "yarn jest --verbose false --no-cache --detectOpenHandles --setupFiles dotenv/config --config src/test/generateMetaCache/jest.config.js",
+    "generate-metacache": "ts-node src/tools/generateMetaCache/",
     "//test": "mochapack --webpack-config webpack.config.babel.test.js",
     "test": "run-s test:integration",
     "test:integration": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config",
