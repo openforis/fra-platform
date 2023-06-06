@@ -1,4 +1,4 @@
-import { TableNames } from '@meta/assessment'
+import { TableNames } from 'meta/assessment'
 
 export const entries = [
   {

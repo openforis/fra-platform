@@ -1,11 +1,11 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Areas, Country, CountryIso } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
-import { Cycle, Section, SubSection } from '@meta/assessment'
-import { User } from '@meta/user/user'
-import { Collaborator, CollaboratorEditPropertyType } from '@meta/user/userRole'
-import { Users } from '@meta/user/users'
+import { Areas, Country, CountryIso } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
+import { Cycle, Section, SubSection } from 'meta/assessment'
+import { User } from 'meta/user/user'
+import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
+import { Users } from 'meta/user/users'
 
 /**
  *  CanView

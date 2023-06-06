@@ -1,7 +1,7 @@
-import { Cycle } from '@meta/assessment'
+import { Cycle } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 const _getMaxRowIndex = (tableName: string, client: BaseProtocol) =>
   client.one(

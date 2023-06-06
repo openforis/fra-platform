@@ -1,10 +1,10 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { MetadataController } from '@server/controller/metadata'
-import { UserController } from '@server/controller/user'
+import { AssessmentController } from 'server/controller/assessment'
+import { MetadataController } from 'server/controller/metadata'
+import { UserController } from 'server/controller/user'
 
-import { assessmentParams } from '@test/integration/mock/assessment'
-import { tableParams } from '@test/integration/mock/table'
-import { userMockTest } from '@test/integration/mock/user'
+import { assessmentParams } from 'test/integration/mock/assessment'
+import { tableParams } from 'test/integration/mock/table'
+import { userMockTest } from 'test/integration/mock/user'
 
 // test to update table
 export default () =>

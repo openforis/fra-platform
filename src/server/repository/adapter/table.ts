@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Table, TableProps } from '@meta/assessment'
+import { Table, TableProps } from 'meta/assessment'
 
-import { RowAdapter, RowDB } from '@server/repository/adapter/row'
+import { RowAdapter, RowDB } from 'server/repository/adapter/row'
 
 export interface TableDB {
   id: number

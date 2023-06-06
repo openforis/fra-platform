@@ -1,8 +1,8 @@
-import { Arrays } from '@utils/arrays'
+import { Arrays } from 'utils/arrays'
 
-import { Cycle } from '@meta/assessment'
+import { Cycle } from 'meta/assessment'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export const useOriginalDataPoint = () => useAppSelector((state) => state.ui.originalDataPoint?.data)
 

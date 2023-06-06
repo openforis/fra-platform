@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { RoleName, UserRole, UserRoleBaseProps, UserRoleExtendedProps } from '@meta/user/userRole'
+import { RoleName, UserRole, UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const updateProps = async (
   props: {

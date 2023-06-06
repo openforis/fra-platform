@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
-import { OriginalDataPoint } from '@meta/assessment'
+import { CycleRequest } from 'meta/api/request'
+import { OriginalDataPoint } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import Requests from 'server/utils/requests'
 
 export const createOriginalDataPoint = async (
   req: CycleRequest<never, { originalDataPoint: OriginalDataPoint }>,

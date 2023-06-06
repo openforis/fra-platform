@@ -2,14 +2,14 @@ import './InviteUserForm.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RoleName, Users } from '@meta/user'
+import { RoleName, Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import { useToaster } from 'client/hooks/useToaster'
 
 const validateName = (name: string) => !!name.trim()
 const validateRole = (role: string) => !!role

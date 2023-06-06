@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { MosaicOptions } from '@meta/geo'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { MosaicOptions } from 'meta/geo'
 
 const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
   const { sources, year, maxCloudCoverage } = mosaicOptions

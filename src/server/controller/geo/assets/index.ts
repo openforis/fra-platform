@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Image } from '@google/earthengine'
 
-import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from '@meta/geo'
+import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from 'meta/geo'
 
 import { getBurnedAreaAssetData } from './getBurnedAreaAssetData'
 import { getCountryBoundaries } from './getCountryBoundaries'

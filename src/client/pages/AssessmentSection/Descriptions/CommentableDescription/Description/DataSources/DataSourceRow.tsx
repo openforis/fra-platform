@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 
-import { DataSource } from '@meta/assessment'
-import { DataSourceDescription } from '@meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSource } from 'meta/assessment'
+import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import Icon from '@client/components/Icon'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import Icon from 'client/components/Icon'
+import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import ColumnComments from './DataSourceColumn/ColumnComments'
 import ColumnReference from './DataSourceColumn/ColumnReference'

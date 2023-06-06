@@ -1,5 +1,5 @@
-import { CountryIso } from '@meta/area'
-import { ODPNationalClass, OriginalDataPoint } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
 
 import handlePaste from './handlePaste'
 

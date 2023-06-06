@@ -1,7 +1,7 @@
-import { Assessment, Section, SubSection } from '@meta/assessment'
+import { Assessment, Section, SubSection } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { SectionAdapter, SubSectionAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { SectionAdapter, SubSectionAdapter } from 'server/repository/adapter'
 
 export const create = async (
   params: {

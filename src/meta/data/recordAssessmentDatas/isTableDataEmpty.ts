@@ -1,7 +1,7 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, CycleName, TableName } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, CycleName, TableName } from 'meta/assessment'
 
 import { RecordAssessmentData } from '../RecordAssessmentData'
 import { getTableData } from './getTableData'

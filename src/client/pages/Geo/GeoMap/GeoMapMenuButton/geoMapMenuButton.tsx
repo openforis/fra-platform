@@ -3,11 +3,11 @@ import React, { useCallback } from 'react'
 
 import classNames from 'classnames'
 
-import { MapPanel } from '@meta/geo'
+import { MapPanel } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useSelectedPanel } from '@client/store/ui/geo'
-import GeoIcon from '@client/components/GeoIcon'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useSelectedPanel } from 'client/store/ui/geo'
+import GeoIcon from 'client/components/GeoIcon'
 
 interface Props {
   panel: MapPanel

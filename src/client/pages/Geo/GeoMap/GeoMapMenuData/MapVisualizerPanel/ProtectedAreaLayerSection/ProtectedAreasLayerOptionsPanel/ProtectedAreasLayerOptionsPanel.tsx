@@ -1,9 +1,9 @@
 import './ProtectedAreasLayerOptionsPanel.scss'
 import React, { useState } from 'react'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useIsGeoMapAvailable, useProtectedAreasOptions } from '@client/store/ui/geo'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useIsGeoMapAvailable, useProtectedAreasOptions } from 'client/store/ui/geo'
+import { mapController } from 'client/utils'
 
 import { GLOBAL_OPACITY_KEY } from '../..'
 

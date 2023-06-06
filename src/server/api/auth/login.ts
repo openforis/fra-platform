@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
 import * as passport from 'passport'
 
-import { LoginRequest } from '@meta/api/request'
-import { ClientRoutes } from '@meta/app'
-import { AuthToken } from '@meta/auth'
-import { User } from '@meta/user'
+import { LoginRequest } from 'meta/api/request'
+import { ClientRoutes } from 'meta/app'
+import { AuthToken } from 'meta/auth'
+import { User } from 'meta/user'
 
-import Requests, { appUri } from '@server/utils/requests'
+import Requests, { appUri } from 'server/utils/requests'
 
 import { setAuthToken } from './utils/setAuthToken'
 

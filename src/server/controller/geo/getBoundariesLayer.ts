@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { Layer } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { Layer } from 'meta/geo'
 
-import { AssetsController } from '@server/controller/geo/assets'
+import { AssetsController } from 'server/controller/geo/assets'
 
 type Props = {
   countryIso: CountryIso

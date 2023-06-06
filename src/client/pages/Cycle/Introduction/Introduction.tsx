@@ -3,12 +3,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { Global } from '@meta/area'
-import { AssessmentNames } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { Global } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment'
 
-import { useCycle } from '@client/store/assessment'
-import AreaSelector from '@client/components/AreaSelector/AreaSelector'
+import { useCycle } from 'client/store/assessment'
+import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 
 const Introduction: React.FC = () => {
   const { i18n, t } = useTranslation()

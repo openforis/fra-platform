@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { User } from '@meta/user'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { UserRoleAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB } from 'server/db'
+import { UserRoleAdapter } from 'server/repository/adapter'
 
 import { fields } from './fields'
 

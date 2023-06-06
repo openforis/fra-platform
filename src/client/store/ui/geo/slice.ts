@@ -9,8 +9,8 @@ import {
   MosaicOptions,
   MosaicSource,
   ProtectedAreaKey,
-} from '@meta/geo'
-import { forestAgreementRecipes, ForestSource, HansenPercentage } from '@meta/geo/forest'
+} from 'meta/geo'
+import { forestAgreementRecipes, ForestSource, HansenPercentage } from 'meta/geo/forest'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
 import { getBurnedAreaLayer, getForestEstimationData, getForestLayer, getProtectedAreaLayer } from './actions'

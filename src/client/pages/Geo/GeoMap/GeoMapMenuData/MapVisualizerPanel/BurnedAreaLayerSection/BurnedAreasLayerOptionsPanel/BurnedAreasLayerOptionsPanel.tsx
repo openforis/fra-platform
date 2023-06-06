@@ -2,11 +2,11 @@ import './BurnedAreasLayerOptionsPanel.scss'
 import React, { useState } from 'react'
 import { batch } from 'react-redux'
 
-import { BurnedAreaKey } from '@meta/geo'
+import { BurnedAreaKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useBurnedAreasOptions, useIsGeoMapAvailable } from '@client/store/ui/geo'
-import { mapController } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useBurnedAreasOptions, useIsGeoMapAvailable } from 'client/store/ui/geo'
+import { mapController } from 'client/utils'
 
 import { GLOBAL_OPACITY_KEY } from '../..'
 

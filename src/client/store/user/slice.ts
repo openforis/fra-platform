@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { UserManagementActions } from '@client/store/ui/userManagement'
+import { UserManagementActions } from 'client/store/ui/userManagement'
 
 import { initApp } from '../assessment/actions/initApp'
 import { LoginActions } from '../login'

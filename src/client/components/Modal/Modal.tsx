@@ -1,7 +1,7 @@
 import './Modal.scss'
 import React from 'react'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 type PropsChildren = {
   children: React.ReactNode | React.ReactNode[]

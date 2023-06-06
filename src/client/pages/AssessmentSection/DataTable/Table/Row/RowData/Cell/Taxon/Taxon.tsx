@@ -2,10 +2,10 @@ import React from 'react'
 
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Taxon as TaxonType } from '@meta/extData/taxon'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Taxon as TaxonType } from 'meta/extData/taxon'
 
-import Autocomplete from '@client/components/Autocomplete'
+import Autocomplete from 'client/components/Autocomplete'
 
 import { PropsCell } from '../props'
 

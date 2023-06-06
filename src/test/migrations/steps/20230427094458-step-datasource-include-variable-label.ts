@@ -11,11 +11,11 @@ import {
   RowType,
   SubSection,
   VariableName,
-} from '@meta/assessment'
+} from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { MetadataController } from '@server/controller/metadata'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { MetadataController } from 'server/controller/metadata'
+import { BaseProtocol, Schemas } from 'server/db'
 
 interface DataSourceVariablesDeprecated {
   // Custom i18n keys to include

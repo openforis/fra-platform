@@ -1,5 +1,5 @@
-import { Areas, Country, CountryIso } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
+import { Areas, Country, CountryIso } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
 
 import { User, Users } from '../user'
 import { AssessmentName } from './assessmentName'

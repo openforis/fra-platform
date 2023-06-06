@@ -1,7 +1,7 @@
 import { Express } from 'express'
 import * as session from 'express-session'
 import * as connectPgSimple from 'connect-pg-simple'
-import { DB } from '@server/db'
+import { DB } from 'server/db'
 
 export const init = (app: Express): void => {
   const PgSession = connectPgSimple(session)

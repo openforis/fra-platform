@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { NodeUpdate, NodeUpdates } from '@meta/data'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { NodeUpdate, NodeUpdates } from 'meta/data'
+import { User } from 'meta/user'
 
 export type PersistNodeValueProps = {
   countryIso: CountryIso

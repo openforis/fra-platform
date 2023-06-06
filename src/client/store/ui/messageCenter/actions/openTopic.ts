@@ -1,9 +1,9 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CycleDataParams } from '@meta/api/request'
-import { MessageTopic, MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
+import { CycleDataParams } from 'meta/api/request'
+import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 
 type Params = Omit<CycleDataParams, 'sectionName'> & {
   key: string

@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, ReviewStatus } from '@meta/assessment'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, ReviewStatus } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getReviewStatus = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; sectionName: string; user: User },

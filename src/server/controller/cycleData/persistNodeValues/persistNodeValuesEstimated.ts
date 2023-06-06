@@ -1,12 +1,12 @@
-import { CountryIso } from '@meta/area'
-import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { NodeValuesEstimation } from '@meta/assessment/nodeValuesEstimation'
-import { NodeUpdate } from '@meta/data'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
+import { NodeUpdate } from 'meta/data'
+import { User } from 'meta/user'
 
-import { DB } from '@server/db'
-import { NodeValueEstimationRepository } from '@server/repository/assessmentCycle/nodeValueEstimationRepository'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { DB } from 'server/db'
+import { NodeValueEstimationRepository } from 'server/repository/assessmentCycle/nodeValueEstimationRepository'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { persistNodeValues } from './persistNodeValues'
 

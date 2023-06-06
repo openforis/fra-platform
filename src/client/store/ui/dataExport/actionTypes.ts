@@ -1,8 +1,8 @@
 import { Action } from 'redux'
 
-import { Country } from '@meta/area'
+import { Country } from 'meta/area'
 
-import { DataExportSelection } from '@client/store/ui/dataExport/stateType'
+import { DataExportSelection } from 'client/store/ui/dataExport/stateType'
 
 export enum DataExportActionType {
   countriesUpdate = 'dataExport/countries/update',

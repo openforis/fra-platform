@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { User } from '@meta/user'
-import { UserProps } from '@meta/user/user'
+import { User } from 'meta/user'
+import { UserProps } from 'meta/user/user'
 
 type Props = {
   name: string

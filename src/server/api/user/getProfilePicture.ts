@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import * as path from 'path'
-import Requests from '@server/utils/requests'
-import { UserController } from '@server/controller/user'
+import Requests from 'server/utils/requests'
+import { UserController } from 'server/controller/user'
 
 export const getProfilePicture = async (req: Request, res: Response) => {
   const { id } = req.params

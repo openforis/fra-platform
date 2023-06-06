@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { AssessmentActions } from '@client/store/assessment'
+import { AssessmentActions } from 'client/store/assessment'
 
 import { getTableSections } from './actions/getTableSections'
 import { setTableSections } from './actions/setTableSections'

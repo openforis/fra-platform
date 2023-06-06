@@ -1,7 +1,7 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
+import { AssessmentCycleUtil } from 'test/migrations/steps/utils/getAssessmentCycle'
 
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentCycleUtil.getFra2025(client)

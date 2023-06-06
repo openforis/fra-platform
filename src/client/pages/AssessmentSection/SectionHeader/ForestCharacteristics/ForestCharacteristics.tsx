@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessment, useAssessmentCountry, useCycle } from '@client/store/assessment'
-import { useHasOriginalDataPointData } from '@client/store/data'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { AssessmentActions, useAssessment, useAssessmentCountry, useCycle } from 'client/store/assessment'
+import { useHasOriginalDataPointData } from 'client/store/data'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
 
 import { Props } from '../props'
 

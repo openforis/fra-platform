@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { MessageTopicStatus, MessageTopicType } from '@meta/messageCenter'
+import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { MessageCenterActions } from '@client/store/ui/messageCenter'
-import { useReviewStatus } from '@client/store/ui/review/hooks'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { MessageCenterActions } from 'client/store/ui/messageCenter'
+import { useReviewStatus } from 'client/store/ui/review/hooks'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 type Props = {
   title: string

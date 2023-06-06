@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { TFunction, useTranslation } from 'react-i18next'
 
-import { NodeValue, NodeValueValidationMessageParam } from '@meta/assessment'
+import { NodeValue, NodeValueValidationMessageParam } from 'meta/assessment'
 
 type Props = {
   nodeValue: NodeValue

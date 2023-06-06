@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { ColType } from '@meta/assessment'
+import { ColType } from 'meta/assessment'
 
-import ThousandSeparatedDecimalInput from '@client/components/ThousandSeparatedDecimalInput'
-import ThousandSeparatedIntegerInput from '@client/components/ThousandSeparatedIntegerInput'
+import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
+import ThousandSeparatedIntegerInput from 'client/components/ThousandSeparatedIntegerInput'
 
 import { PropsCell } from '../props'
 

@@ -1,4 +1,4 @@
-import { getODP } from '@server/service/estimates/getODP'
+import { getODP } from 'server/service/estimates/getODP'
 
 export const dataset6 = {
   ITA: {

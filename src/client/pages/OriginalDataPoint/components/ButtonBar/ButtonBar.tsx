@@ -3,17 +3,17 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { AssessmentName } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { AssessmentName } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import {
   OriginalDataPointActions,
   useIsOriginalDataPointUpdating,
   useOriginalDataPoint,
-} from '@client/store/ui/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
+} from 'client/store/ui/originalDataPoint'
+import { useCountryIso } from 'client/hooks'
 
 type Props = {
   canEditData: boolean

@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 
-import { UUIDs } from '@utils/uuids'
+import { UUIDs } from 'utils/uuids'
 
-import { useAppDispatch } from '@client/store'
-import { NotificationActions } from '@client/store/ui/notification'
+import { useAppDispatch } from 'client/store'
+import { NotificationActions } from 'client/store/ui/notification'
 
 export type ToasterHook = {
   toaster: {

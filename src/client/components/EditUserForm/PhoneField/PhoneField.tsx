@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { useOnUpdate } from '@client/hooks'
+import { useOnUpdate } from 'client/hooks'
 
 type Props = {
   name: string

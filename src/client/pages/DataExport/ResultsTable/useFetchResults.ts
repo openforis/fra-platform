@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { AssessmentName } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { AssessmentName } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
-import { useDataExportSelection } from '@client/store/ui/dataExport'
-import { useCountryIso, useGetRequest } from '@client/hooks'
+import { useDataExportSelection } from 'client/store/ui/dataExport'
+import { useCountryIso, useGetRequest } from 'client/hooks'
 
 type Props = {
   columnsAlwaysExport: Array<string>

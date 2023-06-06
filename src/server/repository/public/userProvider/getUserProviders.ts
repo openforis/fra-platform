@@ -1,6 +1,6 @@
-import { AuthProvider, User } from '@meta/user'
+import { AuthProvider, User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const getUserProviders = async (
   props: { user: User },

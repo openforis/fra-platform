@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { InitRequest } from '@meta/api/request'
+import { InitRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { SettingsController } from '@server/controller/settings'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { SettingsController } from 'server/controller/settings'
+import Requests from 'server/utils/requests'
 
 export const getAssessment = async (req: InitRequest, res: Response) => {
   try {

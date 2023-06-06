@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
 
-import { ColSelectOption } from '@meta/assessment'
+import { ColSelectOption } from 'meta/assessment'
 
-import { PropsCell } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/props'
-import { optionNotSelected } from '@client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/Select/OptionNotSelected'
-import { DOMs } from '@client/utils/dom'
+import { PropsCell } from 'client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/props'
+import { optionNotSelected } from 'client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/Select/OptionNotSelected'
+import { DOMs } from 'client/utils/dom'
 
 const getOptionLabel = (option: ColSelectOption, i18n: i18n, labelKeyPrefix: string): string => {
   const label = Number.isInteger(+option.name) ? option.name : i18n.t(`${labelKeyPrefix}.${option.name}`)

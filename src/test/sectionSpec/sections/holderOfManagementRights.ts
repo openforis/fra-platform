@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { SectionSpec } from '@test/sectionSpec'
+import { SectionSpec } from 'test/sectionSpec'
 
 export const holderOfManagementRights: SectionSpec = {
   sectionName: 'holderOfManagementRights',

@@ -1,9 +1,9 @@
 import './GeoMapMenuMosaic.scss'
 import React, { useEffect } from 'react'
 
-import { LayerStatus } from '@meta/geo'
+import { LayerStatus } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
+import { useAppDispatch } from 'client/store'
 import {
   GeoActions,
   useAppliedMosaicOptions,
@@ -12,9 +12,9 @@ import {
   useMosaicSelected,
   useMosaicUrl,
   useSelectedPanel,
-} from '@client/store/ui/geo'
-import { useCountryIso } from '@client/hooks'
-import { mapController } from '@client/utils'
+} from 'client/store/ui/geo'
+import { useCountryIso } from 'client/hooks'
+import { mapController } from 'client/utils'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
 import MosaicControl from './MosaicControl'

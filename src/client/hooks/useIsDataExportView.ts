@@ -1,4 +1,4 @@
-import { Areas } from '@meta/area'
+import { Areas } from 'meta/area'
 
 import { useCountryIso } from './useCountryIso'
 

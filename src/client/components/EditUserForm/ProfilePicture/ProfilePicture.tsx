@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Users } from '@meta/user'
+import { Users } from 'meta/user'
 
 type Props = {
   onChange: (profilePictureFile: File) => void

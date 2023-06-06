@@ -2,9 +2,9 @@ import './TableOfContent.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels } from '@meta/assessment'
+import { Labels } from 'meta/assessment'
 
-import { useAssessmentSections, useCycle } from '@client/store/assessment'
+import { useAssessmentSections, useCycle } from 'client/store/assessment'
 
 type Props = {
   deskStudy: boolean

@@ -5,11 +5,11 @@ import { matchPath, NavLink, useLocation } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
+import { ClientRoutes } from 'meta/app'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 const LinkLanding: React.FC = () => {
   const assessment = useAssessment()

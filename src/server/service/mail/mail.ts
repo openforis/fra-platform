@@ -1,7 +1,7 @@
 import * as nodemailer from 'nodemailer'
 
-import { ProcessEnv } from '@server/utils'
-import { Logger } from '@server/utils/logger'
+import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
 
 import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 import { resetPassword } from './resetPassword'

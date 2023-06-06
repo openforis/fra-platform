@@ -1,5 +1,5 @@
-import { Cycle } from '@meta/assessment/cycle'
-import { Section, SubSection } from '@meta/assessment/section'
+import { Cycle } from 'meta/assessment/cycle'
+import { Section, SubSection } from 'meta/assessment/section'
 
 const getAnchor = (props: { cycle: Cycle; subSection: SubSection }): string => {
   const { cycle, subSection } = props

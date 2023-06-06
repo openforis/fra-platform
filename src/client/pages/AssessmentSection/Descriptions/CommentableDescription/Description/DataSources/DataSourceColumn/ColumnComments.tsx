@@ -2,10 +2,10 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { DataSource } from '@meta/assessment'
+import { DataSource } from 'meta/assessment'
 
-import DataColumn from '@client/components/DataGrid/DataColumn'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import DataColumn from 'client/components/DataGrid/DataColumn'
+import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 import { datasourceValidators } from './datasourceValidators'
 

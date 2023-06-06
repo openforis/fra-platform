@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { RoleName, UserContactPreference, UserRole } from '@meta/user/userRole'
+import { RoleName, UserContactPreference, UserRole } from 'meta/user/userRole'
 
 import ContactMethodField from '../ContactMethodField'
 import CountrySelectField from '../CountrySelectField'

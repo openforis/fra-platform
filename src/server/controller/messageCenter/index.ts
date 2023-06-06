@@ -1,4 +1,4 @@
-import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
+import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 
 import { addMessage } from './addMessage'
 import { getTopic } from './getTopic'

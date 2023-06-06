@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, AssessmentFile } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, AssessmentFile } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 const fields: Array<string> = ['id', 'uuid', 'country_iso', 'file_name']
 

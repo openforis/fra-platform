@@ -1,7 +1,7 @@
 // @ts-ignore
 import { FeatureCollection, Image } from '@google/earthengine'
 
-import { LayerSource, ProtectedAreaKey, protectedAreaSourcesMetadata } from '@meta/geo'
+import { LayerSource, ProtectedAreaKey, protectedAreaSourcesMetadata } from 'meta/geo'
 
 export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
   let asset = {} as { year?: number; img: Image; metadata: any }

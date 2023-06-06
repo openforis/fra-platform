@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment, AssessmentMetaCache, AssessmentNames, Col, Cycle, Row, TableNames } from '@meta/assessment'
-import { VariablesByTableCache } from '@meta/assessment/assessmentMetaCache'
+import { Assessment, AssessmentMetaCache, Col, Cycle, Row, TableNames } from 'meta/assessment'
+import { VariablesByTableCache } from 'meta/assessment/assessmentMetaCache'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
 import { DependencyEvaluator } from './dependencyEvaluator'
 
@@ -15,11 +15,6 @@ type Props = {
 export const generateMetaCache = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, cycle } = props
   const schema = Schemas.getName(assessment)
-
-  // TODO: Removed for easier testing. Rollback!
-  if (assessment.props.name === AssessmentNames.panEuropean) {
-    return
-  }
 
   const variablesByTable = await client.one<VariablesByTableCache>(
     `

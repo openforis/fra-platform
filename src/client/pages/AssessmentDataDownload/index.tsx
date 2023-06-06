@@ -2,10 +2,10 @@ import './dataDownload.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
-import { DOMs } from '@client/utils/dom'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
+import { DOMs } from 'client/utils/dom'
 
 import resources from './resources'
 

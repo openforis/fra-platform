@@ -1,10 +1,10 @@
 import './AssessmentHome.scss'
 import React from 'react'
 
-import { AssessmentNames } from '@meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
 
-import { useAssessment } from '@client/store/assessment'
-import MessageCenter from '@client/components/MessageCenter'
+import { useAssessment } from 'client/store/assessment'
+import MessageCenter from 'client/components/MessageCenter'
 
 import FraHome from './FraHome'
 import PanEuropeanHome from './PanEuropeanHome'

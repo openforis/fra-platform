@@ -1,9 +1,9 @@
-import { BigNumberInput, Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { BigNumberInput, Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 import BigNumber from 'bignumber.js'
 
-import { NodeValuesEstimation } from '@meta/assessment'
-import { NodeUpdate, RecordCountryData } from '@meta/data'
+import { NodeValuesEstimation } from 'meta/assessment'
+import { NodeUpdate, RecordCountryData } from 'meta/data'
 
 // TODO: refactor everything
 
@@ -104,8 +104,9 @@ export const applyEstimationFunction = (
   field: Field,
   estFunction: (...params: any[]) => BigNumber
 ): number => {
-  const estimated = Number(estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field]))
-  return Number(estimated < 0 ? '0' : estimated)
+  const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
+
+  return estimated?.isLessThan(0) ? 0 : estimated?.toNumber()
 }
 
 export const linearExtrapolation = (year: number, values: ValueArray, _: ODPValueArray, field: Field): number => {

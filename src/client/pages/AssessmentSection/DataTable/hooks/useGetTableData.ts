@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react'
 import { batch } from 'react-redux'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, Table, TableNames } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, Table, TableNames } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { DataActions } from '@client/store/data/slice'
-import { useCanEdit } from '@client/store/user'
+import { useAppDispatch } from 'client/store'
+import { DataActions } from 'client/store/data/slice'
+import { useCanEdit } from 'client/store/user'
 
 type Props = {
   assessmentName: AssessmentName

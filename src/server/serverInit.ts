@@ -6,9 +6,9 @@ import * as cookieParser from 'cookie-parser'
 import * as express from 'express'
 import * as morgan from 'morgan'
 
-import { Api } from '@server/api'
-import { Proxy } from '@server/proxy/proxy'
-import { SocketServer } from '@server/service/socket'
+import { Api } from 'server/api'
+import { Proxy } from 'server/proxy/proxy'
+import { SocketServer } from 'server/service/socket'
 
 import { sendErr } from './utils/requests'
 import * as resourceCacheControl from './resourceCacheControl'
@@ -48,7 +48,7 @@ export const serverInit = () => {
   // sending the uncaught errors as json instead of HTML
   // http://expressjs.com/en/guide/error-handling.html
   // NB: This must not be an arrow function to make express detect this as an error handler.
-  app.use(function (err: any, _req: any, res: any, _: any) {
+  app.use((err: any, _req: any, res: any, _: any) => {
     if (err) sendErr(res, err)
   })
 
