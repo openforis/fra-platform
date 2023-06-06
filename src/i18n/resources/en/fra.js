@@ -105,6 +105,7 @@ module.exports = {
   },
 
   designatedManagementObjective: {
+    designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     noDesignation: 'No designation',
     unknown2025: 'Unknown',
   },
@@ -182,6 +183,7 @@ module.exports = {
   },
 
   holderOfManagementRights: {
+    holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
     communities2025: 'Indigenous Peoples and local communities',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
@@ -215,6 +217,14 @@ module.exports = {
     mangrovesDisclaimer: `\u00B9Includes both Forest and Other wooded land`,
   },
 
+  forestPolicy: {
+    forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+  },
+
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+  },
+
   sustainableDevelopment: {
     annualForestAreaChangeRate: 'Annual forest area change rate',
     sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
@@ -230,10 +240,6 @@ module.exports = {
       forestDisturbances2025: '$t(navigation.sectionHeaders.forestDisturbances)',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
-      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
-      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
-      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
-      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
 

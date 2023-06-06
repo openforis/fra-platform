@@ -64,6 +64,7 @@ module.exports = {
     standLocal: 'Древостой / Местный',
   },
   designatedManagementObjective: {
+    designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     noDesignation: 'Нет назначения',
     unknown2025: 'Неизвестно',
   },
@@ -117,6 +118,7 @@ module.exports = {
     totalNativeTreeSpecies: 'Всего местных пород деревьев',
   },
   holderOfManagementRights: {
+    holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
     communities2025: 'Коренные народы и местные сообщества',
     other2025: 'Прочее (укажите в комментариях)',
     unknown2025: 'Неизвестно',
@@ -143,6 +145,12 @@ module.exports = {
     mangroves2025: 'Мангровые леса¹',
     mangrovesDisclaimer: '¹Включает как леса, так и прочие лесопокрытые земли',
   },
+  forestPolicy: {
+    forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+  },
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+  },
   sustainableDevelopment: {
     annualForestAreaChangeRate: 'Годовые темпы изменения площади лесов',
     sdgIndicator1_2025: 'Индикатор ЦУР 15.1.1 Площадь лесов в процентном отношении к общей площади суши',
@@ -155,10 +163,6 @@ module.exports = {
       forestDesignationAndManagement2025: '$t(navigation.sectionHeaders.forestDesignationAndManagement)',
       forestPolicyAndLegislation2025: 'Политика и законодательство в отношении лесов',
       forestDisturbances2025: 'Нарушения состояния лесов',
-      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
-      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
-      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
-      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

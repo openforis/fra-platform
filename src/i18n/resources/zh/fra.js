@@ -77,6 +77,7 @@ module.exports = {
     standLocal: '林分/地方',
   },
   designatedManagementObjective: {
+    designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     noDesignation: '无指定',
     unknown2025: '不明',
   },
@@ -140,6 +141,7 @@ module.exports = {
     introducedTreeSpecies2025: '引进树种',
   },
   holderOfManagementRights: {
+    holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
     communities2025: '土著居民和当地社区',
     other2025: '其他(在评论中阐述)',
     unknown2025: '不明',
@@ -168,6 +170,12 @@ module.exports = {
     mangroves2025: '红树林¹',
     mangrovesDisclaimer: '¹包括森林和其它林地',
   },
+  forestPolicy: {
+    forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+  },
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+  },
   sustainableDevelopment: {
     annualForestAreaChangeRate: '年森林面积变化率',
     sdgIndicator1_2025: '可持续发展目标指标 15.1.1 森林面积占土地总面积的比例',
@@ -182,10 +190,6 @@ module.exports = {
       forestDisturbances2025: '森林干扰',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
-      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
-      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
-      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
-      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

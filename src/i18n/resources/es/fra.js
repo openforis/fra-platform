@@ -77,6 +77,7 @@ module.exports = {
     standLocal: 'Parcela / Local',
   },
   designatedManagementObjective: {
+    designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     noDesignation: 'Sin designación',
     unknown2025: 'Desconocido',
   },
@@ -145,6 +146,7 @@ module.exports = {
     introducedTreeSpecies2025: 'Especies arbóreas introducidas',
   },
   holderOfManagementRights: {
+    holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
     communities2025: 'Pueblos Indígenas y comunidades locales',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Desconocido',
@@ -174,6 +176,12 @@ module.exports = {
     mangroves2025: 'Manglares¹',
     mangrovesDisclaimer: '¹Incluye tanto Bosque como Otras Tierras Boscosas ',
   },
+  forestPolicy: {
+    forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+  },
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
+  },
   sustainableDevelopment: {
     annualForestAreaChangeRate: 'Tasa de cambio anual del área de bosque',
     sdgIndicator1_2025: 'Indicador ODS 15.1.1: Área de bosque en proporción a la superficie terrestre total',
@@ -188,10 +196,6 @@ module.exports = {
       forestDisturbances2025: 'Perturbaciones forestales',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
-      forestPolicy2025: '$t(forestPolicy.forestPolicy)',
-      areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
-      holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
-      designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

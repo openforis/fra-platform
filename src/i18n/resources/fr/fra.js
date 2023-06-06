@@ -61,6 +61,7 @@ module.exports = {
     standLocal: 'Peuplement / Locale',
   },
   designatedManagementObjective: {
+    designatedManagementObjective2025: 'Objectif de gestion fixés',
     noDesignation: 'Aucune affectation',
     unknown2025: 'Affectation inconnue',
   },
@@ -116,6 +117,7 @@ module.exports = {
     totalNativeTreeSpecies: 'TOTAL Espèces d’arbres indigènes ',
   },
   holderOfManagementRights: {
+    holderOfManagementRights2025: 'Droits de gestion des forêts publiques',
     communities2025: 'Peuples autochtones et communautés locales ',
     other2025: 'Autres formes de droits de gestion (préciser dans les commentaires)',
     unknown2025: 'Droits de gestion inconnus',
@@ -140,6 +142,13 @@ module.exports = {
     mangrovesDisclaimer:
       '¹Pour la catégorie « Mangroves », la superficie doit inclure celles des « Forêts » et des « Autres terres boisées »',
   },
+  forestPolicy: {
+    forestPolicy2025:
+      'Politiques, législation et plateforme nationale de participation des parties prenantes à l’élaboration des politiques forestières',
+  },
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate2025: 'Superficie des domaines forestiers permanents',
+  },
   sustainableDevelopment: {
     annualForestAreaChangeRate: 'Taux de changement annuel de la superficie forestière',
     sdgIndicator1_2025: 'Indicateur ODD 15.1.1: Surface des zones forestières, en proportion de la surface terrestre ',
@@ -148,14 +157,9 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Extraction et valeur des produits forestiers non ligneuz en 2020',
+      forestDesignationAndManagement2025: 'Affectation et gestion des forêts',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: 'Politiques et législations forestières',
-      forestPolicy2025:
-        'Politiques, législation et plateforme nationale de participation des parties prenantes à l’élaboration des politiques forestières',
-      areaOfPermanentForestEstate2025: 'Superficie des domaines forestiers permanents',
-      holderOfManagementRights2025: 'Droits de gestion des forêts publiques',
-      designatedManagementObjective2025: 'Objectif de gestion fixés',
-      forestDesignationAndManagement2025: 'Affectation et gestion des forêts',
     },
   },
   extentOfForest_forestAreaStatusAndTrend_Description: {

@@ -12,7 +12,7 @@ export default async (client: BaseProtocol) => {
   await client.query(
     `
       update ${schemaName}.section
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.navigation.sectionHeaders.forestPolicy2025"')
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.forestPolicy.forestPolicy2025"')
       where props ->> 'name' = 'forestPolicy';
     `
   )
@@ -20,7 +20,7 @@ export default async (client: BaseProtocol) => {
   await client.query(
     `
       update ${schemaName}.section
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.navigation.sectionHeaders.areaOfPermanentForestEstate2025"')
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.areaOfPermanentForestEstate.areaOfPermanentForestEstate2025"')
       where props ->> 'name' = 'areaOfPermanentForestEstate';
     `
   )
@@ -28,7 +28,7 @@ export default async (client: BaseProtocol) => {
   await client.query(
     `
       update ${schemaName}.section
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.navigation.sectionHeaders.holderOfManagementRights2025"')
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.holderOfManagementRights.holderOfManagementRights2025"')
       where props ->> 'name' = 'holderOfManagementRights';
     `
   )
@@ -36,7 +36,7 @@ export default async (client: BaseProtocol) => {
   await client.query(
     `
       update ${schemaName}.section
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.navigation.sectionHeaders.designatedManagementObjective2025"')
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.designatedManagementObjective.designatedManagementObjective2025"')
       where props ->> 'name' = 'designatedManagementObjective';
     `
   )
