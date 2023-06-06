@@ -136,7 +136,8 @@ module.exports = {
   specificForestCategories: {
     specificForestCategories2025: 'Catégories spécifiques de forêts',
     mangroves2025: 'Mangroves¹',
-    mangrovesDisclaimer: '¹Inclut à la fois les Forêts et les Autres terres boisées.',
+    mangrovesDisclaimer:
+      '¹Pour la catégorie « Mangroves », la superficie doit inclure celles des « Forêts » et des « Autres terres boisées »',
   },
   sustainableDevelopment: {
     annualForestAreaChangeRate: 'Taux de changement annuel de la superficie forestière',
