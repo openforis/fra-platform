@@ -46,7 +46,7 @@ export default (props: Props): UseOnChange => {
       const valueUpdate = Sanitizer.sanitize({
         value: value.raw,
         type,
-        valuePrev: nodeValue?.raw,
+        valuePrev: nodeValue.raw,
         options: col.props.select?.options,
       })
 
