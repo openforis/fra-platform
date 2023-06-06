@@ -1,9 +1,9 @@
-import { ActivityLogMessage, Assessment } from '@meta/assessment'
-import { User } from '@meta/user'
+import { ActivityLogMessage, Assessment } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 export const create = async (
   props: { user: User; assessment: Pick<Assessment, 'props'> },

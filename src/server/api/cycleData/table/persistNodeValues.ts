@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { CycleDataRequest, NodesBody } from '@meta/api/request'
+import { CycleDataRequest, NodesBody } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import Requests from 'server/utils/requests'
 
 export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response) => {
   try {

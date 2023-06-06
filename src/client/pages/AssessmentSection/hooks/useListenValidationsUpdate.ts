@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
-import { NodeUpdates } from '@meta/data'
-import { Sockets } from '@meta/socket'
+import { CountryIso } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
+import { NodeUpdates } from 'meta/data'
+import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from '@client/store'
-import { DataActions } from '@client/store/data'
-import { SocketClient } from '@client/service/socket'
+import { useAppDispatch } from 'client/store'
+import { DataActions } from 'client/store/data'
+import { SocketClient } from 'client/service/socket'
 
 type Props = {
   countryIso: CountryIso

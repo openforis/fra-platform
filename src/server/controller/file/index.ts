@@ -1,4 +1,4 @@
-import { AssessmentFileRepository } from '@server/repository/assessment/file'
+import { AssessmentFileRepository } from 'server/repository/assessment/file'
 
 import { createAssessmentFile } from './createAssessmentFile'
 import { removeAssessmentFile } from './removeAssessmentFile'

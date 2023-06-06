@@ -1,5 +1,5 @@
-import { UserProfilePicture } from '@meta/user/userProfilePicture'
-import { BaseProtocol, DB } from '@server/db'
+import { UserProfilePicture } from 'meta/user/userProfilePicture'
+import { BaseProtocol, DB } from 'server/db'
 
 export const getProfilePicture = async (
   props: { id: number } | { email: string } | { emailGoogle: string },

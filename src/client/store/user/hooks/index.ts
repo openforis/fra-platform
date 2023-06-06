@@ -1,17 +1,17 @@
-import { CountryIso } from '@meta/area'
-import { Cycle } from '@meta/assessment'
-import { Authorizer, CollaboratorEditPropertyType, User, Users } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Cycle } from 'meta/assessment'
+import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 import {
   useAssessment,
   useAssessmentCountry,
   useAssessmentSection,
   useCountries,
   useCycle,
-} from '@client/store/assessment'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { useIsPrint } from '@client/hooks/useIsPath'
+} from 'client/store/assessment'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsPrint } from 'client/hooks/useIsPath'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 

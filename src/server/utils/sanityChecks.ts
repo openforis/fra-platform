@@ -1,4 +1,4 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 import { Request } from 'express'
 
 function InvalidParameterException(key: string, values: Array<any>) {

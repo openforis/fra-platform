@@ -1,13 +1,13 @@
-import { createI18nPromise } from '@i18n/i18nFactory'
+import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { ClientRoutes } from '@meta/app'
-import { Country, CountryIso } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
-import { AssessmentName, Cycle } from '@meta/assessment'
-import { RoleName, User, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ClientRoutes } from 'meta/app'
+import { Country, CountryIso } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
+import { AssessmentName, Cycle } from 'meta/assessment'
+import { RoleName, User, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { UserRepository } from '@server/repository/public/user'
+import { UserRepository } from 'server/repository/public/user'
 
 import { sendMail } from './mail'
 

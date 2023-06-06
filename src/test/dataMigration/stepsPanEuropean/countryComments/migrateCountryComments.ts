@@ -1,16 +1,16 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
-import { Numbers } from '@utils/numbers'
 import * as pgPromise from 'pg-promise'
+import { Numbers } from 'utils/numbers'
 
-import { Assessment, Cycle, RowType, Table } from '@meta/assessment'
+import { Assessment, Cycle, RowType, Table } from 'meta/assessment'
 
-import { MetadataController } from '@server/controller/metadata'
-import { BaseProtocol, Schemas } from '@server/db'
-import { FileCSV } from '@server/utils/fileCSV'
-import { Logger } from '@server/utils/logger'
+import { MetadataController } from 'server/controller/metadata'
+import { BaseProtocol, Schemas } from 'server/db'
+import { FileCSV } from 'server/utils/fileCSV'
+import { Logger } from 'server/utils/logger'
 
-import { NodeRow } from '@test/dataMigration/types'
+import { NodeRow } from 'test/dataMigration/types'
 
 type Props = {
   assessment: Assessment

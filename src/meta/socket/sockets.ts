@@ -1,6 +1,6 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, AssessmentName, Cycle } from '@meta/assessment'
-import { MessageTopic } from '@meta/messageCenter'
+import { CountryIso } from 'meta/area'
+import { Assessment, AssessmentName, Cycle } from 'meta/assessment'
+import { MessageTopic } from 'meta/messageCenter'
 
 const getRequestReviewSummaryEvent = (props: {
   countryIso: CountryIso

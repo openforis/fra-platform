@@ -1,10 +1,10 @@
 import './style.scss'
 import React, { memo } from 'react'
 
-import { AssessmentNames } from '@meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
 
-import { useAssessment } from '@client/store/assessment'
-import Loading from '@client/components/Loading'
+import { useAssessment } from 'client/store/assessment'
+import Loading from 'client/components/Loading'
 
 import FraPrint from './FraPrint'
 

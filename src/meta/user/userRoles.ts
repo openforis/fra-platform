@@ -1,8 +1,8 @@
 import i18n from 'i18next'
 
-import { Areas } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
-import { User } from '@meta/user/user'
+import { Areas } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
+import { User } from 'meta/user/user'
 
 import { RoleName, UserRole } from './userRole'
 

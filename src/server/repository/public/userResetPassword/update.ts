@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { UserResetPassword } from '@meta/user'
+import { UserResetPassword } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const update = async (
   props: {

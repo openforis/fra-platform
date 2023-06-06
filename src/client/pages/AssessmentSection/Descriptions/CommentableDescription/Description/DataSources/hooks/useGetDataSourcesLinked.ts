@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import { DataSourceLinked, Description } from '@meta/assessment'
+import { DataSourceLinked, Description } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { DataActions, useDataSourcesLinked } from '@client/store/data'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { DataActions, useDataSourcesLinked } from 'client/store/data'
+import { useCountryIso } from 'client/hooks'
 
 export const useGetDataSourcesLinked = (props: {
   descriptions: Description

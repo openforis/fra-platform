@@ -1,7 +1,7 @@
-import { Assessment, Col, ColType } from '@meta/assessment'
+import { Assessment, Col, ColType } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter/col'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { ColAdapter } from 'server/repository/adapter/col'
 
 export const getMany = (
   props: { assessment: Assessment; tableId?: number; rowId?: number },

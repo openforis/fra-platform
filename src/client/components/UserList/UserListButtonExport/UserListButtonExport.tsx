@@ -2,13 +2,13 @@ import React from 'react'
 import { CSVLink } from 'react-csv'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@meta/area'
-import { RoleName, User, Users } from '@meta/user'
+import { Areas } from 'meta/area'
+import { RoleName, User, Users } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useFilteredRoleNames, useUsers } from '@client/store/ui/userManagement'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useCycle } from 'client/store/assessment'
+import { useFilteredRoleNames, useUsers } from 'client/store/ui/userManagement'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 type Props = {
   isAdmin?: boolean

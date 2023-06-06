@@ -1,7 +1,7 @@
-import { Assessment } from '@meta/assessment'
-import { AuthProvider, RoleName, User, UserRole } from '@meta/user'
+import { Assessment } from 'meta/assessment'
+import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export const useInvitation = ():
   | {

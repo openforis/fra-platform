@@ -1,6 +1,6 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
 
-import { Row, VariableCache } from '@meta/assessment'
+import { Row, VariableCache } from 'meta/assessment'
 
 import { Context } from './context'
 

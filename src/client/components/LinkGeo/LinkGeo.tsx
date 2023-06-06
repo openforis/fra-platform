@@ -2,10 +2,10 @@ import './linkGeo.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
+import { ClientRoutes } from 'meta/app'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
 
 const LinkGeo: React.FC = () => {
   const assessment = useAssessment()

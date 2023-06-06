@@ -3,14 +3,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 import classNames from 'classnames'
 
-import { AdminRouteNames, ClientRoutes } from '@meta/app'
-import { Users } from '@meta/user'
+import { AdminRouteNames, ClientRoutes } from 'meta/app'
+import { Users } from 'meta/user'
 
-import { useCountries } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
+import { useCountries } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
 
 import UserManagement from './UserManagement'
 

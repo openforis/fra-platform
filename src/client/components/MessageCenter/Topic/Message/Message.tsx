@@ -2,14 +2,14 @@ import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getRelativeDate } from '@utils/dates'
+import { getRelativeDate } from 'utils/dates'
 import classNames from 'classnames'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Message as MessageType } from '@meta/messageCenter/message'
-import { Users } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Message as MessageType } from 'meta/messageCenter/message'
+import { Users } from 'meta/user'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 type MessageProps = {
   message: MessageType

@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { MessageCenterController } from '@server/controller/messageCenter'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { MessageCenterController } from 'server/controller/messageCenter'
+import Requests from 'server/utils/requests'
 
 export const getUnreadMessages = async (req: CycleRequest<{ key: string }>, res: Response) => {
   try {

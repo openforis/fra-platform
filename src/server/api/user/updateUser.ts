@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 
-import { Users } from '@meta/user'
+import { Users } from 'meta/user'
 
-import { UserController } from '@server/controller/user'
-import { Requests } from '@server/utils'
+import { UserController } from 'server/controller/user'
+import { Requests } from 'server/utils'
 
 export const updateUser = async (req: Request, res: Response) => {
   try {

@@ -1,6 +1,6 @@
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { ProcessEnv } from '@server/utils'
+import { ProcessEnv } from 'server/utils'
 
 export const isAtlantisAllowed = (assessment: Assessment, cycle: Cycle) =>
   ProcessEnv.fraAtlantisAllowed.find(

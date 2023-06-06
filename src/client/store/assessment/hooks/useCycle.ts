@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 
-import { Cycle, CycleUuid } from '@meta/assessment'
+import { Cycle, CycleUuid } from 'meta/assessment'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 /**
  * Return current cycle

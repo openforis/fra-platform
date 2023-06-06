@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useGeoStatistics } from '@client/store/ui/geo'
-import { getForestEstimationData } from '@client/store/ui/geo/actions'
-import { useCountryIso } from '@client/hooks'
-import { useRecipeLayerPropertyName } from '@client/pages/Geo/GeoMap/hooks'
-import { builForestEstimationsDataTable } from '@client/pages/Geo/utils/forestEstimations'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useGeoStatistics } from 'client/store/ui/geo'
+import { getForestEstimationData } from 'client/store/ui/geo/actions'
+import { useCountryIso } from 'client/hooks'
+import { useRecipeLayerPropertyName } from 'client/pages/Geo/GeoMap/hooks'
+import { builForestEstimationsDataTable } from 'client/pages/Geo/utils/forestEstimations'
 
 export const useGeoStatisticsHandler = () => {
   const dispatch = useAppDispatch()

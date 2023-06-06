@@ -3,9 +3,9 @@ import React, { useCallback, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { LayerStatus } from '@meta/geo'
+import { LayerStatus } from 'meta/geo'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 interface Props {
   title: string

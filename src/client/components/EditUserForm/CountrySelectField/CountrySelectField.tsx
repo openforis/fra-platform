@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { CountryIso } from '@meta/area'
-import { User } from '@meta/user'
-import { UserProps } from '@meta/user/user'
+import { CountryIso } from 'meta/area'
+import { User } from 'meta/user'
+import { UserProps } from 'meta/user/user'
 
-import AreaSelector from '@client/components/AreaSelector/AreaSelector'
+import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 
 type Props = {
   name: string

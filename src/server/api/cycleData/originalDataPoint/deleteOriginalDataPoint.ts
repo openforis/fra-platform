@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import Requests from 'server/utils/requests'
 
 export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }>, res: Response) => {
   try {

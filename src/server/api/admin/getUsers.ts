@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { UsersRequest } from '@meta/api/request'
+import { UsersRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import Requests from 'server/utils/requests'
 
 export const getUsers = async (req: UsersRequest, res: Response) => {
   try {

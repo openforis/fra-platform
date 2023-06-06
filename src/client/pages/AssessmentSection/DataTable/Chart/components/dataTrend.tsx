@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
 import { getTrendOdps } from '../chart'
 import DataPath from './dataPath'

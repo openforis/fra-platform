@@ -1,7 +1,7 @@
 import * as pgPromise from 'pg-promise'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
   const years = Array.from({ length: 2025 - 1950 + 1 }, (_, i) => i + 1950)

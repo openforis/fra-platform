@@ -1,7 +1,7 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 import { Request, Response } from 'express'
 
-import { User } from '@meta/user'
+import { User } from 'meta/user'
 
 import { AccessControlException } from './accessControl'
 

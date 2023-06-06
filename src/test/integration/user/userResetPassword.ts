@@ -1,12 +1,12 @@
-import { Assessment, Cycle } from '@meta/assessment'
-import { AuthProvider, User } from '@meta/user'
-import { AuthProviderLocalProps } from '@meta/user/userAuth'
+import { Assessment, Cycle } from 'meta/assessment'
+import { AuthProvider, User } from 'meta/user'
+import { AuthProviderLocalProps } from 'meta/user/userAuth'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { UserProviderController } from '@server/controller/userProvider'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { UserProviderController } from 'server/controller/userProvider'
 
-import { userMockTest, userMockTestPassword } from '@test/integration/mock/user'
+import { userMockTest, userMockTestPassword } from 'test/integration/mock/user'
 
 import { assessmentParams } from '../mock/assessment'
 

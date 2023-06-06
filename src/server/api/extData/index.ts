@@ -1,8 +1,8 @@
 import { Express } from 'express'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { searchTaxa } from '@server/api/extData/searchTaxa'
+import { searchTaxa } from 'server/api/extData/searchTaxa'
 
 export const ExtDataApi = {
   init: (express: Express): void => {

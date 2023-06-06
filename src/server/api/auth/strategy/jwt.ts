@@ -2,10 +2,10 @@ import { Request } from 'express'
 import { PassportStatic } from 'passport'
 import { Strategy, VerifiedCallback } from 'passport-jwt'
 
-import { AuthToken } from '@meta/auth'
-import { User } from '@meta/user'
+import { AuthToken } from 'meta/auth'
+import { User } from 'meta/user'
 
-import { UserController } from '@server/controller/user'
+import { UserController } from 'server/controller/user'
 
 const jwtFromRequest = (req: Request) => {
   let token = null

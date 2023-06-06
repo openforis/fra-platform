@@ -1,10 +1,10 @@
-import { RecordAssessmentDatas } from '@meta/data'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { climaticDomain } from '@server/controller/cycleData/getBulkDownload/climaticDomain'
-import { getClimaticValue } from '@server/controller/cycleData/getBulkDownload/getClimaticValue'
-import { getData } from '@server/controller/cycleData/getBulkDownload/getData'
-import { getYears } from '@server/controller/cycleData/getBulkDownload/getYears'
-import { Props } from '@server/controller/cycleData/getBulkDownload/props'
+import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
+import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
+import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
+import { getYears } from 'server/controller/cycleData/getBulkDownload/getYears'
+import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 
 export const getContent = async (
   props: Props & { entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[] }

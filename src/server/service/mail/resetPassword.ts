@@ -1,8 +1,8 @@
-import { createI18nPromise } from '@i18n/i18nFactory'
+import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { ClientRoutes } from '@meta/app'
-import { AssessmentName } from '@meta/assessment'
-import { User, UserResetPassword, Users } from '@meta/user'
+import { ClientRoutes } from 'meta/app'
+import { AssessmentName } from 'meta/assessment'
+import { User, UserResetPassword, Users } from 'meta/user'
 
 import { sendMail } from './mail'
 

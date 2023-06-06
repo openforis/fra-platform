@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { InitRequest } from '@meta/api/request'
+import { InitRequest } from 'meta/api/request'
 
-import { AreaController } from '@server/controller/area'
-import { AssessmentController } from '@server/controller/assessment'
-import { SettingsController } from '@server/controller/settings'
-import Requests from '@server/utils/requests'
+import { AreaController } from 'server/controller/area'
+import { AssessmentController } from 'server/controller/assessment'
+import { SettingsController } from 'server/controller/settings'
+import Requests from 'server/utils/requests'
 
 export const getAreas = async (req: InitRequest, res: Response) => {
   try {

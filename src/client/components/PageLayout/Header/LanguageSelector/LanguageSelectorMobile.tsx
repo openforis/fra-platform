@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Lang, LanguageCodes } from '@meta/lang'
+import { Lang, LanguageCodes } from 'meta/lang'
 
 const LanguageSelectorMobile: React.FC = () => {
   // const dispatch = useAppDispatch()

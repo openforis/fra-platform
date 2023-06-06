@@ -1,5 +1,5 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra' }, client)

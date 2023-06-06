@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { Sanitizer } from '@client/utils/sanitizer'
+import { Sanitizer } from 'client/utils/sanitizer'
 
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 

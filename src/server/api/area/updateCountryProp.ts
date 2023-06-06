@@ -1,10 +1,10 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { AreaController } from '@server/controller/area'
-import { AssessmentController } from '@server/controller/assessment'
-import Requests from '@server/utils/requests'
+import { AreaController } from 'server/controller/area'
+import { AssessmentController } from 'server/controller/assessment'
+import Requests from 'server/utils/requests'
 
 export const updateCountryProp = async (
   req: CycleRequest<never, { [propName: string]: { useOriginalDataPoint: boolean } }>,

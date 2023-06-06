@@ -1,7 +1,7 @@
-import { Assessment } from '@meta/assessment'
+import { Assessment } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentAdapter } from 'server/repository/adapter'
 
 import { selectFields } from './selectFields'
 

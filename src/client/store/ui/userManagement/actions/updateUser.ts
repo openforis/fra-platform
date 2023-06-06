@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Functions } from '@utils/functions'
+import { Functions } from 'utils/functions'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
-import { User, Users } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
+import { User, Users } from 'meta/user'
 
 type Params = {
   assessmentName?: AssessmentName

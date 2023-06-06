@@ -1,6 +1,6 @@
 import './i18n'
 
-import '@client/styles/style.scss'
+import 'client/styles/style.scss'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'

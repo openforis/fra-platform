@@ -2,15 +2,15 @@ import './ContactPersons.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { SubSections } from '@meta/assessment'
-import { CollaboratorPermissions, RoleName, User, Users, UserStatus } from '@meta/user'
+import { SubSections } from 'meta/assessment'
+import { CollaboratorPermissions, RoleName, User, Users, UserStatus } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
-import { UserManagementActions, useUsers } from '@client/store/ui/userManagement'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useAssessmentSections, useCycle } from 'client/store/assessment'
+import { UserManagementActions, useUsers } from 'client/store/ui/userManagement'
+import { useCountryIso } from 'client/hooks'
 
 const allowedRoleNames = [
   RoleName.COLLABORATOR,

@@ -1,4 +1,4 @@
-import { Col, Cols, ColType, Cycle, Row } from '@meta/assessment'
+import { Col, Cols, ColType, Cycle, Row } from 'meta/assessment'
 
 type Props = {
   cycle: Cycle

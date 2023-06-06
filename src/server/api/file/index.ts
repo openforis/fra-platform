@@ -1,10 +1,10 @@
 import { Express } from 'express'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { getBulkDownload } from '@server/api/file/getBulkDownload'
-import { getUserGuideFile } from '@server/api/file/getUserGuide'
-import { AuthMiddleware } from '@server/middleware/auth'
+import { getBulkDownload } from 'server/api/file/getBulkDownload'
+import { getUserGuideFile } from 'server/api/file/getUserGuide'
+import { AuthMiddleware } from 'server/middleware/auth'
 
 import { createAssessmentFile } from './createAssessmentFile'
 import { getFile } from './get'
@@ -13,8 +13,8 @@ import { getAssessmentFiles } from './getAssessmentFiles'
 import { getBiomassStockFile } from './getBiomassStockFile'
 import { getDataDownloadFile } from './getDataDownloadFile'
 import { removeAssessmentFile } from './removeAssessmentFile'
-import multer = require('multer')
 import { getSdgFocalPointsFile } from './getSdgFocalPointsFile'
+import multer = require('multer')
 
 export const FileApi = {
   init: (express: Express): void => {

@@ -2,14 +2,14 @@ import './CycleSwitcher.scss'
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { Cycle } from '@meta/assessment'
+import { ClientRoutes } from 'meta/app'
+import { Cycle } from 'meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useUserCycles } from '@client/store/user/hooks'
-import { useCountryIso, useIsAdmin, useIsDataExportView } from '@client/hooks'
-import Icon from '@client/components/Icon'
-import PopoverControl from '@client/components/PopoverControl'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useUserCycles } from 'client/store/user/hooks'
+import { useCountryIso, useIsAdmin, useIsDataExportView } from 'client/hooks'
+import Icon from 'client/components/Icon'
+import PopoverControl from 'client/components/PopoverControl'
 
 const CycleSwitcher = () => {
   const countryIso = useCountryIso()

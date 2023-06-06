@@ -1,4 +1,4 @@
-import { NodeValue } from '@meta/assessment'
+import { NodeValue } from 'meta/assessment'
 
 /**
  * @deprecated

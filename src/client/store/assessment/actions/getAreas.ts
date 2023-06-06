@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Country, RegionGroup } from '@meta/area'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Country, RegionGroup } from 'meta/area'
 
 export const getAreas = createAsyncThunk<
   { countries: Array<Country>; regionGroups: Record<string, RegionGroup> },

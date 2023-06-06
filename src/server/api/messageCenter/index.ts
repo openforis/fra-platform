@@ -1,8 +1,8 @@
 import { Express } from 'express'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { AuthMiddleware } from '@server/middleware/auth'
+import { AuthMiddleware } from 'server/middleware/auth'
 
 import { addMessage } from './addMessage'
 import { getTopic } from './getTopic'

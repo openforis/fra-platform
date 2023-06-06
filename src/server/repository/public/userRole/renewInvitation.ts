@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { RoleName, UserRole } from '@meta/user'
+import { RoleName, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const renewInvitation = async (
   props: { userRole: UserRole<RoleName> },

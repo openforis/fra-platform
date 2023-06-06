@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { User } from '@meta/user'
+import { User } from 'meta/user'
 
 const UserField: React.FC<{ user: User; field: keyof User }> = ({ user, field }) => (
   <td className="user-list__cell">

@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, AssessmentFile } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, AssessmentFile } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const create = async (
   props: { assessment: Assessment; countryIso?: CountryIso; file: Express.Multer.File },

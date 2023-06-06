@@ -1,9 +1,9 @@
 import { Express } from 'express'
 import * as multer from 'multer'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { AuthMiddleware } from '@server/middleware/auth'
+import { AuthMiddleware } from 'server/middleware/auth'
 
 import { acceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'

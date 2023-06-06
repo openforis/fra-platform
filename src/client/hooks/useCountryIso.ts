@@ -1,8 +1,8 @@
 import { useMatch, useParams } from 'react-router-dom'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
-import { useIsAdmin, useIsCycleLanding, useIsLogin, useIsUserEditPage } from '@client/hooks/useIsPath'
+import { useIsAdmin, useIsCycleLanding, useIsLogin, useIsUserEditPage } from 'client/hooks/useIsPath'
 
 export const useCountryIso = (): CountryIso => {
   const { countryIso } = useParams<{ countryIso: CountryIso }>()

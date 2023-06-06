@@ -1,7 +1,7 @@
-import { Assessment, Cycle, Table, TableNames } from '@meta/assessment'
+import { Assessment, Cycle, Table, TableNames } from 'meta/assessment'
 
-import { getOriginalDataPointVariables } from '@server/controller/cycleData/getOriginalDataPointVariables'
-import { Schemas, Tables } from '@server/db'
+import { getOriginalDataPointVariables } from 'server/controller/cycleData/getOriginalDataPointVariables'
+import { Schemas, Tables } from 'server/db'
 
 type Props = {
   assessment: Assessment

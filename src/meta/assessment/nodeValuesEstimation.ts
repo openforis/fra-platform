@@ -1,4 +1,4 @@
-import { VariableName } from '@meta/assessment/row'
+import { VariableName } from 'meta/assessment/row'
 
 export enum NodeValueEstimationMethod {
   annualChange = 'annualChange',
