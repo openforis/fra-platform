@@ -216,6 +216,7 @@ module.exports = {
   specificForestCategories: {
     specificForestCategories2025: 'Specific forest categories',
     mangroves2025: `Mangroves\u00B9`,
+    rubberWood2025: '$t(specificForestCategories.rubberWood)',
     mangrovesDisclaimer: `\u00B9Includes both Forest and Other wooded land`,
   },
 

@@ -82,8 +82,9 @@ module.exports = {
       'Superficie de forêt se trouvant à l’intérieur d’aires protégées juridiquement constituées et superficie de forêt soumise à des plans de gestion à long terme',
   },
   forestCharacteristics: {
+    ofWhichOtherPlantedForest: '...dont autres forêts plantées',
     primaryForest: '...dont forêt primaire',
-    plantationForestIntroducedArea2025: "... dont d'espèces introduite",
+    plantationForestIntroducedArea2025: "...dont d'espèces introduite",
   },
   forestOwnership: {
     ofWhichCommunities2025: '...dont Peuples autochtones et aux communautés locales',
@@ -141,6 +142,7 @@ module.exports = {
   specificForestCategories: {
     specificForestCategories2025: 'Catégories spécifiques de forêts',
     mangroves2025: 'Mangroves¹',
+    rubberWood2025: 'Hévéas',
     mangrovesDisclaimer:
       '¹Pour la catégorie « Mangroves », la superficie doit inclure celles des « Forêts » et des « Autres terres boisées »',
   },
