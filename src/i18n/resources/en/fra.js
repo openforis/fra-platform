@@ -153,12 +153,14 @@ module.exports = {
   forestRestoration: {
     forestRestoration: 'Forest restoration',
     hasYourCountryForestRestorationCommitments: 'Has your country forest restoration commitments?',
-    isThereALawOrOtherGovernmentMandateInSupportOfRestoration: 'Is there a  law or other government mandate in support of restoration?',
+    isThereALawOrOtherGovernmentMandateInSupportOfRestoration:
+      'Is there a  law or other government mandate in support of restoration?',
     isThereANationalDefinitionOfRestoration:
       'Is there a national definition of "restoration" if yes, provide the defintion the monitoring process and results.',
     whatAreasInNeedOfRestorationHaveBeenIdentified:
       'What areas in need of restoration have been identified and how have they been identified?',
-    whatAreTheTargetsSetForTheRestoration: 'What are the targets set for the restoration? E g xxx hectares by year yyyy',
+    whatAreTheTargetsSetForTheRestoration:
+      'What are the targets set for the restoration? E g xxx hectares by year yyyy',
     howManyHectaresOfForestHaveBeenRestoredToDate: 'How many hectares of forest have been restored to date?',
     ifYes: 'If "yes"',
   },
@@ -257,8 +259,10 @@ module.exports = {
         'Estimates based on repeated compatible³ National Forest Inventories where the most recent is older than five years; and/or remote sensing change assessments through multitemporal analysis for a period ending more than five years ago; or comparison of compatible maps without multitemporal analysis.',
       low: 'Other data sources, e.g., expert estimates, or estimates based on non-compatible assessments.',
     },
-    footer1: '¹ Data not older than 5 years from year of submission of report (2018 or more recent for FRA 2025 country reports)',
-    footer2: '² Data older than 5 years from year of submission of report (older than 2018 for FRA 2025 country reports)',
+    footer1:
+      '¹ Data not older than 5 years from year of submission of report (2018 or more recent for FRA 2025 country reports)',
+    footer2:
+      '² Data older than 5 years from year of submission of report (older than 2018 for FRA 2025 country reports)',
     footer3: '³ Compatible in terms of methods, categories and definitions used',
   },
 
@@ -266,11 +270,14 @@ module.exports = {
     header_0: 'Growing stock tier criteria',
     status: {
       high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples',
-      medium: 'Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples.',
+      medium:
+        'Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples.',
       low: 'Data sources:  Other data sources, such as satellite data, registers, questionnaires or expert assessments.',
     },
-    footer1: '¹ Data not older than 10 years from year of submission of report (2013 or more recent for FRA 2025 country reports)',
-    footer2: '² Data older than 10 years from year of submission of report (older than 2013 for FRA 2025 country reports)',
+    footer1:
+      '¹ Data not older than 10 years from year of submission of report (2013 or more recent for FRA 2025 country reports)',
+    footer2:
+      '² Data older than 10 years from year of submission of report (older than 2013 for FRA 2025 country reports)',
   },
 
   biomassStock_biomassStockStatus_Description: {

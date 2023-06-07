@@ -23,7 +23,8 @@ module.exports.translation = {
 
   page: {
     assessmentSection: {
-      dataTableHasErrors: 'Данные таблицы содержат ошибки. Наведите курсор на красную ячейку, чтобы посмотреть подробности.',
+      dataTableHasErrors:
+        'Данные таблицы содержат ошибки. Наведите курсор на красную ячейку, чтобы посмотреть подробности.',
     },
   },
 
@@ -302,17 +303,21 @@ module.exports.translation = {
   // error messages
   error: {
     access: {
-      countryRoleNotSpecified: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} но не была указана роль',
-      countryUserNotReviewer: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} не являясь рецензентом этой страны',
+      countryRoleNotSpecified:
+        'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} но не была указана роль',
+      countryUserNotReviewer:
+        'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} не являясь рецензентом этой страны',
       roleChangeNotAllowed:
         'Ошибка: Пользователь {{user}} попытался назначить роль другого пользователя {{role}}, что не разрешается вошедшему пользователю',
-      invitationAlreadyUsed: 'Ошибка: приглащение {{invitationUuid}} уже было использовано, захват {{loginEmail}} не разрешается!',
+      invitationAlreadyUsed:
+        'Ошибка: приглащение {{invitationUuid}} уже было использовано, захват {{loginEmail}} не разрешается!',
       countryDoesNotMatch: 'Ошибка: страна{{countyryIso}}не совпадает',
       assessmentEditingNotAllowed:
         'Ошибка: Пользователь {{user}} в роли {{role}} не может редактировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
       assessmentCommentingNotAllowed:
         'Ошибка: Пользователь {{user}} в роли {{role}} не может комментировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
-      userNotAdministrator: 'Ошибка: пользователь {{user}} попытался получить доступ к ресурсу, доступному только для администраторов',
+      userNotAdministrator:
+        'Ошибка: пользователь {{user}} попытался получить доступ к ресурсу, доступному только для администраторов',
       userAlreadyAddedToCountry: 'Ошибка: пользователь {{user}} уже добавлен к стране {{sturniso}}',
     },
     assessment: {
@@ -754,7 +759,8 @@ module.exports.translation = {
   },
 
   forestAreaWithinProtectedAreas: {
-    forestAreaWithinProtectedAreas: 'Лесные площади на охраняемых территориях и лесные площади с долгосрочным планами управления лесами',
+    forestAreaWithinProtectedAreas:
+      'Лесные площади на охраняемых территориях и лесные площади с долгосрочным планами управления лесами',
     categoryHeader: 'Категории ОЛР',
     areaUnitLabel: 'Площадь (1000 га)',
     header: 'Лесная площадь на охраняемых территориях',
@@ -819,14 +825,16 @@ module.exports.translation = {
   },
 
   forestPolicy: {
-    forestPolicy: 'Политика, законодательство и национальная платформа для участия заинтересованных сторон в лесохозяйственной политике',
+    forestPolicy:
+      'Политика, законодательство и национальная платформа для участия заинтересованных сторон в лесохозяйственной политике',
     categoryHeader: 'Указать наличие',
     areaUnitLabel: 'Логические значения (Да/Нет)',
     national: 'Национальные',
     subnational: 'Субнациональные',
     policiesSFM: 'Политика, содействующая устойчивому управлению лесами',
     legislationsSFM: 'Законодательные и/или нормативные акты, содействующие устойчивому управлению лесами',
-    stakeholderParticipation: 'Платформа, содействующая участию заинтересованных сторон в развитии лесохозяйственной политики',
+    stakeholderParticipation:
+      'Платформа, содействующая участию заинтересованных сторон в развитии лесохозяйственной политики',
     existenceOfTraceabilitySystem: 'Система(-ы) отслеживания происхождения древесной продукции',
   },
 
@@ -911,10 +919,12 @@ module.exports.translation = {
     forestAreaAnnualNetChangeRate: 'Темп чистого изменения лесной площади',
     aboveGroundBiomassStockForests: 'Запас надземной биомассы в лесах',
     percent2015ForestAreaBaseline: 'Процент (Площадь лесов 2015 - исходная отметка)',
-    proportionForestAreaLegallyEstablishedProtectedAreas: 'Доля площади лесов, находящихся на законно установленных охраняемых территориях',
+    proportionForestAreaLegallyEstablishedProtectedAreas:
+      'Доля площади лесов, находящихся на законно установленных охраняемых территориях',
     proportionForestAreaLongTermForestManagement: 'Доля площади лесов под долгосрочным планом управления лесами',
     forestArea1000Ha: 'Площадь лесов (1000 га)',
-    forestAreaVerifiedForestManagement: 'Площадь лесов под независимо проверяемыми системами сертификации управления лесами',
+    forestAreaVerifiedForestManagement:
+      'Площадь лесов под независимо проверяемыми системами сертификации управления лесами',
   },
 
   panEuropeanIndicators: {
@@ -1010,7 +1020,8 @@ module.exports.translation = {
     mustBeEqualToPrivateOwnership: 'Сумма подкатегорий должна быть равна частной собственности',
     mustBeEqualToForestExpansion: 'Сумма подкатегорий должна быть равна расширению леса',
     mustBeEqualToPlantedForest: 'Сумма подкатегорий должна быть равна лесным культурам',
-    mustBeEqualToForestArea: 'Сумма естественно возобновляемых лесов и лесных культур должна быть равна общему запасу древостоя',
+    mustBeEqualToForestArea:
+      'Сумма естественно возобновляемых лесов и лесных культур должна быть равна общему запасу древостоя',
     mustBeLessThanPrivateOwnership: 'Сумма подкатегорий должна быть меньше, чем частная собственность',
     forestSumAreaExceedsExtentOfForest: 'Сумма категорий ОЛР превышает площадь лесов, указанную в таблице 1а',
     valueEqualToSum: 'Общее значение должно быть равным сумме подкатегорий',
@@ -1232,7 +1243,8 @@ module.exports.translation = {
 
     // table 1.3a1
     ageClassDistributionAreaOfEvenAgedStands: {
-      ageClassDistributionAreaOfEvenAgedStands: 'Распределение по возрастным классам (площадь одновозрастных насаждений)',
+      ageClassDistributionAreaOfEvenAgedStands:
+        'Распределение по возрастным классам (площадь одновозрастных насаждений)',
       categoryYear: 'Категория - Год',
       developmentPhases: 'Фазы развития',
       total_area: 'Общая площадь',
@@ -1269,7 +1281,8 @@ module.exports.translation = {
 
     // table 1.3b
     diameterDistributionAndTotalAreaUnevenAgedStands: {
-      diameterDistributionAndTotalAreaUnevenAgedStands: 'Распределение по диаметрам и общая площадь (разновозрастные насаждения)',
+      diameterDistributionAndTotalAreaUnevenAgedStands:
+        'Распределение по диаметрам и общая площадь (разновозрастные насаждения)',
       categoryYear: 'Категория - Год',
       volumeByDiameterClasses1000mob: 'Объем по классам диаметра',
       area: 'Площадь (1000 га)',
@@ -1308,7 +1321,8 @@ module.exports.translation = {
     carbonStockInHarvestedWoodProductsHWP: {
       carbonStockInHarvestedWoodProductsHWP: 'Запас углерода в товарах из заготовленной древесины',
       categoryYear: 'Категория - Год',
-      totalCarbonStockInHWPMillionMetricTonnes: 'Всего запас углерода в товарах из заготовленной древесины (млн. метрических тонн)',
+      totalCarbonStockInHWPMillionMetricTonnes:
+        'Всего запас углерода в товарах из заготовленной древесины (млн. метрических тонн)',
       total_carbon_stock_in_hwp: 'Всего запас углерода в товарах из заготовленной древесины',
       harvested_wood_products: 'Товары из заготовленной древесины - {{year}}',
     },
@@ -1332,7 +1346,8 @@ module.exports.translation = {
       other: 'Антропогенные повреждения: другое',
       otherHumanInduced: 'Другое',
       primarily_damaged_by_abiotic_agents: 'Абиотические факторы (ураган, ветер, снег и т. д.)',
-      primarilyDamagedByAbioticAgents: 'Поврежденные преимущественно абиотическими факторами (ураган, ветер, снег и т. д.)',
+      primarilyDamagedByAbioticAgents:
+        'Поврежденные преимущественно абиотическими факторами (ураган, ветер, снег и т. д.)',
       primarily_damaged_by_fire_total: 'Пожары: всего',
       primarilyDamagedByFireTotal: 'Всего',
       of_which_human_induced: 'Пожары: в т. ч. вызванные человеком',
@@ -1490,9 +1505,11 @@ module.exports.translation = {
     totalForestAreaByExpansionAndRegenerationType: {
       totalForestAreaByExpansionAndRegenerationType: 'Всего площадь леса по расширению и восстановлению',
       categoryYear: 'Категория - Год',
-      totalAreaOfForestByExpansionRegenerationType1000ha: 'Всего площадь леса по типу расширения / восстановления (1000 га)',
+      totalAreaOfForestByExpansionRegenerationType1000ha:
+        'Всего площадь леса по типу расширения / восстановления (1000 га)',
       natural_expansion_and_natural_regeneration: 'Естественная экспансия и естественное восстановление',
-      afforestation_and_regeneration_by_planting_and_or_seeding: 'Лесоразведение и восстановление посадкой и/или посевом',
+      afforestation_and_regeneration_by_planting_and_or_seeding:
+        'Лесоразведение и восстановление посадкой и/или посевом',
       coppice: 'Порослевое возобновление',
       forest: 'Лес - {{year}}',
     },
@@ -1558,7 +1575,8 @@ module.exports.translation = {
     introducedTreeSpecies: {
       introducedTreeSpecies: 'Площадь насаждений с доминирующими интродуцированными видами деревьев',
       categoryYear: 'Категория - Год',
-      areaOfStandsDominatedByIntroducedTreeSpecies1000ha: 'Площадь насаждений с доминирующими интродуцированными видами деревьев (1000 га)',
+      areaOfStandsDominatedByIntroducedTreeSpecies1000ha:
+        'Площадь насаждений с доминирующими интродуцированными видами деревьев (1000 га)',
       total: 'Всего',
       _of_which_invasive: '… в т. ч: инвазивные',
       forest: 'Лес - {{year}}',
@@ -1641,7 +1659,8 @@ module.exports.translation = {
       forest: 'Лес - {{year}}',
       other_wooded_land: 'Прочая лесопокрытая земля - {{year}}',
       total_forest_and_other_wooded_land: 'Всего лес и прочая лесопокрытая земля - {{year}}',
-      volumeOfDeadwoodInFOWLBySpeciesGroups: 'Запас мертвой древесины в лесе и прочей лесопокрытой земле по группам пород',
+      volumeOfDeadwoodInFOWLBySpeciesGroups:
+        'Запас мертвой древесины в лесе и прочей лесопокрытой земле по группам пород',
       coniferous: 'Хвойные - {{year}}',
       broadleaved: 'Лиственные - {{year}}',
     },
@@ -1725,7 +1744,8 @@ module.exports.translation = {
       million_national_currency: 'Миллион единиц национальной валюты',
       percent_of_total_gva: '% всей ВДС',
       forestry: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
-      manufacture_of_wood_and_articles_in_wood: 'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood:
+        'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Производство бумаги и бумажной продукции (ISIC/NACE 17) - {{year}}',
     },
 
@@ -1741,7 +1761,8 @@ module.exports.translation = {
 
     // table 6.4a
     totalGrossFixedCapitalFormationInForestsAndForestry: {
-      totalGrossFixedCapitalFormationInForestsAndForestry: 'Валовое накопление основного капитала в лесах и лесном хозяйстве',
+      totalGrossFixedCapitalFormationInForestsAndForestry:
+        'Валовое накопление основного капитала в лесах и лесном хозяйстве',
       categoryYear: 'Категория - Год',
       grossFixedCapitalFormationMillionNationalCurrency: 'Валовое накопление основного капитала (млн ед. нац. валюты)',
       plantingOfTreesToProvideRegularIncome: 'Посадка деревьев для обеспечения регулярного дохода',
@@ -1756,7 +1777,8 @@ module.exports.translation = {
 
     // table 6.4b
     totalFixedCapitalConsumptionInForestsAndForestry: {
-      totalFixedCapitalConsumptionInForestsAndForestry: 'Общее потребление основного капитала в лесах и лесном хозяйстве',
+      totalFixedCapitalConsumptionInForestsAndForestry:
+        'Общее потребление основного капитала в лесах и лесном хозяйстве',
       categoryYear: 'Категория - Год',
       fixedCapitalConsumptionMillionNationalCurrency: 'Потребление основного капитала (млн ед. нац. валюты)',
       fixed_capital_consumption: 'Потребление основного капитала',
@@ -1785,7 +1807,8 @@ module.exports.translation = {
       _50_: '50+',
       _1000Persons: '1000 человек',
       forestry: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
-      manufacture_of_wood_and_articles_in_wood: 'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood:
+        'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Производство бумаги и бумажной продукции (ISIC/NACE 17) - {{year}}',
       gender_male: 'Пол: мужской',
       gender_female: 'Пол: женский',
@@ -1811,7 +1834,8 @@ module.exports.translation = {
       self_employed: 'Характеристики работы: самозанятые',
       selfEmployed: 'Cамозанятые',
       forestry: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
-      manufacture_of_wood_and_articles_in_wood: 'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
+      manufacture_of_wood_and_articles_in_wood:
+        'Производство древесины и изделий из древесины (ISIC/NACE 16) - {{year}}',
       manufacture_of_paper_and_paper_products: 'Производство бумаги и бумажной продукции (ISIC/NACE 17) - {{year}}',
     },
 
@@ -1824,9 +1848,11 @@ module.exports.translation = {
       number: 'Число',
       annualRatePer1000Workers: 'Среднее число на 1000 рабочих',
       fatal_occupational_accidents_number: 'Несчастные случаи с летальным исходом: число',
-      fatal_occupational_accidents_per_1000_workers: 'Несчастные случаи с летальным исходом: среднее число на 1000 рабочих',
+      fatal_occupational_accidents_per_1000_workers:
+        'Несчастные случаи с летальным исходом: среднее число на 1000 рабочих',
       non_fatal_occupational_accidents_number: 'Несчастные случаи без летального исхода: число',
-      non_fatal_occupational_accidents_per_1000_workers: 'Несчастные случаи без летального исхода: среднее число на 1000 рабочих',
+      non_fatal_occupational_accidents_per_1000_workers:
+        'Несчастные случаи без летального исхода: среднее число на 1000 рабочих',
       forestry_isic_nace_02: 'Лесное хозяйство (ISIC/NACE 02) - {{year}}',
     },
 
@@ -1912,7 +1938,8 @@ module.exports.translation = {
       energy_from_direct_wood_fibre_sources: '- Энергия из источников прямого древесного волокна:',
       of_which_from_forests: 'в т.ч. с лесов:',
       of_which_from_other_wooded_land: 'в т. ч. с  прочих лесопокрытых  земель и других земель (деревья вне лесов):',
-      energy_from_co_products: '- Энергия из побочных продуктов и древесных отходов деревообрабатывающей промышленности:',
+      energy_from_co_products:
+        '- Энергия из побочных продуктов и древесных отходов деревообрабатывающей промышленности:',
       of_which_solid_residues:
         'в т. ч. твердые отходы (щепа, стружка, древесные отходы, кора, исключая топливо из переработанной древесины):',
       energy_from_processed_wood_based_fuels:
@@ -1941,8 +1968,10 @@ module.exports.translation = {
       _oftotal: '% от общей площади',
       areaPrimarilyDesignatedOrManagedForPublicRecreation:
         'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации',
-      area_available_for_public_recreation_total: 'Площадь с общественным доступом в рекреационных целях: всего (1000 га)',
-      area_available_for_public_recreation_percent: 'Площадь с общественным доступом в рекреационных целях: % от общей площади',
+      area_available_for_public_recreation_total:
+        'Площадь с общественным доступом в рекреационных целях: всего (1000 га)',
+      area_available_for_public_recreation_percent:
+        'Площадь с общественным доступом в рекреационных целях: % от общей площади',
       area_designated_or_managed_for_public_recreation_total:
         'Площадь, предназначенная или управляемая, в первую очередь, для общественной рекреации: всего (1000 га)',
       area_designated_or_managed_for_public_recreation_percent:
@@ -1968,19 +1997,22 @@ module.exports.translation = {
     recreationFacilities: {
       recreationFacilities: 'Рекреационные объекты',
       categoryYear: 'Категория - Год',
-      forestRoadsAndPathsAvailableForPublicRecreation: 'Лесные дороги и тропы, доступные для общественных рекреационных целей',
+      forestRoadsAndPathsAvailableForPublicRecreation:
+        'Лесные дороги и тропы, доступные для общественных рекреационных целей',
       _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc:
         '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д.',
       facilityLengthIn1000Km: 'Объект (протяжённость в 1000 км)',
       area_available_for_public_recreation: 'Площадь с общественным доступом в рекреационных целях - {{year}}',
-      forest_roads_and_paths_available_for_public_recreation: 'Лесные дороги и тропы, доступные для общественных рекреационных целей',
+      forest_roads_and_paths_available_for_public_recreation:
+        'Лесные дороги и тропы, доступные для общественных рекреационных целей',
       _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
         '… в т. ч. предназначенные для походов, езды на велосипеде, беговых лыжах, и т.д.',
     },
 
     // table 6.10d
     otherRecreationFacilitiesPilotReporting2015: {
-      otherRecreationFacilitiesPilotReporting2015: 'Другие объекты для рекреации - экспериментальная отчетность (2015 год)',
+      otherRecreationFacilitiesPilotReporting2015:
+        'Другие объекты для рекреации - экспериментальная отчетность (2015 год)',
       category: 'Категория',
       facility: 'Объект',
       measurement_unit: 'Единица измерения',

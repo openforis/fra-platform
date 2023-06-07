@@ -30,7 +30,8 @@ module.exports.translation = {
 
   page: {
     assessmentSection: {
-      dataTableHasErrors: 'Le tableau contient des erreurs. Placer votre souris sur les cellules rouges pour voir le détail.',
+      dataTableHasErrors:
+        'Le tableau contient des erreurs. Placer votre souris sur les cellules rouges pour voir le détail.',
     },
   },
   home: {
@@ -54,7 +55,8 @@ des domaines boréal, tempéré et sous-tropical`,
   },
 
   disclaimer: {
-    statisticalFactsheets: 'Avertissement: peut contenir des estimations de la FAO, peut contenir des valeurs manquantes',
+    statisticalFactsheets:
+      'Avertissement: peut contenir des estimations de la FAO, peut contenir des valeurs manquantes',
     part1: `Ce site a été élaboré avec l’aide de l'`,
     europeanUnion: 'Union européenne',
     part2: ',  du ',
@@ -274,11 +276,14 @@ L'équipe de FRA
   // error messages
   error: {
     access: {
-      countryRoleNotSpecified: "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} mais aucun rôle n'a été précisé",
-      countryUserNotReviewer: "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} dont il n'est pas examinateur",
+      countryRoleNotSpecified:
+        "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} mais aucun rôle n'a été précisé",
+      countryUserNotReviewer:
+        "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} dont il n'est pas examinateur",
       roleChangeNotAllowed:
         "Erreur: L'utilisateur {{user}} a essayé de configurer un autre profil d'utilisateur à {{role}} ce qui n'est pas autorisé pour l'utilisateur connecté",
-      invitationAlreadyUsed: "Erreur: L'invitation {{invitationUuid}} a déjà été utilisée, détournement par {{loginEmail}} non autorisé!",
+      invitationAlreadyUsed:
+        "Erreur: L'invitation {{invitationUuid}} a déjà été utilisée, détournement par {{loginEmail}} non autorisé!",
       countryDoesNotMatch: 'Erreur: Le pays {{countyryIso}} ne correspond pas',
       assessmentEditingNotAllowed:
         "Erreur: L'utilisateur {{user}} dans le rôle {{role}} ne peut pas modifier l'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}",
@@ -289,12 +294,15 @@ L'équipe de FRA
       userAlreadyAddedToCountry: "Erreur : l'utilisateur {{user}} est déjà ajouté au pays {{countryIso}}",
     },
     assessment: {
-      transitionNotAllowed: "Erreur: La transition depuis {{currentStatus}} à {{status}} n'est pas autorisée pour le rôle {{role}}",
+      transitionNotAllowed:
+        "Erreur: La transition depuis {{currentStatus}} à {{status}} n'est pas autorisée pour le rôle {{role}}",
       deskStudyNotAllowed: "Erreur: Seulement l'administrateur peut changer le statut de l'étude de bureau",
     },
     review: {
-      commentDeleteNotOwner: "Erreur: L'utilisateur {{user}} a essayé de supprimer un commentaire qui ne lui appartient pas",
-      commentEnterResolvedIssue: "Erreur: L'utilisateur {{user}} a essayé de saisir un commentaire sur une question résolue",
+      commentDeleteNotOwner:
+        "Erreur: L'utilisateur {{user}} a essayé de supprimer un commentaire qui ne lui appartient pas",
+      commentEnterResolvedIssue:
+        "Erreur: L'utilisateur {{user}} a essayé de saisir un commentaire sur une question résolue",
     },
     ndp: {
       previousNdpNotFound: 'Pas trouvé de point des données nationales avant {{year}}',
@@ -537,8 +545,10 @@ L'équipe de FRA fra@fao.org
     ofWhichAgroforestry: '…dont systèmes agroforestier',
     ofWhichTreesUrbanSettings: '…dont arbres en milieu urbain',
     totalLandArea: 'Total des terres émergées',
-    fedAreasExceedTotalLandArea: 'La superficie des forêts et des autres terres boisées est supérieure au total des terres émergées',
-    forestAreaDoesNotMatchPreviouslyReported: 'La superficie de forêt ne correspond pas à la superficie de FRA {{year}}: {{previous}}',
+    fedAreasExceedTotalLandArea:
+      'La superficie des forêts et des autres terres boisées est supérieure au total des terres émergées',
+    forestAreaDoesNotMatchPreviouslyReported:
+      'La superficie de forêt ne correspond pas à la superficie de FRA {{year}}: {{previous}}',
     useOriginalDataPoints: 'Utiliser les points de données nationales',
     dontUseOriginalDataPoints: 'Ne pas utiliser les points de données nationales',
     whatIsThis: "Qu'est-ce-que c'est?",
@@ -547,7 +557,8 @@ L'équipe de FRA fra@fao.org
     ndpMissingValues: 'Le point de données nationales a des valeurs manquantes',
     showNDPs: 'Afficher les points de données nationaux',
     hideNDPs: 'Cacher les points de données nationaux',
-    forestAreaNetChangeDoesNotMatch: 'Le changement net de la superficie forestière ne correspond pas à la valeur attendue : {{value}}',
+    forestAreaNetChangeDoesNotMatch:
+      'Le changement net de la superficie forestière ne correspond pas à la valeur attendue : {{value}}',
   },
 
   climaticDomain: {
@@ -779,7 +790,8 @@ L'équipe de FRA fra@fao.org
   },
 
   forestPolicy: {
-    forestPolicy: 'Politiques, législation et plateforme nationale de participation des parties prenantes aux politiques forestières',
+    forestPolicy:
+      'Politiques, législation et plateforme nationale de participation des parties prenantes aux politiques forestières',
     categoryHeader: "Indiquer l'existence de",
     areaUnitLabel: 'Booléen (Oui/Non)',
     national: 'Nationales',
@@ -874,7 +886,8 @@ L'équipe de FRA fra@fao.org
     percent2015ForestAreaBaseline: 'Pourcentage (Superficie forestière de référence 2015)',
     proportionForestAreaLegallyEstablishedProtectedAreas:
       'Pourcentage de superficie forestière se trouvant dans des aires protégées juridiquement constituées',
-    proportionForestAreaLongTermForestManagement: 'Pourcentage de superficie forestière soumise à une gestion à long-terme',
+    proportionForestAreaLongTermForestManagement:
+      'Pourcentage de superficie forestière soumise à une gestion à long-terme',
     forestArea1000Ha: 'Superficie forestière (1000 ha)',
     forestAreaVerifiedForestManagement:
       'Superficie forestière soumise à des systèmes de certification de gestion durable vérifiés indépendants',
@@ -966,14 +979,16 @@ L'équipe de FRA
     valueNotGreaterThan: 'La valeur ne doit pas être supérieure à {{maxValue}}',
     sumNotGreaterThan: 'La somme ne doit pas dépasser {{maxValue}}',
     valuesAreInconsistentWithNetChange: 'Les valeurs ne correspondent pas au changement net de la superficie de forêt',
-    valuesAreInconsistent1aOr1b: 'Les valeurs ne correspondent pas aux superficies indiquées dans les tableaux 1a ou 1b',
+    valuesAreInconsistent1aOr1b:
+      'Les valeurs ne correspondent pas aux superficies indiquées dans les tableaux 1a ou 1b',
     mustBeEqualToPrivateOwnership: 'La somme des sous-catégories doit être égale à la propriété privée',
     mustBeEqualToForestExpansion: "La somme des sous-catégories doit être égale à l'expansion de la forêt",
     mustBeEqualToPlantedForest: 'La somme des sous-catégories doit être égale à la forêt plantée',
     mustBeEqualToForestArea:
       'La somme de la forêt naturellement régénérée et de la forêt plantée doit être égale au matériel sur pied total',
     mustBeLessThanPrivateOwnership: 'La somme des sous-catégories doit être inférieure à la propriété privée',
-    forestSumAreaExceedsExtentOfForest: 'La somme des catégories FRA dépasse la superficie de forêt indiquée dans le tableau 1a',
+    forestSumAreaExceedsExtentOfForest:
+      'La somme des catégories FRA dépasse la superficie de forêt indiquée dans le tableau 1a',
     valueEqualToSum: 'La valeur totale doit être égale à la somme des sous-catégories',
   },
 

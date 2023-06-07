@@ -37,7 +37,8 @@ module.exports.translation = {
   },
 
   disclaimer: {
-    statisticalFactsheets: 'إخلاء مسؤولية: قد يحتوي على قيم تقديرية خاصة بمنظمة الأغذية والزراعة، وتكون تغيب عنه بعض القيم',
+    statisticalFactsheets:
+      'إخلاء مسؤولية: قد يحتوي على قيم تقديرية خاصة بمنظمة الأغذية والزراعة، وتكون تغيب عنه بعض القيم',
     part1: 'أنتج هذا الموقع الإلكتروني بمساعدة من',
     europeanUnion: 'الاتحاد الأوروبي',
     part2: ', الـ ',
@@ -238,7 +239,8 @@ Thanks,
     },
     recentActivity: {
       noRecentActivityTitle: 'لا يوجد نشاط مؤخراً على ما يبدو',
-      noRecentActivityBody: 'تظهر هنا التغيرات التي تطرأ على المنصة، وهو ما يمكنك من التعرف بعجالة على ما حدث أثناء غيابك.',
+      noRecentActivityBody:
+        'تظهر هنا التغيرات التي تطرأ على المنصة، وهو ما يمكنك من التعرف بعجالة على ما حدث أثناء غيابك.',
       getStarted: 'ابدأ',
       actions: {
         added: 'مضاف',
@@ -340,8 +342,10 @@ The FRA team
     access: {
       countryRoleNotSpecified: 'خطأ : المستخدم {{user}} حاول الدخول إلى {{countryIso}} لكن لم يتم تحديد دوره',
       countryUserNotReviewer: 'خطأ: المستخدم {{user}} حاول الدخول إلى {{countryIso}} وهو ليس مراجعاً فيه',
-      roleChangeNotAllowed: 'خطأ: المستخدم {{user}} المستخدم حاول تحديد دور آخر إضافة إلى  {{role}} وهو غير مسموح للشخص المسجل للدخول',
-      invitationAlreadyUsed: 'خطأ: الدعوة {{invitationUuid}} استخدمت مسبقا، وإن قرصنة البريد الإلكتروني {{loginEmail}} ممنوعة!',
+      roleChangeNotAllowed:
+        'خطأ: المستخدم {{user}} المستخدم حاول تحديد دور آخر إضافة إلى  {{role}} وهو غير مسموح للشخص المسجل للدخول',
+      invitationAlreadyUsed:
+        'خطأ: الدعوة {{invitationUuid}} استخدمت مسبقا، وإن قرصنة البريد الإلكتروني {{loginEmail}} ممنوعة!',
       countryDoesNotMatch: 'خطأ: البلد {{countyryIso}} غير مطابق',
       assessmentEditingNotAllowed:
         'خطأ: المستخدم {{user}} المضطلع بدور {{role}} لا يمكنه تعديل تقييم حالة {{assessmentStatus}} البلد {{countryIso}}',
@@ -601,7 +605,8 @@ The FRA team
     ofWhichTreesUrbanSettings: '...منها أشجار في بيئات حضرية',
     totalLandArea: 'إجمالي مساحة الأرض',
     fedAreasExceedTotalLandArea: 'مساحة الغابة والأرض الحرجية الأخرى تتجاوز إجمالي مساحة الأرض',
-    forestAreaDoesNotMatchPreviouslyReported: 'مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام {{year}}: {{previous}}',
+    forestAreaDoesNotMatchPreviouslyReported:
+      'مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام {{year}}: {{previous}}',
     useOriginalDataPoints: 'استخدم نقاط البيانات الوطنية',
     dontUseOriginalDataPoints: 'لاتستخدم نقاط البيانات الوطنية',
     whatIsThis: 'ما هذا؟',
@@ -1030,9 +1035,11 @@ The FRA team
     mustBeEqualToPrivateOwnership: 'يجب أن يكون مجموع الفئات الفرعية مساويًا للملكية الخاصة',
     mustBeEqualToForestExpansion: 'يجب أن يكون مجموع الفئات الفرعية مساويًا لتوسيع الغابات',
     mustBeEqualToPlantedForest: 'يجب أن يكون مجموع الفئات الفرعية مساويًا للغابة المزروعة',
-    mustBeEqualToForestArea: 'يجب أن يكون مجموع الغابات المتجددة والمزروعة بشكل طبيعي مساويًا لإجمالي المخزون الأشجارالحيّة',
+    mustBeEqualToForestArea:
+      'يجب أن يكون مجموع الغابات المتجددة والمزروعة بشكل طبيعي مساويًا لإجمالي المخزون الأشجارالحيّة',
     mustBeLessThanPrivateOwnership: 'يجب أن يكون مجموع الفئات الفرعية أقل من الملكية الخاصة',
-    forestSumAreaExceedsExtentOfForest: 'يتجاوز مجموع فئات تقييم الموارد الحرجية (فرا) المبلغ عنها مساحة الغابات المذكورة في الجدول ١أ',
+    forestSumAreaExceedsExtentOfForest:
+      'يتجاوز مجموع فئات تقييم الموارد الحرجية (فرا) المبلغ عنها مساحة الغابات المذكورة في الجدول ١أ',
     valueEqualToSum: 'يجب أن تكون القيمة الإجمالية مساوية لمجموع الفئات الفرعية',
   },
 
@@ -1271,7 +1278,8 @@ The FRA team
       mature_phase: 'طور النضوج',
       unspecified: 'غير محدد',
       _1000M3: '1000 م3',
-      forest_available_for_wood_supply_even_aged_stands_of_which: 'غابة متوافرة للإمداد بالأخشاب (شجراء ذات عمر متساو)، منها: - {{year}}',
+      forest_available_for_wood_supply_even_aged_stands_of_which:
+        'غابة متوافرة للإمداد بالأخشاب (شجراء ذات عمر متساو)، منها: - {{year}}',
       predominantly_coniferous_forest: 'غابة صنوبرية بالدرجة الأولى - {{year}}',
       predominantly_broadleaved_forest: 'غابة أشجار عريضة الأوراق بالدرجة الأولى - {{year}}',
       mixed_forest: 'غابة خليطة - {{year}}',
@@ -1279,7 +1287,8 @@ The FRA team
 
     // table 1.3b
     diameterDistributionAndTotalAreaUnevenAgedStands: {
-      diameterDistributionAndTotalAreaUnevenAgedStands: 'التوزع بحسب قطر الشجرة وإجمالي المساحة (شجراء غير متساوية العمر)',
+      diameterDistributionAndTotalAreaUnevenAgedStands:
+        'التوزع بحسب قطر الشجرة وإجمالي المساحة (شجراء غير متساوية العمر)',
       categoryYear: 'الفئة - العام',
       volumeByDiameterClasses1000mob: 'الحجم وفق فئات القطر',
       area: 'المساحة (1000 هـ)',
@@ -1568,7 +1577,8 @@ The FRA team
     introducedTreeSpecies: {
       introducedTreeSpecies: 'مساحة الشجراء التي تحتوي على أنواع أشجار مدخلة بالدرجة الأولى',
       categoryYear: 'الفئة - العام',
-      areaOfStandsDominatedByIntroducedTreeSpecies1000ha: 'مساحة الشجراء التي تحتوي على أنواع أشجار مدخلة بالدرجة الأولى (1000 هـ)',
+      areaOfStandsDominatedByIntroducedTreeSpecies1000ha:
+        'مساحة الشجراء التي تحتوي على أنواع أشجار مدخلة بالدرجة الأولى (1000 هـ)',
       total: 'الإجمالي',
       _of_which_invasive: '...منها: غازية',
       forest: 'غابة- {{year}}',
@@ -1651,7 +1661,8 @@ The FRA team
       forest: 'غابة - {{year}}',
       other_wooded_land: 'أرض حرجية أخرى - {{year}}',
       total_forest_and_other_wooded_land: 'إجمالي الغابات والأراضي الحرجية الأخرى - {{year}}',
-      volumeOfDeadwoodInFOWLBySpeciesGroups: 'حجم الأخشاب الميتة في الغابات وفي الأراضي الحرجية الأخرى وفق مجموعات الأنواع',
+      volumeOfDeadwoodInFOWLBySpeciesGroups:
+        'حجم الأخشاب الميتة في الغابات وفي الأراضي الحرجية الأخرى وفق مجموعات الأنواع',
       coniferous: 'صنوبريات - {{year}}',
       broadleaved: 'عريضة الأوراق - {{year}}',
     },
@@ -1755,12 +1766,14 @@ The FRA team
     totalGrossFixedCapitalFormationInForestsAndForestry: {
       totalGrossFixedCapitalFormationInForestsAndForestry: 'صافي إجمالي تشكيلة رأس المال الثابت في الغابات والحراجة',
       categoryYear: 'الفئة - العام',
-      grossFixedCapitalFormationMillionNationalCurrency: 'صافي إجمالي تشكيلة رأس المال الثابت في الغابات والحراجة (مليون بالعملة الوطنية)',
+      grossFixedCapitalFormationMillionNationalCurrency:
+        'صافي إجمالي تشكيلة رأس المال الثابت في الغابات والحراجة (مليون بالعملة الوطنية)',
       plantingOfTreesToProvideRegularIncome: 'زراعة الأشجار لتوفير دخل منتظم',
       equipmentAndBuildings: 'تجهيزات ومباني',
       otherGrossFixedCapitalFormation: 'تشكيلة أخرى لإجمالي رأس المال الثابت',
       total: 'الإجمالي',
-      forestry_isic_nace_02: 'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
+      forestry_isic_nace_02:
+        'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
       planting_of_trees_to_provide_regular_income: 'زراعة الأشجار لتوفير دخل منتظم',
       equipment_and_buildings: 'تجهيزات ومباني',
       other_gross_fixed_capital_formation: 'تشكيلة أخرى لإجمالي رأس المال الثابت',
@@ -1772,7 +1785,8 @@ The FRA team
       categoryYear: 'الفئة - العام',
       fixedCapitalConsumptionMillionNationalCurrency: 'استهلاك رأس المال الثابت (مليون بالعملة الوطنية)',
       fixed_capital_consumption: 'استهلاك رأس المال الثابت',
-      forestry_isic_nace_02: 'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
+      forestry_isic_nace_02:
+        'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
     },
 
     // table 6.4c
@@ -1781,7 +1795,8 @@ The FRA team
       categoryYear: 'الفئة - العام',
       capitalTransfersMillionNationalCurrency: 'عمليات تحويل رأس المال (مليون بالعملة الوطنية)',
       capital_transfers: 'عمليات تحويل رأس المال',
-      forestry_isic_nace_02: 'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
+      forestry_isic_nace_02:
+        'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
     },
 
     // table 6.5a
@@ -1841,7 +1856,8 @@ The FRA team
       fatal_occupational_accidents_per_1000_workers: 'الحوادث المهنية القاتلة: المعدل السنوي لكل 1000 عامل',
       non_fatal_occupational_accidents_number: 'الحوادث المهنية غير القاتلة: العدد',
       non_fatal_occupational_accidents_per_1000_workers: 'الحوادث المهنية غير القاتلة: المعدل السنوي لكل 1000 عامل',
-      forestry_isic_nace_02: 'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
+      forestry_isic_nace_02:
+        'الحراجة (التصنيف الدولي الصناعي الموحد/التصنيف الصناعي العام للأنشطة الاقتصادية 02) - {{year}}',
     },
 
     // table 6.7
@@ -1927,7 +1943,8 @@ The FRA team
       of_which_from_forests: 'منها مستمد من الغابات',
       of_which_from_other_wooded_land: 'منها مستمد من أراض حرجية وأراض أخرى (أشجار خارج الغابات)',
       energy_from_co_products: '- طاقة مستمدة من منتجات ثانوية ومخلفات تصنيع الأخشاب:',
-      of_which_solid_residues: 'منها مخلفات صلبة (مثل الرقائق والجزيئات وبقايا الخشب واللحاء ما عدا الوقود الخشبي المعالج)',
+      of_which_solid_residues:
+        'منها مخلفات صلبة (مثل الرقائق والجزيئات وبقايا الخشب واللحاء ما عدا الوقود الخشبي المعالج)',
       energy_from_processed_wood_based_fuels: '- طاقة مستمدة من الوقود الخشبي المعالج (حبيبات وقويلبات وفحم نباتي):',
       of_which_imported: 'منها مستورد',
       energy_from_post_consumer_recovered_wood: '- طاقة مستمدة من خشب مسترد بعد الاستهلاك',
@@ -1951,7 +1968,8 @@ The FRA team
       areaAvailableForPublicRecreation: 'المساحة المتوافرة لترفيه العموم',
       total1000Ha: 'الإجمالي (1000 هـ)',
       _oftotal: '%من الإجمالي ',
-      areaPrimarilyDesignatedOrManagedForPublicRecreation: 'مساحة مخصصة بالدرجة الأولى لترفيه العموم أو تدار لهذا الغرض',
+      areaPrimarilyDesignatedOrManagedForPublicRecreation:
+        'مساحة مخصصة بالدرجة الأولى لترفيه العموم أو تدار لهذا الغرض',
       area_available_for_public_recreation_total: 'المساحة المتوافرة لترفيه العموم: إجمالي (1000 هـ)',
       area_available_for_public_recreation_percent: 'المساحة المتوافرة لترفيه العموم: % من المساحة الإجمالية',
       area_designated_or_managed_for_public_recreation_total:
@@ -1967,10 +1985,12 @@ The FRA team
       categoryYear: 'الفئة - العام',
       annualNumberOfVisitsMillion: 'عدد الزيارات السنوية (مليون)',
       areaAvailableForPublicRecreation: 'المساحة المتوافرة لترفيه العموم',
-      areaPrimarilyDesignatedAndOrManagedForPublicRecreation: 'مساحة مخصصة بالدرجة الأولى لترفيه العموم أو تدار لهذا الغرض',
+      areaPrimarilyDesignatedAndOrManagedForPublicRecreation:
+        'مساحة مخصصة بالدرجة الأولى لترفيه العموم أو تدار لهذا الغرض',
       total_forest_and_other_wooded_land: 'إجمالي مساحة الغابات والأراضي الحرجية الأخرى- {{year}}',
       area_available_for_public_recreation: 'المساحة المتوافرة لترفيه العموم',
-      area_designated_and_or_managed_for_public_recreation: 'مساحة مخصصة بالدرجة الأولى لترفيه العموم أو تدار لهذا الغرضم',
+      area_designated_and_or_managed_for_public_recreation:
+        'مساحة مخصصة بالدرجة الأولى لترفيه العموم أو تدار لهذا الغرضم',
     },
 
     // table 6.10c
@@ -1978,11 +1998,13 @@ The FRA team
       recreationFacilities: 'مرافق ترفيه',
       categoryYear: 'الفئة - العام',
       forestRoadsAndPathsAvailableForPublicRecreation: 'طرقات ودروب حرجية متوافرة لترفيه العموم',
-      _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc: '... منها مخصص لرياضة المشي وركوب الدراجات والتزلج الريفي، إلخ',
+      _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc:
+        '... منها مخصص لرياضة المشي وركوب الدراجات والتزلج الريفي، إلخ',
       facilityLengthIn1000Km: 'المرفق (الطول في 1000 كم)',
       area_available_for_public_recreation: 'المساحة المتوافرة لترفيه العموم - {{year}}',
       forest_roads_and_paths_available_for_public_recreation: 'طرقات ودروب حرجية متوافرة لترفيه العموم',
-      _of_which_designated_for_hiking_biking_cross_country_skiing_etc: '...منها مخصص لرياضة المشي وركوب الدراجات والتزلج الريفي، إلخ',
+      _of_which_designated_for_hiking_biking_cross_country_skiing_etc:
+        '...منها مخصص لرياضة المشي وركوب الدراجات والتزلج الريفي، إلخ',
     },
 
     // table 6.10d

@@ -355,9 +355,11 @@ The FRA team
       countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
       countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer',
       userNotAdministrator: 'Error: User {{user}} tried to access a resource available only to administrators',
-      roleChangeNotAllowed: 'Error: User {{user}} tried to set another user’s role to {{role}} which is not allowed for the logged in user',
+      roleChangeNotAllowed:
+        'Error: User {{user}} tried to set another user’s role to {{role}} which is not allowed for the logged in user',
       userAlreadyAddedToCountry: 'Error: User {{user}} is already added to country {{countryIso}}',
-      invitationAlreadyUsed: 'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!',
+      invitationAlreadyUsed:
+        'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!',
       countryDoesNotMatch: 'Error: country {{countyryIso}} does not match',
       assessmentEditingNotAllowed:
         'Error: User {{user}} in role {{role}} cannot edit assessment in state {{assessmentStatus}} for country {{countryIso}}',
@@ -799,7 +801,8 @@ The FRA team fra@fao.org
   },
 
   forestAreaWithinProtectedAreas: {
-    forestAreaWithinProtectedAreas: 'Forest area within protected areas and forest area with long-term management plans',
+    forestAreaWithinProtectedAreas:
+      'Forest area within protected areas and forest area with long-term management plans',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     header: 'Forest area within protected areas',
@@ -866,7 +869,8 @@ The FRA team fra@fao.org
     subnational: 'Sub-national',
     policiesSFM: 'Policies supporting SFM',
     legislationsSFM: 'Legislations and regulations supporting SFM',
-    stakeholderParticipation: 'Platform that promotes or allows for stakeholder participation in forest policy development',
+    stakeholderParticipation:
+      'Platform that promotes or allows for stakeholder participation in forest policy development',
     existenceOfTraceabilitySystem: 'Traceability system(s) for wood products',
   },
 
@@ -951,10 +955,12 @@ The FRA team fra@fao.org
     forestAreaAnnualNetChangeRate: 'Forest area annual net change rate',
     aboveGroundBiomassStockForests: 'Above-ground biomass stock in forest',
     percent2015ForestAreaBaseline: 'Percent (2015 forest area baseline)',
-    proportionForestAreaLegallyEstablishedProtectedAreas: 'Proportion of forest area located within legally established protected areas',
+    proportionForestAreaLegallyEstablishedProtectedAreas:
+      'Proportion of forest area located within legally established protected areas',
     proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management plan',
     forestArea1000Ha: 'Forest area (1000 ha)',
-    forestAreaVerifiedForestManagement: 'Forest area under independently verified forest management certification schemes',
+    forestAreaVerifiedForestManagement:
+      'Forest area under independently verified forest management certification schemes',
   },
 
   panEuropeanIndicators: {
@@ -1053,7 +1059,8 @@ The FRA team
     mustBeEqualToForestArea: 'Sum of Naturally regenerating forest and Planted forest not equal to the total forest',
     mustBeLessThanPrivateOwnership: 'Subcategories sum should be less than Private Ownership',
     columnEmpty: "Column '$t({{columName}})' must have a value",
-    forestSumAreaExceedsExtentOfForest: 'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
+    forestSumAreaExceedsExtentOfForest:
+      'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
     valueEqualToSum: 'Total value should be equal to sum of subcategories',
     valueEqualToSumParent:
       'The sum of subcategories {{subcategories}} is not equal to {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>',
@@ -1064,7 +1071,8 @@ The FRA team
       'Value cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
     valueCannotExceedMaximumValueReportedForForestAreaYear:
       'The sum of year {{year}} cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
-    valueCannotExceedMaximumValueReportedForLandArea: 'Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)',
+    valueCannotExceedMaximumValueReportedForLandArea:
+      'Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)',
   },
 
   emoji: {

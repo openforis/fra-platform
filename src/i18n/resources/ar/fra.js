@@ -96,7 +96,8 @@ module.exports = {
     isThereALawOrOtherGovernmentMandateInSupportOfRestoration: 'هل هناك قانون أو تفويض حكومي آخر لدعم الاستصلاح ؟',
     isThereANationalDefinitionOfRestoration:
       'هل يوجد تعريف وطني لـ "الاستصلاح " إذا كانت الإجابة بنعم ، قدِّم تعريفًا لعملية المراقبة والنتائج.',
-    whatAreasInNeedOfRestorationHaveBeenIdentified: 'ما هي المناطق التي تحتاج إلى استصلاحها والتي تم تحديدها وكيف تم تحديدها؟',
+    whatAreasInNeedOfRestorationHaveBeenIdentified:
+      'ما هي المناطق التي تحتاج إلى استصلاحها والتي تم تحديدها وكيف تم تحديدها؟',
     whatAreTheTargetsSetForTheRestoration: 'ما هي أهداف جهود التعافي؟ على سبيل المثال: (xxxx) هكتار إلى (yyyy) سنة.',
     howManyHectaresOfForestHaveBeenRestoredToDate: 'كم هكتار من الغابات تم استصلاحها حتى الآن؟',
     ifYes: 'اذا نعم"',
