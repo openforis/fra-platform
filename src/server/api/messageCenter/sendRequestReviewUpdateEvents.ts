@@ -1,8 +1,8 @@
-import { CountryIso } from '@meta/area'
-import { MessageTopic, MessageTopicType } from '@meta/messageCenter'
-import { Sockets } from '@meta/socket'
+import { CountryIso } from 'meta/area'
+import { MessageTopic, MessageTopicType } from 'meta/messageCenter'
+import { Sockets } from 'meta/socket'
 
-import { SocketServer } from '@server/service/socket'
+import { SocketServer } from 'server/service/socket'
 
 export const sendRequestReviewUpdateEvents = (props: {
   topic: MessageTopic

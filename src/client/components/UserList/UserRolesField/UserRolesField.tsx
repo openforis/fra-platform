@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas } from '@meta/area'
-import { TooltipId } from '@meta/tooltip'
-import { RoleName, User, Users } from '@meta/user'
+import { Areas } from 'meta/area'
+import { TooltipId } from 'meta/tooltip'
+import { RoleName, User, Users } from 'meta/user'
 
 const UserRolesField: React.FC<{ roleName: RoleName; user: User }> = ({ roleName, user }) => {
   const { t } = useTranslation()

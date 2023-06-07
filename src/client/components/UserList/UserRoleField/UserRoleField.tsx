@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from '@meta/area'
-import { User, Users } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { User, Users } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 
 const UserRoleField: React.FC<{ user: User; countryIso: CountryIso }> = ({ user, countryIso }) => {
   const { t } = useTranslation()

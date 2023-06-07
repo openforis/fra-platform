@@ -5,8 +5,8 @@ import {
   DataSourceLinked,
   NodeValuesEstimation,
   SectionName,
-} from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+} from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
   descriptions: Record<SectionName, Record<string, CommentableDescriptionValue>>

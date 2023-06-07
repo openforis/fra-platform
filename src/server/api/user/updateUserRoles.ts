@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 
-import { AssessmentName } from '@meta/assessment'
+import { AssessmentName } from 'meta/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { Requests } from '@server/utils'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { Requests } from 'server/utils'
 
 export const updateUserRoles = async (
   req: Request<{ assessmentName: AssessmentName; cycleName: string; id: string }>,

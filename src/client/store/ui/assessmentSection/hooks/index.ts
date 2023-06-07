@@ -1,4 +1,4 @@
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export { useIsEstimationPending } from './useIsEstimatePending'
 

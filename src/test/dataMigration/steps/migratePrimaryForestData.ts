@@ -1,6 +1,6 @@
-import { Assessment } from '@meta/assessment'
+import { Assessment } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment

@@ -3,8 +3,8 @@
  * @param props - newTableData, tableData
  * @returns merged table data
  */
-import { CountryIso } from '@meta/area'
-import { AssessmentName, CycleName } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, CycleName } from 'meta/assessment'
 
 import { RecordAssessmentData } from '../RecordAssessmentData'
 

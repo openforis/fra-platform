@@ -1,9 +1,9 @@
-import { UUIDs } from '@utils/uuids'
 import * as pgPromise from 'pg-promise'
+import { UUIDs } from 'utils/uuids'
 
-import { CommentableDescription, DataSource } from '@meta/assessment'
+import { CommentableDescription, DataSource } from 'meta/assessment'
 
-import { BaseProtocol } from '@server/db'
+import { BaseProtocol } from 'server/db'
 
 const _fixEmptyDataSources = async (client: BaseProtocol) => {
   await client.query(`update assessment_fra_2025.descriptions

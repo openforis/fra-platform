@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ClientRoutes } from '@meta/app'
-import { Assessments } from '@meta/assessment'
-import { AuthProvider, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ClientRoutes } from 'meta/app'
+import { Assessments } from 'meta/assessment'
+import { AuthProvider, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useAppDispatch } from '@client/store'
-import { LoginActions, useInvitation } from '@client/store/login'
-import { useUser } from '@client/store/user'
-import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
-import { Urls } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { LoginActions, useInvitation } from 'client/store/login'
+import { useUser } from 'client/store/user'
+import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
+import { Urls } from 'client/utils'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()

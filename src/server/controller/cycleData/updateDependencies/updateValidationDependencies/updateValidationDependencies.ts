@@ -1,9 +1,9 @@
-import { NodeValue, Row, TableNames } from '@meta/assessment'
-import { NodeUpdate, NodeUpdates } from '@meta/data'
+import { NodeValue, Row, TableNames } from 'meta/assessment'
+import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { BaseProtocol } from '@server/db'
-import { RowRepository } from '@server/repository/assessment/row'
-import { NodeRepository } from '@server/repository/assessmentCycle/node'
+import { BaseProtocol } from 'server/db'
+import { RowRepository } from 'server/repository/assessment/row'
+import { NodeRepository } from 'server/repository/assessmentCycle/node'
 
 import { getDependants } from '../utils/getDependants'
 import { validateNode } from './validateNode'

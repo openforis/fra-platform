@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { NodesBodyValue } from '@meta/api/request'
-import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from '@meta/assessment'
-import { RecordAssessmentData, RecordAssessmentDatas } from '@meta/data'
+import { NodesBodyValue } from 'meta/api/request'
+import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useAssessmentSection, useCycle } from '@client/store/assessment'
-import { DataActions } from '@client/store/data'
-import { useCountryIso } from '@client/hooks'
-import { Sanitizer } from '@client/utils/sanitizer'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
+import { DataActions } from 'client/store/data'
+import { useCountryIso } from 'client/hooks'
+import { Sanitizer } from 'client/utils/sanitizer'
 
 type Props = {
   table: Table

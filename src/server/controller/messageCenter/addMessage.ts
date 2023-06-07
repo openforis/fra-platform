@@ -1,13 +1,13 @@
-import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { Message, MessageTopic, MessageTopicType } from '@meta/messageCenter'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { Message, MessageTopic, MessageTopicType } from 'meta/messageCenter'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { SectionRepository } from '@server/repository/assessment/section'
-import { MessageRepository } from '@server/repository/assessmentCycle/message'
-import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { SectionRepository } from 'server/repository/assessment/section'
+import { MessageRepository } from 'server/repository/assessmentCycle/message'
+import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { updateTopicReadTime } from './updateTopicReadTime'
 

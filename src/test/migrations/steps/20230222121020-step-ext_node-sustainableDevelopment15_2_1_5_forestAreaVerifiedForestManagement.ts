@@ -1,6 +1,6 @@
 import * as pgPromise from 'pg-promise'
 
-import { BaseProtocol } from '@server/db'
+import { BaseProtocol } from 'server/db'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const values = require('./data/certifiedArea.json')

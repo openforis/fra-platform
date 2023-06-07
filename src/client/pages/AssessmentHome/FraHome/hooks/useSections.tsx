@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Users } from '@meta/user'
+import { Users } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import Dashboard from '@client/pages/Dashboard'
+import { useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import Dashboard from 'client/pages/Dashboard'
 
 import Collaborators from '../Collaborators'
 import CountryMessageBoard from '../CountryMessageBoard'

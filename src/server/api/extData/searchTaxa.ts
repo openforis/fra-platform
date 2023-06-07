@@ -1,9 +1,9 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { ExtDataController } from '@server/controller/extData'
-import Requests from '@server/utils/requests'
+import { ExtDataController } from 'server/controller/extData'
+import Requests from 'server/utils/requests'
 
 type Query = { query: string; limit: string }
 

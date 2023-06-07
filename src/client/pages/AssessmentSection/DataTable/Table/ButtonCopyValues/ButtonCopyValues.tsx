@@ -2,10 +2,10 @@ import './ButtonCopyValues.scss'
 import React, { MutableRefObject, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Table, TableNames } from '@meta/assessment'
+import { Table, TableNames } from 'meta/assessment'
 
-import { useUser } from '@client/store/user'
-import { getData } from '@client/components/ButtonTableExport/utils'
+import { useUser } from 'client/store/user'
+import { getData } from 'client/components/ButtonTableExport/utils'
 
 type CopyValuesProps = {
   tableRef: MutableRefObject<HTMLTableElement>

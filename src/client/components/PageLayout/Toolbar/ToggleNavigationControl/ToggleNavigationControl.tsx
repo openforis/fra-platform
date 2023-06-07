@@ -3,10 +3,10 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { useAppDispatch } from '@client/store'
-import { NavigationActions, useNavigationVisible } from '@client/store/ui/navigation'
-import { useIsAdmin, useIsCycleLanding } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { NavigationActions, useNavigationVisible } from 'client/store/ui/navigation'
+import { useIsAdmin, useIsCycleLanding } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 const ToggleNavigationControl: React.FC = () => {
   const dispatch = useAppDispatch()

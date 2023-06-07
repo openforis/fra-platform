@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, DataSourceLinked } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, DataSourceLinked } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   countryIso: CountryIso

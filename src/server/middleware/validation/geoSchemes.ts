@@ -1,6 +1,6 @@
 import { body, query } from 'express-validator'
 
-import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from '@meta/geo'
+import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from 'meta/geo'
 
 const sourceKeys = Object.keys(ForestSource).concat(Object.keys(ProtectedAreaKey)).concat(Object.keys(BurnedAreaKey))
 

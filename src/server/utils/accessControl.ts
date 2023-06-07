@@ -1,5 +1,7 @@
 export function AccessControlException(key: any, values: any) {
+  // @ts-ignore
   this.error = { key, values }
+  // @ts-ignore
   Error.captureStackTrace(this, AccessControlException)
 }
 

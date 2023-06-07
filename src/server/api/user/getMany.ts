@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { ProcessEnv } from '@server/utils'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { ProcessEnv } from 'server/utils'
+import Requests from 'server/utils/requests'
 
 export const getMany = async (req: CycleRequest<{ print: string }>, res: Response) => {
   try {

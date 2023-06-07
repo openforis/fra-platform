@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso, Region, RegionCode } from '@meta/area'
+import { CountryIso, Region, RegionCode } from 'meta/area'
 
-import { useAppDispatch } from '@client/store'
-import { useCountries } from '@client/store/assessment'
-import { useSecondaryRegion } from '@client/store/assessment/hooks'
-import { useHomeCountriesFilter } from '@client/store/ui/home'
-import { HomeActions } from '@client/store/ui/home/slice'
-import CountrySelectModal from '@client/components/CountrySelectModal'
+import { useAppDispatch } from 'client/store'
+import { useCountries } from 'client/store/assessment'
+import { useSecondaryRegion } from 'client/store/assessment/hooks'
+import { useHomeCountriesFilter } from 'client/store/ui/home'
+import { HomeActions } from 'client/store/ui/home/slice'
+import CountrySelectModal from 'client/components/CountrySelectModal'
 
 const __MIN_COUNTRIES__ = 9
 

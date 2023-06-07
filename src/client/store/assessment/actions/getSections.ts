@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Section } from '@meta/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Section } from 'meta/assessment'
 
 export const getSections = createAsyncThunk<
   Array<Section>,

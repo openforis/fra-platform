@@ -1,12 +1,12 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Country, CountryIso } from '@meta/area'
-import { Assessment, Cycle, TableNames, VariableCache } from '@meta/assessment'
-import { RecordAssessmentData } from '@meta/data'
+import { Country, CountryIso } from 'meta/area'
+import { Assessment, Cycle, TableNames, VariableCache } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol, DB } from '@server/db'
-import { CountryRepository } from '@server/repository/assessmentCycle/country'
-import { DataRepository } from '@server/repository/assessmentCycle/data'
+import { BaseProtocol, DB } from 'server/db'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { DataRepository } from 'server/repository/assessmentCycle/data'
 
 export const getTableData = async (
   props: {

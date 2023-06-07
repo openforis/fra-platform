@@ -1,6 +1,6 @@
-import { Assessment, Cycle, SubSection } from '@meta/assessment'
+import { Assessment, Cycle, SubSection } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
 import { AssessmentCycleUtil } from './utils/getAssessmentCycle'
 

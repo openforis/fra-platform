@@ -1,17 +1,17 @@
 import { Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { NodeUpdates } from '@meta/data'
-import { Sockets } from '@meta/socket'
+import { NodeUpdates } from 'meta/data'
+import { Sockets } from 'meta/socket'
 
-import { SocketServer } from '@server/service/socket'
-import { ProcessEnv } from '@server/utils'
-import { Logger } from '@server/utils/logger'
-import { NodeEnv } from '@server/utils/processEnv'
+import { SocketServer } from 'server/service/socket'
+import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
+import { NodeEnv } from 'server/utils/processEnv'
 
 import workerProcessor from './worker'
 
-export const connection = new IORedis(ProcessEnv.redisUrl)
+const connection = new IORedis(ProcessEnv.redisUrl)
 
 const newInstance = (props: { key: string }) => {
   const { key } = props
@@ -51,5 +51,6 @@ const newInstance = (props: { key: string }) => {
 }
 
 export const WorkerFactory = {
+  connection,
   newInstance,
 }

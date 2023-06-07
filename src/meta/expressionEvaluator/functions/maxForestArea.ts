@@ -1,8 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { TableNames } from '@meta/assessment'
-import { RecordAssessmentDatas } from '@meta/data'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
 import { Context } from '../context'
 

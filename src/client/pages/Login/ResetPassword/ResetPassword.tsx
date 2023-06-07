@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { LoginActions } from '@client/store/login'
-import { useGetRequest } from '@client/hooks'
-import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
-import { Urls } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { LoginActions } from 'client/store/login'
+import { useGetRequest } from 'client/hooks'
+import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
+import { Urls } from 'client/utils'
 
 const ResetPassword: React.FC = () => {
   const dispatch = useAppDispatch()

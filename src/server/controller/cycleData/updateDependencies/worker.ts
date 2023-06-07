@@ -1,9 +1,9 @@
 import { Job } from 'bullmq'
 
-import { NodeUpdates } from '@meta/data'
+import { NodeUpdates } from 'meta/data'
 
-import { DB } from '@server/db'
-import { Logger } from '@server/utils/logger'
+import { DB } from 'server/db'
+import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesProps } from './props'
 import { updateNodeDependencies } from './updateNodeDependencies'

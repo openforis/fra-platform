@@ -1,6 +1,6 @@
-import { Assessment, AssessmentFile } from '@meta/assessment'
+import { Assessment, AssessmentFile } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getOne = async (
   props: { assessment: Assessment; uuid: string },

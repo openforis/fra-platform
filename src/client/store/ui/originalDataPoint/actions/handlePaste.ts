@@ -1,9 +1,9 @@
-import { Arrays } from '@utils/arrays'
-import { Objects } from '@utils/objects'
+import { Arrays } from 'utils/arrays'
+import { Objects } from 'utils/objects'
 
-import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { Sanitizer } from '@client/utils/sanitizer'
+import { Sanitizer } from 'client/utils/sanitizer'
 
 const handlePaste = (
   columns: Array<{ name: string; type: string }>,

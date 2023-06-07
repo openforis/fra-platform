@@ -1,8 +1,8 @@
-import { Cycle, Section, SubSection } from '@meta/assessment'
+import { Cycle, Section, SubSection } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
-import { AssessmentCycleUtil } from '@test/migrations/steps/utils/getAssessmentCycle'
+import { AssessmentCycleUtil } from 'test/migrations/steps/utils/getAssessmentCycle'
 
 const updateLabel = async (section: Section | SubSection, cycle: Cycle, schemaName: string, client: BaseProtocol) => {
   // if they key doesnt contain 'fra.<key>2025 then add it

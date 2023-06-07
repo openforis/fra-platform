@@ -1,4 +1,4 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
 export const datasourceValidators: Record<string, (x: string) => boolean> = {
   // check at least one character exists

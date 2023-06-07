@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { Message, MessageTopic, MessageTopicStatus } from '@meta/messageCenter'
+import { Message, MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
 
 import { markMessageDeleted, openTopic, postMessage, resolveTopic } from './actions'
 import { MessageCenterState } from './stateType'

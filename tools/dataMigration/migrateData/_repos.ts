@@ -3,7 +3,7 @@ import { Col, ColType } from '../../../src/meta/assessment/col'
 import { Row, RowType } from '../../../src/meta/assessment/row'
 import { Table } from '../../../src/meta/assessment/table'
 import { BaseProtocol } from '../../../src/server/db'
-import { Objects } from '../../../src/utils'
+import { Objects } from '../../../src/utils/objects'
 
 export const getRows = (client: BaseProtocol, schema: string, table: Table): Promise<Array<Row>> =>
   client.map<Row>(
@@ -26,11 +26,7 @@ export const getRows = (client: BaseProtocol, schema: string, table: Table): Pro
     }
   )
 
-export const getCols = (
-  client: BaseProtocol,
-  schema: string,
-  table: Table
-): Promise<Array<Col & { variableName?: string }>> =>
+export const getCols = (client: BaseProtocol, schema: string, table: Table): Promise<Array<Col & { variableName?: string }>> =>
   client.map<Col>(
     `select c.*,r.props->>'variableName' as variable_name
      from ${schema}.col c

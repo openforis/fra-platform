@@ -1,6 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { DataActions } from '@client/store/data'
+import { DataActions } from 'client/store/data'
 
 import { postEstimate } from '../../data/actions/postEstimate'
 import { AssessmentSectionState } from './stateType'

@@ -1,13 +1,15 @@
 import * as nodemailer from 'nodemailer'
 
-import { ProcessEnv } from '@server/utils'
-import { Logger } from '@server/utils/logger'
+import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
 
 import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
 
 const mailTransport = nodemailer.createTransport({
+  pool: true,
+  maxConnections: 1,
   host: process.env.FRA_MAIL_HOST,
   port: Number(process.env.FRA_MAIL_PORT),
   secure: process.env.FRA_MAIL_SECURE === 'true',

@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment } from '@meta/assessment'
+import { Assessment } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
-import { getOne } from '@server/repository/assessment/assessment/getOne'
+import { BaseProtocol, DB } from 'server/db'
+import { getOne } from 'server/repository/assessment/assessment/getOne'
 
 export const createAssessment = async (
   params: {

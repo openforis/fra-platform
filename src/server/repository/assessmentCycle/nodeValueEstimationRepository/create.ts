@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { NodeValuesEstimation } from '@meta/assessment/nodeValuesEstimation'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment

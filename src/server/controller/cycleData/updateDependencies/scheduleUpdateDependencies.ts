@@ -1,6 +1,6 @@
 import { Job } from 'bullmq'
 
-import { Logger } from '@server/utils/logger'
+import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesProps } from './props'
 import { UpdateDependenciesQueueFactory } from './queueFactory'

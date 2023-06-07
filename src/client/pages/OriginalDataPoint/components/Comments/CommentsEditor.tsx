@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
-import EditorWYSIWYG from '@client/components/EditorWYSIWYG'
-import MarkdownPreview from '@client/components/MarkdownPreview'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useCountryIso } from 'client/hooks'
+import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import MarkdownPreview from 'client/components/MarkdownPreview'
 
 type Props = {
   canEditData: boolean

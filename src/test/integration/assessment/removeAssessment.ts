@@ -1,6 +1,6 @@
-import { assessmentParams } from '@test/integration/mock/assessment'
+import { AssessmentController } from 'server/controller/assessment'
 
-import { AssessmentController } from '@server/controller/assessment'
+import { assessmentParams } from 'test/integration/mock/assessment'
 
 export default () =>
   test('Expect assessment to be removed', async () => {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AnalysisAndProcessingDescription } from '@meta/assessment/description'
+import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
 
-import { useCycle } from '@client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 
 import CommentableDescription from '../CommentableDescription'
 

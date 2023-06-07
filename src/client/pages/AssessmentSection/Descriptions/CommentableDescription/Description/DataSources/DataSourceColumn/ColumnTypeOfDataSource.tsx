@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { DataSource, DataSourceType } from '@meta/assessment'
-import { DataSourceDescription } from '@meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSource, DataSourceType } from 'meta/assessment'
+import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import Autocomplete from '@client/components/Autocomplete'
-import DataColumn from '@client/components/DataGrid/DataColumn'
-import VerticallyGrowingTextField from '@client/components/VerticallyGrowingTextField'
+import Autocomplete from 'client/components/Autocomplete'
+import DataColumn from 'client/components/DataGrid/DataColumn'
+import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 type Props = {
   disabled: boolean

@@ -2,15 +2,15 @@ import './MessageButton.scss'
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { MessageTopicType } from '@meta/messageCenter'
+import { MessageTopicType } from 'meta/messageCenter'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { MessageCenterActions } from '@client/store/ui/messageCenter'
-import { useCountryIso, useGetRequest } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { MessageCenterActions } from 'client/store/ui/messageCenter'
+import { useCountryIso, useGetRequest } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 type Props = {
   topicKey: string

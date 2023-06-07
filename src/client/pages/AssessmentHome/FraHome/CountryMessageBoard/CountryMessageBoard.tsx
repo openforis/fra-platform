@@ -1,11 +1,11 @@
 import './CountryMessageBoard.scss'
 import React from 'react'
 
-import { Authorizer } from '@meta/user'
+import { Authorizer } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
 
 import MessageBoard from './MessageBoard'
 import MessageBoardUsers from './MessageBoardUsers'

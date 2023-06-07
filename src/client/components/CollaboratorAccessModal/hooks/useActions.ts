@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Collaborator, CollaboratorEditPropertyType, CollaboratorSectionsPermission } from '@meta/user'
+import { Collaborator, CollaboratorEditPropertyType, CollaboratorSectionsPermission } from 'meta/user'
 
 export const useActions = (props: { options: Record<string, string>; userRole: Collaborator }) => {
   const { options, userRole } = props

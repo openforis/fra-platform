@@ -1,7 +1,7 @@
-import { Arrays } from '@utils/arrays'
-import { Objects } from '@utils/objects'
+import { Arrays } from 'utils/arrays'
+import { Objects } from 'utils/objects'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export const useNationalClassNameComments = (targetRow: Array<string>): string => {
   const commentsOpen = useAppSelector((_state) => {

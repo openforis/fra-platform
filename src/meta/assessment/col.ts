@@ -1,9 +1,9 @@
 import { CSSProperties } from 'react'
 
-import { AssessmentName } from '@meta/assessment/assessmentName'
-import { CycledPropsObject, CycleName, CycleUuid } from '@meta/assessment/cycle'
-import { VariableName } from '@meta/assessment/row'
-import { TableName } from '@meta/assessment/table'
+import { AssessmentName } from 'meta/assessment/assessmentName'
+import { CycledPropsObject, CycleName, CycleUuid } from 'meta/assessment/cycle'
+import { VariableName } from 'meta/assessment/row'
+import { TableName } from 'meta/assessment/table'
 
 import { Label } from './label'
 

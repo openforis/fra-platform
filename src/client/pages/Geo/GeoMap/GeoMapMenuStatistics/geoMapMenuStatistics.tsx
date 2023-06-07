@@ -1,9 +1,9 @@
 import './geoMapMenuStatistics.scss'
 import React from 'react'
 
-import { useGeoStatistics, useSelectedPanel } from '@client/store/ui/geo'
-import { useCountryIso } from '@client/hooks'
-import { useGeoStatisticsHandler } from '@client/pages/Geo/GeoMap/hooks'
+import { useGeoStatistics, useSelectedPanel } from 'client/store/ui/geo'
+import { useCountryIso } from 'client/hooks'
+import { useGeoStatisticsHandler } from 'client/pages/Geo/GeoMap/hooks'
 
 import GeoMapMenuButton from '../GeoMapMenuButton'
 import GeoMenuItem from '../GeoMapMenuItem'

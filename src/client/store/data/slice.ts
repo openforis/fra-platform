@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { CountryIso } from '@meta/area'
-import { AssessmentName, CycleName, TableNames } from '@meta/assessment'
-import { NodeUpdates, RecordAssessmentDatas } from '@meta/data'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, CycleName, TableNames } from 'meta/assessment'
+import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 
-import { AssessmentActions } from '@client/store/assessment'
+import { AssessmentActions } from 'client/store/assessment'
 
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'

@@ -3,9 +3,9 @@ import * as fs from 'fs/promises'
 import * as extract from 'extract-zip'
 import * as JSON2CSV from 'json2csv'
 
-import { compareFiles } from '@test/bulkDownloadComparison/compareFiles'
-import { downloadFile } from '@test/bulkDownloadComparison/downloadFile'
-import { getFileName } from '@test/bulkDownloadComparison/getFileName'
+import { compareFiles } from 'test/bulkDownloadComparison/compareFiles'
+import { downloadFile } from 'test/bulkDownloadComparison/downloadFile'
+import { getFileName } from 'test/bulkDownloadComparison/getFileName'
 
 const fileNames = ['Annual', 'FRA_Years', 'Intervals']
 

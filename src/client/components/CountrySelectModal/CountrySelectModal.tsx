@@ -2,12 +2,12 @@ import './countrySelectModal.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
-import { Strings } from '@utils/strings'
+import { Objects } from 'utils/objects'
+import { Strings } from 'utils/strings'
 
-import { Areas, Country } from '@meta/area'
+import { Areas, Country } from 'meta/area'
 
-import { Modal, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
+import { Modal, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import CountrySelectModalBody from './CountrySelectModalBody'
 

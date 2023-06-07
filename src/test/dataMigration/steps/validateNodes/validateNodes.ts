@@ -1,15 +1,15 @@
-import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Col, Cycle, Node, Row, TableNames } from '@meta/assessment'
+import { Assessment, Col, Cycle, Node, Row, TableNames } from 'meta/assessment'
 
-import { CycleDataController } from '@server/controller/cycleData'
-import { validateNode } from '@server/controller/cycleData/updateDependencies/updateValidationDependencies/validateNode'
-import { BaseProtocol, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter'
-import { CountryRepository } from '@server/repository/assessmentCycle/country'
+import { CycleDataController } from 'server/controller/cycleData'
+import { validateNode } from 'server/controller/cycleData/updateDependencies/updateValidationDependencies/validateNode'
+import { BaseProtocol, Schemas } from 'server/db'
+import { ColAdapter } from 'server/repository/adapter'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
-import { NodeRow } from '@test/dataMigration/types'
+import { NodeRow } from 'test/dataMigration/types'
 
 export const validateNodes = async (
   props: { assessment: Assessment; cycle: Cycle },

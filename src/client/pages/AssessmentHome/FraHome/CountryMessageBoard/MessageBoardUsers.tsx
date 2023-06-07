@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { MessageTopicType, Topics } from '@meta/messageCenter'
-import { Users } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { MessageTopicType, Topics } from 'meta/messageCenter'
+import { Users } from 'meta/user'
 
-import { useCycle } from '@client/store/assessment'
-import { useUsers } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useCycle } from 'client/store/assessment'
+import { useUsers } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
 
 import MessageButton from './MessageButton'
 

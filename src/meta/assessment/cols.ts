@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 
-import { Cycle } from '@meta/assessment/cycle'
-import { Labels } from '@meta/assessment/labels'
+import { Cycle } from 'meta/assessment/cycle'
+import { Labels } from 'meta/assessment/labels'
 
 import { Col, ColStyle, ColType } from './col'
 import { Row } from './row'

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { AssessmentNames } from '@meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
 
-import AssessmentSwitch from '@client/components/AssessmentSwitch'
+import AssessmentSwitch from 'client/components/AssessmentSwitch'
 
 import LinksFRA from './LinksFRA'
 

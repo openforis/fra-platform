@@ -1,4 +1,4 @@
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 import {
   BurnedAreasOptions,
   ForestOptions,
@@ -6,9 +6,9 @@ import {
   MapPanel,
   MosaicOptions,
   ProtectedAreasOptions,
-} from '@meta/geo'
+} from 'meta/geo'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export const useMosaicUrl = (countryIso: CountryIso): string =>
   useAppSelector((state) => state.geo?.mosaicOptions.mosaicUrl[countryIso])

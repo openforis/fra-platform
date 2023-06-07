@@ -1,10 +1,10 @@
-import { User, UserAuthProvider } from '@meta/user'
-import { UserProps } from '@meta/user/user'
-import { AuthProviderGoogleProps, AuthProviderLocalProps } from '@meta/user/userAuth'
+import { User, UserAuthProvider } from 'meta/user'
+import { UserProps } from 'meta/user/user'
+import { AuthProviderGoogleProps, AuthProviderLocalProps } from 'meta/user/userAuth'
 
-import { BaseProtocol, DB } from '@server/db'
-import { UserRepository } from '@server/repository/public/user'
-import { UserProviderRepository } from '@server/repository/public/userProvider'
+import { BaseProtocol, DB } from 'server/db'
+import { UserRepository } from 'server/repository/public/user'
+import { UserProviderRepository } from 'server/repository/public/userProvider'
 
 export const create = async (
   props: {
