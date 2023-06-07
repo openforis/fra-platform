@@ -16,9 +16,9 @@ export const getAssessmentFile = async (req: CycleRequest, res: Response) => {
 
     const assessmentFile = await FileController.getAssessmentFile({ assessment, uuid })
 
-    const fileName = encodeURIComponent(assessmentFile.fileName)
-
     if (assessmentFile && assessmentFile.file) {
+      const fileName = encodeURIComponent(assessmentFile.fileName)
+
       res.setHeader('Content-Disposition', `attachment; filename*=utf-8''${fileName}`)
 
       res.end(assessmentFile.file, 'binary')
