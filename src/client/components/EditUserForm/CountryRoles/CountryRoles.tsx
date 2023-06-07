@@ -23,6 +23,7 @@ const roles = [
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
   RoleName.COLLABORATOR,
+  RoleName.VIEWER,
 ]
 
 type ModalOptionsProps = {
