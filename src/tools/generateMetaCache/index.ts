@@ -11,7 +11,6 @@ import { Logger } from 'server/utils/logger'
 
 const client = DB
 
-// Same without jest, normal script
 const close = async () => {
   await DB.$pool.end()
 }
