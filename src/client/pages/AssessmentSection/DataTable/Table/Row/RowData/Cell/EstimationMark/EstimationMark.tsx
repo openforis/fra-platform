@@ -3,10 +3,10 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { TFunction, useTranslation } from 'react-i18next'
 
-import { NodeValuesEstimation } from '@meta/assessment'
-import { TooltipId } from '@meta/tooltip'
+import { NodeValuesEstimation } from 'meta/assessment'
+import { TooltipId } from 'meta/tooltip'
 
-import { useNodeValuesEstimations } from '@client/store/data'
+import { useNodeValuesEstimations } from 'client/store/data'
 
 type Props = {
   estimationUuid: string

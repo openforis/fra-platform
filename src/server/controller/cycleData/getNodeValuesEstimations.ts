@@ -1,9 +1,9 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, NodeValuesEstimation } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, NodeValuesEstimation } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
-import { TableRepository } from '@server/repository/assessment/table'
-import { NodeValueEstimationRepository } from '@server/repository/assessmentCycle/nodeValueEstimationRepository'
+import { BaseProtocol, DB } from 'server/db'
+import { TableRepository } from 'server/repository/assessment/table'
+import { NodeValueEstimationRepository } from 'server/repository/assessmentCycle/nodeValueEstimationRepository'
 
 export const getNodeValuesEstimations = async (
   props: {
