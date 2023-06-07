@@ -8,6 +8,8 @@ import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
 
 const mailTransport = nodemailer.createTransport({
+  pool: true,
+  maxConnections: 1,
   host: process.env.FRA_MAIL_HOST,
   port: Number(process.env.FRA_MAIL_PORT),
   secure: process.env.FRA_MAIL_SECURE === 'true',
