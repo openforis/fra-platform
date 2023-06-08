@@ -12,9 +12,15 @@ import { getAssessmentFile } from './getAssessmentFile'
 import { getAssessmentFiles } from './getAssessmentFiles'
 import { getBiomassStockFile } from './getBiomassStockFile'
 import { getDataDownloadFile } from './getDataDownloadFile'
-import { removeAssessmentFile } from './removeAssessmentFile'
 import { getSdgFocalPointsFile } from './getSdgFocalPointsFile'
+import { removeAssessmentFile } from './removeAssessmentFile'
 import multer = require('multer')
+
+const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileFilterCallback) => {
+  // eslint-disable-next-line no-param-reassign
+  file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
+  callback(null, true)
+}
 
 export const FileApi = {
   init: (express: Express): void => {
@@ -31,7 +37,7 @@ export const FileApi = {
     // Files
     express.put(
       ApiEndPoint.File.Assessment.many(),
-      multer().single('file'),
+      multer({ fileFilter }).single('file'),
       AuthMiddleware.requireEditAssessmentFile,
       createAssessmentFile
     )
