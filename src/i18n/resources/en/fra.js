@@ -235,6 +235,12 @@ module.exports = {
     annualForestAreaChangeRate: 'Annual forest area change rate',
     sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
     forestAreaProportionLandArea: 'Forest area as proportion of total land area',
+    aboveGroundBiomassStockForests2025: '$t(sustainableDevelopment.aboveGroundBiomassStockForests)',
+    proportionForestAreaLegallyEstablishedProtectedAreas2025:
+      '$t(sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas)',
+    proportionForestAreaLongTermForestManagement2025:
+      '$t(sustainableDevelopment.proportionForestAreaLongTermForestManagement)',
+    forestAreaVerifiedForestManagement2025: '$t(sustainableDevelopment.forestAreaVerifiedForestManagement)',
   },
 
   navigation: {

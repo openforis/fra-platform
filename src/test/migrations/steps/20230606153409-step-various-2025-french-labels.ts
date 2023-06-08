@@ -41,67 +41,77 @@ export default async (client: BaseProtocol) => {
     `
   )
 
-  await client.query(
-    `
-      update ${schemaName}.col
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.specificForestCategories.rubberWood2025"')
-      where id in (
-        select c.id
-        from  ${schemaName}.table t
-          left join ${schemaName}.row r on t.id = r.table_id
-          left join ${schemaName}.col c on r.id = c.row_id
-        where t.props ->> 'name' = 'specificForestCategories'
-          and r.props ->> 'variableName' = 'rubber_wood'
-          and c.props ->> 'colType' = 'header'
-      );
-    `
-  )
+  const labelsToChange = [
+    {
+      label: 'fra.specificForestCategories.rubberWood2025',
+      tableName: 'specificForestCategories',
+      variableName: 'rubber_wood',
+      colType: 'header',
+    },
+    {
+      label: 'fra.forestAreaChange.forestAreaNetChange2025',
+      tableName: 'forestAreaChange',
+      variableName: 'forestAreaNetChange',
+      colType: 'header',
+    },
+    {
+      label: 'fra.otherLandWithTreeCover.agroforestry2025',
+      tableName: 'otherLandWithTreeCover',
+      variableName: 'agroforestry',
+      colType: 'header',
+    },
+    {
+      label: 'fra.otherLandWithTreeCover.other2025',
+      tableName: 'otherLandWithTreeCover',
+      variableName: 'other',
+      colType: 'header',
+    },
+    {
+      label: 'fra.sustainableDevelopment.aboveGroundBiomassStockForests2025',
+      tableName: 'sustainableDevelopment15_2_1_2',
+      variableName: 'aboveGroundBiomassStockForests',
+      colType: 'header',
+    },
+    {
+      label: 'fra.sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas2025',
+      tableName: 'sustainableDevelopment15_2_1_3',
+      variableName: 'proportionForestAreaLegallyEstablishedProtectedAreas',
+      colType: 'header',
+    },
+    {
+      label: 'fra.sustainableDevelopment.proportionForestAreaLongTermForestManagement2025',
+      tableName: 'sustainableDevelopment15_2_1_4',
+      variableName: 'proportionForestAreaLongTermForestManagement',
+      colType: 'header',
+    },
+    {
+      label: 'fra.sustainableDevelopment.forestAreaVerifiedForestManagement2025',
+      tableName: 'sustainableDevelopment15_2_1_5',
+      variableName: 'forestAreaVerifiedForestManagement',
+      colType: 'header',
+    },
+  ]
 
-  await client.query(
-    `
-      update ${schemaName}.col
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.forestAreaChange.forestAreaNetChange2025"')
-      where id in (
-        select c.id
-        from  ${schemaName}.table t
-          left join ${schemaName}.row r on t.id = r.table_id
-          left join ${schemaName}.col c on r.id = c.row_id
-        where t.props ->> 'name' = 'forestAreaChange'
-          and r.props ->> 'variableName' = 'forestAreaNetChange'
-          and c.props ->> 'colType' = 'header'
-      );
-    `
-  )
+  await Promise.all(
+    labelsToChange.map((labelToChange) => {
+      const { label, tableName, variableName, colType } = labelToChange
 
-  await client.query(
-    `
-      update ${schemaName}.col
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherLandWithTreeCover.agroforestry2025"')
-      where id in (
-        select c.id
-        from  ${schemaName}.table t
-          left join ${schemaName}.row r on t.id = r.table_id
-          left join ${schemaName}.col c on r.id = c.row_id
-        where t.props ->> 'name' = 'otherLandWithTreeCover'
-          and r.props ->> 'variableName' = 'agroforestry'
-          and c.props ->> 'colType' = 'header'
-      );
-    `
-  )
-
-  await client.query(
-    `
-      update ${schemaName}.col
-      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherLandWithTreeCover.other2025"')
-      where id in (
-        select c.id
-        from  ${schemaName}.table t
-          left join ${schemaName}.row r on t.id = r.table_id
-          left join ${schemaName}.col c on r.id = c.row_id
-        where t.props ->> 'name' = 'otherLandWithTreeCover'
-          and r.props ->> 'variableName' = 'other'
-          and c.props ->> 'colType' = 'header'
-      );
-    `
+      return client.query(
+        `
+        update ${schemaName}.col
+        set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"${label}"')
+        where id in (
+          select c.id
+          from  ${schemaName}.table t
+            left join ${schemaName}.row r on t.id = r.table_id
+            left join ${schemaName}.col c on r.id = c.row_id
+          where t.props ->> 'name' = $1
+            and r.props ->> 'variableName' = $2
+            and c.props ->> 'colType' = $3
+        );
+      `,
+        [tableName, variableName, colType]
+      )
+    })
   )
 }

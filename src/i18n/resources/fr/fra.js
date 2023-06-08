@@ -137,8 +137,8 @@ module.exports = {
   },
   otherLandWithTreeCover: {
     otherLandWithTreeCover2025: 'Autres terres avec un couvert arboré',
-    agroforestry2025: 'Systèmes agroforestiers (c)',
-    other2025: 'Autre (à préciser) (e)',
+    agroforestry2025: 'Systèmes agroforestiers',
+    other2025: 'Autre (à préciser)',
   },
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Forêt primaire par domaine climatique',
@@ -166,6 +166,13 @@ module.exports = {
     annualForestAreaChangeRate: 'Taux de changement annuel de la superficie forestière',
     sdgIndicator1_2025: 'Indicateur ODD 15.1.1: Surface des zones forestières, en proportion de la surface terrestre ',
     forestAreaProportionLandArea: 'Surface des zones forestières, en proportion de la surface terrestre ',
+    aboveGroundBiomassStockForests2025: 'Stock de biomasse aérienne dans les forêts',
+    proportionForestAreaLegallyEstablishedProtectedAreas2025:
+      'Proportion de la superficie forestière se trouvant dans des aires protégées juridiquement constituées',
+    proportionForestAreaLongTermForestManagement2025:
+      'Proportion de la superficie forestière faisant l’objet d’un plan de gestion forestière à long terme',
+    forestAreaVerifiedForestManagement2025:
+      'Superficie forestière dont la gestion est certifiée par des systèmes de vérification indépendants',
   },
   navigation: {
     sectionHeaders: {
