@@ -67,6 +67,18 @@ export default async (client: BaseProtocol) => {
       colType: 'header',
     },
     {
+      label: 'fra.forestOwnership.ofWhichPrivateBusinesses2025',
+      tableName: 'forestOwnership',
+      variableName: 'of_which_by_private_businesses',
+      colType: 'header',
+    },
+    {
+      label: 'fra.holderOfManagementRights.privateBusinesses2025',
+      tableName: 'holderOfManagementRights',
+      variableName: 'holderOfManagementRights',
+      colType: 'header',
+    },
+    {
       label: 'fra.sustainableDevelopment.aboveGroundBiomassStockForests2025',
       tableName: 'sustainableDevelopment15_2_1_2',
       variableName: 'aboveGroundBiomassStockForests',

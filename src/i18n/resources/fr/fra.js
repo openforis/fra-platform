@@ -91,6 +91,7 @@ module.exports = {
     plantationForestIntroducedArea2025: "...dont d'espèces introduite",
   },
   forestOwnership: {
+    ofWhichPrivateBusinesses2025: '...dont appartenant à des entités et institutions commerciales privées',
     ofWhichCommunities2025: '...dont Peuples autochtones et aux communautés locales',
     other2025: 'Autres formes de propriété (préciser dans les commentaires)',
     unknown2025: 'Propriété inconnue',
@@ -125,6 +126,7 @@ module.exports = {
   },
   holderOfManagementRights: {
     holderOfManagementRights2025: 'Droits de gestion des forêts publiques',
+    privateBusinesses2025: 'Entités et institutions commerciales privées',
     communities2025: 'Peuples autochtones et communautés locales ',
     other2025: 'Autres formes de droits de gestion (préciser dans les commentaires)',
     unknown2025: 'Droits de gestion inconnus',

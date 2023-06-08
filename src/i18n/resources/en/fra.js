@@ -144,6 +144,7 @@ module.exports = {
   },
 
   forestOwnership: {
+    ofWhichPrivateBusinesses2025: '$t(forestOwnership.ofWhichPrivateBusinesses)',
     ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
@@ -187,6 +188,7 @@ module.exports = {
 
   holderOfManagementRights: {
     holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
+    privateBusinesses2025: '$t(holderOfManagementRights.privateBusinesses)',
     communities2025: 'Indigenous Peoples and local communities',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
