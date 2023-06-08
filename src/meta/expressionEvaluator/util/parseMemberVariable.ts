@@ -11,7 +11,7 @@ const getExpressionDepth = (expressionNode: MemberExpression): number => {
   return depth
 }
 
-export const parseExpression = (
+export const parseMemberVariable = (
   expressionNode: MemberExpression
 ): {
   tableName: string

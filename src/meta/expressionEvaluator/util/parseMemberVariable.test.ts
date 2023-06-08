@@ -1,6 +1,6 @@
 import { MemberExpression } from '@openforis/arena-core'
 
-import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
+import { parseMemberVariable } from './parseMemberVariable'
 
 describe('parseMemberVariable', () => {
   test('fra["2025"].extentOfForest.forestArea["2025"]', () => {
