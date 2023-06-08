@@ -103,6 +103,7 @@ module.exports = {
     subnational: 'Subnational',
     biome: 'Biome',
     standLocal: 'Stand / Local',
+    criteriaOfDegradedForest2025: '$t(fra.degradedForest.criteriaOfDegradedForest)',
   },
 
   designatedManagementObjective: {

@@ -97,6 +97,12 @@ export default async (client: BaseProtocol) => {
       colType: 'header',
     },
     {
+      label: 'fra.degradedForest.criteriaOfDegradedForest2025',
+      tableName: 'degradedForest2025',
+      variableName: 'criteriaOfDegradedForest',
+      colType: 'header',
+    },
+    {
       label: 'fra.sustainableDevelopment.aboveGroundBiomassStockForests2025',
       tableName: 'sustainableDevelopment15_2_1_2',
       variableName: 'aboveGroundBiomassStockForests',
