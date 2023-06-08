@@ -62,7 +62,6 @@ module.exports = {
     standLocal: 'الوقوف / محلي',
   },
   designatedManagementObjective: {
-    designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     noDesignation: 'بدون تعيين',
     unknown2025: 'غير معروف',
   },
@@ -115,7 +114,6 @@ module.exports = {
     totalNativeTreeSpecies: 'إجمالي أنواع الأشجار الأصلية',
   },
   holderOfManagementRights: {
-    holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
     communities2025: 'الشعوب الأصلية والمجتمعات المحلية',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'غير معروف',
@@ -139,12 +137,6 @@ module.exports = {
     mangroves2025: 'المانغروف¹',
     mangrovesDisclaimer: '¹ تشمل كلا من الغابات والأراضي الحرجية الأخرى',
   },
-  forestPolicy: {
-    forestPolicy2025: '$t(forestPolicy.forestPolicy)',
-  },
-  areaOfPermanentForestEstate: {
-    areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
-  },
   sustainableDevelopment: {
     annualForestAreaChangeRate: 'معدل التغير السنوي لمساحة الغابات',
     sdgIndicator1_2025: 'مؤشر أهداف التنمية المستدامة ١٥ .١ .١  لمساحة الغابات كنسبة من إجمالي مساحة الأرض',
@@ -154,7 +146,6 @@ module.exports = {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'عمليات إزالة المنتجات الحرجية غير الخشبية وقيمتها ٢٠٢٠ ',
       forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
-      forestDesignationAndManagement2025: '$t(navigation.sectionHeaders.forestDesignationAndManagement)',
       forestPolicyAndLegislation2025: '$t(navigation.sectionHeaders.forestPolicyAndLegislation)',
     },
   },
