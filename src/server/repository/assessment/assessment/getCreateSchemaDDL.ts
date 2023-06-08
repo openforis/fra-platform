@@ -60,7 +60,9 @@ create table ${schemaName}.file
     uuid             uuid default uuid_generate_v4() NOT NULL,
     country_iso      varchar(3) references public.country on update cascade on delete cascade,
     file_name        varchar(250) NOT NULL,
-    file             bytea NOT NULL
+    file             bytea NOT NULL,
+    PRIMARY KEY (id),
+    unique(uuid)
 );
 `
   return query
