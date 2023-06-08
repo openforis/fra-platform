@@ -85,6 +85,18 @@ export default async (client: BaseProtocol) => {
       colType: 'header',
     },
     {
+      label: 'fra.growingStockComposition.remainingNative2025',
+      tableName: 'growingStockComposition2025',
+      variableName: 'remainingNative',
+      colType: 'header',
+    },
+    {
+      label: 'fra.growingStockComposition.remainingIntroduced2025',
+      tableName: 'growingStockComposition2025',
+      variableName: 'remainingIntroduced',
+      colType: 'header',
+    },
+    {
       label: 'fra.sustainableDevelopment.aboveGroundBiomassStockForests2025',
       tableName: 'sustainableDevelopment15_2_1_2',
       variableName: 'aboveGroundBiomassStockForests',

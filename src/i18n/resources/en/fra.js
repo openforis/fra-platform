@@ -182,9 +182,10 @@ module.exports = {
     totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
     totalNativeTreeSpecies: 'TOTAL native tree species',
     updatedGrowingStockComposition: '$t(growingStockComposition.growingStockComposition)',
-
     nativeTreeSpecies2025: '$t(growingStockComposition.nativeTreeSpecies)',
+    remainingNative2025: '$t(growingStockComposition.remainingNative)',
     introducedTreeSpecies2025: '$t(growingStockComposition.introducedTreeSpecies)',
+    remainingIntroduced2025: '$t(growingStockComposition.remainingIntroduced)',
   },
 
   holderOfManagementRights: {

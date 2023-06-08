@@ -10,11 +10,17 @@ module.exports = {
     areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
     totalLandAreaAffectedByFire2025: 'Superficie totale des terres touchées par des incendies',
   },
+  biomassStock: {
+    biomassStock2025: 'Stock de biomasse',
+  },
   biomassStockAvg: {
     forestBiomass: 'Biomasse de la forêt (t/ha)',
   },
   biomassStockTotal: {
     totalForestBiomass: 'Biomasse totale de la forêt (en million de tonnes)',
+  },
+  carbonStock: {
+    carbonStock2025: 'Stock de carbone',
   },
   carbonStockTotal: {
     totalForestCarbon: 'Carbone total de la forêt (en million de tonnes)',
@@ -125,6 +131,10 @@ module.exports = {
     totalGrowingStock: 'TOTAL Matériel sur pied ',
     totalIntroducedTreeSpecies: 'TOTAL Espèces d’arbres introduites ',
     totalNativeTreeSpecies: 'TOTAL Espèces d’arbres indigènes ',
+    nativeTreeSpecies2025: 'Espèces d’arbres indigènes',
+    remainingNative2025: 'Autres espèces d’arbres indigènes',
+    introducedTreeSpecies2025: 'Espèces d’arbres introduite',
+    remainingIntroduced2025: 'Autres espèces d’arbres introduites',
   },
   holderOfManagementRights: {
     holderOfManagementRights2025: 'Droits de gestion des forêts publiques',
