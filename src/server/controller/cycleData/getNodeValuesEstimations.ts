@@ -19,7 +19,7 @@ export const getNodeValuesEstimations = async (
   const table = await TableRepository.getOne({ assessment, cycle, tableName })
 
   const tableEstimations = await NodeValueEstimationRepository.getMany(
-    { assessment, cycle, countryIso, tableUuid: table?.uuid },
+    { assessment, cycle, countryIso, tableUuid: table.uuid },
     client
   )
 
