@@ -127,6 +127,7 @@ module.exports = {
   forestAreaChange: {
     forestExpansion2025: '$t(forestAreaChange.forestExpansion)',
     forestAreaChange2025: '$t(forestAreaChange.forestAreaChange)',
+    forestAreaNetChange2025: '$t(forestAreaChange.forestAreaNetChange)',
   },
 
   forestAreaWithinProtectedAreas: {

@@ -41,15 +41,35 @@ export default async (client: BaseProtocol) => {
     `
   )
 
-  await client.query(`update ${schemaName}.col
-        set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.specificForestCategories.rubberWood2025"')
-        where id in (
-            select c.id
-            from  ${schemaName}.table t
-                      left join ${schemaName}.row r on t.id = r.table_id
-                      left join ${schemaName}.col c on r.id = c.row_id
-            where t.props ->> 'name' = 'specificForestCategories'
-              and r.props ->> 'variableName' = 'rubber_wood'
-              and c.props ->> 'colType' = 'header'
-            );`)
+  await client.query(
+    `
+      update ${schemaName}.col
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.specificForestCategories.rubberWood2025"')
+      where id in (
+        select c.id
+        from  ${schemaName}.table t
+          left join ${schemaName}.row r on t.id = r.table_id
+          left join ${schemaName}.col c on r.id = c.row_id
+        where t.props ->> 'name' = 'specificForestCategories'
+          and r.props ->> 'variableName' = 'rubber_wood'
+          and c.props ->> 'colType' = 'header'
+      );
+    `
+  )
+
+  await client.query(
+    `
+      update ${schemaName}.col
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.forestAreaChange.forestAreaNetChange2025"')
+      where id in (
+        select c.id
+        from  ${schemaName}.table t
+          left join ${schemaName}.row r on t.id = r.table_id
+          left join ${schemaName}.col c on r.id = c.row_id
+        where t.props ->> 'name' = 'forestAreaChange'
+          and r.props ->> 'variableName' = 'forestAreaNetChange'
+          and c.props ->> 'colType' = 'header'
+      );
+    `
+  )
 }

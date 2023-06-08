@@ -78,6 +78,7 @@ module.exports = {
   },
   forestAreaChange: {
     forestAreaChange2025: 'Expansion de la forêt, déforestation et changement net annuels',
+    forestAreaNetChange2025: 'Changement net de la superficie de forêt (a-b)',
   },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Superficie de forêt soumise à un plan de gestion à long terme',
