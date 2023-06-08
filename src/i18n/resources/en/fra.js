@@ -202,6 +202,8 @@ module.exports = {
 
   otherLandWithTreeCover: {
     otherLandWithTreeCover2025: '$t(otherLandWithTreeCover.otherLandWithTreeCover)',
+    agroforestry2025: '$t(otherLandWithTreeCover.agroforestry)',
+    other2025: '$t(otherLandWithTreeCover.other)',
   },
 
   primaryForestByClimaticDomain: {

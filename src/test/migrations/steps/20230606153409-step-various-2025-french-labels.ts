@@ -72,4 +72,36 @@ export default async (client: BaseProtocol) => {
       );
     `
   )
+
+  await client.query(
+    `
+      update ${schemaName}.col
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherLandWithTreeCover.agroforestry2025"')
+      where id in (
+        select c.id
+        from  ${schemaName}.table t
+          left join ${schemaName}.row r on t.id = r.table_id
+          left join ${schemaName}.col c on r.id = c.row_id
+        where t.props ->> 'name' = 'otherLandWithTreeCover'
+          and r.props ->> 'variableName' = 'agroforestry'
+          and c.props ->> 'colType' = 'header'
+      );
+    `
+  )
+
+  await client.query(
+    `
+      update ${schemaName}.col
+      set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"fra.otherLandWithTreeCover.other2025"')
+      where id in (
+        select c.id
+        from  ${schemaName}.table t
+          left join ${schemaName}.row r on t.id = r.table_id
+          left join ${schemaName}.col c on r.id = c.row_id
+        where t.props ->> 'name' = 'otherLandWithTreeCover'
+          and r.props ->> 'variableName' = 'other'
+          and c.props ->> 'colType' = 'header'
+      );
+    `
+  )
 }

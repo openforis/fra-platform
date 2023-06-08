@@ -137,6 +137,8 @@ module.exports = {
   },
   otherLandWithTreeCover: {
     otherLandWithTreeCover2025: 'Autres terres avec un couvert arboré',
+    agroforestry2025: 'Systèmes agroforestiers (c)',
+    other2025: 'Autre (à préciser) (e)',
   },
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Forêt primaire par domaine climatique',
@@ -168,8 +170,8 @@ module.exports = {
   navigation: {
     sectionHeaders: {
       employmentEducationAndNwfp2025: 'Extraction et valeur des produits forestiers non ligneuz en 2020',
+      forestGrowingStockBiomassAndCarbon2025: 'Matériel sur pied, biomasse et carbone de la forêt',
       forestDesignationAndManagement2025: 'Affectation et gestion des forêts',
-      forestExtentCharacteristicsAndChanges2025: '$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)',
       forestPolicyAndLegislation2025: 'Politiques et législations forestières',
     },
   },
