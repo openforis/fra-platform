@@ -135,6 +135,9 @@ module.exports = {
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Extraction et valeur des produits forestiers non ligneux en 2020',
   },
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover2025: 'Autres terres avec un couvert arboré',
+  },
   primaryForestByClimaticDomain: {
     primaryForestByClimaticDomain: 'Forêt primaire par domaine climatique',
     primaryForestBoreal: '...dont forêt primaire boréale',
