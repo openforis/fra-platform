@@ -24,6 +24,7 @@ module.exports = {
   areaAffectedByFire: {
     areaAffected: 'Area affected (1000 ha)',
     areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
+    totalLandAreaAffectedByFire2025: '$t(areaAffectedByFire.totalLandAreaAffectedByFire)',
   },
 
   biomassStock: {

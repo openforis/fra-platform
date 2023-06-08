@@ -79,6 +79,12 @@ export default async (client: BaseProtocol) => {
       colType: 'header',
     },
     {
+      label: 'fra.areaAffectedByFire.totalLandAreaAffectedByFire2025',
+      tableName: 'areaAffectedByFire',
+      variableName: 'total_land_area_affected_by_fire',
+      colType: 'header',
+    },
+    {
       label: 'fra.sustainableDevelopment.aboveGroundBiomassStockForests2025',
       tableName: 'sustainableDevelopment15_2_1_2',
       variableName: 'aboveGroundBiomassStockForests',

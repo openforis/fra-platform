@@ -8,6 +8,7 @@ module.exports = {
   areaAffectedByFire: {
     areaAffected: 'Superficie touchée (1 000 ha)',
     areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
+    totalLandAreaAffectedByFire2025: 'Superficie totale des terres touchées par des incendies',
   },
   biomassStockAvg: {
     forestBiomass: 'Biomasse de la forêt (t/ha)',
@@ -70,6 +71,7 @@ module.exports = {
     forestDamage: 'Dommages causés aux forêts',
     predominantCause: 'Cause prédominante',
     forestAreaAffected: 'Superficie de forêt touchée (1 000 ha)',
+    severeWeatherEvents2025: 'Phénomènes météorologiques graves',
   },
   extentOfForest: {
     remainingLandArea: 'Terres restantes',
