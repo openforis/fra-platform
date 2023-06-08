@@ -76,6 +76,9 @@ module.exports = {
     extentOfForest2025: '$t(extentOfForest.extentOfForest)',
     otherWoodedLand: '$t(fraClass.otherWoodedLand)',
   },
+  forestAreaChange: {
+    forestAreaChange2025: 'Expansion de la forêt, déforestation et changement net annuels',
+  },
   forestAreaWithinProtectedAreas: {
     forestAreaWithLongTermManagementPlan2025: 'Superficie de forêt soumise à un plan de gestion à long terme',
     forestAreaWithinProtectedAreas2025:
