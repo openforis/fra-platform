@@ -4,7 +4,6 @@ module.exports = {
   clearTable: 'Clear table',
   column: 'Column',
   continue: 'Continue',
-  method: 'Method',
   copyToClipboard: 'Copy to clipboard',
   countries: 'Countries',
   dashboard: 'Dashboard',

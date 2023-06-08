@@ -24,7 +24,7 @@ const getEstimationDetails = (tableEstimation: NodeValuesEstimation, variableNam
 
   return ReactDOMServer.renderToStaticMarkup(
     <div>
-      {t('common.method')}: {t(`tableWithOdp.${method}Extrapolation`)}
+      {t(`tableWithOdp.${method}Extrapolation`)}
       {changeRates && (
         <>
           <div>{`${t('tableWithOdp.placeholderPast')}: ${changeRates.ratePast}`}</div>
