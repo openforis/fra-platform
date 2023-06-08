@@ -3,19 +3,19 @@ import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/d
 
 import { AssessmentMetaCaches } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
+import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 
 import { Context } from '../context'
-import { parseExpression } from '../util/parseExpression'
 
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
   evaluate(expressionNode: MemberExpression): string | undefined {
     const { assessment, cycle, countryIso, colName: colNameContext, data } = this.context
 
-    const { tableName: _tableName, variableName, colName = colNameContext } = parseExpression(expressionNode)
+    const memberVariable = parseMemberVariable(expressionNode)
 
     const variablesByTables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
     const tableNames = Object.keys(variablesByTables)
-    const tableName = tableNames.find((table) => table === _tableName)
+    const tableName = tableNames.find((table) => table === memberVariable.tableName)
     if (tableName) {
       return RecordAssessmentDatas.getDatum({
         assessmentName: assessment.props.name,
@@ -23,8 +23,8 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
         data,
         countryIso,
         tableName,
-        variableName,
-        colName,
+        variableName: memberVariable.variableName,
+        colName: memberVariable.colName ?? colNameContext,
       })
     }
 

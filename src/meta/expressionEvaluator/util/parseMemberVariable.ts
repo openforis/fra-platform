@@ -13,7 +13,14 @@ const getExpressionDepth = (expressionNode: MemberExpression): number => {
 
 export const parseExpression = (
   expressionNode: MemberExpression
-): { tableName: string; variableName: string; colName?: string; assessmentName?: string; cycleName?: string; depth?: number } => {
+): {
+  tableName: string
+  variableName: string
+  colName?: string
+  assessmentName?: string
+  cycleName?: string
+  depth?: number
+} => {
   const depth = getExpressionDepth(expressionNode)
 
   switch (depth) {

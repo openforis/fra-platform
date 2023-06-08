@@ -1,8 +1,8 @@
 import { MemberExpression } from '@openforis/arena-core'
 
-import { parseExpression } from './parseExpression'
+import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 
-describe('parseExpression', () => {
+describe('parseMemberVariable', () => {
   test('fra["2025"].extentOfForest.forestArea["2025"]', () => {
     const expected = {
       assessmentName: 'fra',
@@ -55,7 +55,7 @@ describe('parseExpression', () => {
       },
     }
 
-    expect(parseExpression(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression)).toEqual(expected)
   })
   test('fra["2025"].extentOfForest.forestArea', () => {
     const expected = {
@@ -100,7 +100,7 @@ describe('parseExpression', () => {
       },
     }
 
-    expect(parseExpression(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression)).toEqual(expected)
   })
   test('extentOfForest.forestArea["2025"]', () => {
     const expected = {
@@ -138,7 +138,7 @@ describe('parseExpression', () => {
       },
     }
 
-    expect(parseExpression(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression)).toEqual(expected)
   })
   test('growingStockComposition2025.remainingIntroduced.growingStockMillionCubicMeter', () => {
     const expected = {
@@ -175,7 +175,7 @@ describe('parseExpression', () => {
       },
     }
 
-    expect(parseExpression(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression)).toEqual(expected)
   })
 
   test('extentOfForest.forestArea', () => {
@@ -206,6 +206,6 @@ describe('parseExpression', () => {
       },
     }
 
-    expect(parseExpression(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression)).toEqual(expected)
   })
 })

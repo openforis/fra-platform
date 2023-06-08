@@ -15,24 +15,16 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
   evaluate(expressionNode: MemberExpression): string {
     const { assessmentMetaCache, row, tableName, type } = this.context
 
-    // Example of: <calcualteFn> = [...result]
-    // Case 1: extentOfForest.forestArea (2) [extentOfForest, forestArea]
-    // Case 2: extentOfForest.forestArea['2025'] (3) [extentOfForest, forestArea]
-    // Case 3: fra['2025'].extentOfForest.forestArea (4) [fra, '2025', extentOfForest, forestArea]
-    // Case 4: fra['2025'].extentOfForest.forestArea['2025'] (4) [fra, '2025', extentOfForest, forestArea]
+    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
 
-    const {
-      tableName: _tableName,
-      variableName: _variableName,
-      assessmentName,
-      cycleName,
-    } = ExpressionEvaluator.parseExpression(expressionNode)
-
-    if (assessmentMetaCache.variablesByTable[_tableName]) {
-      const dependantTable = assessmentMetaCache[type].dependants?.[_tableName] ?? {}
-      const dependants = dependantTable[_variableName] ?? []
+    if (assessmentMetaCache.variablesByTable[memberVariable.tableName]) {
+      const dependantTable = assessmentMetaCache[type].dependants?.[memberVariable.tableName] ?? {}
+      const dependants = dependantTable[memberVariable.variableName] ?? []
       const dependant: VariableCache = { variableName: row.props.variableName, tableName }
-      if (!excludeDependant(row, _tableName, _variableName) && !includesVariableCache(dependants, dependant)) {
+      if (
+        !excludeDependant(row, memberVariable.tableName, memberVariable.variableName) &&
+        !includesVariableCache(dependants, dependant)
+      ) {
         assessmentMetaCache[type].dependants = {
           ...assessmentMetaCache[type].dependants,
           // @ts-ignore
@@ -49,9 +41,9 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       // @ts-ignore
       const dependency: VariableCache = { variableName: _variableName, tableName: _tableName }
 
-      if (assessmentName && cycleName) {
-        dependency.assessmentName = assessmentName
-        dependency.cycleName = cycleName
+      if (memberVariable.assessmentName && memberVariable.cycleName) {
+        dependency.assessmentName = memberVariable.assessmentName
+        dependency.cycleName = memberVariable.cycleName
       }
 
       if (!includesVariableCache(dependencies, dependency)) {
@@ -64,8 +56,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
         }
       }
 
-      return `${tableName}.${_variableName}`
+      return `${tableName}.${memberVariable.variableName}`
     }
-    return `${_tableName}.${_variableName}`
+    return `${memberVariable.tableName}.${memberVariable.variableName}`
   }
 }
