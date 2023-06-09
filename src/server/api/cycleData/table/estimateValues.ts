@@ -92,7 +92,14 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       })
     }
 
-    return Requests.sendOk(res, nodes)
+    const nodeValueEstimations = await CycleDataController.getNodeValuesEstimations({
+      assessment,
+      countryIso,
+      cycle,
+      tableName,
+    })
+
+    return Requests.sendOk(res, { nodes, nodeValueEstimations })
   } catch (e) {
     return Requests.sendErr(res, e)
   }

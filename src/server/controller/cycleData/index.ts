@@ -6,6 +6,7 @@ import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { clearTableData } from './clearTableData'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { getBulkDownload } from './getBulkDownload'
+import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
@@ -23,6 +24,7 @@ export const CycleDataController = {
   getOriginalDataPointData,
   getTableData,
   clearTableData,
+  getNodeValuesEstimations,
   // original data points
   createOriginalDataPoint,
   getOriginalDataPoint,
