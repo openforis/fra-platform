@@ -17,6 +17,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
     const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
 
+    const { tableName: _tableName, variableName: _variableName } = memberVariable
+
     if (assessmentMetaCache.variablesByTable[memberVariable.tableName]) {
       const dependantTable = assessmentMetaCache[type].dependants?.[memberVariable.tableName] ?? {}
       const dependants = dependantTable[memberVariable.variableName] ?? []
@@ -27,10 +29,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       ) {
         assessmentMetaCache[type].dependants = {
           ...assessmentMetaCache[type].dependants,
-          // @ts-ignore
           [_tableName]: {
             ...dependantTable,
-            // @ts-ignore
             [_variableName]: [...dependants, dependant],
           },
         }
@@ -38,7 +38,6 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
       const dependencyTable = assessmentMetaCache[type].dependencies?.[tableName] ?? {}
       const dependencies = dependencyTable[row.props.variableName] ?? []
-      // @ts-ignore
       const dependency: VariableCache = { variableName: _variableName, tableName: _tableName }
 
       if (memberVariable.assessmentName && memberVariable.cycleName) {
