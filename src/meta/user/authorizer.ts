@@ -131,7 +131,7 @@ const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User
   const { status } = country.props
 
   if (!user) return false
-  if (Users.isViewer(user, countryIso, cycle)) return false
+
   if (Users.isAdministrator(user)) return true
 
   if (
@@ -140,16 +140,19 @@ const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User
   )
     return status === AssessmentStatus.editing
 
-  if (Users.isReviewer(user, countryIso, cycle)) {
+  if (Users.isReviewer(user, countryIso, cycle))
     return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
-  }
 
   return false
 }
 
+const canEditAssessmentFile = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
+  canEditCountryProps(props)
+
 export const Authorizer = {
   canView,
   canViewUsers,
-  canEditCountryProps,
   canEditData,
+  canEditCountryProps,
+  canEditAssessmentFile,
 }
