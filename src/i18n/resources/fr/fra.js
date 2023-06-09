@@ -173,6 +173,11 @@ module.exports = {
   forestPolicy: {
     forestPolicy2025:
       'Politiques, législation et plateforme nationale de participation des parties prenantes à l’élaboration des politiques forestières',
+    policiesSFM2025: 'Politiques d’appui à la gestion durable des forêts (GDF)',
+    legislationsSFM2025: 'Législations et/ou règlementations en faveur de la GDF',
+    stakeholderParticipation2025:
+      'Plateforme de participation des parties prenantes à l’élaboration de politiques forestières',
+    existenceOfTraceabilitySystem2025: 'Système de traçabilité des produits ligneux',
   },
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate2025: 'Superficie des domaines forestiers permanents',

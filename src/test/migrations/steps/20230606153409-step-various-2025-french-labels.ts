@@ -103,6 +103,30 @@ export default async (client: BaseProtocol) => {
       colType: 'header',
     },
     {
+      label: 'fra.forestPolicy.policiesSFM2025',
+      tableName: 'forestPolicy',
+      variableName: 'policies_supporting_SFM',
+      colType: 'header',
+    },
+    {
+      label: 'fra.forestPolicy.legislationsSFM2025',
+      tableName: 'forestPolicy',
+      variableName: 'legislations_supporting_SFM',
+      colType: 'header',
+    },
+    {
+      label: 'fra.forestPolicy.stakeholderParticipation2025',
+      tableName: 'forestPolicy',
+      variableName: 'platform_for_stakeholder_participation',
+      colType: 'header',
+    },
+    {
+      label: 'fra.forestPolicy.existenceOfTraceabilitySystem2025',
+      tableName: 'forestPolicy',
+      variableName: 'existence_of_traceability_system',
+      colType: 'header',
+    },
+    {
       label: 'fra.sustainableDevelopment.aboveGroundBiomassStockForests2025',
       tableName: 'sustainableDevelopment15_2_1_2',
       variableName: 'aboveGroundBiomassStockForests',

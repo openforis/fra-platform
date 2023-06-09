@@ -230,6 +230,10 @@ module.exports = {
 
   forestPolicy: {
     forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+    policiesSFM2025: '$t(forestPolicy.policiesSFM)',
+    legislationsSFM2025: '$t(forestPolicy.legislationsSFM)',
+    stakeholderParticipation2025: '$t(forestPolicy.stakeholderParticipation)',
+    existenceOfTraceabilitySystem2025: '$t(forestPolicy.existenceOfTraceabilitySystem)',
   },
 
   areaOfPermanentForestEstate: {
