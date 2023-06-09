@@ -18,11 +18,7 @@ const _next = (allowed: boolean, next: NextFunction): void => {
 }
 
 const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = {
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  } as CycleDataParams
+  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
@@ -183,17 +179,8 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
   _next(Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
-const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
-  const user = Requests.getUser(req)
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
-  if (!countryIso) {
-    _next(Users.isAdministrator(user), next)
-  } else {
-    _next(Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
-  }
-}
+const requireEditAssessmentFile = async (req: Request, res: Response, next: NextFunction) =>
+  requireEditCountryProps(req, res, next)
 
 export const AuthMiddleware = {
   requireEditCountryProps: tryCatch(requireEditCountryProps),
