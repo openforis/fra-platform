@@ -2,9 +2,9 @@ import './Autocomplete.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
 import classNames from 'classnames'
 import { useCombobox, UseComboboxStateChange } from 'downshift'
+import { Objects } from 'utils/objects'
 
 import AutocompleteInput from 'client/components/Autocomplete/AutocompleteInput'
 
@@ -60,7 +60,10 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
       // Default behavior: Save both selected value OR input value
       onSave(changes.selectedItem?.value ?? inputValue)
     } else if (changes.type === useCombobox.stateChangeTypes.InputBlur) {
-      const value = items.find(({ label }) => label === inputValue)?.value ?? ''
+      let value = items.find(({ label }) => label === inputValue)?.value
+      if (!value && readOnlyOptions) value = ''
+      if (!value && !readOnlyOptions) value = inputValue
+
       if (value === '') setInputValue('')
       onSave({ value })
     }
