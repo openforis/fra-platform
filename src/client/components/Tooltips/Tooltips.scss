@@ -2,6 +2,21 @@
 
 .tooltip-container {
   .react-tooltip {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding-left: $spacing-xxs;
+        text-indent: -$spacing-xxs;
+      }
+
+      li::before {
+        content: '• ';
+      }
+    }
+
     &.error-tooltip {
       color: black;
       background-color: lighten($ui-destructive, 55%);
@@ -13,17 +28,7 @@
       }
 
       ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-          padding-left: $spacing-xxs;
-          text-indent: -$spacing-xxs;
-        }
-
         li::before {
-          content: '• ';
           color: $ui-destructive;
         }
       }
