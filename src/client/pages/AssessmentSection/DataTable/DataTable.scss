@@ -2,17 +2,20 @@
 
 .data-table {
   .odp-header-cell {
-    @include mixin-table-cell(700, center, 0);
-    background-color: fade($ui-accent, 10%);
+    @include mixin-table-cell(700, center, 10px);
+    background-color: rgba($ui-accent, 10%);
 
     .link {
-      padding: 8px;
       text-decoration: underline;
+    }
+
+    .review-summary-status {
+      margin: 0 $spacing-xxxs;
     }
   }
 
   .odp-value-cell {
-    background-color: fade($ui-accent, 5%);
+    background-color: rgba($ui-accent, 5%);
   }
 
   .odp-value-cell-total {
@@ -28,6 +31,6 @@
   div.fra-row-comments__open {
     outline: 1px solid $ui-accent;
     outline-offset: -1px;
-    box-shadow: 0 0 4px fade($ui-accent, 50%);
+    box-shadow: 0 0 4px rgba($ui-accent, 50%);
   }
 }

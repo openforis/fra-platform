@@ -50,7 +50,7 @@ const useTableNames = (props: Props): Array<string> => {
 }
 
 export const useGetTableData = (props: Props) => {
-  const { assessmentName, countryIso, cycleName, table } = props
+  const { assessmentName, countryIso, cycleName, sectionName, table } = props
   const { name: tableName, odp } = table.props
 
   const dispatch = useAppDispatch()
@@ -70,7 +70,10 @@ export const useGetTableData = (props: Props) => {
       })
       if (odp) {
         dispatch(DataActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
+        dispatch(
+          DataActions.getNodeValuesEstimations({ assessmentName, countryIso, cycleName, tableName, sectionName })
+        )
       }
     })
-  }, [assessmentName, countryIso, cycleName, dispatch, odp, tableName, tableNames])
+  }, [assessmentName, countryIso, cycleName, dispatch, odp, sectionName, tableName, tableNames])
 }

@@ -1,6 +1,7 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
 
 import { Row, VariableCache } from 'meta/assessment'
+import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 import { Context } from './context'
 
@@ -12,27 +13,25 @@ const excludeDependant = (row: Row, tableName: string, variableName: string): bo
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): string {
-    const { object, property } = expressionNode
-
     const { assessmentMetaCache, row, tableName, type } = this.context
 
-    // @ts-ignore
-    const objectName = object?.object?.name ?? object.name
-    // @ts-ignore
-    const propertyName = object?.property?.name ?? property.name
+    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
 
-    if (assessmentMetaCache.variablesByTable[objectName]) {
-      const dependantTable = assessmentMetaCache[type].dependants?.[objectName] ?? {}
-      const dependants = dependantTable[propertyName] ?? []
+    if (assessmentMetaCache.variablesByTable[memberVariable.tableName]) {
+      const dependantTable = assessmentMetaCache[type].dependants?.[memberVariable.tableName] ?? {}
+      const dependants = dependantTable[memberVariable.variableName] ?? []
       const dependant: VariableCache = { variableName: row.props.variableName, tableName }
-      if (!excludeDependant(row, objectName, propertyName) && !includesVariableCache(dependants, dependant)) {
+      if (
+        !excludeDependant(row, memberVariable.tableName, memberVariable.variableName) &&
+        !includesVariableCache(dependants, dependant)
+      ) {
         assessmentMetaCache[type].dependants = {
           ...assessmentMetaCache[type].dependants,
           // @ts-ignore
-          [objectName]: {
+          [_tableName]: {
             ...dependantTable,
             // @ts-ignore
-            [propertyName]: [...dependants, dependant],
+            [_variableName]: [...dependants, dependant],
           },
         }
       }
@@ -40,7 +39,13 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const dependencyTable = assessmentMetaCache[type].dependencies?.[tableName] ?? {}
       const dependencies = dependencyTable[row.props.variableName] ?? []
       // @ts-ignore
-      const dependency: VariableCache = { variableName: propertyName, tableName: objectName }
+      const dependency: VariableCache = { variableName: _variableName, tableName: _tableName }
+
+      if (memberVariable.assessmentName && memberVariable.cycleName) {
+        dependency.assessmentName = memberVariable.assessmentName
+        dependency.cycleName = memberVariable.cycleName
+      }
+
       if (!includesVariableCache(dependencies, dependency)) {
         assessmentMetaCache[type].dependencies = {
           ...assessmentMetaCache[type].dependencies,
@@ -51,10 +56,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
         }
       }
 
-      const evaluateObject = this.evaluator.evaluateNode(object, this.context)
-      const evaluateProperty = this.evaluator.evaluateNode(property, this.context)
-      return `${evaluateObject}.${evaluateProperty}`
+      return `${tableName}.${memberVariable.variableName}`
     }
-    return `${objectName}.${propertyName}`
+    return `${memberVariable.tableName}.${memberVariable.variableName}`
   }
 }
