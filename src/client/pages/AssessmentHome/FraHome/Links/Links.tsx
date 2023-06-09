@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
-import { Users } from 'meta/user'
+import { Authorizer, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAssessment, useCountry, useCycle } from 'client/store/assessment'
 import { AssessmentFilesActions } from 'client/store/ui/assessmentFiles'
 import { useAssessmentFiles } from 'client/store/ui/assessmentFiles/hooks'
 import { useUser } from 'client/store/user'
@@ -21,6 +21,7 @@ const Links: React.FC = () => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const country = useCountry(countryIso)
   const { t } = useTranslation()
   const assessmentFiles = useAssessmentFiles()
   const user = useUser()
@@ -33,7 +34,7 @@ const Links: React.FC = () => {
 
   const isAdmin = Users.isAdministrator(user)
 
-  const isAllowedToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
+  const isAllowedToEdit = Authorizer.canEditAssessmentFile({ user, country, cycle })
 
   const uploadAssessmentFile = useCallback(
     (fileCountryIso?: CountryIso) => {
