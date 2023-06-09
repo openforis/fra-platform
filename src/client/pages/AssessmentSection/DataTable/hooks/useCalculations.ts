@@ -46,7 +46,7 @@ export const useCalculations = (props: { table: Table }): void => {
         effect: ({ meta, payload }, { getState }) => {
           const state = getState()
           const data = state.data.tableData
-          const changedVariables = meta.arg.values ?? payload
+          const changedVariables = meta.arg.values ?? payload.nodes
           const nodes: Array<NodeUpdate> = []
 
           // for each changed variable...

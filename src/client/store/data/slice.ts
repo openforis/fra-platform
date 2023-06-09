@@ -10,6 +10,7 @@ import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
+import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
@@ -24,6 +25,7 @@ const baseState: DataBaseState = {
 
 const initialState: DataState = {
   tableData: {},
+  nodeValuesEstimations: {},
 }
 
 export const dataSlice = createSlice({
@@ -133,6 +135,14 @@ export const dataSlice = createSlice({
       })
     })
 
+    builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {
+      state.nodeValuesEstimations = payload
+    })
+
+    builder.addCase(postEstimate.fulfilled, (state, { payload }) => {
+      state.nodeValuesEstimations = payload.nodeValueEstimations
+    })
+
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
       const { countryIso, tableName, values, assessmentName, cycleName } = meta.arg
       values.forEach((valueUpdate) => {
@@ -197,6 +207,7 @@ export const DataActions = {
   clearTableData,
   getTableData,
   updateNodeValues,
+  getNodeValuesEstimations,
 
   // Original Data Point Table data
   getOriginalDataPointData,

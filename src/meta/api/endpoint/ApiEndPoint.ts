@@ -54,6 +54,7 @@ export const ApiEndPoint = {
       nodes: () => apiPath('cycle-data', 'table', 'nodes'),
       tableData: () => apiPath('cycle-data', 'table', 'table-data'),
       tableClear: () => apiPath('cycle-data', 'table', 'clear'),
+      nodeValuesEstimations: () => apiPath('cycle-data', 'table', 'node-values-estimations'),
     },
   },
 
