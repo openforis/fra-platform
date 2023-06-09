@@ -18,6 +18,7 @@
     "migrations:run": "./src/server/db/migration/run-migrations.sh",
     "migration-steps:run": "ts-node src/test/migrations/",
     "migration-steps:create": "src/test/migrations/create-migration-step.sh",
+    "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/test/migrations/ src/test/migrations/ -- --watch",
     "run:dev": "run-p run:dev:client run:dev:server",
     "run:dev:client": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
     "run:dev:server": "yarn migrations:run && ts-node-dev src/server/start",
