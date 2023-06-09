@@ -58,10 +58,15 @@ const InviteUserForm: React.FC = () => {
           role: userToInvite.role,
           email: userToInvite.email,
         })
-      ).then(() => {
-        setUserToInvite({ name: '', email: '', role: '' })
-        toaster.info(i18n.t('userManagement.userAdded', { email: userToInvite.email }))
-      })
+      )
+        .unwrap()
+        .then(() => {
+          setUserToInvite({ name: '', email: '', role: '' })
+          toaster.info(i18n.t('userManagement.userAdded', { email: userToInvite.email }))
+        })
+        .catch(() => {
+          // Error handled by server
+        })
   }
 
   return (
