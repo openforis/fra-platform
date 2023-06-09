@@ -29,7 +29,7 @@ type UseOnChange = {
 }
 
 export default (props: Props): UseOnChange => {
-  const { table, col, row, nodeValue, data, sectionName } = props
+  const { table, col, row, nodeValue: _nodeValue, data, sectionName } = props
   const type = col.props.colType
 
   const dispatch = useAppDispatch()
@@ -38,12 +38,15 @@ export default (props: Props): UseOnChange => {
   const assessment = useAssessment()
   const assessmentSection = useAssessmentSection(sectionName)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { estimated, estimationUuid, ...nodeValue } = _nodeValue ?? ({} as NodeValue)
+
   const _persistSanitizedValue = (value: NodeValue) => {
     if (Sanitizer.isAcceptable({ type, value: value.raw })) {
       const valueUpdate = Sanitizer.sanitize({
         value: value.raw,
         type,
-        valuePrev: nodeValue?.raw,
+        valuePrev: nodeValue.raw,
         options: col.props.select?.options,
       })
 

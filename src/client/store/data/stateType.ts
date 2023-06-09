@@ -1,4 +1,11 @@
-import { AssessmentName, CommentableDescriptionValue, CycleName, DataSourceLinked, SectionName } from 'meta/assessment'
+import {
+  AssessmentName,
+  CommentableDescriptionValue,
+  CycleName,
+  DataSourceLinked,
+  NodeValuesEstimation,
+  SectionName,
+} from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
@@ -12,6 +19,7 @@ interface TableDataState {
       [cycleName: CycleName]: RecordAssessmentData
     }
   }
+  nodeValuesEstimations?: Record<string, NodeValuesEstimation>
 }
 
 type BaseState = Record<AssessmentName, Record<CycleName, DataBaseState>>

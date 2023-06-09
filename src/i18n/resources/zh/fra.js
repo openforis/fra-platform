@@ -198,7 +198,7 @@ module.exports = {
       low: '其他数据来源，如专家估计，或基于非兼容评估的估计。',
     },
   },
-  biomassStock_biomassStockStatus_Description: {
+  growingStock_growingStockStatus_Description: {
     header_0: '立木蓄积等级标准',
     status: {
       high: '数据来源：近期¹国家森林资源清查或机载激光扫描（ALS）辅以概率实地抽样',
@@ -206,7 +206,7 @@ module.exports = {
       low: '数据来源：其他数据来源，如卫星数据、登记册、问卷调查或专家评估。',
     },
   },
-  growingStock_growingStockStatus_Description: {
+  biomassStock_biomassStockStatus_Description: {
     header_0: '生物量估算方法等级标准',
     status: {
       high: '应用国家特定的生物量转换和扩展系数或异速生长方程',

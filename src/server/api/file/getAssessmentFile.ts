@@ -17,7 +17,10 @@ export const getAssessmentFile = async (req: CycleRequest, res: Response) => {
     const assessmentFile = await FileController.getAssessmentFile({ assessment, uuid })
 
     if (assessmentFile && assessmentFile.file) {
-      res.setHeader('Content-Disposition', `attachment; filename=${assessmentFile.fileName}`)
+      const fileName = encodeURIComponent(assessmentFile.fileName)
+
+      res.setHeader('Content-Disposition', `attachment; filename*=utf-8''${fileName}`)
+
       res.end(assessmentFile.file, 'binary')
     } else {
       Requests.send404(res)

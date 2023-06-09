@@ -1,5 +1,5 @@
-import { UUIDs } from 'utils/uuids'
 import { Response } from 'express'
+import { UUIDs } from 'utils/uuids'
 
 import { CycleDataRequest, EstimateBody } from 'meta/api/request'
 import { NodeValueEstimationMethod, NodeValuesEstimation, Table } from 'meta/assessment'
@@ -92,7 +92,14 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       })
     }
 
-    return Requests.sendOk(res, nodes)
+    const nodeValueEstimations = await CycleDataController.getNodeValuesEstimations({
+      assessment,
+      countryIso,
+      cycle,
+      tableName,
+    })
+
+    return Requests.sendOk(res, { nodes, nodeValueEstimations })
   } catch (e) {
     return Requests.sendErr(res, e)
   }

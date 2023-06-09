@@ -60,7 +60,7 @@ const TableHead: React.FC<Props> = (props) => {
             return odpHeader ? (
               <OdpHeaderCell
                 key={col.uuid}
-                className={rowIndex > 0 ? 'odp-header-cell' : className}
+                className={className}
                 colSpan={colSpan}
                 rowSpan={rowSpan}
                 odpId={odpHeader.id}
