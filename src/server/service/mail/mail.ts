@@ -38,11 +38,23 @@ export interface MailServiceEmail {
   html: string
 }
 
-// @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sendMail = async (email: MailServiceEmail) => {
   if (ProcessEnv.nodeEnv !== 'test' && ProcessEnv.fraMailEnabled) {
-    await mailTransport.sendMail({ ...emailDefaults, ...email })
+    await new Promise<void>((resolve, reject) => {
+      mailTransport.sendMail({ ...emailDefaults, ...email }, (error: Error | any, _info) => {
+        if (error) {
+          // 501 and 550 are errors from the mail server: email address not found
+          if (error.responseCode === 501 || error.responseCode === 550) {
+            reject(new Error(error.response))
+          } else {
+            reject(error)
+          }
+        } else {
+          resolve()
+        }
+      })
+    })
   } else {
     Logger.debug('MailService.sendMail')
     Logger.debug(JSON.stringify({ email }, null, 2))
