@@ -1,9 +1,16 @@
 import * as pgPromise from 'pg-promise'
 
-// import { Logger } from '../utils/logger'
+import { Logger } from '../utils/logger'
 import { ProcessEnv } from '../utils/processEnv'
 
-const debugOptions = {}
+const debugOptions = {
+  query: (e: pgPromise.IEventContext) => {
+    Logger.debug(`QUERY: ${e.query}`)
+    if (e.params) {
+      Logger.debug(`PARAMS: ${JSON.stringify(e.params)}`)
+    }
+  },
+}
 
 const initOptions = {
   ...(ProcessEnv.debug ? debugOptions : {}),
