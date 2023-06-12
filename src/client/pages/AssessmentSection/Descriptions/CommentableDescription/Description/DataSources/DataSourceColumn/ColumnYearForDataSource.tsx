@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { Arrays } from 'utils/arrays'
 import classNames from 'classnames'
+import { Arrays } from 'utils/arrays'
 
 import { DataSource } from 'meta/assessment'
+import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
 import Autocomplete from 'client/components/Autocomplete'
@@ -19,6 +21,7 @@ type Props = {
 
 const ColumnVariable: React.FC<Props> = (props: Props) => {
   const { dataSourceValue, disabled, onChange } = props
+  const { t } = useTranslation()
   const cycle = useCycle()
   const columns = cycle
     ? Arrays.reverse(Arrays.range(1950, Number(cycle.name))).map((col) => ({
@@ -29,10 +32,16 @@ const ColumnVariable: React.FC<Props> = (props: Props) => {
 
   const _onChange = ({ value }: { value: string }) => onChange('year', value)
 
+  const validationError = useMemo(() => {
+    return datasourceValidators.year(dataSourceValue.year)
+  }, [dataSourceValue.year])
+
   return (
     <DataColumn
+      data-tooltip-id={TooltipId.error}
+      data-tooltip-content={validationError ? t('generalValidation.valueMustBeYear') : ''}
       className={classNames('data-source-column', {
-        'validation-error': datasourceValidators.year(dataSourceValue.year),
+        'validation-error': validationError,
       })}
     >
       <Autocomplete

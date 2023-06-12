@@ -6,8 +6,13 @@ import classNames from 'classnames'
 type Props = React.PropsWithChildren<{ className?: string; head?: boolean }>
 
 const DataColumn: React.FC<Props> = (props: Props) => {
-  const { children, className, head } = props
-  return <div className={classNames('data-grid-column', className, { head })}>{children}</div>
+  const { children, className, head, ...rest } = props
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <div className={classNames('data-grid-column', className, { head })} {...rest}>
+      {children}
+    </div>
+  )
 }
 
 DataColumn.defaultProps = {
