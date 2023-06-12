@@ -168,6 +168,19 @@ export default async (client: BaseProtocol) => {
       variableName: 'forestAreaVerifiedForestManagement',
       colType: 'header',
     },
+
+    {
+      label: 'fra.growingStock.plantedForest2025',
+      tableName: 'growingStockAvg',
+      variableName: 'plantedForest',
+      colType: 'header',
+    },
+    {
+      label: 'fra.growingStock.otherPlantedForest2025',
+      tableName: 'growingStockTotal',
+      variableName: 'otherPlantedForest',
+      colType: 'header',
+    },
   ]
 
   await Promise.all(

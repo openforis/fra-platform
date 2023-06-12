@@ -97,7 +97,8 @@ module.exports = {
   forestCharacteristics: {
     ofWhichOtherPlantedForest: '...dont autres forêts plantées',
     primaryForest: '...dont forêt primaire',
-    plantationForestIntroducedArea2025: "...dont d'espèces introduite",
+    plantationForestIntroducedArea2025: "...dont d'espèces introduites",
+    otherPlantedForest2025: '...dont autres forêts plantées',
   },
   forestOwnership: {
     ofWhichPrivateBusinesses2025: '...dont appartenant à des entités et institutions commerciales privées',
@@ -122,7 +123,10 @@ module.exports = {
     ifYes: 'Si « Oui »',
   },
   growingStock: {
-    totalForest: 'Total Forêt',
+    totalForest: 'Total Forêt (a+b)',
+    naturallyRegeneratingForest2025: 'Forêt naturellement régénérée (a)',
+    plantedForest2025: 'Forêts plantées (b)',
+    otherPlantedForest2025: '...dont autres forêts plantées',
   },
   growingStockComposition: {
     millionCubicMeter: 'Millions de m³',
@@ -145,7 +149,7 @@ module.exports = {
     unknown2025: 'Droits de gestion inconnus',
   },
   otherWoodedLand: {
-    otherWoodedLand2025: '$t(growingStock.otherWoodedLand)',
+    otherWoodedLand2025: 'Autres terres boisées',
   },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Extraction et valeur des produits forestiers non ligneux en 2020',
