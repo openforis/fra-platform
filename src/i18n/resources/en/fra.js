@@ -24,6 +24,7 @@ module.exports = {
   areaAffectedByFire: {
     areaAffected: 'Area affected (1000 ha)',
     areaAffectedByFire2025: '$t(areaAffectedByFire.areaAffectedByFire)',
+    totalLandAreaAffectedByFire2025: '$t(areaAffectedByFire.totalLandAreaAffectedByFire)',
   },
 
   biomassStock: {
@@ -102,9 +103,11 @@ module.exports = {
     subnational: 'Subnational',
     biome: 'Biome',
     standLocal: 'Stand / Local',
+    criteriaOfDegradedForest2025: '$t(fra.degradedForest.criteriaOfDegradedForest)',
   },
 
   designatedManagementObjective: {
+    designatedManagementObjective2025: '$t(designatedManagementObjective.designatedManagementObjective)',
     noDesignation: 'No designation',
     unknown2025: 'Unknown',
   },
@@ -126,6 +129,7 @@ module.exports = {
   forestAreaChange: {
     forestExpansion2025: '$t(forestAreaChange.forestExpansion)',
     forestAreaChange2025: '$t(forestAreaChange.forestAreaChange)',
+    forestAreaNetChange2025: '$t(forestAreaChange.forestAreaNetChange)',
   },
 
   forestAreaWithinProtectedAreas: {
@@ -142,6 +146,7 @@ module.exports = {
   },
 
   forestOwnership: {
+    ofWhichPrivateBusinesses2025: '$t(forestOwnership.ofWhichPrivateBusinesses)',
     ofWhichCommunities2025: '…of which owned by Indigenous Peoples and local communities',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
@@ -167,6 +172,8 @@ module.exports = {
   growingStock: {
     totalForest: 'Total Forest',
     naturallyRegeneratingForest2025: '$t(growingStock.naturallyRegeneratingForest)',
+    plantedForest2025: '$t(growingStock.plantedForest)',
+    otherPlantedForest2025: '$t(growingStock.otherPlantedForest)',
   },
 
   growingStockComposition: {
@@ -178,12 +185,15 @@ module.exports = {
     totalIntroducedTreeSpecies: 'TOTAL introduced tree species',
     totalNativeTreeSpecies: 'TOTAL native tree species',
     updatedGrowingStockComposition: '$t(growingStockComposition.growingStockComposition)',
-
     nativeTreeSpecies2025: '$t(growingStockComposition.nativeTreeSpecies)',
+    remainingNative2025: '$t(growingStockComposition.remainingNative)',
     introducedTreeSpecies2025: '$t(growingStockComposition.introducedTreeSpecies)',
+    remainingIntroduced2025: '$t(growingStockComposition.remainingIntroduced)',
   },
 
   holderOfManagementRights: {
+    holderOfManagementRights2025: '$t(holderOfManagementRights.holderOfManagementRights)',
+    privateBusinesses2025: '$t(holderOfManagementRights.privateBusinesses)',
     communities2025: 'Indigenous Peoples and local communities',
     other2025: '$t(common.otherSpecifyInComments)',
     unknown2025: 'Unknown',
@@ -195,10 +205,16 @@ module.exports = {
 
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
+    nameOfProduct2025: '$t(nonWoodForestProductsRemovals.nameOfProduct)',
+    allOtherPlantProducts2025: '$t(nonWoodForestProductsRemovals.allOtherPlantProducts)',
+    allOtherAnimalProducts2025: '$t(nonWoodForestProductsRemovals.allOtherAnimalProducts)',
+    currency2025: '$t(nonWoodForestProductsRemovals.currency)',
   },
 
   otherLandWithTreeCover: {
     otherLandWithTreeCover2025: '$t(otherLandWithTreeCover.otherLandWithTreeCover)',
+    agroforestry2025: '$t(otherLandWithTreeCover.agroforestry)',
+    other2025: '$t(otherLandWithTreeCover.other)',
   },
 
   primaryForestByClimaticDomain: {
@@ -214,13 +230,32 @@ module.exports = {
   specificForestCategories: {
     specificForestCategories2025: 'Specific forest categories',
     mangroves2025: `Mangroves\u00B9`,
+    rubberWood2025: '$t(specificForestCategories.rubberWood)',
     mangrovesDisclaimer: `\u00B9Includes both Forest and Other wooded land`,
+  },
+
+  forestPolicy: {
+    forestPolicy2025: '$t(forestPolicy.forestPolicy)',
+    policiesSFM2025: '$t(forestPolicy.policiesSFM)',
+    legislationsSFM2025: '$t(forestPolicy.legislationsSFM)',
+    stakeholderParticipation2025: '$t(forestPolicy.stakeholderParticipation)',
+    existenceOfTraceabilitySystem2025: '$t(forestPolicy.existenceOfTraceabilitySystem)',
+  },
+
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate2025: '$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)',
   },
 
   sustainableDevelopment: {
     annualForestAreaChangeRate: 'Annual forest area change rate',
     sdgIndicator1_2025: 'SDG Indicator 15.1.1 Forest area as proportion of total land area',
     forestAreaProportionLandArea: 'Forest area as proportion of total land area',
+    aboveGroundBiomassStockForests2025: '$t(sustainableDevelopment.aboveGroundBiomassStockForests)',
+    proportionForestAreaLegallyEstablishedProtectedAreas2025:
+      '$t(sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas)',
+    proportionForestAreaLongTermForestManagement2025:
+      '$t(sustainableDevelopment.proportionForestAreaLongTermForestManagement)',
+    forestAreaVerifiedForestManagement2025: '$t(sustainableDevelopment.forestAreaVerifiedForestManagement)',
   },
 
   navigation: {
@@ -255,14 +290,18 @@ module.exports = {
       '² Data older than 5 years from year of submission of report (older than 2018 for FRA 2025 country reports)',
     footer3: '³ Compatible in terms of methods, categories and definitions used',
   },
-
   growingStock_growingStockStatus_Description: {
     header_0: 'Growing stock tier criteria',
     status: {
-      high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples',
+      high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples.',
       medium:
         'Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples.',
       low: 'Data sources:  Other data sources, such as satellite data, registers, questionnaires or expert assessments.',
+    },
+    status2025: {
+      high: '$t(fra.growingStock_growingStockStatus_Description.status.high)',
+      medium: '$t(fra.growingStock_growingStockStatus_Description.status.medium)',
+      low: '$t(fra.growingStock_growingStockStatus_Description.status.low)',
     },
     footer1:
       '¹ Data not older than 10 years from year of submission of report (2013 or more recent for FRA 2025 country reports)',

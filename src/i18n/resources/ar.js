@@ -652,7 +652,6 @@ The FRA team
     annualChangeExtrapolation: 'تغيير سنوي',
     placeholderFuture: 'في المستقبل',
     placeholderPast: 'في الماضي',
-    clearTable: 'امسح بيانات الجدول',
     copyToClipboard: 'انسخ القيم',
     placeholderSelect: 'تقييمات وتنبؤات',
     _1000haYear: '1000 هـ/العام',

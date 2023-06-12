@@ -2,6 +2,7 @@ module.exports = {
   resetAll: 'إعادة ضبط الكل',
   done: 'تم',
   apply: 'نفذ',
+  clearTable: 'امسح بيانات الجدول',
   column: 'عمود',
   countries: 'البلدان',
   dataExport: 'تصدير البيانات',

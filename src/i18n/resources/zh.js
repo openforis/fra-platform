@@ -638,7 +638,6 @@ FRA工作组 fra@fao.org
     annualChangeExtrapolation: '年度变化',
     placeholderFuture: '未来',
     placeholderPast: '过去',
-    clearTable: '清除表格',
     copyToClipboard: '复制数值',
     placeholderSelect: '估算和预测',
     _1000haYear: '1000公顷/年',

@@ -1,5 +1,6 @@
 module.exports = {
   apply: 'Appliquer',
+  clearTable: 'Supprimer tableau',
   resetAll: 'Effacer tout',
   column: 'Colonne',
   countries: 'Pays',

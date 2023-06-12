@@ -672,7 +672,6 @@ The FRA team fra@fao.org
     annualChangeExtrapolation: 'Annual change',
     placeholderFuture: 'Future',
     placeholderPast: 'Past',
-    clearTable: 'Clear table',
     copyToClipboard: 'Copy values',
     placeholderSelect: 'Estimation and forecasting',
     _1000haYear: '1000 ha/year',

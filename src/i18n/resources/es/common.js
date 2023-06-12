@@ -2,6 +2,7 @@ module.exports = {
   resetAll: 'Resetear',
   done: 'Hecho',
   apply: 'Aplicar',
+  clearTable: 'Despejar la tabla',
   column: 'Columna',
   countries: 'Países',
   dataExport: 'Exportación de datos',

@@ -599,7 +599,6 @@ El equipo de FRA
     annualChangeExtrapolation: 'Cambio anual',
     placeholderFuture: 'Futuro',
     placeholderPast: 'Pasado',
-    clearTable: 'Despejar la tabla',
     copyToClipboard: 'Copiar valores',
     placeholderSelect: 'Estimación y proyección',
     _1000haYear: '1000 ha/año',
