@@ -45,7 +45,7 @@ const EstimationMark: React.FC<Props> = (props) => {
 
   return (
     <div
-      className="estimation-mark"
+      className="estimation-mark no-csv"
       data-tooltip-id={TooltipId.info}
       data-tooltip-html={getEstimationDetails(tableEstimation, variableName, t)}
     >
