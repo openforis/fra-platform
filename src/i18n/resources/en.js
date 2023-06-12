@@ -1073,6 +1073,7 @@ The FRA team
       'The sum of year {{year}} cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
     valueCannotExceedMaximumValueReportedForLandArea:
       'Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)',
+    shouldContainAtLeastOneCharacter: 'Value should contain at least one character',
   },
 
   emoji: {

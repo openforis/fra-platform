@@ -1,8 +1,12 @@
 // Inspiration/base from cheerio-tableparser
 //
 const normalizeString = (string = '') => string.trim().replace(/\s/g, ' ')
+
 const getElementText = ({ element }: any): any => {
   const { children, innerText } = element
+
+  if (element.classList.contains('no-csv')) return ''
+
   if (element.nodeName === 'SELECT') {
     return normalizeString(element.options[element.selectedIndex].text)
   }
@@ -14,6 +18,7 @@ const getElementText = ({ element }: any): any => {
   }
   return normalizeString(innerText)
 }
+
 export const getData = (tableElement: any, dupCols = true, dupRows = true, textMode = true, formatToNumber = true) => {
   if (!tableElement) {
     return []

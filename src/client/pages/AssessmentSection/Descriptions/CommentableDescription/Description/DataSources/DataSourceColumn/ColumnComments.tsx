@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
 import { DataSource } from 'meta/assessment'
+import { TooltipId } from 'meta/tooltip'
 
 import DataColumn from 'client/components/DataGrid/DataColumn'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
@@ -17,11 +19,19 @@ type Props = {
 
 const ColumnComments: React.FC<Props> = (props: Props) => {
   const { dataSourceValue, disabled, onChange } = props
+  const { t } = useTranslation()
   const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('comments', event.target.value)
+
+  const validationError = useMemo(() => {
+    return datasourceValidators.comment(dataSourceValue.comments)
+  }, [dataSourceValue.comments])
+
   return (
     <DataColumn
+      data-tooltip-id={TooltipId.error}
+      data-tooltip-content={validationError ? t('generalValidation.shouldContainAtLeastOneCharacter') : ''}
       className={classNames('data-source-column', {
-        'validation-error': datasourceValidators.comment(dataSourceValue.comments),
+        'validation-error': validationError,
       })}
     >
       <div className="data-source__text-area-wrapper">
