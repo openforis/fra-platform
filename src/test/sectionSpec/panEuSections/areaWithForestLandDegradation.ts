@@ -235,11 +235,6 @@ export const areaWithForestLandDegradation = {
               type: 'data',
               variableName: 'agentName',
               cols: [
-                // {
-                //   idx: 0,
-                //   type: 'placeholder',
-                //   migration: { cycles: ['2025'], style: { '2025': { colSpan: 1, rowSpan: 1, height: '39px' } } },
-                // },
                 {
                   idx: 2,
                   type: 'text',
@@ -328,7 +323,7 @@ export const areaWithForestLandDegradation = {
                 {
                   idx: 7,
                   type: 'placeholder',
-                  labelKey: 'panEuropean.areaWithForestLandDegradation.unknownMixedDegradation',
+                  labelKey: 'panEuropean.areaWithForestLandDegradation.unknownMixedDegradation2025',
                   migration: { cycles: ['2025'], style: { '2025': { fontWeight: 600, textAlign: 'center' } } },
                 },
               ],
