@@ -11,6 +11,7 @@ module.exports = {
   ageClassDistribution: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
   carbonStockInHarvestedWoodProductsHWP: 'Carbon stock in harvested wood products (HWP)',
   annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
+  other: 'Other',
   naturalnessBySubclass: 'Naturalness by subclass',
   introducedTreeSpecies: 'Introduced tree species',
   invasiveTreeSpecies: 'Invasive tree species',
@@ -23,7 +24,7 @@ module.exports = {
   // Rows and columns
   theYearAndDataReported: 'The year and data reported for 2025',
   howDidYouGenerateValues: 'How did you generate values for 2025',
-  theRecentAvailableYear: 'The recent available year',
+  theRecentAvailableYear: 'The year of recent available data',
   extrapolation: 'Extrapolation',
   assessmentBasedOnEvidence:
     'Assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',

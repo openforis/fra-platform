@@ -1664,20 +1664,6 @@ export const forestArea = {
           name: 'country_comments_1_1_1',
           rows: [
             {
-              idx: 'header_0',
-              cols: [
-                {
-                  idx: 0,
-                  colSpan: 3,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.countryComments.theYearAndDataReported',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-              ],
-              type: 'header',
-            },
-            {
               idx: 0,
               type: 'data',
               variableName: 'theRecentAvailableYear',
@@ -1689,6 +1675,7 @@ export const forestArea = {
                   labelKey: 'panEuropean.countryComments.howDidYouGenerateValues',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: { style: { '2025': { colSpan: 1, rowSpan: 4 } } },
                 },
                 {
                   idx: -1,
@@ -1724,6 +1711,21 @@ export const forestArea = {
                   idx: 'header_0',
                   colSpan: 1,
                   labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+              ],
+            },
+            {
+              idx: 3,
+              type: 'data',
+              variableName: 'other',
+              cols: [
+                {
+                  idx: 'header_0',
+                  colSpan: 1,
+                  labelKey: 'panEuropean.countryComments.other',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },

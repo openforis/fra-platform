@@ -1812,7 +1812,7 @@ export const introducedTreeSpecies = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['approachApplieToReportingOnIntroducedInvasiveSpecies'] },
+            columnNames: { '2025': ['comment'] },
           },
         },
       ],
