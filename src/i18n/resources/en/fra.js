@@ -203,6 +203,10 @@ module.exports = {
 
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Non wood forest products removals and value 2020',
+    nameOfProduct2025: '$t(nonWoodForestProductsRemovals.nameOfProduct)',
+    allOtherPlantProducts2025: '$t(nonWoodForestProductsRemovals.allOtherPlantProducts)',
+    allOtherAnimalProducts2025: '$t(nonWoodForestProductsRemovals.allOtherAnimalProducts)',
+    currency2025: '$t(nonWoodForestProductsRemovals.currency)',
   },
 
   otherLandWithTreeCover: {

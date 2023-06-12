@@ -149,6 +149,10 @@ module.exports = {
   },
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals2025: 'Extraction et valeur des produits forestiers non ligneux en 2020',
+    nameOfProduct2025: 'Nom du produit PFNL',
+    allOtherPlantProducts2025: 'Tout autre produit végétal',
+    allOtherAnimalProducts2025: 'Tout autre produit animal',
+    currency2025: 'Nom de la monnaie',
   },
   otherLandWithTreeCover: {
     otherLandWithTreeCover2025: 'Autres terres avec un couvert arboré',

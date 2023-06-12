@@ -127,6 +127,24 @@ export default async (client: BaseProtocol) => {
       colType: 'header',
     },
     {
+      label: 'fra.nonWoodForestProductsRemovals.allOtherPlantProducts2025',
+      tableName: 'nonWoodForestProductsRemovals',
+      variableName: 'all_other_plant_products',
+      colType: 'header',
+    },
+    {
+      label: 'fra.nonWoodForestProductsRemovals.allOtherAnimalProducts2025',
+      tableName: 'nonWoodForestProductsRemovals',
+      variableName: 'all_other_animal_products',
+      colType: 'header',
+    },
+    {
+      label: 'fra.nonWoodForestProductsRemovals.currency2025',
+      tableName: 'nonWoodForestProductsRemovalsCurrency',
+      variableName: 'currency',
+      colType: 'header',
+    },
+    {
       label: 'fra.sustainableDevelopment.aboveGroundBiomassStockForests2025',
       tableName: 'sustainableDevelopment15_2_1_2',
       variableName: 'aboveGroundBiomassStockForests',
@@ -171,6 +189,38 @@ export default async (client: BaseProtocol) => {
         );
       `,
         [tableName, variableName, colType]
+      )
+    })
+  )
+
+  const nonWoodForestProductsRemovalsLabels = [
+    {
+      label: 'fra.nonWoodForestProductsRemovals.nameOfProduct2025',
+      tableName: 'nonWoodForestProductsRemovals',
+      rowType: 'header',
+      colIndex: '1',
+    },
+  ]
+
+  await Promise.all(
+    nonWoodForestProductsRemovalsLabels.map((labelToChange) => {
+      const { label, tableName, rowType, colIndex } = labelToChange
+
+      return client.query(
+        `
+        update ${schemaName}.col
+        set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"${label}"')
+        where id in (
+          select c.id
+          from  ${schemaName}.table t
+            left join ${schemaName}.row r on t.id = r.table_id
+            left join ${schemaName}.col c on r.id = c.row_id
+          where t.props ->> 'name' = $1
+            and r.props ->> 'type' = $2
+            and c.props ->> 'index' = $3
+        );
+      `,
+        [tableName, rowType, colIndex]
       )
     })
   )
