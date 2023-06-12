@@ -225,10 +225,10 @@ module.exports = {
   biomassStock_biomassStockStatus_Description: {
     header_0: 'Critères d’évaluation du niveau pour le Matériel sur pied',
     status: {
-      high: 'Sources de données : récentes¹  – Inventaire forestier national ou balayage laser aéroporté  (BLA) calibré avec des données de terrain.',
+      high: 'Application des facteurs de conversion et d’expansion de la biomasse ou équations allométriques spécifiques au pays.',
       medium:
-        'Sources de données : anciennes² – Inventaire forestier national, inventaires de terrain partiels ou balayage laser aéroporté (BLA) non calibré avec des données de terrain.',
-      low: 'Autres sources de données telles que données satellites, registres, questionnaires ou évaluations d’experts',
+        'Application d’équations allométriques génériques ou au niveau du biome, ou d’une combinaison de facteurs de conversion spécifiques au pays/biome et de facteurs par défaut de l’expansion de la biomasse du GIEC.',
+      low: 'Application des facteurs par défaut de conversion et d’expansion de la biomasse du GIEC (par exemple, utilisation du « calculateur de biomasse »), ou estimations reposant sur une cartographie par télédétection de la biomasse.',
     },
   },
   growingStock_growingStockStatus_Description: {
