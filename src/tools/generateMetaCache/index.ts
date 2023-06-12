@@ -24,7 +24,9 @@ const exec = async () => {
     const assessment = assessments[i]
     Logger.debug(`\t---- Generating meta cache for assessment ${assessment.props.name}`)
     // eslint-disable-next-line no-await-in-loop
-    const cycles = await client.many<Cycle>(`select * from assessment_cycle ac where ac.assessment_id = $1`, [assessment.id])
+    const cycles = await client.many<Cycle>(`select * from assessment_cycle ac where ac.assessment_id = $1`, [
+      assessment.id,
+    ])
 
     for (let i = 0; i < cycles.length; i += 1) {
       const cycle = cycles[i]

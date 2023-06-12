@@ -630,7 +630,6 @@ module.exports.translation = {
     annualChangeExtrapolation: 'Годовое изменение',
     placeholderFuture: 'Будущее',
     placeholderPast: 'Прошлое',
-    clearTable: 'Очистить таблицу',
     copyToClipboard: 'Скопировать значения',
     placeholderSelect: 'Оценка и прогнозирование',
     _1000haYear: '1000 га/год',
