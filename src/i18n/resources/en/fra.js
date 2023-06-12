@@ -288,14 +288,18 @@ module.exports = {
       '² Data older than 5 years from year of submission of report (older than 2018 for FRA 2025 country reports)',
     footer3: '³ Compatible in terms of methods, categories and definitions used',
   },
-
   growingStock_growingStockStatus_Description: {
     header_0: 'Growing stock tier criteria',
     status: {
-      high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples',
+      high: 'Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples.',
       medium:
         'Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples.',
       low: 'Data sources:  Other data sources, such as satellite data, registers, questionnaires or expert assessments.',
+    },
+    status2025: {
+      high: '$t(fra.growingStock_growingStockStatus_Description.status.high)',
+      medium: '$t(fra.growingStock_growingStockStatus_Description.status.medium)',
+      low: '$t(fra.growingStock_growingStockStatus_Description.status.low)',
     },
     footer1:
       '¹ Data not older than 10 years from year of submission of report (2013 or more recent for FRA 2025 country reports)',

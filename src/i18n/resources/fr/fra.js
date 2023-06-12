@@ -243,5 +243,15 @@ module.exports = {
         'Application d’équations allométriques génériques ou au niveau du biome, ou d’une combinaison des facteurs de conversion spécifiques au pays/biome et des facteurs par défaut de l’expansion de la biomasse du GIEC.',
       low: 'Application des facteurs par défaut de conversion et d’expansion de la biomasse du GIEC (par exemple, utilisation du « calculateur de la biomasse »), ou estimations reposant sur une cartographie par télédétection de la biomasse.',
     },
+    status2025: {
+      high: 'Sources de données: récentes¹ – Inventaire forestier national ou balayage laser aéroporté (BLA) calibré avec des données de terrain.',
+      medium:
+        'Sources de données: anciennes² – Inventaire forestier national, inventaires de terrain partiels ou balayage laser aéroporté (BLA) non calibré avec des données de terrain.',
+      low: 'Autres sources de données telles que données satellites, registres, questionnaires ou évaluations d’experts.',
+    },
+    footer1:
+      '¹ Données ne remontant pas à plus de 10 ans à compter de l’année de soumission du rapport (2013 ou plus récent pour les rapports nationaux de FRA 2025)',
+    footer2:
+      '² Données remontant à plus de 10 ans à compter de l’année de soumission du rapport (antérieures à 2013 pour les rapports nationaux de FRA 2025)',
   },
 }

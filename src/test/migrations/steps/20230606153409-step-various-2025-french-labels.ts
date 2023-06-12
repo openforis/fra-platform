@@ -224,4 +224,52 @@ export default async (client: BaseProtocol) => {
       )
     })
   )
+
+  const growingStockStatusDescriptionLabels = [
+    {
+      label: 'fra.growingStock_growingStockStatus_Description.status2025.high',
+      tableName: 'growingStock_growingStockStatus_Description',
+      rowType: 'data',
+      rowIndex: '0',
+      colIndex: '1',
+    },
+    {
+      label: 'fra.growingStock_growingStockStatus_Description.status2025.medium',
+      tableName: 'growingStock_growingStockStatus_Description',
+      rowType: 'data',
+      rowIndex: '1',
+      colIndex: '1',
+    },
+    {
+      label: 'fra.growingStock_growingStockStatus_Description.status2025.low',
+      tableName: 'growingStock_growingStockStatus_Description',
+      rowType: 'data',
+      rowIndex: '2',
+      colIndex: '1',
+    },
+  ]
+
+  await Promise.all(
+    growingStockStatusDescriptionLabels.map((labelToChange) => {
+      const { label, tableName, rowType, rowIndex, colIndex } = labelToChange
+
+      return client.query(
+        `
+        update ${schemaName}.col
+        set props = jsonb_set(props, '{labels,"${cycle.uuid}",key}', '"${label}"')
+        where id in (
+          select c.id
+          from  ${schemaName}.table t
+            left join ${schemaName}.row r on t.id = r.table_id
+            left join ${schemaName}.col c on r.id = c.row_id
+          where t.props ->> 'name' = $1
+            and r.props ->> 'type' = $2
+            and r.props ->> 'index' = $3
+            and c.props ->> 'index' = $4
+        );
+      `,
+        [tableName, rowType, rowIndex, colIndex]
+      )
+    })
+  )
 }
