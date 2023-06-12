@@ -111,7 +111,7 @@ des domaines boréal, tempéré et sous-tropical`,
     roles: {
       REVIEWER: 'Examinateur',
       NATIONAL_CORRESPONDENT: 'Correspondant national',
-      ALTERNATE_NATIONAL_CORRESPONDENT: 'Correspondant national alternatif',
+      ALTERNATE_NATIONAL_CORRESPONDENT: 'Correspondant national suppléant',
       COLLABORATOR: 'Collaborateur',
       ADMINISTRATOR: 'Administrateur',
       noRole: '',
