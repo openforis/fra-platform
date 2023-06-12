@@ -1,8 +1,10 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
 import { DataSource } from 'meta/assessment'
+import { TooltipId } from 'meta/tooltip'
 
 import DataColumn from 'client/components/DataGrid/DataColumn'
 import Icon from 'client/components/Icon'
@@ -19,6 +21,7 @@ interface DataSourceReferenceColumnProps {
 
 const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
   const { dataSourceValue, placeholder, disabled, onChange } = props
+  const { t } = useTranslation()
 
   const [toggleLinkField, setToggleLinkField] = useState(false)
 
@@ -32,10 +35,16 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
     [dataSourceValue.reference, onChange]
   )
 
+  const validationError = useMemo(() => {
+    return datasourceValidators.referenceText(dataSourceValue.reference?.text)
+  }, [dataSourceValue.reference?.text])
+
   return (
     <DataColumn
+      data-tooltip-id={TooltipId.error}
+      data-tooltip-content={validationError ? t('generalValidation.shouldContainAtLeastOneCharacter') : ''}
       className={classNames('data-source-column', {
-        'validation-error': datasourceValidators.referenceText(dataSourceValue.reference?.text),
+        'validation-error': validationError,
       })}
     >
       <div className="data-source__text-area-wrapper">
