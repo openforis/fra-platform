@@ -1,5 +1,5 @@
 import './ButtonTableExport.scss'
-import React, { MutableRefObject } from 'react'
+import React, { MutableRefObject, useState } from 'react'
 import { CSVLink } from 'react-csv'
 
 import classNames from 'classnames'
@@ -19,6 +19,8 @@ type Props = {
 const ButtonTableExport: React.FC<Props> = (props) => {
   const { disabled, filename, tableRef } = props
 
+  const [data, setData] = useState([])
+
   const { print } = useIsPrint()
   const isLocked = useIsDataLocked()
 
@@ -29,9 +31,14 @@ const ButtonTableExport: React.FC<Props> = (props) => {
       className={classNames('fra-table__btn-export', 'btn-xs', 'btn-primary', 'no-print', {
         disabled: !isLocked && disabled,
       })}
-      target="_blank"
+      data={data}
+      onClick={(_, done) => {
+        setData(Utils.getData(tableRef.current))
+        done()
+      }}
+      asyncOnClick
       filename={`${filename}.csv`}
-      data={Utils.getData(tableRef.current)}
+      target="_blank"
     >
       <Icon className="icon-sub icon-white" name="hit-down" />
       CSV
