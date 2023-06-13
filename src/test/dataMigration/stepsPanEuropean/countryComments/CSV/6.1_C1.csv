@@ -1,47 +1,47 @@
 ,country,indicator,item,comment
-0,ALB,6.1,,
-1,AND,6.1,,
-2,AUT,6.1,,See below!
-3,BLR,6.1,,9549
-4,BEL,6.1,,0.1
-5,BIH,6.1,,
-6,BGR,6.1,,
-7,HRV,6.1,,
-8,CYP,6.1,,
-9,CZE,6.1,,
-10,DNK,6.1,,0.5 ha
-11,EST,6.1,,"0,1 ha"
-12,FIN,6.1,,2
-13,FRA,6.1,,1
-14,GEO,6.1,,
-15,DEU,6.1,,no threshold
-16,GRC,6.1,,
-17,VAT,6.1,,
-18,HUN,6.1,,0.1
-19,ISL,6.1,,
-20,IRL,6.1,,0.1HA
-21,ITA,6.1,,
-22,LVA,6.1,,0.1
-23,LIE,6.1,,
-24,LTU,6.1,,0.1
-25,LUX,6.1,,
-26,MLT,6.1,,
-27,MDA,6.1,,
-28,MCO,6.1,,
-29,MNE,6.1,,
-30,NLD,6.1,,0.5
-31,NOR,6.1,,0.5
-32,POL,6.1,,0.1
-33,PRT,6.1,,
-34,ROU,6.1,,
-35,RUS,6.1,,
-36,SRB,6.1,,
-37,SVK,6.1,,
-38,SVN,6.1,,0.5
-39,ESP,6.1,,
-40,SWE,6.1,,
-41,CHE,6.1,,50 ha / 150 - 500 ha
-42,MKD,6.1,,
-43,TUR,6.1,,3
-44,UKR,6.1,,
-45,GBR,6.1,,0.5
+0,Albania,6.1,,
+1,Andorra,6.1,,
+2,Austria,6.1,,See below!
+3,Беларусь,6.1,,9549
+4,Belgium,6.1,,0.1
+5,Bosnia and Herzegovina,6.1,,
+6,Bulgaria,6.1,,
+7,Croatia,6.1,,
+8,Cyprus,6.1,,
+9,Czech Republic,6.1,,
+10,Denmark,6.1,,0.5 ha
+11,Estonia,6.1,,"0,1 ha"
+12,Finland,6.1,,2
+13,France,6.1,,1
+14,Georgia,6.1,,
+15,Germany,6.1,,no threshold
+16,Greece,6.1,,
+17,Holy See,6.1,,
+18,Hungary,6.1,,0.1
+19,Iceland,6.1,,
+20,Ireland,6.1,,0.1HA
+21,Italy,6.1,,
+22,Latvia,6.1,,0.1
+23,Liechtenstein,6.1,,
+24,Lithuania,6.1,,0.1
+25,Luxembourg,6.1,,
+26,Malta,6.1,,
+27,Moldova,6.1,,
+28,Monaco,6.1,,
+29,Montenegro,6.1,,
+30,Netherlands,6.1,,0.5
+31,Norway,6.1,,0.5
+32,Poland,6.1,,0.1
+33,Portugal,6.1,,
+34,Romania,6.1,,
+35,Russian Federation,6.1,,
+36,Serbia,6.1,,
+37,Slovakia,6.1,,
+38,Slovenia,6.1,,0.5
+39,Spain,6.1,,
+40,Sweden,6.1,,
+41,Switzerland,6.1,,50 ha / 150 - 500 ha
+42,The former Yugoslav Republic of Macedonia,6.1,,
+43,Turkey,6.1,,3
+44,Ukraine,6.1,,
+45,United Kingdom,6.1,,0.5

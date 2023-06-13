@@ -1,47 +1,47 @@
 ,country,indicator,item,comment
-0,ALB,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-1,AND,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-2,AUT,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
-3,BLR,6.6,Пороговые значения для отчетности о несчастных случаях без летального исхода (дней отсутствия):,более 1 дня
-4,BEL,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-5,BIH,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-6,BGR,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-7,HRV,6.6,Threshold for reporting non-fatal accidents (days of absence):,>3
-8,CYP,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-9,CZE,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
-10,DNK,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-11,EST,6.6,Threshold for reporting non-fatal accidents (days of absence):,0
-12,FIN,6.6,Threshold for reporting non-fatal accidents (days of absence):,Since 1996: 4 days; prior to 2016: 3 days
-13,FRA,6.6,Threshold for reporting non-fatal accidents (days of absence):,No treshold
-14,GEO,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-15,DEU,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
-16,GRC,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-17,VAT,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-18,HUN,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
-19,ISL,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-20,IRL,6.6,Threshold for reporting non-fatal accidents (days of absence):,4 and above
-21,ITA,6.6,Threshold for reporting non-fatal accidents (days of absence):,3 days
-22,LVA,6.6,Threshold for reporting non-fatal accidents (days of absence):,loss of ability for a period longer than one day.
-23,LIE,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-24,LTU,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-25,LUX,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-26,MLT,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-27,MDA,6.6,Пороговые значения для отчетности о несчастных случаях без летального исхода (дней отсутствия):,"0,00 - не зарегестрированно"
-28,MCO,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-29,MNE,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-30,NLD,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-31,NOR,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-32,POL,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-33,PRT,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-34,ROU,6.6,Threshold for reporting non-fatal accidents (days of absence):,"According with ESAW methodology, accidents at work are reported for over 3 days absence from work."
-35,RUS,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-36,SRB,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-37,SVK,6.6,Threshold for reporting non-fatal accidents (days of absence):,42
-38,SVN,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-39,ESP,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
-40,SWE,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-41,CHE,6.6,Threshold for reporting non-fatal accidents (days of absence):,4
-42,MKD,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-43,TUR,6.6,Threshold for reporting non-fatal accidents (days of absence):,164
-44,UKR,6.6,Threshold for reporting non-fatal accidents (days of absence):,
-45,GBR,6.6,Threshold for reporting non-fatal accidents (days of absence):,7
+0,Albania,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+1,Andorra,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+2,Austria,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
+3,Беларусь,6.6,Пороговые значения для отчетности о несчастных случаях без летального исхода (дней отсутствия):,более 1 дня
+4,Belgium,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+5,Bosnia and Herzegovina,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+6,Bulgaria,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+7,Croatia,6.6,Threshold for reporting non-fatal accidents (days of absence):,>3
+8,Cyprus,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+9,Czech Republic,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
+10,Denmark,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+11,Estonia,6.6,Threshold for reporting non-fatal accidents (days of absence):,0
+12,Finland,6.6,Threshold for reporting non-fatal accidents (days of absence):,Since 1996: 4 days; prior to 2016: 3 days
+13,France,6.6,Threshold for reporting non-fatal accidents (days of absence):,No treshold
+14,Georgia,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+15,Germany,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
+16,Greece,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+17,Holy See,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+18,Hungary,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
+19,Iceland,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+20,Ireland,6.6,Threshold for reporting non-fatal accidents (days of absence):,4 and above
+21,Italy,6.6,Threshold for reporting non-fatal accidents (days of absence):,3 days
+22,Latvia,6.6,Threshold for reporting non-fatal accidents (days of absence):,loss of ability for a period longer than one day.
+23,Liechtenstein,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+24,Lithuania,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+25,Luxembourg,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+26,Malta,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+27,Moldova,6.6,Пороговые значения для отчетности о несчастных случаях без летального исхода (дней отсутствия):,"0,00 - не зарегестрированно"
+28,Monaco,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+29,Montenegro,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+30,Netherlands,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+31,Norway,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+32,Poland,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+33,Portugal,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+34,Romania,6.6,Threshold for reporting non-fatal accidents (days of absence):,"According with ESAW methodology, accidents at work are reported for over 3 days absence from work."
+35,Russian Federation,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+36,Serbia,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+37,Slovakia,6.6,Threshold for reporting non-fatal accidents (days of absence):,42
+38,Slovenia,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+39,Spain,6.6,Threshold for reporting non-fatal accidents (days of absence):,3
+40,Sweden,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+41,Switzerland,6.6,Threshold for reporting non-fatal accidents (days of absence):,4
+42,The former Yugoslav Republic of Macedonia,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+43,Turkey,6.6,Threshold for reporting non-fatal accidents (days of absence):,164
+44,Ukraine,6.6,Threshold for reporting non-fatal accidents (days of absence):,
+45,United Kingdom,6.6,Threshold for reporting non-fatal accidents (days of absence):,7
