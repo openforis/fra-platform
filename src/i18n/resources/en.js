@@ -1074,6 +1074,8 @@ The FRA team
     valueCannotExceedMaximumValueReportedForLandArea:
       'Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)',
     shouldContainAtLeastOneCharacter: 'Value should contain at least one character',
+    forestAreaReportedIsDifferentFromPreviousCycle:
+      'Reported area ({{forestArea2025}}) differs from previously reported ({{forestArea2020}}). Please provide a comment explaining why it is different.',
   },
 
   emoji: {

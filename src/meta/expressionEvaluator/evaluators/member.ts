@@ -16,10 +16,11 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const variablesByTables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
     const tableNames = Object.keys(variablesByTables)
     const tableName = tableNames.find((table) => table === memberVariable.tableName)
+
     if (tableName) {
       return RecordAssessmentDatas.getDatum({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
+        assessmentName: memberVariable.assessmentName ?? assessment.props.name,
+        cycleName: memberVariable.cycleName ?? cycle.name,
         data,
         countryIso,
         tableName,

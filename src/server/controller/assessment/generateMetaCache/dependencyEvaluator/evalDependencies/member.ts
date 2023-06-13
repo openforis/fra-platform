@@ -6,7 +6,15 @@ import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { Context } from './context'
 
 const includesVariableCache = (variables: Array<VariableCache>, variable: VariableCache): boolean =>
-  Boolean(variables.find((v) => v.variableName === variable.variableName && v.tableName === variable.tableName))
+  Boolean(
+    variables.find(
+      (v) =>
+        v.variableName === variable.variableName &&
+        v.tableName === variable.tableName &&
+        v.assessmentName === variable.assessmentName &&
+        v.cycleName === variable.cycleName
+    )
+  )
 
 const excludeDependant = (row: Row, tableName: string, variableName: string): boolean =>
   Boolean(row.props?.dependantsExclude?.find((v) => v.tableName === tableName && v.variableName === variableName))
