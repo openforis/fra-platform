@@ -43,8 +43,8 @@ const useDependencies = (props: Props): Depencies => {
       })
     )
 
-    if (canEdit && validationDependencies) {
-      Object.values(validationDependencies).forEach((variables) =>
+    if (calculationDependencies || (canEdit && validationDependencies)) {
+      Object.values(calculationDependencies ?? validationDependencies).forEach((variables) =>
         variables.forEach((variable) => {
           const exists = dependencies.some(
             (dependency) =>
@@ -62,24 +62,6 @@ const useDependencies = (props: Props): Depencies => {
       )
     }
 
-    if (calculationDependencies) {
-      Object.values(calculationDependencies).forEach((variables) =>
-        variables.forEach((variable) => {
-          const exists = dependencies.some(
-            (dependency) =>
-              dependency.tableName === variable.tableName &&
-              dependency.cycleName === variable.cycleName &&
-              dependency.assessmentName === variable.assessmentName
-          )
-          if (!exists)
-            dependencies.push({
-              tableName: variable.tableName,
-              cycleName: variable.cycleName,
-              assessmentName: variable.assessmentName,
-            })
-        })
-      )
-    }
     return dependencies
   }, [calculationDependencies, canEdit, tableName, validationDependencies])
 
