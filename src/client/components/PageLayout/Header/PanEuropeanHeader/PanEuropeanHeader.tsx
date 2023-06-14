@@ -5,11 +5,10 @@ import { useCycle } from 'client/store/assessment'
 import LinkHome from 'client/components/LinkHome'
 
 import CycleSwitcher from '../CycleSwitcher'
-import LanguageSelector, { LanguageSelectorMobile } from '../LanguageSelector'
 import UserLinks from '../UserLinks'
 
 const PanEuropeanHeader: React.FC = () => {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const cycle = useCycle()
 
   return (
@@ -17,13 +16,11 @@ const PanEuropeanHeader: React.FC = () => {
       <img alt="FAO" src={`/img/fao/FAO${i18n.language}.svg`} />
       <div className="app-header__separator" />
       <div className="app-header__global-fra">
-        <div>{i18n.t('panEuropean.panEuropeanAssessment')}</div>
+        <div>{t('panEuropean.panEuropeanAssessment')}</div>
         {cycle && <CycleSwitcher />}
       </div>
-      <LanguageSelectorMobile />
 
       <div className="app-header__menu">
-        <LanguageSelector />
         <UserLinks />
         <LinkHome />
       </div>
