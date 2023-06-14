@@ -172,6 +172,7 @@ module.exports = {
   growingStock: {
     totalForest: 'Total Forest',
     naturallyRegeneratingForest2025: '$t(growingStock.naturallyRegeneratingForest)',
+    plantationForest2025: '$t(growingStock.plantationForest)',
     plantedForest2025: '$t(growingStock.plantedForest)',
     otherPlantedForest2025: '$t(growingStock.otherPlantedForest)',
   },
