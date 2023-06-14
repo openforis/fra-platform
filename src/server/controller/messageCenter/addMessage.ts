@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
-import { Message, MessageTopic, MessageTopicType } from 'meta/messageCenter'
+import { Message, MessageTopic, MessageTopicType, Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -8,7 +8,9 @@ import { SectionRepository } from 'server/repository/assessment/section'
 import { MessageRepository } from 'server/repository/assessmentCycle/message'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { MailService } from 'server/service'
 
+import { UserController } from '../user'
 import { updateTopicReadTime } from './updateTopicReadTime'
 
 export const addMessage = async (
@@ -46,7 +48,7 @@ export const addMessage = async (
 
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)
 
-    if (topic && user) {
+    if (user) {
       await updateTopicReadTime({ assessment, cycle, topic, user }, t)
     }
 
@@ -64,6 +66,21 @@ export const addMessage = async (
       },
       t
     )
+
+    if (topic.type === MessageTopicType.chat) {
+      const recipientUserId = Topics.getRecipientUserId(topic)
+
+      const recipient = await UserController.getOne({ id: recipientUserId })
+
+      await MailService.oneToOneMessage({
+        countryIso,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        recipient,
+        sender: user,
+        url: process.env.APP_URI,
+      })
+    }
 
     return { topic, message }
   })

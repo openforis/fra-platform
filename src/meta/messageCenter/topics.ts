@@ -2,6 +2,8 @@ import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, Row } from 'meta/assessment'
 import { User } from 'meta/user'
 
+import { MessageTopic, MessageTopicType } from './messageTopic'
+
 const getDataReviewTopicKey = (row: Row): string => row.uuid
 
 const getOdpReviewTopicKeyPrefix = (odpId: number) => `odp-${odpId}-`
@@ -27,6 +29,10 @@ const getCommentableDescriptionKey = (
   name: string
 ): string => `commentable-description-${[countryIso, assessment.props.name, cycle.name, sectionName, name].join('_')}`
 
+const getRecipientUserId = (topic: MessageTopic) => {
+  return topic.type === MessageTopicType.chat ? Number(topic.key.split('_').pop()) : null
+}
+
 export const Topics = {
   getDataReviewTopicKey,
   getOdpReviewTopicKeyPrefix,
@@ -35,4 +41,5 @@ export const Topics = {
   getMessageBoardCountryKey,
   getMessageBoardChatKey,
   getCommentableDescriptionKey,
+  getRecipientUserId,
 }
