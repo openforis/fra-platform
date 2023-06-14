@@ -25,11 +25,17 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
   const currentUser = useUser()
 
   const currentUserIsNationalCorrespondent = Users.isNationalCorrespondent(currentUser, countryIso, cycle)
+  const currentUserIsAlternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(
+    currentUser,
+    countryIso,
+    cycle
+  )
 
-  const userIsReviewer = Users.isReviewer(user, countryIso, cycle)
+  const userIsCollaborator = Users.isCollaborator(user, countryIso, cycle)
 
-  // National correspondents can't edit reviewers
-  if (currentUserIsNationalCorrespondent && userIsReviewer) return null
+  // National/Alternate national correspondents can edit only collaborators
+  if ((currentUserIsNationalCorrespondent || currentUserIsAlternateNationalCorrespondent) && !userIsCollaborator)
+    return null
 
   return (
     <Link
