@@ -49,9 +49,10 @@ module.exports = {
     link: 'Joint FOREST EUROPE / UNECE / FAO reporting on pan-European indicators for SFM : FOREST EUROPE',
   },
   home: {
+    title: 'Joint Pan-European Data Collection',
     description1:
-      'This platform provides an online interface for national reporting to the joint UNECE, FAO, FOREST EUROPE data collection on the quantitative pan-European indicators for sustainable forest management.',
-    description2: `The 2025 pan-European data collection is carried out in parallel to the Global Forest Resources Assessment (FRA) 2025.`,
+      'This platform provides comprehensive information on forests and the environmental, economic, and social dimensions of sustainable forest management in the Pan-European region.',
+    description2: `The Joint Pan-European Data Collection is the joint initiative by UNECE, FAO, and FOREST EUROPE, carried out in parallel to the FAO Global Forest Resources Assessment (FRA).`,
   },
   disclaimer: {
     platformDeveloped: `This platform was developed jointly by`,
