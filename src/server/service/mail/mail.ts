@@ -4,6 +4,7 @@ import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 import { assessmentNotifyUsers } from './assessmentNotifyUsers'
+import { oneToOneMessage } from './oneToOneMessage'
 import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
 
@@ -62,8 +63,9 @@ export const sendMail = async (email: MailServiceEmail) => {
 }
 
 export const MailService = {
-  sendMail,
-  resetPassword,
-  userInvite,
   assessmentNotifyUsers,
+  oneToOneMessage,
+  resetPassword,
+  sendMail,
+  userInvite,
 }
