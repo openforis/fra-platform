@@ -48,7 +48,7 @@ export const addMessage = async (
 
     const message = await MessageRepository.create({ assessment, cycle, message: messageText, topic, user }, t)
 
-    if (topic && user) {
+    if (user) {
       await updateTopicReadTime({ assessment, cycle, topic, user }, t)
     }
 
