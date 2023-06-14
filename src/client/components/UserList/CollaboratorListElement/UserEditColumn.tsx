@@ -10,12 +10,11 @@ import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
 interface Props {
-  id: number
   user: User
 }
 
 const UserEditColumn: React.FC<Props> = (props: Props) => {
-  const { id, user } = props
+  const { user } = props
   const { t } = useTranslation()
 
   const assessment = useAssessment()
@@ -38,7 +37,7 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
         countryIso,
         assessmentName,
         cycleName,
-        id,
+        id: user.id,
       })}
       type="button"
       className="link"
