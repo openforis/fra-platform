@@ -6,7 +6,7 @@ import { AssessmentName, CycleName, Table, TableName, TableNames } from 'meta/as
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data/slice'
-import { useCanEdit, useUser } from 'client/store/user'
+import { useCanEdit } from 'client/store/user'
 
 type Props = {
   assessmentName: AssessmentName
@@ -71,7 +71,7 @@ const useDependencies = (props: Props): Depencies => {
 export const useGetTableData = (props: Props) => {
   const { assessmentName, countryIso, cycleName, sectionName, table } = props
   const { name: tableName, odp } = table.props
-  const user = useUser()
+  const canEdit = useCanEdit(sectionName)
 
   const dispatch = useAppDispatch()
   const dependencies = useDependencies(props)
@@ -97,11 +97,11 @@ export const useGetTableData = (props: Props) => {
       })
       if (odp) {
         dispatch(DataActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
-        if (user)
+        if (canEdit)
           dispatch(
             DataActions.getNodeValuesEstimations({ assessmentName, countryIso, cycleName, tableName, sectionName })
           )
       }
     })
-  }, [assessmentName, countryIso, cycleName, dispatch, odp, sectionName, tableName, dependencies, user])
+  }, [assessmentName, countryIso, cycleName, dispatch, odp, sectionName, tableName, dependencies, canEdit])
 }
