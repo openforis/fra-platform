@@ -8,10 +8,11 @@ const Overview: React.FC = () => {
   } = useTranslation()
   return (
     <div className="pan-eu-home">
+      <div className="description">
+        <h1>{t('panEuropean.home.title')}</h1>
+      </div>
       <div className="description">{t('panEuropean.home.description1')}</div>
       <div className="description">{t('panEuropean.home.description2')}</div>
-
-      <hr className="no-print" />
 
       <div className="partners">
         <div className="partners__disclaimer">
@@ -33,13 +34,19 @@ const Overview: React.FC = () => {
         </div>
       </div>
 
-      <hr className="no-print" />
+      <div className="partners__disclaimer">
+        <div>
+          {t('panEuropean.disclaimer.technicalSupport')}{' '}
+          <a href="https://foresteurope.org" rel="noreferrer" target="_blank">
+            {t('panEuropean.disclaimer.forestEurope')}
+          </a>
+        </div>
+      </div>
+      <div className="partners__disclaimerLogos">
+        <img alt="" className="forestEurope" src="/img/partners/ForestEurope.png" />
+      </div>
 
       <div className="partners">
-        <div className="partners__disclaimerLogos">
-          <img alt={t('panEuropean.disclaimer.govSwitzerland')} src="/img/partners/CHE.png" />
-          <img alt={t('panEuropean.disclaimer.sweden')} src="/img/partners/skogsstyrelsen.svg" />
-        </div>
         <div className="partners__disclaimer">
           <div>
             {t('panEuropean.disclaimer.part1')}{' '}
@@ -52,17 +59,9 @@ const Overview: React.FC = () => {
             </a>
           </div>
         </div>
-
         <div className="partners__disclaimerLogos">
-          <img alt="" className="forestEurope" src="/img/partners/ForestEurope.png" />
-        </div>
-        <div className="partners__disclaimer">
-          <div>
-            {t('panEuropean.disclaimer.technicalSupport')}{' '}
-            <a href="https://foresteurope.org" rel="noreferrer" target="_blank">
-              {t('panEuropean.disclaimer.forestEurope')}
-            </a>
-          </div>
+          <img alt={t('panEuropean.disclaimer.govSwitzerland')} src="/img/partners/CHE.png" />
+          <img alt={t('panEuropean.disclaimer.sweden')} src="/img/partners/skogsstyrelsen.svg" />
         </div>
       </div>
     </div>

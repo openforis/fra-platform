@@ -8,6 +8,7 @@ import { RecordAssessmentData } from 'meta/data'
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hooks'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useCanEdit } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
 import ButtonTableClear from 'client/components/ButtonTableClear'
@@ -30,6 +31,8 @@ type Props = {
 
 const Table: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table: tableProps, data, disabled } = props
+
+  const canEdit = useCanEdit(sectionName)
 
   const cycle = useCycle()
   const showODP = useShowOriginalDatapoints()
@@ -73,7 +76,7 @@ const Table: React.FC<Props> = (props) => {
           />
         </table>
 
-        {!print && <DataValidations table={table} />}
+        {!print && canEdit && <DataValidations table={table} />}
       </div>
     </div>
   )
