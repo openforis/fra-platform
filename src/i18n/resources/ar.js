@@ -21,6 +21,32 @@ module.exports.translation = {
   dataSource,
   print,
 
+  anchors: {
+    fra: {
+      2025: {
+        '1a': 'ا) 1',
+        '1b': 'ب) 1',
+        '1c': 'ج) 1',
+        '1d': 'د) 1',
+        '1e': 'ه) 1',
+        '2a': 'ا) 2',
+        '2b': 'ب) 2',
+        '2c': 'ج) 2',
+        '2d': 'د) 2',
+        '3a': 'ا) 3',
+        '3b': 'ب) 3',
+        '3c': 'ج) 3',
+        '4a': 'ا) 4',
+        '4b': 'ب) 4',
+        '5a': 'ا) 5',
+        '5b': 'ب) 5',
+        '5c': 'ج) 5',
+        '6a': 'ا) 6',
+        '6b': 'ب) 6',
+      },
+    },
+  },
+
   page: {
     assessmentSection: {
       dataTableHasErrors: 'بيانات الجدول تحتوي على أخطاء. يُرجى التمرير فوق الخلية الحمراء للاطلاع على التفاصيل.',
@@ -270,7 +296,7 @@ Thanks,
       sdgFocalPoints: 'مسؤولو التواصل الوطنيون بخصوص أهداف التنمية المستدامة',
       reddPortal:
         'منظومات السواتل المخصصة لرصد الأراضي المعززة من قبل مبادرة الأمم المتحدة لخفض الانبعاثات الناجمة عن إزالة الغابات/منظمة الأغذية والزراعة',
-      fraGeoSpatialTools: 'الأدوات الأرضية الفضائية المخصصة لتقييم الموارد الحرجية',
+      fraGeoSpatialTools: ' ادوات الاستشعار عن بعد المخصصة لتقييم الموارد الحرجية',
       repository: 'المستودع',
       uploadFile: 'حمل ملفاً',
       confirmDelete: 'هل ستحذف {{file}}? لا يمكنك العودة عن هذه الخطوة',
@@ -667,7 +693,7 @@ The FRA team
     ofWhichNaturalExpansion: '...منها اتساع طبيعي',
     deforestation: 'إزالة الغابة',
     forestAreaNetChange: 'صافي التغيير في مساحة الغابة',
-    forestAreaNetChangeFrom1a: 'تغير صافي مساحة الغابات من الجدول 1a',
+    forestAreaNetChangeFrom1a: 'صافي التغير في مساحة الغابات عن الجدول 1a',
     netChangeDoesNotMatch: 'غير مطابق لصافي التغيير في مساحة الغابة',
   },
 
@@ -896,7 +922,7 @@ The FRA team
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals: 'إزالة منتجات حرجية غير خشبية وقيمتها عام 2015',
     nameOfProduct: 'اسم المنتج الحرجي غير الخشبي',
-    keySpecies: 'أنواع أساسية',
+    keySpecies: 'النوع الأساسي',
     quantity: 'الكمية',
     unit: 'الواحدة',
     value: 'القيمة (1000 عملة محلية)',
