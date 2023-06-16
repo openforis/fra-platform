@@ -3,11 +3,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 import { User } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 
+import { useCountryIso } from 'client/hooks'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 
 type Props = {
@@ -21,6 +23,8 @@ type Props = {
 const CountrySelectField: React.FC<Props> = (props) => {
   const { name, value, onChange, validator, enabled } = props
 
+  const defaultCountryIso = useCountryIso()
+
   const { t } = useTranslation()
 
   const valid = validator?.({ [name]: value }) ?? true
@@ -33,7 +37,7 @@ const CountrySelectField: React.FC<Props> = (props) => {
           includeCountries
           onElementSelect={(countryIso: CountryIso) => onChange(name, countryIso)}
           showCountryFlag
-          selectedValue={value as CountryIso}
+          selectedValue={Objects.isEmpty(value) ? defaultCountryIso : (value as CountryIso)}
         />
       </div>
     </div>

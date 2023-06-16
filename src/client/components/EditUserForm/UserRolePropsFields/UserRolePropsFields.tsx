@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { CountryIso } from 'meta/area'
 import { RoleName, UserContactPreference, UserRole } from 'meta/user/userRole'
 
 import ContactMethodField from '../ContactMethodField'
@@ -11,12 +10,11 @@ import TextInputField from '../TextInputField'
 type Props = {
   role: UserRole<any, any>
   onChange: (name: string, value: any) => void
-  defaultCountryIso?: CountryIso
   enabled?: boolean
 }
 
 const UserRolePropsFields: React.FC<Props> = (props) => {
-  const { role, onChange, defaultCountryIso, enabled } = props
+  const { role, onChange, enabled } = props
 
   const { props: roleProps } = role
 
@@ -78,7 +76,7 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
           <CountrySelectField
             name="countryIso"
-            value={roleProps.address?.countryIso ?? defaultCountryIso}
+            value={roleProps.address?.countryIso}
             onChange={changeAddress}
             enabled
           />
@@ -120,7 +118,6 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 }
 
 UserRolePropsFields.defaultProps = {
-  defaultCountryIso: null,
   enabled: false,
 }
 
