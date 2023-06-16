@@ -36,7 +36,7 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
           {invitationUuid && !acceptedAt ? (
             <InvitationColumn user={user} userRole={userRole} invitationUuid={invitationUuid} />
           ) : (
-            <UserEditColumn user={user} id={user.id} />
+            <UserEditColumn user={user} />
           )}
         </td>
       )}

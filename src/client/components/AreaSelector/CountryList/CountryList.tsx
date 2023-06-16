@@ -107,15 +107,21 @@ const CountryList: React.FC<Props> = (props: Props) => {
                 query={query}
               />
             ))
-          : allCountries.map(({ countryIso }) => (
-              <CountryListRow
-                key={countryIso}
-                country={{ countryIso }}
-                onElementSelect={onElementSelect}
-                role={UserRoles.noRole.role}
-                selectedValue={selectedValue}
-              />
-            ))}
+          : allCountries.map(({ countryIso }) => {
+              const countryLabel = i18n.t(Areas.getTranslationKey(countryIso))
+
+              const matchCountry = checkMatch(countryLabel, query)
+
+              return matchCountry ? (
+                <CountryListRow
+                  key={countryIso}
+                  country={{ countryIso }}
+                  onElementSelect={onElementSelect}
+                  role={UserRoles.noRole.role}
+                  selectedValue={selectedValue}
+                />
+              ) : null
+            })}
       </div>
     </div>
   )

@@ -10,12 +10,11 @@ import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
 interface Props {
-  id: number
   user: User
 }
 
 const UserEditColumn: React.FC<Props> = (props: Props) => {
-  const { id, user } = props
+  const { user } = props
   const { t } = useTranslation()
 
   const assessment = useAssessment()
@@ -26,11 +25,17 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
   const currentUser = useUser()
 
   const currentUserIsNationalCorrespondent = Users.isNationalCorrespondent(currentUser, countryIso, cycle)
+  const currentUserIsAlternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(
+    currentUser,
+    countryIso,
+    cycle
+  )
 
-  const userIsReviewer = Users.isReviewer(user, countryIso, cycle)
+  const userIsCollaborator = Users.isCollaborator(user, countryIso, cycle)
 
-  // National correspondents can't edit reviewers
-  if (currentUserIsNationalCorrespondent && userIsReviewer) return null
+  // National/Alternate national correspondents can edit only collaborators
+  if ((currentUserIsNationalCorrespondent || currentUserIsAlternateNationalCorrespondent) && !userIsCollaborator)
+    return null
 
   return (
     <Link
@@ -38,7 +43,7 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
         countryIso,
         assessmentName,
         cycleName,
-        id,
+        id: user.id,
       })}
       type="button"
       className="link"
