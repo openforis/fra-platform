@@ -22,7 +22,7 @@ const tableMappings: Record<string, Array<string>> = {
   ],
   [TableNames.growingStockAvg]: [
     'growingStock.naturallyRegeneratingForest',
-    'growingStock.plantedForest',
+    'fra.growingStock.plantedForest2025',
     'growingStock.plantationForest',
     'growingStock.otherPlantedForest',
   ],
