@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
 import { ODPNationalClass } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
@@ -18,8 +18,9 @@ import { useNationalClassNameComments } from '../../hooks'
 
 const columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
 
-const allowedClass = (nc: ODPNationalClass) =>
-  nc.forestNaturalPercent !== null && Number(nc.forestNaturalPercent) >= 0 && Number(nc.forestPercent) > 0
+const allowedClass = (nc: ODPNationalClass) => {
+  return nc.forestNaturalPercent !== null && Number(nc.forestNaturalPercent) > 0 && Number(nc.forestPercent) > 0
+}
 
 type Props = {
   canEditData: boolean
