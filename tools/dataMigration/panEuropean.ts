@@ -1,3 +1,6 @@
+import 'tsconfig-paths/register'
+import 'dotenv/config'
+
 import * as path from 'path'
 import { config } from 'dotenv'
 
