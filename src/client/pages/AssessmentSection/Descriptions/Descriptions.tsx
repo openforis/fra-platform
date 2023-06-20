@@ -30,7 +30,7 @@ export const useDescriptions = (props: Props): Description => {
   // Only show comments if section has ODP data
   const onlyComments =
     (sectionName === 'extentOfForest' && hasOriginalDataPointData) ||
-    (sectionName === 'forestCharacteristics' && useOriginalDataPoint)
+    (sectionName === 'forestCharacteristics' && hasOriginalDataPointData && useOriginalDataPoint)
 
   if (onlyComments) {
     return {
