@@ -6,38 +6,14 @@ const totalForestAndOtherCols = [
   {
     idx: 0,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['total'],
-                     [table_4_5.forest_yearPlaceholder['total'],table_4_5.other_wooded_land_yearPlaceholder['total']])`,
-        ],
-      },
-    },
   },
   {
     idx: 1,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
-                     [table_4_5.forest_yearPlaceholder['lying'],table_4_5.other_wooded_land_yearPlaceholder['lying']])`,
-        ],
-      },
-    },
   },
   {
     idx: 2,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
-          [table_4_5.forest_yearPlaceholder['standing'],table_4_5.other_wooded_land_yearPlaceholder['standing']])`,
-        ],
-      },
-    },
   },
 ]
 const broadleavedCols = [
