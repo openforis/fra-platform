@@ -35,8 +35,8 @@
 33,GRC,6.9,Conversion factors used to convert to energy/from energy units:,
 34,VAT,6.9,Approach to calculate or estimate wood directly from forests and outside forests (marketed and self-consumption):,
 35,VAT,6.9,Conversion factors used to convert to energy/from energy units:,
-36,HUN,6.9,Approach to calculate or estimate wood directly from forests and outside forests (marketed and self-consumption):,"We can not divided the wood source to '' wood from forests'' and ''outside forest''. Therefore we report in a joint category."
-37,HUN,6.9,Conversion factors used to convert to energy/from energy units:,"Energy from direct wood fibresources - 500 kg/m³ to convert data to kg and 15 MJ/kg was used to convert them to energy."
+36,HUN,6.9,Approach to calculate or estimate wood directly from forests and outside forests (marketed and self-consumption):,"We can not divided the wood source to "" wood from forests"" and ""outside forest"". Therefore we report in a joint category."
+37,HUN,6.9,Conversion factors used to convert to energy/from energy units:,Energy from direct wood fibresources - 500 kg/m³ to convert data to kg and 15 MJ/kg was used to convert them to energy.
 38,ISL,6.9,Approach to calculate or estimate wood directly from forests and outside forests (marketed and self-consumption):,
 39,ISL,6.9,Conversion factors used to convert to energy/from energy units:,
 40,IRL,6.9,Approach to calculate or estimate wood directly from forests and outside forests (marketed and self-consumption):,
