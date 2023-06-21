@@ -100,5 +100,6 @@ export const ClientRoutes = {
         },
       },
     },
+    Tutorials: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName', 'tutorials'),
   },
 }

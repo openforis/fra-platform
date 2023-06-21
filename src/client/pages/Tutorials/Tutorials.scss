@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+.data-download {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  margin-top: 32px;
+}
+
+.data-download__sep {
+  grid-column: 1/4;
+  border-top: $ui-thin-border;
+}
