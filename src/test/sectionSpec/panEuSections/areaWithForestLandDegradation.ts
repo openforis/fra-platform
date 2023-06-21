@@ -243,12 +243,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: {
-                      '2025': [
-                        `validatorNotEmpty(table_2_5.agentName.agentOne, 
-                    [table_2_5.forest_2020.agentOne, table_2_5.forest_2015.agentOne, table_2_5.forest_2010.agentOne, table_2_5.forest_2005.agentOne, table_2_5.forest_2000.agentOne, table_2_5.forest_1990.agentOne])`,
-                      ],
-                    },
+                    // validateFns: {
+                    //   '2025': [
+                    //     `validatorNotEmpty(table_2_5.agentName.agentOne,
+                    // [table_2_5.forest_2020.agentOne, table_2_5.forest_2015.agentOne, table_2_5.forest_2010.agentOne, table_2_5.forest_2005.agentOne, table_2_5.forest_2000.agentOne, table_2_5.forest_1990.agentOne])`,
+                    //   ],
+                    // },
                     style: { '2025': { minWidth: '145px' } },
                   },
                 },
@@ -260,12 +260,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: {
-                      '2025': [
-                        `validatorNotEmpty(table_2_5.agentName.agentTwo,
-                    [table_2_5.forest_2020.agentTwo, table_2_5.forest_2015.agentTwo, table_2_5.forest_2010.agentTwo, table_2_5.forest_2005.agentTwo, table_2_5.forest_2000.agentTwo, table_2_5.forest_1990.agentTwo])`,
-                      ],
-                    },
+                    // validateFns: {
+                    //   '2025': [
+                    //     `validatorNotEmpty(table_2_5.agentName.agentTwo,
+                    // [table_2_5.forest_2020.agentTwo, table_2_5.forest_2015.agentTwo, table_2_5.forest_2010.agentTwo, table_2_5.forest_2005.agentTwo, table_2_5.forest_2000.agentTwo, table_2_5.forest_1990.agentTwo])`,
+                    //   ],
+                    // },
                     style: { '2025': { minWidth: '145px' } },
                   },
                 },
@@ -277,12 +277,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: {
-                      '2025': [
-                        `validatorNotEmpty(table_2_5.agentName.agentThree,
-                    [table_2_5.forest_2020.agentThree, table_2_5.forest_2015.agentThree, table_2_5.forest_2010.agentThree, table_2_5.forest_2005.agentThree, table_2_5.forest_2000.agentThree, table_2_5.forest_1990.agentThree])`,
-                      ],
-                    },
+                    // validateFns: {
+                    //   '2025': [
+                    //     `validatorNotEmpty(table_2_5.agentName.agentThree,
+                    // [table_2_5.forest_2020.agentThree, table_2_5.forest_2015.agentThree, table_2_5.forest_2010.agentThree, table_2_5.forest_2005.agentThree, table_2_5.forest_2000.agentThree, table_2_5.forest_1990.agentThree])`,
+                    //   ],
+                    // },
                     style: { '2025': { minWidth: '145px' } },
                   },
                 },
@@ -294,12 +294,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: {
-                      '2025': [
-                        `validatorNotEmpty(table_2_5.agentName.agentFour,
-                    [table_2_5.forest_2020.agentFour, table_2_5.forest_2015.agentFour, table_2_5.forest_2010.agentFour, table_2_5.forest_2005.agentFour, table_2_5.forest_2000.agentFour, table_2_5.forest_1990.agentFour])`,
-                      ],
-                    },
+                    // validateFns: {
+                    //   '2025': [
+                    //     `validatorNotEmpty(table_2_5.agentName.agentFour,
+                    // [table_2_5.forest_2020.agentFour, table_2_5.forest_2015.agentFour, table_2_5.forest_2010.agentFour, table_2_5.forest_2005.agentFour, table_2_5.forest_2000.agentFour, table_2_5.forest_1990.agentFour])`,
+                    //   ],
+                    // },
                     style: { '2025': { minWidth: '145px' } },
                   },
                 },
@@ -311,12 +311,12 @@ export const areaWithForestLandDegradation = {
                   migration: {
                     cycles: ['2025'],
                     forceColName: true,
-                    validateFns: {
-                      '2025': [
-                        `validatorNotEmpty(table_2_5.agentName.agentFive,
-                    [table_2_5.forest_2020.agentFive, table_2_5.forest_2015.agentFive, table_2_5.forest_2010.agentFive, table_2_5.forest_2005.agentFive, table_2_5.forest_2000.agentFive, table_2_5.forest_1990.agentFive])`,
-                      ],
-                    },
+                    // validateFns: {
+                    //   '2025': [
+                    //     `validatorNotEmpty(table_2_5.agentName.agentFive,
+                    // [table_2_5.forest_2020.agentFive, table_2_5.forest_2015.agentFive, table_2_5.forest_2010.agentFive, table_2_5.forest_2005.agentFive, table_2_5.forest_2000.agentFive, table_2_5.forest_1990.agentFive])`,
+                    //   ],
+                    // },
                     style: { '2025': { minWidth: '145px' } },
                   },
                 },
