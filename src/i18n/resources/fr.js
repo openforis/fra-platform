@@ -1074,4 +1074,15 @@ L'équipe de FRA
     messageBoardDesc: 'Les messages postés ici sont visibles par tous les membres du pays.',
     oneToOneMessages: 'Messages individuels',
   },
+
+  tutorial: {
+    passwordLogin:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment se connecter avec un mot de passe personnalisé",
+    googleLogin:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment se connecter à partir de son compte Google",
+    collaboratorAdd: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un collaborateur",
+    platformNavigation: "Tutoriel pour l'utilisateur de la plateforme FRA - Naviguer sur la plateforme",
+    documentUpload: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment télécharger un document",
+    ndpAdd: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un point de données national",
+  },
 }

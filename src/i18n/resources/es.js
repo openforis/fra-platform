@@ -1043,6 +1043,15 @@ El equipo de FRA
     oneToOneMessages: 'Mensajes individuales',
   },
 
+  tutorial: {
+    passwordLogin: 'Manual de usuario de la plataforma FRA - Cómo iniciar sesión con una contraseña autodefinida',
+    googleLogin: 'Manual de usuario de la plataforma FRA - Cómo iniciar sesión utilizando la autenticación de Google',
+    collaboratorAdd: 'Manual de usuario de la plataforma FRA - Cómo añadir un colaborador',
+    platformNavigation: 'Manual de usuario de la plataforma FRA - Navegación por la plataforma',
+    documentUpload: 'Manual de usuario de la plataforma FRA - Cómo subir un documento',
+    ndpAdd: 'Manual de usuario de la plataforma FRA - Cómo añadir un punto de dato nacional',
+  },
+
   page: {
     assessmentSection: {
       dataTableHasErrors:

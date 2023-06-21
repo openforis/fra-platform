@@ -1112,6 +1112,15 @@ FRA工作组
     oneToOneMessages: '一对一消息',
   },
 
+  tutorial: {
+    passwordLogin: '全球森林资源评估平台用户教程 - 如何使用自定义密码登录',
+    googleLogin: '全球森林资源评估平台用户教程 - 如何使用Google邮箱验证登录',
+    collaboratorAdd: '全球森林资源评估平台用户教程 - 如何添加合作者',
+    platformNavigation: '全球森林资源评估平台用户教程 - 平台导航',
+    documentUpload: '全球森林资源评估平台用户教程 - 如何上传文档',
+    ndpAdd: '全球森林资源评估平台用户教程 - 如何添加国家数据点',
+  },
+
   panEuropean: {
     panEuropeanAssessment: '泛欧洲评估',
     variable: '变量',
