@@ -66,10 +66,10 @@ const Tutorials: React.FC = () => {
           <h1 className="landing__page-title title">{t('Tutorials')}</h1>
         </div>
 
-        <div className="data-download">
+        <div className="list-tutorial ">
           {resources.map((resource, index) => (
             <React.Fragment key={resource.idx}>
-              {index !== 0 && <div className="data-download__sep" />}
+              {index !== 0 && <div className="list-tutorial-separator" />}
 
               <div>{t(resource.labelKey)}</div>
 
