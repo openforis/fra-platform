@@ -15,16 +15,16 @@ type CopyValuesProps = {
 // tableMappings is a mapping of table names to the variables that should be copied to clipboard
 const tableMappings: Record<string, Array<string>> = {
   [TableNames.forestCharacteristics]: [
-    'forestCharacteristics.naturalForestArea',
+    'fra.forestCharacteristics.naturalForestArea2025',
     'fra.forestCharacteristics.ofWhichPlantationForest',
     'fra.forestCharacteristics.plantationForestIntroducedArea2025',
     'fra.forestCharacteristics.ofWhichOtherPlantedForest',
   ],
   [TableNames.growingStockAvg]: [
-    'growingStock.naturallyRegeneratingForest',
+    'fra.growingStock.naturallyRegeneratingForest2025',
     'fra.growingStock.plantedForest2025',
-    'growingStock.plantationForest',
-    'growingStock.otherPlantedForest',
+    'fra.growingStock.plantationForest2025',
+    'fra.growingStock.otherPlantedForest2025',
   ],
 }
 
