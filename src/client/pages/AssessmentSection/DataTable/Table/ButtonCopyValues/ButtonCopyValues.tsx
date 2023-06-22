@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Table, TableNames } from 'meta/assessment'
 
+import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { getData } from 'client/components/ButtonTableExport/utils'
 
@@ -13,7 +14,22 @@ type CopyValuesProps = {
 }
 
 // tableMappings is a mapping of table names to the variables that should be copied to clipboard
-const tableMappings: Record<string, Array<string>> = {
+const tableMappings2020: Record<string, Array<string>> = {
+  [TableNames.forestCharacteristics]: [
+    'forestCharacteristics.naturalForestArea',
+    'forestCharacteristics.plantationForestArea',
+    'forestCharacteristics.plantationForestIntroducedArea',
+    'forestCharacteristics.otherPlantedForestArea',
+  ],
+  [TableNames.growingStockAvg]: [
+    'growingStock.naturallyRegeneratingForest',
+    'growingStock.naturallyRegeneratingForest',
+    'growingStock.plantationForest',
+    'growingStock.otherPlantedForest',
+  ],
+}
+
+const tableMappings2025: Record<string, Array<string>> = {
   [TableNames.forestCharacteristics]: [
     'fra.forestCharacteristics.naturalForestArea2025',
     'fra.forestCharacteristics.ofWhichPlantationForest',
@@ -32,8 +48,11 @@ const colMapping = [1990, 2000, 2010, 2015, 2020, 2025]
 
 const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => {
   const { tableRef, table } = props
+  const cycle = useCycle()
   const user = useUser()
   const { t } = useTranslation()
+
+  const tableMappings = cycle.name === '2025' ? tableMappings2025 : tableMappings2020
 
   const showButton = Object.keys(tableMappings).includes(table.props.name)
 
@@ -53,7 +72,7 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
       })
 
     navigator.clipboard.writeText(z.map((row: Array<string>) => row.join('\t')).join('\n'))
-  }, [t, table.props.name, tableRef])
+  }, [t, table.props.name, tableMappings, tableRef])
 
   // Hide button if incorrect table or user is not logged in
   if (!user || !showButton) return null
