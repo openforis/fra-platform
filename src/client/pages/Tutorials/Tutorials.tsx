@@ -5,10 +5,16 @@ import { useTranslation } from 'react-i18next'
 import Icon from 'client/components/Icon'
 import PageLayout from 'client/components/PageLayout'
 
-const resources: Array<{ idx: number; labelKey: string; url: Record<string, string> }> = [
+export const videoResources: Array<{
+  idx: number
+  labelKey: string
+  labelKeyShort?: string
+  url: Record<string, string>
+}> = [
   {
     idx: 1,
     labelKey: 'tutorial.passwordLogin',
+    labelKeyShort: 'tutorial.passwordLoginShort',
     url: {
       en: 'https://www.youtube.com/watch?v=JJ5mqdWyKIY&list=PLzp5NgJ2-dK4ZmmQ2qHRVR--pu-kVp5DZ&index=6',
       fr: 'https://youtu.be/pbfy-y84M4M',
@@ -17,6 +23,7 @@ const resources: Array<{ idx: number; labelKey: string; url: Record<string, stri
   {
     idx: 2,
     labelKey: 'tutorial.googleLogin',
+    labelKeyShort: 'tutorial.googleLoginShort',
     url: {
       en: 'https://www.youtube.com/watch?v=BQVEIUX4x20&list=PLzp5NgJ2-dK4ZmmQ2qHRVR--pu-kVp5DZ&index=5',
       fr: 'https://youtu.be/7sM7EqXzc5o',
@@ -67,7 +74,7 @@ const Tutorials: React.FC = () => {
         </div>
 
         <div className="list-tutorial ">
-          {resources.map((resource, index) => (
+          {videoResources.map((resource, index) => (
             <React.Fragment key={resource.idx}>
               {index !== 0 && <div className="list-tutorial-separator" />}
 

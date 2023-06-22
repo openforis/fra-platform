@@ -1084,5 +1084,7 @@ L'équipe de FRA
     platformNavigation: "Tutoriel pour l'utilisateur de la plateforme FRA - Naviguer sur la plateforme",
     documentUpload: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment télécharger un document",
     ndpAdd: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un point de données national",
+    passwordLoginShort: 'Comment se connecter avec un mot de passe personnalisé',
+    googleLoginShort: 'Comment se connecter à partir de son compte Google',
   },
 }

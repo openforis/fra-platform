@@ -1172,5 +1172,7 @@ The FRA team
     platformNavigation: 'The FRA platform user tutorial – Platform navigation',
     documentUpload: 'The FRA platform user tutorial - How to upload a document',
     ndpAdd: 'The FRA platform user tutorial - How to add a national data point',
+    passwordLoginShort: 'How to log in with a self-defined password',
+    googleLoginShort: 'How to log in using Google authentication',
   },
 }

@@ -79,8 +79,8 @@ $login-height: 50vh;
     margin-top: -2rem;
   }
 
-  .btn-forgot-pwd {
-    justify-self: right;
+  .btn-help {
+    justify-self: center;
     align-self: start;
     margin-top: -30px;
     padding: 4px 0;
@@ -93,6 +93,10 @@ $login-height: 50vh;
     color: $text-link;
     font-size: $font-s;
     font-weight: normal;
+
+    &.btn-forgot-pwd {
+      justify-self: right;
+    }
 
     &:hover {
       border-bottom: 1px solid rgba($text-link, 0.7);

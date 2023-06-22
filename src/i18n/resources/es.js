@@ -1050,6 +1050,8 @@ El equipo de FRA
     platformNavigation: 'Manual de usuario de la plataforma FRA - Navegación por la plataforma',
     documentUpload: 'Manual de usuario de la plataforma FRA - Cómo subir un documento',
     ndpAdd: 'Manual de usuario de la plataforma FRA - Cómo añadir un punto de dato nacional',
+    passwordLoginShort: 'Cómo iniciar sesión con una contraseña autodefinida',
+    googleLoginShort: 'Cómo iniciar sesión utilizando la autenticación de Google',
   },
 
   page: {

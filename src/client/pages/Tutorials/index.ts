@@ -1,1 +1,1 @@
-export { default } from './Tutorials'
+export { default, videoResources } from './Tutorials'
