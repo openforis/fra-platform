@@ -6,38 +6,14 @@ const totalForestAndOtherCols = [
   {
     idx: 0,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['total'],
-                     [table_4_5.forest_yearPlaceholder['total'],table_4_5.other_wooded_land_yearPlaceholder['total']])`,
-        ],
-      },
-    },
   },
   {
     idx: 1,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
-                     [table_4_5.forest_yearPlaceholder['lying'],table_4_5.other_wooded_land_yearPlaceholder['lying']])`,
-        ],
-      },
-    },
   },
   {
     idx: 2,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
-          [table_4_5.forest_yearPlaceholder['standing'],table_4_5.other_wooded_land_yearPlaceholder['standing']])`,
-        ],
-      },
-    },
   },
 ]
 const broadleavedCols = [
@@ -63,9 +39,9 @@ const broadleavedCols = [
           `validatorEqualToSum(table_4_5.broadleaved_yearPlaceholder['total'],
           [table_4_5.broadleaved_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['lying']],
           "table_4_5.broadleaved_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
-          [table_4_5.coniferous_yearPlaceholder['lying'],table_4_5.broadleaved_yearPlaceholder['lying']],
-          "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[lying]")`,
+          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
+            [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['standing']],
+            "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[standing]")`,
         ],
       },
     },
@@ -79,9 +55,9 @@ const broadleavedCols = [
           `validatorEqualToSum(table_4_5.broadleaved_yearPlaceholder['total'],
             [table_4_5.broadleaved_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['lying']],
             "table_4_5.broadleaved_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
-            [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['standing']],
-            "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[standing]")`,
+          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
+          [table_4_5.coniferous_yearPlaceholder['lying'],table_4_5.broadleaved_yearPlaceholder['lying']],
+          "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[lying]")`,
         ],
       },
     },
@@ -110,9 +86,9 @@ const coniferousCols = [
           `validatorEqualToSum(table_4_5.coniferous_yearPlaceholder['total'],
           [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.coniferous_yearPlaceholder['lying']],
           "table_4_5.coniferous_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
-          [table_4_5.coniferous_yearPlaceholder['lying'],table_4_5.broadleaved_yearPlaceholder['lying']],
-          "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[lying]")`,
+          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
+            [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['standing']],
+            "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[standing]")`,
         ],
       },
     },
@@ -126,9 +102,9 @@ const coniferousCols = [
           `validatorEqualToSum(table_4_5.coniferous_yearPlaceholder['total'],
             [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.coniferous_yearPlaceholder['lying']],
             "table_4_5.coniferous_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
-            [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['standing']],
-            "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[standing]")`,
+          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
+          [table_4_5.coniferous_yearPlaceholder['lying'],table_4_5.broadleaved_yearPlaceholder['lying']],
+          "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[lying]")`,
         ],
       },
     },
@@ -383,6 +359,12 @@ export const deadwood = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.other_wooded_land_2020['total'],
+                     [table_4_5.other_wooded_land_2020['standing'],table_4_5.other_wooded_land_2020['lying']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.deadwood.other_wooded_land',
               labelParams: { year: 2020 },
@@ -404,6 +386,14 @@ export const deadwood = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.other_wooded_land_2015['total'],
+                     [table_4_5.other_wooded_land_2015['standing'],table_4_5.other_wooded_land_2015['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'other_wooded_land_2015',
@@ -424,6 +414,14 @@ export const deadwood = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.other_wooded_land_2010['total'],
+                     [table_4_5.other_wooded_land_2010['standing'],table_4_5.other_wooded_land_2010['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'other_wooded_land_2010',
@@ -444,6 +442,14 @@ export const deadwood = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.other_wooded_land_2005['total'],
+                     [table_4_5.other_wooded_land_2005['standing'],table_4_5.other_wooded_land_2005['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'other_wooded_land_2005',
@@ -464,6 +470,14 @@ export const deadwood = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.other_wooded_land_2000['total'],
+                     [table_4_5.other_wooded_land_2000['standing'],table_4_5.other_wooded_land_2000['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'other_wooded_land_2000',
@@ -484,6 +498,14 @@ export const deadwood = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.other_wooded_land_1990['total'],
+                     [table_4_5.other_wooded_land_1990['standing'],table_4_5.other_wooded_land_1990['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'other_wooded_land_1990',
@@ -502,6 +524,15 @@ export const deadwood = {
                 },
                 ...updatedDataCol(totalForestAndOtherCols, '2020'),
               ],
+              migration: {
+                cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2020['total'],
+                     [table_4_5.total_forest_and_other_wooded_land_2020['standing'],table_4_5.total_forest_and_other_wooded_land_2020['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
               variableExport: 'total_forest_and_other_wooded_land_2020',
@@ -520,6 +551,14 @@ export const deadwood = {
                 },
                 ...updatedDataCol(totalForestAndOtherCols, '2015'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2015['total'],
+                     [table_4_5.total_forest_and_other_wooded_land_2015['standing'],table_4_5.total_forest_and_other_wooded_land_2015['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
               variableExport: 'total_forest_and_other_wooded_land_2015',
@@ -538,6 +577,14 @@ export const deadwood = {
                 },
                 ...updatedDataCol(totalForestAndOtherCols, '2010'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2010['total'],
+                     [table_4_5.total_forest_and_other_wooded_land_2010['standing'],table_4_5.total_forest_and_other_wooded_land_2010['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
               variableExport: 'total_forest_and_other_wooded_land_2010',
@@ -556,6 +603,14 @@ export const deadwood = {
                 },
                 ...updatedDataCol(totalForestAndOtherCols, '2005'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2005['total'],
+                     [table_4_5.total_forest_and_other_wooded_land_2005['standing'],table_4_5.total_forest_and_other_wooded_land_2005['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
               variableExport: 'total_forest_and_other_wooded_land_2005',
@@ -574,6 +629,14 @@ export const deadwood = {
                 },
                 ...updatedDataCol(totalForestAndOtherCols, '2000'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_2000['total'],
+                     [table_4_5.total_forest_and_other_wooded_land_2000['standing'],table_4_5.total_forest_and_other_wooded_land_2000['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
               variableExport: 'total_forest_and_other_wooded_land_2000',
@@ -592,6 +655,14 @@ export const deadwood = {
                 },
                 ...updatedDataCol(totalForestAndOtherCols, '1990'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_1990['total'],
+                     [table_4_5.total_forest_and_other_wooded_land_1990['standing'],table_4_5.total_forest_and_other_wooded_land_1990['lying']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.deadwood.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
               variableExport: 'total_forest_and_other_wooded_land_1990',
