@@ -92,6 +92,7 @@ module.exports.translation = {
     scamAlert: 'تبليغ عن احتيال',
     reportMisconduct: 'تبليغ عن سوء تصرف',
     userGuide: 'دليل المستخدم',
+    tutorials: 'الفيديو',
     sendFeedback: 'أرسل رأيك',
     licenses: 'التراخيص',
     platformVersion: 'إصدار المنصة',
@@ -1155,6 +1156,7 @@ The FRA team
   },
 
   tutorial: {
+    watch: 'المشاهدة',
     passwordLogin: 'البرنامج التعليمي لمنصة الفرا - كيفية تسجيل الدخول باستخدام كلمة مرور محددة ذاتيًا.',
     googleLogin: 'البرنامج التعليمي لمنصة الفرا - كيفية تسجيل الدخول باستخدام جوجل.',
     collaboratorAdd: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة شخص اخر للتعاون في ملئ التقارير',

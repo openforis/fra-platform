@@ -47,6 +47,7 @@ module.exports.translation = {
     scamAlert: 'Опасайтесь мошенников',
     reportMisconduct: 'Сообщить о нарушении',
     userGuide: 'Руководство пользователя',
+    tutorials: 'Видео',
     sendFeedback: 'Направить отзыв',
     licenses: 'Лицензирование',
     platformVersion: 'Версия платформы',
@@ -1124,6 +1125,7 @@ module.exports.translation = {
   },
 
   tutorial: {
+    watch: 'Смотреть',
     passwordLogin: 'Руководство пользователя платформы ОЛР - Как войти в систему с помощью собственного пароля',
     googleLogin: 'Руководство пользователя платформы ОЛР - Как войти в систему, используя аутентификацию Google',
     collaboratorAdd: 'Руководство пользователя платформы ОЛР — Как добавить сотрудника',
