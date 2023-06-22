@@ -26,6 +26,7 @@ const DefinitionLink: React.FC<Props> = (props: Props) => {
           'height=640,width=360'
         )
       }
+      aria-hidden="true"
     >
       {title}
     </div>
