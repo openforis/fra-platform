@@ -48,6 +48,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     scamAlert: 'Alerta de estafa',
     reportMisconduct: 'Reportar mala conducta',
     userGuide: 'Guía del usuario',
+    tutorials: 'Vídeo',
     sendFeedback: 'Enviar comentarios',
     licenses: 'Licencias',
     platformVersion: 'Versión de la plataforma',
@@ -1044,6 +1045,7 @@ El equipo de FRA
   },
 
   tutorial: {
+    watch: 'Ver',
     passwordLogin: 'Manual de usuario de la plataforma FRA - Cómo iniciar sesión con una contraseña autodefinida',
     googleLogin: 'Manual de usuario de la plataforma FRA - Cómo iniciar sesión utilizando la autenticación de Google',
     collaboratorAdd: 'Manual de usuario de la plataforma FRA - Cómo añadir un colaborador',

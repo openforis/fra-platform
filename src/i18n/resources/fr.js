@@ -49,6 +49,7 @@ des domaines boréal, tempéré et sous-tropical`,
     scamAlert: 'Alerte aux messages frauduleux',
     reportMisconduct: 'Signaler un cas de mauvaise conduite',
     userGuide: "Guide de l'utilisateur",
+    tutorials: 'Vidéo',
     sendFeedback: 'Envoyer réactions',
     licenses: 'Autorisations',
     platformVersion: 'Version de la plate-forme',
@@ -1076,6 +1077,7 @@ L'équipe de FRA
   },
 
   tutorial: {
+    watch: 'Regarder',
     passwordLogin:
       "Tutoriel pour l'utilisateur de la plateforme FRA - Comment se connecter avec un mot de passe personnalisé",
     googleLogin:
