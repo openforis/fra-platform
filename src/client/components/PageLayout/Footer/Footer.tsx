@@ -3,7 +3,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { ClientRoutes } from 'meta/app'
 
+import { useAssessment } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useIsPrint } from 'client/hooks/useIsPath'
 
@@ -27,11 +29,13 @@ const links = [
     to: 'http://www.fao.org/contact-us/report-fraud/',
   },
 ]
+
 const Footer: React.FC = () => {
   const { i18n, t } = useTranslation()
   const user = useUser()
   const { language } = i18n
   const { print } = useIsPrint()
+  const assessment = useAssessment()
 
   if (print) return null
 
@@ -59,16 +63,28 @@ const Footer: React.FC = () => {
             </a>
           </>
         )}
+
         <div className="separator" />
+
+        <a href={ClientRoutes.Assessment.Tutorials.getLink({ assessmentName: assessment?.props.name })}>
+          {t('footer.tutorials')}
+        </a>
+
+        <div className="separator" />
+
         <SendFeedback />
 
         <div className="separator" />
+
         <a target="_blank" href={`https://www.fao.org/contact-us/terms/db-terms-of-use/${language}`} rel="noreferrer">
           {t('footer.licenses')}
         </a>
+
+        <div className="separator" />
       </div>
 
       <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
+
       <div className="footer__version">
         <span className="build-version">
           {t('footer.platformVersion')} #{buildVersion}

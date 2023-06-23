@@ -12,6 +12,7 @@ import { useOnUpdate } from 'client/hooks'
 import { updateLanguage } from 'client/utils/updateLanguage'
 
 import Cycle from '../Cycle'
+import Tutorials from '../Tutorials'
 
 const Assessment: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -57,6 +58,8 @@ const Assessment: React.FC = () => {
 
   return (
     <Routes>
+      <Route path={`${ClientRoutes.Assessment.Tutorials.path.relative}`} element={<Tutorials />} />
+
       <Route path={`${ClientRoutes.Assessment.Cycle.Landing.path.relative}/*`} element={<Cycle />} />
     </Routes>
   )
