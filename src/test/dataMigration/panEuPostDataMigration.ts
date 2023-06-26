@@ -9,6 +9,7 @@ import { Logger } from 'server/utils/logger'
 
 import { updateCalculatedNodes } from 'test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
 import { migrateCountryComments } from 'test/dataMigration/stepsPanEuropean/countryComments/migrateCountryComments'
+import { fixSubsectionIndexes } from 'test/dataMigration/stepsPanEuropean/fixSubsectionIndexes'
 
 const assessmentName = `panEuropean`
 const client = DB
@@ -23,8 +24,13 @@ const close = async () => {
   await DB.$pool.end()
 }
 
-const migrateCycle = async (cycleName: string) => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache: true }, client)
+const exec = async () => {
+  Logger.debug(`========== START POST DATA MIGRATION `, start)
+
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
+    { assessmentName, cycleName: '2025', metaCache: true },
+    client
+  )
 
   index += 1
   Logger.debug(`    ========== ${index} updateCalculatedNodes ${cycle.name}`)
@@ -33,13 +39,10 @@ const migrateCycle = async (cycleName: string) => {
   index += 1
   Logger.debug(`    ========== ${index} migrateCountryComments ${cycle.name}`)
   await migrateCountryComments({ assessment, cycle }, client)
-}
 
-const exec = async () => {
-  Logger.debug(`========== START POST DATA MIGRATION `, start)
-
-  // migrateCycle('2020')
-  await migrateCycle('2025')
+  index += 1
+  Logger.debug(`    ========== ${index} fixSubsectionIndexes`)
+  await fixSubsectionIndexes({ assessment }, client)
 
   await close()
 }
