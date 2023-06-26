@@ -48,7 +48,6 @@ export default {
 
       'cryptogams_and_fungi_2020',
       'cryptogams_and_fungi_2015',
-      'cryptogams_and_fungi_2015',
       'cryptogams_and_fungi_2010',
       'cryptogams_and_fungi_2005',
       'cryptogams_and_fungi_2000',
