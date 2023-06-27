@@ -20,15 +20,6 @@ const broadleavedCols = [
   {
     idx: 0,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['total'],
-           [table_4_5.coniferous_yearPlaceholder['total'],table_4_5.broadleaved_yearPlaceholder['total']],
-           "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[total]")`,
-        ],
-      },
-    },
   },
   {
     idx: 1,
@@ -39,9 +30,6 @@ const broadleavedCols = [
           `validatorEqualToSum(table_4_5.broadleaved_yearPlaceholder['total'],
           [table_4_5.broadleaved_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['lying']],
           "table_4_5.broadleaved_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
-            [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['standing']],
-            "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[standing]")`,
         ],
       },
     },
@@ -55,9 +43,6 @@ const broadleavedCols = [
           `validatorEqualToSum(table_4_5.broadleaved_yearPlaceholder['total'],
             [table_4_5.broadleaved_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['lying']],
             "table_4_5.broadleaved_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
-          [table_4_5.coniferous_yearPlaceholder['lying'],table_4_5.broadleaved_yearPlaceholder['lying']],
-          "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[lying]")`,
         ],
       },
     },
