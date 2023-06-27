@@ -6,14 +6,16 @@ import { useTranslation } from 'react-i18next'
 import { Areas } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useCountries } from 'client/store/assessment'
+import { useAssessment, useCountries, useCycle } from 'client/store/assessment'
 import { useUser, useUserCountries } from 'client/store/user'
 import Icon from 'client/components/Icon'
 import { Dates } from 'client/utils'
 
 const CountryListDownload: React.FC = () => {
-  const user = useUser()
   const { i18n } = useTranslation()
+  const user = useUser()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const countries = useCountries()
   const userCountryISOs = useUserCountries()
 
@@ -34,7 +36,7 @@ const CountryListDownload: React.FC = () => {
 
   const headers = [
     { label: i18n.t('admin.country'), key: 'name' },
-    { label: i18n.t('countryListing.fra2020'), key: 'status' },
+    { label: `${i18n.t(`${assessment.props.name}.labels.short`)} ${cycle.name}`, key: 'status' },
     { label: i18n.t('audit.edited'), key: 'edited' },
     { label: i18n.t('assessment.deskStudy'), key: 'deskStudy' },
   ]
