@@ -88,6 +88,7 @@ export const carbonStock = {
   sectionAnchor: '1.4a',
   tableSections: [
     {
+      titleKey: 'panEuropean.carbonStock.carbonStockNumber',
       tableSpecs: [
         {
           name: 'table_1_4a',
@@ -704,7 +705,7 @@ export const carbonStock = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.carbonStockInHarvestedWoodProductsHWP',
+      titleKey: 'panEuropean.carbonStock.carbonStockInHarvestedWoodProductsHWPNumber',
       tableSpecs: [
         {
           name: 'table_1_4b',
