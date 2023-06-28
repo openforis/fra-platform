@@ -71,7 +71,6 @@ const dataColsA = [
     },
   },
 ]
-
 const updatedDataColsValidation = (year: string) =>
   dataColsAValidator.map((col) => {
     if (col.migration && col.migration.validateFns && col.migration.validateFns['2025']) {
@@ -264,6 +263,7 @@ export const naturalness = {
   sectionAnchor: '4.3a',
   tableSections: [
     {
+      titleKey: 'panEuropean.naturalness.naturalnessNumber',
       tableSpecs: [
         {
           name: 'table_4_3a',
@@ -802,7 +802,7 @@ export const naturalness = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.naturalnessBySubclass',
+      titleKey: 'panEuropean.naturalness.naturalnessBySubclassNumber',
       tableSpecs: [
         {
           name: 'table_4_3b',

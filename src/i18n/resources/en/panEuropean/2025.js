@@ -1,7 +1,7 @@
 module.exports = {
   description: {
     dataSource: {
-      referenceToTataSource: '$t(dataSource.referenceToTataSource)',
+      referenceToTataSource: 'Name and Reference to data source',
       typeOfDataSource: '$t(dataSource.typeOfDataSource)',
       variable: '$t(dataSource.variable)',
       yearForDataSource: '$t(dataSource.yearForDataSource)',

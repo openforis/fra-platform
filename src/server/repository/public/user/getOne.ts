@@ -39,7 +39,7 @@ export const getOne = async (
   }
 
   if (props.cycleUuid) {
-    join = 'and ur.cycle_uuid = $2'
+    join = 'and (ur.cycle_uuid = $2 or ur.cycle_uuid is null)'
     values.push(props.cycleUuid)
   }
 

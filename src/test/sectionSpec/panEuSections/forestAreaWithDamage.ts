@@ -1552,14 +1552,6 @@ export const forestAreaWithDamage = {
                   type: 'header',
                 },
                 {
-                  idx: 2,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.reasonabilityChecks.FAWS',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
                   idx: 3,
                   colSpan: 1,
                   rowSpan: 1,
@@ -1598,7 +1590,7 @@ export const forestAreaWithDamage = {
                     calculateFn: 'table_2_4.forest_2020.total_area_with_damage / table_1_1a.forest_2020.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1645,7 +1637,7 @@ export const forestAreaWithDamage = {
                     calculateFn: 'table_2_4.forest_2015.total_area_with_damage / table_1_1a.forest_2015.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1692,7 +1684,7 @@ export const forestAreaWithDamage = {
                     calculateFn: 'table_2_4.forest_2010.total_area_with_damage / table_1_1a.forest_2010.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1739,7 +1731,7 @@ export const forestAreaWithDamage = {
                     calculateFn: 'table_2_4.forest_2005.total_area_with_damage / table_1_1a.forest_2005.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1786,7 +1778,7 @@ export const forestAreaWithDamage = {
                     calculateFn: 'table_2_4.forest_2000.total_area_with_damage / table_1_1a.forest_2000.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1833,7 +1825,7 @@ export const forestAreaWithDamage = {
                     calculateFn: 'table_2_4.forest_1990.total_area_with_damage / table_1_1a.forest_1990.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',

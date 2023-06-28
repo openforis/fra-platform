@@ -2,7 +2,7 @@ export { useCommentableDescriptionValue } from './hooks/useCommentableDescriptio
 export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
 export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
-export { useNodeValuesEstimations } from './hooks/useNodeValuesEstimations'
+export { useNodeValuesEstimation } from './hooks/useNodeValuesEstimation'
 export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'
 export { useTableData } from './hooks/useTableData'
 export { DataActions } from './slice'

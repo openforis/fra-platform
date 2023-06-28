@@ -20,15 +20,6 @@ const broadleavedCols = [
   {
     idx: 0,
     type: 'decimal',
-    migration: {
-      validateFns: {
-        '2025': [
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['total'],
-           [table_4_5.coniferous_yearPlaceholder['total'],table_4_5.broadleaved_yearPlaceholder['total']],
-           "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[total]")`,
-        ],
-      },
-    },
   },
   {
     idx: 1,
@@ -39,9 +30,6 @@ const broadleavedCols = [
           `validatorEqualToSum(table_4_5.broadleaved_yearPlaceholder['total'],
           [table_4_5.broadleaved_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['lying']],
           "table_4_5.broadleaved_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['standing'],
-            [table_4_5.coniferous_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['standing']],
-            "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[standing]")`,
         ],
       },
     },
@@ -55,9 +43,6 @@ const broadleavedCols = [
           `validatorEqualToSum(table_4_5.broadleaved_yearPlaceholder['total'],
             [table_4_5.broadleaved_yearPlaceholder['standing'],table_4_5.broadleaved_yearPlaceholder['lying']],
             "table_4_5.broadleaved_yearPlaceholder[total]")`,
-          `validatorEqualToSum(table_4_5.total_forest_and_other_wooded_land_yearPlaceholder['lying'],
-          [table_4_5.coniferous_yearPlaceholder['lying'],table_4_5.broadleaved_yearPlaceholder['lying']],
-          "table_4_5.total_forest_and_other_wooded_land_yearPlaceholder[lying]")`,
         ],
       },
     },
@@ -798,14 +783,6 @@ export const deadwood = {
                   type: 'header',
                 },
                 {
-                  idx: 2,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.reasonabilityChecks.FAWS',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
                   idx: 3,
                   colSpan: 1,
                   rowSpan: 1,
@@ -845,7 +822,7 @@ export const deadwood = {
                     calculateFn: 'table_4_5.forest_2020.total / table_1_4a.forest_2020.deadwood',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -891,7 +868,7 @@ export const deadwood = {
                     calculateFn: 'table_4_5.forest_2015.total / table_1_4a.forest_2015.deadwood',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -937,7 +914,7 @@ export const deadwood = {
                     calculateFn: 'table_4_5.forest_2010.total / table_1_4a.forest_2010.deadwood',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -983,7 +960,7 @@ export const deadwood = {
                     calculateFn: 'table_4_5.forest_2005.total / table_1_4a.forest_2005.deadwood',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1029,7 +1006,7 @@ export const deadwood = {
                     calculateFn: 'table_4_5.forest_2000.total / table_1_4a.forest_2000.deadwood',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1075,7 +1052,7 @@ export const deadwood = {
                     calculateFn: 'table_4_5.forest_1990.total / table_1_4a.forest_1990.deadwood',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
+
                 {
                   idx: 2,
                   type: 'calculated',
