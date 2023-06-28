@@ -387,7 +387,6 @@ export const accessibilityForRecreation = {
     },
     {
       titleKey: 'panEuropean.accessibilityForRecreation.intensityOfUseNumber',
-      titleKey: 'panEuropean.countryComments.recreationFacilitiesNumber',
       tableSpecs: [
         {
           name: 'table_6_10c',
