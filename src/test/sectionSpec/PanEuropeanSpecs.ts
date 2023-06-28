@@ -808,7 +808,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
   // Section 2
   forestAreaWithDamage,
   areaWithForestLandDegradation,
-  // Section 3git
+  // Section 3
   incrementAndFellings: {
     sectionName: 'incrementAndFellings',
     sectionAnchor: '3.1',
@@ -1339,34 +1339,10 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                   },
                   {
-                    idx: 1,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.reasonabilityChecks.forest',
-                    className: 'fra-table__header-cell-left',
-                    type: 'header',
-                  },
-                  {
                     idx: 2,
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.reasonabilityChecks.FAWS',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 3,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.reasonabilityChecks.OWL',
-                    className: 'fra-table__header-cell-left',
-                    type: 'header',
-                  },
-                  {
-                    idx: 4,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.reasonabilityChecks.FOWL',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -1385,7 +1361,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1395,8 +1370,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2020.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1417,7 +1390,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1427,8 +1399,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2015.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1449,7 +1419,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1459,8 +1428,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2010.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1481,7 +1448,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1491,8 +1457,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2005.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1513,7 +1477,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1523,8 +1486,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2000.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1545,7 +1506,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1555,8 +1515,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_1990.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1577,7 +1535,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1587,8 +1544,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total / table_1_1a._of_which_available_for_wood_supply_2020.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1609,7 +1564,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1619,8 +1573,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total / table_1_1a._of_which_available_for_wood_supply_2015.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1641,7 +1593,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1651,8 +1602,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total / table_1_1a._of_which_available_for_wood_supply_2010.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1673,7 +1622,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1683,8 +1631,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total / table_1_1a._of_which_available_for_wood_supply_2005.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1705,7 +1651,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1715,8 +1660,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total / table_1_1a._of_which_available_for_wood_supply_2000.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1737,7 +1680,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1747,8 +1689,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total / table_1_1a._of_which_available_for_wood_supply_1990.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1769,7 +1709,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1779,8 +1718,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1801,7 +1738,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1811,8 +1747,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1833,7 +1767,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1843,8 +1776,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1865,7 +1796,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1875,8 +1805,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1897,7 +1825,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1907,8 +1834,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1929,7 +1854,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1939,8 +1863,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -3449,8 +3371,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_2._of_which_forest_available_for_wood_supply_2020.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_2020.total * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -3471,7 +3391,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3503,7 +3422,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3535,7 +3453,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3567,7 +3484,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3599,7 +3515,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3631,7 +3546,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3663,7 +3577,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3695,7 +3608,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3727,7 +3639,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3963,7 +3874,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
   },
   nonWoodGoods2015,
   marketedServices2015: {
-    sectionName: 'marketedServices2015',
+    sectionName: 'marketedServices',
     sectionAnchor: '3.4',
     tableSections: [
       {
