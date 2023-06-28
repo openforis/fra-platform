@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.data-cell__flags {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: $spacing-xxxs;
+}
