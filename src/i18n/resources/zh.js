@@ -55,6 +55,7 @@ module.exports.translation = {
     scamAlert: '防欺诈警告',
     reportMisconduct: '报告不当行为',
     userGuide: '使用指南',
+    tutorials: '视频',
     sendFeedback: '发送反馈',
     licenses: '许可',
     platformVersion: '平台版本',
@@ -1113,6 +1114,7 @@ FRA工作组
   },
 
   tutorial: {
+    watch: '观看',
     passwordLogin: '全球森林资源评估平台用户教程 - 如何使用自定义密码登录',
     googleLogin: '全球森林资源评估平台用户教程 - 如何使用Google邮箱验证登录',
     collaboratorAdd: '全球森林资源评估平台用户教程 - 如何添加合作者',
