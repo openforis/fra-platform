@@ -905,14 +905,6 @@ export const carbonStock = {
                   type: 'header',
                 },
                 {
-                  idx: 2,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.reasonabilityChecks.FAWS',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
                   idx: 3,
                   colSpan: 1,
                   rowSpan: 1,
@@ -952,7 +944,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2020.below_ground / table_1_4a.forest_2020.above_ground',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -999,7 +990,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2015.below_ground / table_1_4a.forest_2015.above_ground',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1046,7 +1036,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2010.below_ground / table_1_4a.forest_2010.above_ground',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1093,7 +1082,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2005.below_ground / table_1_4a.forest_2005.above_ground',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1140,7 +1128,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2000.below_ground / table_1_4a.forest_2000.above_ground',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1187,7 +1174,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_1990.below_ground / table_1_4a.forest_1990.above_ground',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1235,7 +1221,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2020.above_ground / table_1_2a.forest_2020.total',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1282,7 +1267,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2015.above_ground / table_1_2a.forest_2015.total',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1329,7 +1313,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2010.above_ground / table_1_2a.forest_2010.total',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1376,7 +1359,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2005.above_ground / table_1_2a.forest_2005.total',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1423,7 +1405,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2000.above_ground / table_1_2a.forest_2000.total',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1470,7 +1451,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_1990.above_ground / table_1_2a.forest_1990.total',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1518,7 +1498,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2020.soil_carbon * 1000 / table_1_1a.forest_2020.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1565,7 +1544,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2015.soil_carbon * 1000 / table_1_1a.forest_2015.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1612,7 +1590,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2010.soil_carbon * 1000 / table_1_1a.forest_2010.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1659,7 +1636,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2005.soil_carbon * 1000 / table_1_1a.forest_2005.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1706,7 +1682,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_2000.soil_carbon * 1000 / table_1_1a.forest_2000.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
@@ -1753,7 +1728,6 @@ export const carbonStock = {
                     calculateFn: 'table_1_4a.forest_1990.soil_carbon * 1000 / table_1_1a.forest_1990.area',
                   },
                 },
-                { idx: 1, type: 'placeholder' },
                 {
                   idx: 2,
                   type: 'calculated',
