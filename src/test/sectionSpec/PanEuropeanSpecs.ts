@@ -3874,7 +3874,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
   },
   nonWoodGoods2015,
   marketedServices2015: {
-    sectionName: 'marketedServices2015',
+    sectionName: 'marketedServices',
     sectionAnchor: '3.4',
     tableSections: [
       {

@@ -374,6 +374,14 @@ module.exports = {
     woodfuel_market_value: 'Woodfuel: Market Value (1000  national currency)',
   },
 
+  nonWoodGoods: {
+    nonWoodGoods: 'Non-wood goods',
+  },
+
+  marketedServices: {
+    marketedServices: 'Marketed services',
+  },
+
   // table 3.3
   nonWoodGoods2015: {
     nonWoodGoods2015: 'Non-wood goods (2015)',
