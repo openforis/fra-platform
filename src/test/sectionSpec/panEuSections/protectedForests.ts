@@ -144,6 +144,16 @@ export const protectedForests = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_4_9.forest_2025['mcpfe_class_1_1'],
+                  table_4_9.forest_2025['mcpfe_class_1_2'],
+                  table_4_9.forest_2025['mcpfe_class_1_3'],
+                  table_4_9.forest_2025['mcpfe_class_2']], 
+                  "Forest 2025", "Area (1000 ha)", "1.1.I")`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.protectedForests.forest',
               labelParams: { year: 2025 },
@@ -169,6 +179,18 @@ export const protectedForests = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_4_9.forest_2020['mcpfe_class_1_1'],
+                  table_4_9.forest_2020['mcpfe_class_1_2'],
+                  table_4_9.forest_2020['mcpfe_class_1_3'],
+                  table_4_9.forest_2020['mcpfe_class_2']], 
+                  "Forest 2020", "Area (1000 ha)", "1.1.I")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.protectedForests.forest',
               labelParams: { year: 2020 },
               variableExport: 'forest_2020',
@@ -193,6 +215,18 @@ export const protectedForests = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_4_9.forest_2015['mcpfe_class_1_1'],
+                  table_4_9.forest_2015['mcpfe_class_1_2'],
+                  table_4_9.forest_2015['mcpfe_class_1_3'],
+                  table_4_9.forest_2015['mcpfe_class_2']], 
+                  "Forest 2015", "Area (1000 ha)", "1.1.I")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.protectedForests.forest',
               labelParams: { year: 2015 },
               variableExport: 'forest_2015',
@@ -217,6 +251,18 @@ export const protectedForests = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_4_9.forest_2010['mcpfe_class_1_1'],
+                  table_4_9.forest_2010['mcpfe_class_1_2'],
+                  table_4_9.forest_2010['mcpfe_class_1_3'],
+                  table_4_9.forest_2010['mcpfe_class_2']], 
+                  "Forest 2010", "Area (1000 ha)", "1.1.I")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.protectedForests.forest',
               labelParams: { year: 2010 },
               variableExport: 'forest_2010',
@@ -241,6 +287,18 @@ export const protectedForests = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_4_9.forest_2005['mcpfe_class_1_1'],
+                  table_4_9.forest_2005['mcpfe_class_1_2'],
+                  table_4_9.forest_2005['mcpfe_class_1_3'],
+                  table_4_9.forest_2005['mcpfe_class_2']], 
+                  "Forest 2005", "Area (1000 ha)", "1.1.I")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.protectedForests.forest',
               labelParams: { year: 2005 },
               variableExport: 'forest_2005',
@@ -265,6 +323,18 @@ export const protectedForests = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_4_9.forest_2000['mcpfe_class_1_1'],
+                  table_4_9.forest_2000['mcpfe_class_1_2'],
+                  table_4_9.forest_2000['mcpfe_class_1_3'],
+                  table_4_9.forest_2000['mcpfe_class_2']], 
+                  "Forest 2000", "Area (1000 ha)", "1.1.I")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.protectedForests.forest',
               labelParams: { year: 2000 },
               variableExport: 'forest_2000',
@@ -289,6 +359,18 @@ export const protectedForests = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_4_9.forest_1990['mcpfe_class_1_1'],
+                  table_4_9.forest_1990['mcpfe_class_1_2'],
+                  table_4_9.forest_1990['mcpfe_class_1_3'],
+                  table_4_9.forest_1990['mcpfe_class_2']], 
+                  "Forest 1990", "Area (1000 ha)", "1.1.I")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.protectedForests.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
