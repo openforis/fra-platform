@@ -1934,64 +1934,129 @@ export const growingStock = {
                   labelKey: 'panEuropean.growingStockComposition.total',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
                 {
-                  idx: 2,
+                  idx: 0,
                   type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                { idx: 5, type: 'decimal' },
-                { idx: 6, type: 'decimal', colName: 'growing_stock_in_forest_2025', migration: { cycles: ['2025'] } },
-              ],
-              migration: {
-                validateFns: {
-                  '2025': [
-                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_1990'],
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_1990'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
-                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_1990']])`,
-                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2000'],
+                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_1990'],
+                  table_1_2c.remaining['growing_stock_in_forest_1990']])`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 1,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2000'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
-                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2000']])`,
-                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2005'],
+                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2000'],
+                  table_1_2c.remaining['growing_stock_in_forest_2000']])`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 2,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2005'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
-                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2005']])`,
-                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2010'],
+                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2005'],
+                  table_1_2c.remaining['growing_stock_in_forest_2005']])`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 3,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2010'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
-                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2010']])`,
-                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2015'],
+                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2010'],
+                  table_1_2c.remaining['growing_stock_in_forest_2010']])`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2015'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
-                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2015']])`,
-                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2020'],
+                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2015'],
+                  table_1_2c.remaining['growing_stock_in_forest_2015']])`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 5,
+                  type: 'decimal',
+                  migration: {
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2020'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
-                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2020']])`,
-                    `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2025'],
+                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2020'],
+                  table_1_2c.remaining['growing_stock_in_forest_2020']])`,
+                      ],
+                    },
+                  },
+                },
+                {
+                  idx: 6,
+                  type: 'decimal',
+                  colName: 'growing_stock_in_forest_2025',
+                  migration: {
+                    cycles: ['2025'],
+                    validateFns: {
+                      '2025': [
+                        `validatorEqualToSum(table_1_2c.total['growing_stock_in_forest_2025'],
                   [table_1_2c.no1_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no2_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no3_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no4_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no5_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no6_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
                   table_1_2c.no7_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no8_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
-                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2025']])`,
-                  ],
+                  table_1_2c.no9_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],table_1_2c.no10_ranked_in_terms_of_volume['growing_stock_in_forest_2025'],
+                  table_1_2c.remaining['growing_stock_in_forest_2025']], 'total', 'growing_stock_in_forest_2025', '1.2.III')`,
+                      ],
+                    },
+                  },
                 },
+              ],
+              migration: {
                 colNames: [
                   'growing_stock_in_forest_1990',
                   'growing_stock_in_forest_2000',
