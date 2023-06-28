@@ -23,7 +23,7 @@ const tableMappings2020: Record<string, Array<string>> = {
   ],
   [TableNames.growingStockAvg]: [
     'growingStock.naturallyRegeneratingForest',
-    'growingStock.naturallyRegeneratingForest',
+    'growingStock.plantedForest',
     'growingStock.plantationForest',
     'growingStock.otherPlantedForest',
   ],
@@ -32,7 +32,7 @@ const tableMappings2020: Record<string, Array<string>> = {
 const tableMappings2025: Record<string, Array<string>> = {
   [TableNames.forestCharacteristics]: [
     'fra.forestCharacteristics.naturalForestArea2025',
-    'fra.forestCharacteristics.ofWhichPlantationForest',
+    'fra.growingStock.plantationForest2025',
     'fra.forestCharacteristics.plantationForestIntroducedArea2025',
     'fra.forestCharacteristics.ofWhichOtherPlantedForest',
   ],
