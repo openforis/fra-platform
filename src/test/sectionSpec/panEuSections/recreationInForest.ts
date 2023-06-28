@@ -5,6 +5,7 @@ export const accessibilityForRecreation = {
   sectionAnchor: '6.10a',
   tableSections: [
     {
+      titleKey: 'panEuropean.accessibilityForRecreation.accessibilityForRecreationNumber',
       tableSpecs: [
         {
           name: 'table_6_10a',
@@ -240,7 +241,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.intensityOfUse',
+      titleKey: 'panEuropean.accessibilityForRecreation.intensityOfUseNumber',
       tableSpecs: [
         {
           name: 'table_6_10b',
@@ -385,8 +386,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.recreationFacilities',
-
+      titleKey: 'panEuropean.accessibilityForRecreation.intensityOfUseNumber',
       tableSpecs: [
         {
           name: 'table_6_10c',
@@ -493,7 +493,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.otherRecreationFacilities',
+      titleKey: 'panEuropean.accessibilityForRecreation.otherRecreationFacilities',
       tableSpecs: [
         {
           name: 'table_6_10d',

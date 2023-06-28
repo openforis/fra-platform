@@ -79,6 +79,8 @@ module.exports = {
   // table 1.1a
   forestArea: {
     forestArea: 'Forest area',
+    forestAreaNumber: 'I. Forest area',
+    forestAreaByForestTypeNumber: 'II. Forest area by forest type',
     categoryYear: 'Category - Year',
     area: 'Area',
     area1000Ha: 'Area (1000 ha)',
@@ -109,6 +111,9 @@ module.exports = {
 
   // table 1.2a
   growingStock: {
+    growingStockNumber: 'I. Growing stock',
+    growingStockByForestTypeNumber: 'II. Growing stock by forest type',
+    growingStockCompositionNumber: 'III. Growing stock composition',
     growingStock: 'Growing stock',
     categoryYear: 'Category - Year',
     growingStockMillionM3OB: 'Growing stock (million m³ over bark)',
@@ -171,6 +176,9 @@ module.exports = {
   // table 1.3a1
   ageClassDistributionAreaOfEvenAgedStands: {
     ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
+    ageClassDistributionAreaOfEvenAgedStandsNumber: 'I. Age class distribution (area of even-aged stands)',
+    ageClassDistributionNumber:
+      'II. Age class distribution (volume of even-aged stands) in forest available for wood supply',
     categoryYear: 'Category - Year',
     developmentPhases: 'Development phases',
     total_area: 'Total area',
@@ -224,6 +232,8 @@ module.exports = {
   // table 1.4a
   carbonStock: {
     carbonStock: 'Carbon stock',
+    carbonStockNumber: 'I. Carbon stock',
+    carbonStockInHarvestedWoodProductsHWPNumber: 'II. Carbon stock in harvested wood products (HWP)',
     categoryYear: 'Category - Year',
     carbonInAboveGroundAndBelowGroundLivingBiomass: 'Carbon in above-ground and below-ground living biomass',
     carbonInDeadwoodAndLitter: 'Carbon in deadwood and litter',
@@ -364,6 +374,14 @@ module.exports = {
     woodfuel_market_value: 'Woodfuel: Market Value (1000  national currency)',
   },
 
+  nonWoodGoods: {
+    nonWoodGoods: 'Non-wood goods',
+  },
+
+  marketedServices: {
+    marketedServices: 'Marketed services',
+  },
+
   // table 3.3
   nonWoodGoods2015: {
     nonWoodGoods2015: 'Non-wood goods (2015)',
@@ -447,6 +465,8 @@ module.exports = {
   // table 4.2a
   totalForestAreaByExpansionAndRegenerationType: {
     totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
+    totalForestAreaByExpansionAndRegenerationTypeNumber: 'I. Total forest area by expansion and regeneration type',
+    annualForestExpansionAndRegenerationNumber: 'II. Annual forest expansion and regeneration',
     categoryYear: 'Category - Year',
     totalAreaOfForestByExpansionRegenerationType1000ha: 'Total area of forest by expansion/regeneration type (1000 ha)',
     natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
@@ -479,6 +499,8 @@ module.exports = {
   // table 4.3a
   naturalness: {
     naturalness: 'Naturalness',
+    naturalnessNumber: 'I. Naturalness',
+    naturalnessBySubclassNumber: 'II. Naturalness by subclass',
     categoryYear: 'Category - Year',
     area1000ha: 'Area (1000 ha)',
     undisturbed_by_man: 'Undisturbed by man',
@@ -516,6 +538,9 @@ module.exports = {
   // table 4.4a
   introducedTreeSpecies: {
     introducedTreeSpecies: 'Area of stands dominated by introduced tree species',
+    introducedTreeSpeciesNumber: 'I. Area of stands dominated by introduced tree species',
+    introducedTreeSpecies4_4bNumber: 'II. Introduced tree species',
+    invasiveTreeSpeciesNumber: 'III. Invasive tree species',
     categoryYear: 'Category - Year',
     areaOfStandsDominatedByIntroducedTreeSpecies1000ha: 'Area of stands dominated by introduced tree species (1000 ha)',
     total: 'Total',
@@ -610,7 +635,7 @@ module.exports = {
     threatenedForestSpecies: 'Threatened forest species',
     categoryYear: 'Category - Year',
     threatenedForestSpeciesCol: 'Threatened forest species',
-    threatenedForestSpeciesColAbs: 'Threatened forest species (Absolute number)',
+    threatenedForestSpeciesColAbs: 'Forest Species (Absolute Number)',
     absoluteNumber: 'Absolute number',
     total_of_taxa: 'Total of taxa',
     vulnerable: 'Vulnerable',
@@ -895,6 +920,10 @@ module.exports = {
   // table 6.10a
   accessibilityForRecreation: {
     accessibilityForRecreation: 'Accessibility for recreation',
+    accessibilityForRecreationNumber: 'I. Accessibility for recreation',
+    intensityOfUseNumber: 'II. Intensity of use',
+    recreationFacilitiesNumber: 'III. Recreation facilities',
+    otherRecreationFacilitiesNumber: 'IV. Other recreation facilities - pilot reporting (2020)',
     categoryYear: 'Category - Year',
     areaAvailableForPublicRecreation: 'Area available for public recreation',
     total1000Ha: 'Total (1000 ha)',
