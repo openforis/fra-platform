@@ -2,6 +2,7 @@ import i18n from 'i18next'
 
 import { Areas } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
+import { Assessment } from 'meta/assessment'
 import { User } from 'meta/user/user'
 
 import { RoleName, UserRole } from './userRole'
@@ -29,10 +30,12 @@ const getRecipientRoles = (props: { status: AssessmentStatus }) => {
   }
 }
 
-const getLastRole = (user: User) => {
+const getLastRole = (params: { assessment: Assessment; user: User }) => {
+  const { assessment, user } = params
+
   if (!user || !user.roles) return undefined
 
-  const { roles } = user
+  const roles = user.roles.filter((role) => Number(role.assessmentId) === Number(assessment?.id))
   if (roles.length === 1) return roles[0]
 
   const _roles = [...roles].sort((roleA, roleB) => {

@@ -32,7 +32,7 @@ const getLinks = (
       content: i18nInstance.t('header.editProfile'),
       link: ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
         assessmentName: assessment.props.name,
-        countryIso: countryIso ?? UserRoles.getLastRole(user).countryIso ?? Global.WO,
+        countryIso: countryIso ?? UserRoles.getLastRole({ assessment, user })?.countryIso ?? Global.WO,
         cycleName: cycle.name,
         id: user.id,
       }),
