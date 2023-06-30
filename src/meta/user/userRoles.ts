@@ -18,7 +18,12 @@ const getRecipientRoles = (props: { status: AssessmentStatus }) => {
 
   switch (status) {
     case AssessmentStatus.editing:
-      return [RoleName.NATIONAL_CORRESPONDENT]
+      return [
+        RoleName.COLLABORATOR,
+        RoleName.REVIEWER,
+        RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+        RoleName.NATIONAL_CORRESPONDENT,
+      ]
     case AssessmentStatus.review:
       return [RoleName.REVIEWER]
     case AssessmentStatus.approval:
