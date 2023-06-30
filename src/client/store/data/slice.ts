@@ -139,7 +139,7 @@ export const dataSlice = createSlice({
     })
 
     builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {
-      state.nodeValuesEstimations = payload
+      state.nodeValuesEstimations = { ...state.nodeValuesEstimations, ...payload }
     })
 
     builder.addCase(postEstimate.fulfilled, (state, { payload }) => {

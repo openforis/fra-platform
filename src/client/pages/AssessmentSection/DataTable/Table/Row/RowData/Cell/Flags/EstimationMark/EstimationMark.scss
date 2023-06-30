@@ -1,0 +1,28 @@
+@import 'src/client/style/partials';
+
+.data-cell__flag-estimate {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 2px;
+  align-items: center;
+
+  svg.icon {
+    color: $ui-alert;
+    width: 8px;
+    height: 8px;
+  }
+
+  &.tooltipMessage {
+    color: $ui-alert;
+    font-size: $font-xs;
+    font-weight: 600;
+    align-items: start;
+
+    svg.icon {
+      margin-top: $spacing-xxxs;
+      color: $ui-alert;
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
