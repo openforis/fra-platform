@@ -245,7 +245,7 @@ export const areaWithForestLandDegradation = {
                     forceColName: true,
                     validateFns: {
                       '2025': [
-                        `validatorNotEmpty(table_2_5.agentName.agentOne, 
+                        `validatorNotEmpty(table_2_5.agentName.agentOne,
                     [table_2_5.forest_2020.agentOne, table_2_5.forest_2015.agentOne, table_2_5.forest_2010.agentOne, table_2_5.forest_2005.agentOne, table_2_5.forest_2000.agentOne, table_2_5.forest_1990.agentOne])`,
                       ],
                     },

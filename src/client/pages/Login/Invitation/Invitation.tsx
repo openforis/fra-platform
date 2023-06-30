@@ -11,12 +11,14 @@ import { UserRoles } from 'meta/user/userRoles'
 import { useAppDispatch } from 'client/store'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { useUser } from 'client/store/user'
+import Icon from 'client/components/Icon'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
+import { videoResources } from 'client/pages/Tutorials'
 import { Urls } from 'client/utils'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const navigate = useNavigate()
 
   const loggedUser = useUser()
@@ -164,9 +166,20 @@ const Invitation: React.FC = () => {
               </button>
             </>
           ) : (
-            <button className="btn" type="button" onClick={() => setIsLocal(true)}>
-              {t('login.acceptInvitationWithFra')}
-            </button>
+            <>
+              <button className="btn" type="button" onClick={() => setIsLocal(true)}>
+                {t('login.acceptInvitationWithFra')}
+              </button>
+
+              <a
+                className="btn-help"
+                href={videoResources[0].url[i18n.language] ?? videoResources[0].url.en}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <Icon name="video" className="icon-sub" /> {t(videoResources[0].labelKeyShort)}
+              </a>
+            </>
           )}
 
           <div className="divider" />
@@ -178,6 +191,15 @@ const Invitation: React.FC = () => {
             }&invitationUuid=${invitationUuid}`}
           >
             {t('login.acceptInvitationWithGoogle')}
+          </a>
+
+          <a
+            className="btn-help"
+            href={videoResources[1].url[i18n.language] ?? videoResources[1].url.en}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <Icon name="video" className="icon-sub" /> {t(videoResources[1].labelKeyShort)}
           </a>
         </div>
       )}

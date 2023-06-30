@@ -23,7 +23,7 @@ const getRole = (user: User, countryIso: CountryIso, cycle: Cycle): UserRole<Rol
   if (isAdministrator(user)) return user.roles[0]
 
   return user?.roles?.find(
-    (userRole: UserRole<any>) => userRole?.countryIso === countryIso && userRole?.cycleUuid === cycle.uuid
+    (userRole: UserRole<never>) => userRole?.countryIso === countryIso && userRole?.cycleUuid === cycle.uuid
   )
 }
 
@@ -86,16 +86,16 @@ export const validRole = (user: Partial<User>) => !Objects.isEmpty(user.roles)
 // const regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const regexEmail = /.+@.+/
 
-export const validEmail = (user: Partial<User>) => regexEmail.test(user.email)
+const validEmail = (user: Partial<User>) => regexEmail.test(user.email)
 
-export const validEmailField = (email: string) => regexEmail.test(email)
+const validEmailField = (email: string) => regexEmail.test(email)
 
-export const validateFields = (user: User) => ({
+const validateFields = (user: User) => ({
   email: validEmail(user),
   name: validName(user.props),
 })
 
-export const validate = (user: User) => {
+const validate = (user: User) => {
   const fields = validateFields(user)
   return {
     ...fields,
@@ -172,6 +172,8 @@ export const Users = {
 
   profilePictureUri,
   validProfilePicture,
+
+  // TODO: Move to UserValidator
   validName,
   validRole,
   validEmail,

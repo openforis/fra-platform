@@ -55,6 +55,7 @@ module.exports.translation = {
     scamAlert: '防欺诈警告',
     reportMisconduct: '报告不当行为',
     userGuide: '使用指南',
+    tutorials: '视频',
     sendFeedback: '发送反馈',
     licenses: '许可',
     platformVersion: '平台版本',
@@ -1110,6 +1111,18 @@ FRA工作组
     messageBoard: '留言板',
     messageBoardDesc: '此处发布的消息对所有本国家/地区的成员可见',
     oneToOneMessages: '一对一消息',
+  },
+
+  tutorial: {
+    watch: '观看',
+    passwordLogin: '全球森林资源评估平台用户教程 - 如何使用自定义密码登录',
+    googleLogin: '全球森林资源评估平台用户教程 - 如何使用Google邮箱验证登录',
+    collaboratorAdd: '全球森林资源评估平台用户教程 - 如何添加合作者',
+    platformNavigation: '全球森林资源评估平台用户教程 - 平台导航',
+    documentUpload: '全球森林资源评估平台用户教程 - 如何上传文档',
+    ndpAdd: '全球森林资源评估平台用户教程 - 如何添加国家数据点',
+    passwordLoginShort: '如何使用自定义密码登录',
+    googleLoginShort: '如何使用Google邮箱验证登录',
   },
 
   panEuropean: {

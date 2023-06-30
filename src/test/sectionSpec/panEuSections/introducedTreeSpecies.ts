@@ -194,6 +194,7 @@ export const introducedTreeSpecies = {
   sectionAnchor: '4.4a',
   tableSections: [
     {
+      titleKey: 'panEuropean.introducedTreeSpecies.introducedTreeSpeciesNumber',
       tableSpecs: [
         {
           name: 'table_4_4a',
@@ -657,7 +658,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.introducedTreeSpecies',
+      titleKey: 'panEuropean.introducedTreeSpecies.introducedTreeSpecies4_4bNumber',
       tableSpecs: [
         {
           name: 'table_4_4b',
@@ -1098,7 +1099,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.invasiveTreeSpecies',
+      titleKey: 'panEuropean.introducedTreeSpecies.invasiveTreeSpeciesNumber',
       tableSpecs: [
         {
           name: 'table_4_4c',

@@ -16,7 +16,7 @@ import useClassName from './hooks/useClassName'
 import useErrorMessages from './hooks/useErrorMessages'
 import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
-import EstimationMark from './EstimationMark'
+import Flags from './Flags'
 import Multiselect from './Multiselect'
 import Number from './Number'
 import Placeholder from './Placeholder'
@@ -113,9 +113,7 @@ const Cell: React.FC<Props> = (props) => {
     >
       {component}
 
-      {canEditData && nodeValue?.estimationUuid && (
-        <EstimationMark estimationUuid={nodeValue.estimationUuid} variableName={row.props.variableName} />
-      )}
+      <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />
     </td>
   )
 }

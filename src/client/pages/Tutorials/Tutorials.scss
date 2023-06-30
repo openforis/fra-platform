@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+.list-tutorial {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  grid-column-gap: $spacing-xs;
+  grid-row-gap: $spacing-xs;
+  margin-top: $spacing-m;
+  margin-bottom: $spacing-m;
+}
+
+.list-tutorial-separator {
+  grid-column: 1/4;
+  border-top: $ui-thin-border;
+}

@@ -6,16 +6,18 @@ import { ClientRoutes } from 'meta/app'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
+import { useAssessment } from 'client/store/assessment'
 import { useUserToEdit } from 'client/store/ui/userManagement/hooks'
 
 const ButtonContinue = () => {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
+  const assessment = useAssessment()
   const userToEdit = useUserToEdit()
   const { routeParams, userLastRole: _userLastRole } = location.state ?? {}
 
-  const userLastRole = UserRoles.getLastRole(userToEdit) ?? _userLastRole
+  const userLastRole = UserRoles.getLastRole({ assessment, user: userToEdit }) ?? _userLastRole
 
   const isPersonalInfoRequired = Users.isPersonalInfoRequired(userToEdit, userLastRole)
 

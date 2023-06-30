@@ -808,7 +808,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
   // Section 2
   forestAreaWithDamage,
   areaWithForestLandDegradation,
-  // Section 3git
+  // Section 3
   incrementAndFellings: {
     sectionName: 'incrementAndFellings',
     sectionAnchor: '3.1',
@@ -1339,34 +1339,10 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'header',
                   },
                   {
-                    idx: 1,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.reasonabilityChecks.forest',
-                    className: 'fra-table__header-cell-left',
-                    type: 'header',
-                  },
-                  {
                     idx: 2,
                     colSpan: 1,
                     rowSpan: 1,
                     labelKey: 'panEuropean.reasonabilityChecks.FAWS',
-                    className: 'fra-table__header-cell',
-                    type: 'header',
-                  },
-                  {
-                    idx: 3,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.reasonabilityChecks.OWL',
-                    className: 'fra-table__header-cell-left',
-                    type: 'header',
-                  },
-                  {
-                    idx: 4,
-                    colSpan: 1,
-                    rowSpan: 1,
-                    labelKey: 'panEuropean.reasonabilityChecks.FOWL',
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
@@ -1385,7 +1361,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1395,8 +1370,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2020.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1417,7 +1390,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1427,8 +1399,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2015.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1449,7 +1419,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1459,8 +1428,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2010.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1481,7 +1448,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1491,8 +1457,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2005.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1513,7 +1477,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1523,8 +1486,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_2000.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1545,7 +1506,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1555,8 +1515,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment / table_1_1a._of_which_available_for_wood_supply_1990.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1577,7 +1535,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1587,8 +1544,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total / table_1_1a._of_which_available_for_wood_supply_2020.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1609,7 +1564,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1619,8 +1573,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total / table_1_1a._of_which_available_for_wood_supply_2015.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1641,7 +1593,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1651,8 +1602,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total / table_1_1a._of_which_available_for_wood_supply_2010.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1673,7 +1622,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1683,8 +1631,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total / table_1_1a._of_which_available_for_wood_supply_2005.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1705,7 +1651,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1715,8 +1660,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total / table_1_1a._of_which_available_for_wood_supply_2000.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1737,7 +1680,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1747,8 +1689,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total / table_1_1a._of_which_available_for_wood_supply_1990.area',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1769,7 +1709,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1779,8 +1718,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1801,7 +1738,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1811,8 +1747,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1833,7 +1767,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1843,8 +1776,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1865,7 +1796,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1875,8 +1805,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1897,7 +1825,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1907,8 +1834,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1929,7 +1854,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -1939,8 +1863,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -3449,8 +3371,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                         'table_3_2._of_which_forest_available_for_wood_supply_2020.net_annual_increment / (table_1_2a._of_which_available_for_wood_supply_2020.total * 1000)',
                     },
                   },
-                  { idx: 2, type: 'placeholder' },
-                  { idx: 3, type: 'placeholder' },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -3471,7 +3391,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3503,7 +3422,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3535,7 +3453,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3567,7 +3484,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3599,7 +3515,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   {
                     idx: 1,
                     type: 'calculated',
@@ -3631,7 +3546,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3663,7 +3577,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3695,7 +3608,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3727,7 +3639,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     className: 'fra-table__header-cell',
                     type: 'header',
                   },
-                  { idx: 0, type: 'placeholder' },
                   { idx: 1, type: 'placeholder' },
                   { idx: 2, type: 'placeholder' },
                   {
@@ -3963,7 +3874,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
   },
   nonWoodGoods2015,
   marketedServices2015: {
-    sectionName: 'marketedServices2015',
+    sectionName: 'marketedServices',
     sectionAnchor: '3.4',
     tableSections: [
       {
@@ -5720,13 +5631,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.trees_2020['total_of_taxa'],
-                     [table_4_8.trees_2020['vulnerable'],table_4_8.trees_2020['endangered'],
-                      table_4_8.trees_2020['critically_endangered'],table_4_8.trees_2020['extinct_in_the_wild']])`,
-                    ],
-                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2020 },
@@ -5753,15 +5657,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.trees_2015['total_of_taxa'],
-                     [table_4_8.trees_2015['vulnerable'],table_4_8.trees_2015['endangered'],
-                      table_4_8.trees_2015['critically_endangered'],table_4_8.trees_2015['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2015 },
                 variableExport: 'trees_2015',
@@ -5787,15 +5682,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.trees_2010['total_of_taxa'],
-                     [table_4_8.trees_2010['vulnerable'],table_4_8.trees_2010['endangered'],
-                      table_4_8.trees_2010['critically_endangered'],table_4_8.trees_2010['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2010 },
                 variableExport: 'trees_2010',
@@ -5821,15 +5707,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.trees_2005['total_of_taxa'],
-                     [table_4_8.trees_2005['vulnerable'],table_4_8.trees_2005['endangered'],
-                      table_4_8.trees_2005['critically_endangered'],table_4_8.trees_2005['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2005 },
                 variableExport: 'trees_2005',
@@ -5855,15 +5732,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.trees_2000['total_of_taxa'],
-                     [table_4_8.trees_2000['vulnerable'],table_4_8.trees_2000['endangered'],
-                      table_4_8.trees_2000['critically_endangered'],table_4_8.trees_2000['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 2000 },
                 variableExport: 'trees_2000',
@@ -5889,15 +5757,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.trees_1990['total_of_taxa'],
-                     [table_4_8.trees_1990['vulnerable'],table_4_8.trees_1990['endangered'],
-                      table_4_8.trees_1990['critically_endangered'],table_4_8.trees_1990['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.trees',
                 labelParams: { year: 1990 },
                 variableExport: 'trees_1990',
@@ -5926,13 +5785,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.birds_2020['total_of_taxa'],
-                     [table_4_8.birds_2020['vulnerable'],table_4_8.birds_2020['endangered'],
-                      table_4_8.birds_2020['critically_endangered'],table_4_8.birds_2020['extinct_in_the_wild']])`,
-                    ],
-                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2020 },
@@ -5959,15 +5811,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.birds_2015['total_of_taxa'],
-                     [table_4_8.birds_2015['vulnerable'],table_4_8.birds_2015['endangered'],
-                      table_4_8.birds_2015['critically_endangered'],table_4_8.birds_2015['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2015 },
                 variableExport: 'birds_2015',
@@ -5993,15 +5836,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.birds_2010['total_of_taxa'],
-                     [table_4_8.birds_2010['vulnerable'],table_4_8.birds_2010['endangered'],
-                      table_4_8.birds_2010['critically_endangered'],table_4_8.birds_2010['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2010 },
                 variableExport: 'birds_2010',
@@ -6027,15 +5861,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.birds_2005['total_of_taxa'],
-                     [table_4_8.birds_2005['vulnerable'],table_4_8.birds_2005['endangered'],
-                      table_4_8.birds_2005['critically_endangered'],table_4_8.birds_2005['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2005 },
                 variableExport: 'birds_2005',
@@ -6061,15 +5886,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.birds_2000['total_of_taxa'],
-                     [table_4_8.birds_2000['vulnerable'],table_4_8.birds_2000['endangered'],
-                      table_4_8.birds_2000['critically_endangered'],table_4_8.birds_2000['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 2000 },
                 variableExport: 'birds_2000',
@@ -6095,15 +5911,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.birds_1990['total_of_taxa'],
-                     [table_4_8.birds_1990['vulnerable'],table_4_8.birds_1990['endangered'],
-                      table_4_8.birds_1990['critically_endangered'],table_4_8.birds_1990['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.birds',
                 labelParams: { year: 1990 },
                 variableExport: 'birds_1990',
@@ -6132,13 +5939,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.mammals_2020['total_of_taxa'],
-                     [table_4_8.mammals_2020['vulnerable'],table_4_8.mammals_2020['endangered'],
-                      table_4_8.mammals_2020['critically_endangered'],table_4_8.mammals_2020['extinct_in_the_wild']])`,
-                    ],
-                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2020 },
@@ -6165,15 +5965,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.mammals_2015['total_of_taxa'],
-                     [table_4_8.mammals_2015['vulnerable'],table_4_8.mammals_2015['endangered'],
-                      table_4_8.mammals_2015['critically_endangered'],table_4_8.mammals_2015['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2015 },
                 variableExport: 'mammals_2015',
@@ -6199,15 +5990,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.mammals_2010['total_of_taxa'],
-                     [table_4_8.mammals_2010['vulnerable'],table_4_8.mammals_2010['endangered'],
-                      table_4_8.mammals_2010['critically_endangered'],table_4_8.mammals_2010['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2010 },
                 variableExport: 'mammals_2010',
@@ -6233,15 +6015,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.mammals_2005['total_of_taxa'],
-                     [table_4_8.mammals_2005['vulnerable'],table_4_8.mammals_2005['endangered'],
-                      table_4_8.mammals_2005['critically_endangered'],table_4_8.mammals_2005['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2005 },
                 variableExport: 'mammals_2005',
@@ -6267,15 +6040,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.mammals_2000['total_of_taxa'],
-                     [table_4_8.mammals_2000['vulnerable'],table_4_8.mammals_2000['endangered'],
-                      table_4_8.mammals_2000['critically_endangered'],table_4_8.mammals_2000['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 2000 },
                 variableExport: 'mammals_2000',
@@ -6301,15 +6065,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.mammals_1990['total_of_taxa'],
-                     [table_4_8.mammals_1990['vulnerable'],table_4_8.mammals_1990['endangered'],
-                      table_4_8.mammals_1990['critically_endangered'],table_4_8.mammals_1990['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.mammals',
                 labelParams: { year: 1990 },
                 variableExport: 'mammals_1990',
@@ -6338,13 +6093,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.other_vertebrates_2020['total_of_taxa'],
-                     [table_4_8.other_vertebrates_2020['vulnerable'],table_4_8.other_vertebrates_2020['endangered'],
-                      table_4_8.other_vertebrates_2020['critically_endangered'],table_4_8.other_vertebrates_2020['extinct_in_the_wild']])`,
-                    ],
-                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2020 },
@@ -6371,15 +6119,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.other_vertebrates_2015['total_of_taxa'],
-                     [table_4_8.other_vertebrates_2015['vulnerable'],table_4_8.other_vertebrates_2015['endangered'],
-                      table_4_8.other_vertebrates_2015['critically_endangered'],table_4_8.other_vertebrates_2015['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2015 },
                 variableExport: 'other_vertebrates_2015',
@@ -6405,15 +6144,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.other_vertebrates_2010['total_of_taxa'],
-                     [table_4_8.other_vertebrates_2010['vulnerable'],table_4_8.other_vertebrates_2010['endangered'],
-                      table_4_8.other_vertebrates_2010['critically_endangered'],table_4_8.other_vertebrates_2010['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2010 },
                 variableExport: 'other_vertebrates_2010',
@@ -6439,15 +6169,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.other_vertebrates_2005['total_of_taxa'],
-                     [table_4_8.other_vertebrates_2005['vulnerable'],table_4_8.other_vertebrates_2005['endangered'],
-                      table_4_8.other_vertebrates_2005['critically_endangered'],table_4_8.other_vertebrates_2005['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2005 },
                 variableExport: 'other_vertebrates_2005',
@@ -6473,15 +6194,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.other_vertebrates_2000['total_of_taxa'],
-                     [table_4_8.other_vertebrates_2000['vulnerable'],table_4_8.other_vertebrates_2000['endangered'],
-                      table_4_8.other_vertebrates_2000['critically_endangered'],table_4_8.other_vertebrates_2000['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 2000 },
                 variableExport: 'other_vertebrates_2000',
@@ -6507,15 +6219,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.other_vertebrates_1990['total_of_taxa'],
-                     [table_4_8.other_vertebrates_1990['vulnerable'],table_4_8.other_vertebrates_1990['endangered'],
-                      table_4_8.other_vertebrates_1990['critically_endangered'],table_4_8.other_vertebrates_1990['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.other_vertebrates',
                 labelParams: { year: 1990 },
                 variableExport: 'other_vertebrates_1990',
@@ -6544,13 +6247,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.invertebrates_2020['total_of_taxa'],
-                     [table_4_8.invertebrates_2020['vulnerable'],table_4_8.invertebrates_2020['endangered'],
-                      table_4_8.invertebrates_2020['critically_endangered'],table_4_8.invertebrates_2020['extinct_in_the_wild']])`,
-                    ],
-                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2020 },
@@ -6577,15 +6273,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.invertebrates_2015['total_of_taxa'],
-                     [table_4_8.invertebrates_2015['vulnerable'],table_4_8.invertebrates_2015['endangered'],
-                      table_4_8.invertebrates_2015['critically_endangered'],table_4_8.invertebrates_2015['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2015 },
                 variableExport: 'invertebrates_2015',
@@ -6611,15 +6298,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.invertebrates_2010['total_of_taxa'],
-                     [table_4_8.invertebrates_2010['vulnerable'],table_4_8.invertebrates_2010['endangered'],
-                      table_4_8.invertebrates_2010['critically_endangered'],table_4_8.invertebrates_2010['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2010 },
                 variableExport: 'invertebrates_2010',
@@ -6647,15 +6325,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2005 },
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.invertebrates_2005['total_of_taxa'],
-                     [table_4_8.invertebrates_2005['vulnerable'],table_4_8.invertebrates_2005['endangered'],
-                      table_4_8.invertebrates_2005['critically_endangered'],table_4_8.invertebrates_2005['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 variableExport: 'invertebrates_2005',
               },
               {
@@ -6681,15 +6350,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 2000 },
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.invertebrates_2000['total_of_taxa'],
-                     [table_4_8.invertebrates_2000['vulnerable'],table_4_8.invertebrates_2000['endangered'],
-                      table_4_8.invertebrates_2000['critically_endangered'],table_4_8.invertebrates_2000['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 variableExport: 'invertebrates_2000',
               },
               {
@@ -6713,15 +6373,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.invertebrates_1990['total_of_taxa'],
-                     [table_4_8.invertebrates_1990['vulnerable'],table_4_8.invertebrates_1990['endangered'],
-                      table_4_8.invertebrates_1990['critically_endangered'],table_4_8.invertebrates_1990['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.invertebrates',
                 labelParams: { year: 1990 },
                 variableExport: 'invertebrates_1990',
@@ -6750,13 +6401,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.vascular_plants_2020['total_of_taxa'],
-                     [table_4_8.vascular_plants_2020['vulnerable'],table_4_8.vascular_plants_2020['endangered'],
-                      table_4_8.vascular_plants_2020['critically_endangered'],table_4_8.vascular_plants_2020['extinct_in_the_wild']])`,
-                    ],
-                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2020 },
@@ -6783,15 +6427,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.vascular_plants_2015['total_of_taxa'],
-                     [table_4_8.vascular_plants_2015['vulnerable'],table_4_8.vascular_plants_2015['endangered'],
-                      table_4_8.vascular_plants_2015['critically_endangered'],table_4_8.vascular_plants_2015['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2015 },
                 variableExport: 'vascular_plants_2015',
@@ -6817,15 +6452,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.vascular_plants_2010['total_of_taxa'],
-                     [table_4_8.vascular_plants_2010['vulnerable'],table_4_8.vascular_plants_2010['endangered'],
-                      table_4_8.vascular_plants_2010['critically_endangered'],table_4_8.vascular_plants_2010['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2010 },
                 variableExport: 'vascular_plants_2010',
@@ -6853,15 +6479,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2005 },
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.vascular_plants_2005['total_of_taxa'],
-                     [table_4_8.vascular_plants_2005['vulnerable'],table_4_8.vascular_plants_2005['endangered'],
-                      table_4_8.vascular_plants_2005['critically_endangered'],table_4_8.vascular_plants_2005['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 variableExport: 'vascular_plants_2005',
               },
               {
@@ -6887,15 +6504,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 2000 },
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.vascular_plants_2000['total_of_taxa'],
-                     [table_4_8.vascular_plants_2000['vulnerable'],table_4_8.vascular_plants_2000['endangered'],
-                      table_4_8.vascular_plants_2000['critically_endangered'],table_4_8.vascular_plants_2000['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 variableExport: 'vascular_plants_2000',
               },
               {
@@ -6919,15 +6527,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.vascular_plants_1990['total_of_taxa'],
-                     [table_4_8.vascular_plants_1990['vulnerable'],table_4_8.vascular_plants_1990['endangered'],
-                      table_4_8.vascular_plants_1990['critically_endangered'],table_4_8.vascular_plants_1990['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.vascular_plants',
                 labelParams: { year: 1990 },
                 variableExport: 'vascular_plants_1990',
@@ -6956,13 +6555,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                 ],
                 migration: {
                   cycles: ['2025'],
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2020['total_of_taxa'],
-                     [table_4_8.cryptogams_and_fungi_2020['vulnerable'],table_4_8.cryptogams_and_fungi_2020['endangered'],
-                      table_4_8.cryptogams_and_fungi_2020['critically_endangered'],table_4_8.cryptogams_and_fungi_2020['extinct_in_the_wild']])`,
-                    ],
-                  },
                 },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2020 },
@@ -6989,15 +6581,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2015['total_of_taxa'],
-                     [table_4_8.cryptogams_and_fungi_2015['vulnerable'],table_4_8.cryptogams_and_fungi_2015['endangered'],
-                      table_4_8.cryptogams_and_fungi_2015['critically_endangered'],table_4_8.cryptogams_and_fungi_2015['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2015 },
                 variableExport: 'cryptogams_and_fungi_2015',
@@ -7023,15 +6606,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2010['total_of_taxa'],
-                     [table_4_8.cryptogams_and_fungi_2010['vulnerable'],table_4_8.cryptogams_and_fungi_2010['endangered'],
-                      table_4_8.cryptogams_and_fungi_2010['critically_endangered'],table_4_8.cryptogams_and_fungi_2010['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2010 },
                 variableExport: 'cryptogams_and_fungi_2010',
@@ -7057,15 +6631,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2005['total_of_taxa'],
-                     [table_4_8.cryptogams_and_fungi_2005['vulnerable'],table_4_8.cryptogams_and_fungi_2005['endangered'],
-                      table_4_8.cryptogams_and_fungi_2005['critically_endangered'],table_4_8.cryptogams_and_fungi_2005['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2005 },
                 variableExport: 'cryptogams_and_fungi_2005',
@@ -7091,15 +6656,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_2000['total_of_taxa'],
-                     [table_4_8.cryptogams_and_fungi_2000['vulnerable'],table_4_8.cryptogams_and_fungi_2000['endangered'],
-                      table_4_8.cryptogams_and_fungi_2000['critically_endangered'],table_4_8.cryptogams_and_fungi_2000['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 2000 },
                 variableExport: 'cryptogams_and_fungi_2000',
@@ -7125,15 +6681,6 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                   { idx: 3, type: 'decimal' },
                   { idx: 4, type: 'decimal' },
                 ],
-                migration: {
-                  validateFns: {
-                    '2025': [
-                      `validatorEqualToSum(table_4_8.cryptogams_and_fungi_1990['total_of_taxa'],
-                     [table_4_8.cryptogams_and_fungi_1990['vulnerable'],table_4_8.cryptogams_and_fungi_1990['endangered'],
-                      table_4_8.cryptogams_and_fungi_1990['critically_endangered'],table_4_8.cryptogams_and_fungi_1990['extinct_in_the_wild']])`,
-                    ],
-                  },
-                },
                 labelKey: 'panEuropean.threatenedForestSpecies.cryptogams_and_fungi',
                 labelParams: { year: 1990 },
                 variableExport: 'cryptogams_and_fungi_1990',

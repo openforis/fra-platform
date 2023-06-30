@@ -90,7 +90,7 @@ const linkedDataCols = (variableName) =>
   }))
 
 export const nonWoodGoods2015 = {
-  sectionName: 'nonWoodGoods2015',
+  sectionName: 'nonWoodGoods',
   sectionAnchor: '3.3',
   tableSections: [
     {
