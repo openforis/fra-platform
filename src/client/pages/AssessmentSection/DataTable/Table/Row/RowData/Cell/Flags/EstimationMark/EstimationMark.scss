@@ -1,15 +1,14 @@
 @import 'src/client/style/partials';
 
 .data-cell__flag-estimate {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-column-gap: 2px;
+  display: flex;
   align-items: center;
 
   svg.icon {
     color: $ui-alert;
     width: 8px;
     height: 8px;
+    margin-right: 2px;
   }
 
   &.tooltipMessage {
