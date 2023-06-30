@@ -1021,6 +1021,8 @@ El equipo de FRA
     },
   },
 
+  editUser,
+
   country: {
     region: {
       asia: 'Asia',
