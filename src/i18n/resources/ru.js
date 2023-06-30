@@ -1,4 +1,5 @@
 const area = require('./ru/area')
+const assessmentSection = require('./ru/assessmentSection')
 const common = require('./ru/common')
 const dataDownload = require('./ru/dataDownload')
 const dataSource = require('./ru/dataSource')
@@ -13,19 +14,16 @@ module.exports.translation = {
   area,
   common,
   contentCheck,
-  dataSource,
   dataDownload,
+  dataSource,
   fra,
-  statisticalFactsheets,
   login,
-  uc,
   print,
+  statisticalFactsheets,
+  uc,
 
   page: {
-    assessmentSection: {
-      dataTableHasErrors:
-        'Данные таблицы содержат ошибки. Наведите курсор на красную ячейку, чтобы посмотреть подробности.',
-    },
+    assessmentSection,
   },
 
   language: {
@@ -434,7 +432,7 @@ module.exports.translation = {
 
   nationalDataPoint: {
     clickOnNDP: 'Нажмите на год, чтобы получить доступ к исходным данным',
-    nationalDataPoint: 'Национальный отчетный год',
+    nationalDataPoint: 'Национальная точка данных',
     addNationalDataPoint: 'Добавить национальный отчетный год',
     noNationalDataAdded: 'Национальные данные не добавлены',
     nationalData: 'Национальные данные',

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 import { AssessmentName, CycleName, TableNames } from 'meta/assessment'
@@ -11,7 +12,8 @@ import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
-import { getOriginalDataPointData } from './actions/getOriginalDataPointData'
+import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
+import { getODPTableData } from './actions/getODPTableData'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
 import { updateDescription } from './actions/updateDescription'
@@ -24,8 +26,9 @@ const baseState: DataBaseState = {
 }
 
 const initialState: DataState = {
-  tableData: {},
   nodeValuesEstimations: {},
+  odpLastUpdatedTimestamp: {},
+  tableData: {},
 }
 
 export const dataSlice = createSlice({
@@ -136,7 +139,7 @@ export const dataSlice = createSlice({
     })
 
     builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {
-      state.nodeValuesEstimations = payload
+      state.nodeValuesEstimations = { ...state.nodeValuesEstimations, ...payload }
     })
 
     builder.addCase(postEstimate.fulfilled, (state, { payload }) => {
@@ -161,10 +164,20 @@ export const dataSlice = createSlice({
       })
     })
 
-    builder.addCase(getOriginalDataPointData.fulfilled, (state, { payload }) => {
+    builder.addCase(getODPTableData.fulfilled, (state, { payload }) => {
       state.tableData = RecordAssessmentDatas.mergeData({
         tableData: state.tableData,
         newTableData: payload,
+      })
+    })
+
+    builder.addCase(getODPLastUpdatedTimestamp.fulfilled, (state, { payload }) => {
+      const { assessmentName, countryIso, cycleName, time } = payload
+
+      Objects.setInPath({
+        obj: state.odpLastUpdatedTimestamp,
+        path: [assessmentName, cycleName, countryIso],
+        value: { time },
       })
     })
 
@@ -209,8 +222,9 @@ export const DataActions = {
   updateNodeValues,
   getNodeValuesEstimations,
 
-  // Original Data Point Table data
-  getOriginalDataPointData,
+  // Original Data Point
+  getODPLastUpdatedTimestamp,
+  getODPTableData,
 
   // Estimations
   postEstimate,

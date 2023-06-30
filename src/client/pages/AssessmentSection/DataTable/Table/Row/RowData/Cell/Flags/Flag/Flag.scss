@@ -4,8 +4,10 @@
   border: 1px solid $ui-border-dark;
   min-width: 14px;
   height: 14px;
+  padding: 0 2px;
   font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }

@@ -5,6 +5,8 @@ import {
   differenceInMonths,
   differenceInWeeks,
   format,
+  isAfter,
+  isBefore,
   parseISO,
 } from 'date-fns'
 
@@ -24,6 +26,9 @@ export const getRelativeDate = (rawDate: any, i18n: any) => {
 
 export const Dates = {
   addMonths,
+  isAfter,
+  isBefore,
   format,
   getRelativeDate,
+  parseISO,
 }

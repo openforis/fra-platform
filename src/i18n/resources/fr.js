@@ -1,4 +1,5 @@
 const area = require('./fr/area')
+const assessmentSection = require('./fr/assessmentSection')
 const common = require('./fr/common')
 const contentCheck = require('./fr/contentCheck')
 const dataDownload = require('./fr/dataDownload')
@@ -15,9 +16,13 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
-  statisticalFactsheets,
   login,
+  statisticalFactsheets,
   uc,
+
+  page: {
+    assessmentSection,
+  },
 
   language: {
     en: 'English',
@@ -28,12 +33,6 @@ module.exports.translation = {
     zh: '中文',
   },
 
-  page: {
-    assessmentSection: {
-      dataTableHasErrors:
-        'Le tableau contient des erreurs. Placer votre souris sur les cellules rouges pour voir le détail.',
-    },
-  },
   home: {
     keyFindings: `Le monde compte une superficie forestière totale de 4,06 milliards d'hectares
 (ha), ce qui correspond à 31 pour cent de la superficie totale des terres. Cela

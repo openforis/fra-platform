@@ -30,6 +30,7 @@ const generateSpecToEstimation = (props: { generateSpec: GenerateSpec }): NodeVa
   }, {})
 
   return {
+    createdAt: '',
     method: generateSpec.method as NodeValueEstimationMethod,
     uuid: UUIDs.v4(),
     tableUuid: 'fake-table-uuid',

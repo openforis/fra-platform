@@ -37,9 +37,8 @@ export const ApiEndPoint = {
 
     OriginalDataPoint: {
       one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
-
-      // Used for print view
       many: () => apiPath('cycle-data', 'original-data-points'),
+      lastUpdatedTimestamp: () => apiPath('cycle-data', 'original-data-points', 'last-updated-timestamp'),
 
       // Table Data (1a, 1b)
       data: () => apiPath('cycle-data', 'original-data-points', 'data'),

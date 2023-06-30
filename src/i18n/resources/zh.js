@@ -1,4 +1,5 @@
 const area = require('./zh/area')
+const assessmentSection = require('./zh/assessmentSection')
 const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
@@ -16,10 +17,14 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
-  statisticalFactsheets,
   login,
-  uc,
   print,
+  statisticalFactsheets,
+  uc,
+
+  page: {
+    assessmentSection,
+  },
 
   language: {
     en: 'English',
@@ -2015,12 +2020,6 @@ FRA工作组
       no18_area_available_for_public_recreation: '可供公众休闲的面积 18',
       no19_area_available_for_public_recreation: '可供公众休闲的面积 19',
       no20_area_available_for_public_recreation: '可供公众休闲的面积 20',
-    },
-  },
-
-  page: {
-    assessmentSection: {
-      dataTableHasErrors: '表格数据包含错误,将鼠标悬停在红色单元格上以查看详细信息。',
     },
   },
 }
