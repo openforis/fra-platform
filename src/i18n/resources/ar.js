@@ -1,4 +1,5 @@
 const area = require('./ar/area')
+const assessmentSection = require('./ar/assessmentSection')
 const common = require('./ar/common')
 const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
@@ -14,12 +15,16 @@ module.exports.translation = {
   common,
   contentCheck,
   dataDownload,
-  fra,
-  statisticalFactsheets,
-  login,
-  uc,
   dataSource,
+  fra,
+  login,
   print,
+  statisticalFactsheets,
+  uc,
+
+  page: {
+    assessmentSection,
+  },
 
   anchors: {
     fra: {
@@ -44,12 +49,6 @@ module.exports.translation = {
         '6a': 'ا) 6',
         '6b': 'ب) 6',
       },
-    },
-  },
-
-  page: {
-    assessmentSection: {
-      dataTableHasErrors: 'بيانات الجدول تحتوي على أخطاء. يُرجى التمرير فوق الخلية الحمراء للاطلاع على التفاصيل.',
     },
   },
 
