@@ -83,7 +83,6 @@ export const assessmentNotifyUsers = async (props: {
     countryIso,
     cycle,
   } = props
-
   const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status })
 
   const emailPromises = recipients.map(async (recipient: User) => {
