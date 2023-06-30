@@ -172,11 +172,11 @@ export const dataSlice = createSlice({
     })
 
     builder.addCase(getODPLastUpdatedTimestamp.fulfilled, (state, { payload }) => {
-      const { assessmentName, countryIso, cycleName, sectionName, time } = payload
+      const { assessmentName, countryIso, cycleName, time } = payload
 
       Objects.setInPath({
         obj: state.odpLastUpdatedTimestamp,
-        path: [assessmentName, cycleName, countryIso, sectionName],
+        path: [assessmentName, cycleName, countryIso],
         value: { time },
       })
     })

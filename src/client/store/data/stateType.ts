@@ -14,10 +14,7 @@ export interface DataBaseState {
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
 }
 
-type ODPLastUpdatedTimestampState = Record<
-  AssessmentName,
-  Record<CycleName, Record<CountryIso, Record<SectionName, { time?: string }>>>
->
+type ODPLastUpdatedTimestampState = Record<AssessmentName, Record<CycleName, Record<CountryIso, { time?: string }>>>
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
