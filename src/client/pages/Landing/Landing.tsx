@@ -13,7 +13,7 @@ const Landing: React.FC = () => {
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const user = useUser()
-  const userLastRole = UserRoles.getLastRole(user)
+  const userLastRole = UserRoles.getLastRole({ assessment, user })
 
   const cycle = useCycle(userLastRole?.cycleUuid)
 

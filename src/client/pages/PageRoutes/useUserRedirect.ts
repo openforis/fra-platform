@@ -10,9 +10,9 @@ import { useUser } from 'client/store/user'
 
 export const useUserRedirect = (): void => {
   const isAppInitialized = useIsAppInitialized()
-  const user = useUser()
-  const userLastRole = UserRoles.getLastRole(user)
   const assessment = useAssessment()
+  const user = useUser()
+  const userLastRole = UserRoles.getLastRole({ assessment, user })
   const cycle = useCycle(userLastRole?.cycleUuid)
   const countryIso = userLastRole?.countryIso
   const navigate = useNavigate()
