@@ -1,4 +1,5 @@
 const area = require('./es/area')
+const assessmentSection = require('./es/assessmentSection')
 const common = require('./es/common')
 const dataDownload = require('./es/dataDownload')
 const fra = require('./es/fra')
@@ -12,16 +13,19 @@ const editUser = require('./es/editUser')
 
 module.exports.translation = {
   area,
-  contentCheck,
-  editUser,
   common,
+  contentCheck,
   dataDownload,
   dataSource,
   fra,
-  statisticalFactsheets,
   login,
-  uc,
   print,
+  statisticalFactsheets,
+  uc,
+
+  page: {
+    assessmentSection,
+  },
 
   language: {
     en: 'English',
@@ -1054,12 +1058,5 @@ El equipo de FRA
     ndpAdd: 'Manual de usuario de la plataforma FRA - Cómo añadir un punto de dato nacional',
     passwordLoginShort: 'Cómo iniciar sesión con una contraseña autodefinida',
     googleLoginShort: 'Cómo iniciar sesión utilizando la autenticación de Google',
-  },
-
-  page: {
-    assessmentSection: {
-      dataTableHasErrors:
-        'Los datos de la tabla contienen errores. Pase el ratón sobre la celda roja para ver los detalles.',
-    },
   },
 }
