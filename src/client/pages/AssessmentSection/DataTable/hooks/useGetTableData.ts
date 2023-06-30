@@ -96,11 +96,13 @@ export const useGetTableData = (props: Props) => {
         dispatch(DataActions.getTableData(getTableDataProps))
       })
       if (odp) {
-        dispatch(DataActions.getOriginalDataPointData({ assessmentName, countryIso, cycleName }))
-        if (canEdit)
+        dispatch(DataActions.getODPTableData({ assessmentName, countryIso, cycleName }))
+        if (canEdit) {
           dispatch(
             DataActions.getNodeValuesEstimations({ assessmentName, countryIso, cycleName, tableName, sectionName })
           )
+          dispatch(DataActions.getODPLastUpdatedTimestamp({ assessmentName, countryIso, cycleName, sectionName }))
+        }
       }
     })
   }, [assessmentName, countryIso, cycleName, dispatch, odp, sectionName, tableName, dependencies, canEdit])
