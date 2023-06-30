@@ -28,7 +28,7 @@ export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<
           and e.country_iso = $2
         order by e.id desc
       )
-      select e.uuid, e.country_iso, e.table_uuid, e.method, e.variables
+      select e.uuid, e.country_iso, e.table_uuid, e.method, e.variables, e.created_at
       from ${schemaCycle}.node_values_estimation e
       where e.uuid in (select r.uuid from estimations_ranked r where r.row_number = 1);
     `,

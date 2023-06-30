@@ -259,6 +259,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
               constraint node_values_estimation_table_fk
                   references ${assessmentSchemaName}."table" (uuid)
                   on update cascade on delete cascade,
+          created_at  timestamp with time zone default now() not null,        
           method      varchar(255)                    not null,
           variables   jsonb                           not null,
           unique (uuid)

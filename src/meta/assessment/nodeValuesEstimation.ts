@@ -11,6 +11,7 @@ export type NodeValuesEstimationVariableOptions = {
 }
 
 export type NodeValuesEstimation = {
+  createdAt: string
   method: NodeValueEstimationMethod
   uuid: string
   variables: Record<VariableName, NodeValuesEstimationVariableOptions>
