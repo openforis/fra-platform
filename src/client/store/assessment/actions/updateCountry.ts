@@ -14,19 +14,24 @@ export const updateCountry = createAsyncThunk<
     cycleName: string
     message?: string
     notifyUsers?: boolean
+    direction?: 'next' | 'previous'
   }
->('assessment/post/country', async ({ country, countryIso, assessmentName, cycleName, notifyUsers, message }) => {
-  const { data } = await axios.post(
-    ApiEndPoint.Area.country(),
-    { country, message },
-    {
-      params: {
-        assessmentName,
-        countryIso,
-        cycleName,
-        notifyUsers,
-      },
-    }
-  )
-  return data
-})
+>(
+  'assessment/post/country',
+  async ({ country, countryIso, assessmentName, cycleName, message, notifyUsers, direction }) => {
+    const { data } = await axios.post(
+      ApiEndPoint.Area.country(),
+      { country, message },
+      {
+        params: {
+          assessmentName,
+          countryIso,
+          cycleName,
+          notifyUsers,
+          direction,
+        },
+      }
+    )
+    return data
+  }
+)

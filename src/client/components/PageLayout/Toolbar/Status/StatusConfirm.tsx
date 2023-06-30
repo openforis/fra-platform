@@ -92,6 +92,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
                 cycleName,
                 assessmentName,
                 message: textareaValue,
+                direction: status.direction,
               })
             )
             onClose()

@@ -5,6 +5,8 @@ import { AssessmentStatus } from 'meta/area/country'
 import { Assessment } from 'meta/assessment'
 import { User } from 'meta/user/user'
 
+import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
+
 import { RoleName, UserRole } from './userRole'
 
 export const isInvitationExpired = (userRole: UserRole<RoleName>, expiryPeriod?: number) =>
@@ -13,11 +15,18 @@ export const isInvitationExpired = (userRole: UserRole<RoleName>, expiryPeriod?:
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
 // Return roles to receive email on country assessment status change
-const getRecipientRoles = (props: { status: AssessmentStatus }) => {
+const getRecipientRoles = (props: { status: StatusTransition }) => {
   const { status } = props
 
-  switch (status) {
+  switch (status.status) {
     case AssessmentStatus.editing:
+      if (status.direction === 'previous')
+        return [
+          RoleName.COLLABORATOR,
+          RoleName.REVIEWER,
+          RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+          RoleName.NATIONAL_CORRESPONDENT,
+        ]
       return [RoleName.NATIONAL_CORRESPONDENT]
     case AssessmentStatus.review:
       return [RoleName.REVIEWER]

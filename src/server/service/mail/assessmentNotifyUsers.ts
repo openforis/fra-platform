@@ -7,6 +7,8 @@ import { AssessmentName, Cycle } from 'meta/assessment'
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
+import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
+
 import { UserRepository } from 'server/repository/public/user'
 
 import { sendMail } from './mail'
@@ -59,7 +61,7 @@ const getCountryUsers = async (props: {
   return UserRepository.readCountryUsersByRole({ countryISOs, cycle, roles })
 }
 
-const getRecipients = async (props: { countryISOs: Array<CountryIso>; cycle: Cycle; status: AssessmentStatus }) => {
+const getRecipients = async (props: { countryISOs: Array<CountryIso>; cycle: Cycle; status: StatusTransition }) => {
   const { countryISOs, status, cycle } = props
   const roles = UserRoles.getRecipientRoles({ status })
   return getCountryUsers({ cycle, countryISOs, roles })
@@ -72,6 +74,7 @@ export const assessmentNotifyUsers = async (props: {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycle: Cycle
+  direction: 'next' | 'previous'
 }) => {
   const {
     user,
@@ -82,8 +85,14 @@ export const assessmentNotifyUsers = async (props: {
     assessmentName,
     countryIso,
     cycle,
+    direction,
   } = props
-  const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status })
+
+  const recipients = await getRecipients({
+    cycle,
+    countryISOs: [countryIso],
+    status: { status, direction } as StatusTransition,
+  })
 
   const emailPromises = recipients.map(async (recipient: User) => {
     return createMail({

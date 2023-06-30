@@ -9,11 +9,11 @@ import { MailService } from 'server/service'
 import Requests from 'server/utils/requests'
 
 export const postCountry = async (
-  req: CycleRequest<{ notifyUsers: string }, { country: Country; message: string }>,
+  req: CycleRequest<{ notifyUsers: string; direction?: 'next' | 'previous' }, { country: Country; message: string }>,
   res: Response
 ) => {
   try {
-    const { countryIso, assessmentName, cycleName, notifyUsers } = req.query
+    const { countryIso, assessmentName, cycleName, notifyUsers, direction } = req.query
 
     const { country, message } = req.body
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
@@ -26,7 +26,7 @@ export const postCountry = async (
       user: Requests.getUser(req),
     })
 
-    if (notifyUsers === 'true') {
+    if (notifyUsers === 'true' && direction) {
       await MailService.assessmentNotifyUsers({
         user: Requests.getUser(req),
         countryIso,
@@ -34,6 +34,7 @@ export const postCountry = async (
         country,
         cycle,
         message,
+        direction,
       })
     }
 
