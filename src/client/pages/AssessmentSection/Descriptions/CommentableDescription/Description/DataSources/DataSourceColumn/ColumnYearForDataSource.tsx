@@ -44,13 +44,7 @@ const ColumnVariable: React.FC<Props> = (props: Props) => {
         'validation-error': validationError,
       })}
     >
-      <Autocomplete
-        readOnlyOptions
-        disabled={disabled}
-        onSave={_onChange}
-        value={dataSourceValue.year}
-        items={columns}
-      />
+      <Autocomplete disabled={disabled} onSave={_onChange} value={dataSourceValue.year} items={columns} />
     </DataColumn>
   )
 }
