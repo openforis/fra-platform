@@ -28,7 +28,7 @@ module.exports.translation = {
 
   anchors: {
     fra: {
-      2025: {
+      '2025': {
         '1a': 'ا) 1',
         '1b': 'ب) 1',
         '1c': 'ج) 1',
@@ -737,7 +737,7 @@ The FRA team
     totalTableHeader: 'إجمالي مخزون الأشجار الحية (مليون م3 مع اللحاء)',
     naturallyRegeneratingForest: 'غابة متجددة طبيعياً',
     plantedForest: 'الغابات المزروعة',
-    plantationForest: '...منها غابة مزروعة',
+    plantationForest: '...منها غابة اصطناعيه',
     otherPlantedForest: '...منها غابة مزروعة أخرى',
     forest: 'غابة',
     otherWoodedLand: 'أرض حرجية أخرى',
@@ -849,7 +849,7 @@ The FRA team
     areaUnitLabel: 'المساحة (1000 هـ)',
     insects: 'حشرات',
     diseases: 'أمراض',
-    severeWeatherEvents: 'فعاليات طقس شديدة',
+    severeWeatherEvents: 'الظواهر الجوية القاسية',
     other: 'غير ذلك (حددها في التعليقات)',
     totalForestArea: 'إجمالي مساحة الغابة',
     total: 'الإجمالي',
@@ -859,7 +859,7 @@ The FRA team
     areaAffectedByFire: 'المساحة المتضررة بالحرائق',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
     areaUnitLabel: 'المساحة (1000 هـ)',
-    totalLandAreaAffectedByFire: 'إجمالي مساحة الأراضي المتأثرة بالحرائق',
+    totalLandAreaAffectedByFire: 'إجمالي مساحة الاراضي المتضررة بالحرائق',
     ofWhichForest: '...منها في الغابات',
   },
 
