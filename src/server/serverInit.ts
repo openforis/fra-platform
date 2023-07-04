@@ -60,8 +60,7 @@ export const serverInit = () => {
   const httpServer = createServer(app)
 
   SocketServer.init(httpServer)
-  // console.log('=== port ', ProcessEnv.port)
-  // httpServer.li
+
   httpServer.listen(ProcessEnv.port, () => {
     Logger.info(`FRA Platform server listening on port ${process.env.PORT}  with pid: ${process.pid}`)
   })
