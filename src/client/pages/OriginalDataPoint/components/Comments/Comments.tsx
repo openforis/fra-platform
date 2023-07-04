@@ -1,12 +1,13 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-// import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { Topics } from 'meta/messageCenter'
 
-// import { useCountryIso } from 'client/hooks'
-// import { useTranslation } from 'react-i18next'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import ReviewIndicator from 'client/components/ReviewIndicator'
+
 import { useNationalClassNameComments } from '../../hooks'
 import CommentsEditor from './CommentsEditor'
 
@@ -18,8 +19,7 @@ const Comments: React.FC<Props> = (props) => {
   const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  // const { i18n } = useTranslation()
-  // const countryIso = useCountryIso()
+  const { t } = useTranslation()
   const target = [`${originalDataPoint.id}`, 'comments']
   const className = useNationalClassNameComments(target)
 
@@ -31,14 +31,14 @@ const Comments: React.FC<Props> = (props) => {
         </div>
 
         <div className="fra-description__review-indicator-wrapper">
-          {/* {originalDataPoint.odpId && canEditData && ( */}
-          {/*  // <ReviewIndicator */}
-          {/*  //   section="odp" */}
-          {/*  //   title={i18n.t('nationalDataPoint.nationalDataPoint')} */}
-          {/*  //   target={target} */}
-          {/*  //   countryIso={countryIso} */}
-          {/*  // /> */}
-          {/* // )} */}
+          {originalDataPoint.id && canEditData && (
+            <td className="fra-table__review-cell no-print">
+              <ReviewIndicator
+                title={t('nationalDataPoint.nationalDataPoint')}
+                topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'nationalDataPointComments')}
+              />
+            </td>
+          )}
         </div>
       </div>
     </div>
