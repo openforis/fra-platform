@@ -25,7 +25,7 @@ const init = (server: http.Server): void => {
     Logger.error(
       `WebSocket Server error. req: ${JSON.stringify(err.req)}. code: ${err.code}. message: ${
         err.message
-      }. context:${JSON.stringify(context)}`
+      }. context:${JSON.stringify(err.context)}`
     )
   })
 }
