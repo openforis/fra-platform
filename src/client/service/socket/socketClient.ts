@@ -21,7 +21,11 @@ const open = () => {
   //   throwErrorFn(error)
   //   closeSocket()
   // }
-  socket = io(window.location.origin)
+  socket = io(window.location.origin, {
+    // @ts-ignore
+    secure: !__DEV__,
+    transports: ['websocket', 'polling'],
+  })
 
   // on(WebSocketEvents.connectError, (error) => throwError(error.stack))
   // on(WebSocketEvents.error, throwError)

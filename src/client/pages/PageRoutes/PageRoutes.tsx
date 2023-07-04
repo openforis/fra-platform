@@ -38,10 +38,12 @@ const PageRoutes: React.FC = () => {
   useEffect(() => {
     if (isAppInitialized) {
       SocketClient.open()
+
       return () => {
         SocketClient.close()
       }
     }
+
     return undefined
   }, [isAppInitialized])
 
