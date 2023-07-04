@@ -17,6 +17,8 @@ export enum NodeEnv {
 }
 
 export const ProcessEnv = {
+  // app
+  appUri: process.env.APP_URI,
   // dev
   debug: process.env.DEBUG === 'true',
   nodeEnv: process.env.NODE_ENV || NodeEnv.development,
