@@ -1,6 +1,7 @@
 import * as http from 'http'
 import { Server } from 'socket.io'
 
+import { ProcessEnv } from 'server/utils'
 // import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
@@ -8,12 +9,12 @@ let io: Server
 
 const init = (server: http.Server): void => {
   io = new Server(server, {
-    // cors: {
-    //   origin: ProcessEnv.appUri,
-    //   methods: ['GET', 'POST'],
-    //   // credentials: true,
-    // },
-    transports: ['websocket', 'polling'],
+    cors: {
+      origin: ProcessEnv.appUri,
+      methods: ['GET', 'POST'],
+      credentials: true,
+    },
+    // transports: ['websocket', 'polling'],
     // allowEIO3: true,
   })
 
@@ -22,9 +23,7 @@ const init = (server: http.Server): void => {
   // })
 
   io.engine.on('connection_error', (err) => {
-    Logger.error(
-      `WebSocket Server error. req: ${err.req}. code: ${err.code}. message: ${err.message}. context:${err.context}`
-    )
+    Logger.error(`WebSocket connection error. Code: ${err.code}. Message: ${err.message}.`)
   })
 }
 

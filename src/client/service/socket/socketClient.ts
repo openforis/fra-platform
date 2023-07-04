@@ -22,9 +22,7 @@ const open = () => {
   //   closeSocket()
   // }
   socket = io(window.location.origin, {
-    // @ts-ignore
-    secure: !__DEV__,
-    transports: ['websocket', 'polling'],
+    withCredentials: true,
   })
 
   // on(WebSocketEvents.connectError, (error) => throwError(error.stack))
