@@ -1,20 +1,20 @@
 import * as http from 'http'
 import { Server } from 'socket.io'
 
-import { ProcessEnv } from 'server/utils'
+// import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 let io: Server
 
 const init = (server: http.Server): void => {
   io = new Server(server, {
-    cors: {
-      origin: ProcessEnv.appUri,
-      methods: ['GET', 'POST'],
-      // credentials: true,
-    },
+    // cors: {
+    //   origin: ProcessEnv.appUri,
+    //   methods: ['GET', 'POST'],
+    //   // credentials: true,
+    // },
     transports: ['websocket', 'polling'],
-    allowEIO3: true,
+    // allowEIO3: true,
   })
 
   // io.on('connection', (socket: any) => {
