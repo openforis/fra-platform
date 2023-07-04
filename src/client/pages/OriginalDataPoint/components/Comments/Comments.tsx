@@ -32,12 +32,10 @@ const Comments: React.FC<Props> = (props) => {
 
         <div className="fra-description__review-indicator-wrapper">
           {originalDataPoint.id && canEditData && (
-            <td className="fra-table__review-cell no-print">
-              <ReviewIndicator
-                title={t('nationalDataPoint.nationalDataPoint')}
-                topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'nationalDataPointComments')}
-              />
-            </td>
+            <ReviewIndicator
+              title={t('nationalDataPoint.nationalDataPoint')}
+              topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'nationalDataPointComments')}
+            />
           )}
         </div>
       </div>
