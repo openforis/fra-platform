@@ -1,16 +1,17 @@
-import { Server as HttpServer } from 'http'
+import * as http from 'http'
 import { Server } from 'socket.io'
 
 import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
 
 let io: Server
 
-const init = (server: HttpServer): void => {
+const init = (server: http.Server): void => {
   io = new Server(server, {
     cors: {
       origin: ProcessEnv.appUri,
       methods: ['GET', 'POST'],
-      credentials: true,
+      // credentials: true,
     },
     transports: ['websocket', 'polling'],
     allowEIO3: true,
@@ -19,6 +20,14 @@ const init = (server: HttpServer): void => {
   // io.on('connection', (socket: any) => {
   //   console.log('==== NEW CONNECTION', socket)
   // })
+
+  io.engine.on('connection_error', (err) => {
+    Logger.error(
+      `WebSocket Server error. req: ${JSON.stringify(err.req)}. code: ${err.code}. message: ${
+        err.message
+      }. context:${JSON.stringify(context)}`
+    )
+  })
 }
 
 const emit = (event: string, ...args: any[]) => {
