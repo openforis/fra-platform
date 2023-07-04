@@ -23,9 +23,7 @@ const init = (server: http.Server): void => {
 
   io.engine.on('connection_error', (err) => {
     Logger.error(
-      `WebSocket Server error. req: ${JSON.stringify(err.req)}. code: ${err.code}. message: ${
-        err.message
-      }. context:${JSON.stringify(err.context)}`
+      `WebSocket Server error. req: ${err.req}. code: ${err.code}. message: ${err.message}. context:${err.context}`
     )
   })
 }
