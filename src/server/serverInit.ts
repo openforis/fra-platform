@@ -9,6 +9,8 @@ import * as morgan from 'morgan'
 import { Api } from 'server/api'
 import { Proxy } from 'server/proxy/proxy'
 import { SocketServer } from 'server/service/socket'
+import { ProcessEnv } from 'server/utils'
+import { NodeEnv } from 'server/utils/processEnv'
 
 import { sendErr } from './utils/requests'
 import * as resourceCacheControl from './resourceCacheControl'
@@ -55,7 +57,7 @@ export const serverInit = () => {
   // allowing to let passportjs to use https in heroku - see https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https
   app.enable('trust proxy')
 
-  const server = app.listen(process.env.PORT, () => {
+  const server = app.listen(ProcessEnv.nodeEnv === NodeEnv.development ? process.env.PORT : ProcessEnv.appUri, () => {
     // eslint-disable-next-line no-console
     console.log('FRA Platform server listening on port ', process.env.PORT, ' with pid: ', process.pid)
   })
