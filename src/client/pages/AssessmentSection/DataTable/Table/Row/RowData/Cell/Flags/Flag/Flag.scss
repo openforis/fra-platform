@@ -1,7 +1,6 @@
 @import 'src/client/style/partials';
 
 .data-cell__flag {
-  border: 1px solid $ui-border-dark;
   min-width: 14px;
   height: 14px;
   padding: 0 2px;
@@ -10,4 +9,5 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: $text-disabled;
 }
