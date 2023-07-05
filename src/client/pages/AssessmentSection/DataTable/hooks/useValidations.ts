@@ -33,7 +33,7 @@ export const useValidations = (props: { table: Table }): void => {
           DataActions.setNodeCalculations,
           DataActions.setNodeValues
         ),
-        effect: (_) => {
+        effect: () => {
           const nodes: Array<NodeUpdate> = []
 
           rowsData.forEach((row) => {
