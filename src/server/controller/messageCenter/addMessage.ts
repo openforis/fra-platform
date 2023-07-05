@@ -9,6 +9,7 @@ import { MessageRepository } from 'server/repository/assessmentCycle/message'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { MailService } from 'server/service'
+import { ProcessEnv } from 'server/utils'
 
 import { UserController } from '../user'
 import { updateTopicReadTime } from './updateTopicReadTime'
@@ -78,7 +79,7 @@ export const addMessage = async (
         cycleName: cycle.name,
         recipient,
         sender: user,
-        url: process.env.APP_URI,
+        url: ProcessEnv.appUri,
       })
     }
 

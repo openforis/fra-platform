@@ -8,6 +8,7 @@ import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { UserRepository } from 'server/repository/public/user'
+import { ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -88,7 +89,7 @@ export const assessmentNotifyUsers = async (props: {
   const emailPromises = recipients.map(async (recipient: User) => {
     return createMail({
       user,
-      url: process.env.APP_URI,
+      url: ProcessEnv.appUri,
       recipient,
       status,
       assessmentName,

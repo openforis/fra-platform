@@ -21,7 +21,9 @@ const open = () => {
   //   throwErrorFn(error)
   //   closeSocket()
   // }
-  socket = io(window.location.origin)
+  socket = io(window.location.origin, {
+    withCredentials: true,
+  })
 
   // on(WebSocketEvents.connectError, (error) => throwError(error.stack))
   // on(WebSocketEvents.error, throwError)
