@@ -10,6 +10,7 @@ import { Logger } from 'server/utils/logger'
 import { updateCalculatedNodes } from 'test/dataMigration/steps/updateCalculatedNodes/updateCalculatedNodes'
 import { migrateCountryComments } from 'test/dataMigration/stepsPanEuropean/countryComments/migrateCountryComments'
 import { fixSubsectionIndexes } from 'test/dataMigration/stepsPanEuropean/fixSubsectionIndexes'
+import { migrateForestServiceCategoryValues } from 'test/dataMigration/stepsPanEuropean/migrateForestServiceCategoryValues'
 
 const assessmentName = `panEuropean`
 const client = DB
@@ -43,6 +44,10 @@ const exec = async () => {
   index += 1
   Logger.debug(`    ========== ${index} fixSubsectionIndexes`)
   await fixSubsectionIndexes({ assessment }, client)
+
+  index += 1
+  Logger.debug(`    ========== ${index} migrateForestServiceCategoryValues`)
+  await migrateForestServiceCategoryValues({ assessment }, client)
 
   await close()
 }
