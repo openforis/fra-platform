@@ -12,6 +12,7 @@ module.exports = {
     select: {
       forestServiceCategory: {
         notSelected: '',
+        _placeholder: '',
         ecologicalServices: '1 Ecological services',
         waterProtection: '1.1 Water protection',
         soilProtection: '1.2 Soil protection',
