@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { isAnyOf } from '@reduxjs/toolkit'
 
@@ -14,6 +15,8 @@ import { useCountryIso } from 'client/hooks'
 
 export const useValidations = (props: { table: Table }): void => {
   const { table } = props
+
+  const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
@@ -56,6 +59,7 @@ export const useValidations = (props: { table: Table }): void => {
                     colName,
                     row,
                     formula,
+                    t,
                   })
                 })
 
@@ -114,5 +118,6 @@ export const useValidations = (props: { table: Table }): void => {
     table.props.odp,
     useOriginalDataPoint,
     odpYears,
+    t,
   ])
 }
