@@ -1017,7 +1017,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1.forest_2020['_of_which_of_natural_losses'],
+                            table_3_1.forest_2020['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1045,7 +1057,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1.forest_2015['_of_which_of_natural_losses'],
+                            table_3_1.forest_2015['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings.forest',
                 labelParams: { year: 2015 },
@@ -1070,7 +1094,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1.forest_2010['_of_which_of_natural_losses'],
+                            table_3_1.forest_2010['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings.forest',
                 labelParams: { year: 2010 },
@@ -1095,7 +1131,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1.forest_2005['_of_which_of_natural_losses'],
+                            table_3_1.forest_2005['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings.forest',
                 labelParams: { year: 2005 },
@@ -1120,7 +1168,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1.forest_2000['_of_which_of_natural_losses'],
+                            table_3_1.forest_2000['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings.forest',
                 labelParams: { year: 2000 },
@@ -1145,7 +1205,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1.forest_1990['_of_which_of_natural_losses'],
+                            table_3_1.forest_1990['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings.forest',
                 labelParams: { year: 1990 },
@@ -1170,7 +1242,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1._of_which_forest_available_for_wood_supply_2020['_of_which_of_natural_losses'],
+                            table_3_1._of_which_forest_available_for_wood_supply_2020['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 migration: {
                   cycles: ['2025'],
@@ -1198,7 +1282,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1._of_which_forest_available_for_wood_supply_2015['_of_which_of_natural_losses'],
+                            table_3_1._of_which_forest_available_for_wood_supply_2015['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings._of_which_forest_available_for_wood_supply',
                 labelParams: { year: 2015 },
@@ -1223,7 +1319,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1._of_which_forest_available_for_wood_supply_2010['_of_which_of_natural_losses'],
+                            table_3_1._of_which_forest_available_for_wood_supply_2010['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings._of_which_forest_available_for_wood_supply',
                 labelParams: { year: 2010 },
@@ -1248,7 +1356,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1._of_which_forest_available_for_wood_supply_2005['_of_which_of_natural_losses'],
+                            table_3_1._of_which_forest_available_for_wood_supply_2005['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings._of_which_forest_available_for_wood_supply',
                 labelParams: { year: 2005 },
@@ -1273,7 +1393,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1._of_which_forest_available_for_wood_supply_2000['_of_which_of_natural_losses'],
+                            table_3_1._of_which_forest_available_for_wood_supply_2000['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings._of_which_forest_available_for_wood_supply',
                 labelParams: { year: 2000 },
@@ -1298,7 +1430,19 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     type: 'decimal',
                   },
                   { idx: 3, type: 'decimal' },
-                  { idx: 4, type: 'decimal' },
+                  {
+                    idx: 4,
+                    type: 'decimal',
+                    migration: {
+                      validateFns: {
+                        '2025': [
+                          `validatorNotGreaterThan(
+                            table_3_1._of_which_forest_available_for_wood_supply_1990['_of_which_of_natural_losses'],
+                            table_3_1._of_which_forest_available_for_wood_supply_1990['fellings_total'])`,
+                        ],
+                      },
+                    },
+                  },
                 ],
                 labelKey: 'panEuropean.incrementAndFellings._of_which_forest_available_for_wood_supply',
                 labelParams: { year: 1990 },
