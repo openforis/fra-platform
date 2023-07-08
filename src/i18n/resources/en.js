@@ -1076,6 +1076,8 @@ The FRA team
     shouldContainAtLeastOneCharacter: 'Value should contain at least one character',
     forestAreaReportedIsDifferentFromPreviousCycle:
       'Reported area ({{forestArea2025}}) differs from previously reported ({{forestArea2020}}). Please provide a comment explaining why it is different.',
+    sumSubCategoriesExceedParent:
+      'The sum of {{categoryLabels}} ({{categoriesSum}}) exceed {{parentLabel}} ({{parentValue}})',
   },
 
   emoji: {

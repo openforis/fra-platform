@@ -1,24 +1,31 @@
 import { useEffect, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { isAnyOf } from '@reduxjs/toolkit'
 
-import { NodeValueValidation, NodeValueValidations, RowType, Table } from 'meta/assessment'
+import { NodeValueValidation, NodeValueValidations, RowType, Table, TableNames } from 'meta/assessment'
 import { NodeUpdate, RecordAssessmentDatas } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { DataActions } from 'client/store/data'
+import { useAssessment, useCountry, useCycle } from 'client/store/assessment'
+import { DataActions, useOriginalDataPointYears, useTableData } from 'client/store/data'
 import { addAppListener } from 'client/store/middleware/listener'
 import { useCountryIso } from 'client/hooks'
 
 export const useValidations = (props: { table: Table }): void => {
   const { table } = props
+
+  const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
   const rowsData = useMemo(() => table.rows.filter((row) => row.props.type !== RowType.header), [table.rows])
+  const data = useTableData({ table })
+  const odpYears = useOriginalDataPointYears()
+  const country = useCountry(countryIso)
+  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
   useEffect(() => {
     const unsubscribe = dispatch(
@@ -29,9 +36,7 @@ export const useValidations = (props: { table: Table }): void => {
           DataActions.setNodeCalculations,
           DataActions.setNodeValues
         ),
-        effect: (_, { getState }) => {
-          const state = getState()
-          const data = state.data.tableData
+        effect: () => {
           const nodes: Array<NodeUpdate> = []
 
           rowsData.forEach((row) => {
@@ -54,6 +59,7 @@ export const useValidations = (props: { table: Table }): void => {
                     colName,
                     row,
                     formula,
+                    t,
                   })
                 })
 
@@ -75,9 +81,13 @@ export const useValidations = (props: { table: Table }): void => {
                 validation,
               }
 
+              const isODPCell =
+                useOriginalDataPoint &&
+                Boolean(table.props.odp && !col.props.labels && odpYears?.find((odp) => odp.year === colName))
+
               nodes.push({
                 colName,
-                tableName: table.props.name,
+                tableName: isODPCell ? TableNames.originalDataPointValue : table.props.name,
                 variableName,
                 value,
               })
@@ -97,5 +107,17 @@ export const useValidations = (props: { table: Table }): void => {
       })
     )
     return unsubscribe
-  }, [cycle, countryIso, dispatch, rowsData, table.props.name, assessment])
+  }, [
+    cycle,
+    countryIso,
+    dispatch,
+    rowsData,
+    table.props.name,
+    assessment,
+    data,
+    table.props.odp,
+    useOriginalDataPoint,
+    odpYears,
+    t,
+  ])
 }

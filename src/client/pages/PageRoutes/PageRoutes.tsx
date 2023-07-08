@@ -32,13 +32,20 @@ const PageRoutes: React.FC = () => {
 
     dispatch(AssessmentActions.initApp())
 
-    SocketClient.open()
-
-    return () => {
-      SocketClient.close()
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (isAppInitialized) {
+      SocketClient.open()
+
+      return () => {
+        SocketClient.close()
+      }
+    }
+
+    return undefined
+  }, [isAppInitialized])
 
   if (!isAppInitialized) return null
 

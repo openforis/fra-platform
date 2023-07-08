@@ -1,4 +1,5 @@
 import { ExpressionContext } from '@openforis/arena-core'
+import { TFunction } from 'i18next'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, Row } from 'meta/assessment'
@@ -12,4 +13,5 @@ export interface Context extends ExpressionContext {
   data: RecordCountryData
   formula: string
   row: Row
+  t?: TFunction
 }

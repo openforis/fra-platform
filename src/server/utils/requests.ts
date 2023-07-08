@@ -3,9 +3,9 @@ import { Objects } from 'utils/objects'
 
 import { User } from 'meta/user'
 
-import { AccessControlException } from './accessControl'
+import { ProcessEnv } from 'server/utils/processEnv'
 
-export const appUri = process.env.APP_URI ? process.env.APP_URI : ''
+import { AccessControlException } from './accessControl'
 
 /* Response Utils */
 
@@ -43,15 +43,14 @@ export const getParams = (req: Request) =>
     ...(req.body ?? {}),
   }).map(([key, value]) => ({ [key]: parseStringBoolean(value) }))
 
-export const serverUrl = (req: Request) => (Objects.isEmpty(appUri) ? `${req.protocol}://${req.get('host')}` : appUri)
+export const serverUrl = (req: Request) =>
+  Objects.isEmpty(ProcessEnv.appUri) ? `${req.protocol}://${req.get('host')}` : ProcessEnv.appUri
 
 const getUser = (req: Request) => {
   return req.user as User
 }
 
 export const Requests = {
-  appUri,
-
   isGet,
   getMethod,
   getParams,

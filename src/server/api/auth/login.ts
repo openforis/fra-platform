@@ -6,7 +6,8 @@ import { ClientRoutes } from 'meta/app'
 import { AuthToken } from 'meta/auth'
 import { User } from 'meta/user'
 
-import Requests, { appUri } from 'server/utils/requests'
+import { ProcessEnv } from 'server/utils'
+import Requests from 'server/utils/requests'
 
 import { setAuthToken } from './utils/setAuthToken'
 
@@ -55,7 +56,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
       req.login(user, (err: any) => {
         if (err) next(err)
         setAuthToken(res, user)
-        const redirectUrl = process.env.NODE_ENV === 'development' ? '/' : appUri
+        const redirectUrl = process.env.NODE_ENV === 'development' ? '/' : ProcessEnv.appUri
         res.redirect(redirectUrl)
       })
     }
