@@ -21,27 +21,19 @@ const dependencyTables: Record<string, Array<string>> = {
 }
 
 type Dependency = { tableName: TableName; cycleName?: CycleName; assessmentName?: AssessmentName }
-type Depencies = Array<Dependency>
+type Dependencies = Array<Dependency>
 
-const useDependencies = (props: Props): Depencies => {
+const useDependencies = (props: Props): Dependencies => {
   const { sectionName, table } = props
   const canEdit = useCanEdit(sectionName)
 
   const { calculationDependencies, validationDependencies } = table
   const { name: tableName } = table.props
 
-  const tableNames: Depencies = useMemo<Depencies>(() => {
-    const dependencies: Depencies = [
-      {
-        tableName,
-      },
-    ]
+  const tableNames: Dependencies = useMemo<Dependencies>(() => {
+    const dependencies: Dependencies = [{ tableName }]
 
-    dependencyTables[tableName]?.forEach((t) =>
-      dependencies.push({
-        tableName: t,
-      })
-    )
+    dependencyTables[tableName]?.forEach((t) => dependencies.push({ tableName: t }))
 
     if (calculationDependencies || (canEdit && validationDependencies)) {
       Object.values(calculationDependencies ?? validationDependencies).forEach((variables) =>

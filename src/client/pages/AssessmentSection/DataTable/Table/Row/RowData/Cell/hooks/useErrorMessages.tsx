@@ -2,10 +2,10 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { TFunction, useTranslation } from 'react-i18next'
 
-import { NodeValue, NodeValueValidationMessageParam } from 'meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessageParam } from 'meta/assessment'
 
 type Props = {
-  nodeValue: NodeValue
+  validation: NodeValueValidation
 }
 
 const translateErrorMessageParams = (t: TFunction, text: NodeValueValidationMessageParam): string => {
@@ -15,22 +15,24 @@ const translateErrorMessageParams = (t: TFunction, text: NodeValueValidationMess
   return t(String(text))
 }
 
-export default (props: Props): string => {
-  const { nodeValue } = props
+export default (props: Props): string | undefined => {
+  const { validation } = props
 
   const { t } = useTranslation()
 
-  const dataValidationMessages = nodeValue?.validation?.messages?.map(({ key, params }) =>
-    t(key, params && Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateErrorMessageParams(t, v)])))
-  )
+  const { valid, messages = [] } = validation
 
-  return dataValidationMessages?.length > 0
-    ? ReactDOMServer.renderToStaticMarkup(
-        <ul>
-          {dataValidationMessages.map((dataValidationMessage) => (
-            <li key="data-validation-message">{dataValidationMessage}</li>
-          ))}
-        </ul>
-      )
-    : null
+  if (valid || messages.length === 0) {
+    return undefined
+  }
+
+  return ReactDOMServer.renderToStaticMarkup(
+    <ul>
+      {messages?.map(({ key, params }) => {
+        const paramsTranslated =
+          params && Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateErrorMessageParams(t, v)]))
+        return <li key={key}>{t(key, paramsTranslated)}</li>
+      })}
+    </ul>
+  )
 }

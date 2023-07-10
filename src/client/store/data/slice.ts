@@ -69,23 +69,6 @@ export const dataSlice = createSlice({
         })
       })
     },
-    setNodeValidations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
-      const { nodeUpdates } = action.payload
-      const { countryIso, nodes, assessment, cycle } = nodeUpdates
-
-      nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = RecordAssessmentDatas.updateDatumValidation({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          data: state.tableData,
-          countryIso,
-          tableName,
-          variableName,
-          colName,
-          validation: value.validation,
-        })
-      })
-    },
 
     deleteOriginalDataPoint: (
       state,
