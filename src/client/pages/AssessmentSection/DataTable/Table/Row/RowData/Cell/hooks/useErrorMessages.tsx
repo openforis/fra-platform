@@ -28,7 +28,7 @@ export default (props: Props): string | undefined => {
 
   return ReactDOMServer.renderToStaticMarkup(
     <ul>
-      {messages?.map(({ key, params }) => {
+      {messages.map(({ key, params }) => {
         const paramsTranslated =
           params && Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translateErrorMessageParams(t, v)]))
         return <li key={key}>{t(key, paramsTranslated)}</li>
