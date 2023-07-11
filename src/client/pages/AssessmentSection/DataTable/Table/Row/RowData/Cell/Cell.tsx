@@ -60,7 +60,7 @@ const Cell: React.FC<Props> = (props) => {
   const canEditData = Authorizer.canEditData({ country, cycle, section, user })
 
   const nodeValue = useNodeValue({ col, data, row, table })
-  const validation = useValidateNode({ canEditData, col, row })
+  const validation = useValidateNode({ canEditData, col, row, table })
 
   const { valid } = validation
 

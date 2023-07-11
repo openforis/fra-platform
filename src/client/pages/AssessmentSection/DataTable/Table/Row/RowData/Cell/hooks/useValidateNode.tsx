@@ -1,32 +1,37 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Col, NodeValueValidation, NodeValueValidations, Row } from 'meta/assessment'
+import { Col, NodeValueValidation, NodeValueValidations, Row, Table } from 'meta/assessment'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
+import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { useRecordAssessmentData } from 'client/store/data'
+import { DataActions, useNodeValueValidation, useRecordAssessmentData } from 'client/store/data'
 import { useCountryIso } from 'client/hooks'
 
-export const useValidateNode = (props: { canEditData: boolean; col: Col; row: Row }): NodeValueValidation => {
-  const { canEditData, col, row } = props
+type Props = {
+  canEditData: boolean
+  col: Col
+  row: Row
+  table: Table
+}
+
+export const useValidateNode = (props: Props): NodeValueValidation => {
+  const { canEditData, col, row, table } = props
 
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const data = useRecordAssessmentData()
 
-  const [validation, setValidation] = useState<NodeValueValidation>({ valid: true })
-
   useEffect(() => {
     const validateFns = col.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
 
-    setValidation(() => {
-      if (!canEditData || !validateFns) {
-        return { valid: true }
-      }
+    let nodeValueValidation: NodeValueValidation = { valid: true }
 
+    if (canEditData && validateFns?.length) {
       const validations = validateFns.map((formula) => {
         return ExpressionEvaluator.evalFormula<NodeValueValidation>({
           assessment,
@@ -39,9 +44,21 @@ export const useValidateNode = (props: { canEditData: boolean; col: Col; row: Ro
           t,
         })
       })
-      return NodeValueValidations.merge(validations)
-    })
-  }, [assessment, canEditData, col.props.colName, col.props.validateFns, countryIso, cycle, data, row, t])
+      nodeValueValidation = NodeValueValidations.merge(validations)
+    }
 
-  return validation
+    dispatch(
+      DataActions.setNodeValueValidation({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        countryIso,
+        table,
+        row,
+        col,
+        nodeValueValidation,
+      })
+    )
+  }, [assessment, canEditData, col, countryIso, cycle, data, dispatch, row, t, table])
+
+  return useNodeValueValidation({ table, row, col })
 }
