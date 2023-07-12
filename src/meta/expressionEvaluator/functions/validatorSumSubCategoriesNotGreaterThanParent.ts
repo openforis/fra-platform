@@ -44,7 +44,7 @@ export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<C
             parentLabel: `${t<string>(parentLabelKey)}(${parentTableAnchor})`,
             parentValue,
             categoriesSum: Numbers.format(categoriesSum),
-            categoryLabels: nonEmptyCategories.map(({ labelKey }) => t<string>(labelKey)).join(', '),
+            categoryLabels: categoryLabelKeys.map((labelKey) => t<string>(labelKey)).join(', '),
           },
         },
       ]
