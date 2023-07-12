@@ -18,17 +18,19 @@ export interface DataBaseState {
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
 }
 
-type NodeValueValidationsState = Record<
-  AssessmentName,
-  Record<CycleName, Record<CountryIso, Record<TableName, Record<ColName, Record<VariableName, NodeValueValidation>>>>>
->
+// validation state types
+export type RecordTableValidationsState = Record<TableName, Record<ColName, Record<VariableName, NodeValueValidation>>>
+export type RecordCountryValidationsState = Record<CountryIso, RecordTableValidationsState>
+export type RecordCycleValidationsState = Record<CycleName, RecordCountryValidationsState>
+export type RecordAssessmentValidationsState = Record<AssessmentName, RecordCycleValidationsState>
 
+// odpLastUpdatedTimestamp state type
 type ODPLastUpdatedTimestampState = Record<AssessmentName, Record<CycleName, Record<CountryIso, { time?: string }>>>
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>
-  nodeValueValidations: NodeValueValidationsState
+  nodeValueValidations: RecordAssessmentValidationsState
   odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState
   tableData?: RecordAssessmentData
 }

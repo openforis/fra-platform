@@ -4,17 +4,14 @@ import React from 'react'
 import { AssessmentName, Col, Cols, ColType, Row, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
-import { Authorizer } from 'meta/user'
 
-import { useAssessmentSection, useCountry, useCycle } from 'client/store/assessment'
-import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
+import { useCycle } from 'client/store/assessment'
+import { useNodeValueValidation } from 'client/store/data'
 
 import useClassName from './hooks/useClassName'
 import useErrorMessages from './hooks/useErrorMessages'
 import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
-import { useValidateNode } from './hooks/useValidateNode'
 import Calculated from './Calculated'
 import Flags from './Flags'
 import Multiselect from './Multiselect'
@@ -51,22 +48,13 @@ type Props = {
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled: disabledProps, rowIndex, col, row } = props
 
-  const countryIso = useCountryIso()
-  const country = useCountry(countryIso)
-  const user = useUser()
-  const section = useAssessmentSection(sectionName)
   const cycle = useCycle()
 
-  const canEditData = Authorizer.canEditData({ country, cycle, section, user })
-
   const nodeValue = useNodeValue({ col, data, row, table })
-  const validation = useValidateNode({ canEditData, col, row, table })
-
-  const { valid } = validation
-
-  const className = useClassName({ cycle, col, row, valid })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
+  const validation = useNodeValueValidation({ table, row, col })
   const errorMessages = useErrorMessages({ validation })
+  const className = useClassName({ cycle, col, row, validation })
 
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ cycle, col })
   const Component = Components[col.props.colType]

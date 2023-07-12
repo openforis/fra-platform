@@ -6,7 +6,13 @@ export { useNodeValuesEstimation } from './hooks/useNodeValuesEstimation'
 export { useNodeValueValidation, useTableHasErrors } from './hooks/useNodeValueValidations'
 export { useOdpLastUpdatedTimestamp } from './hooks/useOdpLastUpdatedTimestamp'
 export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'
+export { useRecordAssessmentData } from './hooks/useRecordAssessmentData'
 export { useTableData } from './hooks/useTableData'
 export { DataActions } from './slice'
-export type { DataState } from './stateType'
-export { useRecordAssessmentData } from 'client/store/data/hooks/useRecordAssessmentData'
+export type {
+  DataState,
+  RecordAssessmentValidationsState,
+  RecordCountryValidationsState,
+  RecordCycleValidationsState,
+  RecordTableValidationsState,
+} from './stateType'

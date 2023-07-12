@@ -6,7 +6,7 @@ import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 import { AssessmentActions } from 'client/store/assessment'
 import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
 import { setNodeValues } from 'client/store/data/reducers/setNodeValues'
-import { setNodeValueValidation } from 'client/store/data/reducers/setNodeValueValidation'
+import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
 
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
@@ -38,7 +38,7 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     setNodeValues,
-    setNodeValueValidation,
+    setNodeValueValidations,
     deleteOriginalDataPoint,
     /**
      * @deprecated
