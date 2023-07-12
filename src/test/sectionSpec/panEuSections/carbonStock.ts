@@ -7,44 +7,63 @@ const variableNames = [
   'carbon_forest_soil',
 ]
 
-const dataColsForest = variableNames.map((variableName, idx) => ({
-  idx,
-  type: 'decimal',
-  migration: {
-    validateFns: {
-      '2025': [
-        `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['${variableName.split('_').pop()}'],
-        [table_1_4a.other_wooded_land_2025['${variableName.split('_').pop()}'], table_1_4a.forest_2025['${variableName
-          .split('_')
-          .pop()}']])`,
-      ],
-    },
-    linkedNodes: {
-      '2025': {
-        assessmentName: 'fra',
-        cycleName: '2025',
-        tableName: 'carbonStockTotal',
-        variableName,
-        colName: '2025',
+const dataColsForest = variableNames.map((variableName, idx) => {
+  const slicedVariableName = variableName.split('_').slice(2).join('_')
+
+  return {
+    idx,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['${slicedVariableName}'],
+          [table_1_4a.other_wooded_land_2025['${slicedVariableName}'], table_1_4a.forest_2025['${slicedVariableName}']])`,
+        ],
+      },
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'carbonStockTotal',
+          variableName,
+          colName: '2025',
+        },
       },
     },
-  },
-}))
+  }
+})
 
-const dataColsOther = variableNames.map((variableName, idx) => ({
-  idx,
-  type: 'decimal',
-  migration: {
-    validateFns: {
-      '2025': [
-        `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_2025['${variableName.split('_').pop()}'],
-        [table_1_4a.other_wooded_land_2025['${variableName.split('_').pop()}'], table_1_4a.forest_2025['${variableName
-          .split('_')
-          .pop()}']])`,
-      ],
+const dataColsOther = variableNames.map((variableName, idx) => {
+  const slicedVariableName = variableName.split('_').slice(2).join('_')
+
+  return {
+    idx,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_year['${slicedVariableName}'],
+          [table_1_4a.other_wooded_land_year['${slicedVariableName}'], table_1_4a.forest_year['${slicedVariableName}']])`,
+        ],
+      },
     },
-  },
-}))
+  }
+})
+
+// const dataColsForAndOther = variableNames.map((variableName, idx) => ({
+//   idx,
+//   type: 'decimal',
+//   migration: {
+//     validateFns: {
+//       '2025': [
+//         `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_year['${variableName.split('_').pop()}'],
+//         [table_1_4a.other_wooded_land_year['${variableName.split('_').pop()}'], table_1_4a.forest_year['${variableName
+//           .split('_')
+//           .pop()}']])`,
+//       ],
+//     },
+//   },
+// }))
 
 const linkedDataCols = (colName: string) =>
   dataColsForest.map((col) => {
@@ -71,7 +90,7 @@ const otherWoodCols = (colName: string) =>
   dataColsOther.map((col) => {
     const validateFns = {
       ...col.migration.validateFns,
-      '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/2025/g, colName)),
+      '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/year/g, colName)),
     }
 
     return {
@@ -528,7 +547,7 @@ export const carbonStock = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'decimal', migration: {} },
                 { idx: 1, type: 'decimal' },
                 {
                   idx: 2,
