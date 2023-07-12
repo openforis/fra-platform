@@ -50,21 +50,6 @@ const dataColsOther = variableNames.map((variableName, idx) => {
   }
 })
 
-// const dataColsForAndOther = variableNames.map((variableName, idx) => ({
-//   idx,
-//   type: 'decimal',
-//   migration: {
-//     validateFns: {
-//       '2025': [
-//         `validatorEqualToSum(table_1_4a.total_forest_and_other_wooded_land_year['${variableName.split('_').pop()}'],
-//         [table_1_4a.other_wooded_land_year['${variableName.split('_').pop()}'], table_1_4a.forest_year['${variableName
-//           .split('_')
-//           .pop()}']])`,
-//       ],
-//     },
-//   },
-// }))
-
 const linkedDataCols = (colName: string) =>
   dataColsForest.map((col) => {
     const validateFns = {
