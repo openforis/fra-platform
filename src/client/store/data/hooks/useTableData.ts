@@ -3,8 +3,8 @@ import { Objects } from 'utils/objects'
 import { Table, TableNames } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAppSelector } from 'client/store'
 import { useAssessment, useAssessmentCountry, useCycle } from 'client/store/assessment'
+import { useRecordAssessmentData } from 'client/store/data/hooks/useRecordAssessmentData'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hooks'
 import { useCountryIso } from 'client/hooks'
 
@@ -18,7 +18,7 @@ export const useTableData = (props: { table: Table }): RecordAssessmentData => {
   const cycle = useCycle()
   const country = useAssessmentCountry()
 
-  const tableData = useAppSelector((state) => state.data.tableData)
+  const tableData = useRecordAssessmentData()
   const odpData = useOriginalDataPointData() ?? {}
   const showOriginalDatapoints = useShowOriginalDatapoints()
 

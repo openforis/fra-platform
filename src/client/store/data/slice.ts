@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, TableNames } from 'meta/assessment'
 import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 
 import { AssessmentActions } from 'client/store/assessment'
+import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
+import { setNodeValues } from 'client/store/data/reducers/setNodeValues'
+import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
 
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
@@ -27,6 +28,7 @@ const baseState: DataBaseState = {
 
 const initialState: DataState = {
   nodeValuesEstimations: {},
+  nodeValueValidations: {},
   odpLastUpdatedTimestamp: {},
   tableData: {},
 }
@@ -35,23 +37,12 @@ export const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    setNodeValues: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
-      const { nodeUpdates } = action.payload
-      const { countryIso, nodes, assessment, cycle } = nodeUpdates
-
-      nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = RecordAssessmentDatas.updateDatum({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          data: state.tableData,
-          countryIso,
-          tableName,
-          variableName,
-          colName,
-          value,
-        })
-      })
-    },
+    setNodeValues,
+    setNodeValueValidations,
+    deleteOriginalDataPoint,
+    /**
+     * @deprecated
+     */
     setNodeCalculations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
       const { nodeUpdates } = action.payload
       const { countryIso, nodes, assessment, cycle } = nodeUpdates
@@ -68,44 +59,6 @@ export const dataSlice = createSlice({
           value,
         })
       })
-    },
-    setNodeValidations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
-      const { nodeUpdates } = action.payload
-      const { countryIso, nodes, assessment, cycle } = nodeUpdates
-
-      nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = RecordAssessmentDatas.updateDatumValidation({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          data: state.tableData,
-          countryIso,
-          tableName,
-          variableName,
-          colName,
-          validation: value.validation,
-        })
-      })
-    },
-
-    deleteOriginalDataPoint: (
-      state,
-      {
-        payload,
-      }: PayloadAction<{ countryIso: CountryIso; year: string; assessmentName: AssessmentName; cycleName: CycleName }>
-    ) => {
-      // Delete reference from state for deleted ODP
-      const { countryIso, year, cycleName, assessmentName } = payload
-      const odpReference = RecordAssessmentDatas.getTableData({
-        data: state.tableData,
-        assessmentName,
-        cycleName,
-        countryIso,
-        tableName: TableNames.originalDataPointValue,
-      })[year]
-      if (odpReference) {
-        // @ts-ignore
-        delete state.tableData[assessmentName][cycleName][countryIso][TableNames.originalDataPointValue][year]
-      }
     },
   },
 
