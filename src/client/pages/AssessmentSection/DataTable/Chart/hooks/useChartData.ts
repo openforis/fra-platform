@@ -1,4 +1,4 @@
-import * as Chart from './chart'
+import * as Chart from '../chart'
 
 export default (data: any, trends: any, width: any) => {
   const _chartData = trends.reduce(

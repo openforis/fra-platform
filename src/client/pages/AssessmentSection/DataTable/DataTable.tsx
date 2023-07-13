@@ -1,6 +1,5 @@
 import './DataTable.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
@@ -30,7 +29,6 @@ const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
   const { print, onlyTables } = useIsPrint()
 
-  const { i18n } = useTranslation()
   const countryIso = useCountryIso()
   const data = useTableData({ table })
   const cycle = useCycle()
@@ -55,16 +53,7 @@ const DataTable: React.FC<Props> = (props) => {
     <>
       {showOdpChart && (!print || !dataEmpty) && (
         <>
-          <Chart
-            data={data?.[assessmentName]?.[cycleName]}
-            trends={rows
-              .filter((row) => !!row.props.chart?.[cycle.uuid])
-              .map((row) => ({
-                name: row.props.variableName,
-                label: i18n.t(row.props.chart[cycle.uuid].labelKey),
-                color: row.props.chart[cycle.uuid].color,
-              }))}
-          />
+          <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />
           <div className="page-break" />
         </>
       )}

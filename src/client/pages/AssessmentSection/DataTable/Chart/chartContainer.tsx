@@ -1,10 +1,10 @@
 import './style.scss'
 import React, { memo } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
+import { Table } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
 import { useCountryIso } from 'client/hooks'
@@ -16,21 +16,18 @@ import NoDataPlaceholder from './components/noDataPlaceholder'
 import OdpTicks from './components/odpTicks'
 import XAxis from './components/xAxis'
 import YAxis from './components/yAxis'
+import useChartData from './hooks/useChartData'
+import { useTrends } from './hooks/useTrends'
 import * as Chart from './chart'
-import useChartData from './useChartData'
 
 type ChartContainerProps = {
   data: RecordCountryData
-  trends: Array<{
-    name: string
-    label: string
-    color: string
-  }>
+  table: Table
   wrapperWidth: number
 }
 
-const toObject = (tableData: RecordCountryData, countryIso: CountryIso): Array<Record<string, string>> => {
-  const newData: Array<Record<string, string>> = []
+const toObject = (tableData: RecordCountryData, countryIso: CountryIso): Array<Record<string, string | number>> => {
+  const newData: Array<Record<string, string | number>> = []
   const countryValues = tableData?.[countryIso]
   if (!countryValues) return []
 
@@ -59,12 +56,12 @@ const toObject = (tableData: RecordCountryData, countryIso: CountryIso): Array<R
 }
 
 const ChartContainer = (props: ChartContainerProps) => {
-  const { data: _data, trends, wrapperWidth } = props
+  const { data: _data, table, wrapperWidth } = props
+
   const countryIso = useCountryIso()
   const data = toObject(_data, countryIso)
-
-  const { i18n } = useTranslation()
   const { print } = useIsPrint()
+  const trends = useTrends({ table })
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)
   const { left, height, bottom } = Chart.styles
 
@@ -93,10 +90,9 @@ const ChartContainer = (props: ChartContainerProps) => {
             data={chartData[t.name]}
             xScale={xScale}
             yScale={yScale}
-            wrapperWidth={wrapperWidth}
           />
         ))}
-        {!print && <NoDataPlaceholder data={chartData} i18n={i18n} wrapperWidth={wrapperWidth} />}
+        {!print && <NoDataPlaceholder data={chartData} wrapperWidth={wrapperWidth} />}
       </svg>
     </div>
   )
