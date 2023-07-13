@@ -28,7 +28,7 @@
   &.disabled {
     input:disabled,
     select:disabled {
-      color: $text-disabled;
+      background-color: $ui-border-light;
     }
   }
 }
