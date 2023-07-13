@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+import { Table } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
 import { useOnResize } from 'client/hooks'
@@ -10,11 +11,11 @@ import ChartContainer from './chartContainer'
 
 type Props = {
   data: RecordCountryData
-  trends: any[]
+  table: Table
 }
 
 const ChartWrapper = (props: Props) => {
-  const { data, trends } = props
+  const { data, table } = props
 
   const { print } = useIsPrint()
 
@@ -38,7 +39,7 @@ const ChartWrapper = (props: Props) => {
 
   return (
     <div ref={chartRef} className="chart__container">
-      {width && <ChartContainer data={data} wrapperWidth={width} trends={trends} />}
+      {width && <ChartContainer data={data} wrapperWidth={width} table={table} />}
     </div>
   )
 }
