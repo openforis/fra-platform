@@ -36,7 +36,7 @@ const useDependencies = (props: Props): Dependencies => {
     dependencyTables[tableName]?.forEach((t) => dependencies.push({ tableName: t }))
 
     if (calculationDependencies || (canEdit && validationDependencies)) {
-      Object.values(calculationDependencies ?? validationDependencies).forEach((variables) =>
+      Object.values({ ...(calculationDependencies ?? {}), ...(validationDependencies ?? {}) }).forEach((variables) =>
         variables.forEach((variable) => {
           const exists = dependencies.some(
             (dependency) =>
