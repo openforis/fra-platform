@@ -47,7 +47,7 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
   )
 
   // Sanitize user input on save
-  const onBlur = useCallback(
+  const onChangeEditor = useCallback(
     async (newValue: string) => {
       const v = await processor.process(newValue)
       onChange(v.toString())
@@ -55,14 +55,7 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
     [onChange]
   )
 
-  return (
-    <JoditEditor
-      ref={editor}
-      value={value}
-      config={config}
-      onBlur={onBlur} // preferred to use only this option to update the content for performance reasons
-    />
-  )
+  return <JoditEditor ref={editor} value={value} config={config} onChange={onChangeEditor} />
 }
 
 export default EditorWYSIWYG
