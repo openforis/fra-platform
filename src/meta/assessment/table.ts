@@ -1,4 +1,7 @@
-import { CycledPropsObject, Row, Unit, VariableCache } from './index'
+import { VariableCache } from 'meta/assessment/assessmentMetaCache'
+import { CycledPropsObject } from 'meta/assessment/cycle'
+import { Row, VariableName } from 'meta/assessment/row'
+import { Unit } from 'meta/assessment/unit'
 
 // utility table names
 // e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
@@ -41,7 +44,7 @@ export interface TableProps {
 export interface Table extends CycledPropsObject<TableProps> {
   rows?: Array<Row>
   tableSectionId: number
-  validationDependencies?: Record<string, Array<VariableCache>>
-  calculationDependencies?: Record<string, Array<VariableCache>>
+  validationDependencies?: Record<VariableName, Array<VariableCache>>
+  calculationDependencies?: Record<VariableName, Array<VariableCache>>
   // odpVariables?: Record<string, string>
 }

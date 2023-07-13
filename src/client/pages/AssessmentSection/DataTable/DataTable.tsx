@@ -13,7 +13,7 @@ import { useIsPrint } from 'client/hooks/useIsPath'
 
 import { useGetTableData } from './hooks/useGetTableData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
-import { useValidationsAndCalculations } from './hooks/useValidationsAndCalculations'
+import { useValidateNodes } from './hooks/useValidateNodes'
 import Chart from './Chart'
 import GenerateValues from './GenerateValues'
 import Table from './Table'
@@ -45,8 +45,7 @@ const DataTable: React.FC<Props> = (props) => {
 
   useGetTableData({ assessmentName, countryIso, cycleName, sectionName, table })
   useODPDeleteListener({ assessmentName, countryIso, cycleName })
-  useValidationsAndCalculations({ table })
-
+  useValidateNodes({ sectionName, table })
   // Always show secondary tables - unless whole section empty (handled in parent)
   if (dataEmpty && onlyTables && !secondary) {
     return null
