@@ -9,8 +9,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['total_area_with_damage'],
-                    [table_2_4.forest_2020['total_area_with_damage'],table_2_4.other_wooded_land_2020['total_area_with_damage']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['total_area_with_damage'],
+                    [table_2_4.forest_year_placeholder['total_area_with_damage'],table_2_4.other_wooded_land_year_placeholder['total_area_with_damage']])`,
         ],
       },
     },
@@ -24,8 +24,8 @@ const dataColsWithValidation = [
       cycles: ['2025'],
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['insects'],
-                    [table_2_4.forest_2020['insects'],table_2_4.other_wooded_land_2020['insects']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['insects'],
+                    [table_2_4.forest_year_placeholder['insects'],table_2_4.other_wooded_land_year_placeholder['insects']])`,
         ],
       },
     },
@@ -39,8 +39,10 @@ const dataColsWithValidation = [
       cycles: ['2025'],
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['disease'],
-                    [table_2_4.forest_2020['disease'],table_2_4.other_wooded_land_2020['disease']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['disease'],
+                    [table_2_4.forest_year_placeholder['disease'],table_2_4.other_wooded_land_year_placeholder['disease']],
+                    "table_2_4.total_forest_and_other_wooded_land_year_placeholder", "disease", "2.4",
+                    "[table_2_4.forest_year_placeholder[disease],table_2_4.other_wooded_land_year_placeholder[disease]")`,
         ],
       },
     },
@@ -54,8 +56,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['wildlife_and_grazing'],
-                    [table_2_4.forest_2020['wildlife_and_grazing'],table_2_4.other_wooded_land_2020['wildlife_and_grazing']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['wildlife_and_grazing'],
+                    [table_2_4.forest_year_placeholder['wildlife_and_grazing'],table_2_4.other_wooded_land_year_placeholder['wildlife_and_grazing']])`,
         ],
       },
     },
@@ -68,8 +70,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['forest_operations'],
-                    [table_2_4.forest_2020['forest_operations'],table_2_4.other_wooded_land_2020['forest_operations']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['forest_operations'],
+                    [table_2_4.forest_year_placeholder['forest_operations'],table_2_4.other_wooded_land_year_placeholder['forest_operations']])`,
         ],
       },
     },
@@ -82,8 +84,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['other'],
-                    [table_2_4.forest_2020['other'],table_2_4.other_wooded_land_2020['other']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['other'],
+                    [table_2_4.forest_year_placeholder['other'],table_2_4.other_wooded_land_year_placeholder['other']])`,
         ],
       },
     },
@@ -96,8 +98,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['primarily_damaged_by_abiotic_agents'],
-                    [table_2_4.forest_2020['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_2020['primarily_damaged_by_abiotic_agents']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['primarily_damaged_by_abiotic_agents'],
+                    [table_2_4.forest_year_placeholder['primarily_damaged_by_abiotic_agents'],table_2_4.other_wooded_land_year_placeholder['primarily_damaged_by_abiotic_agents']])`,
         ],
       },
     },
@@ -111,8 +113,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['unspecified_mixed_damage_2025'],
-                    [table_2_4.forest_2020['unspecified_mixed_damage_2025'],table_2_4.other_wooded_land_2020['unspecified_mixed_damage_2025']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['unspecified_mixed_damage_2025'],
+                    [table_2_4.forest_year_placeholder['unspecified_mixed_damage_2025'],table_2_4.other_wooded_land_year_placeholder['unspecified_mixed_damage_2025']])`,
         ],
       },
     },
@@ -125,8 +127,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['primarily_damaged_by_fire_total'],
-                    [table_2_4.forest_2020['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_2020['primarily_damaged_by_fire_total']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['primarily_damaged_by_fire_total'],
+                    [table_2_4.forest_year_placeholder['primarily_damaged_by_fire_total'],table_2_4.other_wooded_land_year_placeholder['primarily_damaged_by_fire_total']])`,
         ],
       },
     },
@@ -139,8 +141,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['of_which_human_induced'],
-                    [table_2_4.forest_2020['of_which_human_induced'],table_2_4.other_wooded_land_2020['of_which_human_induced']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['of_which_human_induced'],
+                    [table_2_4.forest_year_placeholder['of_which_human_induced'],table_2_4.other_wooded_land_year_placeholder['of_which_human_induced']])`,
         ],
       },
     },
@@ -154,8 +156,8 @@ const dataColsWithValidation = [
       forceColName: true,
       validateFns: {
         '2025': [
-          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_2020['unspecified_mixed_damage'],
-                    [table_2_4.forest_2020['unspecified_mixed_damage'],table_2_4.other_wooded_land_2020['unspecified_mixed_damage']])`,
+          `validatorEqualToSum(table_2_4.total_forest_and_other_wooded_land_year_placeholder['unspecified_mixed_damage'],
+                    [table_2_4.forest_year_placeholder['unspecified_mixed_damage'],table_2_4.other_wooded_land_year_placeholder['unspecified_mixed_damage']])`,
         ],
       },
     },
@@ -167,7 +169,7 @@ const updatedDataColsValidation = (year: string) =>
     if (col.migration && col.migration.validateFns && col.migration.validateFns['2025']) {
       const validateFns = {
         ...col.migration.validateFns,
-        '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/2020/g, year)),
+        '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/year_placeholder/g, year)),
       }
 
       return {
@@ -544,6 +546,7 @@ export const forestAreaWithDamage = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'forest_2022',
               cols: [
                 {
                   idx: 'header_0',
@@ -574,6 +577,7 @@ export const forestAreaWithDamage = {
             {
               idx: 1,
               type: 'data',
+              variableName: 'forest_2021',
               cols: [
                 {
                   idx: 'header_0',
@@ -604,6 +608,7 @@ export const forestAreaWithDamage = {
             {
               idx: 2,
               type: 'data',
+              variableName: 'forest_2020',
               cols: [
                 {
                   idx: 'header_0',
@@ -634,6 +639,7 @@ export const forestAreaWithDamage = {
             {
               idx: 3,
               type: 'data',
+              variableName: 'forest_2019',
               cols: [
                 {
                   idx: 'header_0',
@@ -664,6 +670,7 @@ export const forestAreaWithDamage = {
             {
               idx: 4,
               type: 'data',
+              variableName: 'forest_2018',
               cols: [
                 {
                   idx: 'header_0',
@@ -694,6 +701,7 @@ export const forestAreaWithDamage = {
             {
               idx: 5,
               type: 'data',
+              variableName: 'forest_2017',
               cols: [
                 {
                   idx: 'header_0',
@@ -723,6 +731,7 @@ export const forestAreaWithDamage = {
             },
             {
               idx: 6,
+              variableName: 'forest_2016',
               type: 'data',
               cols: [
                 {
@@ -754,6 +763,7 @@ export const forestAreaWithDamage = {
             {
               idx: 7,
               type: 'data',
+              variableName: 'forest_2015',
               cols: [
                 {
                   idx: 'header_0',
@@ -783,6 +793,7 @@ export const forestAreaWithDamage = {
             {
               idx: 8,
               type: 'data',
+              variableName: 'forest_2014',
               cols: [
                 {
                   idx: 'header_0',
@@ -813,6 +824,7 @@ export const forestAreaWithDamage = {
             {
               idx: 9,
               type: 'data',
+              variableName: 'forest_2013',
               cols: [
                 {
                   idx: 'header_0',
@@ -843,6 +855,7 @@ export const forestAreaWithDamage = {
             {
               idx: 10,
               type: 'data',
+              variableName: 'forest_2012',
               cols: [
                 {
                   idx: 'header_0',
@@ -873,6 +886,7 @@ export const forestAreaWithDamage = {
             {
               idx: 11,
               type: 'data',
+              variableName: 'forest_2011',
               cols: [
                 {
                   idx: 'header_0',
@@ -903,6 +917,7 @@ export const forestAreaWithDamage = {
             {
               idx: 12,
               type: 'data',
+              variableName: 'forest_2010',
               cols: [
                 {
                   idx: 'header_0',
@@ -932,6 +947,7 @@ export const forestAreaWithDamage = {
             {
               idx: 13,
               type: 'data',
+              variableName: 'forest_2009',
               cols: [
                 {
                   idx: 'header_0',
@@ -962,6 +978,7 @@ export const forestAreaWithDamage = {
             {
               idx: 14,
               type: 'data',
+              variableName: 'forest_2008',
               cols: [
                 {
                   idx: 'header_0',
@@ -992,6 +1009,7 @@ export const forestAreaWithDamage = {
             {
               idx: 15,
               type: 'data',
+              variableName: 'forest_2007',
               cols: [
                 {
                   idx: 'header_0',
@@ -1022,6 +1040,7 @@ export const forestAreaWithDamage = {
             {
               idx: 16,
               type: 'data',
+              variableName: 'forest_2006',
               cols: [
                 {
                   idx: 'header_0',
@@ -1052,6 +1071,7 @@ export const forestAreaWithDamage = {
             {
               idx: 17,
               type: 'data',
+              variableName: 'forest_2005',
               cols: [
                 {
                   idx: 'header_0',
@@ -1067,7 +1087,7 @@ export const forestAreaWithDamage = {
                 ValidateFns: {
                   '2025': [
                     `validatorEqualToSum(table_2_4.forest_2005['total_area_with_damage'],
-                     [table_2_4.forest_2020['insects'], table_2_4.forest_2020['disease'],table_2_4.forest_2005['wildlife_and_grazing'],
+                     [table_2_4.forest_2005['insects'], table_2_4.forest_2005['disease'],table_2_4.forest_2005['wildlife_and_grazing'],
                      table_2_4.forest_2005['forest_operations'],table_2_4.forest_2005['other'],
                      table_2_4.forest_2005['primarily_damaged_by_abiotic_agents'],table_2_4.forest_2005['primarily_damaged_by_fire_total'],
                      table_2_4.forest_2005['unspecified_mixed_damage']])`,
@@ -1081,6 +1101,7 @@ export const forestAreaWithDamage = {
             {
               idx: 18,
               type: 'data',
+              variableName: 'forest_2004',
               cols: [
                 {
                   idx: 'header_0',
@@ -1111,6 +1132,7 @@ export const forestAreaWithDamage = {
             {
               idx: 19,
               type: 'data',
+              variableName: 'forest_2003',
               cols: [
                 {
                   idx: 'header_0',
@@ -1141,6 +1163,7 @@ export const forestAreaWithDamage = {
             {
               idx: 20,
               type: 'data',
+              variableName: 'forest_2002',
               cols: [
                 {
                   idx: 'header_0',
@@ -1171,6 +1194,7 @@ export const forestAreaWithDamage = {
             {
               idx: 21,
               type: 'data',
+              variableName: 'forest_2001',
               cols: [
                 {
                   idx: 'header_0',
@@ -1201,6 +1225,7 @@ export const forestAreaWithDamage = {
             {
               idx: 22,
               type: 'data',
+              variableName: 'forest_2000',
               cols: [
                 {
                   idx: 'header_0',
@@ -1230,6 +1255,7 @@ export const forestAreaWithDamage = {
             {
               idx: 23,
               type: 'data',
+              variableName: 'forest_1990',
               cols: [
                 {
                   idx: 'header_0',
@@ -1259,6 +1285,7 @@ export const forestAreaWithDamage = {
             {
               idx: 24,
               type: 'data',
+              variableName: 'other_wooded_land_2020',
               cols: [
                 {
                   idx: 'header_0',
@@ -1268,7 +1295,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                ...updatedDataColsValidation('2020'),
+                ...dataCols,
+                // ...updatedDataColsValidation('2020'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -1280,6 +1308,7 @@ export const forestAreaWithDamage = {
             {
               idx: 25,
               type: 'data',
+              variableName: 'other_wooded_land_2015',
               cols: [
                 {
                   idx: 'header_0',
@@ -1289,7 +1318,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                ...updatedDataColsValidation('2015'),
+                ...dataCols,
+                // ...updatedDataColsValidation('2015'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2015 },
@@ -1298,6 +1328,7 @@ export const forestAreaWithDamage = {
             {
               idx: 26,
               type: 'data',
+              variableName: 'other_wooded_land_2010',
               cols: [
                 {
                   idx: 'header_0',
@@ -1307,7 +1338,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                ...updatedDataColsValidation('2010'),
+                ...dataCols,
+                // ...updatedDataColsValidation('2010'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2010 },
@@ -1316,6 +1348,7 @@ export const forestAreaWithDamage = {
             {
               idx: 27,
               type: 'data',
+              variableName: 'other_wooded_land_2005',
               cols: [
                 {
                   idx: 'header_0',
@@ -1325,7 +1358,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                ...updatedDataColsValidation('2005'),
+                ...dataCols,
+                // ...updatedDataColsValidation('2005'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2005 },
@@ -1334,6 +1368,7 @@ export const forestAreaWithDamage = {
             {
               idx: 28,
               type: 'data',
+              variableName: 'other_wooded_land_2000',
               cols: [
                 {
                   idx: 'header_0',
@@ -1343,7 +1378,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                ...updatedDataColsValidation('2000'),
+                ...dataCols,
+                // ...updatedDataColsValidation('2000'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 2000 },
@@ -1352,6 +1388,7 @@ export const forestAreaWithDamage = {
             {
               idx: 29,
               type: 'data',
+              variableName: 'other_wooded_land_1990',
               cols: [
                 {
                   idx: 'header_0',
@@ -1361,7 +1398,8 @@ export const forestAreaWithDamage = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                ...updatedDataColsValidation('1990'),
+                ...dataCols,
+                // ...updatedDataColsValidation('1990'),
               ],
               labelKey: 'panEuropean.forestAreaWithDamage.other_wooded_land',
               labelParams: { year: 1990 },
@@ -1370,6 +1408,7 @@ export const forestAreaWithDamage = {
             {
               idx: 30,
               type: 'data',
+              variableName: 'total_forest_and_other_wooded_land_2020',
               cols: [
                 {
                   idx: 'header_0',
@@ -1391,6 +1430,7 @@ export const forestAreaWithDamage = {
             {
               idx: 31,
               type: 'data',
+              variableName: 'total_forest_and_other_wooded_land_2015',
               cols: [
                 {
                   idx: 'header_0',
@@ -1409,6 +1449,7 @@ export const forestAreaWithDamage = {
             {
               idx: 32,
               type: 'data',
+              variableName: 'total_forest_and_other_wooded_land_2010',
               cols: [
                 {
                   idx: 'header_0',
@@ -1427,6 +1468,7 @@ export const forestAreaWithDamage = {
             {
               idx: 33,
               type: 'data',
+              variableName: 'total_forest_and_other_wooded_land_2005',
               cols: [
                 {
                   idx: 'header_0',
@@ -1445,6 +1487,7 @@ export const forestAreaWithDamage = {
             {
               idx: 34,
               type: 'data',
+              variableName: 'total_forest_and_other_wooded_land_2000',
               cols: [
                 {
                   idx: 'header_0',
@@ -1463,6 +1506,7 @@ export const forestAreaWithDamage = {
             {
               idx: 35,
               type: 'data',
+              variableName: 'total_forest_and_other_wooded_land_1990',
               cols: [
                 {
                   idx: 'header_0',

@@ -375,7 +375,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
       ],
     },
     {
-      titleKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.annualForestExpansionAndRegeneration',
+      titleKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.annualForestExpansionAndRegenerationNumber',
       tableSpecs: [
         {
           name: 'table_4_2b',
