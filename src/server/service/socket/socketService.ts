@@ -20,7 +20,7 @@ const init = (server: http.Server): void => {
   //   console.log('==== NEW CONNECTION', socket)
   // })
 
-  io.engine.on('connection_error', (err: any) => {
+  io.engine.on('connection_error', (err) => {
     Logger.error(`WebSocket connection error. Code: ${err.code}. Message: ${err.message}.`)
   })
 }
