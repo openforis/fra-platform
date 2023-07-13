@@ -218,24 +218,24 @@
 
 6.  Non-wood goods categories and codes:
 - Plant products / raw material
-    - Food: 1
-    - Fodder: 2
-    - Raw material for medicine and aromatic products: 3
-    - Raw material for colorants and dyes: 4
-    - Raw material for utensils, handicrafts & construction: 5
-    - Ornamental plants: 6
-    - Exudates: 7
-    - Other plant products: 8
+  - Food: 1
+  - Fodder: 2
+  - Raw material for medicine and aromatic products: 3
+  - Raw material for colorants and dyes: 4
+  - Raw material for utensils, handicrafts & construction: 5
+  - Ornamental plants: 6
+  - Exudates: 7
+  - Other plant products: 8
 
 - Animal products / raw material
-    - Living animals: 9
-    - Hides, skins and trophies: 10
-    - Wild honey and bee-wax: 11
-    - Wild meat: 12
-    - Raw material for medicine: 13
-    - Raw material for colorants: 14
-    - Other edible animal products: 15
-    - Other non-edible animal products: 16
+  - Living animals: 9
+  - Hides, skins and trophies: 10
+  - Wild honey and bee-wax: 11
+  - Wild meat: 12
+  - Raw material for medicine: 13
+  - Raw material for colorants: 14
+  - Other edible animal products: 15
+  - Other non-edible animal products: 16
 
 7.  “Marketed” non-wood goods comprise all non-wood goods sold on markets. It excludes non-wood goods harvested for self-consumption (subsistence) and other forms of uses without market transaction.
 
@@ -270,21 +270,21 @@
 
 **Categories and Codes**
 - Ecological services: 1
-    - Water protection: 1.1
-    - Soil protection: 1.2
-    - Health protection: 1.3
-    - Infrastructure protection: 1.4
+  - Water protection: 1.1
+  - Soil protection: 1.2
+  - Health protection: 1.3
+  - Infrastructure protection: 1.4
 - Biospheric services: 2
-    - Biodiversity  protection: 2.1
-    - Climate regulation: 2.2
+  - Biodiversity  protection: 2.1
+  - Climate regulation: 2.2
 - Social services: 3
-    - Tourism: 3.1
-    - Recreation: 3.2
-    - Sport activities: 3.3
+  - Tourism: 3.1
+  - Recreation: 3.2
+  - Sport activities: 3.3
 - Amenity services: 4
-    - Spiritual services: 4.1
-    - Cultural services: 4.2
-    - Historical services: 4.3
+  - Spiritual services: 4.1
+  - Cultural services: 4.2
+  - Historical services: 4.3
 - Other services: 5
 
 8. Marketed ecological services include those related to indicators 5.1 (protection of soil, water and other ecosystem functions as well as infrastructure and managed natural resources) on a voluntary contractual basis with compensation or other payments from private or public bodies.
@@ -321,11 +321,11 @@
 
 **Reporting notes:**
 
-1. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2020 (https://fra-data.fao.org/assessments/panEuropean/2020/) National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
+1. Prefilling: This table has been prefilled with the data reported for the Joint Pan-European Data Collection 2025 (https://fra-data.fao.org/assessments/panEuropean/2020/) National correspondents may use that data, if available, as the basis and maintain these figures, providing they are consistent with the current international definitions and recommendations. If new data replaced previously reported values, national correspondents are invited to indicate the reason for changing the figures in “Country comments”.
 
-2.  The term “regeneration” used in this reporting should be understood as a synonym of the term “reforestation”  used in the FRA/CFRQ, which also includes coppice (http://www.fao.org/forestry/fra/83059/en). Table 4.2a: Origin of total forest area by regeneration
+2.  The term “regeneration” used in this reporting should be understood as a synonym of the term “reforestation”  used in the FRA/CFRQ, which also includes coppice (http://www.fao.org/forestry/fra/83059/en). Table 4.2a: Origin of total forest area by regeneration. Coppice is already included in the prefilled FRA 2025 value, national correspondents are asked to report the area of "coppice" in addition to prefilled FRA data.
 
-3.  Connection with FRA/CFRQ 2020: this reporting form has direct counterparts in T1b of the global reporting. Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
+3.  Connection with FRA/CFRQ 2025: this reporting form has direct counterparts in T1b of the global reporting. Please refer to the corresponding FRA/CFRQ guidelines at http://fra-platform.herokuapp.com/ and terms and definitions at http://fra-platform.herokuapp.com/definitions/en/tad#1a. Overlapping FRA categories and JPEDC variables **(marked in bold)** are reported through the FRA 2025 platform, and automatically uploaded in the JPEDC 2025 platform. Any changes of these overlapping variables can be done only through the FRA 2025 platform.
 
 4.  Reference years: The figures for the reporting years refer to the situation in a reference year, a “central year” (1990, 2000, 2005, 2010, 2015, 2020) noted in the Table, or in a nearest year for which data is available.
 

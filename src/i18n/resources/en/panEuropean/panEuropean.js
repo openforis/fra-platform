@@ -187,10 +187,10 @@ module.exports = {
     mature_phase: 'Mature phase',
     unspecified: 'Unspecified',
     _1000Ha: '1000 ha',
-    forest_even_aged_stands_of_which: 'Forest (even-aged stands), of which: - {{year}}',
-    available_for_wood_supply_of_which: 'Available for wood supply, of which: - {{year}}',
-    predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
-    predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
+    forest_even_aged_stands_of_which: 'Forest (even-aged stands): - {{year}}',
+    available_for_wood_supply_of_which: 'Available for wood supply: - {{year}}',
+    predominantly_coniferous_forest: 'Predominantly coniferous FAWS - {{year}}',
+    predominantly_broadleaved_forest: 'Predominantly broadleaved FAWS - {{year}}',
     mixed_forest: 'Mixed forest - {{year}}',
   },
 
@@ -207,9 +207,9 @@ module.exports = {
     unspecified: 'Unspecified',
     _1000M3: '1000 m³',
     forest_available_for_wood_supply_even_aged_stands_of_which:
-      'Forest available for wood supply (even-aged stands), of which: - {{year}}',
-    predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
-    predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
+      'Forest available for wood supply (even-aged stands): - {{year}}',
+    predominantly_coniferous_forest: 'Predominantly coniferous FAWS - {{year}}',
+    predominantly_broadleaved_forest: 'Predominantly broadleaved FAWS - {{year}}',
     mixed_forest: 'Mixed forest - {{year}}',
   },
 
@@ -472,7 +472,7 @@ module.exports = {
     natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
     afforestation_and_regeneration_by_planting_and_or_seeding:
       'Afforestation and regeneration by planting and/or seeding',
-    coppice: 'Coppice',
+    coppice: 'Of which Coppice',
     forest: 'Forest - {{year}}',
   },
 
