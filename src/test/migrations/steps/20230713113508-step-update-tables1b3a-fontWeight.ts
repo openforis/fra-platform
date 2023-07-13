@@ -10,7 +10,7 @@ export default async (client: BaseProtocol) => {
 
   await client.query(`
       update ${schemaAssessment}.col c
-      set props = jsonb_set(c.props, '{style,${cycle.uuid}.,fontWeight}', to_jsonb(600), true)
+      set props = jsonb_set(c.props, '{style,${cycle.uuid},fontWeight}', to_jsonb(600), true)
       from (select c.id
             from ${schemaAssessment}.col c
                      left join ${schemaAssessment}.row r on c.row_id = r.id
@@ -21,7 +21,7 @@ export default async (client: BaseProtocol) => {
       where c.id = cSource.id;
 
       update ${schemaAssessment}.col c
-      set props = jsonb_set(c.props, '{style,${cycle.uuid}.,fontWeight}', to_jsonb(400), true)
+      set props = jsonb_set(c.props, '{style,${cycle.uuid},fontWeight}', to_jsonb(400), true)
       from (select c.id
             from ${schemaAssessment}.col c
                      left join ${schemaAssessment}.row r on c.row_id = r.id
