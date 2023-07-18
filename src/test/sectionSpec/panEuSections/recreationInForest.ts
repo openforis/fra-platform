@@ -386,7 +386,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.accessibilityForRecreation.intensityOfUseNumber',
+      titleKey: 'panEuropean.accessibilityForRecreation.recreationFacilitiesNumber',
       tableSpecs: [
         {
           name: 'table_6_10c',
@@ -493,7 +493,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.accessibilityForRecreation.otherRecreationFacilities',
+      titleKey: 'panEuropean.accessibilityForRecreation.otherRecreationFacilitiesNumber',
       tableSpecs: [
         {
           name: 'table_6_10d',

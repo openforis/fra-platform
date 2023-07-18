@@ -468,7 +468,8 @@ module.exports = {
     totalForestAreaByExpansionAndRegenerationTypeNumber: 'I. Total forest area by expansion and regeneration type',
     annualForestExpansionAndRegenerationNumber: 'II. Annual forest expansion and regeneration',
     categoryYear: 'Category - Year',
-    totalAreaOfForestByExpansionRegenerationType1000ha: 'Total area of forest by expansion/regeneration type (1000 ha)',
+    totalAreaOfForestByExpansionRegenerationType1000ha:
+      'Total area of forest by expansion/regeneration type (1000 ha / year)',
     natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
     afforestation_and_regeneration_by_planting_and_or_seeding:
       'Afforestation and regeneration by planting and/or seeding',
@@ -480,7 +481,7 @@ module.exports = {
   annualForestExpansionAndRegeneration: {
     annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
     categoryYear: 'Category - Year',
-    annualForestExpansionAndRegeneration1000ha: 'Annual forest expansion and regeneration (1000 ha)',
+    annualForestExpansionAndRegeneration1000ha: 'Annual forest expansion and regeneration (1000 ha / year)',
     expansionOfForestArea: 'Expansion of forest area',
     regenerationOfForestArea: 'Regeneration of forest area',
     afforestation: 'Expansion: Afforestation',

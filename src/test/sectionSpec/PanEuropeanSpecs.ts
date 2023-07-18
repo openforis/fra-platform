@@ -1861,7 +1861,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colName: 'FAWS',
                     migration: {
                       calculateFn:
-                        'table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment ) * 100',
+                        '(table_3_1._of_which_forest_available_for_wood_supply_2020.fellings_total - table_3_1._of_which_forest_available_for_wood_supply_2020.natural_losses)  / table_3_1._of_which_forest_available_for_wood_supply_2020.net_annual_increment',
                     },
                   },
                 ],
@@ -1890,7 +1890,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colName: 'FAWS',
                     migration: {
                       calculateFn:
-                        'table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment * 1000)',
+                        '(table_3_1._of_which_forest_available_for_wood_supply_2015.fellings_total - table_3_1._of_which_forest_available_for_wood_supply_2015.natural_losses)  / table_3_1._of_which_forest_available_for_wood_supply_2015.net_annual_increment',
                     },
                   },
                 ],
@@ -1919,7 +1919,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colName: 'FAWS',
                     migration: {
                       calculateFn:
-                        'table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment ) * 100 ',
+                        '(table_3_1._of_which_forest_available_for_wood_supply_2010.fellings_total - table_3_1._of_which_forest_available_for_wood_supply_2010.natural_losses)  / table_3_1._of_which_forest_available_for_wood_supply_2010.net_annual_increment',
                     },
                   },
                 ],
@@ -1948,7 +1948,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colName: 'FAWS',
                     migration: {
                       calculateFn:
-                        'table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment) * 100',
+                        '(table_3_1._of_which_forest_available_for_wood_supply_2005.fellings_total - table_3_1._of_which_forest_available_for_wood_supply_2005.natural_losses)  / table_3_1._of_which_forest_available_for_wood_supply_2005.net_annual_increment',
                     },
                   },
                 ],
@@ -1977,7 +1977,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colName: 'FAWS',
                     migration: {
                       calculateFn:
-                        'table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment) * 100',
+                        '(table_3_1._of_which_forest_available_for_wood_supply_2000.fellings_total - table_3_1._of_which_forest_available_for_wood_supply_2000.natural_losses)  / table_3_1._of_which_forest_available_for_wood_supply_2000.net_annual_increment',
                     },
                   },
                 ],
@@ -2006,7 +2006,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
                     colName: 'FAWS',
                     migration: {
                       calculateFn:
-                        'table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total / (table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment) * 100',
+                        '(table_3_1._of_which_forest_available_for_wood_supply_1990.fellings_total - table_3_1._of_which_forest_available_for_wood_supply_1990.natural_losses)  / table_3_1._of_which_forest_available_for_wood_supply_1990.net_annual_increment',
                     },
                   },
                 ],
@@ -6822,7 +6822,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],
@@ -7445,7 +7445,7 @@ export const PanEuropeanSpecs: Record<string, SectionSpec> = {
             columnsExport: [],
             migration: {
               cycles: ['2025'],
-              columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+              columnNames: { '2025': ['comment', 'comment_trends'] },
             },
           },
         ],

@@ -1882,7 +1882,7 @@ export const introducedTreeSpecies = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrends'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
