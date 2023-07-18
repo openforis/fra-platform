@@ -21,7 +21,7 @@ const dataColsPublic2005 = [
       },
     },
   },
-  { idx: 1, type: 'decimal' },
+  { idx: 1, type: 'integer' },
   {
     idx: 2,
     type: 'decimal',
@@ -99,7 +99,7 @@ const dataColsPublic2005 = [
   },
   {
     idx: 7,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -150,7 +150,7 @@ const dataColsPrivate2005 = [
       },
     },
   },
-  { idx: 1, type: 'decimal' },
+  { idx: 1, type: 'integer' },
   {
     idx: 2,
     type: 'decimal',
@@ -228,7 +228,7 @@ const dataColsPrivate2005 = [
   },
   {
     idx: 7,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -280,7 +280,7 @@ const dataColsOther = [
       },
     },
   },
-  { idx: 1, type: 'decimal' },
+  { idx: 1, type: 'integer' },
   {
     idx: 2,
     type: 'decimal',
@@ -358,7 +358,7 @@ const dataColsOther = [
   },
   {
     idx: 7,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
