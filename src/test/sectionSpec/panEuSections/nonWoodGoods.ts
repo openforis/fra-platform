@@ -80,6 +80,78 @@ const dataCols = [
     idx: 5,
     type: 'text',
     migration: {
+      cycles: ['2020'],
+    },
+  },
+  {
+    idx: 6,
+    type: 'select',
+    options: [
+      {
+        optionName: 'plantProductsSelectHeading',
+        type: 'header',
+      },
+      {
+        optionName: 'food',
+      },
+      {
+        optionName: 'fodder',
+      },
+      {
+        optionName: 'rawMaterialForMedicine',
+      },
+      {
+        optionName: 'rawMaterialForColorants',
+      },
+      {
+        optionName: 'rawMaterialForUtensils',
+      },
+      {
+        optionName: 'ornamentalPlants',
+      },
+      {
+        optionName: 'exudates',
+      },
+      {
+        optionName: 'otherPlantProducts',
+      },
+      {
+        optionName: 'animalProductsSelectHeading',
+        type: 'header',
+      },
+      {
+        optionName: 'livingAnimals',
+      },
+      {
+        optionName: 'hidesSkins',
+      },
+      {
+        optionName: 'wildHoney',
+      },
+      {
+        optionName: 'wildMeat',
+      },
+      {
+        optionName: 'animalRawMaterialForMedicine',
+      },
+      {
+        optionName: 'animalRawMaterialForColorants',
+      },
+      {
+        optionName: 'otherEdibleAnimalProducts',
+      },
+      {
+        optionName: 'otherNonEdibleAnimalProducts',
+      },
+    ],
+    optionsLabelKeyPrefix: 'nonWoodForestProductsRemovals',
+    colName: 'nwfp_category_2025',
+    migration: {
+      cycles: ['2025'],
+      forceColName: true,
+      style: {
+        '2025': { minWidth: '170px' },
+      },
       linkedNodes: {
         '2025': {
           assessmentName: 'fra',
@@ -98,9 +170,11 @@ const linkedDataCols = (variableName) =>
     ...col,
     migration: {
       ...col.migration,
-      linkedNodes: Object.fromEntries(
-        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, variableName }])
-      ),
+      linkedNodes: col.migration.linkedNodes
+        ? Object.fromEntries(
+            Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, variableName }])
+          )
+        : undefined,
     },
   }))
 
@@ -480,6 +554,26 @@ export const nonWoodGoods2015 = {
             'market_value_1000_national_currency',
             'nwfp_category',
           ],
+          migration: {
+            columnNames: {
+              '2020': [
+                'name_of_groups_of_product',
+                'key_species',
+                'total_harvested_non_wood_goods_unit',
+                'total_harvested_non_wood_goods_quantity',
+                'market_value_1000_national_currency',
+                'nwfp_category',
+              ],
+              '2025': [
+                'name_of_groups_of_product',
+                'key_species',
+                'total_harvested_non_wood_goods_unit',
+                'total_harvested_non_wood_goods_quantity',
+                'market_value_1000_national_currency',
+                'nwfp_category_2025',
+              ],
+            },
+          },
         },
       ],
     },
