@@ -31,6 +31,20 @@ module.exports = {
         historicalServices: '4.3 Historical services',
         otherServices: '5 Other services',
       },
+      facilityCategory: {
+        notSelected: '',
+        accommodationFacilities: '1 Accommodation facilities (mountain hotels, cottages, apartments)',
+        campingSites: '2 Camping sites',
+        overnightShelters: '3 Overnight shelters',
+        picnicSites: '4 Picnic sites',
+        natureSchools: '5 Nature schools',
+        sitesForNatureStudying:
+          '6 Sites for nature studying (educational walkways, nature exhibitions, protected sites, geological localities, sites of cultural heritage, famous trees …)',
+        birdAndWildlifeWatchingLocalities: '7 Bird and wildlife watching localities',
+        cablewaysAndLifts: '8 Cableways and lifts',
+        parkingLots: '9 Parking lots',
+        otherFacilities: '10 Other facilities',
+      },
     },
   },
 }
