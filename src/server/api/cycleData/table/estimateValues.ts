@@ -14,7 +14,7 @@ import Requests from 'server/utils/requests'
 /**
  * @deprecated
  */
-const generateSpecToEstimation = (props: { generateSpec: GenerateSpec; table: Table }): NodeValuesEstimation => {
+export const generateSpecToEstimation = (props: { generateSpec: GenerateSpec; table: Table }): NodeValuesEstimation => {
   const { generateSpec, table } = props
 
   const variables = generateSpec.fields.reduce<NodeValuesEstimation['variables']>((acc, field) => {
