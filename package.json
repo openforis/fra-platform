@@ -37,7 +37,8 @@
     "postinstall": "husky install",
     "pre-commit": "lint-staged && eslint --cache --fix",
     "geo:forest-estimations-import": "ts-node tools/geo/forestEstimationsImport.ts",
-    "geo:bounds-import": "ts-node tools/geo/boundsImport.ts"
+    "geo:bounds-import": "ts-node tools/geo/boundsImport.ts",
+    "estimations:reverse-engineer": "ts-node src/tools/estimationsReverseEngineer/index.ts"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
