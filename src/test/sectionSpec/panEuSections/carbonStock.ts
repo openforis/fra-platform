@@ -155,50 +155,8 @@ export const carbonStock = {
               ],
               type: 'header',
             },
-            // {
-            //   idx: 'header_1',
-            //   cols: [
-            //     {
-            //       idx: 0,
-            //       colSpan: 2,
-            //       rowSpan: 1,
-            //       labelKey: 'panEuropean.carbonStock.carbonInAboveGroundAndBelowGroundLivingBiomass',
-            //       className: 'fra-table__header-cell',
-            //       type: 'header',
-            //       migration: {
-            //         cycles: ['2025'],
-            //       },
-            //     },
-            //     {
-            //       idx: 1,
-            //       colSpan: 2,
-            //       rowSpan: 1,
-            //       labelKey: 'panEuropean.carbonStock.carbonInDeadwoodAndLitter',
-            //       className: 'fra-table__header-cell',
-            //       type: 'header',
-            //       migration: {
-            //         cycles: ['2025'],
-            //       },
-            //     },
-            //     {
-            //       idx: 2,
-            //       colSpan: 1,
-            //       rowSpan: 2,
-            //       labelKey: 'panEuropean.carbonStock.soil_carbon',
-            //       className: 'fra-table__header-cell-left',
-            //       type: 'header',
-            //       migration: {
-            //         cycles: ['2025'],
-            //       },
-            //     },
-            //   ],
-            //   migration: {
-            //     cycles: ['2025'],
-            //   },
-            //   type: 'header',
-            // },
             {
-              idx: 'header_2',
+              idx: 'header_1',
               cols: [
                 {
                   idx: 0,
