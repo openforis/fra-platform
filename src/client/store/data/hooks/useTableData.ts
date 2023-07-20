@@ -19,7 +19,7 @@ export const useTableData = (props: { table: Table }): RecordAssessmentData => {
   const country = useAssessmentCountry()
 
   const tableData = useRecordAssessmentData()
-  const odpData = useOriginalDataPointData() ?? {}
+  const odpData = useOriginalDataPointData()
   const showOriginalDatapoints = useShowOriginalDatapoints()
 
   if (

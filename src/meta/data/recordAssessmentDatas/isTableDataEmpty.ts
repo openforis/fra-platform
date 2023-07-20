@@ -21,7 +21,8 @@ export const isTableDataEmpty = (props: {
 
   return !Object.values(tableData)
     .flatMap(
-      (rows) => Object.values(rows).filter((nodeValue) => !nodeValue.calculated && nodeValue.raw !== null).length
+      (rows) =>
+        Object.values(rows).filter((nodeValue) => nodeValue && !nodeValue.calculated && nodeValue.raw !== null).length
     )
     .every(Boolean)
 }

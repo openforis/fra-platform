@@ -43,9 +43,9 @@ const toObject = (tableData: RecordCountryData, countryIso: CountryIso): Array<R
         ...Object.keys(yearValues).reduce(
           (acc, key) => ({
             ...acc,
-            [key === 'forest' ? 'forestArea' : key]: yearValues[key].raw,
-            [`${key}Estimated`]: yearValues[key].estimated || false,
-            type: yearValues[key].odp ? 'odp' : 'fra',
+            [key === 'forest' ? 'forestArea' : key]: yearValues?.[key]?.raw,
+            [`${key}Estimated`]: yearValues?.[key]?.estimated || false,
+            type: yearValues?.[key]?.odp ? 'odp' : 'fra',
           }),
           {}
         ),
