@@ -39,6 +39,11 @@ const isReadOnly = (props: { cycle: Cycle; col: Col; row: Row }): boolean => {
   )
 }
 
+const getCalculateFn = (props: { cycle: Cycle; col: Col; row: Row }): string | undefined => {
+  const { cycle, col, row } = props
+  return col.props.calculateFn?.[cycle.uuid] ?? row.props.calculateFn?.[cycle.uuid]
+}
+
 const getClassNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
   const { col, cycle } = props
   const { classNames = {} } = col.props
@@ -57,11 +62,12 @@ const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
 }
 
 export const Cols = {
-  getColName,
-  isCalculated,
-  isReadOnly,
+  getCalculateFn,
   getClassNames,
+  getColName,
   getLabel,
   getStyle,
   hasLinkedNodes,
+  isCalculated,
+  isReadOnly,
 }

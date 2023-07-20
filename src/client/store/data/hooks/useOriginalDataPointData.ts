@@ -5,7 +5,7 @@ import { useAppSelector } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
 
-export const useOriginalDataPointData = (): RecordColumnData | undefined => {
+export const useOriginalDataPointData = (): RecordColumnData => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
@@ -18,5 +18,5 @@ export const useOriginalDataPointData = (): RecordColumnData | undefined => {
       countryIso,
       tableName: TableNames.originalDataPointValue,
     })
-  ) as RecordColumnData | undefined
+  )
 }
