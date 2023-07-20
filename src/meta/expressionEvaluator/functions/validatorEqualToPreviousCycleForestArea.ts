@@ -22,7 +22,10 @@ export const validatorEqualToPreviousCycleForestArea: ExpressionFunction<Context
         : [
             {
               key: 'generalValidation.forestAreaReportedIsDifferentFromPreviousCycle',
-              params: { forestArea2020, forestArea2025 },
+              params: {
+                forestArea2020: Numbers.format(Number(forestArea2020)),
+                forestArea2025: Numbers.format(Number(forestArea2025)),
+              },
             },
           ]
 
