@@ -4,6 +4,7 @@ import { fraRegionCodes } from 'meta/area/regionCode'
 
 const getTranslationKey = (isoCode: CountryIso | RegionCode | Global): string => `area.${isoCode}.listName`
 
+const isAtlantis = (countryIso: CountryIso): boolean => countryIso.startsWith('X')
 const isGlobal = (isoCode: CountryIso | RegionCode | Global) => Global.WO === isoCode
 const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCode)
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
@@ -17,6 +18,7 @@ const getStatus = (country: Country): AssessmentStatus => {
 
 export const Areas = {
   getTranslationKey,
+  isAtlantis,
   isGlobal,
   isISOCountry,
   isRegion,
