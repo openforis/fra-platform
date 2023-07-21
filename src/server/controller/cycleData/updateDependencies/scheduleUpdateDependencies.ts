@@ -8,7 +8,9 @@ import { UpdateDependenciesQueueFactory } from './queueFactory'
 export const scheduleUpdateDependencies = (props: UpdateDependenciesProps): Promise<Job<UpdateDependenciesProps>> => {
   const { nodeUpdates } = props
   const { assessment, cycle, countryIso } = nodeUpdates
-  Logger.debug(`[scheduleUpdateDependencies] ${nodeUpdates.nodes.length} nodes added to updateDependencies queue`)
+  Logger.debug(
+    `[scheduleUpdateDependencies] ${countryIso} ${nodeUpdates.nodes.length} nodes added to updateDependencies queue`
+  )
 
   return UpdateDependenciesQueueFactory.getInstance({ assessment, cycle, countryIso }).add(
     'updateDependencies',
