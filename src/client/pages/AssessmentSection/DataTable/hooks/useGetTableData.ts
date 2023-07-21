@@ -5,6 +5,7 @@ import { CountryIso } from 'meta/area'
 import { AssessmentName, CycleName, Table, TableName, TableNames } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import { DataActions } from 'client/store/data/slice'
 import { useCanEdit } from 'client/store/user'
 
@@ -25,6 +26,9 @@ type Dependencies = Array<Dependency>
 
 const useDependencies = (props: Props): Dependencies => {
   const { sectionName, table } = props
+
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const canEdit = useCanEdit(sectionName)
 
   const { calculationDependencies, validationDependencies } = table
@@ -34,6 +38,12 @@ const useDependencies = (props: Props): Dependencies => {
     const dependencies: Dependencies = [{ tableName }]
 
     dependencyTables[tableName]?.forEach((t) => dependencies.push({ tableName: t }))
+    // TODO: fix this in https://github.com/openforis/fra-platform/issues/2879
+    dependencies.push({
+      tableName: TableNames.extentOfForest,
+      cycleName: cycle.name,
+      assessmentName: assessment.props.name,
+    })
 
     if (calculationDependencies || (canEdit && validationDependencies)) {
       Object.values({ ...(calculationDependencies ?? {}), ...(validationDependencies ?? {}) }).forEach((variables) =>
@@ -55,7 +65,7 @@ const useDependencies = (props: Props): Dependencies => {
     }
 
     return dependencies
-  }, [calculationDependencies, canEdit, tableName, validationDependencies])
+  }, [assessment.props.name, cycle.name, calculationDependencies, canEdit, tableName, validationDependencies])
 
   return tableNames
 }
