@@ -27,7 +27,7 @@ const isTableWithOdpEmpty = (data: RecordCountryData) => {
   return (
     Object.values(data).flatMap((section) =>
       Object.values(section).flatMap((year) =>
-        Object.values(year).flatMap((v) => Object.values(v).filter((variable) => !variable.odp))
+        Object.values(year).flatMap((v) => Object.values(v).filter((variable) => variable && !variable.odp))
       )
     ).length > 0
   )

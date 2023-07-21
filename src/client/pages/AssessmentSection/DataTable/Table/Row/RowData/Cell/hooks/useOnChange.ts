@@ -39,7 +39,7 @@ export default (props: Props): UseOnChange => {
   const assessmentSection = useAssessmentSection(sectionName)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { estimated, estimationUuid, validation, ...nodeValue } = _nodeValue ?? ({} as NodeValue)
+  const { calculated, estimated, estimationUuid, validation, ...nodeValue } = _nodeValue ?? ({} as NodeValue)
 
   const _persistSanitizedValue = (value: NodeValue) => {
     if (Sanitizer.isAcceptable({ type, value: value.raw })) {

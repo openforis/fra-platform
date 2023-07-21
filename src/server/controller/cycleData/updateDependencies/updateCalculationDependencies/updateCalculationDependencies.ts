@@ -31,7 +31,12 @@ export const updateCalculationDependencies = async (
   const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
   const mergeOdp = isODP || !_isODPCell
 
-  const debugKey = `[updateCalculationDependencies-${[props.tableName, props.variableName, props.colName].join('-')}]`
+  const debugKey = `[updateCalculationDependencies-${[
+    countryIso,
+    props.tableName,
+    props.variableName,
+    props.colName,
+  ].join('-')}]`
   Logger.debug(`${debugKey} initial queue length ${queue.length}`)
 
   while (queue.length !== 0) {
