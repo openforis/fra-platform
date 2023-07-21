@@ -386,7 +386,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.accessibilityForRecreation.intensityOfUseNumber',
+      titleKey: 'panEuropean.accessibilityForRecreation.recreationFacilitiesNumber',
       tableSpecs: [
         {
           name: 'table_6_10c',
@@ -404,17 +404,9 @@ export const accessibilityForRecreation = {
                 },
                 {
                   idx: 1,
-                  colSpan: 1,
+                  colSpan: 2,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.recreationFacilities.forestRoadsAndPathsAvailableForPublicRecreation',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 2,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.recreationFacilities._ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc',
+                  labelKey: 'panEuropean.recreationFacilities.facilityLengthIn1000Km',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
@@ -426,9 +418,17 @@ export const accessibilityForRecreation = {
               cols: [
                 {
                   idx: 0,
-                  colSpan: 2,
+                  colSpan: 1,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.recreationFacilities.facilityLengthIn1000Km',
+                  labelKey: 'panEuropean.recreationFacilities.forestRoadsAndPathsAvailableForPublicRecreation',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.recreationFacilities._ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
@@ -493,7 +493,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.accessibilityForRecreation.otherRecreationFacilities',
+      titleKey: 'panEuropean.accessibilityForRecreation.otherRecreationFacilitiesNumber',
       tableSpecs: [
         {
           name: 'table_6_10d',

@@ -13,15 +13,15 @@ const dataColsPublic2005 = [
                   [table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
                    table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
                    table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area']],
-                   "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a", 
-                   ["panEuropean.forestHoldings.in_public_ownership", 
-                   "panEuropean.forestHoldings.in_private_ownership", 
-                   "panEuropean.forestHoldings.other_types_of_ownership_unknown"])`,
+                   "panEuropean.forestHoldings.forest", "panEuropean.forestArea.area1000Ha", "1.1a", 
+                   ["panEuropean.forestHoldings.public_ownership", 
+                   "panEuropean.forestHoldings.private_ownership", 
+                   "panEuropean.forestHoldings.other"])`,
         ],
       },
     },
   },
-  { idx: 1, type: 'decimal' },
+  { idx: 1, type: 'integer' },
   {
     idx: 2,
     type: 'decimal',
@@ -99,7 +99,7 @@ const dataColsPublic2005 = [
   },
   {
     idx: 7,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -142,15 +142,15 @@ const dataColsPrivate2005 = [
                   [table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
                    table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
                    table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area']],
-                   "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a", 
-                   ["panEuropean.forestHoldings.in_public_ownership", 
-                   "panEuropean.forestHoldings.in_private_ownership", 
-                   "panEuropean.forestHoldings.other_types_of_ownership_unknown"])`,
+                   "panEuropean.forestHoldings.forest", "panEuropean.forestArea.area1000Ha", "1.1a", 
+                   ["panEuropean.forestHoldings.public_ownership", 
+                   "panEuropean.forestHoldings.private_ownership", 
+                   "panEuropean.forestHoldings.other"])`,
         ],
       },
     },
   },
-  { idx: 1, type: 'decimal' },
+  { idx: 1, type: 'integer' },
   {
     idx: 2,
     type: 'decimal',
@@ -228,7 +228,7 @@ const dataColsPrivate2005 = [
   },
   {
     idx: 7,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -272,15 +272,15 @@ const dataColsOther = [
                   [table_6_1.in_private_ownership_yearPlaceholder['total_forest_area'],
                    table_6_1.in_public_ownership_yearPlaceholder['total_forest_area'],
                    table_6_1.other_types_of_ownership_unknown_yearPlaceholder['total_forest_area']],
-                   "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a", 
-                   ["panEuropean.forestHoldings.in_public_ownership", 
-                   "panEuropean.forestHoldings.in_private_ownership", 
-                   "panEuropean.forestHoldings.other_types_of_ownership_unknown"])`,
+                   "panEuropean.forestHoldings.forest", "panEuropean.forestArea.area1000Ha", "1.1a", 
+                   ["panEuropean.forestHoldings.public_ownership", 
+                   "panEuropean.forestHoldings.private_ownership", 
+                   "panEuropean.forestHoldings.other"])`,
         ],
       },
     },
   },
-  { idx: 1, type: 'decimal' },
+  { idx: 1, type: 'integer' },
   {
     idx: 2,
     type: 'decimal',
@@ -358,7 +358,7 @@ const dataColsOther = [
   },
   {
     idx: 7,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
