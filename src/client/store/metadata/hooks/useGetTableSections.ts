@@ -9,25 +9,21 @@ import { useTableSections } from './useTableSections'
 
 export const useGetTableSections = () => {
   const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
-
   const assessment = useAssessment()
   const cycle = useCycle()
+  const countryIso = useCountryIso()
   const section = useAssessmentSection()
 
-  const tableSections = useTableSections({ sectionName: section?.props.name })
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+  const sectionName = section?.props.name
+  const tableSections = useTableSections({ sectionName })
 
   useEffect(() => {
     // Fetch sections if current section empty
     if (tableSections.length < 1) {
-      dispatch(
-        MetadataActions.getTableSections({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          sectionNames: [section?.props.name],
-          countryIso,
-        })
-      )
+      const sectionNames = [sectionName]
+      dispatch(MetadataActions.getTableSections({ assessmentName, cycleName, countryIso, sectionNames }))
     }
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, section?.props.name, tableSections.length])
+  }, [assessmentName, countryIso, cycleName, dispatch, sectionName, tableSections.length])
 }

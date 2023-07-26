@@ -1,27 +1,31 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
-import { NodeValueValidation, NodeValueValidations, RowType, Table } from 'meta/assessment'
+import { NodeValueValidation, NodeValueValidations, Table } from 'meta/assessment'
+import { RecordAssessmentData } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { validatorEqualToPreviousCycleForestArea } from 'meta/expressionEvaluator/functions/validatorEqualToPreviousCycleForestArea'
 import { Authorizer } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useAssessmentSection, useCountry, useCycle } from 'client/store/assessment'
-import { DataActions, RecordTableValidationsState, useRecordAssessmentDataWithOdp } from 'client/store/data'
+import { DataActions, RecordTableValidationsState } from 'client/store/data'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
+import { useRowsData } from './useRowsData'
+
 type Props = {
+  data: RecordAssessmentData
   sectionName: string
   table: Table
 }
 
-export const useValidateNodes = (props: Props): void => {
-  const { sectionName, table } = props
+export const useValidate = (props: Props): void => {
+  const { data, sectionName, table } = props
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -31,9 +35,8 @@ export const useValidateNodes = (props: Props): void => {
   const country = useCountry(countryIso)
   const user = useUser()
   const section = useAssessmentSection(sectionName)
-  const data = useRecordAssessmentDataWithOdp()
+  const rowsData = useRowsData({ table })
 
-  const rowsData = useMemo(() => table.rows.filter((row) => row.props.type !== RowType.header), [table.rows])
   const canEditData = Authorizer.canEditData({ country, cycle, section, user })
 
   useEffect(() => {

@@ -76,7 +76,30 @@ const getValidationsDependencies = (props: VariableProps) => {
 
 const getVariablesByTables = (props: CycleProps): VariablesByTableCache => getMetaCache(props).variablesByTable
 
+const getCalculationMirrorVariable = (props: VariableProps): VariableCache | undefined => {
+  const { assessment, cycle, tableName, variableName } = props
+  const dependencies = getCalculationsDependencies({ assessment, cycle, tableName, variableName })
+  return dependencies.find((dependency) => {
+    let dependencyToReset: VariableCache
+    const mirrorDependencies = getCalculationsDependencies({
+      assessment,
+      cycle,
+      tableName: dependency.tableName,
+      variableName: dependency.variableName,
+    })
+    if (
+      mirrorDependencies.find((mirrorDependency) => {
+        return mirrorDependency.tableName === tableName && mirrorDependency.variableName === variableName
+      })
+    ) {
+      dependencyToReset = dependency
+    }
+    return dependencyToReset
+  })
+}
+
 export const AssessmentMetaCaches = {
+  getCalculationMirrorVariable,
   getCalculationsDependants,
   getCalculationsDependencies,
   getValidationsDependants,

@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data'
 
 import { AssessmentActions } from 'client/store/assessment'
 import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
@@ -40,26 +40,6 @@ export const dataSlice = createSlice({
     setNodeValues,
     setNodeValueValidations,
     deleteOriginalDataPoint,
-    /**
-     * @deprecated
-     */
-    setNodeCalculations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
-      const { nodeUpdates } = action.payload
-      const { countryIso, nodes, assessment, cycle } = nodeUpdates
-
-      nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = RecordAssessmentDatas.updateDatum({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          data: state.tableData,
-          countryIso,
-          tableName,
-          variableName,
-          colName,
-          value,
-        })
-      })
-    },
   },
 
   extraReducers: (builder) => {

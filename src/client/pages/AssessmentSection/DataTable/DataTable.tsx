@@ -5,14 +5,14 @@ import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
-import { useTableData } from 'client/store/data'
 import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
+import { useValidate } from 'client/pages/AssessmentSection/DataTable/hooks/useValidate'
 
-import { useGetTableData } from './hooks/useGetTableData'
+import { useData } from './hooks/useData'
+import { useGetData } from './hooks/useGetData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
-import { useValidateNodes } from './hooks/useValidateNodes'
 import Chart from './Chart'
 import GenerateValues from './GenerateValues'
 import Table from './Table'
@@ -27,23 +27,23 @@ type Props = {
 
 const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
-  const { print, onlyTables } = useIsPrint()
 
-  const countryIso = useCountryIso()
-  const data = useTableData({ table })
   const cycle = useCycle()
+  const countryIso = useCountryIso()
+  const data = useData({ table })
   const canEdit = useIsEditTableDataEnabled(sectionName)
+  const { print, onlyTables } = useIsPrint()
+  useGetData({ sectionName, table })
+  useValidate({ data, sectionName, table })
+  useODPDeleteListener()
 
   const { name: cycleName } = cycle
   const { props: tableProps, rows } = table
   const { name: tableName, odp, secondary } = tableProps
-  const generateValues = canEdit && odp
-  const showOdpChart = odp
   const dataEmpty = RecordAssessmentDatas.isTableDataEmpty({ assessmentName, cycleName, data, tableName, countryIso })
+  const showOdpChart = odp
+  const generateValues = canEdit && odp
 
-  useGetTableData({ assessmentName, countryIso, cycleName, sectionName, table })
-  useODPDeleteListener({ assessmentName, countryIso, cycleName })
-  useValidateNodes({ sectionName, table })
   // Always show secondary tables - unless whole section empty (handled in parent)
   if (dataEmpty && onlyTables && !secondary) {
     return null
@@ -63,7 +63,7 @@ const DataTable: React.FC<Props> = (props) => {
           assessmentName={assessmentName}
           cycleName={cycleName}
           sectionName={sectionName}
-          tableName={table.props.name}
+          tableName={tableName}
           rows={rows}
           data={data}
         />

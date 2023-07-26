@@ -7,7 +7,6 @@ export { useNodeValueValidation, useTableHasErrors } from './hooks/useNodeValueV
 export { useOdpLastUpdatedTimestamp } from './hooks/useOdpLastUpdatedTimestamp'
 export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'
 export { useRecordAssessmentData, useRecordAssessmentDataWithOdp } from './hooks/useRecordAssessmentData'
-export { useTableData } from './hooks/useTableData'
 export { DataActions } from './slice'
 export type {
   DataState,

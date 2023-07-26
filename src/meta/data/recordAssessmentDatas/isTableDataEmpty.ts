@@ -15,14 +15,12 @@ export const isTableDataEmpty = (props: {
 }): boolean => {
   const { assessmentName, cycleName, data, tableName, countryIso } = props
   const tableData = getTableData({ assessmentName, cycleName, data, tableName, countryIso })
+
   if (Objects.isEmpty(tableData)) {
     return true
   }
 
-  return !Object.values(tableData)
-    .flatMap(
-      (rows) =>
-        Object.values(rows).filter((nodeValue) => nodeValue && !nodeValue.calculated && nodeValue.raw !== null).length
-    )
-    .every(Boolean)
+  const recordRowData = Object.values(tableData)
+  const nodeValues = recordRowData.flatMap((rows) => Object.values(rows).filter((nodeValue) => Boolean(nodeValue?.raw)))
+  return nodeValues.length === 0
 }

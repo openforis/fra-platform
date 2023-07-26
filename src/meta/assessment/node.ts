@@ -2,17 +2,23 @@ import { CountryIso } from 'meta/area'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 
 export interface NodeValue {
-  raw: any
+  calculated?: boolean
+  /**
+   * @deprecated
+   */
   estimated?: boolean
   estimationUuid?: string
-  calculated?: boolean
   /**
    * @deprecated Use odpId instead.
    */
   odp?: boolean
   odpId?: number
-  validation?: NodeValueValidation
+  raw: any // TODO: do not use any
   taxonCode?: string
+  /**
+   * @deprecated
+   */
+  validation?: NodeValueValidation
 }
 
 export interface Node {

@@ -6,7 +6,7 @@ import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesProps } from './props'
-import { updateNodeDependencies } from './updateNodeDependencies'
+import { updateCalculationDependencies } from './updateCalculationDependencies'
 
 export default async (job: Job<UpdateDependenciesProps>) => {
   try {
@@ -17,42 +17,32 @@ export default async (job: Job<UpdateDependenciesProps>) => {
 
     const { nodeUpdates, isODP, sectionName, user } = job.data
     const { assessment, cycle, countryIso, nodes } = nodeUpdates
-    const results: Array<{ nodeUpdates: NodeUpdates }> = []
+    const result: { nodeUpdates: NodeUpdates } = { nodeUpdates: { assessment, cycle, countryIso, nodes: [] } }
 
     await DB.tx(async (client) => {
       for (let i = 0; i < nodes.length; i += 1) {
         const node = nodes[i]
         const { colName, tableName, variableName } = node
-        const sourceNode = isODP ? undefined : node
+        // const sourceNode = isODP ? undefined : node
         // eslint-disable-next-line no-await-in-loop
-        const result = await updateNodeDependencies(
-          { assessment, colName, countryIso, cycle, isODP, sourceNode, sectionName, tableName, user, variableName },
+        const updates = await updateCalculationDependencies(
+          { assessment, colName, countryIso, cycle, isODP, sectionName, tableName, user, variableName },
           client
         )
-        results.push(result)
-      }
-    })
 
-    // const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
-    const result = results.reduce<{ nodeUpdates: NodeUpdates }>(
-      (acc, item) => {
-        if (item?.nodeUpdates?.nodes) acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
-        else
+        if (updates?.nodes) {
+          result.nodeUpdates.nodes.push(...updates.nodes)
+        } else {
           Logger.error(
             `[updateDependenciesWorker] job-${
               job.id
             } Error STRANGE. item.nodeUpdates.nodes is undefined? item: ${JSON.stringify(
-              item
+              updates
             )}. job data ${JSON.stringify(job.data)}`
           )
-        // acc.validations.nodes.push(...item.validations.nodes)
-        return acc
-      },
-      {
-        nodeUpdates: { assessment, cycle, countryIso, nodes: [] },
-        // validations: { assessment, cycle, countryIso, nodes: [] },
+        }
       }
-    )
+    })
 
     Logger.debug(
       `[updateDependenciesWorker] job-${job.id} in thread ended in ${(new Date().getTime() - time) / 1000} seconds.`
