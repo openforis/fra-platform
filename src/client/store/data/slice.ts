@@ -19,7 +19,7 @@ import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
-import { DataBaseState, DataState } from './stateType'
+import { DataBaseState, DataState, TableDataStatus } from './stateType'
 
 const baseState: DataBaseState = {
   descriptions: {},
@@ -31,6 +31,7 @@ const initialState: DataState = {
   nodeValueValidations: {},
   odpLastUpdatedTimestamp: {},
   tableData: {},
+  tableDataStatus: {},
 }
 
 export const dataSlice = createSlice({
@@ -64,11 +65,21 @@ export const dataSlice = createSlice({
     })
 
     // Table data
-    builder.addCase(getTableData.fulfilled, (state, { payload }) => {
+    builder.addCase(getTableData.pending, (state, { meta }) => {
+      const { assessmentName, cycleName, countryIso, tableName } = meta.arg
+      const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
+      Objects.setInPath({ obj: state, path, value: TableDataStatus.fetching })
+    })
+    builder.addCase(getTableData.fulfilled, (state, { meta, payload }) => {
+      // update table data
       state.tableData = RecordAssessmentDatas.mergeData({
         tableData: state.tableData,
         newTableData: payload,
       })
+      // update table data status
+      const { assessmentName, cycleName, countryIso, tableName } = meta.arg
+      const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
+      Objects.setInPath({ obj: state, path, value: TableDataStatus.fetched })
     })
 
     builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {

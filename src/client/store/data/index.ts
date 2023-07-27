@@ -13,5 +13,8 @@ export type {
   RecordAssessmentValidationsState,
   RecordCountryValidationsState,
   RecordCycleValidationsState,
+  RecordTableDataStatus,
   RecordTableValidationsState,
 } from './stateType'
+export { TableDataStatus } from './stateType'
+export { useIsSomeTableDataFetching } from 'client/store/data/hooks/useIsSomeTableDataFetching'
