@@ -51,7 +51,7 @@ const Overview: React.FC = () => {
           <div>
             {t('panEuropean.disclaimer.part1')}{' '}
             <a href="https://www.admin.ch/gov/en/start.html" target="_blank" rel="noreferrer">
-              {t('panEuropean.disclaimer.govSwitzerland')}
+              {t('panEuropean.disclaimer.switzerland')}
             </a>{' '}
             {t('panEuropean.disclaimer.and')}{' '}
             <a href="https://www.skogsstyrelsen.se/en/" target="_blank" rel="noreferrer">
@@ -61,7 +61,7 @@ const Overview: React.FC = () => {
         </div>
         <div className="partners__disclaimerLogos">
           <img alt={t('panEuropean.disclaimer.govSwitzerland')} src="/img/partners/CHE.png" />
-          <img alt={t('panEuropean.disclaimer.sweden')} src="/img/partners/skogsstyrelsen.svg" />
+          <img alt={t('panEuropean.disclaimer.sweden')} src="/img/partners/skogsstyrelsen.png" />
         </div>
       </div>
     </div>
