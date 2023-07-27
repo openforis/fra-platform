@@ -30,7 +30,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
           client
         )
 
-        if (updates?.nodes) {
+        if (updates.nodes) {
           result.nodeUpdates.nodes.push(...updates.nodes)
         } else {
           Logger.error(
