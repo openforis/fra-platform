@@ -1,6 +1,7 @@
 export { useCommentableDescriptionValue } from './hooks/useCommentableDescriptionValue'
 export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
 export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
+export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
 export { useNodeValuesEstimation } from './hooks/useNodeValuesEstimation'
 export { useNodeValueValidation, useTableHasErrors } from './hooks/useNodeValueValidations'
