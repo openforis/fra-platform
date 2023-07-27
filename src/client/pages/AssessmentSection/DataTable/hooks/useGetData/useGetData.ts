@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
 
-import { AssessmentNames, TableNames } from 'meta/assessment'
-import { RecordAssessmentDatas } from 'meta/data'
+import { AssessmentNames } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { useRecordAssessmentData } from 'client/store/data'
+import { useIsOdpTableDataFetched } from 'client/store/data'
 import { DataActions } from 'client/store/data/slice'
 import { useCanEdit } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
@@ -21,16 +20,12 @@ export const useGetData = (props: Props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const data = useRecordAssessmentData()
   const dependencies = useDependencies(props)
+  const odpFetched = useIsOdpTableDataFetched()
 
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const { name: tableName, odp } = table.props
-  const odpFetched = Object.hasOwn(
-    RecordAssessmentDatas.getCountryData({ assessmentName, cycleName, countryIso, data }),
-    TableNames.originalDataPointValue
-  )
 
   useEffect(() => {
     dependencies.map.forEach((dependency) => {
