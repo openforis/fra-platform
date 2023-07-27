@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { batch } from 'react-redux'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, Table, TableName, TableNames } from 'meta/assessment'
+import { AssessmentName, AssessmentNames, CycleName, Table, TableName, TableNames } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -39,11 +39,13 @@ const useDependencies = (props: Props): Dependencies => {
 
     dependencyTables[tableName]?.forEach((t) => dependencies.push({ tableName: t }))
     // TODO: fix this in https://github.com/openforis/fra-platform/issues/2879
-    dependencies.push({
-      tableName: TableNames.extentOfForest,
-      cycleName: cycle.name,
-      assessmentName: assessment.props.name,
-    })
+    if (assessment.props.name === AssessmentNames.fra) {
+      dependencies.push({
+        tableName: TableNames.extentOfForest,
+        cycleName: cycle.name,
+        assessmentName: assessment.props.name,
+      })
+    }
 
     if (calculationDependencies || (canEdit && validationDependencies)) {
       Object.values({ ...(calculationDependencies ?? {}), ...(validationDependencies ?? {}) }).forEach((variables) =>
