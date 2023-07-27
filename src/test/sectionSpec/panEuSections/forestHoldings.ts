@@ -39,7 +39,7 @@ const dataColsPublic2005 = [
   },
   {
     idx: 3,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -69,7 +69,7 @@ const dataColsPublic2005 = [
   },
   {
     idx: 5,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -168,7 +168,7 @@ const dataColsPrivate2005 = [
   },
   {
     idx: 3,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -198,7 +198,7 @@ const dataColsPrivate2005 = [
   },
   {
     idx: 5,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -298,7 +298,7 @@ const dataColsOther = [
   },
   {
     idx: 3,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
@@ -328,7 +328,7 @@ const dataColsOther = [
   },
   {
     idx: 5,
-    type: 'decimal',
+    type: 'integer',
     migration: {
       validateFns: {
         '2025': [
