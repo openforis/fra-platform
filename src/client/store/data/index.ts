@@ -3,6 +3,7 @@ export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
 export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
 export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
+export { useIsSomeTableDataFetching } from './hooks/useIsSomeTableDataFetching'
 export { useNodeValuesEstimation } from './hooks/useNodeValuesEstimation'
 export { useNodeValueValidation, useTableHasErrors } from './hooks/useNodeValueValidations'
 export { useOdpLastUpdatedTimestamp } from './hooks/useOdpLastUpdatedTimestamp'
@@ -18,4 +19,3 @@ export type {
   RecordTableValidationsState,
 } from './stateType'
 export { TableDataStatus } from './stateType'
-export { useIsSomeTableDataFetching } from 'client/store/data/hooks/useIsSomeTableDataFetching'
