@@ -4,8 +4,9 @@ import { Objects } from 'utils/objects'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { AssessmentActions } from 'client/store/assessment'
+import { setNodeValues } from 'client/store/data/actions/setNodeValues'
+import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
-import { setNodeValues } from 'client/store/data/reducers/setNodeValues'
 import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
 
 import { clearTableData } from './actions/clearTableData'
@@ -38,7 +39,6 @@ export const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    setNodeValues,
     setNodeValueValidations,
     deleteOriginalDataPoint,
   },
@@ -63,6 +63,8 @@ export const dataSlice = createSlice({
         })
       }
     })
+
+    setNodeValuesReducer(builder)
 
     // Table data
     builder.addCase(getTableData.pending, (state, { meta }) => {
@@ -161,6 +163,7 @@ export const dataSlice = createSlice({
 export const DataActions = {
   ...dataSlice.actions,
   // Table data
+  setNodeValues,
   clearTableData,
   getTableData,
   updateNodeValues,

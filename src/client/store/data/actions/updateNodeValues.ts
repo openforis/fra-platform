@@ -7,6 +7,7 @@ import { CycleDataParams, NodesBody } from 'meta/api/request'
 import { Assessment, AssessmentMetaCaches } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
+import { setNodeValues } from 'client/store/data/actions/setNodeValues'
 import { RootState } from 'client/store/RootState'
 
 type Props = CycleDataParams & NodesBody
@@ -53,9 +54,7 @@ export const updateNodeValues = createAsyncThunk<void, Props>(
     }, [])
     if (nodes.length > 0) {
       const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes }
-      // TODO: fix correct action to be invoked becease of error: unable to access actions before initialization
-      // dispatch(DataActions.setNodeValues({ nodeUpdates }))
-      dispatch({ type: 'data/setNodeValues', payload: { nodeUpdates } })
+      dispatch(setNodeValues({ nodeUpdates }))
     }
   }
 )
