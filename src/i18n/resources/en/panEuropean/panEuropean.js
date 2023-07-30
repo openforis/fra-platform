@@ -51,7 +51,7 @@ module.exports = {
   home: {
     title: 'Joint Pan-European Data Collection',
     description1:
-      'This platform provides comprehensive information on forests and the environmental, economic, and social dimensions of sustainable forest management in the Pan-European region.',
+      'This platform provides comprehensive information on forests and the environmental, economic, and social dimensions of sustainable forest management in the Pan-European region (FOREST EUROPE signatory countries).',
     description2: `The Joint Pan-European Data Collection is the joint initiative by UNECE, FAO, and FOREST EUROPE, carried out in parallel to the FAO Global Forest Resources Assessment (FRA).`,
   },
   disclaimer: {
