@@ -46,8 +46,6 @@ export const useData = (props: Props): RecordAssessmentData => {
 
     const data = Objects.cloneDeep(dataStore)
 
-    // console.log('1. ---- Start calculation ', data)
-
     rowsData.forEach((row) => {
       const { variableName } = row.props
 
@@ -62,12 +60,7 @@ export const useData = (props: Props): RecordAssessmentData => {
           if (Objects.isEmpty(value) || value.calculated) {
             const paramsCalculate = { assessment, countryIso, cycle, data, colName, row, formula }
             const raw = ExpressionEvaluator.evalFormula<string | unknown>(paramsCalculate)
-            // console.log('2 ---- calculating using data ', data)
-            // console.log('    params', assessmentName, cycleName, countryIso, tableName, variableName, colName, formula)
-            // console.log('    value', value)
-            // console.log('    raw result ', raw)
             RecordAssessmentDatas.updateDatum({ ...paramsValue, value: { raw, calculated: true } })
-            // console.log('3 --- data after update ', data)
           }
         }
       })

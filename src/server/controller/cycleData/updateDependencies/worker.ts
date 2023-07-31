@@ -23,7 +23,6 @@ export default async (job: Job<UpdateDependenciesProps>) => {
       for (let i = 0; i < nodes.length; i += 1) {
         const node = nodes[i]
         const { colName, tableName, variableName } = node
-        // const sourceNode = isODP ? undefined : node
         // eslint-disable-next-line no-await-in-loop
         const updates = await updateCalculationDependencies(
           { assessment, colName, countryIso, cycle, isODP, sectionName, tableName, user, variableName },
