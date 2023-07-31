@@ -45,9 +45,8 @@ export const calculateNode = async (
       cycle,
       countryISOs: [countryIso],
       dependencies,
-    }
-    // DO NOT PASS client here because data must be up to date with current given time
-    // client
+    },
+    client
   )
 
   // verify node value has not been inserted manually (see mirror tables)
