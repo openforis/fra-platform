@@ -27,12 +27,27 @@ export type RecordAssessmentValidationsState = Record<AssessmentName, RecordCycl
 // odpLastUpdatedTimestamp state type
 type ODPLastUpdatedTimestampState = Record<AssessmentName, Record<CycleName, Record<CountryIso, { time?: string }>>>
 
+// table data status
+export enum TableDataStatus {
+  idle = 'idle',
+  fetching = 'fetching',
+  fetched = 'fetched',
+  updating = 'updating',
+  updated = 'updated',
+}
+
+export type RecordTableDataStatus = Record<
+  AssessmentName,
+  Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
+>
+
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>
   nodeValueValidations: RecordAssessmentValidationsState
   odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState
   tableData?: RecordAssessmentData
+  tableDataStatus: RecordTableDataStatus
 }
 
 type BaseState = Record<AssessmentName, Record<CycleName, DataBaseState>>

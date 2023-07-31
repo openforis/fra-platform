@@ -39,7 +39,6 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
 
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
 
-  // useListenValidationsUpdate({ assessmentName, cycleName: cycle.name, countryIso, canEditTableData })
   useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
 
   // Hide the whole section if no tables have data

@@ -1,5 +1,5 @@
 import './style.scss'
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import { Objects } from 'utils/objects'
 
@@ -7,6 +7,7 @@ import { CountryIso } from 'meta/area'
 import { Table } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
+import { useIsSomeTableDataFetching } from 'client/store/data'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
 
@@ -59,11 +60,18 @@ const ChartContainer = (props: ChartContainerProps) => {
   const { data: _data, table, wrapperWidth } = props
 
   const countryIso = useCountryIso()
-  const data = toObject(_data, countryIso)
   const { print } = useIsPrint()
   const trends = useTrends({ table })
+  const [data, setData] = useState(toObject(_data, countryIso))
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)
+  const dataFetching = useIsSomeTableDataFetching()
   const { left, height, bottom } = Chart.styles
+
+  useEffect(() => {
+    if (!dataFetching) {
+      setData(toObject(_data, countryIso))
+    }
+  }, [_data, countryIso, dataFetching])
 
   return (
     <div>

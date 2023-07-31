@@ -1,12 +1,27 @@
+import { createSelector } from '@reduxjs/toolkit'
+
 import { TableSection } from 'meta/assessment'
 
-import { useAppSelector } from 'client/store'
+import { RootState, useAppSelector } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 
-export const useTableSections = (props: { sectionName: string }): Array<TableSection> => {
+type Props = {
+  sectionName: string
+}
+
+export const useTableSections = (props: Props): Array<TableSection> => {
+  const { sectionName } = props
+
   const assessment = useAssessment()
   const cycle = useCycle()
+
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+
   return useAppSelector(
-    (state) => state.metadata[assessment.props.name][cycle.name].tableSections[props.sectionName] ?? []
+    createSelector(
+      (state: RootState) => state,
+      (state: RootState) => state.metadata.tableSections?.[assessmentName]?.[cycleName]?.[sectionName] ?? []
+    )
   )
 }

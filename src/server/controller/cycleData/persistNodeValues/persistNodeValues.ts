@@ -2,6 +2,7 @@ import { ActivityLogMessage } from 'meta/assessment'
 import { NodeUpdate } from 'meta/data'
 import { Sockets } from 'meta/socket'
 
+import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
 import { BaseProtocol, DB } from 'server/db'
 import { SocketServer } from 'server/service/socket'
@@ -48,7 +49,8 @@ export const persistNodeValues = async (
       const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
       const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
       const nodeUpdatesPersisted = { assessment, cycle, countryIso, nodes: persistedNodes }
-      SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesPersisted })
+      const nodeUpdatesMirrorReset = await resetMirrorNodes({ nodeUpdates: nodeUpdatesPersisted }, client)
+      SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
 
       // schedule dependencies update
       await scheduleUpdateDependencies({

@@ -7,17 +7,16 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getTableData = async (
-  req: CycleDataRequest<{
-    tableNames: Array<string>
-    countryISOs: Array<CountryIso>
-    variables: Array<string>
-    columns: Array<string>
-    mergeOdp: string
-    aggregate: string
-  }>,
-  res: Response
-) => {
+type GetTableDataRequest = CycleDataRequest<{
+  tableNames: Array<string>
+  countryISOs: Array<CountryIso>
+  variables: Array<string>
+  columns: Array<string>
+  mergeOdp: string
+  aggregate: string
+}>
+
+export const getTableData = async (req: GetTableDataRequest, res: Response) => {
   try {
     const {
       assessmentName,
@@ -26,23 +25,26 @@ export const getTableData = async (
       countryISOs,
       variables,
       columns,
-      mergeOdp,
-      aggregate,
+      mergeOdp: mergeOdpReq,
+      aggregate: aggregateReq,
     } = req.query
+    // if mergeOdp is not passed, then by default result data includes odp for table 1a and 1b if available
+    const mergeOdp = !mergeOdpReq || mergeOdpReq === 'true'
+    const aggregate = aggregateReq === 'true'
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const table = await CycleDataController.getTableData({
-      cycle,
       assessment,
-      tableNames,
+      cycle,
       countryISOs,
+      tableNames,
       variables,
       columns,
-      // if mergeOdp is not passed, then by default result data includes odp for table 1a and 1b if available
-      mergeOdp: !mergeOdp || mergeOdp === 'true',
-      aggregate: aggregate === 'true',
+      mergeOdp,
+      aggregate,
     })
+
     Requests.send(res, table)
   } catch (e) {
     Requests.sendErr(res, e)

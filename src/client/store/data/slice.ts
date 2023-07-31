@@ -1,11 +1,12 @@
-import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data'
 
 import { AssessmentActions } from 'client/store/assessment'
+import { setNodeValues } from 'client/store/data/actions/setNodeValues'
+import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
-import { setNodeValues } from 'client/store/data/reducers/setNodeValues'
 import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
 
 import { clearTableData } from './actions/clearTableData'
@@ -19,7 +20,7 @@ import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
-import { DataBaseState, DataState } from './stateType'
+import { DataBaseState, DataState, TableDataStatus } from './stateType'
 
 const baseState: DataBaseState = {
   descriptions: {},
@@ -31,35 +32,15 @@ const initialState: DataState = {
   nodeValueValidations: {},
   odpLastUpdatedTimestamp: {},
   tableData: {},
+  tableDataStatus: {},
 }
 
 export const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    setNodeValues,
     setNodeValueValidations,
     deleteOriginalDataPoint,
-    /**
-     * @deprecated
-     */
-    setNodeCalculations: (state, action: PayloadAction<{ nodeUpdates: NodeUpdates }>) => {
-      const { nodeUpdates } = action.payload
-      const { countryIso, nodes, assessment, cycle } = nodeUpdates
-
-      nodes.forEach(({ tableName, variableName, colName, value }) => {
-        state.tableData = RecordAssessmentDatas.updateDatum({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          data: state.tableData,
-          countryIso,
-          tableName,
-          variableName,
-          colName,
-          value,
-        })
-      })
-    },
   },
 
   extraReducers: (builder) => {
@@ -83,12 +64,24 @@ export const dataSlice = createSlice({
       }
     })
 
+    setNodeValuesReducer(builder)
+
     // Table data
-    builder.addCase(getTableData.fulfilled, (state, { payload }) => {
+    builder.addCase(getTableData.pending, (state, { meta }) => {
+      const { assessmentName, cycleName, countryIso, tableName } = meta.arg
+      const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
+      Objects.setInPath({ obj: state, path, value: TableDataStatus.fetching })
+    })
+    builder.addCase(getTableData.fulfilled, (state, { meta, payload }) => {
+      // update table data
       state.tableData = RecordAssessmentDatas.mergeData({
         tableData: state.tableData,
         newTableData: payload,
       })
+      // update table data status
+      const { assessmentName, cycleName, countryIso, tableName } = meta.arg
+      const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
+      Objects.setInPath({ obj: state, path, value: TableDataStatus.fetched })
     })
 
     builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {
@@ -170,6 +163,7 @@ export const dataSlice = createSlice({
 export const DataActions = {
   ...dataSlice.actions,
   // Table data
+  setNodeValues,
   clearTableData,
   getTableData,
   updateNodeValues,

@@ -45,6 +45,7 @@ module.exports = {
     // allow using devDependencies (vs dependencies) in test files
     'import/no-extraneous-dependencies': ['error', { devDependencies: ['src/test/**/*.ts'] }],
     'import/order': 0,
+    'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_' }],
     'no-use-before-define': 'off',

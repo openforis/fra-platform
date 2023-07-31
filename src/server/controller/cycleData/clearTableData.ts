@@ -4,6 +4,7 @@ import { NodeUpdate } from 'meta/data'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
+import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
 import { BaseProtocol, DB } from 'server/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
@@ -25,11 +26,12 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
   return client.tx(async (t) => {
     const nodes = await DataRepository.clearTableData({ assessment, cycle, tableName, countryISOs: [countryIso] }, t)
     const nodeUpdates = { assessment, cycle, countryIso, nodes }
+    const nodeUpdatesMirrorReset = await resetMirrorNodes({ nodeUpdates }, client)
 
     // notify client
     const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
     const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
-    SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+    SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
 
     // schedule dependencies update
     await scheduleUpdateDependencies({ isODP: true, nodeUpdates, sectionName, user })
