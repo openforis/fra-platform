@@ -81,6 +81,8 @@ const getCalculationMirrorVariable = (props: VariableProps): VariableCache | und
   const dependencies = getCalculationsDependencies({ assessment, cycle, tableName, variableName })
   return dependencies.find((dependency) => {
     let dependencyToReset: VariableCache
+    // dependency must belong to a different table
+    if (dependency.tableName === tableName) return undefined
     const mirrorDependencies = getCalculationsDependencies({
       assessment,
       cycle,
