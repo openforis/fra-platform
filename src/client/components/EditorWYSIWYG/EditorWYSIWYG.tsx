@@ -42,6 +42,7 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
       buttons,
       toolbarAdaptive: false,
       uploader: undefined,
+      spellcheck: true,
     }),
     []
   )
