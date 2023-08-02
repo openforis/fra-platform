@@ -71,10 +71,10 @@ const GeoMapMenuStatistics: React.FC = () => {
 
           {/* Burned Area */}
           <GeoMenuItem title="Burned Area" checked={null} tabIndex={-5}>
-            {geoBurnedAreaMODIS && geoBurnedAreaMODIS.length > 0 && (
+            {geoBurnedAreaMODIS?.length > 0 && (
               <BurnedAreaPanel geoBurnedAreaMODIS={geoBurnedAreaMODIS} countryIso={countryIso} />
             )}
-            {!geoBurnedAreaMODIS.length && !error && <p>Found no data.</p>}
+            {!geoBurnedAreaMODIS?.length && !error && <p>Found no data.</p>}
             {!geoBurnedAreaMODIS && error && (
               <p className="geo-map-alt-message">An error has occured while fetching the statistics: {error}</p>
             )}
