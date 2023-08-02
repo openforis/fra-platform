@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive'
 
 import { useAppDispatch } from 'client/store'
 import { NavigationActions } from 'client/store/ui/navigation'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso, useIsGeoPage } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
 import { Breakpoints } from 'client/utils'
 
@@ -15,9 +15,12 @@ const Navigation: React.FC = () => {
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
   const { print } = useIsPrint()
+  const isInGeoPage = useIsGeoPage()
+
   useEffect(() => {
-    if (print) dispatch(NavigationActions.updateNavigationVisible(false))
-  }, [print, dispatch])
+    if (print || isInGeoPage) dispatch(NavigationActions.updateNavigationVisible(false))
+  }, [print, dispatch, isInGeoPage])
+
   if (!countryIso || print) return <div />
 
   return (
