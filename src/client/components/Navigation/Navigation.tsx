@@ -18,10 +18,10 @@ const Navigation: React.FC = () => {
   const isInGeoPage = useIsGeoPage()
 
   useEffect(() => {
-    if (print || isInGeoPage) dispatch(NavigationActions.updateNavigationVisible(false))
+    if (print) dispatch(NavigationActions.updateNavigationVisible(false))
   }, [print, dispatch, isInGeoPage])
 
-  if (!countryIso || print) return <div />
+  if (isInGeoPage || !countryIso || print) return <div />
 
   return (
     <>
