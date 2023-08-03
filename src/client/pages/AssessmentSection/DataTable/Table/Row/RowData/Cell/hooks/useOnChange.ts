@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ClipboardEventHandler } from 'react'
 
 import { NodesBodyValue } from 'meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from 'meta/assessment'
@@ -81,7 +81,7 @@ export default (props: Props): UseOnChange => {
     })
   }
 
-  const onPaste: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
+  const onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     event.stopPropagation()
     event.preventDefault()
 
@@ -168,11 +168,14 @@ export default (props: Props): UseOnChange => {
         )
       }
     } else {
-      const value = clipboardData.getData('text/plain')
-      _persistSanitizedValue({
-        ...nodeValue,
-        raw: value,
-      })
+      let value = clipboardData.getData('text/plain')
+      // @ts-ignore
+      if (event.target?.selectionStart >= 0) {
+        // @ts-ignore
+        const { selectionStart, selectionEnd, value: targetValue } = event.target
+        value = `${targetValue.slice(0, selectionStart)}${value}${targetValue.slice(selectionEnd)}`
+      }
+      _persistSanitizedValue({ ...nodeValue, raw: value })
     }
   }
 
