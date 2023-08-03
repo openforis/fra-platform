@@ -9,7 +9,7 @@ type Props = {
   loaded: boolean
   tableData: (string | number)[][]
   countryIso: string
-  year: number
+  year?: number
 }
 
 const StatisticsTable = (props: Props) => {
@@ -49,6 +49,10 @@ const StatisticsTable = (props: Props) => {
       <ButtonStatisticsTableExport tableRef={tableRef} filename={`forest-estimations-${countryIso}-${year}`} />
     </div>
   )
+}
+
+StatisticsTable.defaultProps = {
+  year: undefined,
 }
 
 export default StatisticsTable

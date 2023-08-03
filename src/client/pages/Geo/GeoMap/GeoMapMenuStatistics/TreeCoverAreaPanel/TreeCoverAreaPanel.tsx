@@ -1,4 +1,3 @@
-import './TreeCoverAreaPanel.scss'
 import React from 'react'
 
 import { Numbers } from 'utils/numbers'
