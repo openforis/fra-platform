@@ -4,6 +4,5 @@
   display: flex;
   flex: 1;
   width: 100%;
-  // min-height: 100vh - (headerHeight + toolbarHeight);
-  min-height: calc(100vh - (64px + 50px));
+  min-height: calc(100vh - ($ui-app-header-height + $ui-app-area-select-height));
 }
