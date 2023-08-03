@@ -15,9 +15,11 @@ const Navigation: React.FC = () => {
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
   const { print } = useIsPrint()
+
   useEffect(() => {
     if (print) dispatch(NavigationActions.updateNavigationVisible(false))
   }, [print, dispatch])
+
   if (!countryIso || print) return <div />
 
   return (
