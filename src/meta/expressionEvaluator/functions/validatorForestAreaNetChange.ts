@@ -14,7 +14,7 @@ export const validatorForestAreaNetChange: ExpressionFunction<Context> = {
       const valid =
         Objects.isEmpty(forestArea) ||
         Objects.isEmpty(forestAreaNetChange) ||
-        Numbers.greaterThan(Numbers.sub(forestAreaNetChange, forestArea), -1)
+        Numbers.lessThanOrEqualTo(Numbers.abs(Numbers.sub(forestAreaNetChange, forestArea)), 1)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
