@@ -125,8 +125,13 @@ const canEditData = (props: {
  * @param props.user
  * @returns boolean
  */
-const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
-  const { country, cycle, user } = props
+const canEditCountryProps = (props: {
+  allowCollaborator?: boolean
+  country: Country
+  cycle: Cycle
+  user: User
+}): boolean => {
+  const { allowCollaborator = false, country, cycle, user } = props
   const { countryIso } = country
   const { status } = country.props
 
@@ -136,7 +141,8 @@ const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User
 
   if (
     Users.isNationalCorrespondent(user, countryIso, cycle) ||
-    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
+    Users.isAlternateNationalCorrespondent(user, countryIso, cycle) ||
+    (allowCollaborator && Users.isCollaborator(user, countryIso, cycle))
   )
     return status === AssessmentStatus.editing
 
@@ -147,7 +153,7 @@ const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User
 }
 
 const canEditAssessmentFile = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
-  canEditCountryProps(props)
+  canEditCountryProps({ ...props, allowCollaborator: true })
 
 export const Authorizer = {
   canView,

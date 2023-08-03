@@ -179,8 +179,15 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
   _next(Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
-const requireEditAssessmentFile = async (req: Request, res: Response, next: NextFunction) =>
-  requireEditCountryProps(req, res, next)
+const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
+  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+  const user = Requests.getUser(req)
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+
+  _next(Authorizer.canEditAssessmentFile({ country, cycle, user }), next)
+}
 
 export const AuthMiddleware = {
   requireEditCountryProps: tryCatch(requireEditCountryProps),
