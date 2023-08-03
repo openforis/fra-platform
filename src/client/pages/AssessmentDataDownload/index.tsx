@@ -2,6 +2,8 @@ import './dataDownload.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
+
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
 import Icon from 'client/components/Icon'
@@ -9,8 +11,8 @@ import { DOMs } from 'client/utils/dom'
 
 import resources from './resources'
 
-const _url = (fileName: string, fileType: string, language: string): string =>
-  `/api/file/dataDownload?fileName=${fileName}&fileType=${fileType}&language=${language}`
+const _url = (baseParams: string, fileName: string, fileType: string, language: string): string =>
+  `${ApiEndPoint.File.dataDownload()}?${baseParams}&fileName=${fileName}&fileType=${fileType}&language=${language}`
 
 const AssessmentDataDownload: React.FC = () => {
   const { i18n } = useTranslation()
@@ -18,9 +20,11 @@ const AssessmentDataDownload: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
 
-  useEffect(DOMs.scrollTo, [])
+  useEffect(() => {
+    DOMs.scrollTo()
+  }, [])
 
-  const href = `/api/file/bulk-download?assessmentName=${assessment.props.name}&cycleName=${cycle.name}&countryIso=${countryIso}`
+  const baseParams = `assessmentName=${assessment.props.name}&cycleName=${cycle.name}&countryIso=${countryIso}`
 
   return (
     <div className="app-view__content">
@@ -32,7 +36,10 @@ const AssessmentDataDownload: React.FC = () => {
         {cycle.published && (
           <>
             <div>{i18n.t<string>('dataDownload.bulkDownload')}</div>
-            <a className="btn-s btn-primary nav__bulk-download" href={href}>
+            <a
+              className="btn-s btn-primary nav__bulk-download"
+              href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}
+            >
               <Icon className="icon-sub icon-white" name="hit-down" />
               ZIP
             </a>
@@ -48,14 +55,14 @@ const AssessmentDataDownload: React.FC = () => {
             </div>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(`${resource.idx}_${resource.name}`, 'ods', i18n.language)}
+              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'ods', i18n.language)}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               ODS
             </a>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(`${resource.idx}_${resource.name}`, 'xlsx', i18n.language)}
+              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'xlsx', i18n.language)}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               XLS
