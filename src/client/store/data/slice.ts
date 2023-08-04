@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { AssessmentActions } from 'client/store/assessment'
+import { getAssessment } from 'client/store/assessment/actions'
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
 import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
@@ -45,7 +45,7 @@ export const dataSlice = createSlice({
 
   extraReducers: (builder) => {
     // Initialise state[assessmentName].[cycleName] with baseState
-    builder.addCase(AssessmentActions.getAssessment.fulfilled, (state, { payload }) => {
+    builder.addCase(getAssessment.fulfilled, (state, { payload }) => {
       if (!state[payload.props.name]) {
         state[payload.props.name] = {}
         payload.cycles.forEach((cycle) => {
