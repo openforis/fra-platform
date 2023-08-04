@@ -1038,6 +1038,7 @@ The FRA team
 
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
+    subcategorySumNotEqualToParent: 'Subcategory sum not equal to parent',
     forestAreaDoesNotMatchExtentOfForest: "Doesn't match Forest area (1a)",
     forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a) ({{value}})',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
