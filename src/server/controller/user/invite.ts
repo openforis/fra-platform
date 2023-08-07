@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 import { RoleName, User, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -30,7 +31,10 @@ export const invite = async (
     if (!userToInvite) userToInvite = await UserRepository.getOne({ emailGoogle: email }, t)
     // If neither of above, create new user
     if (!userToInvite)
-      userToInvite = await UserRepository.create({ user: { email, props: { name: name ?? '' } } }, client)
+      userToInvite = await UserRepository.create(
+        { user: { email, props: { name: name ?? '', lang: user.props.lang ?? Lang.en } } },
+        client
+      )
 
     const userRole = await UserRoleRepository.create(
       {
