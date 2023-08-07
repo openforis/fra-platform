@@ -1,6 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
 import { Context } from '../context'
+import { validatorSumSubCategoriesNotEqualToParent } from './subcategories/validatorSumSubCategoriesNotEqualToParent'
+import { validatorSumSubCategoriesNotGreaterThanParent } from './subcategories/validatorSumSubCategoriesNotGreaterThanParent'
 import { maxForestArea } from './maxForestArea'
 import { maxLandArea } from './maxLandArea'
 import { NWFPProductHasCategory } from './NWFPProductHasCategory'
@@ -34,7 +36,6 @@ import { validatorRemainingLandWithTreeCoverTotal } from './validatorRemainingLa
 import { validatorSubCategory } from './validatorSubCategory'
 import { validatorSumNotGreaterThan } from './validatorSumNotGreaterThan'
 import { validatorSumNotGreaterThanForest } from './validatorSumNotGreaterThanForest'
-import { validatorSumSubCategoriesNotGreaterThanParent } from './validatorSumSubCategoriesNotGreaterThanParent'
 import { validatorTotalForest } from './validatorTotalForest'
 
 export const functions: Array<ExpressionFunction<Context>> = [
@@ -69,6 +70,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorPrivateOwnership,
   validatorRemainingLandWithTreeCoverTotal,
   validatorSubCategory,
+  validatorSumSubCategoriesNotEqualToParent,
   validatorSumNotGreaterThan,
   validatorSumNotGreaterThanForest,
   validatorSumSubCategoriesNotGreaterThanParent,

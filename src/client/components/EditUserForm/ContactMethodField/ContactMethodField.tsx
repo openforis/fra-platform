@@ -58,6 +58,10 @@ const ContactMethodField: React.FC<Props> = (props) => {
     onChange(newValue)
   }, [method, phoneOption])
 
+  const showSecondaryField =
+    enabled &&
+    [UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(method)
+
   return (
     <div className="edit-user__form-item" key={name}>
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
@@ -82,26 +86,21 @@ const ContactMethodField: React.FC<Props> = (props) => {
           ))}
         </select>
 
-        <select
-          value={phoneOption}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            setPhoneOption(e.target.value)
-          }}
-          disabled={
-            !enabled ||
-            ![
-              UserContactPreferenceMethod.primaryPhoneNumber,
-              UserContactPreferenceMethod.secondaryPhoneNumber,
-            ].includes(method)
-          }
-        >
-          <option value="">{t('userManagement.placeholder')}</option>
-          {Object.entries(phoneOptions).map(([k, v]) => (
-            <option key={k} value={k}>
-              {v}
-            </option>
-          ))}
-        </select>
+        {showSecondaryField && (
+          <select
+            value={phoneOption}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              setPhoneOption(e.target.value)
+            }}
+          >
+            <option value="">{t('userManagement.placeholder')}</option>
+            {Object.entries(phoneOptions).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
     </div>
   )
