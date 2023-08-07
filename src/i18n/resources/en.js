@@ -1078,6 +1078,8 @@ The FRA team
       'Reported area ({{forestArea2025}}) differs from previously reported ({{forestArea2020}}). Please provide a comment explaining why it is different.',
     sumSubCategoriesExceedParent:
       'The sum of {{categoryLabels}} ({{categoriesSum}}) exceed {{parentLabel}} ({{parentValue}})',
+    sumSubCategoriesNotEqualToParent:
+      'The sum of {{categoryLabels}} ({{categoriesSum}}) is not equal to {{parentLabel}} ({{parentValue}})',
   },
 
   emoji: {
