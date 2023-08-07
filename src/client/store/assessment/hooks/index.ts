@@ -1,16 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { createSelector } from '@reduxjs/toolkit'
 import { Strings } from 'utils/strings'
 
 import { Country, CountryIso, RegionGroup } from 'meta/area'
-import { Assessment, Section, SubSection } from 'meta/assessment'
+import { Section, SubSection } from 'meta/assessment'
 
-import { RootState, useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store'
 import { useCountryIso } from 'client/hooks'
-
-export { useCycle } from './useCycle'
 
 // TODO: Move elsewhere <>
 const getLocale = (isoCode: string): string => {
@@ -30,14 +27,6 @@ const getCompareListName =
   }
 
 // </>
-
-export const useAssessment = (): Assessment =>
-  useAppSelector(
-    createSelector(
-      (state: RootState) => state,
-      (state) => state.assessment?.assessment
-    )
-  )
 
 export const useCountries = (): Array<Country> => {
   const countries = useAppSelector((state) => state.assessment.countries ?? {}) as Record<CountryIso, Country>

@@ -46,7 +46,6 @@ const Cycle: React.FC = () => {
 
   useEffect(() => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
-    // TODO: reset areas on return
   }, [assessmentName, cycleName, dispatch])
 
   useEffect(() => {
