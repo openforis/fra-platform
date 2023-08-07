@@ -1038,7 +1038,6 @@ The FRA team
 
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
-    subcategorySumNotEqualToParent: 'Subcategory sum not equal to parent',
     forestAreaDoesNotMatchExtentOfForest: "Doesn't match Forest area (1a)",
     forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a) ({{value}})',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
@@ -1079,6 +1078,8 @@ The FRA team
       'Reported area ({{forestArea2025}}) differs from previously reported ({{forestArea2020}}). Please provide a comment explaining why it is different.',
     sumSubCategoriesExceedParent:
       'The sum of {{categoryLabels}} ({{categoriesSum}}) exceed {{parentLabel}} ({{parentValue}})',
+    sumSubCategoriesNotEqualToParent:
+      'The sum of {{categoryLabels}} ({{categoriesSum}}) is not equal to {{parentLabel}} ({{parentValue}})',
   },
 
   emoji: {
