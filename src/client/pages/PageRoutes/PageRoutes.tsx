@@ -1,51 +1,28 @@
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
 
-import { useAppDispatch } from 'client/store'
-import { AssessmentActions, useIsAppInitialized } from 'client/store/assessment'
+import { useIsAppInitialized } from 'client/store/assessment'
 import Toaster from 'client/components/Toaster'
 import Tooltips from 'client/components/Tooltips'
-import { SocketClient } from 'client/service/socket'
-import { Urls } from 'client/utils'
+import Assessment from 'client/pages/Assessment'
+import Landing from 'client/pages/Landing'
 
-import Assessment from '../Assessment'
-import Landing from '../Landing'
-import { useTheme } from './useTheme'
-import { useUserRedirect } from './useUserRedirect'
+import { useInitApp } from './hooks/useInitApp'
+import { useInitLanguage } from './hooks/useInitLanguage'
+import { useOpenSocket } from './hooks/useOpenSocket'
+import { useTheme } from './hooks/useTheme'
+import { useUserRedirect } from './hooks/useUserRedirect'
 
 const PageRoutes: React.FC = () => {
-  const dispatch = useAppDispatch()
   const isAppInitialized = useIsAppInitialized()
 
+  useInitApp()
+  useInitLanguage()
   useTheme()
+  useOpenSocket()
   useUserRedirect()
-
-  const { i18n } = useTranslation()
-
-  useEffect(() => {
-    // TODO: Add user.language support
-    const language = Urls.getRequestParam('lang') || localStorage.getItem('i18n/lang') || 'en'
-    if (language !== i18n.language) i18n.changeLanguage(language)
-
-    dispatch(AssessmentActions.initApp())
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    if (isAppInitialized) {
-      SocketClient.open()
-
-      return () => {
-        SocketClient.close()
-      }
-    }
-
-    return undefined
-  }, [isAppInitialized])
 
   if (!isAppInitialized) return null
 
