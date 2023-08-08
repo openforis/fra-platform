@@ -18,6 +18,7 @@ import Admin from '../Admin'
 import Country from '../Country'
 import Login from '../Login'
 import User from '../User'
+import { useInitMetaCache } from './hooks/useInitMetaCache'
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
 
@@ -43,6 +44,7 @@ const Cycle: React.FC = () => {
   const isUserEditPage = useIsUserEditPage()
   const navigate = useNavigate()
   const userCycles = useUserCycles()
+  useInitMetaCache()
 
   useEffect(() => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))

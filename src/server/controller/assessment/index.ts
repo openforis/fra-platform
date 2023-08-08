@@ -16,5 +16,7 @@ export const AssessmentController = {
   remove,
   updateDefaultCycle,
 
+  // meta cache
+  getMetaCache: AssessmentRepository.getMetaCache,
   generateMetaCache,
 }
