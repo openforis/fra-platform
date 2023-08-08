@@ -4,7 +4,7 @@ import React from 'react'
 import { LayerKey, LayerSection, LayerSectionKey } from '@meta/geo/layer'
 
 import { useAppDispatch } from '@client/store'
-import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
+import { GeoActions } from '@client/store/ui/geo'
 import { LayerFetchStatus, LayersSectionState } from '@client/store/ui/geo/stateType'
 import GeoMapMenuListElement from '@client/pages/Geo/GeoMap/GeoMapMenuListElement'
 import { useFetchAgreementLevelLayer } from '@client/pages/Geo/GeoMap/hooks'
@@ -35,7 +35,6 @@ const AgreementLevelControl: React.FC<Props> = ({
   sectionState,
 }) => {
   const dispatch = useAppDispatch()
-  const layerState = useGeoLayer(sectionKey, layerKey)
   useFetchAgreementLevelLayer(sectionKey, layerKey)
 
   const setAgreementLevel = (level: number) => {
@@ -72,8 +71,8 @@ const AgreementLevelControl: React.FC<Props> = ({
           </p>
           <AgreementLevelSelector
             countLayersSelected={countLayersSelected}
-            layerState={layerState}
             section={section}
+            sectionKey={sectionKey}
             layerKey={layerKey}
             onChange={setAgreementLevel}
           />

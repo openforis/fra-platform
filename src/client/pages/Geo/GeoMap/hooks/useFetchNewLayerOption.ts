@@ -19,6 +19,7 @@ export const useFetchNewLayerOption = (
 
   useEffect(() => {
     if (layerOptionValue === undefined) return // Skip when the property is not set
+    if (layerState?.opacity === 0) return
     dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
-  }, [countryIso, layerKey, layerOptionValue, sectionKey, dispatch])
+  }, [countryIso, layerKey, layerOptionValue, sectionKey, dispatch, layerState?.opacity])
 }

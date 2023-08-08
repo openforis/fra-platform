@@ -3,18 +3,19 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { LayerKey, LayerSection } from '@meta/geo/layer'
+import { LayerKey, LayerSection, LayerSectionKey } from '@meta/geo/layer'
 
-import { LayerState } from '@client/store/ui/geo/stateType'
+import { useGeoLayer } from '@client/store/ui/geo'
 
 interface Props {
   countLayersSelected: number
-  layerState: LayerState
   section: LayerSection
+  sectionKey: LayerSectionKey
   layerKey: LayerKey
   onChange: (value: number) => void
 }
-const AgreementLevelSelector: React.FC<Props> = ({ countLayersSelected, layerState, section, layerKey, onChange }) => {
+const AgreementLevelSelector: React.FC<Props> = ({ countLayersSelected, sectionKey, section, layerKey, onChange }) => {
+  const layerState = useGeoLayer(sectionKey, layerKey)
   const currentSelectedLevel = layerState?.options?.agreementLayer?.level
   let palette = section.layers.find((layer) => layer.key === layerKey)?.metadata?.palette
   palette =

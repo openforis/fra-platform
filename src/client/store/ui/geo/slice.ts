@@ -90,7 +90,10 @@ const handlePostLayerStatus = (
 
   switch (status) {
     case LayerFetchStatus.Ready:
-      if (newLayerState.selected && mapId) mapController.addEarthEngineLayer(mapLayerKey, mapId)
+      if (newLayerState.selected && mapId) {
+        mapController.addEarthEngineLayer(mapLayerKey, mapId)
+        mapController.setEarthEngineLayerOpacity(mapLayerKey, newLayerState.opacity ?? 1)
+      }
       if (layerKey === 'Agreement') {
         const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
         newLayerState.options ??= {} as LayerStateOptions
