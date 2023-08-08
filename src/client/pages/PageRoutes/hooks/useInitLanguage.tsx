@@ -18,13 +18,14 @@ export const useInitLanguage = (): void => {
     const langRequestParam = Urls.getRequestParam('lang')
     const langLocalStorage = localStorage.getItem('i18n/lang')
     const langUser = user?.props?.lang
-
     const lang = (langRequestParam || langLocalStorage || langUser || Lang.en) as Lang
 
-    if (lang !== language) updateLanguage({ lang }).then(() => ({}))
-    // If assessment is panEuropean, we use the english language,
+    // If assessment is panEuropean, we use the English language,
     const isPanEuropean = assessment?.props.name === AssessmentNames.panEuropean
     const params = isPanEuropean ? { lang: Lang.en, persist: false } : { lang }
-    updateLanguage(params).then(() => ({}))
-  }, [assessment?.props.name, language, updateLanguage, user])
+    if (lang !== language || isPanEuropean) updateLanguage(params).then(() => ({}))
+
+    // Don't include language: don't change language back when it's changed from selector
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assessment?.props.name, updateLanguage, user])
 }
