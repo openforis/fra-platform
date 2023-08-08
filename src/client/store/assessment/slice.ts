@@ -4,15 +4,7 @@ import { getMetaCacheReducer } from 'client/store/assessment/extraReducers/getMe
 import { updateNodeValues } from 'client/store/data/actions/updateNodeValues'
 
 import { initAppReducer } from './extraReducers/initAppReducer'
-import {
-  getAreas,
-  getAssessment,
-  getMetaCache,
-  getSections,
-  initApp,
-  updateCountry,
-  updateCountryProp,
-} from './actions'
+import { getAreas, getMetaCache, getSections, initApp, updateCountry, updateCountryProp } from './actions'
 import { AssessmentState, initialState } from './state'
 
 export const assessmentSlice = createSlice({
@@ -64,7 +56,6 @@ export const assessmentSlice = createSlice({
 export const AssessmentActions = {
   ...assessmentSlice.actions,
   initApp,
-  getAssessment,
   getAreas,
   getMetaCache,
   getSections,
