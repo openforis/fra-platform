@@ -1,14 +1,15 @@
 import './Cycle.scss'
 import React, { useEffect } from 'react'
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
 import { AssessmentName, AssessmentNames } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { AssessmentActions, useAssessment, useCycle } from 'client/store/assessment'
+import { AssessmentActions, useCycle } from 'client/store/assessment'
 import { useUserCycles } from 'client/store/user'
 import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
 import PageLayout from 'client/components/PageLayout'
 import Partners from 'client/components/Partners'
@@ -34,10 +35,9 @@ const Components: { [key: AssessmentName]: React.FC } = {
 }
 
 const Cycle: React.FC = () => {
-  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
   const dispatch = useAppDispatch()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const { print } = useIsPrint()
-  const assessment = useAssessment()
   const cycle = useCycle()
   const isAdmin = useIsAdmin()
   const isLogin = useIsLogin()
@@ -58,10 +58,6 @@ const Cycle: React.FC = () => {
       navigate('/')
     }
   }, [userCycles, cycle, navigate, isLogin])
-
-  if (!assessment || !cycle) {
-    return null
-  }
 
   return (
     <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage}>
