@@ -3,7 +3,6 @@ import { Objects } from 'utils/objects'
 
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { getAssessment } from 'client/store/assessment/actions'
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
 import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
@@ -20,12 +19,7 @@ import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
-import { DataBaseState, DataState, TableDataStatus } from './stateType'
-
-const baseState: DataBaseState = {
-  descriptions: {},
-  linkedDataSources: {},
-}
+import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
   nodeValuesEstimations: {},
@@ -44,26 +38,6 @@ export const dataSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    // Initialise state[assessmentName].[cycleName] with baseState
-    builder.addCase(getAssessment.fulfilled, (state, { payload }) => {
-      if (!state[payload.props.name]) {
-        state[payload.props.name] = {}
-        payload.cycles.forEach((cycle) => {
-          state[payload.props.name][cycle.name] = baseState
-
-          state.tableData = {
-            ...state.tableData,
-            [payload.props.name]: {
-              ...state.tableData[payload.props.name],
-              [cycle.name]: {
-                ...(state.tableData[payload.props.name]?.[cycle.name] ?? {}),
-              },
-            },
-          }
-        })
-      }
-    })
-
     setNodeValuesReducer(builder)
 
     // Table data
