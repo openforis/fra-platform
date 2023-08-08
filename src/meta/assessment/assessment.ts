@@ -4,7 +4,7 @@ import { Cycle, CycleUuid } from './cycle'
 
 export type AssessmentProps = {
   name: AssessmentName
-  defaultCycle?: string
+  defaultCycle?: CycleUuid
 }
 
 export interface Assessment {

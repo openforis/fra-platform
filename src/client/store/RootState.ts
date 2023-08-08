@@ -1,4 +1,4 @@
-import { AssessmentState } from './assessment/stateType'
+import { AssessmentState } from './assessment/state'
 import { DataState } from './data/stateType'
 import { LoginState } from './login/stateType'
 import { AssessmentFilesState } from './ui/assessmentFiles/stateType'

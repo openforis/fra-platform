@@ -1,12 +1,19 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { updateNodeValues } from '../data/actions/updateNodeValues'
-import { getAreas, getAssessment, getSections, initApp, updateCountry, updateCountryProp } from './actions'
-import { AssessmentState } from './stateType'
+import { getMetaCacheReducer } from 'client/store/assessment/extraReducers/getMetaCacheReducer'
+import { updateNodeValues } from 'client/store/data/actions/updateNodeValues'
 
-const initialState: AssessmentState = {
-  appInitialized: false,
-}
+import { initAppReducer } from './extraReducers/initAppReducer'
+import {
+  getAreas,
+  getAssessment,
+  getMetaCache,
+  getSections,
+  initApp,
+  updateCountry,
+  updateCountryProp,
+} from './actions'
+import { AssessmentState, initialState } from './state'
 
 export const assessmentSlice = createSlice({
   name: 'assessment',
@@ -15,6 +22,9 @@ export const assessmentSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
+    initAppReducer(builder)
+    getMetaCacheReducer(builder)
+
     builder.addCase(getAreas.fulfilled, (state, { payload }) => {
       const { countries, regionGroups } = payload
 
@@ -24,10 +34,6 @@ export const assessmentSlice = createSlice({
       )
 
       state.regionGroups = regionGroups
-    })
-
-    builder.addCase(getAssessment.fulfilled, (state, { payload }) => {
-      state.assessment = payload
     })
 
     builder.addCase(getSections.fulfilled, (state, { payload }) => {
@@ -48,14 +54,6 @@ export const assessmentSlice = createSlice({
       state.countries[countryIso].props = { ...state.countries[countryIso].props, ...countryProp }
     })
 
-    builder.addCase(initApp.pending, (state) => {
-      state.appInitialized = false
-    })
-
-    builder.addCase(initApp.fulfilled, (state) => {
-      state.appInitialized = true
-    })
-
     builder.addCase(updateNodeValues.fulfilled, (state, payload) => {
       const { countryIso } = payload.meta.arg
       if (state.countries[countryIso]) state.countries[countryIso].lastEdit = new Date().toISOString()
@@ -68,6 +66,7 @@ export const AssessmentActions = {
   initApp,
   getAssessment,
   getAreas,
+  getMetaCache,
   getSections,
   updateCountry,
   updateCountryProp,

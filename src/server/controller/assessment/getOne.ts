@@ -5,10 +5,6 @@ import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
 type Props = { assessmentName: string; metaCache?: boolean } | { id: number; metaCache?: boolean }
 
-export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
-  return AssessmentRepository.getOne(props, client)
-}
-
 const _getCycleByName = (props: { cycleName?: string; assessment: Assessment }): Cycle | undefined => {
   const { cycleName, assessment } = props
   if (cycleName) return assessment.cycles.find((cycle) => cycle.name === cycleName)

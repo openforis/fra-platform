@@ -1,23 +1,25 @@
 import './Cycle.scss'
 import React, { useEffect } from 'react'
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
 import { AssessmentName, AssessmentNames } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { AssessmentActions, useAssessment, useCycle } from 'client/store/assessment'
+import { AssessmentActions, useCycle } from 'client/store/assessment'
 import { useUserCycles } from 'client/store/user'
 import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
 import PageLayout from 'client/components/PageLayout'
 import Partners from 'client/components/Partners'
+import Admin from 'client/pages/Admin'
 import Overview from 'client/pages/AssessmentHome/PanEuropeanHome/Overview'
+import Country from 'client/pages/Country'
+import Login from 'client/pages/Login'
+import User from 'client/pages/User'
 
-import Admin from '../Admin'
-import Country from '../Country'
-import Login from '../Login'
-import User from '../User'
+import { useInitMetaCache } from './hooks/useInitMetaCache'
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
 
@@ -33,32 +35,29 @@ const Components: { [key: AssessmentName]: React.FC } = {
 }
 
 const Cycle: React.FC = () => {
-  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
   const dispatch = useAppDispatch()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const { print } = useIsPrint()
-  const assessment = useAssessment()
   const cycle = useCycle()
   const isAdmin = useIsAdmin()
   const isLogin = useIsLogin()
   const isUserEditPage = useIsUserEditPage()
   const navigate = useNavigate()
   const userCycles = useUserCycles()
+  useInitMetaCache()
 
   useEffect(() => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
-    // TODO: reset areas on return
   }, [assessmentName, cycleName, dispatch])
 
+  // TODO: think later
   useEffect(() => {
+    // user has no permission to view cycle
     // If user is accessing login page, do not redirect
     if (!isLogin && !userCycles?.find((userCycle) => userCycle.id === cycle.id)) {
       navigate('/')
     }
   }, [userCycles, cycle, navigate, isLogin])
-
-  if (!assessment || !cycle) {
-    return null
-  }
 
   return (
     <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage}>

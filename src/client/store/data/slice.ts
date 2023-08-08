@@ -130,32 +130,25 @@ export const dataSlice = createSlice({
     // descriptions
     builder.addCase(getDescription.fulfilled, (state, { payload, meta }) => {
       const { name, sectionName, value } = payload
-      const {
-        arg: { assessmentName, cycleName },
-      } = meta
-      if (!state[assessmentName][cycleName].descriptions[sectionName]) {
-        state[assessmentName][cycleName].descriptions[sectionName] = {}
-      }
-      state[assessmentName][cycleName].descriptions[sectionName][name] = value
+      const { assessmentName, cycleName } = meta.arg
+
+      const path = [assessmentName, cycleName, 'descriptions', sectionName, name]
+      Objects.setInPath({ obj: state, path, value })
     })
 
     builder.addCase(updateDescription.pending, (state, { meta }) => {
       const { sectionName, name, value, assessmentName, cycleName } = meta.arg
 
-      if (!state[assessmentName][cycleName].descriptions[sectionName]) {
-        state[assessmentName][cycleName].descriptions[sectionName] = {}
-      }
-
-      state[assessmentName][cycleName].descriptions[sectionName][name] = value
+      const path = [assessmentName, cycleName, 'descriptions', sectionName, name]
+      Objects.setInPath({ obj: state, path, value })
     })
 
     builder.addCase(getLinkedDataSources.fulfilled, (state, { payload, meta }) => {
       const { dataSources, sectionName } = payload
-      const {
-        arg: { assessmentName, cycleName },
-      } = meta
+      const { assessmentName, cycleName } = meta.arg
 
-      state[assessmentName][cycleName].linkedDataSources[sectionName] = dataSources
+      const path = [assessmentName, cycleName, 'linkedDataSources', sectionName]
+      Objects.setInPath({ obj: state, path, value: dataSources })
     })
   },
 })

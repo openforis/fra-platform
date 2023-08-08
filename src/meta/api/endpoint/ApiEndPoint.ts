@@ -127,7 +127,8 @@ export const ApiEndPoint = {
   },
 
   MetaData: {
-    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
+    metaCache: () => apiPath('metadata', 'metaCache'),
     sections: () => apiPath('metadata', 'sections'),
+    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
   },
 }
