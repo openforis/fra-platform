@@ -12,12 +12,12 @@ import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/ho
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
 import PageLayout from 'client/components/PageLayout'
 import Partners from 'client/components/Partners'
+import Admin from 'client/pages/Admin'
 import Overview from 'client/pages/AssessmentHome/PanEuropeanHome/Overview'
+import Country from 'client/pages/Country'
+import Login from 'client/pages/Login'
+import User from 'client/pages/User'
 
-import Admin from '../Admin'
-import Country from '../Country'
-import Login from '../Login'
-import User from '../User'
 import { useInitMetaCache } from './hooks/useInitMetaCache'
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
@@ -50,7 +50,9 @@ const Cycle: React.FC = () => {
     dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
   }, [assessmentName, cycleName, dispatch])
 
+  // TODO: think later
   useEffect(() => {
+    // user has no permission to view cycle
     // If user is accessing login page, do not redirect
     if (!isLogin && !userCycles?.find((userCycle) => userCycle.id === cycle.id)) {
       navigate('/')
