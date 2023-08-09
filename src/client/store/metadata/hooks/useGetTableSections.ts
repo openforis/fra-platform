@@ -1,22 +1,14 @@
 import { useEffect } from 'react'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
-import { useCountryIso } from 'client/hooks'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 import { MetadataActions } from '../slice'
 import { useTableSections } from './useTableSections'
 
 export const useGetTableSections = () => {
   const dispatch = useAppDispatch()
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const countryIso = useCountryIso()
-  const section = useAssessmentSection()
-
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
-  const sectionName = section?.props.name
+  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
   const tableSections = useTableSections({ sectionName })
 
   useEffect(() => {

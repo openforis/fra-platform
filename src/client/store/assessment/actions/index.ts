@@ -1,6 +1,5 @@
 export { getAreas } from './getAreas'
 export { getMetaCache } from './getMetaCache'
-export { getSections } from './getSections'
 export { initApp } from './initApp'
 export { updateCountry } from './updateCountry'
 export { updateCountryProp } from './updateCountryProp'

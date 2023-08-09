@@ -3,13 +3,8 @@ import { Cycle } from 'meta/assessment'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
 import { useAppSelector } from 'client/store'
-import {
-  useAssessment,
-  useAssessmentCountry,
-  useAssessmentSection,
-  useCountries,
-  useCycle,
-} from 'client/store/assessment'
+import { useAssessment, useAssessmentCountry, useCountries, useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useIsPrint } from 'client/hooks/useIsPath'
 
@@ -38,7 +33,7 @@ export const useUserCycles = (): Array<Cycle> => {
 
 export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
   const user = useUser()
-  const section = useAssessmentSection(sectionName)
+  const section = useSection(sectionName)
   const country = useAssessmentCountry()
   const cycle = useCycle()
 

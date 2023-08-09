@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
-import { useAssessmentSections, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
+import { useSections } from 'client/store/metadata'
 
 type Props = {
   deskStudy: boolean
@@ -15,7 +16,7 @@ const TableOfContent: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const cycle = useCycle()
-  const sections = useAssessmentSections()
+  const sections = useSections()
 
   if (!sections) return null
 

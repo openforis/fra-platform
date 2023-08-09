@@ -11,8 +11,9 @@ import { validatorEqualToPreviousCycleForestArea } from 'meta/expressionEvaluato
 import { Authorizer } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useAssessmentSection, useCountry, useCycle } from 'client/store/assessment'
+import { useAssessment, useCountry, useCycle } from 'client/store/assessment'
 import { DataActions, RecordTableValidationsState } from 'client/store/data'
+import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
@@ -34,7 +35,7 @@ export const useValidate = (props: Props): void => {
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
   const user = useUser()
-  const section = useAssessmentSection(sectionName)
+  const section = useSection(sectionName)
   const rowsData = useRowsData({ table })
 
   const canEditData = Authorizer.canEditData({ country, cycle, section, user })

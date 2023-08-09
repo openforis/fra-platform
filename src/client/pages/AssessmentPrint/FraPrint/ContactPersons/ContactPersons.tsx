@@ -8,7 +8,8 @@ import { SubSections } from 'meta/assessment'
 import { CollaboratorPermissions, RoleName, User, Users, UserStatus } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useAssessmentSections, useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useSections } from 'client/store/metadata'
 import { UserManagementActions, useUsers } from 'client/store/ui/userManagement'
 import { useCountryIso } from 'client/hooks'
 
@@ -24,7 +25,7 @@ const ContactPersons: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const sections = useAssessmentSections()
+  const sections = useSections()
 
   const sectionAnchors = SubSections.getAnchorsByUuid({ cycle, sections })
 
