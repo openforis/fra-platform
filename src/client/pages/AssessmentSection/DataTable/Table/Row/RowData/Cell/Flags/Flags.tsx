@@ -6,7 +6,8 @@ import { Col, NodeValue, Row } from 'meta/assessment'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useAssessmentSection, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
@@ -27,7 +28,7 @@ const Flags: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
   const user = useUser()
-  const section = useAssessmentSection(sectionName)
+  const section = useSection(sectionName)
   const cycle = useCycle()
 
   const canEditData = Authorizer.canEditData({ country, cycle, section, user })

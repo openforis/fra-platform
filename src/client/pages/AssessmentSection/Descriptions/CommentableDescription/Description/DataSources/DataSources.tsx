@@ -7,7 +7,8 @@ import { UUIDs } from 'utils/uuids'
 
 import { CommentableDescriptionValue, DataSource } from 'meta/assessment'
 
-import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
 import DataGrid from 'client/components/DataGrid'
 import DataColumn from 'client/components/DataGrid/DataColumn'
 
@@ -39,7 +40,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const subSection = useAssessmentSection(sectionName)
+  const subSection = useSection(sectionName)
   const descriptionMeta = subSection.props.descriptions[cycle.uuid]
   const descriptions = useDescriptions({ disabled, sectionName, descriptions: descriptionMeta })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ descriptions, sectionName })

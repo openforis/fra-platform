@@ -8,6 +8,7 @@ import { useAssessmentRouteParams, useCountryRouteParams } from 'client/hooks/us
 
 export const useAssessment = (): Assessment => {
   const { assessmentName } = useAssessmentRouteParams()
+
   return useAppSelector((state) => {
     if (assessmentName) return AssessmentSelectors.getAssessment(state, assessmentName)
     return AssessmentSelectors.getDefaultAssessment(state)

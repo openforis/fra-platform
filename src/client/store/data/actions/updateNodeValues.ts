@@ -4,11 +4,12 @@ import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams, NodesBody } from 'meta/api/request'
-import { Assessment, AssessmentMetaCaches } from 'meta/assessment'
+import { AssessmentMetaCaches } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
+import { AssessmentSelectors } from 'client/store/assessment/selectors'
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
-import { RootState } from 'client/store/RootState'
+import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CycleDataParams & NodesBody
 
@@ -28,14 +29,15 @@ const patchNodeValues = (id: string) =>
 const getDebounceId = (props: Props) =>
   `${props.countryIso}-${props.tableName}-${props.values[0].variableName}-${props.values[0].colName}`
 
-export const updateNodeValues = createAsyncThunk<void, Props>(
+export const updateNodeValues = createAsyncThunk<void, Props, ThunkApiConfig>(
   'section/nodeValues/update',
   (props, { dispatch, getState }) => {
+    const { assessmentName } = props
     patchNodeValues(getDebounceId(props))(props)
 
     // reset mirror variable value if available -> fasten calculations client side
-    const state = getState() as RootState
-    const assessment = state.assessment.assessment as Assessment
+    const state = getState()
+    const assessment = AssessmentSelectors.getAssessment(state, assessmentName)
     const cycle = assessment.cycles.find((cycle) => cycle.name === props.cycleName)
     const { countryIso, tableName, values } = props
     const nodes = values.reduce<Array<NodeUpdate>>((nodesAcc, node) => {

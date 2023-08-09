@@ -1,10 +1,9 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { getMetaCache, initApp } from 'client/store/assessment/actions'
 import { getMetaCacheReducer } from 'client/store/assessment/extraReducers/getMetaCacheReducer'
-
-import { initAppReducer } from './extraReducers/initAppReducer'
-import { getAssessment, getMetaCache, getSections, initApp } from './actions'
-import { AssessmentState, initialState } from './state'
+import { initAppReducer } from 'client/store/assessment/extraReducers/initAppReducer'
+import { AssessmentState, initialState } from 'client/store/assessment/state'
 
 export const assessmentSlice = createSlice({
   name: 'assessment',
@@ -15,19 +14,13 @@ export const assessmentSlice = createSlice({
   extraReducers: (builder) => {
     initAppReducer(builder)
     getMetaCacheReducer(builder)
-
-    builder.addCase(getSections.fulfilled, (state, { payload }) => {
-      state.sections = payload
-    })
   },
 })
 
 export const AssessmentActions = {
   ...assessmentSlice.actions,
   initApp,
-  getAssessment,
   getMetaCache,
-  getSections,
 }
 
 export default assessmentSlice.reducer as Reducer<AssessmentState>

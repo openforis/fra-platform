@@ -6,8 +6,8 @@ import { Labels } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useCountry } from 'client/store/area'
-import { useAssessment, useAssessmentSections, useCycle } from 'client/store/assessment'
-import { MetadataActions } from 'client/store/metadata'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { MetadataActions, useSections } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
 import Loading from 'client/components/Loading'
@@ -23,8 +23,7 @@ const FraPrint: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const dispatch = useAppDispatch()
-
-  const sections = useAssessmentSections()
+  const sections = useSections()
 
   const { onlyTables } = useIsPrint()
   const deskStudy = country?.props?.deskStudy
