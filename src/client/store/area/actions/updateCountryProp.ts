@@ -16,20 +16,13 @@ type Params = {
 export const updateCountryProp = createAsyncThunk<Country, Params>(
   'assessment/post/countryProp',
   async ({ assessmentName, countryIso, cycleName, sectionName, countryProp }) => {
-    const { data } = await axios.patch(
-      ApiEndPoint.Area.countryProp(),
-      {
-        countryProp,
-      },
-      {
-        params: {
-          assessmentName,
-          countryIso,
-          cycleName,
-          sectionName,
-        },
-      }
-    )
+    const params = {
+      assessmentName,
+      countryIso,
+      cycleName,
+      sectionName,
+    }
+    const { data } = await axios.patch(ApiEndPoint.Area.countryProp(), { countryProp }, { params })
     return data
   }
 )

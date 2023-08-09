@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { i18n } from 'i18next'
@@ -33,5 +34,9 @@ export const useCountries = (): Array<Country> => {
   const { i18n } = useTranslation()
   const compareListName = getCompareListName(i18n)
 
-  return Object.values(countries).sort((c1, c2) => compareListName(c1.countryIso, c2.countryIso))
+  return useMemo(() => {
+    const countryValues = Object.values(countries)
+    const compareFn = (c1: Country, c2: Country) => compareListName(c1.countryIso, c2.countryIso)
+    return countryValues.sort(compareFn)
+  }, [countries, compareListName])
 }

@@ -5,20 +5,18 @@ import { updateCountryProp } from 'client/store/area/actions/updateCountryProp'
 import { AreaState } from 'client/store/area/state'
 
 export const updateCountryPropReducer = (builder: ActionReducerMapBuilder<AreaState>) => {
-  builder.addCase(updateCountryProp.pending, (state, reducer) => {
-    const {
-      meta: { arg },
-    } = reducer
+  builder.addCase(updateCountryProp.pending, (state, action) => {
+    const { assessmentName, countryIso, countryProp, cycleName } = action.meta.arg
 
-    const { assessmentName, countryIso, countryProp, cycleName } = arg
-
+    const path = ['countries', assessmentName, cycleName, countryIso, 'props']
+    const value = {
+      ...state.countries[assessmentName][cycleName][countryIso].props,
+      ...countryProp,
+    }
     Objects.setInPath({
       obj: state,
-      path: ['countries', assessmentName, cycleName, countryIso, 'props'],
-      value: {
-        ...state.countries[assessmentName][cycleName][countryIso].props,
-        ...countryProp,
-      },
+      path,
+      value,
     })
   })
 }

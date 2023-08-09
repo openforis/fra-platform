@@ -6,8 +6,7 @@ import { AreaState } from 'client/store/area/state'
 
 export const updateCountryReducer = (builder: ActionReducerMapBuilder<AreaState>) => {
   builder.addCase(updateCountry.fulfilled, (state, { payload, meta }) => {
-    const { countryIso } = payload
-    const { assessmentName, cycleName } = meta.arg
+    const { assessmentName, cycleName, countryIso } = meta.arg
 
     Objects.setInPath({
       obj: state,
