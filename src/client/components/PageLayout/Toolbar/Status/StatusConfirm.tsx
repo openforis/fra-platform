@@ -9,7 +9,7 @@ import { AssessmentName } from 'meta/assessment'
 import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { AssessmentActions, useAssessmentCountry } from 'client/store/assessment'
+import { AreaActions, useAssessmentCountry } from 'client/store/area'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
@@ -79,7 +79,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           className="btn btn-primary modal-footer__item"
           onClick={() => {
             dispatch(
-              AssessmentActions.updateCountry({
+              AreaActions.updateCountry({
                 notifyUsers,
                 country: {
                   ...country,

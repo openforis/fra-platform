@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from 'utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
@@ -14,7 +14,8 @@ import { AssessmentStatusTransitions } from 'meta/assessment/assessments'
 import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { AssessmentActions, useAssessmentCountry, useCycle } from 'client/store/assessment'
+import { AreaActions, useAssessmentCountry } from 'client/store/area'
+import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import Icon from 'client/components/Icon'
@@ -49,7 +50,7 @@ const Status: React.FC = () => {
       ),
       onClick: () => {
         dispatch(
-          AssessmentActions.updateCountry({
+          AreaActions.updateCountry({
             country: {
               ...country,
               props: {

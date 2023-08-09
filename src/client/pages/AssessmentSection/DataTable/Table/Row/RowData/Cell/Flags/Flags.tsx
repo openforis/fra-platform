@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { Col, NodeValue, Row } from 'meta/assessment'
 import { Authorizer } from 'meta/user'
 
-import { useAssessmentSection, useCountry, useCycle } from 'client/store/assessment'
+import { useCountry } from 'client/store/area'
+import { useAssessmentSection, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 

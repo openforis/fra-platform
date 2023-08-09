@@ -3,13 +3,8 @@ import { Cycle } from 'meta/assessment'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
 import { useAppSelector } from 'client/store'
-import {
-  useAssessment,
-  useAssessmentCountry,
-  useAssessmentSection,
-  useCountries,
-  useCycle,
-} from 'client/store/assessment'
+import { useAssessmentCountry, useCountries } from 'client/store/area'
+import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useIsPrint } from 'client/hooks/useIsPath'
 
