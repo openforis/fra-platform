@@ -1,11 +1,10 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { getAreas, getMetaCache, initApp, updateCountry, updateCountryProp } from 'client/store/assessment/actions'
 import { getMetaCacheReducer } from 'client/store/assessment/extraReducers/getMetaCacheReducer'
+import { initAppReducer } from 'client/store/assessment/extraReducers/initAppReducer'
+import { AssessmentState, initialState } from 'client/store/assessment/state'
 import { updateNodeValues } from 'client/store/data/actions/updateNodeValues'
-
-import { initAppReducer } from './extraReducers/initAppReducer'
-import { getAreas, getMetaCache, getSections, initApp, updateCountry, updateCountryProp } from './actions'
-import { AssessmentState, initialState } from './state'
 
 export const assessmentSlice = createSlice({
   name: 'assessment',
@@ -26,10 +25,6 @@ export const assessmentSlice = createSlice({
       )
 
       state.regionGroups = regionGroups
-    })
-
-    builder.addCase(getSections.fulfilled, (state, { payload }) => {
-      state.sections = payload
     })
 
     builder.addCase(updateCountry.fulfilled, (state, { payload }) => {
@@ -58,7 +53,6 @@ export const AssessmentActions = {
   initApp,
   getAreas,
   getMetaCache,
-  getSections,
   updateCountry,
   updateCountryProp,
 }

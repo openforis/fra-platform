@@ -5,8 +5,9 @@ import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from 'meta/assessm
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import { DataActions } from 'client/store/data'
+import { useSection } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 import { Sanitizer } from 'client/utils/sanitizer'
 
@@ -36,7 +37,7 @@ export default (props: Props): UseOnChange => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const assessment = useAssessment()
-  const assessmentSection = useAssessmentSection(sectionName)
+  const assessmentSection = useSection(sectionName)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { calculated, estimated, estimationUuid, validation, ...nodeValue } = _nodeValue ?? ({} as NodeValue)

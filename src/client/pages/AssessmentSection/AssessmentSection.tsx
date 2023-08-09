@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom'
 
 import { AssessmentName, Labels, SubSections } from 'meta/assessment'
 
-import { useAssessmentSection, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useIsSectionDataEmpty } from 'client/store/data'
-import { useTableSections } from 'client/store/metadata'
+import { useSection, useTableSections } from 'client/store/metadata'
 import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from 'client/store/user/hooks'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
@@ -31,7 +31,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
 
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const subSection = useAssessmentSection(sectionProp)
+  const subSection = useSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
   const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)

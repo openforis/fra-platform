@@ -20,6 +20,7 @@ import Login from 'client/pages/Login'
 import User from 'client/pages/User'
 
 import { useInitMetaCache } from './hooks/useInitMetaCache'
+import { useInitSections } from './hooks/useInitSections'
 import Introduction from './Introduction'
 import KeyFindings from './KeyFindings'
 
@@ -44,6 +45,7 @@ const Cycle: React.FC = () => {
   const isUserEditPage = useIsUserEditPage()
   const navigate = useNavigate()
   const userCycles = useUserCycles()
+  useInitSections()
   useInitMetaCache()
 
   useEffect(() => {

@@ -1,10 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 
 import { Strings } from 'utils/strings'
 
 import { Country, CountryIso, RegionGroup } from 'meta/area'
-import { Section, SubSection } from 'meta/assessment'
 
 import { useAppSelector } from 'client/store'
 import { useCountryIso } from 'client/hooks'
@@ -47,17 +45,6 @@ export const useAssessmentCountry = (): Country => {
 
 export const useRegionGroups = (): Record<string, RegionGroup> =>
   useAppSelector((state) => state.assessment?.regionGroups ?? {})
-
-export const useAssessmentSections = (): Array<Section> => useAppSelector((state) => state.assessment.sections)
-export const useAssessmentSection = (sectionNameParam?: string): SubSection => {
-  const sections = useAssessmentSections()
-  const { sectionName: s } = useParams<{ sectionName: string }>()
-  // Prefer optional function param if passed over url param for sectionName
-  const sectionName = sectionNameParam ?? s
-  return sections
-    ?.find((section) => section.subSections.find((subSection) => subSection.props.name === sectionName))
-    .subSections.find((subSection) => subSection.props.name === sectionName)
-}
 
 export const useSecondaryRegion = () => {
   const regionGroups = useRegionGroups()
