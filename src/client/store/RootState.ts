@@ -1,3 +1,4 @@
+import { AreaState } from './area/state'
 import { AssessmentState } from './assessment/state'
 import { DataState } from './data/stateType'
 import { LoginState } from './login/stateType'
@@ -17,6 +18,7 @@ import { UserState } from './user/stateType'
 import { MetadataState } from './metadata'
 
 export type RootState = {
+  area: AreaState
   assessment: AssessmentState
   login: LoginState
   user: UserState

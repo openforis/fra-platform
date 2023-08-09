@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Description } from 'meta/assessment'
 
-import { useAssessmentCountry } from 'client/store/assessment'
+import { useAssessmentCountry } from 'client/store/area'
 import { useHasOriginalDataPointData } from 'client/store/data'
 import { useIsPrint } from 'client/hooks/useIsPath'
 

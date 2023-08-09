@@ -1,12 +1,13 @@
 import { Request } from 'express'
 
 import { CountryIso } from 'meta/area'
+import { AssessmentName, CycleName } from 'meta/assessment'
 
 // base params
 export type CycleParams = {
-  assessmentName: string
+  assessmentName: AssessmentName
   countryIso: CountryIso
-  cycleName: string
+  cycleName: CycleName
 }
 
 export type CycleDataParams = CycleParams & {

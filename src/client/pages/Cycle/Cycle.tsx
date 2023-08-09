@@ -5,11 +5,9 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import { ClientRoutes } from 'meta/app'
 import { AssessmentName, AssessmentNames } from 'meta/assessment'
 
-import { useAppDispatch } from 'client/store'
-import { AssessmentActions, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useUserCycles } from 'client/store/user'
 import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
 import PageLayout from 'client/components/PageLayout'
 import Partners from 'client/components/Partners'
@@ -19,6 +17,7 @@ import Country from 'client/pages/Country'
 import Login from 'client/pages/Login'
 import User from 'client/pages/User'
 
+import { useInitAreas } from './hooks/useInitAreas'
 import { useInitMetaCache } from './hooks/useInitMetaCache'
 import { useInitSections } from './hooks/useInitSections'
 import Introduction from './Introduction'
@@ -36,8 +35,6 @@ const Components: { [key: AssessmentName]: React.FC } = {
 }
 
 const Cycle: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const { assessmentName, cycleName } = useCycleRouteParams()
   const { print } = useIsPrint()
   const cycle = useCycle()
   const isAdmin = useIsAdmin()
@@ -47,10 +44,7 @@ const Cycle: React.FC = () => {
   const userCycles = useUserCycles()
   useInitSections()
   useInitMetaCache()
-
-  useEffect(() => {
-    dispatch(AssessmentActions.getAreas({ assessmentName, cycleName }))
-  }, [assessmentName, cycleName, dispatch])
+  useInitAreas()
 
   // TODO: think later
   useEffect(() => {
