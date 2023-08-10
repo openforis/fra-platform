@@ -15,6 +15,6 @@ export const getOriginalDataPointReservedYears = createAsyncThunk<Array<ODPReser
         cycleName,
       },
     })
-    return data
+    return data.sort((a: ODPReservedYear, b: ODPReservedYear) => a.year - b.year)
   }
 )
