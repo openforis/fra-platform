@@ -33,7 +33,7 @@ const ContactPersons: React.FC = () => {
     return (
       [UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
       allowedRoleNames.includes(userRole.role) &&
-      (userRole.role !== RoleName.COLLABORATOR || (userRole.props as CollaboratorPermissions).sections !== 'none')
+      (userRole.role !== RoleName.COLLABORATOR || (userRole?.props as CollaboratorPermissions)?.sections !== 'none')
     )
   })
 
