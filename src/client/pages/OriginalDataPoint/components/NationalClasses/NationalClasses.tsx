@@ -34,11 +34,12 @@ const NationalClasses: React.FC<Props> = (props) => {
   const { print } = useIsPrint()
   const originalDataPointUpdating = useIsOriginalDataPointUpdating()
   const reservedYearsWithClasses = (useOriginalDataPointReservedYears() ?? [])
+    .filter((reservedYear) => Number(reservedYear.year) !== Number(year))
     .filter((reservedYear) => reservedYear.nationalClasses > 0)
     .map((reservedYear) => reservedYear.year)
 
   // Copying is disabled if: odp doesn't have a year, there is no previous years or previous year is not selected
-  const copyDisabled = !year || year === -1 || originalDataPointUpdating
+  const copyDisabled = !year || year === -1 || originalDataPointUpdating || reservedYearsWithClasses.length < 1
 
   const onCopyClick = useCallback(() => {
     if (window.confirm(t('nationalDataPoint.confirmCopyPreviousValues'))) {
