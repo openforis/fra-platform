@@ -5,18 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { SubSections } from 'meta/assessment'
-import { CollaboratorPermissions, RoleName, User, Users, UserStatus } from 'meta/user'
+import { CollaboratorPermissions, User, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useAssessmentSections, useCycle } from 'client/store/assessment'
-import { UserManagementActions, useUsers } from 'client/store/ui/userManagement'
+import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryIso } from 'client/hooks'
-
-const allowedRoleNames = [
-  RoleName.COLLABORATOR,
-  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
-  RoleName.NATIONAL_CORRESPONDENT,
-]
+import { useContactPersons } from 'client/pages/AssessmentPrint/FraPrint/ContactPersons/hooks/useContactPersons'
 
 const ContactPersons: React.FC = () => {
   const { t } = useTranslation()
@@ -28,14 +23,7 @@ const ContactPersons: React.FC = () => {
 
   const sectionAnchors = SubSections.getAnchorsByUuid({ cycle, sections })
 
-  const users = useUsers().filter((user) => {
-    const userRole = Users.getRole(user, countryIso, cycle)
-    return (
-      [UserStatus.active, UserStatus.invitationPending].includes(user.status) &&
-      allowedRoleNames.includes(userRole.role) &&
-      (userRole.role !== RoleName.COLLABORATOR || (userRole.props as CollaboratorPermissions)?.sections !== 'none')
-    )
-  })
+  const users = useContactPersons()
 
   const getUserTableAnchors = (user: User) => {
     if (Users.isCollaborator(user, countryIso, cycle)) {
