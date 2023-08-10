@@ -10,19 +10,12 @@ import Assessment from 'client/pages/Assessment'
 import Landing from 'client/pages/Landing'
 
 import { useInitApp } from './hooks/useInitApp'
-import { useInitLanguage } from './hooks/useInitLanguage'
 import { useOpenSocket } from './hooks/useOpenSocket'
-import { useTheme } from './hooks/useTheme'
-import { useUserRedirect } from './hooks/useUserRedirect'
 
 const PageRoutes: React.FC = () => {
-  const isAppInitialized = useIsAppInitialized()
-
   useInitApp()
-  useInitLanguage()
-  useTheme()
   useOpenSocket()
-  useUserRedirect()
+  const isAppInitialized = useIsAppInitialized()
 
   if (!isAppInitialized) return null
 

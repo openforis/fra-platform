@@ -38,7 +38,7 @@ const ButtonDownloadDashboard: React.FC = () => {
       className="btn-s btn-primary landing__btn-download"
       to={`${ApiEndPoint.File.dashboard()}?assessmentName=${assessment.props.name}&countryIso=${countryIso}&cycleName=${
         cycle.name
-      }&lang=${i18n.language}`}
+      }&lang=${i18n.resolvedLanguage}`}
       target="_top"
     >
       <Icon name="hit-down" className="icon-hit-down icon-white" />

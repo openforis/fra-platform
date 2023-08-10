@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
-import { Cycle } from 'meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
 import type { User, UserProps } from './user'
 import {
@@ -52,6 +52,18 @@ const hasEditorRole = (props: { user: User; countryIso: CountryIso; cycle: Cycle
   const role = getRole(user, countryIso, cycle)
 
   return role && role.role !== RoleName.VIEWER
+}
+
+const hasRoleInAssessment = (props: { user: User; assessment: Assessment }): boolean => {
+  const { assessment, user } = props
+  if (isAdministrator(user)) return true
+  return user.roles.some((role) => Number(role.assessmentId) === Number(assessment.id))
+}
+
+const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {
+  const { cycle, user } = props
+  if (isAdministrator(user)) return true
+  return user.roles.some((role) => role.cycleUuid === cycle.uuid)
 }
 
 const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<RoleName> => {
@@ -169,6 +181,8 @@ export const Users = {
   getRolesAllowedToEdit,
   getI18nRoleLabelKey,
   hasEditorRole,
+  hasRoleInAssessment,
+  hasRoleInCycle,
 
   profilePictureUri,
   validProfilePicture,

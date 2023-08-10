@@ -28,5 +28,5 @@ export const useUpdateLanguage = (): UpdateLanguage => {
 export const useLanguage = (): Lang => {
   const { i18n } = useTranslation()
 
-  return useMemo<Lang>(() => i18n.language as Lang, [i18n.language])
+  return useMemo<Lang>(() => i18n.resolvedLanguage as Lang, [i18n.resolvedLanguage])
 }

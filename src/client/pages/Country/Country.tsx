@@ -11,7 +11,7 @@ import { Authorizer } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { useCountries, useCountry } from 'client/store/area'
-import { useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import { useNavigationVisible } from 'client/store/ui/navigation'
 import { ReviewActions } from 'client/store/ui/review'
 import { useUser } from 'client/store/user'
@@ -33,10 +33,12 @@ import SectionWrapper from './SectionWrapper'
 
 const Country: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+
   const dispatch = useAppDispatch()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const user = useUser()
   const navigationVisible = useNavigationVisible()
-  const cycle = useCycle()
   const countries = useCountries()
   const country = useCountry(countryIso)
   const isDataExportView = useIsDataExportView()
@@ -76,7 +78,7 @@ const Country: React.FC = () => {
 
   if (countries?.length === 0) return null
 
-  if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ countryIso, cycle, user }))
+  if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ assessment, countryIso, cycle, user }))
     window.location.href = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
 
   return (

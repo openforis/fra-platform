@@ -61,9 +61,9 @@ const requireView = async (req: Request, _res: Response, next: NextFunction) => 
   }
   const user = Requests.getUser(req)
 
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(Authorizer.canView({ user, countryIso, cycle }), next)
+  _next(Authorizer.canView({ assessment, user, countryIso, cycle }), next)
 }
 
 const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {

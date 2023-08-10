@@ -13,7 +13,7 @@ const PanEuropeanHeader: React.FC = () => {
 
   return (
     <div className="app-header no-print">
-      <img alt="FAO" src={`/img/fao/FAO${i18n.language}.svg`} />
+      <img alt="FAO" src={`/img/fao/FAO${i18n.resolvedLanguage}.svg`} />
       <div className="app-header__separator" />
       <div className="app-header__global-fra">
         <div>{t('panEuropean.panEuropeanAssessment')}</div>
