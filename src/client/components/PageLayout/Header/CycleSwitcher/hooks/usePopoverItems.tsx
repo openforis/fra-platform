@@ -37,7 +37,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
           if (canViewCycle && !isCurrentRoute) {
             const item: PopoverItem = {
               content: `${t(`${assessmentName}.labels.short`)} ${cycleName}`,
-              onClick: () => navigateTo(assessmentName, cycleName),
+              onClick: () => navigateTo({ assessment, cycle, user }),
             }
             items.push(item)
           }

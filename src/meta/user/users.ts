@@ -66,6 +66,12 @@ const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {
   return user.roles.some((role) => role.cycleUuid === cycle.uuid)
 }
 
+const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: CountryIso }): boolean => {
+  const { cycle, countryIso, user } = props
+  if (isAdministrator(user)) return true
+  return user.roles.some((role) => role.cycleUuid === cycle.uuid && role.countryIso === countryIso)
+}
+
 const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<RoleName> => {
   const { countryIso, cycle, user } = props
   if (isAdministrator(user)) {
@@ -183,6 +189,7 @@ export const Users = {
   hasEditorRole,
   hasRoleInAssessment,
   hasRoleInCycle,
+  hasRoleInCountry,
 
   profilePictureUri,
   validProfilePicture,
