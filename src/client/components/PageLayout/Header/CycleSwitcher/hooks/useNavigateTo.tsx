@@ -21,7 +21,7 @@ export const useNavigateTo = () => {
       const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
 
       let link = ''
-      if (countryIso && hasRoleInCountry)
+      if (countryIso && (cycle.published || hasRoleInCountry))
         link = ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName })
       else if (isAdminPage) link = ClientRoutes.Assessment.Cycle.Admin.Root.getLink({ assessmentName, cycleName })
       else link = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
