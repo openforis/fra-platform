@@ -7,6 +7,7 @@ import { AssessmentName, AssessmentNames, Labels, Row } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
 import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
@@ -28,6 +29,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   const cycle = useCycle()
   const selection = useDataExportSelection(sectionName)
   const selectionVariables = selection.sections[sectionName].variables
+  const subSection = useSection(sectionName)
 
   const updateSelection = (variablesUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
@@ -59,7 +61,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
             cycleName={cycle.name}
             className="margin-right-big"
             document="tad"
-            anchor="1a"
+            anchor={subSection.props.anchors[cycle.uuid]}
             title={`(${t('definition.definitionLabel')})`}
             lang={i18n.resolvedLanguage}
           />
