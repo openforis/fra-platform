@@ -33,7 +33,7 @@ const ExcelCalculatorDownload: React.FC = () => {
     cycleName: cycle?.name,
     sectionName: section?.props?.name,
     selectedDomain,
-    language: i18n.language,
+    language: i18n.resolvedLanguage,
   })
 
   if (!Authorizer.canEditData({ country, cycle, section, user: userInfo })) return null

@@ -23,7 +23,7 @@ const getCompareListName =
   (isoCode1: string, isoCode2: string): number => {
     const country1 = Strings.normalize(getListName(isoCode1, i18n))
     const country2 = Strings.normalize(getListName(isoCode2, i18n))
-    const locale = getLocale(i18n.language)
+    const locale = getLocale(i18n.resolvedLanguage)
     return country1.localeCompare(country2, locale)
   }
 

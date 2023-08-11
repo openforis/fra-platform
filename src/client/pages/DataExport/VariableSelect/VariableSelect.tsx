@@ -61,7 +61,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
             document="tad"
             anchor="1a"
             title={`(${t('definition.definitionLabel')})`}
-            lang={i18n.language}
+            lang={i18n.resolvedLanguage}
           />
         </div>
         <ButtonCheckBox

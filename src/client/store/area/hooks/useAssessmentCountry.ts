@@ -1,11 +1,14 @@
 import { Country } from 'meta/area'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryIso } from 'client/hooks'
 
 import { useCountry } from './useCountry'
 
 export const useAssessmentCountry = (): Country => {
-  const { countryIso } = useCountryRouteParams()
+  // const { countryIso } = useCountryRouteParams()
+  const countryIso = useCountryIso()
+
   if (!countryIso) throw new Error(`Unable to find countryIso parameter`)
+
   return useCountry(countryIso)
 }

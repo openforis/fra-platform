@@ -1,13 +1,21 @@
 import './popoverControl.scss'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { PropsWithChildren, ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-export type PopoverItem = { divider?: boolean; link?: string; content?: any; onClick?: () => void }
-type Props = { items: Array<PopoverItem>; children: JSX.Element }
+export type PopoverItem = {
+  content?: ReactNode
+  divider?: boolean
+  link?: string
+  onClick?: () => void
+}
 
-const PopoverControl: React.FC<Props> = (props) => {
+type Props = {
+  items: Array<PopoverItem>
+}
+
+const PopoverControl: React.FC<PropsWithChildren<Props>> = (props) => {
   const { children, items } = props
 
   const [open, setOpen] = useState<boolean>(false)
@@ -43,12 +51,13 @@ const PopoverControl: React.FC<Props> = (props) => {
         <div className="popover-control__menu">
           {items.map((item, index) => {
             const { divider, link, content, onClick } = item
+            const key = `${index}`
 
-            if (divider) return <div className="popover-control__divider" key={String(index)} />
+            if (divider) return <div className="popover-control__divider" key={key} />
 
             if (link)
               return (
-                <Link className="popover-control__item-link" key={String(index)} to={link}>
+                <Link className="popover-control__item-link" key={key} to={link}>
                   {content}
                 </Link>
               )
@@ -56,7 +65,7 @@ const PopoverControl: React.FC<Props> = (props) => {
             return (
               <div
                 className="popover-control__item"
-                key={String(index)}
+                key={key}
                 onClick={onClick}
                 onKeyDown={onClick}
                 role="button"
