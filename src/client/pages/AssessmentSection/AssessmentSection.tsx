@@ -43,11 +43,16 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
 
   // Hide the whole section if no tables have data
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)
+
   if (onlyTables && isSectionDataEmpty) {
     return null
   }
 
   const anchor = SubSections.getAnchor({ cycle, subSection })
+
+  const renderGeneralComments = !onlyTables && descriptions[cycle.uuid].comments
+
+  const renderIntroductoryText = !onlyTables && descriptions[cycle.uuid].introductoryText
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`}>
@@ -90,7 +95,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
         )
       })}
 
-      {descriptions[cycle.uuid].introductoryText && (
+      {renderIntroductoryText && (
         <CommentableDescription
           sectionName={sectionName}
           title={t('contactPersons.introductoryText')}
@@ -99,7 +104,7 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
           disabled={!canEditDescriptions}
         />
       )}
-      {descriptions[cycle.uuid].comments && (
+      {renderGeneralComments && (
         <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
       )}
 

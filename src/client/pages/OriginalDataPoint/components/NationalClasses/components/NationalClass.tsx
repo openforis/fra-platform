@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
@@ -15,8 +15,7 @@ import { useIsPrint } from 'client/hooks/useIsPath'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
-
-import { useNationalClassNameComments } from '../../../hooks'
+import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 
 const columns = [
   { name: 'name', type: 'text' },

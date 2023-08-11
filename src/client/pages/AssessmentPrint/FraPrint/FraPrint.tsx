@@ -74,7 +74,7 @@ const FraPrint: React.FC = () => {
               </h1>
             )}
 
-            {i === 0 && !deskStudy && <ContactPersons />}
+            {i === 0 && !deskStudy && !onlyTables && <ContactPersons />}
 
             {Object.values(section.subSections).map((sectionItem) => {
               return <AssessmentSection key={sectionItem.uuid} section={sectionItem.props.name} />

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { OriginalDataPoint } from 'meta/assessment'
@@ -12,7 +12,7 @@ export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDat
   const countryIso = useCountryIso()
 
   const {
-    data: originalDataPoints = [],
+    data = [],
     dispatch: fetchResults,
     loading,
   } = useGetRequest(ApiEndPoint.CycleData.OriginalDataPoint.many(), {
@@ -25,7 +25,16 @@ export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDat
 
   useEffect(() => {
     fetchResults()
+    // eslint-disable-next-line
   }, [])
 
-  return { originalDataPoints, loading }
+  const originalDataPoints = useMemo(
+    () => data.sort((a: OriginalDataPoint, b: OriginalDataPoint) => a.year - b.year),
+    [data]
+  )
+
+  return {
+    originalDataPoints,
+    loading,
+  }
 }

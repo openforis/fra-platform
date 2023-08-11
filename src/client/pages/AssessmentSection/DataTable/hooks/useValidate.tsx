@@ -17,6 +17,7 @@ import { DataActions, RecordTableValidationsState } from 'client/store/data'
 import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
+import { useIsPrint } from 'client/hooks/useIsPath'
 
 import { useRowsData } from './useRowsData'
 
@@ -38,13 +39,14 @@ export const useValidate = (props: Props): void => {
   const user = useUser()
   const section = useSection(sectionName)
   const rowsData = useRowsData({ table })
+  const { print } = useIsPrint()
 
   const canEditData = Authorizer.canEditData({ country, cycle, section, user })
 
   useEffect(() => {
     const tableValidations: RecordTableValidationsState = { [table.props.name]: {} }
 
-    if (canEditData) {
+    if (!print && canEditData) {
       rowsData.forEach((row) => {
         row.cols.forEach((col) => {
           const validateFns = col.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
@@ -76,15 +78,14 @@ export const useValidate = (props: Props): void => {
           }
         })
       })
+      dispatch(
+        DataActions.setNodeValueValidations({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          countryIso,
+          tableValidations,
+        })
+      )
     }
-
-    dispatch(
-      DataActions.setNodeValueValidations({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-        tableValidations,
-      })
-    )
-  }, [assessment, canEditData, countryIso, cycle, data, dispatch, rowsData, t, table.props.name])
+  }, [assessment, countryIso, cycle, data, dispatch, rowsData, t, table.props.name, canEditData, print])
 }
