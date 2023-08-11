@@ -7,4 +7,4 @@ export enum Lang {
   es = 'es',
 }
 
-export const LanguageCodes: Array<Lang> = [Lang.ar, Lang.zh, Lang.en, Lang.fr, Lang.ru, Lang.en]
+export const LanguageCodes: Array<Lang> = [Lang.ar, Lang.zh, Lang.en, Lang.fr, Lang.ru, Lang.es]
