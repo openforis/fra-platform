@@ -47,7 +47,7 @@ const _getDependencies = (props: DependencyCacheProps) => {
 // ****==== getters
 const getMetaCache = (props: CycleProps): AssessmentMetaCache => {
   const { assessment, cycle } = props
-  return assessment.metaCache[cycle.uuid]
+  return assessment.metaCache?.[cycle.uuid]
 }
 
 const getCalculations = (props: CycleProps): DependencyCache => getMetaCache(props).calculations
@@ -104,6 +104,7 @@ export const AssessmentMetaCaches = {
   getCalculationMirrorVariable,
   getCalculationsDependants,
   getCalculationsDependencies,
+  getMetaCache,
   getValidationsDependants,
   getValidationsDependencies,
   getVariablesByTables,

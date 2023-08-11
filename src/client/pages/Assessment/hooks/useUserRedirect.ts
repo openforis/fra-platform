@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
+import { AssessmentNames } from 'meta/assessment'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -17,36 +18,21 @@ export const useUserRedirect = (): void => {
   const countryIso = userLastRole?.countryIso
   const navigate = useNavigate()
 
+  const assessmentName = assessment?.props.name
+  const cycleName = cycle?.name
+
   useEffect(() => {
     const personalInfoRequired = Users.isPersonalInfoRequired(user, userLastRole)
-    const shouldRedirectToProfile = Boolean(isAppInitialized && personalInfoRequired && assessment && cycle && navigate)
+    const isFra = assessmentName === AssessmentNames.fra
+    const shouldRedirectToProfile = Boolean(
+      isAppInitialized && personalInfoRequired && assessment && cycle && navigate && isFra
+    )
 
     if (shouldRedirectToProfile) {
-      navigate(
-        `${ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          id: user.id,
-        })}`,
-        {
-          state: {
-            userLastRole,
-            personalInfoRequired,
-            routeParams: { assessmentName: assessment.props.name, cycleName: cycle.name, countryIso },
-          },
-        }
-      )
+      const params = { assessmentName, cycleName, countryIso, id: user.id }
+      const routeParams = { assessmentName, cycleName, countryIso }
+      const state = { userLastRole, personalInfoRequired, routeParams }
+      navigate(ClientRoutes.Assessment.Cycle.Country.Users.User.getLink(params), { state })
     }
-  }, [
-    assessment?.props.name,
-    cycle?.name,
-    countryIso,
-    navigate,
-    isAppInitialized,
-    user,
-    assessment,
-    cycle,
-    userLastRole,
-  ])
+  }, [assessment, assessmentName, countryIso, cycle, cycleName, isAppInitialized, navigate, user, userLastRole])
 }

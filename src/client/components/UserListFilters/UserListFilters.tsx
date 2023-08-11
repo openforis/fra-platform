@@ -6,8 +6,7 @@ import { CountryIso, Region, RegionCode } from 'meta/area'
 import { RoleName } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useCountries } from 'client/store/assessment'
-import { useSecondaryRegion } from 'client/store/assessment/hooks'
+import { useCountries, useSecondaryRegion } from 'client/store/area'
 import { useFilters, UserManagementActions, useRoleNames } from 'client/store/ui/userManagement'
 
 import CountrySelectModal from '../CountrySelectModal'

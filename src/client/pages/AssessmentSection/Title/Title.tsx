@@ -59,7 +59,7 @@ const Title: React.FC<Props> = (props) => {
             document="tad"
             anchor={anchor}
             title={t('definition.definitionLabel')}
-            lang={i18n.language}
+            lang={i18n.resolvedLanguage}
           />
           <DefinitionLink
             assessmentName={assessmentName}
@@ -68,7 +68,7 @@ const Title: React.FC<Props> = (props) => {
             document={secondDoc}
             anchor={anchor}
             title={t(secondLabel)}
-            lang={i18n.language}
+            lang={i18n.resolvedLanguage}
           />
         </div>
       )}

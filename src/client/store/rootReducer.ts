@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 
+import AreaSlice from './area/slice'
 import AssessmentSlice from './assessment/slice'
 import DataSlice from './data/slice'
 import LoginSlice from './login/slice'
@@ -19,6 +20,7 @@ import UserManagementSlice from './ui/userManagement/slice'
 import UserSlice from './user/slice'
 
 export default {
+  area: AreaSlice,
   assessment: AssessmentSlice,
   login: LoginSlice,
   user: UserSlice,

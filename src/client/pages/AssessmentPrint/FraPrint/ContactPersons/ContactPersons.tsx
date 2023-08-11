@@ -8,10 +8,12 @@ import { SubSections } from 'meta/assessment'
 import { CollaboratorPermissions, User, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useAssessmentSections, useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useSections } from 'client/store/metadata'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryIso } from 'client/hooks'
-import { useContactPersons } from 'client/pages/AssessmentPrint/FraPrint/ContactPersons/hooks/useContactPersons'
+
+import { useContactPersons } from './hooks/useContactPersons'
 
 const ContactPersons: React.FC = () => {
   const { t } = useTranslation()
@@ -19,7 +21,7 @@ const ContactPersons: React.FC = () => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const sections = useAssessmentSections()
+  const sections = useSections()
 
   const sectionAnchors = SubSections.getAnchorsByUuid({ cycle, sections })
 

@@ -14,7 +14,7 @@ const FraHeader: React.FC = () => {
 
   return (
     <div className="app-header no-print">
-      <img alt="FAO" className="app-header__fao-logo" src={`/img/fao/FAO${i18n.language}.svg`} />
+      <img alt="FAO" className="app-header__fao-logo" src={`/img/fao/FAO${i18n.resolvedLanguage}.svg`} />
       <div className="app-header__separator" />
       <div className="app-header__global-fra">
         <div>{i18n.t<string>('common.globalFRA')}</div>

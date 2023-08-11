@@ -5,8 +5,8 @@ import { CommentableDescriptionValue } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { usePreviousSection } from 'client/store/assessment/hooks/usePreviousSection'
 import { DataActions } from 'client/store/data'
+import { usePreviousSection } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 
 interface Props {

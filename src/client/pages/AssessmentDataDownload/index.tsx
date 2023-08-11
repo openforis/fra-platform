@@ -55,14 +55,14 @@ const AssessmentDataDownload: React.FC = () => {
             </div>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'ods', i18n.language)}
+              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'ods', i18n.resolvedLanguage)}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               ODS
             </a>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'xlsx', i18n.language)}
+              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'xlsx', i18n.resolvedLanguage)}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               XLS

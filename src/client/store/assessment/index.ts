@@ -1,12 +1,3 @@
-export {
-  useAssessment,
-  useAssessmentCountry,
-  useAssessmentSection,
-  useAssessmentSections,
-  useCountries,
-  useCountry,
-  useCycle,
-  useIsAppInitialized,
-  useRegionGroups,
-} from './hooks'
+export { useIsAppInitialized } from './hooks'
+export { useAssessment, useAssessments, useCycle } from './hooks/useAssessmentAndCycle'
 export { AssessmentActions } from './slice'
