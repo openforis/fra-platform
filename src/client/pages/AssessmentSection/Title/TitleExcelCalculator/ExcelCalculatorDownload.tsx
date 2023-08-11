@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Authorizer } from 'meta/user'
 
-import { useAssessment, useAssessmentSection, useCountry, useCycle } from 'client/store/assessment'
+import { useCountry } from 'client/store/area'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
@@ -14,7 +16,7 @@ const ExcelCalculatorDownload: React.FC = () => {
   const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
-  const section = useAssessmentSection()
+  const section = useSection()
   const country = useCountry(countryIso)
 
   const { i18n, t } = useTranslation()
@@ -31,7 +33,7 @@ const ExcelCalculatorDownload: React.FC = () => {
     cycleName: cycle?.name,
     sectionName: section?.props?.name,
     selectedDomain,
-    language: i18n.language,
+    language: i18n.resolvedLanguage,
   })
 
   if (!Authorizer.canEditData({ country, cycle, section, user: userInfo })) return null

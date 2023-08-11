@@ -25,6 +25,7 @@ export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDat
 
   useEffect(() => {
     fetchResults()
+    // eslint-disable-next-line
   }, [])
 
   const originalDataPoints = useMemo(

@@ -7,7 +7,8 @@ import classNames from 'classnames'
 import { ClientRoutes } from 'meta/app'
 import { AssessmentName, OriginalDataPoint } from 'meta/assessment'
 
-import { useAssessmentCountry, useCycle } from 'client/store/assessment'
+import { useAssessmentCountry } from 'client/store/area'
+import { useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
 
 import ExtentOfForest from '../ExtentOfForest'

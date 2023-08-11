@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { Areas, Country, RegionCode } from 'meta/area'
 
 import { useAppDispatch, useAppSelector } from 'client/store'
-import { useCountries } from 'client/store/assessment'
+import { useCountries } from 'client/store/area'
 import { DataExportActions, DataExportSelection } from 'client/store/ui/dataExport'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { useCountryIso } from 'client/hooks'

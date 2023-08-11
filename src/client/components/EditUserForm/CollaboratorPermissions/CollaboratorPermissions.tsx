@@ -7,7 +7,8 @@ import { Objects } from 'utils/objects'
 import { SubSections } from 'meta/assessment'
 import { Collaborator, CollaboratorPermissions as CollabPermissions } from 'meta/user'
 
-import { useAssessmentSections, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
+import { useSections } from 'client/store/metadata'
 import CollaboratorAccessModal from 'client/components/CollaboratorAccessModal'
 
 type Props = {
@@ -18,7 +19,7 @@ const CollaboratorPermissions = (props: Props) => {
   const { userRole } = props
   const { t } = useTranslation()
   const cycle = useCycle()
-  const sections = useAssessmentSections()
+  const sections = useSections()
 
   const [modalOptions, setModalOptions] = useState<{ open: boolean }>({ open: false })
 

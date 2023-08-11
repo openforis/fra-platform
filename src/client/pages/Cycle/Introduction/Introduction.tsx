@@ -24,7 +24,7 @@ const Introduction: React.FC = () => {
         <div className="process">{t('landing.about.fraProcess')}</div>
         <a
           className="home-link link-fra-process"
-          href={`http://www.fao.org/forest-resources-assessment/${i18n.language}/`}
+          href={`http://www.fao.org/forest-resources-assessment/${i18n.resolvedLanguage}/`}
           target="_blank"
           rel="noreferrer"
         >

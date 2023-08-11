@@ -7,8 +7,9 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionValue } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useAssessmentSection, useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import { DataActions, useCommentableDescriptionValue } from 'client/store/data'
+import { useSection } from 'client/store/metadata'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
@@ -37,7 +38,7 @@ const Description: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const section = useAssessmentSection(sectionName)
+  const section = useSection(sectionName)
   const descriptionsMetadata = useDescriptions({
     disabled,
     sectionName,

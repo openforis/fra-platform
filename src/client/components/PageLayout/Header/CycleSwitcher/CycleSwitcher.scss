@@ -1,6 +1,6 @@
 @import 'src/client/style/partials';
 
-.cycle-switcher {
+div.cycle-switcher {
   border: unset;
   background-color: unset;
   font-weight: inherit;
@@ -10,6 +10,7 @@
 
   .popover-control__wrapper {
     .app-header__menu-item {
+      color: $text-mute;
       padding: 20px 0px;
     }
 

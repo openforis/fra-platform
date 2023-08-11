@@ -41,7 +41,7 @@ const ChartComponent = (props: Props) => {
     chart.options = options
     chart.plugins = plugins
     chart.update({ duration: 0, lazy: true })
-  }, [i18n.language, data, options, plugins])
+  }, [i18n.resolvedLanguage, data, options, plugins])
 
   return (
     <div className="chart">

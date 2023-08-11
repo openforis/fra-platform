@@ -17,10 +17,6 @@ export const ApiEndPoint = {
     areas: () => apiPath('area', 'areas'),
   },
 
-  Assessment: {
-    one: () => apiPath('assessment'),
-  },
-
   Auth: {
     changePassword: () => apiPath('auth', 'change-password'),
     google: () => apiPath('auth', 'google'),
@@ -127,7 +123,8 @@ export const ApiEndPoint = {
   },
 
   MetaData: {
-    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
+    metaCache: () => apiPath('metadata', 'metaCache'),
     sections: () => apiPath('metadata', 'sections'),
+    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
   },
 }

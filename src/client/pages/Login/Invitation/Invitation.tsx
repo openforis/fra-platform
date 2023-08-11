@@ -173,7 +173,7 @@ const Invitation: React.FC = () => {
 
               <a
                 className="btn-help"
-                href={videoResources[0].url[i18n.language] ?? videoResources[0].url.en}
+                href={videoResources[0].url[i18n.resolvedLanguage] ?? videoResources[0].url.en}
                 rel="noreferrer"
                 target="_blank"
               >
@@ -195,7 +195,7 @@ const Invitation: React.FC = () => {
 
           <a
             className="btn-help"
-            href={videoResources[1].url[i18n.language] ?? videoResources[1].url.en}
+            href={videoResources[1].url[i18n.resolvedLanguage] ?? videoResources[1].url.en}
             rel="noreferrer"
             target="_blank"
           >

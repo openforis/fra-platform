@@ -1,33 +1,24 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { getSections } from 'client/store/metadata/actions/getSections'
+import { getTableSections } from 'client/store/metadata/actions/getTableSections'
+import { getSectionsReducer } from 'client/store/metadata/extraReducers/getSectionsReducer'
+import { setTableSectionsReducer } from 'client/store/metadata/extraReducers/setTableSectionsReducer'
 import { initialState, MetadataState } from 'client/store/metadata/state'
-
-import { getTableSections } from './actions/getTableSections'
-import { setTableSections } from './actions/setTableSections'
 
 export const metadataSlice = createSlice({
   name: 'metadata',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Table Sections
-    builder.addCase(setTableSections, (state, { payload }) => {
-      const { tableSections, assessmentName, cycleName } = payload
-
-      // set table sections metadata
-      if (!state.tableSections[assessmentName]) state.tableSections[assessmentName] = {}
-      if (!state.tableSections[assessmentName][cycleName]) state.tableSections[assessmentName][cycleName] = {}
-
-      state.tableSections[assessmentName][cycleName] = {
-        ...state.tableSections[assessmentName][cycleName],
-        ...tableSections,
-      }
-    })
+    getSectionsReducer(builder)
+    setTableSectionsReducer(builder)
   },
 })
 
 export const MetadataActions = {
   ...metadataSlice.actions,
+  getSections,
   getTableSections,
 }
 

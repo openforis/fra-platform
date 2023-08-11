@@ -1,40 +1,19 @@
-import React, { useEffect } from 'react'
-import { Route, Routes, useParams } from 'react-router-dom'
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
-import { AssessmentName } from 'meta/assessment'
 
-import { useAppDispatch } from 'client/store'
-import { AssessmentActions, useAssessment } from 'client/store/assessment'
-import { useOnUpdate } from 'client/hooks'
+import Cycle from 'client/pages/Cycle'
+import Tutorials from 'client/pages/Tutorials'
 
-import Cycle from '../Cycle'
-import Tutorials from '../Tutorials'
+import { useInitLanguage } from './hooks/useInitLanguage'
+import { useTheme } from './hooks/useTheme'
+import { useUserRedirect } from './hooks/useUserRedirect'
 
 const Assessment: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const assessment = useAssessment()
-
-  const { assessmentName } = useParams<{ assessmentName: AssessmentName }>()
-
-  useEffect(() => {
-    if (!assessment) {
-      dispatch(AssessmentActions.getAssessment({ assessmentName }))
-    }
-  }, [assessment, assessmentName, dispatch])
-
-  useOnUpdate(() => {
-    if (assessment && assessment.props.name !== assessmentName) {
-      dispatch(AssessmentActions.getAssessment({ assessmentName }))
-
-      return () => {
-        dispatch(AssessmentActions.reset())
-      }
-    }
-    return undefined
-  }, [assessment, assessmentName, dispatch])
-
-  if (!assessment) return null
+  useInitLanguage()
+  useUserRedirect()
+  useTheme()
 
   return (
     <Routes>

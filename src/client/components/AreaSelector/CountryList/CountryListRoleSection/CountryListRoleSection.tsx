@@ -8,7 +8,8 @@ import { Assessments } from 'meta/assessment'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useAssessment, useCountries, useCycle } from 'client/store/assessment'
+import { useCountries } from 'client/store/area'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import { checkMatch } from 'client/utils'
 
 import CountryListRow from '../CountryListRow'

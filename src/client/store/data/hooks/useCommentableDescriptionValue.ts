@@ -12,6 +12,6 @@ export const useCommentableDescriptionValue = (props: {
   const assessment = useAssessment()
   const cycle = useCycle()
   return useAppSelector(
-    (state) => state.data[assessment.props.name][cycle.name].descriptions[sectionName]?.[name] ?? template
+    (state) => state.data[assessment.props.name]?.[cycle.name]?.descriptions?.[sectionName]?.[name] ?? template
   )
 }

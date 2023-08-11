@@ -82,7 +82,7 @@ const Tutorials: React.FC = () => {
 
               <a
                 className="btn-s btn-primary nav__bulk-download"
-                href={resource.url[i18n.language] ?? resource.url.en}
+                href={resource.url[i18n.resolvedLanguage] ?? resource.url.en}
                 target="_blank"
                 rel="noreferrer"
               >

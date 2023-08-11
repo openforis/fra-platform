@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountry } from 'client/store/assessment'
+import { useCountry } from 'client/store/area'
 import { useIsCycleLanding } from 'client/hooks'
 import { Dates } from 'client/utils'
 
