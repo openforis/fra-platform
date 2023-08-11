@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { Cols, ColType } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
@@ -24,8 +26,11 @@ const RowData: React.FC<Props> = (props) => {
   const colsData = colHeader ? cols.slice(1, cols.length) : cols
   const openTopics = useTopicKeys()
 
+  const id = `${row.props.type}_${row.id}_${row.props.variableName ?? ''}`
+  const className = classNames({ 'fra-row-comments__open': openTopics.includes(row.uuid) })
+
   return (
-    <tr className={openTopics.includes(row.uuid) ? 'fra-row-comments__open' : ''}>
+    <tr id={id} className={className}>
       {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} row={row} />}
 
       {colsData.map((col) => (
