@@ -62,8 +62,11 @@ const Cell: React.FC<Props> = (props) => {
 
   if (!Component) return null
 
+  const id = `${col.props.colType}_${col.id}_${col.props.colName ?? ''}`
+
   return (
     <td
+      id={id}
       colSpan={colSpan}
       className={className}
       rowSpan={rowSpan}
