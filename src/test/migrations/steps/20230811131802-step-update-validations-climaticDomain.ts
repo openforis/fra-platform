@@ -13,9 +13,13 @@ export default async (client: BaseProtocol) => {
   const schemaAssessment = Schemas.getName(assessment)
 
   const getValidations = (variable: string) => {
+    const keys: Record<string, string> = { sub_tropical: 'subtropical' }
+    const categoryValues = `[${variableSet.map((v) => `climaticDomain.${v}`).join(',')}]`
+    const categoryLabels = `[${variableSet.map((v) => `''climaticDomain.${keys[v] ?? v}''`).join(',')}]`
+
     return `[
               "validatorNotGreaterThan(climaticDomain.${variable}, 100)",
-              "validatorSumEqualTo([${variableSet.map((v) => `climaticDomain.${v}`).join(',')}], 100)"
+              "validatorSumEqualTo(${categoryValues}, ${categoryLabels}, 100)"
             ]`
   }
 
