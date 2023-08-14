@@ -15,9 +15,12 @@ export const validatorSumEqualTo: ExpressionFunction<Context> = {
       categoryLabelKeys: Array<string>,
       maxValue?: string
     ): NodeValueValidation => {
-      const sum = Numbers.sum(categoryValues)
+      const categoryNonNullValues = categoryValues.filter((v) => !Objects.isEmpty(v))
+
+      const sum = Numbers.sum(categoryNonNullValues)
+
       const valid =
-        categoryValues.some((v) => Objects.isEmpty(v)) || Objects.isEmpty(maxValue) || Numbers.eq(sum, maxValue)
+        categoryNonNullValues.some((v) => Objects.isEmpty(v)) || Objects.isEmpty(maxValue) || Numbers.eq(sum, maxValue)
 
       if (valid) {
         return { valid }
