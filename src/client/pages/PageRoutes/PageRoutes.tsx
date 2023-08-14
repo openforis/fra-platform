@@ -1,18 +1,16 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-
-import { ClientRoutes } from 'meta/app'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { useIsAppInitialized } from 'client/store/assessment'
 import Toaster from 'client/components/Toaster'
 import Tooltips from 'client/components/Tooltips'
-import Assessment from 'client/pages/Assessment'
-import Landing from 'client/pages/Landing'
+import { useRoutes } from 'client/pages/PageRoutes/hooks/useRoutes'
 
 import { useInitApp } from './hooks/useInitApp'
 import { useOpenSocket } from './hooks/useOpenSocket'
 
 const PageRoutes: React.FC = () => {
+  const routes = useRoutes()
   useInitApp()
   useOpenSocket()
   const isAppInitialized = useIsAppInitialized()
@@ -22,14 +20,15 @@ const PageRoutes: React.FC = () => {
   return (
     <>
       <Toaster />
+      <RouterProvider router={createBrowserRouter(routes)} />
 
-      <Routes>
-        <Route path="/" element={<Landing />} />
+      {/* <Routes> */}
+      {/*  <Route path="/" element={<Landing />} /> */}
 
-        <Route path={`${ClientRoutes.Assessment.Landing.path.absolute}/*`} element={<Assessment />} />
+      {/*  <Route path={`${ClientRoutes.Assessment.Landing.path.absolute}/*`} element={<Assessment />} /> */}
 
-        <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} />
-      </Routes>
+      {/*  <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} /> */}
+      {/* </Routes> */}
 
       <Tooltips />
     </>
