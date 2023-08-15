@@ -2,14 +2,12 @@ import './Status.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
-import { AssessmentName } from 'meta/assessment'
 import { AssessmentStatusTransitions } from 'meta/assessment/assessments'
 import { Users } from 'meta/user'
 
@@ -18,6 +16,7 @@ import { AreaActions, useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 import PopoverControl, { PopoverItem } from 'client/components/PopoverControl'
 import { Breakpoints } from 'client/utils/breakpoints'
@@ -28,15 +27,15 @@ import { StatusTransition } from './types'
 const Status: React.FC = () => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const user = useUser()
   const country = useAssessmentCountry()
   const cycle = useCycle()
-
-  const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
+  const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
 
-  if (!country) return null
+  if (!country || !hasRoleInCountry) return null
   const { deskStudy } = country.props ?? {}
   const status = Areas.getStatus(country)
   const deskStudyItems: Array<PopoverItem> = [
@@ -45,7 +44,7 @@ const Status: React.FC = () => {
       content: (
         <div className="popover-control__checkbox-container">
           <span style={{ marginRight: '8px' }} className={classNames('fra-checkbox', { checked: deskStudy })} />
-          <span>{i18n.t<string>('assessment.deskStudy')}</span>
+          <span>{t<string>('assessment.deskStudy')}</span>
         </div>
       ),
       onClick: () => {
@@ -78,13 +77,13 @@ const Status: React.FC = () => {
 
     if (next) {
       items.push({
-        content: i18n.t(`assessment.status.${next}.next`),
+        content: t(`assessment.status.${next}.next`),
         onClick: () => setTargetStatus({ status: next, direction: 'next' }),
       })
     }
     if (previous) {
       items.push({
-        content: i18n.t(`assessment.status.${previous}.previous`),
+        content: t(`assessment.status.${previous}.previous`),
         onClick: () => setTargetStatus({ status: previous, direction: 'previous' }),
       })
     }
@@ -96,13 +95,13 @@ const Status: React.FC = () => {
       {targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-header__status status-${status}`}>
-          <span>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
+          <span>{t<string>(`assessment.status.${status}.label`)}</span>
         </div>
       </MediaQuery>
       <MediaQuery minWidth={Breakpoints.laptop}>
         <PopoverControl items={items}>
           <div className={`nav-header__status status-${status} actionable-${!Objects.isEmpty(items)}`}>
-            <span>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
+            <span>{t<string>(`assessment.status.${status}.label`)}</span>
             {!Objects.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
           </div>
         </PopoverControl>
