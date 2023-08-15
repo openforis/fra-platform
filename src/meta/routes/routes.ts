@@ -1,6 +1,6 @@
-import { createRoute } from 'meta/routes/createRoute'
-import { AssessmentRouteParams } from 'meta/routes/params'
-import { Route } from 'meta/routes/route'
+import { createRoute } from './createRoute'
+import { AssessmentRouteParams } from './params'
+import { Route } from './route'
 
 const Root: Route<undefined, undefined> = { path: '/', parts: [], generatePath: () => `/` }
 const Assessment = createRoute<AssessmentRouteParams>({ path: 'assessments/:assessmentName', parent: Root })
