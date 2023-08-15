@@ -1,12 +1,9 @@
 import './Cycle.scss'
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 // import { AssessmentName, AssessmentNames } from 'meta/assessment'
-import { useCycle } from 'client/store/assessment'
-import { useUserCycles } from 'client/store/user'
-import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
-
+// import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
 // import Partners from 'client/components/Partners'
 // import Overview from 'client/pages/AssessmentHome/PanEuropeanHome/Overview'
 import { useInitAreas } from './hooks/useInitAreas'
@@ -27,25 +24,25 @@ import { useInitSections } from './hooks/useInitSections'
 // }
 
 const Cycle: React.FC = () => {
-  const { print } = useIsPrint()
-  const cycle = useCycle()
-  const isAdmin = useIsAdmin()
-  const isLogin = useIsLogin()
-  const isUserEditPage = useIsUserEditPage()
-  const navigate = useNavigate()
-  const userCycles = useUserCycles()
+  // const { print } = useIsPrint()
+  // const cycle = useCycle()
+  // const isAdmin = useIsAdmin()
+  // const isLogin = useIsLogin()
+  // const isUserEditPage = useIsUserEditPage()
+  // const navigate = useNavigate()
+  // const userCycles = useUserCycles()
   useInitSections()
   useInitMetaCache()
   useInitAreas()
 
-  // TODO: think later
-  useEffect(() => {
-    // user has no permission to view cycle
-    // If user is accessing login page, do not redirect
-    if (!isLogin && !userCycles?.find((userCycle) => userCycle.id === cycle.id)) {
-      navigate('/')
-    }
-  }, [userCycles, cycle, navigate, isLogin])
+  // // TODO: think later
+  // useEffect(() => {
+  //   // user has no permission to view cycle
+  //   // If user is accessing login page, do not redirect
+  //   if (!isLogin && !userCycles?.find((userCycle) => userCycle.id === cycle.id)) {
+  //     navigate('/')
+  //   }
+  // }, [userCycles, cycle, navigate, isLogin])
 
   // return (
   //   <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage}>
@@ -61,7 +58,7 @@ const Cycle: React.FC = () => {
 
   // return <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage} />
 
-  return <div />
+  return <Outlet />
 }
 
 export default Cycle
