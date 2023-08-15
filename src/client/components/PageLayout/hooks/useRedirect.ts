@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
 import { RoleName } from 'meta/user'
@@ -10,6 +10,7 @@ import { useUser } from 'client/store/user'
 
 export const useRedirect = () => {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const assessment = useAssessment()
   const user = useUser()
@@ -35,8 +36,8 @@ export const useRedirect = () => {
       })
     }
 
-    if (window.location.pathname === '/') {
+    if (location.pathname === '/') {
       navigate(url)
     }
-  }, [assessment, cycle, navigate, userLastRole])
+  }, [assessment, cycle, location.pathname, navigate, userLastRole])
 }
