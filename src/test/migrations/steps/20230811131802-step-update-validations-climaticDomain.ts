@@ -12,22 +12,22 @@ export default async (client: BaseProtocol) => {
 
   const schemaAssessment = Schemas.getName(assessment)
 
-  const getValidations = (variable: string) => {
+  const getValidations = (variable: string, index: number) => {
     const keys: Record<string, string> = { sub_tropical: 'subtropical' }
     const categoryValues = `[${variableSet.map((v) => `climaticDomain.${v}`).join(',')}]`
     const categoryLabels = `[${variableSet.map((v) => `''climaticDomain.${keys[v] ?? v}''`).join(',')}]`
 
     return `[
               "validatorNotGreaterThan(climaticDomain.${variable}, 100)",
-              "validatorSumEqualTo(${categoryValues}, ${categoryLabels}, 100)"
+              "validatorSumEqualTo(${categoryValues}, ${categoryLabels}, 100, ${index})"
             ]`
   }
 
   await client.query(
     variableSet.map(
-      (variable) => `
+      (variable, index) => `
       update ${schemaAssessment}.row r
-      set props = jsonb_set(props, '{validateFns,${cycle.uuid}}', '${getValidations(variable)}')
+      set props = jsonb_set(props, '{validateFns,${cycle.uuid}}', '${getValidations(variable, index)}')
       from (select r2.id
             from ${schemaAssessment}.row r2
                      left join ${schemaAssessment}."table" t on r2.table_id = t.id

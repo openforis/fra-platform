@@ -13,14 +13,16 @@ export const validatorSumEqualTo: ExpressionFunction<Context> = {
     return (
       categoryValues: Array<string | undefined>,
       categoryLabelKeys: Array<string>,
-      maxValue?: string
+      maxValue: string,
+      index: number
     ): NodeValueValidation => {
-      const categoryNonNullValues = categoryValues.filter((v) => !Objects.isEmpty(v))
+      const categoryLabelKeysFiltered = categoryLabelKeys.filter((_v, i) => !Objects.isEmpty(categoryValues[i]))
+      const categoryValuesFiltered = categoryValues.filter((v) => !Objects.isEmpty(v))
+      const categoryNonNullValues = categoryValuesFiltered.filter((v) => !Objects.isEmpty(v))
 
       const sum = Numbers.sum(categoryNonNullValues)
 
-      const valid =
-        categoryNonNullValues.some((v) => Objects.isEmpty(v)) || Objects.isEmpty(maxValue) || Numbers.eq(sum, maxValue)
+      const valid = Objects.isEmpty(categoryValues[index]) || Objects.isEmpty(maxValue) || Numbers.eq(sum, maxValue)
 
       if (valid) {
         return { valid }
@@ -30,7 +32,7 @@ export const validatorSumEqualTo: ExpressionFunction<Context> = {
         {
           key: 'generalValidation.sumEqualTo',
           params: {
-            categoryLabels: categoryLabelKeys.map((labelKey) => t<string>(labelKey)).join(', '),
+            categoryLabels: categoryLabelKeysFiltered.map((labelKey) => t<string>(labelKey)).join(', '),
 
             categoriesSum: Numbers.toFixed(sum),
             maxValue: Numbers.toFixed(maxValue),
