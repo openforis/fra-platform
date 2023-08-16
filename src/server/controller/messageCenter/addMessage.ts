@@ -69,9 +69,9 @@ export const addMessage = async (
     )
 
     if (topic.type === MessageTopicType.chat) {
-      const recipientUserId = Topics.getRecipientUserId(topic)
+      const recipientId = Topics.getChatRecipientId(topic, user.id)
 
-      const recipient = await UserController.getOne({ id: recipientUserId })
+      const recipient = await UserController.getOne({ id: recipientId })
 
       await MailService.oneToOneMessage({
         countryIso,
