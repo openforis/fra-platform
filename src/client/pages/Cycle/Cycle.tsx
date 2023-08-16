@@ -29,20 +29,6 @@ const Cycle: React.FC = () => {
     }
   }, [userCycles, cycle, navigate, isLogin])
 
-  // return (
-  //   <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage}>
-  //     <Routes>
-  //       <Route path="" element={<AssessmentSwitch components={Components} />} />
-  //       <Route path={`${ClientRoutes.Assessment.Cycle.Admin.Root.path.relative}/*`} element={<Admin />} />
-  //       <Route path={`${ClientRoutes.Assessment.Cycle.Country.Landing.path.relative}/*`} element={<Country />} />
-  //       <Route path={`${ClientRoutes.Assessment.Cycle.Login.Root.path.relative}/*`} element={<Login />} />
-  //       <Route path={ClientRoutes.Assessment.Cycle.Users.User.path.relative} element={<User />} />
-  //     </Routes>
-  //   </PageLayout>
-  // )
-
-  // return <PageLayout withHeader={!print} withToolbar={!isAdmin && !isLogin && !isUserEditPage} />
-
   return <Outlet />
 }
 

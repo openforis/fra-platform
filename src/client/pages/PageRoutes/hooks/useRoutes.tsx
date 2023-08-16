@@ -17,6 +17,11 @@ export const useRoutes = () => {
         <Route index element={<Landing />} />
         <Route path={Routes.Assessment.path} element={<Assessment />}>
           <Route path={Routes.Cycle.path} element={<Cycle />}>
+            {/*
+            Admin
+            Login
+            User
+            */}
             <Route index element={<CycleLanding />} />
             {/* Tutorials */}
             <Route path={Routes.Country.path} element={<Country />}>
