@@ -6,6 +6,7 @@ const Root: Route<undefined, undefined> = { path: '/', parts: [], generatePath: 
 const Assessment = createRoute<AssessmentRouteParams>({ path: 'assessments/:assessmentName', parent: Root })
 const Cycle = createRoute<CycleRouteParams>({ path: ':cycleName', parent: Assessment })
 const Country = createRoute<CountryRouteParams>({ path: ':countryIso', parent: Cycle })
+const CountryHome = createRoute<CountryRouteParams>({ path: 'home', parent: Country })
 
 export const Routes = {
   Root,
@@ -13,4 +14,6 @@ export const Routes = {
   Assessment,
   Cycle,
   Country,
+
+  CountryHome,
 }

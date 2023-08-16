@@ -5,18 +5,17 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentHomeRouteNames, ClientRoutes } from 'meta/app'
+import { AssessmentHomeRouteNames } from 'meta/app'
 import { Areas } from 'meta/area'
 
-import { useCountryIso } from 'client/hooks'
-import User from 'client/pages/User'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useSections } from './hooks/useSections'
 
 const PanEuropeanHome: React.FC = () => {
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
+  const { countryIso } = useCountryRouteParams()
   const sections = useSections()
-  const countryIso = useCountryIso()
 
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
@@ -34,7 +33,7 @@ const PanEuropeanHome: React.FC = () => {
                 })
               }
             >
-              {i18n.t<string>(`landing.sections.${name}`)}
+              {t<string>(`landing.sections.${name}`)}
             </NavLink>
           ))}
         </div>
@@ -44,9 +43,7 @@ const PanEuropeanHome: React.FC = () => {
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
 
-        <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} />
-
-        <Route path="*" element={<Navigate to={AssessmentHomeRouteNames.overview} />} />
+        <Route index element={<Navigate replace to={AssessmentHomeRouteNames.overview} />} />
       </Routes>
     </>
   )

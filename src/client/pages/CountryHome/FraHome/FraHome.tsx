@@ -4,11 +4,9 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
 import { Areas } from 'meta/area'
 
-import { useCountryIso } from 'client/hooks'
-import User from 'client/pages/User'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useSections } from './hooks/useSections'
 import ButtonDownloadDashboard from './ButtonDownloadDashboard'
@@ -16,8 +14,8 @@ import CountrySelector from './CountrySelector'
 import SelectedCountries from './SelectedCountries'
 
 const FraHome: React.FC = () => {
-  const { i18n } = useTranslation()
-  const countryIso = useCountryIso()
+  const { t } = useTranslation()
+  const { countryIso } = useCountryRouteParams()
   const sections = useSections()
 
   // tabs are available when user is logged-in and selected area is country
@@ -27,7 +25,7 @@ const FraHome: React.FC = () => {
     <>
       <div className="landing__page-header space-between">
         <h1 className="landing__page-title title">
-          {i18n.t<string>(`area.${countryIso}.listName`)}
+          {t<string>(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
         </h1>
 
@@ -48,19 +46,17 @@ const FraHome: React.FC = () => {
                 })
               }
             >
-              {i18n.t<string>(`landing.sections.${name}`)}
+              {t<string>(`landing.sections.${name}`)}
             </NavLink>
           ))}
         </div>
       )}
+
       <Routes>
-        {sections.map(({ name, component }) => (
+        {sections?.map(({ name, component }) => (
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
-
-        <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} />
-
-        <Route path="*" element={<Navigate to={sections[0].name} />} />
+        <Route index element={<Navigate replace to={sections?.[0].name} />} />
       </Routes>
     </>
   )
