@@ -33,7 +33,7 @@ const PanEuropeanHome: React.FC = () => {
                 })
               }
             >
-              {t<string>(`landing.sections.${name}`)}
+              {t(`landing.sections.${name}`)}
             </NavLink>
           ))}
         </div>

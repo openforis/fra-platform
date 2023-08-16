@@ -25,7 +25,7 @@ const FraHome: React.FC = () => {
     <>
       <div className="landing__page-header space-between">
         <h1 className="landing__page-title title">
-          {t<string>(`area.${countryIso}.listName`)}
+          {t(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
         </h1>
 
@@ -46,7 +46,7 @@ const FraHome: React.FC = () => {
                 })
               }
             >
-              {t<string>(`landing.sections.${name}`)}
+              {t(`landing.sections.${name}`)}
             </NavLink>
           ))}
         </div>
