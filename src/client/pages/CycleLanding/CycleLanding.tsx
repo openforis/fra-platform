@@ -3,10 +3,11 @@ import React from 'react'
 import { AssessmentName, AssessmentNames } from 'meta/assessment'
 
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
-import Partners from 'client/components/Partners'
 import Overview from 'client/pages/AssessmentHome/PanEuropeanHome/Overview'
-import Introduction from 'client/pages/Cycle/Introduction'
-import KeyFindings from 'client/pages/Cycle/KeyFindings'
+
+import Introduction from './Introduction'
+import KeyFindings from './KeyFindings'
+import Partners from './Partners'
 
 const Components: { [key: AssessmentName]: React.FC } = {
   [AssessmentNames.fra]: () => (
