@@ -1,23 +1,28 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
+
+import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
 
 import Footer from './Footer'
 import Header from './Header'
 import Toolbar from './Toolbar'
 
-type Props = {
-  children: JSX.Element
-  withHeader?: boolean
-  withToolbar?: boolean
-}
+const PageLayout: React.FC = () => {
+  const { print } = useIsPrint()
+  const isAdmin = useIsAdmin()
+  const isLogin = useIsLogin()
 
-const PageLayout: React.FC<Props> = (props) => {
-  const { children, withHeader, withToolbar } = props
+  const isUserEditPage = useIsUserEditPage()
+
+  const withHeader = !print
+  const withToolbar = !isAdmin && !isLogin && !isUserEditPage
 
   return (
     <>
       {withHeader && <Header />}
       {withToolbar && <Toolbar />}
-      {children}
+
+      <Outlet />
       <Footer />
     </>
   )

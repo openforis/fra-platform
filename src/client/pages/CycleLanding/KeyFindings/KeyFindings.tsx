@@ -10,7 +10,7 @@ const climaticDomains = {
 }
 
 const KeyFindings: React.FC = () => {
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div className="home-key-findings">
@@ -18,13 +18,13 @@ const KeyFindings: React.FC = () => {
         <img alt="" src="/img/map.png" className="map" />
       </div>
 
-      <div>{i18n.t('home.keyFindings')}</div>
+      <div>{t('home.keyFindings')}</div>
 
       <div className="home-key-findings__map-legend">
         {Object.entries(climaticDomains).map(([key, value]) => (
           <div key={key} className="legend">
             <img className="legend-icon" alt="" src={`/img/mapLegend_${key}.svg`} />
-            <div className="legend-key">{i18n.t(`climaticDomain.${key}`)}</div>
+            <div className="legend-key">{t(`climaticDomain.${key}`)}</div>
             <div className="legend-value">{value}%</div>
           </div>
         ))}
