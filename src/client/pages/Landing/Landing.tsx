@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 import { RoleName } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -23,10 +23,10 @@ const Landing: React.FC = () => {
   const cycle = useCycle(userLastRole?.cycleUuid)
 
   const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name }
-  let url = ClientRoutes.Assessment.Cycle.Landing.getLink(urlParams)
+  let url = Routes.Cycle.generatePath(urlParams)
 
   if (userLastRole && userLastRole.countryIso && redirectRoles.includes(userLastRole.role)) {
-    url = ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink({
+    url = Routes.CountryHome.generatePath({
       ...urlParams,
       countryIso: userLastRole.countryIso,
     })

@@ -5,9 +5,9 @@ import { Users } from 'meta/user'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import Collaborators from 'client/pages/AssessmentHome/FraHome/Collaborators'
-import CountryMessageBoard from 'client/pages/AssessmentHome/FraHome/CountryMessageBoard'
-import RecentActivity from 'client/pages/AssessmentHome/FraHome/RecentActivity'
+import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
+import CountryMessageBoard from 'client/pages/CountryHome/FraHome/CountryMessageBoard'
+import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
 
 import Overview from '../Overview'
 

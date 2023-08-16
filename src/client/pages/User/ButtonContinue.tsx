@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -22,7 +22,7 @@ const ButtonContinue = () => {
   const isPersonalInfoRequired = Users.isPersonalInfoRequired(userToEdit, userLastRole)
 
   const onClick = useCallback(() => {
-    navigate(ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink(routeParams))
+    navigate(Routes.CountryHome.generatePath(routeParams))
   }, [navigate, routeParams])
 
   if (!location.state?.personalInfoRequired) return null

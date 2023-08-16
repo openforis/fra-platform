@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
 
-import Partners from 'client/pages/CycleLanding/Partners'
+import Partners from 'client/pages/CycleHome/Partners'
 
 import Invitation from './Invitation'
 import LoginForm from './LoginForm'

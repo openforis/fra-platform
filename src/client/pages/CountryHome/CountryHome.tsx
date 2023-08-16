@@ -1,4 +1,4 @@
-import './AssessmentHome.scss'
+import './CountryHome.scss'
 import React from 'react'
 
 import { AssessmentNames } from 'meta/assessment'
@@ -14,7 +14,7 @@ const Components: Record<string, React.FC> = {
   [AssessmentNames.panEuropean]: PanEuropeanHome,
 }
 
-const AssessmentHome: React.FC = () => {
+const CountryHome: React.FC = () => {
   const assessment = useAssessment()
 
   const Component = Components[assessment.props.name]
@@ -31,4 +31,4 @@ const AssessmentHome: React.FC = () => {
   )
 }
 
-export default AssessmentHome
+export default CountryHome
