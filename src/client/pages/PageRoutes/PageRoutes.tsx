@@ -22,14 +22,6 @@ const PageRoutes: React.FC = () => {
       <Toaster />
       <RouterProvider router={createBrowserRouter(routes)} />
 
-      {/* <Routes> */}
-      {/*  <Route path="/" element={<Landing />} /> */}
-
-      {/*  <Route path={`${ClientRoutes.Assessment.Landing.path.absolute}/*`} element={<Assessment />} /> */}
-
-      {/*  <Route path="*" element={<Navigate to={ClientRoutes.Root.path} replace />} /> */}
-      {/* </Routes> */}
-
       <Tooltips />
     </>
   )

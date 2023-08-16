@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { createRoutesFromElements, Route } from 'react-router-dom'
+import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 
 import { Routes } from 'meta/routes/routes'
 
@@ -38,6 +38,7 @@ export const useRoutes = () => {
             </Route>
           </Route>
         </Route>
+        <Route path="*" element={<Navigate to={Routes.Root.path} replace />} />
       </Route>
     )
     return createRoutesFromElements(children)
