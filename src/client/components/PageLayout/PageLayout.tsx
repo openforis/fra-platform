@@ -1,26 +1,26 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { useRedirect } from 'client/components/PageLayout/hooks/useRedirect'
+import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
 
 import Footer from './Footer'
 import Header from './Header'
 import Toolbar from './Toolbar'
 
-type Props = {
-  withHeader?: boolean
-  withToolbar?: boolean
-}
+const PageLayout: React.FC = () => {
+  const { print } = useIsPrint()
+  const isAdmin = useIsAdmin()
+  const isLogin = useIsLogin()
 
-const PageLayout: React.FC<Props> = (props) => {
-  const { withHeader, withToolbar } = props
-  useRedirect()
+  const isUserEditPage = useIsUserEditPage()
+
+  const withHeader = !print
+  const withToolbar = !isAdmin && !isLogin && !isUserEditPage
 
   return (
     <>
       {withHeader && <Header />}
       {withToolbar && <Toolbar />}
-      {/* {children} */}
 
       <Outlet />
       <Footer />
