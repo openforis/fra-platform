@@ -8,10 +8,10 @@ import { MessageTopicType, Topics } from 'meta/messageCenter'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
-import { useUsers } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
+import { useMessageBoardUsers } from './hooks/useMessageBoardUsers'
 import MessageButton from './MessageButton'
 
 const MessageBoardUsers: React.FC = () => {
@@ -20,9 +20,9 @@ const MessageBoardUsers: React.FC = () => {
 
   const { t } = useTranslation()
   const user = useUser()
-  const users = useUsers()
+  const users = useMessageBoardUsers()
 
-  if (!users || !user) {
+  if (!user || !users.length) {
     return null
   }
 
