@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 
+import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
@@ -12,17 +13,8 @@ import CountryMessageBoard from '../CountryMessageBoard'
 import Links from '../Links'
 import RecentActivity from '../RecentActivity'
 
-enum SectionNames {
-  overview = 'overview',
-  messageBoard = 'messageBoard',
-  // contentCheck = 'contentCheck',
-  userManagement = 'userManagement',
-  recentActivity = 'recentActivity',
-  links = 'links',
-}
-
 type Section = {
-  name: SectionNames
+  name: string
   component: React.FC
 }
 
@@ -38,17 +30,17 @@ export const useSections = (): Array<Section> => {
 
     // TODO: Remove this when dashboard updated for 2025
     if (cycle.name === '2020') {
-      sections.push({ name: SectionNames.overview, component: Dashboard })
+      sections.push({ name: SectionNames.Country.Home.overview, component: Dashboard })
     }
 
     if (user) {
-      sections.push({ name: SectionNames.messageBoard, component: CountryMessageBoard })
-      sections.push({ name: SectionNames.recentActivity, component: RecentActivity })
-      sections.push({ name: SectionNames.links, component: Links })
+      sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
+      sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
+      sections.push({ name: SectionNames.Country.Home.links, component: Links })
     }
 
     if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
-      sections.splice(2, 0, { name: SectionNames.userManagement, component: Collaborators })
+      sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
     }
 
     // if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
