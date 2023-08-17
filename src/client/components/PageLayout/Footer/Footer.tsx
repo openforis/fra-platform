@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
   const { language } = i18n
   const { print } = useIsPrint()
 
-  if (print) return null
+  if (print || !cycleName || !assessmentName) return null
 
   // @ts-ignore
   const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`
