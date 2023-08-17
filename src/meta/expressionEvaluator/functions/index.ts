@@ -34,6 +34,7 @@ import { validatorPrimaryForest } from './validatorPrimaryForest'
 import { validatorPrivateOwnership } from './validatorPrivateOwnership'
 import { validatorRemainingLandWithTreeCoverTotal } from './validatorRemainingLandWithTreeCoverTotal'
 import { validatorSubCategory } from './validatorSubCategory'
+import { validatorSumEqualTo } from './validatorSumEqualTo'
 import { validatorSumNotGreaterThan } from './validatorSumNotGreaterThan'
 import { validatorSumNotGreaterThanForest } from './validatorSumNotGreaterThanForest'
 import { validatorTotalForest } from './validatorTotalForest'
@@ -70,9 +71,10 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorPrivateOwnership,
   validatorRemainingLandWithTreeCoverTotal,
   validatorSubCategory,
-  validatorSumSubCategoriesNotEqualToParent,
+  validatorSumEqualTo,
   validatorSumNotGreaterThan,
   validatorSumNotGreaterThanForest,
+  validatorSumSubCategoriesNotEqualToParent,
   validatorSumSubCategoriesNotGreaterThanParent,
   validatorTotalForest,
 ]
