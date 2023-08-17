@@ -6,7 +6,7 @@ import { Labels } from 'meta/assessment'
 import { useCycle } from 'client/store/assessment'
 import { useOriginalDataPointYears } from 'client/store/data'
 import { useIsPrint } from 'client/hooks/useIsPath'
-import OriginalDataPointsPrint from 'client/pages/AssessmentPrint/OriginalDataPointsPrint'
+import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 
 import { Props } from '../props'
 

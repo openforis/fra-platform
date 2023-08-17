@@ -2,8 +2,8 @@ import './Tutorials.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useLanguage } from 'client/hooks/useLanguage'
 import Icon from 'client/components/Icon'
-import PageLayout from 'client/components/PageLayout'
 
 export const videoResources: Array<{
   idx: number
@@ -64,36 +64,35 @@ export const videoResources: Array<{
 ]
 
 const Tutorials: React.FC = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
+  const lang = useLanguage()
 
   return (
-    <PageLayout withToolbar={false}>
-      <div className="app-view__content">
-        <div className="landing__page-header">
-          <h1 className="landing__page-title title">{t('Tutorials')}</h1>
-        </div>
-
-        <div className="list-tutorial ">
-          {videoResources.map((resource, index) => (
-            <React.Fragment key={resource.idx}>
-              {index !== 0 && <div className="list-tutorial-separator" />}
-
-              <div>{t(resource.labelKey)}</div>
-
-              <a
-                className="btn-s btn-primary nav__bulk-download"
-                href={resource.url[i18n.resolvedLanguage] ?? resource.url.en}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Icon className="icon-sub icon-white" name="video" />
-                {t('tutorial.watch')}
-              </a>
-            </React.Fragment>
-          ))}
-        </div>
+    <div className="app-view__content">
+      <div className="landing__page-header">
+        <h1 className="landing__page-title title">{t('Tutorials')}</h1>
       </div>
-    </PageLayout>
+
+      <div className="list-tutorial ">
+        {videoResources.map((resource, index) => (
+          <React.Fragment key={resource.idx}>
+            {index !== 0 && <div className="list-tutorial-separator" />}
+
+            <div>{t(resource.labelKey)}</div>
+
+            <a
+              className="btn-s btn-primary nav__bulk-download"
+              href={resource.url[lang] ?? resource.url.en}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Icon className="icon-sub icon-white" name="video" />
+              {t('tutorial.watch')}
+            </a>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
   )
 }
 
