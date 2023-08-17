@@ -1,8 +1,9 @@
 import { Areas } from 'meta/area'
 
-import { useCountryIso } from './useCountryIso'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useIsDataExportView = () => {
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams()
+
   return countryIso && !Areas.isISOCountry(countryIso)
 }
