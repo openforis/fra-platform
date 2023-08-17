@@ -11,6 +11,7 @@ import CountryHome from 'client/pages/CountryHome'
 import Cycle from 'client/pages/Cycle'
 import CycleHome from 'client/pages/CycleHome'
 import Landing from 'client/pages/Landing'
+import Login, { LoginForm, LoginInvitation, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
 import SectionDataExportSwitch from 'client/pages/SectionDataExportSwitch'
 import User from 'client/pages/User'
@@ -45,6 +46,14 @@ export const useRoutes = () => {
                   Geo User
                   */}
             </Route>
+
+            {/* Login */}
+            <Route path={Routes.Login.path} element={<Login />}>
+              <Route index element={<LoginForm />} />
+              <Route path={Routes.LoginInvitation.path} element={<LoginInvitation />} />
+              <Route path={Routes.LoginResetPassword.path} element={<LoginResetPassword />} />
+            </Route>
+
             {/* Tutorials */}
           </Route>
         </Route>
