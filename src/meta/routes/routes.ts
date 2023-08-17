@@ -7,6 +7,11 @@ const Assessment = createRoute<AssessmentRouteParams>({ path: 'assessments/:asse
 const Cycle = createRoute<CycleRouteParams>({ path: ':cycleName', parent: Assessment })
 const Country = createRoute<CountryRouteParams>({ path: ':countryIso', parent: Cycle })
 const CountryHome = createRoute<CountryRouteParams>({ path: 'home', parent: Country })
+const CountryUser = createRoute<CountryRouteParams>({ path: 'users/:id', parent: Country })
+const OriginalDataPoint = createRoute<SectionRouteParams>({
+  path: 'originalDataPoints/:year/:sectionName',
+  parent: Country,
+})
 const Section = createRoute<SectionRouteParams>({ path: 'sections/:sectionName', parent: Country })
 
 export const Routes = {
@@ -15,5 +20,7 @@ export const Routes = {
   Cycle,
   Country,
   CountryHome,
+  CountryUser,
+  OriginalDataPoint,
   Section,
 }

@@ -11,7 +11,9 @@ import CountryHome from 'client/pages/CountryHome'
 import Cycle from 'client/pages/Cycle'
 import CycleHome from 'client/pages/CycleHome'
 import Landing from 'client/pages/Landing'
-import Section from 'client/pages/Section'
+import OriginalDataPoint from 'client/pages/OriginalDataPoint'
+import SectionDataExportSwitch from 'client/pages/SectionDataExportSwitch'
+import User from 'client/pages/User'
 
 export const useRoutes = () => {
   return useMemo(() => {
@@ -22,26 +24,28 @@ export const useRoutes = () => {
           <Route path={Routes.Cycle.path} element={<Cycle />}>
             {/*      Implement:      Admin            Login            User            */}
             <Route index element={<CycleHome />} />
-            {/* Tutorials */}
             <Route path={Routes.Country.path} element={<Country />}>
               <Route index element={<Navigate to={Routes.CountryHome.path} replace />} />
               <Route path={`${Routes.CountryHome.path}/*`} element={<CountryHome />} />
+              <Route path={Routes.CountryUser.path} element={<User />} />
               <Route
-                path={Routes.Section.path}
+                path={Routes.OriginalDataPoint.path}
                 element={
                   <SectionWrapper>
-                    <Section />
+                    <OriginalDataPoint />
                   </SectionWrapper>
                 }
               />
+              <Route path={Routes.Section.path} element={<SectionDataExportSwitch />} />
               {/* user route */}
               {/* <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} /> */}
               {/*
                 Implement:
                    AssessmentPrint AssessmentDataDownload ( -> Renamed to DataDownload)
-                  Geo DataExport AssessmentSection (-> Renamed to Section) OriginalDataPoint User
+                  Geo User
                   */}
             </Route>
+            {/* Tutorials */}
           </Route>
         </Route>
         <Route path="*" element={<Navigate to={Routes.Root.path} replace />} />
