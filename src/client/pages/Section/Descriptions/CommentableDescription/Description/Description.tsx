@@ -16,7 +16,7 @@ import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
-import DataSources from 'client/pages/AssessmentSection/Descriptions/CommentableDescription/Description/DataSources/DataSources'
+import DataSources from 'client/pages/Section/Descriptions/CommentableDescription/Description/DataSources/DataSources'
 
 import { useDescriptions } from '../../Descriptions'
 import Title from './Title'

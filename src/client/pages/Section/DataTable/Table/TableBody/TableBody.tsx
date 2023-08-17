@@ -3,7 +3,7 @@ import React from 'react'
 import { Row as TypeRow, RowType, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
-import Row from 'client/pages/AssessmentSection/DataTable/Table/Row'
+import Row from 'client/pages/Section/DataTable/Table/Row'
 
 type Props = {
   disabled: boolean

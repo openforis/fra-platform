@@ -11,7 +11,7 @@ import { MetadataActions, useSections } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
 import Loading from 'client/components/Loading'
-import AssessmentSection from 'client/pages/AssessmentSection'
+import Section from 'client/pages/Section'
 
 import ContactPersons from './ContactPersons'
 import TableOfContent from './TableOfContent'
@@ -77,7 +77,7 @@ const FraPrint: React.FC = () => {
             {i === 0 && !deskStudy && !onlyTables && <ContactPersons />}
 
             {Object.values(section.subSections).map((sectionItem) => {
-              return <AssessmentSection key={sectionItem.uuid} section={sectionItem.props.name} />
+              return <Section key={sectionItem.uuid} section={sectionItem.props.name} />
             })}
           </div>
         )

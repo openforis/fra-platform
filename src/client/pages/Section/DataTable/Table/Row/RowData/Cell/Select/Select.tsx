@@ -5,8 +5,8 @@ import { i18n } from 'i18next'
 
 import { ColSelectOption } from 'meta/assessment'
 
-import { PropsCell } from 'client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/props'
-import { optionNotSelected } from 'client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/Select/OptionNotSelected'
+import { PropsCell } from 'client/pages/Section/DataTable/Table/Row/RowData/Cell/props'
+import { optionNotSelected } from 'client/pages/Section/DataTable/Table/Row/RowData/Cell/Select/OptionNotSelected'
 import { DOMs } from 'client/utils/dom'
 
 const getOptionLabel = (option: ColSelectOption, i18n: i18n, labelKeyPrefix: string): string => {

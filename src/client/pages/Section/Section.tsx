@@ -1,9 +1,8 @@
-import './AssessmentSection.scss'
+import './Section.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 
-import { AssessmentName, Labels, SubSections } from 'meta/assessment'
+import { Labels, SubSections } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useIsSectionDataEmpty } from 'client/store/data'
@@ -11,8 +10,9 @@ import { useSection, useTableSections } from 'client/store/metadata'
 import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from 'client/store/user/hooks'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
-import CommentableDescription from 'client/pages/AssessmentSection/Descriptions/CommentableDescription'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
+import CommentableDescription from './Descriptions/CommentableDescription'
 import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
@@ -23,11 +23,11 @@ type Props = {
   section?: string
 }
 
-const AssessmentSection: React.FC<Props> = (props: Props) => {
+const Section: React.FC<Props> = (props: Props) => {
   const { section: sectionProp } = props
 
   const { t } = useTranslation()
-  const { assessmentName } = useParams<{ assessmentName: AssessmentName; cycleName: string; sectionName: string }>()
+  const { assessmentName } = useSectionRouteParams()
 
   const cycle = useCycle()
   const countryIso = useCountryIso()
@@ -113,8 +113,8 @@ const AssessmentSection: React.FC<Props> = (props: Props) => {
   )
 }
 
-AssessmentSection.defaultProps = {
+Section.defaultProps = {
   section: undefined,
 }
 
-export default AssessmentSection
+export default Section

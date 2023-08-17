@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 import MultiSelect from 'client/components/MultiSelect'
-import { PropsCell } from 'client/pages/AssessmentSection/DataTable/Table/Row/RowData/Cell/props'
+import { PropsCell } from 'client/pages/Section/DataTable/Table/Row/RowData/Cell/props'
 import { DOMs } from 'client/utils/dom'
 
 const Multiselect: React.FC<PropsCell> = (props) => {

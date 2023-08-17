@@ -16,6 +16,7 @@ export const useMessageBoardUsers = (): Array<User> => {
     () =>
       users.filter((user) => {
         const role = Users.getRole(user, countryIso, cycle)
+        if (!role) return false
         return !(Users.isAdministrator(user) || UserRoles.isInvitationPending(role))
       }),
     [countryIso, cycle, users]
