@@ -2,6 +2,7 @@ import './Tutorials.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useLanguage } from 'client/hooks/useLanguage'
 import Icon from 'client/components/Icon'
 
 export const videoResources: Array<{
@@ -63,7 +64,8 @@ export const videoResources: Array<{
 ]
 
 const Tutorials: React.FC = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
+  const lang = useLanguage()
 
   return (
     <div className="app-view__content">
@@ -80,7 +82,7 @@ const Tutorials: React.FC = () => {
 
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={resource.url[i18n.resolvedLanguage] ?? resource.url.en}
+              href={resource.url[lang] ?? resource.url.en}
               target="_blank"
               rel="noreferrer"
             >

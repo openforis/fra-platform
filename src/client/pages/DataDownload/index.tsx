@@ -6,6 +6,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
+import { useLanguage } from 'client/hooks/useLanguage'
 import Icon from 'client/components/Icon'
 import { DOMs } from 'client/utils/dom'
 
@@ -15,10 +16,8 @@ const _url = (baseParams: string, fileName: string, fileType: string, language: 
   `${ApiEndPoint.File.dataDownload()}?${baseParams}&fileName=${fileName}&fileType=${fileType}&language=${language}`
 
 const DataDownload: React.FC = () => {
-  const {
-    t,
-    i18n: { resolvedLanguage },
-  } = useTranslation()
+  const { t } = useTranslation()
+  const lang = useLanguage()
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
@@ -58,14 +57,14 @@ const DataDownload: React.FC = () => {
             </div>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'ods', resolvedLanguage)}
+              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'ods', lang)}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               ODS
             </a>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'xlsx', resolvedLanguage)}
+              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'xlsx', lang)}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               XLS

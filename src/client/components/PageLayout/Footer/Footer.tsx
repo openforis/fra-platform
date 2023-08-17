@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Routes } from 'meta/routes'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useIsPrint } from 'client/hooks/useIsPath'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 import SendFeedback from './SendFeedback'
 
@@ -32,11 +32,10 @@ const links = [
 
 const Footer: React.FC = () => {
   const { i18n, t } = useTranslation()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const user = useUser()
   const { language } = i18n
   const { print } = useIsPrint()
-  const assessment = useAssessment()
-  const cycle = useCycle()
 
   if (print) return null
 
@@ -67,9 +66,7 @@ const Footer: React.FC = () => {
 
         <div className="separator" />
 
-        <a href={Routes.Tutorials.generatePath({ assessmentName: assessment?.props.name, cycleName: cycle.name })}>
-          {t('footer.tutorials')}
-        </a>
+        <a href={Routes.Tutorials.generatePath({ assessmentName, cycleName })}>{t('footer.tutorials')}</a>
 
         <div className="separator" />
 
