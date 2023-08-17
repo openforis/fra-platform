@@ -1,4 +1,5 @@
 import i18n from 'i18next'
+import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
@@ -9,6 +10,9 @@ import { RoleName, UserRole } from './userRole'
 
 export const isInvitationExpired = (userRole: UserRole<RoleName>, expiryPeriod?: number) =>
   new Date().getTime() - Date.parse(userRole.invitedAt) > (expiryPeriod || 7) * 86400000
+
+export const isInvitationPending = (userRole: UserRole<RoleName>) =>
+  !Objects.isEmpty(userRole.invitedAt) && Objects.isEmpty(userRole.acceptedAt)
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
@@ -70,6 +74,7 @@ const sortRolesByRolesAndCountry = (
 
 export const UserRoles = {
   isInvitationExpired,
+  isInvitationPending,
   noRole,
   getRecipientRoles,
   getLastRole,
