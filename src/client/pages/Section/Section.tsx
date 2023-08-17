@@ -40,7 +40,7 @@ const Section: React.FC<Props> = (props: Props) => {
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
 
   useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
-  console.log('------ subSection ', subSection, 'tableSections', tableSections)
+
   // Hide the whole section if no tables have data
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)
 
