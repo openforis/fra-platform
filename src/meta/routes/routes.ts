@@ -4,9 +4,9 @@ import { Route } from './route'
 
 const Root: Route<undefined, undefined> = { path: '/', parts: [], generatePath: () => `/` }
 const Assessment = createRoute<AssessmentRouteParams>({ path: 'assessments/:assessmentName', parent: Root })
-const Cycle = createRoute<CycleRouteParams>({ path: ':cycleName', parent: Assessment })
 
 // Cycle routes and sub routes
+const Cycle = createRoute<CycleRouteParams>({ path: ':cycleName', parent: Assessment })
 const Admin = createRoute<CountryRouteParams>({ path: 'admin', parent: Cycle })
 const AdminUserManagement = createRoute<CountryRouteParams>({ path: 'userManagement', parent: Admin })
 
