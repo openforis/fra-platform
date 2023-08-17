@@ -7,7 +7,6 @@ import PageLayout from 'client/components/PageLayout'
 import Admin from 'client/pages/Admin'
 import UserManagement from 'client/pages/Admin/UserManagement'
 import Assessment from 'client/pages/Assessment'
-import AssessmentPrint from 'client/pages/AssessmentPrint'
 import Country from 'client/pages/Country'
 import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import CountryHome from 'client/pages/CountryHome'
@@ -18,6 +17,7 @@ import Geo from 'client/pages/Geo'
 import Landing from 'client/pages/Landing'
 import Login, { LoginForm, LoginInvitation, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
+import Print from 'client/pages/Print'
 import SectionDataExportSwitch from 'client/pages/SectionDataExportSwitch'
 import Tutorials from 'client/pages/Tutorials'
 import User from 'client/pages/User'
@@ -56,7 +56,7 @@ export const useRoutes = () => {
                 }
               />
               <Route path={Routes.Section.path} element={<SectionDataExportSwitch />} />
-              <Route path={`${Routes.Print.path}/*`} element={<AssessmentPrint />} />
+              <Route path={`${Routes.Print.path}/*`} element={<Print />} />
 
               {/* user route */}
               {/* <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} /> */}

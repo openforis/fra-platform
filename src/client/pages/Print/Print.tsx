@@ -12,7 +12,7 @@ const Components: Record<string, React.FC> = {
   [AssessmentNames.fra]: FraPrint,
 }
 
-const AssessmentPrint: React.FC = () => {
+const Print: React.FC = () => {
   const assessment = useAssessment()
 
   if (!assessment) return <Loading />
@@ -22,4 +22,4 @@ const AssessmentPrint: React.FC = () => {
   return <div className="fra-print__container">{React.createElement(Component)}</div>
 }
 
-export default memo(AssessmentPrint)
+export default memo(Print)
