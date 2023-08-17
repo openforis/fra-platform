@@ -8,7 +8,7 @@ import { useCycle } from 'client/store/assessment'
 import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrint } from 'client/hooks/useIsPath'
-import { useValidate } from 'client/pages/AssessmentSection/DataTable/hooks/useValidate'
+import { useValidate } from 'client/pages/Section/DataTable/hooks/useValidate'
 
 import { useData } from './hooks/useData'
 import { useGetData } from './hooks/useGetData'

@@ -8,7 +8,7 @@ import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useOriginalDataPointYears } from 'client/store/data'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
-import { getODPColSpan } from 'client/pages/AssessmentSection/DataTable/Table/utils/getODPColSpan'
+import { getODPColSpan } from 'client/pages/Section/DataTable/Table/utils/getODPColSpan'
 
 import OdpHeaderCell from './OdpHeaderCell'
 

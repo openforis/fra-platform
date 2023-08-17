@@ -6,10 +6,12 @@ import { Routes } from 'meta/routes/routes'
 import PageLayout from 'client/components/PageLayout'
 import Assessment from 'client/pages/Assessment'
 import Country from 'client/pages/Country'
+import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import CountryHome from 'client/pages/CountryHome'
 import Cycle from 'client/pages/Cycle'
 import CycleHome from 'client/pages/CycleHome'
 import Landing from 'client/pages/Landing'
+import Section from 'client/pages/Section'
 
 export const useRoutes = () => {
   return useMemo(() => {
@@ -23,10 +25,17 @@ export const useRoutes = () => {
             {/* Tutorials */}
             <Route path={Routes.Country.path} element={<Country />}>
               <Route index element={<Navigate to={Routes.CountryHome.path} replace />} />
-              <Route path={`${Routes.CountryHome.path}/*`} element={<CountryHome />}>
-                {/* user route */}
-                {/* <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} /> */}
-              </Route>
+              <Route path={`${Routes.CountryHome.path}/*`} element={<CountryHome />} />
+              <Route
+                path={Routes.Section.path}
+                element={
+                  <SectionWrapper>
+                    <Section />
+                  </SectionWrapper>
+                }
+              />
+              {/* user route */}
+              {/* <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} /> */}
               {/*
                 Implement:
                    AssessmentPrint AssessmentDataDownload ( -> Renamed to DataDownload)
