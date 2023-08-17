@@ -14,7 +14,7 @@ import resources from './resources'
 const _url = (baseParams: string, fileName: string, fileType: string, language: string): string =>
   `${ApiEndPoint.File.dataDownload()}?${baseParams}&fileName=${fileName}&fileType=${fileType}&language=${language}`
 
-const AssessmentDataDownload: React.FC = () => {
+const DataDownload: React.FC = () => {
   const { i18n } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -74,4 +74,4 @@ const AssessmentDataDownload: React.FC = () => {
   )
 }
 
-export default AssessmentDataDownload
+export default DataDownload

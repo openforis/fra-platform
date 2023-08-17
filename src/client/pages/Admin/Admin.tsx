@@ -1,7 +1,7 @@
 import './Admin.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import { Navigate, NavLink, Outlet } from 'react-router-dom'
 
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
@@ -50,13 +50,7 @@ const Admin: React.FC = () => {
         ))}
       </div>
 
-      <Routes>
-        {sections.map(({ name, component }) => (
-          <Route key={name} path={name} element={React.createElement(component, {})} />
-        ))}
-
-        <Route path="*" element={<Navigate to={AdminRouteNames.userManagement} replace />} />
-      </Routes>
+      <Outlet />
     </div>
   )
 }
