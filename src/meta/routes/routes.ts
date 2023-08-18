@@ -1,8 +1,9 @@
 import { createRoute } from './createRoute'
 import {
   AssessmentRouteParams,
-  CountryHomeParams,
+  CountryHomeRouteParams,
   CountryRouteParams,
+  CountryUserRouteParams,
   CycleRouteParams,
   SectionRouteParams,
 } from './params'
@@ -20,8 +21,8 @@ const Tutorials = createRoute<CycleRouteParams>({ path: 'tutorials', parent: Cyc
 const Country = createRoute<CountryRouteParams>({ path: ':countryIso', parent: Cycle })
 const CountryDataDownload = createRoute<CountryRouteParams>({ path: 'data-download', parent: Country })
 const CountryHome = createRoute<CountryRouteParams>({ path: 'home', parent: Country })
-const CountryHomeSection = createRoute<CountryHomeParams>({ path: ':sectionName', parent: CountryHome })
-const CountryUser = createRoute<CountryRouteParams>({ path: 'users/:id', parent: Country })
+const CountryHomeSection = createRoute<CountryHomeRouteParams>({ path: ':sectionName', parent: CountryHome })
+const CountryUser = createRoute<CountryUserRouteParams>({ path: 'users/:id', parent: Country })
 const Geo = createRoute<CountryRouteParams>({ path: 'geo', parent: Country })
 const OriginalDataPoint = createRoute<SectionRouteParams>({
   path: 'originalDataPoints/:year/:sectionName',
@@ -31,9 +32,9 @@ const Section = createRoute<SectionRouteParams>({ path: 'sections/:sectionName',
 const Print = createRoute<CountryRouteParams>({ path: 'print', parent: Country })
 
 // Login routes and sub routes
-const Login = createRoute<CountryRouteParams>({ path: 'login', parent: Cycle })
-const LoginInvitation = createRoute<CountryRouteParams>({ path: 'invitation', parent: Login })
-const LoginResetPassword = createRoute<CountryRouteParams>({ path: 'resetPassword', parent: Login })
+const Login = createRoute<CycleRouteParams>({ path: 'login', parent: Cycle })
+const LoginInvitation = createRoute<CycleRouteParams>({ path: 'invitation', parent: Login })
+const LoginResetPassword = createRoute<CycleRouteParams>({ path: 'resetPassword', parent: Login })
 
 export const Routes = {
   Root,

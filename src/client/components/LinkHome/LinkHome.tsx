@@ -2,25 +2,17 @@ import './linkHome.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 const LinkHome: React.FC = () => {
-  const assessment = useAssessment()
-  const cycle = useCycle()
+  const { assessmentName, cycleName } = useCountryRouteParams()
 
-  if (!assessment || !cycle) return null
+  if (!assessmentName || !cycleName) return null
 
   return (
-    <NavLink
-      end
-      to={ClientRoutes.Assessment.Cycle.Landing.getLink({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-      })}
-      className="app-header-link-home"
-    >
+    <NavLink end to={Routes.Cycle.generatePath({ assessmentName, cycleName })} className="app-header-link-home">
       <svg id="Home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.789 35.773">
         <path
           id="Path_207"

@@ -1,7 +1,8 @@
 export type {
   AssessmentRouteParams,
-  CountryHomeParams,
+  CountryHomeRouteParams,
   CountryRouteParams,
+  CountryUserRouteParams,
   CycleRouteParams,
   SectionRouteParams,
 } from './params'
