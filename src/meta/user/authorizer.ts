@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Areas, Country, CountryIso } from 'meta/area'
+import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
 import { Assessment, Cycle, Section, SubSection } from 'meta/assessment'
 import { User } from 'meta/user/user'
@@ -17,7 +17,7 @@ import { Users } from 'meta/user/users'
  *  @param props.User
  *  @returns boolean
  */
-const canView = (props: { assessment: Assessment; countryIso: CountryIso; cycle: Cycle; user: User }): boolean => {
+const canView = (props: { assessment: Assessment; countryIso: AreaCode; cycle: Cycle; user: User }): boolean => {
   const { assessment, countryIso, user, cycle } = props
   if (cycle.published) return true
   if (Users.isAdministrator(user)) return true

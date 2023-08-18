@@ -4,8 +4,8 @@ import { Outlet } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
-import { Areas } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
+import { Routes } from 'meta/routes'
 import { Authorizer } from 'meta/user'
 
 import { useCountries, useCountry } from 'client/store/area'
@@ -26,7 +26,7 @@ const Country: React.FC = () => {
   const user = useUser()
   const navigationVisible = useNavigationVisible()
   const countries = useCountries()
-  const country = useCountry(countryIso)
+  const country = useCountry(countryIso as CountryIso) // TODO: revisit useCountry Hook
   // const isDataExportView = useIsDataExportView()
   useGetUsers()
   useReviewSummaryListener()
@@ -36,7 +36,7 @@ const Country: React.FC = () => {
   if (countries?.length === 0) return null
 
   if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ assessment, countryIso, cycle, user }))
-    window.location.href = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
+    window.location.href = Routes.Cycle.generatePath({ assessmentName, cycleName })
 
   return (
     <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>

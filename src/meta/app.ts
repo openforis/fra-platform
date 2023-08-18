@@ -66,11 +66,6 @@ export const ClientRoutes = {
       Landing: newInstance<CycleParams>('assessments', ':assessmentName', ':cycleName'),
       Admin: {
         Root: newInstance<CycleParams>(...cycleParts, 'admin'),
-        Section: newInstance<CycleParams & { sectionName: AssessmentHomeRouteNames }>(
-          ...cycleParts,
-          'admin',
-          ':sectionName'
-        ),
       },
       Login: {
         Root: newInstance<CycleParams>(...cycleParts, 'login'),

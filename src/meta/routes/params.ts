@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 
 export type AssessmentRouteParams = {
@@ -10,11 +10,15 @@ export type CycleRouteParams = AssessmentRouteParams & {
 }
 
 export type CountryRouteParams = CycleRouteParams & {
-  countryIso: CountryIso
+  countryIso: AreaCode
 }
 
-export type CountryHomeParams = CountryRouteParams & {
+export type CountryHomeRouteParams = CountryRouteParams & {
   sectionName?: string
+}
+
+export type CountryUserRouteParams = CountryRouteParams & {
+  id: number
 }
 
 export type SectionRouteParams = CountryRouteParams & {
