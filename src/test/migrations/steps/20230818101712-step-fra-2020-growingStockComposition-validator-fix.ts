@@ -26,4 +26,5 @@ export default async (client: BaseProtocol) => {
               and r2.props ->> 'variableName' = '${variable}') r2
       where r.id = r2.id;
   `)
+  await AssessmentController.generateMetaCache({ assessment, cycle }, client)
 }
