@@ -5,6 +5,9 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import MessageCenter from 'client/components/MessageCenter'
 import { DOMs } from 'client/utils/dom'
 
+import { useReviewStatusListener } from './hooks/useReviewStatusListener'
+import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
+
 const SectionWrapper: React.FC<PropsWithChildren> = (props) => {
   const { children } = props
 
@@ -12,6 +15,8 @@ const SectionWrapper: React.FC<PropsWithChildren> = (props) => {
   const sections = useSections()
   const tableSections = useTableSections({ sectionName })
   useGetTableSections()
+  useReviewStatusListener()
+  useReviewSummaryListener()
 
   useLayoutEffect(() => {
     // scroll to top
