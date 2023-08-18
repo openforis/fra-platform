@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router-dom'
 
+import { Root } from './root'
 import { Route } from './route'
-import { Routes } from './routes'
 
 type Params = {
   parent?: Route<any, any>
@@ -18,8 +18,18 @@ const getGeneratePath =
       generatedPath += `?${searchParams}`
     }
     const parentPath = `${parent.generatePath(pathParams)}`
-    return `${parentPath === Routes.Root.path ? parentPath : `${parentPath}/`}${generatedPath}`
+    return `${parentPath === Root.path.relative ? parentPath : `${parentPath}/`}${generatedPath}`
   }
+
+const getAbsolutePath = (props: { relativePath: string; parent?: Route<any, any> }): string => {
+  const { relativePath, parent } = props
+  const prefix = parent
+    ? `${getAbsolutePath({ relativePath: parent.path.relative, parent: parent.parent })}${
+        parent.path.relative !== Root.path.relative ? '/' : ''
+      }`
+    : ''
+  return `${prefix}${relativePath}`
+}
 
 export const createRoute = <
   PathParams = undefined,
@@ -27,9 +37,11 @@ export const createRoute = <
 >(
   params: Params
 ): Route<PathParams, QueryParams> => {
-  const { parent = Routes.Root, path } = params
+  const { parent = Root, path: relative } = params
 
-  const generatePath = getGeneratePath(path, parent)
-  const parts = path.split('/')
-  return { generatePath, parent, path, parts }
+  const absolute = getAbsolutePath({ relativePath: relative, parent })
+  const generatePath = getGeneratePath(relative, parent)
+  const parts = relative.split('/')
+
+  return { generatePath, parent, path: { relative, absolute }, parts }
 }

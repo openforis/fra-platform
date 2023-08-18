@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
 import { Assessment, Cycle } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 
 import { useCountryIso, useIsAdmin } from 'client/hooks'
@@ -22,11 +22,11 @@ export const useNavigateTo = () => {
 
       let link = ''
       if (countryIso && (cycle.published || hasRoleInCountry))
-        link = ClientRoutes.Assessment.Cycle.Country.Landing.getLink({ countryIso, assessmentName, cycleName })
-      else if (isAdminPage) link = ClientRoutes.Assessment.Cycle.Admin.Root.getLink({ assessmentName, cycleName })
-      else link = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
+        link = Routes.CountryHome.generatePath({ countryIso, assessmentName, cycleName })
+      else if (isAdminPage) link = Routes.Admin.generatePath({ assessmentName, cycleName })
+      else link = Routes.Cycle.generatePath({ assessmentName, cycleName })
 
-      navigate(link, { replace: true })
+      navigate(link)
     },
     [countryIso, isAdminPage, navigate]
   )

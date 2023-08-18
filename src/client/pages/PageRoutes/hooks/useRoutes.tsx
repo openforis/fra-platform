@@ -27,36 +27,38 @@ export const useRoutes = () => {
     const children = (
       <Route element={<PageLayout />} path="/">
         <Route index element={<Landing />} />
-        <Route path={Routes.Assessment.path} element={<Assessment />}>
-          <Route path={Routes.Cycle.path} element={<Cycle />}>
+
+        <Route path={Routes.Assessment.path.relative} element={<Assessment />}>
+          <Route path={Routes.Cycle.path.relative} element={<Cycle />}>
             <Route index element={<CycleHome />} />
 
-            <Route path={Routes.Admin.path} element={<Admin />}>
-              <Route index element={<Navigate to={Routes.AdminUserManagement.path} replace />} />
-              <Route path={Routes.AdminUserManagement.path} element={<UserManagement />} />
+            {/* Admin */}
+            <Route path={Routes.Admin.path.relative} element={<Admin />}>
+              <Route index element={<Navigate to={Routes.AdminUserManagement.path.relative} replace />} />
+              <Route path={Routes.AdminUserManagement.path.relative} element={<UserManagement />} />
             </Route>
 
             {/* Tutorials */}
-            <Route path={Routes.Tutorials.path} element={<Tutorials />} />
+            <Route path={Routes.Tutorials.path.relative} element={<Tutorials />} />
 
             {/*      Implement:      User            */}
-            <Route path={Routes.Country.path} element={<Country />}>
-              <Route index element={<Navigate to={Routes.CountryHome.path} replace />} />
-              <Route path={`${Routes.CountryHome.path}/*`} element={<CountryHome />} />
-              <Route path={Routes.CountryUser.path} element={<User />} />
-              <Route path={Routes.CountryDataDownload.path} element={<DataDownload />} />
-              <Route path={Routes.Geo.path} element={<Geo />} />
-
+            {/* Country */}
+            <Route path={Routes.Country.path.relative} element={<Country />}>
+              <Route index element={<Navigate to={Routes.CountryHome.path.relative} replace />} />
+              <Route path={`${Routes.CountryHome.path.relative}/*`} element={<CountryHome />} />
+              <Route path={Routes.CountryUser.path.relative} element={<User />} />
+              <Route path={Routes.CountryDataDownload.path.relative} element={<DataDownload />} />
+              <Route path={Routes.Geo.path.relative} element={<Geo />} />
               <Route
-                path={Routes.OriginalDataPoint.path}
+                path={Routes.OriginalDataPoint.path.relative}
                 element={
                   <SectionWrapper>
                     <OriginalDataPoint />
                   </SectionWrapper>
                 }
               />
-              <Route path={Routes.Section.path} element={<SectionDataExportSwitch />} />
-              <Route path={`${Routes.Print.path}/*`} element={<Print />} />
+              <Route path={Routes.Section.path.relative} element={<SectionDataExportSwitch />} />
+              <Route path={`${Routes.Print.path.relative}/*`} element={<Print />} />
 
               {/* user route */}
               {/* <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} /> */}
@@ -66,14 +68,14 @@ export const useRoutes = () => {
             </Route>
 
             {/* Login */}
-            <Route path={Routes.Login.path} element={<Login />}>
+            <Route path={Routes.Login.path.relative} element={<Login />}>
               <Route index element={<LoginForm />} />
-              <Route path={Routes.LoginInvitation.path} element={<LoginInvitation />} />
-              <Route path={Routes.LoginResetPassword.path} element={<LoginResetPassword />} />
+              <Route path={Routes.LoginInvitation.path.relative} element={<LoginInvitation />} />
+              <Route path={Routes.LoginResetPassword.path.relative} element={<LoginResetPassword />} />
             </Route>
           </Route>
         </Route>
-        <Route path="*" element={<Navigate to={Routes.Root.path} replace />} />
+        <Route path="*" element={<Navigate to={Routes.Root.path.relative} replace />} />
       </Route>
     )
     return createRoutesFromElements(children)

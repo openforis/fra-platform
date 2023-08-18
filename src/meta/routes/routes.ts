@@ -1,8 +1,13 @@
 import { createRoute } from './createRoute'
-import { AssessmentRouteParams, CountryRouteParams, CycleRouteParams, SectionRouteParams } from './params'
-import { Route } from './route'
+import {
+  AssessmentRouteParams,
+  CountryHomeParams,
+  CountryRouteParams,
+  CycleRouteParams,
+  SectionRouteParams,
+} from './params'
+import { Root } from './root'
 
-const Root: Route<undefined, undefined> = { path: '/', parts: [], generatePath: () => `/` }
 const Assessment = createRoute<AssessmentRouteParams>({ path: 'assessments/:assessmentName', parent: Root })
 
 // Cycle routes and sub routes
@@ -15,6 +20,7 @@ const Tutorials = createRoute<CycleRouteParams>({ path: 'tutorials', parent: Cyc
 const Country = createRoute<CountryRouteParams>({ path: ':countryIso', parent: Cycle })
 const CountryDataDownload = createRoute<CountryRouteParams>({ path: 'data-download', parent: Country })
 const CountryHome = createRoute<CountryRouteParams>({ path: 'home', parent: Country })
+const CountryHomeSection = createRoute<CountryHomeParams>({ path: ':sectionName', parent: CountryHome })
 const CountryUser = createRoute<CountryRouteParams>({ path: 'users/:id', parent: Country })
 const Geo = createRoute<CountryRouteParams>({ path: 'geo', parent: Country })
 const OriginalDataPoint = createRoute<SectionRouteParams>({
@@ -43,6 +49,7 @@ export const Routes = {
   Country,
   CountryDataDownload,
   CountryHome,
+  CountryHomeSection,
   CountryUser,
   Geo,
   OriginalDataPoint,

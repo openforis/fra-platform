@@ -13,6 +13,10 @@ export type CountryRouteParams = CycleRouteParams & {
   countryIso: CountryIso
 }
 
+export type CountryHomeParams = CountryRouteParams & {
+  sectionName?: string
+}
+
 export type SectionRouteParams = CountryRouteParams & {
   sectionName: SectionName
 }

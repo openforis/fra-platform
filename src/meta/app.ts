@@ -33,6 +33,9 @@ type AssessmentParams = CycleParams & {
   countryIso: CountryIso | Global | RegionCode
 }
 
+/**
+ * @deprecated
+ */
 export enum AssessmentHomeRouteNames {
   overview = 'overview',
   messageBoard = 'messageBoard',
@@ -51,6 +54,9 @@ const cycleParts = ['assessments', ':assessmentName', ':cycleName']
 
 const assessmentParts = cycleParts.concat(':countryIso')
 
+/**
+ * @deprecated
+ */
 export const ClientRoutes = {
   Root: { path: '/' },
 
@@ -78,14 +84,7 @@ export const ClientRoutes = {
         DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
         Landing: newInstance<AssessmentParams>(...assessmentParts),
         Geo: newInstance<AssessmentParams>(...assessmentParts, 'geo'),
-        Home: {
-          Root: newInstance<AssessmentParams>(...assessmentParts, 'home'),
-          Section: newInstance<AssessmentParams & { sectionName: AssessmentHomeRouteNames }>(
-            ...assessmentParts,
-            'home',
-            ':sectionName'
-          ),
-        },
+
         OriginalDataPoint: {
           Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
             ...assessmentParts,
