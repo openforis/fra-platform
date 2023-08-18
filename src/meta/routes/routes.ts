@@ -1,4 +1,3 @@
-import { createRoute } from './createRoute'
 import {
   AssessmentRouteParams,
   CountryHomeRouteParams,
@@ -6,7 +5,10 @@ import {
   CountryUserRouteParams,
   CycleRouteParams,
   SectionRouteParams,
-} from './params'
+} from 'meta/routes/routeParams'
+
+import { createRoute } from './createRoute'
+import { LoginInvitationQueryParams, LoginQueryParams, LoginResetPasswordQueryParams } from './queryParams'
 import { Root } from './root'
 
 const Assessment = createRoute<AssessmentRouteParams>({ path: 'assessments/:assessmentName', parent: Root })
@@ -32,9 +34,12 @@ const Section = createRoute<SectionRouteParams>({ path: 'sections/:sectionName',
 const Print = createRoute<CountryRouteParams>({ path: 'print', parent: Country })
 
 // Login routes and sub routes
-const Login = createRoute<CycleRouteParams>({ path: 'login', parent: Cycle })
-const LoginInvitation = createRoute<CycleRouteParams>({ path: 'invitation', parent: Login })
-const LoginResetPassword = createRoute<CycleRouteParams>({ path: 'resetPassword', parent: Login })
+const Login = createRoute<CycleRouteParams, LoginQueryParams>({ path: 'login', parent: Cycle })
+const LoginInvitation = createRoute<CycleRouteParams, LoginInvitationQueryParams>({ path: 'invitation', parent: Login })
+const LoginResetPassword = createRoute<CycleRouteParams, LoginResetPasswordQueryParams>({
+  path: 'resetPassword',
+  parent: Login,
+})
 
 export const Routes = {
   Root,
