@@ -1,7 +1,7 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { ClientRoutes } from 'meta/app'
 import { AssessmentName } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 import { User, UserResetPassword, Users } from 'meta/user'
 
 import { sendMail } from './mail'
@@ -17,9 +17,10 @@ export const resetPassword = async (props: {
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}${ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({ assessmentName, cycleName })}${
-    userResetPassword.uuid ? `?resetPasswordUuid=${userResetPassword.uuid}` : ''
-  }`
+  const link = `${url}${Routes.LoginResetPassword.generatePath(
+    { assessmentName, cycleName },
+    { resetPasswordUuid: userResetPassword?.uuid }
+  )}`
 
   const emailProps = { link, url, user: Users.getFullName(user) }
 

@@ -1,3 +1,5 @@
+export type { LoginInvitationQueryParams, LoginQueryParams, LoginResetPasswordQueryParams } from './queryParams'
+export type { Route, RoutePath } from './route'
 export type {
   AssessmentRouteParams,
   CountryHomeRouteParams,
@@ -5,7 +7,6 @@ export type {
   CountryUserRouteParams,
   CycleRouteParams,
   SectionRouteParams,
-} from './params'
-export type { Route, RoutePath } from './route'
+} from './routeParams'
 export { Routes } from './routes'
 export { SectionNames } from './sectionNames'

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { AreaCode, CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import type { User, UserProps } from './user'
@@ -66,7 +66,7 @@ const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {
   return user.roles.some((role) => role.cycleUuid === cycle.uuid)
 }
 
-const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: CountryIso }): boolean => {
+const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: AreaCode }): boolean => {
   const { cycle, countryIso, user } = props
   if (!user) return false
   if (isAdministrator(user)) return true

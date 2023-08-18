@@ -16,7 +16,8 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Navigation from 'client/components/Navigation'
 
 import useGetUsers from './hooks/useGetUsers'
-import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
+import { useInitMetaCache } from './hooks/useInitMetaCache'
+import { useInitSections } from './hooks/useInitSections'
 
 const Country: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
@@ -28,8 +29,9 @@ const Country: React.FC = () => {
   const countries = useCountries()
   const country = useCountry(countryIso as CountryIso) // TODO: revisit useCountry Hook
   // const isDataExportView = useIsDataExportView()
+  useInitSections()
+  useInitMetaCache()
   useGetUsers()
-  useReviewSummaryListener()
 
   if (!countryIso) return null
 

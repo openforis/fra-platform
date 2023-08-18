@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -56,6 +56,8 @@ const LoginForm: React.FC = () => {
     }
   }
 
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
   if (isLocal) {
     return (
       <div className="login__form">
@@ -89,10 +91,7 @@ const LoginForm: React.FC = () => {
         </div>
 
         <Link
-          to={ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-          })}
+          to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}
           type="button"
           className="btn-forgot-pwd"
         >
@@ -105,7 +104,10 @@ const LoginForm: React.FC = () => {
   return (
     <div className="login__formWrapper">
       <div>
-        <a className="btn" href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${cycle.name}`}>
+        <a
+          className="btn"
+          href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&cycleName=${cycleName}`}
+        >
           {t('login.signInGoogle')}
         </a>
 
