@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
+import { useIsAdmin, useIsLogin, useIsPrint, useIsTutorialsPath, useIsUserEditPage } from 'client/hooks/useIsPath'
 
 import Footer from './Footer'
 import Header from './Header'
@@ -11,11 +11,12 @@ const PageLayout: React.FC = () => {
   const { print } = useIsPrint()
   const isAdmin = useIsAdmin()
   const isLogin = useIsLogin()
+  const isTutorial = useIsTutorialsPath()
 
   const isUserEditPage = useIsUserEditPage()
 
   const withHeader = !print
-  const withToolbar = !isAdmin && !isLogin && !isUserEditPage
+  const withToolbar = !isTutorial && !isAdmin && !isLogin && !isUserEditPage
 
   return (
     <>

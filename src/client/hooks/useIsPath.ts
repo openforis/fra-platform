@@ -2,6 +2,7 @@ import { matchPath, useLocation, useParams } from 'react-router-dom'
 
 import { ClientRoutes } from 'meta/app'
 import { AssessmentName, AssessmentNames } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 export const useIsPath = ({ path, exact = true }: { path: string; exact?: boolean }): boolean => {
   const { pathname } = useLocation()
@@ -34,3 +35,5 @@ export const useIsPanEuropean = () => {
 
 export const useIsGeoPage = () =>
   useIsPath({ path: `${ClientRoutes.Assessment.Cycle.Country.Geo.path.absolute}/*`, exact: false })
+
+export const useIsTutorialsPath = () => useIsPath({ path: Routes.Tutorials.path.absolute, exact: true })
