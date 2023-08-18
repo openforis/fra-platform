@@ -11,7 +11,7 @@ const CycleSwitcher = () => {
   const { cycleName } = useCycleRouteParams()
   const popoverItems = usePopoverItems()
 
-  if (popoverItems.length < 2) return <span className="cycle-switcher-locked">{cycleName}</span>
+  if (popoverItems.length < 1) return <span className="cycle-switcher-locked">{cycleName}</span>
 
   return (
     <div className="cycle-switcher">
