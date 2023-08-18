@@ -13,7 +13,7 @@ import { UserRoles } from 'meta/user/userRoles'
 import { AppDispatch, useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { UserActions, useUser } from 'client/store/user'
-import { useCountryIso, useIsLogin } from 'client/hooks'
+import { useCountryIso, useIsLoginRoute } from 'client/hooks'
 import { ToasterHook, useToaster } from 'client/hooks/useToaster'
 import Icon from 'client/components/Icon'
 import PopoverControl, { PopoverItem } from 'client/components/PopoverControl'
@@ -69,7 +69,7 @@ const LinksFRA: React.FC = () => {
   const user = useUser()
   const toaster = useToaster()
   const { i18n } = useTranslation()
-  const isLogin = useIsLogin()
+  const isLogin = useIsLoginRoute()
 
   return (
     <>

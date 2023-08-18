@@ -8,7 +8,7 @@ import { TooltipId } from 'meta/tooltip'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useOdpReviewSummary } from 'client/store/ui/review/hooks'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
 
 type Props = {
@@ -27,7 +27,7 @@ const HeaderCell: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const { t } = useTranslation()
 
   const reviewStatus = useOdpReviewSummary(odpId)

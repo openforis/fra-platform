@@ -10,7 +10,7 @@ import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hoo
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEdit } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import ButtonTableClear from 'client/components/ButtonTableClear'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
@@ -39,7 +39,7 @@ const Table: React.FC<Props> = (props) => {
 
   const countryIso = useCountryIso()
 
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const tableRef = useRef<HTMLTableElement>(null)
 
   const { headers, table } = parseTable({ assessmentName, cycle, countryIso, data, showODP, table: tableProps })

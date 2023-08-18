@@ -6,7 +6,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Routes } from 'meta/routes'
 
 import { useUser } from 'client/store/user'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 import SendFeedback from './SendFeedback'
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
   const { assessmentName, cycleName } = useCycleRouteParams()
   const user = useUser()
   const { language } = i18n
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   if (print || !cycleName || !assessmentName) return null
 

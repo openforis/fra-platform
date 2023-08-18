@@ -17,7 +17,7 @@ import { DataActions, RecordTableValidationsState } from 'client/store/data'
 import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import { useRowsData } from './useRowsData'
 
@@ -39,7 +39,7 @@ export const useValidate = (props: Props): void => {
   const user = useUser()
   const section = useSection(sectionName)
   const rowsData = useRowsData({ table })
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const canEditData = Authorizer.canEditData({ country, cycle, section, user })
 

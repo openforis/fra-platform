@@ -9,7 +9,7 @@ import { useCycle } from 'client/store/assessment'
 import { useOriginalDataPointYears } from 'client/store/data'
 import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { useUser } from 'client/store/user'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 
 import { Props } from '../props'
@@ -21,7 +21,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const user = useUser()
   const cycle = useCycle()
-  const { print, onlyTables } = useIsPrint()
+  const { print, onlyTables } = useIsPrintRoute()
   const odpYears = useOriginalDataPointYears()
   const showOdps = useShowOriginalDatapoints()
 

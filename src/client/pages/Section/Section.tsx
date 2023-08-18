@@ -9,7 +9,7 @@ import { useIsSectionDataEmpty } from 'client/store/data'
 import { useSection, useTableSections } from 'client/store/metadata'
 import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from 'client/store/user/hooks'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 import CommentableDescription from './Descriptions/CommentableDescription'
@@ -35,7 +35,7 @@ const Section: React.FC<Props> = (props: Props) => {
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
   const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)
-  const { print, onlyTables } = useIsPrint()
+  const { print, onlyTables } = useIsPrintRoute()
 
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
 

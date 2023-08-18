@@ -11,7 +11,7 @@ import { Users } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
-import { useIsGeoPage } from 'client/hooks'
+import { useIsGeoRoute } from 'client/hooks'
 
 import Icon from '../Icon'
 import CountryList from './CountryList'
@@ -48,7 +48,7 @@ const AreaSelector: React.FC<Props> = (props) => {
   const navigate = useNavigate()
 
   // The user should remain in the maps page when changing countries.
-  const isInGeoPage = useIsGeoPage()
+  const isInGeoPage = useIsGeoRoute()
   const isCountry = Areas.isISOCountry(selectedValue)
 
   const destinationPath =

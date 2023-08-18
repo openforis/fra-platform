@@ -5,7 +5,7 @@ import { Labels } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useOriginalDataPointYears } from 'client/store/data'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 
 import { Props } from '../props'
@@ -16,7 +16,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const cycle = useCycle()
   const odpYears = useOriginalDataPointYears()
-  const { print, onlyTables } = useIsPrint()
+  const { print, onlyTables } = useIsPrintRoute()
   const hasOdps = Array.isArray(odpYears)
 
   return (

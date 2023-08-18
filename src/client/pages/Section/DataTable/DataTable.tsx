@@ -7,7 +7,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 import { useCycle } from 'client/store/assessment'
 import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useValidate } from 'client/pages/Section/DataTable/hooks/useValidate'
 
 import { useData } from './hooks/useData'
@@ -32,7 +32,7 @@ const DataTable: React.FC<Props> = (props) => {
   const countryIso = useCountryIso()
   const data = useData({ table })
   const canEdit = useIsEditTableDataEnabled(sectionName)
-  const { print, onlyTables } = useIsPrint()
+  const { print, onlyTables } = useIsPrintRoute()
   useGetData({ sectionName, table })
   useValidate({ data, sectionName, table })
   useODPDeleteListener()

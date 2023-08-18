@@ -2,11 +2,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useCycle } from 'client/store/assessment'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 export const Title = () => {
   const cycle = useCycle()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const { t } = useTranslation()
 

@@ -13,7 +13,7 @@ import { useSection } from 'client/store/metadata'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
 import DataSources from 'client/pages/Section/Descriptions/CommentableDescription/Description/DataSources/DataSources'
@@ -46,7 +46,7 @@ const Description: React.FC<Props> = (props) => {
   })
 
   const user = useUser()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const commentableDescriptionValue = useCommentableDescriptionValue({ name, sectionName, template })
   const isDataLocked = useIsDataLocked()
   const { t } = useTranslation()

@@ -4,7 +4,7 @@ import { Description } from 'meta/assessment'
 
 import { useAssessmentCountry } from 'client/store/area'
 import { useHasOriginalDataPointData } from 'client/store/data'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import AnalysisDescriptions from './AnalysisDescriptions'
 import NationalDataDescriptions from './NationalDataDescriptions'
@@ -17,7 +17,7 @@ type Props = {
 
 export const useDescriptions = (props: Props): Description => {
   const { descriptions, sectionName } = props
-  const { onlyTables } = useIsPrint()
+  const { onlyTables } = useIsPrintRoute()
 
   const country = useAssessmentCountry()
   const hasOriginalDataPointData = useHasOriginalDataPointData()
@@ -47,7 +47,7 @@ export const useDescriptions = (props: Props): Description => {
 const Descriptions: React.FC<Props> = (props: Props) => {
   const { disabled, sectionName, descriptions } = props
 
-  const { print, onlyTables } = useIsPrint()
+  const { print, onlyTables } = useIsPrintRoute()
 
   const { analysisAndProcessing, nationalData } = useDescriptions({
     descriptions,
