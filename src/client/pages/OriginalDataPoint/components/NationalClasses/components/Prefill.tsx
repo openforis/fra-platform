@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useIsOriginalDataPointUpdating } from 'client/store/ui/originalDataPoint'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import { useOnCopyClick } from './hooks/useOnCopyClick'
 import { useReservedYearsWithClasses } from './hooks/useReservedYearsWithClasses'
@@ -13,7 +13,7 @@ export const Prefill = (props: { canEditData: boolean; originalDataPoint: Origin
   const { canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
   const [selectedPreviousYear, setSelectedPreviousYear] = useState<string>('')
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const { t } = useTranslation()
 

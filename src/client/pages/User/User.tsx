@@ -12,7 +12,7 @@ import { useCycle } from 'client/store/assessment'
 import { useUserToEdit } from 'client/store/ui//userManagement/hooks'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
-import { useCountryIso, useIsCountry } from 'client/hooks'
+import { useCountryIso, useIsCountryRoute } from 'client/hooks'
 import { useToaster } from 'client/hooks/useToaster'
 import EditUserForm from 'client/components/EditUserForm'
 import ButtonContinue from 'client/pages/User/ButtonContinue'
@@ -23,7 +23,7 @@ const User: React.FC = () => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const user = useUser()
-  const isCountry = useIsCountry()
+  const isCountry = useIsCountryRoute()
   const userToEdit = useUserToEdit()
   const location = useLocation()
   const { toaster } = useToaster()

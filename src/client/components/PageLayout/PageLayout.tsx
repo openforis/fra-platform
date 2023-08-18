@@ -1,21 +1,19 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { useIsAdmin, useIsLogin, useIsPrint, useIsUserEditPage } from 'client/hooks/useIsPath'
+import { useIsAdminRoute, useIsLoginRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import Footer from './Footer'
 import Header from './Header'
 import Toolbar from './Toolbar'
 
 const PageLayout: React.FC = () => {
-  const { print } = useIsPrint()
-  const isAdmin = useIsAdmin()
-  const isLogin = useIsLogin()
-
-  const isUserEditPage = useIsUserEditPage()
+  const { print } = useIsPrintRoute()
+  const isAdmin = useIsAdminRoute()
+  const isLogin = useIsLoginRoute()
 
   const withHeader = !print
-  const withToolbar = !isAdmin && !isLogin && !isUserEditPage
+  const withToolbar = !isAdmin && !isLogin
 
   return (
     <>

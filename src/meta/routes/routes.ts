@@ -31,7 +31,9 @@ const OriginalDataPoint = createRoute<SectionRouteParams>({
   parent: Country,
 })
 const Section = createRoute<SectionRouteParams>({ path: 'sections/:sectionName', parent: Country })
+
 const Print = createRoute<CountryRouteParams>({ path: 'print', parent: Country })
+const PrintTables = createRoute<CountryRouteParams>({ path: 'tables', parent: Print })
 
 // Login routes and sub routes
 const Login = createRoute<CycleRouteParams, LoginQueryParams>({ path: 'login', parent: Cycle })
@@ -61,6 +63,7 @@ export const Routes = {
   OriginalDataPoint,
   Section,
   Print,
+  PrintTables,
 
   // login
   Login,

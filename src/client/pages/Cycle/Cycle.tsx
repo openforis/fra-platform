@@ -4,13 +4,13 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 import { useCycle } from 'client/store/assessment'
 import { useUserCycles } from 'client/store/user'
-import { useIsLogin } from 'client/hooks/useIsPath'
+import { useIsLoginRoute } from 'client/hooks/useIsRoute'
 
 import { useInitAreas } from './hooks/useInitAreas'
 
 const Cycle: React.FC = () => {
   const cycle = useCycle()
-  const isLogin = useIsLogin()
+  const isLogin = useIsLoginRoute()
 
   const navigate = useNavigate()
   const userCycles = useUserCycles()

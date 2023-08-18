@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next'
 import { Labels } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import { Props } from '../props'
 import ExcelCalculatorDownload from './ExcelCalculatorDownload'
 
 const TitleExcelCalculator: React.FC<Props> = (props) => {
   const { subSection } = props
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const { t } = useTranslation()
   const cycle = useCycle()
 

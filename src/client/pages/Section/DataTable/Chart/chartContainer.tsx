@@ -9,7 +9,7 @@ import { RecordCountryData } from 'meta/data'
 
 import { useIsSomeTableDataFetching } from 'client/store/data'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import DataTrend from './components/dataTrend'
 import Legend from './components/legend'
@@ -60,7 +60,7 @@ const ChartContainer = (props: ChartContainerProps) => {
   const { data: _data, table, wrapperWidth } = props
 
   const countryIso = useCountryIso()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const trends = useTrends({ table })
   const [data, setData] = useState(toObject(_data, countryIso))
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)

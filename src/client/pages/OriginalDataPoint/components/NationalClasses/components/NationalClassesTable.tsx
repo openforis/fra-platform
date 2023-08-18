@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import NationalClass from './NationalClass'
 
@@ -13,7 +13,7 @@ export const NationalClassesTable = (props: { canEditData: boolean; originalData
   const { nationalClasses, year } = originalDataPoint
   const cycle = useCycle()
 
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const { t } = useTranslation()
 

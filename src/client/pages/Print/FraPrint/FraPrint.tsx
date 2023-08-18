@@ -9,7 +9,7 @@ import { useCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { MetadataActions, useSections } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Loading from 'client/components/Loading'
 import Section from 'client/pages/Section'
 
@@ -25,7 +25,7 @@ const FraPrint: React.FC = () => {
   const dispatch = useAppDispatch()
   const sections = useSections()
 
-  const { onlyTables } = useIsPrint()
+  const { onlyTables } = useIsPrintRoute()
   const deskStudy = country?.props?.deskStudy
 
   useEffect(() => {

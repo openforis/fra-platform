@@ -10,7 +10,7 @@ import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import MultiSelect from 'client/components/MultiSelect'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
@@ -29,7 +29,7 @@ const DataSources: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const displayReviewIndicator = originalDataPoint.id && !print && canEditData
 

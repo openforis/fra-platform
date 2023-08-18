@@ -4,7 +4,7 @@ import { Table } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
 import { useOnResize } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DOMs } from 'client/utils/dom'
 
 import ChartContainer from './chartContainer'
@@ -17,7 +17,7 @@ type Props = {
 const ChartWrapper = (props: Props) => {
   const { data, table } = props
 
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const chartRef = useRef(null)
   const [width, setWidth] = useState(null)

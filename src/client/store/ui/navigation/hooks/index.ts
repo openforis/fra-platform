@@ -1,9 +1,9 @@
 import { useAppSelector } from 'client/store'
-import { useCountryIso, useIsGeoPage } from 'client/hooks'
+import { useCountryIso, useIsGeoRoute } from 'client/hooks'
 
 export const useNavigationVisible = (): boolean => {
   const countryIso = useCountryIso()
-  const isInGeoPage = useIsGeoPage()
+  const isInGeoPage = useIsGeoRoute()
 
   const navigationVisible = useAppSelector((state) => state.ui.navigation.visible)
 

@@ -12,7 +12,7 @@ import { useCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import Icon from 'client/components/Icon'
 import LinkHome from 'client/components/LinkHome'
@@ -27,7 +27,7 @@ const Toolbar: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const user = useUser()
 
   const isCountry = Areas.isISOCountry(countryIso)
