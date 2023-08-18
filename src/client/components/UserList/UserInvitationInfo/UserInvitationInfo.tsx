@@ -2,7 +2,7 @@ import './UserInvitationInfo.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
@@ -25,10 +25,10 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
 
   const { invitationUuid } = Users.getRole(user, countryIso, cycle)
 
-  const url = `${window.location.origin}${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({
-    assessmentName,
-    cycleName,
-  })}?invitationUuid=${invitationUuid}`
+  const url = `${window.location.origin}${Routes.LoginInvitation.generatePath(
+    { assessmentName, cycleName },
+    { invitationUuid }
+  )}`
   return (
     <div className="invitation-info-box">
       <div className="label">{t('userManagement.invitationLink')}</div>

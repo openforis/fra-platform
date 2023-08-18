@@ -4,8 +4,8 @@ import { Outlet } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
-import { Areas } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
+import { Routes } from 'meta/routes'
 import { Authorizer } from 'meta/user'
 
 import { useCountries, useCountry } from 'client/store/area'
@@ -16,7 +16,8 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Navigation from 'client/components/Navigation'
 
 import useGetUsers from './hooks/useGetUsers'
-import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
+import { useInitMetaCache } from './hooks/useInitMetaCache'
+import { useInitSections } from './hooks/useInitSections'
 
 const Country: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
@@ -26,17 +27,18 @@ const Country: React.FC = () => {
   const user = useUser()
   const navigationVisible = useNavigationVisible()
   const countries = useCountries()
-  const country = useCountry(countryIso)
+  const country = useCountry(countryIso as CountryIso) // TODO: revisit useCountry Hook
   // const isDataExportView = useIsDataExportView()
+  useInitSections()
+  useInitMetaCache()
   useGetUsers()
-  useReviewSummaryListener()
 
   if (!countryIso) return null
 
   if (countries?.length === 0) return null
 
   if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ assessment, countryIso, cycle, user }))
-    window.location.href = ClientRoutes.Assessment.Cycle.Landing.getLink({ assessmentName, cycleName })
+    window.location.href = Routes.Cycle.generatePath({ assessmentName, cycleName })
 
   return (
     <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>

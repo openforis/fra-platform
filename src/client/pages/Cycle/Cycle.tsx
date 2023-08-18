@@ -7,8 +7,6 @@ import { useUserCycles } from 'client/store/user'
 import { useIsLoginRoute } from 'client/hooks/useIsRoute'
 
 import { useInitAreas } from './hooks/useInitAreas'
-import { useInitMetaCache } from './hooks/useInitMetaCache'
-import { useInitSections } from './hooks/useInitSections'
 
 const Cycle: React.FC = () => {
   const cycle = useCycle()
@@ -16,8 +14,6 @@ const Cycle: React.FC = () => {
 
   const navigate = useNavigate()
   const userCycles = useUserCycles()
-  useInitSections()
-  useInitMetaCache()
   useInitAreas()
 
   // TODO: think later
