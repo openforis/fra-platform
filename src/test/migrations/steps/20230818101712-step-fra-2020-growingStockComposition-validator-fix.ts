@@ -4,9 +4,10 @@ import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
-  const assessment = await AssessmentController.getOne(
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
     {
       assessmentName: AssessmentNames.fra,
+      cycleName: '2020',
       metaCache: true,
     },
     client
