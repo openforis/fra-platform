@@ -4,6 +4,7 @@ import {
   CountryRouteParams,
   CountryUserRouteParams,
   CycleRouteParams,
+  OriginalDataPointRouteParams,
   SectionRouteParams,
 } from 'meta/routes/routeParams'
 
@@ -26,7 +27,7 @@ const CountryHome = createRoute<CountryRouteParams>({ path: 'home', parent: Coun
 const CountryHomeSection = createRoute<CountryHomeRouteParams>({ path: ':sectionName', parent: CountryHome })
 const CountryUser = createRoute<CountryUserRouteParams>({ path: 'users/:id', parent: Country })
 const Geo = createRoute<CountryRouteParams>({ path: 'geo', parent: Country })
-const OriginalDataPoint = createRoute<SectionRouteParams>({
+const OriginalDataPoint = createRoute<OriginalDataPointRouteParams>({
   path: 'originalDataPoints/:year/:sectionName',
   parent: Country,
 })

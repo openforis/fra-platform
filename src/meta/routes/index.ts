@@ -6,6 +6,7 @@ export type {
   CountryRouteParams,
   CountryUserRouteParams,
   CycleRouteParams,
+  OriginalDataPointRouteParams,
   SectionRouteParams,
 } from './routeParams'
 export { Routes } from './routes'

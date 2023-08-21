@@ -24,3 +24,7 @@ export type CountryUserRouteParams = CountryRouteParams & {
 export type SectionRouteParams = CountryRouteParams & {
   sectionName: SectionName
 }
+
+export type OriginalDataPointRouteParams = SectionRouteParams & {
+  year: string
+}

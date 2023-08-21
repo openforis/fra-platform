@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -39,7 +39,7 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
 
   return (
     <Link
-      to={ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
+      to={Routes.CountryUser.generatePath({
         countryIso,
         assessmentName,
         cycleName,

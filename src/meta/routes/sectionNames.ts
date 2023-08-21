@@ -1,3 +1,7 @@
+enum AdminSectionNames {
+  userManagement = 'userManagement',
+}
+
 enum CountryHomeSectionNames {
   overview = 'overview',
   messageBoard = 'messageBoard',
@@ -8,6 +12,7 @@ enum CountryHomeSectionNames {
 }
 
 export const SectionNames = {
+  Admin: AdminSectionNames,
   Country: {
     Home: CountryHomeSectionNames,
   },

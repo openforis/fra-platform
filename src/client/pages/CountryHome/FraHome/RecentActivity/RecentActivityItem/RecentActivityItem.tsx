@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ClientRoutes } from 'meta/app'
 import { ActivityLog, ActivityLogs } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -39,7 +39,7 @@ const RecentActivityItem: React.FC<Props> = ({ activity }) => {
         {ActivityLogs.hasSectionLink(activity) && (
           <Link
             className={classNames('link', { disabled: ActivityLogs.isSectionLinkDisabled(activity) })}
-            to={ClientRoutes.Assessment.Cycle.Country.Section.getLink({
+            to={Routes.Section.generatePath({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,

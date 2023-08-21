@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -36,7 +36,7 @@ const HeaderCell: React.FC<Props> = (props) => {
     <th className="odp-header-cell" colSpan={colSpan} rowSpan={rowSpan}>
       <Link
         className="link"
-        to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+        to={Routes.OriginalDataPoint.generatePath({
           countryIso,
           assessmentName: assessment.props.name,
           cycleName: cycle.name,

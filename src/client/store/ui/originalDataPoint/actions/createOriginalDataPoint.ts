@@ -3,8 +3,8 @@ import { NavigateFunction } from 'react-router-dom'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { CycleParams } from 'meta/api/request'
-import { ClientRoutes } from 'meta/app'
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 export const createOriginalDataPoint = createAsyncThunk<
   OriginalDataPoint,
@@ -13,7 +13,7 @@ export const createOriginalDataPoint = createAsyncThunk<
   }
 >('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, navigate }) => {
   navigate(
-    ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+    Routes.OriginalDataPoint.generatePath({
       countryIso,
       assessmentName,
       cycleName,
