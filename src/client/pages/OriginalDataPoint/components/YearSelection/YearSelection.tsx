@@ -2,11 +2,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from 'utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { ClientRoutes } from 'meta/app'
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -57,7 +57,7 @@ const YearSelection: React.FC<Props> = (props) => {
               })
             )
             // Update url but do not push new entry to state
-            const url = ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+            const url = Routes.OriginalDataPoint.generatePath({
               countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,

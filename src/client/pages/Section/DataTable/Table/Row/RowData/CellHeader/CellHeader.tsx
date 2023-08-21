@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
 import { AssessmentName, Col, Cols, Row } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 import { useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
@@ -45,7 +45,7 @@ const CellHeader: React.FC<{ assessmentName: AssessmentName; col: Col; row: Row 
         <>
           <div className="only-print">{colHeaderLabel}</div>
           <Link
-            to={ClientRoutes.Assessment.Cycle.Country.Section.getLink({
+            to={Routes.Section.generatePath({
               countryIso,
               assessmentName,
               cycleName: cycle.name,
