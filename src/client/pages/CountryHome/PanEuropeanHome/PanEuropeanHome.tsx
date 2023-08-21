@@ -5,8 +5,8 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentHomeRouteNames } from 'meta/app'
 import { Areas } from 'meta/area'
+import { SectionNames } from 'meta/routes'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -43,7 +43,7 @@ const PanEuropeanHome: React.FC = () => {
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
 
-        <Route index element={<Navigate replace to={AssessmentHomeRouteNames.overview} />} />
+        <Route index element={<Navigate replace to={SectionNames.Country.Home.overview} />} />
       </Routes>
     </>
   )
