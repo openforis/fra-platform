@@ -1010,6 +1010,7 @@ FRA工作组
   },
 
   generalValidation: {
+    sumEqualTo: '{{categoryLabels}}（{{categoriesSum}}）之和必须等于{{maxValue}}',
     subCategoryExceedsParent: '子类别超过母类别',
     forestAreaDoesNotMatchExtentOfForest: '与森林面积(1a)不匹配',
     forestAreaExceedsExtentOfForest: '超过森林面积(1a)',

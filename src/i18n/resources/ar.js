@@ -28,7 +28,7 @@ module.exports.translation = {
 
   anchors: {
     fra: {
-      '2025': {
+      2025: {
         '1a': 'ا) 1',
         '1b': 'ب) 1',
         '1c': 'ج) 1',
@@ -1044,6 +1044,7 @@ The FRA team
   },
 
   generalValidation: {
+    sumEqualTo: 'مجموع ال {{categoryLabels}} ({{categoriesSum}}) يجب ان يساوى {{maxValue}}',
     subCategoryExceedsParent: 'الفئة الفرعية تتجاوز الأصل',
     forestAreaDoesNotMatchExtentOfForest: 'لاتتطابق مع مساحة الغابة (اأ)',
     forestAreaExceedsExtentOfForest: 'تتجاوز مساحة الغابة (اأ)',

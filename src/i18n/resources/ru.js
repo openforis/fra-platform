@@ -1002,6 +1002,7 @@ module.exports.translation = {
   },
 
   generalValidation: {
+    sumEqualTo: 'Сумма {{categoryLabels}} ({{categoriesSum}}) должна быть равна {{maxValue}}',
     subCategoryExceedsParent: 'Подкатегория превышает родительскую категорию',
     forestAreaDoesNotMatchExtentOfForest: 'Не совпадает с "Площадь лесов" (1a)',
     forestAreaExceedsExtentOfForest: 'Превышает "Площадь лесов" (1a)',

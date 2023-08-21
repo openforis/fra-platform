@@ -978,6 +978,7 @@ El equipo de FRA
   },
 
   generalValidation: {
+    sumEqualTo: 'La suma de {{categoryLabels}} ({{categoriesSum}}) debe ser igual a {{maxValue}}',
     subCategoryExceedsParent: 'La subcategoría es superior a la categoría',
     forestAreaDoesNotMatchExtentOfForest: 'No coincide con el área de bosque (1a)',
     forestAreaExceedsExtentOfForest: 'Superior al área de bosque (1a)',
