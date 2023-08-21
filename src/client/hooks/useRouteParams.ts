@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 
-import { AssessmentRouteParams, CountryRouteParams, CycleRouteParams, SectionRouteParams } from 'meta/routes/params'
+import { AssessmentRouteParams, CountryRouteParams, CycleRouteParams, SectionRouteParams } from 'meta/routes'
 
 export const useAssessmentRouteParams = () => useParams<AssessmentRouteParams>()
 

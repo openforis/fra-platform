@@ -1,8 +1,8 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { ClientRoutes } from 'meta/app'
 import { CountryIso } from 'meta/area'
 import { AssessmentName, Assessments } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 import { RoleName, User, UserRole, Users } from 'meta/user'
 
 import { sendMail } from './mail'
@@ -19,9 +19,10 @@ export const userInvite = async (props: {
 
   const i18n = await createI18nPromise('en')
 
-  const link = `${url}${ClientRoutes.Assessment.Cycle.Login.Invitation.getLink({ assessmentName, cycleName })}${
-    role.invitationUuid ? `?invitationUuid=${role.invitationUuid}` : ''
-  }`
+  const link = `${url}${Routes.LoginInvitation.generatePath(
+    { assessmentName, cycleName },
+    { invitationUuid: role.invitationUuid }
+  )}`
 
   const roleName = i18n.t(Users.getI18nRoleLabelKey(role.role))
 

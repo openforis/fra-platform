@@ -5,14 +5,14 @@ import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store'
 import { NavigationActions, useNavigationVisible } from 'client/store/ui/navigation'
-import { useIsAdmin, useIsCycleLanding, useIsGeoPage } from 'client/hooks'
+import { useIsAdminRoute, useIsCycleLandingRoute, useIsGeoRoute } from 'client/hooks'
 import Icon from 'client/components/Icon'
 
 const ToggleNavigationControl: React.FC = () => {
   const dispatch = useAppDispatch()
-  const isCycleLanding = useIsCycleLanding()
-  const isAdmin = useIsAdmin()
-  const isInGeoPage = useIsGeoPage()
+  const isCycleLanding = useIsCycleLandingRoute()
+  const isAdmin = useIsAdminRoute()
+  const isInGeoPage = useIsGeoRoute()
   const disabled = isCycleLanding || isAdmin || isInGeoPage
   const navigationVisible = useNavigationVisible()
 

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
 import { Global } from 'meta/area'
+import { Routes } from 'meta/routes'
 import { RoleName, User, Users, UserStatus } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -37,7 +37,7 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
       ))}
       <td className="user-list__cell user-list__edit-column">
         <Link
-          to={ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
+          to={Routes.CountryUser.generatePath({
             assessmentName: assessment.props.name,
             countryIso: Global.WO,
             cycleName: cycle.name,

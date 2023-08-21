@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 import * as passport from 'passport'
 
 import { LoginRequest } from 'meta/api/request'
-import { ClientRoutes } from 'meta/app'
 import { AuthToken } from 'meta/auth'
+import { Routes } from 'meta/routes'
 import { User } from 'meta/user'
 
 import { ProcessEnv } from 'server/utils'
@@ -46,12 +46,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
       next(err)
     } else if (!user) {
       res.clearCookie(AuthToken.fraAuthToken)
-      res.redirect(
-        `${ClientRoutes.Assessment.Cycle.Login.Root.getLink({
-          assessmentName,
-          cycleName,
-        })}?loginError=${msg.message}`
-      )
+      res.redirect(Routes.Login.generatePath({ assessmentName, cycleName }, { loginError: msg.message }))
     } else {
       req.login(user, (err: any) => {
         if (err) next(err)

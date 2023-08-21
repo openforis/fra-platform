@@ -7,7 +7,7 @@ import { useAssessmentCountry, useCountries } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useSection } from 'client/store/metadata'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
@@ -49,7 +49,7 @@ export const useCanEdit = (sectionName: string, permission = CollaboratorEditPro
 
 const useCanEditSection = (sectionName: string, permission: CollaboratorEditPropertyType) => {
   const isDataLocked = useIsDataLocked()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const canEdit = useCanEdit(sectionName, permission)
 
   return !print && !isDataLocked && canEdit

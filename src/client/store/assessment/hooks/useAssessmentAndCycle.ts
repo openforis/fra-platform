@@ -21,6 +21,7 @@ export const useAssessments = (): Array<Assessment> => {
 
 export const useCycle = (cycleUuid?: CycleUuid): Cycle => {
   const { cycleName } = useCountryRouteParams()
+
   const assessment = useAssessment()
 
   return useMemo<Cycle>(() => {

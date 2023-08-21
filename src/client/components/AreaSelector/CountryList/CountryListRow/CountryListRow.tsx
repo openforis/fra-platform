@@ -7,7 +7,7 @@ import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountry } from 'client/store/area'
-import { useIsCycleLanding } from 'client/hooks'
+import { useIsCycleLandingRoute } from 'client/hooks'
 import { Dates } from 'client/utils'
 
 type Props = {
@@ -28,7 +28,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const { i18n } = useTranslation()
   const country = useCountry(countryIso as CountryIso)
 
-  const isCycleLanding = useIsCycleLanding()
+  const isCycleLanding = useIsCycleLandingRoute()
   const countryNameRef = useRef(null)
 
   const status = Areas.getStatus(country)

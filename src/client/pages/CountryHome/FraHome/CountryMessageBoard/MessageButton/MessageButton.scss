@@ -1,0 +1,20 @@
+@import 'src/client/style/partials';
+@import 'src/client/styles/buttons';
+
+.btn-message {
+  @include mixin-button-base($font-m, 7px 14px);
+  margin-top: 12px;
+}
+
+.btn-message-count {
+  margin-left: 10px;
+  border: 1px solid #0098a6;
+  border-radius: 50%;
+  width: 23px;
+  background-color: rgba(0, 152, 166, 0.77);
+  color: white;
+  height: 23px;
+  padding-top: 1px;
+  font-size: 12px;
+  display: inline-block;
+}

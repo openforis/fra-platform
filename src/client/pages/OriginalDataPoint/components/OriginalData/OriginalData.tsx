@@ -4,8 +4,8 @@ import { NavLink, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
 import { AssessmentName, OriginalDataPoint } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
@@ -51,7 +51,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+          to={Routes.OriginalDataPoint.generatePath({
             countryIso,
             assessmentName,
             cycleName,
@@ -70,7 +70,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+          to={Routes.OriginalDataPoint.generatePath({
             countryIso,
             assessmentName,
             cycleName,

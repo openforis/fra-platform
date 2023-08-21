@@ -9,7 +9,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries, useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
-import { useIsPanEuropean } from 'client/hooks'
+import { useIsPanEuropeanRoute } from 'client/hooks'
 import { checkMatch } from 'client/utils'
 
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
@@ -54,7 +54,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
   const allCountries = useCountries()
-  const isPanEuropean = useIsPanEuropean()
+  const isPanEuropean = useIsPanEuropeanRoute()
   const cycle = useCycle()
 
   const global = isPanEuropean ? RegionCode.FE : Global.WO
