@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
@@ -11,15 +12,8 @@ import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
 
 import Overview from '../Overview'
 
-enum SectionNames {
-  overview = 'overview',
-  messageBoard = 'messageBoard',
-  userManagement = 'userManagement',
-  recentActivity = 'recentActivity',
-}
-
 type Section = {
-  name: SectionNames
+  name: string
   component: React.FC
 }
 
@@ -28,14 +22,14 @@ export const useSections = (): Array<Section> => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const sections: Array<Section> = [{ name: SectionNames.overview, component: Overview }]
+  const sections: Array<Section> = [{ name: SectionNames.Country.Home.overview, component: Overview }]
 
   if (user) {
-    sections.push({ name: SectionNames.messageBoard, component: CountryMessageBoard })
-    sections.push({ name: SectionNames.recentActivity, component: RecentActivity })
+    sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
+    sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
   }
   if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
-    sections.splice(2, 0, { name: SectionNames.userManagement, component: Collaborators })
+    sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
   }
 
   return sections

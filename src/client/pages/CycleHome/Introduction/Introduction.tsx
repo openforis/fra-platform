@@ -3,17 +3,17 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
 import { Global } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
-import { useCycle } from 'client/store/assessment'
+import { useLanguage } from 'client/hooks/useLanguage'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 
 const Introduction: React.FC = () => {
-  const { i18n, t } = useTranslation()
-
-  const cycle = useCycle()
+  const { t } = useTranslation()
+  const language = useLanguage()
+  const { assessmentName, cycleName } = useCycleRouteParams()
 
   return (
     <div className="home-introduction">
@@ -24,7 +24,7 @@ const Introduction: React.FC = () => {
         <div className="process">{t('landing.about.fraProcess')}</div>
         <a
           className="home-link link-fra-process"
-          href={`http://www.fao.org/forest-resources-assessment/${i18n.resolvedLanguage}/`}
+          href={`http://www.fao.org/forest-resources-assessment/${language}/`}
           target="_blank"
           rel="noreferrer"
         >
@@ -41,11 +41,7 @@ const Introduction: React.FC = () => {
               <img alt="" src="/img/iconGlobal.svg" />
               <Link
                 className="home-link m-r"
-                to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
-                  countryIso: Global.WO,
-                  assessmentName: AssessmentNames.fra,
-                  cycleName: cycle.name,
-                })}
+                to={Routes.Country.generatePath({ countryIso: Global.WO, assessmentName, cycleName })}
               >
                 {t(`area.${Global.WO}.listName`)}
               </Link>

@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
 import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -51,8 +51,7 @@ const AreaSelector: React.FC<Props> = (props) => {
   const isInGeoPage = useIsGeoRoute()
   const isCountry = Areas.isISOCountry(selectedValue)
 
-  const destinationPath =
-    isInGeoPage && isCountry ? ClientRoutes.Assessment.Cycle.Country.Geo : ClientRoutes.Assessment.Cycle.Country.Landing
+  const destinationRoute = isInGeoPage && isCountry ? Routes.Geo : Routes.Country
 
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -66,7 +65,7 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   const defaultHandleElementSelect = (countryIso: CountryIso | Global | RegionCode) => {
     navigate(
-      destinationPath.getLink({
+      destinationRoute.generatePath({
         assessmentName: assessment.props.name,
         cycleName: cycle?.name,
         countryIso,

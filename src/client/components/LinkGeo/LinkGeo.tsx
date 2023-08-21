@@ -2,24 +2,17 @@ import './linkGeo.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
+import { Routes } from 'meta/routes'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useCountryIso } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 const LinkGeo: React.FC = () => {
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
   return (
     <NavLink
       end
-      to={ClientRoutes.Assessment.Cycle.Country.Geo.getLink({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-      })}
+      to={Routes.Geo.generatePath({ assessmentName, cycleName, countryIso })}
       className="app-header-link-geo"
     >
       GEO

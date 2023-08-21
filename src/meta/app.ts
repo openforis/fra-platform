@@ -33,18 +33,6 @@ type AssessmentParams = CycleParams & {
   countryIso: CountryIso | Global | RegionCode
 }
 
-/**
- * @deprecated
- */
-export enum AssessmentHomeRouteNames {
-  overview = 'overview',
-  messageBoard = 'messageBoard',
-  contentCheck = 'contentCheck',
-  userManagement = 'userManagement',
-  recentActivity = 'recentActivity',
-  links = 'links',
-}
-
 export enum AdminRouteNames {
   userManagement = 'userManagement',
   // dataExport = 'dataExport',
@@ -61,39 +49,19 @@ export const ClientRoutes = {
   Root: { path: '/' },
 
   Assessment: {
-    Landing: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName'),
     Cycle: {
-      Landing: newInstance<CycleParams>('assessments', ':assessmentName', ':cycleName'),
-      Admin: {
-        Root: newInstance<CycleParams>(...cycleParts, 'admin'),
-      },
-      Login: {
-        Root: newInstance<CycleParams>(...cycleParts, 'login'),
-        Invitation: newInstance<CycleParams>(...cycleParts, 'login', 'invitation'),
-        ResetPassword: newInstance<CycleParams>(...cycleParts, 'login', 'resetPassword'),
-      },
-      Users: {
-        User: newInstance<CycleParams & { id: number }>(...cycleParts, 'users/:id'),
-      },
       Country: {
-        DataDownload: newInstance<AssessmentParams>(...assessmentParts, 'dataDownload'),
-        Landing: newInstance<AssessmentParams>(...assessmentParts),
-        Geo: newInstance<AssessmentParams>(...assessmentParts, 'geo'),
-
         OriginalDataPoint: {
           Section: newInstance<AssessmentParams & { year: string; sectionName: string }>(
             ...assessmentParts,
             'originalDataPoints/:year/:sectionName'
           ),
         },
-        Print: newInstance<AssessmentParams>(...assessmentParts, 'print'),
-        PrintTables: newInstance<AssessmentParams>(...assessmentParts, 'print', 'tables'),
         Section: newInstance<AssessmentParams & { sectionName: string }>(...assessmentParts, 'sections/:sectionName'),
         Users: {
           User: newInstance<AssessmentParams & { id: number }>(...assessmentParts, 'users/:id'),
         },
       },
     },
-    Tutorials: newInstance<{ assessmentName: AssessmentName }>('assessments', ':assessmentName', 'tutorials'),
   },
 }

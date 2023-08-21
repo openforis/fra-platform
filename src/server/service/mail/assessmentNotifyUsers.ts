@@ -1,9 +1,9 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { ClientRoutes } from 'meta/app'
 import { Country, CountryIso } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
 import { AssessmentName, Cycle } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -26,11 +26,7 @@ const createMail = async (props: {
 
   const i18n = await createI18nPromise(recipient.props.lang ?? 'en')
 
-  const link = `${url}${ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
-    assessmentName,
-    countryIso,
-    cycleName,
-  })}`
+  const link = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
