@@ -11,7 +11,7 @@ import { useCycle } from 'client/store/assessment'
 import { DataActions } from 'client/store/data'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 
 type Props = {
@@ -29,7 +29,7 @@ const ButtonTableClear: React.FC<Props> = (props) => {
 
   const countryIso = useCountryIso()
   const cycle = useCycle()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()
 
   const _onClick = useCallback(() => {

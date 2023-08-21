@@ -3,8 +3,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
 import { AssessmentName } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -30,13 +30,13 @@ const ButtonBar: React.FC<Props> = (props) => {
     cycleName: string
     sectionName: string
   }>()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
   const isOriginalDataPointUpdating = useIsOriginalDataPointUpdating()
   const disabled = !originalDataPoint.id || isOriginalDataPointUpdating
   const assessment = useAssessment()
   const cycle = useCycle()
-  const assessmentSectionLink = ClientRoutes.Assessment.Cycle.Country.Section.getLink({
+  const assessmentSectionLink = Routes.Section.generatePath({
     countryIso,
     assessmentName,
     cycleName,
@@ -48,7 +48,7 @@ const ButtonBar: React.FC<Props> = (props) => {
   }
 
   const handleDelete = () => {
-    if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
+    if (window.confirm(t('nationalDataPoint.confirmDelete'))) {
       dispatch(
         OriginalDataPointActions.deleteOriginalDataPoint({
           countryIso,
@@ -71,13 +71,13 @@ const ButtonBar: React.FC<Props> = (props) => {
           navigate(assessmentSectionLink)
         }}
       >
-        {i18n.t('nationalDataPoint.doneEditing')}
+        {t('nationalDataPoint.doneEditing')}
       </button>
 
       <div className="odp-v-divider" />
 
       <button type="button" className="btn btn-destructive" disabled={disabled} onClick={handleDelete}>
-        {i18n.t('nationalDataPoint.delete')}
+        {t('nationalDataPoint.delete')}
       </button>
     </>
   )

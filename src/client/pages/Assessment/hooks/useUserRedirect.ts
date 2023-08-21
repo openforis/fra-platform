@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
 import { AssessmentNames } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -32,7 +32,7 @@ export const useUserRedirect = (): void => {
       const params = { assessmentName, cycleName, countryIso, id: user.id }
       const routeParams = { assessmentName, cycleName, countryIso }
       const state = { userLastRole, personalInfoRequired, routeParams }
-      navigate(ClientRoutes.Assessment.Cycle.Country.Users.User.getLink(params), { state })
+      navigate(Routes.CountryUser.generatePath(params), { state })
     }
   }, [assessment, assessmentName, countryIso, cycle, cycleName, isAppInitialized, navigate, user, userLastRole])
 }

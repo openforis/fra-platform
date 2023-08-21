@@ -1,12 +1,12 @@
 import './Admin.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import { Navigate, NavLink, Outlet } from 'react-router-dom'
 
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { AdminRouteNames, ClientRoutes } from 'meta/app'
+import { Routes, SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCountries } from 'client/store/area'
@@ -14,8 +14,18 @@ import { useUser } from 'client/store/user'
 
 import UserManagement from './UserManagement'
 
-const sections = [
-  { component: UserManagement, name: AdminRouteNames.userManagement, labelKey: 'landing.sections.userManagement' },
+type Section = {
+  component: React.FC
+  labelKey: string
+  name: string
+}
+
+const sections: Array<Section> = [
+  {
+    component: UserManagement,
+    name: SectionNames.Admin.userManagement,
+    labelKey: 'landing.sections.userManagement',
+  },
   // { name: 'dataExport', labelKey: 'common.dataExport' },
 ]
 
@@ -24,7 +34,7 @@ const Admin: React.FC = () => {
   const countries = useCountries()
   const user = useUser()
 
-  if (!Users.isAdministrator(user)) return <Navigate to={ClientRoutes.Root.path} replace />
+  if (!Users.isAdministrator(user)) return <Navigate to={Routes.Root.path.absolute} replace />
 
   if (Objects.isEmpty(countries)) return null
 
@@ -50,13 +60,7 @@ const Admin: React.FC = () => {
         ))}
       </div>
 
-      <Routes>
-        {sections.map(({ name, component }) => (
-          <Route key={name} path={name} element={React.createElement(component, {})} />
-        ))}
-
-        <Route path="*" element={<Navigate to={AdminRouteNames.userManagement} replace />} />
-      </Routes>
+      <Outlet />
     </div>
   )
 }

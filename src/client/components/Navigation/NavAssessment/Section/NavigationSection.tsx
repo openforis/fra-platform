@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
 import { Labels, Section } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useSectionReviewSummary } from 'client/store/ui/review/hooks'
@@ -47,7 +47,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   // // On mount check whether the location matches a child path
   useEffect(() => {
     const match = section.subSections.find((subsection) => {
-      const path = ClientRoutes.Assessment.Cycle.Country.Section.getLink({
+      const path = Routes.Section.generatePath({
         countryIso,
         cycleName: cycle.name,
         assessmentName,

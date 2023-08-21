@@ -6,7 +6,7 @@ import { Numbers } from 'utils/numbers'
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import DefinitionLink from 'client/components/DefinitionLink'
 
 import NationalClassValidations from '../NationalClassValidations'
@@ -29,7 +29,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     t,
     i18n: { language },
   } = useTranslation()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
   const plantationTotal = ODPs.calcTotalSubFieldArea({

@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from 'meta/app'
 import { Areas } from 'meta/area'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useIsPrint } from 'client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import Icon from 'client/components/Icon'
 import LinkHome from 'client/components/LinkHome'
@@ -27,7 +27,7 @@ const Toolbar: React.FC = () => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const country = useCountry(countryIso)
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const user = useUser()
 
   const isCountry = Areas.isISOCountry(countryIso)
@@ -76,11 +76,7 @@ const Toolbar: React.FC = () => {
             <MediaQuery minWidth={Breakpoints.laptop}>
               <Link
                 className="btn btn-secondary"
-                to={ClientRoutes.Assessment.Cycle.Country.PrintTables.getLink({
-                  countryIso,
-                  assessmentName,
-                  cycleName,
-                })}
+                to={Routes.PrintTables.generatePath({ countryIso, assessmentName, cycleName })}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-margin-left icon-sub" />
@@ -89,7 +85,7 @@ const Toolbar: React.FC = () => {
 
               <Link
                 className="btn btn-secondary"
-                to={ClientRoutes.Assessment.Cycle.Country.Print.getLink({ countryIso, assessmentName, cycleName })}
+                to={Routes.Print.generatePath({ countryIso, assessmentName, cycleName })}
                 target="_blank"
               >
                 <Icon name="small-print" className="icon-no-margin icon-sub" />

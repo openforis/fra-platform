@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ClientRoutes } from 'meta/app'
 import { Assessments } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 import { AuthProvider, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -20,7 +20,6 @@ const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n, t } = useTranslation()
   const navigate = useNavigate()
-
   const loggedUser = useUser()
 
   const invitationUuid = Urls.getRequestParam('invitationUuid')
@@ -32,6 +31,9 @@ const Invitation: React.FC = () => {
   const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
+  const cycle = assessment.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+  const assessmentName = assessment.props.name
+  const cycleName = cycle?.name
   const showPassword2 =
     (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
 
@@ -70,8 +72,6 @@ const Invitation: React.FC = () => {
     }
   }
 
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
-
   if (userRole?.acceptedAt) {
     return (
       <div className="login__form">
@@ -96,8 +96,8 @@ const Invitation: React.FC = () => {
     <div className="login__formWrapper">
       <h3>
         {t('login.invitationMessage', {
-          assessment: t(Assessments.getShortLabel(assessment.props.name)),
-          cycle: cycle.name,
+          assessment: t(Assessments.getShortLabel(assessmentName)),
+          cycle: cycleName,
           role: t(Users.getI18nRoleLabelKey(userRole.role)),
           country: t(`area.${userRole.countryIso}.listName`),
         })}
@@ -150,9 +150,9 @@ const Invitation: React.FC = () => {
 
               {showForgotPassword && (
                 <Link
-                  to={ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({
-                    assessmentName: assessment.props.name,
-                    cycleName: cycle.name,
+                  to={Routes.LoginResetPassword.generatePath({
+                    assessmentName,
+                    cycleName,
                   })}
                   type="button"
                   className="btn-forgot-pwd"
@@ -186,9 +186,7 @@ const Invitation: React.FC = () => {
 
           <a
             className="btn"
-            href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${
-              cycle.name
-            }&invitationUuid=${invitationUuid}`}
+            href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&cycleName=${cycleName}&invitationUuid=${invitationUuid}`}
           >
             {t('login.acceptInvitationWithGoogle')}
           </a>

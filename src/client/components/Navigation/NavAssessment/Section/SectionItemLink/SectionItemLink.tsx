@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from 'meta/app'
 import { Labels, SubSection, SubSections } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -38,7 +38,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
 
   return (
     <NavLink
-      to={ClientRoutes.Assessment.Cycle.Country.Section.getLink({
+      to={Routes.Section.generatePath({
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countryIso,

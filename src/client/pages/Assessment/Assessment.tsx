@@ -1,10 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-
-import { ClientRoutes } from 'meta/app'
-
-import Cycle from 'client/pages/Cycle'
-import Tutorials from 'client/pages/Tutorials'
+import { Outlet } from 'react-router-dom'
 
 import { useInitLanguage } from './hooks/useInitLanguage'
 import { useTheme } from './hooks/useTheme'
@@ -15,13 +10,7 @@ const Assessment: React.FC = () => {
   useUserRedirect()
   useTheme()
 
-  return (
-    <Routes>
-      <Route path={`${ClientRoutes.Assessment.Tutorials.path.relative}`} element={<Tutorials />} />
-
-      <Route path={`${ClientRoutes.Assessment.Cycle.Landing.path.relative}/*`} element={<Cycle />} />
-    </Routes>
-  )
+  return <Outlet />
 }
 
 export default Assessment
