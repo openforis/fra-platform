@@ -90,6 +90,16 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycl
   return []
 }
 
+const getRolesAllowedToView = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<RoleName> => {
+  const { countryIso, cycle, user } = props
+
+  if (isReviewer(user, countryIso, cycle)) {
+    return [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
+  }
+
+  return getRolesAllowedToEdit(props)
+}
+
 const getI18nRoleLabelKey = (role: RoleName | string): string =>
   role ? `user.roles.${role}` : UserRoles.noRole.labelKey
 
@@ -186,6 +196,7 @@ export const Users = {
   isViewer,
 
   getRolesAllowedToEdit,
+  getRolesAllowedToView,
   getI18nRoleLabelKey,
   hasEditorRole,
   hasRoleInAssessment,

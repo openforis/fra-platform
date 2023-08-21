@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 
+import { CountryIso } from 'meta/area'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
@@ -39,7 +40,7 @@ export const useSections = (): Array<Section> => {
       sections.push({ name: SectionNames.Country.Home.links, component: Links })
     }
 
-    if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
+    if (Users.getRolesAllowedToView({ user, countryIso: countryIso as CountryIso, cycle }).length > 0) {
       sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
     }
 

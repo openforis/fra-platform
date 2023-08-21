@@ -37,6 +37,9 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
   if ((currentUserIsNationalCorrespondent || currentUserIsAlternateNationalCorrespondent) && !userIsCollaborator)
     return null
 
+  const currentUserIsReviewer = Users.isReviewer(currentUser, countryIso, cycle)
+  const linkText = currentUserIsReviewer ? 'userManagement.view' : 'userManagement.edit'
+
   return (
     <Link
       to={Routes.CountryUser.generatePath({
@@ -48,7 +51,7 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
       type="button"
       className="link"
     >
-      {t('userManagement.edit')}
+      {t(linkText)}
     </Link>
   )
 }

@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { User } from 'meta/user'
 
+import { useUserListUsers } from 'client/components/UserList/useUserListUsers'
+
 import AdministrationListElement from './AdministrationListElement'
 import CollaboratorListElement from './CollaboratorListElement'
 import UserListHeader from './UserListHeader'
@@ -14,10 +16,14 @@ type Props = {
   readOnly?: boolean
 }
 
-const UserList: React.FC<Props> = ({ users, isAdmin, readOnly }) => {
+const UserList: React.FC<Props> = ({ users: usersProp, isAdmin, readOnly }) => {
   const { t } = useTranslation()
 
-  return users?.length > 0 ? (
+  const users = useUserListUsers(usersProp)
+
+  if (!users.length) return <>{t('userManagement.noUsers')}</>
+
+  return (
     <table className="user-list__table">
       <UserListHeader readOnly={readOnly} isAdmin={isAdmin} />
       <tbody>
@@ -30,8 +36,6 @@ const UserList: React.FC<Props> = ({ users, isAdmin, readOnly }) => {
         )}
       </tbody>
     </table>
-  ) : (
-    <>{t('userManagement.noUsers')}</>
   )
 }
 

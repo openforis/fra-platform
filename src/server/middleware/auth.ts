@@ -168,7 +168,7 @@ const requireViewUser = async (req: Request, _res: Response, next: NextFunction)
 
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(isAdministrator || isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
+  _next(isAdministrator || isSelf || Users.getRolesAllowedToView({ user, countryIso, cycle }).length > 0, next)
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {

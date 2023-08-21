@@ -57,6 +57,7 @@ const User: React.FC = () => {
   if (!userToEdit) return null
 
   const isAdministrator = Users.isAdministrator(user)
+  const isReviewer = Users.isReviewer(user, countryIso, cycle)
 
   const isSelf = user.id === userToEdit.id
 
@@ -68,7 +69,7 @@ const User: React.FC = () => {
     !Areas.isISOGlobal(countryIso) &&
     isCountry
 
-  const canEditRoles = !isSelf && isAdministrator && Areas.isISOGlobal(countryIso)
+  const canEditRoles = !isReviewer && !isSelf && isAdministrator && Areas.isISOGlobal(countryIso)
 
   return (
     <div className="app-view__content user-container">

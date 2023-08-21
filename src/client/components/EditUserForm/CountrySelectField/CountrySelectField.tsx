@@ -34,6 +34,7 @@ const CountrySelectField: React.FC<Props> = (props) => {
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
       <div className={classNames('edit-user__form-field', { disabled: !enabled, error: !valid })}>
         <AreaSelector
+          disabled={!enabled}
           includeCountries
           onElementSelect={(countryIso: CountryIso) => onChange(name, countryIso)}
           showCountryFlag
