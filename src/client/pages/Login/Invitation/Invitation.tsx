@@ -31,8 +31,8 @@ const Invitation: React.FC = () => {
   const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const cycle = assessment.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
-  const assessmentName = assessment.props.name
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+  const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
   const showPassword2 =
     (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
