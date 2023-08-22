@@ -364,13 +364,13 @@ El equipo de FRA
   },
 
   time: {
-    hour: '{{count}} hace una hora',
-    day: '{{count}} hace un día',
-    week: '{{count}} hace una semana',
-    aMomentAgo: 'hace un momento',
+    hour: 'Hace {{count}} hora',
+    day: 'Hace {{count}} día',
+    week: 'Hace {{count}} semana',
+    aMomentAgo: 'Hace un momento',
     hour_plural: 'Hace {{count}} horas',
     day_plural: 'Hace {{count}} días ',
-    week_plural: 'Have {{count}} semanas',
+    week_plural: 'Hace {{count}} semanas',
   },
 
   review: {
