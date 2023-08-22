@@ -24,14 +24,11 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
 
   const showLink = !readOnly
 
-  let editColumn = <UserEditColumn user={user} />
-
-  if ((isReviewer && userRole.role === RoleName.REVIEWER) || (isReviewer && !acceptedAt)) {
-    editColumn = <div />
-  }
-
-  if (invitationUuid && !acceptedAt && !isReviewer)
-    editColumn = <InvitationColumn user={user} userRole={userRole} invitationUuid={invitationUuid} />
+  // Show placeholder if user is a reviewer and the role is reviewer or
+  // if the current user is a reviewer and the user has not accepted the invitation
+  const showPlaceholder = (isReviewer && userRole.role === RoleName.REVIEWER) || (isReviewer && !acceptedAt)
+  const showInvitationColumn = invitationUuid && !acceptedAt && !isReviewer
+  const showEditColumn = !showPlaceholder && !showInvitationColumn
 
   return (
     <tr
@@ -45,7 +42,13 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
       </td>
       <UserRoleField user={user} countryIso={countryIso} />
       <UserField user={user} field="email" />
-      {showLink && <td className="user-list__cell user-list__edit-column">{editColumn}</td>}
+      {showLink && (
+        <td className="user-list__cell user-list__edit-column">
+          {showPlaceholder && <div />}
+          {showEditColumn && <UserEditColumn user={user} />}
+          {showInvitationColumn && <InvitationColumn user={user} userRole={userRole} invitationUuid={invitationUuid} />}
+        </td>
+      )}
     </tr>
   )
 }
