@@ -26,11 +26,11 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
 
   let editColumn = <UserEditColumn user={user} />
 
-  if (isReviewer && userRole.role === RoleName.REVIEWER) {
+  if ((isReviewer && userRole.role === RoleName.REVIEWER) || (isReviewer && !acceptedAt)) {
     editColumn = <div />
   }
 
-  if (invitationUuid && !acceptedAt)
+  if (invitationUuid && !acceptedAt && !isReviewer)
     editColumn = <InvitationColumn user={user} userRole={userRole} invitationUuid={invitationUuid} />
 
   return (
