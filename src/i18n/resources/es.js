@@ -367,7 +367,7 @@ El equipo de FRA
     hour: 'Hace {{count}} hora',
     day: 'Hace {{count}} día',
     week: 'Hace {{count}} semana',
-    aMomentAgo: 'hace un momento',
+    aMomentAgo: 'Hace un momento',
     hour_plural: 'Hace {{count}} horas',
     day_plural: 'Hace {{count}} días ',
     week_plural: 'Hace {{count}} semanas',
