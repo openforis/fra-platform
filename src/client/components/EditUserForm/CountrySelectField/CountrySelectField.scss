@@ -3,6 +3,9 @@
 .edit-user__form-field {
   .btn-country-select {
     width: 100%;
-    background-color: white !important;
+    background-color: white;
+  }
+  &.disabled .btn-country-select {
+    background-color: $ui-border-light;
   }
 }

@@ -80,7 +80,7 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
             name="countryIso"
             value={roleProps.address?.countryIso}
             onChange={changeAddress}
-            enabled
+            enabled={enabled}
           />
 
           <TextInputField

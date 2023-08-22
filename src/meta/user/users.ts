@@ -19,7 +19,7 @@ const isAdministrator = (user: User) => {
   return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)
 }
 
-const getRole = (user: User, countryIso: CountryIso, cycle: Cycle): UserRole<RoleName, any> => {
+const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRole<RoleName, any> => {
   if (isAdministrator(user)) return user.roles[0]
 
   return user?.roles?.find(
@@ -27,19 +27,19 @@ const getRole = (user: User, countryIso: CountryIso, cycle: Cycle): UserRole<Rol
   )
 }
 
-const isRole = (user: User, role: RoleName, countryIso: CountryIso, cycle: Cycle) =>
+const isRole = (user: User, role: RoleName, countryIso: AreaCode, cycle: Cycle) =>
   Boolean(getRole(user, countryIso, cycle)?.role === role)
 
 const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
   isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
 
-const isReviewer = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.REVIEWER, countryIso, cycle)
 
-const isNationalCorrespondent = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+const isNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso, cycle)
 
-const isAlternateNationalCorrespondent = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+const isAlternateNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, countryIso, cycle)
 
 const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.VIEWER, countryIso, cycle)
@@ -73,7 +73,7 @@ const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: AreaCod
   return user.roles.some((role) => role.cycleUuid === cycle.uuid && role.countryIso === countryIso)
 }
 
-const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<RoleName> => {
+const getRolesAllowedToEdit = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
   const { countryIso, cycle, user } = props
   if (isAdministrator(user)) {
     return [
@@ -88,6 +88,21 @@ const getRolesAllowedToEdit = (props: { user: User; countryIso: CountryIso; cycl
     return [RoleName.COLLABORATOR, RoleName.VIEWER]
   }
   return []
+}
+
+const getRolesAllowedToView = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
+  const { countryIso, cycle, user } = props
+
+  if (isReviewer(user, countryIso, cycle)) {
+    return [
+      RoleName.NATIONAL_CORRESPONDENT,
+      RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+      RoleName.COLLABORATOR,
+      RoleName.REVIEWER,
+    ]
+  }
+
+  return getRolesAllowedToEdit(props)
 }
 
 const getI18nRoleLabelKey = (role: RoleName | string): string =>
@@ -186,6 +201,7 @@ export const Users = {
   isViewer,
 
   getRolesAllowedToEdit,
+  getRolesAllowedToView,
   getI18nRoleLabelKey,
   hasEditorRole,
   hasRoleInAssessment,
