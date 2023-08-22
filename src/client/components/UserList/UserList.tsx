@@ -17,7 +17,9 @@ type Props = {
 const UserList: React.FC<Props> = ({ users, isAdmin, readOnly }) => {
   const { t } = useTranslation()
 
-  return users?.length > 0 ? (
+  if (!users.length) return <>{t('userManagement.noUsers')}</>
+
+  return (
     <table className="user-list__table">
       <UserListHeader readOnly={readOnly} isAdmin={isAdmin} />
       <tbody>
@@ -30,8 +32,6 @@ const UserList: React.FC<Props> = ({ users, isAdmin, readOnly }) => {
         )}
       </tbody>
     </table>
-  ) : (
-    <>{t('userManagement.noUsers')}</>
   )
 }
 
