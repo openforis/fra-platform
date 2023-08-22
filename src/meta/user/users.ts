@@ -94,7 +94,12 @@ const getRolesAllowedToView = (props: { user: User; countryIso: CountryIso; cycl
   const { countryIso, cycle, user } = props
 
   if (isReviewer(user, countryIso, cycle)) {
-    return [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
+    return [
+      RoleName.NATIONAL_CORRESPONDENT,
+      RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+      RoleName.COLLABORATOR,
+      RoleName.REVIEWER,
+    ]
   }
 
   return getRolesAllowedToEdit(props)

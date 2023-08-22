@@ -2,9 +2,10 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { User, Users, UserStatus } from 'meta/user'
+import { RoleName, User, Users, UserStatus } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import InvitationColumn from 'client/components/UserList/CollaboratorListElement/InvitationColumn'
 import UserEditColumn from 'client/components/UserList/CollaboratorListElement/UserEditColumn'
@@ -15,9 +16,22 @@ import UserRoleField from '../UserRoleField'
 const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ user, readOnly }) => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
+  const currentUser = useUser()
+  const isReviewer = Users.isReviewer(currentUser, countryIso, cycle)
 
   const userRole = Users.getRole(user, countryIso, cycle)
   const { acceptedAt, invitationUuid } = userRole
+
+  const showLink = !readOnly
+
+  let editColumn = <UserEditColumn user={user} />
+
+  if (isReviewer && userRole.role === RoleName.REVIEWER) {
+    editColumn = <div />
+  }
+
+  if (invitationUuid && !acceptedAt)
+    editColumn = <InvitationColumn user={user} userRole={userRole} invitationUuid={invitationUuid} />
 
   return (
     <tr
@@ -31,15 +45,7 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
       </td>
       <UserRoleField user={user} countryIso={countryIso} />
       <UserField user={user} field="email" />
-      {!readOnly && (
-        <td className="user-list__cell user-list__edit-column">
-          {invitationUuid && !acceptedAt ? (
-            <InvitationColumn user={user} userRole={userRole} invitationUuid={invitationUuid} />
-          ) : (
-            <UserEditColumn user={user} />
-          )}
-        </td>
-      )}
+      {showLink && <td className="user-list__cell user-list__edit-column">{editColumn}</td>}
     </tr>
   )
 }
