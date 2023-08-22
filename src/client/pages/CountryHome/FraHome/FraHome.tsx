@@ -56,7 +56,7 @@ const FraHome: React.FC = () => {
         {sections.map(({ name, component }) => (
           <Route key={name} path={name} element={React.createElement(component, {})} />
         ))}
-        <Route index element={<Navigate replace to={sections[0].name} />} />
+        {sections.length >= 1 && <Route index element={<Navigate replace to={sections[0].name} />} />}
       </Routes>
     </>
   )
