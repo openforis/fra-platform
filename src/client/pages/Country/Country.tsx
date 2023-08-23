@@ -18,6 +18,7 @@ import Navigation from 'client/components/Navigation'
 import useGetUsers from './hooks/useGetUsers'
 import { useInitMetaCache } from './hooks/useInitMetaCache'
 import { useInitSections } from './hooks/useInitSections'
+import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
 
 const Country: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
@@ -32,6 +33,7 @@ const Country: React.FC = () => {
   useInitSections()
   useInitMetaCache()
   useGetUsers()
+  useReviewSummaryListener()
 
   if (!countryIso) return null
 
