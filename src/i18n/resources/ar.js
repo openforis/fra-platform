@@ -28,7 +28,7 @@ module.exports.translation = {
 
   anchors: {
     fra: {
-      '2025': {
+      2025: {
         '1a': 'ا) 1',
         '1b': 'ب) 1',
         '1c': 'ج) 1',
@@ -539,9 +539,6 @@ The FRA team
 
   userManagement: {
     manageCollaborators: 'إدارة المتعاونين',
-    name: 'الاسم',
-    role: 'الدور',
-    email: 'البريد الإلكتروني',
     loginEmail: 'تسجيل دخول',
     noUsers: 'لم تتم إضافة متعاونين آخرين',
     placeholder: 'اختيار...',
@@ -1143,7 +1140,6 @@ The FRA team
   admin: {
     admin: 'المدير',
     filter: 'غربلة وفق',
-    language: 'اللغة',
     country: 'البلد',
     invitationPending: 'تعليق الدعوة',
   },

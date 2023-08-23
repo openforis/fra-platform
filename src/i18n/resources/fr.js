@@ -454,9 +454,6 @@ L'équipe de FRA
 
   userManagement: {
     manageCollaborators: 'Gérer collaborateurs',
-    name: 'Nom',
-    role: 'Rôle',
-    email: 'Email',
     loginEmail: 'Identifiant',
     noUsers: 'Aucun collaborateur ajouté',
     placeholder: 'Choisir…',
@@ -1064,7 +1061,6 @@ L'équipe de FRA
   admin: {
     admin: 'Administration',
     filter: 'Filtrer par',
-    language: 'Langue',
     country: 'Pays',
     invitationPending: 'Invitation en attente',
   },

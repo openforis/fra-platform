@@ -507,9 +507,6 @@ FRA工作组
 
   userManagement: {
     manageCollaborators: '管理合作者',
-    name: '姓名',
-    role: '身份',
-    email: '电子邮箱',
     loginEmail: '登陆',
     noUsers: '未添加合作者',
     placeholder: '选择…',
@@ -1107,7 +1104,6 @@ FRA工作组
   admin: {
     admin: '管理',
     filter: '筛选，按照',
-    language: '语言',
     country: '国家',
     invitationPending: '邀请待处理',
   },
