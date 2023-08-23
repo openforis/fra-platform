@@ -14,8 +14,8 @@ export type UserProps = {
 }
 
 export interface User {
-  id: number
-  uuid: string
+  readonly id: number
+  readonly uuid: string
   email: string
   profilePictureFile?: string
   profilePictureFilename?: string

@@ -1,18 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Functions } from 'utils/functions'
 import axios from 'axios'
+import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { AssessmentName } from 'meta/assessment'
 import { User, Users } from 'meta/user'
 
 type Params = {
   assessmentName?: AssessmentName
-  countryIso: CountryIso
+  countryIso: AreaCode
   cycleName?: string
   user: User
-  profilePicture: File | null
+  profilePicture?: File | null
 }
 
 const putUser = Functions.debounce(
@@ -25,7 +25,7 @@ const putUser = Functions.debounce(
       formData.append('countryIso', countryIso)
       formData.append('cycleName', cycleName)
       formData.append('id', String(user.id))
-      formData.append('profilePicture', profilePicture)
+      if (profilePicture) formData.append('profilePicture', profilePicture)
       formData.append('user', JSON.stringify(user))
       await axios.put(ApiEndPoint.User.many(), formData, {
         headers: {
