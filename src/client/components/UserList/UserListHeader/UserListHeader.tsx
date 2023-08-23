@@ -15,11 +15,11 @@ const UserListHeader: React.FC<{ isAdmin: boolean; readOnly: boolean }> = ({ isA
   return (
     <thead>
       <tr>
-        <th className="user-list__header-cell">{t('userManagement.name')}</th>
+        <th className="user-list__header-cell">{t('common.name')}</th>
         {!isAdmin && (
           <>
-            <th className="user-list__header-cell">{t('userManagement.role')}</th>
-            <th className="user-list__header-cell">{t('userManagement.email')}</th>
+            <th className="user-list__header-cell">{t('common.role')}</th>
+            <th className="user-list__header-cell">{t('common.email')}</th>
           </>
         )}
         {isAdmin &&

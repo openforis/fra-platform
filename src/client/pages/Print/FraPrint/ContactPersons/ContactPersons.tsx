@@ -61,9 +61,9 @@ const ContactPersons: React.FC = () => {
         <table className="fra-table">
           <thead>
             <tr>
-              <th className="fra-table__header-cell">{t('userManagement.name')}</th>
+              <th className="fra-table__header-cell">{t('common.name')}</th>
               <th className="fra-table__header-cell">{t('editUser.role')}</th>
-              <th className="fra-table__header-cell">{t('userManagement.email')}</th>
+              <th className="fra-table__header-cell">{t('common.email')}</th>
               <th className="fra-table__header-cell">{t('contactPersons.tables')}</th>
             </tr>
           </thead>

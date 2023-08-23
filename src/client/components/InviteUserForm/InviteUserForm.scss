@@ -7,7 +7,7 @@
   border-radius: 2px;
 
   .invite-user-error-container {
-    background-color: rgba(208,2,27,.1);
+    background-color: rgba(208, 2, 27, 0.1);
     color: #d0021b;
     font-weight: 700;
     margin-bottom: 16px;
@@ -17,10 +17,10 @@
 
   .invite-user-form {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
     align-items: end;
 
-    >div {
+    > div {
       padding: 0 8px;
     }
 
