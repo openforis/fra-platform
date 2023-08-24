@@ -57,7 +57,7 @@ export const getFraYearsData = async (props: Props) => {
             base[csvColumn] = RecordAssessmentDatas.getDatum({
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
-              data,
+              data: tableData,
               countryIso,
               tableName,
               variableName,
@@ -69,24 +69,25 @@ export const getFraYearsData = async (props: Props) => {
                 RecordAssessmentDatas.getDatum({
                   assessmentName: assessment.props.name,
                   cycleName: cycle.name,
-                  data,
+                  data: tableData,
                   countryIso,
                   tableName,
                   variableName,
                   colName: `${year}_${gender.variable}`,
                 }) ?? null
             })
-          } else
+          } else {
             base[csvColumn] =
               RecordAssessmentDatas.getDatum({
                 assessmentName: assessment.props.name,
                 cycleName: cycle.name,
-                data,
+                data: tableData,
                 countryIso,
                 tableName,
                 variableName,
                 colName: year,
               }) ?? null
+          }
         })
       })
 
