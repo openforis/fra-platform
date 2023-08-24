@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Table } from 'meta/assessment'
 
+import { useCycle } from 'client/store/assessment'
 import { useTableHasErrors } from 'client/store/data'
 import Icon from 'client/components/Icon'
 
@@ -15,10 +16,12 @@ const DataValidations: React.FC<Props> = (props) => {
   const { table } = props
 
   const { t } = useTranslation()
-
+  const cycle = useCycle()
   const hasErrors = useTableHasErrors({ table })
 
-  if (!hasErrors) {
+  const disableErrorMessage = table.props.disableErrorMessage?.[cycle.uuid] === true
+
+  if (!hasErrors || disableErrorMessage) {
     return null
   }
 
