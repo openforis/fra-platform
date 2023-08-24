@@ -1,6 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
+import { Lang } from 'meta/lang'
 import { RoleName } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -12,11 +13,12 @@ export const invite = async (
     email: string
     name: string
     role: RoleName
+    lang: Lang
   }>,
   res: Response
 ) => {
   try {
-    const { countryIso, assessmentName, cycleName, email, name, role: roleName } = req.query
+    const { countryIso, assessmentName, cycleName, email, name, role: roleName, lang } = req.query
 
     const user = Requests.getUser(req)
 
@@ -30,6 +32,7 @@ export const invite = async (
       email,
       roleName,
       user,
+      lang,
     })
 
     Requests.sendOk(res, invitedUser)
