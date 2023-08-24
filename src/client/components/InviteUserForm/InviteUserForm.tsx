@@ -1,6 +1,7 @@
 import './InviteUserForm.scss'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { Lang, LanguageCodes } from 'meta/lang'
 import { RoleName, Users } from 'meta/user'
@@ -35,6 +36,7 @@ const InviteUserForm: React.FC = () => {
   })
   const [errors, setErrors] = useState<Record<string, boolean>>({})
 
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { toaster } = useToaster()
   const dispatch = useAppDispatch()
@@ -52,7 +54,7 @@ const InviteUserForm: React.FC = () => {
     })
   }, [])
 
-  const onUserInvite = () => {
+  const _onUserInvite = () => {
     const fieldErrors = {
       name: !validateName(userToInvite.name),
       role: !validateRole(userToInvite.role),
@@ -82,27 +84,35 @@ const InviteUserForm: React.FC = () => {
         })
   }
 
+  const onUserInvite = useCallback(_onUserInvite, [userToInvite, countryIso, assessment, cycle, t, toaster, dispatch])
+
+  const goBack = useCallback(() => {
+    navigate(-1)
+  }, [navigate])
+
   return (
-    <div className="invite-user-container">
+    <div className="edit-user__form-container invite-user-container">
       {Object.values(errors).find((value) => !!value) && (
         <div className="invite-user-error-container">{t('userManagement.formErrors')}</div>
       )}
-      <div className="invite-user-form">
-        <div>
-          <div className="label">{t('common.name')}</div>
-          <input
-            onFocus={() => setErrors({ ...errors, name: null })}
-            name="name"
-            value={userToInvite.name}
-            type="text"
-            placeholder={t('common.name')}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUserToInvite({ ...userToInvite, name: e.target.value })
-            }
-          />
-        </div>
-        <div>
-          <div className="label">{t('common.role')}</div>
+
+      <div className="edit-user__form-item">
+        <div className="edit-user__form-label">{t('common.name')}*</div>
+        <input
+          className="edit-user__form-field edit-user__form-input-text-field"
+          onFocus={() => setErrors({ ...errors, name: null })}
+          name="name"
+          value={userToInvite.name}
+          type="text"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUserToInvite({ ...userToInvite, name: e.target.value })
+          }
+        />
+      </div>
+
+      <div className="edit-user__form-item">
+        <div className="edit-user__form-label">{t('common.role')}*</div>
+        <div className="edit-user__form-field edit-user__form-select-field">
           <select
             value={userToInvite.role}
             onChange={(e) => setUserToInvite({ ...userToInvite, role: e.target.value as RoleName })}
@@ -115,21 +125,26 @@ const InviteUserForm: React.FC = () => {
             ))}
           </select>
         </div>
-        <div>
-          <div className="label">{t('common.email')}</div>
-          <input
-            onFocus={() => setErrors({ ...errors, email: null })}
-            name="email"
-            value={userToInvite.email}
-            type="text"
-            placeholder={t('common.email')}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUserToInvite({ ...userToInvite, email: e.target.value })
-            }
-          />
-        </div>
-        <div>
-          <div className="label">{t('common.language')}</div>
+      </div>
+
+      <div className="edit-user__form-item">
+        <div className="edit-user__form-label">{t('common.email')}*</div>
+
+        <input
+          className="edit-user__form-field edit-user__form-input-text-field"
+          onFocus={() => setErrors({ ...errors, email: null })}
+          name="email"
+          value={userToInvite.email}
+          type="text"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUserToInvite({ ...userToInvite, email: e.target.value })
+          }
+        />
+      </div>
+
+      <div className="edit-user__form-item">
+        <div className="edit-user__form-label">{t('common.language')}</div>
+        <div className="edit-user__form-field edit-user__form-select-field">
           <select
             value={userToInvite.lang}
             onChange={(e) => setUserToInvite({ ...userToInvite, lang: e.target.value as Lang })}
@@ -141,11 +156,16 @@ const InviteUserForm: React.FC = () => {
             ))}
           </select>
         </div>
-        <div>
-          <button className="btn btn-primary" onClick={onUserInvite} type="submit">
-            {t('userManagement.addUser')}
-          </button>
-        </div>
+      </div>
+
+      <div className="edit-user__form-item button-container">
+        <button className="btn btn-secondary" onClick={goBack} type="submit">
+          {t('common.cancel')}
+        </button>
+
+        <button className="btn btn-primary" onClick={onUserInvite} type="submit">
+          {t('userManagement.addUser')}
+        </button>
       </div>
     </div>
   )

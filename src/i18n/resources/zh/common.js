@@ -1,5 +1,6 @@
 module.exports = {
   apply: '应用',
+  cancel: '取消',
   clearTable: '清除表格',
   column: '栏目',
   continue: '继续',

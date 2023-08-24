@@ -1,6 +1,7 @@
 module.exports = {
   apply: 'Применить',
   areYouSureYouWantToDeleteAllTableData: 'Вы уверены, что хотите удалить все данные из таблицы?',
+  cancel: 'Отмена',
   categories: 'Категории',
   clearTable: 'Очистить таблицу',
   column: 'Столбец',

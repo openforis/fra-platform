@@ -1061,7 +1061,6 @@ module.exports.translation = {
     institution: 'Учреждение',
     position: 'Должность',
     done: 'Сохранить',
-    cancel: 'Отмена',
     deactivate: 'Деактивировать',
     activate: 'Активировать',
     picture1MbMax: 'Картинка в профиле не может превышать 1MB',

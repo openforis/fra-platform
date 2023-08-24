@@ -1016,7 +1016,6 @@ L'équipe de FRA
     institution: 'Institution',
     position: 'Position',
     done: 'Enregistrer',
-    cancel: 'Effacer',
     picture1MbMax: "L'image de profil ne peut pas dépasser 1 Mo",
     title: 'Appelation',
     surname: 'Nom(s) de famille',

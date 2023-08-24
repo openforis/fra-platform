@@ -1,5 +1,6 @@
 module.exports = {
   apply: 'نفذ',
+  cancel: 'إلغاء',
   clearTable: 'حذف بيانات الجدول',
   column: 'عمود',
   continue: 'اسْتَمَرَّ',

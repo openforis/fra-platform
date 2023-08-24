@@ -1093,7 +1093,6 @@ The FRA team
     institution: 'المؤسسة',
     position: 'المنصب',
     done: 'حفظ',
-    cancel: 'إلغاء',
     deactivate: 'إلغاء التفعيل',
     activate: 'تفعيل',
     picture1MbMax: 'لا يجب أن يزيد حجم صورة الملف الشخصي عن 1 ميجابايت',

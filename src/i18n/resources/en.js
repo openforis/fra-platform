@@ -1128,7 +1128,6 @@ The FRA team
     institution: 'Institution',
     position: 'Position',
     done: 'Save',
-    cancel: 'Cancel',
     deactivate: 'Deactivate',
     activate: 'Activate',
     picture1MbMax: 'Profile picture cannot exceed 1MB',

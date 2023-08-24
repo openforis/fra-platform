@@ -1057,7 +1057,6 @@ FRA工作组
     institution: '机构',
     position: '职位',
     done: '保存',
-    cancel: '取消',
     deactivate: '取消激活',
     activate: '激活',
     picture1MbMax: '个人简介中的图片不得超过1MB',
