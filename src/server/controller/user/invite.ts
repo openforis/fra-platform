@@ -31,10 +31,7 @@ export const invite = async (
     if (!userToInvite) userToInvite = await UserRepository.getOne({ emailGoogle: email }, t)
     // If neither of above, create new user
     if (!userToInvite)
-      userToInvite = await UserRepository.create(
-        { user: { email, props: { name: name ?? '', lang: lang ?? Lang.en } } },
-        client
-      )
+      userToInvite = await UserRepository.create({ user: { email, props: { name: name ?? '', lang } } }, client)
 
     const userRole = await UserRoleRepository.create(
       {

@@ -26,6 +26,7 @@ module.exports = {
   selectArea: 'Seleccionar área geográfica',
   statisticalFactsheets: 'Fichas estadísticas',
   status: 'Estado',
+  submit: 'Enviar',
   tier: 'Nivel',
   trend: 'Tendencia',
   unknown: 'Ninguno/desconocido',

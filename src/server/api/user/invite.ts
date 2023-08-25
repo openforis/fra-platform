@@ -8,15 +8,14 @@ import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const invite = async (
-  req: CycleRequest<{
-    email: string
-    name: string
-    role: RoleName
-    lang: Lang
-  }>,
-  res: Response
-) => {
+type InviteUserRequest = CycleRequest<{
+  email: string
+  name: string
+  role: RoleName
+  lang: Lang
+}>
+
+export const invite = async (req: InviteUserRequest, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, email, name, role: roleName, lang } = req.query
 
@@ -24,7 +23,7 @@ export const invite = async (
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const { user: invitedUser } = await UserController.invite({
+    const props = {
       countryIso,
       assessment,
       cycle,
@@ -33,7 +32,9 @@ export const invite = async (
       roleName,
       user,
       lang,
-    })
+    }
+
+    const { user: invitedUser } = await UserController.invite(props)
 
     Requests.sendOk(res, invitedUser)
   } catch (e) {

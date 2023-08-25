@@ -1,6 +1,5 @@
 import { Objects } from 'utils/objects'
 
-import { Lang } from 'meta/lang'
 import { User } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 
@@ -14,8 +13,6 @@ export const create = async (
   const {
     user: { props: userProperties, email },
   } = props
-
-  if (!userProperties.lang) userProperties.lang = Lang.en
 
   const { id } = await client.one<User>(
     `

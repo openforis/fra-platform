@@ -408,7 +408,6 @@ The FRA team
       sustainableDevelopment: 'Sustainable Development Goal 15',
       panEuropeanIndicators: 'Pan-European Indicators',
     },
-    submit: 'Submit',
     cancel: 'Cancel',
     changeStatusTextPlaceholder: 'Add an optional message',
     doNotNotifyUsers: "Don't notify users",

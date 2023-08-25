@@ -345,7 +345,6 @@ El equipo de FRA
       sustainableDevelopment: 'Objetivo de Desarrollo Sostenible 15',
       panEuropeanIndicators: 'Indicadores paneuropeos',
     },
-    submit: 'Enviar',
     cancel: 'Cancelar',
     changeStatusTextPlaceholder: 'Añadir un mensaje opcional',
     doNotNotifyUsers: 'No notificar a los usuarios',

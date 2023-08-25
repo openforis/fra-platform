@@ -1,90 +1,32 @@
 import './InviteUserForm.scss'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Lang, LanguageCodes } from 'meta/lang'
 import { RoleName, Users } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useToaster } from 'client/hooks/useToaster'
+import { useInitialState } from 'client/components/InviteUserForm/hooks/initialState'
 
-const validateName = (name: string) => !!name.trim()
-const validateRole = (role: string) => !!role
-const validateEmail = (email: string) => {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  return re.test(email)
-}
-
-interface UserToInvite {
-  name: string
-  role?: RoleName | ''
-  email: string
-  lang: Lang
-}
+import { useOnUserInvite } from './hooks/useOnUserInvite'
+import { UserToInvite } from './userToInvite'
 
 const InviteUserForm: React.FC = () => {
-  const [userToInvite, setUserToInvite] = useState<UserToInvite>({
-    name: '',
-    email: '',
-    lang: Lang.en,
-  })
+  const initialState = useInitialState()
+  const [userToInvite, setUserToInvite] = useState<UserToInvite>(initialState)
   const [errors, setErrors] = useState<Record<string, boolean>>({})
 
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { toaster } = useToaster()
-  const dispatch = useAppDispatch()
+
   const countryIso = useCountryIso()
-  const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
 
-  const langs = useMemo(() => {
-    // default to English as first option
-    return LanguageCodes.sort((a, b) => {
-      if (a === Lang.en) return -1
-      if (b === Lang.en) return 1
-      return 0
-    })
-  }, [])
-
-  const _onUserInvite = () => {
-    const fieldErrors = {
-      name: !validateName(userToInvite.name),
-      role: !validateRole(userToInvite.role),
-      email: !validateEmail(userToInvite.email),
-    }
-    setErrors(fieldErrors)
-
-    if (!Object.values(fieldErrors).find((value) => !!value))
-      dispatch(
-        UserManagementActions.inviteUser({
-          countryIso,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          name: userToInvite.name,
-          role: userToInvite.role as RoleName,
-          email: userToInvite.email,
-          lang: userToInvite.lang,
-        })
-      )
-        .unwrap()
-        .then(() => {
-          setUserToInvite({ name: '', email: '', role: '', lang: Lang.en })
-          toaster.info(t('userManagement.userAdded', { email: userToInvite.email }))
-        })
-        .catch(() => {
-          // Error handled by server
-        })
-  }
-
-  const onUserInvite = useCallback(_onUserInvite, [userToInvite, countryIso, assessment, cycle, t, toaster, dispatch])
+  const onUserInvite = useOnUserInvite({ userToInvite, setUserToInvite, countryIso, cycle, user, setErrors })
 
   const goBack = useCallback(() => {
     navigate(-1)
@@ -99,7 +41,7 @@ const InviteUserForm: React.FC = () => {
       <div className="edit-user__form-item">
         <div className="edit-user__form-label">{t('common.name')}*</div>
         <input
-          className="edit-user__form-field edit-user__form-input-text-field"
+          className="edit-user__form-field edit-user__form-input-text-field text-input__input-field"
           onFocus={() => setErrors({ ...errors, name: null })}
           name="name"
           value={userToInvite.name}
@@ -114,6 +56,7 @@ const InviteUserForm: React.FC = () => {
         <div className="edit-user__form-label">{t('common.role')}*</div>
         <div className="edit-user__form-field edit-user__form-select-field">
           <select
+            className="fra-table__select"
             value={userToInvite.role}
             onChange={(e) => setUserToInvite({ ...userToInvite, role: e.target.value as RoleName })}
           >
@@ -131,7 +74,7 @@ const InviteUserForm: React.FC = () => {
         <div className="edit-user__form-label">{t('common.email')}*</div>
 
         <input
-          className="edit-user__form-field edit-user__form-input-text-field"
+          className="edit-user__form-field edit-user__form-input-text-field text-input__input-field"
           onFocus={() => setErrors({ ...errors, email: null })}
           name="email"
           value={userToInvite.email}
@@ -146,10 +89,11 @@ const InviteUserForm: React.FC = () => {
         <div className="edit-user__form-label">{t('common.language')}</div>
         <div className="edit-user__form-field edit-user__form-select-field">
           <select
+            className="fra-table__select"
             value={userToInvite.lang}
             onChange={(e) => setUserToInvite({ ...userToInvite, lang: e.target.value as Lang })}
           >
-            {langs.map((lang) => (
+            {LanguageCodes.map((lang) => (
               <option key={lang} value={lang}>
                 {t(`language.${lang}`)}
               </option>
@@ -164,7 +108,7 @@ const InviteUserForm: React.FC = () => {
         </button>
 
         <button className="btn btn-primary" onClick={onUserInvite} type="submit">
-          {t('userManagement.addUser')}
+          {t('common.submit')}
         </button>
       </div>
     </div>

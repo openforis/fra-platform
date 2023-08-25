@@ -26,6 +26,7 @@ module.exports = {
   selectArea: 'اختيار منطقة جغرافية',
   statisticalFactsheets: 'صحائف وقائع إحصائية',
   status: 'الحالة',
+  submit: 'تقديم',
   tier: 'المستوى',
   trend: 'اتجاه',
   unknown: 'ولا واحدة/مجهولة',

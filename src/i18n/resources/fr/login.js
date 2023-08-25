@@ -4,7 +4,6 @@ module.exports = {
   password: 'Password',
   repeatPassword: 'Mot de passe',
   email: 'E-mail',
-  submit: 'Soumettre',
   cancel: 'Annuler',
 
   signInGoogle: 'Connectez-vous avec Google',

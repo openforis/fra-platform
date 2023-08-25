@@ -30,6 +30,7 @@ module.exports = {
   selectArea: 'Выбрать географический район',
   statisticalFactsheets: 'Статистические бюллетени',
   status: 'Статус',
+  submit: 'Направить',
   tier: 'Уровень',
   unknown: 'Отсутствует/неизвестна',
   unselectAll: 'Снять выделение',

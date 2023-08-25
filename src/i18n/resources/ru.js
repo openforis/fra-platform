@@ -361,7 +361,6 @@ module.exports.translation = {
       sustainableDevelopment: 'Цель устойчивого развития 15',
       panEuropeanIndicators: 'Общеевропейские индикаторы',
     },
-    submit: 'Представить на рассмотрение',
     cancel: 'Отмена',
     changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
     doNotNotifyUsers: 'Не уведомлять пользователей',

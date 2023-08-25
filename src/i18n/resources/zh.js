@@ -391,7 +391,6 @@ FRA工作组
       sustainableDevelopment: '可持续发展目标15',
       panEuropeanIndicators: '泛欧洲指标',
     },
-    submit: '提交',
     cancel: '取消',
     changeStatusTextPlaceholder: '添加可选消息',
     doNotNotifyUsers: '不通知用户',

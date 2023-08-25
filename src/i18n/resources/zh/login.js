@@ -4,7 +4,6 @@ module.exports = {
   password: '密码',
   repeatPassword: '重复密码',
   email: '邮箱',
-  submit: '提交',
   cancel: '取消',
 
   signInGoogle: '通过谷歌登陆',

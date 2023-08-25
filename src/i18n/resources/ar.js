@@ -422,7 +422,6 @@ The FRA team
       sustainableDevelopment: 'الهدف الخامس عشر من أهداف التنمية المستدامة',
       panEuropeanIndicators: 'مؤشرات عموم أوروبا',
     },
-    submit: 'تقديم',
     cancel: 'إلغاء',
     changeStatusTextPlaceholder: 'إضافة رسالة اختيارية',
     doNotNotifyUsers: 'عدم إرسال إشعار إلى المستخدمين',

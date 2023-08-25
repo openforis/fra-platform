@@ -1,6 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
+import { Routes as ApplicationRoutes } from 'meta/routes'
+
 import { useUsers } from 'client/store/ui/userManagement'
 import InviteUserForm from 'client/components/InviteUserForm'
 import UserList from 'client/components/UserList'
@@ -10,7 +12,7 @@ const Collaborators: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="invite" element={<InviteUserForm />} />
+      <Route path={ApplicationRoutes.CountryHomeInviteSection.path.relative} element={<InviteUserForm />} />
       <Route index element={<UserList users={users} />} />
     </Routes>
   )
