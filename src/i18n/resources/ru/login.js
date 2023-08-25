@@ -48,7 +48,7 @@ module.exports = {
   noActiveAccount: 'Учетная запись не активна. Убедитесь, что вы приняли приглашение',
   googleOnlyAccount: 'Учетная запись связана с аутентификацией Google',
   alreadyAcceptedInvitation: 'Это приглашение уже принято',
-  invitationMessage: 'Вас пригласили {{assagement}} {{cycle}} как {{role}} для {{country}}',
+  invitationMessage: 'Вас пригласили {{assessment}} {{cycle}} как {{role}} для {{country}}',
   invitationProvidersRegistered: 'У вас уже есть учетная запись, зарегистрированная в {{authprovidernames}}',
   acceptInvitation: 'Принять приглашение',
   acceptInvitationWithFra: 'Принять приглашение с ОЛР',
