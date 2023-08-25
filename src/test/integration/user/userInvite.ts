@@ -1,4 +1,5 @@
 import { Assessment, Cycle } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 import { RoleName, User, UserRole, UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -29,6 +30,7 @@ export default (): void =>
         email: userMockUnknown.email,
         roleName: RoleName.COLLABORATOR,
         user,
+        lang: Lang.en,
       })
 
       // verify invitation exists
@@ -52,6 +54,7 @@ export default (): void =>
         email: userMockUnknown.email,
         roleName: RoleName.NATIONAL_CORRESPONDENT,
         user,
+        lang: Lang.en,
       })
 
       userRole = invitedUserRole
@@ -77,6 +80,7 @@ export default (): void =>
           email: userMockUnknown.email,
           roleName: RoleName.REVIEWER,
           user,
+          lang: Lang.en,
         })
       ).rejects.toThrowError('duplicate key')
     })
