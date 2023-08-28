@@ -1,6 +1,6 @@
 module.exports = {
-  areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   apply: 'Apply',
+  areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   clearTable: 'Clear table',
   column: 'Column',
   continue: 'Continue',
@@ -21,18 +21,13 @@ module.exports = {
   selectAll: 'Select all',
   selectArea: 'Select geographical area',
   statisticalFactsheets: 'Statistical factsheets',
+  status: 'Status',
+  tier: 'Tier',
+  tiers: { high: 'High', low: 'Low', medium: 'Medium', notSelected: '' },
+  trend: 'Trend',
   unknown: 'None/unknown',
   unselectAll: 'Unselect all',
   variable: 'FRA Variable',
+  view: 'View',
   year: 'Year',
-
-  status: 'Status',
-  tier: 'Tier',
-  tiers: {
-    high: 'High',
-    low: 'Low',
-    medium: 'Medium',
-    notSelected: '',
-  },
-  trend: 'Trend',
 }

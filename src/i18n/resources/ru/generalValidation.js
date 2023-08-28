@@ -21,7 +21,7 @@ module.exports = {
   remainingLandExceedsExtentOfForest: `Превышает остальные земельные площади (1А)`,
   shouldContainAtLeastOneCharacter: `Значение должно содержать хотя бы один символ`,
   subCategoryExceedsParent: `Подкатегория превышает родительскую категорию`,
-  sumEqualTo: `The sum of {{categoryLabels}} ({{categoriesSum}}) must be equal to {{maxValue}}`,
+  sumEqualTo: 'Сумма {{categoryLabels}} ({{categoriesSum}}) должна быть равна {{maxValue}}',
   sumNotGreaterThan: `Сумма не должна превышать {{maxValue}}`,
   sumSubCategoriesExceedParent: `Сумма {{CategoryLabels}} превышает {{parentLabel}} ({{parentValue}})`,
   sumSubCategoriesNotEqualToParent: `Сумма {{categoryLabels}} ({{categoriesSum}}) не равна {{parentLabel}} ({{parentValue}})`,
