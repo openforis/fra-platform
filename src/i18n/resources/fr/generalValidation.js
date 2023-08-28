@@ -21,7 +21,7 @@ module.exports = {
   remainingLandExceedsExtentOfForest: `Dépasse la superficie des terres restantes (1a)`,
   shouldContainAtLeastOneCharacter: `La valeur doit contenir au moins un caractère`,
   subCategoryExceedsParent: `La valeur de la sous-catégorie dépasse celle de la catégorie`,
-  sumEqualTo: 'Сумма {{categoryLabels}} ({{categoriesSum}}) должна быть равна {{maxValue}}',
+  sumEqualTo: 'La somme de {{categoryLabels}} ({{categoriesSum}}) doit être égale à {{maxValue}}',
   sumNotGreaterThan: `La somme ne doit pas dépasser {{maxValue}}`,
   sumSubCategoriesExceedParent: `La somme des {{categoryLabels}} dépasse {{parentLabel}} ({{parentValue}})`,
   sumSubCategoriesNotEqualToParent: `La somme de {{categoryLabels}} ({{categoriesSum}}) n'est pas égale à {{parentLabel}} ({{parentValue}})`,
