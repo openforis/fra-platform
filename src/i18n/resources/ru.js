@@ -363,7 +363,6 @@ module.exports.translation = {
       sustainableDevelopment: 'Цель устойчивого развития 15',
       panEuropeanIndicators: 'Общеевропейские индикаторы',
     },
-    submit: 'Представить на рассмотрение',
     cancel: 'Отмена',
     changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
     doNotNotifyUsers: 'Не уведомлять пользователей',
@@ -493,9 +492,6 @@ module.exports.translation = {
 
   userManagement: {
     manageCollaborators: 'Координировать сотрудников',
-    name: 'Имя',
-    role: 'Роль',
-    email: 'Электронная почта',
     loginEmail: 'Логин',
     noUsers: 'Сотрудники не добавлены',
     placeholder: 'Выбрать…',
@@ -1030,7 +1026,6 @@ module.exports.translation = {
     institution: 'Учреждение',
     position: 'Должность',
     done: 'Сохранить',
-    cancel: 'Отмена',
     deactivate: 'Деактивировать',
     activate: 'Активировать',
     picture1MbMax: 'Картинка в профиле не может превышать 1MB',
@@ -1077,7 +1072,6 @@ module.exports.translation = {
   admin: {
     admin: 'Администратор',
     filter: 'Фильтровать по',
-    language: 'Язык',
     country: 'Страна',
     invitationPending: 'Приглашение в стадии рассмотрения',
   },

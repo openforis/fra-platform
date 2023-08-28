@@ -393,7 +393,6 @@ FRA工作组
       sustainableDevelopment: '可持续发展目标15',
       panEuropeanIndicators: '泛欧洲指标',
     },
-    submit: '提交',
     cancel: '取消',
     changeStatusTextPlaceholder: '添加可选消息',
     doNotNotifyUsers: '不通知用户',
@@ -509,9 +508,6 @@ FRA工作组
 
   userManagement: {
     manageCollaborators: '管理合作者',
-    name: '姓名',
-    role: '身份',
-    email: '电子邮箱',
     loginEmail: '登陆',
     noUsers: '未添加合作者',
     placeholder: '选择…',
@@ -1038,7 +1034,6 @@ FRA工作组
     institution: '机构',
     position: '职位',
     done: '保存',
-    cancel: '取消',
     deactivate: '取消激活',
     activate: '激活',
     picture1MbMax: '个人简介中的图片不得超过1MB',
@@ -1085,7 +1080,6 @@ FRA工作组
   admin: {
     admin: '管理',
     filter: '筛选，按照',
-    language: '语言',
     country: '国家',
     invitationPending: '邀请待处理',
   },

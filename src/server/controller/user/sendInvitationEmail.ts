@@ -5,7 +5,6 @@ import { BaseProtocol, DB } from 'server/db'
 import { UserRepository } from 'server/repository/public/user'
 import { UserRoleRepository } from 'server/repository/public/userRole'
 import { MailService } from 'server/service'
-import { ProcessEnv } from 'server/utils'
 
 import { AssessmentController } from '../assessment'
 
@@ -32,7 +31,6 @@ export const sendInvitationEmail = async (
     cycleName: cycle.name,
     role: userRole,
     userToInvite,
-    url: ProcessEnv.appUri,
   })
 
   return userRole
