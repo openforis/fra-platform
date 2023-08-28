@@ -26,6 +26,7 @@ type Props = {
   selectedValue?: CountryIso | Global | RegionCode
   showCountryFlag?: boolean
   showCountryRole?: boolean
+  disabled?: boolean
 }
 
 const AreaSelector: React.FC<Props> = (props) => {
@@ -39,6 +40,7 @@ const AreaSelector: React.FC<Props> = (props) => {
     selectedValue,
     showCountryFlag,
     showCountryRole,
+    disabled,
   } = props
 
   const { t } = useTranslation()
@@ -100,6 +102,7 @@ const AreaSelector: React.FC<Props> = (props) => {
       className="btn-country-select no-print"
       ref={buttonRef}
       onClick={() => setOpen((prevState) => !prevState)}
+      disabled={disabled}
     >
       <div>
         {open && (
@@ -170,6 +173,7 @@ AreaSelector.defaultProps = {
   selectedValue: null,
   showCountryFlag: false,
   showCountryRole: false,
+  disabled: false,
 }
 
 export default AreaSelector

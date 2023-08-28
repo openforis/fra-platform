@@ -15,8 +15,9 @@ const DataValidations: React.FC<Props> = (props) => {
   const { table } = props
 
   const { t } = useTranslation()
-
   const hasErrors = useTableHasErrors({ table })
+
+  // const disableErrorMessage = table.props.disableErrorMessage?.[cycle.uuid] === true
 
   if (!hasErrors) {
     return null

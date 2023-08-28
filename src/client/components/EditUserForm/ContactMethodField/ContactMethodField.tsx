@@ -72,6 +72,7 @@ const ContactMethodField: React.FC<Props> = (props) => {
         })}
       >
         <select
+          disabled={!enabled}
           value={method}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setMethod(e.target.value as UserContactPreferenceMethod)

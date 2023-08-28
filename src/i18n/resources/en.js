@@ -554,6 +554,7 @@ The FRA team
     sendInvitation: 'Send invitation email',
     userAdded: '{{email}} has been added',
     userModified: '{{user}} has been modified',
+    view: 'View',
     invitationEmail: {
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},

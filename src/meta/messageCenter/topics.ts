@@ -29,12 +29,12 @@ const getCommentableDescriptionKey = (
   name: string
 ): string => `commentable-description-${[countryIso, assessment.props.name, cycle.name, sectionName, name].join('_')}`
 
-const getChatRecipientId = (topic: MessageTopic, senderId: number): number | undefined => {
+const getChatRecipientId = (topic: MessageTopic, sender: User): number | undefined => {
   if (topic.type !== MessageTopicType.chat) return undefined
 
   const keys = topic.key.split('_')
   const userIds = [Number(keys.pop()), Number(keys.pop())]
-  return userIds.find((userId) => userId !== senderId)
+  return userIds.find((userId) => userId !== Number(sender.id))
 }
 
 export const Topics = {

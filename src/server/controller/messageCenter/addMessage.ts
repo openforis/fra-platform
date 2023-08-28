@@ -69,7 +69,7 @@ export const addMessage = async (
     )
 
     if (topic.type === MessageTopicType.chat) {
-      const recipientId = Topics.getChatRecipientId(topic, user.id)
+      const recipientId = Topics.getChatRecipientId(topic, user)
 
       const recipient = await UserController.getOne({ id: recipientId })
 
