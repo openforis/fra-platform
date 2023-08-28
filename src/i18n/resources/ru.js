@@ -1,14 +1,15 @@
 const area = require('./ru/area')
 const assessmentSection = require('./ru/assessmentSection')
 const common = require('./ru/common')
+const contentCheck = require('./ru/contentCheck')
 const dataDownload = require('./ru/dataDownload')
 const dataSource = require('./ru/dataSource')
 const fra = require('./ru/fra')
-const statisticalFactsheets = require('./ru/statisticalFactsheets')
+const generalValidation = require('./ru/generalValidation')
 const login = require('./ru/login')
-const uc = require('./ru/uc')
 const print = require('./ru/print')
-const contentCheck = require('./ru/contentCheck')
+const statisticalFactsheets = require('./ru/statisticalFactsheets')
+const uc = require('./ru/uc')
 
 module.exports.translation = {
   area,
@@ -17,6 +18,7 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
+  generalValidation,
   login,
   print,
   statisticalFactsheets,
@@ -995,42 +997,6 @@ module.exports.translation = {
 
   multiSelect: {
     placeholder: 'Выбрать…',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: 'Подкатегория превышает родительскую категорию',
-    forestAreaDoesNotMatchExtentOfForest: 'Не совпадает с "Площадь лесов" (1a)',
-    forestAreaExceedsExtentOfForest: 'Превышает "Площадь лесов" (1a)',
-    otherLandExceedsExtentOfForest: 'Превышает "Другие земельные площади" (1a)',
-    valueMustBePositive: 'Значение должно быть больше нуля',
-    emptyField: 'Пустое поле',
-    mustBeEqualToTotalGrowingStock: 'Значение должно равняться Общему запасу древостоя (2a)',
-    remainingLandExceedsExtentOfForest: 'Превышает остальные земельные площади (1a)',
-    valueMustBeYear: 'Значение должно быть действительным годом',
-    countryReportYearGreaterThanCurrentYear: 'Значение должно быть больше или равно {{minvalue}}',
-    valueNotGreaterThan: 'Значение должно быть не больше, чем {{maxValue}}',
-    sumNotGreaterThan: 'Сумма не должна превышать {{maxValue}}',
-    valuesAreInconsistentWithNetChange: 'Значения не совместимы с изменением площади лесов',
-    valuesAreInconsistent1aOr1b: 'Значения не соответствуют площадям, указанным в таблицах 1a или 1b',
-    mustBeEqualToPrivateOwnership: 'Сумма подкатегорий должна быть равна частной собственности',
-    mustBeEqualToForestExpansion: 'Сумма подкатегорий должна быть равна расширению леса',
-    mustBeEqualToPlantedForest: 'Сумма подкатегорий должна быть равна лесным культурам',
-    mustBeEqualToForestArea:
-      'Сумма естественно возобновляемых лесов и лесных культур должна быть равна общему запасу древостоя',
-    mustBeLessThanPrivateOwnership: 'Сумма подкатегорий должна быть меньше, чем частная собственность',
-    forestSumAreaExceedsExtentOfForest: 'Сумма категорий ОЛР превышает площадь лесов, указанную в таблице 1а',
-    valueEqualToSum: 'Общее значение должно быть равным сумме подкатегорий',
-    notEmpty: 'Значение не может быть пустым',
-    mustBeEqualToPrimaryForest: 'Сумма подкатегорий должна быть равна первичным лесам',
-    landAreaExceedsTotalLandArea: 'Земельная площадь превышает общую площадь земель (1a) ({{value}})',
-    classValueNotGreaterThan: '{{name}} не должно быть больше, чем {{value}}',
-    classValuesMustBeEqualTo: '{{name}} сумма должна быть равна {{value}}',
-    valueCannotExceedMaximumValueReportedForForestArea:
-      'Значение не может превышать максимальное значение ({{maxforestarea}}), указанное для площади лесов (1a)',
-    valueCannotExceedMaximumValueReportedForForestAreaYear:
-      'Сумма для {{year}} года не может превышать максимальное значение ({{maxforestarea}}), указанное для площади лесов (1a)',
-    valueCannotExceedMaximumValueReportedForLandArea:
-      'Значение не может превышать максимальное значение ({{maxlandarea}}), указанное для площади земель (1a)',
   },
 
   emoji: {

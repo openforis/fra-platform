@@ -3,12 +3,13 @@ const assessmentSection = require('./ar/assessmentSection')
 const common = require('./ar/common')
 const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
-const fra = require('./ar/fra')
-const statisticalFactsheets = require('./ar/statisticalFactsheets')
-const login = require('./ar/login')
-const uc = require('./ar/uc')
-const print = require('./ar/print')
 const dataSource = require('./ar/dataSource')
+const fra = require('./ar/fra')
+const generalValidation = require('./ar/generalValidation')
+const login = require('./ar/login')
+const print = require('./ar/print')
+const statisticalFactsheets = require('./ar/statisticalFactsheets')
+const uc = require('./ar/uc')
 
 module.exports.translation = {
   area,
@@ -17,6 +18,7 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
+  generalValidation,
   login,
   print,
   statisticalFactsheets,
@@ -1037,32 +1039,6 @@ The FRA team
 
   multiSelect: {
     placeholder: 'اختر...',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: 'الفئة الفرعية تتجاوز الأصل',
-    forestAreaDoesNotMatchExtentOfForest: 'لاتتطابق مع مساحة الغابة (اأ)',
-    forestAreaExceedsExtentOfForest: 'تتجاوز مساحة الغابة (اأ)',
-    otherLandExceedsExtentOfForest: 'تتجاوز مساحة الأرض الأخرى (اأ)',
-    valueMustBePositive: 'يجب أن تكون القيمة أكبر من صفر',
-    emptyField: 'هذا الحقل فارغ',
-    mustBeEqualToTotalGrowingStock: 'يجب أن تكون القيمة مساوية لإجمالي مخزون الأشجار الحية (2أ)',
-    remainingLandExceedsExtentOfForest: 'يتجاوز مساحة الأرض المتبقية (١أ)',
-    valueMustBeYear: 'يجب أن تكون القيمة لسنة صالحة',
-    countryReportYearGreaterThanCurrentYear: 'يجب أن تكون القيمة أكبر أو تساوي {{القيمة الصغري}}',
-    valueNotGreaterThan: 'يجب ألا تكون القيمة أكبر من {{القيمة الكبري}}',
-    sumNotGreaterThan: 'يجب ألا يتجاوز المجموع {{القيمة الكبري}}',
-    valuesAreInconsistentWithNetChange: 'القيم غير متوافقة مع صافي تغير مساحة الغابات',
-    valuesAreInconsistent1aOr1b: 'القيم غير متوافقة مع المناطق المذكورة في الجدولين ١أ أو ١ ب',
-    mustBeEqualToPrivateOwnership: 'يجب أن يكون مجموع الفئات الفرعية مساويًا للملكية الخاصة',
-    mustBeEqualToForestExpansion: 'يجب أن يكون مجموع الفئات الفرعية مساويًا لتوسيع الغابات',
-    mustBeEqualToPlantedForest: 'يجب أن يكون مجموع الفئات الفرعية مساويًا للغابة المزروعة',
-    mustBeEqualToForestArea:
-      'يجب أن يكون مجموع الغابات المتجددة والمزروعة بشكل طبيعي مساويًا لإجمالي المخزون الأشجارالحيّة',
-    mustBeLessThanPrivateOwnership: 'يجب أن يكون مجموع الفئات الفرعية أقل من الملكية الخاصة',
-    forestSumAreaExceedsExtentOfForest:
-      'يتجاوز مجموع فئات تقييم الموارد الحرجية (فرا) المبلغ عنها مساحة الغابات المذكورة في الجدول ١أ',
-    valueEqualToSum: 'يجب أن تكون القيمة الإجمالية مساوية لمجموع الفئات الفرعية',
   },
 
   emoji: {
