@@ -14,9 +14,7 @@ type Props = {
   navigate: NavigateFunction
 }
 
-const typePrefix = 'login/post/local'
-
-export const localLogin = createAsyncThunk<User | undefined, Props>(typePrefix, async (props) => {
+export const localLogin = createAsyncThunk<User | undefined, Props>('login/local', async (props) => {
   const { email, password, invitationUuid, navigate } = props
 
   const { status, data } = await axios.post(
