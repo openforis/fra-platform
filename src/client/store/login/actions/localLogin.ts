@@ -4,23 +4,29 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-
-import { initApp } from 'client/store/assessment/actions/initApp'
+import { Routes } from 'meta/routes'
+import { User } from 'meta/user'
 
 export const localLogin = createAsyncThunk<
-  void,
+  User | undefined,
   {
     email: string
     password: string
     invitationUuid?: string
     navigate: NavigateFunction
   }
->('login/post/local', async ({ email, password, invitationUuid, navigate }, { dispatch }) => {
-  const { status } = await axios.post(ApiEndPoint.Auth.login(), { email, password }, { params: { invitationUuid } })
+>('login/post/local', async (props) => {
+  const { email, password, invitationUuid, navigate } = props
+
+  const { status, data } = await axios.post(
+    ApiEndPoint.Auth.login(),
+    { email, password },
+    { params: { invitationUuid } }
+  )
 
   if (status === 200) {
-    dispatch(initApp()).then(() => {
-      navigate('/')
-    })
+    navigate(Routes.Root.path.absolute)
   }
+
+  return data
 })
