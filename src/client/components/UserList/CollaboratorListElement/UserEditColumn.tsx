@@ -38,7 +38,7 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
     return null
 
   const currentUserIsReviewer = Users.isReviewer(currentUser, countryIso, cycle)
-  const linkText = currentUserIsReviewer ? 'userManagement.view' : 'userManagement.edit'
+  const linkText = currentUserIsReviewer ? 'common.view' : 'userManagement.edit'
 
   return (
     <Link

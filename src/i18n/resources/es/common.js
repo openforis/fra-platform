@@ -20,6 +20,7 @@ module.exports = {
   unselectAll: 'Deseleccionar todo',
   variable: 'FRA Variable',
   year: 'Año',
+  view: 'Ver',
   filterCountries: 'Filtrar países',
 
   dashboard: 'Cuadro de mandos',

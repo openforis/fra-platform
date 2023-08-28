@@ -24,6 +24,7 @@ module.exports = {
   unknown: 'None/unknown',
   unselectAll: 'Unselect all',
   variable: 'FRA Variable',
+  view: 'View',
   year: 'Year',
 
   status: 'Status',

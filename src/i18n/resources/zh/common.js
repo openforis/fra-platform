@@ -19,6 +19,7 @@ module.exports = {
   unknown: '无/未知',
   unselectAll: '取消所有选项',
   variable: 'FRA变量',
+  view: '查看',
   year: '年份',
   filterCountries: '筛选国家',
 

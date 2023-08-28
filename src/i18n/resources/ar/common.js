@@ -20,6 +20,7 @@ module.exports = {
   unselectAll: 'إلغاء اختيار الكل',
   variable: 'تقييم الموارد الحرجية متاح',
   year: 'العام',
+  view: 'مشاهدة',
   filterCountries: 'غربلة البلدان',
   dashboard: 'لوحة التحكم',
   copyToClipboard: 'انسخ للحافظة',
