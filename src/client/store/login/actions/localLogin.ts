@@ -7,15 +7,16 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Routes } from 'meta/routes'
 import { User } from 'meta/user'
 
-export const localLogin = createAsyncThunk<
-  User | undefined,
-  {
-    email: string
-    password: string
-    invitationUuid?: string
-    navigate: NavigateFunction
-  }
->('login/post/local', async (props) => {
+type Props = {
+  email: string
+  password: string
+  invitationUuid?: string
+  navigate: NavigateFunction
+}
+
+const typePrefix = 'login/post/local'
+
+export const localLogin = createAsyncThunk<User | undefined, Props>(typePrefix, async (props) => {
   const { email, password, invitationUuid, navigate } = props
 
   const { status, data } = await axios.post(
