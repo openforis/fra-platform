@@ -5,8 +5,9 @@ const contentCheck = require('./fr/contentCheck')
 const dataDownload = require('./fr/dataDownload')
 const dataSource = require('./fr/dataSource')
 const fra = require('./fr/fra')
-const statisticalFactsheets = require('./fr/statisticalFactsheets')
+const generalValidation = require('./fr/generalValidation')
 const login = require('./fr/login')
+const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const uc = require('./fr/uc')
 
 module.exports.translation = {
@@ -16,6 +17,7 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
+  generalValidation,
   login,
   statisticalFactsheets,
   uc,
@@ -963,33 +965,6 @@ L'équipe de FRA
 
   multiSelect: {
     placeholder: 'Choisir…',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: 'La sous-catégorie est supérieure à la catégorie-mère',
-    forestAreaDoesNotMatchExtentOfForest: 'Ne correspond pas à la superficie de la Forêt (1a)',
-    forestAreaExceedsExtentOfForest: 'Supérieur à la superficie de la Forêt (1a)',
-    otherLandExceedsExtentOfForest: 'Supérieur à la superficie des autres terres (1a)',
-    valueMustBePositive: 'La valeur devra être supérieure à zéro',
-    emptyField: 'Ce champ est vide',
-    mustBeEqualToTotalGrowingStock: 'La valeur doit être égale au Total Matériel sur pied (2a)',
-    remainingLandExceedsExtentOfForest: 'Dépasse la superficie des terres restantes (1a)',
-    valueMustBeYear: 'La valeur doit être une année valide',
-    countryReportYearGreaterThanCurrentYear: 'La valeur doit être supérieure ou égale à {{minValue}}',
-    valueNotGreaterThan: 'La valeur ne doit pas être supérieure à {{maxValue}}',
-    sumNotGreaterThan: 'La somme ne doit pas dépasser {{maxValue}}',
-    valuesAreInconsistentWithNetChange: 'Les valeurs ne correspondent pas au changement net de la superficie de forêt',
-    valuesAreInconsistent1aOr1b:
-      'Les valeurs ne correspondent pas aux superficies indiquées dans les tableaux 1a ou 1b',
-    mustBeEqualToPrivateOwnership: 'La somme des sous-catégories doit être égale à la propriété privée',
-    mustBeEqualToForestExpansion: "La somme des sous-catégories doit être égale à l'expansion de la forêt",
-    mustBeEqualToPlantedForest: 'La somme des sous-catégories doit être égale à la forêt plantée',
-    mustBeEqualToForestArea:
-      'La somme de la forêt naturellement régénérée et de la forêt plantée doit être égale au matériel sur pied total',
-    mustBeLessThanPrivateOwnership: 'La somme des sous-catégories doit être inférieure à la propriété privée',
-    forestSumAreaExceedsExtentOfForest:
-      'La somme des catégories FRA dépasse la superficie de forêt indiquée dans le tableau 1a',
-    valueEqualToSum: 'La valeur totale doit être égale à la somme des sous-catégories',
   },
 
   emoji: {
