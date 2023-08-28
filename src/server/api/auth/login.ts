@@ -20,7 +20,7 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
     return req.login(user, { session: false }, (err: any) => {
       if (err) next(err)
       setAuthToken(res, user)
-      Requests.sendOk(res, info)
+      Requests.sendOk(res, user)
     })
   })(req, res, next)
 }
