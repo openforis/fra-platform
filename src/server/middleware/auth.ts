@@ -172,11 +172,15 @@ const requireViewUser = async (req: Request, _res: Response, next: NextFunction)
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+  const { assessmentName, countryIso, cycleName, print } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams & { print: string }
   const user = Requests.getUser(req)
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(Authorizer.canViewUsers({ user, countryIso, cycle }), next)
+  _next((print === 'true' && cycle.published) || Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
 const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
