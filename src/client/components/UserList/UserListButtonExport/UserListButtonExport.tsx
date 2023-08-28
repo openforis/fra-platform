@@ -29,12 +29,12 @@ const UserListButtonExport = ({ isAdmin }: Props) => {
           key: roleName,
           label: t(Users.getI18nRoleLabelKey(roleName)),
         }))
-      : [{ key: 'role', label: t('userManagement.role') }]
+      : [{ key: 'role', label: t('common.role') }]
 
   const csvHeaders = () => [
-    { key: 'name', label: t('userManagement.name') },
+    { key: 'name', label: t('common.name') },
     ...csvRoleHeaders(),
-    { key: 'email', label: t('userManagement.email') },
+    { key: 'email', label: t('common.email') },
   ]
 
   // ==== TABLE DATA

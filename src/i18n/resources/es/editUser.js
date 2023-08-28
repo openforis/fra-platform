@@ -7,7 +7,6 @@ module.exports = {
   institution: 'Institución',
   position: 'Cargo',
   done: 'Guardar',
-  cancel: 'Cancelar',
   picture1MbMax: 'La foto de perfil no puede ser superior a 1MB',
 
   title: 'Denominación',

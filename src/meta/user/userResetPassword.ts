@@ -1,7 +1,8 @@
 export interface UserResetPassword {
-  uuid: string
+  readonly uuid: string
+  readonly createdAt: string
+  readonly userId: number
+
   changedAt?: string
-  createdAt: string
-  userId: number
   active: boolean
 }

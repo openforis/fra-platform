@@ -4,6 +4,14 @@
   display: flex;
   padding: 10px;
   height: 60px;
+
+  &.button-container {
+    justify-content: center;
+    align-items: center;
+    > button {
+      margin: 0 $spacing-xs;
+    }
+  }
 }
 
 .edit-user__form-label {

@@ -347,7 +347,6 @@ El equipo de FRA
       sustainableDevelopment: 'Objetivo de Desarrollo Sostenible 15',
       panEuropeanIndicators: 'Indicadores paneuropeos',
     },
-    submit: 'Enviar',
     cancel: 'Cancelar',
     changeStatusTextPlaceholder: 'Añadir un mensaje opcional',
     doNotNotifyUsers: 'No notificar a los usuarios',
@@ -463,9 +462,6 @@ El equipo de FRA
 
   userManagement: {
     manageCollaborators: 'Gestionar colaboradores',
-    name: 'Nombre',
-    role: 'Función',
-    email: 'Correo electrónico',
     loginEmail: 'Nombre de usuario',
     noUsers: 'No se han añadido colaboradores',
     placeholder: 'Elegir…',
@@ -1015,7 +1011,6 @@ El equipo de FRA
   admin: {
     admin: 'Administración',
     filter: 'Filtrar por',
-    language: 'Idioma',
     country: 'País',
     invitationPending: 'Invitación pendiente',
   },
