@@ -3,12 +3,13 @@ const assessmentSection = require('./zh/assessmentSection')
 const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
-const fra = require('./zh/fra')
-const statisticalFactsheets = require('./zh/statisticalFactsheets')
-const login = require('./zh/login')
-const uc = require('./zh/uc')
-const print = require('./zh/print')
 const dataSource = require('./zh/dataSource')
+const fra = require('./zh/fra')
+const generalValidation = require('./zh/generalValidation')
+const login = require('./zh/login')
+const print = require('./zh/print')
+const statisticalFactsheets = require('./zh/statisticalFactsheets')
+const uc = require('./zh/uc')
 
 module.exports.translation = {
   area,
@@ -17,6 +18,7 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
+  generalValidation,
   login,
   print,
   statisticalFactsheets,
@@ -1007,30 +1009,6 @@ FRA工作组
 
   multiSelect: {
     placeholder: '选择…',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: '子类别超过母类别',
-    forestAreaDoesNotMatchExtentOfForest: '与森林面积(1a)不匹配',
-    forestAreaExceedsExtentOfForest: '超过森林面积(1a)',
-    otherLandExceedsExtentOfForest: '超过其他土地面积(1a)',
-    valueMustBePositive: '数值应大于0',
-    emptyField: '此字段为空',
-    mustBeEqualToTotalGrowingStock: '数值应等于立木总蓄积量(2a)',
-    remainingLandExceedsExtentOfForest: '超出其他土地(1a)',
-    valueMustBeYear: '数值应是有效年份',
-    countryReportYearGreaterThanCurrentYear: '数值应大于或等于{{minValue}}',
-    valueNotGreaterThan: '值应不大于{{maxValue}}',
-    sumNotGreaterThan: '总和不应超过{{maxValue}}',
-    valuesAreInconsistentWithNetChange: '数值与森林面积净变化不一致',
-    valuesAreInconsistent1aOr1b: '数值与表1a或1b中报告的面积不一致',
-    mustBeEqualToPrivateOwnership: '子类别之和应等于私有',
-    mustBeEqualToForestExpansion: '子类别之和应等于森林扩张',
-    mustBeEqualToPlantedForest: '子类别之和应等于人工林',
-    mustBeEqualToForestArea: '自然再生林和人工林之和应等于总立木蓄积',
-    mustBeLessThanPrivateOwnership: '子类别之和应小于私有',
-    forestSumAreaExceedsExtentOfForest: '报告的FRA类别之和超过了表1a中报告的森林面积',
-    valueEqualToSum: '总值应等于子类别之和',
   },
 
   emoji: {

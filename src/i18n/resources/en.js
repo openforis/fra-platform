@@ -5,11 +5,12 @@ const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
 const dataSource = require('./en/dataSource')
 const fra = require('./en/fra')
-const panEuropean = require('./en/panEuropean/panEuropean')
-const statisticalFactsheets = require('./en/statisticalFactsheets')
+const generalValidation = require('./en/generalValidation')
 const login = require('./en/login')
-const uc = require('./en/uc')
+const panEuropean = require('./en/panEuropean/panEuropean')
 const print = require('./en/print')
+const statisticalFactsheets = require('./en/statisticalFactsheets')
+const uc = require('./en/uc')
 
 module.exports.translation = {
   area,
@@ -18,6 +19,7 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
+  generalValidation,
   login,
   panEuropean,
   print,
@@ -1035,53 +1037,6 @@ The FRA team
 
   multiSelect: {
     placeholder: 'Choose…',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: 'Subcategory exceeds parent',
-    forestAreaDoesNotMatchExtentOfForest: "Doesn't match Forest area (1a)",
-    forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a) ({{value}})',
-    otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
-    remainingLandExceedsExtentOfForest: 'Exceeds Remaining land area (1a)',
-    valueMustBePositive: 'Value should be greater than zero',
-    valueMustBeYear: 'Value should be a valid year',
-    emptyField: 'This field is empty',
-    mustBeEqualToTotalGrowingStock: 'The summed value should be equal to the Total Forest',
-    countryReportYearGreaterThanCurrentYear: 'Value should be greater or equal than {{minValue}}',
-    valueNotGreaterThan: 'Value should be not greater than {{maxValue}}',
-    sumNotGreaterThan: 'Sum should not exceed {{maxValue}}',
-    sumEqualTo: 'The sum of {{categoryLabels}} ({{categoriesSum}}) must be equal to {{maxValue}}',
-    notEmpty: 'Value cannot be empty',
-    valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
-    valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
-    mustBeEqualToPrivateOwnership: 'Subcategories sum should be equal to Private Ownership',
-    mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
-    mustBeEqualToPlantedForest: 'Subcategories sum should be equal to Planted Forest',
-    mustBeEqualToPrimaryForest: 'Subcategories sum should be equal to Primary Forest',
-    mustBeEqualToForestArea: 'Sum of Naturally regenerating forest and Planted forest not equal to the total forest',
-    mustBeLessThanPrivateOwnership: 'Subcategories sum should be less than Private Ownership',
-    columnEmpty: "Column '$t({{columName}})' must have a value",
-    forestSumAreaExceedsExtentOfForest:
-      'The sum of the reported FRA categories exceeds the forest area reported in table 1a',
-    valueEqualToSum: 'Total value should be equal to sum of subcategories',
-    valueEqualToSumParent:
-      'The sum of subcategories {{subcategories}} is not equal to {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>',
-    landAreaExceedsTotalLandArea: 'Land area exceeds total land area (1a) ({{value}})',
-    classValueNotGreaterThan: '{{name}} should be not greater than {{value}}',
-    classValuesMustBeEqualTo: '{{name}} sum must be equal to {{value}}',
-    valueCannotExceedMaximumValueReportedForForestArea:
-      'Value cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
-    valueCannotExceedMaximumValueReportedForForestAreaYear:
-      'The sum of year {{year}} cannot exceed the maximum value ({{maxForestArea}}) reported for forest area (1a)',
-    valueCannotExceedMaximumValueReportedForLandArea:
-      'Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)',
-    shouldContainAtLeastOneCharacter: 'Value should contain at least one character',
-    forestAreaReportedIsDifferentFromPreviousCycle:
-      'Reported area ({{forestArea2025}}) differs from previously reported ({{forestArea2020}}). Please provide a comment explaining why it is different.',
-    sumSubCategoriesExceedParent:
-      'The sum of {{categoryLabels}} ({{categoriesSum}}) exceed {{parentLabel}} ({{parentValue}})',
-    sumSubCategoriesNotEqualToParent:
-      'The sum of {{categoryLabels}} ({{categoriesSum}}) is not equal to {{parentLabel}} ({{parentValue}})',
   },
 
   emoji: {
