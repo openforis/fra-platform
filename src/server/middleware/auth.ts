@@ -176,7 +176,7 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
     ...req.params,
     ...req.query,
     ...req.body,
-  } as CycleParams & { print: string }
+  } as CycleParams & { print?: string }
   const user = Requests.getUser(req)
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
