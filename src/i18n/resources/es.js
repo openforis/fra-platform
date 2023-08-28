@@ -1,15 +1,16 @@
 const area = require('./es/area')
 const assessmentSection = require('./es/assessmentSection')
 const common = require('./es/common')
-const dataDownload = require('./es/dataDownload')
-const fra = require('./es/fra')
-const statisticalFactsheets = require('./es/statisticalFactsheets')
-const login = require('./es/login')
-const uc = require('./es/uc')
-const print = require('./es/print')
 const contentCheck = require('./es/contentCheck')
+const dataDownload = require('./es/dataDownload')
 const dataSource = require('./es/dataSource')
 const editUser = require('./es/editUser')
+const fra = require('./es/fra')
+const generalValidation = require('./es/generalValidations')
+const login = require('./es/login')
+const print = require('./es/print')
+const statisticalFactsheets = require('./es/statisticalFactsheets')
+const uc = require('./es/uc')
 
 module.exports.translation = {
   area,
@@ -18,6 +19,7 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
+  generalValidation,
   login,
   print,
   statisticalFactsheets,
@@ -975,32 +977,6 @@ El equipo de FRA
 
   multiSelect: {
     placeholder: 'Elegir…',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: 'La subcategoría es superior a la categoría',
-    forestAreaDoesNotMatchExtentOfForest: 'No coincide con el área de bosque (1a)',
-    forestAreaExceedsExtentOfForest: 'Superior al área de bosque (1a)',
-    otherLandExceedsExtentOfForest: 'Superior al área de otras tierras (1a)',
-    valueMustBePositive: 'El valor debe ser superior a cero',
-    emptyField: 'Este campo está vacío',
-    mustBeEqualToTotalGrowingStock: 'El valor debe ser igual al valor total de Existencias Forestales en Formación(2a)',
-    remainingLandExceedsExtentOfForest: 'Excede la Superficie Terrestre Restante (1a)',
-    valueMustBeYear: 'El valor debe ser un año válido',
-    countryReportYearGreaterThanCurrentYear: 'El valor debe ser mayor o igual que {{valor mínimo}}',
-    valueNotGreaterThan: 'El valor no debe ser mayor que {{Valor máximo}}',
-    sumNotGreaterThan: 'La suma no debe superar el valor {{Valor máximo}}',
-    valuesAreInconsistentWithNetChange: 'Los valores no concuerdan con el cambio neto del área de bosque',
-    valuesAreInconsistent1aOr1b: 'Los valores no concuerda con los valores de área indicados en los cuadros 1a o 1b.',
-    mustBeEqualToPrivateOwnership: 'La suma de las subcategorías debe ser igual a Propiedad privada',
-    mustBeEqualToForestExpansion: 'La suma de las subcategorías debe ser igual a Expansión forestal',
-    mustBeEqualToPlantedForest: 'La suma de las subcategorías debe ser igual a Bosque plantado',
-    mustBeEqualToForestArea:
-      'La suma de Bosque con Procesos de Regeneración Natural y Bosque Plantado debe ser igual al total de Existencias Forestales en Formación',
-    mustBeLessThanPrivateOwnership: 'La suma de las subcategorías debe ser inferior a Propiedad privada',
-    forestSumAreaExceedsExtentOfForest:
-      'La suma de las cifras introducidas supera el valor de área de bosque introducido en el cuadro 1a',
-    valueEqualToSum: 'El valor total debe ser igual a la suma de las subcategorías',
   },
 
   emoji: {
