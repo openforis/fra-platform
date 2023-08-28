@@ -21,7 +21,7 @@ module.exports = {
   remainingLandExceedsExtentOfForest: `تجاوز مساحة الأراضي المتبقية (1أ).`,
   shouldContainAtLeastOneCharacter: `يجب أن تحتوي القيمة على حرف واحد على الأقل.`,
   subCategoryExceedsParent: `تتجاوز الفئة الفرعية الفئة الرئيسية.`,
-  sumEqualTo: `The sum of {{categoryLabels}} ({{categoriesSum}}) must be equal to {{maxValue}}`,
+  sumEqualTo: '{{maxValue}} مساويًا لـ ({{categoriesSum}}) {{categoryLabels}} يجب أن يكون مجموع ال',
   sumNotGreaterThan: `يجب ألا يتجاوز مجموع القيم {{maxValue}}.`,
   sumSubCategoriesExceedParent: `مجموع {{categoryLabels}} يتجاوز {{parentLabel}} ({{parentValue}}).`,
   sumSubCategoriesNotEqualToParent: `({{parentValue}}) {{parentLabel}}  ليس مساويًا لـ ({{categoriesSum}}) {{categoryLabels}}  يجب أن يكون مجموع ال`,

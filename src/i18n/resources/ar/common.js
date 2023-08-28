@@ -28,16 +28,11 @@ module.exports = {
   status: 'الحالة',
   submit: 'تقديم',
   tier: 'المستوى',
+  tiers: { notSelected: '', high: 'مرتفع', medium: 'متوسط', low: 'منخفض' },
   trend: 'اتجاه',
   unknown: 'ولا واحدة/مجهولة',
   unselectAll: 'إلغاء اختيار الكل',
   variable: 'تقييم الموارد الحرجية متاح',
+  view: 'مشاهدة',
   year: 'العام',
-
-  tiers: {
-    notSelected: '',
-    high: 'مرتفع',
-    medium: 'متوسط',
-    low: 'منخفض',
-  },
 }

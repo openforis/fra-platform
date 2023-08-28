@@ -27,18 +27,13 @@ module.exports = {
   selectArea: 'Select geographical area',
   statisticalFactsheets: 'Statistical factsheets',
   status: 'Status',
-  submit: 'Submit',
   tier: 'Tier',
+  tiers: { high: 'High', low: 'Low', medium: 'Medium', notSelected: '' },
+  trend: 'Trend',
+  submit: 'Submit',
   unknown: 'None/unknown',
   unselectAll: 'Unselect all',
   variable: 'FRA Variable',
+  view: 'View',
   year: 'Year',
-
-  tiers: {
-    high: 'High',
-    low: 'Low',
-    medium: 'Medium',
-    notSelected: '',
-  },
-  trend: 'Trend',
 }

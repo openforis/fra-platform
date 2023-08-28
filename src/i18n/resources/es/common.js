@@ -28,16 +28,11 @@ module.exports = {
   status: 'Estado',
   submit: 'Enviar',
   tier: 'Nivel',
+  tiers: { notSelected: '', high: 'Alto', medium: 'Medio', low: 'Bajo' },
   trend: 'Tendencia',
   unknown: 'Ninguno/desconocido',
   unselectAll: 'Deseleccionar todo',
   variable: 'FRA Variable',
+  view: 'Ver',
   year: 'Año',
-
-  tiers: {
-    notSelected: '',
-    high: 'Alto',
-    medium: 'Medio',
-    low: 'Bajo',
-  },
 }

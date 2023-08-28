@@ -32,15 +32,11 @@ module.exports = {
   status: 'Статус',
   submit: 'Направить',
   tier: 'Уровень',
+  tiers: { high: 'Высокий', low: 'Низкий', notSelected: '' },
+  trend: 'Тренд',
   unknown: 'Отсутствует/неизвестна',
   unselectAll: 'Снять выделение',
   variable: 'ОЛР Переменная',
+  view: 'Просмотреть',
   year: 'Год',
-
-  tiers: {
-    high: 'Высокий',
-    low: 'Низкий',
-    notSelected: '',
-  },
-  trend: 'Тренд',
 }

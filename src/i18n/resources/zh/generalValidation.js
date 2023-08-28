@@ -21,7 +21,7 @@ module.exports = {
   remainingLandExceedsExtentOfForest: `超过其他土地（1a）`,
   shouldContainAtLeastOneCharacter: `值应至少包含一个字符`,
   subCategoryExceedsParent: `子类别超出母类别`,
-  sumEqualTo: `The sum of {{categoryLabels}} ({{categoriesSum}}) must be equal to {{maxValue}}`,
+  sumEqualTo: '{{categoryLabels}}（{{categoriesSum}}）之和必须等于{{maxValue}}',
   sumNotGreaterThan: `总和不应超过 {{maxValue}}`,
   sumSubCategoriesExceedParent: `{{categoryLabels}}的总和超过{{parentLabel}} ({{parentValue}})`,
   sumSubCategoriesNotEqualToParent: `{{categoryLabels}} ({{categoriesSum}})的和不等于{{parentLabel}} ({{parentValue}})`,

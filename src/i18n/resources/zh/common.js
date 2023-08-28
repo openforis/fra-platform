@@ -26,18 +26,13 @@ module.exports = {
   selectArea: '选择地理区域',
   statisticalFactsheets: '统计资料表',
   status: '状况',
-  submit: '提交',
   tier: '等级',
+  tiers: { notSelected: '', high: '高', medium: '中', low: '低' },
+  submit: '提交',
   trend: '趋势',
   unknown: '无/未知',
   unselectAll: '取消所有选项',
   variable: 'FRA变量',
+  view: '查看',
   year: '年份',
-
-  tiers: {
-    notSelected: '',
-    high: '高',
-    medium: '中',
-    low: '低',
-  },
 }
