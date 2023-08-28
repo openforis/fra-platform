@@ -32,7 +32,7 @@ const UserListFilters: React.FC = () => {
       <div className="users__table-filter-container">
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
-            <h4>{t('userManagement.name')}</h4>
+            <h4>{t('common.name')}</h4>
           </div>
           <div>
             <input
@@ -47,7 +47,7 @@ const UserListFilters: React.FC = () => {
 
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
-            <h4>{t('userManagement.role')}</h4>
+            <h4>{t('common.role')}</h4>
           </div>
           <div>
             <MultiSelect

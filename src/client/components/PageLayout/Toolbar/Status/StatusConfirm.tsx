@@ -68,7 +68,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
-        {notifyUsers && <UserList readOnly isAdmin={false} users={recipients} />}
+        {notifyUsers && <UserList readOnly users={recipients} />}
       </ModalBody>
 
       <ModalFooter>
@@ -98,7 +98,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           }}
           type="button"
         >
-          {i18n.t('navigation.submit')}
+          {i18n.t('common.submit')}
         </button>
       </ModalFooter>
     </Modal>

@@ -46,37 +46,6 @@ const Country: React.FC = () => {
     <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
       <Navigation />
       <Outlet />
-
-      {/* <Routes> */}
-      {/*  <Route */}
-      {/*    path={`${ClientRoutes.Assessment.Cycle.Country.Home.Root.path.relative}/*`} */}
-      {/*    element={<AssessmentHome />} */}
-      {/*  /> */}
-
-      {/*  <Route path={`${ClientRoutes.Assessment.Cycle.Country.Print.path.relative}/*`} element={<AssessmentPrint />} /> */}
-
-      {/*  <Route */}
-      {/*    path={ClientRoutes.Assessment.Cycle.Country.DataDownload.path.relative} */}
-      {/*    element={<AssessmentDataDownload />} */}
-      {/*  /> */}
-      {/*  <Route path={ClientRoutes.Assessment.Cycle.Country.Geo.path.relative} element={<Geo />} /> */}
-      {/*  <Route */}
-      {/*    path={ClientRoutes.Assessment.Cycle.Country.Section.path.relative} */}
-      {/*    element={<SectionWrapper>{isDataExportView ? <DataExport /> : <AssessmentSection />}</SectionWrapper>} */}
-      {/*  /> */}
-      {/*  <Route */}
-      {/*    path={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.path.relative} */}
-      {/*    element={ */}
-      {/*      <SectionWrapper> */}
-      {/*        <OriginalDataPoint /> */}
-      {/*      </SectionWrapper> */}
-      {/*    } */}
-      {/*  /> */}
-
-      {/*  <Route path={ClientRoutes.Assessment.Cycle.Country.Users.User.path.relative} element={<User />} /> */}
-
-      {/*  <Route path="*" element={<Navigate to="home" replace />} /> */}
-      {/* </Routes> */}
     </div>
   )
 }

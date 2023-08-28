@@ -60,7 +60,7 @@ const UserManagement: React.FC = () => {
     <>
       <UserListFilters />
 
-      <UserList users={users} isAdmin />
+      <UserList users={users} />
 
       <Paginator
         className="user-paginator"

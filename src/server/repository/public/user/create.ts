@@ -14,8 +14,6 @@ export const create = async (
     user: { props: userProperties, email },
   } = props
 
-  if (!userProperties.lang) userProperties.lang = 'en'
-
   const { id } = await client.one<User>(
     `
         insert into public.users (email, props) values ($1, $2) returning *;

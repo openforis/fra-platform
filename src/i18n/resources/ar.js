@@ -424,7 +424,6 @@ The FRA team
       sustainableDevelopment: 'الهدف الخامس عشر من أهداف التنمية المستدامة',
       panEuropeanIndicators: 'مؤشرات عموم أوروبا',
     },
-    submit: 'تقديم',
     cancel: 'إلغاء',
     changeStatusTextPlaceholder: 'إضافة رسالة اختيارية',
     doNotNotifyUsers: 'عدم إرسال إشعار إلى المستخدمين',
@@ -541,9 +540,6 @@ The FRA team
 
   userManagement: {
     manageCollaborators: 'إدارة المتعاونين',
-    name: 'الاسم',
-    role: 'الدور',
-    email: 'البريد الإلكتروني',
     loginEmail: 'تسجيل دخول',
     noUsers: 'لم تتم إضافة متعاونين آخرين',
     placeholder: 'اختيار...',
@@ -1072,7 +1068,6 @@ The FRA team
     institution: 'المؤسسة',
     position: 'المنصب',
     done: 'حفظ',
-    cancel: 'إلغاء',
     deactivate: 'إلغاء التفعيل',
     activate: 'تفعيل',
     picture1MbMax: 'لا يجب أن يزيد حجم صورة الملف الشخصي عن 1 ميجابايت',
@@ -1119,7 +1114,6 @@ The FRA team
   admin: {
     admin: 'المدير',
     filter: 'غربلة وفق',
-    language: 'اللغة',
     country: 'البلد',
     invitationPending: 'تعليق الدعوة',
   },

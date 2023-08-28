@@ -27,7 +27,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
 
   const url = `${window.location.origin}${Routes.LoginInvitation.generatePath(
     { assessmentName, cycleName },
-    { invitationUuid }
+    { invitationUuid, lang: user.props.lang }
   )}`
   return (
     <div className="invitation-info-box">
