@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
@@ -25,7 +26,7 @@ const InviteUserLink: React.FC<Props> = (props) => {
   if (!Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length) return null
 
   return (
-    <Link to="invite" className={classNames('btn-s', 'btn-primary', className)}>
+    <Link to={Routes.CountryHomeSectionInvite.path.relative} className={classNames('btn-s', 'btn-primary', className)}>
       <Icon className="icon-sub icon-white" name="small-add" /> {t('userManagement.addUser')}
     </Link>
   )

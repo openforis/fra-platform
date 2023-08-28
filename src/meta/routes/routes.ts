@@ -25,7 +25,7 @@ const Country = createRoute<CountryRouteParams>({ path: ':countryIso', parent: C
 const CountryDataDownload = createRoute<CountryRouteParams>({ path: 'data-download', parent: Country })
 const CountryHome = createRoute<CountryRouteParams>({ path: 'home', parent: Country })
 const CountryHomeSection = createRoute<CountryHomeRouteParams>({ path: ':sectionName', parent: CountryHome })
-const CountryHomeInviteSection = createRoute<CountryHomeRouteParams>({ path: 'invite', parent: CountryHomeSection })
+const CountryHomeSectionInvite = createRoute<CountryHomeRouteParams>({ path: 'invite', parent: CountryHomeSection })
 const CountryUser = createRoute<CountryUserRouteParams>({ path: 'users/:id', parent: Country })
 const Geo = createRoute<CountryRouteParams>({ path: 'geo', parent: Country })
 const OriginalDataPoint = createRoute<OriginalDataPointRouteParams>({
@@ -60,7 +60,7 @@ export const Routes = {
   CountryDataDownload,
   CountryHome,
   CountryHomeSection,
-  CountryHomeInviteSection,
+  CountryHomeSectionInvite,
   CountryUser,
   Geo,
   OriginalDataPoint,

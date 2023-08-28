@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area'
 import { Cycle } from 'meta/assessment'
@@ -31,6 +32,7 @@ export const useOnUserInvite = (props: {
   user: User
 }) => {
   const { userToInvite, setUserToInvite, countryIso, setErrors, cycle } = props
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { toaster } = useToaster()
   const dispatch = useAppDispatch()
@@ -61,6 +63,7 @@ export const useOnUserInvite = (props: {
         .then(() => {
           setUserToInvite(initialState)
           toaster.info(t('userManagement.userAdded', { email: userToInvite.email }))
+          navigate(-1)
         })
         .catch(() => {
           // Error handled by server
@@ -71,6 +74,7 @@ export const useOnUserInvite = (props: {
     cycle.name,
     dispatch,
     initialState,
+    navigate,
     setErrors,
     setUserToInvite,
     t,

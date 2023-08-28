@@ -12,7 +12,7 @@ const Collaborators: React.FC = () => {
 
   return (
     <Routes>
-      <Route path={ApplicationRoutes.CountryHomeInviteSection.path.relative} element={<InviteUserForm />} />
+      <Route path={ApplicationRoutes.CountryHomeSectionInvite.path.relative} element={<InviteUserForm />} />
       <Route index element={<UserList users={users} />} />
     </Routes>
   )
