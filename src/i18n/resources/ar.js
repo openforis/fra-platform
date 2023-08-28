@@ -1044,7 +1044,7 @@ The FRA team
   },
 
   generalValidation: {
-    sumEqualTo: 'مجموع ال {{categoryLabels}} ({{categoriesSum}}) يجب ان يساوى {{maxValue}}',
+    sumEqualTo: '{{maxValue}}  مساويًا لـ ({{categoriesSum}})  {{categoryLabels}} يجب أن يكون مجموع ال',
     subCategoryExceedsParent: 'الفئة الفرعية تتجاوز الأصل',
     forestAreaDoesNotMatchExtentOfForest: 'لاتتطابق مع مساحة الغابة (اأ)',
     forestAreaExceedsExtentOfForest: 'تتجاوز مساحة الغابة (اأ)',
