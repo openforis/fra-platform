@@ -1,13 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-import classNames from 'classnames'
 
 import { OriginalDataPoint } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -15,6 +16,7 @@ import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
+import { useNationalClassValidation } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidation'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -44,6 +46,10 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { name, area, forestPercent, otherWoodedLandPercent, uuid } = nationalClass
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
+
+  const errorMessages = useNationalClassValidation({
+    index,
+  })
 
   let otherLand = null
 
@@ -93,8 +99,10 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validExtentOfForestPercentage,
+          error: Boolean(errorMessages),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-html={errorMessages}
       >
         <PercentInput
           disabled={!canEditData}
@@ -130,8 +138,10 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validExtentOfForestPercentage,
+          error: Boolean(errorMessages),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-html={errorMessages}
       >
         <PercentInput
           disabled={!canEditData}

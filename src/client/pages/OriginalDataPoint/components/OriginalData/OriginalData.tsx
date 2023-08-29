@@ -4,7 +4,7 @@ import { NavLink, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentName, OriginalDataPoint } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 
 import { useAssessmentCountry } from 'client/store/area'
@@ -16,11 +16,10 @@ import ForestCharacteristics from '../ForestCharacteristics'
 
 type Props = {
   canEditData: boolean
-  originalDataPoint: OriginalDataPoint
 }
 
 const OriginalData: React.FC<Props> = (props) => {
-  const { canEditData, originalDataPoint } = props
+  const { canEditData } = props
   const cycle = useCycle()
   const country = useAssessmentCountry()
   const { assessmentName, cycleName, year, sectionName } = useParams<{
@@ -82,12 +81,8 @@ const OriginalData: React.FC<Props> = (props) => {
         </NavLink>
       </div>
 
-      {sectionName === extentOfForest.name && (
-        <ExtentOfForest originalDataPoint={originalDataPoint} canEditData={canEditData} />
-      )}
-      {sectionName !== extentOfForest.name && (
-        <ForestCharacteristics originalDataPoint={originalDataPoint} canEditData={canEditData} />
-      )}
+      {sectionName === extentOfForest.name && <ExtentOfForest canEditData={canEditData} />}
+      {sectionName !== extentOfForest.name && <ForestCharacteristics canEditData={canEditData} />}
     </div>
   )
 }

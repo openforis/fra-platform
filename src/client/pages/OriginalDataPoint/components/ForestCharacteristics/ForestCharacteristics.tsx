@@ -3,27 +3,26 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ODPs } from 'meta/assessment'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import DefinitionLink from 'client/components/DefinitionLink'
 
-import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 import ForestCharacteristicsRow from './ForestCharacteristicsRow'
 
 type Props = {
   canEditData: boolean
-  originalDataPoint: OriginalDataPoint
 }
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
+  const { canEditData } = props
   const assessment = useAssessment()
   const cycle = useCycle()
-
-  const { canEditData, originalDataPoint } = props
+  const originalDataPoint = useOriginalDataPoint()
 
   const {
     t,
@@ -49,10 +48,6 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     cycle.name === '2025' &&
     naturallyRegeneratingForestTotal &&
     Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
-
-  const nationalClassValidations = nationalClasses.map((_, index) =>
-    ODPs.validateNationalClass(originalDataPoint, index)
-  )
 
   return (
     <div className="odp__section">
@@ -105,7 +100,6 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
-                  nationalClassValidation={nationalClassValidations[index]}
                 />
               ))}
 
@@ -144,28 +138,12 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               </tr>
             </tbody>
           </table>
-
-          <NationalClassValidations
-            nationalClasses={nationalClasses}
-            nationalClassValidations={nationalClassValidations}
-            variable="validForestCharacteristicsPercentage"
-          />
         </div>
       </div>
 
-      {hasNaturallyRegeneratingForest && (
-        <ForestCharacteristicsNaturallyRegenerating
-          canEditData={canEditData}
-          nationalClassValidations={nationalClassValidations}
-        />
-      )}
+      {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
 
-      {hasPlantation && (
-        <ForestCharacteristicsPlantation
-          canEditData={canEditData}
-          nationalClassValidations={nationalClassValidations}
-        />
-      )}
+      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
     </div>
   )
 }

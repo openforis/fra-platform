@@ -87,7 +87,7 @@ const OriginalDataPoint: React.FC = () => {
       <YearSelection canEditData={canEditData} />
       <DataSources originalDataPoint={originalDataPoint} canEditData={canEditData} />
       <NationalClasses originalDataPoint={originalDataPoint} canEditData={canEditData} />
-      <OriginalData originalDataPoint={originalDataPoint} canEditData={canEditData} />
+      <OriginalData canEditData={canEditData} />
       <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">

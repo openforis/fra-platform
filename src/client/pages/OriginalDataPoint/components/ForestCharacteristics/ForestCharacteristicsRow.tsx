@@ -1,18 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useNationalClassValidation } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidation'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -29,11 +30,10 @@ type Props = {
   canEditData: boolean
   index: number
   originalDataPoint: OriginalDataPoint
-  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsRow: React.FC<Props> = (props) => {
-  const { canEditData, index, nationalClassValidation, originalDataPoint } = props
+  const { canEditData, index, originalDataPoint } = props
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -45,6 +45,11 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const { name, area, forestNaturalPercent, forestPlantationPercent, otherPlantedForestPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
+
+  const errorMessages = useNationalClassValidation({
+    mustBeEqualTo: true,
+    index,
+  })
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -60,8 +65,10 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestCharacteristicsPercentage,
+          error: Boolean(errorMessages),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-html={errorMessages}
       >
         <PercentInput
           disabled={!canEditData}
@@ -98,8 +105,10 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestCharacteristicsPercentage,
+          error: Boolean(errorMessages),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-html={errorMessages}
       >
         <PercentInput
           disabled={!canEditData}
@@ -136,8 +145,10 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestCharacteristicsPercentage,
+          error: Boolean(errorMessages),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-html={errorMessages}
       >
         <PercentInput
           disabled={!canEditData}

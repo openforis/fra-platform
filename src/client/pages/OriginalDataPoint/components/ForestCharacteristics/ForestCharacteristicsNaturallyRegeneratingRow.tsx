@@ -5,8 +5,8 @@ import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
 import { ODPNationalClass } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -25,15 +25,14 @@ const allowedClass = (nc: ODPNationalClass) => {
 type Props = {
   canEditData: boolean
   index: number
-  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) => {
-  const { canEditData, index, nationalClassValidation } = props
+  const { canEditData, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -43,6 +42,13 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
+
+  const errorMessage = Numbers.greaterThan(forestNaturalForestOfWhichPrimaryForestPercent, 100)
+    ? t(`generalValidation.classValueNotGreaterThan`, {
+        name: nationalClasses[index].name,
+        value: '100%',
+      })
+    : null
 
   const ofWhichPrimary = area
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
@@ -60,8 +66,10 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(ofWhichPrimary)}</th>
       <td
         className={classNames(`fra-table__cell`, {
-          error: !nationalClassValidation.validPrimaryForest,
+          error: Boolean(errorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-html={errorMessage}
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPrimaryForest}
@@ -100,7 +108,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}
-            subtitle={i18n.t('nationalDataPoint.naturallyRegeneratingForest')}
+            subtitle={t('nationalDataPoint.naturallyRegeneratingForest')}
             topicKey={Topics.getOdpClassReviewTopicKey(
               originalDataPoint.id,
               uuid,

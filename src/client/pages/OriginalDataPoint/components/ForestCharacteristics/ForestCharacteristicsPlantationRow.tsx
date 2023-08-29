@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
 import { ODPNationalClass } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -24,23 +24,29 @@ const allowedClass = (nc: ODPNationalClass) =>
 type Props = {
   canEditData: boolean
   index: number
-  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
-  const { canEditData, index, nationalClassValidation } = props
-  const originalDataPoint = useOriginalDataPoint()
-
+  const { canEditData, index } = props
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
+
   const assessment = useAssessment()
   const cycle = useCycle()
+  const originalDataPoint = useOriginalDataPoint()
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
   const { name, area, forestPercent, forestPlantationPercent, forestPlantationIntroducedPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
+
+  const errorMessage = Numbers.greaterThan(forestPlantationIntroducedPercent, 100)
+    ? t(`generalValidation.classValueNotGreaterThan`, {
+        name: nationalClasses[index].name,
+        value: '100%',
+      })
+    : null
 
   const plantationIntroduced = area
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
@@ -58,8 +64,10 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(plantationIntroduced)}</th>
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestPlantationIntroducedPercent,
+          error: Boolean(errorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-html={errorMessage}
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}
@@ -98,7 +106,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}
-            subtitle={i18n.t('nationalDataPoint.plantationForest')}
+            subtitle={t('nationalDataPoint.plantationForest')}
             topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'plantationForestIntroduced')}
           />
         </td>

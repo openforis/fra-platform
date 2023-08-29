@@ -3,24 +3,24 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { ODPs } from 'meta/assessment/originalDataPoint'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import DefinitionLink from 'client/components/DefinitionLink'
 
-import NationalClassValidations from '../NationalClassValidations'
 import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
   canEditData: boolean
-  originalDataPoint: OriginalDataPoint
 }
 
 const ExtentOfForest: React.FC<Props> = (props) => {
-  const { canEditData, originalDataPoint } = props
+  const { canEditData } = props
   const assessment = useAssessment()
   const cycle = useCycle()
+  const originalDataPoint = useOriginalDataPoint()
 
   const {
     t,
@@ -108,12 +108,6 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               </tr>
             </tbody>
           </table>
-
-          <NationalClassValidations
-            nationalClasses={nationalClasses}
-            nationalClassValidations={nationalClassValidations}
-            variable="validExtentOfForestPercentage"
-          />
         </div>
       </div>
     </div>
