@@ -1,14 +1,15 @@
 import './Section.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Navigate } from 'react-router-dom'
 
 import { Labels, SubSections } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
 import { useCycle } from 'client/store/assessment'
 import { useIsSectionDataEmpty } from 'client/store/data'
 import { useSection, useTableSections } from 'client/store/metadata'
 import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from 'client/store/user/hooks'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
@@ -27,31 +28,30 @@ const Section: React.FC<Props> = (props: Props) => {
   const { section: sectionProp } = props
 
   const { t } = useTranslation()
-  const { assessmentName } = useSectionRouteParams()
-
+  const { assessmentName, cycleName, countryIso } = useSectionRouteParams()
   const cycle = useCycle()
-  const countryIso = useCountryIso()
   const subSection = useSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
   const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)
   const { print, onlyTables } = useIsPrintRoute()
+  useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
 
   const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
 
-  useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
-
   // Hide the whole section if no tables have data
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)
+
+  if (!subSection) {
+    return <Navigate to={Routes.Country.generatePath({ assessmentName, cycleName, countryIso })} replace />
+  }
 
   if (onlyTables && isSectionDataEmpty) {
     return null
   }
 
   const anchor = SubSections.getAnchor({ cycle, subSection })
-
   const renderGeneralComments = !onlyTables && descriptions[cycle.uuid].comments
-
   const renderIntroductoryText = !onlyTables && descriptions[cycle.uuid].introductoryText
 
   return (
