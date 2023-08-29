@@ -51,7 +51,7 @@ const getNodeValidationsUpdateEvent = (props: {
 }
 
 const getNodeValuesUpdateEvent = (props: {
-  countryIso: CountryIso
+  countryIso: AreaCode
   assessmentName: string
   cycleName: string
 }): string => {
