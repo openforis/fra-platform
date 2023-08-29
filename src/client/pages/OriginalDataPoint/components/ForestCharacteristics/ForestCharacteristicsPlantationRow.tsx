@@ -1,18 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
 import { ODPNationalClass } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -24,11 +25,10 @@ const allowedClass = (nc: ODPNationalClass) =>
 type Props = {
   canEditData: boolean
   index: number
-  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
-  const { canEditData, index, nationalClassValidation } = props
+  const { canEditData, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
@@ -46,6 +46,12 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
     : null
 
+  const validationErrorMessage = useNationalClassValidations({
+    index,
+    originalDataPoint,
+    variable: 'validForestPlantationIntroducedPercent',
+  })
+
   if (!allowedClass(nationalClass)) {
     return null
   }
@@ -58,8 +64,10 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(plantationIntroduced)}</th>
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestPlantationIntroducedPercent,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}

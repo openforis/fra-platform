@@ -5,14 +5,15 @@ import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
 import { ODPNationalClass } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -25,11 +26,10 @@ const allowedClass = (nc: ODPNationalClass) => {
 type Props = {
   canEditData: boolean
   index: number
-  nationalClassValidation: NationalClassValidation
 }
 
 const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) => {
-  const { canEditData, index, nationalClassValidation } = props
+  const { canEditData, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
@@ -48,6 +48,12 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
     : null
 
+  const validationErrorMessage = useNationalClassValidations({
+    index,
+    originalDataPoint,
+    variable: 'validPrimaryForest',
+  })
+
   if (!allowedClass(nationalClass)) {
     return null
   }
@@ -60,8 +66,10 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(ofWhichPrimary)}</th>
       <td
         className={classNames(`fra-table__cell`, {
-          error: !nationalClassValidation.validPrimaryForest,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPrimaryForest}

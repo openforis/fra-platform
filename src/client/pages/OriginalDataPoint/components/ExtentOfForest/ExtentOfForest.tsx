@@ -9,7 +9,6 @@ import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import DefinitionLink from 'client/components/DefinitionLink'
 
-import NationalClassValidations from '../NationalClassValidations'
 import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
@@ -108,12 +107,6 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               </tr>
             </tbody>
           </table>
-
-          <NationalClassValidations
-            nationalClasses={nationalClasses}
-            nationalClassValidations={nationalClassValidations}
-            variable="validExtentOfForestPercentage"
-          />
         </div>
       </div>
     </div>
