@@ -2,22 +2,20 @@ import './Toolbar.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { Link } from 'react-router-dom'
 
-import { Areas } from 'meta/area'
-import { Routes } from 'meta/routes'
+import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
-import Icon from 'client/components/Icon'
 import LinkHome from 'client/components/LinkHome'
 import { Breakpoints } from 'client/utils'
 
+import LinksPrint from './LinksPrint'
 import Lock from './Lock'
 import Status from './Status'
 import ToggleNavigationControl from './ToggleNavigationControl'
@@ -25,21 +23,18 @@ import ToggleNavigationControl from './ToggleNavigationControl'
 const Toolbar: React.FC = () => {
   const { t } = useTranslation()
   const cycle = useCycle()
-  const countryIso = useCountryIso()
-  const country = useCountry(countryIso)
+  const { countryIso } = useCountryRouteParams()
+  const country = useCountry(countryIso as CountryIso)
   const { print } = useIsPrintRoute()
   const user = useUser()
 
-  const isCountry = Areas.isISOCountry(countryIso)
-  const assessment = useAssessment()
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
-
   if (print) return null
 
+  const isCountry = Areas.isISOCountry(countryIso)
   const isAdmin = Users.isAdministrator(user)
   const includeGlobals = isAdmin || cycle.published
   const includeRegions = isAdmin || cycle.published
+  const withLock = user && isCountry && Users.hasEditorRole({ user, countryIso, cycle })
 
   return (
     <div className="toolbar">
@@ -66,31 +61,9 @@ const Toolbar: React.FC = () => {
           </MediaQuery>
 
           <div className="toolbar__utils-container">
-            {user && country && Users.hasEditorRole({ user, countryIso, cycle }) && (
-              <>
-                <Lock />
-                <div className="toolbar__separator" />
-              </>
-            )}
+            {withLock && <Lock />}
 
-            <MediaQuery minWidth={Breakpoints.laptop}>
-              <Link
-                className="btn btn-secondary"
-                to={Routes.PrintTables.generatePath({ countryIso, assessmentName, cycleName })}
-                target="_blank"
-              >
-                <Icon name="small-print" className="icon-margin-left icon-sub" />
-                <Icon name="icon-table2" className="icon-no-margin icon-sub" />
-              </Link>
-
-              <Link
-                className="btn btn-secondary"
-                to={Routes.Print.generatePath({ countryIso, assessmentName, cycleName })}
-                target="_blank"
-              >
-                <Icon name="small-print" className="icon-no-margin icon-sub" />
-              </Link>
-            </MediaQuery>
+            <LinksPrint withSeparator={withLock} />
           </div>
         </>
       )}
