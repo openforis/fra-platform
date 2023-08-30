@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
-
 import { RoleName, User, UserRole, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -51,13 +49,32 @@ const InvitationColumn: React.FC<Props> = (props: Props) => {
       })
   }, [t, user, dispatch, assessmentName, cycleName, countryIso, invitationUuid, toaster])
 
+  const inviteAgain = useCallback(() => {
+    dispatch(
+      UserManagementActions.sendInvitationEmail({
+        assessmentName,
+        countryIso,
+        cycleName,
+        invitationUuid,
+      })
+    ).then(() => {
+      toaster.success(t('userManagement.invitationEmailSent'))
+    })
+  }, [dispatch, assessmentName, countryIso, cycleName, invitationUuid, toaster, t])
+
+  if (UserRoles.isInvitationExpired(userRole))
+    return (
+      <button className="btn-s btn-link" onClick={inviteAgain} title={t('userManagement.inviteAgain')} type="button">
+        {t('userManagement.inviteAgain')}
+        <Icon className="icon-sub" name="icon-paper-plane" />
+      </button>
+    )
+
   return (
     <>
       <button
         key={0}
-        className={classNames('btn-s btn-link', {
-          'btn-link-destructive': UserRoles.isInvitationExpired(userRole),
-        })}
+        className="btn-s btn-link"
         onClick={() => setShowInvitationInfo(true)}
         title={t('userManagement.info')}
         type="button"
