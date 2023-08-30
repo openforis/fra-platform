@@ -4,20 +4,17 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from 'utils/numbers'
 
 import { ODPs } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 
-import NationalClassValidations from '../NationalClassValidations'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 
 type Props = {
   canEditData: boolean
-  nationalClassValidations: Array<NationalClassValidation>
 }
 
 const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
-  const { canEditData, nationalClassValidations } = props
+  const { canEditData } = props
   const originalDataPoint = useOriginalDataPoint()
   const { t } = useTranslation()
 
@@ -37,12 +34,7 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
 
           <tbody>
             {nationalClasses?.map((nationalClass, index) => (
-              <ForestCharacteristicsPlantationRow
-                key={nationalClass.name}
-                canEditData={canEditData}
-                index={index}
-                nationalClassValidation={nationalClassValidations[index]}
-              />
+              <ForestCharacteristicsPlantationRow key={nationalClass.name} canEditData={canEditData} index={index} />
             ))}
           </tbody>
 
@@ -73,12 +65,6 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
             </tr>
           </tfoot>
         </table>
-
-        <NationalClassValidations
-          nationalClasses={nationalClasses}
-          nationalClassValidations={nationalClassValidations}
-          variable="validForestPlantationIntroducedPercent"
-        />
       </div>
     </div>
   )

@@ -1,13 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-import classNames from 'classnames'
 
 import { OriginalDataPoint } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -15,6 +16,7 @@ import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
+import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -46,6 +48,12 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const classNameRowComments = useNationalClassNameComments(target)
 
   let otherLand = null
+
+  const validationErrorMessage = useNationalClassValidations({
+    index,
+    originalDataPoint,
+    variable: 'validExtentOfForestPercentage',
+  })
 
   if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
     otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)))
@@ -93,8 +101,10 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validExtentOfForestPercentage,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData}
@@ -130,8 +140,10 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validExtentOfForestPercentage,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData}
