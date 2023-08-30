@@ -13,7 +13,8 @@ export const getAll = async (props: { metaCache?: boolean }, client: BaseProtoco
             ${props.metaCache ? `, meta_cache` : ''}
         from assessment a
                  left join assessment_cycle ac on a.id = ac.assessment_id
-        group by ${selectFields};
+        group by ${selectFields}
+        order by 1;
     `,
     [],
     AssessmentAdapter
