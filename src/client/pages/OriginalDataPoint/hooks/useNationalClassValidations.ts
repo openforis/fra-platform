@@ -33,13 +33,9 @@ export const useNationalClassValidations = (props: Props) => {
     return null
   }
 
-  const nationalClassValidations = originalDataPoint.nationalClasses.map((_, index) =>
-    ODPs.validateNationalClass(originalDataPoint, index)
-  )
-  const nationalClassValidation = nationalClassValidations[index]
-  const hasErrors = nationalClassValidations.some((v) => !v[variable])
+  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
-  if (!hasErrors || nationalClassValidation[variable]) {
+  if (nationalClassValidation[variable]) {
     return null
   }
 
