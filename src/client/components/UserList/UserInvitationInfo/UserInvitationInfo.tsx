@@ -1,19 +1,17 @@
 import './UserInvitationInfo.scss'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryIso } from 'client/hooks'
 import { useToaster } from 'client/hooks/useToaster'
 import Icon from 'client/components/Icon'
+import { useResendInvitation } from 'client/components/UserList/hooks/useResendInvitation'
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
-  const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
@@ -25,10 +23,21 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
 
   const { invitationUuid } = Users.getRole(user, countryIso, cycle)
 
+  const callback = useCallback(() => {
+    toaster.success(t('userManagement.invitationEmailSent'))
+    onClose()
+  }, [toaster, t, onClose])
+
+  const resendInvitation = useResendInvitation({
+    invitationUuid,
+    callback,
+  })
+
   const url = `${window.location.origin}${Routes.LoginInvitation.generatePath(
     { assessmentName, cycleName },
     { invitationUuid, lang: user.props.lang }
   )}`
+
   return (
     <div className="invitation-info-box">
       <div className="label">{t('userManagement.invitationLink')}</div>
@@ -52,23 +61,7 @@ const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ use
           </div>
         </li>
         <li>
-          <button
-            className="btn-s btn-link"
-            type="button"
-            onClick={() => {
-              dispatch(
-                UserManagementActions.sendInvitationEmail({
-                  assessmentName,
-                  countryIso,
-                  cycleName,
-                  invitationUuid,
-                })
-              ).then(() => {
-                toaster.success(t('userManagement.invitationEmailSent'))
-                onClose()
-              })
-            }}
-          >
+          <button className="btn-s btn-link" type="button" onClick={resendInvitation}>
             {t('userManagement.sendInvitation')}
           </button>
         </li>
