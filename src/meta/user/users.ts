@@ -44,7 +44,7 @@ const isAlternateNationalCorrespondent = (user: User, countryIso: AreaCode, cycl
 
 const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.VIEWER, countryIso, cycle)
 
-const hasEditorRole = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): boolean => {
+const hasEditorRole = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): boolean => {
   const { countryIso, cycle, user } = props
 
   if (isAdministrator(user)) return true
