@@ -27,6 +27,7 @@ import { validatorNotGreaterThanForestOrMaxForest } from './validatorNotGreaterT
 import { validatorNotGreaterThanLandArea } from './validatorNotGreaterThanLandArea'
 import { validatorNotGreaterThanLandAreaOrMaxLandArea } from './validatorNotGreaterThanLandAreaOrMaxLandArea'
 import { validatorNotGreaterThanMaxForest } from './validatorNotGreaterThanMaxForest'
+import { validatorNWFPProductAndCategory } from './validatorNWFPProductAndCategory'
 import { validatorOtherLand } from './validatorOtherLand'
 import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTreeCoverTotal'
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
@@ -56,6 +57,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorForestAreaNetChange,
   validatorGreaterThanOrZero,
   validatorIsYear,
+  validatorNWFPProductAndCategory,
   validatorNextCountryReportYear,
   validatorNotEmpty,
   validatorNotGreaterThan,
