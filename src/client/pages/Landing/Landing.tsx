@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
-import { RoleName } from 'meta/user'
+import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -23,6 +23,11 @@ const Landing: React.FC = () => {
   const cycle = useCycle(userLastRole?.cycleUuid)
 
   const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name }
+
+  if (Users.isAdministrator(user)) {
+    urlParams.cycleName = assessment.cycles.at(0).name
+  }
+
   let url = Routes.Cycle.generatePath(urlParams)
 
   if (userLastRole && userLastRole.countryIso && redirectRoles.includes(userLastRole.role)) {
