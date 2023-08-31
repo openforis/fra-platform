@@ -5,7 +5,6 @@ import { CountryIso } from 'meta/area'
 import { User, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -20,11 +19,7 @@ export const useRemoveInvitation = (props: Props) => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const assessment = useAssessment()
-  const assessmentName = assessment.props.name
-  const cycle = useCycle()
-  const cycleName = cycle.name
-  const { countryIso } = useCountryRouteParams()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
   return useCallback(() => {
     if (window.confirm(t('userManagement.confirmDelete', { user: Users.getFullName(user) })))

@@ -1,9 +1,10 @@
 import { useCallback } from 'react'
 
+import { CountryIso } from 'meta/area'
+
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { UserManagementActions } from 'client/store/ui/userManagement'
-import { useCountryIso } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
   invitationUuid: string
@@ -13,18 +14,13 @@ type Props = {
 export const useResendInvitation = (props: Props) => {
   const { invitationUuid, callback } = props
   const dispatch = useAppDispatch()
-  const assessment = useAssessment()
-  const countryIso = useCountryIso()
-  const cycle = useCycle()
-
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
   return useCallback(() => {
     dispatch(
       UserManagementActions.sendInvitationEmail({
         assessmentName,
-        countryIso,
+        countryIso: countryIso as CountryIso,
         cycleName,
         invitationUuid,
       })
