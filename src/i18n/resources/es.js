@@ -477,6 +477,7 @@ El equipo de FRA
     tableAccess: 'Acceso a las mesas',
     invitationLink: 'Enlace de invitación',
     sendInvitation: 'Enviar correo electrónico de invitación',
+    inviteAgain: 'Invitar de nuevo',
     invitationEmail: {
       subject: 'Invitación a la plataforma de FRA',
       textMessage: `Estimado/a {{invitedUser}},

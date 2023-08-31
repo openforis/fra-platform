@@ -470,6 +470,7 @@ L'équipe de FRA
     tableAccess: 'Accès aux tables',
     invitationLink: "Lien d'invitation",
     sendInvitation: "Envoyer un email d'invitation",
+    inviteAgain: 'Inviter de nouveau',
     invitationEmail: {
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
