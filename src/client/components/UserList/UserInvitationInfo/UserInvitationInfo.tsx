@@ -9,7 +9,8 @@ import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
 import { useToaster } from 'client/hooks/useToaster'
 import Icon from 'client/components/Icon'
-import { useResendInvitation } from 'client/components/UserList/hooks/useResendInvitation'
+
+import { useResendInvitation } from '../hooks/useResendInvitation'
 
 const UserInvitationInfo: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const assessment = useAssessment()

@@ -41,7 +41,7 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
 
   const currentUserIsReviewer = Users.isReviewer(currentUser, countryIso, cycle)
   const text = t(currentUserIsReviewer ? 'common.view' : 'userManagement.edit')
-  const icon = currentUserIsReviewer ? 'small-right' : 'pencil'
+  const icon = currentUserIsReviewer ? 'icon-eye' : 'pencil'
 
   return (
     <Link
