@@ -20,7 +20,7 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
   const isReviewer = Users.isReviewer(currentUser, countryIso, cycle)
 
   const userRole = Users.getRole(user, countryIso, cycle)
-  const { acceptedAt, invitationUuid } = userRole
+  const { acceptedAt, invitationUuid } = userRole ?? {}
 
   const showLink = !readOnly
 

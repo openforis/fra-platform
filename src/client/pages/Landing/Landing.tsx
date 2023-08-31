@@ -5,7 +5,7 @@ import { Routes } from 'meta/routes'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAssessment, useAssessments, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 
 const redirectRoles = [
@@ -17,10 +17,15 @@ const redirectRoles = [
 ]
 
 const Landing: React.FC = () => {
-  const assessment = useAssessment()
+  const assessments = useAssessments()
+  const defaultAssessment = useAssessment()
+  const defaultCycle = useCycle()
   const user = useUser()
-  const userLastRole = UserRoles.getLastRole({ assessment, user })
-  const cycle = useCycle(userLastRole?.cycleUuid)
+
+  const userLastRole = UserRoles.getLastRole({ user })
+  const assessment =
+    assessments.find((assessment) => Number(assessment.id) === Number(userLastRole?.assessmentId)) ?? defaultAssessment
+  const cycle = assessment.cycles.find((cycle) => cycle.uuid === userLastRole?.cycleUuid) ?? defaultCycle
 
   const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name }
 
@@ -31,7 +36,7 @@ const Landing: React.FC = () => {
   let url = Routes.Cycle.generatePath(urlParams)
 
   if (userLastRole && userLastRole.countryIso && redirectRoles.includes(userLastRole.role)) {
-    url = Routes.CountryHome.generatePath({
+    url = Routes.Country.generatePath({
       ...urlParams,
       countryIso: userLastRole.countryIso,
     })
