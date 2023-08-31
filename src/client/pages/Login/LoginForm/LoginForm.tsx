@@ -50,9 +50,10 @@ const LoginForm: React.FC = () => {
         LoginActions.localLogin({
           email,
           password,
-          navigate,
         })
-      )
+      ).then(() => {
+        navigate(Routes.Root.path.absolute)
+      })
     }
   }
 
