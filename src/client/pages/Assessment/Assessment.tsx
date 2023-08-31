@@ -6,7 +6,6 @@ import { useTheme } from './hooks/useTheme'
 
 const Assessment: React.FC = () => {
   useInitLanguage()
-  // useUserRedirect()
   useTheme()
 
   return <Outlet />
