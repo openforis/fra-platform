@@ -506,6 +506,7 @@ module.exports.translation = {
     info: 'Информация',
     tableAccess: 'Доступ к таблице',
     invitationLink: 'Ссылка на приглашение',
+    inviteAgain: 'Пригласить заново',
     sendInvitation: 'Направить приглашение по электронной почте',
     invitationEmail: {
       subject: 'Приглашение на платформу ОЛР',
