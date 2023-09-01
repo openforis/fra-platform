@@ -5,12 +5,11 @@ import { AssessmentNames } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useCycle, useIsAppInitialized } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUserRedirect = (): void => {
-  const isAppInitialized = useIsAppInitialized()
   const cycle = useCycle()
   const cycleName = cycle.name
   const { assessmentName, countryIso } = useCountryRouteParams()
@@ -21,9 +20,7 @@ export const useUserRedirect = (): void => {
   useEffect(() => {
     const personalInfoRequired = Users.isPersonalInfoRequired(user, userRole)
     const isFra = assessmentName === AssessmentNames.fra
-    const shouldRedirectToProfile = Boolean(
-      isAppInitialized && personalInfoRequired && assessmentName && cycle && navigate && isFra
-    )
+    const shouldRedirectToProfile = Boolean(personalInfoRequired && navigate && isFra)
 
     if (shouldRedirectToProfile) {
       const params = { assessmentName, cycleName, countryIso, id: user.id }
@@ -31,5 +28,5 @@ export const useUserRedirect = (): void => {
       const state = { userLastRole: userRole, personalInfoRequired, routeParams }
       navigate(Routes.CountryUser.generatePath(params), { state })
     }
-  }, [assessmentName, countryIso, cycle, cycleName, isAppInitialized, navigate, user, userRole])
+  }, [assessmentName, countryIso, cycleName, navigate, user, userRole])
 }

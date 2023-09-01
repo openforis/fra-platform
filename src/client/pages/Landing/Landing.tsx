@@ -5,8 +5,9 @@ import { Routes } from 'meta/routes'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useAssessment, useAssessments, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
+
+import { useRedirectAssessmentAndCycle } from './hooks/UseRedirectAssessmentAndCycle'
 
 const redirectRoles = [
   RoleName.REVIEWER,
@@ -17,15 +18,9 @@ const redirectRoles = [
 ]
 
 const Landing: React.FC = () => {
-  const assessments = useAssessments()
-  const defaultAssessment = useAssessment()
-  const defaultCycle = useCycle()
+  const { assessment, cycle } = useRedirectAssessmentAndCycle()
   const user = useUser()
-
   const userLastRole = UserRoles.getLastRole({ user })
-  const assessment =
-    assessments.find((assessment) => Number(assessment.id) === Number(userLastRole?.assessmentId)) ?? defaultAssessment
-  const cycle = assessment.cycles.find((cycle) => cycle.uuid === userLastRole?.cycleUuid) ?? defaultCycle
 
   const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name }
 
