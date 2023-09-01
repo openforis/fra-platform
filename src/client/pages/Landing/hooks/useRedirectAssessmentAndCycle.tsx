@@ -18,7 +18,7 @@ export const useRedirectAssessmentAndCycle = () => {
   const isAdmin = Users.isAdministrator(user)
 
   const cycle = isAdmin
-    ? assessment.cycles.at(0)
+    ? [...assessment.cycles].sort((a, b) => (a.name > b.name ? -1 : 1)).at(0)
     : assessment.cycles.find((cycle) => cycle.uuid === (userLastRole?.cycleUuid ?? assessment.props.defaultCycle))
 
   return { assessment, cycle }
