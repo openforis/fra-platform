@@ -2,12 +2,12 @@ import React from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
-import { RoleName, Users } from 'meta/user'
+import { RoleName } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useUser } from 'client/store/user'
 
-import { useRedirectAssessmentAndCycle } from './hooks/UseRedirectAssessmentAndCycle'
+import { useRedirectAssessmentAndCycle } from './hooks/useRedirectAssessmentAndCycle'
 
 const redirectRoles = [
   RoleName.REVIEWER,
@@ -23,10 +23,6 @@ const Landing: React.FC = () => {
   const userLastRole = UserRoles.getLastRole({ user })
 
   const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name }
-
-  if (Users.isAdministrator(user)) {
-    urlParams.cycleName = assessment.cycles.at(0).name
-  }
 
   let url = Routes.Cycle.generatePath(urlParams)
 
