@@ -66,9 +66,10 @@ const Invitation: React.FC = () => {
           email,
           password,
           invitationUuid,
-          navigate,
         })
-      )
+      ).then(() => {
+        navigate(Routes.Root.path.absolute)
+      })
     }
   }
 

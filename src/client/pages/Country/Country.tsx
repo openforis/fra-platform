@@ -19,6 +19,7 @@ import useGetUsers from './hooks/useGetUsers'
 import { useInitMetaCache } from './hooks/useInitMetaCache'
 import { useInitSections } from './hooks/useInitSections'
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
+import { useUserRedirect } from './hooks/useUserRedirect'
 
 const Country: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
@@ -34,6 +35,7 @@ const Country: React.FC = () => {
   useInitMetaCache()
   useGetUsers()
   useReviewSummaryListener()
+  useUserRedirect()
 
   if (!countryIso) return null
 

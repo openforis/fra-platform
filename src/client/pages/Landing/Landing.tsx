@@ -5,8 +5,9 @@ import { Routes } from 'meta/routes'
 import { RoleName } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
+
+import { useRedirectAssessmentAndCycle } from './hooks/useRedirectAssessmentAndCycle'
 
 const redirectRoles = [
   RoleName.REVIEWER,
@@ -17,16 +18,16 @@ const redirectRoles = [
 ]
 
 const Landing: React.FC = () => {
-  const assessment = useAssessment()
+  const { assessment, cycle } = useRedirectAssessmentAndCycle()
   const user = useUser()
-  const userLastRole = UserRoles.getLastRole({ assessment, user })
-  const cycle = useCycle(userLastRole?.cycleUuid)
+  const userLastRole = UserRoles.getLastRole({ user })
 
   const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name }
+
   let url = Routes.Cycle.generatePath(urlParams)
 
   if (userLastRole && userLastRole.countryIso && redirectRoles.includes(userLastRole.role)) {
-    url = Routes.CountryHome.generatePath({
+    url = Routes.Country.generatePath({
       ...urlParams,
       countryIso: userLastRole.countryIso,
     })

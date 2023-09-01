@@ -39,12 +39,15 @@ const getRecipientRoles = (props: { status: AssessmentStatus }) => {
   }
 }
 
-const getLastRole = (params: { assessment: Assessment; user: User }) => {
+const getLastRole = (params: { assessment?: Assessment; user: User }) => {
   const { assessment, user } = params
 
   if (!user || !user.roles) return undefined
 
-  const roles = user.roles.filter((role) => Number(role.assessmentId) === Number(assessment?.id))
+  const roles = assessment
+    ? user.roles.filter((role) => Number(role.assessmentId) === Number(assessment?.id))
+    : user.roles
+
   if (roles.length === 1) return roles[0]
 
   const _roles = [...roles].sort((roleA, roleB) => {
