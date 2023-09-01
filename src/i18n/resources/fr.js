@@ -130,7 +130,7 @@ des domaines boréal, tempéré et sous-tropical`,
 
   fraClass: {
     forest: 'Forêt',
-    otherWoodedLand: 'Autre terre boisée',
+    otherWoodedLand: 'Autres terres boisées',
     otherLand: 'Autre terre',
   },
 
@@ -406,7 +406,7 @@ L'équipe de FRA
     noNationalDataAdded: 'Pas de donnée nationale ajoutée',
     nationalData: 'Donnée nationale',
     reclassificationLabel: 'Données de base et reclassification',
-    forestCategoriesLabel: 'Forêt, autre terre boisée et autre terre',
+    forestCategoriesLabel: 'Forêt, autres terres boisées et autre terre',
     referenceYearData: 'Année de référence pour les données',
     referenceYear: 'Année de référence',
     references: 'Références',
@@ -445,7 +445,7 @@ L'équipe de FRA
     },
     appliesToVariablesOptions: {
       forest: 'Forêt',
-      otherWoodedLand: 'Autre terre boisée',
+      otherWoodedLand: 'Autres terres boisées',
       otherLand: 'Autre terre',
     },
     forestCategoriesLabel2025: 'Forêt, autres terres boisées et terres restantes',
@@ -656,7 +656,7 @@ L'équipe de FRA fra@fao.org
     plantationForest: '…dont forêt de plantation',
     otherPlantedForest: '…dont autre forêt plantée',
     forest: 'Forêt',
-    otherWoodedLand: 'Autre terre boisée',
+    otherWoodedLand: 'Autres terres boisées',
     copyToClipboard: 'Copier valeurs',
   },
 
