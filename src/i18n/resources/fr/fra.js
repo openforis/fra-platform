@@ -204,7 +204,7 @@ module.exports = {
   },
   navigation: {
     sectionHeaders: {
-      employmentEducationAndNwfp2025: 'Extraction et valeur des produits forestiers non ligneuz en 2020',
+      employmentEducationAndNwfp2025: 'Extraction et valeur des produits forestiers non ligneux en 2020',
       forestGrowingStockBiomassAndCarbon2025: 'Matériel sur pied, biomasse et carbone de la forêt',
       forestDesignationAndManagement2025: 'Affectation et gestion des forêts',
       forestPolicyAndLegislation2025: 'Politiques et législations forestières',
