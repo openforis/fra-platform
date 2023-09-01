@@ -99,4 +99,9 @@
     @include mixin-status-base($ui-status-accepted);
     margin-right: 8px;
   }
+
+  .status-approval-label {
+    color: darken($ui-status-review, 13%);
+    font-weight: 600;
+  }
 }
