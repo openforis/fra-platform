@@ -585,6 +585,7 @@ The FRA team
     editPermissions: 'تحرير الأذونات',
     invitationDeleted: 'تم حذف الدعوة',
     invitationEmailSent: 'تم إرسال بريد إلكتروني للدعوة',
+    inviteAgain: 'دعوة مرة أخرى',
     permissions: 'أذونات',
     personalInfoRequired: 'يرجى استكمال معلوماتك الشخصية قبل المتابعة',
     userAdded: 'تمت إضافة {{البريد الالكتروني}}',

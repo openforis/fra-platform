@@ -152,7 +152,7 @@ Note(s) explicative(s )
 
 ### MANGROVES
 
-> Superficie de **forêt** et **autre terre boisée** présentant une végétation de mangroves.
+> Superficie de **forêt** et **autres terres boisées** présentant une végétation de mangroves.
 
 ### FORÊT TEMPORAIREMENT NON BOISÉE ET/OU RÉCEMMENT RÉGÉNÉRÉE
 
