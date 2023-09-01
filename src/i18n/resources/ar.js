@@ -596,9 +596,6 @@ The FRA team
     },
   },
 
-  // استبيان خاص بتقييم الموارد الحرجية لعام 2020
-  // يجب أن يكون الاسم واللقب نفسه دائماً
-
   contactPersons: {
     reportPreparationAndContactPersons: 'إعداد التقارير ومسؤولي التواصل',
     contactPersons: 'مدخل',
@@ -986,10 +983,10 @@ The FRA team
     panEuropean: 'عموم أوروبا',
     deskStudy: 'دراسة مكتبية',
     statusChangeNotification: {
-      subject: '{{country}} تغيرت الحالة {{status}} على منصة تقييم الموارد الحرجية',
+      subject: '{{country}} تغير الحالة الي {{status}} على منصة تقييم الموارد الحرجية.',
       textMessage: `عزيزي {{recipientName}},
 
-{{changer}} غير حالة {{assessment}} إلى "{{status}}"بالنسبة لـ  {{country}} على منصة تقييم الموارد الحرجية.
+{{changer}} غير الحالة الخاصه {{assessment}} إلى "{{status}}"بالنسبة لـ  {{country}} على منصة تقييم الموارد الحرجية.
 
 {{message}}
 
@@ -999,11 +996,11 @@ The FRA team
 {{- serverUrl}}`,
       htmlMessage: `عزيزي {{recipientName}},
 <br/><br/>
-{{changer}} غير الحالة {{assessment}} إلى"{{status}}" بالنسبة لـ {{country}} على منصة تقييم الموارد الحرجية.
+{{changer}} غير الحالة الخاصه {{assessment}} إلى "{{status}}"بالنسبة لـ {{country}} على منصة تقييم الموارد الحرجية.
 <br/><br/>
 {{message}}
 <br/><br/>
-<a href="{{- serverUrl}}"><b>Visit the platform</b></a>
+<a href="{{- serverUrl}}"><b>لزيارة المنصة</b></a>
 <br/><br/>
 فريق تقييم الموارد الحرجية
 <br/>
