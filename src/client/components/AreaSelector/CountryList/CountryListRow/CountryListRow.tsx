@@ -59,7 +59,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
         <>
           <span className="country-selection-list__secondary-col">
             <div className={`status-${status}`} />
-            {i18n.t<string>(`assessment.status.${status}.label`)}
+            <span className={`status-${status}-label`}>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
           </span>
 
           <span className="country-selection-list__secondary-col">
