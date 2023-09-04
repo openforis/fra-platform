@@ -7,9 +7,11 @@ export type AssessmentProps = {
   defaultCycle?: CycleUuid
 }
 
+export type AssessmentUuid = string
+
 export interface Assessment {
   id: number
-  uuid: string
+  uuid: AssessmentUuid
   cycles: Array<Cycle>
   props: AssessmentProps
   metaCache?: Record<CycleUuid, AssessmentMetaCache>

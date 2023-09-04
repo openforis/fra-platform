@@ -9,6 +9,7 @@ import { useAssessment, useCycle } from 'client/store/assessment'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
 import { useCountryIso, useOnUpdate } from 'client/hooks'
+import UserPreferences from 'client/components/EditUserForm/UserPreferences'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
@@ -118,6 +119,8 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
       )}
 
       {canEditRoles && <CountryRoles user={user} />}
+
+      <UserPreferences userToEdit={user} changeUserProp={changeUserProp} enabled={enabled} />
     </div>
   )
 }
