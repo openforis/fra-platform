@@ -18,7 +18,9 @@ const ColumnVariable: React.FC<Props> = (props: Props) => {
 
   return (
     <DataColumn className="data-source-column">
-      <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.year} />
+      <div className="data-source__text-area-wrapper">
+        <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.year} />
+      </div>
     </DataColumn>
   )
 }

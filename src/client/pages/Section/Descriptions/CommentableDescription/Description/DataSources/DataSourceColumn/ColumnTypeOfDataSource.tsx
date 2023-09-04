@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
-
 import { DataSource, DataSourceType } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
@@ -20,9 +18,9 @@ const TextInput: React.FC<Props> = (props: Props) => {
   const { dataSourceValue, disabled, onChange } = props
   const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('type', event.target.value)
   return (
-    <DataColumn className={classNames('data-source-column')}>
+    <div className="data-source__text-area-wrapper">
       <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.type} />
-    </DataColumn>
+    </div>
   )
 }
 
