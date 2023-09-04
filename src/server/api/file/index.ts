@@ -3,6 +3,7 @@ import { Express } from 'express'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { getBulkDownload } from 'server/api/file/getBulkDownload'
+import { getPrivateFile } from 'server/api/file/getPrivateFile'
 import { getUserGuideFile } from 'server/api/file/getUserGuide'
 import { AuthMiddleware } from 'server/middleware/auth'
 
@@ -30,6 +31,7 @@ export const FileApi = {
     express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
     express.get(ApiEndPoint.File.userGuide(), getUserGuideFile)
     express.get(ApiEndPoint.File.sdgFocalPoints(), AuthMiddleware.requireView, getSdgFocalPointsFile)
+    express.get(ApiEndPoint.File.private(), AuthMiddleware.requireUser, getPrivateFile)
 
     // BiomassStock
     express.get(ApiEndPoint.File.biomassStock({}), AuthMiddleware.requireEditTableData, getBiomassStockFile)

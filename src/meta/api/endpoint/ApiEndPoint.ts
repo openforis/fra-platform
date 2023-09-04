@@ -74,6 +74,7 @@ export const ApiEndPoint = {
     bulkDownload: () => apiPath('file', 'bulk-download'),
     userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
     sdgFocalPoints: () => apiPath('file', 'sdg-focal-points'),
+    private: () => apiPath('file', 'private'),
     Assessment: {
       one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
       many: () => apiPath('file', 'assessment'),
