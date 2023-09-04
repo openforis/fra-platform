@@ -193,6 +193,12 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
   _next(Authorizer.canEditAssessmentFile({ country, cycle, user }), next)
 }
 
+const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
+  const user = Requests.getUser(req)
+
+  _next(Boolean(user), next)
+}
+
 export const AuthMiddleware = {
   requireEditCountryProps: tryCatch(requireEditCountryProps),
   requireEditDescriptions: tryCatch(requireEditDescriptions),
@@ -207,4 +213,5 @@ export const AuthMiddleware = {
   requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),
   requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
+  requireUser: tryCatch(requireUser),
 }

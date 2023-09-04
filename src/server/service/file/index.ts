@@ -48,8 +48,10 @@ export const fileTypes = {
   },
 }
 
+const _getRepositoryPath = (): string => path.resolve(__dirname, '..', '..', 'static', 'fileRepository')
+
 const _getFilepath = (type: Type, lang: string) =>
-  path.resolve(__dirname, '..', '..', 'static', 'fileRepository', type.folder, `${type.key}_${lang}.${type.fileType}`)
+  path.resolve(_getRepositoryPath(), type.folder, `${type.key}_${lang}.${type.fileType}`)
 
 const download = (res: Response, type: Type, lang: string) => {
   const filePath = _getFilepath(type, lang)
@@ -62,6 +64,17 @@ const download = (res: Response, type: Type, lang: string) => {
   }
 }
 
+const downloadPrivateFile = (res: Response, fileName: string) => {
+  const file = path.resolve(_getRepositoryPath(), 'private', fileName)
+
+  if (!fs.existsSync(file)) {
+    throw new Error(`${fileName} not found`)
+  }
+
+  res.download(file, fileName)
+}
+
 export const FileRepository = {
   download,
+  downloadPrivateFile,
 }
