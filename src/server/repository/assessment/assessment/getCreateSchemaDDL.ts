@@ -61,6 +61,7 @@ create table ${schemaName}.file
     country_iso      varchar(3) references public.country on update cascade on delete cascade,
     file_name        varchar(250) NOT NULL,
     file             bytea NOT NULL,
+    private          boolean,
     PRIMARY KEY (id),
     unique(uuid)
 );
