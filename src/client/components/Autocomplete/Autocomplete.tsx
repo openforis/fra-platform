@@ -41,6 +41,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     setInputValue(value)
+    if (!value) setSelectedItem(null)
   }, [value])
 
   // Handle saving on input field blur or item selected
