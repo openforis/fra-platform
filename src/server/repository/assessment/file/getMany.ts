@@ -23,8 +23,9 @@ export const getMany = async (
         ${selectFields}
       from ${schemaName}.file f
       where
-        f.country_iso = $1
-        or f.country_iso is null;
+        (f.country_iso = $1
+        or f.country_iso is null)
+      and f.private is not true;
     `,
     [countryIso],
     (row) => Objects.camelize(row)
