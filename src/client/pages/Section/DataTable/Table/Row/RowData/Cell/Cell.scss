@@ -1,6 +1,7 @@
 .fra-table__select-container {
   &.multiple {
     overflow: visible;
+    text-align: left;
   }
   .multi-select {
     width: 100%;
