@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
 
+import { TablePaginatedSlice } from 'client/store/ui/tablePaginated'
+
 import AreaSlice from './area/slice'
 import AssessmentSlice from './assessment/slice'
 import DataSlice from './data/slice'
@@ -37,6 +39,7 @@ export default {
     notification: NotificationSlice,
     originalDataPoint: OriginalDataPointSlice,
     review: ReviewSlice,
+    [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,
     userManagement: UserManagementSlice,
   }),
   geo: GeoSlice,
