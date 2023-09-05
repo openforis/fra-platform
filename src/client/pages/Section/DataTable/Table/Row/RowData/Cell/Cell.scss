@@ -7,3 +7,9 @@
     width: 100%;
   }
 }
+
+body.rtl .fra-table__select-container {
+  &.multiple {
+    text-align: right;
+  }
+}
