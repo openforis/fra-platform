@@ -2,8 +2,8 @@ import './MultiSelect.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { Option } from 'client/components/MultiSelect/option'
 
@@ -63,7 +63,7 @@ export const MultiSelect: React.FC<Props> = (props: Props) => {
         {isValuesEmpty ? (
           <span className="multi-select__placeholder">{t('multiSelect.placeholder')}</span>
         ) : (
-          values.map((value) => localizeValue(value)).join(', ')
+          <span>{values.map((value) => localizeValue(value)).join(', ')}</span>
         )}
       </div>
       <div className="multi-select__opened-content-anchor">
