@@ -60,7 +60,9 @@ const Admin: React.FC = () => {
         ))}
       </div>
 
-      <Outlet />
+      <div className="admin__page-content">
+        <Outlet />
+      </div>
     </div>
   )
 }
