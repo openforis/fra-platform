@@ -3,6 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { RoleName, User, Users, UserStatus } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
@@ -18,7 +19,6 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
   const cycle = useCycle()
   const currentUser = useUser()
   const isReviewer = Users.isReviewer(currentUser, countryIso, cycle)
-
   const userRole = Users.getRole(user, countryIso, cycle)
   const { acceptedAt, invitationUuid } = userRole ?? {}
 
@@ -27,13 +27,16 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
   // Show placeholder if user is a reviewer and the role is reviewer or
   // if the current user is a reviewer and the user has not accepted the invitation
   const showPlaceholder = (isReviewer && userRole.role === RoleName.REVIEWER) || (isReviewer && !acceptedAt)
-  const showInvitationColumn = invitationUuid && !acceptedAt && !isReviewer
+  const isInvitation = invitationUuid && !acceptedAt
+  const showInvitationColumn = isInvitation && !isReviewer
   const showEditColumn = !showPlaceholder && !showInvitationColumn
+  const invitationExpired = UserRoles.isInvitationExpired(userRole)
 
   return (
     <tr
       className={classNames({
-        'user-list__invitation-row': invitationUuid && !acceptedAt,
+        'user-list__invitation-row': isInvitation,
+        expired: isInvitation && invitationExpired,
         'user-list__inactive-user': user.status === UserStatus.inactive,
       })}
     >
