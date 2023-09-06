@@ -18,7 +18,7 @@ const Multiselect: React.FC<PropsCell> = (props) => {
     if (ref) {
       const row = ref.current.closest('tr')
       if (row) {
-        const { height } = DOMs.elementOffset(ref.current.querySelector('.multi-select__closed-content'))
+        const { height } = DOMs.elementOffset(ref.current.querySelector('.multi-select__closed-content span'))
         row.style.height = height < 40 ? '40px' : `${height}px`
       }
     }
