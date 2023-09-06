@@ -1,0 +1,87 @@
+@import 'src/client/style/partials';
+
+.table-paginated-datagrid {
+  .data-grid-column {
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #dadada;
+    text-align: left;
+    cursor: default;
+    padding: 12px 10px;
+    word-break: break-word;
+  }
+
+  .data-grid-column.head {
+    font-size: 14px;
+    padding: 12px 10px;
+    text-align: left;
+    overflow-wrap: break-word;
+    background-color: initial;
+    border: initial;
+    border-bottom: 1px solid #dadada;
+  }
+
+  .table-paginated-counts {
+    border-top: 1px solid $text-heading;
+    padding: $font-xs;
+    margin-top: -1px;
+
+    .table-paginated-count-item {
+      color: $text-mute;
+      padding: 1px 0;
+      font-size: $font-xs;
+      font-weight: bold;
+    }
+  }
+
+  .table-paginated-paginator {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin-bottom: $font-l;
+
+    li {
+      border: 1px solid rgba(0, 0, 0, 0);
+      margin-left: -1px;
+      border-color: #dadada;
+
+      &.disabled {
+        &:hover {
+          background-color: darken($ui-bg, 4%);
+          color: inherit;
+        }
+
+        a {
+          cursor: default;
+        }
+      }
+
+      &:first-child {
+        margin-left: 0;
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+      }
+
+      &:last-child {
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+      }
+
+      &:hover {
+        background-color: darken($ui-bg, 4%);
+        color: inherit;
+      }
+
+      &.selected {
+        background-color: $ui-accent-light;
+        color: inherit;
+      }
+
+      a {
+        cursor: pointer;
+        display: block;
+        padding: 0.5rem 0.75rem;
+      }
+    }
+  }
+}

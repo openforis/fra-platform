@@ -1,0 +1,10 @@
+.admin-countries {
+  .data-grid-column .country-status-indicator {
+    margin: initial;
+
+    &:hover {
+      background-color: initial;
+      color: inherit;
+    }
+  }
+}
