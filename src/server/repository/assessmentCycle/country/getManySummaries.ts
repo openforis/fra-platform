@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryAdmin } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -52,8 +53,8 @@ export const getManySummaries = async (props: Props, client: BaseProtocol = DB):
                coalesce(us.invitations_sent_count, 0)     as invitations_sent_count,
                coalesce(us.users_count, 0)                as users_count,
                case
-                   when le.last_edit is null then 'notStarted'
-                   when c.status is null and le.last_edit is not null then 'editing'
+                   when le.last_edit is null then '${AssessmentStatus.notStarted}'
+                   when c.status is null and le.last_edit is not null then '${AssessmentStatus.editing}'
                    else c.status
                    end                                      as status
 
