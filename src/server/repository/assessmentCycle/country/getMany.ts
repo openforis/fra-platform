@@ -6,7 +6,7 @@ import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
 
-const activityLogMessageUpdates = [
+export const activityLogMessageUpdates = [
   ActivityLogMessage.nodeValueUpdate,
   ActivityLogMessage.nodeValueCalculatedUpdate,
   ActivityLogMessage.originalDataPointCreate,
