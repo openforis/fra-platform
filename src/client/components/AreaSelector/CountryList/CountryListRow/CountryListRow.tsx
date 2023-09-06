@@ -8,6 +8,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountry } from 'client/store/area'
 import { useIsCycleLandingRoute } from 'client/hooks'
+import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import { Dates } from 'client/utils'
 
 type Props = {
@@ -57,10 +58,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
       {hasRole && (
         <>
-          <span className="country-selection-list__secondary-col">
-            <div className={`status-${status}`} />
-            <span className={`status-${status}-label`}>{i18n.t<string>(`assessment.status.${status}.label`)}</span>
-          </span>
+          <CountryStatusIndicator status={status} />
 
           <span className="country-selection-list__secondary-col">
             {country?.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : '-'}
