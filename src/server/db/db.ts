@@ -19,8 +19,16 @@ const initOptions = {
 const pgp = pgPromise(initOptions)
 
 // Timestamp will automatically be converted to UTC time-zone - No need to convert in select queries anymore
-// 1114 is OID for timestamp in Postgres
+// 1114 is OID for TIMESTAMPTZ in Postgres
 pgp.pg.types.setTypeParser(1114, (str: string) => new Date(`${str} GMT`))
+// INT8 = 20, INT2 = 21, INT4 = 23, FLOAT4 = 700, FLOAT8 = 701, NUMERIC = 1700 -> convert numeric types to number. By default, pg-promise returns string
+const numericParser = (value: string): number => Number(value)
+pgp.pg.types.setTypeParser(20, numericParser)
+pgp.pg.types.setTypeParser(21, numericParser)
+pgp.pg.types.setTypeParser(23, numericParser)
+pgp.pg.types.setTypeParser(700, numericParser)
+pgp.pg.types.setTypeParser(701, numericParser)
+pgp.pg.types.setTypeParser(1700, numericParser)
 
 const configCommon = {
   // How long a client is allowed to remain idle before being closed
