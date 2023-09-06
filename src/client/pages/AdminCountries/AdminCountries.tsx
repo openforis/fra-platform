@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryAdmin } from 'meta/area'
+import { Areas, CountryAdmin } from 'meta/area'
 
 import TablePaginated, { Column } from 'client/components/TablePaginated'
 import CountryStatus from 'client/pages/AdminCountries/components/CountryStatus'
@@ -13,7 +13,7 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
   return useMemo<Array<Column<CountryAdmin>>>(
     () => [
       {
-        component: ({ datum }) => <span>{datum.countryIso}</span>,
+        component: ({ datum }) => <span>{t(Areas.getTranslationKey(datum.countryIso))}</span>,
         header: t('common.country'),
         key: 'country',
       },
@@ -21,7 +21,7 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
         component: ({ datum: { edited: lastEdit } }) => (
           <span>{lastEdit ? Dates.getRelativeDate(lastEdit, i18n) : '-'}</span>
         ),
-        header: t('common.lastEdited'),
+        header: t('common.lastEdit'),
         key: 'edited',
       },
       {
@@ -39,7 +39,7 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
         header: t('common.status'),
         key: 'status',
       },
-      { component: ({ datum }) => <span>{datum.usersCount}</span>, header: t('admin.usersCount'), key: 'usersCount' },
+      { component: ({ datum }) => <span>{datum.usersCount}</span>, header: t('common.usersCount'), key: 'usersCount' },
     ],
     [i18n, t]
   )

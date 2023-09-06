@@ -17,7 +17,7 @@ const TablePaginatedCount = (props: Props) => {
     <div className="table-paginated-counts">
       {Object.entries(count).map(([key, value]) => (
         <div key={`count_${key}`} className="table-paginated-count-item">
-          {`${t(`admin.${key}`)} ${value || 0}`}
+          {`${t(`common.${key}`)} ${value || 0}`}
         </div>
       ))}
     </div>

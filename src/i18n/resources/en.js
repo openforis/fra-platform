@@ -1108,7 +1108,6 @@ The FRA team
   admin: {
     admin: 'Admin',
     filter: 'Filter by',
-    country: 'Country',
     invitationPending: 'Invitation pending',
   },
 

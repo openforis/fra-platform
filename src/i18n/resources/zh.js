@@ -1078,7 +1078,6 @@ FRA工作组
   admin: {
     admin: '管理',
     filter: '筛选，按照',
-    country: '国家',
     invitationPending: '邀请待处理',
   },
 

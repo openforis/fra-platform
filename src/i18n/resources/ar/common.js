@@ -6,6 +6,7 @@ module.exports = {
   continue: 'اسْتَمَرَّ',
   copyToClipboard: 'انسخ للحافظة',
   countries: 'البلدان',
+  country: 'البلد',
   dashboard: 'لوحة التحكم',
   dataExport: 'تصدير البيانات',
   done: 'تم',

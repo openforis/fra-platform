@@ -8,6 +8,7 @@ module.exports = {
   continue: 'Продолжить',
   copyToClipboard: 'Скопировать в буфер обмена',
   countries: 'Страны',
+  country: 'Страна',
   dashboard: 'Панель упраления',
   dataExport: 'Экспорт данных',
   done: 'Готово',
