@@ -4,7 +4,7 @@ import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
 import DataColumn from 'client/components/DataGrid/DataColumn'
 import { Props } from 'client/components/TablePaginated/types'
 
-const TablePaginatedBody = <Datum extends object>(props: Props<Datum>) => {
+const Body = <Datum extends object>(props: Props<Datum>) => {
   const { columns, path } = props
 
   const data = useTablePaginatedData<Datum>(path)
@@ -13,12 +13,7 @@ const TablePaginatedBody = <Datum extends object>(props: Props<Datum>) => {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {data?.map((datum, rowIndex) => (
-        <React.Fragment
-          key={
-            // eslint-disable-next-line react/no-array-index-key
-            `${rowIndex}_${datum}`
-          }
-        >
+        <React.Fragment key={`${String(rowIndex)}_${datum}`}>
           {columns.map((column) => {
             const { component: Component, key } = column
 
@@ -34,4 +29,4 @@ const TablePaginatedBody = <Datum extends object>(props: Props<Datum>) => {
   )
 }
 
-export default TablePaginatedBody
+export default Body

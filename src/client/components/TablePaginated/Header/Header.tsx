@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import DataColumn from 'client/components/DataGrid/DataColumn'
 import { PropsHeader } from 'client/components/TablePaginated/TablePaginated'
 
-const TablePaginatedHeader = <Datum extends object>(props: PropsHeader<Datum>) => {
+const Header = <Datum extends object>(props: PropsHeader<Datum>) => {
   const { columns } = props
   const { t } = useTranslation()
 
@@ -23,4 +23,5 @@ const TablePaginatedHeader = <Datum extends object>(props: PropsHeader<Datum>) =
     </>
   )
 }
-export default TablePaginatedHeader
+
+export default Header

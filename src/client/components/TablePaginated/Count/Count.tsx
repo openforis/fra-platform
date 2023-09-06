@@ -1,3 +1,4 @@
+import './Count.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -5,7 +6,7 @@ import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
 
 type Props = { path: string }
 
-const TablePaginatedCount = (props: Props) => {
+const Count = (props: Props) => {
   const { path } = props
   const { t } = useTranslation()
 
@@ -24,4 +25,4 @@ const TablePaginatedCount = (props: Props) => {
   )
 }
 
-export default TablePaginatedCount
+export default Count

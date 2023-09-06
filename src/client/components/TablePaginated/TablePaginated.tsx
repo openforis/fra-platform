@@ -2,12 +2,12 @@ import './TablePaginated.scss'
 import React from 'react'
 
 import DataGrid from 'client/components/DataGrid'
-import { useFetchData } from 'client/components/TablePaginated/hooks/useFetchData'
-import { Column, Props } from 'client/components/TablePaginated/types'
 
-import TablePaginatedBody from './components/TablePaginatedBody'
-import TablePaginatedCount from './components/TablePaginatedCount'
-import TablePaginatedHeader from './components/TablePaginatedHeader'
+import { useFetchData } from './hooks/useFetchData'
+import Body from './Body'
+import Count from './Count'
+import Header from './Header'
+import { Column, Props } from './types'
 
 export type PropsHeader<Datum> = {
   columns: Array<Column<Datum>>
@@ -22,13 +22,13 @@ const TablePaginated = <Datum extends object>(props: Props<Datum> & { className?
   return (
     <div className={className}>
       <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
-        <TablePaginatedHeader columns={columns} />
-        <TablePaginatedBody columns={columns} path={path} />
+        <Header columns={columns} />
+        <Body columns={columns} path={path} />
       </DataGrid>
 
       {/* <TablePaginatedPaginator path={path} /> */}
 
-      <TablePaginatedCount path={path} />
+      <Count path={path} />
     </div>
   )
 }

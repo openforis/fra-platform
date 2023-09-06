@@ -1109,6 +1109,8 @@ The FRA team
     admin: 'Admin',
     filter: 'Filter by',
     invitationPending: 'Invitation pending',
+    invitationsAcceptedCount: 'No. of Invitations accepted',
+    invitationsSentCount: 'No. of Invitations sent',
   },
 
   countryMessageBoard: {

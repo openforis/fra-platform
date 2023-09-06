@@ -11,10 +11,10 @@ const CountryStatusIndicator = (props: Props) => {
 
   const { t } = useTranslation()
   return (
-    <span className="country-status-indicator">
+    <div className="country-status-indicator">
       <div className={`status-${status}`} />
       <span className={`status-${status}-label`}>{t(`assessment.status.${status}.label`)}</span>
-    </span>
+    </div>
   )
 }
 

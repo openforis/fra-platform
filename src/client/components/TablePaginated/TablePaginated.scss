@@ -2,8 +2,7 @@
 
 .table-paginated-datagrid {
   .data-grid-column {
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
+    border: none;
     border-bottom-color: #dadada;
     text-align: left;
     cursor: default;
@@ -12,25 +11,12 @@
   }
 
   .data-grid-column.head {
-    font-size: 14px;
-    padding: 12px 10px;
+    font-size: $font-m;
+    padding: $spacing-xs $spacing-xxs;
     text-align: left;
     overflow-wrap: break-word;
     background-color: initial;
-    border: initial;
-    border-bottom: 1px solid #dadada;
-  }
-
-  .table-paginated-counts {
-    border-top: 1px solid $text-heading;
-    padding: $font-xs;
-    margin-top: -1px;
-
-    .table-paginated-count-item {
-      color: $text-mute;
-      padding: 1px 0;
-      font-size: $font-xs;
-      font-weight: bold;
-    }
+    border: none;
+    border-bottom: 1px solid $ui-border;
   }
 }

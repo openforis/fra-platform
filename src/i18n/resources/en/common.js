@@ -15,8 +15,6 @@ module.exports = {
   filterCountries: 'Filter countries',
   fraPlatform: 'Fra platform',
   globalFRA: 'Global Forest Resources Assessment',
-  invitationsAcceptedCount: 'No. of Invitations accepted',
-  invitationsSentCount: 'No. of Invitations sent',
   language: 'Language',
   lastEdit: 'Last edit',
   login: 'Reserved area',
