@@ -7,6 +7,6 @@ type BaseParams = {
   cycleName: CycleName
 }
 
-export type TablePaginatedRequest = Request<never, never, never, BaseParams & { limit: string; page: string }>
+export type TablePaginatedRequest = Request<never, never, never, BaseParams & { limit: string; offset: string }>
 
 export type TablePaginatedCountRequest = Request<never, never, never, BaseParams>
