@@ -3,6 +3,7 @@ import React, { useCallback } from 'react'
 
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedCount, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
+import { limit } from 'client/store/ui/tablePaginated/constants'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import PaginatorComponent from 'client/components/Paginator'
 import { DOMs } from 'client/utils/dom'
@@ -34,7 +35,7 @@ const Paginator = (props: Props) => {
       forcePage={page}
       onPageChange={onPageChange}
       pageRangeDisplayed={5}
-      pageCount={Math.ceil(counts.total / 30)}
+      pageCount={Math.ceil(counts.total / limit)}
     />
   )
 }
