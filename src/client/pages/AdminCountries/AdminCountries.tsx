@@ -6,7 +6,7 @@ import { CountryAdmin } from 'meta/area'
 
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
-import CountryLink from 'client/pages/AdminCountries/components/CountryLink'
+import CountryLink from 'client/pages/AdminCountries/CountryLink'
 import { Dates } from 'client/utils'
 
 const useColumns = (): Array<Column<CountryAdmin>> => {
