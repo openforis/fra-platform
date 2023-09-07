@@ -2,11 +2,11 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Areas, CountryAdmin } from 'meta/area'
+import { CountryAdmin } from 'meta/area'
 
+import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
-import CountryLink from 'client/pages/AdminCountries/components/CountryLink'
-import CountryStatus from 'client/pages/AdminCountries/components/CountryStatus'
+import CountryLink from 'client/pages/AdminCountries/CountryLink'
 import { Dates } from 'client/utils'
 
 const useColumns = (): Array<Column<CountryAdmin>> => {
@@ -15,12 +15,12 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
   return useMemo<Array<Column<CountryAdmin>>>(
     () => [
       {
-        component: ({ datum }) => <span>{t(Areas.getTranslationKey(datum.countryIso))}</span>,
+        component: ({ datum }) => <CountryLink countryIso={datum.countryIso} />,
         header: t('common.country'),
         key: 'country',
       },
       {
-        component: ({ datum: { status } }) => <CountryStatus status={status} />,
+        component: ({ datum: { status } }) => <CountryStatusIndicator status={status} />,
         header: t('common.status'),
         key: 'status',
       },
@@ -39,11 +39,6 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
         component: ({ datum }) => <span>{datum.invitationsAcceptedCount}</span>,
         header: t('admin.invitationsAcceptedCount'),
         key: 'invitationsAcceptedCount',
-      },
-      {
-        component: ({ datum }) => <CountryLink countryIso={datum.countryIso} />,
-        header: '',
-        key: 'link',
       },
     ],
     [i18n, t]

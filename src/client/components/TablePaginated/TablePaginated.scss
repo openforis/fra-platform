@@ -3,19 +3,18 @@
 .table-paginated-datagrid {
   .data-grid-column {
     border: none;
-    border-bottom-color: $ui-border;
+    border-top: 1px solid $ui-border;
     text-align: left;
-    cursor: default;
-    padding: $spacing-xs $spacing-xxs;
+    padding: $spacing-xxs;
     word-break: break-word;
   }
 
   .data-grid-column.head {
+    background-color: $ui-bg;
     font-size: $font-m;
-    padding: $spacing-xs $spacing-xxs;
+    padding: $spacing-xxs;
     text-align: left;
     overflow-wrap: break-word;
-    background-color: initial;
     border: none;
     border-bottom: 1px solid $ui-border;
   }
