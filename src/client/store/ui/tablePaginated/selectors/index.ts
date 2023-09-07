@@ -12,10 +12,13 @@ const getCount = createSelector([_getState, (_state, path: string) => path], (st
 
 const getData = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.data)
 
+const getOrderBy = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.orderBy)
+
 const getPage = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.page ?? 0)
 
 export const TablePaginatedSelectors = {
   getCount,
   getData,
+  getOrderBy,
   getPage,
 }

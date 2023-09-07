@@ -4,6 +4,7 @@ export type Column<Datum> = {
   component: React.FC<{ datum: Datum }>
   header: string | React.FC
   key: string
+  orderByProperty?: string
 }
 
 export type Props<Datum> = {

@@ -24,9 +24,7 @@ export const getManySummaries = async (props: Props, client: BaseProtocol = DB):
     `
         with country as
                  (select c.country_iso, c.props ->> 'status' as status
-                  from ${schemaCycle}.country c
-                  order by 1
-                  limit $1 offset $2),
+                  from ${schemaCycle}.country c),
              last_edit as
                  (select c.country_iso, max(a.time) as last_edit
                   from country c
@@ -56,15 +54,15 @@ export const getManySummaries = async (props: Props, client: BaseProtocol = DB):
                    when le.last_edit is null then '${AssessmentStatus.notStarted}'
                    when c.status is null and le.last_edit is not null then '${AssessmentStatus.editing}'
                    else c.status
-                   end                                      as status
+                   end                                    as status
 
         from country c
                  left join last_edit le on c.country_iso = le.country_iso
                  left join user_summary us on c.country_iso = us.country_iso
         order by 1
+        limit $1 offset $2
         ;
-  
-  `,
+    `,
     [limit, offset],
     (rows) => Objects.camelize(rows)
   )

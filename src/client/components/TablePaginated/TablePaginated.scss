@@ -17,5 +17,27 @@
     overflow-wrap: break-word;
     border: none;
     border-bottom: 1px solid $ui-border;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    button.btn-sort {
+      border: unset;
+      background: unset;
+      padding: unset;
+      margin: 0 0 0 $spacing-xxs;
+      display: flex;
+      align-items: center;
+
+      svg {
+        color: $text-body;
+      }
+
+      &.active {
+        svg {
+          color: $ui-accent;
+        }
+      }
+    }
   }
 }

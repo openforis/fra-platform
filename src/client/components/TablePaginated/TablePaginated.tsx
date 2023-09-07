@@ -8,12 +8,7 @@ import Body from './Body'
 import Count from './Count'
 import Header from './Header'
 import Paginator from './Paginator'
-import { Column, Props } from './types'
-
-export type PropsHeader<Datum> = {
-  columns: Array<Column<Datum>>
-  className?: string
-}
+import { Props } from './types'
 
 const TablePaginated = <Datum extends object>(props: Props<Datum> & { className?: string }) => {
   const { columns, path, className } = props
@@ -23,7 +18,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum> & { className?
   return (
     <div className={className}>
       <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
-        <Header columns={columns} />
+        <Header columns={columns} path={path} />
         <Body columns={columns} path={path} />
       </DataGrid>
 
