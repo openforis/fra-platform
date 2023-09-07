@@ -8,10 +8,12 @@ import Requests from 'server/utils/requests'
 
 export const getCountrySummaries = async (req: TablePaginatedDataRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, limit, offset } = req.query
+    const { assessmentName, cycleName, limit, offset, orderBy, orderByDirection } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const countrySummaries = await AreaController.getCountrySummaries({ assessment, cycle, limit, offset })
+
+    const props = { assessment, cycle, limit, offset, orderBy, orderByDirection }
+    const countrySummaries = await AreaController.getCountrySummaries(props)
 
     Requests.sendOk(res, countrySummaries)
   } catch (e) {

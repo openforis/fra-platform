@@ -3,6 +3,7 @@ import { Objects } from 'utils/objects'
 import { CountryAdmin } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
 import { Assessment, Cycle } from 'meta/assessment'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -13,10 +14,12 @@ type Props = {
   cycle: Cycle
   limit: string
   offset: string
+  orderBy?: string
+  orderByDirection?: TablePaginatedOrderByDirection
 }
 
 export const getManySummaries = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountryAdmin>> => {
-  const { assessment, cycle, limit, offset } = props
+  const { assessment, cycle, limit, offset, orderBy, orderByDirection } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -59,7 +62,7 @@ export const getManySummaries = async (props: Props, client: BaseProtocol = DB):
         from country c
                  left join last_edit le on c.country_iso = le.country_iso
                  left join user_summary us on c.country_iso = us.country_iso
-        order by 1
+        order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
         limit $1 offset $2
         ;
     `,
