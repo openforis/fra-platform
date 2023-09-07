@@ -6,6 +6,7 @@ module.exports = {
   continue: '继续',
   copyToClipboard: '复制到剪贴板',
   countries: '国家',
+  country: '国家',
   dashboard: '主界面',
   dataExport: '数据输出',
   done: '完成',

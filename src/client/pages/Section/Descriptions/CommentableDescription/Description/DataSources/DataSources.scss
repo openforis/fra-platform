@@ -6,6 +6,7 @@
 
 .data-source-grid {
   grid-template-columns: 0px repeat(5, 1fr) 0px;
+  margin: $spacing-s 0;
 
   .data-source-column {
     position: relative;

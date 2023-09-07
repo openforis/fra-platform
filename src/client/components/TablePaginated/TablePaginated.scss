@@ -1,0 +1,43 @@
+@import 'src/client/style/partials';
+
+.table-paginated-datagrid {
+  .data-grid-column {
+    border: none;
+    border-top: 1px solid $ui-border;
+    text-align: left;
+    padding: $spacing-xxs;
+    word-break: break-word;
+  }
+
+  .data-grid-column.head {
+    background-color: $ui-bg;
+    font-size: $font-m;
+    padding: $spacing-xxs;
+    text-align: left;
+    overflow-wrap: break-word;
+    border: none;
+    border-bottom: 1px solid $ui-border;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    button.btn-sort {
+      border: unset;
+      background: unset;
+      padding: unset;
+      margin: 0 0 0 $spacing-xxs;
+      display: flex;
+      align-items: center;
+
+      svg {
+        color: $text-body;
+      }
+
+      &.active {
+        svg {
+          color: $ui-accent;
+        }
+      }
+    }
+  }
+}

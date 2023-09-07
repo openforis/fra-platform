@@ -36,7 +36,7 @@ const CountryListDownload: React.FC = () => {
   })
 
   const headers = [
-    { label: i18n.t('admin.country'), key: 'name' },
+    { label: i18n.t('common.country'), key: 'name' },
     { label: `${i18n.t(`${assessment.props.name}.labels.short`)} ${cycle.name}`, key: 'status' },
     { label: i18n.t('audit.edited'), key: 'edited' },
     { label: i18n.t('assessment.deskStudy'), key: 'deskStudy' },

@@ -1,0 +1,42 @@
+@import 'src/client/style/partials';
+
+.table-paginated-paginator {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-bottom: $font-l;
+
+  li {
+    border: 1px solid $ui-border;
+
+    &.disabled {
+      &:hover {
+        background-color: darken($ui-bg, 4%);
+      }
+    }
+
+    &:first-child {
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    &:last-child {
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
+
+    &:hover {
+      background-color: darken($ui-bg, 4%);
+    }
+
+    &.selected {
+      background-color: $ui-accent-light;
+    }
+
+    a {
+      cursor: pointer;
+      display: block;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+}

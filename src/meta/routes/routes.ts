@@ -17,6 +17,7 @@ const Assessment = createRoute<AssessmentRouteParams>({ path: 'assessments/:asse
 // Cycle routes and sub routes
 const Cycle = createRoute<CycleRouteParams>({ path: ':cycleName', parent: Assessment })
 const Admin = createRoute<CycleRouteParams>({ path: 'admin', parent: Cycle })
+const AdminCountries = createRoute<CycleRouteParams>({ path: 'countries', parent: Admin })
 const AdminUserManagement = createRoute<CycleRouteParams>({ path: 'userManagement', parent: Admin })
 const Tutorials = createRoute<CycleRouteParams>({ path: 'tutorials', parent: Cycle })
 
@@ -52,6 +53,7 @@ export const Routes = {
   // cycle
   Cycle,
   Admin,
+  AdminCountries,
   AdminUserManagement,
   Tutorials,
 

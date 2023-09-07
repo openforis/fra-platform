@@ -1035,7 +1035,6 @@ L'équipe de FRA
   admin: {
     admin: 'Administration',
     filter: 'Filtrer par',
-    country: 'Pays',
     invitationPending: 'Invitation en attente',
   },
 

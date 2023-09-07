@@ -84,24 +84,4 @@
     background-color: $ui-accent-light;
     color: inherit;
   }
-
-  .status-editing {
-    @include mixin-status-base($ui-status-editing);
-    margin-right: 8px;
-  }
-
-  .status-review {
-    @include mixin-status-base($ui-status-review);
-    margin-right: 8px;
-  }
-
-  .status-accepted {
-    @include mixin-status-base($ui-status-accepted);
-    margin-right: 8px;
-  }
-
-  .status-approval-label {
-    color: darken($ui-status-review, 13%);
-    font-weight: 600;
-  }
 }

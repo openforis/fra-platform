@@ -59,7 +59,7 @@ const CountrySelect: React.FC = () => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all search">
-        <h4>{i18n.t('admin.country')}</h4>
+        <h4>{i18n.t('common.country')}</h4>
         <input
           ref={inputRef}
           type="text"

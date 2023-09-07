@@ -1112,7 +1112,6 @@ The FRA team
   admin: {
     admin: 'المدير',
     filter: 'غربلة وفق',
-    country: 'البلد',
     invitationPending: 'تعليق الدعوة',
   },
 
