@@ -10,7 +10,9 @@
   justify-items: start;
   text-decoration: none;
 
-  svg {
-    color: $ui-accent;
+  &:hover {
+    svg {
+      color: $ui-accent;
+    }
   }
 }
