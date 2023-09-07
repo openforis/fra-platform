@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Areas, CountryAdmin } from 'meta/area'
+import { CountryAdmin } from 'meta/area'
 
 import TablePaginated, { Column } from 'client/components/TablePaginated'
 import CountryLink from 'client/pages/AdminCountries/components/CountryLink'
@@ -15,7 +15,7 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
   return useMemo<Array<Column<CountryAdmin>>>(
     () => [
       {
-        component: ({ datum }) => <span>{t(Areas.getTranslationKey(datum.countryIso))}</span>,
+        component: ({ datum }) => <CountryLink countryIso={datum.countryIso} />,
         header: t('common.country'),
         key: 'country',
       },
@@ -39,11 +39,6 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
         component: ({ datum }) => <span>{datum.invitationsAcceptedCount}</span>,
         header: t('admin.invitationsAcceptedCount'),
         key: 'invitationsAcceptedCount',
-      },
-      {
-        component: ({ datum }) => <CountryLink countryIso={datum.countryIso} />,
-        header: '',
-        key: 'link',
       },
     ],
     [i18n, t]

@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount, useTablePaginatedData } from 'client/store/ui/tablePaginated'
+import { limit } from 'client/store/ui/tablePaginated/constants'
 import DataColumn from 'client/components/DataGrid/DataColumn'
 import { Props } from 'client/components/TablePaginated/types'
 
@@ -8,6 +9,13 @@ const Body = <Datum extends object>(props: Props<Datum>) => {
   const { columns, path } = props
 
   const data = useTablePaginatedData<Datum>(path)
+  const count = useTablePaginatedCount(path)
+
+  // TODO: add skeleton
+  if (count?.total && !data) {
+    // 38 is the height of each row
+    return <div style={{ height: `${38 * limit}px` }} />
+  }
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
