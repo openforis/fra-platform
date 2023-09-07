@@ -7,5 +7,8 @@ export const useTablePaginatedCount = (path: string): { total: number } =>
 export const useTablePaginatedData = <Datum>(path: string): Array<Datum> | undefined =>
   useAppSelector((state) => TablePaginatedSelectors.getData(state, path) as Array<Datum> | undefined)
 
+export const useTablePaginatedOrderBy = (path: string) =>
+  useAppSelector((state) => TablePaginatedSelectors.getOrderBy(state, path))
+
 export const useTablePaginatedPage = (path: string) =>
   useAppSelector((state) => TablePaginatedSelectors.getPage(state, path))

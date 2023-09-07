@@ -17,10 +17,11 @@ const Body = <Datum extends object>(props: Props<Datum>) => {
     return <div style={{ height: `${38 * limit}px` }} />
   }
 
+  if (!data) return null
+
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {data?.map((datum, rowIndex) => (
+      {data.map((datum, rowIndex) => (
         <React.Fragment key={`row_${String(rowIndex)}}`}>
           {columns.map((column) => {
             const { component: Component, key } = column

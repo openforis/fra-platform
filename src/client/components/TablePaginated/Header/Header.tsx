@@ -2,10 +2,16 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import DataColumn from 'client/components/DataGrid/DataColumn'
-import { PropsHeader } from 'client/components/TablePaginated/TablePaginated'
+import OrderBy from 'client/components/TablePaginated/Header/OrderBy'
+import { Column } from 'client/components/TablePaginated/types'
 
-const Header = <Datum extends object>(props: PropsHeader<Datum>) => {
-  const { columns } = props
+type Props<Datum> = {
+  columns: Array<Column<Datum>>
+  path: string
+}
+
+const Header = <Datum extends object>(props: Props<Datum>) => {
+  const { columns, path } = props
   const { t } = useTranslation()
 
   return (
@@ -17,6 +23,8 @@ const Header = <Datum extends object>(props: PropsHeader<Datum>) => {
           <DataColumn head key={`${key}_header`}>
             {typeof Header === 'string' && t(Header)}
             {typeof Header !== 'string' && <Header />}
+
+            {column.orderByProperty && <OrderBy column={column} path={path} />}
           </DataColumn>
         )
       })}

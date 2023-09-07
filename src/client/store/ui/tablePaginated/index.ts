@@ -1,4 +1,4 @@
 export { TablePaginatedActions } from './actions'
-export { useTablePaginatedCount, useTablePaginatedData, useTablePaginatedPage } from './hooks'
+export { useTablePaginatedCount, useTablePaginatedData, useTablePaginatedOrderBy, useTablePaginatedPage } from './hooks'
 export { TablePaginatedSelectors } from './selectors'
 export { TablePaginatedSlice } from './slice'

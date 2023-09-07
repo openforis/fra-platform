@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
+
+import { TablePaginatedOrderBy } from 'meta/tablePaginated'
 
 import { getCount } from 'client/store/ui/tablePaginated/actions/getCount'
 import { getData } from 'client/store/ui/tablePaginated/actions/getData'
@@ -9,6 +11,11 @@ export const TablePaginatedSlice = createSlice({
   name: 'tablePaginated',
   initialState,
   reducers: {
+    setOrderBy: (state, action: PayloadAction<{ orderBy: TablePaginatedOrderBy; path: string }>) => {
+      const { orderBy, path } = action.payload
+      Objects.setInPath({ obj: state, path: [path, 'orderBy'], value: orderBy })
+      Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
+    },
     setPage: (state, action) => {
       const { path, page } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
