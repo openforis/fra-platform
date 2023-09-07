@@ -7,6 +7,7 @@ import { useFetchData } from './hooks/useFetchData'
 import Body from './Body'
 import Count from './Count'
 import Header from './Header'
+import Paginator from './Paginator'
 import { Column, Props } from './types'
 
 export type PropsHeader<Datum> = {
@@ -26,7 +27,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum> & { className?
         <Body columns={columns} path={path} />
       </DataGrid>
 
-      {/* <TablePaginatedPaginator path={path} /> */}
+      <Paginator path={path} />
 
       <Count path={path} />
     </div>

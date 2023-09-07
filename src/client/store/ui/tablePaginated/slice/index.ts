@@ -8,7 +8,12 @@ import { initialState } from 'client/store/ui/tablePaginated/state'
 export const TablePaginatedSlice = createSlice({
   name: 'tablePaginated',
   initialState,
-  reducers: {},
+  reducers: {
+    setPage: (state, action) => {
+      const { path, page } = action.payload
+      Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getCount.fulfilled, (state, action) => {
       const { path } = action.meta.arg
@@ -17,9 +22,8 @@ export const TablePaginatedSlice = createSlice({
     })
 
     builder.addCase(getData.pending, (state, action) => {
-      const { path, page } = action.meta.arg
+      const { path } = action.meta.arg
       Objects.setInPath({ obj: state, path: [path, 'data'], value: undefined })
-      Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
     })
 
     builder.addCase(getData.fulfilled, (state, action) => {
