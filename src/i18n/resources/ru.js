@@ -1073,7 +1073,6 @@ module.exports.translation = {
   admin: {
     admin: 'Администратор',
     filter: 'Фильтровать по',
-    country: 'Страна',
     invitationPending: 'Приглашение в стадии рассмотрения',
   },
 

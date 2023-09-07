@@ -62,7 +62,7 @@ const UserListFilters: React.FC = () => {
 
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
-            <h4>{t('admin.country')}</h4>
+            <h4>{t('common.country')}</h4>
           </div>
           <div className="multi-select" onClick={() => setModalOpen(true)} aria-hidden="true">
             <div className="multi-select__closed-content">

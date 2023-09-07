@@ -1,0 +1,22 @@
+@import 'src/client/style/partials';
+
+.table-paginated-datagrid {
+  .data-grid-column {
+    border: none;
+    border-bottom-color: $ui-border;
+    text-align: left;
+    cursor: default;
+    padding: $spacing-xs $spacing-xxs;
+    word-break: break-word;
+  }
+
+  .data-grid-column.head {
+    font-size: $font-m;
+    padding: $spacing-xs $spacing-xxs;
+    text-align: left;
+    overflow-wrap: break-word;
+    background-color: initial;
+    border: none;
+    border-bottom: 1px solid $ui-border;
+  }
+}

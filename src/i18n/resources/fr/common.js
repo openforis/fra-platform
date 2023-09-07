@@ -6,6 +6,7 @@ module.exports = {
   continue: 'Continuer',
   copyToClipboard: 'Copier dans le presse-papiers',
   countries: 'Pays',
+  country: 'Pays',
   dashboard: 'Tableau de bord',
   dataExport: 'Exportation de données',
   email: 'Email',

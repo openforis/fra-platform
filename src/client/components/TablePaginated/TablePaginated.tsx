@@ -1,48 +1,40 @@
+import './TablePaginated.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
-import { useFetchData } from 'client/components/TablePaginated/hooks/useFetchData'
-import { Props } from 'client/components/TablePaginated/types'
+import DataGrid from 'client/components/DataGrid'
 
-const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
-  const { columns, path } = props
+import { useFetchData } from './hooks/useFetchData'
+import Body from './Body'
+import Count from './Count'
+import Header from './Header'
+import { Column, Props } from './types'
 
-  const { t } = useTranslation()
+export type PropsHeader<Datum> = {
+  columns: Array<Column<Datum>>
+  className?: string
+}
+
+const TablePaginated = <Datum extends object>(props: Props<Datum> & { className?: string }) => {
+  const { columns, path, className } = props
+
   useFetchData({ path })
-  const data = useTablePaginatedData<Datum>(path)
 
   return (
-    <div>
-      {columns.map((column) => {
-        const { header: Header, key } = column
+    <div className={className}>
+      <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
+        <Header columns={columns} />
+        <Body columns={columns} path={path} />
+      </DataGrid>
 
-        return (
-          <div key={`${key}_header`}>
-            {typeof Header === 'string' && t(Header)}
-            {typeof Header !== 'string' && <Header />}
-          </div>
-        )
-      })}
+      {/* <TablePaginatedPaginator path={path} /> */}
 
-      {data?.map((datum, rowIndex) => (
-        <div key={`row_${String(rowIndex)}`}>
-          {columns.map((column) => {
-            const { component: Component, key } = column
-
-            return (
-              <div key={key}>
-                <Component datum={datum} />
-              </div>
-            )
-          })}
-        </div>
-      ))}
-
-      {/* TODO: add pagination */}
-      {/* TODO: add counter */}
+      <Count path={path} />
     </div>
   )
+}
+
+TablePaginated.defaultProps = {
+  className: '',
 }
 
 export default TablePaginated

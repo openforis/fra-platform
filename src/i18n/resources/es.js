@@ -1012,7 +1012,6 @@ El equipo de FRA
   admin: {
     admin: 'Administración',
     filter: 'Filtrar por',
-    country: 'País',
     invitationPending: 'Invitación pendiente',
   },
 

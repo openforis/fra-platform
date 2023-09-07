@@ -21,6 +21,7 @@ export const TablePaginatedSlice = createSlice({
       Objects.setInPath({ obj: state, path: [path, 'data'], value: undefined })
       Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
     })
+
     builder.addCase(getData.fulfilled, (state, action) => {
       const { path } = action.meta.arg
       const data = action.payload
