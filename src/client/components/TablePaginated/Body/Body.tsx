@@ -13,7 +13,7 @@ const Body = <Datum extends object>(props: Props<Datum>) => {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {data?.map((datum, rowIndex) => (
-        <React.Fragment key={`${String(rowIndex)}_${datum}`}>
+        <React.Fragment key={`row_${String(rowIndex)}}`}>
           {columns.map((column) => {
             const { component: Component, key } = column
 

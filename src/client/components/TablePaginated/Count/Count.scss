@@ -2,8 +2,8 @@
 
 .table-paginated-counts {
   border-top: 1px solid $ui-border;
-  padding: $font-s;
-  margin-top: -1px;
+  padding: $spacing-xxs;
+  padding-top: $spacing-xs;
 
   .table-paginated-count-item {
     color: $text-mute;

@@ -29,7 +29,7 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
         header: t('common.lastEdit'),
         key: 'lastEdit',
       },
-      { component: ({ datum }) => <span>{datum.usersCount}</span>, header: t('common.usersCount'), key: 'usersCount' },
+      { component: ({ datum }) => <span>{datum.usersCount}</span>, header: t('admin.usersCount'), key: 'usersCount' },
       {
         component: ({ datum }) => <span>{datum.invitationsSentCount}</span>,
         header: t('admin.invitationsSentCount'),

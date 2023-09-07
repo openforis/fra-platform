@@ -1111,6 +1111,7 @@ The FRA team
     invitationPending: 'Invitation pending',
     invitationsAcceptedCount: 'No. of Invitations accepted',
     invitationsSentCount: 'No. of Invitations sent',
+    usersCount: 'No. of Users',
   },
 
   countryMessageBoard: {

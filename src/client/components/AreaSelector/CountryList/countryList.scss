@@ -75,10 +75,6 @@
   color: $text-link;
   text-decoration: none;
 
-  .country-status-indicator {
-    margin-left: $spacing-xs;
-  }
-
   &:hover {
     background-color: darken($ui-bg, 4%);
     color: inherit;

@@ -58,7 +58,9 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
       {hasRole && (
         <>
-          <CountryStatusIndicator status={status} />
+          <div className="country-selection-list__secondary-col">
+            <CountryStatusIndicator status={status} />
+          </div>
 
           <span className="country-selection-list__secondary-col">
             {country?.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : '-'}
