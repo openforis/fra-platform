@@ -26,6 +26,7 @@ export const updateNationalClass = createAsyncThunk<
       field,
       value: Sanitizer.acceptNextDecimal(value, prevValue),
     })
+
     dispatch(
       updateOriginalDataPoint({
         countryIso: updatedOdp.countryIso,

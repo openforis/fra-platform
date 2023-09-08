@@ -53,6 +53,22 @@ export const calcTotalSubSubFieldArea = (props: {
   subSubField: keyof ODPNationalClass
 }): number => {
   const { originalDataPoint, field, subField, subSubField } = props
+
+  const someIsNull = originalDataPoint.nationalClasses.some(
+    (nationalClass) =>
+      !nationalClass.placeHolder &&
+      (Objects.isNil(nationalClass.area) ||
+        Objects.isNil(nationalClass[field]) ||
+        Objects.isNil(nationalClass[subField]) ||
+        Objects.isNil(nationalClass[subSubField]))
+  )
+
+  // When calculating sub sub field area, require that _all_ fields are not null
+
+  if (someIsNull) {
+    return null
+  }
+
   const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
@@ -60,6 +76,7 @@ export const calcTotalSubSubFieldArea = (props: {
       !Objects.isNil(nationalClass[subField]) &&
       !Objects.isNil(nationalClass[subSubField])
   )
+
   const values = nationalClasses.map((nationalClass) => {
     const x = Numbers.mul(nationalClass.area, nationalClass[field] as string)
     const y = Numbers.mul(x, nationalClass[subField] as string)

@@ -59,7 +59,7 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
                       field: 'forestPercent',
                       subField: 'forestPlantationPercent',
                       subSubField: 'forestPlantationIntroducedPercent',
-                    }) ?? 0
+                    })
                   )}
               </td>
             </tr>
