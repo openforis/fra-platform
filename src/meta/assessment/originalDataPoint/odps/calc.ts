@@ -54,17 +54,18 @@ export const calcTotalSubSubFieldArea = (props: {
 }): number => {
   const { originalDataPoint, field, subField, subSubField } = props
 
-  const someIsNull = originalDataPoint.nationalClasses.some(
-    (nationalClass) =>
-      !nationalClass.placeHolder &&
-      (Objects.isNil(nationalClass.area) ||
-        Objects.isNil(nationalClass[field]) ||
-        Objects.isNil(nationalClass[subField]) ||
-        Objects.isNil(nationalClass[subSubField]))
-  )
+  const someIsNull = originalDataPoint.nationalClasses.some((nationalClass) => {
+    const isNotPlaceholder = !nationalClass.placeHolder
+    const hasForestPercent = nationalClass.forestPercent && Numbers.greaterThan(0, nationalClass.forestPercent)
+    const someValueIsNull =
+      Objects.isNil(nationalClass.area) ||
+      Objects.isNil(nationalClass[field]) ||
+      Objects.isNil(nationalClass[subField]) ||
+      Objects.isNil(nationalClass[subSubField])
+    return isNotPlaceholder && hasForestPercent && someValueIsNull
+  })
 
   // When calculating sub sub field area, require that _all_ fields are not null
-
   if (someIsNull) {
     return null
   }
