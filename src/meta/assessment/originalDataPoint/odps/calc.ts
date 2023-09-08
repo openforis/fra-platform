@@ -46,6 +46,10 @@ export const calcTotalSubFieldArea = (props: {
   return Numbers.sum(values)
 }
 
+const _allowedClass = (nc: ODPNationalClass, field: keyof ODPNationalClass, subField: keyof ODPNationalClass) => {
+  return nc[subField] !== null && Number(nc[subField]) > 0 && Number(nc[field]) > 0
+}
+
 export const calcTotalSubSubFieldArea = (props: {
   originalDataPoint: OriginalDataPoint
   field: keyof ODPNationalClass
@@ -55,14 +59,28 @@ export const calcTotalSubSubFieldArea = (props: {
   const { originalDataPoint, field, subField, subSubField } = props
 
   const someIsNull = originalDataPoint.nationalClasses.some((nationalClass) => {
-    const isNotPlaceholder = !nationalClass.placeHolder
-    const hasForestPercent = nationalClass.forestPercent && Numbers.greaterThan(0, nationalClass.forestPercent)
-    const someValueIsNull =
+    // if it's not allowed class - not shown in the list - ignore
+    if (!_allowedClass(nationalClass, field, subField)) {
+      return false
+    }
+
+    // if its placeholder, ignore
+    if (nationalClass.placeHolder) {
+      return false
+    }
+
+    // if nc has no forest area or forest area is 0, we count it as null
+    const forestAreaIsZeroOrNull = nationalClass.forestPercent && Numbers.greaterThan(0, nationalClass.forestPercent)
+    if (forestAreaIsZeroOrNull) {
+      return true
+    }
+
+    return (
       Objects.isNil(nationalClass.area) ||
       Objects.isNil(nationalClass[field]) ||
       Objects.isNil(nationalClass[subField]) ||
       Objects.isNil(nationalClass[subSubField])
-    return isNotPlaceholder && hasForestPercent && someValueIsNull
+    )
   })
 
   // When calculating sub sub field area, require that _all_ fields are not null
