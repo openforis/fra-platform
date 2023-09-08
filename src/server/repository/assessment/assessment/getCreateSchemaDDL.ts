@@ -356,7 +356,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
              rv.other_wooded_land,
              rv.natural_forest_area,
              rv.plantation_forest_area,
-             COALESCE(rv_1.plantation_forest_introduced_area, 0::numeric) as plantation_forest_introduced_area,
+             rv.plantation_forest_introduced_area,
              rv.other_planted_forest_area,
              rv.planted_forest,
              rv.total,
