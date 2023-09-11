@@ -46,6 +46,10 @@ export const calcTotalSubFieldArea = (props: {
   return Numbers.sum(values)
 }
 
+const _allowedClass = (nc: ODPNationalClass, field: keyof ODPNationalClass, subField: keyof ODPNationalClass) => {
+  return nc[subField] !== null && Number(nc[subField]) > 0 && Number(nc[field]) > 0
+}
+
 export const calcTotalSubSubFieldArea = (props: {
   originalDataPoint: OriginalDataPoint
   field: keyof ODPNationalClass
@@ -53,6 +57,37 @@ export const calcTotalSubSubFieldArea = (props: {
   subSubField: keyof ODPNationalClass
 }): number => {
   const { originalDataPoint, field, subField, subSubField } = props
+
+  const someIsNull = originalDataPoint.nationalClasses.some((nationalClass) => {
+    // if it's not allowed class - not shown in the list - ignore
+    if (!_allowedClass(nationalClass, field, subField)) {
+      return false
+    }
+
+    // if its placeholder, ignore
+    if (nationalClass.placeHolder) {
+      return false
+    }
+
+    // if nc has no forest area or forest area is 0, we count it as null
+    const forestAreaIsZeroOrNull = nationalClass.forestPercent && Numbers.greaterThan(0, nationalClass.forestPercent)
+    if (forestAreaIsZeroOrNull) {
+      return true
+    }
+
+    return (
+      Objects.isNil(nationalClass.area) ||
+      Objects.isNil(nationalClass[field]) ||
+      Objects.isNil(nationalClass[subField]) ||
+      Objects.isNil(nationalClass[subSubField])
+    )
+  })
+
+  // When calculating sub sub field area, require that _all_ fields are not null
+  if (someIsNull) {
+    return null
+  }
+
   const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
@@ -60,6 +95,7 @@ export const calcTotalSubSubFieldArea = (props: {
       !Objects.isNil(nationalClass[subField]) &&
       !Objects.isNil(nationalClass[subSubField])
   )
+
   const values = nationalClasses.map((nationalClass) => {
     const x = Numbers.mul(nationalClass.area, nationalClass[field] as string)
     const y = Numbers.mul(x, nationalClass[subField] as string)

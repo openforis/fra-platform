@@ -71,7 +71,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}
-          numberValue={isZeroOrNullPlantationIntroduced ? 0 : forestPlantationIntroducedPercent}
+          numberValue={forestPlantationIntroducedPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(
               OriginalDataPointActions.updateNationalClass({

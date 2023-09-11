@@ -49,10 +49,6 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     naturallyRegeneratingForestTotal &&
     Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
-  const nationalClassValidations = nationalClasses.map((_, index) =>
-    ODPs.validateNationalClass(originalDataPoint, index)
-  )
-
   return (
     <div className="odp__section">
       {!print && (
@@ -145,12 +141,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {hasNaturallyRegeneratingForest && (
-        <ForestCharacteristicsNaturallyRegenerating
-          canEditData={canEditData}
-          nationalClassValidations={nationalClassValidations}
-        />
-      )}
+      {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
 
       {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
     </div>
