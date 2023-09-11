@@ -7,6 +7,7 @@ import PageLayout from 'client/components/PageLayout'
 import Admin from 'client/pages/Admin'
 import UserManagement from 'client/pages/Admin/UserManagement'
 import AdminCountries from 'client/pages/AdminCountries'
+import AdminInvitations from 'client/pages/AdminInvitations'
 import Assessment from 'client/pages/Assessment'
 import Country from 'client/pages/Country'
 import SectionWrapper from 'client/pages/Country/SectionWrapper'
@@ -36,6 +37,7 @@ export const useRoutes = () => {
             {/* Admin */}
             <Route path={Routes.Admin.path.relative} element={<Admin />}>
               <Route index element={<Navigate to={Routes.AdminCountries.path.relative} replace />} />
+              <Route path={Routes.AdminInvitations.path.relative} element={<AdminInvitations />} />
               <Route path={Routes.AdminCountries.path.relative} element={<AdminCountries />} />
               <Route path={Routes.AdminUserManagement.path.relative} element={<UserManagement />} />
             </Route>

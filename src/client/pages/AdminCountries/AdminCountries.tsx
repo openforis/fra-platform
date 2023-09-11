@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryAdmin } from 'meta/area'
 
+import CountryLink from 'client/components/CountryLink'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
-import CountryLink from 'client/pages/AdminCountries/CountryLink'
 import { Dates } from 'client/utils'
 
 const useColumns = (): Array<Column<CountryAdmin>> => {
