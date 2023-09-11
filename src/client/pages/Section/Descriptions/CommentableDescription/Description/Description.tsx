@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { AssessmentNames, CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionValue } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -13,6 +13,7 @@ import { useSection } from 'client/store/metadata'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
+import { useIsFra2020 } from 'client/hooks/useIsFra2020'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
@@ -51,7 +52,7 @@ const Description: React.FC<Props> = (props) => {
   const isDataLocked = useIsDataLocked()
   const { t } = useTranslation()
 
-  const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
+  const isFra2020 = useIsFra2020()
 
   const [open, setOpen] = useState(false)
 

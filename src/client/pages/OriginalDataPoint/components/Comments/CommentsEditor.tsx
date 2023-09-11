@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentNames } from 'meta/assessment'
-
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useCountryIso } from 'client/hooks'
+import { useIsFra2020 } from 'client/hooks/useIsFra2020'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
 
@@ -26,7 +25,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const isDataLocked = useIsDataLocked()
 
-  const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
+  const isFra2020 = useIsFra2020()
 
   const onChange = useCallback(
     (content: string) => {
