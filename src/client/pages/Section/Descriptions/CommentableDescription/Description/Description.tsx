@@ -13,6 +13,7 @@ import { useSection } from 'client/store/metadata'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
+import { useIsFra2020 } from 'client/hooks/useIsFra2020'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
@@ -50,6 +51,8 @@ const Description: React.FC<Props> = (props) => {
   const commentableDescriptionValue = useCommentableDescriptionValue({ name, sectionName, template })
   const isDataLocked = useIsDataLocked()
   const { t } = useTranslation()
+
+  const isFra2020 = useIsFra2020()
 
   const [open, setOpen] = useState(false)
 
@@ -135,7 +138,7 @@ const Description: React.FC<Props> = (props) => {
       )}
       {showPreview && (
         <div className="fra-description__preview">
-          <MarkdownPreview value={text} />
+          <MarkdownPreview allowImages={isFra2020} value={text} />
         </div>
       )}
       {!open && !text && showDashEmptyContent && <div>-</div>}
