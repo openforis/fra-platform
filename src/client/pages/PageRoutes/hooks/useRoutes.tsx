@@ -37,8 +37,8 @@ export const useRoutes = () => {
             {/* Admin */}
             <Route path={Routes.Admin.path.relative} element={<Admin />}>
               <Route index element={<Navigate to={Routes.AdminCountries.path.relative} replace />} />
-              <Route path={Routes.AdminInvitations.path.relative} element={<AdminInvitations />} />
               <Route path={Routes.AdminCountries.path.relative} element={<AdminCountries />} />
+              <Route path={Routes.AdminInvitations.path.relative} element={<AdminInvitations />} />
               <Route path={Routes.AdminUserManagement.path.relative} element={<UserManagement />} />
             </Route>
 

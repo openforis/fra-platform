@@ -1,1 +1,1 @@
-export { default } from 'client/components/CountryLink/CountryLink'
+export { default } from './CountryLink'
