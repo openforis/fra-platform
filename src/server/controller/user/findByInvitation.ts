@@ -4,8 +4,8 @@ import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
 import { BaseProtocol, DB } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { UserRepository } from 'server/repository/public/user'
+import { UserInvitationRepository } from 'server/repository/public/userInvitation'
 import { UserProviderRepository } from 'server/repository/public/userProvider'
-import { UserRoleRepository } from 'server/repository/public/userRole'
 
 export const findByInvitation = async (
   props: { invitationUuid: string },
@@ -18,7 +18,7 @@ export const findByInvitation = async (
 }> => {
   const { invitationUuid } = props
 
-  const userRole = await UserRoleRepository.read({ invitationUuid }, client)
+  const userRole = await UserInvitationRepository.getOne({ invitationUuid }, client)
 
   const user = await UserRepository.getOne({ id: userRole.userId }, client)
 

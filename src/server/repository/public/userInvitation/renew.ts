@@ -4,7 +4,7 @@ import { RoleName, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 
-export const renewInvitation = async (
+export const renew = async (
   props: { userRole: UserRole<RoleName> },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName>> => {
