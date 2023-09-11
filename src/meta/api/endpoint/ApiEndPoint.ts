@@ -7,6 +7,8 @@ export const ApiEndPoint = {
     joinPaths('definitions', assessmentName, cycleName, lang, name),
 
   Admin: {
+    countries: () => apiPath('admin', 'countries'),
+    countriesCount: () => apiPath('admin', 'countries', 'count'),
     users: () => apiPath('admin', 'users'),
     usersCount: () => apiPath('admin', 'users', 'count'),
   },

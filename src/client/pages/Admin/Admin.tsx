@@ -12,17 +12,17 @@ import { Users } from 'meta/user'
 import { useCountries } from 'client/store/area'
 import { useUser } from 'client/store/user'
 
-import UserManagement from './UserManagement'
-
 type Section = {
-  component: React.FC
   labelKey: string
   name: string
 }
 
 const sections: Array<Section> = [
   {
-    component: UserManagement,
+    name: SectionNames.Admin.countries,
+    labelKey: 'common.countries',
+  },
+  {
     name: SectionNames.Admin.userManagement,
     labelKey: 'landing.sections.userManagement',
   },
@@ -60,7 +60,9 @@ const Admin: React.FC = () => {
         ))}
       </div>
 
-      <Outlet />
+      <div className="admin__page-content">
+        <Outlet />
+      </div>
     </div>
   )
 }

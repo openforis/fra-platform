@@ -13,6 +13,7 @@ import { NavigationState } from './ui/navigation/stateType'
 import { NotificationState } from './ui/notification/stateType'
 import { OriginalDataPointState } from './ui/originalDataPoint'
 import { ReviewState } from './ui/review'
+import { TablePaginatedState } from './ui/tablePaginated/state'
 import { UserManagementState } from './ui/userManagement'
 import { UserState } from './user/stateType'
 import { MetadataState } from './metadata'
@@ -37,6 +38,7 @@ export type RootState = {
     notification: NotificationState
     originalDataPoint: OriginalDataPointState
     review: ReviewState
+    tablePaginated: TablePaginatedState
     userManagement: UserManagementState
   }
 
