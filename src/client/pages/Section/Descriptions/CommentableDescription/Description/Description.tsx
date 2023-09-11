@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { CommentableDescriptionValue } from 'meta/assessment'
+import { AssessmentNames, CommentableDescriptionValue } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -50,6 +50,8 @@ const Description: React.FC<Props> = (props) => {
   const commentableDescriptionValue = useCommentableDescriptionValue({ name, sectionName, template })
   const isDataLocked = useIsDataLocked()
   const { t } = useTranslation()
+
+  const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
 
   const [open, setOpen] = useState(false)
 
@@ -135,7 +137,7 @@ const Description: React.FC<Props> = (props) => {
       )}
       {showPreview && (
         <div className="fra-description__preview">
-          <MarkdownPreview value={text} />
+          <MarkdownPreview allowImages={isFra2020} value={text} />
         </div>
       )}
       {!open && !text && showDashEmptyContent && <div>-</div>}
