@@ -1,21 +1,19 @@
+import { CountryIso } from 'meta/area'
 import { TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
 import { useAppSelector } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useCountryIso } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useOriginalDataPointData = (): RecordColumnData => {
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
   return useAppSelector((state) =>
     RecordAssessmentDatas.getTableData({
-      assessmentName: assessment.props.name,
-      cycleName: cycle.name,
+      assessmentName,
+      cycleName,
       data: state.data.tableData,
-      countryIso,
+      countryIso: countryIso as CountryIso,
       tableName: TableNames.originalDataPointValue,
     })
   )
