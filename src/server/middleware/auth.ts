@@ -145,7 +145,7 @@ const requireEditUser = async (req: Request, _res: Response, next: NextFunction)
   const { id } = { ...req.params, ...req.query, ...req.body } as { id: string }
   const user = Requests.getUser(req)
   const isAdministrator = Users.isAdministrator(user)
-  const isSelf = String(user?.id) === id
+  const isSelf = String(user?.id) === String(id)
 
   _next(isAdministrator || isSelf, next)
 }
@@ -164,7 +164,7 @@ const requireViewUser = async (req: Request, _res: Response, next: NextFunction)
   }
   const user = Requests.getUser(req)
   const isAdministrator = Users.isAdministrator(user)
-  const isSelf = String(user?.id) === id
+  const isSelf = String(user?.id) === String(id)
 
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
