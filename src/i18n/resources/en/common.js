@@ -43,4 +43,5 @@ module.exports = {
   variable: 'FRA Variable',
   view: 'View',
   year: 'Year',
+  yes: 'Yes',
 }

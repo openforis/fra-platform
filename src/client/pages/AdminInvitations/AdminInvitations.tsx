@@ -1,44 +1,58 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Dates } from 'utils/dates'
+
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryAdmin } from 'meta/area'
+import { Users } from 'meta/user'
+import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
 
 import CountryLink from 'client/components/CountryLink'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
+import Expired from 'client/pages/AdminInvitations/Expired'
 
-const useColumns = (): Array<Column<CountryAdmin>> => {
+const dateformat = 'yyyy-MM-dd HH:mm:ss'
+const formatDateTime = (date: string) => {
+  if (!date) return '-'
+  return Dates.format(Dates.parseISO(date), dateformat)
+}
+
+const useColumns = (): Array<Column<UserInvitationSummary>> => {
   const { t } = useTranslation()
 
-  return useMemo<Array<Column<any>>>(
+  return useMemo<Array<Column<UserInvitationSummary>>>(
     () => [
       {
-        component: ({ datum }) => <CountryLink countryIso={datum.countryIso} />,
+        component: ({ datum }) => (datum.countryIso ? <CountryLink countryIso={datum.countryIso} /> : <span>-</span>),
         header: t('common.country'),
         key: 'country',
       },
       {
-        component: ({ datum: _datum }) => <span>email</span>,
+        component: ({ datum }) => <span>{datum.email}</span>,
         header: t('common.email'),
         key: 'email',
+        orderByProperty: 'u.email',
       },
       {
-        component: ({ datum: _datum }) => <span>role</span>,
+        component: ({ datum }) => <span>{t(Users.getI18nRoleLabelKey(datum.role))}</span>,
         header: t('common.role'),
         key: 'role',
+        orderByProperty: 'role',
       },
       {
-        component: ({ datum: _datum }) => <span>invited</span>,
+        component: ({ datum }) => <span>{formatDateTime(datum.invitedAt)}</span>,
         header: t('common.invited'),
-        key: 'invited',
+        key: 'invited_at',
+        orderByProperty: 'invited_at',
       },
       {
-        component: ({ datum: _datum }) => <span>accepted</span>,
+        component: ({ datum }) => <span>{formatDateTime(datum.acceptedAt)}</span>,
         header: t('common.accepted'),
-        key: 'accepted',
+        key: 'accepted_at',
+        orderByProperty: 'accepted_at',
       },
       {
-        component: ({ datum: _datum }) => <span>expired</span>,
+        component: ({ datum }) => <Expired role={datum} />,
         header: t('common.expired'),
         key: 'expired',
       },
@@ -50,7 +64,7 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
 const AdminInvitations: React.FC = () => {
   const columns = useColumns()
 
-  return <TablePaginated columns={columns} path={ApiEndPoint.User.invitations()} />
+  return <TablePaginated columns={columns} path={ApiEndPoint.Admin.invitations()} />
 }
 
 export default AdminInvitations
