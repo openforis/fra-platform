@@ -1,0 +1,139 @@
+,country,indicator,item,comment
+0,ALB,4.9,- the recent available year,
+1,ALB,4.9,- extrapolation,
+2,ALB,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+3,AND,4.9,- the recent available year,
+4,AND,4.9,- extrapolation,
+5,AND,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+6,AUT,4.9,- the recent available year,2018.0
+7,AUT,4.9,- extrapolation,
+8,AUT,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+9,BLR,4.9,- последний имеющийся год,2017.0
+10,BLR,4.9,- экстраполяция,
+11,BLR,4.9,"- оценка, имеющая обоснование (например, прогнозы, перспекти-вы, программы лесоразведения, цели лесной политики)",
+12,BEL,4.9,- the recent available year,
+13,BEL,4.9,- extrapolation,"linear extraplotaion except Class 1,1"
+14,BEL,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)","Class1,1 normally would stay stable now that area are defined. Extrapolation can not be used for this case has reglementation changed during the last decade"
+15,BIH,4.9,- the recent available year,
+16,BIH,4.9,- extrapolation,
+17,BIH,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+18,BGR,4.9,- the recent available year,
+19,BGR,4.9,- extrapolation,
+20,BGR,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+21,HRV,4.9,- the recent available year,2017.0
+22,HRV,4.9,- extrapolation,
+23,HRV,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+24,CYP,4.9,- the recent available year,
+25,CYP,4.9,- extrapolation,
+26,CYP,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+27,CZE,4.9,- the recent available year,2017.0
+28,CZE,4.9,- extrapolation,
+29,CZE,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+30,DNK,4.9,- the recent available year,No
+31,DNK,4.9,- extrapolation,No
+32,DNK,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",National programmes for set aside forest for biodiversity protection
+33,EST,4.9,- the recent available year,2017
+34,EST,4.9,- extrapolation,no
+35,EST,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",no
+36,FIN,4.9,- the recent available year,yes
+37,FIN,4.9,- extrapolation,
+38,FIN,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+39,FRA,4.9,- the recent available year,"No estimation for year 2020, because it mainly depends on political decisions."
+40,FRA,4.9,- extrapolation,
+41,FRA,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+42,GEO,4.9,- the recent available year,
+43,GEO,4.9,- extrapolation,
+44,GEO,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+45,DEU,4.9,- the recent available year,
+46,DEU,4.9,- extrapolation,
+47,DEU,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+48,GRC,4.9,- the recent available year,
+49,GRC,4.9,- extrapolation,
+50,GRC,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+51,VAT,4.9,- the recent available year,
+52,VAT,4.9,- extrapolation,
+53,VAT,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+54,HUN,4.9,- the recent available year,
+55,HUN,4.9,- extrapolation,linear extrapolation
+56,HUN,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+57,ISL,4.9,- the recent available year,2015
+58,ISL,4.9,- extrapolation,It is not possible to forecast establishment of new National parks
+59,ISL,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+60,IRL,4.9,- the recent available year,2015 estimate is used.
+61,IRL,4.9,- extrapolation,
+62,IRL,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+63,ITA,4.9,- the recent available year,
+64,ITA,4.9,- extrapolation,
+65,ITA,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+66,LVA,4.9,- the recent available year,2017.0
+67,LVA,4.9,- extrapolation,
+68,LVA,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+69,LIE,4.9,- the recent available year,
+70,LIE,4.9,- extrapolation,
+71,LIE,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+72,LTU,4.9,- the recent available year,2017
+73,LTU,4.9,- extrapolation,of 2005; 2010; 2015
+74,LTU,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+75,LUX,4.9,- the recent available year,
+76,LUX,4.9,- extrapolation,
+77,LUX,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+78,MLT,4.9,- the recent available year,
+79,MLT,4.9,- extrapolation,
+80,MLT,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+81,MDA,4.9,последний имеющийся год,
+82,MDA,4.9,экстраполяция,
+83,MDA,4.9,"оценка, имеющая обоснование (например, прогнозы, перспективы, программы лесоразведения, цели лесной политики)",
+84,MCO,4.9,- the recent available year,
+85,MCO,4.9,- extrapolation,
+86,MCO,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+87,MNE,4.9,- the recent available year,
+88,MNE,4.9,- extrapolation,
+89,MNE,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+90,NLD,4.9,- the recent available year,2018
+91,NLD,4.9,- extrapolation,x
+92,NLD,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+93,NOR,4.9,- the recent available year,
+94,NOR,4.9,- extrapolation,Extrapolation based on the 2010-2015 development.
+95,NOR,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+96,POL,4.9,- the recent available year,2017.0
+97,POL,4.9,- extrapolation,
+98,POL,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+99,PRT,4.9,- the recent available year,
+100,PRT,4.9,- extrapolation,
+101,PRT,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+102,ROU,4.9,- the recent available year,
+103,ROU,4.9,- extrapolation,
+104,ROU,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+105,RUS,4.9,- the recent available year,
+106,RUS,4.9,- extrapolation,
+107,RUS,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+108,SRB,4.9,- the recent available year,
+109,SRB,4.9,- extrapolation,
+110,SRB,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+111,SVK,4.9,- the recent available year,2017.0
+112,SVK,4.9,- extrapolation,
+113,SVK,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+114,SVN,4.9,- the recent available year,2017
+115,SVN,4.9,- extrapolation,no
+116,SVN,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+117,ESP,4.9,- the recent available year,Recent year available is 2017. These numbers have been asigned to 2015. It is not posible to predict if there will be more designations of protected areas in the next years.
+118,ESP,4.9,- extrapolation,
+119,ESP,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+120,SWE,4.9,- the recent available year,Data from 2017-12-31
+121,SWE,4.9,- extrapolation,
+122,SWE,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+123,CHE,4.9,- the recent available year,"GIS databank forest reserves, status 2016."
+124,CHE,4.9,- extrapolation,extrapolated on annual increase over the period 2012-2016 supported by equal mechanism of forest establishment and funding.
+125,CHE,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+126,MKD,4.9,- the recent available year,
+127,MKD,4.9,- extrapolation,
+128,MKD,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+129,TUR,4.9,- the recent available year,
+130,TUR,4.9,- extrapolation,
+131,TUR,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+132,UKR,4.9,- the recent available year,
+133,UKR,4.9,- extrapolation,
+134,UKR,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+135,GBR,4.9,- the recent available year,Assumed that change is negligible over the entire time period.
+136,GBR,4.9,- extrapolation,
+137,GBR,4.9,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",

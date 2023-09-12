@@ -1,12 +1,12 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from '@meta/api/request'
-import { Sockets } from '@meta/socket'
+import { CycleDataRequest } from 'meta/api/request'
+import { Sockets } from 'meta/socket'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { MessageCenterController } from '@server/controller/messageCenter'
-import { SocketServer } from '@server/service/socket'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { MessageCenterController } from 'server/controller/messageCenter'
+import { SocketServer } from 'server/service/socket'
+import Requests from 'server/utils/requests'
 
 import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 

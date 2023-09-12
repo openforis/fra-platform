@@ -1,5 +1,5 @@
-import { NodeValue } from '@meta/assessment/node'
-import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessment/nodeValueValidation'
+import { NodeValue } from 'meta/assessment/node'
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 const merge = (nodeValueValidations: Array<NodeValueValidation>): NodeValueValidation => {
   const valid = nodeValueValidations.every(({ valid }) => valid)

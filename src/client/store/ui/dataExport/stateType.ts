@@ -1,4 +1,4 @@
-import { Country } from '@meta/area'
+import { Country } from 'meta/area'
 
 export interface DataExportSelection {
   countryISOs: Array<string>

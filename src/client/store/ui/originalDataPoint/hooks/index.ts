@@ -1,22 +1,21 @@
-import { Arrays } from '@utils/arrays'
+import { Arrays } from 'utils/arrays'
 
-import { Cycle } from '@meta/assessment'
+import { CycleName } from 'meta/assessment'
 
-import { useAppSelector } from '@client/store'
+import { useAppSelector } from 'client/store'
 
 export const useOriginalDataPoint = () => useAppSelector((state) => state.ui.originalDataPoint?.data)
 
 export const useIsOriginalDataPointUpdating = () => useAppSelector((state) => state.ui.originalDataPoint?.updating)
 
 export const useOriginalDataPointReservedYears = () =>
-  useAppSelector((state) => state.ui.originalDataPoint.reservedYears)
+  useAppSelector((state) => state.ui.originalDataPoint?.reservedYears)
 
-export const useODPYears = (cycle: Cycle): { years: Array<number>; reservedYears: Array<number> } => {
-  const years = cycle ? Arrays.reverse(Arrays.range(1950, Number(cycle.name))) : []
+export const useODPYears = (cycleName: CycleName): { years: Array<number>; reservedYears: Array<number> } => {
   const reservedYears = useOriginalDataPointReservedYears() ?? []
 
   return {
-    years,
-    reservedYears,
+    years: Arrays.reverse(Arrays.range(1950, Number(cycleName))),
+    reservedYears: reservedYears.map((reservedYear) => reservedYear.year),
   }
 }

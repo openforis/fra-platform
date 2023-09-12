@@ -4,7 +4,6 @@ module.exports = {
   password: 'Password',
   repeatPassword: 'Contraseña',
   email: 'Correo electrónico',
-  submit: 'Enviar',
   cancel: 'Cancelar',
 
   signInGoogle: 'Iniciar sesión con Google',
@@ -41,4 +40,20 @@ module.exports = {
     'El acceso al área reservada está limitado a los expertos involucrados en el proceso de reporte de datos del FRA.',
   returnHome: 'Para volver a la página principal haga clic',
   returnHomeClick: 'aquí.',
+
+  resetPassword: 'Restablecer contraseña',
+  alreadyLinked: 'La cuenta de google seleccionada ya está vinculada a otro usuario',
+  noShortPassword: 'Contraseña demasiado corta',
+  noMatchingLocalUser: 'No se pudo encontrar ningún usuario que coincida con estas credenciales.',
+  noMatchingProvider: 'No se pudo encontrar ningún usuario que coincida con estas credenciales.',
+  noActiveAccount: 'La cuenta no está activa. Asegúrese de haber aceptado cualquier invitación pendiente',
+  googleOnlyAccount: 'La cuenta está asociada a la autenticación de Google',
+  alreadyAcceptedInvitation: 'Esta invitación ya ha sido aceptada',
+  invitationMessage: 'Ha sido invitado a {{evaluación}} {{ciclo}} como {{role}} para {{país}}',
+  invitationProvidersRegistered: 'Ya tiene una cuenta registrada en {{nombres de proveedor de autor}}',
+  acceptInvitation: 'Aceptar invitación',
+  acceptInvitationWithFra: 'Aceptar invitación con FRA',
+  acceptInvitationWithGoogle: 'Aceptar invitación con Google',
+  invitationExpired: 'Esta invitación ha caducado',
+  logoutSuccessful: 'Se ha desconectado correctamente',
 }

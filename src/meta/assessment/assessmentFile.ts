@@ -1,4 +1,4 @@
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
 export interface AssessmentFile {
   id: number

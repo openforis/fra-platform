@@ -29,11 +29,15 @@ export const forestAreaChange: SectionSpec = {
                 },
                 {
                   idx: 1,
-                  colSpan: 4,
-                  rowSpan: 1,
                   labelKey: 'forestAreaChange.areaUnitLabel',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    style: {
+                      '2020': { colSpan: 4, rowSpan: 1 },
+                      '2025': { colSpan: 5, rowSpan: 1 },
+                    },
+                  },
                 },
               ],
               type: 'header',
@@ -73,6 +77,17 @@ export const forestAreaChange: SectionSpec = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
+                {
+                  idx: 4,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  label: '2020-2025',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
               ],
               type: 'header',
             },
@@ -109,6 +124,14 @@ export const forestAreaChange: SectionSpec = {
                 {
                   idx: 3,
                   type: 'decimal',
+                },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  colName: '2020-2025',
+                  migration: {
+                    cycles: ['2025'],
+                  },
                 },
               ],
               labelKey: 'forestAreaChange.forestExpansion',
@@ -147,6 +170,14 @@ export const forestAreaChange: SectionSpec = {
                 {
                   idx: 3,
                   type: 'decimal',
+                },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  colName: '2020-2025',
+                  migration: {
+                    cycles: ['2025'],
+                  },
                 },
               ],
               labelKey: 'forestAreaChange.ofWhichAfforestation',
@@ -190,6 +221,14 @@ export const forestAreaChange: SectionSpec = {
                   idx: 3,
                   type: 'decimal',
                 },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  colName: '2020-2025',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
               ],
               labelKey: 'forestAreaChange.ofWhichNaturalExpansion',
               variableExport: 'natural_expansion',
@@ -229,6 +268,14 @@ export const forestAreaChange: SectionSpec = {
                 {
                   idx: 3,
                   type: 'decimal',
+                },
+                {
+                  idx: 4,
+                  type: 'decimal',
+                  colName: '2020-2025',
+                  migration: {
+                    cycles: ['2025'],
+                  },
                 },
               ],
               labelKey: 'forestAreaChange.deforestation',
@@ -316,6 +363,22 @@ export const forestAreaChange: SectionSpec = {
                     },
                   },
                 },
+                {
+                  idx: 4,
+                  type: 'calculated',
+                  colName: '2020_2025',
+                  migration: {
+                    cycles: ['2025'],
+                    calculateFn: {
+                      '2025': 'forestAreaChange.forest_expansion - forestAreaChange.deforestation',
+                    },
+                    validateFns: {
+                      '2025': [
+                        `validatorForestAreaNetChange((extentOfForest.forestArea['2025'] - extentOfForest.forestArea['2020']) / 5, forestAreaChange.forestAreaNetChange)`,
+                      ],
+                    },
+                  },
+                },
               ],
               labelKey: 'forestAreaChange.forestAreaNetChange',
               variableNo: 'a-b',
@@ -353,7 +416,7 @@ export const forestAreaChange: SectionSpec = {
           },
           dataExport: true,
           columnsExportAlways: [],
-          columnsExport: ['1990-2000', '2000-2010', '2010-2015', '2015-2020'],
+          columnsExport: ['1990-2000', '2000-2010', '2010-2015', '2015-2020', '2020-2025'],
           unit: 'haThousandPerYear',
         },
       ],

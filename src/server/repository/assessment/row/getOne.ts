@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Assessment, Row } from '@meta/assessment'
+import { Assessment, Row } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter/col'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { ColAdapter } from 'server/repository/adapter/col'
 
 type Props = {
   assessment: Assessment
@@ -19,7 +19,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
   return client.one<Row>(
     `
         select r.*
-               ${includeCols ? `, jsonb_agg(c.*)        as cols` : ''}
+               ${includeCols ? `, coalesce(jsonb_agg(c.*)    filter (where c.uuid is not null), '[]')     as cols` : ''}
         from ${schema}.row r
                 left join ${schema}."table" t on r.table_id = t.id
                 ${includeCols ? `left join ${schema}.col c on r.id = c.row_id` : ''}
@@ -34,6 +34,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
         props: {
           ...Objects.camelize(row.props),
           calculateFn: row.props.calculateFn,
+          linkToSection: row.props.linkToSection,
           validateFns: row.props.validateFns,
           chart: row.props.chart,
         },

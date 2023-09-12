@@ -1,7 +1,7 @@
-import { CollaboratorSectionsPermission, RoleName, UserRole } from '@meta/user'
+import { CollaboratorSectionsPermission, RoleName, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { UserRoleAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB } from 'server/db'
+import { UserRoleAdapter } from 'server/repository/adapter'
 
 export const updateSectionAuth = async (
   props: {

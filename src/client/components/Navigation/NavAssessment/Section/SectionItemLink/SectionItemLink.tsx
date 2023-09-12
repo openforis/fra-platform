@@ -5,17 +5,16 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
-import { Labels, SubSection, SubSections } from '@meta/assessment'
+import { Labels, SubSection, SubSections } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { NavigationActions } from '@client/store/ui/navigation'
-import { useSectionReviewSummary } from '@client/store/ui/review/hooks'
-import { useCountryIso, useIsDataExportView } from '@client/hooks'
-import { Breakpoints } from '@client/utils'
-
-import ReviewStatusMarker from '../ReviewStatusMarker'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { NavigationActions } from 'client/store/ui/navigation'
+import { useSectionReviewSummary } from 'client/store/ui/review/hooks'
+import { useCountryIso, useIsDataExportView } from 'client/hooks'
+import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
+import { Breakpoints } from 'client/utils'
 
 type Props = {
   subSection: SubSection
@@ -39,7 +38,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
 
   return (
     <NavLink
-      to={ClientRoutes.Assessment.Cycle.Country.Section.getLink({
+      to={Routes.Section.generatePath({
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countryIso,
@@ -56,11 +55,13 @@ const SectionItemLink: React.FC<Props> = (props) => {
         }
       }}
     >
-      <div className="nav-section__order">{SubSections.getAnchor({ cycle, subSection })}</div>
-      <div className="nav-section__label">{Labels.getLabel({ cycle, labels: subSection.props.labels, t })}</div>
+      <div className="nav-section__order">
+        {t(SubSections.getAnchorLabel({ assessment, cycle, subSection }), SubSections.getAnchor({ cycle, subSection }))}
+      </div>
+      <div className="nav-section__label">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</div>
       {!isDataExport && (
         <div className="nav-section__status-content">
-          <ReviewStatusMarker status={reviewStatus} />
+          <ReviewSummaryIndicator status={reviewStatus} />
         </div>
       )}
     </NavLink>

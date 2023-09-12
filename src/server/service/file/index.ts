@@ -40,10 +40,18 @@ export const fileTypes = {
     downloadName: `BiomassCalculator_${domain}`,
     fileType: 'xlsx',
   }),
+  sdgFocalPoints: {
+    key: 'NSO_SDG_Contact_Persons',
+    folder: 'sdgFocalPoints',
+    downloadName: 'NSO_SDG_Contact_Persons',
+    fileType: 'xlsx',
+  },
 }
 
+const _getRepositoryPath = (): string => path.resolve(__dirname, '..', '..', 'static', 'fileRepository')
+
 const _getFilepath = (type: Type, lang: string) =>
-  path.resolve(__dirname, '..', '..', 'static', 'fileRepository', type.folder, `${type.key}_${lang}.${type.fileType}`)
+  path.resolve(_getRepositoryPath(), type.folder, `${type.key}_${lang}.${type.fileType}`)
 
 const download = (res: Response, type: Type, lang: string) => {
   const filePath = _getFilepath(type, lang)

@@ -13,7 +13,22 @@ type Props = {
   onChange: (value?: string) => void
 }
 
-const removeButtons = ['image', 'video', 'eraser', 'copyformat', 'fullsize', 'print', 'about']
+const buttons = [
+  'bold',
+  'strikethrough',
+  'italic',
+  '|',
+  'ul',
+  'ol',
+  '|',
+  'table',
+  'link',
+  '|',
+  'undo',
+  'redo',
+  '|',
+  'fullsize',
+]
 
 const processor = unified().use(rehypeRaw).use(rehypeSanitize).use(rehypeParse, { fragment: true }).use(rehypeStringify)
 
@@ -23,9 +38,11 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
 
   const config = useMemo<Partial<Jodit['options']>>(
     () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/doc/
-      removeButtons,
+      readonly: false, // all options from https://xdsoft.net/jodit/docs/
+      buttons,
+      toolbarAdaptive: false,
       uploader: undefined,
+      spellcheck: true,
     }),
     []
   )

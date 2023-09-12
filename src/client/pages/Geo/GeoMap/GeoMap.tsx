@@ -1,8 +1,12 @@
 import './geoMap.scss'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { MapContext, useCountryIso } from '@client/hooks'
-import { getCountryBounds } from '@client/pages/Geo/utils/countryBounds'
+import { useAppDispatch } from 'client/store'
+import { GeoActions } from 'client/store/ui/geo'
+import { useCountryIso } from 'client/hooks'
+import { useMapLayersHandler } from 'client/pages/Geo/GeoMap/hooks'
+import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
+import { mapController } from 'client/utils'
 
 type Props = {
   viewport?: google.maps.LatLngBoundsLiteral
@@ -10,15 +14,16 @@ type Props = {
 }
 
 const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
+  const dispatch = useAppDispatch()
   const { viewport, children, zoom } = props
   const ref = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
   const countryIso = useCountryIso()
-
   useEffect(() => {
     if (ref.current && !map) {
       const mapSetUp = new window.google.maps.Map(ref.current, {
         zoom: zoom || 4,
+        center: { lat: 0, lng: 0 }, // There needs to be a default center, otherwise the map does not render
         disableDefaultUI: true,
         zoomControl: true,
         rotateControl: true,
@@ -32,8 +37,9 @@ const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
         },
       })
       if (!zoom && viewport) mapSetUp.fitBounds(viewport)
+      mapController.setMap(mapSetUp)
       setMap(mapSetUp)
-
+      dispatch(GeoActions.setMapAvailability(true))
       // Center and focus on the current country
       getCountryBounds(countryIso).then((response) => {
         if (response?.data) {
@@ -42,12 +48,16 @@ const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
         }
       })
     }
-  }, [ref, map, zoom, viewport, countryIso])
+  }, [ref, map, zoom, viewport, countryIso, dispatch])
+
+  // Add layers handler
+  useMapLayersHandler()
 
   // Move and center the map to the new country location.
   useEffect(() => {
+    if (!map) return
     getCountryBounds(countryIso).then((response) => {
-      if (map && response?.data) {
+      if (response?.data) {
         map.panTo(response.data.centroid)
         map.fitBounds(response.data.bounds)
       }
@@ -57,7 +67,7 @@ const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
   return (
     <>
       <div ref={ref} id="geo-map" />
-      <MapContext.Provider value={map}>{map !== null ? children : null}</MapContext.Provider>
+      {map !== null ? children : null}
     </>
   )
 }

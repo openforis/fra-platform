@@ -1,10 +1,10 @@
-import { Row, VariableCache } from '@meta/assessment'
-import { NodeUpdates } from '@meta/data'
+import { Row, VariableCache } from 'meta/assessment'
+import { NodeUpdates } from 'meta/data'
 
-import { PersistNodeValueProps } from '@server/controller/cycleData/persistNodeValues/props'
-import { BaseProtocol } from '@server/db'
-import { RowRepository } from '@server/repository/assessment/row'
-import { Logger } from '@server/utils/logger'
+import { PersistNodeValueProps } from 'server/controller/cycleData/persistNodeValues/props'
+import { BaseProtocol } from 'server/db'
+import { RowRepository } from 'server/repository/assessment/row'
+import { Logger } from 'server/utils/logger'
 
 import { getDependants } from '../utils/getDependants'
 import { isODPCell } from '../utils/isODPCell'
@@ -21,13 +21,22 @@ export const updateCalculationDependencies = async (
     { assessment, cycle, variableName, tableName, colName, countryIso, isODP, type: 'calculations' },
     client
   )
-  const visitedVariables: Array<VariableCache> = [{ variableName, tableName }]
+  const visitedVariables: Array<VariableCache> = []
+  // self is not visited if it depends on itself
+  if (!queue.find((dependant) => dependant.variableName === variableName && dependant.tableName === tableName)) {
+    visitedVariables.push({ variableName, tableName })
+  }
 
   // Don't include ODP data when calculating dependants of ODP cell
   const _isODPCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
-  const mergeOdp = !_isODPCell
+  const mergeOdp = isODP || !_isODPCell
 
-  const debugKey = `[updateCalculationDependencies-${[props.tableName, props.variableName, props.colName].join('-')}]`
+  const debugKey = `[updateCalculationDependencies-${[
+    countryIso,
+    props.tableName,
+    props.variableName,
+    props.colName,
+  ].join('-')}]`
   Logger.debug(`${debugKey} initial queue length ${queue.length}`)
 
   while (queue.length !== 0) {

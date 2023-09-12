@@ -1,4 +1,12 @@
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
+import { DataSourceDescription } from 'meta/assessment/description'
+
+// TODO: merge this with description
+
+export type DataSourceLinked = {
+  data: DataSource
+  meta: DataSourceDescription
+}
 
 export enum CommentableDescriptionName {
   dataSources = 'dataSources',
@@ -9,6 +17,7 @@ export enum CommentableDescriptionName {
   estimationAndForecasting = 'estimationAndForecasting',
   introductoryText = 'introductoryText',
 }
+
 export interface DataSource {
   uuid?: string
   reference: {
@@ -16,8 +25,7 @@ export interface DataSource {
     link?: string
   }
   type: string
-  fraVariables?: string[]
-  variable?: string
+  variables?: string[]
   year: string
   comments: string
 }

@@ -1,0 +1,36 @@
+@import 'src/client/style/partials';
+
+.data-table {
+  .odp-header-cell {
+    @include mixin-table-cell(700, center, 10px);
+    background-color: rgba($ui-accent, 10%);
+
+    .link {
+      text-decoration: underline;
+    }
+
+    .review-summary-status {
+      margin: 0 $spacing-xxxs;
+    }
+  }
+
+  .odp-value-cell {
+    background-color: rgba($ui-accent, 5%);
+  }
+
+  .odp-value-cell-total {
+    @include mixin-table-cell(700, right, 10px, true);
+    background-color: rgba($ui-accent, 5%);
+  }
+
+  .validation-error {
+    background-color: rgba($ui-destructive, 10%);
+  }
+
+  tr.fra-row-comments__open,
+  div.fra-row-comments__open {
+    outline: 1px solid $ui-accent;
+    outline-offset: -1px;
+    box-shadow: 0 0 4px rgba($ui-accent, 50%);
+  }
+}

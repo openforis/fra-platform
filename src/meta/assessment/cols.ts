@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 
-import { Cycle } from '@meta/assessment/cycle'
-import { Labels } from '@meta/assessment/labels'
+import { Cycle } from 'meta/assessment/cycle'
+import { Labels } from 'meta/assessment/labels'
 
 import { Col, ColStyle, ColType } from './col'
 import { Row } from './row'
@@ -24,30 +24,50 @@ const isCalculated = (props: { col: Col; row: Row }): boolean => {
   )
 }
 
-const isReadOnly = (props: { col: Col; row: Row }): boolean => {
-  const { col, row } = props
+const hasLinkedNodes = (props: { cycle: Cycle; col: Col }): boolean => {
+  const { col, cycle } = props
+  return Boolean(col.props?.linkedNodes?.[cycle.uuid])
+}
+
+const isReadOnly = (props: { cycle: Cycle; col: Col; row: Row }): boolean => {
+  const { cycle, col, row } = props
   return !!(
     isCalculated(props) ||
     row.props.readonly ||
-    [ColType.header, ColType.noticeMessage].includes(col.props.colType)
+    [ColType.header, ColType.noticeMessage].includes(col.props.colType) ||
+    hasLinkedNodes({ cycle, col })
   )
+}
+
+const getCalculateFn = (props: { cycle: Cycle; col: Col; row: Row }): string | undefined => {
+  const { cycle, col, row } = props
+  return col.props.calculateFn?.[cycle.uuid] ?? row.props.calculateFn?.[cycle.uuid]
+}
+
+const getClassNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
+  const { col, cycle } = props
+  const { classNames = {} } = col.props
+  return classNames[cycle.uuid] ?? []
+}
+
+const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
+  const { cycle, col, t } = props
+  return col.props.colName ?? Labels.getCycleLabel({ cycle, labels: col.props.labels, t })
 }
 
 const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
   const { col, cycle } = props
   const { style = {} } = col.props
-  return style[cycle.uuid] ?? { colSpan: undefined, rowSpan: undefined }
-}
-
-const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
-  const { cycle, col, t } = props
-  return col.props.colName ?? Labels.getLabel({ cycle, labels: col.props.labels, t })
+  return style[cycle.uuid] ?? {}
 }
 
 export const Cols = {
+  getCalculateFn,
+  getClassNames,
   getColName,
-  isCalculated,
-  isReadOnly,
   getLabel,
   getStyle,
+  hasLinkedNodes,
+  isCalculated,
+  isReadOnly,
 }

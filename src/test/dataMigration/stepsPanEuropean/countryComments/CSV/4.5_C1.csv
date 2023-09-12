@@ -1,0 +1,277 @@
+,country,indicator,item,comment
+0,ALB,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+1,ALB,4.5,Minimum height of standing deadwood reported (m):,
+2,ALB,4.5,Minimum diameter of standing deadwood reported (cm):,
+3,ALB,4.5,Is volume above ground (AG) or above stump (AS)?,
+4,ALB,4.5,Minimum length of lying deadwood reported (m):,
+5,ALB,4.5,Minimum diameter of lying deadwood reported (cm):,
+6,AND,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+7,AND,4.5,Minimum height of standing deadwood reported (m):,
+8,AND,4.5,Minimum diameter of standing deadwood reported (cm):,
+9,AND,4.5,Is volume above ground (AG) or above stump (AS)?,
+10,AND,4.5,Minimum length of lying deadwood reported (m):,
+11,AND,4.5,Minimum diameter of lying deadwood reported (cm):,
+12,AUT,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+13,AUT,4.5,Minimum height of standing deadwood reported (m):,"> 1,30 m"
+14,AUT,4.5,Minimum diameter of standing deadwood reported (cm):,10 cm
+15,AUT,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+16,AUT,4.5,Minimum length of lying deadwood reported (m):,1 m
+17,AUT,4.5,Minimum diameter of lying deadwood reported (cm):,10 cm
+18,BLR,4.5,Указать согласуются ли указанные значения с рекомендуемыми минимальными размерами:,Yes
+19,BLR,4.5,"Минимальная высота, указанной в отчете, стоящей мертвой древесины (м):",6 м
+20,BLR,4.5,"Минимальный диаметр, указанной в отчете, стоящей мертвой древесины (см):",8 см
+21,BLR,4.5,Запас над землей или над пнем?,над пнем
+22,BLR,4.5,"Минимальная длина поваленной мертвой древесины, указанной в отчете (м):",1 м
+23,BLR,4.5,"Минимальный диаметр поваленной мертвой древесины, указанной в отчете (см):",10 см
+24,BEL,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+25,BEL,4.5,Minimum height of standing deadwood reported (m):,1.5
+26,BEL,4.5,Minimum diameter of standing deadwood reported (cm):,7
+27,BEL,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+28,BEL,4.5,Minimum length of lying deadwood reported (m):,1
+29,BEL,4.5,Minimum diameter of lying deadwood reported (cm):,7
+30,BIH,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+31,BIH,4.5,Minimum height of standing deadwood reported (m):,
+32,BIH,4.5,Minimum diameter of standing deadwood reported (cm):,
+33,BIH,4.5,Is volume above ground (AG) or above stump (AS)?,
+34,BIH,4.5,Minimum length of lying deadwood reported (m):,
+35,BIH,4.5,Minimum diameter of lying deadwood reported (cm):,
+36,BGR,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+37,BGR,4.5,Minimum height of standing deadwood reported (m):,
+38,BGR,4.5,Minimum diameter of standing deadwood reported (cm):,
+39,BGR,4.5,Is volume above ground (AG) or above stump (AS)?,
+40,BGR,4.5,Minimum length of lying deadwood reported (m):,
+41,BGR,4.5,Minimum diameter of lying deadwood reported (cm):,
+42,HRV,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+43,HRV,4.5,Minimum height of standing deadwood reported (m):,
+44,HRV,4.5,Minimum diameter of standing deadwood reported (cm):,
+45,HRV,4.5,Is volume above ground (AG) or above stump (AS)?,
+46,HRV,4.5,Minimum length of lying deadwood reported (m):,
+47,HRV,4.5,Minimum diameter of lying deadwood reported (cm):,
+48,CYP,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+49,CYP,4.5,Minimum height of standing deadwood reported (m):,
+50,CYP,4.5,Minimum diameter of standing deadwood reported (cm):,
+51,CYP,4.5,Is volume above ground (AG) or above stump (AS)?,
+52,CYP,4.5,Minimum length of lying deadwood reported (m):,
+53,CYP,4.5,Minimum diameter of lying deadwood reported (cm):,
+54,CZE,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+55,CZE,4.5,Minimum height of standing deadwood reported (m):,
+56,CZE,4.5,Minimum diameter of standing deadwood reported (cm):,7
+57,CZE,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+58,CZE,4.5,Minimum length of lying deadwood reported (m):,
+59,CZE,4.5,Minimum diameter of lying deadwood reported (cm):,2
+60,DNK,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+61,DNK,4.5,Minimum height of standing deadwood reported (m):,
+62,DNK,4.5,Minimum diameter of standing deadwood reported (cm):,
+63,DNK,4.5,Is volume above ground (AG) or above stump (AS)?,
+64,DNK,4.5,Minimum length of lying deadwood reported (m):,
+65,DNK,4.5,Minimum diameter of lying deadwood reported (cm):,
+66,EST,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+67,EST,4.5,Minimum height of standing deadwood reported (m):,1
+68,EST,4.5,Minimum diameter of standing deadwood reported (cm):,4
+69,EST,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+70,EST,4.5,Minimum length of lying deadwood reported (m):,1
+71,EST,4.5,Minimum diameter of lying deadwood reported (cm):,4
+72,FIN,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+73,FIN,4.5,Minimum height of standing deadwood reported (m):,"1,3 meters"
+74,FIN,4.5,Minimum diameter of standing deadwood reported (cm):,10 cm
+75,FIN,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+76,FIN,4.5,Minimum length of lying deadwood reported (m):,1
+77,FIN,4.5,Minimum diameter of lying deadwood reported (cm):,10
+78,FRA,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+79,FRA,4.5,Minimum height of standing deadwood reported (m):,1.3
+80,FRA,4.5,Minimum diameter of standing deadwood reported (cm):,7.5
+81,FRA,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+82,FRA,4.5,Minimum length of lying deadwood reported (m):,0.01
+83,FRA,4.5,Minimum diameter of lying deadwood reported (cm):,2.5
+84,GEO,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+85,GEO,4.5,Minimum height of standing deadwood reported (m):,
+86,GEO,4.5,Minimum diameter of standing deadwood reported (cm):,
+87,GEO,4.5,Is volume above ground (AG) or above stump (AS)?,
+88,GEO,4.5,Minimum length of lying deadwood reported (m):,
+89,GEO,4.5,Minimum diameter of lying deadwood reported (cm):,
+90,DEU,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+91,DEU,4.5,Minimum height of standing deadwood reported (m):,0.1
+92,DEU,4.5,Minimum diameter of standing deadwood reported (cm):,20
+93,DEU,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+94,DEU,4.5,Minimum length of lying deadwood reported (m):,0.1
+95,DEU,4.5,Minimum diameter of lying deadwood reported (cm):,"20 before 2010, 10 cm in 2010 (NFI2012)"
+96,GRC,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+97,GRC,4.5,Minimum height of standing deadwood reported (m):,
+98,GRC,4.5,Minimum diameter of standing deadwood reported (cm):,
+99,GRC,4.5,Is volume above ground (AG) or above stump (AS)?,
+100,GRC,4.5,Minimum length of lying deadwood reported (m):,
+101,GRC,4.5,Minimum diameter of lying deadwood reported (cm):,
+102,VAT,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+103,VAT,4.5,Minimum height of standing deadwood reported (m):,
+104,VAT,4.5,Minimum diameter of standing deadwood reported (cm):,
+105,VAT,4.5,Is volume above ground (AG) or above stump (AS)?,
+106,VAT,4.5,Minimum length of lying deadwood reported (m):,
+107,VAT,4.5,Minimum diameter of lying deadwood reported (cm):,
+108,HUN,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+109,HUN,4.5,Minimum height of standing deadwood reported (m):,1.3 m
+110,HUN,4.5,Minimum diameter of standing deadwood reported (cm):,7
+111,HUN,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+112,HUN,4.5,Minimum length of lying deadwood reported (m):,1
+113,HUN,4.5,Minimum diameter of lying deadwood reported (cm):,10
+114,ISL,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+115,ISL,4.5,Minimum height of standing deadwood reported (m):,
+116,ISL,4.5,Minimum diameter of standing deadwood reported (cm):,
+117,ISL,4.5,Is volume above ground (AG) or above stump (AS)?,
+118,ISL,4.5,Minimum length of lying deadwood reported (m):,
+119,ISL,4.5,Minimum diameter of lying deadwood reported (cm):,
+120,IRL,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+121,IRL,4.5,Minimum height of standing deadwood reported (m):,no minimum ht
+122,IRL,4.5,Minimum diameter of standing deadwood reported (cm):,7cm Dbh
+123,IRL,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+124,IRL,4.5,Minimum length of lying deadwood reported (m):,1
+125,IRL,4.5,Minimum diameter of lying deadwood reported (cm):,7
+126,ITA,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+127,ITA,4.5,Minimum height of standing deadwood reported (m):,"1,3 (DBH)"
+128,ITA,4.5,Minimum diameter of standing deadwood reported (cm):,4.5
+129,ITA,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+130,ITA,4.5,Minimum length of lying deadwood reported (m):,0
+131,ITA,4.5,Minimum diameter of lying deadwood reported (cm):,9.5
+132,LVA,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+133,LVA,4.5,Minimum height of standing deadwood reported (m):,0.5
+134,LVA,4.5,Minimum diameter of standing deadwood reported (cm):,6.1
+135,LVA,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+136,LVA,4.5,Minimum length of lying deadwood reported (m):,0.5
+137,LVA,4.5,Minimum diameter of lying deadwood reported (cm):,6.1
+138,LIE,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+139,LIE,4.5,Minimum height of standing deadwood reported (m):,
+140,LIE,4.5,Minimum diameter of standing deadwood reported (cm):,
+141,LIE,4.5,Is volume above ground (AG) or above stump (AS)?,
+142,LIE,4.5,Minimum length of lying deadwood reported (m):,
+143,LIE,4.5,Minimum diameter of lying deadwood reported (cm):,
+144,LTU,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+145,LTU,4.5,Minimum height of standing deadwood reported (m):,
+146,LTU,4.5,Minimum diameter of standing deadwood reported (cm):,
+147,LTU,4.5,Is volume above ground (AG) or above stump (AS)?,above root collar
+148,LTU,4.5,Minimum length of lying deadwood reported (m):,
+149,LTU,4.5,Minimum diameter of lying deadwood reported (cm):,
+150,LUX,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+151,LUX,4.5,Minimum height of standing deadwood reported (m):,
+152,LUX,4.5,Minimum diameter of standing deadwood reported (cm):,
+153,LUX,4.5,Is volume above ground (AG) or above stump (AS)?,
+154,LUX,4.5,Minimum length of lying deadwood reported (m):,
+155,LUX,4.5,Minimum diameter of lying deadwood reported (cm):,
+156,MLT,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+157,MLT,4.5,Minimum height of standing deadwood reported (m):,
+158,MLT,4.5,Minimum diameter of standing deadwood reported (cm):,
+159,MLT,4.5,Is volume above ground (AG) or above stump (AS)?,
+160,MLT,4.5,Minimum length of lying deadwood reported (m):,
+161,MLT,4.5,Minimum diameter of lying deadwood reported (cm):,
+162,MDA,4.5,Указать согласуются ли указанные значения с рекомендуемыми минимальными размерами:,
+163,MDA,4.5,"Минимальная высота, указанной в отчете, стоящей мертвой древесины  (м):",
+164,MDA,4.5,"Минимальный диаметр, указанной в отчете, стоящей мертвой древесины  (см):",
+165,MDA,4.5,Запас над землей или над пнем?,
+166,MDA,4.5,"Минимальная длина поваленной мертвой древесины, указанной в отчете (м):",
+167,MDA,4.5,"Минимальный диаметр поваленной мертвой древесины, указанной в отчете (см) :",
+168,MCO,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+169,MCO,4.5,Minimum height of standing deadwood reported (m):,
+170,MCO,4.5,Minimum diameter of standing deadwood reported (cm):,
+171,MCO,4.5,Is volume above ground (AG) or above stump (AS)?,
+172,MCO,4.5,Minimum length of lying deadwood reported (m):,
+173,MCO,4.5,Minimum diameter of lying deadwood reported (cm):,
+174,MNE,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+175,MNE,4.5,Minimum height of standing deadwood reported (m):,
+176,MNE,4.5,Minimum diameter of standing deadwood reported (cm):,
+177,MNE,4.5,Is volume above ground (AG) or above stump (AS)?,
+178,MNE,4.5,Minimum length of lying deadwood reported (m):,
+179,MNE,4.5,Minimum diameter of lying deadwood reported (cm):,
+180,NLD,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+181,NLD,4.5,Minimum height of standing deadwood reported (m):,2/3 of origional tree height
+182,NLD,4.5,Minimum diameter of standing deadwood reported (cm):,5
+183,NLD,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+184,NLD,4.5,Minimum length of lying deadwood reported (m):,1.3
+185,NLD,4.5,Minimum diameter of lying deadwood reported (cm):,5
+186,NOR,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+187,NOR,4.5,Minimum height of standing deadwood reported (m):,1.3
+188,NOR,4.5,Minimum diameter of standing deadwood reported (cm):,10
+189,NOR,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+190,NOR,4.5,Minimum length of lying deadwood reported (m):,0.6
+191,NOR,4.5,Minimum diameter of lying deadwood reported (cm):,10
+192,POL,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+193,POL,4.5,Minimum height of standing deadwood reported (m):,0.6
+194,POL,4.5,Minimum diameter of standing deadwood reported (cm):,7
+195,POL,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+196,POL,4.5,Minimum length of lying deadwood reported (m):,0.5
+197,POL,4.5,Minimum diameter of lying deadwood reported (cm):,7
+198,PRT,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+199,PRT,4.5,Minimum height of standing deadwood reported (m):,
+200,PRT,4.5,Minimum diameter of standing deadwood reported (cm):,"7,5 cm (5 cm for eucalyptus)"
+201,PRT,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+202,PRT,4.5,Minimum length of lying deadwood reported (m):,
+203,PRT,4.5,Minimum diameter of lying deadwood reported (cm):,
+204,ROU,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+205,ROU,4.5,Minimum height of standing deadwood reported (m):,
+206,ROU,4.5,Minimum diameter of standing deadwood reported (cm):,
+207,ROU,4.5,Is volume above ground (AG) or above stump (AS)?,
+208,ROU,4.5,Minimum length of lying deadwood reported (m):,
+209,ROU,4.5,Minimum diameter of lying deadwood reported (cm):,
+210,RUS,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+211,RUS,4.5,Minimum height of standing deadwood reported (m):,
+212,RUS,4.5,Minimum diameter of standing deadwood reported (cm):,
+213,RUS,4.5,Is volume above ground (AG) or above stump (AS)?,
+214,RUS,4.5,Minimum length of lying deadwood reported (m):,
+215,RUS,4.5,Minimum diameter of lying deadwood reported (cm):,
+216,SRB,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+217,SRB,4.5,Minimum height of standing deadwood reported (m):,
+218,SRB,4.5,Minimum diameter of standing deadwood reported (cm):,
+219,SRB,4.5,Is volume above ground (AG) or above stump (AS)?,
+220,SRB,4.5,Minimum length of lying deadwood reported (m):,
+221,SRB,4.5,Minimum diameter of lying deadwood reported (cm):,
+222,SVK,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+223,SVK,4.5,Minimum height of standing deadwood reported (m):,1.3
+224,SVK,4.5,Minimum diameter of standing deadwood reported (cm):,10
+225,SVK,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+226,SVK,4.5,Minimum length of lying deadwood reported (m):,0.1
+227,SVK,4.5,Minimum diameter of lying deadwood reported (cm):,10
+228,SVN,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+229,SVN,4.5,Minimum height of standing deadwood reported (m):,
+230,SVN,4.5,Minimum diameter of standing deadwood reported (cm):,
+231,SVN,4.5,Is volume above ground (AG) or above stump (AS)?,
+232,SVN,4.5,Minimum length of lying deadwood reported (m):,
+233,SVN,4.5,Minimum diameter of lying deadwood reported (cm):,
+234,ESP,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+235,ESP,4.5,Minimum height of standing deadwood reported (m):,Height is not a threshold by diameter at breast height
+236,ESP,4.5,Minimum diameter of standing deadwood reported (cm):,2.5cm (regeneration); 7.5 cm others
+237,ESP,4.5,Is volume above ground (AG) or above stump (AS)?,For trees AS; being stumps 20cm height
+238,ESP,4.5,Minimum length of lying deadwood reported (m):,0.3m
+239,ESP,4.5,Minimum diameter of lying deadwood reported (cm):,2.5cm (regeneration); 7.5 cm others
+240,SWE,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+241,SWE,4.5,Minimum height of standing deadwood reported (m):,1.3 m
+242,SWE,4.5,Minimum diameter of standing deadwood reported (cm):,Dbh 10 cm
+243,SWE,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+244,SWE,4.5,Minimum length of lying deadwood reported (m):,1.3 m
+245,SWE,4.5,Minimum diameter of lying deadwood reported (cm):,10 cm
+246,CHE,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+247,CHE,4.5,Minimum height of standing deadwood reported (m):,1.3
+248,CHE,4.5,Minimum diameter of standing deadwood reported (cm):,12 DBH
+249,CHE,4.5,Is volume above ground (AG) or above stump (AS)?,AG
+250,CHE,4.5,Minimum length of lying deadwood reported (m):,1.3
+251,CHE,4.5,Minimum diameter of lying deadwood reported (cm):,12 DBH
+252,MKD,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+253,MKD,4.5,Minimum height of standing deadwood reported (m):,
+254,MKD,4.5,Minimum diameter of standing deadwood reported (cm):,
+255,MKD,4.5,Is volume above ground (AG) or above stump (AS)?,
+256,MKD,4.5,Minimum length of lying deadwood reported (m):,
+257,MKD,4.5,Minimum diameter of lying deadwood reported (cm):,
+258,TUR,4.5,Please indicate if reported values are according to the recommended minimum sizes:,Yes
+259,TUR,4.5,Minimum height of standing deadwood reported (m):,
+260,TUR,4.5,Minimum diameter of standing deadwood reported (cm):,
+261,TUR,4.5,Is volume above ground (AG) or above stump (AS)?,
+262,TUR,4.5,Minimum length of lying deadwood reported (m):,
+263,TUR,4.5,Minimum diameter of lying deadwood reported (cm):,
+264,UKR,4.5,Please indicate if reported values are according to the recommended minimum sizes:,
+265,UKR,4.5,Minimum height of standing deadwood reported (m):,
+266,UKR,4.5,Minimum diameter of standing deadwood reported (cm):,
+267,UKR,4.5,Is volume above ground (AG) or above stump (AS)?,
+268,UKR,4.5,Minimum length of lying deadwood reported (m):,
+269,UKR,4.5,Minimum diameter of lying deadwood reported (cm):,
+270,GBR,4.5,Please indicate if reported values are according to the recommended minimum sizes:,No
+271,GBR,4.5,Minimum height of standing deadwood reported (m):,0
+272,GBR,4.5,Minimum diameter of standing deadwood reported (cm):,7
+273,GBR,4.5,Is volume above ground (AG) or above stump (AS)?,AS
+274,GBR,4.5,Minimum length of lying deadwood reported (m):,2
+275,GBR,4.5,Minimum diameter of lying deadwood reported (cm):,"7cm for fallen trees, 15cm for other deadwood"

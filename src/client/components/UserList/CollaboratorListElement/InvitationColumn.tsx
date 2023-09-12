@@ -1,19 +1,17 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
+import { TooltipId } from 'meta/tooltip'
+import { RoleName, User, UserRole } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { RoleName, User, UserRole, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { useUser } from 'client/store/user'
+import { useToaster } from 'client/hooks/useToaster'
+import Icon from 'client/components/Icon'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
-import Icon from '@client/components/Icon'
-import UserInvitationInfo from '@client/components/UserList/UserInvitationInfo'
+import { useRemoveInvitation } from '../hooks/useRemoveInvitation'
+import { useResendInvitation } from '../hooks/useResendInvitation'
+import UserInvitationInfo from '../UserInvitationInfo'
 
 interface Props {
   invitationUuid: string
@@ -25,53 +23,75 @@ const InvitationColumn: React.FC<Props> = (props: Props) => {
   const { invitationUuid, userRole, user } = props
 
   const [showInvitationInfo, setShowInvitationInfo] = useState<boolean>(false)
+  const [resendInvitationLoading, setResendInvitationLoading] = useState<boolean>(false)
 
-  const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const assessment = useAssessment()
-  const assessmentName = assessment.props.name
-  const cycle = useCycle()
-  const cycleName = cycle.name
-  const countryIso = useCountryIso()
   const currentUser = useUser()
 
-  const removeInvitation = useCallback(() => {
-    if (window.confirm(t('userManagement.confirmDelete', { user: Users.getFullName(user) })))
-      dispatch(
-        UserManagementActions.removeInvitation({
-          assessmentName,
-          cycleName,
-          countryIso,
-          invitationUuid,
-        })
-      ).then(() => {
-        toaster.success(t('userManagement.invitationDeleted'))
-      })
-  }, [t, user, dispatch, assessmentName, cycleName, countryIso, invitationUuid, toaster])
+  const callbackRemoveInvitation = useCallback(() => {
+    toaster.success(t('userManagement.invitationDeleted'))
+  }, [toaster, t])
+
+  const removeInvitation = useRemoveInvitation({
+    user,
+    invitationUuid,
+    callback: callbackRemoveInvitation,
+  })
+
+  const callbackResendInvitation = useCallback(() => {
+    toaster.success(t('userManagement.invitationEmailSent'))
+    setResendInvitationLoading(false)
+  }, [toaster, t])
+
+  const resendInvitation = useResendInvitation({
+    invitationUuid,
+    callback: callbackResendInvitation,
+  })
+
+  const onClickResend = useCallback(() => {
+    setResendInvitationLoading(true)
+    resendInvitation()
+  }, [resendInvitation])
+
+  const invitationExpired = UserRoles.isInvitationExpired(userRole)
 
   return (
     <>
-      <button
-        key={0}
-        className={classNames('btn-s btn-link', {
-          'btn-link-destructive': UserRoles.isInvitationExpired(userRole),
-        })}
-        onClick={() => setShowInvitationInfo(true)}
-        title={t('userManagement.info')}
-        type="button"
-      >
-        <Icon name="round-e-info" />
-      </button>
+      {invitationExpired && (
+        <button
+          className="btn-s btn-link"
+          disabled={resendInvitationLoading}
+          onClick={onClickResend}
+          type="button"
+          data-tooltip-id={TooltipId.info}
+          data-tooltip-content={t('userManagement.inviteAgain')}
+        >
+          <Icon name="icon-paper-plane" />
+        </button>
+      )}
+      {!invitationExpired && (
+        <button
+          key={0}
+          className="btn-s btn-link"
+          onClick={() => setShowInvitationInfo(true)}
+          type="button"
+          data-tooltip-id={TooltipId.info}
+          data-tooltip-content={t('userManagement.invitationLink')}
+        >
+          <Icon name="round-e-info" />
+        </button>
+      )}
 
       <button
         key={1}
         className="btn-s btn-link-destructive"
         disabled={currentUser.id === user.id}
         onClick={removeInvitation}
-        title={t('userManagement.remove')}
         type="button"
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={t('userManagement.remove')}
       >
         <Icon name="trash-simple" />
       </button>

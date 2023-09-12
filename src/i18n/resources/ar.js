@@ -1,23 +1,58 @@
 const area = require('./ar/area')
+const assessmentSection = require('./ar/assessmentSection')
 const common = require('./ar/common')
 const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
+const dataSource = require('./ar/dataSource')
 const fra = require('./ar/fra')
-const statisticalFactsheets = require('./ar/statisticalFactsheets')
+const generalValidation = require('./ar/generalValidation')
 const login = require('./ar/login')
-const uc = require('./ar/uc')
 const print = require('./ar/print')
+const statisticalFactsheets = require('./ar/statisticalFactsheets')
+const uc = require('./ar/uc')
 
 module.exports.translation = {
   area,
   common,
   contentCheck,
   dataDownload,
+  dataSource,
   fra,
-  statisticalFactsheets,
+  generalValidation,
   login,
-  uc,
   print,
+  statisticalFactsheets,
+  uc,
+
+  page: {
+    assessmentSection,
+  },
+
+  anchors: {
+    fra: {
+      2025: {
+        '1a': 'ا) 1',
+        '1b': 'ب) 1',
+        '1c': 'ج) 1',
+        '1d': 'د) 1',
+        '1e': 'ه) 1',
+        '2a': 'ا) 2',
+        '2b': 'ب) 2',
+        '2c': 'ج) 2',
+        '2d': 'د) 2',
+        '3a': 'ا) 3',
+        '3b': 'ب) 3',
+        '3c': 'ج) 3',
+        '4a': 'ا) 4',
+        '4b': 'ب) 4',
+        '5a': 'ا) 5',
+        '5b': 'ب) 5',
+        '5c': 'ج) 5',
+        '6a': 'ا) 6',
+        '6b': 'ب) 6',
+      },
+    },
+  },
 
   language: {
     en: 'English',
@@ -58,8 +93,10 @@ module.exports.translation = {
     scamAlert: 'تبليغ عن احتيال',
     reportMisconduct: 'تبليغ عن سوء تصرف',
     userGuide: 'دليل المستخدم',
+    tutorials: 'الفيديو',
     sendFeedback: 'أرسل رأيك',
     licenses: 'التراخيص',
+    platformVersion: 'إصدار المنصة',
   },
 
   unit: {
@@ -87,6 +124,7 @@ module.exports.translation = {
     annualNumberOfVisitsMillion: 'عدد الزيارات السنوية (مليون)',
     millionNationalCurrency: 'مليون وفق العملة المحلية',
     facilityLengthIn1000Km: 'المرفق (الطول بآلاف الكيلومترات)',
+    growingStockPercent: '٪ من إجمالي مخزون الأشجار الحيّة في الغابات',
   },
 
   countrySelection: {
@@ -117,17 +155,11 @@ module.exports.translation = {
       COLLABORATOR: 'متعاون',
       ADMINISTRATOR: 'مدير',
       noRole: 'غير محدد',
-      // unused?
-      reviewer_plural: 'مراجعون',
-      nationalCorrespondent_plural: 'مراسلون وطنيون',
-      alternateNationalCorrespondent_plural: 'مراسلون وطنيون بديلون',
-      collaborator_plural: 'متعاونون',
-      // deprecated
-      // reviewer: 'مُراجع',
-      // nationalCorrespondent: 'مراسل وطني',
-      // alternateNationalCorrespondent: 'مراسل وطني بديل',
-      // collaborator: 'متعاون',
-      // administrator: 'مدير',
+      VIEWER: 'مشاهد',
+      reviewer_plural: 'المراجعين',
+      nationalCorrespondent_plural: 'المراسلون الوطنيون',
+      alternateNationalCorrespondent_plural: 'المراسلون الوطنيون المناوبون',
+      collaborator_plural: 'المتعاونين',
     },
 
     resetPasswordEmail: {
@@ -192,8 +224,8 @@ Thanks,
       userManagement: 'إدارة المتعاونين',
       externalData: 'بيانات خارجية',
       links: 'الروابط والمستودع',
-      contentCheck: 'المحتوى / ضبط',
-      versioning: 'ترقيم الإصدارات',
+      contentCheck: 'المحتوى / التحقق',
+      versioning: 'الإصدار',
     },
     overview: {
       loadingMap: 'تحميل الخارطة...',
@@ -266,13 +298,15 @@ Thanks,
       sdgFocalPoints: 'مسؤولو التواصل الوطنيون بخصوص أهداف التنمية المستدامة',
       reddPortal:
         'منظومات السواتل المخصصة لرصد الأراضي المعززة من قبل مبادرة الأمم المتحدة لخفض الانبعاثات الناجمة عن إزالة الغابات/منظمة الأغذية والزراعة',
-      fraGeoSpatialTools: 'الأدوات الأرضية الفضائية المخصصة لتقييم الموارد الحرجية',
+      fraGeoSpatialTools: ' ادوات الاستشعار عن بعد المخصصة لتقييم الموارد الحرجية',
       repository: 'المستودع',
       uploadFile: 'حمل ملفاً',
       confirmDelete: 'هل ستحذف {{file}}? لا يمكنك العودة عن هذه الخطوة',
+      fileUploaded: 'تم تحميل الملف بنجاح',
+      fileDeleted: 'تم حذف الملف بنجاح',
     },
     dataExport: {
-      downloadData: 'نزل البيانات',
+      downloadData: 'تحميل البيانات',
     },
     versioning: {
       status: {
@@ -336,10 +370,8 @@ The FRA team
     access: {
       countryRoleNotSpecified: 'خطأ : المستخدم {{user}} حاول الدخول إلى {{countryIso}} لكن لم يتم تحديد دوره',
       countryUserNotReviewer: 'خطأ: المستخدم {{user}} حاول الدخول إلى {{countryIso}} وهو ليس مراجعاً فيه',
-      userNotAdministrator: 'خطأ: المستخدم {{user}} حاول الدخول إلى أحد الموارد المتاحة فقط للمديرين',
       roleChangeNotAllowed:
         'خطأ: المستخدم {{user}} المستخدم حاول تحديد دور آخر إضافة إلى  {{role}} وهو غير مسموح للشخص المسجل للدخول',
-      userAlreadyAddedToCountry: 'خطأ: المستخدم {{user}} أضيف مسبقاً إلى البلد {{countryIso}}',
       invitationAlreadyUsed:
         'خطأ: الدعوة {{invitationUuid}} استخدمت مسبقا، وإن قرصنة البريد الإلكتروني {{loginEmail}} ممنوعة!',
       countryDoesNotMatch: 'خطأ: البلد {{countyryIso}} غير مطابق',
@@ -347,6 +379,8 @@ The FRA team
         'خطأ: المستخدم {{user}} المضطلع بدور {{role}} لا يمكنه تعديل تقييم حالة {{assessmentStatus}} البلد {{countryIso}}',
       assessmentCommentingNotAllowed:
         'خطأ: المستخدم {{user}} المضطلع بدور {{role}} لا يمكنه كتابة تقييم عن حالة {{assessmentStatus}} البلد {{countryIso}}',
+      userNotAdministrator: 'خطأ: حاول المستخدم {{المستخدم}} الوصول إلى مورد متاح فقط للمسؤولين',
+      userAlreadyAddedToCountry: 'خطأ: تمت إضافة المستخدم {{المستخدم}} بالفعل إلى البلد {{البلد}}',
     },
     assessment: {
       transitionNotAllowed: 'خطأ: التحول من حالة {{currentStatus}} إلى {{status}} غير مسموح لهذا الدور {{role}}',
@@ -390,7 +424,6 @@ The FRA team
       sustainableDevelopment: 'الهدف الخامس عشر من أهداف التنمية المستدامة',
       panEuropeanIndicators: 'مؤشرات عموم أوروبا',
     },
-    submit: 'تقديم',
     cancel: 'إلغاء',
     changeStatusTextPlaceholder: 'إضافة رسالة اختيارية',
     doNotNotifyUsers: 'عدم إرسال إشعار إلى المستخدمين',
@@ -410,12 +443,13 @@ The FRA team
 
   time: {
     hour: '{{count}} قبل ساعة',
-    hour_plural: '{{count}} قبل ساعات',
     day: '{{count}} قبل يوم',
-    day_plural: '{{count}} قبل أيام',
     week: '{{count}} قبل أسبوع',
-    week_plural: '{{count}} قبل أسابيع',
     aMomentAgo: 'قبل لحظة',
+
+    hour_plural: 'قبل {{عدد}} ساعات',
+    day_plural: 'قبل {{عدد}} ايام',
+    week_plural: 'قبل {{عدد}} أسابيع',
   },
 
   review: {
@@ -430,6 +464,7 @@ The FRA team
     commentingClosed: 'إغلاق التعليقات',
     add: 'إضافة',
     cancel: 'إلغاء',
+    loading: 'تحميل',
   },
 
   description: {
@@ -467,7 +502,7 @@ The FRA team
     dataSources: 'مصادر البيانات',
     additionalComments: 'تعليقات إضافية',
     edit: 'تعديل',
-    copyPreviousValues: 'نسخ القيم السابقة',
+    copyPreviousValues: 'نسخ المراجع السابقة',
     nationalClass: 'شريحة وطنية',
     nationalClasses: 'شرائح وتعاريف',
     fraClasses: 'شرائح تقييم الموارد الحرجية',
@@ -498,13 +533,13 @@ The FRA team
       otherWoodedLand: 'أرض حرجية أخرى',
       otherLand: 'أرض أخرى',
     },
+    forestCategoriesLabel2025: 'الغابات والأراضي الحرجية الأخرى والأراضي المتبقية',
+    nationalClassifications: 'التصنيفات الوطنية',
+    categories: 'فئات',
   },
 
   userManagement: {
     manageCollaborators: 'إدارة المتعاونين',
-    name: 'الاسم',
-    role: 'الدور',
-    email: 'البريد الإلكتروني',
     loginEmail: 'تسجيل دخول',
     noUsers: 'لم تتم إضافة متعاونين آخرين',
     placeholder: 'اختيار...',
@@ -547,10 +582,19 @@ The FRA team
 {{- url}}
     `,
     },
+    editPermissions: 'تحرير الأذونات',
+    invitationDeleted: 'تم حذف الدعوة',
+    invitationEmailSent: 'تم إرسال بريد إلكتروني للدعوة',
+    inviteAgain: 'دعوة مرة أخرى',
+    permissions: 'أذونات',
+    personalInfoRequired: 'يرجى استكمال معلوماتك الشخصية قبل المتابعة',
+    userAdded: 'تمت إضافة {{البريد الالكتروني}}',
+    userModified: 'تم تعديل {{المستخدم}}',
+    permissionNames: {
+      tableData: 'بيانات الجدول',
+      descriptions: 'التفصيل',
+    },
   },
-
-  // استبيان خاص بتقييم الموارد الحرجية لعام 2020
-  // يجب أن يكون الاسم واللقب نفسه دائماً
 
   contactPersons: {
     reportPreparationAndContactPersons: 'إعداد التقارير ومسؤولي التواصل',
@@ -584,7 +628,7 @@ The FRA team
     totalLandArea: 'إجمالي مساحة الأرض',
     fedAreasExceedTotalLandArea: 'مساحة الغابة والأرض الحرجية الأخرى تتجاوز إجمالي مساحة الأرض',
     forestAreaDoesNotMatchPreviouslyReported:
-      'مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام 2015: {{previous}}',
+      'مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام {{year}}: {{previous}}',
     useOriginalDataPoints: 'استخدم نقاط البيانات الوطنية',
     dontUseOriginalDataPoints: 'لاتستخدم نقاط البيانات الوطنية',
     whatIsThis: 'ما هذا؟',
@@ -593,6 +637,7 @@ The FRA team
     ndpMissingValues: 'هنالك قيم مفقودة في نقطة البيانات الوطنية',
     showNDPs: 'إظهار نقاط البيانات الوطنية',
     hideNDPs: 'إخفاء نقاط البيانات الوطنية',
+    forestAreaNetChangeDoesNotMatch: 'التغيير الصافي لمساحة الغابة لا يطابق القيمة المتوقعة: {{القيمه}}',
   },
 
   climaticDomain: {
@@ -629,10 +674,10 @@ The FRA team
     annualChangeExtrapolation: 'تغيير سنوي',
     placeholderFuture: 'في المستقبل',
     placeholderPast: 'في الماضي',
-    clearTable: 'امسح بيانات الجدول',
     copyToClipboard: 'انسخ القيم',
     placeholderSelect: 'تقييمات وتنبؤات',
     _1000haYear: '1000 هـ/العام',
+    generatingFraValues: 'جارٍ الإنشاء ...',
   },
 
   forestAreaChange: {
@@ -644,6 +689,7 @@ The FRA team
     ofWhichNaturalExpansion: '...منها اتساع طبيعي',
     deforestation: 'إزالة الغابة',
     forestAreaNetChange: 'صافي التغيير في مساحة الغابة',
+    forestAreaNetChangeFrom1a: 'صافي التغير في مساحة الغابات عن الجدول 1a',
     netChangeDoesNotMatch: 'غير مطابق لصافي التغيير في مساحة الغابة',
   },
 
@@ -687,7 +733,7 @@ The FRA team
     totalTableHeader: 'إجمالي مخزون الأشجار الحية (مليون م3 مع اللحاء)',
     naturallyRegeneratingForest: 'غابة متجددة طبيعياً',
     plantedForest: 'الغابات المزروعة',
-    plantationForest: '...منها غابة مزروعة',
+    plantationForest: '...منها غابة اصطناعيه',
     otherPlantedForest: '...منها غابة مزروعة أخرى',
     forest: 'غابة',
     otherWoodedLand: 'أرض حرجية أخرى',
@@ -799,7 +845,7 @@ The FRA team
     areaUnitLabel: 'المساحة (1000 هـ)',
     insects: 'حشرات',
     diseases: 'أمراض',
-    severeWeatherEvents: 'فعاليات طقس شديدة',
+    severeWeatherEvents: 'الظواهر الجوية القاسية',
     other: 'غير ذلك (حددها في التعليقات)',
     totalForestArea: 'إجمالي مساحة الغابة',
     total: 'الإجمالي',
@@ -809,7 +855,7 @@ The FRA team
     areaAffectedByFire: 'المساحة المتضررة بالحرائق',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
     areaUnitLabel: 'المساحة (1000 هـ)',
-    totalLandAreaAffectedByFire: 'إجمالي مساحة الغابة المتضررة بالحرائق',
+    totalLandAreaAffectedByFire: 'إجمالي مساحة الاراضي المتضررة بالحرائق',
     ofWhichForest: '...منها في الغابات',
   },
 
@@ -872,7 +918,7 @@ The FRA team
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals: 'إزالة منتجات حرجية غير خشبية وقيمتها عام 2015',
     nameOfProduct: 'اسم المنتج الحرجي غير الخشبي',
-    keySpecies: 'أنواع أساسية',
+    keySpecies: 'النوع الأساسي',
     quantity: 'الكمية',
     unit: 'الواحدة',
     value: 'القيمة (1000 عملة محلية)',
@@ -937,10 +983,10 @@ The FRA team
     panEuropean: 'عموم أوروبا',
     deskStudy: 'دراسة مكتبية',
     statusChangeNotification: {
-      subject: '{{country}} تغيرت الحالة {{status}} على منصة تقييم الموارد الحرجية',
+      subject: '{{country}} تغير الحالة الي {{status}} على منصة تقييم الموارد الحرجية.',
       textMessage: `عزيزي {{recipientName}},
 
-{{changer}} غير حالة {{assessment}} إلى "{{status}}"بالنسبة لـ  {{country}} على منصة تقييم الموارد الحرجية.
+{{changer}} غير الحالة الخاصه {{assessment}} إلى "{{status}}"بالنسبة لـ  {{country}} على منصة تقييم الموارد الحرجية.
 
 {{message}}
 
@@ -950,11 +996,11 @@ The FRA team
 {{- serverUrl}}`,
       htmlMessage: `عزيزي {{recipientName}},
 <br/><br/>
-{{changer}} غير الحالة {{assessment}} إلى"{{status}}" بالنسبة لـ {{country}} على منصة تقييم الموارد الحرجية.
+{{changer}} غير الحالة الخاصه {{assessment}} إلى "{{status}}"بالنسبة لـ {{country}} على منصة تقييم الموارد الحرجية.
 <br/><br/>
 {{message}}
 <br/><br/>
-<a href="{{- serverUrl}}"><b>Visit the platform</b></a>
+<a href="{{- serverUrl}}"><b>لزيارة المنصة</b></a>
 <br/><br/>
 فريق تقييم الموارد الحرجية
 <br/>
@@ -983,23 +1029,14 @@ The FRA team
         next: 'اقبل',
         previous: '',
       },
+      notStarted: {
+        label: 'لم يبدأ',
+      },
     },
   },
 
   multiSelect: {
     placeholder: 'اختر...',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: 'الفئة الفرعية تتجاوز الأصل',
-    forestAreaDoesNotMatchExtentOfForest: 'لاتتطابق مع مساحة الغابة (اأ)',
-    forestAreaExceedsExtentOfForest: 'تتجاوز مساحة الغابة (اأ)',
-    otherLandExceedsExtentOfForest: 'تتجاوز مساحة الأرض الأخرى (اأ)',
-    valueMustBePositive: 'يجب أن تكون القيمة أكبر من صفر',
-    emptyField: 'هذا الحقل فارغ',
-    mustBeEqualToTotalGrowingStock: 'يجب أن تكون القيمة مساوية لإجمالي مخزون الأشجار الحية (2أ)',
-    valuesAreInconsistentWithNetChange: 'القيم غير متسقة مع صافي التغيير في مساحة الغابة',
-    valuesAreInconsistent1aOr1b: 'القيم غير متسقة مع المساحات الواردة في الجدولين 1أ و1ب',
   },
 
   emoji: {
@@ -1029,10 +1066,34 @@ The FRA team
     institution: 'المؤسسة',
     position: 'المنصب',
     done: 'حفظ',
-    cancel: 'إلغاء',
     deactivate: 'إلغاء التفعيل',
     activate: 'تفعيل',
     picture1MbMax: 'لا يجب أن يزيد حجم صورة الملف الشخصي عن 1 ميجابايت',
+    title: 'التسمية',
+    surname: 'اللقب ',
+    professionalTitle: 'المسمى الوظيفي',
+    organizationalUnit: 'وحدة تنظيمية',
+    organization: 'المنظمة',
+    street: 'العنوان',
+    zipCode: 'الرمز البريدي',
+    poBox: 'الصندوق البريدي',
+    city: 'المدينة',
+    countryIso: 'البلد',
+    primaryEmail: 'عنوان البريد الإلكتروني الرئيسي',
+    secondaryEmail: 'عنوان البريد الإلكتروني الثانوي',
+    primaryPhoneNumber: 'رقم الهاتف الأساسي',
+    secondaryPhoneNumber: 'رقم الهاتف الثانوي',
+    skype: 'اسم المستخدم في سكايب',
+    contactPreference: 'الطريقة المفضلة للاتصال',
+    contactPreferenceMethod: 'طريقة الاتصال',
+    platformChat: 'منصة الدردشة',
+    signal: 'الإشارة',
+    whatsapp: 'رقم الواتس اب',
+    activated: 'مفعل',
+    status: 'الحالة',
+    demoteToUser: 'هل أنت متأكد أنك تريد إزالة امتيازات المسؤول؟',
+    promoteToAdmin: 'هل أنت متأكد أنك تريد منح امتيازات المسؤول؟',
+    mandatoryFields: '* هي خانات إلزامية',
   },
 
   country: {
@@ -1051,8 +1112,6 @@ The FRA team
   admin: {
     admin: 'المدير',
     filter: 'غربلة وفق',
-    language: 'اللغة',
-    country: 'البلد',
     invitationPending: 'تعليق الدعوة',
   },
 
@@ -1060,6 +1119,18 @@ The FRA team
     messageBoard: 'لوح الرسائل',
     messageBoardDesc: 'يمكن لجميع الأعضاء القطريين مشاهدة الرسائل الموضوعة هنا ',
     oneToOneMessages: 'رسائل من شخص إلى شخص',
+  },
+
+  tutorial: {
+    watch: 'المشاهدة',
+    passwordLogin: 'البرنامج التعليمي لمنصة الفرا - كيفية تسجيل الدخول باستخدام كلمة مرور محددة ذاتيًا.',
+    googleLogin: 'البرنامج التعليمي لمنصة الفرا - كيفية تسجيل الدخول باستخدام جوجل.',
+    collaboratorAdd: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة شخص اخر للتعاون في ملئ التقارير',
+    platformNavigation: 'البرنامج التعليمي لمنصة الفرا - استكشاف المنصة',
+    documentUpload: 'البرنامج التعليمي لمنصة الفرا - كيفية رفع المستندات',
+    ndpAdd: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة نقطة بيانات وطنية',
+    passwordLoginShort: 'كيفية تسجيل الدخول باستخدام كلمة مرور محددة ذاتيًا',
+    googleLoginShort: 'كيفية تسجيل الدخول باستخدام جوجل',
   },
 
   panEuropean: {

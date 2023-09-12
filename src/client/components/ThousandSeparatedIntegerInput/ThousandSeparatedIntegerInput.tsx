@@ -4,8 +4,8 @@
 import './ThousandSeparatedIntegerInput.scss'
 import React from 'react'
 
-import { Numbers } from '@utils/numbers'
 import * as R from 'ramda'
+import { Numbers } from 'utils/numbers'
 
 type State = any
 type Props = any
@@ -22,7 +22,7 @@ class ThousandSeparatedIntegerInput extends React.Component<Props, State> {
     return (
       <div className="number-input__container validation-error-sensitive-field" ref="wrapper">
         <div className="number-input__readonly-view" style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}>
-          {Numbers.format(integerValue)}
+          {Numbers.format(integerValue, 0)}
         </div>
         <input
           type="text"

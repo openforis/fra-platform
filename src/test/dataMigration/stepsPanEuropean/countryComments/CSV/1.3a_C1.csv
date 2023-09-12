@@ -1,0 +1,47 @@
+,country,indicator,item,comment
+0,ALB,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+1,AND,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+2,AUT,1.3a,How did you distinguish between even-aged and uneven-aged stands:,even-aged: >= 90% of one age class on a plot; uneven-aged: all other plots and coppice
+3,BLR,1.3a,Как вы различаете одновозрастные и разновозрастные насаждения:,"насаждения, распределеные по класам возраста, составляют разновозрастные насаждения, а в пределах класса возраста-одновозрастные насаждения"
+4,BEL,1.3a,How did you distinguish between even-aged and uneven-aged stands:,based on stand structure: even-aged has know equivalent age
+5,BIH,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+6,BGR,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Unfortunately, there is no separate data kept for the uneven-aged stands, so reported data includes both even and uneven-aged stands."
+7,HRV,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"The difference is in tree diameters and hights structure.  In even-aged stands, trees of major species have the same hight, age and diameter, and the stand is regenerated on the whole section area. In uneven-aged stands, trees have different hight, age and diameter, and the stand is regenerated in smaller parts of the section, in grups."
+8,CYP,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+9,CZE,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Forest management plans are based on even-aged stand approach - for description of richer stands, layers are used, but general approach is even-aged stand description. Only a very minor part of forests uses different methodology more suitable for management of uneven-aged stands. Considering the extent of this part it is included in ""unspecified"" category and not in 1.3b"
+10,DNK,1.3a,How did you distinguish between even-aged and uneven-aged stands:,The forest management regimes are recorded by NFI teams
+11,EST,1.3a,How did you distinguish between even-aged and uneven-aged stands:,Uneven-aged is a forest in which any stand element holding more than 5% of volume differs more than 20 years compared to majority tree species age.
+12,FIN,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"This is possible only in the latest NFI data. Uneven-aged forests are extremely few, therefore not yet separated in this reporting."
+13,FRA,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Even-aged and uneven-aged stands can not be distinguish in FRA, because of the lack of available data collected in the field. The approximation we could have done by expert judgement would be based on criteria that could not remain constant over time (for example, tree species concerned by even-aged silviculture will certainly change in the next decades, due to industrial demand or climate change). So we prefer not to complete tables 1.3.a. and complete 1.3.b. with all types of stands (even and uneven-aged, as we could not distinguish them correctly)."
+14,GEO,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"It should be noted that GEO has no systematic inventory data since 1990. The numbers provided here are the same as in 2015 report, but volumes are now presented in 1000m3. We can only provide correct figures after we complete the first National Forest inventory, which is expected to be finalized in 2020."
+15,DEU,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"not distinguished, uneven-aged of minor importance"
+16,GRC,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+17,VAT,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+18,HUN,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Even-aged stands comprise those stands which are: 1.) managed in rotation system and age range (max_age - min_age) < 0.2 * planned cutting age 2.) managed in non-rotation system (in HUN, three such systems exist:  - selection system means that harvests are carried out frequently but only in small patches -  the aim of the transition system can be either to switch from rotation to selection system or to maintain continuous forest cover -  in forests of non-productive system, no management activites are performed."
+19,ISL,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"All stands in Cultivated forest ar defined as even-aged, all stands in Naturar Birch Forest are defined as uneven-aged."
+20,IRL,1.3a,How did you distinguish between even-aged and uneven-aged stands:,Even-aged and uneven-aged stands are identified using NFI data where it is recorded at plot level.
+21,ITA,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"According to NFI definition, uneven-aged stands are coppices, even-aged high forests (with a single dominant development stage on 5000 m2 or more) and plantations."
+22,LVA,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"As even-aged stands in LVA comprises more than 80%, age structure is given to all forest stands. Age group is set by that group of trees in a forest stand that comprises the largest standing volume."
+23,LIE,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+24,LTU,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+25,LUX,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+26,MLT,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+27,MDA,1.3a,Как вы различаете одновозрастные и разновозрастные насаждения:,
+28,MCO,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+29,MNE,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Uneven aged stands are - Selection stands, group selection stands and other stands with three- or multilayered structure and even aged stands are all other"
+30,NLD,1.3a,How did you distinguish between even-aged and uneven-aged stands:,Within the 5th and 6th NFI all plots where classified in a specific phase. The 5th NFI did not represent the entire forest.
+31,NOR,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Visual assessment in the field. Uneven-aged stands have two distinctive layers, or are multi-storeyed."
+32,POL,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Despite some uneven-aged stands occur, all forests (also protected) were included into even-aged stands. Although, there are two storey stands in POL, but it doesn't  have influence on rotation length, so according to definition such stands were classified also as even-aged."
+33,PRT,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Stands were classified regarding even-aged/uneven-aged and development phases, by photointerpretation on aerial images"
+34,ROU,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"Even-aged - the stand, in which no or relatively small age differences exist among individual trees within it, up to an age class 20 years .                                                                                                            Uneven aged - trees of a range of age classes, with age differences which are significant in relation to the stand structure management and rotation length."
+35,RUS,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+36,SRB,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+37,SVK,1.3a,How did you distinguish between even-aged and uneven-aged stands:,All forest stands which are described in forest management plans as single-storey forest stands we have classified as an even-aged stands. All forest stands described as two- and multi-storey stands we have classified as an uneven-aged forest stands. According to this new approach we have recalculated also previous reporting years.
+38,SVN,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+39,ESP,1.3a,How did you distinguish between even-aged and uneven-aged stands:,Based on field information recording by NFI plots in NFI3 and NFI4 cycles.
+40,SWE,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"At field inventory the variable ""Even-aged"" is assessed directly for each productive forest sample plot. All improductive forest is considered as uneven-aged"
+41,CHE,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"If the dominating diameter (of the 100 largest trees per ha) is distributed over at least three diameter classes (up to 12 DBH, 12 to 30, 31 to 40, 41 to 50 and larger than 50) then the stand is taxed as uneven-aged."
+42,MKD,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+43,TUR,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+44,UKR,1.3a,How did you distinguish between even-aged and uneven-aged stands:,
+45,GBR,1.3a,How did you distinguish between even-aged and uneven-aged stands:,"In absence of data on even-aged and uneven-aged stands, it is currently assumed that all conifers are even-aged and all broadleaves are uneven-aged."

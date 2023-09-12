@@ -8,29 +8,50 @@ export type { AssessmentMetaCache, DependencyCache, DependencyRecord, VariableCa
 export { AssessmentMetaCaches } from './assessmentMetaCaches'
 export type { AssessmentName } from './assessmentName'
 export { AssessmentNames } from './assessmentName'
-export type { Col, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
+export { Assessments } from './assessments'
+export type { Col, ColLinkedNode, ColName, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
 export { ColType } from './col'
 export { Cols } from './cols'
-export type { CommentableDescription, CommentableDescriptionValue, DataSource } from './commentableDescription'
+export type {
+  CommentableDescription,
+  CommentableDescriptionValue,
+  DataSource,
+  DataSourceLinked,
+} from './commentableDescription'
 export { CommentableDescriptionName } from './commentableDescription'
-export type { Cycle, CycledPropsObject, CycleUuid } from './cycle'
-export type { Description, Descriptions } from './description'
-export { dataSourceType } from './descriptions'
+export type { Cycle, CycledPropsObject, CycleName, CycleUuid } from './cycle'
+export type {
+  DataSourceDescriptionTable,
+  DataSourceLinkedVariable,
+  DataSourceVariable,
+  Description,
+  Descriptions,
+} from './description'
+export { DataSourceType } from './description'
 export type { Label } from './label'
 export { Labels } from './labels'
 export type { Node, NodeValue } from './node'
-export type { NodeValueValidation, NodeValueValidationMessage } from './nodeValueValidation'
+export type {
+  NodeValueEstimationMethod,
+  NodeValuesEstimation,
+  NodeValuesEstimationVariableOptions,
+} from './nodeValuesEstimation'
+export type {
+  NodeValueValidation,
+  NodeValueValidationMessage,
+  NodeValueValidationMessageParam,
+} from './nodeValueValidation'
 export { NodeValueValidations } from './nodeValueValidations'
-export type { ODPNationalClass } from './originalDataPoint'
-export { ODPNationalClassFactory, ODPs, ODPYears } from './originalDataPoint'
+export type { ODPNationalClass, ODPReservedYear } from './originalDataPoint'
+export { ODPNationalClassFactory, ODPs } from './originalDataPoint'
 export type { OriginalDataPoint } from './originalDataPoint/originalDataPoint'
 export type { ReviewStatus, ReviewSummary } from './review'
-export type { Row, RowProps } from './row'
+export type { Row, RowProps, VariableName } from './row'
 export { RowType } from './row'
-export type { Section, SectionProps, SubSection, SubSectionProps } from './section'
+export type { Section, SectionName, SectionProps, SubSection, SubSectionProps } from './section'
 export type { Settings } from './settings'
 export { SubSections } from './subSections'
-export type { Table, TableColumnNames, TableProps } from './table'
+export type { Table, TableColumnNames, TableName, TableProps } from './table'
 export { TableNames } from './table'
 export type { TableSection, TableSectionProps } from './tableSection'
 export { Unit } from './unit'

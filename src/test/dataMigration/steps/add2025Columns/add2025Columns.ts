@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
-import { Assessment, ColProps, ColType, Row, RowType } from '@meta/assessment'
+import { Assessment, ColProps, ColType, Row, RowType } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
@@ -14,7 +14,7 @@ const tablesNewColumns: Record<string, Array<string>> = {
   // 'climaticDomain',
   // forestCharacteristics: ['2025'],
   specificForestCategories: ['2025'],
-  forestAreaChange: ['2020-2025'],
+  // forestAreaChange: ['2020-2025'],
   annualReforestation: ['2020-2025'],
   otherLandWithTreeCover: ['2025'],
   // growingStockAvg: ['2025'],

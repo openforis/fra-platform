@@ -1,12 +1,12 @@
-import { Assessment, Cycle, OriginalDataPoint, TableNames } from '@meta/assessment'
-import { NodeUpdate, NodeUpdates, TableDatas } from '@meta/data'
-import { Sockets } from '@meta/socket'
-import { User } from '@meta/user'
+import { Assessment, Cycle, OriginalDataPoint, TableNames } from 'meta/assessment'
+import { NodeUpdate, NodeUpdates, RecordAssessmentDatas } from 'meta/data'
+import { Sockets } from 'meta/socket'
+import { User } from 'meta/user'
 
-import { getTableData } from '@server/controller/cycleData/getTableData'
-import { scheduleUpdateDependencies } from '@server/controller/cycleData/updateDependencies'
-import { BaseProtocol } from '@server/db'
-import { SocketServer } from '@server/service/socket'
+import { getTableData } from 'server/controller/cycleData/getTableData'
+import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { BaseProtocol } from 'server/db'
+import { SocketServer } from 'server/service/socket'
 
 import { getOriginalDataPointVariables } from './getOriginalDataPointVariables'
 
@@ -69,7 +69,9 @@ export const updateOriginalDataPointDependentNodes = async (
       countryIso,
       nodes: originalDataPointVariables.map(({ variableName, tableName }) => {
         return {
-          value: TableDatas.getNodeValue({
+          value: RecordAssessmentDatas.getNodeValue({
+            assessmentName,
+            cycleName,
             colName,
             variableName,
             tableName,

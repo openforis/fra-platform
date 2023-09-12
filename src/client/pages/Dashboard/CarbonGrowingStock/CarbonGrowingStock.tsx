@@ -1,15 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { TableData, TableDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import useStatisticalFactsheetsState from '@client/pages/Dashboard/hooks/useDashboardData'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import useStatisticalFactsheetsState from 'client/pages/Dashboard/hooks/useDashboardData'
 
 import Table from '../components/Table'
 
@@ -19,6 +19,7 @@ const cycleTableName: Record<string, string> = {
 }
 
 const CarbonGrowingStock = () => {
+  const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
   const i18n = useTranslation()
@@ -57,10 +58,12 @@ const CarbonGrowingStock = () => {
   // Carbon stock in biomass (tonnesPerHa)
   // Total carbon stock (tonnesPerHa)
 
-  let tableData: TableData = {} as TableData
+  let tableData: RecordAssessmentData = {}
   if (isIsoCountry) {
     columns.forEach((colName: string) => {
-      const carbonForestAboveGround = TableDatas.getDatum({
+      const carbonForestAboveGround = RecordAssessmentDatas.getDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         variableName: 'carbon_forest_above_ground',
         tableName: cycleTableName[cycle.name],
         colName,
@@ -68,7 +71,9 @@ const CarbonGrowingStock = () => {
         data: _tableData,
       })
 
-      const carbonForestBelowGround = TableDatas.getDatum({
+      const carbonForestBelowGround = RecordAssessmentDatas.getDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         variableName: 'carbon_forest_below_ground',
         tableName: cycleTableName[cycle.name],
         colName,
@@ -76,7 +81,9 @@ const CarbonGrowingStock = () => {
         data: _tableData,
       })
 
-      const carbonForestDeadwood = TableDatas.getDatum({
+      const carbonForestDeadwood = RecordAssessmentDatas.getDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         variableName: 'carbon_forest_deadwood',
         tableName: cycleTableName[cycle.name],
         colName,
@@ -84,7 +91,9 @@ const CarbonGrowingStock = () => {
         data: _tableData,
       })
 
-      const carbonForestLitter = TableDatas.getDatum({
+      const carbonForestLitter = RecordAssessmentDatas.getDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         variableName: 'carbon_forest_litter',
         tableName: cycleTableName[cycle.name],
         colName,
@@ -92,7 +101,9 @@ const CarbonGrowingStock = () => {
         data: _tableData,
       })
 
-      const carbonForestSoil = TableDatas.getDatum({
+      const carbonForestSoil = RecordAssessmentDatas.getDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         variableName: 'carbon_forest_soil',
         tableName: cycleTableName[cycle.name],
         colName,
@@ -114,7 +125,9 @@ const CarbonGrowingStock = () => {
       ])
 
       // [Not calculated] Growing stock (millionsCubicMeterOverBark)
-      const growingStockTotal = TableDatas.getDatum({
+      const growingStockTotal = RecordAssessmentDatas.getDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         variableName: 'forest',
         tableName: TableNames.growingStockTotal,
         colName,
@@ -122,7 +135,9 @@ const CarbonGrowingStock = () => {
         data: _tableData,
       })
 
-      tableData = TableDatas.updateDatum({
+      tableData = RecordAssessmentDatas.updateDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         data: tableData,
         colName,
         countryIso,
@@ -131,7 +146,9 @@ const CarbonGrowingStock = () => {
         value: { raw: String(carbonStockBiomassTotal) },
       })
 
-      tableData = TableDatas.updateDatum({
+      tableData = RecordAssessmentDatas.updateDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         data: tableData,
         colName,
         countryIso,
@@ -140,7 +157,9 @@ const CarbonGrowingStock = () => {
         value: { raw: String(carbonStockTotal) },
       })
 
-      tableData = TableDatas.updateDatum({
+      tableData = RecordAssessmentDatas.updateDatum({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
         data: tableData,
         colName,
         countryIso,

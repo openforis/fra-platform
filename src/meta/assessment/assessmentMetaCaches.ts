@@ -47,7 +47,7 @@ const _getDependencies = (props: DependencyCacheProps) => {
 // ****==== getters
 const getMetaCache = (props: CycleProps): AssessmentMetaCache => {
   const { assessment, cycle } = props
-  return assessment.metaCache[cycle.uuid]
+  return assessment.metaCache?.[cycle.uuid]
 }
 
 const getCalculations = (props: CycleProps): DependencyCache => getMetaCache(props).calculations
@@ -76,9 +76,35 @@ const getValidationsDependencies = (props: VariableProps) => {
 
 const getVariablesByTables = (props: CycleProps): VariablesByTableCache => getMetaCache(props).variablesByTable
 
+const getCalculationMirrorVariable = (props: VariableProps): VariableCache | undefined => {
+  const { assessment, cycle, tableName, variableName } = props
+  const dependencies = getCalculationsDependencies({ assessment, cycle, tableName, variableName })
+  return dependencies.find((dependency) => {
+    let dependencyToReset: VariableCache
+    // dependency must belong to a different table
+    if (dependency.tableName === tableName) return undefined
+    const mirrorDependencies = getCalculationsDependencies({
+      assessment,
+      cycle,
+      tableName: dependency.tableName,
+      variableName: dependency.variableName,
+    })
+    if (
+      mirrorDependencies.find((mirrorDependency) => {
+        return mirrorDependency.tableName === tableName && mirrorDependency.variableName === variableName
+      })
+    ) {
+      dependencyToReset = dependency
+    }
+    return dependencyToReset
+  })
+}
+
 export const AssessmentMetaCaches = {
+  getCalculationMirrorVariable,
   getCalculationsDependants,
   getCalculationsDependencies,
+  getMetaCache,
   getValidationsDependants,
   getValidationsDependencies,
   getVariablesByTables,

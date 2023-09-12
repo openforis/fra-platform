@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { Bounds } from '@meta/geo'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { Bounds } from 'meta/geo'
 /**
  * Makes an API call to get the Bounds of a country.
  *

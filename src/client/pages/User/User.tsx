@@ -3,18 +3,19 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useParams } from 'react-router-dom'
 
-import { AssessmentName } from '@meta/assessment'
-import { Users } from '@meta/user'
+import { Areas } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
+import { Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
-import { useUserToEdit } from '@client/store/ui//userManagement/hooks'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { useToaster } from '@client/hooks/useToaster'
-import EditUserForm from '@client/components/EditUserForm'
-import ButtonContinue from '@client/pages/User/ButtonContinue'
+import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
+import { useUserToEdit } from 'client/store/ui//userManagement/hooks'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import { useCountryIso, useIsCountryRoute } from 'client/hooks'
+import { useToaster } from 'client/hooks/useToaster'
+import EditUserForm from 'client/components/EditUserForm'
+import ButtonContinue from 'client/pages/User/ButtonContinue'
 
 const User: React.FC = () => {
   const { t } = useTranslation()
@@ -22,6 +23,7 @@ const User: React.FC = () => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const user = useUser()
+  const isCountry = useIsCountryRoute()
   const userToEdit = useUserToEdit()
   const location = useLocation()
   const { toaster } = useToaster()
@@ -31,12 +33,6 @@ const User: React.FC = () => {
     cycleName,
     id: userId,
   } = useParams<{ assessmentName: AssessmentName; cycleName: string; id: string }>()
-
-  const isAdministrator = Users.isAdministrator(user)
-
-  const isSelf = String(user?.id) === userId
-
-  const canEditUser = isSelf || Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0
 
   useEffect(() => {
     if (location?.state?.personalInfoRequired) {
@@ -60,11 +56,29 @@ const User: React.FC = () => {
 
   if (!userToEdit) return null
 
-  const canEditRoles = isAdministrator && user.id !== userToEdit.id
+  const isAdministrator = Users.isAdministrator(user)
+  const isReviewer = Users.isReviewer(user, countryIso, cycle)
+
+  const isSelf = user.id === userToEdit.id
+
+  const canEditUser = isSelf || isAdministrator
+
+  const canEditPermissions =
+    !isSelf &&
+    Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0 &&
+    !Areas.isISOGlobal(countryIso) &&
+    isCountry
+
+  const canEditRoles = !isReviewer && !isSelf && isAdministrator && Areas.isISOGlobal(countryIso)
 
   return (
     <div className="app-view__content user-container">
-      {canEditUser && <EditUserForm canEditRoles={canEditRoles} user={userToEdit} />}
+      <EditUserForm
+        canEditPermissions={canEditPermissions}
+        canEditRoles={canEditRoles}
+        canEditUser={canEditUser}
+        user={userToEdit}
+      />
       <ButtonContinue />
     </div>
   )

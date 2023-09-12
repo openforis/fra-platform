@@ -1,10 +1,269 @@
 // @ts-nocheck
 
+const dataColsAValidator = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['undisturbed_by_man'],
+                   [table_4_3a.forest_2025['undisturbed_by_man'],table_4_3a.other_wooded_land_2025['undisturbed_by_man']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['semi_natural'],
+                   [table_4_3a.forest_2025['semi_natural'],table_4_3a.other_wooded_land_2025['semi_natural']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.total_forest_and_other_wooded_land_2025['plantations'],
+                   [table_4_3a.forest_2025['plantations'],table_4_3a.other_wooded_land_2025['plantations']])`,
+        ],
+      },
+    },
+  },
+]
+const dataColsA = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'primaryForest',
+          colName: '2020',
+        },
+      },
+    },
+  },
+  { idx: 1, type: 'decimal' },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+]
+const updatedDataColsValidation = (year: string) =>
+  dataColsAValidator.map((col) => {
+    if (col.migration && col.migration.validateFns && col.migration.validateFns['2025']) {
+      const validateFns = {
+        ...col.migration.validateFns,
+        '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/2025/g, year)),
+      }
+
+      return {
+        ...col,
+        migration: {
+          ...col.migration,
+          validateFns,
+        },
+      }
+    }
+    return col
+  })
+
+const linkedDataColsA = (colName: string) =>
+  dataColsA.map((col) => {
+    if ('migration' in col) {
+      return {
+        ...col,
+        migration: {
+          ...col.migration,
+          linkedNodes: Object.fromEntries(
+            Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+          ),
+        },
+      }
+    }
+    return col
+  })
+
+const dataColsB = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
+                  [table_4_3b.forest_2025['naturally_established'],
+                   table_4_3b.forest_2025['naturalised_introduced_species'],
+                   table_4_3b.forest_2025['established_by_planting_and_or_seeding'],
+                   table_4_3b.forest_2025['coppice'],
+                   table_4_3b.forest_2025['unknown_origin']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.naturalness.semi_natural", "4.3a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
+                  [table_4_3b.forest_2025['naturally_established'],
+                   table_4_3b.forest_2025['naturalised_introduced_species'],
+                   table_4_3b.forest_2025['established_by_planting_and_or_seeding'],
+                   table_4_3b.forest_2025['coppice'],
+                   table_4_3b.forest_2025['unknown_origin']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.naturalness.semi_natural", "4.3a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
+                  [table_4_3b.forest_2025['naturally_established'],
+                   table_4_3b.forest_2025['naturalised_introduced_species'],
+                   table_4_3b.forest_2025['established_by_planting_and_or_seeding'],
+                   table_4_3b.forest_2025['coppice'],
+                   table_4_3b.forest_2025['unknown_origin']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.naturalness.semi_natural", "4.3a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 3,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
+                  [table_4_3b.forest_2025['naturally_established'],
+                   table_4_3b.forest_2025['naturalised_introduced_species'],
+                   table_4_3b.forest_2025['established_by_planting_and_or_seeding'],
+                   table_4_3b.forest_2025['coppice'],
+                   table_4_3b.forest_2025['unknown_origin']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.naturalness.semi_natural", "4.3a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 4,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.forest_2025['semi_natural'],
+                  [table_4_3b.forest_2025['naturally_established'],
+                   table_4_3b.forest_2025['naturalised_introduced_species'],
+                   table_4_3b.forest_2025['established_by_planting_and_or_seeding'],
+                   table_4_3b.forest_2025['coppice'],
+                   table_4_3b.forest_2025['unknown_origin']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.naturalness.semi_natural", "4.3a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 5,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.forest_2025['plantations'],
+              [table_4_3b.forest_2025['native_species'],
+               table_4_3b.forest_2025['introduced_species']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.naturalness.plantations", "4.3a")`,
+        ],
+      },
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+  {
+    idx: 6,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_3a.forest_2025['plantations'],
+              [table_4_3b.forest_2025['native_species'],
+               table_4_3b.forest_2025['introduced_species']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.naturalness.plantations", "4.3a")`,
+        ],
+      },
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestIntroducedArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+]
+const linkedDataColsB = (colName: string) =>
+  dataColsB.map((col) => {
+    const validateFns = {
+      ...col.migration.validateFns,
+      '2025': col.migration.validateFns['2025'].map((fn: string) => fn.replace(/2025/g, colName)),
+    }
+
+    let migration = {
+      ...col.migration,
+      validateFns,
+    }
+
+    if (col.migration.linkedNodes && colName !== '2005') {
+      migration = {
+        ...migration,
+        linkedNodes: Object.fromEntries(
+          Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+        ),
+      }
+    } else {
+      delete migration.linkedNodes
+    }
+
+    return { ...col, migration }
+  })
+
 export const naturalness = {
   sectionName: 'naturalness',
   sectionAnchor: '4.3a',
   tableSections: [
     {
+      titleKey: 'panEuropean.naturalness.naturalnessNumber',
       tableSpecs: [
         {
           name: 'table_4_3a',
@@ -73,12 +332,18 @@ export const naturalness = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2025'),
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_4_3a.forest_2025['undisturbed_by_man'],
+                   table_4_3a.forest_2025['semi_natural'],
+                   table_4_3a.forest_2025['plantations']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2025 },
@@ -96,10 +361,18 @@ export const naturalness = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2020'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_4_3a.forest_2020['undisturbed_by_man'],
+                   table_4_3a.forest_2020['semi_natural'],
+                   table_4_3a.forest_2020['plantations']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2020 },
               variableExport: 'forest_2020',
@@ -116,10 +389,18 @@ export const naturalness = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2015'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_4_3a.forest_2015['undisturbed_by_man'],
+                   table_4_3a.forest_2015['semi_natural'],
+                   table_4_3a.forest_2015['plantations']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2015 },
               variableExport: 'forest_2015',
@@ -136,10 +417,18 @@ export const naturalness = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2010'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_4_3a.forest_2010['undisturbed_by_man'],
+                   table_4_3a.forest_2010['semi_natural'],
+                   table_4_3a.forest_2010['plantations']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2010 },
               variableExport: 'forest_2010',
@@ -160,6 +449,16 @@ export const naturalness = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_4_3a.forest_2005['undisturbed_by_man'],
+                   table_4_3a.forest_2005['semi_natural'],
+                   table_4_3a.forest_2005['plantations']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2005 },
               variableExport: 'forest_2005',
@@ -176,10 +475,18 @@ export const naturalness = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('2000'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_4_3a.forest_2000['undisturbed_by_man'],
+                   table_4_3a.forest_2000['semi_natural'],
+                   table_4_3a.forest_2000['plantations']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 2000 },
               variableExport: 'forest_2000',
@@ -196,10 +503,18 @@ export const naturalness = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...linkedDataColsA('1990'),
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_4_3a.forest_1990['undisturbed_by_man'],
+                   table_4_3a.forest_1990['semi_natural'],
+                   table_4_3a.forest_1990['plantations']], "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.naturalness.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
@@ -359,9 +674,7 @@ export const naturalness = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...updatedDataColsValidation('2025'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -382,9 +695,7 @@ export const naturalness = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...updatedDataColsValidation('2020'),
               ],
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2020 },
@@ -402,9 +713,7 @@ export const naturalness = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...updatedDataColsValidation('2015'),
               ],
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
@@ -422,9 +731,7 @@ export const naturalness = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...updatedDataColsValidation('2010'),
               ],
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
@@ -442,9 +749,7 @@ export const naturalness = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...updatedDataColsValidation('2005'),
               ],
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
@@ -462,9 +767,7 @@ export const naturalness = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...updatedDataColsValidation('2000'),
               ],
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
@@ -482,9 +785,7 @@ export const naturalness = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                ...updatedDataColsValidation('1990'),
               ],
               labelKey: 'panEuropean.naturalness.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
@@ -501,7 +802,7 @@ export const naturalness = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.naturalnessBySubclass',
+      titleKey: 'panEuropean.naturalness.naturalnessBySubclassNumber',
       tableSpecs: [
         {
           name: 'table_4_3b',
@@ -624,19 +925,7 @@ export const naturalness = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2025'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -657,19 +946,7 @@ export const naturalness = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2020'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2020 },
@@ -687,19 +964,7 @@ export const naturalness = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2015'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2015 },
@@ -717,19 +982,7 @@ export const naturalness = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2010'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2010 },
@@ -747,19 +1000,7 @@ export const naturalness = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2005'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2005 },
@@ -777,19 +1018,7 @@ export const naturalness = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('2000'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 2000 },
@@ -807,19 +1036,7 @@ export const naturalness = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-                {
-                  idx: 2,
-                  type: 'decimal',
-                },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal' },
-                {
-                  idx: 5,
-                  type: 'decimal',
-                },
-                { idx: 6, type: 'decimal' },
+                ...linkedDataColsB('1990'),
               ],
               labelKey: 'panEuropean.naturalnessBySubclasses.forest',
               labelParams: { year: 1990 },
@@ -869,6 +1086,7 @@ export const naturalness = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'theRecentAvailableYear',
               cols: [
                 {
                   idx: 'header_0',
@@ -885,44 +1103,31 @@ export const naturalness = {
                   className: 'fra-table__header-cell',
                   type: 'placeholder',
                 },
-                { idx: 1, type: 'textarea' },
+                { idx: 1, type: 'textarea', colName: 'comment' },
               ],
             },
-            {
-              idx: 1,
+            ...['extrapolation', 'assessmentBasedOnEvidence'].map((variableName, idx) => ({
+              idx: idx + 1,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'textarea' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
           dataExport: true,
           columnsExportAlways: [],
           columnsExport: [],
-          migration: { cycles: ['2025'], columnNames: { '2025': ['theYearAndDataReportedFor2025'] } },
+          migration: { cycles: ['2025'], columnNames: { '2025': ['comment'] } },
         },
       ],
     },
@@ -945,42 +1150,31 @@ export const naturalness = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'criteriaOrThresholdsUsedToDelimitUndisturbedByManFromSemiNatural',
+              'criteriaOrThresholdsUsedToDelimitSemiNaturalFromPlantations',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey:
-                    'panEuropean.countryComments.criteriaOrThresholdsUsedToDelimitUndisturbedByManFromSemiNatural',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_1',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.criteriaOrThresholdsUsedToDelimitSemiNaturalFromPlantations',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
           dataExport: true,
           columnsExportAlways: [],
           columnsExport: [],
-          migration: { cycles: ['2025'], columnNames: { '2025': ['approachToDelimniateBetweenCategories'] } },
+          migration: { cycles: ['2025'], columnNames: { '2025': ['comment'] } },
         },
       ],
     },
@@ -1019,51 +1213,23 @@ export const naturalness = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+
+            ...['fowlUndisturbedByMan', 'fowlSemiNatural', 'fowlPlantations'].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fowlUndisturbedByMan',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 0, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fowlSemiNatural',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fowlPlantations',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1072,7 +1238,7 @@ export const naturalness = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
@@ -1084,6 +1250,22 @@ export const naturalness = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestCharacteristics',
+        tableName: 'forestCharacteristics',
+        variableName: 'naturalForestArea',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestCharacteristics',
+        tableName: 'forestCharacteristics',
+        variableName: 'plantationForestArea',
+      },
+    ],
   },
   dataExport: {
     included: true,

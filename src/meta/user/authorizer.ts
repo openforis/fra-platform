@@ -1,11 +1,11 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Areas, Country, CountryIso } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
-import { Assessment, Cycle, Section } from '@meta/assessment'
-import { User } from '@meta/user/user'
-import { Collaborator, CollaboratorEditPropertyType } from '@meta/user/userRole'
-import { Users } from '@meta/user/users'
+import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
+import { Assessment, Cycle, Section, SubSection } from 'meta/assessment'
+import { User } from 'meta/user/user'
+import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
+import { Users } from 'meta/user/users'
 
 /**
  *  CanView
@@ -17,11 +17,12 @@ import { Users } from '@meta/user/users'
  *  @param props.User
  *  @returns boolean
  */
-const canView = (props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; user: User }): boolean => {
-  const { countryIso, user, cycle } = props
+const canView = (props: { assessment: Assessment; countryIso: AreaCode; cycle: Cycle; user: User }): boolean => {
+  const { assessment, countryIso, user, cycle } = props
   if (cycle.published) return true
   if (Users.isAdministrator(user)) return true
-  if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
+  // if global or region, user must have at least one role in that assessment
+  if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return Users.hasRoleInAssessment({ assessment, user })
 
   const userHasRoleForCountryInCycle = user?.roles.some((role) => {
     return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
@@ -39,7 +40,7 @@ const canView = (props: { countryIso: CountryIso; assessment: Assessment; cycle:
  *  @param props.User
  *  @returns boolean
  */
-const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; user: User }): boolean => {
+const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User }): boolean => {
   const { countryIso, user, cycle } = props
   if (Users.isAdministrator(user)) return true
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
@@ -75,7 +76,7 @@ const canViewUsers = (props: { countryIso: CountryIso; assessment: Assessment; c
  */
 const canEditData = (props: {
   cycle: Cycle
-  section: Section
+  section: Section | SubSection
   country: Country
   user: User
   permission?: CollaboratorEditPropertyType
@@ -125,31 +126,40 @@ const canEditData = (props: {
  * @param props.user
  * @returns boolean
  */
-const canEditCountryProps = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
-  const { country, cycle, user } = props
+const canEditCountryProps = (props: {
+  allowCollaborator?: boolean
+  country: Country
+  cycle: Cycle
+  user: User
+}): boolean => {
+  const { allowCollaborator = false, country, cycle, user } = props
   const { countryIso } = country
   const { status } = country.props
 
   if (!user) return false
-  if (Users.isViewer(user, countryIso, cycle)) return false
+
   if (Users.isAdministrator(user)) return true
 
   if (
     Users.isNationalCorrespondent(user, countryIso, cycle) ||
-    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
+    Users.isAlternateNationalCorrespondent(user, countryIso, cycle) ||
+    (allowCollaborator && Users.isCollaborator(user, countryIso, cycle))
   )
     return status === AssessmentStatus.editing
 
-  if (Users.isReviewer(user, countryIso, cycle)) {
+  if (Users.isReviewer(user, countryIso, cycle))
     return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
-  }
 
   return false
 }
 
+const canEditAssessmentFile = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
+  canEditCountryProps({ ...props, allowCollaborator: true })
+
 export const Authorizer = {
   canView,
   canViewUsers,
-  canEditCountryProps,
   canEditData,
+  canEditCountryProps,
+  canEditAssessmentFile,
 }

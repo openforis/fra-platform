@@ -1,12 +1,13 @@
 import { Request } from 'express'
 
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
+import { AssessmentName, CycleName } from 'meta/assessment'
 
 // base params
 export type CycleParams = {
-  assessmentName: string
+  assessmentName: AssessmentName
   countryIso: CountryIso
-  cycleName: string
+  cycleName: CycleName
 }
 
 export type CycleDataParams = CycleParams & {
@@ -31,7 +32,7 @@ export type { EstimateBody, NodesBody, NodesBodyValue } from './cycleData/table'
 export type { AssessmentFileBody } from './file/assessmentFile'
 
 // layers
-export type { ForestAgreementLayerRequest, ForestLayerRequest } from './geo/layer'
+export type { ForestAgreementLayerRequest, LayerRequest } from './geo/layer'
 
 // user
 export type { UsersRequest } from './admin/users'

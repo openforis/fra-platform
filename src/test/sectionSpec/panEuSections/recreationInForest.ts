@@ -5,6 +5,7 @@ export const accessibilityForRecreation = {
   sectionAnchor: '6.10a',
   tableSections: [
     {
+      titleKey: 'panEuropean.accessibilityForRecreation.accessibilityForRecreationNumber',
       tableSpecs: [
         {
           name: 'table_6_10a',
@@ -240,7 +241,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.intensityOfUse',
+      titleKey: 'panEuropean.accessibilityForRecreation.intensityOfUseNumber',
       tableSpecs: [
         {
           name: 'table_6_10b',
@@ -385,8 +386,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.recreationFacilities',
-
+      titleKey: 'panEuropean.accessibilityForRecreation.recreationFacilitiesNumber',
       tableSpecs: [
         {
           name: 'table_6_10c',
@@ -404,17 +404,9 @@ export const accessibilityForRecreation = {
                 },
                 {
                   idx: 1,
-                  colSpan: 1,
+                  colSpan: 2,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.recreationFacilities.forestRoadsAndPathsAvailableForPublicRecreation',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                {
-                  idx: 2,
-                  colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.recreationFacilities._ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc',
+                  labelKey: 'panEuropean.recreationFacilities.facilityLengthIn1000Km',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
@@ -426,9 +418,17 @@ export const accessibilityForRecreation = {
               cols: [
                 {
                   idx: 0,
-                  colSpan: 2,
+                  colSpan: 1,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.recreationFacilities.facilityLengthIn1000Km',
+                  labelKey: 'panEuropean.recreationFacilities.forestRoadsAndPathsAvailableForPublicRecreation',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.recreationFacilities._ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc',
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
@@ -493,7 +493,7 @@ export const accessibilityForRecreation = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.otherRecreationFacilities',
+      titleKey: 'panEuropean.accessibilityForRecreation.otherRecreationFacilitiesNumber',
       tableSpecs: [
         {
           name: 'table_6_10d',
@@ -544,16 +544,17 @@ export const accessibilityForRecreation = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...Array.from(Array(20).keys()).map((idx) => ({
+              idx,
               type: 'data',
               cols: [
                 {
                   idx: 'header_0',
                   type: 'header',
                   colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no1_area_available_for_public_recreation',
+                  labelKey: `panEuropean.otherRecreationFacilitiesPilotReporting2015.no${
+                    idx + 1
+                  }_area_available_for_public_recreation`,
                   className: 'fra-table__category-cell',
                 },
                 { idx: 0, type: 'text' },
@@ -561,469 +562,27 @@ export const accessibilityForRecreation = {
                 { idx: 2, type: 'decimal' },
                 {
                   idx: 3,
-                  type: 'text',
+                  type: 'select',
+                  options: [
+                    { optionName: 'accommodationFacilities' },
+                    { optionName: 'campingSites' },
+                    { optionName: 'overnightShelters' },
+                    { optionName: 'picnicSites' },
+                    { optionName: 'natureSchools' },
+                    { optionName: 'sitesForNatureStudying' },
+                    { optionName: 'birdAndWildlifeWatchingLocalities' },
+                    { optionName: 'cablewaysAndLifts' },
+                    { optionName: 'parkingLots' },
+                    { optionName: 'otherFacilities' },
+                  ],
+                  optionsLabelKeyPrefix: 'panEuropean.2025.meta.select.facilityCategory',
                 },
               ],
-              variableExport: 'no1_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no1_area_available_for_public_recreation',
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no2_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no2_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no2_area_available_for_public_recreation',
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no3_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no3_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no3_area_available_for_public_recreation',
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no4_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no4_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no4_area_available_for_public_recreation',
-            },
-            {
-              idx: 4,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no5_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no5_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no5_area_available_for_public_recreation',
-            },
-            {
-              idx: 5,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no6_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no6_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no6_area_available_for_public_recreation',
-            },
-            {
-              idx: 6,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no7_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no7_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no7_area_available_for_public_recreation',
-            },
-            {
-              idx: 7,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no8_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no8_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no8_area_available_for_public_recreation',
-            },
-            {
-              idx: 8,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no9_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no9_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no9_area_available_for_public_recreation',
-            },
-            {
-              idx: 9,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no10_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no10_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no10_area_available_for_public_recreation',
-            },
-            {
-              idx: 10,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no11_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no11_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no11_area_available_for_public_recreation',
-            },
-            {
-              idx: 11,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no12_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no12_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no12_area_available_for_public_recreation',
-            },
-            {
-              idx: 12,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no13_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no13_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no13_area_available_for_public_recreation',
-            },
-            {
-              idx: 13,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no14_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no14_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no14_area_available_for_public_recreation',
-            },
-            {
-              idx: 14,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no15_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no15_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no15_area_available_for_public_recreation',
-            },
-            {
-              idx: 15,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no16_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no16_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no16_area_available_for_public_recreation',
-            },
-            {
-              idx: 16,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no17_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no17_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no17_area_available_for_public_recreation',
-            },
-            {
-              idx: 17,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no18_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no18_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no18_area_available_for_public_recreation',
-            },
-            {
-              idx: 18,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no19_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no19_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no19_area_available_for_public_recreation',
-            },
-            {
-              idx: 19,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  type: 'header',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.otherRecreationFacilitiesPilotReporting2015.no20_area_available_for_public_recreation',
-                  className: 'fra-table__category-cell',
-                },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'text' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'text',
-                },
-              ],
-              variableExport: 'no20_area_available_for_public_recreation',
-              labelKey:
-                'panEuropean.otherRecreationFacilitiesPilotReporting2015.no20_area_available_for_public_recreation',
-            },
+              variableExport: `no${idx + 1}_area_available_for_public_recreation`,
+              labelKey: `panEuropean.otherRecreationFacilitiesPilotReporting2015.no${
+                idx + 1
+              }_area_available_for_public_recreation`,
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1059,6 +618,7 @@ export const accessibilityForRecreation = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'criteriaUsedToIncludeAreasInForestsAvailableToThePublicRecreation',
               cols: [
                 {
                   idx: 'header_0',
@@ -1068,12 +628,13 @@ export const accessibilityForRecreation = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
             {
               idx: 1,
               type: 'data',
+              variableName: 'criteriaUsedToIncludeAreasInPrimarilyDesignatedOrManagedForPublicRecreation',
               cols: [
                 {
                   idx: 'header_0',
@@ -1083,7 +644,7 @@ export const accessibilityForRecreation = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 'idx', type: 'decimal' },
+                { idx: 'idx', type: 'textarea', colName: 'comment' },
               ],
             },
           ],
@@ -1092,7 +653,7 @@ export const accessibilityForRecreation = {
           dataExport: true,
           columnsExportAlways: [],
           columnsExport: [],
-          migration: { cycles: ['2025'], columnNames: { '2025': ['approachToReportingOnAccessibilityForRecreation'] } },
+          migration: { cycles: ['2025'], columnNames: { '2025': ['comment'] } },
         },
       ],
     },
@@ -1131,66 +692,27 @@ export const accessibilityForRecreation = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'areaOfForestsAvailableForPublicRecreation',
+              'areaOfForestsPrimarilyDesignatedOrManagedForPublicRecreation',
+              'intensityOfUse',
+              'recreationFacilities',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.areaOfForestsAvailableForPublicRecreation',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.areaOfForestsPrimarilyDesignatedOrManagedForPublicRecreation',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.intensityOfUse',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.recreationFacilities',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1199,7 +721,7 @@ export const accessibilityForRecreation = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],

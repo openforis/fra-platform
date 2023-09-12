@@ -1,14 +1,13 @@
 export type { Bounds } from './bounds'
+export type { BurnedAreasUIOptions } from './burnedAreaSource'
+export { BurnedAreaKey, burnedAreaSourcesMetadata } from './burnedAreaSource'
 export type { Layer } from './forest'
-export type { ForestOptions } from './forest'
-export {
-  agreementPalette,
-  ForestSource,
-  getRecipeAgreementAreaProperty,
-  precalForestAgreementSources,
-  sourcesMetadata,
-} from './forest'
+export type { BurnedAreasOptions, ForestOptions, LayerSource, ProtectedAreasOptions } from './forest'
+export { LayerStatus } from './forest'
+export { agreementPalette, ForestSource, getRecipeAgreementAreaProperty, sourcesMetadata } from './forest'
 export type { ForestEstimations, ForestEstimationsData } from './forestEstimations'
 export { ExtraEstimation, extraEstimationsMetadata } from './forestEstimations'
+export type { GeoStatisticsState } from './geoStatistics'
 export type { MosaicOptions, MosaicSource } from './mosaic'
+export { ProtectedAreaKey, protectedAreaSourcesMetadata } from './protectedAreaSource'
 export type { MapPanel } from './ui'

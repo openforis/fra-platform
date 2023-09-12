@@ -1,6 +1,9 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { Objects } from 'utils/objects'
+
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, ODPReservedYear } from 'meta/assessment'
+
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getReservedYears = async (
   params: {
@@ -9,13 +12,18 @@ export const getReservedYears = async (
     countryIso: CountryIso
   },
   client: BaseProtocol = DB
-): Promise<Array<number>> => {
+): Promise<Array<ODPReservedYear>> => {
   const { assessment, cycle, countryIso } = params
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
-  return client.map<number>(
-    `select year from ${schemaName}.original_data_point where country_iso = $1`,
+
+  return client.map<ODPReservedYear>(
+    `
+      select id, year, jsonb_array_length(national_classes) AS national_classes
+      from ${schemaName}.original_data_point
+      where country_iso = $1
+    `,
     [countryIso],
-    ({ year }) => year
+    (row) => Objects.camelize(row)
   )
 }

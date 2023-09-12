@@ -1,16 +1,12 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestSource } from '@meta/geo'
+import { ForestSource, LayerSource, sourcesMetadata } from 'meta/geo'
 
-export const getForestAssetData = (
-  forestSource: ForestSource,
-  gteHansenTreeCoverPerc?: number,
-  onlyProtected?: boolean
-): { year: number; img: Image } => {
-  let asset = {} as any
+export const getForestAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
+  let asset = {} as { year?: number; img: Image; metadata: any }
 
-  switch (forestSource) {
+  switch (layer.key) {
     case ForestSource.JAXA: {
       const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF')
         .filterDate('2017-01-01', '2017-12-31')
@@ -20,6 +16,7 @@ export const getForestAssetData = (
       asset = {
         year: 2017,
         img: imgForestJAXA,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -29,6 +26,7 @@ export const getForestAssetData = (
       asset = {
         year: 2019,
         img: imgForestTANDEMX,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -42,6 +40,7 @@ export const getForestAssetData = (
       asset = {
         year: 2009,
         img: imgForestLCESA,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -51,6 +50,7 @@ export const getForestAssetData = (
       asset = {
         year: 2020,
         img: imgForestGlobeLand,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -61,6 +61,7 @@ export const getForestAssetData = (
       asset = {
         year: 2019,
         img: imgForestCopernicus,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -70,6 +71,7 @@ export const getForestAssetData = (
       asset = {
         year: 2020,
         img: imgForestESRIy2020,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -80,6 +82,7 @@ export const getForestAssetData = (
       asset = {
         year: 2020,
         img: imgForestESAy2020,
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -90,11 +93,39 @@ export const getForestAssetData = (
       const lossyear = imcHansen.select('lossyear')
       const hlost = lossyear.gte(1).and(lossyear.lte(20))
       const hgain = imcHansen.select('gain')
-      const imgForestHansen = hforest2000.gte(gteHansenTreeCoverPerc).where(hgain.eq(1), 1).where(hlost.eq(1), 0)
+      const imgForestHansen = hforest2000
+        .gte(layer.options.gteTreeCoverPercent)
+        .where(hgain.eq(1), 1)
+        .where(hlost.eq(1), 0)
 
       asset = {
         year: 2020,
         img: imgForestHansen,
+        metadata: sourcesMetadata[layer.key],
+      }
+      break
+    }
+    case ForestSource.CustomFnF: {
+      const imgCustom = Image(layer.options.assetId).select(0).eq(1)
+
+      asset = {
+        img: imgCustom,
+        metadata: sourcesMetadata[layer.key],
+      }
+      break
+    }
+
+    case ForestSource.Agreement: {
+      let imgAddition = Image(0)
+
+      layer.options.agreement.layers.forEach(function (source) {
+        const asset = getForestAssetData(source)
+        imgAddition = imgAddition.add(asset.img.unmask())
+      })
+
+      asset = {
+        img: imgAddition.mask(imgAddition.gte(layer.options.agreement.gteAgreementLevel)),
+        metadata: sourcesMetadata[layer.key],
       }
       break
     }
@@ -103,26 +134,5 @@ export const getForestAssetData = (
       return null
   }
 
-  if (onlyProtected) {
-    const imgNationalProtectedArea = Image('users/projectgeffao/World/PAs_WDPA_image_Bin_30m_World')
-    asset.img = asset.img.mask(imgNationalProtectedArea.eq(1))
-  }
   return asset
-}
-
-export const getForestAgreementAssetData = (
-  sourceLayers: Array<ForestSource>,
-  gteHansenTreeCoverPerc = 10,
-  gteAgreementLevel = 1
-): { img: Image } => {
-  let imgAddition = Image(0)
-
-  sourceLayers.forEach(function (source) {
-    const asset = getForestAssetData(source, gteHansenTreeCoverPerc)
-    imgAddition = imgAddition.add(asset.img.unmask())
-  })
-
-  return {
-    img: imgAddition.mask(imgAddition.gte(Number(gteAgreementLevel))),
-  }
 }

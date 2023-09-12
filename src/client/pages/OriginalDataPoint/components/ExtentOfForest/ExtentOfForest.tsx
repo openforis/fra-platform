@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment/originalDataPoint'
+import { ODPs, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import DefinitionLink from '@client/components/DefinitionLink'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import DefinitionLink from 'client/components/DefinitionLink'
 
 import ExtentOfForestRow from './ExtentOfForestRow'
 
@@ -25,9 +25,13 @@ const ExtentOfForest: React.FC<Props> = (props) => {
     t,
     i18n: { language },
   } = useTranslation()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+
+  const nationalClassValidations = nationalClasses.map((_, index) =>
+    ODPs.validateNationalClass(originalDataPoint, index)
+  )
 
   return (
     <div className="odp__section">
@@ -68,7 +72,9 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.class')}</th>
                 <th className="fra-table__header-cell fra-table__divider">{t('nationalDataPoint.area')}</th>
                 <th className="fra-table__header-cell">{t('fraClass.forest')}</th>
-                <th className="fra-table__header-cell">{t('fraClass.otherWoodedLand')}</th>
+                <th className="fra-table__header-cell">
+                  {t(`${cycle.name === '2025' ? 'fra.extentOfForest.otherWoodedLand' : 'fraClass.otherWoodedLand'}`)}
+                </th>
                 <th className="fra-table__header-cell">
                   {t(`${cycle.name === '2025' ? 'fra.extentOfForest.remainingLandArea' : 'fraClass.otherLand'}`)}
                 </th>
@@ -80,6 +86,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
+                  nationalClassValidation={nationalClassValidations[index]}
                 />
               ))}
 

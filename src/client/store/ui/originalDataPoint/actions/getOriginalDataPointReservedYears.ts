@@ -1,21 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CycleParams } from '@meta/api/request'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleParams } from 'meta/api/request'
+import { ODPReservedYear } from 'meta/assessment'
 
-export const getOriginalDataPointReservedYears = createAsyncThunk<Array<number>, CycleParams>(
+export const getOriginalDataPointReservedYears = createAsyncThunk<Array<ODPReservedYear>, CycleParams>(
   'originalDataPoint/get/reservedYears',
   async ({ countryIso, assessmentName, cycleName }) => {
-    const {
-      data: { years },
-    }: { data: { years: number[] } } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(), {
+    const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(), {
       params: {
         countryIso,
         assessmentName,
         cycleName,
       },
     })
-    return years
+    return data.sort((a: ODPReservedYear, b: ODPReservedYear) => a.year - b.year)
   }
 )

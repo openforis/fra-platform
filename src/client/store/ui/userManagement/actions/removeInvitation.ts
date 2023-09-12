@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { CountryIso } from '@meta/area'
-import { RoleName, UserRole } from '@meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { RoleName, UserRole } from 'meta/user'
 
 type Params = { cycleName: string; assessmentName: string; countryIso: CountryIso; invitationUuid: string }
 

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Lang, LanguageCodes } from '@meta/lang'
+import { Lang, LanguageCodes } from 'meta/lang'
 
 const LanguageSelectorMobile: React.FC = () => {
   // const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ const LanguageSelectorMobile: React.FC = () => {
         <button
           key={lang}
           className={classNames('btn', 'btn-xs')}
-          disabled={i18n.language === lang}
+          disabled={i18n.resolvedLanguage === lang}
           // onClick={() => dispatch(AppActions.switchLanguage(lang))}
           type="button"
         >

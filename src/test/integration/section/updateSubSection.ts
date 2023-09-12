@@ -1,10 +1,10 @@
-import { AssessmentController } from '@server/controller/assessment'
-import { MetadataController } from '@server/controller/metadata'
-import { UserController } from '@server/controller/user'
+import { AssessmentController } from 'server/controller/assessment'
+import { MetadataController } from 'server/controller/metadata'
+import { UserController } from 'server/controller/user'
 
-import { assessmentParams } from '@test/integration/mock/assessment'
-import { subSectionParams } from '@test/integration/mock/section'
-import { userMockTest } from '@test/integration/mock/user'
+import { assessmentParams } from 'test/integration/mock/assessment'
+import { subSectionParams } from 'test/integration/mock/section'
+import { userMockTest } from 'test/integration/mock/user'
 
 export default () => {
   return test('Expect section to be updated', async () => {
@@ -12,14 +12,15 @@ export default () => {
       email: userMockTest.email,
     })
 
-    const assessment = await AssessmentController.getOne({
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessmentParams.props.name,
+      cycleName: '2020',
     })
 
     const subSection = await MetadataController.createSubSection({
       assessment,
       user,
-      section: subSectionParams,
+      section: subSectionParams(cycle.uuid),
       parentSectionId: 1,
     })
 

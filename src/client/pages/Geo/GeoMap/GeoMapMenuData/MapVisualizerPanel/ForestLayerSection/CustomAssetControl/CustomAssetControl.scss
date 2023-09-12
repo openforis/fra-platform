@@ -1,0 +1,78 @@
+@import 'src/client/style/partials';
+@import 'src/client/styles/spinner';
+@import 'src/client/styles/config';
+@import 'src/client/styles/buttons';
+
+.custom-input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.custom-input-container input[type='text'] {
+  flex: 1;
+  width: 100%;
+  padding-right: 0px;
+}
+
+.custom-input-container button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 100%;
+  border: none;
+}
+
+.custom-asset-list-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  padding: 6px 0 6px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.custom-asset-list-element-bottom {
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  width: 100%;
+  border-bottom: 1px solid $ui-border;
+}
+
+.custom-asset-item-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 190px;
+  height: 100%;
+  white-space: pre-line;
+  margin: auto auto auto 0px;
+  padding-top: 3px;
+  > div {
+    height: 100%;
+    vertical-align: middle;
+    > p {
+      font-size: $font-m;
+      text-justify: left;
+      font-weight: bold;
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
+}
+
+.custom-asset-list-element-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > .fra-checkbox {
+    margin: 0 10px 0 5px;
+    cursor: pointer;
+  }
+  > .failed {
+    border-color: $ui-destructive;
+  }
+}

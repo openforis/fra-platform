@@ -1,7 +1,47 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const countryComments = require('./countryComments')
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const _2020 = require('./2020')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const _2025 = require('./2025')
+
 module.exports = {
+  2020: _2020,
+  2025: _2025,
+
+  // assessment labels
+  labels: {
+    short: 'panEuropean',
+  },
+
   countryComments,
+  // ...TODO: Move all reasonability checks out to a separate file
+  reasonabilityChecks: {
+    reasonabilityCheck: 'Reasonableness check',
+    description:
+      'This section is to help national correspondents and reviewers verify data correctness and consistency across different reporting tables. It is non-editable and will not be published.',
+    variable: 'Variable - Year',
+    forest: 'Forest',
+    FAWS: 'FAWS',
+    OWL: 'OWL',
+    FOWL: 'FOWL',
+
+    netAnnualIncrementPerHa: 'Net annual increment per ha (3.1/1.1a) - {{year}}',
+    fellingsPerHa: 'Fellings per ha (3.1/1.1a) - {{year}}',
+    fellingsAsPct: 'Fellings as percent of net annual increment (3.1) - {{year}}',
+    roundwoodRemovalAsPctOfGrowingStockSupply:
+      'Roundwood removals as percent of growing stock on Forest available for wood supply (3.2 / 1.2a) - {{year}}',
+    roundwoodRemovalAsPctOfGrowingStockTotal:
+      'Roundwood removals as percent of growing stock on Forest and Other wooded land (3.2 / 1.2a) - {{year}}',
+    growingStockPerHa: 'Growing stock per hectar (1.2a/1.1a) - {{year}}',
+    carbonBelowByCarbonAbove: 'Carbon in below-ground biomass/ Carbon in above-ground biomass (1.4a) - {{year}}',
+    carbonAboveByGrowingStock: 'Carbon in above-ground biomass/ growing stock (1.4a/1.2a) - {{year}}',
+    soilCarbon: 'Soil carbon (1.4a/1.1a) - {{year}}',
+    deadwoodVolumeComparedToCarbon: 'Dead wood: volume compared to carbon stock (4.5/1.4a) - {{year}}',
+    totalWithDamageOverTotal: 'Area with damage as a share of Total forest area (2.4/1.1a) - {{year}}',
+  },
+
   panEuCommentsTitle: 'Additional Comments',
   panEuropeanAssessment: 'Joint pan-European dataset',
   variable: 'Variable',
@@ -9,21 +49,22 @@ module.exports = {
     link: 'Joint FOREST EUROPE / UNECE / FAO reporting on pan-European indicators for SFM : FOREST EUROPE',
   },
   home: {
+    title: 'Joint Pan-European Data Collection',
     description1:
-      'This dataset consists of information provided by the National Correspondents in response to the joint FOREST EUROPE, UNECE, FAO questionnaire on the quantitative pan-European indicators for sustainable forest management.',
-    description2: `The pan-European reporting 2020 was carried out in parallel to FRA 2020. Although separate processes, some variables appear in both. Please note, however, that this platform presents pan-European dataset as collected until June 2019 and may not reflect updates made in consultation with the national correspondents at the later stages, e.g. for the elaboration of the`,
-    stateOfEuropeForest: `State of Europe's Forests 2020`,
-    description3: `report.`,
+      'This platform provides comprehensive information on forests and the environmental, economic, and social dimensions of sustainable forest management in the Pan-European region (FOREST EUROPE signatory countries).',
+    description2: `The Joint Pan-European Data Collection is the joint initiative by UNECE, FAO, and FOREST EUROPE, carried out in parallel to the FAO Global Forest Resources Assessment (FRA).`,
   },
   disclaimer: {
     platformDeveloped: `This platform was developed jointly by`,
     fao: 'FAO',
     unece: 'UNECE',
-    technicalSupport: 'with the technical support from',
+    technicalSupport: 'with the technical support of',
     and: 'and',
     forestEurope: 'FOREST EUROPE',
     govSwitzerland: 'Government of Switzerland',
-    part1: 'The website has been produced with the assistance of the',
+    part1: 'The website has been produced with the assistance of the governments of',
+    sweden: 'Sweden',
+    switzerland: 'Switzerland',
   },
 
   // navigation
@@ -39,9 +80,11 @@ module.exports = {
   // table 1.1a
   forestArea: {
     forestArea: 'Forest area',
+    forestAreaNumber: 'I. Forest area',
+    forestAreaByForestTypeNumber: 'II. Forest area by forest type',
     categoryYear: 'Category - Year',
     area: 'Area',
-    area1000Ha: 'Area (1000 ha)',
+    area1000Ha: 'Area (1 000 ha)',
     forest: 'Forest - {{year}}',
     _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',
@@ -55,7 +98,7 @@ module.exports = {
   forestAreaByForestTypes: {
     forestAreaByForestTypes: 'Forest area by forest types',
     category: 'Category',
-    forestArea1000Ha: 'Forest area (1000 ha)',
+    forestArea1000Ha: 'Forest area (1 000 ha)',
     predominantly_coniferous_forest: 'Predominantly coniferous forest',
     predominantly_broadleaved_forest: 'Predominantly broadleaved forest',
     mixed_forest: 'Mixed forest',
@@ -69,6 +112,9 @@ module.exports = {
 
   // table 1.2a
   growingStock: {
+    growingStockNumber: 'I. Growing stock',
+    growingStockByForestTypeNumber: 'II. Growing stock by forest type',
+    growingStockCompositionNumber: 'III. Growing stock composition',
     growingStock: 'Growing stock',
     categoryYear: 'Category - Year',
     growingStockMillionM3OB: 'Growing stock (million m³ over bark)',
@@ -80,6 +126,9 @@ module.exports = {
     _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',
     total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+    total_forest_and_other_wooded_land_only: 'Total forest and other wooded land',
+    of_which_available_for_wood_supply_only: 'of which available for wood supply',
+    other_wooded_land_only: 'Other wooded land',
   },
 
   // table 1.2b
@@ -131,6 +180,9 @@ module.exports = {
   // table 1.3a1
   ageClassDistributionAreaOfEvenAgedStands: {
     ageClassDistributionAreaOfEvenAgedStands: 'Age class distribution (area of even-aged stands)',
+    ageClassDistributionAreaOfEvenAgedStandsNumber: 'I. Age class distribution (area of even-aged stands)',
+    ageClassDistributionNumber:
+      'II. Age class distribution (volume of even-aged stands) in forest available for wood supply',
     categoryYear: 'Category - Year',
     developmentPhases: 'Development phases',
     total_area: 'Total area',
@@ -138,11 +190,19 @@ module.exports = {
     intermediate_phase: 'Intermediate phase',
     mature_phase: 'Mature phase',
     unspecified: 'Unspecified',
-    _1000Ha: '1000 ha',
-    forest_even_aged_stands_of_which: 'Forest (even-aged stands), of which: - {{year}}',
-    available_for_wood_supply_of_which: 'Available for wood supply, of which: - {{year}}',
-    predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
-    predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
+    _1000Ha: '1 000 ha',
+    forest: 'Forest',
+    forest_even_aged: 'Forest (even-aged stands)',
+    forest_uneven_aged: 'Forest (uneven-aged stands)',
+    available_for_wood_supply: 'Available for wood supply',
+    predominantly_coniferous_FAWS: 'Predominantly coniferous FAWS',
+    predominantly_broadleaved_FAWS: 'Predominantly broadleaved FAWS',
+    mixed: 'Mixed forest',
+    forest_available_even_aged: 'Forest available for wood supply (even-aged stands)',
+    forest_even_aged_stands_of_which: 'Forest (even-aged stands): - {{year}}',
+    available_for_wood_supply_of_which: 'Available for wood supply: - {{year}}',
+    predominantly_coniferous_forest: 'Predominantly coniferous FAWS - {{year}}',
+    predominantly_broadleaved_forest: 'Predominantly broadleaved FAWS - {{year}}',
     mixed_forest: 'Mixed forest - {{year}}',
   },
 
@@ -157,11 +217,11 @@ module.exports = {
     intermediate_phase: 'Intermediate phase',
     mature_phase: 'Mature phase',
     unspecified: 'Unspecified',
-    _1000M3: '1000 m³',
+    _1000M3: '1 000 m³',
     forest_available_for_wood_supply_even_aged_stands_of_which:
-      'Forest available for wood supply (even-aged stands), of which: - {{year}}',
-    predominantly_coniferous_forest: 'Predominantly coniferous forest - {{year}}',
-    predominantly_broadleaved_forest: 'Predominantly broadleaved forest - {{year}}',
+      'Forest available for wood supply (even-aged stands): - {{year}}',
+    predominantly_coniferous_forest: 'Predominantly coniferous FAWS - {{year}}',
+    predominantly_broadleaved_forest: 'Predominantly broadleaved FAWS - {{year}}',
     mixed_forest: 'Mixed forest - {{year}}',
   },
 
@@ -169,14 +229,15 @@ module.exports = {
   diameterDistributionAndTotalAreaUnevenAgedStands: {
     diameterDistributionAndTotalAreaUnevenAgedStands: 'Diameter distribution and total area (uneven-aged stands)',
     categoryYear: 'Category - Year',
-    volumeByDiameterClasses1000mob: 'Volume by diameter classes',
-    area: 'Area (1000 ha)',
-    total_volume: 'Total volume (1000 m³ over bark)',
-    less_or_equal_20_cm: '<20 cm (1000 m³ over bark)',
-    _21_40_cm: '21-40 cm (1000 m³ over bark)',
-    _41_60_cm: '41-60 cm (1000 m³ over bark)',
-    greater_60_cm: '>60 cm (1000 m³ over bark)',
-    unspecified: 'Unspecified (1000 m³ over bark)',
+    volumeByDiameterClasses1000mob: 'Volume by diameter classes (1 000 m³ over bark)',
+    area: 'Area (1 000 ha)',
+    total_volume: 'Total volume (1 000 m³ over bark)',
+    less_or_equal_20_cm: '<20 cm',
+    _21_40_cm: '21-40 cm',
+    _41_60_cm: '41-60 cm',
+    greater_60_cm: '>60 cm',
+    unspecified: 'Unspecified',
+    forest: 'Forest',
     forest_uneven_aged_stands: 'Forest uneven-aged stands - {{year}}',
     _of_which_forest_available_for_wood_supply: '... of which: Forest available for wood supply - {{year}}',
   },
@@ -184,19 +245,22 @@ module.exports = {
   // table 1.4a
   carbonStock: {
     carbonStock: 'Carbon stock',
+    carbonStockNumber: 'I. Carbon stock',
+    carbonStockInHarvestedWoodProductsHWPNumber: 'II. Carbon stock in harvested wood products (HWP)',
     categoryYear: 'Category - Year',
     carbonInAboveGroundAndBelowGroundLivingBiomass: 'Carbon in above-ground and below-ground living biomass',
     carbonInDeadwoodAndLitter: 'Carbon in deadwood and litter',
     above_ground: 'Carbon in above-ground living biomass',
-    aboveGround: 'Above-ground',
+    aboveGround: 'Above-ground biomass',
     below_ground: 'Carbon in below-ground living biomass',
-    belowGround: 'Below-ground',
+    belowGround: 'Below-ground biomass',
     deadwood: 'Carbon in deadwood',
     deadwoodCarbon: 'Deadwood',
     litter: 'Carbon in litter',
     litterCarbon: 'Litter',
     soil_carbon: 'Soil carbon',
     millionMetricTonnes: 'Million metric tonnes',
+    carbonMillionMetricTonnes: 'Forest Carbon (million metric tonnes)',
     forest: 'Forest - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',
     total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
@@ -215,14 +279,21 @@ module.exports = {
   forestAreaWithDamage: {
     forestAreaWithDamage: 'Forest area with damage',
     categoryYear: 'Category - Year',
+    areaDamageExcFire: 'Area with damage by different agents (excluding fire)',
+    areaDamageExcFireHa: 'Area with damage by different agents (excluding fire) (1 000ha)',
     areaWithDamageByDifferentAgents: 'Area with damage by different agents',
+    total: 'Total',
     primarilyDamagedByBioticAgents: 'Primarily damaged by biotic agents',
     damagePrimarilyHumanInduced: 'Damage primarily human induced',
     primarilyDamagedByFire: 'Primarily damaged by fire',
-    thousandHa: '1000 ha',
+    primarilyDamagedByFireHa: 'Primarily damaged by fire (1 000ha)',
+    thousandHa: '1 000 ha',
+    affectedThousandHa: 'Forest area affected (1 000 ha)',
     total_area_with_damage: 'Total area with damage',
     insects_and_disease: 'Biotic agents: Insects and disease',
     insectsAndDisease: 'Insects and disease',
+    disease: 'Disease',
+    insects: 'Insects',
     wildlife_and_grazing: 'Biotic agents: Wildlife and grazing',
     wildlifeAndGrazing: 'Wildlife and grazing',
     forest_operations: 'Human induced: Forest operations',
@@ -234,8 +305,8 @@ module.exports = {
     primarily_damaged_by_fire_total: 'Fire: Total',
     primarilyDamagedByFireTotal: 'Total',
     of_which_human_induced: 'Fire: Of which human induced',
-    ofWhichHumanInduced: 'of which human induced',
-    unspecified_mixed_damage: 'Unspecified / Mixed damage',
+    ofWhichHumanInduced: '... of which: human induced',
+    unspecifiedMixedDamage: 'Unspecified / Mixed damage',
     forest: 'Forest - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',
     total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
@@ -245,19 +316,28 @@ module.exports = {
   areaWithForestLandDegradation: {
     areaWithForestLandDegradation: 'Area with forest land degradation',
     categoryYear: 'Category - Year',
-    totalAreaOfDegradedLand: 'Total area of degraded land',
-    areaPrimarilyDegradedBy: 'Area primarily degraded by',
-    formerDegradedLandRestored: 'Former degraded land restored',
+    totalAreaOfDegradedLand: 'Total area of degraded land (1 000 ha)',
+    totalAreaOfDegradedLand2025: 'Total degraded forest area (1 000 ha)',
+    areaPrimarilyDegradedBy: 'Area primarily degraded by (1 000 ha)',
+    formerDegradedLandRestored: 'Former degraded land restored (1 000 ha)',
     grazing: 'Grazing',
+    agentOne: '',
+    agentTwo: '',
+    agentThree: '',
+    agentFour: '',
+    agentFive: '',
     repeatedFires: 'Repeated fires',
     airPollution: 'Air pollution',
     desertification: 'Desertification',
     other1: 'Other 1',
     other2: 'Other 2',
     other3: 'Other 3',
-    unknown: 'Unknown',
+    unknownMixedDegradation: 'Unknown / Mixed degradation',
+    unknownMixedDegradation2025: 'Unknown agent / Mixed degradation (specify in comments)',
     nA: '',
-    thousandHa: '1000 ha',
+    agentName: '',
+    writeName: 'Write Agent Name...',
+    thousandHa: '1 000 ha',
     forest: 'Forest - {{year}}',
     other_wooded_land: 'Other wooded land - {{year}}',
     total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
@@ -273,10 +353,11 @@ module.exports = {
 
   // table 3.1
   incrementAndFellings: {
+    incrementAndFellingsVolume1000mob: 'Increment and fellings volume (1 000 m³ over bark)',
     incrementAndFellings: 'Increment and fellings',
     categoryYear: 'Category - Year',
     fellings: 'Fellings',
-    volume1000mob: 'Volume (1000 m³ over bark)',
+    volume1000mob: 'Volume (1 000 m³ over bark)',
     gross_annual_increment: 'Gross annual increment',
     natural_losses: 'Natural losses',
     net_annual_increment: 'Net annual increment',
@@ -296,26 +377,35 @@ module.exports = {
     total: 'Total',
     industrialRoundwood: 'Industrial roundwood',
     woodfuel: 'Woodfuel',
-    volume1000M3UB: 'Volume (1000 m³ under bark)',
-    marketValue1000NationalCurrency: 'Market Value (1000  national currency)',
+    volume1000M3UB: 'Volume (1 000 m³ under bark)',
+    marketValue1000NationalCurrency: 'Market Value (1 000  national currency)',
     roundwood: 'Roundwood - {{year}}',
-    total_volume: 'Total: Volume (1000 m³ under bark)',
-    industrial_roundwood_volume: 'Industrial roundwood: Volume (1000 m³ under bark)',
-    industrial_roundwood_market_value: 'Industrial roundwood: Market Value (1000  national currency)',
-    woodfuel_volume: 'Woodfuel: Volume (1000 m³ under bark)',
-    woodfuel_market_value: 'Woodfuel: Market Value (1000  national currency)',
+    total_volume: 'Total: Volume (1 000 m³ under bark)',
+    industrial_roundwood_volume: 'Industrial roundwood: Volume (1 000 m³ under bark)',
+    industrial_roundwood_market_value: 'Industrial roundwood: Market Value (1 000  national currency)',
+    woodfuel_volume: 'Woodfuel: Volume (1 000 m³ under bark)',
+    woodfuel_market_value: 'Woodfuel: Market Value (1 000  national currency)',
+  },
+
+  nonWoodGoods: {
+    nonWoodGoods: 'Non-wood goods',
+  },
+
+  marketedServices: {
+    marketedServices: 'Marketed services',
   },
 
   // table 3.3
   nonWoodGoods2015: {
     nonWoodGoods2015: 'Non-wood goods (2015)',
+    nonWoodGoods: 'Non-wood goods',
     rankValue: 'Rank (value)',
     nameOfGroupsOfProduct: 'Name of (groups of) product',
     keySpecies: 'Key species',
     totalHarvestedNonWoodGoods: 'Total harvested non-wood goods',
     unit: 'Unit',
     quantity: 'Quantity',
-    marketValue1000NationalCurrency: 'Market value (1000 national currency)',
+    marketValue1000NationalCurrency: 'Market value (1 000 national currency)',
     nwfpCategory: 'NWFP category',
     _01st: '1st Rank (value)',
     _02nd: '2nd Rank (value)',
@@ -334,20 +424,21 @@ module.exports = {
     key_species: 'Key species',
     total_harvested_non_wood_goods_unit: 'Total harvested non-wood goods: Unit',
     total_harvested_non_wood_goods_quantity: 'Total harvested non-wood goods: Quantity',
-    market_value_1000_national_currency: 'Market value (1000 national currency)',
+    market_value_1000_national_currency: 'Market value (1 000 national currency)',
     nwfp_category: 'NWFP category',
   },
 
   // table 3.4
   marketedServices2015: {
     marketedServices2015: 'Marketed services (2015)',
+    marketedServices: 'Marketed services',
     rankValue: 'Rank (value)',
     nameOfServiceProduct: 'Name of service/product',
     unit: 'Unit',
     serviceProvision: 'Service provision',
     forestServiceCategory: 'Forest service category',
     amountOfServiceProduct: 'Amount of service/product',
-    value1000NationalCurrency: 'Value (1000 national currency)',
+    value1000NationalCurrency: 'Value (1 000 national currency)',
     _01st: '1st Rank (value)',
     _02nd: '2nd Rank (value)',
     _03rd: '3rd Rank (value)',
@@ -362,7 +453,7 @@ module.exports = {
     total: 'Total',
     name_of_service_product: 'Name of service/product',
     service_provision_amount_of_service_product: 'Service provision: Amount of service/product',
-    service_provision_value_1000_national_currency: 'Service provision: Value (1000 national currency)',
+    service_provision_value_1000_national_currency: 'Service provision: Value (1 000 national currency)',
     forest_service_category: 'Forest service category',
   },
 
@@ -370,7 +461,7 @@ module.exports = {
   treeSpeciesComposition: {
     treeSpeciesComposition: 'Tree species composition',
     categoryYear: 'Category - Year',
-    areaWithNumberOfTreeSpeciesOccurring1000ha: 'Area with number of tree species occurring (1000 ha)',
+    areaWithNumberOfTreeSpeciesOccurring1000ha: 'Area with number of tree species occurring (1 000 ha)',
     area_with_number_of_tree_species_occurring_1: 'Area with number of tree species occurring: 1',
     areaWithNumberOfTreeSpeciesOccurring1: '1',
     area_with_number_of_tree_species_occurring_2_3: 'Area with number of tree species occurring: 2-3',
@@ -387,12 +478,15 @@ module.exports = {
   // table 4.2a
   totalForestAreaByExpansionAndRegenerationType: {
     totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
+    totalForestAreaByExpansionAndRegenerationTypeNumber: 'I. Total forest area by expansion and regeneration type',
+    annualForestExpansionAndRegenerationNumber: 'II. Annual forest expansion and regeneration',
     categoryYear: 'Category - Year',
-    totalAreaOfForestByExpansionRegenerationType1000ha: 'Total area of forest by expansion/regeneration type (1000 ha)',
+    totalAreaOfForestByExpansionRegenerationType1000ha:
+      'Total area of forest by expansion/regeneration type (1 000 ha / year)',
     natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
     afforestation_and_regeneration_by_planting_and_or_seeding:
       'Afforestation and regeneration by planting and/or seeding',
-    coppice: 'Coppice',
+    coppice: '... of which: Coppice',
     forest: 'Forest - {{year}}',
   },
 
@@ -400,7 +494,7 @@ module.exports = {
   annualForestExpansionAndRegeneration: {
     annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
     categoryYear: 'Category - Year',
-    annualForestExpansionAndRegeneration1000ha: 'Annual forest expansion and regeneration (1000 ha)',
+    annualForestExpansionAndRegeneration1000ha: 'Annual forest expansion and regeneration (1 000 ha / year)',
     expansionOfForestArea: 'Expansion of forest area',
     regenerationOfForestArea: 'Regeneration of forest area',
     afforestation: 'Expansion: Afforestation',
@@ -419,8 +513,10 @@ module.exports = {
   // table 4.3a
   naturalness: {
     naturalness: 'Naturalness',
+    naturalnessNumber: 'I. Naturalness',
+    naturalnessBySubclassNumber: 'II. Naturalness by subclass',
     categoryYear: 'Category - Year',
-    area1000ha: 'Area (1000 ha)',
+    area1000ha: 'Area (1 000 ha)',
     undisturbed_by_man: 'Undisturbed by man',
     semi_natural: 'Semi-natural',
     plantations: 'Plantations',
@@ -433,7 +529,7 @@ module.exports = {
   naturalnessBySubclasses: {
     naturalnessBySubclasses: 'Naturalness by subclasses',
     categoryYear: 'Category - Year',
-    area1000ha: 'Area (1000 ha)',
+    area1000ha: 'Area (1 000 ha)',
     semiNatural: 'Semi-natural',
     plantations: 'Plantations',
     naturally_established: 'Semi-natural: Naturally established',
@@ -456,11 +552,16 @@ module.exports = {
   // table 4.4a
   introducedTreeSpecies: {
     introducedTreeSpecies: 'Area of stands dominated by introduced tree species',
+    introducedTreeSpeciesNumber: 'I. Area of stands dominated by introduced tree species',
+    introducedTreeSpecies4_4bNumber: 'II. Introduced tree species',
+    invasiveTreeSpeciesNumber: 'III. Invasive tree species',
     categoryYear: 'Category - Year',
-    areaOfStandsDominatedByIntroducedTreeSpecies1000ha: 'Area of stands dominated by introduced tree species (1000 ha)',
+    areaOfStandsDominatedByIntroducedTreeSpecies1000ha:
+      'Area of stands dominated by introduced tree species (1 000 ha)',
     total: 'Total',
     _of_which_invasive: '… of which: invasive',
     forest: 'Forest - {{year}}',
+    forest_only: 'Forest',
     other_wooded_land: 'Other wooded land - {{year}}',
     total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
   },
@@ -470,7 +571,7 @@ module.exports = {
     introducedTreeSpecies4_4b: 'Introduced tree species',
     category: 'Category',
     scientificNameOfIntroducedTreeSpecies: 'Scientific name of introduced tree species',
-    forestAreaOccupied1000Ha: 'Forest area occupied (1000 ha)',
+    forestAreaOccupied1000Ha: 'Forest area occupied (1 000 ha)',
     _01: 'Introduced tree species 1',
     _02: 'Introduced tree species 2',
     _03: 'Introduced tree species 3',
@@ -492,9 +593,9 @@ module.exports = {
     _19: 'Introduced tree species 19',
     _20: 'Introduced tree species 20',
     scientific_name_of_introduced_tree_species: 'Scientific name of introduced tree species',
-    forest_area_occupied_2005: 'Forest area occupied (1000 ha) - 2005',
-    forest_area_occupied_2010: 'Forest area occupied (1000 ha) - 2010',
-    forest_area_occupied_2015: 'Forest area occupied (1000 ha) - 2015',
+    forest_area_occupied_2005: 'Forest area occupied (1 000 ha) - 2005',
+    forest_area_occupied_2010: 'Forest area occupied (1 000 ha) - 2010',
+    forest_area_occupied_2015: 'Forest area occupied (1 000 ha) - 2015',
   },
 
   // table 4.4c
@@ -502,7 +603,7 @@ module.exports = {
     invasiveTreeSpecies: 'Invasive tree species',
     category: 'Category',
     scientificNameOfInvasiveTreeSpecies: 'Scientific name of invasive tree species',
-    forestAreaAffected1000Ha: 'Forest area affected (1000 ha)',
+    forestAreaAffected1000Ha: 'Forest area affected (1 000 ha)',
     _01: 'Invasive tree species 1',
     _02: 'Invasive tree species 2',
     _03: 'Invasive tree species 3',
@@ -524,9 +625,9 @@ module.exports = {
     _19: 'Invasive tree species 19',
     _20: 'Invasive tree species 20',
     scientific_name_of_invasive_tree_species: 'Scientific name of invasive tree species',
-    forest_area_affected_2005: 'Forest area affected (1000 ha) - 2005',
-    forest_area_affected_2010: 'Forest area affected (1000 ha) - 2010',
-    forest_area_affected_2015: 'Forest area affected (1000 ha) - 2015',
+    forest_area_affected_2005: 'Forest area affected (1 000 ha) - 2005',
+    forest_area_affected_2010: 'Forest area affected (1 000 ha) - 2010',
+    forest_area_affected_2015: 'Forest area affected (1 000 ha) - 2015',
   },
 
   // table 4.5
@@ -550,6 +651,7 @@ module.exports = {
     threatenedForestSpecies: 'Threatened forest species',
     categoryYear: 'Category - Year',
     threatenedForestSpeciesCol: 'Threatened forest species',
+    threatenedForestSpeciesColAbs: 'Forest Species (Absolute Number)',
     absoluteNumber: 'Absolute number',
     total_of_taxa: 'Total of taxa',
     vulnerable: 'Vulnerable',
@@ -569,7 +671,7 @@ module.exports = {
   protectedForests: {
     protectedForests: 'Protected forests',
     categoryYear: 'Category - Year',
-    ha1000: '1000 ha',
+    ha1000: 'Area (1 000 ha)',
     mcpfe_class_1_1: 'MCPFE Class 1.1',
     mcpfe_class_1_2: 'MCPFE Class 1.2',
     mcpfe_class_1_3: 'MCPFE Class 1.3',
@@ -584,7 +686,7 @@ module.exports = {
     protectiveForestsSoilWaterAndOtherEcosystemFunctions:
       'Protective forests – soil, water and other ecosystem functions; infrastructure and managed natural resources',
     categoryYear: 'Category - Year',
-    protectiveForestsMCPFEClass31000ha: 'Protective forests - MCPFE Class 3 (1000 ha)',
+    protectiveForestsMCPFEClass31000ha: 'MCPFE Class 3 Area (1 000 ha)',
     soil_water_and_other_forest_ecosystem_functions: 'Soil, water and other forest ecosystem functions',
     infrastructure_and_managed_natural_resources: 'Infrastructure and managed natural resources',
     total: 'Total',
@@ -601,19 +703,23 @@ module.exports = {
     less10ha: '≤ 10 ha',
     _11_500ha: '11 - 500 ha',
     more500ha: '≥ 500 ha',
-    total_forest_area: 'Total forest area (1000 ha)',
+    total_forest_area: 'Total forest area (1 000 ha)',
     total_number_of_holdings: 'Total number of holdings',
-    less_10_ha_area: '≤ 10 ha: Area (1000 ha)',
+    less_10_ha_area: '≤ 10 ha: Area (1 000 ha)',
     less_10_ha_number: '≤ 10 ha: Number of holdings',
-    _11_500_ha_area: '11 - 500 ha: Area (1000 ha)',
+    _11_500_ha_area: '11 - 500 ha: Area (1 000 ha)',
     _11_500_ha_number: '11 - 500 ha: Number of holdings',
-    more_500_ha_area: '≥ 500 ha: Area (1000 ha)',
+    more_500_ha_area: '≥ 500 ha: Area (1 000 ha)',
     more_500_ha_number: '≥ 500 ha: Number of holdings',
-    area1000Ha: 'Area (1000 ha)',
+    area1000Ha: 'Area (1 000 ha)',
     numberOfHoldings: 'Number of holdings',
     in_public_ownership: 'In public ownership - {{year}}',
+    public_ownership: 'In public ownership',
     in_private_ownership: 'In private ownership - {{year}}',
+    private_ownership: 'In private ownership',
     other_types_of_ownership_unknown: 'Other types of ownership/unknown - {{year}}',
+    other: 'Other types of ownership/unknown',
+    forest: 'Forest',
   },
 
   // table 6.2
@@ -673,6 +779,7 @@ module.exports = {
 
   // table 6.5a
   employmentByGenderAndAge: {
+    employmentByGenderAge1000p: 'Employment by gender and age (1 000 people)',
     employmentByGenderAndAge: 'Employment by gender and age',
     categoryYear: 'Category - Year',
     total: 'Total',
@@ -682,7 +789,7 @@ module.exports = {
     female: 'Female',
     _15_49: '15-49',
     _50_: '50+',
-    _1000Persons: '1000 persons',
+    _1000Persons: '1 000 people',
     forestry: 'Forestry (ISIC/NACE 02) - {{year}}',
     manufacture_of_wood_and_articles_in_wood: 'Manufacture of wood and articles in wood (ISIC/NACE 16) - {{year}}',
     manufacture_of_paper_and_paper_products: 'Manufacture of paper and paper products (ISIC/NACE 17) - {{year}}',
@@ -701,7 +808,7 @@ module.exports = {
     _0_2: '0-2',
     _3_4: '3-4',
     _5_6: '5-6',
-    _1000Persons: '1000 persons',
+    _1000Persons: '1 000 people',
     education_0_2: 'Education (Categories ISCED 1997): 0-2',
     education_3_4: 'Education (Categories ISCED 1997): 3-4',
     education_5_6: 'Education (Categories ISCED 1997): 5-6',
@@ -721,11 +828,12 @@ module.exports = {
     fatalOccupationalAccidents: 'Fatal occupational accidents',
     nonFatalOccupationalAccidents: 'Non-fatal occupational accidents',
     number: 'Number',
-    annualRatePer1000Workers: 'Annual rate per 1000 workers',
+    annualRatePer1000Workers: 'Annual rate per 1 000 workers',
     fatal_occupational_accidents_number: 'Fatal occupational accidents: Number',
-    fatal_occupational_accidents_per_1000_workers: 'Fatal occupational accidents: Annual rate per 1000 workers',
+    fatal_occupational_accidents_per_1000_workers: 'Fatal occupational accidents: Annual rate per 1 000 workers',
     non_fatal_occupational_accidents_number: 'Non-fatal occupational accidents: Number',
-    non_fatal_occupational_accidents_per_1000_workers: 'Non-fatal occupational accidents: Annual rate per 1000 workers',
+    non_fatal_occupational_accidents_per_1000_workers:
+      'Non-fatal occupational accidents: Annual rate per 1 000 workers',
     forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
   },
 
@@ -733,7 +841,7 @@ module.exports = {
   woodConsumption: {
     woodConsumption: 'Wood consumption',
     category: 'Category',
-    woodConsumption1000M3RWE: 'Wood consumption (1000 m³ round-wood equivalent)',
+    woodConsumption1000M3RWE: 'Wood consumption (1 000 m³ round-wood equivalent)',
     _1992: '1992',
     _1993: '1993',
     _1994: '1994',
@@ -804,7 +912,7 @@ module.exports = {
     totalEnergySupplyFromWood: 'Total energy supply from wood',
     category: 'Category',
     tj: 'TJ',
-    _1000_metric_tonnes_dry_matter: '1000 metric tonnes dry matter',
+    _1000_metric_tonnes_dry_matter: '1 000 metric tonnes dry matter',
     total_primary_energy_supply: 'Total primary energy supply',
     total_renewable_energy_supply: 'Total renewable energy supply',
     total_energy_supply_from_wood: 'Total energy supply from wood:',
@@ -823,25 +931,29 @@ module.exports = {
     tj_2011: '2011: TJ',
     tj_2013: '2013: TJ',
     tj_2015: '2015: TJ',
-    _1000_metric_tonnes_dry_matter_2007: '2007: 1000 metric tonnes dry matter',
-    _1000_metric_tonnes_dry_matter_2009: '2009: 1000 metric tonnes dry matter',
-    _1000_metric_tonnes_dry_matter_2011: '2011: 1000 metric tonnes dry matter',
-    _1000_metric_tonnes_dry_matter_2013: '2013: 1000 metric tonnes dry matter',
-    _1000_metric_tonnes_dry_matter_2015: '2015: 1000 metric tonnes dry matter',
+    _1000_metric_tonnes_dry_matter_2007: '2007: 1 000 metric tonnes dry matter',
+    _1000_metric_tonnes_dry_matter_2009: '2009: 1 000 metric tonnes dry matter',
+    _1000_metric_tonnes_dry_matter_2011: '2011: 1 000 metric tonnes dry matter',
+    _1000_metric_tonnes_dry_matter_2013: '2013: 1 000 metric tonnes dry matter',
+    _1000_metric_tonnes_dry_matter_2015: '2015: 1 000 metric tonnes dry matter',
   },
 
   // table 6.10a
   accessibilityForRecreation: {
     accessibilityForRecreation: 'Accessibility for recreation',
+    accessibilityForRecreationNumber: 'I. Accessibility for recreation',
+    intensityOfUseNumber: 'II. Intensity of use',
+    recreationFacilitiesNumber: 'III. Recreation facilities',
+    otherRecreationFacilitiesNumber: 'IV. Other recreation facilities - pilot reporting (2020)',
     categoryYear: 'Category - Year',
     areaAvailableForPublicRecreation: 'Area available for public recreation',
-    total1000Ha: 'Total (1000 ha)',
+    total1000Ha: 'Area (1 000 ha)',
     _oftotal: '% of total',
     areaPrimarilyDesignatedOrManagedForPublicRecreation: 'Area primarily designated or managed for public recreation',
-    area_available_for_public_recreation_total: 'Area available for public recreation: Total (1000 ha)',
+    area_available_for_public_recreation_total: 'Area available for public recreation: Total (1 000 ha)',
     area_available_for_public_recreation_percent: 'Area available for public recreation: % of total',
     area_designated_or_managed_for_public_recreation_total:
-      'Area primarily designated or managed for public recreation: Total (1000 ha)',
+      'Area primarily designated or managed for public recreation: Total (1 000 ha)',
     area_designated_or_managed_for_public_recreation_percent:
       'Area primarily designated or managed for public recreation: % of total',
     total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
@@ -867,8 +979,8 @@ module.exports = {
     categoryYear: 'Category - Year',
     forestRoadsAndPathsAvailableForPublicRecreation: 'Forest roads and paths available for public recreation',
     _ofWhichDesignatedForHikingBikingCrossCountrySkiingEtc:
-      '... of which designated for hiking, biking, cross country skiing, etc.',
-    facilityLengthIn1000Km: 'Facility (length in 1000 km)',
+      '... of which designated for: hiking, biking, cross country skiing, etc.',
+    facilityLengthIn1000Km: 'Facility (length in 1 000 km)',
     area_available_for_public_recreation: 'Area available for public recreation - {{year}}',
     forest_roads_and_paths_available_for_public_recreation: 'Forest roads and paths available for public recreation',
     _of_which_designated_for_hiking_biking_cross_country_skiing_etc:

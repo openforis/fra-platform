@@ -1,16 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass, ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions } from '@client/store/ui/originalDataPoint'
-import PercentInput from '@client/components/PercentInput'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
+import PercentInput from 'client/components/PercentInput'
+import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -43,7 +46,11 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
+  const validationErrorMessage = useNationalClassValidations({
+    index,
+    originalDataPoint,
+    variable: 'validForestCharacteristicsPercentage',
+  })
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -52,13 +59,17 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
+
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {area && Numbers.format((Number(area) * Number(nationalClass.forestPercent)) / 100)}
       </th>
+
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestCharacteristicsPercentage,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData}
@@ -95,8 +106,10 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestCharacteristicsPercentage,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData}
@@ -133,8 +146,10 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
       <td
         className={classNames('fra-table__cell', {
-          error: !nationalClassValidation.validForestCharacteristicsPercentage,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData}
@@ -174,7 +189,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           <ReviewIndicator
             title={name}
             subtitle={t('nationalDataPoint.forestCharacteristics')}
-            topicKey={`${originalDataPoint.id}-class-${uuid}-forestCharacteristics`}
+            topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'forestCharacteristics')}
           />
         </td>
       )}

@@ -5,16 +5,16 @@ import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentName } from '@meta/assessment'
-import { Users } from '@meta/user'
+import { AssessmentName } from 'meta/assessment'
+import { Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { AssessmentActions, useAssessmentCountry } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
-import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
-import { useRecipients } from '@client/components/PageLayout/Toolbar/Status/useRecipients'
-import UserList from '@client/components/UserList'
+import { useAppDispatch } from 'client/store'
+import { AreaActions, useAssessmentCountry } from 'client/store/area'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
+import { useRecipients } from 'client/components/PageLayout/Toolbar/Status/useRecipients'
+import UserList from 'client/components/UserList'
 
 import { StatusTransition } from './types'
 
@@ -68,7 +68,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
-        {notifyUsers && <UserList readOnly isAdmin={false} users={recipients} />}
+        {notifyUsers && <UserList readOnly users={recipients} />}
       </ModalBody>
 
       <ModalFooter>
@@ -79,7 +79,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           className="btn btn-primary modal-footer__item"
           onClick={() => {
             dispatch(
-              AssessmentActions.updateCountry({
+              AreaActions.updateCountry({
                 notifyUsers,
                 country: {
                   ...country,
@@ -98,7 +98,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           }}
           type="button"
         >
-          {i18n.t('navigation.submit')}
+          {i18n.t('common.submit')}
         </button>
       </ModalFooter>
     </Modal>

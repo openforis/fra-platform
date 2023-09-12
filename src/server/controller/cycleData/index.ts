@@ -1,17 +1,17 @@
-import { DataRepository } from '@server/repository/assessmentCycle/data'
-import { DescriptionRepository } from '@server/repository/assessmentCycle/descriptions'
-import { MessageTopicUserRepository } from '@server/repository/assessmentCycle/messageTopicUser'
-import { OriginalDataPointRepository } from '@server/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
+import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
+import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
+import { clearTableData } from './clearTableData'
 import { createOriginalDataPoint } from './createOriginalDataPoint'
-import { deleteNodeValues } from './deleteNodeValues'
 import { getBulkDownload } from './getBulkDownload'
+import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
-import { getOriginalDataPointReservedYears } from './getOriginalDataPointReservedYears'
+import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
-import { persistNodeValues } from './persistNodeValues'
+import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
 import { removeOriginalDataPoint } from './removeOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { upsertDescription } from './upsertDescription'
@@ -19,21 +19,24 @@ import { upsertDescription } from './upsertDescription'
 export const CycleDataController = {
   // node
   persistNodeValues,
-  deleteNodeValues,
+  persistNodeValuesEstimated,
   // table data
-  getOriginalDataPointData: DataRepository.getOriginalDataPointData,
+  getOriginalDataPointData,
   getTableData,
+  clearTableData,
+  getNodeValuesEstimations,
   // original data points
   createOriginalDataPoint,
   getOriginalDataPoint,
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
-  getOriginalDataPointReservedYears,
+  getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
   updateOriginalDataPoint,
   // review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
   // description
+  getDataSources: DescriptionRepository.getDataSources,
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
   getActivities: ActivityLogRepository.getCycleDataActivities,

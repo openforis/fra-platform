@@ -1,16 +1,16 @@
 const area = require('./en/area')
 const assessmentSection = require('./en/assessmentSection')
-
 const common = require('./en/common')
 const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
 const dataSource = require('./en/dataSource')
 const fra = require('./en/fra')
-const panEuropean = require('./en/panEuropean/panEuropean')
-const statisticalFactsheets = require('./en/statisticalFactsheets')
+const generalValidation = require('./en/generalValidation')
 const login = require('./en/login')
-const uc = require('./en/uc')
+const panEuropean = require('./en/panEuropean/panEuropean')
 const print = require('./en/print')
+const statisticalFactsheets = require('./en/statisticalFactsheets')
+const uc = require('./en/uc')
 
 module.exports.translation = {
   area,
@@ -19,10 +19,12 @@ module.exports.translation = {
   dataDownload,
   dataSource,
   fra,
-  statisticalFactsheets,
+  generalValidation,
   login,
-  uc,
+  panEuropean,
   print,
+  statisticalFactsheets,
+  uc,
 
   page: {
     assessmentSection,
@@ -66,6 +68,7 @@ followed by the boreal, temperate and subtropical domains.`,
     scamAlert: 'Scam Alert',
     reportMisconduct: 'Report Misconduct',
     userGuide: 'User guide',
+    tutorials: 'Tutorials',
     sendFeedback: 'Send feedback',
     licenses: 'Licenses',
     platformVersion: 'Platform version',
@@ -106,6 +109,7 @@ followed by the boreal, temperate and subtropical domains.`,
   definition: {
     definitionLabel: 'See definitions',
     faqLabel: 'FAQ',
+    seeReportingNotes: 'See Reporting Notes',
   },
 
   audit: {
@@ -406,7 +410,6 @@ The FRA team
       sustainableDevelopment: 'Sustainable Development Goal 15',
       panEuropeanIndicators: 'Pan-European Indicators',
     },
-    submit: 'Submit',
     cancel: 'Cancel',
     changeStatusTextPlaceholder: 'Add an optional message',
     doNotNotifyUsers: "Don't notify users",
@@ -478,14 +481,19 @@ The FRA team
     referenceYearData: 'Reference year for the data',
     referenceYear: 'Reference year',
     references: 'References',
-    selectYear: 'Select…',
+    prefill: 'Prefill',
+    prefillWith: 'Prefill with',
+    selectYear: 'Select year',
     methods: 'Methods',
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
     dataSources: 'Data sources',
+    dataSource2025ExplanatoryText:
+      'The data sources listed were reported in FRA 2020. Please copy and paste relevant data sources in table above.',
     additionalComments: 'Additional comments',
     edit: 'Edit',
-    copyPreviousValues: 'Copy previous values',
+    confirmCopyPreviousValues: 'Do you want to override previous values? This operation cannot be undone.',
+    copyPreviousValues: 'Copy previous references',
     nationalClassifications: 'National classifications',
     nationalClass: 'National class',
     nationalClasses: 'Classifications and definitions',
@@ -511,7 +519,7 @@ The FRA team
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
       fullCoverMaps: 'Full-cover forest/vegetation maps',
       registersQuestionnaires: 'Registers/questionnaires',
-      other: 'Other (specify in comments)',
+      other: '$t(common.otherSpecifyInComments)',
     },
     appliesToVariablesOptions: {
       forest: 'Forest',
@@ -527,22 +535,21 @@ The FRA team
     done: 'Done',
     edit: 'Edit',
     editPermissions: 'Edit permissions',
-    email: 'Email',
     formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     info: 'Info',
     insufficientPrivileges: 'Insufficient privileges',
     invitationDeleted: 'The invitation has been deleted',
     invitationEmailSent: 'An invitation email has been sent',
     invitationLink: 'Invitation link',
+    invitationLinkCopied: 'The invitation link has been copied',
+    inviteAgain: 'Invite again',
     loginEmail: 'Login',
     manageCollaborators: 'Manage collaborators',
-    name: 'Name',
     noUsers: 'No collaborators added',
     permissions: 'Permissions',
     personalInfoRequired: 'Please complete your personal information before continuing',
     placeholder: 'Choose…',
     remove: 'Remove',
-    role: 'Role',
     sendInvitation: 'Send invitation email',
     userAdded: '{{email}} has been added',
     userModified: '{{user}} has been modified',
@@ -555,6 +562,8 @@ You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for
 Accept this invitation and access the platform at the following URL:
 {{- link}}
 
+Please access the platform within two weeks after receiving the invitation after that the invitation is invalid. Should you need a new invitation then please contact fra@fao.org.
+
 Happy reporting!
 
 The FRA team fra@fao.org
@@ -566,6 +575,8 @@ You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for
 <br/><br/>
 <b><a href="{{- link}}">Accept this invitation and access the platform</a></b>
 <br/><br/>
+<b>Please access the platform within two weeks after receiving the invitation after that the invitation is invalid. Should you need a new invitation then please contact <a href="mailto:fra@fao.org">fra@fao.org</a>.</b>
+<br /><br />
 Happy reporting!
 <br/><br/>
 The FRA team fra@fao.org
@@ -613,8 +624,9 @@ The FRA team fra@fao.org
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
-    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
-    forestAreaNetChangeDoesNotMatch: "Forest area net change doesn't match expected value: {{value}}",
+    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA {{year}} area: {{previous}}',
+    forestAreaNetChangeDoesNotMatch:
+      'Forest area net change is different from what was reported in table 1a, provide a comment to explain why',
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points',
     whatIsThis: 'What is this?',
@@ -659,7 +671,6 @@ The FRA team fra@fao.org
     annualChangeExtrapolation: 'Annual change',
     placeholderFuture: 'Future',
     placeholderPast: 'Past',
-    clearTable: 'Clear table',
     copyToClipboard: 'Copy values',
     placeholderSelect: 'Estimation and forecasting',
     _1000haYear: '1000 ha/year',
@@ -674,6 +685,7 @@ The FRA team fra@fao.org
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
+    forestAreaNetChangeFrom1a: 'Forest area net change from table 1a',
     netChangeDoesNotMatch: 'Doesn’t match Forest area net change',
   },
 
@@ -706,7 +718,7 @@ The FRA team fra@fao.org
     treesinurbansettings: 'Trees in urban settings',
     total: 'Total',
     otherLandArea: 'Other land area',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
   },
 
   growingStock: {
@@ -781,7 +793,7 @@ The FRA team fra@fao.org
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
     unknown: 'None/unknown',
     totalForestArea: 'Total forest area',
     total: 'Total',
@@ -832,7 +844,7 @@ The FRA team fra@fao.org
     insects: 'Insects',
     diseases: 'Diseases',
     severeWeatherEvents: 'Severe weather events',
-    other: 'Other (specify in comments)',
+    other: '$t(common.otherSpecifyInComments)',
     totalForestArea: 'Total forest area',
     total: 'Total',
   },
@@ -1023,27 +1035,6 @@ The FRA team
     placeholder: 'Choose…',
   },
 
-  generalValidation: {
-    subCategoryExceedsParent: 'Subcategory exceeds parent',
-    forestAreaDoesNotMatchExtentOfForest: "Doesn't match Forest area (1a)",
-    forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
-    otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
-    remainingLandExceedsExtentOfForest: 'Exceeds Remaining land area (1a)',
-    valueMustBePositive: 'Value should be greater than zero',
-    valueMustBeYear: 'Value should be a valid year',
-    emptyField: 'This field is empty',
-    mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
-    countryReportYearGreaterThanCurrentYear: 'Value should be greater or equal than {{minValue}}',
-    valueNotGreaterThan: 'Value should be not greater than {{maxValue}}',
-    sumNotGreaterThan: 'Sum should not exceed {{maxValue}}',
-    valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
-    valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
-    mustBeEqualToPrivateForest: 'Subcategories sum should be equal to Private Ownership',
-    mustBeEqualToForestExpansion: 'Subcategories sum should be equal to Forest Expansion',
-    mustBeEqualToPlantedForest: 'Subcategories sum should be equal to Planted Forest',
-    mustBeEqualToForestArea: 'Naturally regenerating forest + Planted forest must equal to Total Forest',
-  },
-
   emoji: {
     picker: {
       search: 'Search',
@@ -1091,7 +1082,6 @@ The FRA team
     institution: 'Institution',
     position: 'Position',
     done: 'Save',
-    cancel: 'Cancel',
     deactivate: 'Deactivate',
     activate: 'Activate',
     picture1MbMax: 'Profile picture cannot exceed 1MB',
@@ -1099,6 +1089,7 @@ The FRA team
     status: 'Status',
     demoteToUser: 'Are you sure you want to remove Admin privileges?',
     promoteToAdmin: 'Are you sure you want to grant Admin privileges?',
+    mandatoryFields: '* are mandatory fields',
   },
 
   country: {
@@ -1117,9 +1108,10 @@ The FRA team
   admin: {
     admin: 'Admin',
     filter: 'Filter by',
-    language: 'Language',
-    country: 'Country',
     invitationPending: 'Invitation pending',
+    invitationsAcceptedCount: 'No. of Invitations accepted',
+    invitationsSentCount: 'No. of Invitations sent',
+    usersCount: 'No. of Users',
   },
 
   countryMessageBoard: {
@@ -1128,5 +1120,15 @@ The FRA team
     oneToOneMessages: 'One To One Messages',
   },
 
-  panEuropean,
+  tutorial: {
+    watch: 'Watch',
+    passwordLogin: 'The FRA platform user tutorial - How to log in with a self-defined password',
+    googleLogin: 'The FRA platform user tutorial - How to log in using Google authentication',
+    collaboratorAdd: 'The FRA platform user tutorial - How to add a collaborator',
+    platformNavigation: 'The FRA platform user tutorial – Platform navigation',
+    documentUpload: 'The FRA platform user tutorial - How to upload a document',
+    ndpAdd: 'The FRA platform user tutorial - How to add a national data point',
+    passwordLoginShort: 'How to log in with a self-defined password',
+    googleLoginShort: 'How to log in using Google authentication',
+  },
 }

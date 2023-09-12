@@ -1,7 +1,7 @@
 import { Express } from 'express'
 import * as passport from 'passport'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { AuthConfig } from './config'
 import { getGoogleCallback, getGoogleLogin, postLocalLogin } from './login'
@@ -24,7 +24,7 @@ export const AuthApi = {
     express.post(ApiEndPoint.Auth.resetPassword(), postResetPassword)
 
     express.use(function (req, res, next) {
-      passport.authenticate('jwt', { session: false }, function (err, user, info) {
+      passport.authenticate('jwt', { session: false }, function (err: any, user: Express.User, info: any) {
         // If authentication failed, `user` will be set to false. If an exception occurred, `err` will be set.
         if (err) return next(info)
         // eslint-disable-next-line no-param-reassign

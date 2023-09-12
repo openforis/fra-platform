@@ -1,8 +1,8 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { UserAuthProvider } from '@meta/user'
+import { UserAuthProvider } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const create = async <P>(
   props: {

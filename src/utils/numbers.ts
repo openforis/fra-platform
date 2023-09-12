@@ -42,7 +42,7 @@ const applyComparison = (x: BigNumberInput, y: BigNumberInput, comp: BigNumCompa
 const add = (x: BigNumberInput, y: BigNumberInput): BigNumber => applyOperator(x, y, 'plus')
 
 const sum = (array: Array<any>) =>
-  Objects.isEmpty(array) || array.every((v: BigNumber) => !v)
+  Objects.isEmpty(array) || array.every((v: BigNumber) => Objects.isEmpty(v))
     ? null
     : array.reduce((total: BigNumber, f) => add(total, defaultTo0(f)), toBigNumber(0))
 
@@ -61,19 +61,23 @@ const greaterThanOrEqualTo = (x: BigNumberInput, y: BigNumberInput) => applyComp
 const lessThanOrEqualTo = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'lte')
 
 const greaterThan = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'gt')
+
 const greaterThanWithTolerance = (x: BigNumberInput, y: BigNumberInput, tolerance = -1) =>
-  greaterThan(sub(x, y), tolerance)
+  greaterThanOrEqualTo(sub(x, y), tolerance)
 
 const lessThan = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'lt')
-
-const eq = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'eq')
 
 const abs = (x: number | BigNumber): BigNumber | null => {
   const xNum = toBigNumber(x)
   return xNum.isFinite() ? xNum.abs() : null
 }
 
-const toFixed = (value: number | BigNumber, precision = 2): string | null =>
+const eq = (x: BigNumberInput, y: BigNumberInput) => applyComparison(x, y, 'eq')
+
+const eqWithTolerance = (x: BigNumberInput, y: BigNumberInput, tolerance = 1) =>
+  lessThanOrEqualTo(abs(sub(x, y)), tolerance)
+
+const toFixed = (value: string | number | BigNumber, precision = 2): string | null =>
   Objects.isEmpty(value) ? null : toBigNumber(value).toFixed(precision)
 
 const toString = (value: number | BigNumber): null | string =>
@@ -113,6 +117,7 @@ export const Numbers = {
   greaterThan,
   lessThan,
   eq,
+  eqWithTolerance,
   between,
   lessThanOrEqualTo,
   greaterThanOrEqualTo,

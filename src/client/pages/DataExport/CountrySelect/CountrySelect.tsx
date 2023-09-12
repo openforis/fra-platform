@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { Functions } from '@utils/functions'
-import { Strings } from '@utils/strings'
+import { Functions } from 'utils/functions'
+import { Strings } from 'utils/strings'
 
-import { Areas, Country } from '@meta/area'
+import { Areas, Country } from 'meta/area'
 
-import { useAppDispatch } from '@client/store'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
-import { DataExportActionType } from '@client/store/ui/dataExport/actionTypes'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { useAppDispatch } from 'client/store'
+import { DataExportActions, useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
+import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const CountrySelect: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -59,7 +59,7 @@ const CountrySelect: React.FC = () => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all search">
-        <h4>{i18n.t('admin.country')}</h4>
+        <h4>{i18n.t('common.country')}</h4>
         <input
           ref={inputRef}
           type="text"

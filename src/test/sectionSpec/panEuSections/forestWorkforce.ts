@@ -22,27 +22,47 @@ export const employmentByGenderAndAge = {
                 },
                 {
                   idx: 1,
+                  colSpan: 5,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge.employmentByGenderAge1000p',
+                  className: 'fra-table__header-cell-left',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
+                {
+                  idx: 2,
                   colSpan: 1,
                   rowSpan: 2,
                   labelKey: 'panEuropean.employmentByGenderAndAge.total',
                   className: 'fra-table__header-cell',
                   type: 'header',
-                },
-                {
-                  idx: 2,
-                  colSpan: 2,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.employmentByGenderAndAge.gender',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
                 },
                 {
                   idx: 3,
                   colSpan: 2,
                   rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge.gender',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
+                },
+                {
+                  idx: 4,
+                  colSpan: 2,
+                  rowSpan: 1,
                   labelKey: 'panEuropean.employmentByGenderAndAge.ageGroup',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
                 },
               ],
               type: 'header',
@@ -53,34 +73,79 @@ export const employmentByGenderAndAge = {
                 {
                   idx: 0,
                   colSpan: 1,
-                  rowSpan: 1,
-                  labelKey: 'panEuropean.employmentByGenderAndAge.male',
+                  rowSpan: 2,
+                  labelKey: 'panEuropean.employmentByGenderAndAge.total',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
                 },
                 {
                   idx: 1,
-                  colSpan: 1,
+                  colSpan: 2,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.employmentByGenderAndAge.female',
+                  labelKey: 'panEuropean.employmentByGenderAndAge.gender',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
                 },
                 {
                   idx: 2,
-                  colSpan: 1,
+                  colSpan: 2,
                   rowSpan: 1,
-                  labelKey: 'panEuropean.employmentByGenderAndAge._15_49',
+                  labelKey: 'panEuropean.employmentByGenderAndAge.ageGroup',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
                 },
                 {
                   idx: 3,
                   colSpan: 1,
                   rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge.male',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
+                },
+                {
+                  idx: 4,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge.female',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
+                },
+                {
+                  idx: 5,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge._15_49',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
+                },
+                {
+                  idx: 6,
+                  colSpan: 1,
+                  rowSpan: 1,
                   labelKey: 'panEuropean.employmentByGenderAndAge._50_',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
                 },
               ],
               type: 'header',
@@ -90,11 +155,58 @@ export const employmentByGenderAndAge = {
               cols: [
                 {
                   idx: 0,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge.male',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
+                {
+                  idx: 1,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge.female',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
+                {
+                  idx: 2,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge._15_49',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
+                {
+                  idx: 3,
+                  colSpan: 1,
+                  rowSpan: 1,
+                  labelKey: 'panEuropean.employmentByGenderAndAge._50_',
+                  className: 'fra-table__header-cell',
+                  type: 'header',
+                  migration: {
+                    cycles: ['2025'],
+                  },
+                },
+                {
+                  idx: 4,
                   colSpan: 5,
                   rowSpan: 1,
                   labelKey: 'panEuropean.employmentByGenderAndAge._1000Persons',
                   className: 'fra-table__header-cell',
                   type: 'header',
+                  migration: {
+                    cycles: ['2020'],
+                  },
                 },
               ],
               type: 'header',
@@ -1187,6 +1299,7 @@ export const employmentByGenderAndAge = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'commentsOnEmploymentWhichIsNotCoveredByTheSourcesUsed',
               cols: [
                 {
                   idx: 'header_0',
@@ -1195,7 +1308,7 @@ export const employmentByGenderAndAge = {
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'text' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
             },
           ],
@@ -1207,10 +1320,7 @@ export const employmentByGenderAndAge = {
           migration: {
             cycles: ['2025'],
             columnNames: {
-              '2025': [
-                'scopeOfEmploymentReportedIfNotFromLfs',
-                'commentsOnEmploymentWhichIsNotCoveredByTheSourcesUsed',
-              ],
+              '2025': ['comment'],
             },
           },
         },
@@ -1251,66 +1361,27 @@ export const employmentByGenderAndAge = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'generalComments',
+              'forestry',
+              'manufactureOfWoodAndOfProductsOfWood',
+              'manufactureOfPaperAndPaperProducts',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.generalComments',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.forestry',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.manufactureOfWoodAndOfProductsOfWood',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.manufactureOfPaperAndPaperProducts',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1319,7 +1390,7 @@ export const employmentByGenderAndAge = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
@@ -1340,6 +1411,7 @@ export const employmentByGenderAndAge = {
       '2020': '6.5a',
       '2025': '6.5',
     },
+    hidden: true,
   },
 }
 export const employmentByEducationAndJobCharacteristics = {

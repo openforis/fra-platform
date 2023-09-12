@@ -1,20 +1,23 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 import { ChartOptions } from 'chart.js'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { useCountryIso } from '@client/hooks'
-import Chart from '@client/components/Chart'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Chart from 'client/components/Chart'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { ChartColors, commonOptions } from '../utils/preferences'
 
 const ForestAreaPercent = () => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
@@ -35,15 +38,21 @@ const ForestAreaPercent = () => {
   }
 
   const props = {
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
     countryIso,
     tableName,
     colName: column,
     data: tableData,
   }
 
-  const forestArea = Number(TableDatas.getDatum({ ...props, variableName: 'forestArea' }))
+  const forestArea = Number(RecordAssessmentDatas.getDatum({ ...props, variableName: 'forestArea' }))
   const totalLandArea = Number(
-    TableDatas.getDatum({ ...props, colName: isIsoCountry ? props.colName : '2015', variableName: 'totalLandArea' })
+    RecordAssessmentDatas.getDatum({
+      ...props,
+      colName: isIsoCountry ? props.colName : '2015',
+      variableName: 'totalLandArea',
+    })
   )
   const forestAreaAsPercentage = Numbers.mul(100, Numbers.div(forestArea, totalLandArea))?.toNumber()
 

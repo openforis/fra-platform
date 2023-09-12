@@ -4,6 +4,14 @@
   display: flex;
   padding: 10px;
   height: 60px;
+
+  &.button-container {
+    justify-content: center;
+    align-items: center;
+    > button {
+      margin: 0 $spacing-xs;
+    }
+  }
 }
 
 .edit-user__form-label {
@@ -25,15 +33,12 @@
   display: flex;
   justify-content: center;
 
-  select {
-    width: 100%;
-    border: none;
+  &.disabled {
+    input:disabled,
+    select:disabled {
+      background-color: $ui-border-light;
+    }
   }
-}
-
-.edit-user__form-field-disabled {
-  @extend.edit-user__form-field;
-  color: $text-disabled;
 }
 
 .edit-user__form-item-picture {

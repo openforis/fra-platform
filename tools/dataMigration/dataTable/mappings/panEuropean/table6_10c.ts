@@ -3,7 +3,7 @@ export default {
   schemaName: 'pan_european',
   section: 'panEuropean_6_10_c',
   rows: {
-    names: ['area_available_for_public_recreation_2015'],
+    names: ['area_available_for_public_recreation_2020', 'area_available_for_public_recreation_2015'],
   },
   columns: [
     { name: 'forest_roads_and_paths_available_for_public_recreation', type: 'numeric' },

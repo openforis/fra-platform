@@ -1,12 +1,13 @@
-import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { RoleName, User, UserRole } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { Lang } from 'meta/lang'
+import { RoleName, User, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
-import { UserRepository } from '@server/repository/public/user'
-import { UserRoleRepository } from '@server/repository/public/userRole'
-import { MailService } from '@server/service'
+import { BaseProtocol, DB } from 'server/db'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { UserRepository } from 'server/repository/public/user'
+import { UserRoleRepository } from 'server/repository/public/userRole'
+import { MailService } from 'server/service'
 
 export const invite = async (
   props: {
@@ -17,10 +18,11 @@ export const invite = async (
     name?: string
     roleName: RoleName
     user: User
+    lang: Lang
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName>; user: User }> => {
-  const { user, assessment, countryIso, email, name, roleName, cycle } = props
+  const { user, assessment, countryIso, email, name, roleName, cycle, lang } = props
 
   return client.tx(async (t) => {
     // Get user with primary email
@@ -29,7 +31,7 @@ export const invite = async (
     if (!userToInvite) userToInvite = await UserRepository.getOne({ emailGoogle: email }, t)
     // If neither of above, create new user
     if (!userToInvite)
-      userToInvite = await UserRepository.create({ user: { email, props: { name: name ?? '' } } }, client)
+      userToInvite = await UserRepository.create({ user: { email, props: { name: name ?? '', lang } } }, client)
 
     const userRole = await UserRoleRepository.create(
       {
@@ -66,7 +68,6 @@ export const invite = async (
       cycleName: cycle.name,
       role: userRole,
       userToInvite,
-      url: process.env.APP_URI,
     })
 
     return {

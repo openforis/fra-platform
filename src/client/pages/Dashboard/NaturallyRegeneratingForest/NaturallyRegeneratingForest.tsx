@@ -1,20 +1,23 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 import { ChartOptions } from 'chart.js'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { useCountryIso } from '@client/hooks'
-import Chart from '@client/components/Chart'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Chart from 'client/components/Chart'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { commonOptions, preferences, scaleLabel } from '../utils/preferences'
 
 const NaturallyRegeneratingForest = () => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
@@ -42,7 +45,9 @@ const NaturallyRegeneratingForest = () => {
       unit,
 
       data: columns.map((column) => {
-        const raw = TableDatas.getDatum({
+        const raw = RecordAssessmentDatas.getDatum({
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
           data: tableData,
           colName: column,
           variableName: variable,

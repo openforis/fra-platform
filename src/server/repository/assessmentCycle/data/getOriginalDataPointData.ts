@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RecordCountryData } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
@@ -12,30 +12,29 @@ type Props = {
   cycle: Cycle
 }
 
-export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
+export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
   const { assessment, cycle, countryISOs } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<TableData>(
+  return client.one<RecordCountryData>(
     `
         with data as (
             select o.country_iso,
                    jsonb_object_agg(
                            o.year,
                            json_build_object(
-                                   'forest_area', json_build_object('raw', o.forest_area::varchar, 'odp', true),
-                                   'other_wooded_land', json_build_object('raw', o.other_wooded_land::varchar, 'odp', true),
-                                   'natural_forest_area', json_build_object('raw', o.natural_forest_area::varchar, 'odp', true),
-                                   'plantation_forest_area', json_build_object('raw', o.plantation_forest_area::varchar, 'odp', true),
-                                   'plantation_forest_introduced_area',
-                                   json_build_object('raw', o.plantation_forest_introduced_area::varchar, 'odp', true),
-                                   'other_planted_forest_area', json_build_object('raw', o.other_planted_forest_area::varchar, 'odp', true),
-                                   'planted_forest', json_build_object('raw', o.planted_forest::varchar, 'odp', true),
-                                   'total', json_build_object('raw', o.total::varchar, 'odp', true),
-                                   'total_land_area', json_build_object('raw', o.total_land_area::varchar, 'odp', true),
-                                   'other_land', json_build_object('raw', o.other_land::varchar, 'odp', true),
-                                   'total_forest_area', json_build_object('raw', o.total_forest_area::varchar, 'odp', true),
-                                   'primary_forest', json_build_object('raw', o.primary_forest::varchar, 'odp', true)
+                                   'forest_area', json_build_object('raw', o.forest_area::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'other_wooded_land', json_build_object('raw', o.other_wooded_land::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'natural_forest_area', json_build_object('raw', o.natural_forest_area::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'plantation_forest_area', json_build_object('raw', o.plantation_forest_area::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'plantation_forest_introduced_area', json_build_object('raw', o.plantation_forest_introduced_area::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'other_planted_forest_area', json_build_object('raw', o.other_planted_forest_area::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'planted_forest', json_build_object('raw', o.planted_forest::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'total', json_build_object('raw', o.total::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'total_land_area', json_build_object('raw', o.total_land_area::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'other_land', json_build_object('raw', o.other_land::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'total_forest_area', json_build_object('raw', o.total_forest_area::varchar, 'odp', true, 'odpId', o.id::numeric),
+                                   'primary_forest', json_build_object('raw', o.primary_forest::varchar, 'odp', true, 'odpId', o.id::numeric)
                                )
                        ) as values
         from ${schemaCycle}.original_data_point_data o

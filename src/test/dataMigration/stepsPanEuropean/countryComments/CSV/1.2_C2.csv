@@ -1,0 +1,231 @@
+,country,indicator,item,comment
+0,ALB,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+1,ALB,1.2,Minimum diameter (d.b.h.) used:,
+2,ALB,1.2,Minimum top diameter used:,
+3,ALB,1.2,Minimum branch diameter used:,
+4,ALB,1.2,Is volume above ground or above stump?:,
+5,AND,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+6,AND,1.2,Minimum diameter (d.b.h.) used:,
+7,AND,1.2,Minimum top diameter used:,
+8,AND,1.2,Minimum branch diameter used:,
+9,AND,1.2,Is volume above ground or above stump?:,
+10,AUT,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+11,AUT,1.2,Minimum diameter (d.b.h.) used:,10
+12,AUT,1.2,Minimum top diameter used:,0
+13,AUT,1.2,Minimum branch diameter used:,No branches are included.
+14,AUT,1.2,Is volume above ground or above stump?:,above ground
+15,BLR,1.2,"Просим указать, соответствуют ли значения отчета определению ФАО общий запас древесины:",Yes
+16,BLR,1.2,Используемый минимальный диаметр на высоте груди:,
+17,BLR,1.2,Используемый минимальный верхний диаметр:,
+18,BLR,1.2,Используемый минимальный диаметр ветвей:,
+19,BLR,1.2,Запас над землей или над пнем?:,
+20,BEL,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+21,BEL,1.2,Minimum diameter (d.b.h.) used:,7cm
+22,BEL,1.2,Minimum top diameter used:,7cm
+23,BEL,1.2,Minimum branch diameter used:,7cm
+24,BEL,1.2,Is volume above ground or above stump?:,above stump
+25,BIH,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+26,BIH,1.2,Minimum diameter (d.b.h.) used:,
+27,BIH,1.2,Minimum top diameter used:,
+28,BIH,1.2,Minimum branch diameter used:,
+29,BIH,1.2,Is volume above ground or above stump?:,
+30,BGR,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+31,BGR,1.2,Minimum diameter (d.b.h.) used:,
+32,BGR,1.2,Minimum top diameter used:,
+33,BGR,1.2,Minimum branch diameter used:,
+34,BGR,1.2,Is volume above ground or above stump?:,AG
+35,HRV,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+36,HRV,1.2,Minimum diameter (d.b.h.) used:,10 cm
+37,HRV,1.2,Minimum top diameter used:,7 cm
+38,HRV,1.2,Minimum branch diameter used:,7 cm
+39,HRV,1.2,Is volume above ground or above stump?:,Above ground
+40,CYP,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+41,CYP,1.2,Minimum diameter (d.b.h.) used:,
+42,CYP,1.2,Minimum top diameter used:,
+43,CYP,1.2,Minimum branch diameter used:,
+44,CYP,1.2,Is volume above ground or above stump?:,
+45,CZE,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+46,CZE,1.2,Minimum diameter (d.b.h.) used:,7
+47,CZE,1.2,Minimum top diameter used:,7
+48,CZE,1.2,Minimum branch diameter used:,7
+49,CZE,1.2,Is volume above ground or above stump?:,above stump
+50,DNK,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+51,DNK,1.2,Minimum diameter (d.b.h.) used:,
+52,DNK,1.2,Minimum top diameter used:,
+53,DNK,1.2,Minimum branch diameter used:,
+54,DNK,1.2,Is volume above ground or above stump?:,
+55,EST,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+56,EST,1.2,Minimum diameter (d.b.h.) used:,1 mm
+57,EST,1.2,Minimum top diameter used:,0 mm
+58,EST,1.2,Minimum branch diameter used:,branches excluded
+59,EST,1.2,Is volume above ground or above stump?:,AS
+60,FIN,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+61,FIN,1.2,Minimum diameter (d.b.h.) used:,0 cm
+62,FIN,1.2,Minimum top diameter used:,0 cm
+63,FIN,1.2,Minimum branch diameter used:,no branches
+64,FIN,1.2,Is volume above ground or above stump?:,above stump
+65,FRA,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+66,FRA,1.2,Minimum diameter (d.b.h.) used:,"7,5 cm"
+67,FRA,1.2,Minimum top diameter used:,7 cm
+68,FRA,1.2,Minimum branch diameter used:,None
+69,FRA,1.2,Is volume above ground or above stump?:,Above ground
+70,GEO,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+71,GEO,1.2,Minimum diameter (d.b.h.) used:,
+72,GEO,1.2,Minimum top diameter used:,
+73,GEO,1.2,Minimum branch diameter used:,
+74,GEO,1.2,Is volume above ground or above stump?:,
+75,DEU,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+76,DEU,1.2,Minimum diameter (d.b.h.) used:,7 cm
+77,DEU,1.2,Minimum top diameter used:,
+78,DEU,1.2,Minimum branch diameter used:,
+79,DEU,1.2,Is volume above ground or above stump?:,
+80,GRC,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+81,GRC,1.2,Minimum diameter (d.b.h.) used:,
+82,GRC,1.2,Minimum top diameter used:,
+83,GRC,1.2,Minimum branch diameter used:,
+84,GRC,1.2,Is volume above ground or above stump?:,
+85,VAT,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+86,VAT,1.2,Minimum diameter (d.b.h.) used:,
+87,VAT,1.2,Minimum top diameter used:,
+88,VAT,1.2,Minimum branch diameter used:,
+89,VAT,1.2,Is volume above ground or above stump?:,
+90,HUN,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+91,HUN,1.2,Minimum diameter (d.b.h.) used:,0
+92,HUN,1.2,Minimum top diameter used:,0
+93,HUN,1.2,Minimum branch diameter used:,0
+94,HUN,1.2,Is volume above ground or above stump?:,above stump
+95,ISL,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+96,ISL,1.2,Minimum diameter (d.b.h.) used:,10
+97,ISL,1.2,Minimum top diameter used:,0
+98,ISL,1.2,Minimum branch diameter used:,no branches
+99,ISL,1.2,Is volume above ground or above stump?:,above stump
+100,IRL,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+101,IRL,1.2,Minimum diameter (d.b.h.) used:,10cm
+102,IRL,1.2,Minimum top diameter used:,0
+103,IRL,1.2,Minimum branch diameter used:,0
+104,IRL,1.2,Is volume above ground or above stump?:,above ground
+105,ITA,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+106,ITA,1.2,Minimum diameter (d.b.h.) used:,
+107,ITA,1.2,Minimum top diameter used:,
+108,ITA,1.2,Minimum branch diameter used:,
+109,ITA,1.2,Is volume above ground or above stump?:,
+110,LVA,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+111,LVA,1.2,Minimum diameter (d.b.h.) used:,
+112,LVA,1.2,Minimum top diameter used:,
+113,LVA,1.2,Minimum branch diameter used:,
+114,LVA,1.2,Is volume above ground or above stump?:,
+115,LIE,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+116,LIE,1.2,Minimum diameter (d.b.h.) used:,
+117,LIE,1.2,Minimum top diameter used:,
+118,LIE,1.2,Minimum branch diameter used:,
+119,LIE,1.2,Is volume above ground or above stump?:,
+120,LTU,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+121,LTU,1.2,Minimum diameter (d.b.h.) used:,
+122,LTU,1.2,Minimum top diameter used:,
+123,LTU,1.2,Minimum branch diameter used:,
+124,LTU,1.2,Is volume above ground or above stump?:,
+125,LUX,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+126,LUX,1.2,Minimum diameter (d.b.h.) used:,
+127,LUX,1.2,Minimum top diameter used:,
+128,LUX,1.2,Minimum branch diameter used:,
+129,LUX,1.2,Is volume above ground or above stump?:,
+130,MLT,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+131,MLT,1.2,Minimum diameter (d.b.h.) used:,
+132,MLT,1.2,Minimum top diameter used:,
+133,MLT,1.2,Minimum branch diameter used:,
+134,MLT,1.2,Is volume above ground or above stump?:,
+135,MDA,1.2,"Просим указать, соответствуют ли значения отчета определению ФАО общий запас древесины:",
+136,MDA,1.2,Используемый минимальный диаметр на высоте груди:,
+137,MDA,1.2,Используемый минимальный верхний диаметр:,
+138,MDA,1.2,Используемый минимальный диаметр ветвей:,
+139,MDA,1.2,Запас над землей или над пнем?:,
+140,MCO,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+141,MCO,1.2,Minimum diameter (d.b.h.) used:,
+142,MCO,1.2,Minimum top diameter used:,
+143,MCO,1.2,Minimum branch diameter used:,
+144,MCO,1.2,Is volume above ground or above stump?:,
+145,MNE,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+146,MNE,1.2,Minimum diameter (d.b.h.) used:,5
+147,MNE,1.2,Minimum top diameter used:,7
+148,MNE,1.2,Minimum branch diameter used:,7
+149,MNE,1.2,Is volume above ground or above stump?:,Volume above ground
+150,NLD,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+151,NLD,1.2,Minimum diameter (d.b.h.) used:,5cm
+152,NLD,1.2,Minimum top diameter used:,0cm
+153,NLD,1.2,Minimum branch diameter used:,Branches not included
+154,NLD,1.2,Is volume above ground or above stump?:,Above ground
+155,NOR,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+156,NOR,1.2,Minimum diameter (d.b.h.) used:,5/0 cm
+157,NOR,1.2,Minimum top diameter used:,0 cm
+158,NOR,1.2,Minimum branch diameter used:,Not included
+159,NOR,1.2,Is volume above ground or above stump?:,Above stump
+160,POL,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+161,POL,1.2,Minimum diameter (d.b.h.) used:,7 cm
+162,POL,1.2,Minimum top diameter used:,7 cm
+163,POL,1.2,Minimum branch diameter used:,7 cm
+164,POL,1.2,Is volume above ground or above stump?:,AS
+165,PRT,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+166,PRT,1.2,Minimum diameter (d.b.h.) used:,10 cm
+167,PRT,1.2,Minimum top diameter used:,0 cm
+168,PRT,1.2,Minimum branch diameter used:,
+169,PRT,1.2,Is volume above ground or above stump?:,Above ground
+170,ROU,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+171,ROU,1.2,Minimum diameter (d.b.h.) used:,56 mm
+172,ROU,1.2,Minimum top diameter used:,
+173,ROU,1.2,Minimum branch diameter used:,
+174,ROU,1.2,Is volume above ground or above stump?:,
+175,RUS,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+176,RUS,1.2,Minimum diameter (d.b.h.) used:,
+177,RUS,1.2,Minimum top diameter used:,
+178,RUS,1.2,Minimum branch diameter used:,
+179,RUS,1.2,Is volume above ground or above stump?:,
+180,SRB,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+181,SRB,1.2,Minimum diameter (d.b.h.) used:,
+182,SRB,1.2,Minimum top diameter used:,
+183,SRB,1.2,Minimum branch diameter used:,
+184,SRB,1.2,Is volume above ground or above stump?:,
+185,SVK,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+186,SVK,1.2,Minimum diameter (d.b.h.) used:,7 cm over bark
+187,SVK,1.2,Minimum top diameter used:,7 cm over bark
+188,SVK,1.2,Minimum branch diameter used:,7 cm over bark
+189,SVK,1.2,Is volume above ground or above stump?:,above stump
+190,SVN,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+191,SVN,1.2,Minimum diameter (d.b.h.) used:,10 cm
+192,SVN,1.2,Minimum top diameter used:,7 cm
+193,SVN,1.2,Minimum branch diameter used:,7 cm
+194,SVN,1.2,Is volume above ground or above stump?:,above stump
+195,ESP,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+196,ESP,1.2,Minimum diameter (d.b.h.) used:,
+197,ESP,1.2,Minimum top diameter used:,
+198,ESP,1.2,Minimum branch diameter used:,
+199,ESP,1.2,Is volume above ground or above stump?:,
+200,SWE,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+201,SWE,1.2,Minimum diameter (d.b.h.) used:,0 mm
+202,SWE,1.2,Minimum top diameter used:,n.a
+203,SWE,1.2,Minimum branch diameter used:,n.a
+204,SWE,1.2,Is volume above ground or above stump?:,above stump
+205,CHE,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+206,CHE,1.2,Minimum diameter (d.b.h.) used:,12 cm
+207,CHE,1.2,Minimum top diameter used:,0
+208,CHE,1.2,Minimum branch diameter used:,0
+209,CHE,1.2,Is volume above ground or above stump?:,above ground
+210,MKD,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+211,MKD,1.2,Minimum diameter (d.b.h.) used:,
+212,MKD,1.2,Minimum top diameter used:,
+213,MKD,1.2,Minimum branch diameter used:,
+214,MKD,1.2,Is volume above ground or above stump?:,
+215,TUR,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,Yes
+216,TUR,1.2,Minimum diameter (d.b.h.) used:,
+217,TUR,1.2,Minimum top diameter used:,
+218,TUR,1.2,Minimum branch diameter used:,
+219,TUR,1.2,Is volume above ground or above stump?:,
+220,UKR,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,
+221,UKR,1.2,Minimum diameter (d.b.h.) used:,
+222,UKR,1.2,Minimum top diameter used:,
+223,UKR,1.2,Minimum branch diameter used:,
+224,UKR,1.2,Is volume above ground or above stump?:,
+225,GBR,1.2,Please indicate if reported values are according to the FAO definition of Growing stock:,No
+226,GBR,1.2,Minimum diameter (d.b.h.) used:,7
+227,GBR,1.2,Minimum top diameter used:,7
+228,GBR,1.2,Minimum branch diameter used:,7
+229,GBR,1.2,Is volume above ground or above stump?:,above ground

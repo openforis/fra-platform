@@ -281,9 +281,14 @@ export const areaAffectedByFire: SectionSpec = {
               labelKey: 'areaAffectedByFire.totalLandAreaAffectedByFire',
               variableExport: 'total_land_area_affected_by_fire',
               migration: {
-                validateFns: [
-                  `validatorNotGreaterThanForest(extentOfForest.forestArea, areaAffectedByFire.total_land_area_affected_by_fire)`,
-                ],
+                validateFns: {
+                  '2020': [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, areaAffectedByFire.total_land_area_affected_by_fire)`,
+                  ],
+                  '2025': [
+                    `validatorNotGreaterThanLandArea(extentOfForest.totalLandArea, areaAffectedByFire.total_land_area_affected_by_fire)`,
+                  ],
+                },
               },
             },
             {
@@ -374,9 +379,14 @@ export const areaAffectedByFire: SectionSpec = {
               variableExport: 'of_which_on_forest',
               subcategory: true,
               migration: {
-                validateFns: [
-                  `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
-                ],
+                validateFns: {
+                  '2020': [
+                    `validatorSubCategory(areaAffectedByFire.total_land_area_affected_by_fire,[areaAffectedByFire.of_which_on_forest])`,
+                  ],
+                  '2025': [
+                    `validatorNotGreaterThanForest(extentOfForest.forestArea, areaAffectedByFire.of_which_on_forest)`,
+                  ],
+                },
                 categoryLevel: 1,
               },
             },

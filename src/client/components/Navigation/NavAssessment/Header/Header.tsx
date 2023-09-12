@@ -1,11 +1,10 @@
 import './Header.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { useCountry } from '@client/store/assessment'
-import { useCountryIso, useIsDataExportView } from '@client/hooks'
+import classNames from 'classnames'
 
-import ButtonToggleAll from './ButtonToggleAll'
+import Icon from 'client/components/Icon'
+
 import LinkLanding from './LinkLanding'
 
 type Props = {
@@ -15,29 +14,21 @@ type Props = {
 
 const Header: React.FC<Props> = (props) => {
   const { showSections, setShowSections } = props
-  const countryIso = useCountryIso()
-  const country = useCountry(countryIso)
-
-  const { t } = useTranslation()
-
-  const isDataExportView = useIsDataExportView()
-
-  const { deskStudy } = country?.props ?? {}
 
   return (
-    <div className="nav-assessment-header">
-      <div className="nav-assessment-header__toggler">
-        <div>
-          {isDataExportView ? t('common.dataExport') : ''}
-          {deskStudy && <div className="desk-study">({t('assessment.deskStudy')})</div>}
-        </div>
-
-        <ButtonToggleAll showSections={showSections} setShowSections={setShowSections} />
-      </div>
-
+    <div className="nav-header">
       <LinkLanding />
 
-      <hr />
+      <div className="nav-header__sep-container">
+        <div className="hr" />
+        <button
+          type="button"
+          className={classNames('btn-xs', 'btn-secondary', 'btn-transparent', 'btn-toggle')}
+          onClick={() => setShowSections(!showSections)}
+        >
+          <Icon name="unfold" />
+        </button>
+      </div>
     </div>
   )
 }

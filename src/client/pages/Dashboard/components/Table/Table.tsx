@@ -1,15 +1,16 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { TableData, TableDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useCountryIso } from '@client/hooks'
-import ButtonTableExport from '@client/components/ButtonTableExport'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import ButtonTableExport from 'client/components/ButtonTableExport'
 
 import { formatValue } from '../../utils/numberUtils'
 
@@ -20,10 +21,12 @@ type Props = {
   tableNames: string[]
   sectionName: string
   loaded: boolean
-  tableData: TableData
+  tableData: RecordAssessmentData
 }
 
 const Table = (props: Props) => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
@@ -69,7 +72,9 @@ const Table = (props: Props) => {
                           {`${t(variable)} (${i18n.t<string>(`unit.${units[rowIdx]}`)})`}
                         </th>
                       )
-                    const nodeValue = TableDatas.getNodeValue({
+                    const nodeValue = RecordAssessmentDatas.getNodeValue({
+                      assessmentName: assessment.props.name,
+                      cycleName: cycle.name,
                       variableName: variable,
                       tableName: tableNames[0],
                       colName: column,

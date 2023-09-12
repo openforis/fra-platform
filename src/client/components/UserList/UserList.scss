@@ -10,6 +10,9 @@
   tr {
     &.user-list__invitation-row {
       color: $text-disabled;
+      &.expired {
+        text-decoration: line-through;
+      }
     }
 
     &.user-list__inactive-user {
@@ -57,7 +60,19 @@
       }
     }
 
-    th,
+    th {
+      &.user-list__edit-column {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        .btn-s {
+          margin-left: $spacing-xs;
+        }
+      }
+    }
+
     td {
       &.user-list__edit-column {
         width: 140px;

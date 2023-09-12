@@ -2,20 +2,21 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { User, Users } from '@meta/user'
+import { Routes } from 'meta/routes'
+import { TooltipId } from 'meta/tooltip'
+import { User, Users } from 'meta/user'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useUser } from '@client/store/user'
-import { useCountryIso } from '@client/hooks'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryIso } from 'client/hooks'
+import Icon from 'client/components/Icon'
 
 interface Props {
-  id: number
   user: User
 }
 
 const UserEditColumn: React.FC<Props> = (props: Props) => {
-  const { id, user } = props
+  const { user } = props
   const { t } = useTranslation()
 
   const assessment = useAssessment()
@@ -26,24 +27,36 @@ const UserEditColumn: React.FC<Props> = (props: Props) => {
   const currentUser = useUser()
 
   const currentUserIsNationalCorrespondent = Users.isNationalCorrespondent(currentUser, countryIso, cycle)
+  const currentUserIsAlternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(
+    currentUser,
+    countryIso,
+    cycle
+  )
 
-  const userIsReviewer = Users.isReviewer(user, countryIso, cycle)
+  const userIsCollaborator = Users.isCollaborator(user, countryIso, cycle)
 
-  // National correspondents can't edit reviewers
-  if (currentUserIsNationalCorrespondent && userIsReviewer) return null
+  // National/Alternate national correspondents can edit only collaborators
+  if ((currentUserIsNationalCorrespondent || currentUserIsAlternateNationalCorrespondent) && !userIsCollaborator)
+    return null
+
+  const currentUserIsReviewer = Users.isReviewer(currentUser, countryIso, cycle)
+  const text = t(currentUserIsReviewer ? 'common.view' : 'userManagement.edit')
+  const icon = currentUserIsReviewer ? 'icon-eye' : 'pencil'
 
   return (
     <Link
-      to={ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
+      to={Routes.CountryUser.generatePath({
         countryIso,
         assessmentName,
         cycleName,
-        id,
+        id: user.id,
       })}
       type="button"
-      className="link"
+      className="btn-s btn-link"
+      data-tooltip-id={TooltipId.info}
+      data-tooltip-content={text}
     >
-      {t('userManagement.edit')}
+      <Icon name={icon} />
     </Link>
   )
 }

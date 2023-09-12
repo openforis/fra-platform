@@ -1,0 +1,156 @@
+@import 'src/client/style/partials';
+
+.home-introduction {
+  position: relative;
+  height: 750px;
+
+  @include min-width($laptop) {
+    height: 75vh;
+  }
+}
+
+.home-introduction__about-fra {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    rgba($text-heading, 1) 0%,
+    rgba($text-heading, 0.9) 10%,
+    rgba($text-heading, 0.8) 20%,
+    rgba($text-heading, 0.7) 30%,
+    rgba($text-heading, 0.6) 40%,
+    rgba($text-heading, 0.5) 50%,
+    rgba($text-heading, 0.4) 60%,
+    rgba($text-heading, 0.3) 70%,
+    rgba($text-heading, 0.2) 80%,
+    rgba($text-heading, 0.1) 90%,
+    rgba($text-heading, 0) 100%
+  );
+  display: grid;
+  grid-row-gap: $spacing-xs;
+  align-content: center;
+  padding: 0 $spacing-xs;
+  color: white;
+
+  @include min-width($laptop) {
+    grid-row-gap: $spacing-s;
+    padding: 0 $spacing-m;
+  }
+
+  .header {
+    font-size: $font-xl;
+
+    @include min-width($laptop) {
+      font-weight: 600;
+      font-size: $font-xl + 1;
+    }
+  }
+
+  .process {
+    @include min-width($laptop) {
+      max-width: 38%;
+    }
+  }
+
+  .link-fra-process {
+    font-weight: 600;
+    font-size: $font-l;
+  }
+}
+
+.home-introduction__area-selector {
+  display: grid;
+  grid-row-gap: $spacing-xs;
+
+  @include min-width($laptop) {
+    grid-row-gap: $spacing-s;
+  }
+
+  hr {
+    border-top: 1px solid rgba(white, 0.5);
+    margin: unset;
+    width: 60%;
+
+    @include min-width($laptop) {
+      width: 38%;
+    }
+  }
+}
+
+//-ms-ime-align: auto is used to check whether is non chromium edge version
+
+@supports not (-ms-ime-align: auto) {
+  .home-introduction__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@supports (-ms-ime-align: auto) {
+  .home-introduction__video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+  }
+}
+
+.home-area-selector {
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  grid-column-gap: $spacing-l;
+  grid-row-gap: $spacing-xs;
+
+  @include min-width($laptop) {
+    grid-template-columns: repeat(3, auto);
+  }
+
+  .country-selection-list__row {
+    color: $text-link;
+    padding: $spacing-xxs $spacing-xs;
+  }
+}
+
+.home-area-selector__group {
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  grid-template-columns: repeat(3, auto);
+  grid-column-gap: $spacing-xxs;
+
+  img {
+    height: $spacing-s;
+  }
+
+  .btn-country-select {
+    min-width: 220px;
+    width: 220px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    @include min-width($laptop) {
+      min-width: 250px;
+      width: unset;
+    }
+  }
+
+  .country-select__icon {
+    position: relative;
+
+    .select__icon {
+      position: absolute;
+      top: 7px;
+      right: 12px;
+    }
+  }
+}

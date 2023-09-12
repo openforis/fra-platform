@@ -1,8 +1,8 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, VariableCache } from '@meta/assessment'
-import { TableData } from '@meta/data'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, VariableCache } from 'meta/assessment'
+import { RecordCountryData } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export type TablesCondition = Record<string, { variables?: Array<string>; columns?: Array<string> }>
 
@@ -44,12 +44,12 @@ const mergeDependencies = (props: Props): TablesCondition => {
   return tables
 }
 
-export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<TableData> => {
+export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
   const { assessment, cycle, countryISOs } = props
   const tables = mergeDependencies(props)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<TableData>(
+  return client.one<RecordCountryData>(
     `
       with agg1 as (
           ${Object.entries(tables).map(([tableName, tableProps]) => {

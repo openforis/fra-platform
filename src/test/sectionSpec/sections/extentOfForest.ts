@@ -87,10 +87,11 @@ export const extentOfForest: SectionSpec = {
                 color: '#0098a6',
               },
               migration: {
-                validateFns: [
-                  `validatorForestAreaComparedTo2015(value_aggregate.forestArea['2015'], extentOfForest.forestArea)`,
-                  `validatorOtherLand(extentOfForest.otherLand, extentOfForest.totalLandArea)`,
-                ],
+                validateFns: {
+                  '2020': [
+                    `validatorForestAreaComparedTo2015(extentOfForest.forestArea['2015'], extentOfForest.forestArea)`,
+                  ],
+                },
               },
             },
             {
@@ -389,7 +390,7 @@ export const extentOfForest: SectionSpec = {
           dataExport: false,
           columnsExportAlways: [],
         },
-        getStatusAndTierTable('extentOfForest', 'forestArea', true),
+        ...getStatusAndTierTable('extentOfForest', 'forestArea', true),
       ],
     },
   ],

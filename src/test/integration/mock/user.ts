@@ -1,9 +1,10 @@
-import { User } from '@meta/user'
+import { Lang } from 'meta/lang'
+import { User } from 'meta/user'
 
 export const userMockTest: Pick<User, 'email' | 'props'> = {
   email: 'test@fra-platform.com',
   props: {
-    lang: 'en',
+    lang: Lang.en,
     name: 'Test User',
   },
 }
@@ -14,7 +15,7 @@ export const userMockTestPassword = '$2b$10$F8FvZYivtznQD.heHv7dcu8WPOY3S/astp4u
 export const userMockUnknown: Pick<User, 'email' | 'props'> = {
   email: 'unknown@fra-platform.com',
   props: {
-    lang: 'en',
+    lang: Lang.en,
     name: 'Unknown User',
   },
 }

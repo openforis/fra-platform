@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Objects } from '@utils/index'
+import { Objects } from 'utils/objects'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ClientRoutes } from '@meta/app'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Routes } from 'meta/routes'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { LoginActions } from '@client/store/login'
-import { useUser } from '@client/store/user'
-import { useToaster } from '@client/hooks/useToaster'
-import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
-import { Urls } from '@client/utils/urls'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { LoginActions } from 'client/store/login'
+import { useUser } from 'client/store/user'
+import { useToaster } from 'client/hooks/useToaster'
+import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
+import { Urls } from 'client/utils/urls'
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -24,7 +24,7 @@ const LoginForm: React.FC = () => {
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const loginError = Urls.getRequestParam('loginError')
+  const loginError = Urls.getRequestParam('loginError')?.replace('#', '')
 
   const [isLocal, setIsLocal] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
@@ -50,12 +50,15 @@ const LoginForm: React.FC = () => {
         LoginActions.localLogin({
           email,
           password,
-          navigate,
         })
-      )
+      ).then(() => {
+        navigate(Routes.Root.path.absolute)
+      })
     }
   }
 
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
   if (isLocal) {
     return (
       <div className="login__form">
@@ -89,10 +92,7 @@ const LoginForm: React.FC = () => {
         </div>
 
         <Link
-          to={ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-          })}
+          to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}
           type="button"
           className="btn-forgot-pwd"
         >
@@ -107,7 +107,7 @@ const LoginForm: React.FC = () => {
       <div>
         <a
           className="btn"
-          href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${cycle.name}`}
+          href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&cycleName=${cycleName}`}
         >
           {t('login.signInGoogle')}
         </a>

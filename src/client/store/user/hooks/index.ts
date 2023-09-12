@@ -1,10 +1,13 @@
-import { CountryIso } from '@meta/area'
-import { Authorizer, CollaboratorEditPropertyType, User, Users } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Cycle } from 'meta/assessment'
+import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
-import { useAppSelector } from '@client/store'
-import { useAssessmentCountry, useAssessmentSection, useCountries, useCycle } from '@client/store/assessment'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { useIsPrint } from '@client/hooks/useIsPath'
+import { useAppSelector } from 'client/store'
+import { useAssessmentCountry, useCountries } from 'client/store/area'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
@@ -18,9 +21,20 @@ export const useUserCountries = (): Array<CountryIso> => {
   return user?.roles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
 }
 
+export const useUserCycles = (): Array<Cycle> => {
+  const assessment = useAssessment()
+  const user = useUser()
+  const isAdministrator = Users.isAdministrator(user)
+  if (isAdministrator) return assessment.cycles
+  // Return only current assessment cycles for user
+  return assessment.cycles.filter(
+    (cycle) => cycle.published || user?.roles.some((role) => cycle.uuid === role.cycleUuid)
+  )
+}
+
 export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
   const user = useUser()
-  const section = useAssessmentSection(sectionName)
+  const section = useSection(sectionName)
   const country = useAssessmentCountry()
   const cycle = useCycle()
 
@@ -35,7 +49,7 @@ export const useCanEdit = (sectionName: string, permission = CollaboratorEditPro
 
 const useCanEditSection = (sectionName: string, permission: CollaboratorEditPropertyType) => {
   const isDataLocked = useIsDataLocked()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
   const canEdit = useCanEdit(sectionName, permission)
 
   return !print && !isDataLocked && canEdit

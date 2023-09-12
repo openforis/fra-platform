@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { ClientRoutes } from '@meta/app'
-import { AuthProvider, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Assessments } from 'meta/assessment'
+import { Routes } from 'meta/routes'
+import { AuthProvider, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { useAppDispatch } from '@client/store'
-import { LoginActions, useInvitation } from '@client/store/login'
-import { useUser } from '@client/store/user'
-import { isError, LoginValidator } from '@client/pages/Login/utils/LoginValidator'
-import { Urls } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { LoginActions, useInvitation } from 'client/store/login'
+import { useUser } from 'client/store/user'
+import Icon from 'client/components/Icon'
+import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
+import { videoResources } from 'client/pages/Tutorials'
+import { Urls } from 'client/utils'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const navigate = useNavigate()
-
   const loggedUser = useUser()
 
   const invitationUuid = Urls.getRequestParam('invitationUuid')
@@ -29,6 +31,9 @@ const Invitation: React.FC = () => {
   const [password2, setPassword2] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+  const assessmentName = assessment?.props.name
+  const cycleName = cycle?.name
   const showPassword2 =
     (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
 
@@ -61,13 +66,12 @@ const Invitation: React.FC = () => {
           email,
           password,
           invitationUuid,
-          navigate,
         })
-      )
+      ).then(() => {
+        navigate(Routes.Root.path.absolute)
+      })
     }
   }
-
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
 
   if (userRole?.acceptedAt) {
     return (
@@ -93,8 +97,8 @@ const Invitation: React.FC = () => {
     <div className="login__formWrapper">
       <h3>
         {t('login.invitationMessage', {
-          assessment: assessment.props.name,
-          cycle: cycle.name,
+          assessment: t(Assessments.getShortLabel(assessmentName)),
+          cycle: cycleName,
           role: t(Users.getI18nRoleLabelKey(userRole.role)),
           country: t(`area.${userRole.countryIso}.listName`),
         })}
@@ -147,9 +151,9 @@ const Invitation: React.FC = () => {
 
               {showForgotPassword && (
                 <Link
-                  to={ClientRoutes.Assessment.Cycle.Login.ResetPassword.getLink({
-                    assessmentName: assessment.props.name,
-                    cycleName: cycle.name,
+                  to={Routes.LoginResetPassword.generatePath({
+                    assessmentName,
+                    cycleName,
                   })}
                   type="button"
                   className="btn-forgot-pwd"
@@ -163,20 +167,38 @@ const Invitation: React.FC = () => {
               </button>
             </>
           ) : (
-            <button className="btn" type="button" onClick={() => setIsLocal(true)}>
-              {t('login.acceptInvitationWithFra')}
-            </button>
+            <>
+              <button className="btn" type="button" onClick={() => setIsLocal(true)}>
+                {t('login.acceptInvitationWithFra')}
+              </button>
+
+              <a
+                className="btn-help"
+                href={videoResources[0].url[i18n.resolvedLanguage] ?? videoResources[0].url.en}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <Icon name="video" className="icon-sub" /> {t(videoResources[0].labelKeyShort)}
+              </a>
+            </>
           )}
 
           <div className="divider" />
 
           <a
             className="btn"
-            href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessment.props.name}&cycleName=${
-              cycle.name
-            }&invitationUuid=${invitationUuid}`}
+            href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&cycleName=${cycleName}&invitationUuid=${invitationUuid}`}
           >
             {t('login.acceptInvitationWithGoogle')}
+          </a>
+
+          <a
+            className="btn-help"
+            href={videoResources[1].url[i18n.resolvedLanguage] ?? videoResources[1].url.en}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <Icon name="video" className="icon-sub" /> {t(videoResources[1].labelKeyShort)}
           </a>
         </div>
       )}

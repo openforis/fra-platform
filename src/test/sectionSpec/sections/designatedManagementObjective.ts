@@ -342,7 +342,7 @@ export const designatedManagementObjective: SectionSpec = {
                 colNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
                 calcFormula: 'extentOfForest.forestArea',
                 validateFns: [
-                  `validatorNotGreaterThanForest(extentOfForest.forestArea, (primaryDesignatedManagementObjective.production || 0) + (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) + (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) + (primaryDesignatedManagementObjective.social_services || 0) + (primaryDesignatedManagementObjective.multiple_use || 0) + (primaryDesignatedManagementObjective.other || 0) + (primaryDesignatedManagementObjective.no_designation || 0) + (primaryDesignatedManagementObjective.unknown || 0))`,
+                  `validatorSumNotGreaterThanForest(extentOfForest.forestArea, (primaryDesignatedManagementObjective.production || 0) + (primaryDesignatedManagementObjective.protection_of_soil_and_water || 0) + (primaryDesignatedManagementObjective.conservation_of_biodiversity || 0) + (primaryDesignatedManagementObjective.social_services || 0) + (primaryDesignatedManagementObjective.multiple_use || 0) + (primaryDesignatedManagementObjective.other || 0) + (primaryDesignatedManagementObjective.no_designation || 0) + (primaryDesignatedManagementObjective.unknown || 0))`,
                 ],
               },
             },
@@ -481,6 +481,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.production',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.production)`,
+                ],
+              },
             },
             {
               idx: 1,
@@ -496,6 +501,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.soilWaterProtection',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.protection_of_soil_and_water)`,
+                ],
+              },
             },
             {
               idx: 2,
@@ -511,6 +521,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.biodiversityConservation',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.conservation_of_biodiversity)`,
+                ],
+              },
             },
             {
               idx: 3,
@@ -526,6 +541,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.socialServices',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.social_services)`,
+                ],
+              },
             },
             {
               idx: 4,
@@ -541,6 +561,11 @@ export const designatedManagementObjective: SectionSpec = {
                 ...colsData2025,
               ],
               labelKey: 'designatedManagementObjective.other',
+              migration: {
+                validateFns: [
+                  `validatorNotGreaterThanForest(extentOfForest.forestArea, totalAreaWithDesignatedManagementObjective.other)`,
+                ],
+              },
             },
           ],
           tableDataRequired: [],

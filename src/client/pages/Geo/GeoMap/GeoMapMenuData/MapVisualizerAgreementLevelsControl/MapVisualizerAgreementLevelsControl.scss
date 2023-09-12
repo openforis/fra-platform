@@ -32,7 +32,6 @@
     background-color: #e7e7e7;
     border: 1px solid #949495;
     border-radius: 3px;
-    box-shadow: 0 0 10px 2px #cbc7c7 inset;
     cursor: pointer;
 
     &::before {
@@ -58,4 +57,25 @@
   .disabled .icon {
     color: lightgray;
   }
+}
+
+.custom-agreement-area-container {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  justify-content: space-between;
+}
+.custom-agreement-area-scale-selector {
+  height: 24px;
+  width: 170px;
+}
+
+.custom-agreement-area-estimate-button {
+  height: 100%;
+  width: 160px;
+  white-space: normal;
+}
+
+.estimation-error-message {
+  color: red;
 }

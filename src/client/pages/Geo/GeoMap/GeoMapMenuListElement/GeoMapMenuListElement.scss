@@ -1,11 +1,14 @@
 @import 'src/client/style/partials';
+@import 'src/client/styles/spinner';
 
 .geo-map-menu-list-element {
   display: flex;
   flex-direction: row;
   align-items: center;
   font-weight: bold;
-  padding: 6px 0 4px;
+  padding: 6px 0 6px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .geo-map-menu-list-element-bottom {
@@ -23,6 +26,9 @@
   > .fra-checkbox {
     margin: 0 10px 0 5px;
     cursor: pointer;
+  }
+  > .failed {
+    border-color: red;
   }
 }
 
@@ -68,4 +74,23 @@
   margin: 0 0 0 auto;
   padding: 5px 10px 5px 10px;
   cursor: pointer;
+}
+
+.geo-map-menu-item-title {
+  width: 190px;
+  height: 100%;
+  white-space: pre-line;
+  margin: auto auto auto 0px;
+  padding-top: 3px;
+  > div {
+    height: 100%;
+    vertical-align: middle;
+    > p {
+      font-size: $font-m;
+      text-justify: left;
+      font-weight: bold;
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
 }

@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 
 import classNames from 'classnames'
 
-import Icon from '@client/components/Icon'
+import Icon from 'client/components/Icon'
 
 interface Props {
   title: string

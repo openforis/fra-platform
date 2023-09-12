@@ -4,18 +4,21 @@ export default {
   section: 'panEuropean_6_1',
   rows: {
     names: [
+      'in_public_ownership_2020',
       'in_public_ownership_2015',
       'in_public_ownership_2010',
       'in_public_ownership_2005',
       'in_public_ownership_2000',
       'in_public_ownership_1990',
 
+      'in_private_ownership_2020',
       'in_private_ownership_2015',
       'in_private_ownership_2010',
       'in_private_ownership_2005',
       'in_private_ownership_2000',
       'in_private_ownership_1990',
 
+      'other_types_of_ownership_unknown_2020',
       'other_types_of_ownership_unknown_2015',
       'other_types_of_ownership_unknown_2010',
       'other_types_of_ownership_unknown_2005',

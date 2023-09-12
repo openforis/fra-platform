@@ -1,4 +1,4 @@
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
 export interface ForestEstimationsData {
   faAgreementEsriEsaGloHansen10Gte1: number
@@ -41,10 +41,21 @@ export interface ForestEstimationsData {
   faHansen30: number
   faJaxa: number
   faTandemx: number
+  faCopernicusProtected: number
+  faEsa2009Protected: number
+  faEsa2020Protected: number
+  faEsriProtected: number
+  faGlobelandProtected: number
+  faHansen10Protected: number
+  faHansen20Protected: number
+  faHansen30Protected: number
+  faJaxaProtected: number
+  faTandemxProtected: number
   fra1aForestArea: number
   fra1aLandArea: number
   fra3bProtected: number
   totalAreaHa: number
+  burnedAreaMODIS: [{ year: number; ba: number; fbaHansen10: number }]
 }
 
 export interface ForestEstimations {
@@ -56,6 +67,7 @@ export interface ForestEstimations {
 export enum ExtraEstimation {
   ReportedToFRA = 'Reported to FRA',
   PrecalculatedRecipe = 'Forest agreement selected',
+  CustomRecipe = 'Custom agreement selected',
 }
 
 export const extraEstimationsMetadata = {
@@ -63,6 +75,9 @@ export const extraEstimationsMetadata = {
     palette: ['#000000'], // black
   },
   [ExtraEstimation.PrecalculatedRecipe]: {
+    palette: ['#FF00FF'], // fuchsia
+  },
+  [ExtraEstimation.CustomRecipe]: {
     palette: ['#FF00FF'], // fuchsia
   },
 }

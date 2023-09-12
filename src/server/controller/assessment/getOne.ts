@@ -1,13 +1,9 @@
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
 type Props = { assessmentName: string; metaCache?: boolean } | { id: number; metaCache?: boolean }
-
-export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
-  return AssessmentRepository.read(props, client)
-}
 
 const _getCycleByName = (props: { cycleName?: string; assessment: Assessment }): Cycle | undefined => {
   const { cycleName, assessment } = props
@@ -28,7 +24,7 @@ export const getOneWithCycle = async (
   client: BaseProtocol = DB
 ): Promise<{ assessment: Assessment; cycle: Cycle }> => {
   const { cycleName, cycleUuid } = props
-  const assessment = await AssessmentRepository.read(props, client)
+  const assessment = await AssessmentRepository.getOne(props, client)
   const cycle = cycleName ? _getCycleByName({ cycleName, assessment }) : _getCycleByUuid({ cycleUuid, assessment })
 
   if (!cycle) {

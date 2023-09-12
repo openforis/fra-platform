@@ -5,34 +5,24 @@ import { matchPath, NavLink, useLocation } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
+import { Routes } from 'meta/routes'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
-import Icon from '@client/components/Icon'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import Icon from 'client/components/Icon'
 
 const LinkLanding: React.FC = () => {
-  const assessment = useAssessment()
-  const countryIso = useCountryIso()
-  const cycle = useCycle()
-  const { pathname } = useLocation()
   const { t } = useTranslation()
+  const { pathname } = useLocation()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
-  if (!assessment || !cycle) return null
+  if (!assessmentName || !cycleName) return null
 
   return (
     <NavLink
-      to={ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-      })}
+      to={Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })}
       className={() => {
         return classNames('nav-section__item', {
-          selected: matchPath(
-            { path: ClientRoutes.Assessment.Cycle.Country.Home.Root.path.absolute, end: false },
-            pathname
-          ),
+          selected: matchPath({ path: Routes.CountryHome.path.absolute, end: false }, pathname),
         })
       }}
     >

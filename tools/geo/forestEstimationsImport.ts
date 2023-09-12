@@ -51,12 +51,66 @@ type Response = {
       fa_hansen30: number
       fa_jaxa: number
       fa_tandemx: number
+      fa_copernicus_protected: number
+      fa_esa_2009_protected: number
+      fa_esa_2020_protected: number
+      fa_esri_protected: number
+      fa_globeland_protected: number
+      fa_hansen10_protected: number
+      fa_hansen20_protected: number
+      fa_hansen30_protected: number
+      fa_jaxa_protected: number
+      fa_tandemx_protected: number
       fra_1a_forestArea: number
       fra_1a_landArea: number
       fra_3b_protected: number
       iso3: CountryIso
       total_area_ha: number
       year: number
+      ba_MODIS_2001: number
+      ba_MODIS_2002: number
+      ba_MODIS_2003: number
+      ba_MODIS_2004: number
+      ba_MODIS_2005: number
+      ba_MODIS_2006: number
+      ba_MODIS_2007: number
+      ba_MODIS_2008: number
+      ba_MODIS_2009: number
+      ba_MODIS_2010: number
+      ba_MODIS_2011: number
+      ba_MODIS_2012: number
+      ba_MODIS_2013: number
+      ba_MODIS_2014: number
+      ba_MODIS_2015: number
+      ba_MODIS_2016: number
+      ba_MODIS_2017: number
+      ba_MODIS_2018: number
+      ba_MODIS_2019: number
+      ba_MODIS_2020: number
+      ba_MODIS_2021: number
+      ba_MODIS_2022: number
+      ba_MODIS_2001_Hansen10: number
+      ba_MODIS_2002_Hansen10: number
+      ba_MODIS_2003_Hansen10: number
+      ba_MODIS_2004_Hansen10: number
+      ba_MODIS_2005_Hansen10: number
+      ba_MODIS_2006_Hansen10: number
+      ba_MODIS_2007_Hansen10: number
+      ba_MODIS_2008_Hansen10: number
+      ba_MODIS_2009_Hansen10: number
+      ba_MODIS_2010_Hansen10: number
+      ba_MODIS_2011_Hansen10: number
+      ba_MODIS_2012_Hansen10: number
+      ba_MODIS_2013_Hansen10: number
+      ba_MODIS_2014_Hansen10: number
+      ba_MODIS_2015_Hansen10: number
+      ba_MODIS_2016_Hansen10: number
+      ba_MODIS_2017_Hansen10: number
+      ba_MODIS_2018_Hansen10: number
+      ba_MODIS_2019_Hansen10: number
+      ba_MODIS_2020_Hansen10: number
+      ba_MODIS_2021_Hansen10: number
+      ba_MODIS_2022_Hansen10: number
     }
   }>
 }
@@ -71,7 +125,19 @@ export const forestIndicatorsImport = async (): Promise<void> => {
   const values = response.features.map((d) => {
     const { properties } = d
     const { iso3, year, ...data } = properties
-    return { country_iso: iso3, year, data: Objects.camelize(data) }
+    const cdata: any = JSON.parse(JSON.stringify(data))
+    const baEntries: Array<{ year: number; ba: number; fbaHansen10: number }> = []
+    // Create array with burned area and burned area within forest estimations per year from GEE asset columns
+    for (let i = 2001; i <= 2022; i += 1) {
+      type ObjectKey = keyof typeof data
+      const baKey = `ba_MODIS_${i}` as ObjectKey
+      const fbaKey = `ba_MODIS_${i}_Hansen10` as ObjectKey
+      baEntries.push({ year: i, ba: data[baKey], fbaHansen10: data[fbaKey] })
+      cdata.burnedAreaMODIS = baEntries
+      delete cdata[baKey]
+      delete cdata[fbaKey]
+    }
+    return { country_iso: iso3, year, data: Objects.camelize(cdata) }
   })
 
   const schema = 'geo'
@@ -94,6 +160,7 @@ forestIndicatorsImport()
   .then(() => {
     // eslint-disable-next-line no-console
     console.log('=== process finished')
+    process.exit(0)
   })
   .catch((error) => {
     // eslint-disable-next-line no-console

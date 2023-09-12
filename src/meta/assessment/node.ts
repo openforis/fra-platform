@@ -1,13 +1,24 @@
-import { CountryIso } from '@meta/area'
-import { NodeValueValidation } from '@meta/assessment/nodeValueValidation'
+import { CountryIso } from 'meta/area'
+import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 
 export interface NodeValue {
-  raw: any
-  estimated?: boolean
   calculated?: boolean
+  /**
+   * @deprecated
+   */
+  estimated?: boolean
+  estimationUuid?: string
+  /**
+   * @deprecated Use odpId instead.
+   */
   odp?: boolean
-  validation?: NodeValueValidation
+  odpId?: number
+  raw: any // TODO: do not use any
   taxonCode?: string
+  /**
+   * @deprecated
+   */
+  validation?: NodeValueValidation
 }
 
 export interface Node {

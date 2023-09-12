@@ -1,5 +1,5 @@
 // To further expand
-import { Cycle, TableNames, VariableCache } from '@meta/assessment'
+import { Cycle, TableNames, VariableCache } from 'meta/assessment'
 
 type Variable = {
   // metadata properties
@@ -61,7 +61,8 @@ export const getOriginalDataPointVariables = (cycle: Cycle) => {
 // Find given variable from ODPVariables
 export const isODPVariable = (cycle: Cycle, variable: VariableCache): boolean => {
   return getOriginalDataPointVariables(cycle).some((odpVariable) => {
-    const keys: Array<keyof VariableCache> = ['tableName', 'variableName']
-    return keys.every((key) => variable[key] === odpVariable[key])
+    return ['tableName', 'variableName'].every(
+      (key) => variable[key as keyof VariableCache] === odpVariable[key as keyof Variable]
+    )
   })
 }

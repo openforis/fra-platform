@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, ReviewStatus } from '@meta/assessment'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, ReviewStatus } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getReviewStatus = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; sectionName: string; user: User },
@@ -17,26 +17,14 @@ export const getReviewStatus = async (
 
   return client.map<ReviewStatus>(
     `
-        with data_source_row_uuids as (select jsonb_array_elements(value -> 'dataSources') ->> 'uuid' as uuid
-                                       from ${cycleSchema}.descriptions d
-                                       where d.section_name = $1
-                                         and d.value -> 'dataSources' is not null),
-             m as (select topic_id,
+        with m as (select topic_id,
                           count(*)          messages_count,
                           max(created_time) last_message_time
                    from ${cycleSchema}.message m
                             left join ${cycleSchema}.message_topic mt
                                       on mt.id = m.topic_id
                    where not m.deleted
-                     and (mt.key in (select r.uuid::text
-                                     from ${schemaName}.row r
-                                              left join ${schemaName}."table" t
-                                                        on t.id = r.table_id
-                                              left join ${schemaName}.table_section ts
-                                                        on ts.id = t.table_section_id
-                                              left join ${schemaName}.section as s
-                                                        on s.id = ts.section_id
-                                     where s.props ->> 'name' = $1) or mt.key in (select uuid from data_source_row_uuids))
+                     and mt.section_uuid::text in (select uuid::text from ${schemaName}.section where props ->> 'name' = $4)
                    group by topic_id)
         select mt.key,
                mt.status,
@@ -53,7 +41,7 @@ export const getReviewStatus = async (
                            on mt.id = m.topic_id
         where mt.country_iso = $3
     `,
-    [sectionName, user.id, countryIso],
+    [sectionName, user.id, countryIso, sectionName],
     (row) => Objects.camelize(row)
   )
 }

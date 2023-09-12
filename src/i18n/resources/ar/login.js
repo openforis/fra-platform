@@ -4,7 +4,6 @@ module.exports = {
   password: 'كلمة مرور',
   repeatPassword: 'كرر كلمة المرور',
   email: 'البريد الإلكتروني',
-  submit: 'تقديم',
   cancel: 'إلغاء',
 
   signInGoogle: 'تسجيل دخول عن طريق جوجل',
@@ -36,4 +35,20 @@ module.exports = {
     'يقتصر الوصول إلى المنطقة المحجوزة على الخبراء المشاركين في عملية إعداد التقارير الخاصة بتقييم الموارد الحرجية.',
   returnHome: 'للعودة إلى الصفحة الرئيسية ، انقر',
   returnHomeClick: 'هنا.',
+
+  resetPassword: 'إعادة تعيين كلمة المرور',
+  alreadyLinked: 'حساب جوجل هذا مرتبط بالفعل بمستخدم آخر',
+  noShortPassword: 'كلمة المرور قصيرة جدا',
+  noMatchingLocalUser: 'لم نتمكن من العثور على أي مستخدم مطابق لهذه البيانات.',
+  noMatchingProvider: 'لم نتمكن من العثور على أي مستخدم مطابق لهذه البيانات.',
+  noActiveAccount: 'الحساب غير نشط. تأكد من قبولك لأي دعوة معلقة',
+  googleOnlyAccount: 'الحساب مرتبط بمصادقة جوجل',
+  alreadyAcceptedInvitation: 'تم قبول هذه الدعوة بالفعل',
+  invitationMessage: 'لقد تمت دعوتك إلى {{تقيم}} {{الدورة}} كـ {{الدور}} في {{البلد}}',
+  invitationProvidersRegistered: 'لديك بالفعل حساب مسجل باسم {{أسماء مقدم المصادقة}}',
+  acceptInvitation: 'قبول دعوة',
+  acceptInvitationWithFra: 'قبول الدعوة باستخدام حساب فرا',
+  acceptInvitationWithGoogle: 'قبول الدعوة باستخدام حساب جوجل',
+  invitationExpired: 'انتهت صلاحية هذه الدعوة',
+  logoutSuccessful: 'لقد قمت بتسجيل الخروج بنجاح',
 }

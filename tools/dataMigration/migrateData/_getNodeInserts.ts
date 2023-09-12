@@ -9,6 +9,10 @@ import { DBNames } from '../_DBNames'
 import * as sqlCreator from '../dataTable/dataTableSqlCreator'
 import { getCols, getRows } from './_repos'
 
+const columnsSwap: Record<string, string> = {
+  unspecified_mixed_damage_2025: 'unspecified_mixed_damage',
+}
+
 // eslint-disable-next-line camelcase
 export type NodeRow = { country_iso: string; row_uuid: string; col_uuid: string; value: NodeValue }
 
@@ -50,7 +54,7 @@ export const _getNodeInserts = async (
           const col: Col = cols.find((c) => c.rowId === row.id && c.props.colName === colName)
           const dataRow = data.find((d) => d.row_name === rowName)
           if (dataRow && col) {
-            const datum = dataRow[col.props.colName]
+            const datum = dataRow[columnsSwap[col.props.colName] ?? col.props.colName]
             values.push({
               country_iso: countryIso,
               col_uuid: col.uuid,

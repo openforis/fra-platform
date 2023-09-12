@@ -1,18 +1,42 @@
 import { Response } from 'express'
+import { UUIDs } from 'utils/uuids'
 
-import { CycleDataRequest, EstimateBody } from '@meta/api/request'
-import { ActivityLogMessage } from '@meta/assessment'
+import { CycleDataRequest, EstimateBody } from 'meta/api/request'
+import { NodeValueEstimationMethod, NodeValuesEstimation, Table } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import { MetadataController } from '@server/controller/metadata'
-import { EstimationEngine, GenerateSpec } from '@server/service/estimates/estimationEngine'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import { MetadataController } from 'server/controller/metadata'
+import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from 'server/service/estimates/estimationEngine'
+import Requests from 'server/utils/requests'
 
+/**
+ * @deprecated
+ */
+const generateSpecToEstimation = (props: { generateSpec: GenerateSpec; table: Table }): NodeValuesEstimation => {
+  const { generateSpec, table } = props
+
+  const variables = generateSpec.fields.reduce<NodeValuesEstimation['variables']>((acc, field) => {
+    const options = generateSpec.method === 'annualChange' ? { changeRates: generateSpec.changeRates?.[field] } : {}
+    return { ...acc, [field]: options }
+  }, {})
+
+  return {
+    createdAt: '',
+    method: generateSpec.method as NodeValueEstimationMethod,
+    uuid: UUIDs.v4(),
+    tableUuid: table.uuid,
+    variables,
+  }
+}
+
+// TODO: future task -> request body should be NodeValuesEstimation
 export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, sectionName } = req.query
     const { method, tableName, fields } = req.body
+    const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName,
@@ -20,14 +44,14 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       metaCache: true,
     })
 
-    const tableSpec = await MetadataController.getTable({ assessment, cycle, tableName })
+    const table = await MetadataController.getTable({ assessment, cycle, tableName })
     const originalDataPointValues = await CycleDataController.getOriginalDataPointData({
       countryISOs: [countryIso],
       cycle,
       assessment,
     })
 
-    const years = tableSpec.props.columnNames[cycle.uuid].map((column: string) => Number(column))
+    const years = table.props.columnNames[cycle.uuid].map((column: string) => Number(column))
 
     const changeRates: Record<string, { rateFuture: number; ratePast: number }> = {}
     fields.forEach((field) => {
@@ -37,29 +61,46 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       }
     })
 
-    const generateSpec = {
-      method,
+    const generateSpec: GenerateSpec = {
+      method: method as GenerateSpecMethod,
       fields: fields.map((field) => field.variableName),
       changeRates,
     }
 
+    const estimation = generateSpecToEstimation({ generateSpec, table })
     const nodes = EstimationEngine.estimateValues(
       years,
-      originalDataPointValues,
-      generateSpec as GenerateSpec,
-      tableSpec.props.name
+      // originalDataPointValues[assessment.props.name][cycle.name],
+      RecordAssessmentDatas.getCycleData({
+        data: originalDataPointValues,
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+      }),
+      generateSpec,
+      table.props.name,
+      estimation
     )
 
     if (nodes.length) {
-      await CycleDataController.persistNodeValues({
-        nodeUpdates: { assessment, cycle, countryIso, nodes },
-        user: Requests.getUser(req),
-        activityLogMessage: ActivityLogMessage.nodeValueEstimate,
+      await CycleDataController.persistNodeValuesEstimated({
+        assessment,
+        countryIso,
+        cycle,
+        estimation,
+        nodes,
         sectionName,
+        user,
       })
     }
 
-    return Requests.sendOk(res)
+    const nodeValueEstimations = await CycleDataController.getNodeValuesEstimations({
+      assessment,
+      countryIso,
+      cycle,
+      tableName,
+    })
+
+    return Requests.sendOk(res, { nodes, nodeValueEstimations })
   } catch (e) {
     return Requests.sendErr(res, e)
   }

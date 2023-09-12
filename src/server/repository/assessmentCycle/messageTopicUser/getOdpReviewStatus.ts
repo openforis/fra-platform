@@ -1,10 +1,10 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle, ReviewStatus } from '@meta/assessment'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle, ReviewStatus } from 'meta/assessment'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getOdpReviewStatus = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; odpId?: string; user: User },
@@ -24,7 +24,7 @@ export const getOdpReviewStatus = async (
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
           on mt.id = m.topic_id
-        where not m.deleted and mt.key like $1 || '-%'
+        where not m.deleted and mt.key like 'odp-$1:value-%'
         group by topic_id
       )
       select

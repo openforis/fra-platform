@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.fra-table__btn-clear {
+  margin-left: $spacing-xxs;
+
+  svg.icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+  }
+}

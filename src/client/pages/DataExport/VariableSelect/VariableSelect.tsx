@@ -3,15 +3,16 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, AssessmentNames, Labels, Row } from '@meta/assessment'
+import { AssessmentName, AssessmentNames, Labels, Row } from 'meta/assessment'
 
-import { useAppDispatch } from '@client/store'
-import { useCycle } from '@client/store/assessment'
-import { DataExportActions, DataExportSelection, useDataExportSelection } from '@client/store/ui/dataExport'
-import { DataExportActionType } from '@client/store/ui/dataExport/actionTypes'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import DefinitionLink from '@client/components/DefinitionLink'
-import { Breakpoints } from '@client/utils/breakpoints'
+import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
+import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
+import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import DefinitionLink from 'client/components/DefinitionLink'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const Heading: Record<string, string> = {
   [AssessmentNames.fra]: 'common.variable',
@@ -28,6 +29,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   const cycle = useCycle()
   const selection = useDataExportSelection(sectionName)
   const selectionVariables = selection.sections[sectionName].variables
+  const subSection = useSection(sectionName)
 
   const updateSelection = (variablesUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
@@ -59,9 +61,9 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
             cycleName={cycle.name}
             className="margin-right-big"
             document="tad"
-            anchor="1a"
+            anchor={subSection.props.anchors[cycle.uuid]}
             title={`(${t('definition.definitionLabel')})`}
-            lang={i18n.language}
+            lang={i18n.resolvedLanguage}
           />
         </div>
         <ButtonCheckBox
@@ -90,7 +92,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           {variables.map((variable) => {
             const { variableName } = variable.props
 
-            const label = Labels.getLabel({ cycle, labels: variable.cols[0].props.labels, t })
+            const label = Labels.getCycleLabel({ cycle, labels: variable.cols[0].props.labels, t })
 
             return (
               <option key={variableName} value={variableName}>
@@ -107,7 +109,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
             {variables.map((variable) => {
               const { variableName } = variable.props
 
-              const label = Labels.getLabel({ cycle, labels: variable.cols[0].props.labels, t })
+              const label = Labels.getCycleLabel({ cycle, labels: variable.cols[0].props.labels, t })
 
               const selected = selectionVariables.includes(variableName)
 

@@ -1,6 +1,7 @@
-import { RoleName, UserRole } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { RoleName, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 export const update = async (
   props: { cycleUuid?: string; roles: Array<Partial<UserRole<RoleName>>>; userId: number },
@@ -9,18 +10,38 @@ export const update = async (
   const { cycleUuid, roles, userId } = props
 
   if (cycleUuid) {
-    const doNotDelete = roles
-      .reduce((prev, curr) => {
-        if (curr.id) prev.push(curr.id)
-        return prev
-      }, [])
-      .join(',')
+    const doNotDelete: Array<number> = []
+    const newCountryRoles: Array<CountryIso> = []
+
+    roles.forEach((curr) => {
+      if (curr.id) doNotDelete.push(Number(curr.id))
+      else if (curr.countryIso) newCountryRoles.push(curr.countryIso)
+    })
+
+    const pendingInvitations = await client.map<number>(
+      `
+        select id from public.users_role
+        where user_id = $1 and cycle_uuid = $2
+        and invited_at is not null and accepted_at is null
+        ${
+          newCountryRoles.length !== 0
+            ? ` and country_iso not in (${newCountryRoles.map((countryRole) => `'${countryRole}'`).join(',')})`
+            : ''
+        }
+      `,
+      [userId, cycleUuid],
+      ({ id }) => id
+    )
+
+    pendingInvitations.forEach((id) => {
+      if (!doNotDelete.includes(id)) doNotDelete.push(id)
+    })
 
     await client.query(
       `
-      delete from public.users_role
-      where user_id = $1 and cycle_uuid = $2
-      ${doNotDelete !== '' ? ` and id not in (${doNotDelete})` : ''}
+        delete from public.users_role
+        where user_id = $1 and cycle_uuid = $2
+        ${doNotDelete.length !== 0 ? ` and id not in (${doNotDelete.join(',')})` : ''}
     `,
       [userId, cycleUuid]
     )

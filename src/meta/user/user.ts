@@ -1,3 +1,5 @@
+import { Lang } from 'meta/lang'
+
 import { RoleName, UserRole } from './index'
 
 export enum UserStatus {
@@ -10,12 +12,12 @@ export type UserProps = {
   title?: string
   name: string
   surname?: string
-  lang: string
+  lang: Lang
 }
 
 export interface User {
-  id: number
-  uuid: string
+  readonly id: number
+  readonly uuid: string
   email: string
   profilePictureFile?: string
   profilePictureFilename?: string

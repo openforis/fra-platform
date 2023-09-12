@@ -1,16 +1,22 @@
 import { Response } from 'express'
 
-import { UsersRequest } from '@meta/api/request'
+import { UsersRequest } from 'meta/api/request'
 
-import { UserController } from '@server/controller/user'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import Requests from 'server/utils/requests'
 
 export const getUsersCount = async (req: UsersRequest, res: Response) => {
   try {
-    const { countries, roles } = req.query
+    const { assessmentName, cycleName, countries, fullName, roles } = req.query
+
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const count = await UserController.count({
+      assessment,
+      cycle,
       countries: countries || [],
+      fullName: fullName || '',
       roles: roles || [],
     })
 

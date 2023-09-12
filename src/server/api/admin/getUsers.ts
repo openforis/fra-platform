@@ -1,20 +1,26 @@
 import { Response } from 'express'
 
-import { UsersRequest } from '@meta/api/request'
+import { UsersRequest } from 'meta/api/request'
 
-import { UserController } from '@server/controller/user'
-import Requests from '@server/utils/requests'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import Requests from 'server/utils/requests'
 
 export const getUsers = async (req: UsersRequest, res: Response) => {
   try {
-    const { countryIso, limit, offset, countries, roles } = req.query
+    const { assessmentName, cycleName, limit, offset, countries, fullName, roles, administrators } = req.query
+
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const users = await UserController.getMany({
-      countryIso,
+      assessment,
+      cycle,
       limit: limit && Number(limit),
       offset: offset && Number(offset),
       countries: countries || [],
+      fullName: fullName || '',
       roles: roles || [],
+      administrators,
     })
 
     Requests.sendOk(res, users)

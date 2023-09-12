@@ -1,20 +1,23 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 import { ChartOptions } from 'chart.js'
 
-import { Areas } from '@meta/area'
-import { TableNames } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { Areas } from 'meta/area'
+import { TableNames } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
-import { useCountryIso } from '@client/hooks'
-import Chart from '@client/components/Chart'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+import Chart from 'client/components/Chart'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { ChartColors, commonOptions } from '../utils/preferences'
 
 const ForestAreaWithinProtectedAreas = () => {
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
@@ -36,16 +39,22 @@ const ForestAreaWithinProtectedAreas = () => {
   }
 
   const props = {
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
     colName: column,
     countryIso,
     data: tableData,
   }
 
   const forestArea = Number(
-    TableDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' })
+    RecordAssessmentDatas.getDatum({ ...props, tableName: tableNameSecondary, variableName: 'forestArea' })
   )
   const forestAreaWithinProtectedAreas = Number(
-    TableDatas.getDatum({ ...props, tableName: tableNamePrimary, variableName: 'forest_area_within_protected_areas' })
+    RecordAssessmentDatas.getDatum({
+      ...props,
+      tableName: tableNamePrimary,
+      variableName: 'forest_area_within_protected_areas',
+    })
   )
 
   const primaryForestAsPercentage = Numbers.mul(

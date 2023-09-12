@@ -12,8 +12,8 @@ export interface AuthProviderLocalProps {
 }
 
 export interface UserAuthProvider<P = void> {
-  id: number
-  userId: number
+  readonly id: number
+  readonly userId: number
   provider: AuthProvider
   props: P
 }

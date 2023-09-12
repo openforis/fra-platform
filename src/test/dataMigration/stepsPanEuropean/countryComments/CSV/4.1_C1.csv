@@ -1,0 +1,93 @@
+,country,indicator,item,comment
+0,ALB,4.1,Minimum size of trees to be included:,
+1,ALB,4.1,Reference area for the assessment (stand or sample plot):,
+2,AND,4.1,Minimum size of trees to be included:,
+3,AND,4.1,Reference area for the assessment (stand or sample plot):,
+4,AUT,4.1,Minimum size of trees to be included:,"dbh 10,5 cm"
+5,AUT,4.1,Reference area for the assessment (stand or sample plot):,NFI sample plot (angle-count method)
+6,BLR,4.1,"Минимальный размер деревьев, которые должны быть включены:",более 5 м
+7,BLR,4.1,Исходная площадь для оценки (насаждение или пробный участок):,"0,1 га"
+8,BEL,4.1,Minimum size of trees to be included:,7 cm diameter
+9,BEL,4.1,Reference area for the assessment (stand or sample plot):,sample plot
+10,BIH,4.1,Minimum size of trees to be included:,
+11,BIH,4.1,Reference area for the assessment (stand or sample plot):,
+12,BGR,4.1,Minimum size of trees to be included:,1.5 m height
+13,BGR,4.1,Reference area for the assessment (stand or sample plot):,
+14,HRV,4.1,Minimum size of trees to be included:,"Values in Table 4.1. include all trees, regardless of their age or size."
+15,HRV,4.1,Reference area for the assessment (stand or sample plot):,"Reference area for the assessment is a stand. Average stand area in ""Forest"" category is 15,75 ha, and in ""Other wooded land"" category average stand area is 28,15 ha."
+16,CYP,4.1,Minimum size of trees to be included:,
+17,CYP,4.1,Reference area for the assessment (stand or sample plot):,
+18,CZE,4.1,Minimum size of trees to be included:,DBH = 7cm
+19,CZE,4.1,Reference area for the assessment (stand or sample plot):,Stand
+20,DNK,4.1,Minimum size of trees to be included:,dbh=0
+21,DNK,4.1,Reference area for the assessment (stand or sample plot):,Sample plot  (706 sq. m.
+22,EST,4.1,Minimum size of trees to be included:,all trees included
+23,EST,4.1,Reference area for the assessment (stand or sample plot):,Sample plot with 20m radius.
+24,FIN,4.1,Minimum size of trees to be included:,In seedling stage tree storeys any sized trees can be included. Tree species are separated only if they represent at least 1m2/ha basal area or 5 % of the total basal area. In seedling stands a tree species is registerd if it counts to at least 200 seedlings/ha (seedlings capable for further growing)
+25,FIN,4.1,Reference area for the assessment (stand or sample plot):,"Stand, closet 0.25 hectares"
+26,FRA,4.1,Minimum size of trees to be included:,"For 2005 to 2015 data :  - Stands with trees larger than 7.5 cm dbh: only these trees are accounted for. Nevertheless, if a tree species represents less than 5 % of the total cover, the species is ignored. - Stands with trees smaller than 7.5 cm dbh: all trees are taken into account, considerong that the tree species represent more than 5 % of the total cover."
+27,FRA,4.1,Reference area for the assessment (stand or sample plot):,Sample plots with trees larger than 7.5 cm dbh : 2000 m2 Sample plots with trees smaller than 7.5 cm dbh : 700 m2
+28,GEO,4.1,Minimum size of trees to be included:,
+29,GEO,4.1,Reference area for the assessment (stand or sample plot):,
+30,DEU,4.1,Minimum size of trees to be included:,
+31,DEU,4.1,Reference area for the assessment (stand or sample plot):,
+32,GRC,4.1,Minimum size of trees to be included:,
+33,GRC,4.1,Reference area for the assessment (stand or sample plot):,
+34,VAT,4.1,Minimum size of trees to be included:,
+35,VAT,4.1,Reference area for the assessment (stand or sample plot):,
+36,HUN,4.1,Minimum size of trees to be included:,No threshold
+37,HUN,4.1,Reference area for the assessment (stand or sample plot):,~ 4 ha (average size of forest subcompartments)
+38,ISL,4.1,Minimum size of trees to be included:,All trees included. Canopy cover ratio of each species is used (field information) instead of basal area. Thresold is >5% of canopy cover ratio.
+39,ISL,4.1,Reference area for the assessment (stand or sample plot):,Stand assessment
+40,IRL,4.1,Minimum size of trees to be included:,20 cm in height.
+41,IRL,4.1,Reference area for the assessment (stand or sample plot):,NFI Plot which is 0.05ha in size.
+42,ITA,4.1,Minimum size of trees to be included:,"Minimum DBH of 4,5 cm"
+43,ITA,4.1,Reference area for the assessment (stand or sample plot):,530 square meter plot
+44,LVA,4.1,Minimum size of trees to be included:,
+45,LVA,4.1,Reference area for the assessment (stand or sample plot):,
+46,LIE,4.1,Minimum size of trees to be included:,
+47,LIE,4.1,Reference area for the assessment (stand or sample plot):,
+48,LTU,4.1,Minimum size of trees to be included:,"Minimal heath is 0,2 metre"
+49,LTU,4.1,Reference area for the assessment (stand or sample plot):,Stand
+50,LUX,4.1,Minimum size of trees to be included:,
+51,LUX,4.1,Reference area for the assessment (stand or sample plot):,
+52,MLT,4.1,Minimum size of trees to be included:,
+53,MLT,4.1,Reference area for the assessment (stand or sample plot):,
+54,MDA,4.1,"Минимальный размер деревьев, который должен быть включен:",
+55,MDA,4.1,"Минимальный размер деревьев, который должен быть включен:",
+56,MCO,4.1,Minimum size of trees to be included:,
+57,MCO,4.1,Reference area for the assessment (stand or sample plot):,
+58,MNE,4.1,Minimum size of trees to be included:,5 cm diametar
+59,MNE,4.1,Reference area for the assessment (stand or sample plot):,sample plot
+60,NLD,4.1,Minimum size of trees to be included:,5cm dbh
+61,NLD,4.1,Reference area for the assessment (stand or sample plot):,Sample plot
+62,NOR,4.1,Minimum size of trees to be included:,dbh=5cm
+63,NOR,4.1,Reference area for the assessment (stand or sample plot):,Sample plot: 250 sq.m.
+64,POL,4.1,Minimum size of trees to be included:,minimum dbh - 7 cm overbark
+65,POL,4.1,Reference area for the assessment (stand or sample plot):,"NFI plot (2010, 2015), stand (2000)"
+66,PRT,4.1,Minimum size of trees to be included:,trees wit dbh > 7.5 cm (or 5 cm for Eucalyptus)
+67,PRT,4.1,Reference area for the assessment (stand or sample plot):,sample plot
+68,ROU,4.1,Minimum size of trees to be included:,Dbh > 56 mm
+69,ROU,4.1,Reference area for the assessment (stand or sample plot):,Sample plots (200 and 500 m2)
+70,RUS,4.1,Minimum size of trees to be included:,
+71,RUS,4.1,Reference area for the assessment (stand or sample plot):,
+72,SRB,4.1,Minimum size of trees to be included:,
+73,SRB,4.1,Reference area for the assessment (stand or sample plot):,
+74,SVK,4.1,Minimum size of trees to be included:,All trees included within stand description
+75,SVK,4.1,Reference area for the assessment (stand or sample plot):,Forest stand
+76,SVN,4.1,Minimum size of trees to be included:,10 cm
+77,SVN,4.1,Reference area for the assessment (stand or sample plot):,sample plot
+78,ESP,4.1,Minimum size of trees to be included:,Presence of tree species regeneration
+79,ESP,4.1,Reference area for the assessment (stand or sample plot):,sample plot
+80,SWE,4.1,Minimum size of trees to be included:,Height >= 1.3 m i.e. Dbh > 0 cm
+81,SWE,4.1,Reference area for the assessment (stand or sample plot):,20 m radius plot
+82,CHE,4.1,Minimum size of trees to be included:,12 cm DBH. Minimum share in canopy cover of 5%.
+83,CHE,4.1,Reference area for the assessment (stand or sample plot):,Dominating stand in an area of 50x50m (0.25 ha).
+84,MKD,4.1,Minimum size of trees to be included:,
+85,MKD,4.1,Reference area for the assessment (stand or sample plot):,
+86,TUR,4.1,Minimum size of trees to be included:,
+87,TUR,4.1,Reference area for the assessment (stand or sample plot):,
+88,UKR,4.1,Minimum size of trees to be included:,
+89,UKR,4.1,Reference area for the assessment (stand or sample plot):,
+90,GBR,4.1,Minimum size of trees to be included:,
+91,GBR,4.1,Reference area for the assessment (stand or sample plot):,

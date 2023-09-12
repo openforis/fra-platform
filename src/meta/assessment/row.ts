@@ -1,4 +1,6 @@
-import { Col, CycledPropsObject, CycleUuid, VariableCache } from '@meta/assessment'
+import { Col, CycledPropsObject, CycleUuid, VariableCache } from 'meta/assessment'
+
+export type VariableName = string
 
 export enum RowType {
   header = 'header',
@@ -43,10 +45,10 @@ export interface RowProps {
   }
   index: number | string
   label?: RowLabel // TODO: remove? (check if used - probably not)
-  linkToSection?: string
+  linkToSection?: Record<CycleUuid, string>
   readonly?: boolean
   type: RowType
-  variableName?: string
+  variableName?: VariableName
   validateFns?: Record<CycleUuid, Array<string>>
 }
 

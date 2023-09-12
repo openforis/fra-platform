@@ -1,11 +1,11 @@
-import { Assessment } from '@meta/assessment'
-import { AuthProvider, RoleName, User, UserRole } from '@meta/user'
+import { Assessment } from 'meta/assessment'
+import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { AssessmentRepository } from '@server/repository/assessment/assessment'
-import { UserRepository } from '@server/repository/public/user'
-import { UserProviderRepository } from '@server/repository/public/userProvider'
-import { UserRoleRepository } from '@server/repository/public/userRole'
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
+import { UserRepository } from 'server/repository/public/user'
+import { UserProviderRepository } from 'server/repository/public/userProvider'
+import { UserRoleRepository } from 'server/repository/public/userRole'
 
 export const findByInvitation = async (
   props: { invitationUuid: string },
@@ -24,7 +24,7 @@ export const findByInvitation = async (
 
   const userProviders = await UserProviderRepository.getUserProviders({ user }, client)
 
-  const assessment = await AssessmentRepository.read({ id: userRole.assessmentId }, client)
+  const assessment = await AssessmentRepository.getOne({ id: userRole.assessmentId }, client)
   return {
     assessment,
     user,

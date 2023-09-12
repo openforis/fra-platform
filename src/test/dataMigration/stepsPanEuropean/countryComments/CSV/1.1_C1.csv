@@ -1,0 +1,139 @@
+,country,indicator,item,comment
+0,ALB,1.1,- the recent available year,
+1,ALB,1.1,- extrapolation,
+2,ALB,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+3,AND,1.1,- the recent available year,
+4,AND,1.1,- extrapolation,
+5,AND,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+6,AUT,1.1,- the recent available year,
+7,AUT,1.1,- extrapolation,Figures for 2020 are extrapolated on the basis of 2008 (NFI 2007-2009) and 2017 (NFI 2016-2018).
+8,AUT,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+9,BLR,1.1,- последний имеющийся год,2017
+10,BLR,1.1,- экстраполяция,линейная экстраполяция
+11,BLR,1.1,"- оценка, имеющая обоснование (например, прогноз, перспективы, общегосударственные программы лесоразведения, цели лесной политики)","государственная программа ""Белорусский лес"", прогноз"
+12,BEL,1.1,- the recent available year,
+13,BEL,1.1,- extrapolation,linear extrapolation
+14,BEL,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+15,BIH,1.1,- the recent available year,2017.0
+16,BIH,1.1,- extrapolation,
+17,BIH,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+18,BGR,1.1,- the recent available year,
+19,BGR,1.1,- extrapolation,yes
+20,BGR,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+21,HRV,1.1,- the recent available year,
+22,HRV,1.1,- extrapolation,"Extrapolation based on data from the years 2006, 2016 and 2017."
+23,HRV,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+24,CYP,1.1,- the recent available year,
+25,CYP,1.1,- extrapolation,
+26,CYP,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+27,CZE,1.1,- the recent available year,FAWS
+28,CZE,1.1,- extrapolation,"Forest, Forest area by forest types"
+29,CZE,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+30,DNK,1.1,- the recent available year,The area distribution to forest types in 2017 was used for generating the forest type distribution in 2020.
+31,DNK,1.1,- extrapolation,Yes - using the mechnism in FRA2020 for consistency
+32,DNK,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+33,EST,1.1,- the recent available year,2017
+34,EST,1.1,- extrapolation,no
+35,EST,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",no
+36,FIN,1.1,- the recent available year,2015.0
+37,FIN,1.1,- extrapolation,
+38,FIN,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+39,FRA,1.1,- the recent available year,
+40,FRA,1.1,- extrapolation,"2010 and 2015 values for forest areas have been modified (reclassifications for 2010 and 2015 has been calculated with new values) The forest area reported for year 2020 is derived from a linear extrapolation based on 1990, 2000,  2005, 2010 and 2015 data."
+41,FRA,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+42,GEO,1.1,- the recent available year,"It should be noted that GEO has no systematic inventory data since 1990. The numbers provided here are the same as in 2015 report. We can only provide correct figures after we complete the first National Forest inventory, which is expected to be finalized in 2020."
+43,GEO,1.1,- extrapolation,
+44,GEO,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+45,DEU,1.1,- the recent available year,"yes, NFI of 2012"
+46,DEU,1.1,- extrapolation,
+47,DEU,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+48,GRC,1.1,- the recent available year,
+49,GRC,1.1,- extrapolation,
+50,GRC,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+51,VAT,1.1,- the recent available year,
+52,VAT,1.1,- extrapolation,
+53,VAT,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+54,HUN,1.1,- the recent available year,for other land with tree cover
+55,HUN,1.1,- extrapolation,Forest: linear extrapolation from data between 2014 and 2017; FAWS: linear extrapolation from data between 2009 and 2017; OWL: linear extrapolation
+56,HUN,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+57,ISL,1.1,- the recent available year,
+58,ISL,1.1,- extrapolation,"Mostly extrapolation, also regression. For more details see FRA2020"
+59,ISL,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+60,IRL,1.1,- the recent available year,
+61,IRL,1.1,- extrapolation,Used our 2017 NFI data as baseline and extrapolated by 4000ha per year for afforestation.
+62,IRL,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+63,ITA,1.1,- the recent available year,"Provisional results of photointerpretation (first phase of NFI2015) has been used to update Forest and OWL area for the years 2010, 2015 and 2020"
+64,ITA,1.1,- extrapolation,The same trend of develpment of the forest type area (as function of the total forest area) observed between the two NFIs available to extrapolate 2015 and 2020 proportions
+65,ITA,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+66,LVA,1.1,- the recent available year,
+67,LVA,1.1,- extrapolation,linear extrapolation
+68,LVA,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+69,LIE,1.1,- the recent available year,
+70,LIE,1.1,- extrapolation,
+71,LIE,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+72,LTU,1.1,- the recent available year,
+73,LTU,1.1,- extrapolation,of 2005; 2010; 2015
+74,LTU,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+75,LUX,1.1,- the recent available year,
+76,LUX,1.1,- extrapolation,
+77,LUX,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+78,MLT,1.1,- the recent available year,
+79,MLT,1.1,- extrapolation,
+80,MLT,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+81,MDA,1.1,- последний имеющийся год,
+82,MDA,1.1,- экстраполяция,
+83,MDA,1.1,"- оценка, имеющая обоснование (например, прогноз, перспективы, общегосударственные программы лесоразведения, цели лесной политики)",
+84,MCO,1.1,- the recent available year,
+85,MCO,1.1,- extrapolation,
+86,MCO,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+87,MNE,1.1,- the recent available year,Recent data based on NFI
+88,MNE,1.1,- extrapolation,
+89,MNE,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+90,NLD,1.1,- the recent available year,2017
+91,NLD,1.1,- extrapolation,Extrapolation was conducted to generate the values for 2020 based on observed trends
+92,NLD,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",x
+93,NOR,1.1,- the recent available year,
+94,NOR,1.1,- extrapolation,Linear extrapolation based on 2010-2015.
+95,NOR,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+96,POL,1.1,- the recent available year,forest not available for wood supply - data for 2015 were used
+97,POL,1.1,- extrapolation,total forest area - results of estimation made by FRA tool are used; forest types - changes between 2000 and 2015
+98,POL,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+99,PRT,1.1,- the recent available year,2015
+100,PRT,1.1,- extrapolation,1990 and 2000
+101,PRT,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+102,ROU,1.1,- the recent available year,"Yes, 2018"
+103,ROU,1.1,- extrapolation,
+104,ROU,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+105,RUS,1.1,- the recent available year,
+106,RUS,1.1,- extrapolation,
+107,RUS,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+108,SRB,1.1,- the recent available year,
+109,SRB,1.1,- extrapolation,
+110,SRB,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+111,SVK,1.1,- the recent available year,"2017: Forest, FAWS, OWL, Forest area by forest types;                                                                                                                                                                                                                  National Forest Inventory and Monitoring (NFIM) 2015-2016: Other land with tree cover"
+112,SVK,1.1,- extrapolation,No
+113,SVK,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",No
+114,SVN,1.1,- the recent available year,2018
+115,SVN,1.1,- extrapolation,no
+116,SVN,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)","Assesment is based on data from Forest stand map (SVN Forest service) Land use map (Ministry of Agriculture, Forestry and Food). Area of forest: LU map, cathegories: 2000 (minus Pinus mugo stands), 1410, 1420 in 1500 Other Wooded Land: LU map, cathegories: 1800, plus (added) Pinus mugo stands)"
+117,ESP,1.1,- the recent available year,
+118,ESP,1.1,- extrapolation,We extrapolate to 2020 based on the estimation of mean annual changes for each variable in the period cover by the different NFI cycles (1990-2017).
+119,ESP,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+120,SWE,1.1,- the recent available year,"Values for 2020 is the same value as for the recent available year, i.e. the 5-year average 2013-2017, except that we for FAWS have taken into account the national plan for increasing the area of protected forest."
+121,SWE,1.1,- extrapolation,
+122,SWE,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+123,CHE,1.1,- the recent available year,
+124,CHE,1.1,- extrapolation,We extrapolated from the trend between the years 2005 and 2013.
+125,CHE,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+126,MKD,1.1,- the recent available year,Yes.
+127,MKD,1.1,- extrapolation,
+128,MKD,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+129,TUR,1.1,- the recent available year,
+130,TUR,1.1,- extrapolation,
+131,TUR,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",We used realistic strategic plans.
+132,UKR,1.1,- the recent available year,
+133,UKR,1.1,- extrapolation,
+134,UKR,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",
+135,GBR,1.1,- the recent available year,Area of other land with tree cover based on most recent available estimate (for 2017).  Area of other wooded land = constant estimate for all years.
+136,GBR,1.1,- extrapolation,
+137,GBR,1.1,"- assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)",Forest area in 2020 estimated from latest annual estimate (for 2018) and assuming 2 years of forest expansion at similar levels to recent years.

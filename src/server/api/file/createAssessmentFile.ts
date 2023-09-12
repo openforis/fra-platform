@@ -1,16 +1,16 @@
 import { Response } from 'express'
 
-import { AssessmentFileBody, CycleRequest } from '@meta/api/request'
+import { AssessmentFileBody, CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { FileController } from '@server/controller/file'
-import { Requests } from '@server/utils'
+import { AssessmentController } from 'server/controller/assessment'
+import { FileController } from 'server/controller/file'
+import { Requests } from 'server/utils'
 
 export const createAssessmentFile = async (req: CycleRequest<never, AssessmentFileBody>, res: Response) => {
   try {
     const assessmentFile = req.file
 
-    const { assessmentName, countryIso } = req.body
+    const { assessmentName, fileCountryIso } = req.body
 
     const user = Requests.getUser(req)
 
@@ -19,7 +19,7 @@ export const createAssessmentFile = async (req: CycleRequest<never, AssessmentFi
     const updatedAssessmentFile = await FileController.createAssessmentFile({
       assessment,
       assessmentFile,
-      countryIso: countryIso || null,
+      countryIso: fileCountryIso,
       user,
     })
 

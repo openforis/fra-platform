@@ -1,12 +1,12 @@
 import './ButtonTableExport.scss'
-import React, { MutableRefObject } from 'react'
+import React, { MutableRefObject, useState } from 'react'
 import { CSVLink } from 'react-csv'
 
 import classNames from 'classnames'
 
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import Icon from '@client/components/Icon'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import Icon from 'client/components/Icon'
 
 import * as Utils from './utils'
 
@@ -14,13 +14,14 @@ type Props = {
   disabled?: boolean
   filename?: string
   tableRef: MutableRefObject<HTMLTableElement>
-  inReview?: boolean
 }
 
 const ButtonTableExport: React.FC<Props> = (props) => {
-  const { disabled, filename, tableRef, inReview } = props
+  const { disabled, filename, tableRef } = props
 
-  const { print } = useIsPrint()
+  const [data, setData] = useState([])
+
+  const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()
 
   if (print) return null
@@ -28,12 +29,16 @@ const ButtonTableExport: React.FC<Props> = (props) => {
   return (
     <CSVLink
       className={classNames('fra-table__btn-export', 'btn-xs', 'btn-primary', 'no-print', {
-        'in-review': inReview,
         disabled: !isLocked && disabled,
       })}
-      target="_blank"
+      data={data}
+      onClick={(_, done) => {
+        setData(Utils.getData(tableRef.current))
+        done()
+      }}
+      asyncOnClick
       filename={`${filename}.csv`}
-      data={Utils.getData(tableRef.current)}
+      target="_blank"
     >
       <Icon className="icon-sub icon-white" name="hit-down" />
       CSV
@@ -44,7 +49,6 @@ const ButtonTableExport: React.FC<Props> = (props) => {
 ButtonTableExport.defaultProps = {
   disabled: false,
   filename: 'tableData',
-  inReview: false,
 }
 
 export default ButtonTableExport

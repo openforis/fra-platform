@@ -1,10 +1,15 @@
-import { Cycle } from '@meta/assessment/cycle'
-import { Section, SubSection } from '@meta/assessment/section'
+import { Cycle } from 'meta/assessment/cycle'
+import { Section, SubSection } from 'meta/assessment/section'
+
+import { Assessment } from './assessment'
 
 const getAnchor = (props: { cycle: Cycle; subSection: SubSection }): string => {
   const { cycle, subSection } = props
   return subSection.props.anchors[cycle.uuid]
 }
+
+const getAnchorLabel = (props: { assessment: Assessment; cycle: Cycle; subSection: SubSection }): string =>
+  `anchors.${props.assessment.props.name}.${props.cycle.name}.${getAnchor(props)}`
 
 const getAnchorsByUuid = (props: { cycle: Cycle; sections: Array<Section> }): Record<string, string> => {
   const { cycle, sections } = props
@@ -33,6 +38,7 @@ const getPrevious = (props: { subSection: SubSection; sections: Array<Section> }
 
 export const SubSections = {
   getAnchor,
+  getAnchorLabel,
   getAnchorsByUuid,
   getPrevious,
 }

@@ -4,11 +4,12 @@ import { NavLink, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { ClientRoutes } from '@meta/app'
-import { AssessmentName, OriginalDataPoint } from '@meta/assessment'
+import { AssessmentName, OriginalDataPoint } from 'meta/assessment'
+import { Routes } from 'meta/routes'
 
-import { useAssessmentCountry, useCycle } from '@client/store/assessment'
-import { useCountryIso } from '@client/hooks'
+import { useAssessmentCountry } from 'client/store/area'
+import { useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
 
 import ExtentOfForest from '../ExtentOfForest'
 import ForestCharacteristics from '../ForestCharacteristics'
@@ -50,7 +51,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+          to={Routes.OriginalDataPoint.generatePath({
             countryIso,
             assessmentName,
             cycleName,
@@ -69,7 +70,7 @@ const OriginalData: React.FC<Props> = (props) => {
               active: navData.isActive,
             })
           }
-          to={ClientRoutes.Assessment.Cycle.Country.OriginalDataPoint.Section.getLink({
+          to={Routes.OriginalDataPoint.generatePath({
             countryIso,
             assessmentName,
             cycleName,

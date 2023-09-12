@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Areas } from '@meta/area'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Areas } from 'meta/area'
+import { RecordAssessmentData } from 'meta/data'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useHomeCountriesFilter } from '@client/store/ui/home'
-import { useCountryIso, useGetRequest } from '@client/hooks'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useHomeCountriesFilter } from 'client/store/ui/home'
+import { useCountryIso, useGetRequest } from 'client/hooks'
 
 interface Props {
   variables: string[]
@@ -15,7 +16,7 @@ interface Props {
   tableNames: string[]
 }
 
-export default (props: Props) => {
+export default (props: Props): { data: RecordAssessmentData; loaded: boolean } => {
   const { variables, columns, tableNames } = props
   const countryIso = useCountryIso()
   const assessment = useAssessment()

@@ -1,5 +1,5 @@
-import { CountryIso } from '@meta/area'
-import { Cycle } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Cycle } from 'meta/assessment'
 
 import { User } from './user'
 import { RoleName } from './userRole'

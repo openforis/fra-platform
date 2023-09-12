@@ -1,13 +1,13 @@
-import { Assessment, Cycle, Section } from '@meta/assessment'
+import { Assessment, Cycle, Section } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { SectionAdapter } from '@server/repository/adapter'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { SectionAdapter } from 'server/repository/adapter'
 
 export const getMany = async (
-  props: { assessment: Assessment; cycle: Cycle },
+  props: { assessment: Assessment; cycle: Cycle; showHidden?: boolean },
   client: BaseProtocol = DB
 ): Promise<Array<Section>> => {
-  const { assessment, cycle } = props
+  const { assessment, cycle, showHidden = false } = props
   const schemaName = Schemas.getName(assessment)
 
   return client.one<Array<Section>>(
@@ -17,6 +17,7 @@ export const getMany = async (
                     from ${schemaName}.section s
                     where s.parent_id is not null
                       and props -> 'cycles' ? $1
+                      and ($2 = true or (coalesce(s.props ->> 'hidden', 'false')::boolean = false and $2 = false))
                     group by s.parent_id
                     order by s.parent_id),
              s as (select s.*,
@@ -26,12 +27,13 @@ export const getMany = async (
                    where s.parent_id is null
                      and props -> 'cycles' ? $1
                      and ss.sub_sections is not null
+                     and ($2 = true or (coalesce(s.props ->> 'hidden', 'false')::boolean = false and $2 = false))
                    order by (s.props ->> 'index')::numeric)
         select jsonb_agg(s.*) as data
         from s
         ;
     `,
-    [cycle.uuid],
+    [cycle.uuid, showHidden],
     ({ data }) => data.map(SectionAdapter)
   )
 }

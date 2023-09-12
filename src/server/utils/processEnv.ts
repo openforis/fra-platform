@@ -17,6 +17,10 @@ export enum NodeEnv {
 }
 
 export const ProcessEnv = {
+  // app
+  appUri: process.env.APP_URI,
+  port: process.env.PORT ? Number(process.env.PORT) : 80,
+
   // dev
   debug: process.env.DEBUG === 'true',
   nodeEnv: process.env.NODE_ENV || NodeEnv.development,
@@ -24,7 +28,7 @@ export const ProcessEnv = {
 
   // fra
   fraReportCollaboratorsExcluded: JSON.parse(process.env.FRA_REPORT_COLLABORATORS_EXCLUDED ?? '[]'),
-  fraAtlantisAlloawed: JSON.parse(process.env.FRA_ATLANTIS_ALLOWED ?? 'false'),
+  fraAtlantisAllowed: JSON.parse(process.env.FRA_ATLANTIS_ALLOWED ?? '[]'),
 
   invitationExpiryDays: Number(process.env.INVITATION_EXPIRY_DAYS) || 7,
 
@@ -37,6 +41,7 @@ export const ProcessEnv = {
   pgDatabase,
   pgMaxConnections: Number(process.env.PG_MAX_CONNECTIONS ?? 20),
   pgSsl: process.env.PGSSL === 'true',
+  fraMailEnabled: process.env.FRA_MAIL_ENABLED === 'true',
 
   // Redis
   // process.env.REDISCLOUD_URL -> heroku Redis Enterprise Cloud add-ons

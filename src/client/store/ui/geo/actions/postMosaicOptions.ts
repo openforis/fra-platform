@@ -1,10 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { MosaicOptions } from '@meta/geo'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { MosaicOptions } from 'meta/geo'
 
-const getReqBody = (mosaicOptions: MosaicOptions) => {
+const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
+  const { sources, year, maxCloudCoverage } = mosaicOptions
   const body = {
     recipe: {
       id: '390c7c3f-1540-0e1f-52a0-5609b46122a8',
@@ -12,31 +14,36 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
       placeholder: 'Optical_mosaic_2022-04-03_21-57-59',
       model: {
         dates: {
-          targetDate: '2022-07-02',
-          seasonStart: '2022-01-01',
-          seasonEnd: '2023-01-01',
+          targetDate: `${year}-07-02`,
+          seasonStart: `${year}-01-01`,
+          seasonEnd: `${year + 1}-01-01`,
           yearsBefore: 0,
           yearsAfter: 0,
         },
-        sources: {},
+        sources: {
+          dataSets: {
+            ...(sources.includes('sentinel') ? { SENTINEL: ['SENTINEL_2'] } : {}),
+            ...(sources.includes('landsat') ? { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] } : {}),
+          },
+          cloudPercentageThreshold: maxCloudCoverage,
+        },
         sceneSelectionOptions: { type: 'ALL', targetDateWeight: 0 },
         compositeOptions: {
-          corrections: ['SR', 'BRDF'],
+          corrections: ['SR'],
           // @ts-ignore
           filters: [],
           cloudDetection: ['QA', 'CLOUD_SCORE'],
           cloudMasking: 'MODERATE',
           cloudBuffering: 0,
           snowMasking: 'ON',
-          compose: 'MEDOID',
+          compose: 'MEDIAN',
         },
         scenes: {},
         aoi: {
           type: 'EE_TABLE',
-          id: 'users/wiell/SepalResources/gaul',
-          keyColumn: 'id',
-          key: 84,
-          level: 'COUNTRY',
+          id: 'users/geofra/boundaries/UN_Res0_ADM0_BNDA_CTY_FRA_v1',
+          keyColumn: 'ISO3CD',
+          key: countryIso,
           buffer: 0,
         },
       },
@@ -51,25 +58,23 @@ const getReqBody = (mosaicOptions: MosaicOptions) => {
     },
   }
 
-  const sources: any = {}
-
-  if (mosaicOptions.sources.includes('sentinel')) {
-    sources.SENTINEL = ['SENTINEL_2']
-  }
-  if (mosaicOptions.sources.includes('landsat')) {
-    sources.LANDSAT = ['LANDSAT_9', 'LANDSAT_8']
-  }
-
-  body.recipe.model.sources = sources
   return body
 }
 
-export const postMosaicOptions = createAsyncThunk<{ urlTemplate: string }, MosaicOptions>(
-  'geo/post/mosaic',
-  async (mosaicOptions: MosaicOptions) => {
-    const body = getReqBody(mosaicOptions)
-    const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
+interface PostMosaicOptionsProps {
+  mosaicOptions: MosaicOptions
+  countryIso: CountryIso
+}
 
-    return data
+export const postMosaicOptions = createAsyncThunk<
+  { urlTemplate: string; countryIso: CountryIso },
+  PostMosaicOptionsProps
+>('geo/post/mosaic', async ({ mosaicOptions, countryIso }) => {
+  const body = getReqBody(mosaicOptions, countryIso)
+  const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
+
+  return {
+    urlTemplate: data.urlTemplate,
+    countryIso,
   }
-)
+})

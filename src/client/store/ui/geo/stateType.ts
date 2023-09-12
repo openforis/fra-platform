@@ -1,8 +1,28 @@
-import { ForestOptions, MapPanel, MosaicOptions } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import {
+  BurnedAreasOptions,
+  ForestOptions,
+  GeoStatisticsState,
+  MapPanel,
+  MosaicOptions,
+  ProtectedAreasOptions,
+} from 'meta/geo'
 
-export interface GeoState {
-  forestOptions: ForestOptions
+export type GeoState = {
+  isMapAvailable: boolean
   selectedPanel: MapPanel
-  mosaicOptions: MosaicOptions
-  mosaicUrl: string
+  forestOptions: ForestOptions
+  mosaicOptions: {
+    ui: MosaicOptions
+    applied: MosaicOptions
+    mosaicSelected: boolean
+    mosaicPending: boolean
+    mosaicFailed: boolean
+    mosaicUrl: {
+      [key in CountryIso]?: string
+    }
+  }
+  geoStatistics: GeoStatisticsState
+  protectedAreasOptions: ProtectedAreasOptions
+  burnedAreasOptions: BurnedAreasOptions
 }

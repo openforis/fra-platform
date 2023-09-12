@@ -1,47 +1,46 @@
-import { CountryIso } from '@meta/area'
-import { ForestSource, Layer, sourcesMetadata } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { ForestSource, Layer, LayerSource } from 'meta/geo'
 
-import { AssetsController } from '@server/controller/geo/assets'
+import { AssetsController } from 'server/controller/geo/assets'
 
-// import { authenticateToGee } from './authenticateToGee'
+import { getMap } from './getMap'
 
 type Props = {
   countryIso: CountryIso
-  forestSource: ForestSource
-  gteHansenTreeCoverPerc?: number
-  onlyProtected?: boolean
-  opacity?: number
+  layer: LayerSource
 }
 
 export const getForestLayer = async (props: Props): Promise<Layer> => {
-  const { countryIso, forestSource, gteHansenTreeCoverPerc, onlyProtected, opacity } = props
+  const { countryIso, layer } = props
 
-  const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
-  const asset = AssetsController.getForestAssetData(forestSource, gteHansenTreeCoverPerc, onlyProtected)
-  const metadata = sourcesMetadata[forestSource]
+  const asset = AssetsController.getForestAssetData(layer)
+  let style: { palette: string[]; min?: number; max?: number }
 
-  return new Promise((resolve, reject) => {
-    asset.img
-      .clip(ftcCountry)
-      .selfMask()
-      .getMap(
-        {
-          palette: metadata.palette,
-          opacity,
-        },
-        (mapProperties: any, err: any) => {
-          if (err) {
-            reject(err)
-            return
-          }
-          resolve({
-            mapId: mapProperties.mapid,
-            year: asset.year,
-            scale: metadata.scale,
-            palette: metadata.palette,
-            citation: metadata.citation,
-          })
-        }
-      )
+  if (layer.key === ForestSource.Agreement) {
+    style = {
+      palette: asset.metadata.palette.slice(
+        layer.options.agreement.gteAgreementLevel - 1,
+        layer.options.agreement.layers.length
+      ),
+      min: layer.options.agreement.gteAgreementLevel,
+      max: layer.options.agreement.layers.length,
+    }
+  } else {
+    style = {
+      palette: asset.metadata.palette,
+    }
+  }
+
+  const map = await getMap({
+    image: asset.img.selfMask(),
+    style,
+    countryIso,
   })
+
+  return {
+    mapId: map.mapId,
+    year: asset.year,
+    scale: asset.metadata.scale,
+    palette: style.palette,
+  }
 }

@@ -1,3 +1,6 @@
+import 'tsconfig-paths/register'
+import 'dotenv/config'
+
 import * as path from 'path'
 import { config } from 'dotenv'
 
@@ -47,6 +50,8 @@ export const migrate = async (props: {
   console.log('========== START ', new Date().getTime())
   const { assessmentName, legacySchemaName, assessmentLegacy, cycleNames, spec } = props
 
+  // eslint-disable-next-line no-console
+  console.log('========== 1. delete old assessment')
   // ==== 1. delete old assessment
   await DB.query(`drop schema if exists ${DBNames.getAssessmentSchema(assessmentName)} cascade;`)
   await Promise.all(
@@ -61,54 +66,68 @@ export const migrate = async (props: {
      where props ->> 'name' = $1`,
     [assessmentName]
   )
-  await DB.tx(async (client) => {
-    // ==== 2. create assessment
-    const assessment = await client.one<Assessment>(
-      `insert into assessment (props)
+  const client = DB
+  // await DB.tx(async (client) => {
+
+  // eslint-disable-next-line no-console
+  console.log('========== 2. create assessment')
+  // ==== 2. create assessment
+  const assessment = await client.one<Assessment>(
+    `insert into assessment (props)
        values ($1::jsonb)
        returning *;`,
-      [JSON.stringify({ name: assessmentName })]
+    [JSON.stringify({ name: assessmentName })]
+  )
+
+  // create schema
+  const schema = DBNames.getAssessmentSchema(assessment.props.name)
+  await DB.query(getCreateSchemaDDL(schema))
+  // ==== 2 END. create assessment
+
+  // ==== 3. create cycles
+  // eslint-disable-next-line no-console
+  console.log('========== 3. create cycles')
+  assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
+
+  // Set cycle 2020 to published
+  const defaultCycle = assessment.cycles.find((c) => c.name === '2020')
+  await client.query('update public.assessment_cycle set published = true where id = $1', [defaultCycle.id])
+  await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
+    assessment.id,
+    {
+      ...assessment.props,
+      defaultCycle: defaultCycle.uuid,
+    },
+  ])
+  // ==== 3 END. create cycles
+
+  // ==== 4. migrate metadata
+  // eslint-disable-next-line no-console
+  console.log('========== 4. migrate metadata')
+  await migrateMetadata({ assessment, assessmentLegacy, spec, client })
+  // ==== 4 END. migrate metadata
+
+  await Promise.all(
+    cycleNames.map((cycleName, index: number) =>
+      migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
     )
+  )
 
-    // create schema
-    const schema = DBNames.getAssessmentSchema(assessment.props.name)
-    await DB.query(getCreateSchemaDDL(schema))
-    // ==== 2 END. create assessment
-
-    // ==== 3. create cycles
-    assessment.cycles = await Promise.all(cycleNames.map((cycleName) => createCycle(assessment, cycleName, client)))
-
-    // Set cycle 2020 to published
-    const defaultCycle = assessment.cycles.find((c) => c.name === '2020')
-    await client.query('update public.assessment_cycle set published = true where id = $1', [defaultCycle.id])
-    await client.query('update public.assessment set props = $2:json::jsonb where id = $1', [
-      assessment.id,
-      {
-        ...assessment.props,
-        defaultCycle: defaultCycle.uuid,
-      },
-    ])
-    // ==== 3 END. create cycles
-
-    // ==== 4. migrate metadata
-    await migrateMetadata({ assessment, assessmentLegacy, spec, client })
-    // ==== 4 END. migrate metadata
-
-    await Promise.all(
-      cycleNames.map((cycleName, index: number) =>
-        migrateAreas({ client, schema: DBNames.getCycleSchema(assessment.props.name, cycleName), index })
-      )
-    )
-
-    // TODO: ==== 5. migrate data
-    await Promise.all(
-      assessment.cycles.map(async (cycle) => {
-        await migrateTablesData({ assessment, cycle }, client, legacySchemaName)
-        await generateMetaCache({ assessment, cycle }, client)
-      })
-    )
-    // TODO: ==== 5 END. migrate data
-  })
+  // ==== 5. migrate data
+  // eslint-disable-next-line no-console
+  console.log('========== 5. migrate data')
+  await Promise.all(
+    assessment.cycles.map(async (cycle) => {
+      // eslint-disable-next-line no-console
+      console.log(`========== 5.1. migrate tables data ${cycle.name}`)
+      await migrateTablesData({ assessment, cycle }, client, legacySchemaName)
+      // eslint-disable-next-line no-console
+      console.log(`========== 5.2. generateMetaCache ${cycle.name}`)
+      await generateMetaCache({ assessment, cycle }, client)
+    })
+  )
+  // ==== 5 END. migrate data
+  // })
 }
 
 const assessmentName = 'panEuropean'

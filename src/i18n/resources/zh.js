@@ -1,23 +1,32 @@
 const area = require('./zh/area')
+const assessmentSection = require('./zh/assessmentSection')
 const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
+const dataSource = require('./zh/dataSource')
 const fra = require('./zh/fra')
-const statisticalFactsheets = require('./zh/statisticalFactsheets')
+const generalValidation = require('./zh/generalValidation')
 const login = require('./zh/login')
-const uc = require('./zh/uc')
 const print = require('./zh/print')
+const statisticalFactsheets = require('./zh/statisticalFactsheets')
+const uc = require('./zh/uc')
 
 module.exports.translation = {
   area,
   common,
   contentCheck,
   dataDownload,
+  dataSource,
   fra,
-  statisticalFactsheets,
+  generalValidation,
   login,
-  uc,
   print,
+  statisticalFactsheets,
+  uc,
+
+  page: {
+    assessmentSection,
+  },
 
   language: {
     en: 'English',
@@ -53,8 +62,10 @@ module.exports.translation = {
     scamAlert: '防欺诈警告',
     reportMisconduct: '报告不当行为',
     userGuide: '使用指南',
+    tutorials: '视频',
     sendFeedback: '发送反馈',
     licenses: '许可',
+    platformVersion: '平台版本',
   },
 
   unit: {
@@ -82,6 +93,7 @@ module.exports.translation = {
     annualNumberOfVisitsMillion: '年访问量(百万)',
     millionNationalCurrency: '百万国家货币',
     facilityLengthIn1000Km: '设施 (单位：1000公里)',
+    growingStockPercent: '森林总立木蓄积的百分比',
   },
 
   countrySelection: {
@@ -113,17 +125,11 @@ module.exports.translation = {
       ADMINISTRATOR: '管理员',
       noRole: '不适用',
       // unused?
-      reviewer_plural: '审核人',
+      VIEWER: '观察者',
+      reviewer_plural: '审查者',
       nationalCorrespondent_plural: '国家通讯员',
       alternateNationalCorrespondent_plural: '候补国家通讯员',
       collaborator_plural: '合作者',
-      // deprecated
-      // reviewer: '审核人',
-      // nationalCorrespondent: '国家通讯员',
-      // alternateNationalCorrespondent: '候补国家通讯员',
-      // collaborator: '合作者',
-      // administrator: '管理员',
-      // noRole: '不适用',
     },
 
     resetPasswordEmail: {
@@ -190,7 +196,7 @@ FRA工作组 fra@fao.org
       externalData: '外部数据',
       links: '链接和存储库',
       contentCheck: '内容/检查',
-      versioning: '版本控制',
+      versioning: '版本更新',
     },
     overview: {
       loadingMap: '加载网站地图…',
@@ -265,6 +271,8 @@ FRA工作组 fra@fao.org
       repository: '资源库',
       uploadFile: '上传文件',
       confirmDelete: '删除 {{file}}? 此操作无法撤销。',
+      fileUploaded: '文件成功上传',
+      fileDeleted: '文件成功删除',
     },
     dataExport: {
       downloadData: '下载数据',
@@ -352,6 +360,8 @@ FRA工作组
     ndp: {
       previousNdpNotFound: '无法找到{{year}}前的任何国家数据点',
     },
+    userNotAdministrator: '错误：用户{{user}}试图访问仅对管理员开放的资源',
+    userAlreadyAddedToCountry: '错误：用户{{user}}已被添加到国家{{countryIso}}',
   },
   // components
 
@@ -383,7 +393,6 @@ FRA工作组
       sustainableDevelopment: '可持续发展目标15',
       panEuropeanIndicators: '泛欧洲指标',
     },
-    submit: '提交',
     cancel: '取消',
     changeStatusTextPlaceholder: '添加可选消息',
     doNotNotifyUsers: '不通知用户',
@@ -403,12 +412,12 @@ FRA工作组
 
   time: {
     hour: '{{count}} 小时前',
-    hour_plural: '{{count}} 小时前',
     day: '{{count}} 天前',
-    day_plural: '{{count}} 天前',
     week: '{{count}} 星期前',
-    week_plural: '{{count}} 星期前',
     aMomentAgo: '刚才',
+    hour_plural: '{{count}}小时前',
+    day_plural: '{{count}}天以前',
+    week_plural: '{{count}}周前',
   },
 
   review: {
@@ -423,6 +432,7 @@ FRA工作组
     commentingClosed: '评论关闭',
     add: '添加',
     cancel: '取消',
+    loading: '正在加载',
   },
 
   description: {
@@ -460,7 +470,7 @@ FRA工作组
     dataSources: '数据来源',
     additionalComments: '额外评论',
     edit: '编辑',
-    copyPreviousValues: '复制前述数值',
+    copyPreviousValues: '复制先前的参考文献',
     nationalClass: '国家界定的类别',
     nationalClasses: '分类和定义',
     definition: '定义',
@@ -491,28 +501,37 @@ FRA工作组
       otherWoodedLand: '其他林地',
       otherLand: '其他土地',
     },
+    forestCategoriesLabel2025: '森林、其他林地和其它土地',
+    nationalClassifications: '国家级分类',
+    categories: '类别',
   },
 
   userManagement: {
-    manageCollaborators: '管理合作者',
-    name: '姓名',
-    role: '身份',
-    email: '电子邮箱',
-    loginEmail: '登陆',
-    noUsers: '未添加合作者',
-    placeholder: '选择…',
-    remove: '移除',
+    addUser: '添加合作者',
+    allUsers: '所有合作者',
+    confirmDelete: '移除 {{user}}?',
     done: '完成',
     edit: '编辑',
-    addUser: '添加合作者',
+    editPermissions: '编辑权限',
     formErrors: '表格内有错误。请修改后再次提交。',
-    insufficientPrivileges: '权限不足',
-    confirmDelete: '移除 {{user}}?',
-    allUsers: '所有合作者',
     info: '信息',
-    tableAccess: '表格访问',
+    insufficientPrivileges: '权限不足',
+    invitationDeleted: '邀请已被删除',
+    invitationEmailSent: '已发送邀请邮件',
     invitationLink: '邀请链接',
+    inviteAgain: '再次邀请',
+    loginEmail: '登陆',
+    manageCollaborators: '管理合作者',
+    noUsers: '未添加合作者',
+    permissionNames: { tableData: '表格数据', descriptions: '描述' },
+    permissions: '权限',
+    personalInfoRequired: '请在继续之前完成您的个人信息',
+    placeholder: '选择…',
+    remove: '移除',
     sendInvitation: '发送邀请邮件',
+    tableAccess: '表格访问',
+    userAdded: '{{email}}已被添加',
+    userModified: '用户{{user}}已被修改',
     invitationEmail: {
       subject: 'FRA平台邀请',
       textMessage: `尊敬的 {{invitedUser}},
@@ -576,7 +595,7 @@ FRA工作组 fra@fao.org
     ofWhichTreesUrbanSettings: '城市树木…',
     totalLandArea: '土地面积总和',
     fedAreasExceedTotalLandArea: '森林和其他林地面积超过土地面积总和',
-    forestAreaDoesNotMatchPreviouslyReported: '森林面积与FRA 2015中报告的面积不匹配: {{previous}}',
+    forestAreaDoesNotMatchPreviouslyReported: '森林面积与FRA {{year}}中报告的面积不匹配: {{previous}}',
     useOriginalDataPoints: '使用国家数据点',
     dontUseOriginalDataPoints: '不使用国家数据点',
     whatIsThis: '这是什么？',
@@ -584,6 +603,7 @@ FRA工作组 fra@fao.org
     ndpMissingValues: '国家数据点存在缺失值',
     showNDPs: '显示国家数据点',
     hideNDPs: '隐藏国家数据点',
+    forestAreaNetChangeDoesNotMatch: '森林面积净变化与预期值不符：{{value}}',
   },
 
   climaticDomain: {
@@ -620,10 +640,10 @@ FRA工作组 fra@fao.org
     annualChangeExtrapolation: '年度变化',
     placeholderFuture: '未来',
     placeholderPast: '过去',
-    clearTable: '清除表格',
     copyToClipboard: '复制数值',
     placeholderSelect: '估算和预测',
     _1000haYear: '1000公顷/年',
+    generatingFraValues: '生成中...',
   },
 
   forestAreaChange: {
@@ -635,6 +655,7 @@ FRA工作组 fra@fao.org
     ofWhichNaturalExpansion: '自然扩张',
     deforestation: '砍伐',
     forestAreaNetChange: '森林面积净变化',
+    forestAreaNetChangeFrom1a: '表1a中森林面积净变化',
     netChangeDoesNotMatch: '与森林面积净变化不匹配',
   },
 
@@ -974,23 +995,14 @@ FRA工作组
         next: '接受',
         previous: '',
       },
+      notStarted: {
+        label: '未开始',
+      },
     },
   },
 
   multiSelect: {
     placeholder: '选择…',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: '子类别超过母类别',
-    forestAreaDoesNotMatchExtentOfForest: '与森林面积(1a)不匹配',
-    forestAreaExceedsExtentOfForest: '超过森林面积(1a)',
-    otherLandExceedsExtentOfForest: '超过其他土地面积(1a)',
-    valueMustBePositive: '数值应大于0',
-    emptyField: '此字段为空',
-    mustBeEqualToTotalGrowingStock: '数值应等于立木总蓄积量(2a)',
-    valuesAreInconsistentWithNetChange: '数值与森林面积净变化不一致',
-    valuesAreInconsistent1aOr1b: '数值与表1a或1b中报告的面积数值不一致',
   },
 
   emoji: {
@@ -1020,10 +1032,34 @@ FRA工作组
     institution: '机构',
     position: '职位',
     done: '保存',
-    cancel: '取消',
     deactivate: '取消激活',
     activate: '激活',
     picture1MbMax: '个人简介中的图片不得超过1MB',
+    title: '称呼',
+    surname: '姓氏',
+    professionalTitle: '专业职称',
+    organizationalUnit: '组织单位',
+    organization: '组织机构',
+    street: '街道地址',
+    zipCode: '邮编',
+    poBox: '邮政信箱',
+    city: '城市',
+    countryIso: '国家',
+    primaryEmail: '主要电子邮件地址',
+    secondaryEmail: '次要电子邮件地址',
+    primaryPhoneNumber: '主要的联系电话',
+    secondaryPhoneNumber: '次要的联系电话',
+    skype: 'Skype名称',
+    contactPreference: '首选的联系方式',
+    contactPreferenceMethod: '联系方式',
+    platformChat: 'PlatformChat',
+    signal: 'Signal',
+    whatsapp: 'Whatsapp',
+    activated: '已激活',
+    status: '状态',
+    demoteToUser: '你确定要删除管理员权限吗？',
+    promoteToAdmin: '您确定要授予管理员权限吗？',
+    mandatoryFields: '*为必填项',
   },
 
   country: {
@@ -1042,8 +1078,6 @@ FRA工作组
   admin: {
     admin: '管理',
     filter: '筛选，按照',
-    language: '语言',
-    country: '国家',
     invitationPending: '邀请待处理',
   },
 
@@ -1051,6 +1085,18 @@ FRA工作组
     messageBoard: '留言板',
     messageBoardDesc: '此处发布的消息对所有本国家/地区的成员可见',
     oneToOneMessages: '一对一消息',
+  },
+
+  tutorial: {
+    watch: '观看',
+    passwordLogin: '全球森林资源评估平台用户教程 - 如何使用自定义密码登录',
+    googleLogin: '全球森林资源评估平台用户教程 - 如何使用Google邮箱验证登录',
+    collaboratorAdd: '全球森林资源评估平台用户教程 - 如何添加合作者',
+    platformNavigation: '全球森林资源评估平台用户教程 - 平台导航',
+    documentUpload: '全球森林资源评估平台用户教程 - 如何上传文档',
+    ndpAdd: '全球森林资源评估平台用户教程 - 如何添加国家数据点',
+    passwordLoginShort: '如何使用自定义密码登录',
+    googleLoginShort: '如何使用Google邮箱验证登录',
   },
 
   panEuropean: {

@@ -46,5 +46,6 @@ export interface TableSpec {
   migration?: {
     cycles?: Array<string>
     columnNames?: Record<string, Array<string>>
+    hidden?: boolean
   }
 }

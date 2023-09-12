@@ -1,32 +1,27 @@
 import { Request } from 'express'
 
-import { CountryIso } from '@meta/area'
-import { ForestSource } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { LayerSource } from 'meta/geo'
 
-export type ForestLayerRequest = Request<
-  never,
+export type LayerRequest = Request<
   never,
   never,
   {
     countryIso: CountryIso
-    forestSource: ForestSource
-    gteHansenTreeCoverPerc?: any
-    onlyProtected: any
-    opacity: any
-  }
+    layer: LayerSource
+  },
+  never
 >
 
 export type ForestAgreementLayerRequest = Request<
   never,
   never,
-  never,
   {
     countryIso: CountryIso
-    gteAgreementLevel: any
-    gteHansenTreeCoverPerc?: any
-    layer: Array<ForestSource>
-    opacity: any
-  }
+    layers: Array<LayerSource>
+    gteAgreementLevel: number
+  },
+  never
 >
 
 export type ForestEstimationsRequest = Request<
@@ -41,12 +36,11 @@ export type ForestEstimationsRequest = Request<
 export type ForestAgreementAreaEstimationRequest = Request<
   never,
   never,
-  never,
   {
     countryIso: CountryIso
-    gteAgreementLevel: any
-    gteHansenTreeCoverPerc?: any
-    layer: Array<ForestSource>
-    scale: any
-  }
+    layers: Array<LayerSource>
+    gteAgreementLevel: number
+    scale: number
+  },
+  never
 >

@@ -1,8 +1,8 @@
 import './DefinitionLink.scss'
 import React from 'react'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
-import { Lang } from '@meta/lang'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { Lang } from 'meta/lang'
 
 type Props = {
   assessmentName: string
@@ -26,6 +26,7 @@ const DefinitionLink: React.FC<Props> = (props: Props) => {
           'height=640,width=360'
         )
       }
+      aria-hidden="true"
     >
       {title}
     </div>

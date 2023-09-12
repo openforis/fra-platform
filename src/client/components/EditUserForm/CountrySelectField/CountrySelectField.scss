@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.edit-user__form-field {
+  .btn-country-select {
+    width: 100%;
+    background-color: white;
+  }
+  &.disabled .btn-country-select {
+    background-color: $ui-border-light;
+  }
+}

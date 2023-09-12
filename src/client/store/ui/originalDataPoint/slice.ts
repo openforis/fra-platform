@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { getOriginalDataPointReservedYears } from '@client/store/ui/originalDataPoint/actions/getOriginalDataPointReservedYears'
+import { ODPReservedYear } from 'meta/assessment'
+
+import { getOriginalDataPointReservedYears } from 'client/store/ui/originalDataPoint/actions/getOriginalDataPointReservedYears'
 
 import { copyPreviousNationalClasses } from './actions/copyPreviousNationalClasses'
 import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
@@ -35,9 +37,12 @@ export const originalDataPointSlice = createSlice({
       state.updating = false
     })
 
-    builder.addCase(getOriginalDataPointReservedYears.fulfilled, (state, { payload }: PayloadAction<Array<number>>) => {
-      state.reservedYears = payload
-    })
+    builder.addCase(
+      getOriginalDataPointReservedYears.fulfilled,
+      (state, { payload }: PayloadAction<Array<ODPReservedYear>>) => {
+        state.reservedYears = payload
+      }
+    )
   },
 })
 

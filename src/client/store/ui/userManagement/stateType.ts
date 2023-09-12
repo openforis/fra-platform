@@ -1,5 +1,5 @@
-import { CountryIso } from '@meta/area'
-import { RoleName, User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { RoleName, User } from 'meta/user'
 
 export interface UserManagementState {
   count: {
@@ -7,6 +7,7 @@ export interface UserManagementState {
   }
   filters: {
     countries: Array<CountryIso>
+    fullName: string
     roles: Array<RoleName>
   }
   user?: User

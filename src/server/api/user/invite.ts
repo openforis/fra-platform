@@ -1,28 +1,29 @@
 import { Response } from 'express'
 
-import { CycleRequest } from '@meta/api/request'
-import { RoleName } from '@meta/user'
+import { CycleRequest } from 'meta/api/request'
+import { Lang } from 'meta/lang'
+import { RoleName } from 'meta/user'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { UserController } from '@server/controller/user'
-import { Requests } from '@server/utils'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { Requests } from 'server/utils'
 
-export const invite = async (
-  req: CycleRequest<{
-    email: string
-    name: string
-    role: RoleName
-  }>,
-  res: Response
-) => {
+type InviteUserRequest = CycleRequest<{
+  email: string
+  name: string
+  role: RoleName
+  lang: Lang
+}>
+
+export const invite = async (req: InviteUserRequest, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, email, name, role: roleName } = req.query
+    const { countryIso, assessmentName, cycleName, email, name, role: roleName, lang } = req.query
 
     const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const { user: invitedUser } = await UserController.invite({
+    const props = {
       countryIso,
       assessment,
       cycle,
@@ -30,7 +31,10 @@ export const invite = async (
       email,
       roleName,
       user,
-    })
+      lang,
+    }
+
+    const { user: invitedUser } = await UserController.invite(props)
 
     Requests.sendOk(res, invitedUser)
   } catch (e) {

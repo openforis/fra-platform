@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useCycle } from '@client/store/assessment'
-import LinkHome from '@client/components/LinkHome'
+import { useCycle } from 'client/store/assessment'
+import LinkHome from 'client/components/LinkHome'
 
 import CycleSwitcher from '../CycleSwitcher'
 import LanguageSelector, { LanguageSelectorMobile } from '../LanguageSelector'
@@ -14,7 +14,7 @@ const FraHeader: React.FC = () => {
 
   return (
     <div className="app-header no-print">
-      <img alt="FAO" className="app-header__fao-logo" src={`/img/fao/FAO${i18n.language}.svg`} />
+      <img alt="FAO" className="app-header__fao-logo" src={`/img/fao/FAO${i18n.resolvedLanguage}.svg`} />
       <div className="app-header__separator" />
       <div className="app-header__global-fra">
         <div>{i18n.t<string>('common.globalFRA')}</div>

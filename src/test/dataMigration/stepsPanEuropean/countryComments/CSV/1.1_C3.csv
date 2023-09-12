@@ -1,0 +1,185 @@
+,country,indicator,item,comment,comment_trends
+0,ALB,1.1,Forest area,,
+1,ALB,1.1,… of which available for wood supply,,
+2,ALB,1.1,OWL area,,
+3,ALB,1.1,Forest types,,
+4,AND,1.1,Forest area,,
+5,AND,1.1,… of which available for wood supply,,
+6,AND,1.1,OWL area,,
+7,AND,1.1,Forest types,,
+8,AUT,1.1,Forest area,The AUTn minimum Forest + OLW area is 0.05 hectares (minimum width: 10 meter). This causes a larger area in comparison with the FRA 2020 definition of 0.5 hectares. The AUTn minimum Forest + OWL canopy cover is 30 percent. This causes a smaller area in comparison with the FRA 2020 definition of 10 percent. It is assumed that both differences cancel out each other. This assumption was proofed true by a supplementary assessment according to the FAO forest definition as part of the NFI 2007-2009 and 2016-2021 assessment.,
+9,AUT,1.1,… of which available for wood supply,,
+10,AUT,1.1,OWL area,"Other wooded land = “Strauchfläche” within all “Betriebsarten” (sylvicultural systems). Land with shrub and bushes spanning more than 0.05 hectares (minimum width: 10 meter), including areas with pinus mugo and alnus viridis.",
+11,AUT,1.1,Forest types,Data refer only to FAWS.,
+12,BLR,1.1,Площадь леса,,
+13,BLR,1.1,… в т. ч. доступная для поставки древесины,"леса , где возможно проведение рубок главного пользования",
+14,BLR,1.1,Площадь прочих лесопокрытых земель,древесно-кустарниковая растительность по данным земельного кадастра,
+15,BLR,1.1,Типы леса,,
+16,BEL,1.1,Forest area,Flanders RFI methodology changed since 2010. This impacts the forest area calculation from 2010.,stable
+17,BEL,1.1,… of which available for wood supply,Forest area - strict forest reserves- Forests physically not accessible,stable
+18,BEL,1.1,OWL area,"Open spaces in forests, natural expansion, nurseries in forest land…",stable
+19,BEL,1.1,Forest types,,Broadleaved forests in expansion combined to a reduction of coniferous forests
+20,BIH,1.1,Forest area,,
+21,BIH,1.1,… of which available for wood supply,,
+22,BIH,1.1,OWL area,,
+23,BIH,1.1,Forest types,,
+24,BGR,1.1,Forest area,,
+25,BGR,1.1,… of which available for wood supply,,
+26,BGR,1.1,OWL area,,
+27,BGR,1.1,Forest types,,
+28,HRV,1.1,Forest area,"This category includes high forests, plantations and coppices.","The area of forests is gradually increasing, partly because of natural succession (together with OWL), and in smaller degree, because of afforestation."
+29,HRV,1.1,… of which available for wood supply,"Forest area within national class ""Production forests"".",
+30,HRV,1.1,OWL area,"This category includes scrubland (maquia, garigue, scrubs and shrub). Forest management in these areas is composed mainly of conducting protecting measures to prevent their further degradation and stimulate their succession to forests.",
+31,HRV,1.1,Forest types,,
+32,CYP,1.1,Forest area,,
+33,CYP,1.1,… of which available for wood supply,,
+34,CYP,1.1,OWL area,,
+35,CYP,1.1,Forest types,,
+36,CZE,1.1,Forest area,"The Czech and the FRA definitions of the forest (lesni puda, PUPFL) are very similar. Differences:  - FRA size limits (0,5 ha) - in the CR, a ""forest"" could be smaller depending on how the individual land lot is registered in the cadaster; no information on this is available; total area of such isolated lots smaller than 0,5 ha could be approx. from hundreds to 2 thousands (max.) of hectares.  - It is obligatory to reforest any forest stand in 2 years after felling; it is also obligatory to maintain a density of a forest stand higher than 70 %. In some cases the regeneration time could be prolonged by state forest authority. - An unknown part of the approx. 6 000 ha of dwarf pine is not a regular forest according to the FRA definition (it mostly does not reach a height of 5 m in situ): these dwarf pine groups (""spots""), mostly mixed with spruce, form parts - larger or smaller than 0.5 ha - of regular forest stands mainly in high mountains. Here, these (roughly 0,2 % of total forest area) are included into ""forest"" because they are used and protected like regular forest stands having more non-wood producing functions than a regular forest has. Better also is to keep them within ""forest"" than to introduce absolutely groundless subjective assessments into reporting tables. The height and area size limits are not fully useful for a forest definition in Central Europe.",
+37,CZE,1.1,… of which available for wood supply,"Protection forest (a legal forest category), 1st. zones of national parks and Protected Landscape Areas, reserves and natural monuments where felling is prohibited or strictly limited. In the database, forest types area is reported as the land covered by trees (porostni puda) without unstocked areas: roads etc. Calibration to total forest area (lesni puda) was used with different coefficient in different years (1.03229758 in 2005,  1,03528089476691 in 2010 and 1,03686840624059 for 2012 which was used for extrapolation of 2015 value)",
+38,CZE,1.1,OWL area,"None ""other wooded land"" is registered in the CR acording to main source of data - Land cadastre. Case the agriculture land is abandoned and occupied by (forest) trees, the owner willing manage it as forest, he must change the attribute in the cadaster.",
+39,CZE,1.1,Forest types,,
+40,DNK,1.1,Forest area,,
+41,DNK,1.1,… of which available for wood supply,,
+42,DNK,1.1,OWL area,"Those that fullfill the definition of FAO, mainly including moor and heather with some tree or schrub cover.","In previous reporting (FRA 2005 and FRA 2010), other wooded land cover in 1990 and 2000 was obtained from the Area Information System (AIS) Land Cover Plus themes (Miljø- og Energiministeriet and Danmarks Miljøundersøgelser). Other wooded land cover from 2005 and onward is estimated using NFI data.  The differences in other wooded land cover between the previous and present forest inventories are probably to some extend caused by the differences in methodology. However, nature restoration projects have to some extent restored open land nature types, such as heather, on previously tree covered areas. Hence, the actual change in other wooded land area is difficult to assess."
+43,DNK,1.1,Forest types,“Mainly conifers” include Christmas trees. The area does not sum up to total forest area due to temporarily stocked and auxiliary areas.,
+44,EST,1.1,Forest area,"Forest is defined as land, spanning more than 0.1 ha (a) covered with trees with the minimum height of 1.3 m and the minimum crown cover of 30%, or (b) managed for the purpose of timber production or the preservation of woody plant cover.",The total forest area has increased since 1950-es.
+45,EST,1.1,… of which available for wood supply,Forest area excluding strictly protected areas (mainly – excl. MCPFE Classes 1.1 and 1.2).,
+46,EST,1.1,OWL area,"Includes OWL according to the FRA definition, .",
+47,EST,1.1,Forest types,According to the FRA definition,
+48,FIN,1.1,Forest area,,"Reporting years 1990 and 2000 are taken from previous pan-European reports. The land area in these estimates is not calibrated to the FAO statistitcs, therefore the two first reporting years differ from FRA reporting for area figures."
+49,FIN,1.1,… of which available for wood supply,,
+50,FIN,1.1,OWL area,Mainly poorly productive shrubland: sparsely stocked peatlands and rocky sites.,
+51,FIN,1.1,Forest types,,"OLwTC are typically parks, grave yards…"
+52,FRA,1.1,Forest area,Same definition as of SoEF since 2008 (before 2008 the trees had to be higher than 7 meters or able to reach this threshold in situ). Roads in forests are not included.,The area of forest is still increasing mainly because of natural expansion. The expansion seems to slow down but the trend is not easy to interpret.
+53,FRA,1.1,… of which available for wood supply,"Forests available for production are, for the french NFI, forests where logging is possible and is not prevented because of strong environmental restrictions or physical accessibility. Areas where logging is not economically profitable but where there are no environnemental restriction, are included.",
+54,FRA,1.1,OWL area,"Heathlands of more than 50 ares : lands covered with uncultivated plants and where the cover is over 25 %. The absolute cover rate of trees is below 10 %, scattered trees excluded, on more than 50 ares and more than 20 meters width. The definition has been modified since the past years but is now corresponding to the FAO definition. 1990 and 2000 values come from the Teruti survey: there is no minimum size and all heathlands are included (wether they are wooded or not)","1990 and 2000 values have been reported, in order to be consistent with FRA 1a. But these values are not consistent with data from subsequent years due to changes in the definitions."
+55,FRA,1.1,,,
+56,GEO,1.1,Forest area,,
+57,GEO,1.1,… of which available for wood supply,,
+58,GEO,1.1,OWL area,,
+59,GEO,1.1,Forest types,,
+60,DEU,1.1,Forest area,"Forest within the meaning of the NFI is any area of ground covered by forest vegetation, irrespective of the information in the cadastre or similar records. The term forest also refers to cutover or thinned areas, forest tracks, firebreaks, temporarily unstocked land and clearings, forest glades, feeding grounds for game, landings, forest aisles, further areas linked to and serving the forest including areas with recreation facilities, overgrown heaths and moorland, overgrown former pastures, alpine pastures and rough pastures, as well as areas of dwarf pines and green alders. Heaths, moorland, pastures, alpine pastures and rough pastures are considered to be overgrown if the natural forest cover has reached an average age of five years and if at least 50% of the area is covered by forest.  Areas with forest cover in open pasture land or in built-up areas of under 1000 m², coppices under 10 m wide, Christmas tree and ornamental brushwood plantations, commercial forest-tree nurseries as well as parkland attached to country houses are not forest within the meaning of the NFI. Watercourses up to 5 m wide do not break the continuity of a forest area.",Till 2012 the trend is derived from NFI data. After 2012 the data of 2012 are kept constant.
+61,DEU,1.1,… of which available for wood supply,see SoeF2020_Vorbereitung_2018_05_25.xlsx,von der Holzbodenfläche abgezogen ist BWI-Fläche mit vollständiger Nutzungseinschränkung oder Nutzungseinschränkung um 2/3. Für 2002 ist die Fläche flächenproportional geschätzt. Die Berichtsjahre sind linear interpoliert.
+62,DEU,1.1,OWL area,,
+63,DEU,1.1,Forest types,"see SoeF2020_Vorbereitung_2018_05_25.xlsx, Tab. 1.1 ab Zeile 58 Laub-/Nadelwald-Einstufung der BWI","2000: Werte der letzten Erhebung 2005: Mittelwert von 2000 und 2010 2010, 2015: BWI2012-Werte, auf die Waldfläche normiert 2020 = 2015"
+64,GRC,1.1,Forest area,,
+65,GRC,1.1,… of which available for wood supply,,
+66,GRC,1.1,OWL area,,
+67,GRC,1.1,Forest types,,
+68,VAT,1.1,Forest area,,
+69,VAT,1.1,… of which available for wood supply,,
+70,VAT,1.1,OWL area,,
+71,VAT,1.1,Forest types,,
+72,HUN,1.1,Forest area,"Forest is defined as land spanning more than 0.5 hectares with trees higher than five meters and a canopy cover of more than 30 percent, or trees able to reach these thresholds, in situ. It does not include land that is predominantly under agricultural or urban land use, but in addition to areas covered by trees, it includes roads and other areas that have no tree cover but are under forest management. Area statistics of 1990 and 2000 were slightly corrected in order to harmonize with Greenhouse Gas Inventory.",
+73,HUN,1.1,… of which available for wood supply,"FNAWS is defined in the above table where area statistics are given. FAWS is the complement on FNAWS. FNAWS definition has been reviewed since the last submission, thus the related area statistics were modified.",
+74,HUN,1.1,OWL area,"Other wooded land comprises land spanning more than 0.5 hectares: - with trees higher than 5 meters and a canopy cover between 5-10 percent, or trees able to reach these thresholds in situ and - with the combined canopy cover of trees and shrubs over 10%.",
+75,HUN,1.1,Forest types,,
+76,ISL,1.1,Forest area,Same internationl definition as given in FRA2020,
+77,ISL,1.1,… of which available for wood supply,Assessed in field on sample plot of NFI,
+78,ISL,1.1,OWL area,Natural birch (B.pubescens) woodland not reaching 5 m at maturity,
+79,ISL,1.1,Forest types,,
+80,IRL,1.1,Forest area,"NFI data from 2006, 2012 and 2017 were used as baseline. Interpolation was used to estimate any reporting years within the years 2006, 2012 and 2017.",
+81,IRL,1.1,… of which available for wood supply,NFI data used.,
+82,IRL,1.1,OWL area,FAO definition used.,
+83,IRL,1.1,Forest types,,
+84,ITA,1.1,Forest area,"NFI1985 applied the following thresholds to define ""Forest land"": minimum area 2000 m2; minimum width 20 m; inimum crown density 20%; INFC2005 and INFC2015 adopted FAO FRA2005 and FRA2015 definition of Forest and OWL.","The availability of new provisional NFI data allows a revision of 2010 estimation of forest resources extent. As a result, their extent referring to 2010 has slightly decreased. This new estimation leads to a lower increase of the annual increment previously reported in SOEF-2011. FOWL expansion  is due to abandonment of former agricultural lands and pastures."
+85,ITA,1.1,… of which available for wood supply,"NFI 2005 defines FAWS as the forest area with no physical, legal or economical restrictions; the ratio FAWS/F found by NFI2005 has been applied to other reference years","As a result of the calculation method adopted, the trend is the same of the Forest area."
+86,ITA,1.1,OWL area,"NFI 2005 and NFI 2015 adopted FAO OWL definition and thresholds. As concerns previous NFI (1985), shrub land has been entirely considered as OWL.",The trend is positive and coherent with the Forest area expansion.
+87,ITA,1.1,Forest types,,
+88,LVA,1.1,Forest area,"National forest inventory data is collected in a five-year cycle and the first cycle was started in 2004 and finished in 2008. Second cycle was finished in 2013. At the end of the second cycle a mistake was found in the first cycle data, that has been corected. Therefore, data  2010 and 2015 are different from the 2015 report.",
+89,LVA,1.1,… of which available for wood supply,,
+90,LVA,1.1,OWL area,only shrubland included,
+91,LVA,1.1,Forest types,,
+92,LIE,1.1,Forest area,,
+93,LIE,1.1,… of which available for wood supply,,
+94,LIE,1.1,OWL area,,
+95,LIE,1.1,Forest types,,
+96,LTU,1.1,Forest area,,
+97,LTU,1.1,… of which available for wood supply,Forests of III and IV forest group,
+98,LTU,1.1,OWL area,,
+99,LTU,1.1,Forest types,,
+100,LUX,1.1,Forest area,,
+101,LUX,1.1,… of which available for wood supply,,
+102,LUX,1.1,OWL area,,
+103,LUX,1.1,Forest types,,
+104,MLT,1.1,Forest area,,
+105,MLT,1.1,… of which available for wood supply,,
+106,MLT,1.1,OWL area,,
+107,MLT,1.1,Forest types,,
+108,MDA,1.1,Площадь леса,,
+109,MDA,1.1,… в т. ч. доступная для эксплуатации,,
+110,MDA,1.1,Площадь прочих лесопокрытых земель,,
+111,MDA,1.1,Типы леса,,
+112,MCO,1.1,Forest area,,
+113,MCO,1.1,… of which available for wood supply,,
+114,MCO,1.1,OWL area,,
+115,MCO,1.1,Forest types,,
+116,MNE,1.1,Forest area,826782 ha. Data from NFI,increasing on 2 % per year acording to statitical office of MNE
+117,MNE,1.1,… of which available for wood supply,,
+118,MNE,1.1,OWL area,Total area of OWL 137480 ha                 accesible 125998 and unaccesible 11482 ha,"Forest land shall be considered to be areas bigger than 50 ares, covered by forest trees: - forest trees higher than 5 m, or the trees capable of reaching that height in their maturity phase and whose crown canopy is 5 – 10% of the land area; - forest trees that are not capable of reaching the height of above 5 m, that is, covered by the combination of trees and low forest vegetation provided that their density is higher than 10% of the area. Forest and other forest land shall also be deemed temporarily barren areas where the natural regeneration of forest trees has started, fire protection lanes, areas covered with non-forest vegetation whose area is less than 50 ares if it is within the forest and other forest land complexes, forest trees protection belts larger than 50 ares and wider than 20 m and forest roads."
+119,MNE,1.1,Forest types,,
+120,NLD,1.1,Forest area,"The SoEF definition for forest land differs from the definition used in the National Forest area surveys in the NLD. Within the SoEF land is considered forest at 10 per cent coverage, in national surveys this is 20 per cent coverage. However, no corrections in the national survey figures are made, because the forest area with coverage of 10-20 per cent is negligible in the NLD.","New data available which led to new insights in the total Forest Area of the NLD. This new insight in forest area led to a steep decrease between 2010 and 2015. However, it is likely that this deforestation has taken place in a gradual fashion over the last years. The forest area of 2020 has been extrapolated based on linear interpolation between 1982-2015"
+121,NLD,1.1,… of which available for wood supply,New calcuation based on 5th and 6th NFI. Forest type and ownership were determining factors were weight in.,"Although this method is slightly more nuanced compared to previous reportings, this is still a rough estimate. We are currently working on a more sofisticated method."
+122,NLD,1.1,OWL area,"In the NLD the area that fits the FAO definition of ‘other wooded land’ is not registered as such, but is considered to be very limited. Some of the area other wooded land might be included in the forest area, but this area is negligible. In order to be able to present the total area of forest and other wooded land, the area of other wooded land is filled in as 0.",
+123,NLD,1.1,Forest types,,
+124,NOR,1.1,Forest area,"For this table, like most other tables in this enquiry, the data for 2015 have been changed compared with the previous assessment. The reason is that the 2015 enquiry was submitted in 2014, and at that time no real data for 2015 were available. The reported figures were mainly based on extrapolation. For data from the NFI, figures for 2015 will normally require complete data for 2013-2017.","Due to the backcasting of data for some plots, there may be some uncertainty in the trend of forest area from 1990-2010. However, this is not expected to be of major importance."
+125,NOR,1.1,… of which available for wood supply,,
+126,NOR,1.1,OWL area,"OWL is directly assessed by the NFI and not derived from any other national categories. It mostly includes woodlands on shallow soil, on mires or under harsh climate, in addition to a transitional period for e.g. abandoned agricultural land.",
+127,NOR,1.1,Forest types,,
+128,POL,1.1,Forest area,"Definition of forest in POL is a land use related. Only areas recorded as a forest in the Land and Property Register (cadastre) or planned to to be registered coming years (new afforestations) are reported. According to the Polish definitions, the minimum area of forest is at least 0.1 ha. Up to now there is no data evaluating the share of forest patches greater than 0.1 ha and less than 0.5 ha. The total number of those forest plots could be big but we are of the opinion that the area occupied by them is not significant therefore this item has not been adjusted.","The area of forest in 1990 was changed slightly compared to previous questionnaires, from 8881 to 8882 thousand hectares. The first data about area of land related to forestry (for 1994) were used instead of previous expert estimation. Data for 2015 were updated."
+129,POL,1.1,… of which available for wood supply,area of forest available for wood supply - calcutated as a difference between total forest area and area of forest not available for wood supply in 2015,
+130,POL,1.1,OWL area,There is now data about OWL in POL. Category fulfilling the criteria of OWL doesn't exist in Polish statistics.,
+131,POL,1.1,Forest types,Area is estimated basing on information from NFI sample plots. Basal area instead of crown cover was applied for estimations.,
+132,PRT,1.1,Forest area,,
+133,PRT,1.1,… of which available for wood supply,,"FAWS shows a stable area from 2005 to 2015. Although there is a reduction mainly in maritime pine due to forest fires, there is also an increase in other wooded species area."
+134,PRT,1.1,OWL area,"Shrublands with or without trees (less than 0,5 ha or 20 m width)",See above
+135,PRT,1.1,Forest types,Data corresponds to PRT mainland and Autonomous Regions (Azores and Madeira),
+136,ROU,1.1,Forest,"Definition is valid for 1990-2005.                                                                   Land spanning at least 0.25 hectares with trees; trees should reach more than 5 meters height at maturity, in normal conditions of vegetation. It includes                                                                                                                                                                                                 a) windbreaks; b) Pinus montana alpine shrubs;                     c) afforested pastures with canopy cover more or equal than 40 percent,  calculated only for the actual area occupied by forest vegetation                                                                                                     d) plantations with forest species in the areas of protection of hydrotechnical works and land improvements made on public land owned by the state, as well as plantations with forest species on the lands administered by the Agency of Domains of the State, which fulfill the conditions stipulated concerning forest definition;                                                                                                                                                                                                                                                                               Forest fund: All the forests, land destined for afforestation, those serving the needs of the forest cultivation, production or management, ponds, beds of the creeks and other land for forestry destination and unproductive, regardless of ownership. It includes:    a) forests ;    b) land under regeneration and plantations established for forestry purposes;    c) land for afforestation: degraded land and land without trees, established by law to be afforested;    d) land that serve the needs of culture: nurseries, greenhouses, orchards and crops parent;    e) land that serve the needs of forest production: willow cultures, Christmas trees, fruit and ornamental trees and shrubs;    f) land that serve the needs of forest administration: land destined for ensuring game food and production of forage, land for temporary use by forestry staff;    g) land occupied by constructions and related courts: administrative premises, cottages, pheasant farms, trout farms, game farms, forest roads and railwais, industrial areas, other technical facilities specific to forest sector; temporarily occupied land and those affected by the tasks and / or disputes, as well as the forest lands within the border corridor and the state border protection strip, and those intended to achieve objectives within the Integrated State Border Securing System;    h) ponds, creek beds and unproductive land included into forest management plans;                                                                                                                FAO definition appliies for th rest.",
+137,ROU,1.1,… of which available for wood supply,"The area for FAWS provided for 2000 is from the study carried out by the Forest Research and Management Institute, based on the functional zoning included in the forest management plans, in force in 1999. The same proportion  was applied for the forest area in 2005 and 2010 in order to determine FAWS.                                                                                                                   Data for 2015 and 2020 is supplied by the National Forest Inventory",
+138,ROU,1.1,Other land with tree cover,,"As data provided by NFI is different from FAO definition, the information is not relevant"
+139,ROU,1.1,OWL area,Main national categories included in “Other wooded land”:,
+140,RUS,1.1,Forest area,,
+141,RUS,1.1,… of which available for wood supply,,
+142,RUS,1.1,OWL area,,
+143,RUS,1.1,Forest types,,
+144,SRB,1.1,Forest area,,
+145,SRB,1.1,… of which available for wood supply,,
+146,SRB,1.1,OWL area,,
+147,SRB,1.1,Forest types,,
+148,SVK,1.1,Forest area,"Forest is Forest land (forest stands described in Forest Management Plans) spanning more than 0.3 hectares, with canopy cover of more than 30 percent, with trees higher than 5 meters or trees able to reach these thresholds in situ. It does not include land that is predominantly under agricultural or urban land use.                                                                                      Forests are Forest lands: - covered by forest stands, - where forest stands were removed temporarily and shall be regenerated -  reforested (clearings after felling), - skidding roads and dividing lines on forest lands up to 4 m wide;  - with industrial plantations. Except forests on forest lands there are also another 288 000 hectares of forest in SVK occurring on agricultural or other lands that were identified by the National Forest Inventory and Monitoring. However, not all of the information is known for them and, therefore, we report only the data for ""official forest area"" within this reporting for SoEF 2020. The Act on Forests doesn´t apply on forests outside forest lands. The trees outside forest lands above 13 cm in diameter are partially protected by the Act on Nature Conservation.","Since the first forest inventory in the years 1949-53, the area of both ""Forest lands"" and ""Forest stands"" have increased. This long-term increase in the forest area further continues. Since 2001, the area of forest crop land increased by more than 18,9 ths. ha. Forest cover, estimated as a percentage of forest land from the total country area, reached 41.2% in 2017.   Dwarf pine stands have traditionally been included among forests in SVK. They are also contained in Forest management plans. Since this reporting for SoEF 2020 we have for the first time classified dwarf pine stands as ""Other wooded land"" and that is why the ""Forest areas"" recorded in current SoEF 2020 reporting don’t match with those in SoEF 2015 and earlier."
+149,SVK,1.1,… of which available for wood supply,"Forest area except forests in:                                                                    - protected territories in 5th degree of protection,                                                 - protective zones of water resources of the 1st grade,                                                         - dwarf pine (Pinus mugo) alpine zone,                                                                                - extraordinarily unfavourable sites.",The area of Forests available for wood supply (FAWS) varies in the interval from 1 751 thousand ha (in 2005) to 1 796 thousand ha (in 2017 which is identified with 2020).
+150,SVK,1.1,OWL area,Alpine vegetation zone with Pinus mugo,The area of Pinus mugo (alpine) vegetation zone is in long term stabilized.
+151,SVK,1.1,Forest types,,The percentage of predominantly coniferous forests has steadily decreased  while on the other hand the percentages of predominantly broadleaved and mixed forests have been increasing.
+152,SVN,1.1,Forest area,"Assesment is based on data from Forest stand map (SVN Forest service) and Land use map (Ministry of Agriculture, Forestry and Food). Area of forest: LU map, cathegories: 2000 (minus Pinus mugo stands), 1410, 1420 in 1500","Forest area change in the recent years is the result of natural expension on the abandoned agricultural land in hilly rural area on one side, and pressure on forest through deforestation in urban areas on the other. In the past few years, there have been more deforestations than new established forest areas, resulting in forest area decrease on a country level."
+153,SVN,1.1,… of which available for wood supply,,
+154,SVN,1.1,OWL area,"Other Wooded Land: LU map, cathegories: 1800 plus Pinus mugo stands",
+155,SVN,1.1,Forest types,,
+156,ESP,1.1,Forest area,Land cover classification and forest area estimation are based on the National Forest Map (NFM). FRA2020 definition on forest is used.,
+157,ESP,1.1,… of which available for wood supply,FAWS estimation is based on the combination of digital/ cartographical information and forest information from NFI cycles at plot level.Reference  defintition from Alberdi et al.2016 is used to estimate FAWS.,Only estimated when all the information required from NFIs or cartography was available: period 2010-2020.
+158,ESP,1.1,OWL area,Arbolado disperso y desarbolado. Canopy cover less than 10%,1990 and 2000 values are the same than in the previous questionnaire. From 2005 to 2020 it has been calculated acording to the most updated cartography available for each province.
+159,ESP,1.1,Forest types,,
+160,SWE,1.1,Forest area,FRA 2020 definitions,
+161,SWE,1.1,… of which available for wood supply,Only productive forestland included and legally and voluntarily protected productive forestland excluded. This area is also reduced by the proportion of the area occupied by retention trees on felling sites.,There is a slight decrease in the FAWS area due to an increase in protected forest area.
+162,SWE,1.1,OWL area,"Mires, Rock, Sub-alpine and alpine areas categorized in the field as OWL.",
+163,SWE,1.1,Forest types,"Defined using field data on proportions, however 65% is the threshold for determining weather conifers or broadleaved species are dominating. Alpine birch areas included.",Stable
+164,CHE,1.1,Forest area,"The figures of forest area refer to the forest area definition of the Swiss NFI. The forest definition contains the following : ""In the NFI the proper criteria for the forest/nonforest distinction are a minimum top height (3 m) and a function of a minimum width (25 to 50 m) and a minimum percentage cover (100 to 20 %).""",
+165,CHE,1.1,… of which available for wood supply,"The figures of forest area which is available for wood supply refer to the area following the definition of the Swiss NFI of  ""accessible Forest"" (Forest that is accessible by foot). The only forest area where wood extraction is not allowed is in a part of protected forests, as reportet in Table 4.9.",
+166,CHE,1.1,OWL area,"The figures of ""other wooded land"" refer to the area following the definition of the Swiss NFI of Shrub-Forest.",
+167,CHE,1.1,Forest types,"The extrapolation of the figures for forest area by forest types is based on the years 2005 and 2015, whereas the figures in table 1.1a are based on the years 1994, 2005 and 2015. Therefore the total of the years 1990 and 2000 in table 1.1b slightly differ from the total in table 1.1a",
+168,MKD,1.1,Forest area,,
+169,MKD,1.1,… of which available for wood supply,,
+170,MKD,1.1,OWL area,,
+171,MKD,1.1,Forest types,,"For 2010, 2015 and 2020 values on forest types do not include degraded forests. 2017 values are reported for 2020."
+172,TUR,1.1,Forest area,"There are five national classes in TUR which are Closed  high forest, Open high forest, Closed coppice forest, Open coppice forest and Other wooded land. The closed high forest, open high forest, closed coppice forest and opne coppice forest form the forest area.",The trend of the forest area has been going up year by year.
+173,TUR,1.1,… of which available for wood supply,,
+174,TUR,1.1,OWL area,The forest land where current tree canopy cover is less than 10% and trees height at maturity are less than 5 m.,"The area of wooded land is the same in all years. Other woodland areas were selected below list. These areas are suffered from erosion and stony.    • Alpine zone, • Nature protection areas, • Nature conservation area, • Very bad growing site areas, • High mountain ecosystems,  Wood productions cannot be done in these areas where never land spanning more than 0.5 hectares with trees higher than 5 meters and a canopy cover of more than 10 percent, or trees not able to reach these thresholds in situ. So, these areas are defined as ""other wooded land"". There are larch, red pine, scotch pine, juniper species in the other wooded land.  In FRA 2020 terms and definitions, the forest was described as ""Land spanning more than 0.5 hectares with trees higher than 5 meters and a canopy cover of more than 10 percent, or trees able to reach these thresholds in situ. It does not include land that is predominantly under agricultural or urban land use."" Although the open forests have less than 10 percent, these areas have the potential to exceed 10 percent of canopy cover in the future. So, the open forest areas are accepted as forest areas. In addition, it was decided that open forest areas would be included in the forest definition in both the Geneva and Mexico meetings."
+175,TUR,1.1,Forest types,"Closed  high forest, Open high forest, Closed coppice forest, Open coppice forest and Other wooded land.",
+176,UKR,1.1,Forest area,,
+177,UKR,1.1,… of which available for wood supply,,
+178,UKR,1.1,OWL area,,
+179,UKR,1.1,Forest types,,
+180,GBR,1.1,Forest area,UK definition of woodland area requires 20% canopy cover. There are no reliable estimates of the area with 10-20% canopy cover.,
+181,GBR,1.1,… of which available for wood supply,"All forests are considered available for wood supply, although there may be additional restrictions in some areas (e.g. protected forest areas); a clear example is coppicing for conservation purposes. In practice, there will be a small (unquantifiable) area that is not available for wood supply.",
+182,GBR,1.1,OWL area,Estimate is based on estimate for wood pastures provided for TBFRA 2000. No further data available.,Single point estimate used for all years; assumed to be little change over time.
+183,GBR,1.1,Forest types,"Data not currently available on forest types, so figures cover areas of conifers & broadleaves only.",

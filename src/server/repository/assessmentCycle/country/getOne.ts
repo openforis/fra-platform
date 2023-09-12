@@ -1,9 +1,9 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Country, CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
+import { Country, CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from '@server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export const getOne = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },

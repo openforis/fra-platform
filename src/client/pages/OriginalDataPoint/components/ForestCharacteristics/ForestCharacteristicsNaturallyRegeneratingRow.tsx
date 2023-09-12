@@ -1,23 +1,27 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
 import classNames from 'classnames'
+import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass, ODPs } from '@meta/assessment'
+import { ODPNationalClass } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import PercentInput from '@client/components/PercentInput'
-import ReviewIndicator from '@client/components/ReviewIndicator'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import PercentInput from 'client/components/PercentInput'
+import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
 
 const columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
 
-const allowedClass = (nc: ODPNationalClass) =>
-  nc.forestNaturalPercent !== null && Number(nc.forestNaturalPercent) >= 0 && Number(nc.forestPercent) > 0
+const allowedClass = (nc: ODPNationalClass) => {
+  return nc.forestNaturalPercent !== null && Number(nc.forestNaturalPercent) > 0 && Number(nc.forestPercent) > 0
+}
 
 type Props = {
   canEditData: boolean
@@ -39,11 +43,16 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
-  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
   const ofWhichPrimary = area
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
     : null
+
+  const validationErrorMessage = useNationalClassValidations({
+    index,
+    originalDataPoint,
+    variable: 'validPrimaryForest',
+  })
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -57,8 +66,10 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
       <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(ofWhichPrimary)}</th>
       <td
         className={classNames(`fra-table__cell`, {
-          error: !nationalClassValidation.validPrimaryForest,
+          error: Boolean(validationErrorMessage),
         })}
+        data-tooltip-id={TooltipId.error}
+        data-tooltip-content={validationErrorMessage}
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPrimaryForest}
@@ -98,7 +109,11 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
           <ReviewIndicator
             title={name}
             subtitle={i18n.t('nationalDataPoint.naturallyRegeneratingForest')}
-            topicKey={`${originalDataPoint.id}-class-${originalDataPoint.nationalClasses[index].uuid}-naturallyRegeneratingForestoFwhichPrimary`}
+            topicKey={Topics.getOdpClassReviewTopicKey(
+              originalDataPoint.id,
+              uuid,
+              'naturallyRegeneratingForestoFwhichPrimary'
+            )}
           />
         </td>
       )}

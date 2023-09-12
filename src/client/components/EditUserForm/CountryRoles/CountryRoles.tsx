@@ -5,15 +5,15 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { CountryIso, Region, RegionCode } from '@meta/area'
-import { RoleName, User, UserRole, Users } from '@meta/user'
+import { CountryIso, Region, RegionCode } from 'meta/area'
+import { RoleName, User, UserRole, Users } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useCountries } from '@client/store/assessment'
-import { useAssessment, useCycle, useSecondaryRegion } from '@client/store/assessment/hooks'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useUser } from '@client/store/user'
-import CountrySelectModal from '@client/components/CountrySelectModal'
+import { useAppDispatch } from 'client/store'
+import { useCountries, useSecondaryRegion } from 'client/store/area'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useUser } from 'client/store/user'
+import CountrySelectModal from 'client/components/CountrySelectModal'
 
 import CountryRole from './CountryRole'
 
@@ -23,6 +23,7 @@ const roles = [
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
   RoleName.COLLABORATOR,
+  RoleName.VIEWER,
 ]
 
 type ModalOptionsProps = {

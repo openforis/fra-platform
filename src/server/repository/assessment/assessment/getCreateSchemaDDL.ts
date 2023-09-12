@@ -60,7 +60,10 @@ create table ${schemaName}.file
     uuid             uuid default uuid_generate_v4() NOT NULL,
     country_iso      varchar(3) references public.country on update cascade on delete cascade,
     file_name        varchar(250) NOT NULL,
-    file             bytea NOT NULL
+    file             bytea NOT NULL,
+    private          boolean,
+    PRIMARY KEY (id),
+    unique(uuid)
 );
 `
   return query
@@ -165,7 +168,11 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
                   on update cascade on delete cascade,
           key           varchar(256)                          not null,
           status        message_topic_status default 'opened' not null,
-          type          message_topic_type                    not null
+          type          message_topic_type                    not null,
+          section_uuid uuid
+            constraint message_topic_section_uuid_fk
+            references ${assessmentSchemaName}.section (uuid)
+            on update cascade on delete cascade
       );
       
       create unique index message_topic_country_iso_key_uindex
@@ -238,6 +245,26 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           created_at timestamp with time zone default now(),
           updated_at timestamp with time zone default now()
       );
+      
+      create table ${assessmentCycleSchemaName}.node_values_estimation
+      (
+          id          bigserial                       not null
+              constraint node_values_estimation_pk
+                  primary key,
+          uuid        uuid default uuid_generate_v4() not null,
+          country_iso varchar(3)                      not null
+              constraint node_values_estimation_country_fk
+                  references country (country_iso)
+                  on update cascade on delete cascade,
+          table_uuid  uuid                            not null
+              constraint node_values_estimation_table_fk
+                  references ${assessmentSchemaName}."table" (uuid)
+                  on update cascade on delete cascade,
+          created_at  timestamp with time zone default now() not null,        
+          method      varchar(255)                    not null,
+          variables   jsonb                           not null,
+          unique (uuid)
+      );
   `
 }
 
@@ -245,7 +272,8 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
   return `
       create or replace view ${assessmentCycleSchemaName}.original_data_point_data as
       with classes as (
-          select o.country_iso,
+          select o.id,
+                 o.country_iso,
                  o.year,
                  jsonb_array_elements(
                    case when jsonb_array_length( o.national_classes ) = 0 then '[{}]' else o.national_classes end
@@ -270,7 +298,8 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                   left join country_years cy on c.country_iso = cy.country_iso
            ),
            raw_values as (
-               select c.country_iso,
+               select c.id,
+                      c.country_iso,
                       c.year,
                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
                           100::numeric)                                                                as forest_area,
@@ -287,21 +316,11 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                           100::numeric)                                                                as plantation_forest_area,
                       sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
                           100::numeric *
-                          ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric *
-                          ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
-                          100::numeric)                                                                as plantation_forest_introduced_area,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
-                          ((c.class ->> 'forestNaturalPercent'::text)::numeric) / 100::numeric *
-                          ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
-                          100::numeric)                                                                as primary_forest,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
                           ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
                           100::numeric)                                                                as other_planted_forest_area
                from classes c
-               group by c.country_iso, c.year
-               order by c.country_iso, c.year),
+               group by c.id, c.country_iso, c.year
+               order by c.id, c.country_iso, c.year),
             raw_values_2 as
             (select rv.*,
                  case
@@ -320,14 +339,61 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
           from raw_values rv),
       total_land_area as (
         select * from ${assessmentCycleSchemaName}.node_ext where variable_name = 'totalLandArea' and table_name = 'extentOfForest'
-      )
+      ),
+       primary_forest AS (SELECT c.id,
+                               c.country_iso,
+                               c.year,
+                               case
+                                   when
+                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent')) !=
+                                           jsonb_array_length(jsonb_agg(c.class ->>
+                                                                        'forestNaturalForestOfWhichPrimaryForestPercent')
+                                                              filter ( where c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent' is not null))
+                                       then null
+                                   else
+                                       sum(((c.class ->> 'area'::text)::numeric) *
+                                           ((c.class ->> 'forestPercent'::text)::numeric) /
+                                           100::numeric * ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
+                                           100::numeric *
+                                           ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
+                                           100::numeric)
+                                   end as primary_forest
+                        FROM classes c
+                        WHERE c.class ->> 'forestNaturalPercent' IS NOT NULL
+                          AND (c.class ->> 'forestNaturalPercent')::numeric > 0
+                          AND (c.class ->> 'forestPercent')::numeric > 0
+                        GROUP BY c.id, c.country_iso, c.year
+                        ORDER BY c.id, c.country_iso, c.year),
+     introduced_area AS (SELECT c.id,
+                                c.country_iso,
+                                c.year,
+                                case
+                                    when
+                                            jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationIntroducedPercent')) !=
+                                            jsonb_array_length(jsonb_agg(c.class ->>
+                                                                         'forestPlantationIntroducedPercent')
+                                                               filter ( where c.class ->> 'forestPlantationIntroducedPercent' is not null))
+                                        then null
+                                    else
+                                        sum(((c.class ->> 'area'::text)::numeric) *
+                                            ((c.class ->> 'forestPercent'::text)::numeric) /
+                                            100::numeric * ((c.class ->> 'forestPlantationPercent'::text)::numeric) /
+                                            100::numeric *
+                                            ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
+                                            100::numeric)
+                                    end as plantation_forest_introduced_area
+                         FROM classes c
+                         WHERE c.class ->> 'forestPlantationPercent' IS NOT NULL
+                           AND (c.class ->> 'forestPercent')::numeric > 0
+                         GROUP BY c.id, c.country_iso, c.year
+                         ORDER BY c.id, c.country_iso, c.year)
       select rv.country_iso,
              rv.year,
              rv.forest_area,
              rv.other_wooded_land,
              rv.natural_forest_area,
              rv.plantation_forest_area,
-             rv.plantation_forest_introduced_area,
+             ia.plantation_forest_introduced_area,
              rv.other_planted_forest_area,
              rv.planted_forest,
              rv.total,
@@ -343,11 +409,16 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                          coalesce(rv.planted_forest, 0) + coalesce(rv.natural_forest_area, 0)
                  else null
                  end                                                               as total_forest_area,
-             rv.primary_forest
+             pf.primary_forest,
+             rv.id
       from raw_values_2 rv
                left join total_land_area tla
                          on tla.country_iso = rv.country_iso
                              and tla.col_name = rv.year::text
+         LEFT JOIN primary_forest pf
+                   ON pf.country_iso::text = rv.country_iso::text AND pf.year::text = rv.year::text
+         LEFT JOIN introduced_area ia
+                   ON ia.country_iso::text = rv.country_iso::text AND ia.year::text = rv.year::text;
       ;
   `
 }

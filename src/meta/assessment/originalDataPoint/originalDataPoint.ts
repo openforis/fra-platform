@@ -1,12 +1,8 @@
-import { Arrays } from '@utils/arrays'
-
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
 import { ODPDataSourceMethod } from './odpDataSource' // import { ODPEditStatus } from './odpEditStatus'
 import { ODPNationalClass } from './odpNationalClass' // import { ODPValidation } from './odpValidation'
 // import { ODPValidation } from './odpValidation'
-
-export const ODPYears: Array<number> = Arrays.reverse(Arrays.range(1950, 2021))
 
 export interface OriginalDataPoint {
   id: number

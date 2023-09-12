@@ -2,13 +2,12 @@ import './UserListFilters.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso, Region, RegionCode } from '@meta/area'
-import { RoleName } from '@meta/user'
+import { CountryIso, Region, RegionCode } from 'meta/area'
+import { RoleName } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useCountries } from '@client/store/assessment'
-import { useSecondaryRegion } from '@client/store/assessment/hooks'
-import { useFilters, UserManagementActions, useRoleNames } from '@client/store/ui/userManagement'
+import { useAppDispatch } from 'client/store'
+import { useCountries, useSecondaryRegion } from 'client/store/area'
+import { useFilters, UserManagementActions, useRoleNames } from 'client/store/ui/userManagement'
 
 import CountrySelectModal from '../CountrySelectModal'
 import MultiSelect from '../MultiSelect'
@@ -33,13 +32,27 @@ const UserListFilters: React.FC = () => {
       <div className="users__table-filter-container">
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
-            <h4>{t('userManagement.role')}</h4>
+            <h4>{t('common.name')}</h4>
+          </div>
+          <div>
+            <input
+              type="text"
+              defaultValue={filters.fullName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                dispatch(UserManagementActions.updateFilters({ fullName: e.target.value.trim() }))
+              }
+            />
+          </div>
+        </div>
+
+        <div className="users__table-filter-item">
+          <div className="users__table-filter-item-label">
+            <h4>{t('common.role')}</h4>
           </div>
           <div>
             <MultiSelect
-              localizationPrefix="user.roles"
               values={filters.roles}
-              options={roleNames}
+              options={roleNames.map((roleName: RoleName) => ({ value: roleName, label: `user.roles.${roleName}` }))}
               onChange={(values: Array<RoleName>) => {
                 dispatch(UserManagementActions.updateFilters({ roles: values }))
               }}
@@ -49,7 +62,7 @@ const UserListFilters: React.FC = () => {
 
         <div className="users__table-filter-item">
           <div className="users__table-filter-item-label">
-            <h4>{t('admin.country')}</h4>
+            <h4>{t('common.country')}</h4>
           </div>
           <div className="multi-select" onClick={() => setModalOpen(true)} aria-hidden="true">
             <div className="multi-select__closed-content">

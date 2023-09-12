@@ -3,17 +3,17 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
-import { Unit } from '@meta/dataExport'
+import { Areas, CountryIso } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
+import { Unit } from 'meta/dataExport'
 
-import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/ui/assessmentSection'
-import { useDataExportCountries, useDataExportSelection } from '@client/store/ui/dataExport'
-import ButtonTableExport from '@client/components/ButtonTableExport'
-import { convertValue, formatValue, getColumnLabelKeys } from '@client/pages/DataExport/utils'
+import { useCycle } from 'client/store/assessment'
+import { useTableSections } from 'client/store/metadata'
+import { useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
+import ButtonTableExport from 'client/components/ButtonTableExport'
+import { convertValue, formatValue, getColumnLabelKeys } from 'client/pages/DataExport/utils'
 
 import RowFooter from './RowFooter'
 import Title from './Title'
@@ -129,6 +129,8 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                   {variables.map((variable) =>
                     columnsResults.map((column) => {
                       const { columnKey, value } = formatValue(
+                        assessmentName,
+                        cycleName,
                         String(column),
                         countryIso as CountryIso,
                         results,

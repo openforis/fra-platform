@@ -1,30 +1,32 @@
 import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 
-import { AssessmentMetaCaches } from '@meta/assessment'
-import { TableDatas } from '@meta/data'
+import { AssessmentMetaCaches } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
+import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 
 import { Context } from '../context'
 
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
   evaluate(expressionNode: MemberExpression): string | undefined {
-    const { object, property } = expressionNode
     const { assessment, cycle, countryIso, colName: colNameContext, data } = this.context
 
-    // @ts-ignore
-    const isCol = Boolean(object?.object?.name)
-    // @ts-ignore
-    const objectName = isCol ? object?.object.name : object.name
+    const memberVariable = parseMemberVariable(expressionNode)
+
     const variablesByTables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
     const tableNames = Object.keys(variablesByTables)
-    const tableName = tableNames.find((table) => table === objectName)
-    if (tableName) {
-      // @ts-ignore
-      const variableName = isCol ? object.property.name ?? object.property.value : property.name ?? property.value
-      // @ts-ignore
-      const colName = isCol ? property.value : colNameContext
+    const tableName = tableNames.find((table) => table === memberVariable.tableName)
 
-      return TableDatas.getDatum({ data, countryIso, tableName, variableName, colName })
+    if (tableName) {
+      return RecordAssessmentDatas.getDatum({
+        assessmentName: memberVariable.assessmentName ?? assessment.props.name,
+        cycleName: memberVariable.cycleName ?? cycle.name,
+        data,
+        countryIso,
+        tableName,
+        variableName: memberVariable.variableName,
+        colName: memberVariable.colName ?? colNameContext,
+      })
     }
 
     return super.evaluate(expressionNode)

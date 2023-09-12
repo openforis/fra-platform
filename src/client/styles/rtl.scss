@@ -8,7 +8,6 @@
   .statistical-factsheets .fra-table tbody th,
   .text-input__input-field,
   .text-input__readonly-view,
-  .fra-table__header-cell-left,
   .fra-table__category-cell,
   .fra-table__subcategory-cell,
   .fra-table__header-cell-left,
@@ -42,7 +41,7 @@
     margin-left: auto;
   }
 
-  .country-select__country .flag,
+  .toolbar__country .flag,
   .country-selection-list__row .status-editing {
     margin-right: initial;
     margin-left: 8px;
@@ -61,7 +60,7 @@
     margin-left: initial;
   }
 
-  .nav-assessment-header__btn-toggle-sections {
+  .nav-header__btn-toggle-sections {
     justify-self: left;
   }
   .country-selection-list__row .status-accepted {
@@ -145,7 +144,7 @@
     margin-left: 6px;
   }
 
-  .nav-assessment-header__status .icon,
+  .nav-header__status .icon,
   .nav-section__status-content div {
     margin-left: initial;
     margin-right: 4px;
@@ -205,5 +204,20 @@
   .country-select .modal-footer .btn.btn-primary {
     left: initial;
     right: -100px;
+  }
+
+  .text-end {
+    text-align: left !important;
+  }
+
+  .invitation-info-box {
+    left: -1px;
+    right: -200%;
+    text-align: right;
+
+    .invitation-info-box-close {
+      right: auto;
+      left: 8px;
+    }
   }
 }

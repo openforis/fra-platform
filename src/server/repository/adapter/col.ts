@@ -1,6 +1,6 @@
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Col, ColProps } from '@meta/assessment'
+import { Col, ColProps } from 'meta/assessment'
 
 export interface ColDB {
   id: number
@@ -11,17 +11,19 @@ export interface ColDB {
 
 export const ColAdapter = (colDB: ColDB): Col => {
   const {
-    props: { labels, style, variableNo, calculateFn, validateFns, ...rest },
+    props: { calculateFn, classNames, labels, linkedNodes, style, validateFns, variableNo, ...otherProps },
     ...col
   } = colDB
 
   return {
     ...Objects.camelize(col),
     props: {
-      ...Objects.camelize(rest),
+      ...Objects.camelize(otherProps),
       calculateFn,
       validateFns,
+      classNames,
       labels,
+      linkedNodes,
       style,
       variableNo,
     },

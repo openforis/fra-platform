@@ -1,10 +1,200 @@
 // @ts-nocheck
+const totalForestCheckCols = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_yearPlaceholder['total'],
+                   [table_4_4a.forest_yearPlaceholder['total'],table_4_4a.other_wooded_land_yearPlaceholder['total']])`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_4a.total_forest_and_other_wooded_land_yearPlaceholder['_of_which_invasive'],
+          [table_4_4a.forest_yearPlaceholder['_of_which_invasive'],table_4_4a.other_wooded_land_yearPlaceholder['_of_which_invasive']])`,
+        ],
+      },
+    },
+  },
+]
+
+const linkedCol = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantationForestIntroducedArea',
+          colName: '2020',
+        },
+      },
+    },
+  },
+]
+
+const dataColsB = [
+  { idx: 0, type: 'text' },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_4a.forest_2005['total'],
+              [table_4_4b._01['forest_area_occupied_2005'],table_4_4b._02['forest_area_occupied_2005'],table_4_4b._03['forest_area_occupied_2005'],table_4_4b._04['forest_area_occupied_2005'],table_4_4b._05['forest_area_occupied_2005'],
+              table_4_4b._06['forest_area_occupied_2005'],table_4_4b._07['forest_area_occupied_2005'],table_4_4b._08['forest_area_occupied_2005'],table_4_4b._09['forest_area_occupied_2005'],table_4_4b._10['forest_area_occupied_2005'],
+              table_4_4b._11['forest_area_occupied_2005'],table_4_4b._12['forest_area_occupied_2005'],table_4_4b._13['forest_area_occupied_2005'],table_4_4b._14['forest_area_occupied_2005'],table_4_4b._15['forest_area_occupied_2005'],
+              table_4_4b._16['forest_area_occupied_2005'],table_4_4b._17['forest_area_occupied_2005'],table_4_4b._18['forest_area_occupied_2005'],table_4_4b._19['forest_area_occupied_2005'],table_4_4b._20['forest_area_occupied_2005']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies.total", "4.4a")`,
+          `validatorEqualToSum(table_4_4a.forest_2005['_of_which_invasive'],
+              [table_4_4b._01['forest_area_occupied_2005'],table_4_4b._02['forest_area_occupied_2005'],table_4_4b._03['forest_area_occupied_2005'],table_4_4b._04['forest_area_occupied_2005'],table_4_4b._05['forest_area_occupied_2005'],
+              table_4_4b._06['forest_area_occupied_2005'],table_4_4b._07['forest_area_occupied_2005'],table_4_4b._08['forest_area_occupied_2005'],table_4_4b._09['forest_area_occupied_2005'],table_4_4b._10['forest_area_occupied_2005'],
+              table_4_4b._11['forest_area_occupied_2005'],table_4_4b._12['forest_area_occupied_2005'],table_4_4b._13['forest_area_occupied_2005'],table_4_4b._14['forest_area_occupied_2005'],table_4_4b._15['forest_area_occupied_2005'],
+              table_4_4b._16['forest_area_occupied_2005'],table_4_4b._17['forest_area_occupied_2005'],table_4_4b._18['forest_area_occupied_2005'],table_4_4b._19['forest_area_occupied_2005'],table_4_4b._20['forest_area_occupied_2005']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies._of_which_invasive", "4.4a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 2,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_4a.forest_2010['total'],
+              [table_4_4b._01['forest_area_occupied_2010'],table_4_4b._02['forest_area_occupied_2010'],table_4_4b._03['forest_area_occupied_2010'],table_4_4b._04['forest_area_occupied_2010'],table_4_4b._05['forest_area_occupied_2010'],
+              table_4_4b._06['forest_area_occupied_2010'],table_4_4b._07['forest_area_occupied_2010'],table_4_4b._08['forest_area_occupied_2010'],table_4_4b._09['forest_area_occupied_2010'],table_4_4b._10['forest_area_occupied_2010'],
+              table_4_4b._11['forest_area_occupied_2010'],table_4_4b._12['forest_area_occupied_2010'],table_4_4b._13['forest_area_occupied_2010'],table_4_4b._14['forest_area_occupied_2010'],table_4_4b._15['forest_area_occupied_2010'],
+              table_4_4b._16['forest_area_occupied_2010'],table_4_4b._17['forest_area_occupied_2010'],table_4_4b._18['forest_area_occupied_2010'],table_4_4b._19['forest_area_occupied_2010'],table_4_4b._20['forest_area_occupied_2010']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies.total", "4.4a")`,
+          `validatorEqualToSum(table_4_4a.forest_2010['_of_which_invasive'],
+              [table_4_4b._01['forest_area_occupied_2010'],table_4_4b._02['forest_area_occupied_2010'],table_4_4b._03['forest_area_occupied_2010'],table_4_4b._04['forest_area_occupied_2010'],table_4_4b._05['forest_area_occupied_2010'],
+              table_4_4b._06['forest_area_occupied_2010'],table_4_4b._07['forest_area_occupied_2010'],table_4_4b._08['forest_area_occupied_2010'],table_4_4b._09['forest_area_occupied_2010'],table_4_4b._10['forest_area_occupied_2010'],
+              table_4_4b._11['forest_area_occupied_2010'],table_4_4b._12['forest_area_occupied_2010'],table_4_4b._13['forest_area_occupied_2010'],table_4_4b._14['forest_area_occupied_2010'],table_4_4b._15['forest_area_occupied_2010'],
+              table_4_4b._16['forest_area_occupied_2010'],table_4_4b._17['forest_area_occupied_2010'],table_4_4b._18['forest_area_occupied_2010'],table_4_4b._19['forest_area_occupied_2010'],table_4_4b._20['forest_area_occupied_2010']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies._of_which_invasive", "4.4a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 3,
+    type: 'decimal',
+    migration: {
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_4a.forest_2015['total'],
+              [table_4_4b._01['forest_area_occupied_2015'],table_4_4b._02['forest_area_occupied_2015'],table_4_4b._03['forest_area_occupied_2015'],table_4_4b._04['forest_area_occupied_2015'],table_4_4b._05['forest_area_occupied_2015'],
+              table_4_4b._06['forest_area_occupied_2015'],table_4_4b._07['forest_area_occupied_2015'],table_4_4b._08['forest_area_occupied_2015'],table_4_4b._09['forest_area_occupied_2015'],table_4_4b._10['forest_area_occupied_2015'],
+              table_4_4b._11['forest_area_occupied_2015'],table_4_4b._12['forest_area_occupied_2015'],table_4_4b._13['forest_area_occupied_2015'],table_4_4b._14['forest_area_occupied_2015'],table_4_4b._15['forest_area_occupied_2015'],
+              table_4_4b._16['forest_area_occupied_2015'],table_4_4b._17['forest_area_occupied_2015'],table_4_4b._18['forest_area_occupied_2015'],table_4_4b._19['forest_area_occupied_2015'],table_4_4b._20['forest_area_occupied_2015']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies.total", "4.4a")`,
+          `validatorEqualToSum(table_4_4a.forest_2015['_of_which_invasive'],
+              [table_4_4b._01['forest_area_occupied_2015'],table_4_4b._02['forest_area_occupied_2015'],table_4_4b._03['forest_area_occupied_2015'],table_4_4b._04['forest_area_occupied_2015'],table_4_4b._05['forest_area_occupied_2015'],
+              table_4_4b._06['forest_area_occupied_2015'],table_4_4b._07['forest_area_occupied_2015'],table_4_4b._08['forest_area_occupied_2015'],table_4_4b._09['forest_area_occupied_2015'],table_4_4b._10['forest_area_occupied_2015'],
+              table_4_4b._11['forest_area_occupied_2015'],table_4_4b._12['forest_area_occupied_2015'],table_4_4b._13['forest_area_occupied_2015'],table_4_4b._14['forest_area_occupied_2015'],table_4_4b._15['forest_area_occupied_2015'],
+              table_4_4b._16['forest_area_occupied_2015'],table_4_4b._17['forest_area_occupied_2015'],table_4_4b._18['forest_area_occupied_2015'],table_4_4b._19['forest_area_occupied_2015'],table_4_4b._20['forest_area_occupied_2015']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies._of_which_invasive", "4.4a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 4,
+    type: 'decimal',
+    colName: 'forest_area_occupied_2020',
+    migration: {
+      cycles: ['2025'],
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_4a.forest_2020['total'],
+              [table_4_4b._01['forest_area_occupied_2020'],table_4_4b._02['forest_area_occupied_2020'],table_4_4b._03['forest_area_occupied_2020'],table_4_4b._04['forest_area_occupied_2020'],table_4_4b._05['forest_area_occupied_2020'],
+              table_4_4b._06['forest_area_occupied_2020'],table_4_4b._07['forest_area_occupied_2020'],table_4_4b._08['forest_area_occupied_2020'],table_4_4b._09['forest_area_occupied_2020'],table_4_4b._10['forest_area_occupied_2020'],
+              table_4_4b._11['forest_area_occupied_2020'],table_4_4b._12['forest_area_occupied_2020'],table_4_4b._13['forest_area_occupied_2020'],table_4_4b._14['forest_area_occupied_2020'],table_4_4b._15['forest_area_occupied_2020'],
+              table_4_4b._16['forest_area_occupied_2020'],table_4_4b._17['forest_area_occupied_2020'],table_4_4b._18['forest_area_occupied_2020'],table_4_4b._19['forest_area_occupied_2020'],table_4_4b._20['forest_area_occupied_2020']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies.total", "4.4a")`,
+          `validatorEqualToSum(table_4_4a.forest_2020['_of_which_invasive'],
+              [table_4_4b._01['forest_area_occupied_2020'],table_4_4b._02['forest_area_occupied_2020'],table_4_4b._03['forest_area_occupied_2020'],table_4_4b._04['forest_area_occupied_2020'],table_4_4b._05['forest_area_occupied_2020'],
+              table_4_4b._06['forest_area_occupied_2020'],table_4_4b._07['forest_area_occupied_2020'],table_4_4b._08['forest_area_occupied_2020'],table_4_4b._09['forest_area_occupied_2020'],table_4_4b._10['forest_area_occupied_2020'],
+              table_4_4b._11['forest_area_occupied_2020'],table_4_4b._12['forest_area_occupied_2020'],table_4_4b._13['forest_area_occupied_2020'],table_4_4b._14['forest_area_occupied_2020'],table_4_4b._15['forest_area_occupied_2020'],
+              table_4_4b._16['forest_area_occupied_2020'],table_4_4b._17['forest_area_occupied_2020'],table_4_4b._18['forest_area_occupied_2020'],table_4_4b._19['forest_area_occupied_2020'],table_4_4b._20['forest_area_occupied_2020']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies._of_which_invasive", "4.4a")`,
+        ],
+      },
+    },
+  },
+  {
+    idx: 5,
+    type: 'decimal',
+    colName: 'forest_area_occupied_2025',
+    migration: {
+      cycles: ['2025'],
+      validateFns: {
+        '2025': [
+          `validatorEqualToSum(table_4_4a.forest_2025['total'],
+                        [table_4_4b._01['forest_area_occupied_2025'],table_4_4b._02['forest_area_occupied_2025'],table_4_4b._03['forest_area_occupied_2025'],table_4_4b._04['forest_area_occupied_2025'],table_4_4b._05['forest_area_occupied_2025'],
+                        table_4_4b._06['forest_area_occupied_2025'],table_4_4b._07['forest_area_occupied_2025'],table_4_4b._08['forest_area_occupied_2025'],table_4_4b._09['forest_area_occupied_2025'],table_4_4b._10['forest_area_occupied_2025'],
+                        table_4_4b._11['forest_area_occupied_2025'],table_4_4b._12['forest_area_occupied_2025'],table_4_4b._13['forest_area_occupied_2025'],table_4_4b._14['forest_area_occupied_2025'],table_4_4b._15['forest_area_occupied_2025'],
+                        table_4_4b._16['forest_area_occupied_2025'],table_4_4b._17['forest_area_occupied_2025'],table_4_4b._18['forest_area_occupied_2025'],table_4_4b._19['forest_area_occupied_2025'],table_4_4b._20['forest_area_occupied_2025']],
+              "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies.total", "4.4a")`,
+          `validatorEqualToSum(table_4_4a.forest_2025['_of_which_invasive'],
+                        [table_4_4b._01['forest_area_occupied_2025'],table_4_4b._02['forest_area_occupied_2025'],table_4_4b._03['forest_area_occupied_2025'],table_4_4b._04['forest_area_occupied_2025'],table_4_4b._05['forest_area_occupied_2025'],
+                        table_4_4b._06['forest_area_occupied_2025'],table_4_4b._07['forest_area_occupied_2025'],table_4_4b._08['forest_area_occupied_2025'],table_4_4b._09['forest_area_occupied_2025'],table_4_4b._10['forest_area_occupied_2025'],
+                        table_4_4b._11['forest_area_occupied_2025'],table_4_4b._12['forest_area_occupied_2025'],table_4_4b._13['forest_area_occupied_2025'],table_4_4b._14['forest_area_occupied_2025'],table_4_4b._15['forest_area_occupied_2025'],
+                        table_4_4b._16['forest_area_occupied_2025'],table_4_4b._17['forest_area_occupied_2025'],table_4_4b._18['forest_area_occupied_2025'],table_4_4b._19['forest_area_occupied_2025'],table_4_4b._20['forest_area_occupied_2025']],
+                        "panEuropean.introducedTreeSpecies.forest_only", "panEuropean.introducedTreeSpecies._of_which_invasive", "4.4a")`,
+        ],
+      },
+    },
+  },
+]
+
+const updatedDataCol = (dataCol, colName) =>
+  dataCol.map((col) => {
+    let { migration } = col
+    if (migration.linkedNodes) {
+      migration = {
+        ...migration,
+        linkedNodes: Object.fromEntries(
+          Object.entries(migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+        ),
+      }
+    }
+
+    if (migration.validateFns) {
+      migration = {
+        ...migration,
+        validateFns: Object.fromEntries(
+          Object.entries(migration.validateFns).map(([key, fns]) => [
+            key,
+            fns.map((fn) => fn.replace(/yearPlaceholder/g, colName)),
+          ])
+        ),
+      }
+    }
+
+    return { ...col, migration }
+  })
 
 export const introducedTreeSpecies = {
   sectionName: 'introducedTreeSpecies',
   sectionAnchor: '4.4a',
   tableSections: [
     {
+      titleKey: 'panEuropean.introducedTreeSpecies.introducedTreeSpeciesNumber',
       tableSpecs: [
         {
           name: 'table_4_4a',
@@ -65,7 +255,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...updatedDataCol(linkedCol, '2025'),
                 { idx: 1, type: 'decimal' },
               ],
               migration: {
@@ -87,7 +277,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...updatedDataCol(linkedCol, '2020'),
                 { idx: 1, type: 'decimal' },
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.forest',
@@ -106,7 +296,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...updatedDataCol(linkedCol, '2015'),
                 { idx: 1, type: 'decimal' },
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.forest',
@@ -125,7 +315,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...updatedDataCol(linkedCol, '2010'),
                 { idx: 1, type: 'decimal' },
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.forest',
@@ -163,7 +353,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...updatedDataCol(linkedCol, '2000'),
                 { idx: 1, type: 'decimal' },
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.forest',
@@ -182,14 +372,13 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
+                ...updatedDataCol(linkedCol, '1990'),
                 { idx: 1, type: 'decimal' },
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
             },
-            // { idx: 6 },
             {
               idx: 7,
               type: 'data',
@@ -326,7 +515,6 @@ export const introducedTreeSpecies = {
               labelParams: { year: 1990 },
               variableExport: 'other_wooded_land_1990',
             },
-            // { idx: 12 },
             {
               idx: 14,
               type: 'data',
@@ -339,8 +527,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...updatedDataCol(totalForestCheckCols, '2025'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -361,8 +548,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...updatedDataCol(totalForestCheckCols, '2020'),
               ],
               migration: {
                 cycles: ['2025'],
@@ -383,8 +569,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...updatedDataCol(totalForestCheckCols, '2015'),
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2015 },
@@ -402,8 +587,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...updatedDataCol(totalForestCheckCols, '2010'),
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2010 },
@@ -421,8 +605,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2005 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...updatedDataCol(totalForestCheckCols, '2005'),
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2005 },
@@ -440,8 +623,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...updatedDataCol(totalForestCheckCols, '2000'),
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 2000 },
@@ -459,8 +641,7 @@ export const introducedTreeSpecies = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...updatedDataCol(totalForestCheckCols, '1990'),
               ],
               labelKey: 'panEuropean.introducedTreeSpecies.total_forest_and_other_wooded_land',
               labelParams: { year: 1990 },
@@ -477,7 +658,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.introducedTreeSpecies',
+      titleKey: 'panEuropean.introducedTreeSpecies.introducedTreeSpecies4_4bNumber',
       tableSpecs: [
         {
           name: 'table_4_4b',
@@ -575,12 +756,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._01',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                { idx: 3, type: 'decimal' },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_01',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._01',
@@ -596,15 +772,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._02',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_02',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._02',
@@ -620,15 +788,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._03',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_03',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._03',
@@ -644,15 +804,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._04',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_04',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._04',
@@ -668,15 +820,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._05',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_05',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._05',
@@ -692,15 +836,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._06',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_06',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._06',
@@ -716,15 +852,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._07',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_07',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._07',
@@ -740,15 +868,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._08',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_08',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._08',
@@ -764,15 +884,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._09',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_09',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._09',
@@ -788,15 +900,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._10',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_10',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._10',
@@ -812,15 +916,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._11',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_11',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._11',
@@ -836,15 +932,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._12',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_12',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._12',
@@ -860,15 +948,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._13',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_13',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._13',
@@ -884,15 +964,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._14',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_14',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._14',
@@ -908,15 +980,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._15',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_15',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._15',
@@ -932,15 +996,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._16',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_16',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._16',
@@ -956,15 +1012,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._17',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_17',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._17',
@@ -980,15 +1028,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._18',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_18',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._18',
@@ -1004,15 +1044,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._19',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_19',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._19',
@@ -1028,15 +1060,7 @@ export const introducedTreeSpecies = {
                   labelKey: 'panEuropean.introducedTreeSpecies4_4b._20',
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'text' },
-                { idx: 1, type: 'decimal' },
-                { idx: 2, type: 'decimal' },
-                {
-                  idx: 3,
-                  type: 'decimal',
-                },
-                { idx: 4, type: 'decimal', colName: 'forest_area_occupied_2020', migration: { cycles: ['2025'] } },
-                { idx: 5, type: 'decimal', colName: 'forest_area_occupied_2025', migration: { cycles: ['2025'] } },
+                ...dataColsB,
               ],
               variableExport: '_20',
               labelKey: 'panEuropean.introducedTreeSpecies4_4b._20',
@@ -1075,7 +1099,7 @@ export const introducedTreeSpecies = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.invasiveTreeSpecies',
+      titleKey: 'panEuropean.introducedTreeSpecies.invasiveTreeSpeciesNumber',
       tableSpecs: [
         {
           name: 'table_4_4c',
@@ -1698,6 +1722,7 @@ export const introducedTreeSpecies = {
             {
               idx: 0,
               type: 'data',
+              variableName: 'theRecentAvailableYear',
               cols: [
                 {
                   idx: 'header_0',
@@ -1714,44 +1739,31 @@ export const introducedTreeSpecies = {
                   className: 'fra-table__header-cell',
                   type: 'placeholder',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 1, type: 'textarea', colName: 'comment' },
               ],
             },
-            {
-              idx: 1,
+            ...['extrapolation', 'assessmentBasedOnEvidence'].map((variableName, idx) => ({
+              idx: idx + 1,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.extrapolation',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'textarea' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.assessmentBasedOnEvidence',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'textarea' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
           dataExport: true,
           columnsExportAlways: [],
           columnsExport: [],
-          migration: { cycles: ['2025'], columnNames: { '2025': ['theYearAndDataReportedFor2025'] } },
+          migration: { cycles: ['2025'], columnNames: { '2025': ['comment'] } },
         },
       ],
     },
@@ -1774,49 +1786,25 @@ export const introducedTreeSpecies = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'referenceAreaForAssessmentSizeOfSamplePlotAverageStand',
+              'referencePeriodUsedToClassifyAsIntroducedYearsSinceIntroductionYears',
+              'criteriaOrThresholdsUsedToClassifySpeciesAsInvasive',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.referenceAreaForAssessmentSizeOfSamplePlotAverageStand',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.countryComments.referencePeriodUsedToClassifyAsIntroducedYearsSinceIntroductionYears',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.criteriaOrThresholdsUsedToClassifySpeciesAsInvasive',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1825,7 +1813,7 @@ export const introducedTreeSpecies = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['approachApplieToReportingOnIntroducedInvasiveSpecies'] },
+            columnNames: { '2025': ['comment'] },
           },
         },
       ],
@@ -1865,66 +1853,27 @@ export const introducedTreeSpecies = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+            ...[
+              'general',
+              'AreaDominatedByIntroducedTreeSpecies',
+              'areaDominatedByInvasiveTreeSpecies',
+              'nonWoodyInvasiveSpecies',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.general',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 0, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fowl:AreaDominatedByIntroducedTreeSpecies',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.areaDominatedByInvasiveTreeSpecies',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.nonWoodyInvasiveSpecies',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -1933,7 +1882,7 @@ export const introducedTreeSpecies = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrends'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
@@ -1945,6 +1894,15 @@ export const introducedTreeSpecies = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestCharacteristics',
+        tableName: 'forestCharacteristics',
+        variableName: 'plantationForestIntroducedArea', // TODO: not sure of the variable
+      },
+    ],
   },
   dataExport: {
     included: true,
@@ -1956,8 +1914,9 @@ export const introducedTreeSpecies = {
     },
   },
 }
+
 // eslint-disable-next-line camelcase
-export const introducedTreeSpecies4_4b = {
+export const introducedTreeSpecies44b = {
   sectionName: 'introducedTreeSpecies4_4b',
   sectionAnchor: '4.4b',
   tableSections: [

@@ -1,20 +1,18 @@
-import { Objects } from '@utils/objects'
+import { Assessment, Cycle, TableSection } from 'meta/assessment'
 
-import { Assessment, Cycle, TableSection } from '@meta/assessment'
-
-import { BaseProtocol, DB, Schemas } from '@server/db'
-import { ColAdapter } from '@server/repository/adapter'
-import { ColDB } from '@server/repository/adapter/col'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+import { TableSectionAdapter } from 'server/repository/adapter'
 
 export const getManyMetadata = async (
   props: {
     assessment: Assessment
-    sectionNames: Array<string>
+    sectionNames?: Array<string>
     cycle: Cycle
+    showHidden?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<Record<string, Array<TableSection>>> => {
-  const { cycle, sectionNames, assessment } = props
+  const { cycle, sectionNames, assessment, showHidden = false } = props
   const schemaName = Schemas.getName(assessment)
 
   return client.result<Record<string, Array<TableSection>>>(
@@ -53,11 +51,12 @@ export const getManyMetadata = async (
                                 left join ${schemaName}.table_section ts on ts.id = t.table_section_id
                                 left join ${schemaName}.section s on ts.section_id = s.id
                                 left join public.assessment a on a.uuid = '${assessment.uuid}'
-                       where s.props ->> 'name' in ($1:list)
-                         and ts.props -> 'cycles' ? $2
+                       where ts.props -> 'cycles' ? $2
                          and t.props -> 'cycles' ? $2
                          and r.props -> 'cycles' ? $2
                          and c.props -> 'cycles' ? $2
+                         and ($3 = true or (coalesce(s.props ->> 'hidden', 'false')::boolean = false and $3 = false))
+                           ${sectionNames?.length ? `and s.props ->> 'name' in ($1:list)` : ''}
                        group by s.props ->> 'name',
                                 to_jsonb(ts.*),
                                 to_jsonb(t.*),
@@ -89,31 +88,12 @@ export const getManyMetadata = async (
         ;
 
     `,
-    [sectionNames, cycle.uuid],
+    [sectionNames, cycle.uuid, showHidden],
     (result) => {
       return result.rows.reduce((prev, current) => {
         return {
           ...prev,
-          [current.section_name]: current.table_sections.map((ts: TableSection) => {
-            const { tables, ...tableSection } = ts
-            return {
-              ...tableSection,
-              tables: tables.map(({ props, rows, ...table }) => ({
-                ...Objects.camelize(table),
-                props,
-                rows: rows.map(({ cols, ...row }) => ({
-                  ...Objects.camelize(row),
-                  props: {
-                    ...Objects.camelize(row.props),
-                    calculateFn: row.props.calculateFn,
-                    validateFns: row.props.validateFns,
-                    chart: row.props.chart,
-                  },
-                  cols: cols.map((col) => ColAdapter(col as unknown as ColDB)),
-                })),
-              })),
-            }
-          }),
+          [current.section_name]: current.table_sections.map(TableSectionAdapter),
         }
       }, {})
     }

@@ -1,15 +1,25 @@
-import { BigNumberInput, Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { BigNumberInput, Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 import BigNumber from 'bignumber.js'
 
-import { NodeUpdate, TableData } from '@meta/data'
+import { NodeValuesEstimation } from 'meta/assessment'
+import { NodeUpdate, RecordCountryData } from 'meta/data'
 
+// TODO: refactor everything
+
+/**
+ * @deprecated
+ * TODO: add api middleware to validate estimation in request.body
+ */
 const assert = (condition: any, message: string) => {
   if (!condition) {
     throw message
   }
 }
 
+/**
+ * @deprecated
+ */
 interface Deprecated_TableDatum {
   forestAreaEstimated?: boolean
   otherWoodedLandEstimated?: boolean
@@ -27,19 +37,32 @@ interface Deprecated_TableDatum {
   otherWoodedLand?: string
 }
 
+/**
+ * @deprecated
+ */
 type Field = keyof Deprecated_TableDatum
-
+/**
+ * @deprecated
+ */
 type ValueArray = Array<Deprecated_TableDatum>
+/**
+ * @deprecated
+ */
 type ODPValueArray = ValueArray // Array<Deprecated_TableDatum & { type: 'odp' }>
-
+/**
+ * @deprecated
+ */
 export type GenerateSpecMethod = 'linear' | 'repeatLast' | 'annualChange'
-
+/**
+ * @deprecated
+ */
 export interface GenerateSpec {
   method: GenerateSpecMethod
   fields?: Array<string>
   changeRates?: Record<string, { rateFuture: number; ratePast: number }>
 }
 
+// TODO: move to Numbers
 export const linearInterpolation = (
   x: BigNumberInput,
   xa: BigNumberInput,
@@ -48,6 +71,7 @@ export const linearInterpolation = (
   yb: BigNumberInput
 ): BigNumber => Numbers.add(ya, Numbers.div(Numbers.mul(Numbers.sub(yb, ya), Numbers.sub(x, xa)), Numbers.sub(xb, xa)))
 
+// TODO: move to Numbers
 export const linearExtrapolationForwards = (
   x: BigNumberInput,
   xa: BigNumberInput,
@@ -56,6 +80,7 @@ export const linearExtrapolationForwards = (
   yb: BigNumberInput
 ): BigNumber => Numbers.add(ya, Numbers.mul(Numbers.div(Numbers.sub(x, xa), Numbers.sub(xb, xa)), Numbers.sub(yb, ya)))
 
+// TODO: move to Numbers
 export const linearExtrapolationBackwards = (
   x: BigNumberInput,
   xa: BigNumberInput,
@@ -79,8 +104,9 @@ export const applyEstimationFunction = (
   field: Field,
   estFunction: (...params: any[]) => BigNumber
 ): number => {
-  const estimated = Number(estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field]))
-  return Number(estimated < 0 ? '0' : estimated)
+  const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
+
+  return estimated?.isLessThan(0) ? 0 : estimated?.toNumber()
 }
 
 export const linearExtrapolation = (year: number, values: ValueArray, _: ODPValueArray, field: Field): number => {
@@ -210,6 +236,9 @@ export const estimateFraValue = (
   }
 }
 
+/**
+ * @deprecated
+ */
 const translateObjectToOldFormat = (x: any) => {
   const newData: any = []
   Object.entries(x).forEach(([countryIso, countryValues]) => {
@@ -235,7 +264,15 @@ const translateObjectToOldFormat = (x: any) => {
   return newData
 }
 
-const formatArray = (arr: Deprecated_TableDatum[], tableName: string, fields: string[]): Array<NodeUpdate> => {
+/**
+ * @deprecated
+ */
+const formatArray = (
+  arr: Deprecated_TableDatum[],
+  tableName: string,
+  fields: string[],
+  estimation: NodeValuesEstimation
+): Array<NodeUpdate> => {
   const res: Array<NodeUpdate> = []
   arr.forEach((tableDatum: Deprecated_TableDatum) => {
     fields.forEach((field) => {
@@ -247,6 +284,7 @@ const formatArray = (arr: Deprecated_TableDatum[], tableName: string, fields: st
           // @ts-ignore
           raw: tableDatum[field as keyof Deprecated_TableDatum],
           estimated: true,
+          estimationUuid: estimation.uuid,
         },
       })
     })
@@ -254,11 +292,15 @@ const formatArray = (arr: Deprecated_TableDatum[], tableName: string, fields: st
   return res
 }
 
+// future task:
+// TODO: refactor this method to take in input: {table, nodeValuesEstimation, values}
+// TODO: refactor all this file
 export const estimateValues = (
   years: Array<number>,
-  values: Partial<TableData>,
+  values: Partial<RecordCountryData>,
   generateSpec: Partial<GenerateSpec>,
-  tableName: string
+  tableName: string,
+  estimation: NodeValuesEstimation
 ): Array<NodeUpdate> => {
   const translatedData = translateObjectToOldFormat(values)
   const result: Deprecated_TableDatum[] = years
@@ -272,52 +314,9 @@ export const estimateValues = (
       delete v.store
       return v
     })
-  return formatArray(result, tableName, generateSpec.fields)
+  return formatArray(result, tableName, generateSpec.fields, estimation)
 }
 
 export const EstimationEngine = {
   estimateValues,
 }
-
-/**
- * @deprecated
- */
-export const estimateFraValues = (
-  years: Array<number>,
-  odpValues: ODPValueArray,
-  generateSpec: GenerateSpec
-): ValueArray => {
-  return years
-    .reduce<ValueArray>((values, year) => {
-      const newValue = estimateFraValue(year, values, odpValues, generateSpec)
-      return [...values, newValue]
-    }, odpValues)
-    .filter((v: Deprecated_TableDatum): boolean => v.store)
-    .map((v: Deprecated_TableDatum): Deprecated_TableDatum => {
-      // eslint-disable-next-line no-param-reassign
-      delete v.store
-      return v
-    })
-}
-
-// type FraWriter = (
-//   countryIso: CountryIso,
-//   year: number,
-//   estimatedValues: Deprecated_TableDatum,
-//   bool: boolean
-// ) => Promise<any>
-//
-// export const estimateAndWrite = async (
-//   odps: ODPValueArray,
-//   fraWriter: FraWriter,
-//   countryIso: CountryIso,
-//   years: Array<number>,
-//   generateSpec: GenerateSpec
-// ) => {
-//   const estimated = estimateFraValues(years, odps, generateSpec)
-//   return Promise.all(
-//     estimated.map((estimatedValues: Deprecated_TableDatum) =>
-//       fraWriter(countryIso, estimatedValues.year, estimatedValues, true)
-//     )
-//   )
-// }

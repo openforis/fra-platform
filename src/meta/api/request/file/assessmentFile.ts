@@ -1,7 +1,7 @@
-import { CountryIso } from '@meta/area'
-import { AssessmentName } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { AssessmentName } from 'meta/assessment'
 
 export type AssessmentFileBody = {
   assessmentName: AssessmentName
-  countryIso?: CountryIso
+  fileCountryIso?: CountryIso
 }

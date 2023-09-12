@@ -2,13 +2,12 @@
 @import 'src/client/styles/fraTable';
 @import 'src/client/styles/inputMixins';
 
-@mixin mixin-odp-list-cell($padding: 12px, $align: left){
+@mixin mixin-odp-list-cell($padding: 12px, $align: left) {
   border-bottom: $ui-thin-border;
   font-size: $font-s;
   padding: $padding;
   text-align: $align;
 }
-
 
 .odp__section {
   margin-top: 32px;
@@ -34,6 +33,13 @@
   margin-bottom: 16px;
 }
 
+.odp__previous-year-selection {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .odp__bottom-buttons {
   margin-top: 24px;
   display: flex;
@@ -42,14 +48,6 @@
 
   &:empty {
     display: none;
-  }
-}
-
-.odp__cke_wrapper {
-  display: flex;
-
-  .cke_wrapper {
-    flex-grow: 1;
   }
 }
 

@@ -2,12 +2,12 @@ import './countrySelectModal.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
-import { Strings } from '@utils/strings'
+import { Objects } from 'utils/objects'
+import { Strings } from 'utils/strings'
 
-import { Areas, Country } from '@meta/area'
+import { Areas, Country } from 'meta/area'
 
-import { Modal, ModalClose, ModalFooter, ModalHeader } from '@client/components/Modal'
+import { Modal, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import CountrySelectModalBody from './CountrySelectModalBody'
 
@@ -99,11 +99,12 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     else document.body.classList.remove('no-scroll')
   }, [open])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(updateCountries, [countries, query])
 
   useEffect(() => {
     setSelection(initialSelection)
-  }, [initialSelection])
+  }, [initialSelection, open])
 
   return (
     <Modal className="modal-country-select" isOpen={open}>

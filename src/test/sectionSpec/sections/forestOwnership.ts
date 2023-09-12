@@ -147,8 +147,8 @@ export const forestOwnership = {
               subcategory: true,
               migration: {
                 validateFns: [
-                  `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
-                  `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  `validatorPrivateOwnership(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  `validatorNotGreaterThan(forestOwnership.of_which_by_individuals, forestOwnership.private_ownership)`,
                 ],
                 categoryLevel: 1,
               },
@@ -186,8 +186,8 @@ export const forestOwnership = {
               subcategory: true,
               migration: {
                 validateFns: [
-                  `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
-                  `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  `validatorPrivateOwnership(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  `validatorNotGreaterThan(forestOwnership.of_which_by_private_businesses, forestOwnership.private_ownership)`,
                 ],
                 categoryLevel: 1,
               },
@@ -231,8 +231,8 @@ export const forestOwnership = {
               subcategory: true,
               migration: {
                 validateFns: [
-                  `validatorEqualToPrivateForest(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
-                  `validatorSubCategory(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  `validatorPrivateOwnership(forestOwnership.private_ownership,[forestOwnership.of_which_by_individuals,forestOwnership.of_which_by_private_businesses,forestOwnership.of_which_by_communities])`,
+                  `validatorNotGreaterThan(forestOwnership.of_which_by_communities, forestOwnership.private_ownership)`,
                 ],
                 categoryLevel: 1,
               },

@@ -4,6 +4,7 @@ export default {
   section: 'panEuropean_1_1_a',
   rows: {
     names: [
+      'forest_2025',
       'forest_2020',
       'forest_2015',
       'forest_2010',
@@ -11,6 +12,7 @@ export default {
       'forest_2000',
       'forest_1990',
 
+      '_of_which_available_for_wood_supply_2025',
       '_of_which_available_for_wood_supply_2020',
       '_of_which_available_for_wood_supply_2015',
       '_of_which_available_for_wood_supply_2010',
@@ -18,6 +20,7 @@ export default {
       '_of_which_available_for_wood_supply_2000',
       '_of_which_available_for_wood_supply_1990',
 
+      'other_wooded_land_2025',
       'other_wooded_land_2020',
       'other_wooded_land_2015',
       'other_wooded_land_2010',
@@ -25,6 +28,7 @@ export default {
       'other_wooded_land_2000',
       'other_wooded_land_1990',
 
+      'total_forest_and_other_wooded_land_2025',
       'total_forest_and_other_wooded_land_2020',
       'total_forest_and_other_wooded_land_2015',
       'total_forest_and_other_wooded_land_2010',
@@ -32,6 +36,7 @@ export default {
       'total_forest_and_other_wooded_land_2000',
       'total_forest_and_other_wooded_land_1990',
 
+      'other_land_2025',
       'other_land_2020',
       'other_land_2015',
       'other_land_2010',
@@ -39,6 +44,7 @@ export default {
       'other_land_2000',
       'other_land_1990',
 
+      '_of_which_with_tree_cover_2025',
       '_of_which_with_tree_cover_2020',
       '_of_which_with_tree_cover_2015',
       '_of_which_with_tree_cover_2010',

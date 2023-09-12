@@ -4,7 +4,6 @@ module.exports = {
   password: 'Пароль',
   repeatPassword: 'Повторите пароль',
   email: 'Адрес электронной почты',
-  submit: 'Направить',
   cancel: 'Отменить',
 
   signInGoogle: 'Войти с Google',
@@ -40,4 +39,20 @@ module.exports = {
     'Доступ к зарезервированной области ограничивается экспертами, участвующими в процессе отчетности ОЛР.',
   returnHome: 'Чтобы вернуться на главную страницу, нажмите ',
   returnHomeClick: 'здесь.',
+
+  resetPassword: 'Сброс пароля',
+  alreadyLinked: 'Выбранная учетная запись Google уже связана с другим пользователем',
+  noShortPassword: 'Пароль слишком короткий',
+  noMatchingLocalUser: 'Мы не смогли найти пользователя, соответствующего этим учетным данным.',
+  noMatchingProvider: 'Мы не смогли найти пользователя, соответствующего этим учетным данным.',
+  noActiveAccount: 'Учетная запись не активна. Убедитесь, что вы приняли приглашение',
+  googleOnlyAccount: 'Учетная запись связана с аутентификацией Google',
+  alreadyAcceptedInvitation: 'Это приглашение уже принято',
+  invitationMessage: 'Вас пригласили {{assessment}} {{cycle}} как {{role}} для {{country}}',
+  invitationProvidersRegistered: 'У вас уже есть учетная запись, зарегистрированная в {{authprovidernames}}',
+  acceptInvitation: 'Принять приглашение',
+  acceptInvitationWithFra: 'Принять приглашение с ОЛР',
+  acceptInvitationWithGoogle: 'Принять приглашение с Google',
+  invitationExpired: 'Это приглашение истекло',
+  logoutSuccessful: 'Вы успешно вышли из системы',
 }

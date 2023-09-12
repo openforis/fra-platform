@@ -94,6 +94,13 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
               ],
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2020['total'],
+                     [table_6_4a.forestry_isic_nace_02_2020['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2020['planting_of_trees_to_provide_regular_income'],
+                     table_6_4a.forestry_isic_nace_02_2020['equipment_and_buildings']])`,
+                  ],
+                },
               },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2020 },
@@ -119,6 +126,15 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2015['total'],
+                     [table_6_4a.forestry_isic_nace_02_2015['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2015['planting_of_trees_to_provide_regular_income'],
+                     table_6_4a.forestry_isic_nace_02_2015['equipment_and_buildings']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2015 },
               variableExport: 'forestry_isic_nace_02_2015',
@@ -143,6 +159,15 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2010['total'],
+                     [table_6_4a.forestry_isic_nace_02_2010['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2010['planting_of_trees_to_provide_regular_income'],
+                     table_6_4a.forestry_isic_nace_02_2010['equipment_and_buildings']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2010 },
               variableExport: 'forestry_isic_nace_02_2010',
@@ -167,6 +192,15 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2005['total'],
+                     [table_6_4a.forestry_isic_nace_02_2005['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2005['planting_of_trees_to_provide_regular_income'],
+                     table_6_4a.forestry_isic_nace_02_2005['equipment_and_buildings']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2005 },
               variableExport: 'forestry_isic_nace_02_2005',
@@ -191,6 +225,15 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_2000['total'],
+                     [table_6_4a.forestry_isic_nace_02_2000['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_2000['planting_of_trees_to_provide_regular_income'],
+                     table_6_4a.forestry_isic_nace_02_2000['equipment_and_buildings']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 2000 },
               variableExport: 'forestry_isic_nace_02_2000',
@@ -215,6 +258,15 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 },
                 { idx: 3, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_6_4a.forestry_isic_nace_02_1990['total'],
+                     [table_6_4a.forestry_isic_nace_02_1990['other_gross_fixed_capital_formation'],table_6_4a.forestry_isic_nace_02_1990['planting_of_trees_to_provide_regular_income'],
+                     table_6_4a.forestry_isic_nace_02_1990['equipment_and_buildings']])`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalGrossFixedCapitalFormationInForestsAndForestry.forestry_isic_nace_02',
               labelParams: { year: 1990 },
               variableExport: 'forestry_isic_nace_02_1990',
@@ -591,143 +643,33 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
                 { idx: 1, type: 'decimal' },
               ],
             },
-            {
-              idx: 1,
+            ...[
+              'generalComments',
+              'totalGrossFixedCapitalFormation',
+              'grossFixedCapitalFormationInPlantingOfTreesToProvideRegularIncome',
+              'grossFixedCapitalFormationInEquipmentAndBuildings',
+              'otherGrossFixedCapitalFormation',
+              'totalFixedCapitalConsumption',
+              'fixedCapitalConsumptionInPlantingOfTreesToProvideRegularIncome',
+              'fixedCapitalConsumptionInEquipmentAndBuildings',
+              'otherFixedCapitalConsumption',
+              'totalCapitalTransfers',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.totalGrossFixedCapitalFormation',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 1, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.countryComments.grossFixedCapitalFormationInPlantingOfTreesToProvideRegularIncome',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.grossFixedCapitalFormationInEquipmentAndBuildings',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 4,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.otherGrossFixedCapitalFormation',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 5,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.totalFixedCapitalConsumption',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 6,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey:
-                    'panEuropean.countryComments.fixedCapitalConsumptionInPlantingOfTreesToProvideRegularIncome',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 7,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.fixedCapitalConsumptionInEquipmentAndBuildings',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 8,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.otherFixedCapitalConsumption',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 9,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.totalCapitalTransfers',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -736,7 +678,7 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
@@ -757,6 +699,7 @@ export const totalGrossFixedCapitalFormationInForestsAndForestry = {
       '2020': '6.4a',
       '2025': '6.4',
     },
+    hidden: true,
   },
 }
 export const totalFixedCapitalConsumptionInForestsAndForestry = {

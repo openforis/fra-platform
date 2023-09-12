@@ -2,11 +2,11 @@ import './Navigation.scss'
 import React, { useEffect } from 'react'
 import MediaQuery from 'react-responsive'
 
-import { useAppDispatch } from '@client/store'
-import { NavigationActions } from '@client/store/ui/navigation'
-import { useCountryIso } from '@client/hooks'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import { Breakpoints } from '@client/utils'
+import { useAppDispatch } from 'client/store'
+import { NavigationActions } from 'client/store/ui/navigation'
+import { useCountryIso } from 'client/hooks'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { Breakpoints } from 'client/utils'
 
 import NavigationDesktop from './NavigationDesktop'
 import NavigationMobile from './NavigationMobile'
@@ -14,10 +14,12 @@ import NavigationMobile from './NavigationMobile'
 const Navigation: React.FC = () => {
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
+
   useEffect(() => {
     if (print) dispatch(NavigationActions.updateNavigationVisible(false))
   }, [print, dispatch])
+
   if (!countryIso || print) return <div />
 
   return (

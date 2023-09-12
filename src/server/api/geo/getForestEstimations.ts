@@ -1,9 +1,11 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 
-import { ForestAgreementAreaEstimationRequest, ForestEstimationsRequest } from '@meta/api/request/geo/layer'
+import { ForestAgreementAreaEstimationRequest, ForestEstimationsRequest } from 'meta/api/request/geo/layer'
+import { CountryIso } from 'meta/area'
+import { ForestSource, LayerSource } from 'meta/geo'
 
-import { GeoController } from '@server/controller/geo'
-import Requests from '@server/utils/requests'
+import { GeoController } from 'server/controller/geo'
+import Requests from 'server/utils/requests'
 
 export const getForestEstimations = async (req: ForestEstimationsRequest, res: Response) => {
   try {
@@ -14,9 +16,44 @@ export const getForestEstimations = async (req: ForestEstimationsRequest, res: R
   }
 }
 
-export const estimateForestAgreementArea = async (req: ForestAgreementAreaEstimationRequest, res: Response) => {
+export const estimateImageArea = async (req: ForestAgreementAreaEstimationRequest, res: Response) => {
   try {
-    const areaHa = await GeoController.estimateForestAgreementArea(req.query)
+    const agreementLayer = {
+      countryIso: req.body.countryIso,
+      layer: {
+        key: ForestSource.Agreement,
+        options: {
+          agreement: {
+            layers: req.body.layers,
+            gteAgreementLevel: req.body.gteAgreementLevel,
+          },
+        },
+      },
+      scale: req.body.scale,
+    }
+    const areaHa = await GeoController.estimateImageArea(agreementLayer)
+    Requests.sendOk(res, areaHa)
+  } catch (e) {
+    Requests.sendErr(res, e)
+  }
+}
+
+export const estimateIntersectionArea = async (
+  req: Request<
+    never,
+    never,
+    {
+      countryIso: CountryIso
+      baseSource: LayerSource
+      maskSource: LayerSource
+      scale?: number
+    },
+    never
+  >,
+  res: Response
+) => {
+  try {
+    const areaHa = await GeoController.estimateIntersectionArea(req.body)
     Requests.sendOk(res, areaHa)
   } catch (e) {
     Requests.sendErr(res, e)

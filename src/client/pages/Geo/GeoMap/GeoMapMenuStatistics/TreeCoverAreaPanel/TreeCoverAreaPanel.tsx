@@ -1,7 +1,6 @@
-import './TreeCoverAreaPanel.scss'
 import React from 'react'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
 import StatisticsTable from '../../components/StatisticsTable'
 

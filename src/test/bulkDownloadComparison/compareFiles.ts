@@ -1,9 +1,9 @@
-import { CountryIso } from '@meta/area'
+import { CountryIso } from 'meta/area'
 
-import { getFileName } from '@test/bulkDownloadComparison/getFileName'
-import { readCSV } from '@test/bulkDownloadComparison/readCSV'
-import { RawFile, RawFileRow, Value, ValueDiff } from '@test/bulkDownloadComparison/types'
-import { parseValue } from '@test/dataExportComparison/parseValue'
+import { getFileName } from 'test/bulkDownloadComparison/getFileName'
+import { readCSV } from 'test/bulkDownloadComparison/readCSV'
+import { RawFile, RawFileRow, Value, ValueDiff } from 'test/bulkDownloadComparison/types'
+import { parseValue } from 'test/dataExportComparison/parseValue'
 
 const skip: Array<string> = ['regions', 'name', '4a_fo_unknown', '3a_prim_no_unknown']
 

@@ -1,14 +1,21 @@
-import { climaticDomain } from '@server/controller/cycleData/getBulkDownload/climaticDomain'
-import { getClimaticValue } from '@server/controller/cycleData/getBulkDownload/getClimaticValue'
-import { getData } from '@server/controller/cycleData/getBulkDownload/getData'
-import { getYears } from '@server/controller/cycleData/getBulkDownload/getYears'
-import { Props } from '@server/controller/cycleData/getBulkDownload/props'
+import { RecordAssessmentDatas } from 'meta/data'
+
+import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
+import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
+import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
+import { getYears } from 'server/controller/cycleData/getBulkDownload/getYears'
+import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 
 export const getContent = async (
   props: Props & { entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[] }
 ) => {
   const { assessment, cycle, countries, entries } = props
-  const climaticData = await climaticDomain(props)
+  const _climaticData = await climaticDomain(props)
+  const climaticData = RecordAssessmentDatas.getCycleData({
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+    data: _climaticData,
+  })
   const tableNames = entries.map(({ tableName }) => tableName)
   const data = await getData({
     assessment,
@@ -18,7 +25,7 @@ export const getContent = async (
   })
 
   const years = getYears({
-    data,
+    data: data[assessment.props.name][cycle.name],
     countries,
     tableNames,
   })
@@ -38,7 +45,16 @@ export const getContent = async (
 
       entries.forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
-          base[csvColumn] = data[countryIso][tableName]?.[year]?.[variableName]?.raw ?? null
+          base[csvColumn] =
+            RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data,
+              countryIso,
+              tableName,
+              variableName,
+              colName: year,
+            }) ?? null
         })
       })
 

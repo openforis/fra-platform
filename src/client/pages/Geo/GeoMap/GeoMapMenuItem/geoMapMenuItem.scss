@@ -1,4 +1,5 @@
 @import 'src/client/style/partials';
+@import 'src/client/styles/spinner';
 
 .geo-map-menu-item-header {
   padding: 20px 15px;
@@ -16,6 +17,9 @@
   > .fra-checkbox {
     margin: 0 10px 0 5px;
     cursor: pointer;
+  }
+  > .failed {
+    border-color: red;
   }
 }
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from '@utils/numbers'
+import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from '@meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsPrint } from '@client/hooks/useIsPath'
-import DefinitionLink from '@client/components/DefinitionLink'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import DefinitionLink from 'client/components/DefinitionLink'
 
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
@@ -28,7 +28,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     t,
     i18n: { language },
   } = useTranslation()
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
   const plantationTotal = ODPs.calcTotalSubFieldArea({
@@ -54,6 +54,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
       {!print && (
         <div className="odp__section-header">
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
+
           <DefinitionLink
             assessmentName={assessment.props.name}
             cycleName={cycle.name}
@@ -141,6 +142,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
       </div>
 
       {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
+
       {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
     </div>
   )

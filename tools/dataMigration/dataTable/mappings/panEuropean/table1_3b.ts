@@ -4,12 +4,14 @@ export default {
   section: 'panEuropean_1_3_b',
   rows: {
     names: [
+      'forest_uneven_aged_stands_2020',
       'forest_uneven_aged_stands_2015',
       'forest_uneven_aged_stands_2010',
       'forest_uneven_aged_stands_2005',
       'forest_uneven_aged_stands_2000',
       'forest_uneven_aged_stands_1990',
 
+      '_of_which_forest_available_for_wood_supply_2020',
       '_of_which_forest_available_for_wood_supply_2015',
       '_of_which_forest_available_for_wood_supply_2010',
       '_of_which_forest_available_for_wood_supply_2005',

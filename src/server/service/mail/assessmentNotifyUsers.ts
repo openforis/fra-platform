@@ -1,17 +1,18 @@
-import { createI18nPromise } from '@i18n/i18nFactory'
+import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { ClientRoutes } from '@meta/app'
-import { Country, CountryIso } from '@meta/area'
-import { AssessmentStatus } from '@meta/area/country'
-import { AssessmentName, Cycle } from '@meta/assessment'
-import { RoleName, User, Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { Country, CountryIso } from 'meta/area'
+import { AssessmentStatus } from 'meta/area/country'
+import { AssessmentName, Cycle } from 'meta/assessment'
+import { Routes } from 'meta/routes'
+import { RoleName, User, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { UserRepository } from '@server/repository/public/user'
+import { UserRepository } from 'server/repository/public/user'
+import { ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
 
-export const createMail = async (props: {
+const createMail = async (props: {
   status: AssessmentStatus
   user: User
   recipient: User
@@ -25,18 +26,14 @@ export const createMail = async (props: {
 
   const i18n = await createI18nPromise(recipient.props.lang ?? 'en')
 
-  const link = `${url}${ClientRoutes.Assessment.Cycle.Country.Landing.getLink({
-    assessmentName,
-    countryIso,
-    cycleName,
-  })}`
+  const link = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
     serverUrl: link,
     recipientName: Users.getFullName(recipient),
     status: i18n.t(`assessment.status.${status}.label`),
-    changer: user.props.name,
+    changer: Users.getFullName(user),
     assessment: i18n.t(`assessment.${assessmentName}`),
     message,
   }
@@ -88,7 +85,7 @@ export const assessmentNotifyUsers = async (props: {
   const emailPromises = recipients.map(async (recipient: User) => {
     return createMail({
       user,
-      url: process.env.APP_URI,
+      url: ProcessEnv.appUri,
       recipient,
       status,
       assessmentName,

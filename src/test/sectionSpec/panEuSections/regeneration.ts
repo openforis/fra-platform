@@ -1,10 +1,100 @@
 // @ts-nocheck
 
+const dataColsA = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'naturalForestArea',
+          colName: '2025',
+        },
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestCharacteristics',
+          variableName: 'plantedForest',
+          colName: '2025',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataColsA = (colName) =>
+  dataColsA.map((col) => ({
+    ...col,
+    migration: {
+      ...col.migration,
+      linkedNodes: Object.fromEntries(
+        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+      ),
+    },
+  }))
+
+const dataColsB = [
+  {
+    idx: 0,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestAreaChange',
+          variableName: 'afforestation',
+          colName: '1990-2000',
+        },
+      },
+    },
+  },
+  {
+    idx: 1,
+    type: 'decimal',
+    migration: {
+      linkedNodes: {
+        '2025': {
+          assessmentName: 'fra',
+          cycleName: '2025',
+          tableName: 'forestAreaChange',
+          variableName: 'natural_expansion',
+          colName: '1990-2000',
+        },
+      },
+    },
+  },
+]
+
+const linkedDataColsB = (colName) =>
+  dataColsB.map((col) => ({
+    ...col,
+    migration: {
+      ...col.migration,
+      linkedNodes: Object.fromEntries(
+        Object.entries(col.migration.linkedNodes).map(([key, node]) => [key, { ...node, colName }])
+      ),
+    },
+  }))
+
 export const totalForestAreaByExpansionAndRegenerationType = {
   sectionName: 'totalForestAreaByExpansionAndRegenerationType',
   sectionAnchor: '4.2a',
   tableSections: [
     {
+      titleKey:
+        'panEuropean.totalForestAreaByExpansionAndRegenerationType.totalForestAreaByExpansionAndRegenerationTypeNumber',
       tableSpecs: [
         {
           name: 'table_4_2a',
@@ -76,14 +166,21 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2025 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2025'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2025 },
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2025['area'],
+                  [table_4_2a.forest_2025['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2025['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2025['coppice']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
               },
               variableExport: 'forest_2025',
             },
@@ -99,14 +196,21 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2020 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2020'),
                 { idx: 2, type: 'decimal' },
               ],
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2020 },
               migration: {
                 cycles: ['2025'],
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2020['area'],
+                  [table_4_2a.forest_2020['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2020['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2020['coppice']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
               },
               variableExport: 'forest_2020',
             },
@@ -122,10 +226,19 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2015 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2015'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2015['area'],
+                  [table_4_2a.forest_2015['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2015['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2015['coppice']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2015 },
               variableExport: 'forest_2015',
@@ -142,10 +255,19 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2010 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2010'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2010['area'],
+                  [table_4_2a.forest_2010['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2010['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2010['coppice']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2010 },
               variableExport: 'forest_2010',
@@ -166,6 +288,16 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                 { idx: 1, type: 'decimal' },
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2005['area'],
+                  [table_4_2a.forest_2005['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2005['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2005['coppice']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2005 },
               variableExport: 'forest_2005',
@@ -182,10 +314,19 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 2000 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('2000'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_2000['area'],
+                  [table_4_2a.forest_2000['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_2000['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_2000['coppice']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 2000 },
               variableExport: 'forest_2000',
@@ -202,10 +343,19 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   labelParams: { year: 1990 },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsA('1990'),
                 { idx: 2, type: 'decimal' },
               ],
+              migration: {
+                validateFns: {
+                  '2025': [
+                    `validatorEqualToSum(table_1_1a.forest_1990['area'],
+                  [table_4_2a.forest_1990['natural_expansion_and_natural_regeneration'],
+                   table_4_2a.forest_1990['afforestation_and_regeneration_by_planting_and_or_seeding'],
+                   table_4_2a.forest_1990['coppice']], "panEuropean.forestArea.forest", "panEuropean.forestArea.area1000Ha", "1.1a")`,
+                  ],
+                },
+              },
               labelKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.forest',
               labelParams: { year: 1990 },
               variableExport: 'forest_1990',
@@ -225,7 +375,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
       ],
     },
     {
-      titleKey: 'panEuropean.countryComments.annualForestExpansionAndRegeneration',
+      titleKey: 'panEuropean.totalForestAreaByExpansionAndRegenerationType.annualForestExpansionAndRegenerationNumber',
       tableSpecs: [
         {
           name: 'table_4_2b',
@@ -339,8 +489,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                     },
                   },
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2020-2025'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -377,8 +526,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                     },
                   },
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2015-2020'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -412,8 +560,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2010-2015'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -475,8 +622,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('2000-2010'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -510,8 +656,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
                   },
                   className: 'fra-table__category-cell',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                ...linkedDataColsB('1990-2000'),
                 {
                   idx: 2,
                   type: 'decimal',
@@ -578,111 +723,31 @@ export const totalForestAreaByExpansionAndRegenerationType = {
               ],
               type: 'header',
             },
-            {
-              idx: 0,
+
+            ...[
+              'totalAreaOfForestByExpansionRegenerationType',
+              'naturalExpansionAndRegeneration',
+              'afforestationAndRegenerationByPlantingAndOrSeeding',
+              'coppice',
+              'annualForestExpansionAndRegeneration',
+              'naturalExpansionOfForestArea',
+              'regenerationOfForestArean',
+            ].map((variableName, idx) => ({
+              idx,
               type: 'data',
+              variableName,
               cols: [
                 {
                   idx: 'header_0',
                   colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.totalAreaOfForestByExpansionRegenerationType',
+                  labelKey: `panEuropean.countryComments.${variableName}`,
                   className: 'fra-table__header-cell',
                   type: 'header',
                 },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
+                { idx: 0, type: 'textarea', colName: 'comment' },
+                { idx: 0, type: 'textarea', colName: 'comment_trends' },
               ],
-            },
-            {
-              idx: 1,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.naturalExpansionAndRegeneration',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 2,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.afforestationAndRegenerationByPlantingAndOrSeeding',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 3,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.coppice',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 4,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.annualForestExpansionAndRegeneration',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 5,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.naturalExpansionOfForestArea',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
-            {
-              idx: 6,
-              type: 'data',
-              cols: [
-                {
-                  idx: 'header_0',
-                  colSpan: 1,
-                  labelKey: 'panEuropean.countryComments.regenerationOfForestArean',
-                  className: 'fra-table__header-cell',
-                  type: 'header',
-                },
-                { idx: 0, type: 'decimal' },
-                { idx: 1, type: 'decimal' },
-              ],
-            },
+            })),
           ],
           tableDataRequired: [],
           print: { colBreakPoints: [], pageBreakAfter: false },
@@ -691,7 +756,7 @@ export const totalForestAreaByExpansionAndRegenerationType = {
           columnsExport: [],
           migration: {
             cycles: ['2025'],
-            columnNames: { '2025': ['category', 'commentsRelatedToDataDefinitions', 'commentsOnTrend'] },
+            columnNames: { '2025': ['comment', 'comment_trends'] },
           },
         },
       ],
@@ -703,6 +768,22 @@ export const totalForestAreaByExpansionAndRegenerationType = {
     comments: true,
     introductoryText: false,
     nationalData: true,
+    linkedVariables: [
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestAreaChange',
+        tableName: 'forestAreaChange',
+        variableName: 'afforestation',
+      },
+      {
+        assessmentName: 'fra',
+        cycleName: '2025',
+        sectionName: 'forestAreaChange',
+        tableName: 'forestAreaChange',
+        variableName: 'natural_expansion',
+      },
+    ],
   },
   dataExport: {
     included: true,

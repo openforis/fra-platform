@@ -9,7 +9,7 @@ import { DBNames } from '../_DBNames'
 import { getCreateViewDDL } from './_createDataViews'
 import { _getNodeInserts } from './_getNodeInserts'
 // import { _getNodeInsertsDegradedForest } from './_getNodeInsertsDegradedForest'
-import { isBasicTable } from './_repos'
+import { isBasicTable, skipPanEuropean } from './_repos'
 import { migrateFRATablesData } from './migrateFRATablesData'
 // import { getNodeInsertsTableWithODP } from './getNodeInsertsTableWithODP'
 
@@ -50,6 +50,7 @@ export const migrateTablesData = async (
     await Promise.all(
       tables
         .filter((table) => isBasicTable(table.props.name))
+        .filter((table) => skipPanEuropean(table.props.name, cycle.name, assessment.props.name))
         .map(async (table) => _getNodeInserts({ assessment, cycle, countryISOs, table, legacySchema }, client))
     )
   ).flat()
@@ -67,7 +68,7 @@ export const migrateTablesData = async (
   const query = pgp.helpers.insert(values, cs)
   await client.none(query)
   // create data views
-  const queries = await Promise.all(tables.map((table) => getCreateViewDDL({ assessment, cycle, table })))
+  const queries = await Promise.all(tables.map((table) => getCreateViewDDL({ assessment, cycle, table }, client)))
 
   await client.query(pgp.helpers.concat(queries))
 }

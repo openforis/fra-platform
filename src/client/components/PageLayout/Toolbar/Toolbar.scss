@@ -1,109 +1,46 @@
 @import 'src/client/style/partials';
 
-.country-select {
+.toolbar {
   position: sticky;
   top: 0;
   z-index: $z-index-area-selector;
   display: flex;
   align-items: center;
   background-color: var(--ui-bg);
-  border-bottom: $ui-thin-border;
   height: 50px;
-  box-shadow: 0 2px 4px 0px rgba($text-body, 0.5);
+  -webkit-box-shadow: 0 1px 3px 1px $ui-border;
+  box-shadow: 0 1px 3px 1px $ui-border;
   width: 100%;
-
-  .text-input {
-    width: 100%;
-    border: none;
-    font-size: 13px;
-    padding: initial;
-  }
 }
 
-.btn-toggle-navigation {
-  font-size: 1rem;
-  font-weight: 400;
+.toolbar__nav-options {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  width: 340px;
+  padding-right: $spacing-xxxs;
 }
 
-.country-select__select-label {
-  display: none;
-  font-size: $font-l;
-  margin-right: 32px;
-
-  @include min-width($laptop) {
-    display: initial;
-  }
-}
-
-.btn-country-select {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 250px;
-  padding: 4px 12px;
-  background-color: $ui-bg;
-  border: none;
-  text-align: left;
+.toolbar__desk-study {
+  color: $text-link;
   font-size: $font-m;
-  font-weight: normal;
-  font-family: inherit;
-  color: $text-body;
-  transition: $ease-out;
-  outline: unset;
-
-  &:hover {
-    background-color: darken($ui-bg, 4%);
-  }
-
-  .icon {
-    margin-right: unset;
-  }
+  font-weight: 500;
+  margin-left: $spacing-xs;
+  opacity: 0.9;
 }
 
-.country-select__country {
-  display: flex;
-  align-items: center;
-  color: $text-body;
-
-  .flag {
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 18px;
-    height: 18px;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
-    border-radius: 2px;
-    margin-right: 8px;
-  }
-
-  .name {
-    font-weight: 600;
-  }
-
-  .user-role {
-    font-size: $font-s;
-    color: $text-disabled;
-    margin: 0 8px;
-  }
+.toolbar__separator {
+  width: 1px;
+  height: 60%;
+  background: radial-gradient($ui-border, lighten($ui-border, 12%));
+  margin: 0 $spacing-xxs;
 }
 
-.country-select__select-laptop {
-  display: none;
-
-  @include min-width($laptop) {
-    display: initial;
-  }
-}
-
-.country-select__select-mobile {
-  @include min-width($laptop) {
-    display: none;
-  }
-}
-
-.links-download {
+.toolbar__utils-container {
   margin-left: auto;
   margin-right: 12px;
+  display: flex;
+  align-items: center;
+  height: 100%;
 
   .btn {
     border: none !important;

@@ -2,14 +2,17 @@ import { Express } from 'express'
 // @ts-ignore
 import * as queue from 'express-queue'
 
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { AuthMiddleware } from '@server/middleware/auth'
+import { clearTable } from 'server/api/cycleData/table/clearTable'
+import { AuthMiddleware } from 'server/middleware/auth'
 
+import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
+import { getLastUpdatedTimestamp } from './originalDataPoint/getLastUpdatedTimestamp'
 import { getOriginalDataPoint } from './originalDataPoint/getOdp'
 import { getOriginalDataPointData } from './originalDataPoint/getOriginalDataPointData'
 import { getOriginalDataPoints } from './originalDataPoint/getOriginalDataPoints'
@@ -18,6 +21,7 @@ import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataP
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { estimateValues } from './table/estimateValues'
+import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
 import { persistNodeValues } from './table/persistNodeValues'
 import { getActivities } from './getActivities'
@@ -26,6 +30,11 @@ export const CycleDataApi = {
   init: (express: Express): void => {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
+    express.get(
+      ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
+      AuthMiddleware.requireEditTableData,
+      getNodeValuesEstimations
+    )
     express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
     express.post(
       ApiEndPoint.CycleData.Table.estimate(),
@@ -33,8 +42,10 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditTableData,
       estimateValues
     )
+    express.post(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
 
     // Descriptions
+    express.get(ApiEndPoint.CycleData.descriptionsDataSources(), AuthMiddleware.requireView, getDataSources)
     express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)
     express.put(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireEditDescriptions, upsertDescription)
 
@@ -56,6 +67,12 @@ export const CycleDataApi = {
       ApiEndPoint.CycleData.OriginalDataPoint.one(),
       AuthMiddleware.requireEditTableData,
       updateOriginalDataPoint
+    )
+
+    express.get(
+      ApiEndPoint.CycleData.OriginalDataPoint.lastUpdatedTimestamp(),
+      AuthMiddleware.requireEditTableData,
+      getLastUpdatedTimestamp
     )
 
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)

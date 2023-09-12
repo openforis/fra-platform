@@ -1,4 +1,4 @@
-import { User } from '@meta/user'
+import { User } from 'meta/user'
 
 export interface Message {
   id: number

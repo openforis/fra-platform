@@ -1,6 +1,8 @@
 // @ts-nocheck
 
-export const holderOfManagementRights = {
+import { SectionSpec } from 'test/sectionSpec'
+
+export const holderOfManagementRights: SectionSpec = {
   sectionName: 'holderOfManagementRights',
   sectionAnchor: '4b',
   tableSections: [
@@ -402,7 +404,7 @@ export const holderOfManagementRights = {
               variableName: 'totalPublicOwnership',
               migration: {
                 colNames: ['1990', '2000', '2010', '2015', '2020'],
-                calcFormula: 'forestOwnership.public_ownership',
+                calcFormula: { '2025': 'forestOwnership.public_ownership', '2020': 'forestOwnership.public_ownership' },
               },
             },
           ],

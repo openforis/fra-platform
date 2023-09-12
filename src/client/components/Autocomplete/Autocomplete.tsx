@@ -1,51 +1,72 @@
 import './Autocomplete.scss'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@utils/objects'
 import classNames from 'classnames'
 import { useCombobox, UseComboboxStateChange } from 'downshift'
+import { Objects } from 'utils/objects'
 
-import AutocompleteInput from '@client/components/Autocomplete/AutocompleteInput'
+import AutocompleteInput from 'client/components/Autocomplete/AutocompleteInput'
+
+type Option = {
+  label: string
+  value: string
+}
 
 type Props = {
-  items: any[]
+  items: Array<Option>
   onSave: (value: string | any) => void
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   value: string
-  withArrow?: boolean
+  readOnlyOptions?: boolean
 
   disabled?: boolean
-  labelKey?: string
   name?: string
   onInputValueChange?: (inputValue: string) => void
 }
 
-const AutocompleteItem = (props: { labelKey: string; item: any; inputValue: string }) => {
-  const { item, labelKey, inputValue } = props
-  const input = item[labelKey] ?? item
+const AutocompleteItem = (props: { item: Option; inputValue: string }) => {
+  const { item, inputValue } = props
+  const input = item.label
   const regExp = new RegExp(inputValue, 'gi')
   const output = input.replace(regExp, '<b>$&</b>')
   return <span dangerouslySetInnerHTML={{ __html: output }} />
 }
 
 const Autocomplete: React.FC<Props> = (props: Props) => {
-  const { value, items, disabled, name, onInputValueChange, labelKey, onSave, withArrow } = props
-
-  const [selectedItem, setSelectedItem] = useState(null)
+  const { value, items, disabled, name, onInputValueChange, onPaste, onSave, readOnlyOptions } = props
+  const [selectedItem, setSelectedItem] = useState<string>(null)
   const [inputValue, setInputValue] = useState(value)
+  const { t } = useTranslation()
 
   useEffect(() => {
     setInputValue(value)
+    if (!value) setSelectedItem(null)
   }, [value])
 
   // Handle saving on input field blur or item selected
   const _onStateChange: (changes: UseComboboxStateChange<any>) => void = (changes) => {
-    if (
-      [useCombobox.stateChangeTypes.InputBlur, useCombobox.stateChangeTypes.ItemClick].includes(
-        // @ts-ignore
-        changes.type
-      )
-    ) {
-      onSave(changes.selectedItem ?? inputValue)
+    if (changes.type === useCombobox.stateChangeTypes.ItemClick) {
+      // Disable saving if selected item is not changed when free text disabled
+      if (readOnlyOptions && !changes.selectedItem) {
+        return
+      }
+
+      // When readOnlyOptions is true, save only selected item from list
+      if (readOnlyOptions) {
+        onSave(changes.selectedItem ?? '')
+        return
+      }
+
+      // Default behavior: Save both selected value OR input value
+      onSave(changes.selectedItem?.value ?? inputValue)
+    } else if (changes.type === useCombobox.stateChangeTypes.InputBlur) {
+      let value = items.find(({ label }) => label === inputValue)?.value
+      if (!value && readOnlyOptions) value = ''
+      if (!value && !readOnlyOptions) value = inputValue
+
+      if (value === '') setInputValue('')
+      onSave({ value })
     }
   }
 
@@ -57,7 +78,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
       },
       items,
       itemToString(item) {
-        return item?.[labelKey] ?? item ?? ''
+        return t(item?.label ?? '')
       },
       selectedItem,
       onSelectedItemChange: ({ inputValue, selectedItem: newSelectedItem }) => {
@@ -71,11 +92,11 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div {...getComboboxProps()} className={classNames('autocomplete', { [name]: name })}>
       <AutocompleteInput
-        withArrow={withArrow}
+        readOnlyOptions={readOnlyOptions}
         openMenu={openMenu}
-        isOpen={isOpen}
         disabled={disabled}
         value={inputValue}
+        onPaste={onPaste}
         getInputProps={getInputProps}
       />
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -89,11 +110,11 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
                   selected: Objects.isEqual(selectedItem, item),
                 })}
                 // eslint-disable-next-line react/no-array-index-key
-                key={`${item[labelKey] ?? item}${index}`}
+                key={`${item.value}_autocomplete_item_${index}`}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...getItemProps({ item, index })}
               >
-                <AutocompleteItem inputValue={inputValue} item={item} labelKey={labelKey} />
+                <AutocompleteItem inputValue={inputValue} item={item} />
               </div>
             )
           })}
@@ -105,9 +126,9 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
 Autocomplete.defaultProps = {
   name: undefined,
   disabled: false,
-  labelKey: undefined,
   onInputValueChange: undefined,
-  withArrow: false,
+  onPaste: null,
+  readOnlyOptions: false,
 }
 
 export default Autocomplete

@@ -4,12 +4,14 @@ export default {
   section: 'panEuropean_3_1',
   rows: {
     names: [
+      'forest_2020',
       'forest_2015',
       'forest_2010',
       'forest_2005',
       'forest_2000',
       'forest_1990',
 
+      '_of_which_forest_available_for_wood_supply_2020',
       '_of_which_forest_available_for_wood_supply_2015',
       '_of_which_forest_available_for_wood_supply_2010',
       '_of_which_forest_available_for_wood_supply_2005',

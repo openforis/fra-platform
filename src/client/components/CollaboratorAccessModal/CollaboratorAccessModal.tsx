@@ -2,15 +2,16 @@ import './collaboratorAccessModal.scss'
 import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SubSections } from '@meta/assessment'
-import { Collaborator, CollaboratorEditPropertyType } from '@meta/user'
+import { SubSections } from 'meta/assessment'
+import { Collaborator, CollaboratorEditPropertyType } from 'meta/user'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useAssessmentSections, useCycle } from '@client/store/assessment'
-import { UserManagementActions } from '@client/store/ui/userManagement'
-import { useCountryIso, useOnUpdate } from '@client/hooks'
-import ButtonCheckBox from '@client/components/ButtonCheckBox'
-import { Modal, ModalBody, ModalClose, ModalHeader } from '@client/components/Modal'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useSections } from 'client/store/metadata'
+import { UserManagementActions } from 'client/store/ui/userManagement'
+import { useCountryIso, useOnUpdate } from 'client/hooks'
+import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import { Modal, ModalBody, ModalClose, ModalHeader } from 'client/components/Modal'
 
 import { useActions } from './hooks/useActions'
 
@@ -30,7 +31,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const sections = useAssessmentSections()
+  const sections = useSections()
 
   const options = useMemo(() => SubSections.getAnchorsByUuid({ cycle, sections }), [cycle, sections])
   const optionEntries = useMemo(() => Object.entries(options).sort((a, b) => a[1].localeCompare(b[1])), [options])

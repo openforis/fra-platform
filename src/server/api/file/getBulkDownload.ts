@@ -1,11 +1,11 @@
 import { Response } from 'express'
 import * as JSZip from 'jszip'
 
-import { CycleRequest } from '@meta/api/request'
+import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from '@server/controller/assessment'
-import { CycleDataController } from '@server/controller/cycleData'
-import { Requests } from '@server/utils'
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import { Requests } from 'server/utils'
 
 // Zip contents:
 // FRA_Years_2022_09_07.csv

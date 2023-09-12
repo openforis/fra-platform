@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.review-summary-status {
+  &.read {
+    @include mixin-status-base($ui-accent);
+  }
+  &.unread {
+    @include mixin-status-base($ui-alert);
+  }
+}

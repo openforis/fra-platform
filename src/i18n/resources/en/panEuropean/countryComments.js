@@ -11,6 +11,7 @@ module.exports = {
   ageClassDistribution: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
   carbonStockInHarvestedWoodProductsHWP: 'Carbon stock in harvested wood products (HWP)',
   annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
+  other: 'Other',
   naturalnessBySubclass: 'Naturalness by subclass',
   introducedTreeSpecies: 'Introduced tree species',
   invasiveTreeSpecies: 'Invasive tree species',
@@ -23,10 +24,10 @@ module.exports = {
   // Rows and columns
   theYearAndDataReported: 'The year and data reported for 2025',
   howDidYouGenerateValues: 'How did you generate values for 2025',
-  theRecentAvailableYear: 'The recent available year',
+  theRecentAvailableYear: 'The year of recent available data',
   extrapolation: 'Extrapolation',
-  assessementBasedOnEvidence:
-    'assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
+  assessmentBasedOnEvidence:
+    'Assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnTheCategoriesOfTheTable11A: 'Approach to reporting on the categories of the Table 1.1a',
   category: 'Category',
   areaEstimate: 'Area estimate (1000 ha)',
@@ -34,8 +35,8 @@ module.exports = {
   commentsRelateToDataDefinitions: 'Comments related to data, definitions, etc.',
   commentsOnTrendS: 'Comments on trend(s)',
   commentsOnTrend: 'Comments on trend(s)',
-  pleaseIndicateIfReportedValuesAreAccoringToTheFaoDefinitionOfGrowingStock:
-    'Please indicate if reported values are accoring to the FAO definition of growing stock',
+  valuesAccordingFaoDefinitionGrowingStock:
+    'Please indicate if reported values are according to the FAO definition of growing stock',
   PleaseSpecifyRelevantThresholds: 'Please specify relevant thresholds',
   minimumDiameter: 'Minimum diameter',
   minimumTopDiameterUsed: 'Minimum top diameter used',
@@ -59,6 +60,7 @@ module.exports = {
   maturePhase: 'Mature phase',
   unspecified: 'Unspecified',
   EvenAgedStands: 'Even-aged stands',
+  forestEvenAgedStands: 'Forest: Even-aged stands',
   totalAreaOfUnevenAgedForest: 'Total area of uneven-aged forest',
   totalVolumeOfUnevenAgedForests: 'Total volume of uneven-aged forests',
   diameterDistributionForUnevenAgedForests: 'Diameter distribution for uneven-aged forests',
@@ -66,8 +68,6 @@ module.exports = {
     'Diameter distribution for uneven-aged forests available for wood supply',
   theYearAndDataReportedFor2025: 'The year and data reported for 2025',
   howDidYouGenerateValuesFor2025: 'How did you generate values for 2025',
-  assessmentBasedOnEvidence:
-    'Assessment based on evidence (e.g. forecast, outlooks, national afforestation programmes, forest policy targets)',
   approachToReportingOnGrowingStock: 'Approach to reporting on growing stock',
   ifNotPleaseSpecifyRelevantThresholds: 'If not, please specify relevant thresholds',
   commentsRelatedToDataDefinitions: 'Comments related to data, definitions, etc.',
@@ -147,16 +147,14 @@ module.exports = {
     'Reference area (if different from total fowl, e.g. ownership class or 1000 ha)',
   approachToReportOnTreeSpeciesComposition: 'Approach to report on tree species composition',
   minimumSizeOfTreesToBeIncluded: 'Minimum size of trees to be included',
-  minimumSizeOfDegradedFowlReportedHa: 'Minimum size of degraded fowl reported, ha',
-  otherCriteriaAndMinimumThresholdsUsedToDetermineAreaAsDegraded:
-    'Other criteria and minimum thresholds used to determine area as degraded',
+  doesYourCountryHaveANationalMethodology:
+    'Does your country have a national methodology for land degradation assessment?',
+  ifYesWhatIsTheNationalDefinition: 'If yes, what is the national definition of "Degraded forest"?',
+  ifYesDescribeMonitoringProcessAndResults: 'If yes, describe the monitoring process and results',
+  minimumSizeOfDegradedForestReportedHa: 'Minimum size of degraded forest reported (ha)',
+  otherCriteriaAndMinimumThresholdsUsedToDetermineForestAsDegraded:
+    'Other criteria and minimum thresholds used to determine forest as "degraded"',
   criteriaUsedToDeterminePrimaryTypeOfDegradation: 'Criteria used to determine primary type of degradation',
-  areDegradedAreasOriginatingFromLandUsesOtherThanForestryIncludedInTheFiguresYouReported:
-    'Are degraded areas originating from land uses other than forestry included in the figures you reported?',
-  AreRecentlyDegradedForestAreasLegallyConsideredAsNonForestLand:
-    'Are recently degraded forest areas legally considered as non-forest land?',
-  AreDegradedNonForestAreasReCategorisedToForestLandWithTheAimToReforestThem:
-    'Are degraded non-forest areas re-categorised to forest land with the aim to reforest them?',
   doesYourCountryHaveANationalMethodologyForLandDegradationAssessment:
     'Does your country have a national methodology for land degradation assessment?',
   totalAreaOfDegradedLand: 'Total area of degraded land',

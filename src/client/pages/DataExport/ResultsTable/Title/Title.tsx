@@ -2,14 +2,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { Cols, Row } from '@meta/assessment'
-import { Unit, UnitFactors } from '@meta/dataExport'
+import { Cols, Row } from 'meta/assessment'
+import { Unit, UnitFactors } from 'meta/dataExport'
 
-import { useCycle } from '@client/store/assessment'
-import { useTableSections } from '@client/store/ui/assessmentSection'
-import { getUnitLabelKey } from '@client/pages/DataExport/utils'
+import { useCycle } from 'client/store/assessment'
+import { useTableSections } from 'client/store/metadata'
+import { getUnitLabelKey } from 'client/pages/DataExport/utils'
 
 type Props = {
   baseUnit?: Unit

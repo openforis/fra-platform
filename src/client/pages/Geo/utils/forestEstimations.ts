@@ -1,5 +1,5 @@
-import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestSource, sourcesMetadata } from '@meta/geo'
-import { hansenPercentages } from '@meta/geo/forest'
+import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestSource, sourcesMetadata } from 'meta/geo'
+import { hansenPercentages } from 'meta/geo/forest'
 
 /**
  * Turns the Forest Estimations object into a table, and adds the area reported

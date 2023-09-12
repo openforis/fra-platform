@@ -1,9 +1,9 @@
-import { CountryIso } from '@meta/area'
-import { Assessment, AssessmentName, Cycle } from '@meta/assessment'
-import { MessageTopic } from '@meta/messageCenter'
+import { AreaCode, CountryIso } from 'meta/area'
+import { Assessment, AssessmentName, Cycle } from 'meta/assessment'
+import { MessageTopic } from 'meta/messageCenter'
 
 const getRequestReviewSummaryEvent = (props: {
-  countryIso: CountryIso
+  countryIso: AreaCode
   assessmentName: AssessmentName
   cycleName: string
 }) => {
@@ -51,7 +51,7 @@ const getNodeValidationsUpdateEvent = (props: {
 }
 
 const getNodeValuesUpdateEvent = (props: {
-  countryIso: CountryIso
+  countryIso: AreaCode
   assessmentName: string
   cycleName: string
 }): string => {

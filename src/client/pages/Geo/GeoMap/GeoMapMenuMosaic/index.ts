@@ -1,1 +1,1 @@
-export { default } from './geoMapMenuMosaic'
+export { default } from './GeoMapMenuMosaic'

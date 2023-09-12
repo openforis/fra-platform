@@ -1,10 +1,10 @@
-import { RoleName, UserRole } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { RoleName, UserRole } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { BaseProtocol, DB } from '@server/db'
-import { UserRepository } from '@server/repository/public/user'
-import { UserRoleRepository } from '@server/repository/public/userRole'
-import { MailService } from '@server/service'
+import { BaseProtocol, DB } from 'server/db'
+import { UserRepository } from 'server/repository/public/user'
+import { UserRoleRepository } from 'server/repository/public/userRole'
+import { MailService } from 'server/service'
 
 import { AssessmentController } from '../assessment'
 
@@ -31,7 +31,6 @@ export const sendInvitationEmail = async (
     cycleName: cycle.name,
     role: userRole,
     userToInvite,
-    url: process.env.APP_URI,
   })
 
   return userRole

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
-import { Objects } from '@utils/objects'
+import { Objects } from 'utils/objects'
 
-import { useAssessmentSections } from '@client/store/assessment'
+import { useSections } from 'client/store/metadata'
 
 import Header from './Header'
 import NavigationSection from './Section'
 
 const NavAssessment: React.FC = () => {
-  const sections = useAssessmentSections()
+  const sections = useSections()
   const [showSections, setShowSections] = useState(false)
 
   if (Objects.isEmpty(sections)) return null

@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { useIsDataLocked } from '@client/store/ui/dataLock'
-import { OriginalDataPointActions, useOriginalDataPoint } from '@client/store/ui/originalDataPoint'
-import { useCountryIso } from '@client/hooks'
-import EditorWYSIWYG from '@client/components/EditorWYSIWYG'
-import MarkdownPreview from '@client/components/MarkdownPreview'
+import { useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useCountryIso } from 'client/hooks'
+import { useIsFra2020 } from 'client/hooks/useIsFra2020'
+import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import MarkdownPreview from 'client/components/MarkdownPreview'
 
 type Props = {
   canEditData: boolean
@@ -17,12 +18,14 @@ const CommentsEditor: React.FC<Props> = (props) => {
   const { canEditData } = props
   const [open, setOpen] = useState<boolean>(false)
   const dispatch = useAppDispatch()
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
   const originalDataPoint = useOriginalDataPoint()
   const assessment = useAssessment()
   const cycle = useCycle()
   const isDataLocked = useIsDataLocked()
+
+  const isFra2020 = useIsFra2020()
 
   const onChange = useCallback(
     (content: string) => {
@@ -47,29 +50,28 @@ const CommentsEditor: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   return (
-    <div>
-      <div className="fra-description__header-row">
-        <h3 className="subhead fra-description__header">{i18n.t<string>('review.comments')}</h3>
-        {canEditData && (
-          <div
-            className="link fra-description__link"
-            onClick={() => setOpen(!open)}
-            onKeyDown={() => setOpen(!open)}
-            role="button"
-            tabIndex={0}
-          >
-            {open ? i18n.t<string>('description.done') : i18n.t<string>('description.edit')}
-          </div>
+    <div className="fra-description__header-row">
+      <h3 className="subhead fra-description__header">{t('review.comments')}</h3>
+      {canEditData && (
+        <span
+          role="button"
+          aria-label=""
+          tabIndex={0}
+          className="link fra-description__link no-print"
+          onClick={() => setOpen(!open)}
+          onKeyDown={() => setOpen(!open)}
+        >
+          {open ? t('description.done') : t('description.edit')}
+        </span>
+      )}
+
+      <div className="fra-description__preview">
+        {open ? (
+          <EditorWYSIWYG value={originalDataPoint.description} onChange={onChange} />
+        ) : (
+          <MarkdownPreview allowImages={isFra2020} value={originalDataPoint.description} />
         )}
       </div>
-      <div className="cke_wrapper" style={{ display: open ? 'block' : 'none' }}>
-        <EditorWYSIWYG value={originalDataPoint.description} onChange={onChange} />
-      </div>
-      {originalDataPoint.description && (
-        <div className="fra-description__preview">
-          <MarkdownPreview value={originalDataPoint.description} />
-        </div>
-      )}
     </div>
   )
 }

@@ -1,0 +1,14 @@
+@import 'src/client/style/partials';
+
+.data-cell__flag {
+  min-width: 14px;
+  height: 14px;
+  padding: 0 2px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: $text-disabled;
+  font-weight: 400;
+}

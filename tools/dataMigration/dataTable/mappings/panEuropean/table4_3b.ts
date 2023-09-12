@@ -3,7 +3,7 @@ export default {
   schemaName: 'pan_european',
   section: 'panEuropean_4_3_b',
   rows: {
-    names: ['forest_2020', 'forest_2015', 'forest_2010', 'forest_2005', 'forest_2000', 'forest_1990'],
+    names: ['forest_2025', 'forest_2020', 'forest_2015', 'forest_2010', 'forest_2005', 'forest_2000', 'forest_1990'],
   },
   columns: [
     { name: 'naturally_established', type: 'numeric' },

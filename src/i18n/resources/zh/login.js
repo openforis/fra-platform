@@ -4,7 +4,6 @@ module.exports = {
   password: '密码',
   repeatPassword: '重复密码',
   email: '邮箱',
-  submit: '提交',
   cancel: '取消',
 
   signInGoogle: '通过谷歌登陆',
@@ -36,4 +35,20 @@ module.exports = {
   accessLimited: '保留区域的访问权仅限于参与 FRA 报告过程的专家.',
   returnHome: '要返回主页，请单击',
   returnHomeClick: '此处.',
+
+  resetPassword: '重置密码',
+  alreadyLinked: '所选的谷歌账户已链接到另一个用户',
+  noShortPassword: '密码太短',
+  noMatchingLocalUser: '我们找不到符合这些条件的用户',
+  noMatchingProvider: '我们找不到符合这些条件的用户',
+  noActiveAccount: '该账户未被激活。请确保你已经接受了任何待定的邀请',
+  googleOnlyAccount: '该账户使用谷歌认证',
+  alreadyAcceptedInvitation: '该邀请已经被接受',
+  invitationMessage: '您作为{{country}}的{{role}}已被邀请参加{{assessment}}{{cycle}}',
+  invitationProvidersRegistered: '您已经有一个{{authProviderNames}}注册账户',
+  acceptInvitation: '接受邀请',
+  acceptInvitationWithFra: '接受邀请(FRA账号登录)',
+  acceptInvitationWithGoogle: '接受邀请(谷歌账号登录)',
+  invitationExpired: '该邀请已过期',
+  logoutSuccessful: '您已成功注销',
 }

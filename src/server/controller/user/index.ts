@@ -1,5 +1,5 @@
-import { UserRepository } from '@server/repository/public/user'
-import { UserRoleRepository } from '@server/repository/public/userRole'
+import { UserRepository } from 'server/repository/public/user'
+import { UserRoleRepository } from 'server/repository/public/userRole'
 
 import { acceptInvitation } from './acceptInvitation'
 import { changePassword } from './changePassword'

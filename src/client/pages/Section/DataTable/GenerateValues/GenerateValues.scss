@@ -1,0 +1,36 @@
+@import 'src/client/style/partials';
+
+.data-table-generate-values {
+  display: grid;
+  grid-template-columns: 230px auto;
+  grid-column-gap: 8px;
+  grid-row-gap: 1px;
+  align-items: center;
+
+  button {
+    justify-self: start;
+
+    &.btn-checkbox {
+      grid-column: 1;
+    }
+  }
+
+  .annual-change-rates {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: 62px 62px auto;
+    grid-column-gap: 2px;
+    align-items: center;
+    font-size: $font-s;
+    padding: 1px 0;
+  }
+
+  .annual-change-rates__label {
+    text-align: center;
+  }
+
+  .annual-change-rates__unit {
+    font-size: $font-xxs;
+    color: $text-mute;
+  }
+}

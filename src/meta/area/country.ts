@@ -1,6 +1,9 @@
 import { CountryIso } from './countryIso'
 import { RegionCode } from './regionCode'
 
+/**
+ * TODO: rename to CountryStatus
+ */
 export enum AssessmentStatus {
   notStarted = 'notStarted',
   editing = 'editing',

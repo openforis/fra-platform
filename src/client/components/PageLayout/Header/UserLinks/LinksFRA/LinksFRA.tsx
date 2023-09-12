@@ -2,23 +2,24 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { i18n } from 'i18next'
+import { TFunction } from 'i18next'
 
-import { ClientRoutes } from '@meta/app'
-import { CountryIso, Global } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
-import { User, Users } from '@meta/user'
+import { CountryIso, Global } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
+import { Routes } from 'meta/routes'
+import { User, Users } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
-import { AppDispatch, useAppDispatch } from '@client/store'
-import { useAssessment, useCycle } from '@client/store/assessment'
-import { UserActions, useUser } from '@client/store/user'
-import { useCountryIso, useIsLogin } from '@client/hooks'
-import { ToasterHook, useToaster } from '@client/hooks/useToaster'
-import Icon from '@client/components/Icon'
-import PopoverControl, { PopoverItem } from '@client/components/PopoverControl'
+import { AppDispatch, useAppDispatch } from 'client/store'
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { UserActions, useUser } from 'client/store/user'
+import { useCountryIso, useIsLoginRoute } from 'client/hooks'
+import { ToasterHook, useToaster } from 'client/hooks/useToaster'
+import Icon from 'client/components/Icon'
+import PopoverControl, { PopoverItem } from 'client/components/PopoverControl'
 
 const getLinks = (
-  i18nInstance: i18n,
+  t: TFunction,
   assessment: Assessment,
   countryIso: CountryIso,
   cycle: Cycle,
@@ -26,24 +27,19 @@ const getLinks = (
   dispatch: AppDispatch,
   toaster: ToasterHook
 ) => {
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+  const userCountryIso = countryIso ?? UserRoles.getLastRole({ assessment, user })?.countryIso ?? Global.WO
   const items: Array<PopoverItem> = [
     {
-      content: i18nInstance.t('header.editProfile'),
-      link: ClientRoutes.Assessment.Cycle.Country.Users.User.getLink({
-        assessmentName: assessment.props.name,
-        countryIso: countryIso ?? Global.WO,
-        cycleName: cycle.name,
-        id: user.id,
-      }),
+      content: t<string>('header.editProfile'),
+      link: Routes.CountryUser.generatePath({ assessmentName, cycleName, countryIso: userCountryIso, id: user.id }),
     },
   ]
   if (Users.isAdministrator(user)) {
     items.push({
-      content: i18nInstance.t('admin.admin'),
-      link: ClientRoutes.Assessment.Cycle.Admin.Root.getLink({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-      }),
+      content: t<string>('admin.admin'),
+      link: Routes.Admin.generatePath({ assessmentName, cycleName }),
     })
   }
   items.push(
@@ -51,9 +47,9 @@ const getLinks = (
       divider: true,
     },
     {
-      content: i18nInstance.t('header.logout'),
+      content: t<string>('header.logout'),
       onClick: () => {
-        dispatch(UserActions.logout()).then(() => toaster.toaster.info(i18nInstance.t('login.logoutSuccessful')))
+        dispatch(UserActions.logout()).then(() => toaster.toaster.info(t('login.logoutSuccessful')))
       },
     }
   )
@@ -67,13 +63,17 @@ const LinksFRA: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useUser()
   const toaster = useToaster()
-  const { i18n } = useTranslation()
-  const isLogin = useIsLogin()
+
+  const { t } = useTranslation()
+  const isLogin = useIsLoginRoute()
+
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
 
   return (
     <>
       {user && (
-        <PopoverControl items={getLinks(i18n, assessment, countryIso, cycle, user, dispatch, toaster)}>
+        <PopoverControl items={getLinks(t, assessment, countryIso, cycle, user, dispatch, toaster)}>
           <div className="app-header__menu-item">
             {Users.getFullName(user)}
             <Icon className="icon-middle" name="small-down" />
@@ -84,13 +84,10 @@ const LinksFRA: React.FC = () => {
       {!user && !isLogin && (
         <Link
           key="admin-link"
-          to={ClientRoutes.Assessment.Cycle.Login.Root.getLink({
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-          })}
+          to={Routes.Login.generatePath({ assessmentName, cycleName })}
           className="app-header__menu-item"
         >
-          {i18n.t<string>('common.login')}
+          {t<string>('common.login')}
         </Link>
       )}
     </>

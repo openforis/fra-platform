@@ -1,5 +1,5 @@
-import { Assessment, Cycle } from '@meta/assessment'
-import { DB, Schemas } from '@server/db'
+import { Assessment, Cycle } from 'meta/assessment'
+import { DB, Schemas } from 'server/db'
 
 export const removeSchema = async (params: { assessment: Assessment; cycle: Cycle }): Promise<string> => {
   const { assessment, cycle } = params

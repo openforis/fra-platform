@@ -1,19 +1,30 @@
 const area = require('./fr/area')
+const assessmentSection = require('./fr/assessmentSection')
 const common = require('./fr/common')
+const contentCheck = require('./fr/contentCheck')
 const dataDownload = require('./fr/dataDownload')
+const dataSource = require('./fr/dataSource')
 const fra = require('./fr/fra')
-const statisticalFactsheets = require('./fr/statisticalFactsheets')
+const generalValidation = require('./fr/generalValidation')
 const login = require('./fr/login')
+const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const uc = require('./fr/uc')
 
 module.exports.translation = {
   area,
   common,
+  contentCheck,
   dataDownload,
+  dataSource,
   fra,
-  statisticalFactsheets,
+  generalValidation,
   login,
+  statisticalFactsheets,
   uc,
+
+  page: {
+    assessmentSection,
+  },
 
   language: {
     en: 'English',
@@ -39,8 +50,10 @@ des domaines boréal, tempéré et sous-tropical`,
     scamAlert: 'Alerte aux messages frauduleux',
     reportMisconduct: 'Signaler un cas de mauvaise conduite',
     userGuide: "Guide de l'utilisateur",
+    tutorials: 'Vidéo',
     sendFeedback: 'Envoyer réactions',
     licenses: 'Autorisations',
+    platformVersion: 'Version de la plate-forme',
   },
 
   disclaimer: {
@@ -73,6 +86,7 @@ des domaines boréal, tempéré et sous-tropical`,
     gt: 'Gt',
     fte1000: '1000 EPT',
     numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
+    growingStockPercent: '% du total',
   },
 
   countrySelection: {
@@ -99,27 +113,24 @@ des domaines boréal, tempéré et sous-tropical`,
     roles: {
       REVIEWER: 'Examinateur',
       NATIONAL_CORRESPONDENT: 'Correspondant national',
-      ALTERNATE_NATIONAL_CORRESPONDENT: 'Correspondant national alternatif',
+      ALTERNATE_NATIONAL_CORRESPONDENT: 'Correspondant national suppléant',
       COLLABORATOR: 'Collaborateur',
       ADMINISTRATOR: 'Administrateur',
       noRole: '',
-      // unused?
+      VIEWER: 'Visionneur',
       reviewer_plural: 'Examinateurs',
       nationalCorrespondent_plural: 'Correspondants nationaux',
-      alternateNationalCorrespondent_plural: 'Correspondants nationaux alternatifs',
+      alternateNationalCorrespondent_plural: 'Correspondants nationaux suppléants',
       collaborator_plural: 'Collaborateurs',
-      // deprecated
-      // reviewer: 'Examinateur',
-      // nationalCorrespondent: 'Correspondant national',
-      // alternateNationalCorrespondent: 'Correspondant national alternatif',
-      // collaborator: 'Collaborateur',
-      // administrator: 'Administrateur',
+    },
+    resetPasswordEmail: {
+      subject: 'Plateforme FRA - Réinitialiser le mot de passe',
     },
   },
 
   fraClass: {
     forest: 'Forêt',
-    otherWoodedLand: 'Autre terre boisée',
+    otherWoodedLand: 'Autres terres boisées',
     otherLand: 'Autre terre',
   },
 
@@ -148,6 +159,11 @@ des domaines boréal, tempéré et sous-tropical`,
       userManagement: 'Gérer collaborateurs',
       externalData: 'Données externes',
       links: 'Liens et Référentiel',
+      contentCheck: 'Contenu / Vérification',
+      versioning: 'Gestion des versions',
+    },
+    dataExport: {
+      downloadData: 'Télécharger les données',
     },
     overview: {
       loadingMap: 'Chargement carte…',
@@ -223,6 +239,8 @@ des domaines boréal, tempéré et sous-tropical`,
       repository: 'Référentiel',
       uploadFile: 'Mettre en ligne un fichier',
       confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
+      fileUploaded: 'Fichier téléchargé avec succès',
+      fileDeleted: 'Fichier supprimé avec succès',
     },
   },
 
@@ -273,6 +291,9 @@ L'équipe de FRA
         "Erreur: L'utilisateur {{user}} dans le rôle {{role}} ne peut pas modifier l'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}",
       assessmentCommentingNotAllowed:
         "Erreur: L'utilisateur {{user}} dans le rôle {{role}} ne peut pas commenter l'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}",
+      userNotAdministrator:
+        "Erreur : l'utilisateur {{user}} a tenté d'accéder à une ressource disponible uniquement pour les administrateurs",
+      userAlreadyAddedToCountry: "Erreur : l'utilisateur {{user}} est déjà ajouté au pays {{countryIso}}",
     },
     assessment: {
       transitionNotAllowed:
@@ -319,7 +340,6 @@ L'équipe de FRA
       sustainableDevelopment: 'Objectif de développement durable 15',
       panEuropeanIndicators: 'Indicateurs paneuropéens',
     },
-    submit: 'Envoyer',
     cancel: 'Annuler',
     changeStatusTextPlaceholder: 'Ajouter un message facultatif',
     doNotNotifyUsers: 'Ne pas notifier les utilisateurs',
@@ -339,12 +359,12 @@ L'équipe de FRA
 
   time: {
     hour: 'Il y a {{count}} heure',
-    hour_plural: 'Il y a {{count}} heures',
     day: 'Il y a {{count}} jour',
-    day_plural: 'Il y a {{count}} jours',
     week: 'Il y a {{count}} semaine',
-    week_plural: 'Il y a {{count}} semaines',
     aMomentAgo: 'Il y a un moment',
+    hour_plural: 'Il y a {{count}} heures',
+    day_plural: 'Il y a {{count}} jours',
+    week_plural: 'il y a {{count}} semaines',
   },
 
   review: {
@@ -359,6 +379,7 @@ L'équipe de FRA
     commentingClosed: 'Période de commentaires terminée',
     add: 'Ajouter',
     cancel: 'Effacer',
+    loading: 'Chargement',
   },
 
   description: {
@@ -385,7 +406,7 @@ L'équipe de FRA
     noNationalDataAdded: 'Pas de donnée nationale ajoutée',
     nationalData: 'Donnée nationale',
     reclassificationLabel: 'Données de base et reclassification',
-    forestCategoriesLabel: 'Forêt, autre terre boisée et autre terre',
+    forestCategoriesLabel: 'Forêt, autres terres boisées et autre terre',
     referenceYearData: 'Année de référence pour les données',
     referenceYear: 'Année de référence',
     references: 'Références',
@@ -396,7 +417,7 @@ L'équipe de FRA
     dataSources: 'Source des données',
     additionalComments: 'Commentaires supplémentaires',
     edit: 'Modifier',
-    copyPreviousValues: 'Copier valeurs précédentes',
+    copyPreviousValues: 'Copier les références précédentes',
     nationalClass: 'Classe nationale',
     nationalClasses: 'Classifications et définitions',
     definition: 'Définition',
@@ -420,20 +441,20 @@ L'équipe de FRA
       sampleBasedRemoteSensingAssessment: "Évaluation d'échantillons par télédétection",
       fullCoverMaps: 'Cartes complètes des forêts/de la végétation',
       registersQuestionnaires: 'Répertoires/questionnaires',
-      other: 'Autre (préciser dans les commentaires)',
+      other: '$t(common.otherSpecifyInComments)',
     },
     appliesToVariablesOptions: {
       forest: 'Forêt',
-      otherWoodedLand: 'Autre terre boisée',
+      otherWoodedLand: 'Autres terres boisées',
       otherLand: 'Autre terre',
     },
+    forestCategoriesLabel2025: 'Forêt, autres terres boisées et terres restantes',
+    nationalClassifications: 'Classifications nationales',
+    categories: 'Catégories',
   },
 
   userManagement: {
     manageCollaborators: 'Gérer collaborateurs',
-    name: 'Nom',
-    role: 'Rôle',
-    email: 'Email',
     loginEmail: 'Identifiant',
     noUsers: 'Aucun collaborateur ajouté',
     placeholder: 'Choisir…',
@@ -449,6 +470,7 @@ L'équipe de FRA
     tableAccess: 'Accès aux tables',
     invitationLink: "Lien d'invitation",
     sendInvitation: "Envoyer un email d'invitation",
+    inviteAgain: 'Inviter de nouveau',
     invitationEmail: {
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
@@ -475,6 +497,17 @@ L'équipe de FRA fra@fao.org
 <br/>
 {{- url}}
     `,
+    },
+    editPermissions: 'Modifier les autorisations',
+    invitationDeleted: "L'invitation a été supprimée",
+    invitationEmailSent: "Un e-mail d'invitation a été envoyé",
+    permissions: 'Autorisations',
+    personalInfoRequired: 'Veuillez compléter vos informations personnelles avant de continuer',
+    userAdded: '{{email}} a été ajouté',
+    userModified: '{{user}} a été modifié',
+    permissionNames: {
+      tableData: 'Données du tableau',
+      descriptions: 'Descriptions',
     },
   },
 
@@ -514,7 +547,7 @@ L'équipe de FRA fra@fao.org
     fedAreasExceedTotalLandArea:
       'La superficie des forêts et des autres terres boisées est supérieure au total des terres émergées',
     forestAreaDoesNotMatchPreviouslyReported:
-      'La superficie de forêt ne correspond pas à la superficie de FRA 2015: {{previous}}',
+      'La superficie de forêt ne correspond pas à la superficie de FRA {{year}}: {{previous}}',
     useOriginalDataPoints: 'Utiliser les points de données nationales',
     dontUseOriginalDataPoints: 'Ne pas utiliser les points de données nationales',
     whatIsThis: "Qu'est-ce-que c'est?",
@@ -523,6 +556,8 @@ L'équipe de FRA fra@fao.org
     ndpMissingValues: 'Le point de données nationales a des valeurs manquantes',
     showNDPs: 'Afficher les points de données nationaux',
     hideNDPs: 'Cacher les points de données nationaux',
+    forestAreaNetChangeDoesNotMatch:
+      'Le changement net de la superficie forestière ne correspond pas à la valeur attendue : {{value}}',
   },
 
   climaticDomain: {
@@ -559,10 +594,10 @@ L'équipe de FRA fra@fao.org
     annualChangeExtrapolation: 'Changement annuel',
     placeholderFuture: 'Futur',
     placeholderPast: 'Passé',
-    clearTable: 'Vider tableau',
     copyToClipboard: 'Copier valeurs',
     placeholderSelect: 'Estimation et prévision',
     _1000haYear: '1000 ha/an',
+    generatingFraValues: 'En cours de traitement...',
   },
 
   forestAreaChange: {
@@ -574,6 +609,7 @@ L'équipe de FRA fra@fao.org
     ofWhichNaturalExpansion: '…dont expansion naturelle',
     deforestation: 'Déforestation',
     forestAreaNetChange: 'Changement net de la superficie forestière',
+    forestAreaNetChangeFrom1a: 'Changement net de la superficie de forêt  obtenu à partir du tableau 1a',
     netChangeDoesNotMatch: 'Ne correspond pas au changement net de la superficie forestière',
   },
 
@@ -606,7 +642,7 @@ L'équipe de FRA fra@fao.org
     treesinurbansettings: 'Arbres en milieu urbain',
     total: 'Total',
     otherLandArea: "Superficie d'autre terre",
-    other: 'Autre (préciser dans les commentaires)',
+    other: '$t(common.otherSpecifyInComments)',
   },
 
   growingStock: {
@@ -620,7 +656,7 @@ L'équipe de FRA fra@fao.org
     plantationForest: '…dont forêt de plantation',
     otherPlantedForest: '…dont autre forêt plantée',
     forest: 'Forêt',
-    otherWoodedLand: 'Autre terre boisée',
+    otherWoodedLand: 'Autres terres boisées',
     copyToClipboard: 'Copier valeurs',
   },
 
@@ -918,21 +954,14 @@ L'équipe de FRA
         next: 'Accepter',
         previous: '',
       },
+      notStarted: {
+        label: 'Pas commencé',
+      },
     },
   },
 
   multiSelect: {
     placeholder: 'Choisir…',
-  },
-
-  generalValidation: {
-    subCategoryExceedsParent: 'La sous-catégorie est supérieure à la catégorie-mère',
-    forestAreaDoesNotMatchExtentOfForest: 'Ne correspond pas à la superficie de la Forêt (1a)',
-    forestAreaExceedsExtentOfForest: 'Supérieur à la superficie de la Forêt (1a)',
-    otherLandExceedsExtentOfForest: 'Supérieur à la superficie des autres terres (1a)',
-    valueMustBePositive: 'La valeur devra être supérieure à zéro',
-    emptyField: 'Ce champ est vide',
-    mustBeEqualToTotalGrowingStock: 'La valeur doit être égale au Total Matériel sur pied (2a)',
   },
 
   emoji: {
@@ -962,8 +991,32 @@ L'équipe de FRA
     institution: 'Institution',
     position: 'Position',
     done: 'Enregistrer',
-    cancel: 'Effacer',
     picture1MbMax: "L'image de profil ne peut pas dépasser 1 Mo",
+    title: 'Appelation',
+    surname: 'Nom(s) de famille',
+    professionalTitle: 'Titre professionnel',
+    organizationalUnit: 'Unité organisationnelle',
+    organization: 'Organisation',
+    street: 'Adresse (rue)',
+    zipCode: 'Code postal',
+    poBox: 'Boîte postale',
+    city: 'Ville',
+    countryIso: 'Pays',
+    primaryEmail: 'Adresse électronique principale',
+    secondaryEmail: 'Adresse électronique secondaire',
+    primaryPhoneNumber: 'Numéro de téléphone principal',
+    secondaryPhoneNumber: 'Numéro de téléphone secondaire',
+    skype: 'Nom sur Skype',
+    contactPreference: 'Mode de contact préféré',
+    contactPreferenceMethod: 'Méthode de contact',
+    platformChat: 'Chat sur la plateforme',
+    signal: 'Signal',
+    whatsapp: 'Whatsapp',
+    activated: 'Activé',
+    status: 'Statut',
+    demoteToUser: "Êtes-vous sûr de vouloir supprimer les privilèges d'administrateur ?",
+    promoteToAdmin: "Êtes-vous sûr de vouloir accorder des privilèges d'administrateur ?",
+    mandatoryFields: '* sont des champs obligatoires',
   },
 
   country: {
@@ -982,8 +1035,6 @@ L'équipe de FRA
   admin: {
     admin: 'Administration',
     filter: 'Filtrer par',
-    language: 'Langue',
-    country: 'Pays',
     invitationPending: 'Invitation en attente',
   },
 
@@ -991,5 +1042,19 @@ L'équipe de FRA
     messageBoard: "Panneau d'affichage",
     messageBoardDesc: 'Les messages postés ici sont visibles par tous les membres du pays.',
     oneToOneMessages: 'Messages individuels',
+  },
+
+  tutorial: {
+    watch: 'Regarder',
+    passwordLogin:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment se connecter avec un mot de passe personnalisé",
+    googleLogin:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment se connecter à partir de son compte Google",
+    collaboratorAdd: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un collaborateur",
+    platformNavigation: "Tutoriel pour l'utilisateur de la plateforme FRA - Naviguer sur la plateforme",
+    documentUpload: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment télécharger un document",
+    ndpAdd: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un point de données national",
+    passwordLoginShort: 'Comment se connecter avec un mot de passe personnalisé',
+    googleLoginShort: 'Comment se connecter à partir de son compte Google',
   },
 }

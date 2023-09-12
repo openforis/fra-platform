@@ -1,7 +1,6 @@
-import { read } from './read'
-import { update } from './update'
+import { SettingsRepository } from 'server/repository/public/settings'
 
 export const SettingsController = {
-  update,
-  read,
+  read: SettingsRepository.read,
+  update: SettingsRepository.update,
 }

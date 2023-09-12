@@ -7,6 +7,8 @@ export const ApiEndPoint = {
     joinPaths('definitions', assessmentName, cycleName, lang, name),
 
   Admin: {
+    countries: () => apiPath('admin', 'countries'),
+    countriesCount: () => apiPath('admin', 'countries', 'count'),
     users: () => apiPath('admin', 'users'),
     usersCount: () => apiPath('admin', 'users', 'count'),
   },
@@ -15,10 +17,6 @@ export const ApiEndPoint = {
     country: () => apiPath('area', 'country'),
     countryProp: () => apiPath('area', 'country', 'prop'),
     areas: () => apiPath('area', 'areas'),
-  },
-
-  Assessment: {
-    one: () => apiPath('assessment'),
   },
 
   Auth: {
@@ -31,14 +29,14 @@ export const ApiEndPoint = {
   },
 
   CycleData: {
-    descriptions: () => apiPath('cycle-data', 'descriptions'),
     activities: () => apiPath('cycle-data', 'activities'),
+    descriptions: () => apiPath('cycle-data', 'descriptions'),
+    descriptionsDataSources: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
 
     OriginalDataPoint: {
       one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
-
-      // Used for print view
       many: () => apiPath('cycle-data', 'original-data-points'),
+      lastUpdatedTimestamp: () => apiPath('cycle-data', 'original-data-points', 'last-updated-timestamp'),
 
       // Table Data (1a, 1b)
       data: () => apiPath('cycle-data', 'original-data-points', 'data'),
@@ -52,6 +50,8 @@ export const ApiEndPoint = {
       estimate: () => apiPath('cycle-data', 'table', 'estimate'),
       nodes: () => apiPath('cycle-data', 'table', 'nodes'),
       tableData: () => apiPath('cycle-data', 'table', 'table-data'),
+      tableClear: () => apiPath('cycle-data', 'table', 'clear'),
+      nodeValuesEstimations: () => apiPath('cycle-data', 'table', 'node-values-estimations'),
     },
   },
 
@@ -75,6 +75,8 @@ export const ApiEndPoint = {
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
     userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
+    sdgFocalPoints: () => apiPath('file', 'sdg-focal-points'),
+    private: () => apiPath('file', 'private'),
     Assessment: {
       one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
       many: () => apiPath('file', 'assessment'),
@@ -111,17 +113,21 @@ export const ApiEndPoint = {
     sepalProxy: () => apiPath('geo', 'sepal'),
     Layers: {
       forest: () => apiPath('geo', 'layers', 'forest'),
-      forestAgreement: () => apiPath('geo', 'layers', 'forestAgreement'),
+      forestAgreement: () => apiPath('geo', 'layers', 'forest-agreement'),
+      protectedArea: () => apiPath('geo', 'layers', 'protected-area'),
+      burnedArea: () => apiPath('geo', 'layers', 'burned-area'),
       boundaries: () => apiPath('geo', 'layers', 'boundaries'),
     },
     Estimations: {
       forest: () => apiPath('geo', 'estimations', 'forest'),
-      forestAgreement: () => apiPath('geo', 'estimation', 'forestAgreement'),
+      forestAgreement: () => apiPath('geo', 'estimations', 'forest-agreement'),
+      intersectionArea: () => apiPath('geo', 'estimations', 'intersection-area'),
     },
   },
 
   MetaData: {
-    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
+    metaCache: () => apiPath('metadata', 'metaCache'),
     sections: () => apiPath('metadata', 'sections'),
+    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
   },
 }

@@ -1,0 +1,139 @@
+,country,indicator,item,comment
+0,ALB,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+1,ALB,3.2,Approach used to determine “marketed”:,
+2,ALB,3.2,Approach used to determine value:,
+3,AND,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+4,AND,3.2,Approach used to determine “marketed”:,
+5,AND,3.2,Approach used to determine value:,
+6,AUT,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:","""m³ u.b."" is common for measurement and clearance in AUT and is used by the national removals statistics. Therefore, there is no need for a bark conversion factor."
+7,AUT,3.2,Approach used to determine “marketed”:,
+8,AUT,3.2,Approach used to determine value:,Values are based on the annual removals statistics and the official prices statistics.
+9,BLR,3.2,"Если применимо, коэффициент конверсии коры от “с корой” к “без коры”:",
+10,BLR,3.2,"Подход, примененный для определения “рыночный”:",
+11,BLR,3.2,"Подход, примененный для определения стоимости:",
+12,BEL,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",over bark
+13,BEL,3.2,Approach used to determine “marketed”:,
+14,BEL,3.2,Approach used to determine value:,
+15,BIH,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+16,BIH,3.2,Approach used to determine “marketed”:,
+17,BIH,3.2,Approach used to determine value:,
+18,BGR,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+19,BGR,3.2,Approach used to determine “marketed”:,
+20,BGR,3.2,Approach used to determine value:,
+21,HRV,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+22,HRV,3.2,Approach used to determine “marketed”:,
+23,HRV,3.2,Approach used to determine value:,
+24,CYP,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+25,CYP,3.2,Approach used to determine “marketed”:,
+26,CYP,3.2,Approach used to determine value:,
+27,CZE,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+28,CZE,3.2,Approach used to determine “marketed”:,
+29,CZE,3.2,Approach used to determine value:,
+30,DNK,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+31,DNK,3.2,Approach used to determine “marketed”:,
+32,DNK,3.2,Approach used to determine value:,
+33,EST,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",1.14
+34,EST,3.2,Approach used to determine “marketed”:,
+35,EST,3.2,Approach used to determine value:,
+36,FIN,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:","Bark conversion factor varies between 0.86–0.90, depending on tree species and roundwood assortment."
+37,FIN,3.2,Approach used to determine “marketed”:,"All industrial roundwood is marketed. Of woodfuel, about 22% is estimated as marketed."
+38,FIN,3.2,Approach used to determine value:,"Volume*unit value. Unit value=the weighted average of roadside prices for each year. Woodfuel is an exception, see above."
+39,FRA,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",Bark factors are fixed by species and product category.
+40,FRA,3.2,Approach used to determine “marketed”:,See Eurostat Doc. Forest/2009WG/05
+41,FRA,3.2,Approach used to determine value:,"Data come from the survey on the final value of forest harvested products until 2010 and from the wood prices survey since 2011. The total value of marketed roundwood and fuelwood is calculated using the volumes reported in the annual forest harvesting sector survey. The total value is the same wether the volume is under or over bark, only the unit value differs."
+42,GEO,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+43,GEO,3.2,Approach used to determine “marketed”:,no information available
+44,GEO,3.2,Approach used to determine value:,no information available
+45,DEU,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+46,DEU,3.2,Approach used to determine “marketed”:,
+47,DEU,3.2,Approach used to determine value:,
+48,GRC,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+49,GRC,3.2,Approach used to determine “marketed”:,
+50,GRC,3.2,Approach used to determine value:,
+51,VAT,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+52,VAT,3.2,Approach used to determine “marketed”:,
+53,VAT,3.2,Approach used to determine value:,
+54,HUN,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",Noble oaks: 0.802; turkey oak: 0.790; beech: 0.900; hornbeam: 0.900; black locust: 0.800; other hardwood species: 0.830; poplars and willows: 0.820; other softwood species: 0.820; coniferous: 0.800. For the interval between 1988 and 2000 overall averages were applied while species data were not available.
+55,HUN,3.2,Approach used to determine “marketed”:,
+56,HUN,3.2,Approach used to determine value:,We have sold volume and related value data from state forestry enterprises covering more than the half of total annual felling volume. From these data an average value over volume was estimated and multiplied by total annual harvesting volumes.
+57,ISL,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",0.87
+58,ISL,3.2,Approach used to determine “marketed”:,We only have data for marketed wood that is wood sold for money
+59,ISL,3.2,Approach used to determine value:,Rough average price for roundwood on bark (2016 = 21470 ISK.)
+60,IRL,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+61,IRL,3.2,Approach used to determine “marketed”:,
+62,IRL,3.2,Approach used to determine value:,
+63,ITA,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:","original data refers to ""underbark"""
+64,ITA,3.2,Approach used to determine “marketed”:,all wood recorded in JQ1 is marketed
+65,ITA,3.2,Approach used to determine value:,Values at production  at current prices
+66,LVA,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+67,LVA,3.2,Approach used to determine “marketed”:,
+68,LVA,3.2,Approach used to determine value:,
+69,LIE,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+70,LIE,3.2,Approach used to determine “marketed”:,
+71,LIE,3.2,Approach used to determine value:,
+72,LTU,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",0.886
+73,LTU,3.2,Approach used to determine “marketed”:,
+74,LTU,3.2,Approach used to determine value:,
+75,LUX,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+76,LUX,3.2,Approach used to determine “marketed”:,
+77,LUX,3.2,Approach used to determine value:,
+78,MLT,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+79,MLT,3.2,Approach used to determine “marketed”:,
+80,MLT,3.2,Approach used to determine value:,
+81,MDA,3.2,"Если применимо, коэффициент конверсии коры от “с корой” к “без коры”:",
+82,MDA,3.2,"Подход, примененный для определения “рыночный”:",
+83,MDA,3.2,"Подход, примененный для определения стоимости:",
+84,MCO,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+85,MCO,3.2,Approach used to determine “marketed”:,
+86,MCO,3.2,Approach used to determine value:,
+87,MNE,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+88,MNE,3.2,Approach used to determine “marketed”:,
+89,MNE,3.2,Approach used to determine value:,
+90,NLD,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+91,NLD,3.2,Approach used to determine “marketed”:,
+92,NLD,3.2,Approach used to determine value:,
+93,NOR,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",National statistics given under bark.
+94,NOR,3.2,Approach used to determine “marketed”:,
+95,NOR,3.2,Approach used to determine value:,Average annual market prices.
+96,POL,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+97,POL,3.2,Approach used to determine “marketed”:,"we understand that this question is not appropriate; in reference to the definition, both  marketed and non-marketed wood were reported"
+98,POL,3.2,Approach used to determine value:,The prices of wood in State Forests National Forest Holding were used for all removals. For wood from other sites than forest the prices of broadleaved sawnwood and fuelwood were used.
+99,PRT,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+100,PRT,3.2,Approach used to determine “marketed”:,
+101,PRT,3.2,Approach used to determine value:,
+102,ROU,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+103,ROU,3.2,Approach used to determine “marketed”:,
+104,ROU,3.2,Approach used to determine value:,
+105,RUS,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+106,RUS,3.2,Approach used to determine “marketed”:,
+107,RUS,3.2,Approach used to determine value:,
+108,SRB,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+109,SRB,3.2,Approach used to determine “marketed”:,
+110,SRB,3.2,Approach used to determine value:,
+111,SVK,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:","No, volumes of wood removals, industrial roundwood and woodfuel are registered ""under bark"" in national statistical reports."
+112,SVK,3.2,Approach used to determine “marketed”:,Assortments of raw timber that have been sold by the producer to the purchaser / consumer
+113,SVK,3.2,Approach used to determine value:,"Revenues from the sale of the reported assortments of raw timber (industrial roundwood and woodfuel) are considered as ""value""."
+114,SVN,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",Data from FAOSTAT are considered as underbark volumes in period 1994-2017. For years 1988-1993 see comments below.
+115,SVN,3.2,Approach used to determine “marketed”:,All removals  used in calculation are in line with Questionnaire notes and definitions. Data include marketed and non-marketed volumes. Values refer to price at roadside.
+116,SVN,3.2,Approach used to determine value:,"Removals were multiplied by purchase prices at roadside. Detailed and structured calculation was used for years 1995-2017 (prices and volumes divided to coniferous and decidous wood and to assortments: sawlogs, pulpwood, other industrial wood and fuelwood). For years 1988-1993 agregated prices of structured  categories same as in reporting table were used in calculation of market value due to availabilty of official data (industrial wood and fuelwood)."
+117,ESP,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+118,ESP,3.2,Approach used to determine “marketed”:,There is no information about self consumption therefore we asume that all removals are marketed.
+119,ESP,3.2,Approach used to determine value:,
+120,SWE,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+121,SWE,3.2,Approach used to determine “marketed”:,"Refers to volumes where there is an economic transaction, i.e. not self-consumption. The exceptions of this approach is forest industries with owned forest land where removals are for use in own forest industries. These removals volumes have categorized as marketed."
+122,SWE,3.2,Approach used to determine value:,Market value at road side before costs for felling.
+123,CHE,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+124,CHE,3.2,Approach used to determine “marketed”:,
+125,CHE,3.2,Approach used to determine value:,
+126,MKD,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+127,MKD,3.2,Approach used to determine “marketed”:,
+128,MKD,3.2,Approach used to determine value:,
+129,TUR,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+130,TUR,3.2,Approach used to determine “marketed”:,
+131,TUR,3.2,Approach used to determine value:,
+132,UKR,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:",
+133,UKR,3.2,Approach used to determine “marketed”:,
+134,UKR,3.2,Approach used to determine value:,
+135,GBR,3.2,"If applicable, bark conversion factor from “over bark” to “under bark”:","0.893 for softwood, 0.875 for hardwood"
+136,GBR,3.2,Approach used to determine “marketed”:,"No estimates are currently available of quantities marketed.  Reported data are based on reported deliveries to wood processors and estimates for woodfuel and other uses.  The estimates for woodfuel and other uses attempt to include material destined for local use, but are likely to undercount the unmarketed quantities.  Improved estimates should be available after 2nd cycle results are available from the National Forest Inventory."
+137,GBR,3.2,Approach used to determine value:,"Values estimated by applying Forestry Commission/ Natural Resources Wales unit prices for direct production (i.e. harvested, at roadside) sales to total estimated UK volumes."

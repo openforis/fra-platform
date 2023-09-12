@@ -443,7 +443,7 @@ export const growingStock: SectionSpec = {
                   '(growingStockAvg.naturallyRegeneratingForest * forestCharacteristics.naturalForestArea) / 1000',
                 readonly: false,
                 validateFns: [
-                  `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
+                  'validatorEqualToTotalForest(growingStockTotal.forest, [growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])',
                 ],
               },
             },
@@ -517,7 +517,7 @@ export const growingStock: SectionSpec = {
                 calcFormula: '(growingStockAvg.plantedForest * forestCharacteristics.plantedForest) / 1000',
                 readonly: false,
                 validateFns: [
-                  `validatorEqualToTotalGrowingStock(growingStockTotal.forest, growingStockTotal.naturallyRegeneratingForest + growingStockTotal.plantedForest)`,
+                  'validatorEqualToTotalForest(growingStockTotal.forest, [growingStockTotal.naturallyRegeneratingForest,growingStockTotal.plantedForest])',
                 ],
               },
             },
@@ -754,7 +754,7 @@ export const growingStock: SectionSpec = {
       ],
     },
     {
-      tableSpecs: [getStatusAndTierTable('growingStock', 'growingStock')],
+      tableSpecs: [...getStatusAndTierTable('growingStock', 'growingStock')],
     },
   ],
   showTitle: true,

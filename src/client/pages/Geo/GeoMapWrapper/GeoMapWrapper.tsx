@@ -3,12 +3,12 @@ import React from 'react'
 
 import { Status, Wrapper } from '@googlemaps/react-wrapper'
 
-import Loading from '@client/components/Loading'
+import Loading from 'client/components/Loading'
 
 import GeoMap from '../GeoMap'
 import GeoMapMenuData from '../GeoMap/GeoMapMenuData'
 import GeoMapMenuMosaic from '../GeoMap/GeoMapMenuMosaic'
-import GeoMapMenuRecipes from '../GeoMap/GeoMapMenuRecipes'
+// import GeoMapMenuRecipes from '../GeoMap/GeoMapMenuRecipes'
 import GeoMapMenuStatistics from '../GeoMap/GeoMapMenuStatistics'
 
 // @ts-ignore
@@ -29,7 +29,7 @@ const GeoMapWrapper: React.FC = () => {
             <div className="geo-map-menu-container">
               <GeoMapMenuMosaic />
               <GeoMapMenuData />
-              <GeoMapMenuRecipes />
+              {/* <GeoMapMenuRecipes /> */}
               <GeoMapMenuStatistics />
             </div>
           </GeoMap>

@@ -1,6 +1,6 @@
-import { Assessment, Cycle } from '@meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, Schemas } from '@server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 
 export const cleanupCountryProps = async (props: { assessment: Assessment; cycle: Cycle }, client: BaseProtocol) => {
   const { assessment, cycle } = props

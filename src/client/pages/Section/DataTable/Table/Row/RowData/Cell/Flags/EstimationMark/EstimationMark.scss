@@ -1,0 +1,26 @@
+@import 'src/client/style/partials';
+
+.data-cell__flag-estimate {
+  display: flex;
+  align-items: center;
+
+  svg.icon {
+    color: $ui-alert;
+    width: 8px;
+    height: 8px;
+    margin-right: 2px;
+  }
+
+  &.tooltipMessage {
+    color: $ui-alert;
+    font-size: $font-xs;
+    font-weight: 600;
+    align-items: flex-start;
+
+    svg.icon {
+      color: $ui-alert;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

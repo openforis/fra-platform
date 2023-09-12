@@ -415,7 +415,7 @@ export const forestCharacteristics: SectionSpec = {
                   idx: 1,
                   colSpan: null,
                   rowSpan: 1,
-                  labelKey: 'fra.area100HaYear',
+                  labelKey: 'fra.primaryForestByClimaticDomain.primaryForestArea100Ha',
                   className: 'fra-table__header-cell',
                   type: 'header',
                   migration: {

@@ -1,11 +1,11 @@
-import { CountryIso } from '@meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from '@meta/assessment'
-import { MessageTopic, MessageTopicStatus } from '@meta/messageCenter'
-import { User } from '@meta/user'
+import { CountryIso } from 'meta/area'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
+import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from '@server/db'
-import { MessageTopicRepository } from '@server/repository/assessmentCycle/messageTopic'
-import { ActivityLogRepository } from '@server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db'
+import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 export const updateTopicStatus = async (
   props: {

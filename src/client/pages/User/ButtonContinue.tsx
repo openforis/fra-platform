@@ -2,25 +2,28 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { ClientRoutes } from '@meta/app'
-import { Users } from '@meta/user'
-import { UserRoles } from '@meta/user/userRoles'
+import { Routes } from 'meta/routes'
+import { Users } from 'meta/user'
 
-import { useUserToEdit } from '@client/store/ui/userManagement/hooks'
+import { useCycle } from 'client/store/assessment'
+import { useUserToEdit } from 'client/store/ui/userManagement/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 const ButtonContinue = () => {
   const { t } = useTranslation()
+  const cycle = useCycle()
+  const { countryIso } = useCountryRouteParams()
   const location = useLocation()
   const navigate = useNavigate()
   const userToEdit = useUserToEdit()
-  const { routeParams, userLastRole: _userLastRole } = location.state ?? {}
+  const { routeParams, userRole: _userRole } = location.state ?? {}
 
-  const userLastRole = UserRoles.getLastRole(userToEdit) ?? _userLastRole
+  const userRole = Users.getRole(userToEdit, countryIso, cycle) ?? _userRole
 
-  const isPersonalInfoRequired = Users.isPersonalInfoRequired(userToEdit, userLastRole)
+  const isPersonalInfoRequired = Users.isPersonalInfoRequired(userToEdit, userRole)
 
   const onClick = useCallback(() => {
-    navigate(ClientRoutes.Assessment.Cycle.Country.Home.Root.getLink(routeParams))
+    navigate(Routes.CountryHome.generatePath(routeParams))
   }, [navigate, routeParams])
 
   if (!location.state?.personalInfoRequired) return null

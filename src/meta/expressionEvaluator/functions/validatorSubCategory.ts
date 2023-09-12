@@ -1,8 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment'
 
 import { Context } from '../context'
 
@@ -11,13 +11,12 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
   minArity: 2,
   executor: () => {
     return (categoryValue?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
+      const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v))
+
       const valid =
         Objects.isEmpty(categoryValue) ||
-        !subCategoryValues?.every(Boolean) ||
-        Numbers.greaterThanWithTolerance(
-          categoryValue,
-          Numbers.sum(subCategoryValues?.filter((v) => !Objects.isEmpty(v)))
-        )
+        nonEmptySubCategoryValues.length === 0 ||
+        Numbers.greaterThanWithTolerance(categoryValue, Numbers.sum(nonEmptySubCategoryValues))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined

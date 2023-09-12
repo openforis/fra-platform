@@ -1,17 +1,19 @@
-import { Queue, Worker } from 'bullmq'
+import { Queue, QueueOptions, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { CountryIso } from '@meta/area'
-import { Assessment, Cycle } from '@meta/assessment'
+import { CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
 
-import { ProcessEnv } from '@server/utils'
-import { Logger } from '@server/utils/logger'
+import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesProps } from './props'
 import { WorkerFactory } from './workerFactory'
 
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
+
+const connection = new IORedis(ProcessEnv.redisUrl)
 
 const getInstance = (props: {
   assessment: Assessment
@@ -27,8 +29,8 @@ const getInstance = (props: {
 
   workers[key] = WorkerFactory.newInstance({ key })
 
-  const opts = {
-    connection: new IORedis(ProcessEnv.redisUrl),
+  const opts: QueueOptions = {
+    connection,
     streams: { events: { maxLen: 10 } },
   }
   queue = new Queue<UpdateDependenciesProps>(key, opts)
@@ -39,10 +41,10 @@ const getInstance = (props: {
 
 process.on('SIGTERM', async () => {
   await Promise.all(Object.values(workers).map((worker) => worker.close()))
-
   Logger.debug('[calculateAndValidateDependentNodesWorkers] all workers closed')
 })
 
 export const UpdateDependenciesQueueFactory = {
+  connection,
   getInstance,
 }

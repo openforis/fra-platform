@@ -4,7 +4,6 @@ module.exports = {
   password: 'Password',
   repeatPassword: 'Mot de passe',
   email: 'E-mail',
-  submit: 'Soumettre',
   cancel: 'Annuler',
 
   signInGoogle: 'Connectez-vous avec Google',
@@ -39,4 +38,20 @@ module.exports = {
   accessLimited: `L’accès à l’espace réservé est limité aux experts impliqués dans le processus d’élaboration des rapports de FRA.`,
   returnHome: `Pour revenir à la page d’accueil cliquer`,
   returnHomeClick: 'ici.',
+
+  resetPassword: 'Réinitialiser le mot de passe',
+  alreadyLinked: 'Le compte Google sélectionné est déjà lié à un autre utilisateur',
+  noShortPassword: 'Mot de passe trop court',
+  noMatchingLocalUser: "Nous n'avons trouvé aucun utilisateur correspondant à ces identifiants",
+  noMatchingProvider: "Nous n'avons trouvé aucun utilisateur correspondant à ces identifiants",
+  noActiveAccount: "Assurez-vous d'avoir un compte FRA valide ou essayez une autre méthode d'authentification.",
+  googleOnlyAccount: "Le compte est associé à l'authentification Google",
+  alreadyAcceptedInvitation: 'Cette invitation a déjà été acceptée',
+  invitationMessage: 'Vous avez été invité à {{assessment}} {{cycle}} en tant que {{role}} pour {{country}}',
+  invitationProvidersRegistered: 'Vous avez déjà un compte enregistré avec {{authProviderNames}}',
+  acceptInvitation: "Accepter l'invitation",
+  acceptInvitationWithFra: "Accepter l'invitation avec FRA",
+  acceptInvitationWithGoogle: "Accepter l'invitation avec Google",
+  invitationExpired: 'Cette invitation a expiré',
+  logoutSuccessful: 'Vous vous êtes déconnecté avec succès',
 }

@@ -1,7 +1,7 @@
 import './VerticallyGrowingTextField.scss'
 import React, { forwardRef, MutableRefObject, useEffect, useRef } from 'react'
 
-import { useIsPrint } from '@client/hooks/useIsPath'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   minWidth?: number
@@ -12,7 +12,7 @@ const VerticallyGrowingTextField = forwardRef<HTMLTextAreaElement, Props>((props
   const { value, minWidth: minWidthProps, disabled, ...rest } = props
   const minWidth = minWidthProps ? `${minWidthProps}px` : null
 
-  const { print } = useIsPrint()
+  const { print } = useIsPrintRoute()
 
   const _textAreaRef = useRef<HTMLTextAreaElement>(null)
   const textAreaRef = (ref as MutableRefObject<HTMLTextAreaElement>) || _textAreaRef
@@ -23,7 +23,7 @@ const VerticallyGrowingTextField = forwardRef<HTMLTextAreaElement, Props>((props
       textArea.style.height = 'auto'
       textArea.style.height = `${textArea.scrollHeight}px`
     }
-  }, [value])
+  }, [textAreaRef, value])
 
   return (
     <div className="vgtf__container">

@@ -1,8 +1,8 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-import { Numbers } from '@utils/numbers'
-import { Objects } from '@utils/objects'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
-import { NodeValueValidation, NodeValueValidationMessage } from '@meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment'
 
 import { Context } from '../context'
 
@@ -14,11 +14,16 @@ export const validatorForestAreaNetChange: ExpressionFunction<Context> = {
       const valid =
         Objects.isEmpty(forestArea) ||
         Objects.isEmpty(forestAreaNetChange) ||
-        Numbers.eq(forestArea, forestAreaNetChange)
+        Numbers.lessThanOrEqualTo(Numbers.abs(Numbers.sub(forestAreaNetChange, forestArea)), 1)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'extentOfForest.forestAreaNetChangeDoesNotMatch', params: { value: forestArea } }]
+        : [
+            {
+              key: 'extentOfForest.forestAreaNetChangeDoesNotMatch',
+              params: { value: Numbers.toFixed(Numbers.toBigNumber(forestArea)) },
+            },
+          ]
 
       return { valid, messages }
     }

@@ -1,28 +1,27 @@
 import React from 'react'
 
+import classNames from 'classnames'
 import { GetPropsCommonOptions, UseComboboxGetInputPropsOptions } from 'downshift'
-
-import Icon from '@client/components/Icon'
 
 type Props = {
   getInputProps: (options?: UseComboboxGetInputPropsOptions, otherOptions?: GetPropsCommonOptions) => any
   value: string
   disabled: boolean
-  isOpen: boolean
   openMenu: () => void
-  withArrow?: boolean
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  readOnlyOptions?: boolean
 }
 const AutocompleteInput: React.FC<Props> = (props: Props) => {
-  const { getInputProps, value, disabled, isOpen, withArrow, openMenu } = props
+  const { getInputProps, value, disabled, readOnlyOptions, openMenu, onPaste } = props
 
   const _onFocus = () => {
-    if (withArrow) openMenu()
+    if (readOnlyOptions) openMenu()
   }
 
-  const showArrow = withArrow && !disabled
+  const showArrow = readOnlyOptions && !disabled
 
   return (
-    <div className="autocomplete-input__wrapper">
+    <div className={classNames('autocomplete-input__wrapper', { arrow: showArrow })}>
       <input
         type="text"
         // eslint-disable-next-line react/jsx-props-no-spreading
@@ -32,14 +31,15 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
           disabled,
           className: 'text-input__input-field',
         })}
+        onPaste={onPaste}
       />
-      {showArrow && <Icon name={isOpen ? 'small-up' : 'small-down'} />}
     </div>
   )
 }
 
 AutocompleteInput.defaultProps = {
-  withArrow: false,
+  onPaste: null,
+  readOnlyOptions: false,
 }
 
 export default AutocompleteInput

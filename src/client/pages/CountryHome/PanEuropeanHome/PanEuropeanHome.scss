@@ -1,0 +1,65 @@
+@import 'src/client/style/partials';
+
+.pan-eu-home {
+  display: grid;
+  grid-row-gap: $spacing-m;
+  padding: $spacing-m;
+
+  .description {
+    max-width: 800px;
+    justify-self: center;
+    text-align: center;
+  }
+
+  .partners {
+    max-width: 800px;
+    padding: 0;
+    display: grid;
+    justify-items: center;
+    grid-row-gap: 32px;
+    justify-self: center;
+  }
+
+  hr {
+    justify-self: flex-start;
+    margin: 0;
+    width: 100%;
+  }
+
+  .partners__disclaimer {
+    display: grid;
+    align-items: center;
+    grid-row-gap: 24px;
+  }
+
+  .partners__disclaimerLogos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: 60px;
+
+      &:not(:last-child) {
+        margin-right: 48px;
+      }
+    }
+
+    img.forestEurope {
+      height: 100px;
+    }
+  }
+
+  .partners__disclaimerText {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    color: $text-body;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

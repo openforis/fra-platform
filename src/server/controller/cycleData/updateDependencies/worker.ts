@@ -1,56 +1,47 @@
 import { Job } from 'bullmq'
 
-import { NodeUpdates } from '@meta/data'
+import { NodeUpdates } from 'meta/data'
 
-import { DB } from '@server/db'
-import { Logger } from '@server/utils/logger'
+import { DB } from 'server/db'
+import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesProps } from './props'
-import { updateNodeDependencies } from './updateNodeDependencies'
+import { updateCalculationDependencies } from './updateCalculationDependencies'
 
 export default async (job: Job<UpdateDependenciesProps>) => {
   try {
     const time = new Date().getTime()
     Logger.debug(
-      `[updateDependenciesWorker] job in thread started ${job.id}. ${job.data.nodeUpdates.nodes.length} nodes.`
+      `[updateDependenciesWorker] job-${job.id} in thread started. ${job.data.nodeUpdates.nodes.length} nodes.`
     )
 
     const { nodeUpdates, isODP, sectionName, user } = job.data
     const { assessment, cycle, countryIso, nodes } = nodeUpdates
-    const results = await DB.tx(async (client) =>
-      Promise.all(
-        nodes.map((node) => {
-          return updateNodeDependencies(
-            {
-              assessment,
-              colName: node.colName,
-              countryIso,
-              cycle,
-              isODP,
-              sourceNode: isODP ? undefined : node,
-              sectionName,
-              tableName: node.tableName,
-              user,
-              variableName: node.variableName,
-            },
-            client
-          )
-        })
-      )
-    )
+    const result: { nodeUpdates: NodeUpdates } = { nodeUpdates: { assessment, cycle, countryIso, nodes: [] } }
 
-    // const result = results.reduce<{ nodeUpdates: NodeUpdates; validations: NodeUpdates }>(
-    const result = results.reduce<{ nodeUpdates: NodeUpdates }>(
-      (acc, item) => {
-        acc.nodeUpdates.nodes.push(...item.nodeUpdates.nodes)
-        // acc.validations.nodes.push(...item.validations.nodes)
-        return acc
-      },
-      {
-        nodeUpdates: { assessment, cycle, countryIso, nodes: [] },
-        // validations: { assessment, cycle, countryIso, nodes: [] },
+    await DB.tx(async (client) => {
+      for (let i = 0; i < nodes.length; i += 1) {
+        const node = nodes[i]
+        const { colName, tableName, variableName } = node
+        // eslint-disable-next-line no-await-in-loop
+        const updates = await updateCalculationDependencies(
+          { assessment, colName, countryIso, cycle, isODP, sectionName, tableName, user, variableName },
+          client
+        )
+
+        if (updates.nodes) {
+          result.nodeUpdates.nodes.push(...updates.nodes)
+        } else {
+          Logger.error(
+            `[updateDependenciesWorker] job-${
+              job.id
+            } Error STRANGE. item.nodeUpdates.nodes is undefined? item: ${JSON.stringify(
+              updates
+            )}. job data ${JSON.stringify(job.data)}`
+          )
+        }
       }
-    )
+    })
 
     Logger.debug(
       `[updateDependenciesWorker] job-${job.id} in thread ended in ${(new Date().getTime() - time) / 1000} seconds.`
@@ -58,7 +49,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
 
     return Promise.resolve(result)
   } catch (error) {
-    Logger.error(`[updateDependenciesWorker] Error in job ${job.id}.`)
+    Logger.error(`[updateDependenciesWorker] job-${job.id} Error.`)
     Logger.error(error)
     return Promise.reject(error)
   }
