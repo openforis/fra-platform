@@ -1,4 +1,5 @@
 import { UserRepository } from 'server/repository/public/user'
+import { UserInvitationRepository } from 'server/repository/public/userInvitation'
 import { UserRoleRepository } from 'server/repository/public/userRole'
 
 import { acceptInvitation } from './acceptInvitation'
@@ -19,6 +20,8 @@ export const UserController = {
   count: UserRepository.count,
   update,
   getMany: UserRepository.getMany,
+  getManyInvitations: UserInvitationRepository.getMany,
+  getCountInvitations: UserInvitationRepository.getCount,
   getOne: UserRepository.getOne,
   getProfilePicture: UserRepository.getProfilePicture,
   remove,

@@ -97,6 +97,7 @@ export const ApiEndPoint = {
     invite: () => apiPath('users', 'invite'),
     invitation: () => apiPath('users', 'invitation'),
     invitations: () => apiPath('users', 'invitations'),
+    invitationsCount: () => apiPath('users', 'invitations', 'count'),
     invitationAccept: () => apiPath('users', 'invitation', 'accept'),
     invitationSendEmail: () => apiPath('users', 'invitation', 'send-email'),
 

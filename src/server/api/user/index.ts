@@ -3,6 +3,8 @@ import * as multer from 'multer'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { getInvitations } from 'server/api/user/getInvitations'
+import { getInvitationsCount } from 'server/api/user/getInvitationsCount'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { acceptInvitation } from './acceptInvitation'
@@ -31,6 +33,9 @@ export const UserApi = {
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireInviteUser, removeInvitation)
     express.get(ApiEndPoint.User.invitationAccept(), acceptInvitation)
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
+
+    express.get(ApiEndPoint.User.invitations(), AuthMiddleware.requireAdmin, getInvitations)
+    express.get(ApiEndPoint.User.invitationsCount(), AuthMiddleware.requireAdmin, getInvitationsCount)
 
     express.get(ApiEndPoint.User.resetPassword(), getResetPassword)
 
