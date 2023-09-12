@@ -5,7 +5,7 @@ import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Users } from 'meta/user'
-import { RoleAdmin } from 'meta/user/roleAdmin'
+import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
 
 import CountryLink from 'client/components/CountryLink'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
@@ -17,10 +17,10 @@ const formatDateTime = (date: string) => {
   return Dates.format(Dates.parseISO(date), dateformat)
 }
 
-const useColumns = (): Array<Column<RoleAdmin>> => {
+const useColumns = (): Array<Column<UserInvitationSummary>> => {
   const { t } = useTranslation()
 
-  return useMemo<Array<Column<RoleAdmin>>>(
+  return useMemo<Array<Column<UserInvitationSummary>>>(
     () => [
       {
         component: ({ datum }) => (datum.countryIso ? <CountryLink countryIso={datum.countryIso} /> : <span>-</span>),

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
-import { RoleAdmin } from 'meta/user/roleAdmin'
+import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
 
 import { BaseProtocol, DB } from 'server/db'
 
@@ -12,10 +12,10 @@ type Props = {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<RoleAdmin>> => {
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<UserInvitationSummary>> => {
   const { limit, offset, orderBy, orderByDirection } = props
 
-  return client.map<RoleAdmin>(
+  return client.map<UserInvitationSummary>(
     `
         select ur.*,
                u.email

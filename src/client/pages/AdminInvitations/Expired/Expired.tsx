@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { RoleAdmin } from 'meta/user/roleAdmin'
+import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
 import { UserRoles } from 'meta/user/userRoles'
 
 type Props = {
-  role: RoleAdmin
+  role: UserInvitationSummary
 }
 
 const Expired: React.FC<Props> = (props: Props) => {
