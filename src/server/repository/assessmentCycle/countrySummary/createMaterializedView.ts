@@ -1,30 +1,22 @@
-import { Objects } from 'utils/objects'
-
-import { CountryAdmin } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
 import { Assessment, Cycle } from 'meta/assessment'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-
-import { activityLogMessageUpdates } from './getMany'
+import { activityLogMessageUpdates } from 'server/repository/assessmentCycle/country/getMany'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  limit: string
-  offset: string
-  orderBy?: string
-  orderByDirection?: TablePaginatedOrderByDirection
 }
 
-export const getManySummaries = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountryAdmin>> => {
-  const { assessment, cycle, limit, offset, orderBy, orderByDirection } = props
+export const createMaterializedView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+  const { assessment, cycle } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.map(
+  return client.query(
     `
+        create materialized view if not exists ${schemaCycle}.country_summary as
         with country as
                  (select c.country_iso, c.props ->> 'status' as status
                   from ${schemaCycle}.country c),
@@ -58,15 +50,11 @@ export const getManySummaries = async (props: Props, client: BaseProtocol = DB):
                    when c.status is null and le.last_edit is not null then '${AssessmentStatus.editing}'
                    else c.status
                    end                                    as status
-
         from country c
                  left join last_edit le on c.country_iso = le.country_iso
                  left join user_summary us on c.country_iso = us.country_iso
-        order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
-        limit $1 offset $2
         ;
     `,
-    [limit, offset],
-    (rows) => Objects.camelize(rows)
+    []
   )
 }
