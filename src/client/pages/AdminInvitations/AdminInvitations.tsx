@@ -64,7 +64,7 @@ const useColumns = (): Array<Column<UserInvitationSummary>> => {
 const AdminInvitations: React.FC = () => {
   const columns = useColumns()
 
-  return <TablePaginated columns={columns} path={ApiEndPoint.User.invitations()} />
+  return <TablePaginated columns={columns} path={ApiEndPoint.Admin.invitations()} />
 }
 
 export default AdminInvitations

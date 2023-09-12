@@ -9,6 +9,8 @@ export const ApiEndPoint = {
   Admin: {
     countries: () => apiPath('admin', 'countries'),
     countriesCount: () => apiPath('admin', 'countries', 'count'),
+    invitations: () => apiPath('admin', 'invitations'),
+    invitationsCount: () => apiPath('admin', 'invitations', 'count'),
     users: () => apiPath('admin', 'users'),
     usersCount: () => apiPath('admin', 'users', 'count'),
   },
@@ -96,8 +98,7 @@ export const ApiEndPoint = {
 
     invite: () => apiPath('users', 'invite'),
     invitation: () => apiPath('users', 'invitation'),
-    invitations: () => apiPath('users', 'invitations'),
-    invitationsCount: () => apiPath('users', 'invitations', 'count'),
+
     invitationAccept: () => apiPath('users', 'invitation', 'accept'),
     invitationSendEmail: () => apiPath('users', 'invitation', 'send-email'),
 
