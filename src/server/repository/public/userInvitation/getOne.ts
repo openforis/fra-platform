@@ -4,7 +4,7 @@ import { RoleName, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 
-export const read = async (
+export const getOne = async (
   props: { invitationUuid: string },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName>> => {

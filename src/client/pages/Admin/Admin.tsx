@@ -23,6 +23,10 @@ const sections: Array<Section> = [
     labelKey: 'common.countries',
   },
   {
+    name: SectionNames.Admin.invitations,
+    labelKey: 'common.invitations',
+  },
+  {
     name: SectionNames.Admin.userManagement,
     labelKey: 'landing.sections.userManagement',
   },

@@ -1,5 +1,6 @@
 enum AdminSectionNames {
   countries = 'countries',
+  invitations = 'invitations',
   userManagement = 'userManagement',
 }
 

@@ -3,6 +3,7 @@ export type { User } from './user'
 export { UserStatus } from './user'
 export type { UserAuthProvider } from './userAuth'
 export { AuthProvider } from './userAuth'
+export type { UserInvitationSummary } from './userInvitationSummary'
 export type { UserResetPassword } from './userResetPassword'
 export type {
   Administrator,

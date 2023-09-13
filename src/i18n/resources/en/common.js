@@ -1,4 +1,5 @@
 module.exports = {
+  accepted: 'Accepted',
   apply: 'Apply',
   areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   cancel: 'Cancel',
@@ -12,9 +13,12 @@ module.exports = {
   dataExport: 'Data Export',
   done: 'Done',
   email: 'Email',
+  expired: 'Expired',
   filterCountries: 'Filter countries',
   fraPlatform: 'Fra platform',
   globalFRA: 'Global Forest Resources Assessment',
+  invited: 'Invited',
+  invitations: 'Invitations',
   language: 'Language',
   lastEdit: 'Last edit',
   login: 'Reserved area',
@@ -39,4 +43,5 @@ module.exports = {
   variable: 'FRA Variable',
   view: 'View',
   year: 'Year',
+  yes: 'Yes',
 }
