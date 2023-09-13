@@ -10,7 +10,7 @@ type Props = {
   cycle: Cycle
 }
 
-export const getCountSummaries = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
+export const getCount = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
   const { assessment, cycle } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
@@ -18,7 +18,7 @@ export const getCountSummaries = async (props: Props, client: BaseProtocol = DB)
   return client.one(
     `
         select count(c.country_iso) as total
-        from ${schemaCycle}.country c
+        from ${schemaCycle}.country_summary c
     `,
     [],
     (res) => Objects.camelize(res)

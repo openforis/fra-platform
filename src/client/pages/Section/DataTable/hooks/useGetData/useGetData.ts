@@ -45,7 +45,8 @@ export const useGetData = (props: Props) => {
     }
     if (odp && canEdit) {
       dispatch(DataActions.getNodeValuesEstimations({ assessmentName, countryIso, cycleName, tableName, sectionName }))
-      dispatch(DataActions.getODPLastUpdatedTimestamp({ assessmentName, countryIso, cycleName, sectionName }))
+      // TODO: disabled for now. fix it in https://github.com/openforis/fra-platform/issues/2880
+      // dispatch(DataActions.getODPLastUpdatedTimestamp({ assessmentName, countryIso, cycleName, sectionName }))
     }
   }, [
     assessmentName,

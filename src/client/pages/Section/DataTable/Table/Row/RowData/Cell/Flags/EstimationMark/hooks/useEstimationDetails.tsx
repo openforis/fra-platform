@@ -2,9 +2,7 @@ import React, { ReactNode } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
-import { Dates } from 'utils/dates'
-
-import { useNodeValuesEstimation, useOdpLastUpdatedTimestamp } from 'client/store/data'
+import { useNodeValuesEstimation } from 'client/store/data'
 import Icon from 'client/components/Icon'
 
 import { Props } from '../props'
@@ -19,15 +17,17 @@ export const useEstimationDetails = (props: Props): Returned => {
 
   const { t } = useTranslation()
   const tableEstimation = useNodeValuesEstimation({ estimationUuid })
-  const { time: odpLastUpdatedTimestamp } = useOdpLastUpdatedTimestamp()
+  // const { time: odpLastUpdatedTimestamp } = useOdpLastUpdatedTimestamp()
   if (!tableEstimation) {
     return { node: '', tooltipContent: undefined }
   }
 
-  const { createdAt, method, variables } = tableEstimation
+  // const { createdAt, method, variables } = tableEstimation
+  const { method, variables } = tableEstimation
   const variableOptions = variables[variableName]
   const { changeRates } = variableOptions
-  const executedBeforeOdpUpdate = Dates.isBefore(Dates.parseISO(createdAt), Dates.parseISO(odpLastUpdatedTimestamp))
+  // // TODO: disabled for now. fix it in https://github.com/openforis/fra-platform/issues/2880
+  const executedBeforeOdpUpdate = false // Dates.isBefore(Dates.parseISO(createdAt), Dates.parseISO(odpLastUpdatedTimestamp))
 
   const node = (
     <div className="data-cell__flag-estimate">
