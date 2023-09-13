@@ -8,7 +8,6 @@ import { Users } from 'meta/user'
 import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
 
 import CountryLink from 'client/components/CountryLink'
-import SlidingPanel from 'client/components/SlidingPanel'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
 import Expired from 'client/pages/AdminInvitations/Expired'
 
@@ -64,33 +63,8 @@ const useColumns = (): Array<Column<UserInvitationSummary>> => {
 
 const AdminInvitations: React.FC = () => {
   const columns = useColumns()
-  const [openPanel, setOpenPanel] = React.useState<boolean>(false)
 
-  return (
-    <>
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => {
-          setOpenPanel(true)
-        }}
-      >
-        Filter
-      </button>
-
-      <SlidingPanel openPanel={openPanel} setOpenPanel={setOpenPanel}>
-        <div className="form-group">
-          <label htmlFor="country">Country</label>
-          <select className="form-control" id="country">
-            <option value="">All</option>
-            <option value="1">United States</option>
-            <option value="2">Canada</option>
-          </select>
-        </div>
-      </SlidingPanel>
-      <TablePaginated columns={columns} path={ApiEndPoint.Admin.invitations()} />
-    </>
-  )
+  return <TablePaginated columns={columns} path={ApiEndPoint.Admin.invitations()} />
 }
 
 export default AdminInvitations
