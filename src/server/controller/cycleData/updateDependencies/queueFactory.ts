@@ -13,7 +13,7 @@ import { WorkerFactory } from './workerFactory'
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
 
-const connection = new IORedis(ProcessEnv.redisUrl)
+const connection = new IORedis(ProcessEnv.redisQueueUrl)
 
 const getInstance = (props: {
   assessment: Assessment

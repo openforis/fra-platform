@@ -44,7 +44,6 @@ export const ProcessEnv = {
   fraMailEnabled: process.env.FRA_MAIL_ENABLED === 'true',
 
   // Redis
-  // process.env.REDISCLOUD_URL -> heroku Redis Enterprise Cloud add-ons
-  redisUrl: process.env.REDISCLOUD_URL ?? process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
   redisDataUrl: process.env.REDISCLOUD_DATA_URL ?? process.env.REDIS_DATA_URL ?? 'redis://127.0.0.1:6389',
+  redisQueueUrl: process.env.REDISCLOUD_URL ?? process.env.REDIS_QUEUE_URL ?? 'redis://127.0.0.1:6379',
 }

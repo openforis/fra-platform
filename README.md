@@ -59,10 +59,13 @@ add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever w
 
 ## Redis
 
-Install redis 6.2.6
+Install 2 instances of redis 6.2.6 (one for queues and one for data)
 
 ```shell
-sudo docker run --name fra-redis -p 6379:6379 -d redis:6.2.3
+sudo docker run --name fra-queue-redis -p 6379:6379 -d redis:6.2.6
+```
+```shell
+sudo docker run --name fra-data-redis -p 6389:6379 -d redis:6.2.6
 ```
 
 ## Design decisions
