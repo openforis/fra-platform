@@ -26,12 +26,7 @@ const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
         panelClassName={classNames('sliding-panel', className)}
         panelContainerClassName=""
       >
-        <div className="panel-container">
-          {children}
-          <button className="btn btn-primary" type="button" onClick={() => setOpenPanel(false)}>
-            Close
-          </button>
-        </div>
+        <div className="panel-container">{children}</div>
       </SlidingPanelComponent>
     </div>
   )
