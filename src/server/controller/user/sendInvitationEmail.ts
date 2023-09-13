@@ -3,7 +3,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { BaseProtocol, DB } from 'server/db'
 import { UserRepository } from 'server/repository/public/user'
-import { UserRoleRepository } from 'server/repository/public/userRole'
+import { UserInvitationRepository } from 'server/repository/public/userInvitation'
 import { MailService } from 'server/service'
 
 import { AssessmentController } from '../assessment'
@@ -14,14 +14,14 @@ export const sendInvitationEmail = async (
 ): Promise<UserRole<RoleName>> => {
   const { invitationUuid } = props
 
-  let userRole = await UserRoleRepository.read({ invitationUuid }, client)
+  let userRole = await UserInvitationRepository.getOne({ invitationUuid }, client)
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({
     id: userRole.assessmentId,
     cycleUuid: userRole.cycleUuid,
   })
 
-  if (UserRoles.isInvitationExpired(userRole)) userRole = await UserRoleRepository.renewInvitation({ userRole })
+  if (UserRoles.isInvitationExpired(userRole)) userRole = await UserInvitationRepository.renew({ userRole })
 
   const userToInvite = await UserRepository.getOne({ id: userRole.userId }, client)
 
