@@ -43,7 +43,7 @@ const OriginalDataPoint: React.FC = () => {
         cycleName,
       })
     )
-  }, [assessmentName, countryIso, cycleName, dispatch, originalDataPoint?.year])
+  }, [assessmentName, countryIso, cycleName, dispatch, originalDataPoint.year])
 
   useEffect(() => {
     if (year !== '-1') {
@@ -69,11 +69,11 @@ const OriginalDataPoint: React.FC = () => {
           assessmentName,
           cycleName,
           sectionName,
-          odpId: originalDataPoint?.id,
+          odpId: originalDataPoint.id,
         })
       )
     }
-  }, [originalDataPoint?.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
+  }, [originalDataPoint.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
 
   if (originalDataPoint.countryIso !== countryIso) navigate('/')
 
