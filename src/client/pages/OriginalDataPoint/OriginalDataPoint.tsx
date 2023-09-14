@@ -32,7 +32,8 @@ const OriginalDataPoint: React.FC = () => {
     year: string
   }>()
 
-  const canEditData = useIsEditTableDataEnabled(TableNames.extentOfForest)
+  const isEditTableDataEnabled = useIsEditTableDataEnabled(TableNames.extentOfForest)
+  const canEditData = originalDataPoint.id && isEditTableDataEnabled
 
   useEffect(() => {
     dispatch(
@@ -83,7 +84,7 @@ const OriginalDataPoint: React.FC = () => {
         <ButtonBar canEditData={canEditData} />
       </div>
 
-      <YearSelection canEditData={canEditData} />
+      <YearSelection canEditData={isEditTableDataEnabled} />
       <DataSources originalDataPoint={originalDataPoint} canEditData={canEditData} />
       <NationalClasses originalDataPoint={originalDataPoint} canEditData={canEditData} />
       <OriginalData originalDataPoint={originalDataPoint} canEditData={canEditData} />
