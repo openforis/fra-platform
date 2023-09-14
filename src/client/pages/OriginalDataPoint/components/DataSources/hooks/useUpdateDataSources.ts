@@ -12,13 +12,13 @@ export const useUpdateDataSources = () => {
 
   const dispatch = useAppDispatch()
   return useCallback(
-    (originalDataPointUpdate: OriginalDataPoint) => {
+    (originalDataPoint: OriginalDataPoint) => {
       dispatch(
         OriginalDataPointActions.updateOriginalDataPointDataSources({
           countryIso: countryIso as CountryIso,
           cycleName,
           assessmentName,
-          originalDataPoint: originalDataPointUpdate,
+          originalDataPoint,
         })
       )
     },
