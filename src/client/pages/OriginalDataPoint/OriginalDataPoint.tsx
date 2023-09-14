@@ -74,7 +74,6 @@ const OriginalDataPoint: React.FC = () => {
     }
   }, [originalDataPoint?.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
 
-  if (!originalDataPoint) return null
   if (originalDataPoint.countryIso !== countryIso) navigate('/')
 
   return (
