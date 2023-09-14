@@ -14,8 +14,9 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
-import { useUpdateNationalClasses } from 'client/pages/OriginalDataPoint/components/NationalClasses/components/hooks/useUpdateNationalClasses'
 import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
+
+import { useUpdateNationalClasses } from './hooks/useUpdateNationalClasses'
 
 const columns = [
   { name: 'name', type: 'text' },
