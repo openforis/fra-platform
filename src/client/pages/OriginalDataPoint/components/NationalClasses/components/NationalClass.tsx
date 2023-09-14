@@ -10,11 +10,11 @@ import { Topics } from 'meta/messageCenter'
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import { useUpdateNationalClasses } from 'client/pages/OriginalDataPoint/components/NationalClasses/components/hooks/useUpdateNationalClasses'
 import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 
 const columns = [
@@ -34,7 +34,6 @@ const NationalClass: React.FC<Props> = (props) => {
   const disabled = !canEditData || !year
   const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -46,16 +45,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const classNameRowComments = useNationalClassNameComments(target)
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
-  const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
-    dispatch(
-      OriginalDataPointActions.updateOriginalDataPoint({
-        countryIso,
-        cycleName: cycle.name,
-        assessmentName: assessment.props.name,
-        originalDataPoint: originalDataPointUpdate,
-      })
-    )
-  }
+  const updateOriginalDataPoint = useUpdateNationalClasses()
 
   return (
     <tr className={classNameRowComments}>

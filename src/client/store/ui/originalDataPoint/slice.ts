@@ -13,6 +13,7 @@ import { pasteNationalClass } from './actions/pasteNationalClass'
 import { updateNationalClass } from './actions/updateNationalClass'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './actions/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointNationalClasses } from './actions/updateOriginalDataPointNationalClasses'
 import { setOriginalDataPoint } from './reducers/setOriginalDataPoint'
 import { OriginalDataPointState } from './stateType'
 
@@ -36,13 +37,18 @@ export const originalDataPointSlice = createSlice({
         getOriginalDataPoint.fulfilled,
         updateOriginalDataPoint.fulfilled,
         updateOriginalDataPointDataSources.fulfilled,
+        updateOriginalDataPointNationalClasses.fulfilled,
         createOriginalDataPoint.fulfilled
       ),
       setOriginalDataPoint
     )
 
     builder.addMatcher(
-      isAnyOf(updateOriginalDataPoint.pending, updateOriginalDataPointDataSources.pending),
+      isAnyOf(
+        updateOriginalDataPoint.pending,
+        updateOriginalDataPointDataSources.pending,
+        updateOriginalDataPointNationalClasses.pending
+      ),
       setUpdatingTrue
     )
   },
@@ -57,6 +63,7 @@ export const OriginalDataPointActions = {
   deleteOriginalDataPoint,
   updateOriginalDataPoint,
   updateOriginalDataPointDataSources,
+  updateOriginalDataPointNationalClasses,
   copyPreviousNationalClasses,
   getOriginalDataPointReservedYears,
 }

@@ -11,6 +11,7 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.originalDataPointRemove]: 'deleted',
   [ActivityLogMessage.originalDataPointUpdate]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateDataSources]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateNationalClasses]: 'updated',
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
   [ActivityLogMessage.messageCreate]: 'commented',
   [ActivityLogMessage.messageMarkDeleted]: 'deleted',
