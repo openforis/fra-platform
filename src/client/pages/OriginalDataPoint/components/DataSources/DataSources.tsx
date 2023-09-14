@@ -10,7 +10,7 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import MultiSelect from 'client/components/MultiSelect'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
-import { useOnChangeDatasources } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useOnChangeDatasources'
+import { useUpdateDataSources } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useUpdateDataSources'
 
 type Props = {
   canEditData: boolean
@@ -26,7 +26,7 @@ const DataSources: React.FC<Props> = (props) => {
 
   const displayReviewIndicator = originalDataPoint.id && !print && canEditData
 
-  const updateOriginalDataPoint = useOnChangeDatasources()
+  const updateOriginalDataPoint = useUpdateDataSources()
 
   const isDisabled = print || !canEditData || !originalDataPoint.year
 
