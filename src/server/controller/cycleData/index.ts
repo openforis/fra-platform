@@ -14,6 +14,7 @@ import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
 import { removeOriginalDataPoint } from './removeOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
+import { updateOriginalDataPointDataSources } from './updateOriginalDataPointDataSources'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
@@ -32,6 +33,7 @@ export const CycleDataController = {
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
   updateOriginalDataPoint,
+  updateOriginalDataPointDataSources,
   // review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
