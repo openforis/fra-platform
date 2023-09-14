@@ -4,6 +4,7 @@ import { getOne } from './getOne'
 import { getReservedYears } from './getReservedYears'
 import { remove } from './remove'
 import { update } from './update'
+import { updateDataSources } from './updateDataSources'
 
 export const OriginalDataPointRepository = {
   create,
@@ -12,4 +13,5 @@ export const OriginalDataPointRepository = {
   getReservedYears,
   remove,
   update,
+  updateDataSources,
 }

@@ -40,6 +40,8 @@ export const ApiEndPoint = {
       many: () => apiPath('cycle-data', 'original-data-points'),
       lastUpdatedTimestamp: () => apiPath('cycle-data', 'original-data-points', 'last-updated-timestamp'),
 
+      dataSources: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'data-sources'),
+
       // Table Data (1a, 1b)
       data: () => apiPath('cycle-data', 'original-data-points', 'data'),
       reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
