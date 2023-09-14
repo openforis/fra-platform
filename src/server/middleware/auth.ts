@@ -37,7 +37,7 @@ const requireEditData = async (req: Request, next: NextFunction) => {
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
-  const section = await MetadataController.getSection({ assessment, cycle, sectionName })
+  const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
   _next(Authorizer.canEditData({ country, cycle, permission, section, user }), next)
 }

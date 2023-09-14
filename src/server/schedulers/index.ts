@@ -6,7 +6,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
-const connection = new IORedis(ProcessEnv.redisUrl)
+const connection = new IORedis(ProcessEnv.redisQueueUrl)
 
 const workers: Array<Worker> = []
 

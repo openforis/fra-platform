@@ -1,6 +1,7 @@
 import { SectionRepository } from 'server/repository/assessment/section'
 import { TableRepository } from 'server/repository/assessment/table'
 import { TableSectionRepository } from 'server/repository/assessment/tableSection'
+import { SectionRedisRepository } from 'server/repository/redis/section'
 
 import { createSection } from './createSection'
 import { createSubSection } from './createSubSection'
@@ -16,8 +17,9 @@ import { updateTableSection } from './updateTableSection'
 
 export const MetadataController = {
   getSection: SectionRepository.getOne,
-  getSections: SectionRepository.getMany,
-  getSectionsMetadata: SectionRepository.getManyMetadata,
+  getSections: SectionRedisRepository.getMany,
+  getSectionsMetadata: SectionRedisRepository.getManyMetadata,
+  getSubSection: SectionRedisRepository.getSubSection,
   removeSection,
   createSection,
   updateSection,

@@ -11,7 +11,7 @@ import { NodeEnv } from 'server/utils/processEnv'
 
 import workerProcessor from './worker'
 
-const connection = new IORedis(ProcessEnv.redisUrl)
+const connection = new IORedis(ProcessEnv.redisQueueUrl)
 
 const newInstance = (props: { key: string }) => {
   const { key } = props
