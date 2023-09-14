@@ -5,6 +5,7 @@ import { getReservedYears } from './getReservedYears'
 import { remove } from './remove'
 import { update } from './update'
 import { updateDataSources } from './updateDataSources'
+import { updateNationalClasses } from './updateNationalClasses'
 
 export const OriginalDataPointRepository = {
   create,
@@ -14,4 +15,5 @@ export const OriginalDataPointRepository = {
   remove,
   update,
   updateDataSources,
+  updateNationalClasses,
 }

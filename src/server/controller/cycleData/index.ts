@@ -15,6 +15,7 @@ import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValu
 import { removeOriginalDataPoint } from './removeOriginalDataPoint'
 import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './updateOriginalDataPointDataSources'
+import { updateOriginalDataPointNationalClasses } from './updateOriginalDataPointNationalClasses'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
@@ -34,6 +35,7 @@ export const CycleDataController = {
   removeOriginalDataPoint,
   updateOriginalDataPoint,
   updateOriginalDataPointDataSources,
+  updateOriginalDataPointNationalClasses,
   // review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,

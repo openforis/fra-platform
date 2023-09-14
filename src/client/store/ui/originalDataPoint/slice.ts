@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { ODPReservedYear } from 'meta/assessment'
 
 import { getOriginalDataPointReservedYears } from 'client/store/ui/originalDataPoint/actions/getOriginalDataPointReservedYears'
+import { setUpdatingTrue } from 'client/store/ui/originalDataPoint/reducers/setUpdatingTrue'
 
 import { copyPreviousNationalClasses } from './actions/copyPreviousNationalClasses'
 import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
@@ -12,8 +13,8 @@ import { pasteNationalClass } from './actions/pasteNationalClass'
 import { updateNationalClass } from './actions/updateNationalClass'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './actions/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointNationalClasses } from './actions/updateOriginalDataPointNationalClasses'
 import { setOriginalDataPoint } from './reducers/setOriginalDataPoint'
-import { setUpdatingTrue } from './reducers/setUpdatingTrue'
 import { OriginalDataPointState } from './stateType'
 
 const initialState: OriginalDataPointState = { data: null, reservedYears: null }
@@ -24,21 +25,31 @@ export const originalDataPointSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getOriginalDataPoint.fulfilled, (state, { payload }) => {
-      state.data = payload
-    })
-
-    builder.addCase(updateOriginalDataPoint.fulfilled, setOriginalDataPoint)
-    builder.addCase(updateOriginalDataPoint.pending, setUpdatingTrue)
-    builder.addCase(updateOriginalDataPointDataSources.fulfilled, setOriginalDataPoint)
-    builder.addCase(updateOriginalDataPointDataSources.pending, setUpdatingTrue)
-    builder.addCase(createOriginalDataPoint.fulfilled, setOriginalDataPoint)
-
     builder.addCase(
       getOriginalDataPointReservedYears.fulfilled,
       (state, { payload }: PayloadAction<Array<ODPReservedYear>>) => {
         state.reservedYears = payload
       }
+    )
+
+    builder.addMatcher(
+      isAnyOf(
+        getOriginalDataPoint.fulfilled,
+        updateOriginalDataPoint.fulfilled,
+        updateOriginalDataPointDataSources.fulfilled,
+        updateOriginalDataPointNationalClasses.fulfilled,
+        createOriginalDataPoint.fulfilled
+      ),
+      setOriginalDataPoint
+    )
+
+    builder.addMatcher(
+      isAnyOf(
+        updateOriginalDataPoint.pending,
+        updateOriginalDataPointDataSources.pending,
+        updateOriginalDataPointNationalClasses.pending
+      ),
+      setUpdatingTrue
     )
   },
 })
@@ -52,6 +63,7 @@ export const OriginalDataPointActions = {
   deleteOriginalDataPoint,
   updateOriginalDataPoint,
   updateOriginalDataPointDataSources,
+  updateOriginalDataPointNationalClasses,
   copyPreviousNationalClasses,
   getOriginalDataPointReservedYears,
 }
