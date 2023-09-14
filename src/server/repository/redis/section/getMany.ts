@@ -1,7 +1,7 @@
 import { Assessment, Cycle, Section } from 'meta/assessment'
 
 import { getKey } from 'server/repository/redis/getKey'
-import { REDIS } from 'server/repository/redis/index'
+import { RedisData } from 'server/repository/redis/redisData'
 import { _cacheSections } from 'server/repository/redis/section/_cacheSections'
 import { SectionKeys } from 'server/repository/redis/section/keys'
 
@@ -13,10 +13,12 @@ type Props = {
 export const getMany = async (props: Props): Promise<Array<Section>> => {
   const { assessment, cycle } = props
 
+  const redis = RedisData.getInstance()
+
   await _cacheSections({ assessment, cycle })
 
   const key = getKey({ assessment, cycle, key: SectionKeys.sections })
-  const data = await REDIS.lrange(key, 0, -1)
+  const data = await redis.lrange(key, 0, -1)
 
   return data.map((value) => JSON.parse(value))
 }

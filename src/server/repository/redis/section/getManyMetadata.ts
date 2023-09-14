@@ -2,7 +2,7 @@ import { Assessment, Cycle, SectionName, TableSection } from 'meta/assessment'
 
 import { SectionRepository } from 'server/repository/assessment/section'
 import { getKey } from 'server/repository/redis/getKey'
-import { REDIS } from 'server/repository/redis/index'
+import { RedisData } from 'server/repository/redis/redisData'
 import { SectionRedisRepository } from 'server/repository/redis/section/index'
 import { SectionKeys } from 'server/repository/redis/section/keys'
 
@@ -30,21 +30,22 @@ const _getSectionNames = async (props: Pick<Props, 'assessment' | 'cycle'>): Pro
 export const getManyMetadata = async (props: Props): Promise<RecordMetadata> => {
   const { assessment, cycle, sectionNames } = props
 
+  const redis = RedisData.getInstance()
   const key = getKey({ assessment, cycle, key: SectionKeys.sectionsMetadata })
 
-  const length = await REDIS.hlen(key)
+  const length = await redis.hlen(key)
   if (length === 0) {
     const sectionNames = await _getSectionNames({ assessment, cycle })
     const sectionsMetadata = await SectionRepository.getManyMetadata({ assessment, cycle, sectionNames })
     await Promise.all(
       Object.entries(sectionsMetadata).map(async ([name, tableSections]) => {
-        return REDIS.hset(key, name, JSON.stringify(tableSections))
+        return redis.hset(key, name, JSON.stringify(tableSections))
       })
     )
   }
 
-  const keys = sectionNames ?? (await REDIS.hkeys(key))
-  const values: Array<string> = await REDIS.hmget(key, ...keys)
+  const keys = sectionNames ?? (await redis.hkeys(key))
+  const values: Array<string> = await redis.hmget(key, ...keys)
 
   return keys.reduce<RecordMetadata>((acc, key, index) => ({ ...acc, [key]: JSON.parse(values[index]) }), {})
 }
