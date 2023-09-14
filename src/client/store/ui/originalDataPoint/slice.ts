@@ -12,10 +12,11 @@ import { pasteNationalClass } from './actions/pasteNationalClass'
 import { updateNationalClass } from './actions/updateNationalClass'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './actions/updateOriginalDataPointDataSources'
+import { setOriginalDataPoint } from './reducers/setOriginalDataPoint'
+import { setUpdatingTrue } from './reducers/setUpdatingTrue'
 import { OriginalDataPointState } from './stateType'
 
 const initialState: OriginalDataPointState = { data: null, reservedYears: null }
-
 export const originalDataPointSlice = createSlice({
   name: 'originalDataPoint',
   initialState,
@@ -26,24 +27,12 @@ export const originalDataPointSlice = createSlice({
     builder.addCase(getOriginalDataPoint.fulfilled, (state, { payload }) => {
       state.data = payload
     })
-    builder.addCase(updateOriginalDataPoint.fulfilled, (state, { payload }) => {
-      state.data = payload
-      state.updating = false
-    })
-    builder.addCase(updateOriginalDataPoint.pending, (state) => {
-      state.updating = true
-    })
-    builder.addCase(updateOriginalDataPointDataSources.fulfilled, (state, { payload }) => {
-      state.data = payload
-      state.updating = false
-    })
-    builder.addCase(updateOriginalDataPointDataSources.pending, (state) => {
-      state.updating = true
-    })
-    builder.addCase(createOriginalDataPoint.fulfilled, (state, { payload }) => {
-      state.data = payload
-      state.updating = false
-    })
+
+    builder.addCase(updateOriginalDataPoint.fulfilled, setOriginalDataPoint)
+    builder.addCase(updateOriginalDataPoint.pending, setUpdatingTrue)
+    builder.addCase(updateOriginalDataPointDataSources.fulfilled, setOriginalDataPoint)
+    builder.addCase(updateOriginalDataPointDataSources.pending, setUpdatingTrue)
+    builder.addCase(createOriginalDataPoint.fulfilled, setOriginalDataPoint)
 
     builder.addCase(
       getOriginalDataPointReservedYears.fulfilled,

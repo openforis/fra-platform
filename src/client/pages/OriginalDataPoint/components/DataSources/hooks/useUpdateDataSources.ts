@@ -7,7 +7,7 @@ import { useAppDispatch } from 'client/store'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useOnChangeDatasources = () => {
+export const useUpdateDataSources = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
   const dispatch = useAppDispatch()
