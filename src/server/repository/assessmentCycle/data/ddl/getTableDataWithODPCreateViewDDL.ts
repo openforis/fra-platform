@@ -15,7 +15,7 @@ export const getTableDataWithODPCreateViewDDL = (props: Props): string => {
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   const tableName = table.props.name
-  const odpVariables = getOriginalDataPointVariables(cycle).filter((variable) => variable.tableName === tableName)
+  const odpVariables = getOriginalDataPointVariables({ cycle }).filter((variable) => variable.tableName === tableName)
 
   const query = `
 create or replace view ${schemaCycle}.${Tables.getTableDataWithOdpViewName({ tableName })} as

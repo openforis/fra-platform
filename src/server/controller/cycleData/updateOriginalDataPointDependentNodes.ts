@@ -16,75 +16,75 @@ export const updateOriginalDataPointDependentNodes = async (
     cycle: Cycle
     originalDataPoint: OriginalDataPoint
     user: User
+    sectionName?: string
   },
   client: BaseProtocol
 ): Promise<void> => {
-  const { assessment, cycle, originalDataPoint, user } = props
+  const { assessment, cycle, sectionName, originalDataPoint, user } = props
   const { countryIso, year } = originalDataPoint
 
-  if (year) {
-    const colName = String(year)
-    const originalDataPointVariables = getOriginalDataPointVariables(cycle)
+  if (!year) {
+    return
+  }
 
-    // schedule original data point variables dependencies update
-    const nodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => ({
-      tableName,
-      variableName,
-      colName,
-      value: undefined,
-    }))
-    await scheduleUpdateDependencies({
-      isODP: true,
-      nodeUpdates: { assessment, cycle, countryIso, nodes },
-      sectionName: 'extentOfForest', // TODO: remove sectionName as prop from UpdateDependenciesProps
-      user,
-    })
+  const colName = String(year)
+  const originalDataPointVariables = getOriginalDataPointVariables({ cycle, sectionName })
+  const nodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => ({
+    tableName,
+    variableName,
+    colName,
+    value: undefined,
+  }))
 
-    // fetch updated odp in TableData format
-    const data = await getTableData(
-      {
-        aggregate: false,
-        columns: [],
-        mergeOdp: true,
-        tableNames: [TableNames.extentOfForest, TableNames.forestCharacteristics],
-        variables: [],
-        assessment,
-        cycle,
-        countryISOs: [countryIso],
-      },
-      client
-    )
+  await scheduleUpdateDependencies({
+    isODP: true,
+    nodeUpdates: { assessment, cycle, countryIso, nodes },
+    sectionName: 'extentOfForest', // TODO: remove sectionName as prop from UpdateDependenciesProps
+    user,
+  })
 
-    // send originalDataPointValue table updates to client via websocket
-    const assessmentName = assessment.props.name
-    const cycleName = cycle.name
-    const tableNameTarget = TableNames.originalDataPointValue
-
-    const propsEvent = { countryIso, assessmentName, cycleName, tableName: tableNameTarget, colName }
-    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
-
-    const nodeUpdates: NodeUpdates = {
+  const data = await getTableData(
+    {
+      aggregate: false,
+      columns: [],
+      mergeOdp: true,
+      tableNames: [TableNames.extentOfForest, TableNames.forestCharacteristics],
+      variables: [],
       assessment,
       cycle,
-      countryIso,
-      nodes: originalDataPointVariables.map(({ variableName, tableName }) => {
-        return {
-          value: RecordAssessmentDatas.getNodeValue({
-            assessmentName,
-            cycleName,
-            colName,
-            variableName,
-            tableName,
-            countryIso,
-            data,
-          }),
-          colName,
-          tableName: TableNames.originalDataPointValue,
-          variableName,
-        }
-      }),
-    }
+      countryISOs: [countryIso],
+    },
+    client
+  )
 
-    SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+  // send originalDataPointValue table updates to client via websocket
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+  const tableNameTarget = TableNames.originalDataPointValue
+
+  const propsEvent = { countryIso, assessmentName, cycleName, tableName: tableNameTarget, colName }
+  const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
+
+  const nodeUpdates: NodeUpdates = {
+    assessment,
+    cycle,
+    countryIso,
+    nodes: originalDataPointVariables.map(({ variableName, tableName }) => {
+      return {
+        value: RecordAssessmentDatas.getNodeValue({
+          assessmentName,
+          cycleName,
+          colName,
+          variableName,
+          tableName,
+          countryIso,
+          data,
+        }),
+        colName,
+        tableName: TableNames.originalDataPointValue,
+        variableName,
+      }
+    }),
   }
+  SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
 }

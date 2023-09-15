@@ -16,6 +16,7 @@ import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useUpdateOriginalData } from '../hooks/useUpdateOriginalData'
 
 const columns = [
   { name: 'area', type: 'decimal' },
@@ -51,6 +52,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
     originalDataPoint,
     variable: 'validForestCharacteristicsPercentage',
   })
+  const updateOriginalData = useUpdateOriginalData()
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -75,16 +77,12 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestNaturalPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.updateNationalClass({
-                odp: originalDataPoint,
-                index,
-                field: 'forestNaturalPercent',
-                prevValue: forestNaturalPercent,
-                value: event.target.value,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
+            updateOriginalData(
+              'forestNaturalPercent',
+              event.target.value,
+              forestNaturalPercent,
+              index,
+              originalDataPoint
             )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
@@ -115,16 +113,12 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPlantationPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.updateNationalClass({
-                odp: originalDataPoint,
-                index,
-                field: 'forestPlantationPercent',
-                prevValue: forestPlantationPercent,
-                value: event.target.value,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
+            updateOriginalData(
+              'forestPlantationPercent',
+              event.target.value,
+              forestPlantationPercent,
+              index,
+              originalDataPoint
             )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
@@ -155,16 +149,12 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherPlantedForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.updateNationalClass({
-                odp: originalDataPoint,
-                index,
-                field: 'otherPlantedForestPercent',
-                prevValue: otherPlantedForestPercent,
-                value: event.target.value,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
+            updateOriginalData(
+              'otherPlantedForestPercent',
+              event.target.value,
+              otherPlantedForestPercent,
+              index,
+              originalDataPoint
             )
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
