@@ -15,7 +15,7 @@ type Props = {
   originalDataPoint: OriginalDataPoint
 }
 
-export const useUpdateOriginalData = () => {
+export const useUpdateOriginalData = (): ((props: Props) => void) => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
 
