@@ -19,10 +19,9 @@ type Props = {
 }
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
+  const { canEditData, originalDataPoint } = props
   const assessment = useAssessment()
   const cycle = useCycle()
-
-  const { canEditData, originalDataPoint } = props
 
   const {
     t,

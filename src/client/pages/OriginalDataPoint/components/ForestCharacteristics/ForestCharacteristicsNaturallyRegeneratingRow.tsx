@@ -16,6 +16,7 @@ import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useUpdateOriginalData } from '../hooks/useUpdateOriginalData'
 
 const columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
 
@@ -54,6 +55,8 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     variable: 'validPrimaryForest',
   })
 
+  const updateOriginalData = useUpdateOriginalData()
+
   if (!allowedClass(nationalClass)) {
     return null
   }
@@ -75,17 +78,9 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
           disabled={!canEditData || isZeroOrNullPrimaryForest}
           numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.updateNationalClass({
-                odp: originalDataPoint,
-                index,
-                field: 'forestNaturalForestOfWhichPrimaryForestPercent',
-                prevValue: forestNaturalForestOfWhichPrimaryForestPercent,
-                value: event.target.value,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
-            )
+            const field = 'forestNaturalForestOfWhichPrimaryForestPercent'
+            const { value } = event.target
+            updateOriginalData({ field, value, index, originalDataPoint })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(

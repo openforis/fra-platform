@@ -20,6 +20,7 @@ import { getReservedYears } from './originalDataPoint/getReservedYears'
 import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
+import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { estimateValues } from './table/estimateValues'
@@ -75,6 +76,11 @@ export const CycleDataApi = {
       ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
       AuthMiddleware.requireEditTableData,
       updateOriginalDataPointDataSources
+    )
+    express.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.originalData(),
+      AuthMiddleware.requireEditTableData,
+      updateOriginalDataPointOriginalData
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.nationalClasses(),
