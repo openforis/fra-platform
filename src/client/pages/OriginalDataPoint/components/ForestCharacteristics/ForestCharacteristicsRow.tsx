@@ -77,12 +77,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestNaturalPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData({
-              field: 'forestNaturalPercent',
-              value: event.target.value,
-              index,
-              originalDataPoint,
-            })
+            const field = 'forestNaturalPercent'
+            const { value } = event.target
+            updateOriginalData({ field, value, index, originalDataPoint })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
@@ -112,12 +109,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPlantationPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData({
-              field: 'forestPlantationPercent',
-              value: event.target.value,
-              index,
-              originalDataPoint,
-            })
+            const field = 'forestPlantationPercent'
+            const { value } = event.target
+            updateOriginalData({ field, value, index, originalDataPoint })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
@@ -147,12 +141,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherPlantedForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData({
-              field: 'otherPlantedForestPercent',
-              value: event.target.value,
-              index,
-              originalDataPoint,
-            })
+            const field = 'otherPlantedForestPercent'
+            const { value } = event.target
+            updateOriginalData({ field, value, index, originalDataPoint })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
