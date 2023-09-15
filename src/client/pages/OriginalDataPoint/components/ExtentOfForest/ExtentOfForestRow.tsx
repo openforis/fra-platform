@@ -74,7 +74,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={area}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData('area', event.target.value, area, index, originalDataPoint)
+            updateOriginalData({ field: 'area', value: event.target.value, index, originalDataPoint })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
@@ -103,7 +103,12 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData('forestPercent', event.target.value, forestPercent, index, originalDataPoint)
+            updateOriginalData({
+              field: 'forestPercent',
+              value: event.target.value,
+              index,
+              originalDataPoint,
+            })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
@@ -132,13 +137,12 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData(
-              'otherWoodedLandPercent',
-              event.target.value,
-              otherWoodedLandPercent,
+            updateOriginalData({
+              field: 'otherWoodedLandPercent',
+              value: event.target.value,
               index,
-              originalDataPoint
-            )
+              originalDataPoint,
+            })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(

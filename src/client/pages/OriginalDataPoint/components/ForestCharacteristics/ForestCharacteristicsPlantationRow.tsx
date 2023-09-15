@@ -75,13 +75,12 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}
           numberValue={forestPlantationIntroducedPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData(
-              'forestPlantationIntroducedPercent',
-              event.target.value,
-              forestPlantationIntroducedPercent,
+            updateOriginalData({
+              field: 'forestPlantationIntroducedPercent',
+              value: event.target.value,
               index,
-              originalDataPoint
-            )
+              originalDataPoint,
+            })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(

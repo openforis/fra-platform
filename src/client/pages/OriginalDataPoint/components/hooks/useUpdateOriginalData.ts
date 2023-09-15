@@ -8,18 +8,23 @@ import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { Sanitizer } from 'client/utils/sanitizer'
 
+type Props = {
+  field: keyof ODPNationalClass
+  value: string
+  index: number
+  originalDataPoint: OriginalDataPoint
+}
+
 export const useUpdateOriginalData = () => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
 
   return useCallback(
-    (
-      field: keyof ODPNationalClass,
-      value: string,
-      prevValue: string,
-      index: number,
-      originalDataPoint: OriginalDataPoint
-    ) => {
+    (props: Props) => {
+      const { field, value, index, originalDataPoint } = props
+      const nationalClass = originalDataPoint.nationalClasses[index]
+      const prevValue = nationalClass[field] as string
+
       dispatch(
         OriginalDataPointActions.updateOriginalDataPointOriginalData({
           originalDataPoint: ODPs.updateNationalClass({

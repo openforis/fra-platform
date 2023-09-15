@@ -77,13 +77,12 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestNaturalPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData(
-              'forestNaturalPercent',
-              event.target.value,
-              forestNaturalPercent,
+            updateOriginalData({
+              field: 'forestNaturalPercent',
+              value: event.target.value,
               index,
-              originalDataPoint
-            )
+              originalDataPoint,
+            })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
@@ -113,13 +112,12 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPlantationPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData(
-              'forestPlantationPercent',
-              event.target.value,
-              forestPlantationPercent,
+            updateOriginalData({
+              field: 'forestPlantationPercent',
+              value: event.target.value,
               index,
-              originalDataPoint
-            )
+              originalDataPoint,
+            })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(
@@ -149,13 +147,12 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherPlantedForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateOriginalData(
-              'otherPlantedForestPercent',
-              event.target.value,
-              otherPlantedForestPercent,
+            updateOriginalData({
+              field: 'otherPlantedForestPercent',
+              value: event.target.value,
               index,
-              originalDataPoint
-            )
+              originalDataPoint,
+            })
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             dispatch(

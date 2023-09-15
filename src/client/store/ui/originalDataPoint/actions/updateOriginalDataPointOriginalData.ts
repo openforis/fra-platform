@@ -16,20 +16,11 @@ const putOriginalDataPointOriginalData = Functions.debounce(
   async (props: Props) => {
     const { assessmentName, cycleName, countryIso, sectionName, originalDataPoint } = props
 
-    await axios.put(
-      ApiEndPoint.CycleData.OriginalDataPoint.originalData(),
-      {
-        originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
-      },
-      {
-        params: {
-          countryIso,
-          assessmentName,
-          cycleName,
-          sectionName,
-        },
-      }
-    )
+    const params = { countryIso, assessmentName, cycleName, sectionName }
+    const data = { originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint) }
+    const config = { params }
+
+    await axios.put(ApiEndPoint.CycleData.OriginalDataPoint.originalData(), data, config)
   },
   1000,
   'updateOriginalDataPointOriginalData'
