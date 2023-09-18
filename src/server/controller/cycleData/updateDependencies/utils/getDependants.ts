@@ -6,9 +6,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 
 import { isODPVariable } from 'server/controller/cycleData/getOriginalDataPointVariables'
-import { BaseProtocol } from 'server/db'
 
-import { isODPCell } from './isODPCell'
+export type DependantType = 'calculations' | 'validations'
 
 type Props = {
   assessment: Assessment
@@ -16,8 +15,9 @@ type Props = {
   countryIso: CountryIso
   cycle: Cycle
   isODP?: boolean
+  odpCell: boolean
   tableName: string
-  type: 'calculations' | 'validations'
+  type: DependantType
   variableName: string
 }
 
@@ -30,22 +30,22 @@ type Props = {
 // dependencies that are ODP variables, should be updated,
 // all the other variables should not.
 
-export const getDependants = async (props: Props, client: BaseProtocol): Promise<VariableCache[]> => {
-  const { isODP, type, ...rest } = props
+export const getDependants = (props: Props): Array<VariableCache> => {
+  const { isODP, odpCell, type, ...rest } = props
   const dependants =
     type === 'calculations'
       ? AssessmentMetaCaches.getCalculationsDependants(rest)
       : AssessmentMetaCaches.getValidationsDependants(rest)
 
-  // Case1
+  // Case1 - update ODP: exclude all 1a/1b ODP variables
   if (isODP) {
-    // Exclude all odp variables
     return dependants.filter((variable) => !isODPVariable(props.cycle, variable))
   }
 
-  // Case2
-  const _isODPCell = await isODPCell(props, client)
-  if (!_isODPCell) return dependants
+  // Case2.1 - table cell doesn't have a correspondent ODP
+  if (!odpCell) return dependants
+
+  // Case2.2 - table cell has correspondent ODP -> returns only table 1a/1b variables
   return dependants.filter((dependant) =>
     [TableNames.extentOfForest, TableNames.forestCharacteristics].includes(dependant.tableName as TableNames)
   )
