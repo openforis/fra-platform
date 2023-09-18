@@ -1,3 +1,5 @@
+import { TableNames } from 'meta/assessment'
+
 import { getTableData } from '../getTableData'
 import { Props } from './props'
 
@@ -8,7 +10,7 @@ export const climaticDomain = (props: Props) => {
     assessment,
     cycle,
     countryISOs: countries.map(({ countryIso }) => countryIso),
-    tableNames: ['climaticDomain'],
+    tableNames: [TableNames.climaticDomain],
     columns: [],
     mergeOdp: true,
     aggregate: false,

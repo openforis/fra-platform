@@ -16,12 +16,9 @@ export const resetMirrorNodes = async (props: Props, client: BaseProtocol): Prom
   await Promise.all(
     nodes.map(async (node) => {
       const { tableName, variableName, colName } = node
-      const mirrorDependency = AssessmentMetaCaches.getCalculationMirrorVariable({
-        assessment,
-        cycle,
-        tableName,
-        variableName,
-      })
+      const propsMirror = { assessment, cycle, tableName, variableName }
+      const mirrorDependency = AssessmentMetaCaches.getCalculationMirrorVariable(propsMirror)
+
       if (mirrorDependency) {
         const value: NodeValue = { raw: null, calculated: true }
         const nodeUpdateMirror: NodeUpdate = {

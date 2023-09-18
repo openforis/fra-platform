@@ -53,11 +53,7 @@ export const persistNodeValues = async (
       SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
 
       // schedule dependencies update
-      await scheduleUpdateDependencies({
-        nodeUpdates: nodeUpdatesPersisted,
-        sectionName,
-        user,
-      })
+      await scheduleUpdateDependencies({ nodeUpdates: nodeUpdatesPersisted, sectionName, user })
     } catch (error) {
       Logger.error(error)
       throw error

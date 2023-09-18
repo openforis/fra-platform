@@ -1,10 +1,8 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, VariableCache } from 'meta/assessment'
-import { RecordCountryData } from 'meta/data'
+import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-
-export type TablesCondition = Record<string, { variables?: Array<string>; columns?: Array<string> }>
 
 type Props = {
   assessment: Assessment

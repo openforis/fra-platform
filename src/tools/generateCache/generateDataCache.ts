@@ -1,9 +1,9 @@
 import { Assessment, AssessmentNames, Cycle, TableNames } from 'meta/assessment'
+import { TablesCondition } from 'meta/data'
 
 import { AreaController } from 'server/controller/area'
 import { DB, Schemas } from 'server/db'
 import { DataRedisRepository } from 'server/repository/redis/data'
-import { TablesCondition } from 'server/repository/redis/data/getTableData'
 import { Logger } from 'server/utils/logger'
 
 export const generateDataCache = async (props: { assessment: Assessment; cycle: Cycle }) => {

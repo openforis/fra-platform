@@ -1,16 +1,13 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, TableName } from 'meta/assessment'
-import { RecordColumnData, RecordCountryData } from 'meta/data'
+import { Assessment, Cycle } from 'meta/assessment'
+import { RecordColumnData, RecordCountryData, TablesCondition } from 'meta/data'
 
 import { getKeyCountry, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 import { _cacheTableData } from './_cacheTableData'
-
-export type TableCondition = { variables?: Array<string>; columns?: Array<string> }
-export type TablesCondition = Record<TableName, TableCondition>
 
 type Props = {
   assessment: Assessment
@@ -33,7 +30,20 @@ export const getTableData = async (props: Props): Promise<RecordCountryData> => 
         Object.entries(tables).map(async ([tableName, tableCondition]) => {
           await _cacheTableData({ assessment, cycle, countryIso, tableCondition, tableName })
 
-          const tableData: RecordColumnData = JSON.parse(await redis.hget(key, tableName))
+          let tableData: RecordColumnData = JSON.parse(await redis.hget(key, tableName))
+
+          if (tableCondition.columns) {
+            tableData = Objects.pick(tableData, tableCondition.columns)
+          }
+          if (tableCondition.variables) {
+            Object.keys(tableData).forEach((column) => {
+              Objects.setInPath({
+                obj: tableData,
+                path: [column],
+                value: Objects.pick(tableData[column], tableCondition.variables),
+              })
+            })
+          }
 
           Objects.setInPath({ obj: data, path: [countryIso, tableName], value: tableData })
         })

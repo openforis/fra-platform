@@ -61,14 +61,14 @@ export const updateCalculationDependencies = async (
         client
       )
       const evaluateProps = {
-        countryIso,
         assessment,
         cycle,
+        countryIso,
         sectionName,
-        colName,
-        row,
         tableName: variableCache.tableName,
         variableName: variableCache.variableName,
+        row,
+        colName,
         user,
       }
 

@@ -1,8 +1,8 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, TableName, TableNames } from 'meta/assessment'
+import { TableCondition } from 'meta/data'
 
 import { DataRepository } from 'server/repository/assessmentCycle/data'
-import { TableCondition } from 'server/repository/redis/data/getTableData'
 import { getKeyCountry, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
