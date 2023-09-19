@@ -17,7 +17,7 @@ type Props = {
   variables: Array<string>
   columns: Array<string>
   mergeOdp: boolean
-  aggregate: boolean
+  aggregate?: boolean
   /**
    * @deprecated
    * Merge dependencies to tables condition

@@ -1,42 +1,43 @@
 import { Objects } from 'utils/objects'
 
-import { ActivityLogMessage, AssessmentMetaCaches, NodeValue, Row } from 'meta/assessment'
-import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
+import {
+  ActivityLogMessage,
+  AssessmentMetaCaches,
+  ColName,
+  NodeValue,
+  Row,
+  SectionName,
+  TableName,
+  VariableName,
+} from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
+import { User } from 'meta/user'
 
 import { getTableData } from 'server/controller/cycleData/getTableData'
+import { Context } from 'server/controller/cycleData/updateDependencies/updateCalculationDependencies/context'
 import { BaseProtocol } from 'server/db'
 
 import { persistNode } from '../../persistNodeValues/persistNode'
-import { PersistNodeValueProps } from '../../persistNodeValues/props'
 
-export const calculateNode = async (
-  props: Omit<PersistNodeValueProps, 'value'> & {
-    formula: string
-    row: Row
-    mergeOdp: boolean
-    nodeUpdates: NodeUpdates
-  },
-  client: BaseProtocol
-): Promise<void> => {
-  const {
-    assessment,
-    colName,
-    countryIso,
-    cycle,
-    formula,
-    mergeOdp,
-    nodeUpdates,
-    row,
-    sectionName,
-    tableName,
-    user,
-    variableName,
-  } = props
+type Props = {
+  context: Context
+  sectionName: SectionName
+  tableName: TableName
+  variableName: VariableName
+  row: Row
+  colName: ColName
+  formula: string
+  mergeOdp: boolean
+  user: User
+}
+
+export const calculateNode = async (props: Props, client: BaseProtocol): Promise<void> => {
+  const { context, colName, formula, mergeOdp, sectionName, tableName, variableName, row, user } = props
+  const { assessment, cycle, countryIso } = context
   const dependencies = AssessmentMetaCaches.getCalculationsDependencies({ assessment, cycle, variableName, tableName })
   const data = await getTableData(
     {
-      aggregate: false,
       columns: [],
       mergeOdp,
       tableNames: [tableName],
@@ -66,6 +67,6 @@ export const calculateNode = async (
       { countryIso, assessment, cycle, sectionName, tableName, variableName, colName, user, value, activityLogMessage },
       client
     )
-    nodeUpdates.nodes.push({ tableName, variableName, colName, value: node.value })
+    context.pushResult({ tableName, variableName, colName, value: node.value })
   }
 }

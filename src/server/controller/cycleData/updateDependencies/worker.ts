@@ -11,7 +11,7 @@ import { updateCalculationDependencies } from './updateCalculationDependencies'
 export default async (job: Job<UpdateDependenciesProps>) => {
   try {
     const time = new Date().getTime()
-    Logger.debug(
+    Logger.info(
       `[updateDependenciesWorker] job-${job.id} in thread started. ${job.data.nodeUpdates.nodes.length} nodes.`
     )
 
@@ -43,7 +43,7 @@ export default async (job: Job<UpdateDependenciesProps>) => {
       }
     })
 
-    Logger.debug(
+    Logger.info(
       `[updateDependenciesWorker] job-${job.id} in thread ended in ${(new Date().getTime() - time) / 1000} seconds.`
     )
 
