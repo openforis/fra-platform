@@ -1,4 +1,4 @@
-import { Worker } from 'bullmq'
+import { Worker, WorkerOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { NodeUpdates } from 'meta/data'
@@ -12,18 +12,18 @@ import { NodeEnv } from 'server/utils/processEnv'
 import workerProcessor from './worker'
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
+const workerOptions: WorkerOptions = {
+  concurrency: 1,
+  connection,
+  lockDuration: 60_000,
+  maxStalledCount: 0,
+}
 
 const newInstance = (props: { key: string }) => {
   const { key } = props
 
   const processor = ProcessEnv.nodeEnv === NodeEnv.development ? workerProcessor : `${__dirname}/worker`
-  const opts = {
-    concurrency: 1,
-    connection,
-    lockDuration: 60_000,
-    maxStalledCount: 0,
-  }
-  const worker = new Worker(key, processor, opts)
+  const worker = new Worker(key, processor, workerOptions)
 
   worker.on('completed', (job, result: { nodeUpdates: NodeUpdates }) => {
     const { nodeUpdates } = result
@@ -33,11 +33,6 @@ const newInstance = (props: { key: string }) => {
     const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
 
-    // Update validations
-    // if (!Objects.isEmpty(validations.nodes)) {
-    //   const nodeValidationsUpdateEvent = Sockets.getNodeValidationsUpdateEvent(propsEvent)
-    //   SocketServer.emit(nodeValidationsUpdateEvent, { validations })
-    // }
     Logger.debug(
       `[calculateAndValidateDependentNodesWorker] job-${job.id} completed. ${nodeUpdates.nodes.length} nodes updated`
     )

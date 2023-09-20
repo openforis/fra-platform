@@ -6,10 +6,11 @@ import { TableName } from './table'
 export type VariablesByTableCache = Record<string, Record<string, VariableCache>>
 
 export interface VariableCache {
+  assessmentName?: AssessmentName
+  cycleName?: CycleName
   tableName: TableName
   variableName: VariableName
-  cycleName?: CycleName
-  assessmentName?: AssessmentName
+  colName?: string // TODO: will colName become mandatory when handling dependencies by col ?
 }
 
 /**

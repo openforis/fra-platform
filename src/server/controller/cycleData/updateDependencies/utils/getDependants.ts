@@ -1,4 +1,3 @@
-import { CountryIso } from 'meta/area'
 import { AssessmentMetaCaches } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { VariableCache } from 'meta/assessment/assessmentMetaCache'
@@ -11,14 +10,14 @@ export type DependantType = 'calculations' | 'validations'
 
 type Props = {
   assessment: Assessment
-  colName: string
-  countryIso: CountryIso
   cycle: Cycle
+  // countryIso: CountryIso
+  tableName: string
+  variableName: string
+  // colName: string
   isODP?: boolean
   odpCell: boolean
-  tableName: string
-  type: DependantType
-  variableName: string
+  type?: DependantType
 }
 
 // Case 1 - ODP Edit: when editing an ODP,
@@ -31,11 +30,11 @@ type Props = {
 // all the other variables should not.
 
 export const getDependants = (props: Props): Array<VariableCache> => {
-  const { isODP, odpCell, type, ...rest } = props
+  const { assessment, cycle, tableName, variableName, isODP, odpCell, type } = props
   const dependants =
-    type === 'calculations'
-      ? AssessmentMetaCaches.getCalculationsDependants(rest)
-      : AssessmentMetaCaches.getValidationsDependants(rest)
+    type === 'validations'
+      ? AssessmentMetaCaches.getValidationsDependants({ assessment, cycle, tableName, variableName })
+      : AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
 
   // Case1 - update ODP: exclude all 1a/1b ODP variables
   if (isODP) {

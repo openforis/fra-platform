@@ -14,8 +14,8 @@ type Props = {
   cycle: Cycle
   countryISOs: Array<CountryIso>
   tableNames: Array<string> // TODO: refactor use TablesCondition instead
-  variables: Array<string>
-  columns: Array<string>
+  variables?: Array<string>
+  columns?: Array<string>
   mergeOdp: boolean
   aggregate?: boolean
   /**
@@ -27,15 +27,18 @@ type Props = {
 }
 
 const _getTablesCondition = (
-  props: Pick<Props, 'tableNames' | 'columns' | 'variables'> & { withOdp: boolean }
+  props: Pick<Props, 'tableNames' | 'columns' | 'variables' | 'mergeOdp'>
 ): TablesCondition => {
-  const { tableNames, columns, variables, withOdp } = props
+  const { tableNames, columns, variables, mergeOdp } = props
 
   const tables: TablesCondition = {}
 
   tableNames.forEach((tableName) => {
     tables[tableName] = { columns, variables }
   })
+  const withOdp =
+    mergeOdp &&
+    (tableNames.includes(TableNames.extentOfForest) || tableNames.includes(TableNames.forestCharacteristics))
   if (withOdp) {
     tables[TableNames.originalDataPointValue] = { columns, variables }
   }
@@ -60,10 +63,7 @@ const _mergeODPTable = (props: {
 export const getTableData = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
   const { tableNames, aggregate, assessment, cycle, countryISOs, variables, columns, mergeOdp } = props
 
-  const withOdp =
-    mergeOdp &&
-    (tableNames.includes(TableNames.extentOfForest) || tableNames.includes(TableNames.forestCharacteristics))
-  const tables = _getTablesCondition({ tableNames, columns, variables, withOdp })
+  const tables = _getTablesCondition({ tableNames, columns, variables, mergeOdp })
 
   // TODO: Cache aggregated Table data
   if (aggregate) {
@@ -79,7 +79,7 @@ export const getTableData = async (props: Props, client: BaseProtocol = DB): Pro
 
   const tableData = await DataRedisRepository.getTableData({ assessment, cycle, tables, countryISOs })
 
-  if (withOdp) {
+  if (mergeOdp) {
     // TODO: add country cache and add AreaRedisRepository.getCountriesMap()
     const countries = await CountryRepository.getMany({ assessment, cycle }, client)
     const countryMap = countries.reduce<Record<CountryIso, Country>>(
