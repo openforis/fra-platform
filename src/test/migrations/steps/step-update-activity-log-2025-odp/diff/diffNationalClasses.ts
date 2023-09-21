@@ -2,12 +2,29 @@ import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
 
 export const diffNationalClasses = (odpA: OriginalDataPoint, odpB: OriginalDataPoint) => {
   // if length is different, a class was added/removed
-  if (odpA.nationalClasses.length !== odpB.nationalClasses.length) {
+  const diffLength = odpA.nationalClasses.length !== odpB.nationalClasses.length
+  if (diffLength) {
     return {
       diff: {
         field: 'nationalClasses',
-        before: JSON.stringify(odpA.nationalClasses.map((nc) => nc.name)),
-        after: JSON.stringify(odpB.nationalClasses.map((nc) => nc.name)),
+        before: JSON.stringify(odpB.nationalClasses.map((nc) => nc.name)),
+        after: JSON.stringify(odpA.nationalClasses.map((nc) => nc.name)),
+      },
+      newMessage: ActivityLogMessage.originalDataPointUpdateNationalClasses,
+    }
+  }
+
+  const ncAUUIDs = odpA.nationalClasses.map((nc) => nc.uuid)
+  const ncBUUIDs = odpB.nationalClasses.map((nc) => nc.uuid)
+  const diffUUIDs =
+    ncAUUIDs.some((uuid) => !ncBUUIDs.includes(uuid)) || ncBUUIDs.some((uuid) => !ncAUUIDs.includes(uuid))
+
+  if (diffUUIDs) {
+    return {
+      diff: {
+        field: 'nationalClasses',
+        before: JSON.stringify(odpB.nationalClasses.map((nc) => nc.name)),
+        after: JSON.stringify(odpA.nationalClasses.map((nc) => nc.name)),
       },
       newMessage: ActivityLogMessage.originalDataPointUpdateNationalClasses,
     }
@@ -15,33 +32,35 @@ export const diffNationalClasses = (odpA: OriginalDataPoint, odpB: OriginalDataP
 
   for (let i = 0; i < odpA.nationalClasses.length; i += 1) {
     const odpANationalClass = odpA.nationalClasses[i]
-    const odpBNationalClass = odpB.nationalClasses.find((nc) => nc.name === odpANationalClass.name)
+    const odpBNationalClass = odpB.nationalClasses.find((nc) => nc.uuid === odpANationalClass.uuid)
+
     if (!odpBNationalClass) {
       return undefined
     }
 
-    if (odpANationalClass.definition !== odpBNationalClass.definition) {
+    const diffDefinition = odpANationalClass.definition !== odpBNationalClass.definition
+    if (diffDefinition) {
       return {
         diff: {
           field: `nationalClasses.${odpANationalClass.name}.definition`,
-          before: odpANationalClass.definition,
-          after: odpBNationalClass.definition,
+          before: odpBNationalClass.definition,
+          after: odpANationalClass.definition,
         },
         newMessage: ActivityLogMessage.originalDataPointUpdateNationalClasses,
       }
     }
 
-    if (odpANationalClass.name !== odpBNationalClass.name) {
+    const diffName = odpANationalClass.name !== odpBNationalClass.name
+    if (diffName) {
       return {
         diff: {
           field: `nationalClasses.${odpANationalClass.name}.name`,
-          before: odpANationalClass.name,
-          after: odpBNationalClass.name,
+          before: odpBNationalClass.name,
+          after: odpANationalClass.name,
         },
         newMessage: ActivityLogMessage.originalDataPointUpdateNationalClasses,
       }
     }
   }
-
   return undefined
 }

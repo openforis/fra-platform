@@ -18,10 +18,10 @@ export type ActivityLogEntries = Array<{
 }>
 
 export type Diff = {
-  activityLogEntryId: string
+  id: string
   odpId: string
   message: ActivityLogMessage
-  newMessage: ActivityLogMessage
+  newMessage?: ActivityLogMessage
   diff: {
     field: string
     before: string | number

@@ -18,13 +18,15 @@ export const getDiffs = (activityLogEntries: ActivityLogEntries): Array<Diff> =>
 
       const { diff, newMessage } = getDiff(odpA, odpB) ?? {}
 
-      diffs.push({
-        activityLogEntryId: activityLogEntryRow.id,
-        odpId,
-        message,
-        diff,
-        newMessage,
-      })
+      if (newMessage) {
+        diffs.push({
+          id: activityLogEntryRow.id,
+          odpId,
+          message,
+          diff,
+          newMessage,
+        })
+      }
     })
   })
 
