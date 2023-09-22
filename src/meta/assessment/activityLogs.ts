@@ -10,6 +10,7 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.originalDataPointCreate]: 'added',
   [ActivityLogMessage.originalDataPointRemove]: 'deleted',
   [ActivityLogMessage.originalDataPointUpdate]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateDescription]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateDataSources]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateNationalClasses]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',

@@ -1,6 +1,6 @@
 import { Assessment, Cycle, Table, TableNames } from 'meta/assessment'
 
-import { getOriginalDataPointVariables } from 'server/controller/cycleData/getOriginalDataPointVariables'
+import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { Schemas, Tables } from 'server/db'
 
 type Props = {

@@ -14,6 +14,7 @@ import { pasteNationalClass } from './actions/pasteNationalClass'
 import { updateNationalClass } from './actions/updateNationalClass'
 import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './actions/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointDescription } from './actions/updateOriginalDataPointDescription'
 import { updateOriginalDataPointNationalClasses } from './actions/updateOriginalDataPointNationalClasses'
 import { updateOriginalDataPointOriginalData } from './actions/updateOriginalDataPointOriginalData'
 import { setOriginalDataPoint } from './reducers/setOriginalDataPoint'
@@ -42,7 +43,9 @@ export const originalDataPointSlice = createSlice({
         updateOriginalDataPoint.fulfilled,
         updateOriginalDataPointDataSources.fulfilled,
         updateOriginalDataPointNationalClasses.fulfilled,
-        updateOriginalDataPointOriginalData.fulfilled
+        updateOriginalDataPointDescription.fulfilled,
+        updateOriginalDataPointOriginalData.fulfilled,
+        createOriginalDataPoint.fulfilled
       ),
       setOriginalDataPoint
     )
@@ -53,6 +56,7 @@ export const originalDataPointSlice = createSlice({
         updateOriginalDataPoint.pending,
         updateOriginalDataPointDataSources.pending,
         updateOriginalDataPointNationalClasses.pending,
+        updateOriginalDataPointDescription.pending,
         updateOriginalDataPointOriginalData.pending
       ),
       setUpdatingTrue
@@ -70,6 +74,7 @@ export const OriginalDataPointActions = {
   deleteOriginalDataPointNationalClass,
   updateOriginalDataPoint,
   updateOriginalDataPointDataSources,
+  updateOriginalDataPointDescription,
   updateOriginalDataPointNationalClasses,
   updateOriginalDataPointOriginalData,
   copyPreviousNationalClasses,

@@ -15,6 +15,7 @@ const acceptedMessages = [
   ActivityLogMessage.originalDataPointRemove,
   ActivityLogMessage.originalDataPointUpdate,
   ActivityLogMessage.originalDataPointUpdateDataSources,
+  ActivityLogMessage.originalDataPointUpdateDescription,
   ActivityLogMessage.originalDataPointUpdateNationalClasses,
   ActivityLogMessage.originalDataPointUpdateOriginalData,
   ActivityLogMessage.assessmentStatusUpdate,

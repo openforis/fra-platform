@@ -41,6 +41,7 @@ export const ApiEndPoint = {
       lastUpdatedTimestamp: () => apiPath('cycle-data', 'original-data-points', 'last-updated-timestamp'),
 
       dataSources: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'data-sources'),
+      description: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'description'),
       originalData: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'original-data'),
       nationalClasses: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-classes'),
       nationalClass: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-class'),

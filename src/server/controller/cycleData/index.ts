@@ -4,20 +4,21 @@ import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/me
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
+import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
+import { getOriginalDataPoint } from './originalDataPoint/getOriginalDataPoint'
+import { getOriginalDataPointData } from './originalDataPoint/getOriginalDataPointData'
+import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
+import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataPoint'
+import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
+import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
+import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { clearTableData } from './clearTableData'
-import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
-import { getOriginalDataPoint } from './getOriginalDataPoint'
-import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
-import { removeOriginalDataPoint } from './removeOriginalDataPoint'
-import { updateOriginalDataPoint } from './updateOriginalDataPoint'
-import { updateOriginalDataPointDataSources } from './updateOriginalDataPointDataSources'
-import { updateOriginalDataPointNationalClasses } from './updateOriginalDataPointNationalClasses'
-import { updateOriginalDataPointOriginalData } from './updateOriginalDataPointOriginalData'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
@@ -38,6 +39,7 @@ export const CycleDataController = {
   updateOriginalDataPoint,
 
   updateOriginalDataPointDataSources,
+  updateOriginalDataPointDescription,
   updateOriginalDataPointOriginalData,
 
   deleteOriginalDataPointNationalClass,
