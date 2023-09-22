@@ -14,6 +14,7 @@
     "build:prod:report": "cross-env NODE_ENV=production BUILD_REPORT=true webpack --display-error-details -p --config webpack.config.babel.js",
     "clean": "shx rm -rf dist/",
     "heroku-prebuild": "echo \"//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}\" >> .npmrc",
+    "heroku-cleanup": "cd node_modules/bcrypt && node-pre-gyp install --fallback-to-build",
     "migrations:create": "./src/server/db/migration/create-migration.sh",
     "migrations:run": "./src/server/db/migration/run-migrations.sh",
     "migration-steps:run": "ts-node src/test/migrations/",
