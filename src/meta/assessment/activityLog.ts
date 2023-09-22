@@ -9,6 +9,8 @@ export enum ActivityLogMessage {
   assessmentStatusUpdate = 'assessmentStatusUpdate',
   originalDataPointCreate = 'originalDataPointCreate',
   originalDataPointUpdate = 'originalDataPointUpdate',
+  originalDataPointUpdateYear = 'originalDataPointUpdateYear',
+  originalDataPointUpdateDescription = 'originalDataPointUpdateDescription',
   originalDataPointUpdateDataSources = 'originalDataPointUpdateDataSources',
   originalDataPointUpdateDescription = 'originalDataPointUpdateDescription',
   originalDataPointUpdateNationalClasses = 'originalDataPointUpdateNationalClasses',
