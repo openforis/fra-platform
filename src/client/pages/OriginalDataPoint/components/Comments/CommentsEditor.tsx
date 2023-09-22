@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-import { useCountryIso } from 'client/hooks'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useIsFra2020 } from 'client/hooks/useIsFra2020'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
+import { useUpdateDescription } from 'client/pages/OriginalDataPoint/components/Comments/hooks/useUpdateDescription'
 
 type Props = {
   canEditData: boolean
@@ -17,32 +15,14 @@ type Props = {
 const CommentsEditor: React.FC<Props> = (props) => {
   const { canEditData } = props
   const [open, setOpen] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const countryIso = useCountryIso()
   const originalDataPoint = useOriginalDataPoint()
-  const assessment = useAssessment()
-  const cycle = useCycle()
   const isDataLocked = useIsDataLocked()
 
   const isFra2020 = useIsFra2020()
 
-  const onChange = useCallback(
-    (content: string) => {
-      dispatch(
-        OriginalDataPointActions.updateOriginalDataPoint({
-          countryIso,
-          cycleName: cycle.name,
-          assessmentName: assessment.props.name,
-          originalDataPoint: {
-            ...originalDataPoint,
-            description: content,
-          },
-        })
-      )
-    },
-    [assessment.props.name, countryIso, cycle.name, dispatch, originalDataPoint]
-  )
+  const updateDescription = useUpdateDescription()
+
   useEffect(() => {
     if (open && isDataLocked) {
       setOpen(!isDataLocked)
@@ -67,7 +47,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
 
       <div className="fra-description__preview">
         {open ? (
-          <EditorWYSIWYG value={originalDataPoint.description} onChange={onChange} />
+          <EditorWYSIWYG value={originalDataPoint.description} onChange={updateDescription} />
         ) : (
           <MarkdownPreview allowImages={isFra2020} value={originalDataPoint.description} />
         )}
