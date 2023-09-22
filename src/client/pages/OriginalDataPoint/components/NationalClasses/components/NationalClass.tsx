@@ -14,9 +14,9 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
-import { useDeleteNationalClass } from 'client/pages/OriginalDataPoint/components/NationalClasses/components/hooks/useDeleteNationalClass'
 import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 
+import { useDeleteNationalClass } from './hooks/useDeleteNationalClass'
 import { useUpdateNationalClasses } from './hooks/useUpdateNationalClasses'
 
 const columns = [
