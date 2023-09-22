@@ -41,7 +41,7 @@ const getInstance = (props: {
 
 process.on('SIGTERM', async () => {
   await Promise.all(Object.values(workers).map((worker) => worker.close()))
-  Logger.debug('[calculateAndValidateDependentNodesWorkers] all workers closed')
+  Logger.debug('[updateDependencies] all workers closed')
 })
 
 export const UpdateDependenciesQueueFactory = {

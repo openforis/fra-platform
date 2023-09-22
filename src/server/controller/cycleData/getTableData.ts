@@ -77,7 +77,7 @@ export const getTableData = async (props: Props, client: BaseProtocol = DB): Pro
     }
   }
 
-  const tableData = await DataRedisRepository.getTableData({ assessment, cycle, tables, countryISOs })
+  const tableData = await DataRedisRepository.getCountriesData({ assessment, cycle, tables, countryISOs })
 
   if (mergeOdp) {
     // TODO: add country cache and add AreaRedisRepository.getCountriesMap()

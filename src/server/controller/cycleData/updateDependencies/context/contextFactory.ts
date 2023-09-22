@@ -1,12 +1,10 @@
 import { Country } from 'meta/area'
-import { TableName, VariableCache } from 'meta/assessment'
-import { NodeUpdates, RecordAssessmentData } from 'meta/data'
+import { AssessmentMetaCaches, TableName, TableNames, VariableCache } from 'meta/assessment'
+import { NodeUpdates } from 'meta/data'
 
+import { isODPVariable } from 'server/controller/cycleData/getOriginalDataPointVariables'
 import { getTableData } from 'server/controller/cycleData/getTableData'
-import { isODPCell } from 'server/controller/cycleData/updateDependencies/context/isODPCell'
-import { getDependants } from 'server/controller/cycleData/updateDependencies/utils/getDependants'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
-import { DataRedisRepository } from 'server/repository/redis/data'
 
 import { Context } from './context'
 
@@ -17,11 +15,10 @@ type Props = {
 
 export class ContextFactory {
   #country: Country
-  #data: RecordAssessmentData
-  #odpYears: Array<string>
   readonly #props: Props
   readonly #queue: Array<VariableCache>
   readonly #tableNames: Set<string>
+  readonly #visitedVariables: Array<VariableCache>
   // TODO: use this object when refactoring getTableData tables condition input prop (and uncomment related code below)
   // readonly #tables: TablesCondition
 
@@ -30,68 +27,70 @@ export class ContextFactory {
     this.#queue = []
     // this.#tables = {}
     this.#tableNames = new Set<string>()
-  }
-
-  async #initCountryAndOdpYears(): Promise<void> {
-    const { nodeUpdates } = this.#props
-    const { assessment, cycle, countryIso } = nodeUpdates
-
-    const [country, odpYears] = await Promise.all([
-      CountryRepository.getOne({ assessment, cycle, countryIso }),
-      DataRedisRepository.getODPYears({ assessment, cycle, countryIso }),
-    ])
-    this.#country = country
-    this.#odpYears = odpYears
+    this.#visitedVariables = []
   }
 
   #addTableCondition(props: { tableName: TableName }): void {
     const { tableName } = props
-    // if (!this.#tables[tableName]) {
-    //   this.#tables[tableName] = {}
-    // }
+    // this.#tables[tableName] = {}
     this.#tableNames.add(tableName)
   }
 
-  #initQueue(): void {
+  #belongsToQueue(props: { variable: VariableCache }): boolean {
+    const { variable } = props
+    const { tableName } = variable
     const { isODP, nodeUpdates } = this.#props
-    const { assessment, cycle, nodes } = nodeUpdates
+    const { useOriginalDataPoint } = this.#country.props.forestCharacteristics
+
+    if (isODP && isODPVariable(nodeUpdates.cycle, variable)) {
+      if (tableName === TableNames.extentOfForest) return false
+      if (tableName === TableNames.forestCharacteristics) return !useOriginalDataPoint
+    }
+
+    return true
+  }
+
+  async #initQueue(): Promise<void> {
+    const { assessment, cycle, countryIso, nodes } = this.#props.nodeUpdates
+
+    this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso })
 
     nodes.forEach((node) => {
       const { tableName, variableName, colName } = node
       this.#addTableCondition({ tableName })
 
-      const odpCell = isODPCell({ country: this.#country, tableName, colName, odpYears: this.#odpYears })
-      const dependants = getDependants({ assessment, cycle, tableName, variableName, isODP, odpCell })
-      dependants.forEach((dependant) => {
-        this.#queue.push({ ...dependant, colName })
-        this.#addTableCondition({ tableName: dependant.tableName })
+      const dependants = AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
+      dependants.forEach((variable) => {
+        if (this.#belongsToQueue({ variable })) {
+          this.#queue.push({ ...variable, colName })
+          this.#addTableCondition({ tableName: variable.tableName })
+        }
       })
+
+      // self is not visited if it depends on itself
+      const selfInQueue = dependants.find(
+        (dependant) => dependant.variableName === variableName && dependant.tableName === tableName
+      )
+      if (!selfInQueue) {
+        this.#visitedVariables.push({ variableName, tableName })
+      }
     })
   }
 
-  async #initData(): Promise<void> {
-    // const { #tables: tables } = this
-    const { nodeUpdates } = this.#props
-    const { assessment, cycle, countryIso } = nodeUpdates
-
-    const countryISOs = [countryIso]
+  async #createContext(): Promise<Context> {
+    const { assessment, cycle, countryIso } = this.#props.nodeUpdates
+    const queue = this.#queue
+    const visitedVariables = this.#visitedVariables
     const tableNames = Array.from(this.#tableNames)
-    // TODO: for now consider always merging ODP
-    const props = { assessment, cycle, countryISOs, tableNames, mergeOdp: true }
-    this.#data = await getTableData(props)
-  }
 
-  #createContext(): Context {
-    const { nodeUpdates } = this.#props
-    const { assessment, cycle, countryIso } = nodeUpdates
-    return new Context({ assessment, cycle, countryIso, data: this.#data, queue: this.#queue })
+    const data = await getTableData({ assessment, cycle, countryISOs: [countryIso], tableNames, mergeOdp: true })
+
+    return new Context({ assessment, cycle, countryIso, data, queue, visitedVariables })
   }
 
   static async newInstance(props: Props): Promise<Context> {
     const factory = new ContextFactory(props)
-    await factory.#initCountryAndOdpYears()
-    factory.#initQueue()
-    await factory.#initData()
+    await factory.#initQueue()
     return factory.#createContext()
   }
 }

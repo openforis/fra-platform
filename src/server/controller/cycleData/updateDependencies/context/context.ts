@@ -1,8 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, VariableCache } from 'meta/assessment'
-import { NodeUpdate, NodeUpdates, RecordAssessmentData, RecordCountryData } from 'meta/data'
+import { RecordAssessmentData, RecordCountryData } from 'meta/data'
+
+import { ContextResult } from './contextResult'
 
 type ConstructorProps = {
   assessment: Assessment
@@ -10,6 +10,7 @@ type ConstructorProps = {
   countryIso: CountryIso
   data: RecordCountryData
   queue: Array<VariableCache>
+  visitedVariables: Array<VariableCache>
 }
 
 export class Context {
@@ -19,18 +20,18 @@ export class Context {
   readonly #data: RecordAssessmentData
   readonly #queue: Array<VariableCache>
   readonly #visitedVariables: Array<VariableCache>
-  readonly #nodesUpdate: Array<NodeUpdate>
+  readonly #result: ContextResult
 
   constructor(props: ConstructorProps) {
-    const { assessment, cycle, countryIso, data, queue } = props
+    const { assessment, cycle, countryIso, data, queue, visitedVariables } = props
 
     this.#assessment = assessment
     this.#cycle = cycle
     this.#countryIso = countryIso
     this.#data = data
-    this.#nodesUpdate = []
     this.#queue = queue
-    this.#visitedVariables = []
+    this.#visitedVariables = visitedVariables
+    this.#result = new ContextResult({ context: this })
   }
 
   get assessment(): Assessment {
@@ -49,10 +50,6 @@ export class Context {
     return this.#data
   }
 
-  get nodeUpdates(): NodeUpdates {
-    return { assessment: this.#assessment, cycle: this.#cycle, countryIso: this.#countryIso, nodes: this.#nodesUpdate }
-  }
-
   get queue(): Array<VariableCache> {
     return this.#queue
   }
@@ -61,12 +58,7 @@ export class Context {
     return this.#visitedVariables
   }
 
-  pushResult(nodeUpdate: NodeUpdate): void {
-    const assessmentName = this.#assessment.props.name
-    const cycleName = this.#cycle.name
-    const { tableName, colName, variableName } = nodeUpdate
-    const path = [assessmentName, cycleName, this.#countryIso, tableName, colName, variableName]
-    Objects.setInPath({ obj: this.#data, path, value: nodeUpdate.value })
-    this.#nodesUpdate.push(nodeUpdate)
+  get result(): ContextResult {
+    return this.#result
   }
 }
