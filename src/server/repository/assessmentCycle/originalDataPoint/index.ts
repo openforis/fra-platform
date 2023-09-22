@@ -1,4 +1,5 @@
 import { create } from './create'
+import { deleteNationalClass } from './deleteNationalClass'
 import { getMany } from './getMany'
 import { getOne } from './getOne'
 import { getReservedYears } from './getReservedYears'
@@ -17,6 +18,7 @@ export const OriginalDataPointRepository = {
   remove,
   update,
   updateDataSources,
+  deleteNationalClass,
   updateDescription,
   updateNationalClasses,
   updateOriginalData,

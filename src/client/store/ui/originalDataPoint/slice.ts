@@ -8,6 +8,7 @@ import { setUpdatingTrue } from 'client/store/ui/originalDataPoint/reducers/setU
 import { copyPreviousNationalClasses } from './actions/copyPreviousNationalClasses'
 import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
+import { deleteOriginalDataPointNationalClass } from './actions/deleteOriginalDataPointNationalClass'
 import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
 import { pasteNationalClass } from './actions/pasteNationalClass'
 import { updateNationalClass } from './actions/updateNationalClass'
@@ -36,6 +37,8 @@ export const originalDataPointSlice = createSlice({
 
     builder.addMatcher(
       isAnyOf(
+        createOriginalDataPoint.fulfilled,
+        deleteOriginalDataPointNationalClass.fulfilled,
         getOriginalDataPoint.fulfilled,
         updateOriginalDataPoint.fulfilled,
         updateOriginalDataPointDataSources.fulfilled,
@@ -49,6 +52,7 @@ export const originalDataPointSlice = createSlice({
 
     builder.addMatcher(
       isAnyOf(
+        deleteOriginalDataPointNationalClass.pending,
         updateOriginalDataPoint.pending,
         updateOriginalDataPointDataSources.pending,
         updateOriginalDataPointNationalClasses.pending,
@@ -67,6 +71,7 @@ export const OriginalDataPointActions = {
   updateNationalClass,
   createOriginalDataPoint,
   deleteOriginalDataPoint,
+  deleteOriginalDataPointNationalClass,
   updateOriginalDataPoint,
   updateOriginalDataPointDataSources,
   updateOriginalDataPointDescription,
