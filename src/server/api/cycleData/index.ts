@@ -12,6 +12,7 @@ import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
+import { deleteOriginalDataPointNationalClass } from './originalDataPoint/deleteOriginalDataPointNationalClass'
 import { getLastUpdatedTimestamp } from './originalDataPoint/getLastUpdatedTimestamp'
 import { getOriginalDataPoint } from './originalDataPoint/getOdp'
 import { getOriginalDataPointData } from './originalDataPoint/getOriginalDataPointData'
@@ -82,10 +83,17 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditTableData,
       updateOriginalDataPointOriginalData
     )
+    // OriginalDataPoint NationalClasses
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.nationalClasses(),
       AuthMiddleware.requireEditTableData,
       updateOriginalDataPointNationalClasses
+    )
+
+    express.delete(
+      ApiEndPoint.CycleData.OriginalDataPoint.nationalClass(),
+      AuthMiddleware.requireEditTableData,
+      deleteOriginalDataPointNationalClass
     )
 
     express.get(

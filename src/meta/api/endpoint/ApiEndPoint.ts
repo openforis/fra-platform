@@ -43,6 +43,7 @@ export const ApiEndPoint = {
       dataSources: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'data-sources'),
       originalData: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'original-data'),
       nationalClasses: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-classes'),
+      nationalClass: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-class'),
 
       // Table Data (1a, 1b)
       data: () => apiPath('cycle-data', 'original-data-points', 'data'),

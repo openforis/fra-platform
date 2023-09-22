@@ -14,6 +14,7 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import { useDeleteNationalClass } from 'client/pages/OriginalDataPoint/components/NationalClasses/components/hooks/useDeleteNationalClass'
 import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 
 import { useUpdateNationalClasses } from './hooks/useUpdateNationalClasses'
@@ -47,7 +48,13 @@ const NationalClass: React.FC<Props> = (props) => {
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
   const updateOriginalDataPoint = useUpdateNationalClasses()
+  const deleteNationalClass = useDeleteNationalClass({
+    index,
+    originalDataPoint,
+  })
 
+  /* placeHolder-rows can't be removed */
+  const renderDeleteButton = !placeHolder && canEditData && !print
   return (
     <tr className={classNameRowComments}>
       <td
@@ -96,16 +103,8 @@ const NationalClass: React.FC<Props> = (props) => {
             />
           )}
 
-          {/* placeHolder-rows can't be removed */}
-          {!placeHolder && canEditData && !print && (
-            <button
-              type="button"
-              className="odp__nc-table__remove"
-              onClick={() => {
-                const originalDataPointUpdate = ODPs.deleteNationalClass({ odp: originalDataPoint, index })
-                updateOriginalDataPoint(originalDataPointUpdate)
-              }}
-            >
+          {renderDeleteButton && (
+            <button type="button" className="odp__nc-table__remove" onClick={deleteNationalClass}>
               <Icon name="remove" />
             </button>
           )}
