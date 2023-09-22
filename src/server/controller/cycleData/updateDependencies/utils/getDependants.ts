@@ -5,7 +5,7 @@ import { VariableCache } from 'meta/assessment/assessmentMetaCache'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 
-import { isODPVariable } from 'server/controller/cycleData/getOriginalDataPointVariables'
+import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { BaseProtocol } from 'server/db'
 
 import { isODPCell } from './isODPCell'

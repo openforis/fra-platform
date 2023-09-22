@@ -12,6 +12,7 @@ export enum ActivityLogMessage {
   originalDataPointUpdateYear = 'originalDataPointUpdateYear',
   originalDataPointUpdateDescription = 'originalDataPointUpdateDescription',
   originalDataPointUpdateDataSources = 'originalDataPointUpdateDataSources',
+  originalDataPointUpdateDescription = 'originalDataPointUpdateDescription',
   originalDataPointUpdateNationalClasses = 'originalDataPointUpdateNationalClasses',
   originalDataPointUpdateOriginalData = 'originalDataPointUpdateOriginalData',
   originalDataPointRemove = 'originalDataPointRemove',
