@@ -1,6 +1,5 @@
-import { Row } from 'meta/assessment'
+import { RowCaches } from 'meta/assessment'
 
-import { RowRepository } from 'server/repository/assessment/row'
 import { Logger } from 'server/utils/logger'
 
 import { Context, ContextResult } from '../context'
@@ -11,30 +10,31 @@ type Props = {
   jobId?: string
 }
 
-const _getDebugKey = (props: Props): string => {
+const _getLogKey = (props: Props): string => {
   const { context, jobId } = props
   const { assessment, cycle, countryIso } = context
-  return `[updateDependencies-queue] [job-${jobId}] ${[assessment.props.name, cycle.name, countryIso].join('-')}`
+  return `[updateDependencies-queue] [${[assessment.props.name, cycle.name, countryIso].join('-')}] [job-${jobId}]`
 }
 
-export const updateCalculationDependencies = async (props: Props): Promise<ContextResult> => {
+export const updateCalculationDependencies = (props: Props): ContextResult => {
   const { context } = props
-  const { assessment, cycle } = context
+  const { cycle, rows } = context
 
-  const debugKey = _getDebugKey(props)
-  Logger.debug(`${debugKey} queue length ${context.queue.length}`)
+  const logKey = _getLogKey(props)
+  Logger.debug(`${logKey} queue length ${context.queue.length}`)
 
   while (context.queue.length !== 0) {
     const variableCache = context.queue.shift()
     const { tableName, variableName, colName } = variableCache
 
-    Logger.debug(`${debugKey} processing queue item ${JSON.stringify(variableCache)}`)
+    Logger.debug(`${logKey} processing queue item ${JSON.stringify(variableCache)}`)
 
-    const visited = context.visitedVariables.find((v) => v.tableName === tableName && v.variableName === variableName)
+    const visited = context.visitedVariables.find(
+      (v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName
+    )
 
     if (!visited) {
-      // eslint-disable-next-line no-await-in-loop
-      const row: Row = await RowRepository.getOne({ assessment, tableName, variableName, includeCols: true })
+      const row = rows[RowCaches.getKey({ tableName, variableName })]
       const evaluateProps = { context, tableName, variableName, row }
 
       if (row.props.calculateFn?.[cycle.uuid]) {

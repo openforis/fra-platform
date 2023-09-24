@@ -5,6 +5,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
+import { generateAssessmentCache } from './generateAssessmentCache'
 import { generateDataCache } from './generateDataCache'
 import { generateMetadataCache } from './generateMetadataCache'
 
@@ -13,12 +14,17 @@ const exec = async () => {
 
   await Promise.all(
     assessments.map(async (assessment) =>
-      Promise.all(
-        assessment.cycles.map(async (cycle) => {
-          await generateMetadataCache({ assessment, cycle })
-          await generateDataCache({ assessment, cycle })
-        })
-      )
+      Promise.all([
+        // assessment cache
+        generateAssessmentCache({ assessment }),
+        // cycles cache
+        Promise.all(
+          assessment.cycles.map(async (cycle) => {
+            await generateMetadataCache({ assessment, cycle })
+            await generateDataCache({ assessment, cycle })
+          })
+        ),
+      ])
     )
   )
 }

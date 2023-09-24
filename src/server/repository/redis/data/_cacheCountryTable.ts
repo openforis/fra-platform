@@ -2,7 +2,6 @@ import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, TableName, TableNames } from 'meta/assessment'
 
 import { DataRepository } from 'server/repository/assessmentCycle/data'
-import { updateCountryTable } from 'server/repository/redis/data/updateCountryTable'
 import { getKeyCountry, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
@@ -27,6 +26,7 @@ export const _cacheCountryTable = async (props: PropsCache): Promise<void> => {
         ? await DataRepository.getOriginalDataPointData(propsData)
         : await DataRepository.getTableData(propsData)
 
-    await updateCountryTable({ assessment, cycle, countryIso, tableName, data })
+    const dataStr = JSON.stringify(data?.[countryIso]?.[tableName] ?? {})
+    await redis.hset(key, tableName, dataStr)
   }
 }

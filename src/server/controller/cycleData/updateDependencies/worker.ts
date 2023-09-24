@@ -11,7 +11,7 @@ const _getLogKey = (job: Job<UpdateDependenciesProps>): string => {
   const { assessment, cycle, countryIso } = job.data.nodeUpdates
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  return `[updateDependencies-workerThread] [job-${job.id}] ${[assessmentName, cycleName, countryIso].join('-')}`
+  return `[updateDependencies-workerThread] [${[assessmentName, cycleName, countryIso].join('-')}] [job-${job.id}]`
 }
 
 export default async (job: Job<UpdateDependenciesProps>) => {
@@ -20,10 +20,10 @@ export default async (job: Job<UpdateDependenciesProps>) => {
     const time = new Date().getTime()
     Logger.info(`${logKey} started with ${job.data.nodeUpdates.nodes.length} nodes.`)
 
-    const { nodeUpdates, isODP, sectionName, user } = job.data
+    const { nodeUpdates, isODP, user } = job.data
     const context = await ContextFactory.newInstance({ isODP, nodeUpdates })
-    const result = await updateCalculationDependencies({ context, jobId: job.id })
-    await persistResults({ result, sectionName, user })
+    const result = updateCalculationDependencies({ context, jobId: job.id })
+    await persistResults({ result, user })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${result.nodeUpdates.nodes.length} updated nodes.`)

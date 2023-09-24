@@ -1,11 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment, Cycle, TableName } from 'meta/assessment'
 import { NodeUpdate } from 'meta/data'
 
-import { getCountriesData } from 'server/repository/redis/data/getCountriesData'
-import { updateCountryTable } from 'server/repository/redis/data/updateCountryTable'
+import { updateNodes } from 'server/repository/redis/data/updateNodes'
 
 type Props = {
   assessment: Assessment
@@ -13,13 +10,11 @@ type Props = {
   countryIso: CountryIso
 } & NodeUpdate
 
-export const updateNode = async (props: Props): Promise<void> => {
+export const updateNode = (props: Props): Promise<void> => {
   const { assessment, cycle, countryIso, tableName, variableName, colName, value } = props
 
-  const data = await getCountriesData({ assessment, cycle, tables: { [tableName]: {} }, countryISOs: [countryIso] })
+  const node: NodeUpdate = { tableName, variableName, colName, value }
+  const nodes: Record<TableName, Array<NodeUpdate>> = { [tableName]: [node] }
 
-  const path = [countryIso, tableName, colName, variableName]
-  Objects.setInPath({ obj: data, path, value })
-
-  await updateCountryTable({ assessment, cycle, countryIso, tableName, data })
+  return updateNodes({ assessment, cycle, countryIso, nodes })
 }

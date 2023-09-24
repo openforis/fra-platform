@@ -1,11 +1,11 @@
 import { getCountriesData } from './getCountriesData'
 import { getODPYears } from './getODPYears'
-import { updateCountryTable } from './updateCountryTable'
 import { updateNode } from './updateNode'
+import { updateNodes } from './updateNodes'
 
 export const DataRedisRepository = {
   getODPYears,
   getCountriesData,
-  updateCountryTable,
   updateNode,
+  updateNodes,
 }

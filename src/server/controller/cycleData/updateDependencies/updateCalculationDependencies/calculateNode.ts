@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Col, NodeValue, Row, TableName, VariableName } from 'meta/assessment'
+import { Col, NodeValue, RowCache, TableName, VariableName } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
@@ -10,7 +10,7 @@ type Props = {
   context: Context
   tableName: TableName
   variableName: VariableName
-  row: Row
+  row: RowCache
   col: Col
   formula: string
 }
