@@ -10,6 +10,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
+import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
 import { deleteOriginalDataPointNationalClass } from './originalDataPoint/deleteOriginalDataPointNationalClass'
@@ -74,6 +75,11 @@ export const CycleDataApi = {
       updateOriginalDataPoint
     )
 
+    express.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.copyNationalClasses(),
+      AuthMiddleware.requireEditTableData,
+      copyOriginalDataPointNationalClasses
+    )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
       AuthMiddleware.requireEditTableData,
