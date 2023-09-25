@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area'
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
-import { useCountryIso } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useOnCopyClick = (params: {
   originalDataPoint: OriginalDataPoint
@@ -14,31 +14,29 @@ export const useOnCopyClick = (params: {
   selectedPreviousYear: string
 }) => {
   const { originalDataPoint, setSelectedPreviousYear, selectedPreviousYear } = params
-  const dispatch = useAppDispatch()
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
+  const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
   return useCallback(() => {
     // eslint-disable-next-line no-alert
     if (window.confirm(t('nationalDataPoint.confirmCopyPreviousValues'))) {
-      dispatch(
-        OriginalDataPointActions.copyPreviousNationalClasses({
-          originalDataPoint,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          year: Number(selectedPreviousYear),
-        })
-      )
+      const props = {
+        originalDataPoint,
+        assessmentName,
+        cycleName,
+        countryIso: countryIso as CountryIso,
+        year: originalDataPoint.year,
+        targetYear: Number(selectedPreviousYear),
+      }
+      dispatch(OriginalDataPointActions.copyNationalClasses(props))
       setSelectedPreviousYear('')
     }
   }, [
-    assessment.props.name,
+    assessmentName,
+    cycleName,
     countryIso,
-    cycle.name,
     dispatch,
     originalDataPoint,
     selectedPreviousYear,

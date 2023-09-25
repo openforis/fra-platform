@@ -46,6 +46,9 @@ export const ApiEndPoint = {
       nationalClasses: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-classes'),
       nationalClass: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-class'),
 
+      copyNationalClasses: () =>
+        apiPath('cycle-data', 'original-data-points', 'original-data-point', 'copy-national-classes'),
+
       // Table Data (1a, 1b)
       data: () => apiPath('cycle-data', 'original-data-points', 'data'),
       reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),

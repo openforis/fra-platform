@@ -1,10 +1,11 @@
 import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
-import { updateOriginalDataPointDependentNodes } from 'server/controller/cycleData/updateOriginalDataPointDependentNodes'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+
+import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
 
 export const deleteOriginalDataPointNationalClass = async (
   props: {

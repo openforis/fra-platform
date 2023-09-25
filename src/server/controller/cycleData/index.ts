@@ -1,9 +1,10 @@
-import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/deleteOriginalDataPointNationalClass'
+import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
+import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { getOriginalDataPoint } from './originalDataPoint/getOriginalDataPoint'
 import { getOriginalDataPointData } from './originalDataPoint/getOriginalDataPointData'
@@ -37,6 +38,8 @@ export const CycleDataController = {
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
   updateOriginalDataPoint,
+
+  copyOriginalDataPointNationalClasses,
 
   updateOriginalDataPointDataSources,
   updateOriginalDataPointDescription,

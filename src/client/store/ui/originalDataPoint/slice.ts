@@ -2,10 +2,10 @@ import { createSlice, isAnyOf, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { ODPReservedYear } from 'meta/assessment'
 
+import { copyNationalClasses } from 'client/store/ui/originalDataPoint/actions/copyNationalClasses'
 import { getOriginalDataPointReservedYears } from 'client/store/ui/originalDataPoint/actions/getOriginalDataPointReservedYears'
 import { setUpdatingTrue } from 'client/store/ui/originalDataPoint/reducers/setUpdatingTrue'
 
-import { copyPreviousNationalClasses } from './actions/copyPreviousNationalClasses'
 import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
 import { deleteOriginalDataPointNationalClass } from './actions/deleteOriginalDataPointNationalClass'
@@ -38,6 +38,7 @@ export const originalDataPointSlice = createSlice({
     builder.addMatcher(
       isAnyOf(
         createOriginalDataPoint.fulfilled,
+        copyNationalClasses.fulfilled,
         deleteOriginalDataPointNationalClass.fulfilled,
         getOriginalDataPoint.fulfilled,
         updateOriginalDataPoint.fulfilled,
@@ -52,6 +53,7 @@ export const originalDataPointSlice = createSlice({
 
     builder.addMatcher(
       isAnyOf(
+        copyNationalClasses.pending,
         deleteOriginalDataPointNationalClass.pending,
         updateOriginalDataPoint.pending,
         updateOriginalDataPointDataSources.pending,
@@ -77,7 +79,7 @@ export const OriginalDataPointActions = {
   updateOriginalDataPointDescription,
   updateOriginalDataPointNationalClasses,
   updateOriginalDataPointOriginalData,
-  copyPreviousNationalClasses,
+  copyNationalClasses,
   getOriginalDataPointReservedYears,
 }
 
