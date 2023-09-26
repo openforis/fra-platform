@@ -23,6 +23,9 @@ export const massiveInsert = (props: Props, client: BaseProtocol = DB): Promise<
   const table = { table: 'node', schema: schemaCycle }
   const cs = new pgp.helpers.ColumnSet(columns, { table })
 
-  const query = `${pgp.helpers.insert(nodes, cs)} returning *`
+  const query = `${pgp.helpers.insert(
+    nodes,
+    cs
+  )} on conflict ("country_iso", "row_uuid", "col_uuid") do update set "value" = excluded."value" returning *`
   return client.map<Node>(query, [], (res) => Objects.camelize(res))
 }
