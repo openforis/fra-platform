@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
-import { OriginalDataPoint } from 'meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
 type Props = CycleParams & { year: number; targetYear: number }
 
@@ -21,6 +21,6 @@ export const copyNationalClasses = createAsyncThunk<OriginalDataPoint, Props>(
       config
     )
 
-    return originalDataPoint
+    return ODPs.addNationalClassPlaceHolder(originalDataPoint)
   }
 )
