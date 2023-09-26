@@ -20,7 +20,7 @@ export const getSubSection = async (props: Props): Promise<SubSection> => {
   const sectionIndex = await redis.hget(sectionIndexKey, sectionName)
 
   const sectionsKey = getKeyCycle({ assessment, cycle, key: Keys.Section.sections })
-  const sectionData = await redis.lrange(sectionsKey, sectionIndex, 1)
+  const sectionData = await redis.lrange(sectionsKey, sectionIndex, sectionIndex)
   const section: Section = JSON.parse(sectionData[0])
 
   const subSectionIndexKey = getKeyCycle({ assessment, cycle, key: Keys.Section.subSectionsIndex })
