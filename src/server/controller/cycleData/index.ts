@@ -8,7 +8,6 @@ import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getOriginalDataPoint } from './getOriginalDataPoint'
-import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
@@ -21,7 +20,6 @@ export const CycleDataController = {
   persistNodeValues,
   persistNodeValuesEstimated,
   // table data
-  getOriginalDataPointData,
   getTableData,
   clearTableData,
   getNodeValuesEstimations,

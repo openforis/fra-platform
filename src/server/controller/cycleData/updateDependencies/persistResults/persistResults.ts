@@ -20,8 +20,8 @@ export const persistResults = async (props: Props): Promise<void> => {
 
   await DB.tx(async (client) => {
     // 1. Delete old node from DB
-    const colUuids = Object.keys(rowsByColUuid)
-    await NodeRepository.deleteMany({ assessment, cycle, countryIso, colUuids }, client)
+    // const colUuids = Object.keys(rowsByColUuid)
+    // await NodeRepository.deleteMany({ assessment, cycle, countryIso, colUuids }, client)
 
     // 2. Insert calculated nodes into DB
     const nodesInsert = await NodeRepository.massiveInsert({ assessment, cycle, nodes: nodesDb }, client)

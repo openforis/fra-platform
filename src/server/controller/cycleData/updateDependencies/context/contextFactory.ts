@@ -70,6 +70,7 @@ export class ContextFactory {
     return true
   }
 
+  // check whether a variable has been added to the queue
   #isInQueue(variable: VariableCache): boolean {
     const { variableName, tableName, colName } = variable
     return Boolean(
@@ -92,7 +93,7 @@ export class ContextFactory {
       if (!this.#isInQueue(dependant) && this.#mustAddToQueue(dependant)) {
         this.#queue.push(dependant)
         this.#addTableCondition(dependant)
-        this.#rowKeys.add(RowCaches.getKey(dependant))
+        this.#rowKeys.add(RowCaches.getKey(dependant)) // keep track of which rows must be fetched
 
         this.#addDependantsToQueue(dependant)
       }

@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { UUIDs } from 'utils/uuids'
 
 import { CycleDataRequest, EstimateBody } from 'meta/api/request'
-import { NodeValueEstimationMethod, NodeValuesEstimation, Table } from 'meta/assessment'
+import { NodeValueEstimationMethod, NodeValuesEstimation, Table, TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -38,20 +38,24 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     const { method, tableName, fields } = req.body
     const user = Requests.getUser(req)
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName,
-      cycleName,
-      metaCache: true,
-    })
+    const metaCache = true
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
-    const table = await MetadataController.getTable({ assessment, cycle, tableName })
-    const originalDataPointValues = await CycleDataController.getOriginalDataPointData({
-      countryISOs: [countryIso],
-      cycle,
-      assessment,
-    })
+    const tableNameOdp = TableNames.originalDataPointValue
+    const [table, data] = await Promise.all([
+      MetadataController.getTable({ assessment, cycle, tableName }),
+      CycleDataController.getTableData({ assessment, cycle, countryISOs: [countryIso], tableNames: [tableNameOdp] }),
+    ])
 
-    const years = table.props.columnNames[cycle.uuid].map((column: string) => Number(column))
+    const propsTableData = { assessmentName, cycleName, countryIso, tableName: tableNameOdp, data }
+    const tableData = RecordAssessmentDatas.getTableData(propsTableData)
+    const odpYears = Object.keys(tableData)
+    const years = table.props.columnNames[cycle.uuid].reduce<Array<number>>((acc, column: string) => {
+      if (!odpYears.includes(column)) {
+        acc.push(Number(column))
+      }
+      return acc
+    }, [])
 
     const changeRates: Record<string, { rateFuture: number; ratePast: number }> = {}
     fields.forEach((field) => {
@@ -71,13 +75,9 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     const nodes = EstimationEngine.estimateValues(
       years,
       // originalDataPointValues[assessment.props.name][cycle.name],
-      RecordAssessmentDatas.getCycleData({
-        data: originalDataPointValues,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-      }),
+      RecordAssessmentDatas.getCycleData({ assessmentName, cycleName, data }),
       generateSpec,
-      table.props.name,
+      tableName,
       estimation
     )
 
