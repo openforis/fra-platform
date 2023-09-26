@@ -8,17 +8,13 @@ import { ODPNationalClass } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useOnChangeIntroducedForest } from 'client/pages/OriginalDataPoint/components/ForestCharacteristics/hooks/useOnChangeIntroducedForest'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
-import { useUpdateOriginalData } from '../hooks/useUpdateOriginalData'
-
-const columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal' }]
 
 const allowedClass = (nc: ODPNationalClass) =>
   nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) >= 0 && Number(nc.forestPercent) > 0
@@ -32,10 +28,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const { canEditData, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const assessment = useAssessment()
-  const cycle = useCycle()
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
@@ -52,7 +45,8 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     originalDataPoint,
     variable: 'validForestPlantationIntroducedPercent',
   })
-  const updateOriginalData = useUpdateOriginalData()
+
+  const { onChangeIntroducedForest, onPasteIntroducedForest } = useOnChangeIntroducedForest({ index })
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -74,25 +68,8 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}
           numberValue={forestPlantationIntroducedPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'forestPlantationIntroducedPercent'
-            const { value } = event.target
-            updateOriginalData({ field, value, index, originalDataPoint })
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.pasteNationalClass({
-                odp: originalDataPoint,
-                event,
-                colIndex: 0,
-                rowIndex: index,
-                columns,
-                allowedClass,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
-            )
-          }}
+          onChange={onChangeIntroducedForest}
+          onPaste={onPasteIntroducedForest}
         />
       </td>
 

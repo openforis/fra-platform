@@ -8,17 +8,13 @@ import { ODPNationalClass } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useOnChangePrimaryForest } from 'client/pages/OriginalDataPoint/components/ForestCharacteristics/hooks/useOnChangePrimaryForest'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
-import { useUpdateOriginalData } from '../hooks/useUpdateOriginalData'
-
-const columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
 
 const allowedClass = (nc: ODPNationalClass) => {
   return nc.forestNaturalPercent !== null && Number(nc.forestNaturalPercent) > 0 && Number(nc.forestPercent) > 0
@@ -33,10 +29,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
   const { canEditData, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
-  const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
-  const assessment = useAssessment()
-  const cycle = useCycle()
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
@@ -55,7 +48,9 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
     variable: 'validPrimaryForest',
   })
 
-  const updateOriginalData = useUpdateOriginalData()
+  const { onChangePrimaryForest, onPrimaryForestPaste } = useOnChangePrimaryForest({
+    index,
+  })
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -63,6 +58,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const isZeroOrNullPrimaryForest = ofWhichPrimary === null || Numbers.eq(ofWhichPrimary, 0)
 
+  const shouldRenderReviewIndicator = originalDataPoint.id && canEditData
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -77,29 +73,12 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         <PercentInput
           disabled={!canEditData || isZeroOrNullPrimaryForest}
           numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'forestNaturalForestOfWhichPrimaryForestPercent'
-            const { value } = event.target
-            updateOriginalData({ field, value, index, originalDataPoint })
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.pasteNationalClass({
-                odp: originalDataPoint,
-                event,
-                colIndex: 0,
-                rowIndex: index,
-                columns,
-                allowedClass,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
-            )
-          }}
+          onChange={onChangePrimaryForest}
+          onPaste={onPrimaryForestPaste}
         />
       </td>
 
-      {originalDataPoint.id && canEditData && (
+      {shouldRenderReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}

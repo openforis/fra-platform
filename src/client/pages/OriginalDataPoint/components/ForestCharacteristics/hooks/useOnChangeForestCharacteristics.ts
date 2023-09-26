@@ -11,47 +11,47 @@ import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components
 
 const columns: Columns = [
   { name: 'area', type: 'decimal' },
-  { name: 'forestPercent', type: 'decimal' },
-  { name: 'otherWoodedLandPercent', type: 'decimal' },
-  { name: 'otherLandPercent', type: 'decimal' },
+  { name: 'forestNaturalPercent', type: 'decimal' },
+  { name: 'forestPlantationPercent', type: 'decimal' },
+  { name: 'otherPlantedForestPercent', type: 'decimal' },
 ]
 
 type Props = {
   index: number
 }
 
-export const useOnChangeExtentOfForest = (props: Props) => {
+export const useOnChangeForestCharacteristics = (props: Props) => {
   const { index } = props
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
   const originalDataPoint = useOriginalDataPoint()
   const updateOriginalData = useUpdateOriginalData()
 
-  const onChangeArea = useCallback(
+  const onChangeForestNaturalPercent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const field = 'area'
+      const field = 'forestNaturalPercent'
       const { value } = event.target
       updateOriginalData({ field, value, index, originalDataPoint })
     },
-    [updateOriginalData, index, originalDataPoint]
+    [index, originalDataPoint, updateOriginalData]
   )
 
-  const onChangeForestPercent = useCallback(
+  const onChangeForestPlantationPercent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const field = 'forestPercent'
+      const field = 'forestPlantationPercent'
       const { value } = event.target
       updateOriginalData({ field, value, index, originalDataPoint })
     },
-    [updateOriginalData, index, originalDataPoint]
+    [index, originalDataPoint, updateOriginalData]
   )
 
-  const onChangeOtherWoodedLandPercent = useCallback(
+  const onChangeOtherPlantedForestPercent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const field = 'otherWoodedLandPercent'
+      const field = 'otherPlantedForestPercent'
       const { value } = event.target
       updateOriginalData({ field, value, index, originalDataPoint })
     },
-    [updateOriginalData, index, originalDataPoint]
+    [index, originalDataPoint, updateOriginalData]
   )
 
   const callback = useCallback(
@@ -75,33 +75,33 @@ export const useOnChangeExtentOfForest = (props: Props) => {
     callback,
   })
 
-  const onPasteArea = useCallback(
-    (event: React.ClipboardEvent<HTMLInputElement>) => {
-      _onPaste({ event, colIndex: 0 })
-    },
-    [_onPaste]
-  )
-
-  const onPasteForestPercent = useCallback(
+  const onPasteForestNaturalPercent = useCallback(
     (event: React.ClipboardEvent<HTMLInputElement>) => {
       _onPaste({ event, colIndex: 1 })
     },
     [_onPaste]
   )
 
-  const onPasteOtherWoodedLandPercent = useCallback(
+  const onPasteForestPlantationPercent = useCallback(
     (event: React.ClipboardEvent<HTMLInputElement>) => {
       _onPaste({ event, colIndex: 2 })
     },
     [_onPaste]
   )
 
+  const onPasteOtherPlantedForestPercent = useCallback(
+    (event: React.ClipboardEvent<HTMLInputElement>) => {
+      _onPaste({ event, colIndex: 3 })
+    },
+    [_onPaste]
+  )
+
   return {
-    onChangeArea,
-    onPasteArea,
-    onChangeForestPercent,
-    onPasteForestPercent,
-    onChangeOtherWoodedLandPercent,
-    onPasteOtherWoodedLandPercent,
+    onChangeForestNaturalPercent,
+    onChangeForestPlantationPercent,
+    onChangeOtherPlantedForestPercent,
+    onPasteForestNaturalPercent,
+    onPasteForestPlantationPercent,
+    onPasteOtherPlantedForestPercent,
   }
 }
