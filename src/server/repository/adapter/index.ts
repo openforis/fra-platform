@@ -1,7 +1,7 @@
 export { AssessmentAdapter } from './assessment'
 export { ColAdapter } from './col'
 export type { RowDB } from './row'
-export { RowAdapter } from './row'
+export { RowAdapter, RowCacheAdapter } from './row'
 export { SectionAdapter, SubSectionAdapter } from './section'
 export type { TableDB } from './table'
 export { TableAdapter } from './table'

@@ -3,6 +3,7 @@ import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { BaseProtocol } from 'server/db'
 import { NodeRepository } from 'server/repository/assessmentCycle/node'
+import { DataRedisRepository } from 'server/repository/redis/data'
 
 type Props = {
   nodeUpdates: NodeUpdates
@@ -27,7 +28,8 @@ export const resetMirrorNodes = async (props: Props, client: BaseProtocol): Prom
           colName,
           value,
         }
-        await NodeRepository.remove({ assessment, cycle, countryIso, ...nodeUpdateMirror }, client)
+        const propsUpdate = { assessment, cycle, countryIso, ...nodeUpdateMirror }
+        await Promise.all([NodeRepository.remove(propsUpdate, client), DataRedisRepository.updateNode(propsUpdate)])
         nodeUpdatesResult.nodes.push(nodeUpdateMirror)
       }
       return Promise.resolve()

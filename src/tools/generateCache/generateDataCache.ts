@@ -29,7 +29,7 @@ export const generateDataCache = async (props: { assessment: Assessment; cycle: 
   const countries = await AreaController.getCountries({ assessment, cycle })
   const countryISOs = countries.map((c) => c.countryIso)
 
-  const data = await DataRedisRepository.getTableData({ assessment, cycle, countryISOs, tables })
+  const data = await DataRedisRepository.getCountriesData({ assessment, cycle, countryISOs, tables })
 
   Logger.info(`${assessmentName}-${cycleName}: "${Object.keys(data).length} data" generated`)
 }

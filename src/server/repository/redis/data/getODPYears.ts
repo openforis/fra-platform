@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, TableNames } from 'meta/assessment'
 
-import { getTableData } from 'server/repository/redis/data/getTableData'
+import { getCountriesData } from 'server/repository/redis/data/getCountriesData'
 
 type Props = {
   assessment: Assessment
@@ -14,7 +14,7 @@ export const getODPYears = async (props: Props): Promise<Array<string>> => {
 
   const tables = { [TableNames.originalDataPointValue]: {} }
   const countryISOs = [countryIso]
-  const odpData = await getTableData({ assessment, cycle, countryISOs, tables })
+  const odpData = await getCountriesData({ assessment, cycle, countryISOs, tables })
 
   return Object.keys(odpData?.[countryIso]?.[TableNames.originalDataPointValue] ?? {})
 }

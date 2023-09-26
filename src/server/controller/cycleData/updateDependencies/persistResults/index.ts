@@ -1,0 +1,1 @@
+export { persistResults } from './persistResults'

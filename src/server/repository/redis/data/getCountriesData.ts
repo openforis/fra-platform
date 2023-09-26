@@ -4,10 +4,9 @@ import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { RecordColumnData, RecordCountryData, TablesCondition } from 'meta/data'
 
+import { _cacheCountryTable } from 'server/repository/redis/data/_cacheCountryTable'
 import { getKeyCountry, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
-
-import { _cacheTableData } from './_cacheTableData'
 
 type Props = {
   assessment: Assessment
@@ -16,7 +15,7 @@ type Props = {
   tables: TablesCondition
 }
 
-export const getTableData = async (props: Props): Promise<RecordCountryData> => {
+export const getCountriesData = async (props: Props): Promise<RecordCountryData> => {
   const { assessment, cycle, countryISOs, tables } = props
 
   const redis = RedisData.getInstance()
@@ -28,7 +27,7 @@ export const getTableData = async (props: Props): Promise<RecordCountryData> => 
 
       await Promise.all(
         Object.entries(tables).map(async ([tableName, tableCondition]) => {
-          await _cacheTableData({ assessment, cycle, countryIso, tableCondition, tableName })
+          await _cacheCountryTable({ assessment, cycle, countryIso, tableName })
 
           let tableData: RecordColumnData = JSON.parse(await redis.hget(key, tableName))
 

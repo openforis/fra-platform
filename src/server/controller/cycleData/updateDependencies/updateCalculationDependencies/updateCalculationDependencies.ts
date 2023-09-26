@@ -1,99 +1,60 @@
-import { Row } from 'meta/assessment'
-import { NodeUpdates } from 'meta/data'
+import { RowCaches } from 'meta/assessment'
 
-import { Context } from 'server/controller/cycleData/updateDependencies/updateCalculationDependencies/context'
-import { Props } from 'server/controller/cycleData/updateDependencies/updateCalculationDependencies/props'
-import { BaseProtocol } from 'server/db'
-import { RowRepository } from 'server/repository/assessment/row'
 import { Logger } from 'server/utils/logger'
 
-import { DependantType, getDependants } from '../utils/getDependants'
-import { isODPCell } from '../utils/isODPCell'
+import { Context, ContextResult } from '../context'
 import { calculateNode } from './calculateNode'
 
-const _getDebugKey = (props: Props): string =>
-  `[updateCalculationDependencies-${[props.countryIso, props.tableName, props.variableName, props.colName].join('-')}]`
+type Props = {
+  context: Context
+  jobId?: string
+}
 
-const type: DependantType = 'calculations'
+const _getLogKey = (props: Props): string => {
+  const { context, jobId } = props
+  const { assessment, cycle, countryIso } = context
+  return `[updateDependencies-queue] [${[assessment.props.name, cycle.name, countryIso].join('-')}] [job-${jobId}]`
+}
 
-export const updateCalculationDependencies = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
-  const { assessment, cycle, countryIso, sectionName, tableName, variableName, colName, user, isODP } = props
+export const updateCalculationDependencies = (props: Props): ContextResult => {
+  const { context } = props
+  const { cycle, rows } = context
 
-  const odpCell = await isODPCell({ colName, tableName, countryIso, cycle, assessment }, client)
-  // Don't include ODP data when calculating dependants of ODP cell
-  const mergeOdp = isODP || !odpCell
-
-  const context = new Context({ assessment, cycle, countryIso })
-  const propsDependants = { assessment, cycle, countryIso, tableName, variableName, colName, isODP, odpCell, type }
-  context.queue.push(...getDependants(propsDependants))
-
-  // self is not visited if it depends on itself
-  const selfInQueue = context.queue.find(
-    (dependant) => dependant.variableName === variableName && dependant.tableName === tableName
-  )
-  if (!selfInQueue) {
-    context.visitedVariables.push({ variableName, tableName })
-  }
-
-  const debugKey = _getDebugKey(props)
-  Logger.debug(`${debugKey} initial queue length ${context.queue.length}`)
+  const logKey = _getLogKey(props)
+  Logger.debug(`${logKey} queue length ${context.queue.length}`)
 
   while (context.queue.length !== 0) {
     const variableCache = context.queue.shift()
-    Logger.debug(`${debugKey} processing queue item ${JSON.stringify(variableCache)}`)
+    const { tableName, variableName, colName } = variableCache
+
+    Logger.debug(`${logKey} processing queue item ${JSON.stringify(variableCache)}`)
 
     const visited = context.visitedVariables.find(
-      (v) => v.tableName === variableCache.tableName && v.variableName === variableCache.variableName
+      (v) => v.tableName === tableName && v.variableName === variableName && v.colName === colName
     )
-    // if (visited) {
-    // throw new Error(
-    //   `Circular dependency found ${tableName}.${variableName}->${variableCache.tableName}.${variableCache.variableName}`
-    // )
-    // continue
-    //   console.log('------ variable visited ', variableCache)
-    // }
 
     if (!visited) {
-      // eslint-disable-next-line no-await-in-loop
-      const row: Row = await RowRepository.getOne(
-        { assessment, tableName: variableCache.tableName, variableName: variableCache.variableName, includeCols: true },
-        client
-      )
-      const evaluateProps = {
-        context,
-        sectionName,
-        tableName: variableCache.tableName,
-        variableName: variableCache.variableName,
-        row,
-        colName,
-        user,
-      }
+      const row = rows[RowCaches.getKey({ tableName, variableName })]
+      const evaluateProps = { context, tableName, variableName, row }
 
       if (row.props.calculateFn?.[cycle.uuid]) {
         // make sure in target table there's a matching column
-        if (row.cols.find((c) => c.props.colName === colName)) {
-          // eslint-disable-next-line no-await-in-loop
-          await calculateNode({ ...evaluateProps, mergeOdp, formula: row.props.calculateFn[cycle.uuid] }, client)
+        const col = row.cols.find((c) => c.props.colName === colName)
+        if (col) {
+          calculateNode({ ...evaluateProps, col, formula: row.props.calculateFn[cycle.uuid] })
         }
       } else {
-        // eslint-disable-next-line no-await-in-loop
-        await Promise.all(
-          row.cols.map(async (col) => {
-            if (col.props.calculateFn?.[cycle.uuid]) {
-              await calculateNode(
-                { ...evaluateProps, mergeOdp, colName: col.props.colName, formula: col.props.calculateFn[cycle.uuid] },
-                client
-              )
-            }
-          })
-        )
+        // TODO: TO avoid calculating all columns, handle dependencies per column, not row
+        row.cols.forEach((col) => {
+          if (col.props.calculateFn?.[cycle.uuid]) {
+            calculateNode({ ...evaluateProps, col, formula: col.props.calculateFn[cycle.uuid] })
+          }
+        })
       }
 
-      const calculationDependants = getDependants({ ...propsDependants, ...variableCache })
-      context.queue.push(...calculationDependants)
       context.visitedVariables.push(variableCache)
     }
   }
 
-  return context.nodeUpdates
+  return context.result
 }
