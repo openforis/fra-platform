@@ -9,6 +9,7 @@ import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDe
 import { BaseProtocol, DB } from 'server/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { DataRedisRepository } from 'server/repository/redis/data'
 import { SocketServer } from 'server/service/socket'
 
 type Props = {
@@ -25,6 +26,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
 
   return client.tx(async (t) => {
     const nodes = await DataRepository.clearTableData({ assessment, cycle, tableName, countryISOs: [countryIso] }, t)
+    await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes: { [tableName]: nodes } })
     const nodeUpdates = { assessment, cycle, countryIso, nodes }
     const nodeUpdatesMirrorReset = await resetMirrorNodes({ nodeUpdates }, client)
 
