@@ -16,7 +16,7 @@ type Props = {
   tableNames: Array<string> // TODO: refactor use TablesCondition instead
   variables?: Array<string>
   columns?: Array<string>
-  mergeOdp: boolean
+  mergeOdp?: boolean
   aggregate?: boolean
   /**
    * @deprecated
