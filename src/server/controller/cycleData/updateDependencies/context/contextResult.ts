@@ -44,25 +44,27 @@ export class ContextResult {
     const { col, row, node } = props
     const { tableName, colName, variableName, value } = node
 
-    const { assessment, cycle, countryIso } = this.#context
-    const assessmentName = assessment.props.name
-    const cycleName = cycle.name
+    if (!this.rowsByColUuid[col.uuid]) {
+      const { assessment, cycle, countryIso } = this.#context
+      const assessmentName = assessment.props.name
+      const cycleName = cycle.name
 
-    // 1. update context data
-    const path = [assessmentName, cycleName, countryIso, tableName, colName, variableName]
-    Objects.setInPath({ obj: this.#context.data, path, value })
+      // 1. update context data
+      const path = [assessmentName, cycleName, countryIso, tableName, colName, variableName]
+      Objects.setInPath({ obj: this.#context.data, path, value })
 
-    // 2. keep track of updated nodes
-    if (!this.#nodes[tableName]) {
-      this.#nodes[tableName] = []
+      // 2. keep track of updated nodes
+      if (!this.#nodes[tableName]) {
+        this.#nodes[tableName] = []
+      }
+      this.#nodes[tableName].push(node)
+
+      // 3. push to nodes db for massive insert
+      const nodeDb: NodeDb = { country_iso: countryIso, col_uuid: col.uuid, row_uuid: row.uuid, value }
+      this.nodesDb.push(nodeDb)
+
+      // 4. keep track of updated columns and rows
+      this.rowsByColUuid[col.uuid] = row
     }
-    this.#nodes[tableName].push(node)
-
-    // 3. push to nodes db for massive insert
-    const nodeDb: NodeDb = { country_iso: countryIso, col_uuid: col.uuid, row_uuid: row.uuid, value }
-    this.nodesDb.push(nodeDb)
-
-    // 4. keep track of updated columns and rows
-    this.rowsByColUuid[col.uuid] = row
   }
 }
