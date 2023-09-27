@@ -1,20 +1,23 @@
-import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { ODPReservedYear } from 'meta/assessment'
 
+import { copyNationalClasses } from 'client/store/ui/originalDataPoint/actions/copyNationalClasses'
 import { getOriginalDataPointReservedYears } from 'client/store/ui/originalDataPoint/actions/getOriginalDataPointReservedYears'
+import { setUpdatingTrue } from 'client/store/ui/originalDataPoint/reducers/setUpdatingTrue'
 
-import { copyPreviousNationalClasses } from './actions/copyPreviousNationalClasses'
 import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
+import { deleteOriginalDataPointNationalClass } from './actions/deleteOriginalDataPointNationalClass'
 import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
-import { pasteNationalClass } from './actions/pasteNationalClass'
-import { updateNationalClass } from './actions/updateNationalClass'
-import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
+import { updateOriginalDataPointDataSources } from './actions/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointDescription } from './actions/updateOriginalDataPointDescription'
+import { updateOriginalDataPointNationalClasses } from './actions/updateOriginalDataPointNationalClasses'
+import { updateOriginalDataPointOriginalData } from './actions/updateOriginalDataPointOriginalData'
+import { setOriginalDataPoint } from './reducers/setOriginalDataPoint'
 import { OriginalDataPointState } from './stateType'
 
 const initialState: OriginalDataPointState = { data: null, reservedYears: null }
-
 export const originalDataPointSlice = createSlice({
   name: 'originalDataPoint',
   initialState,
@@ -22,26 +25,38 @@ export const originalDataPointSlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getOriginalDataPoint.fulfilled, (state, { payload }) => {
-      state.data = payload
-    })
-    builder.addCase(updateOriginalDataPoint.fulfilled, (state, { payload }) => {
-      state.data = payload
-      state.updating = false
-    })
-    builder.addCase(updateOriginalDataPoint.pending, (state) => {
-      state.updating = true
-    })
-    builder.addCase(createOriginalDataPoint.fulfilled, (state, { payload }) => {
-      state.data = payload
-      state.updating = false
-    })
-
     builder.addCase(
       getOriginalDataPointReservedYears.fulfilled,
       (state, { payload }: PayloadAction<Array<ODPReservedYear>>) => {
         state.reservedYears = payload
       }
+    )
+
+    builder.addMatcher(
+      isAnyOf(
+        createOriginalDataPoint.fulfilled,
+        copyNationalClasses.fulfilled,
+        deleteOriginalDataPointNationalClass.fulfilled,
+        getOriginalDataPoint.fulfilled,
+        updateOriginalDataPointDataSources.fulfilled,
+        updateOriginalDataPointNationalClasses.fulfilled,
+        updateOriginalDataPointDescription.fulfilled,
+        updateOriginalDataPointOriginalData.fulfilled,
+        createOriginalDataPoint.fulfilled
+      ),
+      setOriginalDataPoint
+    )
+
+    builder.addMatcher(
+      isAnyOf(
+        copyNationalClasses.pending,
+        deleteOriginalDataPointNationalClass.pending,
+        updateOriginalDataPointDataSources.pending,
+        updateOriginalDataPointNationalClasses.pending,
+        updateOriginalDataPointDescription.pending,
+        updateOriginalDataPointOriginalData.pending
+      ),
+      setUpdatingTrue
     )
   },
 })
@@ -49,12 +64,14 @@ export const originalDataPointSlice = createSlice({
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
   getOriginalDataPoint,
-  pasteNationalClass,
-  updateNationalClass,
   createOriginalDataPoint,
   deleteOriginalDataPoint,
-  updateOriginalDataPoint,
-  copyPreviousNationalClasses,
+  deleteOriginalDataPointNationalClass,
+  updateOriginalDataPointDataSources,
+  updateOriginalDataPointDescription,
+  updateOriginalDataPointNationalClasses,
+  updateOriginalDataPointOriginalData,
+  copyNationalClasses,
   getOriginalDataPointReservedYears,
 }
 

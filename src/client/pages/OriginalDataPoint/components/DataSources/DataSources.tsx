@@ -6,14 +6,11 @@ import { Objects } from 'utils/objects'
 import { ODPDataSourceMethod, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import MultiSelect from 'client/components/MultiSelect'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import { useUpdateDataSources } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useUpdateDataSources'
 
 type Props = {
   canEditData: boolean
@@ -23,31 +20,19 @@ type Props = {
 const DataSources: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
 
-  const dispatch = useAppDispatch()
-  const i18n = useTranslation()
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
+  const { t } = useTranslation()
 
   const { print } = useIsPrintRoute()
 
   const displayReviewIndicator = originalDataPoint.id && !print && canEditData
 
-  const updateOriginalDataPoint = (originalDataPointUpdate: OriginalDataPoint) => {
-    dispatch(
-      OriginalDataPointActions.updateOriginalDataPoint({
-        countryIso,
-        cycleName: cycle.name,
-        assessmentName: assessment.props.name,
-        originalDataPoint: originalDataPointUpdate,
-      })
-    )
-  }
+  const updateOriginalDataPoint = useUpdateDataSources()
 
   const isDisabled = print || !canEditData || !originalDataPoint.year
+
   return (
     <div className="odp__section">
-      {!print && <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>}
+      {!print && <h3 className="subhead">{t('nationalDataPoint.dataSources')}</h3>}
 
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
@@ -59,7 +44,7 @@ const DataSources: React.FC<Props> = (props) => {
                     {originalDataPoint.year}
                   </th>
                 )}
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.references')}</th>
+                <th className="fra-table__header-cell-left">{t('nationalDataPoint.references')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={originalDataPoint.dataSourceReferences || ''}
@@ -83,8 +68,8 @@ const DataSources: React.FC<Props> = (props) => {
                 {displayReviewIndicator && (
                   <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
-                      title={i18n.t('nationalDataPoint.references')}
-                      subtitle={i18n.t('nationalDataPoint.dataSources')}
+                      title={t('nationalDataPoint.references')}
+                      subtitle={t('nationalDataPoint.dataSources')}
                       topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceReferences')}
                     />
                   </td>
@@ -92,14 +77,14 @@ const DataSources: React.FC<Props> = (props) => {
               </tr>
 
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.methodsUsed')}</th>
+                <th className="fra-table__header-cell-left">{t('nationalDataPoint.methodsUsed')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <MultiSelect
                     disabled={isDisabled}
                     values={originalDataPoint.dataSourceMethods ?? []}
                     options={Object.values(ODPDataSourceMethod).map((method) => ({
                       value: method,
-                      label: i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${method}`),
+                      label: t(`nationalDataPoint.dataSourceMethodsOptions.${method}`),
                     }))}
                     onChange={(values: Array<ODPDataSourceMethod>) => {
                       const originalDataPointUpdate = { ...originalDataPoint, dataSourceMethods: values }
@@ -110,8 +95,8 @@ const DataSources: React.FC<Props> = (props) => {
                 {displayReviewIndicator && (
                   <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
-                      title={i18n.t('nationalDataPoint.methodsUsed')}
-                      subtitle={i18n.t('nationalDataPoint.dataSources')}
+                      title={t('nationalDataPoint.methodsUsed')}
+                      subtitle={t('nationalDataPoint.dataSources')}
                       topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceMethods')}
                     />
                   </td>
@@ -119,7 +104,7 @@ const DataSources: React.FC<Props> = (props) => {
               </tr>
 
               <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.additionalComments')}</th>
+                <th className="fra-table__header-cell-left">{t('nationalDataPoint.additionalComments')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={originalDataPoint.dataSourceAdditionalComments || ''}
@@ -142,8 +127,8 @@ const DataSources: React.FC<Props> = (props) => {
                 {displayReviewIndicator && (
                   <td className="fra-table__review-cell no-print">
                     <ReviewIndicator
-                      title={i18n.t('nationalDataPoint.additionalComments')}
-                      subtitle={i18n.t('nationalDataPoint.dataSources')}
+                      title={t('nationalDataPoint.additionalComments')}
+                      subtitle={t('nationalDataPoint.dataSources')}
                       topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceAdditionalComments')}
                     />
                   </td>
