@@ -8,7 +8,6 @@ import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOr
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { getOriginalDataPoint } from './originalDataPoint/getOriginalDataPoint'
 import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
-import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
 import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
@@ -37,7 +36,6 @@ export const CycleDataController = {
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
-  updateOriginalDataPoint,
 
   copyOriginalDataPointNationalClasses,
 
