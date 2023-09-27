@@ -80,9 +80,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestNaturalPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'forestNaturalPercent'
             const { value } = event.target
-            updateOriginalDataField({ field, value, index })
+            const updateProps = { field: columns[1].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             const odp = _onPaste({ event, colIndex: 1 })
@@ -102,9 +102,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPlantationPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'forestPlantationPercent'
             const { value } = event.target
-            updateOriginalDataField({ field, value, index })
+            const updateProps = { field: columns[2].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             const odp = _onPaste({ event, colIndex: 2 })
@@ -124,9 +124,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherPlantedForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'otherPlantedForestPercent'
             const { value } = event.target
-            updateOriginalDataField({ field, value, index })
+            const updateProps = { field: columns[3].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             const odp = _onPaste({ event, colIndex: 3 })

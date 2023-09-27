@@ -80,9 +80,9 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
           disabled={!canEditData || isZeroOrNullPrimaryForest}
           numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'forestNaturalForestOfWhichPrimaryForestPercent'
             const { value } = event.target
-            updateOriginalDataField({ field, value, index })
+            const updateProps = { field: columns[0].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             const odp = _onPaste({ event, colIndex: 0 })

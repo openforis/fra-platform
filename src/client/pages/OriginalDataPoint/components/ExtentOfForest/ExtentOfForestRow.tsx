@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
@@ -32,7 +32,7 @@ const columns: Columns = [
   { name: 'area', type: 'decimal' },
   { name: 'forestPercent', type: 'decimal' },
   { name: 'otherWoodedLandPercent', type: 'decimal' },
-  { name: 'otherLandPercent', type: 'decimal' },
+  { name: 'otherLandPercent' as keyof ODPNationalClass, type: 'decimal' },
 ]
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
@@ -77,9 +77,9 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={area}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'area'
             const { value } = event.target
-            updateOriginalDataField({ field, value, index })
+            const updateProps = { field: columns[0].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             const odp = _onPaste({ event, colIndex: 0 })
@@ -99,9 +99,9 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'forestPercent'
             const { value } = event.target
-            updateOriginalDataField({ field, value, index })
+            const updateProps = { field: columns[1].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             const odp = _onPaste({ event, colIndex: 1 })
@@ -121,9 +121,9 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'otherWoodedLandPercent'
             const { value } = event.target
-            updateOriginalDataField({ field, value, index })
+            const updateProps = { field: columns[2].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
             const odp = _onPaste({ event, colIndex: 2 })
