@@ -21,36 +21,46 @@ import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValu
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
-  // node
+  // ===== node
   persistNodeValues,
   persistNodeValuesEstimated,
-  // table data
-  getTableData,
-  clearTableData,
+
+  // node values estimation
   getNodeValuesEstimations,
-  // original data points
+
+  // ===== table data
+  clearTableData,
+  getTableData,
+
+  // ===== original data point
   createOriginalDataPoint,
   getOriginalDataPoint,
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
-
-  copyOriginalDataPointNationalClasses,
-
-  updateOriginalDataPointDataSources,
-  updateOriginalDataPointDescription,
+  // data
   updateOriginalDataPointOriginalData,
-
+  // data sources
+  updateOriginalDataPointDataSources,
+  // description
+  updateOriginalDataPointDescription,
+  // national classes
+  copyOriginalDataPointNationalClasses,
   deleteOriginalDataPointNationalClass,
   updateOriginalDataPointNationalClasses,
 
-  // review
+  // ===== review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
-  // description
+
+  // ==== description
   getDataSources: DescriptionRepository.getDataSources,
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
+
+  // ==== activities
   getActivities: ActivityLogRepository.getCycleDataActivities,
+
+  // bulk download
   getBulkDownload,
 }
