@@ -10,10 +10,19 @@ import { TooltipId } from 'meta/tooltip'
 
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
-import { useOnChangeForestCharacteristics } from 'client/pages/OriginalDataPoint/components/ForestCharacteristics/hooks/useOnChangeForestCharacteristics'
+import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
+import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
+import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
+
+const columns: Columns = [
+  { name: 'area', type: 'decimal' },
+  { name: 'forestNaturalPercent', type: 'decimal' },
+  { name: 'forestPlantationPercent', type: 'decimal' },
+  { name: 'otherPlantedForestPercent', type: 'decimal' },
+]
 
 const allowedClass = (nc: ODPNationalClass) => Number(nc.forestPercent) > 0
 
@@ -34,14 +43,12 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const {
-    onChangeForestNaturalPercent,
-    onChangeForestPlantationPercent,
-    onChangeOtherPlantedForestPercent,
-    onPasteForestNaturalPercent,
-    onPasteForestPlantationPercent,
-    onPasteOtherPlantedForestPercent,
-  } = useOnChangeForestCharacteristics({ index })
+  const _onPaste = useOnPaste({
+    columns,
+    index,
+  })
+  const updateOriginalDataField = useUpdateOriginalDataField()
+  const updateOriginalData = useUpdateOriginalData()
 
   const validationErrorMessage = useNationalClassValidations({
     index,
@@ -72,8 +79,15 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={forestNaturalPercent}
-          onChange={onChangeForestNaturalPercent}
-          onPaste={onPasteForestNaturalPercent}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const field = 'forestNaturalPercent'
+            const { value } = event.target
+            updateOriginalDataField({ field, value, index })
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            const odp = _onPaste({ event, colIndex: 1 })
+            updateOriginalData(odp)
+          }}
         />
       </td>
 
@@ -87,8 +101,15 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={forestPlantationPercent}
-          onChange={onChangeForestPlantationPercent}
-          onPaste={onPasteForestPlantationPercent}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const field = 'forestPlantationPercent'
+            const { value } = event.target
+            updateOriginalDataField({ field, value, index })
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            const odp = _onPaste({ event, colIndex: 2 })
+            updateOriginalData(odp)
+          }}
         />
       </td>
 
@@ -102,8 +123,15 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={otherPlantedForestPercent}
-          onChange={onChangeOtherPlantedForestPercent}
-          onPaste={onPasteOtherPlantedForestPercent}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const field = 'otherPlantedForestPercent'
+            const { value } = event.target
+            updateOriginalDataField({ field, value, index })
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            const odp = _onPaste({ event, colIndex: 3 })
+            updateOriginalData(odp)
+          }}
         />
       </td>
 

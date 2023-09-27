@@ -11,13 +11,17 @@ import { TooltipId } from 'meta/tooltip'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
-import { useOnChangeIntroducedForest } from 'client/pages/OriginalDataPoint/components/ForestCharacteristics/hooks/useOnChangeIntroducedForest'
+import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
+import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
+import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
 
 const allowedClass = (nc: ODPNationalClass) =>
   nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) >= 0 && Number(nc.forestPercent) > 0
+
+const columns: Columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal' }]
 
 type Props = {
   canEditData: boolean
@@ -46,7 +50,12 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     variable: 'validForestPlantationIntroducedPercent',
   })
 
-  const { onChangeIntroducedForest, onPasteIntroducedForest } = useOnChangeIntroducedForest({ index })
+  const _onPaste = useOnPaste({
+    columns,
+    index,
+  })
+  const updateOriginalDataField = useUpdateOriginalDataField()
+  const updateOriginalData = useUpdateOriginalData()
 
   if (!allowedClass(nationalClass)) {
     return null
@@ -68,8 +77,15 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}
           numberValue={forestPlantationIntroducedPercent}
-          onChange={onChangeIntroducedForest}
-          onPaste={onPasteIntroducedForest}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const field = 'forestPlantationIntroducedPercent'
+            const { value } = event.target
+            updateOriginalDataField({ field, value, index })
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            const updatedODP = _onPaste({ event, colIndex: 0 })
+            updateOriginalData(updatedODP)
+          }}
         />
       </td>
 

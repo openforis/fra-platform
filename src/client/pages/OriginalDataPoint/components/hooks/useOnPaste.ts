@@ -11,7 +11,6 @@ export type Columns = Array<{ name: string; type: string }>
 type Props = {
   allowGrow?: boolean
   allowedClass?: (nc?: ODPNationalClass) => boolean
-  callback: (originalDataPoint: OriginalDataPoint) => void
   columns: Columns
   index: number
 }
@@ -21,8 +20,8 @@ type PropsCallback = {
   event: React.ClipboardEvent<HTMLInputElement | HTMLTextAreaElement>
 }
 
-export const useOnPaste = (props: Props) => {
-  const { allowedClass = () => true, allowGrow = false, callback, columns, index } = props
+export const useOnPaste = (props: Props): ((propsCallback: PropsCallback) => OriginalDataPoint) => {
+  const { allowedClass = () => true, allowGrow = false, columns, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
   return useCallback(
@@ -40,8 +39,8 @@ export const useOnPaste = (props: Props) => {
         colIndex
       )
 
-      callback(updatedOdp)
+      return updatedOdp
     },
-    [columns, allowedClass, originalDataPoint, allowGrow, index, callback]
+    [columns, allowedClass, originalDataPoint, allowGrow, index]
   )
 }

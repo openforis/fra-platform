@@ -53,21 +53,22 @@ export const useOnChangeNationalClass = (props: Props) => {
     columns,
     index,
     allowGrow: true,
-    callback: updateNationalClasses,
   })
 
   const onPasteName = useCallback(
     (event: React.ClipboardEvent<HTMLInputElement> | React.ClipboardEvent<HTMLTextAreaElement>) => {
-      _onPaste({ colIndex: 0, event })
+      const odp = _onPaste({ colIndex: 0, event })
+      updateNationalClasses(odp)
     },
-    [_onPaste]
+    [_onPaste, updateNationalClasses]
   )
 
   const onPasteDefinition = useCallback(
     (event: React.ClipboardEvent<HTMLInputElement> | React.ClipboardEvent<HTMLTextAreaElement>) => {
-      _onPaste({ colIndex: 1, event })
+      const odp = _onPaste({ colIndex: 1, event })
+      updateNationalClasses(odp)
     },
-    [_onPaste]
+    [_onPaste, updateNationalClasses]
   )
 
   const onDeleteNationalClass = useDeleteNationalClass({

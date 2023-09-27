@@ -14,10 +14,12 @@ import { useCycle } from 'client/store/assessment'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
+import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
+import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
+import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
-import { useOnChangeExtentOfForest } from './hooks/useOnChangeExtentOfForest'
 
 type Props = {
   canEditData: boolean
@@ -25,6 +27,13 @@ type Props = {
   originalDataPoint: OriginalDataPoint
   nationalClassValidation: NationalClassValidation
 }
+
+const columns: Columns = [
+  { name: 'area', type: 'decimal' },
+  { name: 'forestPercent', type: 'decimal' },
+  { name: 'otherWoodedLandPercent', type: 'decimal' },
+  { name: 'otherLandPercent', type: 'decimal' },
+]
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { canEditData, index, nationalClassValidation, originalDataPoint } = props
@@ -48,15 +57,12 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
     otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)))
   }
-
-  const {
-    onChangeArea,
-    onChangeForestPercent,
-    onChangeOtherWoodedLandPercent,
-    onPasteArea,
-    onPasteForestPercent,
-    onPasteOtherWoodedLandPercent,
-  } = useOnChangeExtentOfForest({ index })
+  const _onPaste = useOnPaste({
+    columns,
+    index,
+  })
+  const updateOriginalDataField = useUpdateOriginalDataField()
+  const updateOriginalData = useUpdateOriginalData()
 
   const shouldRenderReviewIndicator = originalDataPoint.id && canEditData
   return (
@@ -70,8 +76,15 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         <ThousandSeparatedDecimalInput
           disabled={!canEditData}
           numberValue={area}
-          onChange={onChangeArea}
-          onPaste={onPasteArea}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const field = 'area'
+            const { value } = event.target
+            updateOriginalDataField({ field, value, index })
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            const odp = _onPaste({ event, colIndex: 0 })
+            updateOriginalData(odp)
+          }}
         />
       </td>
 
@@ -85,8 +98,15 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={forestPercent}
-          onChange={onChangeForestPercent}
-          onPaste={onPasteForestPercent}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const field = 'forestPercent'
+            const { value } = event.target
+            updateOriginalDataField({ field, value, index })
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            const odp = _onPaste({ event, colIndex: 1 })
+            updateOriginalData(odp)
+          }}
         />
       </td>
 
@@ -100,8 +120,15 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
-          onChange={onChangeOtherWoodedLandPercent}
-          onPaste={onPasteOtherWoodedLandPercent}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const field = 'otherWoodedLandPercent'
+            const { value } = event.target
+            updateOriginalDataField({ field, value, index })
+          }}
+          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            const odp = _onPaste({ event, colIndex: 2 })
+            updateOriginalData(odp)
+          }}
         />
       </td>
 
