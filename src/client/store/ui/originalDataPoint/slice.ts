@@ -10,9 +10,6 @@ import { createOriginalDataPoint } from './actions/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './actions/deleteOriginalDataPoint'
 import { deleteOriginalDataPointNationalClass } from './actions/deleteOriginalDataPointNationalClass'
 import { getOriginalDataPoint } from './actions/getOriginalDataPoint'
-import { pasteNationalClass } from './actions/pasteNationalClass'
-import { updateNationalClass } from './actions/updateNationalClass'
-import { updateOriginalDataPoint } from './actions/updateOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './actions/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from './actions/updateOriginalDataPointDescription'
 import { updateOriginalDataPointNationalClasses } from './actions/updateOriginalDataPointNationalClasses'
@@ -41,7 +38,6 @@ export const originalDataPointSlice = createSlice({
         copyNationalClasses.fulfilled,
         deleteOriginalDataPointNationalClass.fulfilled,
         getOriginalDataPoint.fulfilled,
-        updateOriginalDataPoint.fulfilled,
         updateOriginalDataPointDataSources.fulfilled,
         updateOriginalDataPointNationalClasses.fulfilled,
         updateOriginalDataPointDescription.fulfilled,
@@ -55,7 +51,6 @@ export const originalDataPointSlice = createSlice({
       isAnyOf(
         copyNationalClasses.pending,
         deleteOriginalDataPointNationalClass.pending,
-        updateOriginalDataPoint.pending,
         updateOriginalDataPointDataSources.pending,
         updateOriginalDataPointNationalClasses.pending,
         updateOriginalDataPointDescription.pending,
@@ -69,12 +64,9 @@ export const originalDataPointSlice = createSlice({
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
   getOriginalDataPoint,
-  pasteNationalClass,
-  updateNationalClass,
   createOriginalDataPoint,
   deleteOriginalDataPoint,
   deleteOriginalDataPointNationalClass,
-  updateOriginalDataPoint,
   updateOriginalDataPointDataSources,
   updateOriginalDataPointDescription,
   updateOriginalDataPointNationalClasses,

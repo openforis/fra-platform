@@ -5,28 +5,21 @@ import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
+import { useCycle } from 'client/store/assessment'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
+import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
+import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
+import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 
 import { useNationalClassNameComments } from '../../hooks'
-import { useUpdateOriginalData } from '../hooks/useUpdateOriginalData'
-
-const columns = [
-  { name: 'area', type: 'decimal' },
-  { name: 'forestPercent', type: 'decimal' },
-  { name: 'otherWoodedLandPercent', type: 'decimal' },
-  { name: 'otherLandPercent', type: 'decimal' },
-]
 
 type Props = {
   canEditData: boolean
@@ -35,12 +28,17 @@ type Props = {
   nationalClassValidation: NationalClassValidation
 }
 
+const columns: Columns = [
+  { name: 'area', type: 'decimal' },
+  { name: 'forestPercent', type: 'decimal' },
+  { name: 'otherWoodedLandPercent', type: 'decimal' },
+  { name: 'otherLandPercent' as keyof ODPNationalClass, type: 'decimal' },
+]
+
 const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { canEditData, index, nationalClassValidation, originalDataPoint } = props
 
-  const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const assessment = useAssessment()
   const cycle = useCycle()
 
   const nationalClass = originalDataPoint.nationalClasses[index]
@@ -59,9 +57,14 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
     otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)))
   }
-
+  const _onPaste = useOnPaste({
+    columns,
+    index,
+  })
+  const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
+  const shouldRenderReviewIndicator = originalDataPoint.id && canEditData
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -74,22 +77,13 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={area}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'area'
             const { value } = event.target
-            updateOriginalData({ field, value, index, originalDataPoint })
+            const updateProps = { field: columns[0].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.pasteNationalClass({
-                odp: originalDataPoint,
-                event,
-                colIndex: 0,
-                rowIndex: index,
-                columns,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
-            )
+            const odp = _onPaste({ event, colIndex: 0 })
+            updateOriginalData(odp)
           }}
         />
       </td>
@@ -105,22 +99,13 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={forestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'forestPercent'
             const { value } = event.target
-            updateOriginalData({ field, value, index, originalDataPoint })
+            const updateProps = { field: columns[1].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.pasteNationalClass({
-                odp: originalDataPoint,
-                event,
-                colIndex: 1,
-                rowIndex: index,
-                columns,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
-            )
+            const odp = _onPaste({ event, colIndex: 1 })
+            updateOriginalData(odp)
           }}
         />
       </td>
@@ -136,22 +121,13 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const field = 'otherWoodedLandPercent'
             const { value } = event.target
-            updateOriginalData({ field, value, index, originalDataPoint })
+            const updateProps = { field: columns[2].name, value, index }
+            updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            dispatch(
-              OriginalDataPointActions.pasteNationalClass({
-                odp: originalDataPoint,
-                event,
-                colIndex: 2,
-                rowIndex: index,
-                columns,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
-            )
+            const odp = _onPaste({ event, colIndex: 2 })
+            updateOriginalData(odp)
           }}
         />
       </td>
@@ -161,7 +137,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 
-      {originalDataPoint.id && canEditData && (
+      {shouldRenderReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}

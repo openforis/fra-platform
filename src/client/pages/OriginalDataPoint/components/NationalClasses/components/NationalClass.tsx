@@ -7,22 +7,13 @@ import { Objects } from 'utils/objects'
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 
-import { useDeleteNationalClass } from './hooks/useDeleteNationalClass'
-import { useUpdateNationalClasses } from './hooks/useUpdateNationalClasses'
-
-const columns = [
-  { name: 'name', type: 'text' },
-  { name: 'definition', type: 'text' },
-]
+import { useOnChangeNationalClass } from './hooks/onChangeNationalClass'
 
 type Props = {
   canEditData: boolean
@@ -34,10 +25,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const { index, canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
   const disabled = !canEditData || !year
-  const dispatch = useAppDispatch()
   const i18n = useTranslation()
-  const assessment = useAssessment()
-  const cycle = useCycle()
 
   const { print } = useIsPrintRoute()
 
@@ -47,14 +35,12 @@ const NationalClass: React.FC<Props> = (props) => {
   const classNameRowComments = useNationalClassNameComments(target)
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
 
-  const updateOriginalDataPoint = useUpdateNationalClasses()
-  const deleteNationalClass = useDeleteNationalClass({
-    index,
-    originalDataPoint,
-  })
+  const { onChangeDefinition, onChangeName, onDeleteNationalClass, onPasteDefinition, onPasteName } =
+    useOnChangeNationalClass({ index })
 
   /* placeHolder-rows can't be removed */
-  const renderDeleteButton = !placeHolder && canEditData && !print
+  const shouldRenderDeleteButton = !placeHolder && canEditData && !print
+  const shouldRenderReviewIndicator = !print && canEditData && !placeHolder && !Objects.isNil(originalDataPoint.id)
   return (
     <tr className={classNameRowComments}>
       <td
@@ -74,37 +60,15 @@ const NationalClass: React.FC<Props> = (props) => {
               placeholder={
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
-              defaultValue={name || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const { value } = event.target
-                const originalDataPointUpdate = ODPs.updateNationalClass({
-                  odp: originalDataPoint,
-                  index,
-                  field: 'name',
-                  value,
-                })
-                updateOriginalDataPoint(originalDataPointUpdate)
-              }}
-              onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-                dispatch(
-                  OriginalDataPointActions.pasteNationalClass({
-                    odp: originalDataPoint,
-                    event,
-                    colIndex: 0,
-                    rowIndex: index,
-                    columns,
-                    allowGrow: true,
-                    assessmentName: assessment.props.name,
-                    cycleName: cycle.name,
-                  })
-                )
-              }}
+              value={name || ''}
+              onChange={onChangeName}
+              onPaste={onPasteName}
               disabled={disabled}
             />
           )}
 
-          {renderDeleteButton && (
-            <button type="button" className="odp__nc-table__remove" onClick={deleteNationalClass}>
+          {shouldRenderDeleteButton && (
+            <button type="button" className="odp__nc-table__remove" onClick={onDeleteNationalClass}>
               <Icon name="remove" />
             </button>
           )}
@@ -114,41 +78,13 @@ const NationalClass: React.FC<Props> = (props) => {
       <td className="fra-table__cell-left odp__nc-table__def">
         <VerticallyGrowingTextField
           value={definition || ''}
-          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-            const caret = event.target.selectionStart
-            const element = event.target
-            window.requestAnimationFrame(() => {
-              element.selectionStart = caret
-              element.selectionEnd = caret
-            })
-            const { value } = event.target
-            const originalDataPointUpdate = ODPs.updateNationalClass({
-              odp: originalDataPoint,
-              index,
-              field: 'definition',
-              value,
-            })
-            updateOriginalDataPoint(originalDataPointUpdate)
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLTextAreaElement>) => {
-            dispatch(
-              OriginalDataPointActions.pasteNationalClass({
-                odp: originalDataPoint,
-                event,
-                colIndex: 1,
-                rowIndex: index,
-                columns,
-                allowGrow: true,
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-              })
-            )
-          }}
+          onChange={onChangeDefinition}
+          onPaste={onPasteDefinition}
           disabled={print || disabled}
         />
       </td>
 
-      {!print && canEditData && !placeHolder && !Objects.isNil(originalDataPoint.id) && (
+      {shouldRenderReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={name}
