@@ -21,7 +21,7 @@ export const deleteOriginalDataPointNationalClass = async (
 ): Promise<OriginalDataPoint> => {
   const { assessment, cycle, id, index, user } = props
 
-  return client.tx(async (t) => {
+  const odpReturn = await client.tx(async (t) => {
     const originalDataPoint = await OriginalDataPointRepository.deleteNationalClass({ assessment, cycle, id, index }, t)
 
     const message = ActivityLogMessage.originalDataPointUpdateNationalClasses
@@ -30,8 +30,10 @@ export const deleteOriginalDataPointNationalClass = async (
     const activityLog = { target: originalDataPoint, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
-
     return originalDataPoint
   })
+
+  await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint: odpReturn, user })
+
+  return odpReturn
 }

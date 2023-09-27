@@ -1,6 +1,7 @@
 import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
+import { updateOriginalDataPointDependentNodes } from 'server/controller/cycleData/originalDataPoint/updateOriginalDataPointDependentNodes'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -8,14 +9,16 @@ import { ActivityLogRepository } from 'server/repository/public/activityLog'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  sectionName: string
   originalDataPoint: OriginalDataPoint
   user: User
 }
 
 export const createOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, originalDataPoint, user } = props
+  const { assessment, cycle, sectionName, originalDataPoint, user } = props
+  const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const odpReturn = await client.tx(async (t) => {
     const createdOriginalDataPoint = await OriginalDataPointRepository.create(
       { assessment, cycle, originalDataPoint },
       t
@@ -25,17 +28,15 @@ export const createOriginalDataPoint = async (props: Props, client: BaseProtocol
       target: createdOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointCreate,
-      countryIso: originalDataPoint.countryIso,
+      countryIso,
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    // TODO:
-    // await updateOriginalDataPointDependentNodes(
-    //   { assessment, cycle, sectionName, originalDataPoint: createdOriginalDataPoint, user },
-    //   t
-    // )
-
     return createdOriginalDataPoint
   })
+
+  await updateOriginalDataPointDependentNodes({ assessment, cycle, sectionName, originalDataPoint: odpReturn, user })
+
+  return odpReturn
 }

@@ -5,27 +5,30 @@ import { User } from 'meta/user'
 
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
-import { BaseProtocol } from 'server/db'
+import { DataRedisRepository } from 'server/repository/redis/data'
 import { SocketServer } from 'server/service/socket'
 
 import { getOriginalDataPointVariables } from './getOriginalDataPointVariables'
 
-export const updateOriginalDataPointDependentNodes = async (
-  props: {
-    assessment: Assessment
-    cycle: Cycle
-    originalDataPoint: OriginalDataPoint
-    user: User
-    sectionName?: string
-  },
-  client: BaseProtocol
-): Promise<void> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  originalDataPoint: OriginalDataPoint
+  user: User
+  sectionName?: string
+}
+
+export const updateOriginalDataPointDependentNodes = async (props: Props): Promise<void> => {
   const { assessment, cycle, sectionName, originalDataPoint, user } = props
   const { countryIso, year } = originalDataPoint
 
   if (!year) {
     return
   }
+
+  // first update cache
+  const tableName = TableNames.originalDataPointValue
+  await DataRedisRepository.cacheCountryTable({ assessment, cycle, countryIso, tableName, force: true })
 
   const colName = String(year)
   const originalDataPointVariables = getOriginalDataPointVariables({ cycle, sectionName })
@@ -43,19 +46,16 @@ export const updateOriginalDataPointDependentNodes = async (
     user,
   })
 
-  const data = await getTableData(
-    {
-      aggregate: false,
-      columns: [],
-      mergeOdp: true,
-      tableNames: [TableNames.extentOfForest, TableNames.forestCharacteristics],
-      variables: [],
-      assessment,
-      cycle,
-      countryISOs: [countryIso],
-    },
-    client
-  )
+  const data = await getTableData({
+    aggregate: false,
+    columns: [],
+    mergeOdp: true,
+    tableNames: [TableNames.extentOfForest, TableNames.forestCharacteristics],
+    variables: [],
+    assessment,
+    cycle,
+    countryISOs: [countryIso],
+  })
 
   // send originalDataPointValue table updates to client via websocket
   const assessmentName = assessment.props.name
