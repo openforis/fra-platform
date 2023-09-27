@@ -29,6 +29,7 @@ export default (): void =>
       const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
         assessment,
         cycle,
+        sectionName: 'extentOfForest',
         originalDataPoint,
         user,
       })
