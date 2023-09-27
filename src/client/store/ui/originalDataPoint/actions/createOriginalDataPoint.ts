@@ -1,35 +1,31 @@
-import { NavigateFunction } from 'react-router-dom'
-
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
-import { Routes } from 'meta/routes'
 
-export const createOriginalDataPoint = createAsyncThunk<
-  OriginalDataPoint,
-  CycleParams & {
-    navigate: NavigateFunction
+type Params = CycleParams & { originalDataPoint: OriginalDataPoint }
+
+export const createOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Params>(
+  'originalDataPoint/create',
+  async (props) => {
+    const { countryIso, assessmentName, cycleName, originalDataPoint } = props
+
+    const { data } = await axios.post(
+      ApiEndPoint.CycleData.OriginalDataPoint.one(),
+      {
+        originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
+      },
+      {
+        params: {
+          countryIso,
+          assessmentName,
+          cycleName,
+          sectionName: 'extentOfForest',
+        },
+      }
+    )
+    return ODPs.addNationalClassPlaceHolder(data)
   }
->('originalDataPoint/create', async ({ assessmentName, cycleName, countryIso, navigate }) => {
-  navigate(
-    Routes.OriginalDataPoint.generatePath({
-      countryIso,
-      assessmentName,
-      cycleName,
-      year: '-1',
-      sectionName: 'extentOfForest',
-    })
-  )
-
-  // Populate store with placeholder
-  return ODPs.addNationalClassPlaceHolder({
-    countryIso,
-    year: null,
-    dataSourceAdditionalComments: '',
-    dataSourceMethods: [],
-    dataSourceReferences: '',
-    description: '',
-    nationalClasses: [],
-  } as OriginalDataPoint)
-})
+)

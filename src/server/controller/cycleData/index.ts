@@ -1,19 +1,24 @@
+import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
+import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
+import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
+import { getOriginalDataPoint } from './originalDataPoint/getOriginalDataPoint'
+import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
+import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
+import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
+import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { clearTableData } from './clearTableData'
-import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
-import { getOriginalDataPoint } from './getOriginalDataPoint'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
-import { removeOriginalDataPoint } from './removeOriginalDataPoint'
-import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
@@ -31,7 +36,16 @@ export const CycleDataController = {
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
-  updateOriginalDataPoint,
+
+  copyOriginalDataPointNationalClasses,
+
+  updateOriginalDataPointDataSources,
+  updateOriginalDataPointDescription,
+  updateOriginalDataPointOriginalData,
+
+  deleteOriginalDataPointNationalClass,
+  updateOriginalDataPointNationalClasses,
+
   // review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,

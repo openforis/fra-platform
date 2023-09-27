@@ -32,7 +32,8 @@ const OriginalDataPoint: React.FC = () => {
     year: string
   }>()
 
-  const canEditData = useIsEditTableDataEnabled(TableNames.extentOfForest)
+  const isEditTableDataEnabled = useIsEditTableDataEnabled(TableNames.extentOfForest)
+  const canEditData = originalDataPoint.id && isEditTableDataEnabled
 
   useEffect(() => {
     dispatch(
@@ -42,7 +43,7 @@ const OriginalDataPoint: React.FC = () => {
         cycleName,
       })
     )
-  }, [assessmentName, countryIso, cycleName, dispatch, originalDataPoint?.year])
+  }, [assessmentName, countryIso, cycleName, dispatch, originalDataPoint.year])
 
   useEffect(() => {
     if (year !== '-1') {
@@ -68,13 +69,12 @@ const OriginalDataPoint: React.FC = () => {
           assessmentName,
           cycleName,
           sectionName,
-          odpId: originalDataPoint?.id,
+          odpId: originalDataPoint.id,
         })
       )
     }
-  }, [originalDataPoint?.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
+  }, [originalDataPoint.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
 
-  if (!originalDataPoint) return null
   if (originalDataPoint.countryIso !== countryIso) navigate('/')
 
   return (
@@ -84,7 +84,7 @@ const OriginalDataPoint: React.FC = () => {
         <ButtonBar canEditData={canEditData} />
       </div>
 
-      <YearSelection canEditData={canEditData} />
+      <YearSelection canEditData={isEditTableDataEnabled} />
       <DataSources originalDataPoint={originalDataPoint} canEditData={canEditData} />
       <NationalClasses originalDataPoint={originalDataPoint} canEditData={canEditData} />
       <OriginalData originalDataPoint={originalDataPoint} canEditData={canEditData} />

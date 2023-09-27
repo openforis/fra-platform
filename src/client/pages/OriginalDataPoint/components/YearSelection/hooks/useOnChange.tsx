@@ -15,16 +15,23 @@ type RouteParams = SectionRouteParams & {
 
 export const useOnChange = (): Returned => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams() as RouteParams
   const originalDataPoint = useOriginalDataPoint()
+  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams() as RouteParams
 
   return useCallback<Returned>(
     (event) => {
       const { value: year } = event.target
 
-      const originalDataPointUpdate = { ...originalDataPoint, year: Number(year) }
-      const propsAction = { assessmentName, cycleName, countryIso, originalDataPoint: originalDataPointUpdate }
-      dispatch(OriginalDataPointActions.updateOriginalDataPoint(propsAction))
+      const propsAction = {
+        assessmentName,
+        cycleName,
+        countryIso,
+        originalDataPoint: {
+          ...originalDataPoint,
+          year: Number(year),
+        },
+      }
+      dispatch(OriginalDataPointActions.createOriginalDataPoint(propsAction))
 
       // Update url but do not push new entry to state
       const routeParams = { assessmentName, cycleName, countryIso, sectionName, year }
