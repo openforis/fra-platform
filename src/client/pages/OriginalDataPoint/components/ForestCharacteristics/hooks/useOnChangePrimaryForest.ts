@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
@@ -19,16 +19,15 @@ export const useOnChangePrimaryForest = (props: Props) => {
   const { index } = props
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
-  const originalDataPoint = useOriginalDataPoint()
   const updateOriginalData = useUpdateOriginalData()
 
   const onChangePrimaryForest = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const field = 'forestNaturalForestOfWhichPrimaryForestPercent'
       const { value } = event.target
-      updateOriginalData({ field, value, index, originalDataPoint })
+      updateOriginalData({ field, value, index })
     },
-    [index, originalDataPoint, updateOriginalData]
+    [index, updateOriginalData]
   )
 
   const callback = useCallback(

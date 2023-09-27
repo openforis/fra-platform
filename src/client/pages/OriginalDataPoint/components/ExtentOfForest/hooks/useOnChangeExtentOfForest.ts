@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
@@ -24,34 +24,33 @@ export const useOnChangeExtentOfForest = (props: Props) => {
   const { index } = props
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
-  const originalDataPoint = useOriginalDataPoint()
   const updateOriginalData = useUpdateOriginalData()
 
   const onChangeArea = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const field = 'area'
       const { value } = event.target
-      updateOriginalData({ field, value, index, originalDataPoint })
+      updateOriginalData({ field, value, index })
     },
-    [updateOriginalData, index, originalDataPoint]
+    [updateOriginalData, index]
   )
 
   const onChangeForestPercent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const field = 'forestPercent'
       const { value } = event.target
-      updateOriginalData({ field, value, index, originalDataPoint })
+      updateOriginalData({ field, value, index })
     },
-    [updateOriginalData, index, originalDataPoint]
+    [updateOriginalData, index]
   )
 
   const onChangeOtherWoodedLandPercent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const field = 'otherWoodedLandPercent'
       const { value } = event.target
-      updateOriginalData({ field, value, index, originalDataPoint })
+      updateOriginalData({ field, value, index })
     },
-    [updateOriginalData, index, originalDataPoint]
+    [updateOriginalData, index]
   )
 
   const callback = useCallback(
