@@ -9,15 +9,14 @@ import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
 
-export const removeOriginalDataPoint = async (
-  props: {
-    assessment: Assessment
-    cycle: Cycle
-    originalDataPoint: OriginalDataPoint
-    user: User
-  },
-  client: BaseProtocol = DB
-): Promise<OriginalDataPoint> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  originalDataPoint: OriginalDataPoint
+  user: User
+}
+
+export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, cycle, originalDataPoint, user } = props
 
   return client.tx(async (t) => {
@@ -26,20 +25,14 @@ export const removeOriginalDataPoint = async (
       t
     )
 
-    await ActivityLogRepository.insertActivityLog(
-      {
-        activityLog: {
-          target: removedOriginalDataPoint,
-          section: 'odp',
-          message: ActivityLogMessage.originalDataPointRemove,
-          countryIso: originalDataPoint.countryIso,
-          user,
-        },
-        assessment,
-        cycle,
-      },
-      t
-    )
+    const activityLog = {
+      target: removedOriginalDataPoint,
+      section: 'odp',
+      message: ActivityLogMessage.originalDataPointRemove,
+      countryIso: originalDataPoint.countryIso,
+      user,
+    }
+    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
 

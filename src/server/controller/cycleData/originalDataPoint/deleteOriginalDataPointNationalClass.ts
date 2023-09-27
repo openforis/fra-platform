@@ -7,14 +7,16 @@ import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
 
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  id: string
+  index: number
+  user: User
+}
+
 export const deleteOriginalDataPointNationalClass = async (
-  props: {
-    assessment: Assessment
-    cycle: Cycle
-    id: string
-    index: number
-    user: User
-  },
+  props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
   const { assessment, cycle, id, index, user } = props
@@ -25,11 +27,8 @@ export const deleteOriginalDataPointNationalClass = async (
     const message = ActivityLogMessage.originalDataPointUpdateNationalClasses
     const { countryIso } = originalDataPoint
     const section = 'odp'
-
     const activityLog = { target: originalDataPoint, section, message, countryIso, user }
-
-    const params = { activityLog, assessment, cycle }
-    await ActivityLogRepository.insertActivityLog(params, t)
+    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
 

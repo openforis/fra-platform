@@ -6,7 +6,6 @@ import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
-import { getOriginalDataPoint } from './originalDataPoint/getOriginalDataPoint'
 import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
@@ -34,7 +33,7 @@ export const CycleDataController = {
 
   // ===== original data point
   createOriginalDataPoint,
-  getOriginalDataPoint,
+  getOriginalDataPoint: OriginalDataPointRepository.getOne,
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,

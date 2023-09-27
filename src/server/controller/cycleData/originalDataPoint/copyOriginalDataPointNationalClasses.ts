@@ -26,8 +26,10 @@ export const copyOriginalDataPointNationalClasses = async (
 
   return client.tx(async (t) => {
     const commonProps = { assessment, cycle, countryIso }
-    const originalDataPoint = await OriginalDataPointRepository.getOne({ ...commonProps, year }, t)
-    const targetOriginalDataPoint = await OriginalDataPointRepository.getOne({ ...commonProps, year: targetYear }, t)
+    const [originalDataPoint, targetOriginalDataPoint] = await Promise.all([
+      OriginalDataPointRepository.getOne({ ...commonProps, year }, t),
+      OriginalDataPointRepository.getOne({ ...commonProps, year: targetYear }, t),
+    ])
 
     const updateNCProps = {
       assessment,
@@ -52,8 +54,7 @@ export const copyOriginalDataPointNationalClasses = async (
       countryIso: originalDataPoint.countryIso,
       user,
     }
-    const activityLogParams = { activityLog, assessment, cycle }
-    await ActivityLogRepository.insertActivityLog(activityLogParams, t)
+    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     // Note: When copying one or more national classes,
     // we must update the dependent nodes of the original data point.
