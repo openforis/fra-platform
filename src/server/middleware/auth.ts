@@ -92,9 +92,7 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
     _next(
       topic.status === MessageTopicStatus.opened ||
         (topic.status === MessageTopicStatus.resolved &&
-          (Users.isAdministrator(user) ||
-            Users.isReviewer(user, countryIso as CountryIso, cycle) ||
-            Users.isCollaborator(user, countryIso as CountryIso, cycle))),
+          Users.hasEditorRole({ user, countryIso: countryIso as CountryIso, cycle })),
       next
     )
   } else {
