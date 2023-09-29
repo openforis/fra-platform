@@ -71,6 +71,7 @@ jobs:
           PGPASSWORD: frap
       - run: yarn test
         env:
+          CI: true
           PGHOST: localhost
           PGPORT: 5442
           PGDATABASE: frap-dev
