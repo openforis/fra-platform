@@ -9,9 +9,7 @@ const jobOptions: JobsOptions = {
   attempts: 5,
   backoff: { delay: 1000, type: 'fixed' },
   removeOnComplete: true,
-  removeOnFail: {
-    age: 24 * 3600, // keep up to 24 hours
-  },
+  removeOnFail: 3,
 }
 
 export const scheduleUpdateDependencies = (props: UpdateDependenciesProps): Promise<Job<UpdateDependenciesProps>> => {
