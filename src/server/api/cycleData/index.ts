@@ -7,6 +7,8 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { clearTable } from 'server/api/cycleData/table/clearTable'
 import { AuthMiddleware } from 'server/middleware/auth'
 
+import { getActivities } from './activities/getActivities'
+import { getActivitiesCount } from './activities/getActivitiesCount'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
@@ -29,7 +31,6 @@ import { estimateValues } from './table/estimateValues'
 import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
 import { persistNodeValues } from './table/persistNodeValues'
-import { getActivities } from './getActivities'
 
 export const CycleDataApi = {
   init: (express: Express): void => {
@@ -119,5 +120,6 @@ export const CycleDataApi = {
 
     // Activities
     express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)
+    express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireView, getActivitiesCount)
   },
 }

@@ -10,15 +10,16 @@ import Header from './Header'
 import Paginator from './Paginator'
 import { Props } from './types'
 
-const TablePaginated = <Datum extends object>(props: Props<Datum> & { className?: string }) => {
-  const { columns, path, className } = props
+type TablePaginatedProps<Datum extends object> = Props<Datum> & { className?: string; header?: boolean }
+const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>) => {
+  const { className, columns, header, path, params } = props
 
-  useFetchData({ path })
+  useFetchData({ path, params })
 
   return (
     <div className={className}>
       <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
-        <Header columns={columns} path={path} />
+        {header && <Header columns={columns} path={path} />}
         <Body columns={columns} path={path} />
       </DataGrid>
 
@@ -31,6 +32,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum> & { className?
 
 TablePaginated.defaultProps = {
   className: '',
+  header: true,
 }
 
 export default TablePaginated

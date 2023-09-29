@@ -13,18 +13,20 @@ type Props = {
   orderBy?: TablePaginatedOrderBy
   page: number
   path: string
+  params?: Record<string, string>
 }
 
 type Returned = Array<any>
 
 export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/get', async (props) => {
-  const { assessmentName, cycleName, orderBy, page, path } = props
+  const { assessmentName, cycleName, orderBy, page, path, params: _params = {} } = props
 
   const params: TablePaginatedDataRequestParams = {
     assessmentName,
     cycleName,
     limit: String(limit),
     offset: String(page * limit),
+    ..._params,
   }
 
   if (orderBy && orderBy.property && orderBy.direction) {

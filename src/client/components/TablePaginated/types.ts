@@ -2,7 +2,7 @@ import React from 'react'
 
 export type Column<Datum> = {
   component: React.FC<{ datum: Datum }>
-  header: string | React.FC
+  header?: string | React.FC
   key: string
   orderByProperty?: string
 }
@@ -10,4 +10,5 @@ export type Column<Datum> = {
 export type Props<Datum> = {
   columns: Array<Column<Datum>>
   path: string
+  params?: Record<string, string>
 }

@@ -1,11 +1,13 @@
 import { Request } from 'express'
 
+import { CountryIso } from 'meta/area'
 import { AssessmentName, CycleName } from 'meta/assessment'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 type BaseParams = {
   assessmentName: AssessmentName
   cycleName: CycleName
+  countryIso?: CountryIso
 }
 
 export type TablePaginatedDataRequestParams = BaseParams & {

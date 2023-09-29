@@ -54,5 +54,6 @@ export const CycleDataController = {
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
   getActivities: ActivityLogRepository.getCycleDataActivities,
+  getActivitiesCount: ActivityLogRepository.getCycleDataActivitiesCount,
   getBulkDownload,
 }
