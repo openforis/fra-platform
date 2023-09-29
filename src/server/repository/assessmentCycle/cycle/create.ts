@@ -20,11 +20,10 @@ export const create = async (
 
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, { name } as Cycle)
-  await Promise.all([
-    DB.query(AssessmentRepository.getCreateSchemaCycleDDL(schemaAssessment, schemaCycle)),
-    name === AssessmentNames.fra &&
-      DB.query(AssessmentRepository.getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle)),
-  ])
+  await DB.query(AssessmentRepository.getCreateSchemaCycleDDL(schemaAssessment, schemaCycle))
+  if ([AssessmentNames.fra, AssessmentNames.fraTest].includes(assessment.props.name as AssessmentNames)) {
+    await DB.query(AssessmentRepository.getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle))
+  }
 
   const cycle = await client.one<Cycle>(
     `insert into assessment_cycle (assessment_id, name)
