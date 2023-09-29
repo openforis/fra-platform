@@ -15,11 +15,11 @@ const jobOptions: JobsOptions = {
 }
 
 export const scheduleUpdateDependencies = (props: UpdateDependenciesProps): Promise<Job<UpdateDependenciesProps>> => {
-  const { nodeUpdates } = props
-  const { assessment, cycle, countryIso, nodes } = nodeUpdates
+  const { assessment, cycle, nodeUpdates } = props
+  const { countryIso, nodes } = nodeUpdates
 
   Logger.debug(`[scheduleUpdateDependencies] ${countryIso} ${nodes.length} nodes added to updateDependencies queue`)
 
-  const propsQueue = { assessment, cycle, countryIso }
-  return UpdateDependenciesQueueFactory.getInstance(propsQueue).add('updateDependencies', props, jobOptions)
+  const queue = UpdateDependenciesQueueFactory.getInstance({ assessment, cycle, countryIso })
+  return queue.add('updateDependencies', props, jobOptions)
 }

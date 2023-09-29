@@ -1,4 +1,4 @@
-import { AssessmentMetaCaches, NodeValue } from 'meta/assessment'
+import { Assessment, AssessmentMetaCaches, Cycle, NodeValue } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { BaseProtocol } from 'server/db'
@@ -6,12 +6,14 @@ import { NodeRepository } from 'server/repository/assessmentCycle/node'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
 type Props = {
+  assessment: Assessment
+  cycle: Cycle
   nodeUpdates: NodeUpdates
 }
 
 export const resetMirrorNodes = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
-  const { nodeUpdates } = props
-  const { assessment, cycle, countryIso, nodes } = nodeUpdates
+  const { assessment, cycle, nodeUpdates } = props
+  const { countryIso, nodes } = nodeUpdates
   const nodeUpdatesResult: NodeUpdates = { ...nodeUpdates }
 
   await Promise.all(

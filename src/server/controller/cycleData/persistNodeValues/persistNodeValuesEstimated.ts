@@ -29,10 +29,10 @@ const getActivityLog = (props: Props): ActivityLog<NodeValuesEstimation> => {
 const getPersistNodeValuesProps = (props: Props): Parameters<typeof persistNodeValues>['0'] => {
   const { assessment, countryIso, cycle, nodes, sectionName, user } = props
 
-  const nodeUpdates = { assessment, cycle, countryIso, nodes }
+  const nodeUpdates = { assessmentName: assessment.props.name, cycleName: cycle.name, countryIso, nodes }
   const activityLogMessage = ActivityLogMessage.nodeValueEstimate
 
-  return { activityLogMessage, nodeUpdates, sectionName, user }
+  return { assessment, cycle, activityLogMessage, nodeUpdates, sectionName, user }
 }
 
 export const persistNodeValuesEstimated = async (props: Props): Promise<void> => {
