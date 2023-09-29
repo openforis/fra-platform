@@ -19,7 +19,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useNationalClassNameComments } from '../../hooks'
 
 const allowedClass = (nc: ODPNationalClass) =>
-  nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) >= 0 && Number(nc.forestPercent) > 0
+  nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) > 0 && Number(nc.forestPercent) > 0
 
 const columns: Columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal' }]
 
