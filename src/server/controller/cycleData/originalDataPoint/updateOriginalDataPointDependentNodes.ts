@@ -42,7 +42,6 @@ export const updateOriginalDataPointDependentNodes = async (props: Props): Promi
   await scheduleUpdateDependencies({
     isODP: true,
     nodeUpdates: { assessment, cycle, countryIso, nodes },
-    sectionName: 'extentOfForest', // TODO: remove sectionName as prop from UpdateDependenciesProps
     user,
   })
 

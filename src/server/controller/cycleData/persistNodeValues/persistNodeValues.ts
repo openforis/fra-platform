@@ -1,6 +1,7 @@
 import { ActivityLogMessage } from 'meta/assessment'
-import { NodeUpdate } from 'meta/data'
+import { NodeUpdate, NodeUpdates } from 'meta/data'
 import { Sockets } from 'meta/socket'
+import { User } from 'meta/user'
 
 import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
@@ -9,12 +10,15 @@ import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 
 import { persistNode } from './persistNode'
-import { PersistNodeValuesProps } from './props'
 
-export const persistNodeValues = async (
-  props: PersistNodeValuesProps & { activityLogMessage?: ActivityLogMessage },
-  client: BaseProtocol = DB
-): Promise<void> => {
+type Props = {
+  activityLogMessage?: ActivityLogMessage
+  nodeUpdates: NodeUpdates
+  sectionName: string
+  user: User
+}
+
+export const persistNodeValues = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { user, nodeUpdates, activityLogMessage, sectionName } = props
   const { assessment, cycle, countryIso } = nodeUpdates
 
@@ -53,7 +57,7 @@ export const persistNodeValues = async (
       SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
 
       // schedule dependencies update
-      await scheduleUpdateDependencies({ nodeUpdates: nodeUpdatesPersisted, sectionName, user })
+      await scheduleUpdateDependencies({ nodeUpdates: nodeUpdatesPersisted, user })
     } catch (error) {
       Logger.error(error)
       throw error

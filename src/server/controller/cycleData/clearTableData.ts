@@ -36,7 +36,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
 
     // schedule dependencies update
-    await scheduleUpdateDependencies({ isODP: true, nodeUpdates, sectionName, user })
+    await scheduleUpdateDependencies({ isODP: true, nodeUpdates, user })
 
     // persist activity log
     const activityLog = {
