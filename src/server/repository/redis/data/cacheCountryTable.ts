@@ -10,16 +10,17 @@ type PropsCache = {
   cycle: Cycle
   countryIso: CountryIso
   tableName: TableName
+  force?: boolean
 }
 
-export const _cacheCountryTable = async (props: PropsCache): Promise<void> => {
-  const { assessment, cycle, countryIso, tableName } = props
+export const cacheCountryTable = async (props: PropsCache): Promise<void> => {
+  const { assessment, cycle, countryIso, tableName, force } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, cycle, countryIso, key: Keys.Data.data })
 
   const exist = await redis.hexists(key, tableName)
-  if (!exist) {
+  if (!exist || force) {
     const propsData = { assessment, cycle, countryISOs: [countryIso], tables: { [tableName]: {} } }
     const data =
       tableName === TableNames.originalDataPointValue

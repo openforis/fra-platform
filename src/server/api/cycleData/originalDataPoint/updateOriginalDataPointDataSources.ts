@@ -7,7 +7,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const updateOriginalDataPoint = async (
+export const updateOriginalDataPointDataSources = async (
   req: CycleRequest<never, { originalDataPoint: OriginalDataPoint }>,
   res: Response
 ) => {
@@ -15,18 +15,11 @@ export const updateOriginalDataPoint = async (
     const { assessmentName, cycleName } = req.query
     const { originalDataPoint } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName,
-      cycleName,
-      metaCache: true,
-    })
+    const metaCache = true
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
-    const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPoint({
-      assessment,
-      cycle,
-      originalDataPoint,
-      user: Requests.getUser(req),
-    })
+    const propsUpdate = { assessment, cycle, originalDataPoint, user: Requests.getUser(req) }
+    const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointDataSources(propsUpdate)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

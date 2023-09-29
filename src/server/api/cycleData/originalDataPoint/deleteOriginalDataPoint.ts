@@ -10,25 +10,13 @@ export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }
   try {
     const { assessmentName, cycleName, year, countryIso } = req.query
 
-    const originalDataPoint = await CycleDataController.getOriginalDataPoint({
-      assessmentName,
-      cycleName,
-      year,
-      countryIso,
-    })
+    const metaCache = true
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
+    const originalDataPoint = await CycleDataController.getOriginalDataPoint({ assessment, cycle, year, countryIso })
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName,
-      cycleName,
-      metaCache: true,
-    })
-
-    const returnedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint({
-      assessment,
-      cycle,
-      originalDataPoint,
-      user: Requests.getUser(req),
-    })
+    const user = Requests.getUser(req)
+    const propsRemove = { assessment, cycle, originalDataPoint, user }
+    const returnedOriginalDataPoint = await CycleDataController.removeOriginalDataPoint(propsRemove)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

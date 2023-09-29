@@ -1,42 +1,65 @@
+import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
+import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
+import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
+import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
+import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
+import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
+import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { clearTableData } from './clearTableData'
-import { createOriginalDataPoint } from './createOriginalDataPoint'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
-import { getOriginalDataPoint } from './getOriginalDataPoint'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
-import { removeOriginalDataPoint } from './removeOriginalDataPoint'
-import { updateOriginalDataPoint } from './updateOriginalDataPoint'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
-  // node
+  // ===== node
   persistNodeValues,
   persistNodeValuesEstimated,
-  // table data
-  getTableData,
-  clearTableData,
+
+  // node values estimation
   getNodeValuesEstimations,
-  // original data points
+
+  // ===== table data
+  clearTableData,
+  getTableData,
+
+  // ===== original data point
   createOriginalDataPoint,
-  getOriginalDataPoint,
+  getOriginalDataPoint: OriginalDataPointRepository.getOne,
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
-  updateOriginalDataPoint,
-  // review
+  // data
+  updateOriginalDataPointOriginalData,
+  // data sources
+  updateOriginalDataPointDataSources,
+  // description
+  updateOriginalDataPointDescription,
+  // national classes
+  copyOriginalDataPointNationalClasses,
+  deleteOriginalDataPointNationalClass,
+  updateOriginalDataPointNationalClasses,
+
+  // ===== review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
-  // description
+
+  // ==== description
   getDataSources: DescriptionRepository.getDataSources,
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
+
+  // ==== activities
   getActivities: ActivityLogRepository.getCycleDataActivities,
+
+  // bulk download
   getBulkDownload,
 }

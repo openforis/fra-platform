@@ -11,8 +11,8 @@ import {
 } from 'meta/assessment'
 import { NodeUpdates } from 'meta/data'
 
-import { isODPVariable } from 'server/controller/cycleData/getOriginalDataPointVariables'
 import { getTableData } from 'server/controller/cycleData/getTableData'
+import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { RowRedisRepository } from 'server/repository/redis/row'
 

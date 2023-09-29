@@ -1,10 +1,24 @@
 import { Arrays } from 'utils/arrays'
 
-import { CycleName } from 'meta/assessment'
+import { CycleName, OriginalDataPoint } from 'meta/assessment'
 
 import { useAppSelector } from 'client/store'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useOriginalDataPoint = () => useAppSelector((state) => state.ui.originalDataPoint?.data)
+export const useOriginalDataPoint = (): OriginalDataPoint => {
+  const { countryIso } = useCountryRouteParams()
+  const originalDataPoint = useAppSelector((state) => state.ui.originalDataPoint?.data)
+  const originalDataPointTemplate = {
+    countryIso,
+    year: -1,
+    dataSourceAdditionalComments: '',
+    dataSourceMethods: [],
+    dataSourceReferences: '',
+    description: '',
+    nationalClasses: [],
+  } as OriginalDataPoint
+  return originalDataPoint ?? originalDataPointTemplate
+}
 
 export const useIsOriginalDataPointUpdating = () => useAppSelector((state) => state.ui.originalDataPoint?.updating)
 

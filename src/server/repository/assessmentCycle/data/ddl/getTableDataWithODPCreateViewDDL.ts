@@ -1,6 +1,6 @@
 import { Assessment, Cycle, Table, TableNames } from 'meta/assessment'
 
-import { getOriginalDataPointVariables } from 'server/controller/cycleData/getOriginalDataPointVariables'
+import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { Schemas, Tables } from 'server/db'
 
 type Props = {
@@ -15,7 +15,7 @@ export const getTableDataWithODPCreateViewDDL = (props: Props): string => {
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   const tableName = table.props.name
-  const odpVariables = getOriginalDataPointVariables(cycle).filter((variable) => variable.tableName === tableName)
+  const odpVariables = getOriginalDataPointVariables({ cycle }).filter((variable) => variable.tableName === tableName)
 
   const query = `
 create or replace view ${schemaCycle}.${Tables.getTableDataWithOdpViewName({ tableName })} as

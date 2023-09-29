@@ -10,14 +10,19 @@ import { AuthMiddleware } from 'server/middleware/auth'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
+import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
+import { deleteOriginalDataPointNationalClass } from './originalDataPoint/deleteOriginalDataPointNationalClass'
 import { getLastUpdatedTimestamp } from './originalDataPoint/getLastUpdatedTimestamp'
 import { getOriginalDataPoint } from './originalDataPoint/getOdp'
 import { getOriginalDataPointData } from './originalDataPoint/getOriginalDataPointData'
 import { getOriginalDataPoints } from './originalDataPoint/getOriginalDataPoints'
 import { getReservedYears } from './originalDataPoint/getReservedYears'
-import { updateOriginalDataPoint } from './originalDataPoint/updateOriginalDataPoint'
+import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
+import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
+import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
+import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { estimateValues } from './table/estimateValues'
@@ -63,10 +68,38 @@ export const CycleDataApi = {
       deleteOriginalDataPoint
     )
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.one(), AuthMiddleware.requireView, getOriginalDataPoint)
+
     express.put(
-      ApiEndPoint.CycleData.OriginalDataPoint.one(),
+      ApiEndPoint.CycleData.OriginalDataPoint.copyNationalClasses(),
       AuthMiddleware.requireEditTableData,
-      updateOriginalDataPoint
+      copyOriginalDataPointNationalClasses
+    )
+    express.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
+      AuthMiddleware.requireEditTableData,
+      updateOriginalDataPointDataSources
+    )
+    express.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.description(),
+      AuthMiddleware.requireEditTableData,
+      updateOriginalDataPointDescription
+    )
+    express.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.originalData(),
+      AuthMiddleware.requireEditTableData,
+      updateOriginalDataPointOriginalData
+    )
+    // OriginalDataPoint NationalClasses
+    express.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.nationalClasses(),
+      AuthMiddleware.requireEditTableData,
+      updateOriginalDataPointNationalClasses
+    )
+
+    express.delete(
+      ApiEndPoint.CycleData.OriginalDataPoint.nationalClass(),
+      AuthMiddleware.requireEditTableData,
+      deleteOriginalDataPointNationalClass
     )
 
     express.get(
