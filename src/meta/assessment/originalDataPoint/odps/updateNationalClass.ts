@@ -24,6 +24,7 @@ const calculateValues = (nationalClass: ODPNationalClass) => {
     forestPercent,
     otherWoodedLandPercent,
     forestPlantationIntroducedPercent,
+    forestNaturalForestOfWhichPrimaryForestPercent,
   } = nationalClass
 
   const rowIsMaxedForestCharacteristics = Numbers.eq(
@@ -40,6 +41,13 @@ const calculateValues = (nationalClass: ODPNationalClass) => {
     _forestPlantationIntroducedPercent = '0'
   }
 
+  // if forestNaturalPercent is 0, set forestPlantationIntroducedPercent to 0
+  let _forestNaturalForestOfWhichPrimaryForestPercent = forestNaturalForestOfWhichPrimaryForestPercent
+
+  if (Numbers.eq(forestNaturalPercent, 0)) {
+    _forestNaturalForestOfWhichPrimaryForestPercent = '0'
+  }
+
   return {
     ...nationalClass,
     forestNaturalPercent: getValueOrNull(forestNaturalPercent, rowIsMaxedForestCharacteristics),
@@ -48,6 +56,7 @@ const calculateValues = (nationalClass: ODPNationalClass) => {
     forestPercent: getValueOrNull(forestPercent, rowIsMaxedExtentOfForest),
     otherWoodedLandPercent: getValueOrNull(otherWoodedLandPercent, rowIsMaxedExtentOfForest),
     forestPlantationIntroducedPercent: _forestPlantationIntroducedPercent,
+    forestNaturalForestOfWhichPrimaryForestPercent: _forestNaturalForestOfWhichPrimaryForestPercent,
   }
 }
 
