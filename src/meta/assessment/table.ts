@@ -7,6 +7,7 @@ import { Unit } from 'meta/assessment/unit'
 // utility table names
 // e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
 export enum TableNames {
+  climaticDomain = 'climaticDomain',
   carbonStock = 'carbonStock',
   carbonStockAvg = 'carbonStockAvg',
   extentOfForest = 'extentOfForest',

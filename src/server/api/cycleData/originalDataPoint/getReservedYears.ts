@@ -12,11 +12,7 @@ export const getReservedYears = async (req: CycleRequest, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const reservedYears = await CycleDataController.getOriginalDataPointReservedYears({
-      countryIso,
-      assessment,
-      cycle,
-    })
+    const reservedYears = await CycleDataController.getOriginalDataPointReservedYears({ assessment, cycle, countryIso })
 
     Requests.send(res, reservedYears)
   } catch (err) {

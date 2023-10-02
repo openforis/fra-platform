@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CycleDataRequest } from 'meta/api/request'
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -8,25 +8,22 @@ import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
 export const createOriginalDataPoint = async (
-  req: CycleRequest<never, { originalDataPoint: OriginalDataPoint }>,
+  req: CycleDataRequest<never, { originalDataPoint: OriginalDataPoint }>,
   res: Response
 ) => {
   try {
-    const { assessmentName, cycleName } = req.query
+    const { assessmentName, cycleName, sectionName } = req.query
     const { originalDataPoint } = req.body
 
     if (!originalDataPoint.year) {
       throw new Error(`odpMissingYear`)
     }
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const metaCache = true
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
-    const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
-      assessment,
-      cycle,
-      originalDataPoint,
-      user: Requests.getUser(req),
-    })
+    const propsCreate = { assessment, cycle, originalDataPoint, sectionName, user: Requests.getUser(req) }
+    const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint(propsCreate)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

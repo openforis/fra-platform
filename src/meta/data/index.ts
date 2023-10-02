@@ -8,3 +8,4 @@ export type {
   RecordTableData,
 } from './RecordAssessmentData'
 export { RecordAssessmentDatas } from './recordAssessmentDatas'
+export type { TableCondition, TablesCondition } from './tableCondition'

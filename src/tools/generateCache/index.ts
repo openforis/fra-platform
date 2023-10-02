@@ -1,36 +1,30 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 
-import { Assessment, Cycle } from 'meta/assessment'
-
 import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db'
-import { SectionRedisRepository } from 'server/repository/redis/section'
 import { Logger } from 'server/utils/logger'
 
-const generateMetadataCache = async (props: { assessment: Assessment; cycle: Cycle }) => {
-  const { assessment, cycle } = props
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
-
-  const sections = await SectionRedisRepository.getMany({ assessment, cycle })
-  Logger.info(`${assessmentName}-${cycleName}: "${sections.length} sections" generated`)
-
-  const sectionsMetadata = await SectionRedisRepository.getManyMetadata({ assessment, cycle })
-  Logger.info(`${assessmentName}-${cycleName}: "${Object.keys(sectionsMetadata).length} sectionsMetadata" generated`)
-}
+import { generateAssessmentCache } from './generateAssessmentCache'
+import { generateDataCache } from './generateDataCache'
+import { generateMetadataCache } from './generateMetadataCache'
 
 const exec = async () => {
   const assessments = await AssessmentController.getAll({})
 
   await Promise.all(
     assessments.map(async (assessment) =>
-      Promise.all(
-        assessment.cycles.map(async (cycle) => {
-          await generateMetadataCache({ assessment, cycle })
-          // await generateDataCache({ assessment, cycle }, client)
-        })
-      )
+      Promise.all([
+        // assessment cache
+        generateAssessmentCache({ assessment }),
+        // cycles cache
+        Promise.all(
+          assessment.cycles.map(async (cycle) => {
+            await generateMetadataCache({ assessment, cycle })
+            await generateDataCache({ assessment, cycle })
+          })
+        ),
+      ])
     )
   )
 }

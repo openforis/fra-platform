@@ -24,10 +24,12 @@ export const copyOriginalDataPointNationalClasses = async (
 ): Promise<OriginalDataPoint> => {
   const { assessment, cycle, countryIso, year, targetYear, user } = props
 
-  return client.tx(async (t) => {
+  const odpReturn = await client.tx(async (t) => {
     const commonProps = { assessment, cycle, countryIso }
-    const originalDataPoint = await OriginalDataPointRepository.getOne({ ...commonProps, year }, t)
-    const targetOriginalDataPoint = await OriginalDataPointRepository.getOne({ ...commonProps, year: targetYear }, t)
+    const [originalDataPoint, targetOriginalDataPoint] = await Promise.all([
+      OriginalDataPointRepository.getOne({ ...commonProps, year }, t),
+      OriginalDataPointRepository.getOne({ ...commonProps, year: targetYear }, t),
+    ])
 
     const updateNCProps = {
       assessment,
@@ -49,20 +51,18 @@ export const copyOriginalDataPointNationalClasses = async (
       target: updatedOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateNationalClasses,
-      countryIso: originalDataPoint.countryIso,
+      countryIso,
       user,
     }
-    const activityLogParams = { activityLog, assessment, cycle }
-    await ActivityLogRepository.insertActivityLog(activityLogParams, t)
-
-    // Note: When copying one or more national classes,
-    // we must update the dependent nodes of the original data point.
-    // The new value for copied original data for each national class is always null or undefined, as we don't copy values.
-    await updateOriginalDataPointDependentNodes(
-      { assessment, cycle, originalDataPoint: updatedOriginalDataPoint, user },
-      t
-    )
+    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     return updatedOriginalDataPoint
   })
+
+  // Note: When copying one or more national classes,
+  // we must update the dependent nodes of the original data point.
+  // The new value for copied original data for each national class is always null or undefined, as we don't copy values.
+  await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint: odpReturn, user })
+
+  return odpReturn
 }

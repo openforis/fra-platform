@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, NodeValue } from 'meta/assessment'
+import { AssessmentName, CycleName, NodeValue } from 'meta/assessment'
 
 export type NodeUpdate = {
   tableName: string
@@ -9,8 +9,8 @@ export type NodeUpdate = {
 }
 
 export type NodeUpdates = {
-  assessment: Assessment
-  cycle: Cycle
+  assessmentName: AssessmentName
+  cycleName: CycleName
   countryIso: CountryIso
   nodes: Array<NodeUpdate>
 }

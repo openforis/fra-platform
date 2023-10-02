@@ -15,11 +15,18 @@ const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
 
-const getInstance = (props: {
+type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
-}): Queue<UpdateDependenciesProps> => {
+}
+
+const opts: QueueOptions = {
+  connection,
+  streams: { events: { maxLen: 10 } },
+}
+
+const getInstance = (props: Props): Queue<UpdateDependenciesProps> => {
   const { assessment, cycle, countryIso } = props
 
   const key = `persistNodeValue/dependenciesUpdate/${assessment.props.name}/${cycle.name}/${countryIso}`
@@ -29,10 +36,6 @@ const getInstance = (props: {
 
   workers[key] = WorkerFactory.newInstance({ key })
 
-  const opts: QueueOptions = {
-    connection,
-    streams: { events: { maxLen: 10 } },
-  }
   queue = new Queue<UpdateDependenciesProps>(key, opts)
   queues[key] = queue
 
@@ -41,7 +44,7 @@ const getInstance = (props: {
 
 process.on('SIGTERM', async () => {
   await Promise.all(Object.values(workers).map((worker) => worker.close()))
-  Logger.debug('[calculateAndValidateDependentNodesWorkers] all workers closed')
+  Logger.debug('[updateDependencies] all workers closed')
 })
 
 export const UpdateDependenciesQueueFactory = {

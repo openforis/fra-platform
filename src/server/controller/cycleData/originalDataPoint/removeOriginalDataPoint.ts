@@ -9,47 +9,41 @@ import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
 
-export const removeOriginalDataPoint = async (
-  props: {
-    assessment: Assessment
-    cycle: Cycle
-    originalDataPoint: OriginalDataPoint
-    user: User
-  },
-  client: BaseProtocol = DB
-): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, originalDataPoint, user } = props
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  originalDataPoint: OriginalDataPoint
+  user: User
+}
 
-  return client.tx(async (t) => {
+export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
+  const { assessment, cycle, originalDataPoint, user } = props
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+  const { countryIso } = originalDataPoint
+
+  const odpReturn = await client.tx(async (t) => {
     const removedOriginalDataPoint = await OriginalDataPointRepository.remove(
       { assessment, cycle, originalDataPoint },
       t
     )
 
-    await ActivityLogRepository.insertActivityLog(
-      {
-        activityLog: {
-          target: removedOriginalDataPoint,
-          section: 'odp',
-          message: ActivityLogMessage.originalDataPointRemove,
-          countryIso: originalDataPoint.countryIso,
-          user,
-        },
-        assessment,
-        cycle,
-      },
-      t
-    )
+    const activityLog = {
+      target: removedOriginalDataPoint,
+      section: 'odp',
+      message: ActivityLogMessage.originalDataPointRemove,
+      countryIso,
+      user,
+    }
+    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user }, t)
-
-    const nodeUpdateEvent = Sockets.getODPDeleteEvent({
-      assessmentName: assessment.props.name,
-      cycleName: cycle.name,
-      countryIso: originalDataPoint.countryIso,
-    })
-    SocketServer.emit(nodeUpdateEvent, { countryIso: originalDataPoint.countryIso, year: originalDataPoint.year })
+    const nodeUpdateEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
+    SocketServer.emit(nodeUpdateEvent, { countryIso, year: originalDataPoint.year })
 
     return removedOriginalDataPoint
   })
+
+  await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user })
+
+  return odpReturn
 }
