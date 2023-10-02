@@ -3,6 +3,7 @@ import 'dotenv/config'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
 import { DB } from 'server/db'
+import { RedisData } from 'server/repository/redis/redisData'
 
 import assessmentCreate from 'test/integration/assessment/createAssessment'
 import originalDataPoint from 'test/integration/assessment/originalDataPoint'
@@ -33,6 +34,7 @@ afterAll(async () => {
   // TODO: find a better strategy to handle Redis connections
   UpdateDependenciesQueueFactory.connection.quit()
   WorkerFactory.connection.quit()
+  RedisData.getInstance().quit()
 })
 
 describe('Metadata integration test', () => {

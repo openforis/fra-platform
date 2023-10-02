@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Row, RowProps } from 'meta/assessment'
+import { Row, RowCache, RowProps } from 'meta/assessment'
 
 import { ColAdapter, ColDB } from 'server/repository/adapter/col'
 
@@ -33,3 +33,5 @@ export const RowAdapter = (rowDB: RowDB): Row => {
   }
   return _row
 }
+
+export const RowCacheAdapter = (rowDB: RowDB): RowCache => RowAdapter(rowDB) as RowCache

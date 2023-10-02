@@ -38,7 +38,7 @@ export const initSchedulers = (): void => {
   )
   workers.push(worker)
 
-  queue.add('scheduler', undefined, { repeat: { every: 1000 * 60 * 60 } })
+  queue.add('scheduler', undefined, { repeat: { every: 1000 * 60 * 60 }, removeOnComplete: true, removeOnFail: false })
 }
 
 process.on('SIGTERM', async () => {

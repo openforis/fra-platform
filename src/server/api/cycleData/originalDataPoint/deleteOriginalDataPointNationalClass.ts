@@ -13,19 +13,11 @@ export const deleteOriginalDataPointNationalClass = async (
   try {
     const { assessmentName, cycleName, odpId: id, index } = req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName,
-      cycleName,
-      metaCache: true,
-    })
+    const metaCache = true
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
-    const returnedOriginalDataPoint = await CycleDataController.deleteOriginalDataPointNationalClass({
-      assessment,
-      cycle,
-      index,
-      id,
-      user: Requests.getUser(req),
-    })
+    const propsDelete = { assessment, cycle, index, id, user: Requests.getUser(req) }
+    const returnedOriginalDataPoint = await CycleDataController.deleteOriginalDataPointNationalClass(propsDelete)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

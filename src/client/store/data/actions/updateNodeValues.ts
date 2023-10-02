@@ -32,13 +32,13 @@ const getDebounceId = (props: Props) =>
 export const updateNodeValues = createAsyncThunk<void, Props, ThunkApiConfig>(
   'section/nodeValues/update',
   (props, { dispatch, getState }) => {
-    const { assessmentName } = props
+    const { assessmentName, cycleName } = props
     patchNodeValues(getDebounceId(props))(props)
 
     // reset mirror variable value if available -> fasten calculations client side
     const state = getState()
     const assessment = AssessmentSelectors.getAssessment(state, assessmentName)
-    const cycle = assessment.cycles.find((cycle) => cycle.name === props.cycleName)
+    const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
     const { countryIso, tableName, values } = props
     const nodes = values.reduce<Array<NodeUpdate>>((nodesAcc, node) => {
       const { variableName, colName } = node
@@ -55,7 +55,7 @@ export const updateNodeValues = createAsyncThunk<void, Props, ThunkApiConfig>(
       return nodesAcc
     }, [])
     if (nodes.length > 0) {
-      const nodeUpdates: NodeUpdates = { assessment, cycle, countryIso, nodes }
+      const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
       dispatch(setNodeValues({ nodeUpdates }))
     }
   }
