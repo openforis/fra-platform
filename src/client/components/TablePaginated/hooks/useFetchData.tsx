@@ -1,22 +1,39 @@
 import { useEffect } from 'react'
 
+import { CountryIso } from 'meta/area'
+
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useFetchData = (props: { path: string; params: Record<string, string> }): void => {
-  const { path, params } = props
+type Props = {
+  path: string
+  limit?: number
+}
+
+export const useFetchData = (props: Props): void => {
+  const { path, limit } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
 
   useEffect(() => {
-    dispatch(TablePaginatedActions.getCount({ assessmentName, cycleName, path, params }))
-  }, [assessmentName, cycleName, dispatch, params, path])
+    dispatch(TablePaginatedActions.getCount({ assessmentName, cycleName, countryIso: countryIso as CountryIso, path }))
+  }, [assessmentName, countryIso, cycleName, dispatch, path])
 
   useEffect(() => {
-    dispatch(TablePaginatedActions.getData({ assessmentName, cycleName, orderBy, page, path, params }))
-  }, [assessmentName, cycleName, dispatch, orderBy, page, params, path])
+    dispatch(
+      TablePaginatedActions.getData({
+        assessmentName,
+        cycleName,
+        countryIso: countryIso as CountryIso,
+        orderBy,
+        page,
+        path,
+        limit,
+      })
+    )
+  }, [assessmentName, countryIso, cycleName, dispatch, limit, orderBy, page, path])
 }

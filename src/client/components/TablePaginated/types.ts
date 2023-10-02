@@ -10,5 +10,5 @@ export type Column<Datum> = {
 export type Props<Datum> = {
   columns: Array<Column<Datum>>
   path: string
-  params?: Record<string, string>
+  limit?: number
 }

@@ -12,9 +12,9 @@ import { Props } from './types'
 
 type TablePaginatedProps<Datum extends object> = Props<Datum> & { className?: string; header?: boolean }
 const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>) => {
-  const { className, columns, header, path, params } = props
+  const { className, columns, header, path, limit } = props
 
-  useFetchData({ path, params })
+  useFetchData({ path, limit })
 
   return (
     <div className={className}>
