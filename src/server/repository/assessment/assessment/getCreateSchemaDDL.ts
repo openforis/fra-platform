@@ -360,7 +360,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                                    end as primary_forest
                         FROM classes c
                         WHERE c.class ->> 'forestNaturalPercent' IS NOT NULL
-                          AND (c.class ->> 'forestNaturalPercent')::numeric > 0
+                          AND (c.class ->> 'forestNaturalPercent')::numeric >= 0
                           AND (c.class ->> 'forestPercent')::numeric > 0
                         GROUP BY c.id, c.country_iso, c.year
                         ORDER BY c.id, c.country_iso, c.year),
