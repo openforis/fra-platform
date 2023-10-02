@@ -21,31 +21,29 @@ type Props = {
 export const updateOriginalDataPointDependentNodes = async (props: Props): Promise<void> => {
   const { assessment, cycle, sectionName, originalDataPoint, user } = props
   const { countryIso, year } = originalDataPoint
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
 
   if (!year) {
     return
   }
 
-  // first update cache
+  // 1. update cache
   const tableName = TableNames.originalDataPointValue
   await DataRedisRepository.cacheCountryTable({ assessment, cycle, countryIso, tableName, force: true })
 
+  // 2. schedule dependencies update
   const colName = String(year)
   const originalDataPointVariables = getOriginalDataPointVariables({ cycle, sectionName })
-  const nodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => ({
-    tableName,
-    variableName,
-    colName,
-    value: undefined,
-  }))
-
-  await scheduleUpdateDependencies({
-    isODP: true,
-    nodeUpdates: { assessment, cycle, countryIso, nodes },
-    sectionName: 'extentOfForest', // TODO: remove sectionName as prop from UpdateDependenciesProps
-    user,
+  const nodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => {
+    return { tableName, variableName, colName, value: undefined }
   })
 
+  const nodeUpdates = { assessmentName, cycleName, countryIso, nodes }
+  const propsDeps = { assessment, cycle, isODP: true, nodeUpdates, user }
+  await scheduleUpdateDependencies(propsDeps)
+
+  // 3. notifies client
   const data = await getTableData({
     aggregate: false,
     columns: [],
@@ -58,33 +56,15 @@ export const updateOriginalDataPointDependentNodes = async (props: Props): Promi
   })
 
   // send originalDataPointValue table updates to client via websocket
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
   const tableNameTarget = TableNames.originalDataPointValue
-
   const propsEvent = { countryIso, assessmentName, cycleName, tableName: tableNameTarget, colName }
   const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
 
-  const nodeUpdates: NodeUpdates = {
-    assessment,
-    cycle,
-    countryIso,
-    nodes: originalDataPointVariables.map(({ variableName, tableName }) => {
-      return {
-        value: RecordAssessmentDatas.getNodeValue({
-          assessmentName,
-          cycleName,
-          colName,
-          variableName,
-          tableName,
-          countryIso,
-          data,
-        }),
-        colName,
-        tableName: TableNames.originalDataPointValue,
-        variableName,
-      }
-    }),
-  }
-  SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+  const nodesUpdated = originalDataPointVariables.map<NodeUpdate>(({ variableName, tableName }) => {
+    const propsValue = { assessmentName, cycleName, colName, variableName, tableName, countryIso, data }
+    const value = RecordAssessmentDatas.getNodeValue(propsValue)
+    return { tableName: TableNames.originalDataPointValue, variableName, colName, value }
+  })
+  const nodeUpdatesUpdated: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: nodesUpdated }
+  SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesUpdated })
 }

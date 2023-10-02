@@ -27,10 +27,9 @@ const newInstance = (props: { key: string }) => {
 
   worker.on('completed', (job: Job, result: { nodeUpdates: NodeUpdates }) => {
     const { nodeUpdates } = result
-    const { assessment, cycle, countryIso } = nodeUpdates
+    const { assessmentName, cycleName, countryIso } = nodeUpdates
 
-    const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
-    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
 
     Logger.debug(

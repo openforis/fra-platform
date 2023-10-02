@@ -15,8 +15,8 @@ type Props = {
 
 export const persistResults = async (props: Props): Promise<void> => {
   const { result, user } = props
-  const { nodes, nodeUpdates, nodesDb, rowsByColUuid } = result
-  const { assessment, cycle, countryIso } = nodeUpdates
+  const { assessment, cycle, nodes, nodeUpdates, nodesDb, rowsByColUuid } = result
+  const { countryIso } = nodeUpdates
 
   await DB.tx(async (client) => {
     // 1. Insert calculated nodes into DB

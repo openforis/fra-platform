@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Col, RowCache, TableName } from 'meta/assessment'
+import { Assessment, Col, Cycle, RowCache, TableName } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { NodeDb } from 'server/repository/assessmentCycle/node'
@@ -22,6 +22,14 @@ export class ContextResult {
     this.#rowsByColUuid = {}
   }
 
+  get assessment(): Assessment {
+    return this.#context.assessment
+  }
+
+  get cycle(): Cycle {
+    return this.#context.cycle
+  }
+
   get nodes(): Record<TableName, Array<NodeUpdate>> {
     return this.#nodes
   }
@@ -32,8 +40,10 @@ export class ContextResult {
 
   get nodeUpdates(): NodeUpdates {
     const { assessment, cycle, countryIso } = this.#context
+    const assessmentName = assessment.props.name
+    const cycleName = cycle.name
     const nodes = Object.values(this.#nodes).flatMap((nodes) => nodes)
-    return { assessment, cycle, countryIso, nodes }
+    return { assessmentName, cycleName, countryIso, nodes }
   }
 
   get rowsByColUuid(): Record<string, RowCache> {

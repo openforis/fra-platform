@@ -1,7 +1,9 @@
 import { Country } from 'meta/area'
 import {
+  Assessment,
   AssessmentMetaCaches,
   ColName,
+  Cycle,
   RowCacheKey,
   RowCaches,
   TableName,
@@ -19,6 +21,8 @@ import { RowRedisRepository } from 'server/repository/redis/row'
 import { Context } from './context'
 
 type Props = {
+  assessment: Assessment
+  cycle: Cycle
   isODP: boolean
   nodeUpdates: NodeUpdates
 }
@@ -45,7 +49,7 @@ export class ContextFactory {
   // keep track of which table data to fetch
   #addTableCondition(props: { tableName: TableName; variableName: VariableName }): void {
     const { tableName, variableName } = props
-    const { assessment, cycle } = this.#props.nodeUpdates
+    const { assessment, cycle } = this.#props
     // this.#tables[tableName] = {}
     this.#tableNames.add(tableName)
 
@@ -59,10 +63,10 @@ export class ContextFactory {
   // check whether a variable must be added to the queue
   #mustAddToQueue(variable: VariableCache): boolean {
     const { tableName } = variable
-    const { isODP, nodeUpdates } = this.#props
+    const { cycle, isODP } = this.#props
     const { useOriginalDataPoint } = this.#country.props.forestCharacteristics
 
-    if (isODP && isODPVariable(nodeUpdates.cycle, variable)) {
+    if (isODP && isODPVariable(cycle, variable)) {
       if (tableName === TableNames.extentOfForest) return false
       if (tableName === TableNames.forestCharacteristics) return !useOriginalDataPoint
     }
@@ -84,7 +88,7 @@ export class ContextFactory {
   // add node dependants to queue. Returns true if input node is dependant of itself, false otherwise
   #addDependantsToQueue(props: { tableName: TableName; variableName: VariableName; colName: ColName }): boolean {
     const { tableName, variableName, colName } = props
-    const { assessment, cycle } = this.#props.nodeUpdates
+    const { assessment, cycle } = this.#props
 
     const dependants = AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
     dependants.forEach((variable) => {
@@ -105,7 +109,8 @@ export class ContextFactory {
   }
 
   async #initQueue(): Promise<void> {
-    const { assessment, cycle, countryIso, nodes } = this.#props.nodeUpdates
+    const { assessment, cycle, nodeUpdates } = this.#props
+    const { countryIso, nodes } = nodeUpdates
 
     this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso })
 
@@ -121,7 +126,8 @@ export class ContextFactory {
   }
 
   async #createContext(): Promise<Context> {
-    const { assessment, cycle, countryIso } = this.#props.nodeUpdates
+    const { assessment, cycle, nodeUpdates } = this.#props
+    const { countryIso } = nodeUpdates
     const queue = this.#queue
     const visitedVariables = this.#visitedVariables
     const tableNames = Array.from(this.#tableNames)

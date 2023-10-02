@@ -5,6 +5,8 @@ import { updateOriginalDataPointDependentNodes } from 'server/controller/cycleDa
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { ProcessEnv } from 'server/utils'
+import { NodeEnv } from 'server/utils/processEnv'
 
 type Props = {
   assessment: Assessment
@@ -36,7 +38,9 @@ export const createOriginalDataPoint = async (props: Props, client: BaseProtocol
     return createdOriginalDataPoint
   })
 
-  await updateOriginalDataPointDependentNodes({ assessment, cycle, sectionName, originalDataPoint: odpReturn, user })
+  if (ProcessEnv.nodeEnv !== NodeEnv.test) {
+    await updateOriginalDataPointDependentNodes({ assessment, cycle, sectionName, originalDataPoint: odpReturn, user })
+  }
 
   return odpReturn
 }

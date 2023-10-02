@@ -8,9 +8,11 @@ import { UpdateDependenciesProps } from './props'
 import { updateCalculationDependencies } from './updateCalculationDependencies'
 
 const _getLogKey = (job: Job<UpdateDependenciesProps>): string => {
-  const { assessment, cycle, countryIso } = job.data.nodeUpdates
+  const { assessment, cycle, nodeUpdates } = job.data
+
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
+  const { countryIso } = nodeUpdates
   return `[updateDependencies-workerThread] [${[assessmentName, cycleName, countryIso].join('-')}] [job-${job.id}]`
 }
 
@@ -20,8 +22,8 @@ export default async (job: Job<UpdateDependenciesProps>) => {
     const time = new Date().getTime()
     Logger.info(`${logKey} started with ${job.data.nodeUpdates.nodes.length} nodes.`)
 
-    const { nodeUpdates, isODP, user } = job.data
-    const context = await ContextFactory.newInstance({ isODP, nodeUpdates })
+    const { assessment, cycle, nodeUpdates, isODP, user } = job.data
+    const context = await ContextFactory.newInstance({ assessment, cycle, isODP, nodeUpdates })
     const result = updateCalculationDependencies({ context, jobId: job.id })
     await persistResults({ result, user })
 
