@@ -11,12 +11,12 @@ import { userMockTest } from 'test/integration/mock/user'
 export default (): void =>
   describe('Original data point', () => {
     let assessment: Assessment
-    let assessmentCycle: Cycle
+    let cycle: Cycle
     let user: User
     let gotOriginalDataPoint: OriginalDataPoint
 
     beforeAll(async () => {
-      ;({ assessment, cycle: assessmentCycle } = await AssessmentController.getOneWithCycle({
+      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
         assessmentName: assessmentParams.props.name,
         cycleName: assessmentCycleName,
         metaCache: true,
@@ -28,14 +28,15 @@ export default (): void =>
     it('Create new Original data point', async () => {
       const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
         assessment,
-        cycle: assessmentCycle,
+        cycle,
+        sectionName: 'extentOfForest',
         originalDataPoint,
         user,
       })
 
       gotOriginalDataPoint = await CycleDataController.getOriginalDataPoint({
-        assessmentName: assessment.props.name,
-        cycleName: assessmentCycleName,
+        assessment,
+        cycle,
         year: String(createdOriginalDataPoint.year),
         countryIso: createdOriginalDataPoint.countryIso,
       })
@@ -93,8 +94,8 @@ export default (): void =>
     it('Get not existing Original data point', async () => {
       await expect(
         CycleDataController.getOriginalDataPoint({
-          assessmentName: assessment.props.name,
-          cycleName: assessmentCycleName,
+          assessment,
+          cycle,
           year: '2299',
           countryIso: 'FIN',
         })

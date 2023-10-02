@@ -6,7 +6,6 @@ import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
-import { getOriginalDataPoint } from './originalDataPoint/getOriginalDataPoint'
 import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
@@ -15,45 +14,54 @@ import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateO
 import { clearTableData } from './clearTableData'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
-import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
-  // node
+  // ===== node
   persistNodeValues,
   persistNodeValuesEstimated,
-  // table data
-  getOriginalDataPointData,
-  getTableData,
-  clearTableData,
+
+  // node values estimation
   getNodeValuesEstimations,
-  // original data points
+
+  // ===== table data
+  clearTableData,
+  getTableData,
+
+  // ===== original data point
   createOriginalDataPoint,
-  getOriginalDataPoint,
+  getOriginalDataPoint: OriginalDataPointRepository.getOne,
   getOriginalDataPoints: OriginalDataPointRepository.getMany,
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
-
-  copyOriginalDataPointNationalClasses,
-
-  updateOriginalDataPointDataSources,
-  updateOriginalDataPointDescription,
+  // data
   updateOriginalDataPointOriginalData,
-
+  // data sources
+  updateOriginalDataPointDataSources,
+  // description
+  updateOriginalDataPointDescription,
+  // national classes
+  copyOriginalDataPointNationalClasses,
   deleteOriginalDataPointNationalClass,
   updateOriginalDataPointNationalClasses,
 
-  // review
+  // ===== review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
-  // description
+
+  // ==== description
   getDataSources: DescriptionRepository.getDataSources,
   getDescription: DescriptionRepository.getOneOrNone,
   upsertDescription,
+
+  // ==== activities
   getActivities: ActivityLogRepository.getCycleDataActivities,
   getActivitiesCount: ActivityLogRepository.getCycleDataActivitiesCount,
+
+
+  // bulk download
   getBulkDownload,
 }

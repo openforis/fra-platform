@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import { CountryIso } from 'meta/area'
+import { TableNames } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
@@ -12,12 +13,11 @@ export const getOriginalDataPointData = async (req: Request, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const table = await CycleDataController.getOriginalDataPointData({
-      countryISOs: [countryIso as CountryIso],
-      cycle,
-      assessment,
-    })
-    Requests.send(res, table)
+    const countryISOs = [countryIso as CountryIso]
+    const tableNames = [TableNames.originalDataPointValue]
+    const data = await CycleDataController.getTableData({ assessment, cycle, countryISOs, tableNames })
+
+    Requests.send(res, data)
   } catch (e) {
     Requests.sendErr(res, e)
   }

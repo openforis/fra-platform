@@ -15,18 +15,11 @@ export const updateOriginalDataPointNationalClasses = async (
     const { assessmentName, cycleName } = req.query
     const { originalDataPoint } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName,
-      cycleName,
-      metaCache: true,
-    })
+    const metaCache = true
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
-    const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointNationalClasses({
-      assessment,
-      cycle,
-      originalDataPoint,
-      user: Requests.getUser(req),
-    })
+    const propsUpdate = { assessment, cycle, originalDataPoint, user: Requests.getUser(req) }
+    const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointNationalClasses(propsUpdate)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

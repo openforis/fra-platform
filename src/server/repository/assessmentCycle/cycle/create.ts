@@ -1,4 +1,4 @@
-import { Assessment, AssessmentMetaCache, Cycle } from 'meta/assessment'
+import { Assessment, AssessmentMetaCache, AssessmentNames, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
@@ -18,12 +18,12 @@ export const create = async (
 ): Promise<Assessment> => {
   const { assessment, name } = params
 
-  await DB.query(
-    AssessmentRepository.getCreateSchemaCycleDDL(
-      Schemas.getName(assessment),
-      Schemas.getNameCycle(assessment, { name } as Cycle)
-    )
-  )
+  const schemaAssessment = Schemas.getName(assessment)
+  const schemaCycle = Schemas.getNameCycle(assessment, { name } as Cycle)
+  await DB.query(AssessmentRepository.getCreateSchemaCycleDDL(schemaAssessment, schemaCycle))
+  if ([AssessmentNames.fra, AssessmentNames.fraTest].includes(assessment.props.name as AssessmentNames)) {
+    await DB.query(AssessmentRepository.getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle))
+  }
 
   const cycle = await client.one<Cycle>(
     `insert into assessment_cycle (assessment_id, name)

@@ -1,9 +1,8 @@
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { SectionRepository } from 'server/repository/assessment/section'
-import { getKey } from 'server/repository/redis/getKey'
+import { getKeyCycle, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
-import { SectionKeys } from 'server/repository/redis/section/keys'
 
 type Props = {
   assessment: Assessment
@@ -14,7 +13,7 @@ export const _cacheSections = async (props: Props) => {
   const { assessment, cycle } = props
 
   const redis = RedisData.getInstance()
-  const key = getKey({ assessment, cycle, key: SectionKeys.sections })
+  const key = getKeyCycle({ assessment, cycle, key: Keys.Section.sections })
 
   const length = await redis.llen(key)
   if (length === 0) {
@@ -25,8 +24,8 @@ export const _cacheSections = async (props: Props) => {
 
         await Promise.all(
           section.subSections.map(async (subSection, subSectionIndex) => {
-            const sectionIndexKey = getKey({ assessment, cycle, key: SectionKeys.sectionsIndex })
-            const subSectionIndexKey = getKey({ assessment, cycle, key: SectionKeys.subSectionsIndex })
+            const sectionIndexKey = getKeyCycle({ assessment, cycle, key: Keys.Section.sectionsIndex })
+            const subSectionIndexKey = getKeyCycle({ assessment, cycle, key: Keys.Section.subSectionsIndex })
             await redis.hset(sectionIndexKey, new Map([[subSection.props.name, sectionIndex]]))
             await redis.hset(subSectionIndexKey, new Map([[subSection.props.name, subSectionIndex]]))
           })

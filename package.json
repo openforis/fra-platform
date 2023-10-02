@@ -6,7 +6,6 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "migrate-panEuropean:migration": "ts-node tools/dataMigration/panEuropean.ts && ts-node src/test/dataMigration/panEuPostDataMigration.ts",
     "build": "run-s build:prod:client build:prod:server build:prod:server:resources",
     "build:prod:client": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
     "build:prod:server": "yarn tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",

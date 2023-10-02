@@ -37,10 +37,18 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@openforis'
 
-      - name: Use Redis
-        uses: supercharge/redis-github-action@1.5.0
+      - name: Start Redis Queue
+        uses: supercharge/redis-github-action@1.7.0
         with:
           redis-version: ${{ matrix.redis-version }}
+          redis-container-name: redis-queue
+
+      - name: Start Redis Cache
+        uses: supercharge/redis-github-action@1.7.0
+        with:
+          redis-version: ${{ matrix.redis-version }}
+          redis-port: 6389
+          redis-container-name: redis-data
 
       - run: yarn install --network-timeout 1000000
         env:
@@ -63,6 +71,7 @@ jobs:
           PGPASSWORD: frap
       - run: yarn test
         env:
+          CI: true
           PGHOST: localhost
           PGPORT: 5442
           PGDATABASE: frap-dev
