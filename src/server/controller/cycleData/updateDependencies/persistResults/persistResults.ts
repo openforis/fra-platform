@@ -18,23 +18,25 @@ export const persistResults = async (props: Props): Promise<void> => {
   const { assessment, cycle, nodes, nodeUpdates, nodesDb, rowsByColUuid } = result
   const { countryIso } = nodeUpdates
 
-  await DB.tx(async (client) => {
-    // 1. Insert calculated nodes into DB
-    const nodesInsert = await NodeRepository.massiveInsert({ assessment, cycle, nodes: nodesDb }, client)
+  if (nodesDb.length > 0) {
+    await DB.tx(async (client) => {
+      // 1. Insert calculated nodes into DB
+      const nodesInsert = await NodeRepository.massiveInsert({ assessment, cycle, nodes: nodesDb }, client)
 
-    // 2. Insert activity logs into DB
-    const activityLogs = nodesInsert.map<ActivityLogDb<Node>>((target) => ({
-      assessment_uuid: assessment.uuid,
-      cycle_uuid: cycle.uuid,
-      country_iso: countryIso,
-      section: rowsByColUuid[target.colUuid].sectionName,
-      message: ActivityLogMessage.nodeValueCalculatedUpdate,
-      target,
-      user_id: user.id,
-    }))
-    await ActivityLogRepository.massiveInsert({ activityLogs }, client)
+      // 2. Insert activity logs into DB
+      const activityLogs = nodesInsert.map<ActivityLogDb<Node>>((target) => ({
+        assessment_uuid: assessment.uuid,
+        cycle_uuid: cycle.uuid,
+        country_iso: countryIso,
+        section: rowsByColUuid[target.colUuid].sectionName,
+        message: ActivityLogMessage.nodeValueCalculatedUpdate,
+        target,
+        user_id: user.id,
+      }))
+      await ActivityLogRepository.massiveInsert({ activityLogs }, client)
 
-    // 3. Update redis cache
-    await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
-  })
+      // 3. Update redis cache
+      await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
+    })
+  }
 }
