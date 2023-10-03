@@ -37,9 +37,7 @@ export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/ge
     params.orderByDirection = orderBy.direction
   }
 
-  if (countryIso) {
-    params.countryIso = countryIso
-  }
+  params.countryIso = countryIso
 
   const { data } = await axios.get<Returned>(path, { params })
 

@@ -20,9 +20,7 @@ export const getCount = createAsyncThunk<Returned, Props>('tablePaginated/count/
 
   const params: Record<string, string> = { assessmentName, cycleName }
 
-  if (countryIso) {
-    params.countryIso = countryIso
-  }
+  params.countryIso = countryIso
 
   const { data } = await axios.get<Returned>(`${path}/count`, { params })
 
