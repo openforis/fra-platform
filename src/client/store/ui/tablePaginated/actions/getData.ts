@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { TablePaginatedDataRequestParams } from 'meta/api/request/tablePaginated'
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName } from 'meta/assessment'
 import { TablePaginatedOrderBy } from 'meta/tablePaginated'
 
@@ -11,7 +11,7 @@ import { limit as defaultLimit } from 'client/store/ui/tablePaginated/constants'
 type Props = {
   assessmentName: AssessmentName
   cycleName: CycleName
-  countryIso?: CountryIso
+  countryIso?: AreaCode
   orderBy?: TablePaginatedOrderBy
   page: number
   path: string

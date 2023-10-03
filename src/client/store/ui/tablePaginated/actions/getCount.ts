@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName } from 'meta/assessment'
 
 type Props = {
   assessmentName: AssessmentName
   cycleName: CycleName
-  countryIso?: CountryIso
+  countryIso?: AreaCode
   path: string
 }
 
