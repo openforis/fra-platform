@@ -25,7 +25,7 @@ const Partners: React.FC = () => {
         <img alt="" src="/img/partners/NICFI.png" />
         <img alt="" className="mfafi partners__col1Mobile" src="/img/partners/mfafi.gif" />
         <img alt="" className="mmmfi partners__col1Mobile" src="/img/partners/mmmfi.png" />
-        <img alt="" className="partners__col1Mobile" src="/img/partners/GEF.png" />
+        <img alt="" className="partners__col1Mobile" src="/img/partners/GEF.webp" />
       </div>
 
       <div className="partners__disclaimer">
