@@ -1,15 +1,16 @@
 import * as pgPromise from 'pg-promise'
 
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { Schemas } from 'server/db'
-import { MaterializedViews } from 'server/db/materializedViews'
-import { acceptedMessages } from 'server/repository/assessmentCycle/activityLog/query/acceptedMessages'
-import { hiddenSections } from 'server/repository/assessmentCycle/activityLog/query/hiddenSections'
+
+import { acceptedMessages } from './acceptedMessages'
+import { getActivityLogCountryName } from './getActivityLogCountryName'
+import { hiddenSections } from './hiddenSections'
 
 type Props = {
-  countryIso: CountryIso
+  countryIso: AreaCode
   assessment: Assessment
   cycle: Cycle
 
@@ -24,7 +25,7 @@ export const getActivityLogQuery = (props: Props) => {
   const pgp = pgPromise()
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  const mvName = MaterializedViews.getActivityLogCountry(countryIso)
+  const mvName = getActivityLogCountryName(countryIso)
 
   // default select
   const select = `a.*, to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename' as user`

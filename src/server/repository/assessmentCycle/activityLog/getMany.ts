@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountryAdmin, CountryIso } from 'meta/area'
+import { AreaCode, CountryAdmin } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -10,7 +10,7 @@ import { getActivityLogQuery } from './query/getActivityLogQuery'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
+  countryIso: AreaCode
   limit: string
   offset: string
 }
