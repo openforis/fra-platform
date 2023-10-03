@@ -39,7 +39,7 @@ export const initCountryActivityLog = (connection: IORedis): Worker => {
         newActivityLogEntries.map(async (entry) => {
           const { assessmentUuid, cycleUuid, countryIso } = entry
           const assessment = assessments.find((assessment) => assessment.uuid === assessmentUuid)
-          const cycle = assessment.cycles.find((cycle) => cycle.uuid === cycleUuid)
+          const cycle = assessment?.cycles.find((cycle) => cycle.uuid === cycleUuid)
 
           if (assessment && cycle && countryIso) {
             const props = { assessment, cycle, countryIso }
