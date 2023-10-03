@@ -11,7 +11,7 @@
     &.user-list__invitation-row {
       color: $text-disabled;
       &.expired {
-        text-decoration: line-through;
+        color: $ui-destructive;
       }
     }
 
