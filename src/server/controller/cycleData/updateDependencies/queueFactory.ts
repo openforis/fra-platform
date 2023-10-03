@@ -23,7 +23,7 @@ type Props = {
 
 const opts: QueueOptions = {
   connection,
-  streams: { events: { maxLen: 10 } },
+  streams: { events: { maxLen: 5 } },
 }
 
 const getInstance = (props: Props): Queue<UpdateDependenciesProps> => {
