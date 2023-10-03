@@ -14,7 +14,7 @@ type Props = {
 export const resetMirrorNodes = async (props: Props, client: BaseProtocol): Promise<NodeUpdates> => {
   const { assessment, cycle, nodeUpdates } = props
   const { countryIso, nodes } = nodeUpdates
-  const nodeUpdatesResult: NodeUpdates = { ...nodeUpdates }
+  const nodeUpdatesResult: NodeUpdates = { ...nodeUpdates, nodes: [...nodeUpdates.nodes] }
 
   await Promise.all(
     nodes.map(async (node) => {
