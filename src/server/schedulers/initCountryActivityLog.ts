@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db'
-import { CountryActivityLog } from 'server/repository/assessmentCycle/countryActivityLog'
+import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB
@@ -43,8 +43,10 @@ export const initCountryActivityLog = (connection: IORedis): Worker => {
 
           if (assessment && cycle && countryIso) {
             const props = { assessment, cycle, countryIso }
-            Logger.info(`[System schedulers] ** ${name} Refreshing materialized view ${JSON.stringify(props)}`)
-            await CountryActivityLog.refreshMaterializedView(props)
+            Logger.info(
+              `[System schedulers] ** ${name} Refreshing materialized view for ${assessment.props.name} ${cycle.name}} ${countryIso}`
+            )
+            await CountryActivityLogRepository.refreshMaterializedView(props)
           }
         })
       )
