@@ -1,5 +1,5 @@
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
-import { ActivityLogRepository } from 'server/repository/assessmentCycle/activityLog'
+import { CountryActivityLog } from 'server/repository/assessmentCycle/countryActivityLog'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
@@ -58,8 +58,8 @@ export const CycleDataController = {
   upsertDescription,
 
   // ==== activities
-  getActivities: ActivityLogRepository.getMany,
-  getActivitiesCount: ActivityLogRepository.getCount,
+  getActivities: CountryActivityLog.getMany,
+  getActivitiesCount: CountryActivityLog.getCount,
 
   // bulk download
   getBulkDownload,

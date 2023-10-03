@@ -3,7 +3,7 @@ import { getCount } from './getCount'
 import { getMany } from './getMany'
 import { refreshMaterializedView } from './refreshMaterializedView'
 
-export const ActivityLogRepository = {
+export const CountryActivityLogRepository = {
   createMaterializedView,
   getCount,
   getMany,
