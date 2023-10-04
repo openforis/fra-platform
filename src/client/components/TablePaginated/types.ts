@@ -8,7 +8,6 @@ export type Column<Datum> = {
 }
 
 export type Props<Datum> = {
-  EmptyListComponent?: React.FC
   columns: Array<Column<Datum>>
   path: string
   limit?: number
