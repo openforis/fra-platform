@@ -3,7 +3,7 @@ import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
-import { getActivityLogCountryName } from './query/getActivityLogCountryName'
+import { getMaterializedViewName } from './_common/getMaterializedViewName'
 
 type Props = {
   assessment: Assessment
@@ -15,7 +15,7 @@ export const refreshMaterializedView = async (props: Props, client: BaseProtocol
   const { assessment, cycle, countryIso } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  const mvName = getActivityLogCountryName(countryIso)
+  const mvName = getMaterializedViewName(countryIso)
 
   return client.query(`refresh materialized view ${schemaCycle}.${mvName};`)
 }

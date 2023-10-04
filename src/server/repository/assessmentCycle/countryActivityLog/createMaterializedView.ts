@@ -3,7 +3,9 @@ import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
-import { getActivityLogCountryName } from './query/getActivityLogCountryName'
+import { acceptedMessages } from './_common/acceptedMessages'
+import { getMaterializedViewName } from './_common/getMaterializedViewName'
+import { hiddenSections } from './_common/hiddenSections'
 
 type Props = {
   assessment: Assessment
@@ -15,17 +17,33 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
   const { assessment, cycle, countryIso } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  const mvName = getActivityLogCountryName(countryIso)
+  const viewName = getMaterializedViewName(countryIso)
 
   return client.query(
     `
-        create materialized view ${schemaCycle}.${mvName} as
-        select * from public.activity_log
-        where
-          country_iso = $1
-          and assessment_uuid = $2
-          and cycle_uuid = $3;
+        create materialized view ${schemaCycle}.${viewName} as (
+          select a.message,
+                 a.section,
+                 a.target,
+                 a.time,
+                 to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename' as user
+          from (select user_id,
+                       message,
+                       section,
+                       target,
+                       time,
+                       rank() OVER (PARTITION BY user_id, message, section ORDER BY time DESC) as rank
+                from public.activity_log a
+                where a.country_iso = $1
+                  and a.assessment_uuid = $2
+                  and a.cycle_uuid = $3
+                  and a.message in ($4:list)
+                  and a.section not in ($5:list)) as a
+                 join public.users u on user_id = u.id
+          where rank = 1
+          order by time desc
+        )
     `,
-    [countryIso, assessment.uuid, cycle.uuid]
+    [countryIso, assessment.uuid, cycle.uuid, acceptedMessages, hiddenSections]
   )
 }
