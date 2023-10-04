@@ -6,15 +6,14 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getActivities = async (req: CycleDataRequest, res: Response) => {
+export const getActivitiesCount = async (req: CycleDataRequest, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName } = req.query
+    const { assessmentName, cycleName, countryIso } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const activitiesCount = await CycleDataController.getActivitiesCount({ assessment, cycle, countryIso })
 
-    const activities = await CycleDataController.getActivities({ countryIso, assessment, cycle })
-
-    Requests.send(res, activities)
+    Requests.sendOk(res, activitiesCount)
   } catch (e) {
     Requests.sendErr(res, e)
   }
