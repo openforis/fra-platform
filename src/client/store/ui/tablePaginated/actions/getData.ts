@@ -28,6 +28,7 @@ export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/ge
   const params: TablePaginatedDataRequestParams = {
     assessmentName,
     cycleName,
+    countryIso,
     limit: String(limit),
     offset: String(page * limit),
   }
@@ -36,8 +37,6 @@ export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/ge
     params.orderBy = orderBy.property
     params.orderByDirection = orderBy.direction
   }
-
-  params.countryIso = countryIso
 
   const { data } = await axios.get<Returned>(path, { params })
 

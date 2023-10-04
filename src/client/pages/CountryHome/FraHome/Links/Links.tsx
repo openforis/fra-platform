@@ -2,6 +2,8 @@ import './Links.scss'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 import { Authorizer, Users } from 'meta/user'
@@ -124,8 +126,11 @@ const Links: React.FC = () => {
         )}
       </div>
 
-      {links.map((link) => (
-        <div key={link.key} className="landing__activity-item">
+      {links.map((link, index) => (
+        <div
+          key={link.key}
+          className={classNames('landing__activity-item', 'withPadding', { withBorder: index !== 0 })}
+        >
           <div className="landing__activity">
             <a className="link" href={link.href} rel="noreferrer" target="_blank">
               {t(`landing.links.${link.key}`)}
@@ -135,7 +140,7 @@ const Links: React.FC = () => {
       ))}
 
       {globalFiles.map((assessmentFile) => (
-        <div key={assessmentFile.uuid} className="landing__activity-item">
+        <div key={assessmentFile.uuid} className="landing__activity-item withBorder withPadding">
           <div className="landing__activity">
             <a
               className="link"
@@ -192,8 +197,11 @@ const Links: React.FC = () => {
         )}
       </div>
 
-      {countryFiles.map((assessmentFile) => (
-        <div key={assessmentFile.uuid} className="landing__activity-item">
+      {countryFiles.map((assessmentFile, index) => (
+        <div
+          key={assessmentFile.uuid}
+          className={classNames('landing__activity-item', 'withPadding', { withBorder: index !== 0 })}
+        >
           <div className="landing__activity">
             <a
               className="link"

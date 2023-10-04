@@ -18,9 +18,7 @@ type Returned = {
 export const getCount = createAsyncThunk<Returned, Props>('tablePaginated/count/get', async (props) => {
   const { assessmentName, cycleName, countryIso, path } = props
 
-  const params: Record<string, string> = { assessmentName, cycleName }
-
-  params.countryIso = countryIso
+  const params: Record<string, string> = { assessmentName, cycleName, countryIso }
 
   const { data } = await axios.get<Returned>(`${path}/count`, { params })
 

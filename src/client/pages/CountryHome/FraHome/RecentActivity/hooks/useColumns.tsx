@@ -1,15 +1,15 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { ActivityLog } from 'meta/assessment'
 
 import { Column } from 'client/components/TablePaginated'
 import RecentActivityItem from 'client/pages/CountryHome/FraHome/RecentActivity/RecentActivityItem'
 
-export const useColumns = (): Array<Column<ActivityLog<any>>> => {
-  return useMemo<Array<Column<ActivityLog<any>>>>(
+export const useColumns = (): Array<Column<ActivityLog<never>>> => {
+  return useMemo<Array<Column<ActivityLog<never>>>>(
     () => [
       {
-        component: ({ datum }) => <RecentActivityItem activity={datum} />,
+        component: RecentActivityItem,
         key: 'activity-log',
       },
     ],

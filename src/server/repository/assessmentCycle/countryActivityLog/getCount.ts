@@ -1,12 +1,10 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { TablePaginatedCount } from 'meta/tablePaginated'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
-import { getActivityLogQuery } from './query/getActivityLogQuery'
+import { getMaterializedViewName } from './_common/getMaterializedViewName'
 
 type Props = {
   assessment: Assessment
@@ -15,7 +13,16 @@ type Props = {
 }
 
 export const getCount = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
-  const query = getActivityLogQuery({ ...props, select: 'count(*) as total' })
+  const { assessment, cycle, countryIso } = props
 
-  return client.one(query, [], (res) => Objects.camelize(res))
+  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const viewName = getMaterializedViewName(countryIso)
+
+  return client.one<TablePaginatedCount>(
+    `
+        select count(*) as total
+        from ${schemaCycle}.${viewName}
+    `,
+    []
+  )
 }
