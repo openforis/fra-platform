@@ -1,5 +1,7 @@
 import React from 'react'
 
+import classNames from 'classnames'
+
 import { useTablePaginatedCount, useTablePaginatedData } from 'client/store/ui/tablePaginated'
 import { limit } from 'client/store/ui/tablePaginated/constants'
 import DataColumn from 'client/components/DataGrid/DataColumn'
@@ -27,8 +29,8 @@ const Body = <Datum extends object>(props: Props<Datum>) => {
             const { component: Component, key } = column
 
             return (
-              <DataColumn key={key}>
-                <Component datum={datum} />
+              <DataColumn key={key} className={classNames({ withBorder: rowIndex !== 0 })}>
+                <Component datum={datum} rowIndex={rowIndex} />
               </DataColumn>
             )
           })}

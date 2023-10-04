@@ -4,8 +4,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
-  margin: 0 8px;
   word-break: break-word;
   width: 100%;
 
@@ -13,10 +11,16 @@
     color: $text-body;
     pointer-events: none;
   }
-}
 
-.landing__activity-item:not(:first-of-type) {
-  border-top: 1px solid $ui-border-light;
+  &.firstRow {
+    margin-top: $spacing-s;
+  }
+  &.withBorder {
+    border-top: 1px solid $ui-border;
+  }
+  &.withPadding {
+    padding: $spacing-xxs;
+  }
 }
 
 .landing__activity-avatar {

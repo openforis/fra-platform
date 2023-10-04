@@ -12,13 +12,11 @@ import { Users } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
+import { ColumnComponentProps } from 'client/components/TablePaginated'
 import { Dates } from 'client/utils'
 
-type Props = {
-  activity: ActivityLog<any>
-}
-
-const RecentActivityItem: React.FC<Props> = ({ activity }) => {
+const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (props) => {
+  const { datum: activity, rowIndex } = props
   const { user, section: sectionName } = activity
 
   const countryIso = useCountryIso()
@@ -27,7 +25,7 @@ const RecentActivityItem: React.FC<Props> = ({ activity }) => {
   const { i18n } = useTranslation()
 
   return (
-    <div className="landing__activity-item">
+    <div className={classNames('landing__activity-item', { firstRow: rowIndex === 0 })}>
       <img
         className="landing__activity-avatar"
         src={ApiEndPoint.User.profilePicture(String(user.id))}
