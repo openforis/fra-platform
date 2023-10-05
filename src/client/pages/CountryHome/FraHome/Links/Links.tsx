@@ -94,7 +94,7 @@ const Links: React.FC = () => {
       }&countryIso=${countryIso}&cycleName=${cycle.name}`,
       key: 'sdgFocalPoints',
     },
-    { href: 'https://slms4redd.github.io/', key: 'reddPortal' },
+    { href: 'https://slms4redd.org/', key: 'reddPortal' },
     { href: 'https://geofra.users.earthengine.app/view/geofra-dev', key: 'fraGeoSpatialTools' },
   ]
 
