@@ -6,9 +6,11 @@ import { ColProps } from 'meta/assessment'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
+import { runCalculations } from 'test/migrations/steps/utils/runCalculations'
+
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025' },
+    { assessmentName: 'fra', cycleName: '2025', metaCache: true },
     client
   )
 
@@ -28,11 +30,7 @@ export default async (client: BaseProtocol) => {
   )
 
   const updatedCols = cols.map((col) => {
-    const { props } = col
-    const calculateFn = `forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan ? ${
-      props.calculateFn[cycle.uuid]
-    } : null`
-
+    const calculateFn = `forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan && extentOfForest.forestArea["2015"] ? forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100 : null`
     const path = ['props', 'calculateFn', cycle.uuid]
     const params = { obj: col, path, value: calculateFn }
     return Objects.setInPath(params)
@@ -50,12 +48,23 @@ export default async (client: BaseProtocol) => {
   const cs = new pgp.helpers.ColumnSet(columns, options)
 
   const query = `${pgp.helpers.update(updatedCols, cs)} WHERE v.id = t.id`
+
   await client.query(query)
 
   await AssessmentController.generateMetaCache(
     {
       assessment,
       cycle,
+    },
+    client
+  )
+
+  await runCalculations(
+    {
+      assessment,
+      cycle,
+      variableName: 'proportionForestAreaLongTermForestManagement',
+      tableName: 'sustainableDevelopment15_2_1_4',
     },
     client
   )
