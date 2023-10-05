@@ -14,16 +14,18 @@ export default async (client: BaseProtocol) => {
 
   const schemaName = Schemas.getName(assessment)
 
-  // update calculateFn for:
-  const cols = await client.many<{ id: number; props: ColProps }>(`select c.id, c.props
+  const cols = await client.many<{ id: number; props: ColProps }>(
+    `
+  select c.id, c.props
   from assessment_fra.table t
            left join ${schemaName}.row r on t.id = r.table_id
            left join ${schemaName}.col c on r.id = c.row_id
   where t.props ->> 'name' = 'sustainableDevelopment15_2_1_4'
   and r.props ->> 'variableName' = 'proportionForestAreaLongTermForestManagement'
   and c.props ->> 'colType' = 'calculated'
--- calculate fn for cycle uuid must not be null
-  and c.props -> 'calculateFn' ->> '${cycle.uuid}' is not null;`)
+  and c.props -> 'calculateFn' ->> '${cycle.uuid}' is not null;
+  `
+  )
 
   const updatedCols = cols.map((col) => {
     const { props } = col
@@ -31,11 +33,9 @@ export default async (client: BaseProtocol) => {
       props.calculateFn[cycle.uuid]
     } : null`
 
-    return Objects.setInPath({
-      obj: col,
-      path: ['props', 'calculateFn', cycle.uuid],
-      value: calculateFn,
-    })
+    const path = ['props', 'calculateFn', cycle.uuid]
+    const params = { obj: col, path, value: calculateFn }
+    return Objects.setInPath(params)
   })
 
   const pgp = pgPromise()
@@ -46,9 +46,8 @@ export default async (client: BaseProtocol) => {
       cast: 'jsonb',
     },
   ]
-  const cs = new pgp.helpers.ColumnSet(columns, {
-    table: { table: 'col', schema: schemaName },
-  })
+  const options = { table: { table: 'col', schema: schemaName } }
+  const cs = new pgp.helpers.ColumnSet(columns, options)
 
   const query = `${pgp.helpers.update(updatedCols, cs)} WHERE v.id = t.id`
   await client.query(query)
