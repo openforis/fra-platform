@@ -1,9 +1,7 @@
-import { getLastUpdatedTimestamp } from './getLastUpdatedTimestamp'
 import { insertActivityLog } from './insertActivityLog'
 import { massiveInsert } from './massiveInsert'
 
 export const ActivityLogRepository = {
-  getLastUpdatedTimestamp,
   insertActivityLog,
   massiveInsert,
 }

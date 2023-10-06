@@ -1,5 +1,6 @@
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
+import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
@@ -38,6 +39,7 @@ export const CycleDataController = {
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
   removeOriginalDataPoint,
   // data
+  getLastEditOdpData: CountrySummaryRepository.getLastEditOdpData,
   updateOriginalDataPointOriginalData,
   // data sources
   updateOriginalDataPointDataSources,
