@@ -2,7 +2,8 @@ import { AssessmentStatus } from 'meta/area/country'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { activityLogMessageUpdates } from 'server/repository/assessmentCycle/country/getMany'
+
+import { activitiesLastEdit, activitiesLastEditOdpData } from './_lastEditActivities'
 
 type Props = {
   assessment: Assessment
@@ -26,7 +27,15 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                            left join public.activity_log a
                                      on c.country_iso = a.country_iso
                   where a.cycle_uuid = '${cycle.uuid}'
-                    and a.message in (${activityLogMessageUpdates})
+                    and a.message in (${activitiesLastEdit})
+                  group by 1),
+             last_edit_odp_data as
+                  (select c.country_iso, max(a.time) as last_edit_odp_data
+                  from country c
+                           left join public.activity_log a
+                                     on c.country_iso = a.country_iso
+                  where a.cycle_uuid = '${cycle.uuid}'
+                    and a.message in (${activitiesLastEditOdpData})
                   group by 1),
              user_summary as
                  (select c.country_iso,
@@ -42,6 +51,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                   group by 1)
         select c.country_iso,
                le.last_edit,
+               leo.last_edit_odp_data,
                coalesce(us.invitations_accepted_count, 0) as invitations_accepted_count,
                coalesce(us.invitations_sent_count, 0)     as invitations_sent_count,
                coalesce(us.users_count, 0)                as users_count,
@@ -52,6 +62,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                    end                                    as status
         from country c
                  left join last_edit le on c.country_iso = le.country_iso
+                 left join last_edit_odp_data leo on c.country_iso = leo.country_iso
                  left join user_summary us on c.country_iso = us.country_iso
         ;
     `,
