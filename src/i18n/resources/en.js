@@ -685,7 +685,7 @@ The FRA team fra@fao.org
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
-    forestAreaNetChangeFrom1a: 'Forest area net change from table 1a',
+    forestAreaNetChangeFrom1a: 'Forest area net change calculated from table 1a',
     netChangeDoesNotMatch: 'Doesn’t match Forest area net change',
   },
 

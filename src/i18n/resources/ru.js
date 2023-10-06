@@ -644,7 +644,7 @@ module.exports.translation = {
     deforestation: 'Обезлесение',
     forestAreaNetChange: 'Чистое изменение площади лесов',
     netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади',
-    forestAreaNetChangeFrom1a: 'Чистое изменение площади лесов  из таблицы 1а',
+    forestAreaNetChangeFrom1a: 'Чистое изменение площади лесов рассчитано на основе таблицы 1а',
   },
 
   annualReforestation: {

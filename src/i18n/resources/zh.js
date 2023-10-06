@@ -655,7 +655,7 @@ FRA工作组 fra@fao.org
     ofWhichNaturalExpansion: '自然扩张',
     deforestation: '砍伐',
     forestAreaNetChange: '森林面积净变化',
-    forestAreaNetChangeFrom1a: '表1a中森林面积净变化',
+    forestAreaNetChangeFrom1a: '从表1a计算得出的森林面积净变化',
     netChangeDoesNotMatch: '与森林面积净变化不匹配',
   },
 
