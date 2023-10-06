@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { AssessmentName, CycleName, Row } from 'meta/assessment'
+import { AssessmentName, CycleName, Row, TableNames } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
+
+import { useAssessmentCountry } from 'client/store/area'
 
 import FieldsOption from './FieldsOption'
 import { Method } from './method'
@@ -24,6 +26,9 @@ const GenerateValues: React.FC<Props> = (props) => {
   const { assessmentName, cycleName, sectionName, tableName, rows, data } = props
 
   const { t } = useTranslation()
+  const country = useAssessmentCountry()
+  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
+
   const { method, setMethod, fields, setFields, valid, generateValues, isEstimationPending } = useGenerateValues(
     assessmentName,
     cycleName,
@@ -33,6 +38,11 @@ const GenerateValues: React.FC<Props> = (props) => {
     data
   )
   const [buttonEnabled, setButtonEnabled] = useState<boolean>(true)
+
+  // When ODPs are hidden, don't show generate values in table 1b
+  // ODPs cannot be hidden for table 1a
+  if (!useOriginalDataPoint && tableName === TableNames.forestCharacteristics) return null
+
   let buttonLabel = 'tableWithOdp.generateFraValues'
   if (isEstimationPending || !buttonEnabled) buttonLabel = 'tableWithOdp.generatingFraValues'
 
