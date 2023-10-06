@@ -689,7 +689,7 @@ The FRA team
     ofWhichNaturalExpansion: '...منها اتساع طبيعي',
     deforestation: 'إزالة الغابة',
     forestAreaNetChange: 'صافي التغيير في مساحة الغابة',
-    forestAreaNetChangeFrom1a: 'صافي التغير في مساحة الغابات عن الجدول 1a',
+    forestAreaNetChangeFrom1a: 'تم حساب تغيير مساحة الغابات من الجدول 1أ',
     netChangeDoesNotMatch: 'غير مطابق لصافي التغيير في مساحة الغابة',
   },
 

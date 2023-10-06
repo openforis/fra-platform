@@ -619,7 +619,7 @@ El equipo de FRA
     deforestation: 'Deforestación',
     forestAreaNetChange: 'Cambio neto en el área de bosque',
     netChangeDoesNotMatch: 'No coincide con el cambio neto en el área de bosque',
-    forestAreaNetChangeFrom1a: 'Cambio neto en el área de bosque de la tabla 1a',
+    forestAreaNetChangeFrom1a: 'Cambio neto de la extensión de bosque calculado a partir de la tabla 1a',
   },
 
   annualReforestation: {
