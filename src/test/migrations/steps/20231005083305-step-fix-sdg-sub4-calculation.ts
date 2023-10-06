@@ -1,18 +1,14 @@
 import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
-import { ColProps } from 'meta/assessment'
+import { Assessment, ColProps, Cycle } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
-import { runCalculations } from 'test/migrations/steps/utils/runCalculations'
-
-export default async (client: BaseProtocol) => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025', metaCache: true },
-    client
-  )
+type _updateCalculationFnParams = { assessment: Assessment; cycle: Cycle }
+const _updateCalculationFn = async (props: _updateCalculationFnParams, client: BaseProtocol) => {
+  const { assessment, cycle } = props
 
   const schemaName = Schemas.getName(assessment)
 
@@ -30,7 +26,9 @@ export default async (client: BaseProtocol) => {
   )
 
   const updatedCols = cols.map((col) => {
-    const calculateFn = `forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan && extentOfForest.forestArea["2015"] ? forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100 : null`
+    const valuesExist = `forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan && extentOfForest.forestArea["2015"]`
+    const formula = `Math.min(forestAreaWithinProtectedAreas.forest_area_with_long_term_management_plan / extentOfForest.forestArea["2015"] * 100, 100)`
+    const calculateFn = `${valuesExist} ? ${formula} : null`
     const path = ['props', 'calculateFn', cycle.uuid]
     const params = { obj: col, path, value: calculateFn }
     return Objects.setInPath(params)
@@ -47,25 +45,25 @@ export default async (client: BaseProtocol) => {
   const options = { table: { table: 'col', schema: schemaName } }
   const cs = new pgp.helpers.ColumnSet(columns, options)
 
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const query = `${pgp.helpers.update(updatedCols, cs)} WHERE v.id = t.id`
 
-  await client.query(query)
+  // await client.query(query)
+  //
+  // await AssessmentController.generateMetaCache(
+  //   {
+  //     assessment,
+  //     cycle,
+  //   },
+  //   client
+  // )
 
-  await AssessmentController.generateMetaCache(
-    {
-      assessment,
-      cycle,
-    },
-    client
-  )
+  // todo run calculations
+}
 
-  await runCalculations(
-    {
-      assessment,
-      cycle,
-      variableName: 'proportionForestAreaLongTermForestManagement',
-      tableName: 'sustainableDevelopment15_2_1_4',
-    },
-    client
-  )
+export default async (client: BaseProtocol) => {
+  const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
+
+  await Promise.all(assessment.cycles.map((cycle) => _updateCalculationFn({ assessment, cycle }, client)))
 }
