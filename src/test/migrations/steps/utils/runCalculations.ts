@@ -9,6 +9,9 @@ import { BaseProtocol, Schemas } from 'server/db'
 import { calculateRow } from './calculateRow'
 import { getRow } from './getRow'
 
+/**
+ * @deprecated
+ */
 export const runCalculations = async (
   props: {
     assessment: Assessment
