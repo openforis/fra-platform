@@ -11,6 +11,10 @@
   .data-source-column {
     position: relative;
     min-height: 2rem;
+
+    &.large {
+      width: 400px;
+    }
   }
 
   .data-source__delete-button {

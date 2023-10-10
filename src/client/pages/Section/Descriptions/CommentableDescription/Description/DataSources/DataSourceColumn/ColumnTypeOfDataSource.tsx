@@ -57,7 +57,7 @@ const ColumnTypeOfDataSource: React.FC<Props & { dataSourceMetadata: DataSourceD
   const { typeOfDataSourceText } = dataSourceMetadata?.table || {}
 
   return (
-    <DataColumn className="data-source-column">
+    <DataColumn className="data-source-column large">
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       {typeOfDataSourceText ? <TextInput {...props} /> : <SelectInput {...props} />}
     </DataColumn>
