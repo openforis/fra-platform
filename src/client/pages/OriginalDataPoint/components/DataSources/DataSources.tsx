@@ -7,6 +7,8 @@ import { ODPDataSourceMethod, OriginalDataPoint } from 'meta/assessment/original
 import { Topics } from 'meta/messageCenter'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import MarkdownPreview from 'client/components/MarkdownPreview'
 import MultiSelect from 'client/components/MultiSelect'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
@@ -46,24 +48,25 @@ const DataSources: React.FC<Props> = (props) => {
                 )}
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.references')}</th>
                 <td className="fra-table__cell-left odp__data-source-input-column">
-                  <VerticallyGrowingTextField
-                    value={originalDataPoint.dataSourceReferences || ''}
-                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                      const caret = event.target.selectionStart
-                      const element = event.target
-                      window.requestAnimationFrame(() => {
-                        element.selectionStart = caret
-                        element.selectionEnd = caret
-                      })
-                      const { value } = event.target
-                      const originalDataPointUpdate = {
-                        ...originalDataPoint,
-                        dataSourceReferences: Objects.isEmpty(value) ? null : value,
-                      }
-                      updateOriginalDataPoint(originalDataPointUpdate)
-                    }}
-                    disabled={isDisabled}
-                  />
+                  {isDisabled && (
+                    <div className="vgtf__textarea">
+                      <MarkdownPreview value={originalDataPoint.dataSourceReferences ?? ''} />
+                    </div>
+                  )}
+
+                  {!isDisabled && (
+                    <EditorWYSIWYG
+                      onChange={(value) => {
+                        const originalDataPointUpdate = {
+                          ...originalDataPoint,
+                          dataSourceReferences: Objects.isEmpty(value) ? null : value,
+                        }
+                        updateOriginalDataPoint(originalDataPointUpdate)
+                      }}
+                      options={{ buttons: ['link'], height: 64, statusbar: false }}
+                      value={originalDataPoint.dataSourceReferences ?? ''}
+                    />
+                  )}
                 </td>
                 {displayReviewIndicator && (
                   <td className="fra-table__review-cell no-print">

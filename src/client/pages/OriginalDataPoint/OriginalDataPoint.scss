@@ -1,3 +1,4 @@
+@import 'src/client/style/partials';
 @import 'src/client/styles/config';
 @import 'src/client/styles/fraTable';
 @import 'src/client/styles/inputMixins';
@@ -95,6 +96,23 @@
 
 .odp__data-source-input-column {
   width: 75%;
+
+  .jodit-container {
+    height: unset !important;
+    min-height: unset !important;
+  }
+
+  .jodit-workplace,
+  .jodit-wysiwyg {
+    height: $spacing-xxxl !important;
+    min-height: $spacing-xxxl !important;
+  }
+
+  .vgtf__textarea {
+    p {
+      margin: unset;
+    }
+  }
 }
 
 // This is a workaround for MultiSelect problem (multiselect increases vertical scroll
