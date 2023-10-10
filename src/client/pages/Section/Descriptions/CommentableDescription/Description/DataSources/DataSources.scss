@@ -5,16 +5,12 @@
 }
 
 .data-source-grid {
-  grid-template-columns: 0px repeat(5, 1fr) 0px;
+  grid-template-columns: 0px 400px repeat(4, 1fr) 0px;
   margin: $spacing-s 0;
 
   .data-source-column {
     position: relative;
     min-height: 2rem;
-
-    &.large {
-      width: 400px;
-    }
   }
 
   .data-source__delete-button {
