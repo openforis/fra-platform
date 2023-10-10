@@ -4,12 +4,13 @@ import { Objects } from 'utils/objects'
 import { ColProps } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, Schemas } from 'server/db'
-import { RedisData } from 'server/repository/redis/redisData'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 import { updateCalculatedVariable } from 'test/migrations/steps/utils/updateCalculatedVariable'
 
-export default async (client: BaseProtocol) => {
+const client: BaseProtocol = DB
+
+export default async () => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
 
   const schemaName = Schemas.getName(assessment)
@@ -79,10 +80,6 @@ export default async (client: BaseProtocol) => {
     },
     client
   )
-
-  // TODO: It is showing old values (mainly the calculation formula) in redis
-  // -- flush redis
-  await RedisData.getInstance().flushall()
 
   await updateCalculatedVariable(
     {

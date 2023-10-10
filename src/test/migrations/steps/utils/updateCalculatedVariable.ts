@@ -6,6 +6,7 @@ import { ContextFactory } from 'server/controller/cycleData/updateDependencies/c
 import { updateCalculationDependencies } from 'server/controller/cycleData/updateDependencies/updateCalculationDependencies'
 import { BaseProtocol } from 'server/db'
 import { NodeRepository } from 'server/repository/assessmentCycle/node'
+import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
   assessment: Assessment
@@ -16,6 +17,9 @@ type Props = {
 
 export const updateCalculatedVariable = async (props: Props, client: BaseProtocol) => {
   const { assessment, cycle, variableName, tableName } = props
+
+  // -- flush redis
+  await RedisData.getInstance().flushall()
 
   const nodes: Array<NodeUpdate> = [
     {
