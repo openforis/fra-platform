@@ -1,21 +1,10 @@
 import { Objects } from 'utils/objects'
 
 import { Country } from 'meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
-
-export const activityLogMessageUpdates = [
-  ActivityLogMessage.nodeValueUpdate,
-  ActivityLogMessage.nodeValueCalculatedUpdate,
-  ActivityLogMessage.originalDataPointCreate,
-  ActivityLogMessage.originalDataPointRemove,
-  ActivityLogMessage.originalDataPointUpdate,
-  ActivityLogMessage.tableValuesClear,
-]
-  .map((a) => `'${a}'`)
-  .join(',')
 
 export const getMany = async (
   props: { assessment: Assessment; cycle: Cycle },
