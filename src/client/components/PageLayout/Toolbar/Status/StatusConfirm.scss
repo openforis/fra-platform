@@ -4,7 +4,7 @@
   resize: none;
   outline: none;
   display: block;
-  overflow: hidden; // Removes scrollbar
+  overflow-x: hidden; // Removes scrollbar
 
   width: 100%;
   min-height: 100%;
