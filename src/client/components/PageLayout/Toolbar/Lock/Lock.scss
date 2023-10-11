@@ -6,20 +6,20 @@
   margin-left: 12px;
 
   .btn-lock {
-    background-color: rgba($ui-status-accepted, 30%);
+    background-color: rgba($ui-status-accepted, 25%);
     border-radius: 2px;
     border: 1px solid rgba($ui-status-accepted, 5%) !important;
 
     &:hover {
-      background-color: rgba($ui-status-accepted, 37%);
+      background-color: rgba($ui-status-accepted, 30%);
     }
 
     &.locked {
-      background-color: rgba($ui-destructive, 30%);
+      background-color: rgba($ui-destructive, 20%);
       border: 1px solid rgba($ui-destructive, 5%) !important;
 
       &:hover {
-        background-color: rgba($ui-destructive, 37%);
+        background-color: rgba($ui-destructive, 25%);
       }
     }
   }
