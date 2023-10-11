@@ -49,3 +49,6 @@ export const getKeyCountry = (props: PropsCountry): string => {
   const { assessment, cycle, countryIso, key } = props
   return `${getKeyCycle({ assessment, cycle, key })}-${countryIso}`
 }
+
+export const getKeyRow = (props: { assessment: Assessment }): string =>
+  getKeyAssessment({ assessment: props.assessment, key: Keys.Row.row })

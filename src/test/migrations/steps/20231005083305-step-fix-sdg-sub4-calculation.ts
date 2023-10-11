@@ -10,6 +10,9 @@ import { updateCalculatedVariable } from 'test/migrations/steps/utils/updateCalc
 
 const client: BaseProtocol = DB
 
+const tableName = 'sustainableDevelopment15_2_1_4'
+const variableName = 'proportionForestAreaLongTermForestManagement'
+
 export default async () => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
 
@@ -23,8 +26,8 @@ export default async () => {
   from assessment_fra.table t
            left join ${schemaName}.row r on t.id = r.table_id
            left join ${schemaName}.col c on r.id = c.row_id
-  where t.props ->> 'name' = 'sustainableDevelopment15_2_1_4'
-  and r.props ->> 'variableName' = 'proportionForestAreaLongTermForestManagement'
+  where t.props ->> 'name' = '${tableName}'
+  and r.props ->> 'variableName' = '${variableName}'
   and c.props ->> 'colType' = 'calculated'
   and (c.props -> 'calculateFn' ->> '${cycle2020.uuid}' is not null or c.props -> 'calculateFn' ->> '${cycle2025.uuid}' is not null)
   `
@@ -85,8 +88,8 @@ export default async () => {
     {
       assessment,
       cycle: cycle2025,
-      variableName: 'proportionForestAreaLongTermForestManagement',
-      tableName: 'sustainableDevelopment15_2_1_4',
+      variableName,
+      tableName,
     },
     client
   )
