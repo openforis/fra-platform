@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
@@ -29,6 +29,15 @@ const DataSources: React.FC<Props> = (props) => {
   const displayReviewIndicator = originalDataPoint.id && !print && canEditData
 
   const updateOriginalDataPoint = useUpdateDataSources()
+
+  const editorOptions = useMemo(
+    () => ({
+      buttons: ['link'],
+      height: 64,
+      statusbar: false,
+    }),
+    []
+  )
 
   const isDisabled = print || !canEditData || !originalDataPoint.year
 
@@ -63,7 +72,7 @@ const DataSources: React.FC<Props> = (props) => {
                         }
                         updateOriginalDataPoint(originalDataPointUpdate)
                       }}
-                      options={{ buttons: ['link'], height: 64, statusbar: false }}
+                      options={editorOptions}
                       value={originalDataPoint.dataSourceReferences ?? ''}
                     />
                   )}
