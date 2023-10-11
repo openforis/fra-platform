@@ -1,4 +1,4 @@
-import { Assessment, AssessmentMetaCaches, Cycle, RowCaches } from 'meta/assessment'
+import { Assessment, Cycle, RowCaches } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { AreaController } from 'server/controller/area'
@@ -39,49 +39,20 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
 
   await _updateCache({ assessment, variableName, tableName })
 
-  const _nodes: Array<NodeUpdate> = [
-    {
-      tableName,
-      variableName,
-    } as NodeUpdate,
-  ]
+  const _nodes: Array<NodeUpdate> = [{ tableName, variableName } as NodeUpdate]
 
   const countryISOs = (await AreaController.getCountries({ assessment, cycle }, client)).map((c) => c.countryIso)
 
-  const exists = AssessmentMetaCaches.getCalculationsDependants({
-    assessment,
-    cycle,
-    tableName,
-    variableName,
-  }).find((d) => d.tableName === tableName && d.variableName === variableName)
-
-  // make self dependant if it is not already
-  if (!exists) {
-    assessment.metaCache[cycle.uuid].calculations.dependants[tableName] = {
-      ...(assessment.metaCache[cycle.uuid].calculations.dependants[tableName] || {}),
-      [variableName]: [
-        {
-          tableName,
-          variableName,
-        },
-      ],
-    }
-  }
   await Promise.all(
     countryISOs.map(async (countryIso) => {
-      const nodeUpdates: NodeUpdates = {
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-        nodes: _nodes,
-      }
+      const assessmentName = assessment.props.name
+      const cycleName = cycle.name
 
-      const contextProps = { assessment, cycle, isODP: false, nodeUpdates }
+      const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: _nodes }
+      const contextProps = { assessment, cycle, isODP: false, nodeUpdates, includeSourceNodes: true }
       const context = await ContextFactory.newInstance(contextProps)
+      const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
 
-      const ts = Date.now()
-
-      const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${ts}` })
       await NodeRepository.massiveInsert({ assessment, cycle, nodes: nodesDb }, client)
 
       await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
