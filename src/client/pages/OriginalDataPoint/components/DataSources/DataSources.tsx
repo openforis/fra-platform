@@ -23,21 +23,11 @@ const DataSources: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
 
   const { t } = useTranslation()
-
   const { print } = useIsPrintRoute()
-
-  const displayReviewIndicator = originalDataPoint.id && !print && canEditData
-
   const updateOriginalDataPoint = useUpdateDataSources()
 
-  const editorOptions = useMemo(
-    () => ({
-      buttons: ['link'],
-      height: 64,
-      statusbar: false,
-    }),
-    []
-  )
+  const displayReviewIndicator = originalDataPoint.id && !print && canEditData
+  const editorOptions = useMemo(() => ({ buttons: ['link'], statusbar: false }), [])
 
   const isDisabled = print || !canEditData || !originalDataPoint.year
 
@@ -66,10 +56,8 @@ const DataSources: React.FC<Props> = (props) => {
                   {!isDisabled && (
                     <EditorWYSIWYG
                       onChange={(value) => {
-                        const originalDataPointUpdate = {
-                          ...originalDataPoint,
-                          dataSourceReferences: Objects.isEmpty(value) ? null : value,
-                        }
+                        const dataSourceReferences = Objects.isEmpty(value) ? null : value
+                        const originalDataPointUpdate = { ...originalDataPoint, dataSourceReferences }
                         updateOriginalDataPoint(originalDataPointUpdate)
                       }}
                       options={editorOptions}
