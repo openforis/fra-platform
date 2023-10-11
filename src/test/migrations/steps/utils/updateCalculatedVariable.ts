@@ -1,11 +1,14 @@
-import { Assessment, AssessmentMetaCaches, Cycle } from 'meta/assessment'
+import { Assessment, AssessmentMetaCaches, Cycle, RowCaches } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { AreaController } from 'server/controller/area'
 import { ContextFactory } from 'server/controller/cycleData/updateDependencies/context'
 import { updateCalculationDependencies } from 'server/controller/cycleData/updateDependencies/updateCalculationDependencies'
 import { BaseProtocol } from 'server/db'
+import { RowRepository } from 'server/repository/assessment/row'
 import { NodeRepository } from 'server/repository/assessmentCycle/node'
+import { DataRedisRepository } from 'server/repository/redis/data'
+import { getKeyRow } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
@@ -15,13 +18,28 @@ type Props = {
   tableName: string
 }
 
+const _updateCache = async (props: { assessment: Assessment; tableName: string; variableName: string }) => {
+  const { assessment, variableName, tableName } = props
+  const redis = RedisData.getInstance()
+  const key = getKeyRow({ assessment })
+  const rowKey = RowCaches.getKey({
+    tableName,
+    variableName,
+  })
+
+  const r = (await RowRepository.getManyCache({ assessment })).find(
+    (r) => r.tableName === tableName && r.props.variableName === variableName
+  )
+
+  await redis.hset(key, rowKey, JSON.stringify(r))
+}
+
 export const updateCalculatedVariable = async (props: Props, client: BaseProtocol) => {
   const { assessment, cycle, variableName, tableName } = props
 
-  // -- flush redis
-  await RedisData.getInstance().flushall()
+  await _updateCache({ assessment, variableName, tableName })
 
-  const nodes: Array<NodeUpdate> = [
+  const _nodes: Array<NodeUpdate> = [
     {
       tableName,
       variableName,
@@ -55,7 +73,7 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countryIso,
-        nodes,
+        nodes: _nodes,
       }
 
       const contextProps = { assessment, cycle, isODP: false, nodeUpdates }
@@ -63,8 +81,10 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
 
       const ts = Date.now()
 
-      const { nodesDb } = updateCalculationDependencies({ context, jobId: `migration_step-${ts}` })
+      const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${ts}` })
       await NodeRepository.massiveInsert({ assessment, cycle, nodes: nodesDb }, client)
+
+      await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
     })
   )
 }

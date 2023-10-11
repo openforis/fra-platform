@@ -1,7 +1,7 @@
 import { Assessment, RecordRowCache, RowCacheKey, RowCaches } from 'meta/assessment'
 
 import { RowRepository } from 'server/repository/assessment/row'
-import { getKeyAssessment, Keys } from 'server/repository/redis/keys'
+import { getKeyRow } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
@@ -9,14 +9,11 @@ type Props = {
   rowKeys?: Array<RowCacheKey>
 }
 
-const _getKey = (props: Pick<Props, 'assessment'>): string =>
-  getKeyAssessment({ assessment: props.assessment, key: Keys.Row.row })
-
 const _cacheRows = async (props: Pick<Props, 'assessment'>): Promise<void> => {
   const { assessment } = props
 
   const redis = RedisData.getInstance()
-  const key = _getKey(props)
+  const key = getKeyRow(props)
 
   const length = await redis.hlen(key)
   if (length === 0) {
@@ -38,7 +35,7 @@ export const getRows = async (props: Props): Promise<RecordRowCache> => {
 
   const redis = RedisData.getInstance()
 
-  const key = _getKey({ assessment })
+  const key = getKeyRow({ assessment })
   const keys = rowKeys ?? (await redis.hkeys(key))
   const values = await redis.hmget(key, ...keys)
 
