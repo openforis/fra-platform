@@ -2,6 +2,8 @@ import './Lock.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import MediaQuery from 'react-responsive'
 
+import classNames from 'classnames'
+
 import { useAppDispatch } from 'client/store'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
@@ -38,7 +40,12 @@ const Lock: React.FC = () => {
   return (
     <div className="lock-wrapper">
       <MediaQuery minWidth={Breakpoints.laptop}>
-        <button type="button" className="btn btn-secondary btn-lock" disabled={disabled} onClick={toggleLock}>
+        <button
+          type="button"
+          className={classNames('btn btn-secondary btn-lock', { locked })}
+          disabled={disabled}
+          onClick={toggleLock}
+        >
           <Icon name={locked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin icon-sub" />
         </button>
       </MediaQuery>
