@@ -9,8 +9,9 @@ import rehypeStringify from 'rehype-stringify'
 import { unified } from 'unified'
 
 type Props = {
-  value: string
   onChange: (value?: string) => void
+  options?: Partial<Jodit['options']>
+  value: string
 }
 
 const buttons = [
@@ -33,7 +34,7 @@ const buttons = [
 const processor = unified().use(rehypeRaw).use(rehypeSanitize).use(rehypeParse, { fragment: true }).use(rehypeStringify)
 
 const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
-  const { onChange, value } = props
+  const { onChange, options, value } = props
   const editor = useRef(null)
 
   const config = useMemo<Partial<Jodit['options']>>(
@@ -43,8 +44,9 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
       toolbarAdaptive: false,
       uploader: undefined,
       spellcheck: true,
+      ...options,
     }),
-    []
+    [options]
   )
 
   // Sanitize user input on save
@@ -64,6 +66,10 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
       onBlur={onBlur} // preferred to use only this option to update the content for performance reasons
     />
   )
+}
+
+EditorWYSIWYG.defaultProps = {
+  options: {},
 }
 
 export default EditorWYSIWYG
