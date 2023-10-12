@@ -44,7 +44,7 @@ export const useOnChange = (): Returned => {
           targetYear: year,
         }
 
-        dispatch(OriginalDataPointActions.updateOriginalDataPointOriginalYear(propsUpdateYear))
+        dispatch(OriginalDataPointActions.updateOriginalDataPointYear(propsUpdateYear))
       }
 
       // Update url but do not push new entry to state

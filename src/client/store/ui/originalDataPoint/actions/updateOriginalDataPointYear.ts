@@ -26,7 +26,7 @@ const putOriginalDataPointYear = Functions.debounce(
   'updateOriginalDataPointYear'
 )
 
-export const updateOriginalDataPointOriginalYear = createAsyncThunk<OriginalDataPoint, Props>(
+export const updateOriginalDataPointYear = createAsyncThunk<OriginalDataPoint, Props>(
   'originalDataPoint/year/update',
   async (props) => {
     putOriginalDataPointYear(props)
