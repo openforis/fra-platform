@@ -25,6 +25,7 @@ type Props = {
   cycle: Cycle
   isODP: boolean
   nodeUpdates: NodeUpdates
+  includeSourceNodes?: boolean
 }
 
 export class ContextFactory {
@@ -85,20 +86,26 @@ export class ContextFactory {
     )
   }
 
+  // add a variable to the queue
+  #addToQueue(variable: VariableCache): void {
+    this.#queue.push(variable)
+    this.#addTableCondition(variable)
+    this.#rowKeys.add(RowCaches.getKey(variable)) // keep track of which rows must be fetched
+  }
+
   // add node dependants to queue. Returns true if input node is dependant of itself, false otherwise
   #addDependantsToQueue(props: { tableName: TableName; variableName: VariableName; colName: ColName }): boolean {
     const { tableName, variableName, colName } = props
-    const { assessment, cycle } = this.#props
+    const { assessment, cycle, includeSourceNodes } = this.#props
+
+    if (includeSourceNodes) this.#addToQueue(props)
 
     const dependants = AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
     dependants.forEach((variable) => {
       const dependant = { tableName: variable.tableName, variableName: variable.variableName, colName }
 
       if (!this.#isInQueue(dependant) && this.#mustAddToQueue(dependant)) {
-        this.#queue.push(dependant)
-        this.#addTableCondition(dependant)
-        this.#rowKeys.add(RowCaches.getKey(dependant)) // keep track of which rows must be fetched
-
+        this.#addToQueue(dependant)
         this.#addDependantsToQueue(dependant)
       }
     })
@@ -109,7 +116,7 @@ export class ContextFactory {
   }
 
   async #initQueue(): Promise<void> {
-    const { assessment, cycle, nodeUpdates } = this.#props
+    const { assessment, cycle, nodeUpdates, includeSourceNodes } = this.#props
     const { countryIso, nodes } = nodeUpdates
 
     this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso })
@@ -119,7 +126,7 @@ export class ContextFactory {
       this.#addTableCondition({ tableName, variableName })
       const selfIsDependant = this.#addDependantsToQueue({ tableName, variableName, colName })
       // if self is not dependant of itself, mark it as visited
-      if (!selfIsDependant) {
+      if (!selfIsDependant && !includeSourceNodes) {
         this.#visitedVariables.push({ variableName, tableName, colName })
       }
     })
