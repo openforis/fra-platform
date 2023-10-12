@@ -115,9 +115,8 @@ export class ContextFactory {
     )
   }
 
-  async #initQueue(props: Props): Promise<void> {
-    const { includeSourceNodes } = props
-    const { assessment, cycle, nodeUpdates } = this.#props
+  async #initQueue(): Promise<void> {
+    const { assessment, cycle, nodeUpdates, includeSourceNodes } = this.#props
     const { countryIso, nodes } = nodeUpdates
 
     this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso })
@@ -148,7 +147,7 @@ export class ContextFactory {
 
   static async newInstance(props: Props): Promise<Context> {
     const factory = new ContextFactory(props)
-    await factory.#initQueue(props)
+    await factory.#initQueue()
     return factory.#createContext()
   }
 }
