@@ -1,3 +1,4 @@
+import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, RowCaches } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
@@ -37,26 +38,38 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
   const countryISOs = (await AreaController.getCountries({ assessment, cycle }, client)).map((c) => c.countryIso)
 
   const allNodesDb: Array<NodeDb> = []
+  const allNodes: Array<{
+    nodes: Record<string, NodeUpdate[]>
+    countryIso: CountryIso
+  }> = []
+
+  await Promise.all(
+    countryISOs.map(async (countryIso) => {
+      const assessmentName = assessment.props.name
+      const cycleName = cycle.name
+
+      const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: _nodes }
+      const contextProps = { assessment, cycle, isODP: false, nodeUpdates, includeSourceNodes: true }
+      const context = await ContextFactory.newInstance(contextProps)
+      const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
+
+      allNodesDb.push(...nodesDb)
+      allNodes.push({
+        nodes,
+        countryIso,
+      })
+    })
+  )
 
   try {
+    await NodeRepository.massiveInsert({ assessment, cycle, nodes: allNodesDb }, client)
     await Promise.all(
-      countryISOs.map(async (countryIso) => {
-        const assessmentName = assessment.props.name
-        const cycleName = cycle.name
-
-        const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: _nodes }
-        const contextProps = { assessment, cycle, isODP: false, nodeUpdates, includeSourceNodes: true }
-        const context = await ContextFactory.newInstance(contextProps)
-        const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
-
-        allNodesDb.push(...nodesDb)
-
+      allNodes.map(async ({ countryIso, nodes }) => {
         await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
       })
     )
   } catch (e) {
+    Logger.error('Persisting nodes failed')
     Logger.error(e)
-  } finally {
-    await NodeRepository.massiveInsert({ assessment, cycle, nodes: allNodesDb }, client)
   }
 }
