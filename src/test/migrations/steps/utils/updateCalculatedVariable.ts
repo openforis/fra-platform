@@ -1,11 +1,10 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment, Cycle, RowCaches } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { AreaController } from 'server/controller/area'
 import { ContextFactory } from 'server/controller/cycleData/updateDependencies/context'
 import { updateCalculationDependencies } from 'server/controller/cycleData/updateDependencies/updateCalculationDependencies'
 import { BaseProtocol } from 'server/db'
-import { RowRepository } from 'server/repository/assessment/row'
 import { NodeDb, NodeRepository } from 'server/repository/assessmentCycle/node'
 import { DataRedisRepository } from 'server/repository/redis/data'
 import { RowRedisRepository } from 'server/repository/redis/row'
@@ -20,17 +19,10 @@ type Props = {
 const _updateCache = async (props: { assessment: Assessment; tableName: string; variableName: string }) => {
   const { assessment, variableName, tableName } = props
 
-  const rowCache = await RowRepository.getOneCache({
+  await RowRedisRepository.getRows({
     assessment,
-    tableName,
-    variableName,
-  })
-
-  await RowRedisRepository.updateRow({
-    assessment,
-    rowCache,
-    tableName,
-    variableName,
+    rowKeys: [RowCaches.getKey({ tableName, variableName })],
+    force: true,
   })
 }
 
