@@ -116,7 +116,7 @@ export class ContextFactory {
   }
 
   async #initQueue(): Promise<void> {
-    const { assessment, cycle, nodeUpdates } = this.#props
+    const { assessment, cycle, nodeUpdates, includeSourceNodes } = this.#props
     const { countryIso, nodes } = nodeUpdates
 
     this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso })
@@ -126,7 +126,7 @@ export class ContextFactory {
       this.#addTableCondition({ tableName, variableName })
       const selfIsDependant = this.#addDependantsToQueue({ tableName, variableName, colName })
       // if self is not dependant of itself, mark it as visited
-      if (!selfIsDependant) {
+      if (!selfIsDependant && !includeSourceNodes) {
         this.#visitedVariables.push({ variableName, tableName, colName })
       }
     })
