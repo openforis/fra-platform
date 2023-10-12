@@ -8,6 +8,7 @@ import { BaseProtocol } from 'server/db'
 import { NodeDb, NodeRepository } from 'server/repository/assessmentCycle/node'
 import { DataRedisRepository } from 'server/repository/redis/data'
 import { RowRedisRepository } from 'server/repository/redis/row'
+import { Logger } from 'server/utils/logger'
 
 type Props = {
   assessment: Assessment
@@ -37,21 +38,25 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
 
   const allNodesDb: Array<NodeDb> = []
 
-  await Promise.all(
-    countryISOs.map(async (countryIso) => {
-      const assessmentName = assessment.props.name
-      const cycleName = cycle.name
+  try {
+    await Promise.all(
+      countryISOs.map(async (countryIso) => {
+        const assessmentName = assessment.props.name
+        const cycleName = cycle.name
 
-      const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: _nodes }
-      const contextProps = { assessment, cycle, isODP: false, nodeUpdates, includeSourceNodes: true }
-      const context = await ContextFactory.newInstance(contextProps)
-      const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
+        const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: _nodes }
+        const contextProps = { assessment, cycle, isODP: false, nodeUpdates, includeSourceNodes: true }
+        const context = await ContextFactory.newInstance(contextProps)
+        const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
 
-      allNodesDb.push(...nodesDb)
+        allNodesDb.push(...nodesDb)
 
-      await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
-    })
-  )
-
-  await NodeRepository.massiveInsert({ assessment, cycle, nodes: allNodesDb }, client)
+        await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
+      })
+    )
+  } catch (e) {
+    Logger.error(e)
+  } finally {
+    await NodeRepository.massiveInsert({ assessment, cycle, nodes: allNodesDb }, client)
+  }
 }
