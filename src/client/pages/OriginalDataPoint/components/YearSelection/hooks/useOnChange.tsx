@@ -22,7 +22,7 @@ export const useOnChange = (): Returned => {
     (event) => {
       const { value: year } = event.target
 
-      const propsAction = {
+      const commonProps = {
         assessmentName,
         cycleName,
         countryIso,
@@ -31,7 +31,21 @@ export const useOnChange = (): Returned => {
           year: Number(year),
         },
       }
-      dispatch(OriginalDataPointActions.createOriginalDataPoint(propsAction))
+
+      // When creating ODP, year is -1
+      if (originalDataPoint.year === -1) {
+        dispatch(OriginalDataPointActions.createOriginalDataPoint(commonProps))
+        // Otherwise year already exists
+      } else {
+        const propsUpdateYear = {
+          ...commonProps,
+          id: originalDataPoint.id,
+          year: originalDataPoint.year,
+          targetYear: year,
+        }
+
+        dispatch(OriginalDataPointActions.updateOriginalDataPointOriginalYear(propsUpdateYear))
+      }
 
       // Update url but do not push new entry to state
       const routeParams = { assessmentName, cycleName, countryIso, sectionName, year }

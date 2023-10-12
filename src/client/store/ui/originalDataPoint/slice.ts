@@ -14,6 +14,7 @@ import { updateOriginalDataPointDataSources } from './actions/updateOriginalData
 import { updateOriginalDataPointDescription } from './actions/updateOriginalDataPointDescription'
 import { updateOriginalDataPointNationalClasses } from './actions/updateOriginalDataPointNationalClasses'
 import { updateOriginalDataPointOriginalData } from './actions/updateOriginalDataPointOriginalData'
+import { updateOriginalDataPointOriginalYear } from './actions/updateOriginalDataPointOriginalYear'
 import { setOriginalDataPoint } from './reducers/setOriginalDataPoint'
 import { OriginalDataPointState } from './stateType'
 
@@ -42,6 +43,7 @@ export const originalDataPointSlice = createSlice({
         updateOriginalDataPointNationalClasses.fulfilled,
         updateOriginalDataPointDescription.fulfilled,
         updateOriginalDataPointOriginalData.fulfilled,
+        updateOriginalDataPointOriginalYear.fulfilled,
         createOriginalDataPoint.fulfilled
       ),
       setOriginalDataPoint
@@ -54,7 +56,8 @@ export const originalDataPointSlice = createSlice({
         updateOriginalDataPointDataSources.pending,
         updateOriginalDataPointNationalClasses.pending,
         updateOriginalDataPointDescription.pending,
-        updateOriginalDataPointOriginalData.pending
+        updateOriginalDataPointOriginalData.pending,
+        updateOriginalDataPointOriginalYear.pending
       ),
       setUpdatingTrue
     )
@@ -71,6 +74,7 @@ export const OriginalDataPointActions = {
   updateOriginalDataPointDescription,
   updateOriginalDataPointNationalClasses,
   updateOriginalDataPointOriginalData,
+  updateOriginalDataPointOriginalYear,
   copyNationalClasses,
   getOriginalDataPointReservedYears,
 }
