@@ -7,6 +7,7 @@ import * as path from 'path'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
 import { DB } from 'server/db'
+import { RedisData } from 'server/repository/redis/redisData'
 import { Logger } from 'server/utils/logger'
 
 const client = DB
@@ -27,6 +28,7 @@ const close = async () => {
   UpdateDependenciesQueueFactory.connection.quit()
   WorkerFactory.connection.quit()
   await DB.$pool.end()
+  RedisData.getInstance().quit()
 }
 
 const exec = async () => {
