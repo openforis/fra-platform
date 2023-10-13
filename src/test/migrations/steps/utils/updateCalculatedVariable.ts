@@ -5,35 +5,45 @@ import { NodeUpdate, NodeUpdates } from 'meta/data'
 import { AreaController } from 'server/controller/area'
 import { ContextFactory } from 'server/controller/cycleData/updateDependencies/context'
 import { updateCalculationDependencies } from 'server/controller/cycleData/updateDependencies/updateCalculationDependencies'
+import { MetadataController } from 'server/controller/metadata'
 import { BaseProtocol } from 'server/db'
 import { NodeDb, NodeRepository } from 'server/repository/assessmentCycle/node'
 import { DataRedisRepository } from 'server/repository/redis/data'
 import { RowRedisRepository } from 'server/repository/redis/row'
+import { SectionRedisRepository } from 'server/repository/redis/section'
 import { Logger } from 'server/utils/logger'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  variableName: string
+  sectionName: string
   tableName: string
+  variableName: string
 }
 
-const _updateCache = async (props: { assessment: Assessment; tableName: string; variableName: string }) => {
-  const { assessment, variableName, tableName } = props
+const _updateCache = async (props: Props) => {
+  const { assessment, cycle, sectionName, tableName, variableName } = props
 
-  await RowRedisRepository.getRows({
-    assessment,
-    rowKeys: [RowCaches.getKey({ tableName, variableName })],
-    force: true,
-  })
+  const force = true
+  const sectionNames = [sectionName]
+  const rowKeys = [RowCaches.getKey({ tableName, variableName })]
+
+  await Promise.all([
+    SectionRedisRepository.getManyMetadata({ assessment, cycle, sectionNames, force }),
+    RowRedisRepository.getRows({ assessment, rowKeys, force }),
+  ])
 }
 
 export const updateCalculatedVariable = async (props: Props, client: BaseProtocol) => {
-  const { assessment, cycle, variableName, tableName } = props
+  const { assessment, cycle, sectionName, variableName, tableName } = props
 
-  await _updateCache({ assessment, variableName, tableName })
+  await _updateCache({ assessment, cycle, sectionName, variableName, tableName })
 
-  const _nodes: Array<NodeUpdate> = [{ tableName, variableName } as NodeUpdate]
+  const table = await MetadataController.getTable({ assessment, cycle, tableName })
+
+  const _nodes: Array<NodeUpdate> = table.props.columnNames?.[cycle.uuid].map<NodeUpdate>((colName) => {
+    return { tableName, variableName, colName, value: undefined }
+  })
 
   const countryISOs = (await AreaController.getCountries({ assessment, cycle }, client)).map((c) => c.countryIso)
 
@@ -53,11 +63,10 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
       const context = await ContextFactory.newInstance(contextProps)
       const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
 
-      allNodesDb.push(...nodesDb)
-      allNodes.push({
-        nodes,
-        countryIso,
-      })
+      if (nodesDb.length > 0) {
+        allNodesDb.push(...nodesDb)
+        allNodes.push({ nodes, countryIso })
+      }
     })
   )
 

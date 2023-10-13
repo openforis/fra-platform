@@ -10,6 +10,7 @@ import { updateCalculatedVariable } from 'test/migrations/steps/utils/updateCalc
 
 const client: BaseProtocol = DB
 
+const sectionName = 'sustainableDevelopment'
 const tableName = 'sustainableDevelopment15_2_1_4'
 const variableName = 'proportionForestAreaLongTermForestManagement'
 
@@ -88,6 +89,7 @@ export default async () => {
     {
       assessment,
       cycle: cycle2025,
+      sectionName,
       variableName,
       tableName,
     },
@@ -98,6 +100,7 @@ export default async () => {
     {
       assessment,
       cycle: cycle2020,
+      sectionName,
       variableName: 'proportionForestAreaLongTermForestManagement',
       tableName: 'sustainableDevelopment15_2_1_4',
     },
