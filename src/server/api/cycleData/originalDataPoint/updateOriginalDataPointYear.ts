@@ -2,6 +2,8 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
 export const updateOriginalDataPointYear = async (
@@ -9,16 +11,18 @@ export const updateOriginalDataPointYear = async (
   res: Response
 ) => {
   try {
-    const { assessmentName, cycleName } = req.query
+    const { assessmentName, cycleName, countryIso, sectionName } = req.query
     const { id, targetYear, year } = req.body
 
-    Requests.send(res, {
-      assessmentName,
-      cycleName,
-      id,
-      targetYear,
-      year,
-    })
+    const metaCache = true
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
+
+    const user = Requests.getUser(req)
+    const propsUpdate = { assessment, cycle, sectionName, countryIso, id, year, targetYear, user }
+
+    const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointYear(propsUpdate)
+
+    Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {
     Requests.sendErr(res, e)
   }
