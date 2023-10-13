@@ -3,8 +3,6 @@ import { CycleName } from './cycle'
 import { VariableName } from './row'
 import { TableName } from './table'
 
-export type VariablesByTableCache = Record<string, Record<string, VariableCache>>
-
 export interface VariableCache {
   assessmentName?: AssessmentName
   cycleName?: CycleName
@@ -24,6 +22,8 @@ export interface VariableCache {
  *    }
  * }
  */
+export type VariablesCache = Record<TableName, Record<VariableName, VariableCache>>
+
 export type DependencyRecord = Record<string, Record<string, Array<VariableCache>>>
 
 export type DependencyCache = {
@@ -34,5 +34,5 @@ export type DependencyCache = {
 export interface AssessmentMetaCache {
   calculations: DependencyCache
   validations: DependencyCache
-  variablesByTable: VariablesByTableCache
+  variablesByTable: VariablesCache
 }
