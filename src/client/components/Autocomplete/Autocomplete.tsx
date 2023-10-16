@@ -66,7 +66,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
       if (!value && !readOnlyOptions) value = inputValue
 
       if (value === '') setInputValue('')
-      onSave({ value })
+      onSave(value)
     }
   }
 
