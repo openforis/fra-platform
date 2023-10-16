@@ -4,15 +4,16 @@ import classNames from 'classnames'
 import { GetPropsCommonOptions, UseComboboxGetInputPropsOptions } from 'downshift'
 
 type Props = {
-  getInputProps: (options?: UseComboboxGetInputPropsOptions, otherOptions?: GetPropsCommonOptions) => any
-  value: string
   disabled: boolean
-  openMenu: () => void
+  getInputProps: (options?: UseComboboxGetInputPropsOptions, otherOptions?: GetPropsCommonOptions) => any
   onPaste?: React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  openMenu: () => void
   readOnlyOptions?: boolean
+  clearInput: () => void
+  value: string
 }
 const AutocompleteInput: React.FC<Props> = (props: Props) => {
-  const { getInputProps, value, disabled, readOnlyOptions, openMenu, onPaste } = props
+  const { getInputProps, value, disabled, readOnlyOptions, openMenu, onPaste, clearInput } = props
 
   const _onFocus = () => {
     if (readOnlyOptions) openMenu()
@@ -30,6 +31,11 @@ const AutocompleteInput: React.FC<Props> = (props: Props) => {
           value,
           disabled,
           className: 'text-input__input-field',
+          onChange: (e) => {
+            if (e.target.value === '') {
+              clearInput()
+            }
+          },
         })}
         onPaste={onPaste}
       />
