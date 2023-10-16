@@ -17,7 +17,9 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
     const isString = typeof value === 'string'
     // Handle first load ajax query call of onChange
     const isSame = value === nodeValue.raw || (!isString && value?.scientificName === nodeValue.raw)
-    if (isSame || !value) return
+    // value can be empty string
+    const isNull = !value && !isString
+    if (isSame || isNull) return
 
     const nodeValueUpdate = { ...nodeValue }
 
