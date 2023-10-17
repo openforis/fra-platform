@@ -44,6 +44,11 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     if (!value) setSelectedItem(null)
   }, [value])
 
+  const clearInput = () => {
+    setSelectedItem(null)
+    setInputValue('')
+  }
+
   // Handle saving on input field blur or item selected
   const _onStateChange: (changes: UseComboboxStateChange<any>) => void = (changes) => {
     if (changes.type === useCombobox.stateChangeTypes.ItemClick) {
@@ -63,10 +68,10 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     } else if (changes.type === useCombobox.stateChangeTypes.InputBlur) {
       let value = items.find(({ label }) => label === inputValue)?.value
       if (!value && readOnlyOptions) value = ''
-      if (!value && !readOnlyOptions) value = inputValue
+      if (!value && !readOnlyOptions) value = inputValue ?? ''
 
       if (value === '') setInputValue('')
-      onSave({ value })
+      onSave(value)
     }
   }
 
@@ -92,6 +97,7 @@ const Autocomplete: React.FC<Props> = (props: Props) => {
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div {...getComboboxProps()} className={classNames('autocomplete', { [name]: name })}>
       <AutocompleteInput
+        clearInput={clearInput}
         readOnlyOptions={readOnlyOptions}
         openMenu={openMenu}
         disabled={disabled}
