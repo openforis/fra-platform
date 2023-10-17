@@ -7,7 +7,7 @@ import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/o
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'
 
-import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
+import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
   assessment: Assessment
@@ -22,6 +22,7 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
   const cycleName = cycle.name
   const { countryIso } = originalDataPoint
 
+  // TODO Pass transaction client all the way down to redis table data fetching/updating
   const odpReturn = await client.tx(async (t) => {
     const removedOriginalDataPoint = await OriginalDataPointRepository.remove(
       { assessment, cycle, originalDataPoint },

@@ -3,11 +3,12 @@ import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/a
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
-import { updateOriginalDataPointDependentNodes } from 'server/controller/cycleData/originalDataPoint/updateOriginalDataPointDependentNodes'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'
+
+import { updateOriginalDataPointsDependentNodes } from './updateDependants/updateOriginalDataPointsDependentNodes'
 
 type Props = {
   assessment: Assessment
@@ -42,27 +43,18 @@ export const updateOriginalDataPointYear = async (
     return updatedOriginalDataPoint
   })
 
-  // --- 3 Update dependents
-  // TODO: updateOriginalDatasPointDependentNodes : handle multiple odps in same function
-  // --- 3.1 Update nodes for deleted ODP
-  const commonProps = { assessment, cycle, sectionName, user }
-  await updateOriginalDataPointDependentNodes({ ...commonProps, originalDataPoint, notifyClient: false })
-  // --- 3.2 Update  nodes for new ODP
-  await updateOriginalDataPointDependentNodes({
-    ...commonProps,
-    originalDataPoint: updatedOriginalDataPoint,
-    notifyClient: false,
-  })
-
-  // --- 4. Notify client about the change
-  // --- 4.1 Notify client about the 'delete' of the old year
+  // --- 3 Notify client about delete
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const nodeUpdateEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
-  SocketServer.emit(nodeUpdateEvent, { countryIso, year })
+  SocketServer.emit(nodeUpdateEvent, { countryIso, year: originalDataPoint.year })
 
-  // --- 4.2 Notify client about the 'update' for the target year
-  // TODO
+  // --- 4 Update dependents
+  const commonProps = { assessment, cycle, sectionName, user, notifyClient: true }
+  await updateOriginalDataPointsDependentNodes({
+    ...commonProps,
+    originalDataPoints: [updatedOriginalDataPoint],
+  })
 
   return updatedOriginalDataPoint
 }
