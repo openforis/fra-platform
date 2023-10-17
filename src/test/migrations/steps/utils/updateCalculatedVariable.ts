@@ -39,9 +39,9 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
 
   await _updateCache({ assessment, cycle, sectionName, variableName, tableName })
 
-  const table = await MetadataController.getTable({ assessment, cycle, tableName })
+  const table = await MetadataController.getTable({ assessment, cycle, tableName }, client)
 
-  const _nodes: Array<NodeUpdate> = table.props.columnNames?.[cycle.uuid].map<NodeUpdate>((colName) => {
+  const _nodes = table.props.columnNames?.[cycle.uuid].map<NodeUpdate>((colName) => {
     return { tableName, variableName, colName, value: undefined }
   })
 
@@ -60,7 +60,7 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
 
       const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: _nodes }
       const contextProps = { assessment, cycle, isODP: false, nodeUpdates, includeSourceNodes: true }
-      const context = await ContextFactory.newInstance(contextProps)
+      const context = await ContextFactory.newInstance(contextProps, client)
       const { nodesDb, nodes } = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
 
       if (nodesDb.length > 0) {

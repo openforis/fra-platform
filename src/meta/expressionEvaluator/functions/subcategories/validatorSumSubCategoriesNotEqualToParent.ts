@@ -16,14 +16,12 @@ export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Conte
       parentLabelKey: string,
       parentTableAnchor: string,
       categoryValues: Array<string | undefined>,
-      categoryLabelKeys: Array<string>,
-      categoryIndex: number
+      categoryLabelKeys: Array<string>
     ): NodeValueValidation => {
       const categoriesSum = calculateCategoriesSum(categoryValues, categoryLabelKeys)
 
       const valid =
         Objects.isEmpty(parentValue) ||
-        Objects.isEmpty(categoryValues[categoryIndex]) ||
         categoryValues.some((value) => Objects.isEmpty(value)) ||
         Numbers.eqWithTolerance(parentValue, categoriesSum)
 
