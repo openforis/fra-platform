@@ -12,7 +12,7 @@ import { ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
 
-const createMail = async (props: {
+type CreateMailProps = {
   status: AssessmentStatus
   user: User
   recipient: User
@@ -21,16 +21,17 @@ const createMail = async (props: {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycleName: string
-}) => {
+}
+const createMail = async (props: CreateMailProps) => {
   const { assessmentName, countryIso, cycleName, user, url, status, recipient, message } = props
 
   const i18n = await createI18nPromise(recipient.props.lang ?? 'en')
 
-  const link = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
+  const serverUrl = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
-    serverUrl: link,
+    serverUrl,
     recipientName: Users.getFullName(recipient),
     status: i18n.t(`assessment.status.${status}.label`),
     changer: Users.getFullName(user),
@@ -38,12 +39,18 @@ const createMail = async (props: {
     message,
   }
 
-  return {
-    to: recipient.email,
-    subject: i18n.t('assessment.statusChangeNotification.subject', emailLocalizationParameters),
-    text: i18n.t('assessment.statusChangeNotification.textMessage', emailLocalizationParameters),
-    html: i18n.t('assessment.statusChangeNotification.htmlMessage', emailLocalizationParameters),
-  }
+  const to = recipient.email
+
+  const subject = i18n.t('assessment.statusChangeNotification.subject', emailLocalizationParameters)
+  const text = i18n.t('assessment.statusChangeNotification.textMessage', emailLocalizationParameters)
+  const htmlStyle = `style="white-space: pre-line; max-width: 100%"`
+  const html = `<p ${htmlStyle} >${i18n.t(
+    'assessment.statusChangeNotification.htmlMessage',
+    emailLocalizationParameters
+  )}</p>`
+
+  const mail = { to, subject, text, html }
+  return mail
 }
 
 const getCountryUsers = async (props: {
