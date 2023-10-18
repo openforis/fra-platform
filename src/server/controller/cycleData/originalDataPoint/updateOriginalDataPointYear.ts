@@ -27,7 +27,7 @@ export const updateOriginalDataPointYear = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, countryIso, sectionName, user, year } = props
+  const { assessment, cycle, countryIso, user, year } = props
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })
 
@@ -50,10 +50,10 @@ export const updateOriginalDataPointYear = async (
   SocketServer.emit(nodeUpdateEvent, { countryIso, year: originalDataPoint.year })
 
   // --- 4 Update dependents
-  const commonProps = { assessment, cycle, sectionName, user, notifyClient: true }
+  const commonProps = { assessment, cycle, user, notifyClient: true }
   await updateOriginalDataPointsDependentNodes({
     ...commonProps,
-    originalDataPoints: [updatedOriginalDataPoint],
+    originalDataPoints: [originalDataPoint, updatedOriginalDataPoint],
   })
 
   return updatedOriginalDataPoint
