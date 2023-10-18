@@ -13,10 +13,11 @@ type Props = {
   cycle: Cycle
   countryISOs: Array<CountryIso>
   tables: TablesCondition
+  force?: boolean
 }
 
 export const getCountriesData = async (props: Props): Promise<RecordCountryData> => {
-  const { assessment, cycle, countryISOs, tables } = props
+  const { assessment, cycle, countryISOs, tables, force } = props
 
   const redis = RedisData.getInstance()
   const data: RecordCountryData = {}
@@ -27,7 +28,7 @@ export const getCountriesData = async (props: Props): Promise<RecordCountryData>
 
       await Promise.all(
         Object.entries(tables).map(async ([tableName, tableCondition]) => {
-          await cacheCountryTable({ assessment, cycle, countryIso, tableName })
+          await cacheCountryTable({ assessment, cycle, countryIso, tableName, force })
 
           let tableData: RecordColumnData = JSON.parse(await redis.hget(key, tableName))
 
