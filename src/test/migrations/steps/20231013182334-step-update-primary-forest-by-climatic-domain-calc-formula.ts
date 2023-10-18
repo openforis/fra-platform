@@ -20,12 +20,12 @@ export default async (client: BaseProtocol) => {
 
   const categoryValues = `[${variables.map((v) => `${tableName}.${v}`).join(', ')}]`
   const categoryLabelKeys = `[${variables.map((v) => `''fra.${tableName}.${v}''`).join(', ')}]`
-  const validator = `validatorSumSubCategoriesNotEqualToParent(forestCharacteristics.totalForestArea,''fra.primaryForestByClimaticDomain.totalPrimaryForest'', ''1b'', ${categoryValues}, ${categoryLabelKeys} )`
+  const validator = `validatorSumSubCategoriesNotEqualToParent(forestCharacteristics.primaryForest,''fra.primaryForestByClimaticDomain.totalPrimaryForest'', ''1b'', ${categoryValues}, ${categoryLabelKeys} )`
   // update total calculation formula
   await client.query(`
       update ${schemaAssessment}.row r
       set props = jsonb_set(r.props, '{calculateFn,"${cycle.uuid}"}',
-                            '"forestCharacteristics.totalForestArea"',
+                            '"forestCharacteristics.primaryForest"',
                             true) ||
                   jsonb_build_object('validateFns',
                                      jsonb_build_object('${cycle.uuid}', jsonb_build_array('${validator}')))
@@ -46,14 +46,14 @@ export default async (client: BaseProtocol) => {
         // .filter((v) => v !== variableName)
         .map((v) => `Number(primaryForestByClimaticDomain.${v} || 0)`)
         .join(` + `)}`
-      const formula = `!primaryForestByClimaticDomain.${variableName} && equalsWithTolerance((${sumVariables}), forestCharacteristics.totalForestArea)`
+      const calculateIf = `!primaryForestByClimaticDomain.${variableName} && equalsWithTolerance((${sumVariables}), forestCharacteristics.primaryForest)`
 
       return client.query(`
           update ${schemaAssessment}.row r
           set props = jsonb_set(r.props, '{calculateFn}',
                                 jsonb_build_object('${cycle.uuid}', '0'),
                                 true) || jsonb_build_object('readonly', false) ||
-                      jsonb_build_object('calculateIf', jsonb_build_object('${cycle.uuid}', '${formula}'))
+                      jsonb_build_object('calculateIf', jsonb_build_object('${cycle.uuid}', '${calculateIf}'))
           from (select r.id,
                        r.props ->> 'variableName' as variable_name,
                        r.props,

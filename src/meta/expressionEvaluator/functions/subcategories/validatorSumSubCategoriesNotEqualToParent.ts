@@ -9,7 +9,7 @@ import { calculateCategoriesSum, getValidationMessage } from './utils'
 
 export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Context> = {
   name: 'validatorSumSubCategoriesNotEqualToParent',
-  minArity: 6,
+  minArity: 5,
   executor: (context) => {
     return (
       parentValue: string | undefined,
