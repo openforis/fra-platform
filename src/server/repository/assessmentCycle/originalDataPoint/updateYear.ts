@@ -19,15 +19,12 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
-  await client.one<OriginalDataPoint>(
-    `
-        update    ${schemaName}.original_data_point
-        set       year = $2
-        where     id = $1
-        returning *
-    `,
-    [id, targetYear]
-  )
+  const query = `
+      update    ${schemaName}.original_data_point
+      set       year = $2
+      where     id = $1
+  `
+  await client.none(query, [id, targetYear])
 
   return getOne({ assessment, cycle, countryIso, year: String(targetYear) }, client)
 }

@@ -46,14 +46,17 @@ export const updateOriginalDataPointYear = async (
   // --- 3 Notify client about delete
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
-  const nodeUpdateEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
-  SocketServer.emit(nodeUpdateEvent, { countryIso, year: originalDataPoint.year })
+  const odpDeleteEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
+  SocketServer.emit(odpDeleteEvent, { countryIso, year: originalDataPoint.year })
 
   // --- 4 Update dependents
-  const commonProps = { assessment, cycle, user, notifyClient: true }
+  const commonProps = { assessment, cycle, user }
   await updateOriginalDataPointsDependentNodes({
     ...commonProps,
-    originalDataPoints: [originalDataPoint, updatedOriginalDataPoint],
+    originalDataPoints: [
+      { originalDataPoint, notifyClient: false },
+      { originalDataPoint: updatedOriginalDataPoint, notifyClient: true },
+    ],
   })
 
   return updatedOriginalDataPoint
