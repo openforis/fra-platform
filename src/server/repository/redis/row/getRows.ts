@@ -42,7 +42,7 @@ export const getRows = async (props: Props): Promise<RecordRowCache> => {
   const redis = RedisData.getInstance()
 
   const key = getKeyRow({ assessment })
-  const keys = rowKeys ?? (await redis.hkeys(key))
+  const keys = rowKeys?.length ? rowKeys : await redis.hkeys(key)
   const values = await redis.hmget(key, ...keys)
 
   return keys.reduce<RecordRowCache>(
