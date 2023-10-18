@@ -47,8 +47,9 @@ const calculate = (props: Props): NodeValue | undefined => {
   const value = RecordAssessmentDatas.getNodeValue(paramsValue)
 
   // verify node value has not been inserted manually (see mirror tables) || calculateIf is verified
-  const canCalculate =
-    Objects.isEmpty(value) || value.calculated || (row.props.calculateIf?.[cycle.uuid] && calculateIf(props))
+  const canCalculate = row.props.calculateIf?.[cycle.uuid]
+    ? calculateIf(props)
+    : Objects.isEmpty(value) || value.calculated
 
   if (canCalculate) {
     const paramsCalculate = { assessment, countryIso, cycle, data, colName, row, formula }
