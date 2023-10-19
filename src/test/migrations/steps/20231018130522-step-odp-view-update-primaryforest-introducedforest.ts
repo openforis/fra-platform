@@ -2,7 +2,7 @@ import { TableNames } from 'meta/assessment'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, Schemas } from 'server/db'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
 const getOdpViewSQL = (schemaCycle: string) => `
@@ -150,8 +150,7 @@ FROM raw_values_2 rv
                    ON ia.country_iso::text = rv.country_iso::text AND ia.year::text = rv.year::text;
       `
 
-const client: BaseProtocol = DB
-export default async () => {
+export default async (client: BaseProtocol) => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra' }, client)
 
   // eslint-disable-next-line no-restricted-syntax
@@ -171,6 +170,6 @@ export default async () => {
     }
     const getCountriesDataProps = { assessment, cycle, countryISOs, tables, force: true }
     // eslint-disable-next-line no-await-in-loop
-    await DataRedisRepository.getCountriesData(getCountriesDataProps)
+    await DataRedisRepository.getCountriesData(getCountriesDataProps, client)
   }
 }
