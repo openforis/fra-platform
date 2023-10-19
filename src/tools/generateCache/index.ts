@@ -3,6 +3,7 @@ import 'dotenv/config'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db'
+import { RedisData } from 'server/repository/redis/redisData'
 import { Logger } from 'server/utils/logger'
 
 import { generateAssessmentCache } from './generateAssessmentCache'
@@ -10,6 +11,8 @@ import { generateDataCache } from './generateDataCache'
 import { generateMetadataCache } from './generateMetadataCache'
 
 const exec = async () => {
+  await RedisData.getInstance().flushall()
+
   const assessments = await AssessmentController.getAll({})
 
   await Promise.all(
