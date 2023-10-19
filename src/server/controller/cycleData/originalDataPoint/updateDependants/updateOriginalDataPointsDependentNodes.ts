@@ -16,15 +16,15 @@ type Props = {
 }
 
 export const updateOriginalDataPointsDependentNodes = async (props: Props): Promise<void> => {
-  const { assessment, cycle, sectionName, originalDataPoints: _originalDataPoints, user } = props
+  const { assessment, cycle, sectionName, originalDataPoints, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
-  const originalDataPoints = _originalDataPoints.filter(({ originalDataPoint }) => originalDataPoint.year)
-
-  if (!originalDataPoints.length) {
-    return
-  }
+  originalDataPoints.forEach(({ originalDataPoint }) => {
+    if (!originalDataPoint.year) {
+      throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
+    }
+  })
 
   const { countryIso } = originalDataPoints[0].originalDataPoint
 
@@ -50,15 +50,5 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props): Prom
   await scheduleUpdateDependencies(propsDeps)
 
   // 3. notifies client
-  const colNames: Array<string> = originalDataPoints.reduce<Array<string>>(
-    (acc, { originalDataPoint, notifyClient }) => {
-      if (notifyClient) {
-        acc.push(String(originalDataPoint.year))
-      }
-      return acc
-    },
-    []
-  )
-
-  await notifyClientUpdate({ cycle, sectionName, assessment, countryIso, colNames })
+  await notifyClientUpdate({ cycle, sectionName, assessment, countryIso, originalDataPoints })
 }

@@ -15,7 +15,7 @@ type Props = {
 export const updateOriginalDataPointDependentNodes = async (props: Props): Promise<void> => {
   const { originalDataPoint, notifyClient } = props
   const { year } = originalDataPoint
-  if (!year) return
+  if (!year) throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
 
   await updateOriginalDataPointsDependentNodes({ ...props, originalDataPoints: [{ originalDataPoint, notifyClient }] })
 }
