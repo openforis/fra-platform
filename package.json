@@ -21,7 +21,7 @@
     "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/test/migrations/ src/test/migrations/ -- --watch",
     "run:dev": "run-p run:dev:client run:dev:server",
     "run:dev:client": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
-    "run:dev:server": "yarn migrations:run && ts-node-dev src/server/start",
+    "run:dev:server": "yarn migrations:run && ts-node-dev --exit-child src/server/start",
     "run:prod": "run-s build start",
     "run:prod:server": "node dist/server/start",
     "start": "run-s migrations:run run:prod:server",

@@ -15,6 +15,8 @@ export const initSchedulers = (): void => {
 }
 
 process.on('SIGTERM', async () => {
+  Logger.debug('[System schedulers] SIGTERM received')
   await Promise.all(Object.values(workers).map((worker) => worker.close()))
   Logger.debug('[System schedulers] all workers closed')
+  process.exit()
 })
