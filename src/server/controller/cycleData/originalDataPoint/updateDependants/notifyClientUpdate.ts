@@ -1,5 +1,3 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, OriginalDataPoint, TableNames } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates, RecordAssessmentDatas } from 'meta/data'
@@ -48,7 +46,7 @@ export const notifyClientUpdate = async (props: Props) => {
 
           const nodeUpdate = { tableName: TableNames.originalDataPointValue, variableName, colName, value }
 
-          if (!Objects.isEmpty(value)) acc.push(nodeUpdate)
+          acc.push(nodeUpdate)
         })
       }
       return acc
