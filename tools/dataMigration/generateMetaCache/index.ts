@@ -1,6 +1,6 @@
 import { Cycle } from '../../../src/meta/assessment'
 import { Assessment } from '../../../src/meta/assessment/assessment'
-import { AssessmentMetaCache, VariablesByTableCache } from '../../../src/meta/assessment/assessmentMetaCache'
+import { AssessmentMetaCache, VariablesCache } from '../../../src/meta/assessment/assessmentMetaCache'
 import { Col } from '../../../src/meta/assessment/col'
 import { Row } from '../../../src/meta/assessment/row'
 import { TableNames } from '../../../src/meta/assessment/table'
@@ -18,7 +18,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
   const { assessment, cycle } = props
   const schema = DBNames.getAssessmentSchema(assessment.props.name)
 
-  const variablesByTable = await client.one<VariablesByTableCache>(
+  const variablesByTable = await client.one<VariablesCache>(
     `
         with data as (
             select t.props ->> 'name' as table_name,
