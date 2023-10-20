@@ -9,6 +9,6 @@ export const useOriginalDataPointYears = (): Array<{ year: string; id: number }>
 
   return Object.entries(odpData).map(([year, data]) => ({
     year,
-    id: data.total.odpId,
+    id: data.totalLandArea.odpId,
   }))
 }
