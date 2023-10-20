@@ -33,11 +33,7 @@ const MessageBoardUsers: React.FC = () => {
       </div>
       {users.map((_user) => (
         <div key={_user.id} className="landing__user-outer-container">
-          <div
-            className={classNames('landing__user-container', {
-              'user-list__inactive-user': _user.status === 'active',
-            })}
-          >
+          <div className="landing__user-container">
             <div className="landing__user-header">
               <img alt="" className="landing__user-avatar" src={ApiEndPoint.User.profilePicture(String(_user.id))} />
               <div className="landing__user-info">
