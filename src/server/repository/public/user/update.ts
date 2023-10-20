@@ -41,5 +41,5 @@ export const update = async (
     )
   }
 
-  return getOne({ email }, client)
+  return getOne({ email, allowDisabled: true }, client)
 }
