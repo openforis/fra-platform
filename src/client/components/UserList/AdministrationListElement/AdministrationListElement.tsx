@@ -2,9 +2,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import classNames from 'classnames'
+
 import { Global } from 'meta/area'
 import { Routes } from 'meta/routes'
-import { RoleName, User, Users } from 'meta/user'
+import { RoleName, User, Users, UserStatus } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useFilteredRoleNames } from 'client/store/ui/userManagement'
@@ -21,8 +23,10 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
 
   const { id } = user
 
+  const userDisabled = user.status === UserStatus.disabled
+
   return (
-    <tr>
+    <tr className={classNames({ 'user-list__disabled-user': userDisabled })}>
       <td className="user-list__cell">
         <div className="user-list__cell--read-only">{Users.getFullName(user)}</div>
       </td>

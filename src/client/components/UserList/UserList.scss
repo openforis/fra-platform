@@ -15,6 +15,11 @@
       }
     }
 
+    &.user-list__disabled-user {
+      color: $text-disabled;
+      text-decoration: line-through;
+    }
+
     th {
       &.user-list__header-cell {
         border-bottom: $ui-thin-border;
