@@ -24,6 +24,9 @@ export const originalDataPointSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    setReservedYears: (state, { payload }: PayloadAction<Array<ODPReservedYear>>) => {
+      state.reservedYears = payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
