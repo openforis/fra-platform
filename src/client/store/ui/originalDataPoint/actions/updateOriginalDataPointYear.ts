@@ -6,10 +6,6 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 import { OriginalDataPoint } from 'meta/assessment'
 
-import { AppDispatch } from 'client/store/store'
-
-import { getOriginalDataPointReservedYears } from './getOriginalDataPointReservedYears'
-
 type Props = CycleParams & {
   originalDataPoint: OriginalDataPoint
   id: string
@@ -18,14 +14,13 @@ type Props = CycleParams & {
 }
 
 const putOriginalDataPointYear = Functions.debounce(
-  async (props: Props, dispatch: AppDispatch) => {
+  async (props: Props) => {
     const { countryIso, assessmentName, cycleName, year, targetYear, id } = props
 
     const params = { countryIso, assessmentName, cycleName, sectionName: 'extentOfForest' }
     const config = { params }
     const data = { id, year, targetYear }
     await axios.put(ApiEndPoint.CycleData.OriginalDataPoint.year(), data, config)
-    dispatch(getOriginalDataPointReservedYears(params))
   },
   1000,
   'updateOriginalDataPointYear'
@@ -33,8 +28,8 @@ const putOriginalDataPointYear = Functions.debounce(
 
 export const updateOriginalDataPointYear = createAsyncThunk<OriginalDataPoint, Props>(
   'originalDataPoint/year/update',
-  async (props, { dispatch }) => {
-    putOriginalDataPointYear(props, dispatch)
+  async (props) => {
+    putOriginalDataPointYear(props)
     return props.originalDataPoint
   }
 )

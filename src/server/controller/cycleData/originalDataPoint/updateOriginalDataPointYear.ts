@@ -3,6 +3,7 @@ import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/a
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
+import { CycleDataController } from 'server/controller/cycleData/index'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -58,6 +59,11 @@ export const updateOriginalDataPointYear = async (
       { originalDataPoint: updatedOriginalDataPoint, notifyClient: true },
     ],
   })
+
+  // 5 --- Notify about reserved years
+  const odpReservedYearsEvent = Sockets.getODPReservedYearsEvent({ assessmentName, cycleName, countryIso })
+  const years = await CycleDataController.getOriginalDataPointReservedYears({ assessment, cycle, countryIso })
+  SocketServer.emit(odpReservedYearsEvent, { years })
 
   return updatedOriginalDataPoint
 }
