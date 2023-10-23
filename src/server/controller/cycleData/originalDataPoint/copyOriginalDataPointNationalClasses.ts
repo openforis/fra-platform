@@ -4,10 +4,11 @@ import { CountryIso } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle, ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
-import { updateOriginalDataPointDependentNodes } from 'server/controller/cycleData/originalDataPoint/updateOriginalDataPointDependentNodes'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+
+import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
   assessment: Assessment

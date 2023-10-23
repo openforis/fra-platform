@@ -1,6 +1,7 @@
 import { Response } from 'express'
 
 import { UsersRequest } from 'meta/api/request'
+import { UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -21,6 +22,7 @@ export const getUsers = async (req: UsersRequest, res: Response) => {
       fullName: fullName || '',
       roles: roles || [],
       administrators,
+      statuses: [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending],
     })
 
     Requests.sendOk(res, users)
