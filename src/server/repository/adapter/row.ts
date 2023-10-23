@@ -14,7 +14,7 @@ export interface RowDB {
 
 export const RowAdapter = (rowDB: RowDB): Row => {
   const {
-    props: { calculateFn, linkToSection, validateFns, chart, ...rest },
+    props: { calculateFn, calculateIf, linkToSection, validateFns, chart, ...rest },
     ...row
   } = rowDB
   const _row = {
@@ -22,6 +22,7 @@ export const RowAdapter = (rowDB: RowDB): Row => {
     props: {
       ...Objects.camelize(rest),
       calculateFn,
+      calculateIf,
       linkToSection,
       validateFns,
       chart,

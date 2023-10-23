@@ -4,7 +4,13 @@ export { ActivityLogs } from './activityLogs'
 export type { Assessment } from './assessment'
 export type { AssessmentProps } from './assessment'
 export type { AssessmentFile } from './assessmentFile'
-export type { AssessmentMetaCache, DependencyCache, DependencyRecord, VariableCache } from './assessmentMetaCache'
+export type {
+  AssessmentMetaCache,
+  DependencyCache,
+  DependencyRecord,
+  VariableCache,
+  VariablesCache,
+} from './assessmentMetaCache'
 export { AssessmentMetaCaches } from './assessmentMetaCaches'
 export type { AssessmentName } from './assessmentName'
 export { AssessmentNames } from './assessmentName'
@@ -31,6 +37,7 @@ export { DataSourceType } from './description'
 export type { Label } from './label'
 export { Labels } from './labels'
 export type { Node, NodeValue } from './node'
+export { NodeCalculations } from './nodeCalculations'
 export type {
   NodeValueEstimationMethod,
   NodeValuesEstimation,

@@ -4,7 +4,7 @@ import {
   DependencyCache,
   DependencyRecord,
   VariableCache,
-  VariablesByTableCache,
+  VariablesCache,
 } from './assessmentMetaCache'
 import { Cycle } from './cycle'
 
@@ -74,7 +74,7 @@ const getValidationsDependencies = (props: VariableProps) => {
   return _getDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName, variableName })
 }
 
-const getVariablesByTables = (props: CycleProps): VariablesByTableCache => getMetaCache(props).variablesByTable
+const getVariablesByTables = (props: CycleProps): VariablesCache => getMetaCache(props).variablesByTable
 
 const getCalculationMirrorVariable = (props: VariableProps): VariableCache | undefined => {
   const { assessment, cycle, tableName, variableName } = props

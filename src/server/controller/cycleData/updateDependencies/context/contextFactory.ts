@@ -15,6 +15,7 @@ import { NodeUpdates } from 'meta/data'
 
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
+import { BaseProtocol, DB } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { RowRedisRepository } from 'server/repository/redis/row'
 
@@ -115,11 +116,11 @@ export class ContextFactory {
     )
   }
 
-  async #initQueue(): Promise<void> {
+  async #initQueue(client: BaseProtocol): Promise<void> {
     const { assessment, cycle, nodeUpdates, includeSourceNodes } = this.#props
     const { countryIso, nodes } = nodeUpdates
 
-    this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso })
+    this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
 
     nodes.forEach((node) => {
       const { tableName, variableName, colName } = node
@@ -145,9 +146,9 @@ export class ContextFactory {
     return new Context({ assessment, cycle, countryIso, data, queue, rows, visitedVariables })
   }
 
-  static async newInstance(props: Props): Promise<Context> {
+  static async newInstance(props: Props, client: BaseProtocol = DB): Promise<Context> {
     const factory = new ContextFactory(props)
-    await factory.#initQueue()
+    await factory.#initQueue(client)
     return factory.#createContext()
   }
 }

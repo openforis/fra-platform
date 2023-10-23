@@ -28,7 +28,10 @@ export interface ChartProps {
 }
 
 export interface RowProps {
+  // formula to calculate the value
   calculateFn?: Record<CycleUuid, string>
+  // formula to conditionally calculate the value.
+  calculateIf?: Record<CycleUuid, string>
   // if a variable is subcategory, then categoryLevel starts from 1
   categoryLevel?: number
   chart?: Record<CycleUuid, ChartProps>

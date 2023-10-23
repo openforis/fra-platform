@@ -1,9 +1,8 @@
-import { RowCaches } from 'meta/assessment'
+import { NodeCalculations, RowCaches } from 'meta/assessment'
 
 import { Logger } from 'server/utils/logger'
 
 import { Context, ContextResult } from '../context'
-import { calculateNode } from './calculateNode'
 
 type Props = {
   context: Context
@@ -18,7 +17,7 @@ const _getLogKey = (props: Props): string => {
 
 export const updateCalculationDependencies = (props: Props): ContextResult => {
   const { context } = props
-  const { cycle, rows } = context
+  const { assessment, cycle, countryIso, data, rows } = context
 
   const logKey = _getLogKey(props)
   Logger.debug(`${logKey} queue length ${context.queue.length}`)
@@ -35,19 +34,26 @@ export const updateCalculationDependencies = (props: Props): ContextResult => {
 
     if (!visited) {
       const row = rows[RowCaches.getKey({ tableName, variableName })]
-      const evaluateProps = { context, tableName, variableName, row }
+      // const evaluateProps = { context, tableName, variableName, row }
+      const propsCalculate = { assessment, cycle, countryIso, tableName, row, data }
 
       if (row.props.calculateFn?.[cycle.uuid]) {
         // make sure in target table there's a matching column
         const col = row.cols.find((c) => c.props.colName === colName)
         if (col) {
-          calculateNode({ ...evaluateProps, col, formula: row.props.calculateFn[cycle.uuid] })
+          const value = NodeCalculations.calculate({ ...propsCalculate, col })
+          if (value) {
+            context.result.push({ col, row, node: { tableName, variableName, colName, value } })
+          }
         }
       } else {
         // TODO: TO avoid calculating all columns, handle dependencies per column, not row
         row.cols.forEach((col) => {
-          if (col.props.calculateFn?.[cycle.uuid]) {
-            calculateNode({ ...evaluateProps, col, formula: col.props.calculateFn[cycle.uuid] })
+          if (col.props.calculateFn?.[cycle.uuid] && col.props.colName) {
+            const value = NodeCalculations.calculate({ ...propsCalculate, col })
+            if (value) {
+              context.result.push({ col, row, node: { tableName, variableName, colName, value } })
+            }
           }
         })
       }
