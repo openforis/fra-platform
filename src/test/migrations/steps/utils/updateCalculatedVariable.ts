@@ -71,12 +71,14 @@ export const updateCalculatedVariable = async (props: Props, client: BaseProtoco
   )
 
   try {
-    await NodeRepository.massiveInsert({ assessment, cycle, nodes: allNodesDb }, client)
-    await Promise.all(
-      allNodes.map(async ({ countryIso, nodes }) => {
-        await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
-      })
-    )
+    if (allNodesDb.length > 0) {
+      await NodeRepository.massiveInsert({ assessment, cycle, nodes: allNodesDb }, client)
+      await Promise.all(
+        allNodes.map(async ({ countryIso, nodes }) => {
+          await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes })
+        })
+      )
+    }
   } catch (e) {
     Logger.error('Persisting nodes failed')
     Logger.error(e)
