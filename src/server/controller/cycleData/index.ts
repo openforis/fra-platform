@@ -12,6 +12,7 @@ import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOr
 import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
 import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
+import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { clearTableData } from './clearTableData'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
@@ -49,6 +50,8 @@ export const CycleDataController = {
   copyOriginalDataPointNationalClasses,
   deleteOriginalDataPointNationalClass,
   updateOriginalDataPointNationalClasses,
+  // year
+  updateOriginalDataPointYear,
 
   // ===== review
   getReviewStatus,
