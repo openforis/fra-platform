@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
-import { RoleName, User } from 'meta/user'
+import { RoleName, User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { UserRoleAdapter } from 'server/repository/adapter'
@@ -13,19 +13,33 @@ const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 export const getMany = async (
   props: {
-    countryIso?: CountryIso
     assessment?: Assessment
     cycle?: Cycle
-    limit?: number
-    offset?: number
+    countryIso?: CountryIso
+
+    administrators?: boolean
     countries?: Array<CountryIso>
     fullName?: string
     roles?: Array<RoleName>
-    administrators?: boolean
+    statuses?: Array<UserStatus>
+
+    limit?: number
+    offset?: number
   },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
-  const { countryIso, assessment, cycle, limit, offset, countries, fullName, roles, administrators } = props
+  const {
+    countryIso,
+    assessment,
+    cycle,
+    limit,
+    offset,
+    countries,
+    fullName,
+    roles,
+    administrators,
+    statuses = [UserStatus.active, UserStatus.invitationPending],
+  } = props
 
   const selectedCountries = !Objects.isEmpty(countries)
     ? countries.map((countryIso) => `'${countryIso}'`).join(',')
@@ -58,6 +72,10 @@ export const getMany = async (
 
   if (fullName) {
     whereConditions.push(`concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
+  }
+
+  if (statuses) {
+    whereConditions.push(`u.status in (${statuses.map((status) => `'${status}'`).join(',')})`)
   }
 
   if (countryIso) {

@@ -5,7 +5,7 @@ import { RoleName, UserRole } from './index'
 export enum UserStatus {
   invitationPending = 'invitationPending',
   active = 'active',
-  inactive = 'inactive',
+  disabled = 'disabled',
 }
 
 export type UserProps = {

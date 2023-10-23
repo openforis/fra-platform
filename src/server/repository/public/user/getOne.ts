@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { User } from 'meta/user'
+import { User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { UserRoleAdapter } from 'server/repository/adapter'
@@ -9,10 +9,13 @@ import { fields } from './fields'
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
-export const getOne = async (
-  props: ({ id: number } | { uuid: string } | { email: string } | { emailGoogle: string }) & { cycleUuid?: string },
-  client: BaseProtocol = DB
-): Promise<User> => {
+type Props = ({ id: number } | { uuid: string } | { email: string } | { emailGoogle: string }) & {
+  allowDisabled?: boolean
+  cycleUuid?: string
+}
+
+export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
+  const { allowDisabled } = props
   const where = []
   let join = ''
   const values = []
@@ -41,6 +44,11 @@ export const getOne = async (
   if (props.cycleUuid) {
     join = 'and (ur.cycle_uuid = $2 or ur.cycle_uuid is null)'
     values.push(props.cycleUuid)
+  }
+
+  if (!allowDisabled) {
+    const allowed = [UserStatus.active, UserStatus.invitationPending]
+    where.push(`and u.status in (${allowed.map((status) => `'${status}'`).join(',')})`)
   }
 
   return client
