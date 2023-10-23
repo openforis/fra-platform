@@ -7,7 +7,7 @@ import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/o
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'
 
-import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
+import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
   assessment: Assessment

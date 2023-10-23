@@ -5,7 +5,7 @@ import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
-import { updateOriginalDataPointDependentNodes } from './updateOriginalDataPointDependentNodes'
+import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
   assessment: Assessment
