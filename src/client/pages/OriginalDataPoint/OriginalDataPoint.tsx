@@ -8,7 +8,6 @@ import { TableNames } from 'meta/assessment'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useGetReviewStatus } from 'client/pages/OriginalDataPoint/hooks/useGetReviewStatus'
 
 import ButtonBar from './components/ButtonBar'
 import Comments from './components/Comments'
@@ -17,6 +16,7 @@ import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
 import YearSelection from './components/YearSelection'
 import { useGetOriginalDataPoint } from './hooks/useGetOriginalDataPoint'
+import { useGetReviewStatus } from './hooks/useGetReviewStatus'
 import { useReservedYears } from './hooks/useReservedYears'
 
 const OriginalDataPoint: React.FC = () => {
