@@ -2,7 +2,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { RoleName, User, Users, UserStatus } from 'meta/user'
+import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCycle } from 'client/store/assessment'
@@ -37,7 +37,6 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
       className={classNames({
         'user-list__invitation-row': isInvitation,
         expired: isInvitation && invitationExpired,
-        'user-list__inactive-user': user.status === UserStatus.inactive,
       })}
     >
       <td className="user-list__cell">

@@ -23,12 +23,10 @@ const AdministrationListElement: React.FC<{ user: User }> = ({ user }) => {
 
   const { id } = user
 
+  const userDisabled = user.status === UserStatus.disabled
+
   return (
-    <tr
-      className={classNames({
-        'user-list__inactive-user': user.status === UserStatus.inactive,
-      })}
-    >
+    <tr className={classNames({ 'user-list__disabled-user': userDisabled })}>
       <td className="user-list__cell">
         <div className="user-list__cell--read-only">{Users.getFullName(user)}</div>
       </td>
