@@ -343,21 +343,13 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
        primary_forest AS (SELECT c.id,
                                c.country_iso,
                                c.year,
-                               case
-                                   when
-                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent')) !=
-                                           jsonb_array_length(jsonb_agg(c.class ->>
-                                                                        'forestNaturalForestOfWhichPrimaryForestPercent')
-                                                              filter ( where c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent' is not null))
-                                       then null
-                                   else
-                                       sum(((c.class ->> 'area'::text)::numeric) *
-                                           ((c.class ->> 'forestPercent'::text)::numeric) /
-                                           100::numeric * ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
-                                           100::numeric *
-                                           ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
-                                           100::numeric)
-                                   end as primary_forest
+                               sum(((c.class ->> 'area'::text)::numeric) *
+                                   ((c.class ->> 'forestPercent'::text)::numeric) /
+                                   100::numeric * ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
+                                   100::numeric *
+                                   ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
+                                   100::numeric)
+                               as primary_forest
                         FROM classes c
                         WHERE c.class ->> 'forestNaturalPercent' IS NOT NULL
                           AND (c.class ->> 'forestNaturalPercent')::numeric >= 0
@@ -367,21 +359,13 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
      introduced_area AS (SELECT c.id,
                                 c.country_iso,
                                 c.year,
-                                case
-                                    when
-                                            jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationIntroducedPercent')) !=
-                                            jsonb_array_length(jsonb_agg(c.class ->>
-                                                                         'forestPlantationIntroducedPercent')
-                                                               filter ( where c.class ->> 'forestPlantationIntroducedPercent' is not null))
-                                        then null
-                                    else
-                                        sum(((c.class ->> 'area'::text)::numeric) *
-                                            ((c.class ->> 'forestPercent'::text)::numeric) /
-                                            100::numeric * ((c.class ->> 'forestPlantationPercent'::text)::numeric) /
-                                            100::numeric *
-                                            ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
-                                            100::numeric)
-                                    end as plantation_forest_introduced_area
+                                sum(((c.class ->> 'area'::text)::numeric) *
+                                    ((c.class ->> 'forestPercent'::text)::numeric) /
+                                    100::numeric * ((c.class ->> 'forestPlantationPercent'::text)::numeric) /
+                                    100::numeric *
+                                    ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
+                                    100::numeric)
+                                as plantation_forest_introduced_area
                          FROM classes c
                          WHERE c.class ->> 'forestPlantationPercent' IS NOT NULL
                            AND (c.class ->> 'forestPercent')::numeric > 0

@@ -10,6 +10,9 @@ import { BaseProtocol } from 'server/db'
 
 import { NodeRow } from 'test/dataMigration/types'
 
+/**
+ * @deprecated
+ */
 export const calculateRow = async (
   props: {
     assessment: Assessment

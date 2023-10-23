@@ -1,29 +1,32 @@
 import { Assessment, RecordRowCache, RowCacheKey, RowCaches } from 'meta/assessment'
 
 import { RowRepository } from 'server/repository/assessment/row'
-import { getKeyAssessment, Keys } from 'server/repository/redis/keys'
+import { getKeyRow } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
   assessment: Assessment
   rowKeys?: Array<RowCacheKey>
+  force?: boolean
 }
 
-const _getKey = (props: Pick<Props, 'assessment'>): string =>
-  getKeyAssessment({ assessment: props.assessment, key: Keys.Row.row })
-
-const _cacheRows = async (props: Pick<Props, 'assessment'>): Promise<void> => {
-  const { assessment } = props
+const _cacheRows = async (props: Props): Promise<void> => {
+  const { assessment, rowKeys, force } = props
 
   const redis = RedisData.getInstance()
-  const key = _getKey(props)
+  const key = getKeyRow(props)
 
   const length = await redis.hlen(key)
-  if (length === 0) {
+  const updateCache = force || length === 0
+
+  if (updateCache) {
     const rows = await RowRepository.getManyCache({ assessment })
 
     const recordRows = rows.reduce<Record<string, string>>((acc, row) => {
       const rowKey = RowCaches.getKey({ tableName: row.tableName, variableName: row.props.variableName })
+
+      if (rowKeys && !rowKeys.includes(rowKey)) return acc
+
       return { ...acc, [rowKey]: JSON.stringify(row) }
     }, {})
 
@@ -32,14 +35,14 @@ const _cacheRows = async (props: Pick<Props, 'assessment'>): Promise<void> => {
 }
 
 export const getRows = async (props: Props): Promise<RecordRowCache> => {
-  const { assessment, rowKeys } = props
+  const { assessment, rowKeys, force } = props
 
-  await _cacheRows({ assessment })
+  await _cacheRows({ assessment, rowKeys, force })
 
   const redis = RedisData.getInstance()
 
-  const key = _getKey({ assessment })
-  const keys = rowKeys ?? (await redis.hkeys(key))
+  const key = getKeyRow({ assessment })
+  const keys = rowKeys?.length ? rowKeys : await redis.hkeys(key)
   const values = await redis.hmget(key, ...keys)
 
   return keys.reduce<RecordRowCache>(

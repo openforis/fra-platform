@@ -1,13 +1,19 @@
 import { Assessment, AssessmentNames, Cycle, TableNames } from 'meta/assessment'
-import { TablesCondition } from 'meta/data'
+import { RecordCountryData, TablesCondition } from 'meta/data'
 
-import { AreaController } from 'server/controller/area'
 import { DB, Schemas } from 'server/db'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { DataRedisRepository } from 'server/repository/redis/data'
 import { Logger } from 'server/utils/logger'
 
-export const generateDataCache = async (props: { assessment: Assessment; cycle: Cycle }) => {
-  const { assessment, cycle } = props
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  force?: boolean
+}
+
+export const generateDataCache = async (props: Props): Promise<RecordCountryData> => {
+  const { assessment, cycle, force } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
@@ -26,10 +32,11 @@ export const generateDataCache = async (props: { assessment: Assessment; cycle: 
     tables[TableNames.originalDataPointValue] = {}
   }
 
-  const countries = await AreaController.getCountries({ assessment, cycle })
+  const countries = await CountryRepository.getMany({ assessment, cycle })
   const countryISOs = countries.map((c) => c.countryIso)
 
-  const data = await DataRedisRepository.getCountriesData({ assessment, cycle, countryISOs, tables })
-
+  const data = await DataRedisRepository.getCountriesData({ assessment, cycle, countryISOs, tables, force })
   Logger.info(`${assessmentName}-${cycleName}: "${Object.keys(data).length} data" generated`)
+
+  return data
 }

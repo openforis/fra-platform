@@ -9,6 +9,7 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   sectionNames?: Array<string>
+  force?: boolean
 }
 
 type RecordMetadata = Record<SectionName, Array<TableSection>>
@@ -27,15 +28,18 @@ const _getSectionNames = async (props: Pick<Props, 'assessment' | 'cycle'>): Pro
 }
 
 export const getManyMetadata = async (props: Props): Promise<RecordMetadata> => {
-  const { assessment, cycle, sectionNames } = props
+  const { assessment, cycle, sectionNames, force } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Section.sectionsMetadata })
 
   const length = await redis.hlen(key)
-  if (length === 0) {
-    const sectionNames = await _getSectionNames({ assessment, cycle })
-    const sectionsMetadata = await SectionRepository.getManyMetadata({ assessment, cycle, sectionNames })
+  const updateCache = force || length === 0
+
+  if (updateCache) {
+    const sectionNamesCache = sectionNames ?? (await _getSectionNames({ assessment, cycle }))
+    const propsMetadata = { assessment, cycle, sectionNames: sectionNamesCache }
+    const sectionsMetadata = await SectionRepository.getManyMetadata(propsMetadata)
     await Promise.all(
       Object.entries(sectionsMetadata).map(async ([name, tableSections]) => {
         return redis.hset(key, name, JSON.stringify(tableSections))
