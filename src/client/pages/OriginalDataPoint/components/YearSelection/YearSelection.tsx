@@ -24,7 +24,7 @@ const YearSelection: React.FC<Props> = (props) => {
   const { years, reservedYears } = useODPYears(cycleName)
 
   const validYear = ODPs.validateYear(originalDataPoint)
-  const disabled = Boolean(originalDataPoint.id || !canEditData)
+  const disabled = Boolean(!canEditData)
 
   return (
     <div className="odp__section">

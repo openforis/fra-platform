@@ -1,14 +1,12 @@
 import './OriginalDataPoint.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import { AssessmentName, TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment'
 
-import { useAppDispatch } from 'client/store'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-import { ReviewActions } from 'client/store/ui/review'
-import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
+import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 
 import ButtonBar from './components/ButtonBar'
@@ -17,63 +15,22 @@ import DataSources from './components/DataSources'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
 import YearSelection from './components/YearSelection'
+import { useGetOriginalDataPoint } from './hooks/useGetOriginalDataPoint'
+import { useGetReviewStatus } from './hooks/useGetReviewStatus'
+import { useReservedYears } from './hooks/useReservedYears'
 
 const OriginalDataPoint: React.FC = () => {
   const { i18n } = useTranslation()
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const countryIso = useCountryIso()
-  const user = useUser()
   const originalDataPoint = useOriginalDataPoint()
-  const { assessmentName, cycleName, sectionName, year } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-    sectionName: string
-    year: string
-  }>()
 
   const isEditTableDataEnabled = useIsEditTableDataEnabled(TableNames.extentOfForest)
   const canEditData = originalDataPoint.id && isEditTableDataEnabled
 
-  useEffect(() => {
-    dispatch(
-      OriginalDataPointActions.getOriginalDataPointReservedYears({
-        countryIso,
-        assessmentName,
-        cycleName,
-      })
-    )
-  }, [assessmentName, countryIso, cycleName, dispatch, originalDataPoint.year])
-
-  useEffect(() => {
-    if (year !== '-1') {
-      dispatch(
-        OriginalDataPointActions.getOriginalDataPoint({
-          year,
-          assessmentName,
-          countryIso,
-          cycleName,
-        })
-      )
-    }
-    return () => {
-      dispatch(OriginalDataPointActions.reset())
-    }
-  }, [assessmentName, countryIso, cycleName, dispatch, year])
-
-  useEffect(() => {
-    if (user) {
-      dispatch(
-        ReviewActions.getReviewStatus({
-          countryIso,
-          assessmentName,
-          cycleName,
-          sectionName,
-          odpId: originalDataPoint.id,
-        })
-      )
-    }
-  }, [originalDataPoint.id, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
+  useReservedYears()
+  useGetOriginalDataPoint()
+  useGetReviewStatus()
 
   if (originalDataPoint.countryIso !== countryIso) navigate('/')
 

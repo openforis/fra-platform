@@ -13,6 +13,7 @@ export const acceptedMessages = [
   ActivityLogMessage.originalDataPointUpdateDescription,
   ActivityLogMessage.originalDataPointUpdateNationalClasses,
   ActivityLogMessage.originalDataPointUpdateOriginalData,
+  ActivityLogMessage.originalDataPointUpdateYear,
   ActivityLogMessage.assessmentStatusUpdate,
   ActivityLogMessage.messageCreate,
   ActivityLogMessage.topicStatusChange,
