@@ -14,7 +14,7 @@ import { Logger } from 'server/utils/logger'
 const client: BaseProtocol = DB
 
 // assessmentUuid->cycleUuid->[countryIso]
-type ActivityLogEntries = Record<string, Record<string, Array<CountryIso>>>
+type ActivityLogEntries = Record<string, Record<string, Set<CountryIso>>>
 
 const _getActivityLogEntries = async (props: { jobTimestamp: number }): Promise<ActivityLogEntries> => {
   const { jobTimestamp } = props
@@ -29,8 +29,8 @@ const _getActivityLogEntries = async (props: { jobTimestamp: number }): Promise<
   return activities.reduce<ActivityLogEntries>((acc, entry) => {
     const res = { ...acc }
     if (!acc[entry.assessmentUuid]) res[entry.assessmentUuid] = {}
-    if (!acc[entry.assessmentUuid][entry.cycleUuid]) res[entry.assessmentUuid][entry.cycleUuid] = []
-    res[entry.assessmentUuid][entry.cycleUuid].push(entry.countryIso)
+    if (!acc[entry.assessmentUuid][entry.cycleUuid]) res[entry.assessmentUuid][entry.cycleUuid] = new Set()
+    res[entry.assessmentUuid][entry.cycleUuid].add(entry.countryIso)
     return acc
   }, {})
 }
@@ -56,11 +56,11 @@ export const initMaterializedViews = (connection: IORedis): Worker => {
           Logger.info(`[${name}:CountrySummary] ${assessment.props.name} ${cycle.name} refreshed`)
 
           // 2. refresh countries activity log
-          const countryISOs = entries[assessment.uuid]?.[cycle.uuid] ?? []
+          const countryISOs = Array.from(entries[assessment.uuid]?.[cycle.uuid] ?? [])
           await Promises.each(countryISOs, async (countryIso) => {
-            Logger.debug(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} refreshing`)
+            Logger.debug(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshing`)
             await CountryActivityLogRepository.refreshMaterializedView({ assessment, cycle, countryIso })
-            Logger.info(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} refreshed`)
+            Logger.info(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshed`)
           })
         })
       )
