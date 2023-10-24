@@ -15,7 +15,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.query(
+  await client.query(
     `
         create materialized view if not exists ${schemaCycle}.country_summary as
         with country as
@@ -68,4 +68,6 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
     `,
     []
   )
+
+  await client.query(`CREATE UNIQUE INDEX ON ${schemaCycle}.country_summary (country_iso);`)
 }

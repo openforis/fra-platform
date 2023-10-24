@@ -19,12 +19,13 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const viewName = getMaterializedViewName(countryIso)
 
-  return client.query(
+  await client.query(
     `
         create materialized view ${schemaCycle}.${viewName} as (
           select a.message,
                  a.section,
                  a.target,
+                 md5(a.target::text) as target_md5,
                  a.time,
                  to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename' as user
           from (select user_id,
@@ -46,4 +47,6 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
     `,
     [countryIso, assessment.uuid, cycle.uuid, acceptedMessages, hiddenSections]
   )
+
+  await client.query(`CREATE UNIQUE INDEX ON ${schemaCycle}.${viewName} (message,target_md5,time);`)
 }
