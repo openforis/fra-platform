@@ -12,5 +12,5 @@ export const refreshMaterializedView = async (props: Props, client: BaseProtocol
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.query(`refresh materialized view ${schemaCycle}.country_summary;`, [])
+  return client.query(`refresh materialized view concurrently ${schemaCycle}.country_summary;`, [])
 }

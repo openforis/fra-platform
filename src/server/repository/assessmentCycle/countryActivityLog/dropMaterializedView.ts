@@ -11,11 +11,11 @@ type Props = {
   countryIso: CountryIso
 }
 
-export const refreshMaterializedView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+export const dropMaterializedView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle, countryIso } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  const mvName = getMaterializedViewName(countryIso)
+  const viewName = getMaterializedViewName(countryIso)
 
-  return client.query(`refresh materialized view concurrently ${schemaCycle}.${mvName};`)
+  return client.query(`drop materialized view if exists ${schemaCycle}.${viewName}`)
 }
