@@ -1,8 +1,7 @@
 import { Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { initCountryActivityLog } from 'server/schedulers/initCountryActivityLog'
-import { initCountrySummary } from 'server/schedulers/initCountrySummary'
+import { initMaterializedViews } from 'server/schedulers/initMaterializedViews'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
@@ -10,8 +9,7 @@ const connection = new IORedis(ProcessEnv.redisQueueUrl)
 const workers: Array<Worker> = []
 
 export const initSchedulers = (): void => {
-  workers.push(initCountrySummary(connection))
-  workers.push(initCountryActivityLog(connection))
+  workers.push(initMaterializedViews(connection))
 }
 
 process.on('SIGTERM', async () => {
