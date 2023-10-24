@@ -57,7 +57,7 @@ const hasEditorRole = (props: { user: User; countryIso: AreaCode; cycle: Cycle }
 const hasRoleInAssessment = (props: { user: User; assessment: Assessment }): boolean => {
   const { assessment, user } = props
   if (isAdministrator(user)) return true
-  return user.roles.some((role) => Number(role.assessmentId) === Number(assessment.id))
+  return user?.roles?.some((role) => Number(role.assessmentId) === Number(assessment.id))
 }
 
 const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {

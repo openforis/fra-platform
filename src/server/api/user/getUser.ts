@@ -1,6 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
+import { Users } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -16,7 +17,12 @@ export const getUser = async (req: CycleRequest<{ id: string }>, res: Response) 
       cycleUuid = cycle.uuid
     }
 
-    const user = await UserController.getOne({ id: Number(id), cycleUuid })
+    const currentUser = Requests.getUser(req)
+    const user = await UserController.getOne({
+      id: Number(id),
+      cycleUuid,
+      allowDisabled: Users.isAdministrator(currentUser),
+    })
 
     Requests.sendOk(res, user)
   } catch (e) {

@@ -15,7 +15,7 @@
       }
     }
 
-    &.user-list__inactive-user {
+    &.user-list__disabled-user {
       color: $text-disabled;
       text-decoration: line-through;
     }

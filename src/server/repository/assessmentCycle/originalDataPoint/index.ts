@@ -8,6 +8,7 @@ import { updateDataSources } from './updateDataSources'
 import { updateDescription } from './updateDescription'
 import { updateNationalClasses } from './updateNationalClasses'
 import { updateOriginalData } from './updateOriginalData'
+import { updateYear } from './updateYear'
 
 export const OriginalDataPointRepository = {
   create,
@@ -20,4 +21,5 @@ export const OriginalDataPointRepository = {
   updateDescription,
   updateNationalClasses,
   updateOriginalData,
+  updateYear,
 }
