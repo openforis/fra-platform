@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
 import { DataSourceDescription } from 'meta/assessment/description'
+import { SectionName } from 'meta/assessment/section'
 
 // TODO: merge this with description
 
@@ -42,3 +43,7 @@ export interface CommentableDescription {
   name: CommentableDescriptionName
   value: CommentableDescriptionValue
 }
+
+export type DescriptionValues = Record<CommentableDescriptionName, CommentableDescriptionValue>
+export type DescriptionSectionValues = Record<SectionName, DescriptionValues>
+export type DescriptionCountryValues = Record<CountryIso, DescriptionSectionValues>

@@ -1,17 +1,23 @@
-import { CommentableDescriptionValue } from 'meta/assessment'
+import { CountryIso } from 'meta/area'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
 import { useAppSelector } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useCommentableDescriptionValue = (props: {
-  name: string
+type Props = {
+  name: CommentableDescriptionName
   sectionName: string
   template: CommentableDescriptionValue
-}): CommentableDescriptionValue => {
+}
+
+export const useCommentableDescriptionValue = (props: Props): CommentableDescriptionValue => {
   const { name, sectionName, template } = props
-  const assessment = useAssessment()
-  const cycle = useCycle()
+
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+
   return useAppSelector(
-    (state) => state.data[assessment.props.name]?.[cycle.name]?.descriptions?.[sectionName]?.[name] ?? template
+    (state) =>
+      state.data.descriptions[assessmentName]?.[cycleName]?.[countryIso as CountryIso]?.[sectionName]?.[name] ??
+      template
   )
 }

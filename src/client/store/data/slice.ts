@@ -22,8 +22,9 @@ import { updateNodeValues } from './actions/updateNodeValues'
 import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
-  nodeValuesEstimations: {},
+  descriptions: {},
   nodeValueValidations: {},
+  nodeValuesEstimations: {},
   odpLastUpdatedTimestamp: {},
   tableData: {},
   tableDataStatus: {},
@@ -103,11 +104,13 @@ export const dataSlice = createSlice({
 
     // descriptions
     builder.addCase(getDescription.fulfilled, (state, { payload, meta }) => {
-      const { name, sectionName, value } = payload
-      const { assessmentName, cycleName } = meta.arg
+      const { assessmentName, cycleName, countryIso } = meta.arg
 
-      const path = [assessmentName, cycleName, 'descriptions', sectionName, name]
-      Objects.setInPath({ obj: state, path, value })
+      // merge values at section level. good enough for now
+      const valuePayload = payload[countryIso]
+      const valueStore = state.descriptions?.[assessmentName]?.[cycleName]?.[countryIso]
+      const path = ['descriptions', assessmentName, cycleName, countryIso]
+      Objects.setInPath({ obj: state, path, value: { ...valueStore, ...valuePayload } })
     })
 
     builder.addCase(updateDescription.pending, (state, { meta }) => {

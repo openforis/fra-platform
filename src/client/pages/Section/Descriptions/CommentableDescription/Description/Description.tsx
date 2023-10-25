@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -26,7 +26,7 @@ import Toggle from './Toggle'
 type Props = {
   disabled?: boolean
   title: string
-  name: string
+  name: CommentableDescriptionName
   template?: CommentableDescriptionValue
   sectionName: string
   showAlertEmptyContent?: boolean
@@ -75,18 +75,6 @@ const Description: React.FC<Props> = (props) => {
   const error = user && showAlertEmptyContent && !commentableDescriptionValue
   let text = commentableDescriptionValue.text || template.text
   if (print) text = text?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
-
-  useEffect(() => {
-    dispatch(
-      DataActions.getDescription({
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        sectionName,
-        name,
-      })
-    )
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName])
 
   useEffect(() => {
     if (open && isDataLocked) {
