@@ -346,7 +346,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
             r.props ->> 'colName' as col_name,
             r.props -> 'value' as value
         from ${assessmentCycleSchemaName}.node_ext r
-        where r.props ->> 'variableName' = 'totalLandArea' and r.props ->> 'tableName' = 'extentOfForest';
+        where r.props ->> 'variableName' = 'totalLandArea' and r.props ->> 'tableName' = 'extentOfForest'
       ),
        primary_forest AS (SELECT c.id,
                                c.country_iso,
@@ -411,6 +411,5 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                    ON pf.country_iso::text = rv.country_iso::text AND pf.year::text = rv.year::text
          LEFT JOIN introduced_area ia
                    ON ia.country_iso::text = rv.country_iso::text AND ia.year::text = rv.year::text;
-      ;
   `
 }
