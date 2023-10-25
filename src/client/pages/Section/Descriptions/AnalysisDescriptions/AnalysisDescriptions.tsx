@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CommentableDescriptionName } from 'meta/assessment'
 import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
 
 import { useCycle } from 'client/store/assessment'
@@ -29,7 +30,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
           title={t('description.estimationAndForecasting')}
           disabled={disabled}
           sectionName={sectionName}
-          name="estimationAndForecasting"
+          name={CommentableDescriptionName.estimationAndForecasting}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         />
@@ -39,7 +40,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
           title={t('description.reclassification', { cycleName: cycle.name })}
           disabled={disabled}
           sectionName={sectionName}
-          name="reclassification"
+          name={CommentableDescriptionName.reclassification}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         />

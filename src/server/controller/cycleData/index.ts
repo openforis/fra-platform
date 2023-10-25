@@ -59,7 +59,7 @@ export const CycleDataController = {
 
   // ==== description
   getDataSources: DescriptionRepository.getDataSources,
-  getDescription: DescriptionRepository.getOneOrNone,
+  getDescriptionValues: DescriptionRepository.getValues,
   upsertDescription,
 
   // ==== activities

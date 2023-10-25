@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames, CommentableDescriptionName } from 'meta/assessment'
 
 import CommentableDescription from '../CommentableDescription'
 
@@ -22,7 +22,7 @@ const GeneralComments: React.FC<Props> = (props) => {
       <CommentableDescription
         sectionName={sectionName}
         title={t(isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle')}
-        name="generalComments"
+        name={CommentableDescriptionName.generalComments}
         disabled={disabled}
       />
     </div>
