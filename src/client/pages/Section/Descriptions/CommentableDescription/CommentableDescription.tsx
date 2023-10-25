@@ -2,7 +2,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -15,7 +15,7 @@ type Props = {
   disabled?: boolean
   title: string
   sectionName: string
-  name: string
+  name: CommentableDescriptionName
   template?: CommentableDescriptionValue
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean

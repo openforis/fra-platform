@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
 import CommentableDescription from '../CommentableDescription'
@@ -26,7 +27,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
           title={i18n.t<string>('description.dataSourcesPlus')}
           disabled={disabled}
           sectionName={sectionName}
-          name="dataSources"
+          name={CommentableDescriptionName.dataSources}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         />
@@ -36,7 +37,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
           title={i18n.t<string>('description.nationalClassificationAndDefinitions')}
           disabled={disabled}
           sectionName={sectionName}
-          name="nationalClassificationAndDefinitions"
+          name={CommentableDescriptionName.nationalClassificationAndDefinitions}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         />
@@ -46,7 +47,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
           title={i18n.t<string>('description.originalData')}
           disabled={disabled}
           sectionName={sectionName}
-          name="originalData"
+          name={CommentableDescriptionName.originalData}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         />
