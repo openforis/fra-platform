@@ -244,8 +244,8 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           props jsonb default '{}'::jsonb,
           primary key (id)
       );
-      create index node_ext_country_iso_idx on assessment_fra_2025.node_ext (country_iso);
-      create index node_ext_uuid_idx on assessment_fra_2025.node_ext (uuid);
+      create index node_ext_country_iso_idx on ${assessmentCycleSchemaName}.node_ext (country_iso);
+      create index node_ext_uuid_idx on ${assessmentCycleSchemaName}.node_ext (uuid);
 
       create table ${assessmentCycleSchemaName}.node_values_estimation
       (
