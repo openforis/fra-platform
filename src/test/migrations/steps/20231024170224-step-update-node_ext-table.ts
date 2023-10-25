@@ -41,6 +41,12 @@ const migrateOldData = (_: TemplateStringsArray, schemaName: string) => {
     `
 }
 
+const dropOldTable = (_: TemplateStringsArray, schemaName: string) => {
+  return `
+      drop table if exists ${schemaName}.node_ext_old;
+    `
+}
+
 // -- only update if not already updated
 const wrapWithIf = (schemaName: string, queries: string) => {
   return `
@@ -66,6 +72,7 @@ export default async (client: BaseProtocol) => {
         alterTable`${schemaCycle}`,
         createTable`${schemaCycle}`,
         migrateOldData`${schemaCycle}`,
+        dropOldTable`${schemaCycle}`,
       ])};
       ${getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle)}`
 
