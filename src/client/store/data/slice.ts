@@ -117,9 +117,9 @@ export const dataSlice = createSlice({
     })
 
     builder.addCase(updateDescription.pending, (state, { meta }) => {
-      const { sectionName, name, value, assessmentName, cycleName } = meta.arg
+      const { assessmentName, cycleName, countryIso, sectionName, name, value } = meta.arg
 
-      const path = [assessmentName, cycleName, 'descriptions', sectionName, name]
+      const path = ['descriptions', assessmentName, cycleName, countryIso, sectionName, name]
       Objects.setInPath({ obj: state, path, value })
     })
 
