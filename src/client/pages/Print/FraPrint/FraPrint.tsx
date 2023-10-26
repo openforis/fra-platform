@@ -13,19 +13,20 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Loading from 'client/components/Loading'
 import Section from 'client/pages/Section'
 
+import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import ContactPersons from './ContactPersons'
 import TableOfContent from './TableOfContent'
 
 const FraPrint: React.FC = () => {
-  const countryIso = useCountryIso()
   const { t } = useTranslation()
-  const country = useCountry(countryIso)
+  const countryIso = useCountryIso()
+  const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const dispatch = useAppDispatch()
+  const country = useCountry(countryIso)
   const sections = useSections()
-
   const { onlyTables } = useIsPrintRoute()
+  useGetDescriptionValues()
   const deskStudy = country?.props?.deskStudy
 
   useEffect(() => {
