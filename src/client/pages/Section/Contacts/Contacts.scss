@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.contacts-datagrid {
+  grid-template-columns: 100px repeat(5, 1fr);
+  .data-grid-column {
+    padding: $spacing-xxs;
+    position: relative;
+    min-height: 2rem;
+  }
+}

@@ -10,11 +10,12 @@ export interface ContactProps {
   surname: string
   institution: string
   contribution: Array<SectionName>
+  readOnly?: boolean
 }
 
 export interface Contact {
-  id: number
-  uuid: string
+  readonly id: number
+  readonly uuid: string
   countryIso: CountryIso
   props: ContactProps
 }

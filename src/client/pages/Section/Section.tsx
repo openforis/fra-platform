@@ -12,6 +12,7 @@ import { useSection, useTableSections } from 'client/store/metadata'
 import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from 'client/store/user/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import Contacts from 'client/pages/Section/Contacts'
 
 import CommentableDescription from './Descriptions/CommentableDescription'
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
@@ -106,6 +107,9 @@ const Section: React.FC<Props> = (props: Props) => {
           disabled={!canEditDescriptions}
         />
       )}
+
+      {renderIntroductoryText && <Contacts disabled={!canEditTableData} />}
+
       {renderGeneralComments && (
         <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
       )}
