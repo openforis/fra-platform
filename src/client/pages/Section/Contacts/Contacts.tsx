@@ -8,15 +8,17 @@ import { useContacts } from 'client/store/data'
 import DataGrid from 'client/components/DataGrid'
 import DataColumn from 'client/components/DataGrid/DataColumn'
 import TextInput from 'client/components/TextInput'
-import { useGetContacts } from 'client/pages/Section/Contacts/hooks/useGetContacts'
-import { useOnChange } from 'client/pages/Section/Contacts/hooks/useOnChange'
-import Select from 'client/pages/Section/Contacts/Select'
+
+import { useGetContacts } from './hooks/useGetContacts'
+import { useOnChange } from './hooks/useOnChange'
+import Select from './Select'
 
 type Props = {
   disabled: boolean
 }
 
 const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
+const appellations = ['Mr.', 'Mrs.', 'Ms.', 'Other']
 
 const Contacts: React.FC<Props> = (props: Props) => {
   const { disabled } = props
@@ -36,12 +38,12 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   return (
     <DataGrid className="contacts-datagrid">
-      <DataColumn head>Appellation</DataColumn>
-      <DataColumn head>Name</DataColumn>
-      <DataColumn head>Surname</DataColumn>
-      <DataColumn head>Role</DataColumn>
-      <DataColumn head>Institution</DataColumn>
-      <DataColumn head>Contribution</DataColumn>
+      <DataColumn head>{t('editUser.title')}</DataColumn>
+      <DataColumn head>{t('editUser.name')}</DataColumn>
+      <DataColumn head>{t('editUser.surname')}</DataColumn>
+      <DataColumn head>{t('editUser.role')}</DataColumn>
+      <DataColumn head>{t('editUser.institution')}</DataColumn>
+      <DataColumn head>{t('editUser.contribution')}</DataColumn>
 
       {contacts.map((contact) => {
         const { id, uuid, props } = contact
@@ -55,7 +57,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                 disabled={_disabled}
                 value={appellation}
                 onChange={(appellation) => onChange(uuid, 'appellation', appellation)}
-                items={['Mr.', 'Mrs.', 'Ms.', 'Other'].map((appellation: string) => ({
+                items={appellations.map((appellation: string) => ({
                   label: appellation,
                   value: appellation,
                 }))}

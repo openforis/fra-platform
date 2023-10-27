@@ -1,4 +1,5 @@
 export { Authorizer } from './authorizer'
+export type { Contact, ContactProps } from './contact'
 export type { User } from './user'
 export { UserStatus } from './user'
 export type { UserAuthProvider } from './userAuth'

@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 // import { Functions } from 'utils/functions'
 // import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { Contact } from 'meta/user/contact'
+import { Contact } from 'meta/user'
 
 type Props = CycleDataParams & {
   contacts: Array<Contact>

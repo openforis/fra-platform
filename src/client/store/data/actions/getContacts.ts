@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { CycleDataParams } from 'meta/api/request'
-import { RoleName } from 'meta/user'
-import { Contact } from 'meta/user/contact'
+import { Contact, RoleName } from 'meta/user'
 
 const placeholder: Array<Contact> = [
   {
