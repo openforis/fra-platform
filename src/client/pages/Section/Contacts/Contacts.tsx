@@ -28,13 +28,21 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const onChange = useOnChange()
 
-  const items = useMemo(() => {
+  const itemsRole = useMemo(() => {
     return allowedRoles.map((role) => {
       const label = t(Users.getI18nRoleLabelKey(role))
       const value = role
       return { label, value }
     })
   }, [t])
+
+  const itemsAppellation = useMemo(() => {
+    return appellations.map((appellation) => {
+      const label = appellation
+      const value = appellation
+      return { label, value }
+    })
+  }, [])
 
   return (
     <DataGrid className="contacts-datagrid">
@@ -57,10 +65,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                 disabled={_disabled}
                 value={appellation}
                 onChange={(appellation) => onChange(uuid, 'appellation', appellation)}
-                items={appellations.map((appellation: string) => ({
-                  label: appellation,
-                  value: appellation,
-                }))}
+                items={itemsAppellation}
               />
             </DataColumn>
             <DataColumn>
@@ -82,7 +87,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                 disabled={_disabled}
                 value={role}
                 onChange={({ value }) => onChange(uuid, 'role', value)}
-                items={items}
+                items={itemsRole}
               />
             </DataColumn>
             <DataColumn>
