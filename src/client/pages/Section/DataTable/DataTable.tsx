@@ -8,11 +8,10 @@ import { useCycle } from 'client/store/assessment'
 import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useValidate } from 'client/pages/Section/DataTable/hooks/useValidate'
 
 import { useData } from './hooks/useData'
-import { useGetData } from './hooks/useGetData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
+import { useValidate } from './hooks/useValidate'
 import Chart from './Chart'
 import GenerateValues from './GenerateValues'
 import Table from './Table'
@@ -33,7 +32,6 @@ const DataTable: React.FC<Props> = (props) => {
   const data = useData({ table })
   const canEdit = useIsEditTableDataEnabled(sectionName)
   const { print, onlyTables } = useIsPrintRoute()
-  useGetData({ sectionName, table })
   useValidate({ data, sectionName, table })
   useODPDeleteListener()
 

@@ -1,9 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { TableSection } from 'meta/assessment'
+import { SectionName, TableSection } from 'meta/assessment'
 
 import { RootState, useAppSelector } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
   sectionName: string
@@ -12,16 +12,30 @@ type Props = {
 export const useTableSections = (props: Props): Array<TableSection> => {
   const { sectionName } = props
 
-  const assessment = useAssessment()
-  const cycle = useCycle()
-
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
+  const { assessmentName, cycleName } = useSectionRouteParams()
 
   return useAppSelector(
     createSelector(
       (state: RootState) => state,
       (state: RootState) => state.metadata.tableSections?.[assessmentName]?.[cycleName]?.[sectionName] ?? []
+    )
+  )
+}
+
+export const useTableSectionsCycle = (): Array<TableSection> => {
+  const { assessmentName, cycleName } = useSectionRouteParams()
+
+  return useAppSelector(
+    createSelector(
+      (state: RootState) => state.metadata.tableSections?.[assessmentName]?.[cycleName] ?? {},
+      (sections: Record<SectionName, Array<TableSection>>) => {
+        return Object.values(sections).reduce<Array<TableSection>>((acc, tableSections) => {
+          tableSections.forEach((tableSection) => {
+            acc.push(tableSection)
+          })
+          return acc
+        }, [])
+      }
     )
   )
 }

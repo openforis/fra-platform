@@ -1,17 +1,16 @@
 import './ResultsTable.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 
 import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
-import { AssessmentName } from 'meta/assessment'
 import { Unit } from 'meta/dataExport'
 
 import { useCycle } from 'client/store/assessment'
 import { useTableSections } from 'client/store/metadata'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import { convertValue, formatValue, getColumnLabelKeys } from 'client/pages/DataExport/utils'
 
@@ -21,11 +20,7 @@ import { useFetchResults } from './useFetchResults'
 
 const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const i18n = useTranslation()
-  const { assessmentName, cycleName, sectionName } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-    sectionName: string
-  }>()
+  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
 
   const cycle = useCycle()
   const selection = useDataExportSelection(sectionName)

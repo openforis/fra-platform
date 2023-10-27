@@ -14,7 +14,6 @@ import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
-import { getODPTableData } from './actions/getODPTableData'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
 import { updateDescription } from './actions/updateDescription'
@@ -43,9 +42,11 @@ export const dataSlice = createSlice({
 
     // Table data
     builder.addCase(getTableData.pending, (state, { meta }) => {
-      const { assessmentName, cycleName, countryIso, tableName } = meta.arg
-      const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
-      Objects.setInPath({ obj: state, path, value: TableDataStatus.fetching })
+      const { assessmentName, cycleName, countryIso, tableNames } = meta.arg
+      tableNames.forEach((tableName) => {
+        const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
+        Objects.setInPath({ obj: state, path, value: TableDataStatus.fetching })
+      })
     })
     builder.addCase(getTableData.fulfilled, (state, { meta, payload }) => {
       // update table data
@@ -54,9 +55,11 @@ export const dataSlice = createSlice({
         newTableData: payload,
       })
       // update table data status
-      const { assessmentName, cycleName, countryIso, tableName } = meta.arg
-      const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
-      Objects.setInPath({ obj: state, path, value: TableDataStatus.fetched })
+      const { assessmentName, cycleName, countryIso, tableNames } = meta.arg
+      tableNames.forEach((tableName) => {
+        const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
+        Objects.setInPath({ obj: state, path, value: TableDataStatus.fetched })
+      })
     })
 
     builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {
@@ -82,13 +85,6 @@ export const dataSlice = createSlice({
           variableName,
           value,
         })
-      })
-    })
-
-    builder.addCase(getODPTableData.fulfilled, (state, { payload }) => {
-      state.tableData = RecordAssessmentDatas.mergeData({
-        tableData: state.tableData,
-        newTableData: payload,
       })
     })
 
@@ -141,7 +137,6 @@ export const DataActions = {
 
   // Original Data Point
   getODPLastUpdatedTimestamp,
-  getODPTableData,
 
   // Estimations
   postEstimate,
