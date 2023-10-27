@@ -28,10 +28,10 @@ const _getActivityLogEntries = async (props: { jobTimestamp: number }): Promise<
   )
   return activities.reduce<ActivityLogEntries>((acc, entry) => {
     const res = { ...acc }
-    if (!acc[entry.assessmentUuid]) res[entry.assessmentUuid] = {}
-    if (!acc[entry.assessmentUuid][entry.cycleUuid]) res[entry.assessmentUuid][entry.cycleUuid] = new Set()
+    if (!res[entry.assessmentUuid]) res[entry.assessmentUuid] = {}
+    if (!res[entry.assessmentUuid][entry.cycleUuid]) res[entry.assessmentUuid][entry.cycleUuid] = new Set()
     res[entry.assessmentUuid][entry.cycleUuid].add(entry.countryIso)
-    return acc
+    return res
   }, {})
 }
 
