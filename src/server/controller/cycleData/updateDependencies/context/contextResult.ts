@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment, Col, Cycle, RowCache, TableName } from 'meta/assessment'
+import { Assessment, Col, Cycle, NodeValue, RowCache, TableName } from 'meta/assessment'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { NodeDb } from 'server/repository/assessmentCycle/node'
@@ -50,14 +50,16 @@ export class ContextResult {
     return this.#rowsByColUuid
   }
 
-  push(props: { col: Col; node: NodeUpdate; row: RowCache }): void {
-    const { col, row, node } = props
-    const { tableName, colName, variableName, value } = node
+  push(props: { row: RowCache; col: Col; value: NodeValue }): void {
+    const { row, col, value } = props
 
     if (!this.rowsByColUuid[col.uuid]) {
       const { assessment, cycle, countryIso } = this.#context
       const assessmentName = assessment.props.name
       const cycleName = cycle.name
+      const { tableName } = row
+      const { variableName } = row.props
+      const { colName } = col.props
 
       // 1. update context data
       const path = [assessmentName, cycleName, countryIso, tableName, colName, variableName]
@@ -67,7 +69,7 @@ export class ContextResult {
       if (!this.#nodes[tableName]) {
         this.#nodes[tableName] = []
       }
-      this.#nodes[tableName].push(node)
+      this.#nodes[tableName].push({ tableName, variableName, colName, value })
 
       // 3. push to nodes db for massive insert
       const nodeDb: NodeDb = { country_iso: countryIso, col_uuid: col.uuid, row_uuid: row.uuid, value }
