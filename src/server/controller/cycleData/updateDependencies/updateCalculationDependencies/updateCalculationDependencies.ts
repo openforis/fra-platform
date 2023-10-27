@@ -43,7 +43,7 @@ export const updateCalculationDependencies = (props: Props): ContextResult => {
         if (col) {
           const value = NodeCalculations.calculate({ ...propsCalculate, col })
           if (value) {
-            context.result.push({ col, row, node: { tableName, variableName, colName, value } })
+            context.result.push({ row, col, value })
           }
         }
       } else {
@@ -52,7 +52,7 @@ export const updateCalculationDependencies = (props: Props): ContextResult => {
           if (col.props.calculateFn?.[cycle.uuid] && col.props.colName) {
             const value = NodeCalculations.calculate({ ...propsCalculate, col })
             if (value) {
-              context.result.push({ col, row, node: { tableName, variableName, colName, value } })
+              context.result.push({ row, col, value })
             }
           }
         })
