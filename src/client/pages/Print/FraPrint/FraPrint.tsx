@@ -10,6 +10,7 @@ import { useSections } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Loading from 'client/components/Loading'
+import { useGetTableData } from 'client/pages/Print/FraPrint/hooks/useGetTableData'
 import Section from 'client/pages/Section'
 
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
@@ -26,6 +27,7 @@ const FraPrint: React.FC = () => {
   const sections = useSections()
   const { onlyTables } = useIsPrintRoute()
   useGetTableSections()
+  useGetTableData()
   useGetDescriptionValues()
   const deskStudy = country?.props?.deskStudy
 

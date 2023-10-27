@@ -14,8 +14,8 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 import CommentableDescription from './Descriptions/CommentableDescription'
-import { useGetData } from './hooks/useGetData'
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
+import { useGetTableData } from './hooks/useGetTableData'
 import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
@@ -34,7 +34,7 @@ const Section: React.FC<Props> = (props: Props) => {
   const cycle = useCycle()
   const subSection = useSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
-  useGetData({ sectionName: subSection?.props.name })
+  useGetTableData({ sectionName: subSection?.props.name })
   useGetDescriptionValues({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
   const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)

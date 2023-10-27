@@ -5,22 +5,24 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data/slice'
 import { useCanEdit } from 'client/store/user'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { Props } from './props'
 import { useDependencies } from './useDependencies'
 
-export const useGetData = (props: Props) => {
+export const useGetTableData = (props: Props) => {
   const { sectionName } = props
 
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const canEdit = useCanEdit(sectionName)
+  const { print } = useIsPrintRoute()
   const dependencies = useDependencies(props)
 
   useEffect(() => {
     const { tableNames, tableWithOdp } = dependencies
-    if (tableNames.length > 0) {
+    if (!print && tableNames.length > 0) {
       const propsFetch = { assessmentName, cycleName, countryIso: countryIso as CountryIso }
 
       dispatch(DataActions.getTableData({ ...propsFetch, tableNames }))
@@ -30,5 +32,5 @@ export const useGetData = (props: Props) => {
         dispatch(DataActions.getODPLastUpdatedTimestamp({ ...propsFetch, sectionName }))
       }
     }
-  }, [assessmentName, canEdit, countryIso, cycleName, dependencies, dispatch, sectionName])
+  }, [assessmentName, canEdit, countryIso, cycleName, dependencies, dispatch, print, sectionName])
 }
