@@ -9,7 +9,7 @@ export interface ContactProps {
   name: string
   surname: string
   institution: string
-  contribution: Array<SectionName>
+  contributions: Array<SectionName>
   readOnly?: boolean
 }
 

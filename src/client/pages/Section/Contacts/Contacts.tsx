@@ -1,28 +1,23 @@
-import './Contacts.scss'
 import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { RoleName, Users } from 'meta/user'
+import { RoleName, Users, UserTitles } from 'meta/user'
 
 import { useContacts } from 'client/store/data'
-import DataGrid from 'client/components/DataGrid'
-import DataColumn from 'client/components/DataGrid/DataColumn'
-import TextInput from 'client/components/TextInput'
+import TableNodeExt from 'client/components/TableNodeExt'
+import { ColumnNodeExt, ColumnNodeExtType } from 'client/components/TableNodeExt/types'
 
 import { useGetContacts } from './hooks/useGetContacts'
 import { useOnChange } from './hooks/useOnChange'
-import Select from './Select'
 
 type Props = {
   disabled: boolean
 }
 
 const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
-const appellations = ['Mr.', 'Mrs.', 'Ms.', 'Other']
+const appellations = Object.values(UserTitles)
 
 const Contacts: React.FC<Props> = (props: Props) => {
   const { disabled } = props
-  const { t } = useTranslation()
   useGetContacts()
   const contacts = useContacts()
 
@@ -30,79 +25,30 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const itemsRole = useMemo(() => {
     return allowedRoles.map((role) => {
-      const label = t(Users.getI18nRoleLabelKey(role))
+      const label = Users.getI18nRoleLabelKey(role)
       const value = role
       return { label, value }
     })
-  }, [t])
+  }, [])
 
   const itemsAppellation = useMemo(() => {
     return appellations.map((appellation) => {
-      const label = appellation
+      const label = `editUser.${appellation}`
       const value = appellation
       return { label, value }
     })
   }, [])
 
-  return (
-    <DataGrid className="contacts-datagrid">
-      <DataColumn head>{t('editUser.title')}</DataColumn>
-      <DataColumn head>{t('editUser.name')}</DataColumn>
-      <DataColumn head>{t('editUser.surname')}</DataColumn>
-      <DataColumn head>{t('editUser.role')}</DataColumn>
-      <DataColumn head>{t('editUser.institution')}</DataColumn>
-      <DataColumn head>{t('editUser.contribution')}</DataColumn>
+  const columns: Array<ColumnNodeExt> = [
+    { type: ColumnNodeExtType.select, colName: 'appellation', header: 'editUser.title', items: itemsAppellation },
+    { type: ColumnNodeExtType.text, colName: 'name', header: 'editUser.name' },
+    { type: ColumnNodeExtType.text, colName: 'surname', header: 'editUser.surname' },
+    { type: ColumnNodeExtType.select, colName: 'role', header: 'editUser.role', items: itemsRole },
+    { type: ColumnNodeExtType.text, colName: 'institution', header: 'editUser.institution' },
+    { type: ColumnNodeExtType.multiselect, colName: 'contributions', header: 'editUser.contributions' },
+  ]
 
-      {contacts.map((contact) => {
-        const { id, uuid, props } = contact
-        const { role, appellation, name, surname, institution, contribution, readOnly } = props
-        const _disabled = disabled || readOnly
-
-        return (
-          <React.Fragment key={`contact_${String(id)}`}>
-            <DataColumn>
-              <Select
-                disabled={_disabled}
-                value={appellation}
-                onChange={(appellation) => onChange(uuid, 'appellation', appellation)}
-                items={itemsAppellation}
-              />
-            </DataColumn>
-            <DataColumn>
-              <TextInput
-                disabled={_disabled}
-                value={name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(uuid, 'name', e.target.value)}
-              />
-            </DataColumn>
-            <DataColumn>
-              <TextInput
-                disabled={_disabled}
-                value={surname}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(uuid, 'surname', e.target.value)}
-              />
-            </DataColumn>
-            <DataColumn>
-              <Select
-                disabled={_disabled}
-                value={role}
-                onChange={({ value }) => onChange(uuid, 'role', value)}
-                items={itemsRole}
-              />
-            </DataColumn>
-            <DataColumn>
-              <TextInput
-                disabled={_disabled}
-                value={institution}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(uuid, 'institution', e.target.value)}
-              />
-            </DataColumn>
-            <DataColumn> {contribution.join(', ')}</DataColumn>
-          </React.Fragment>
-        )
-      })}
-    </DataGrid>
-  )
+  return <TableNodeExt disabled={disabled} onChange={onChange} columns={columns} data={contacts} />
 }
 
 export default Contacts

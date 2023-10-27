@@ -1,10 +1,9 @@
 @import 'src/client/style/partials';
 
-.contacts-datagrid {
-  grid-template-columns: 100px repeat(5, 1fr);
+.table-node-ext--data-grid {
   .data-grid-column {
     padding: $spacing-xxs;
     position: relative;
-    min-height: 2rem;
+    min-height: 3rem;
   }
 }
