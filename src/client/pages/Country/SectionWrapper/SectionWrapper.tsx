@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useLayoutEffect } from 'react'
 
-import { useGetTableSections, useSections, useTableSections } from 'client/store/metadata'
+import { useSections, useTableSections } from 'client/store/metadata'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import MessageCenter from 'client/components/MessageCenter'
 import { DOMs } from 'client/utils/dom'
@@ -13,9 +13,7 @@ const SectionWrapper: React.FC<PropsWithChildren> = (props) => {
   const { sectionName } = useSectionRouteParams()
   const sections = useSections()
   const tableSections = useTableSections({ sectionName })
-  useGetTableSections()
   useReviewStatusListener()
-
   useLayoutEffect(() => {
     // scroll to top
     DOMs.scrollTo()

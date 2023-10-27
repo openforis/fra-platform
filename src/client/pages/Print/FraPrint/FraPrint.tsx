@@ -1,50 +1,33 @@
 import './FraPrint.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
-import { useAppDispatch } from 'client/store'
 import { useCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { MetadataActions, useSections } from 'client/store/metadata'
+import { useCycle } from 'client/store/assessment'
+import { useSections } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Loading from 'client/components/Loading'
 import Section from 'client/pages/Section'
 
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
+import { useGetTableSections } from './hooks/useGetTableSections'
 import ContactPersons from './ContactPersons'
 import TableOfContent from './TableOfContent'
 
 const FraPrint: React.FC = () => {
   const { t } = useTranslation()
   const countryIso = useCountryIso()
-  const dispatch = useAppDispatch()
-  const assessment = useAssessment()
+
   const cycle = useCycle()
   const country = useCountry(countryIso)
   const sections = useSections()
   const { onlyTables } = useIsPrintRoute()
+  useGetTableSections()
   useGetDescriptionValues()
   const deskStudy = country?.props?.deskStudy
-
-  useEffect(() => {
-    if (sections) {
-      const sectionNames = Object.values(sections).flatMap((section) =>
-        Object.values(section.subSections).flatMap((sectionItem) => sectionItem.props.name)
-      )
-
-      dispatch(
-        MetadataActions.getTableSections({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          sectionNames,
-          countryIso,
-        })
-      )
-    }
-  }, [sections, assessment.props.name, countryIso, cycle.name, dispatch])
 
   if (!sections) {
     return <Loading />

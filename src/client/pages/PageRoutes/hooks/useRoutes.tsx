@@ -20,7 +20,7 @@ import Landing from 'client/pages/Landing'
 import Login, { LoginForm, LoginInvitation, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
 import Print from 'client/pages/Print'
-import SectionDataExportSwitch from 'client/pages/SectionDataExportSwitch'
+import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
 import Tutorials from 'client/pages/Tutorials'
 import User from 'client/pages/User'
 
@@ -60,7 +60,7 @@ export const useRoutes = () => {
                   </SectionWrapper>
                 }
               />
-              <Route path={Routes.Section.path.relative} element={<SectionDataExportSwitch />} />
+              <Route path={Routes.Section.path.relative} element={<SectionAreaSwitch />} />
               <Route path={`${Routes.Print.path.relative}/*`} element={<Print />} />
             </Route>
 
