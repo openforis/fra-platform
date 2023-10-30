@@ -7,20 +7,18 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getDescription = async (req: CycleDataRequest<{ name: CommentableDescriptionName }>, res: Response) => {
+type Request = CycleDataRequest<{ name?: CommentableDescriptionName }>
+
+export const getDescription = async (req: Request, res: Response) => {
   try {
     const { assessmentName, sectionName, cycleName, countryIso, name } = req.query
 
     const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const description = await CycleDataController.getDescription({
-      countryIso,
-      assessment,
-      cycle,
-      sectionName,
-      name,
-    })
 
-    Requests.send(res, description)
+    const propsValues = { assessment, cycle, countryIso, sectionName, name }
+    const values = await CycleDataController.getDescriptionValues(propsValues)
+
+    Requests.send(res, values)
   } catch (e) {
     Requests.sendErr(res, e)
   }

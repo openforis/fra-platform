@@ -1,9 +1,9 @@
 import { getDataSources } from './getDataSources'
-import { getOneOrNone } from './getOneOrNone'
+import { getValues } from './getValues'
 import { upsert } from './upsert'
 
 export const DescriptionRepository = {
   getDataSources,
-  getOneOrNone,
+  getValues,
   upsert,
 }

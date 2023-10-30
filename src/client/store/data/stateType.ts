@@ -2,9 +2,9 @@ import { CountryIso } from 'meta/area'
 import {
   AssessmentName,
   ColName,
-  CommentableDescriptionValue,
   CycleName,
   DataSourceLinked,
+  DescriptionCountryValues,
   NodeValuesEstimation,
   NodeValueValidation,
   SectionName,
@@ -12,9 +12,9 @@ import {
   VariableName,
 } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
+import { Contact } from 'meta/user'
 
 export interface DataBaseState {
-  descriptions: Record<SectionName, Record<string, CommentableDescriptionValue>>
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
 }
 
@@ -41,10 +41,14 @@ export type RecordTableDataStatus = Record<
   Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
 >
 
+export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
+
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
-  nodeValuesEstimations?: Record<string, NodeValuesEstimation>
+  contacts: RecordContacts
+  descriptions: Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
   nodeValueValidations: RecordAssessmentValidationsState
+  nodeValuesEstimations?: Record<string, NodeValuesEstimation>
   odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState
   tableData?: RecordAssessmentData
   tableDataStatus: RecordTableDataStatus

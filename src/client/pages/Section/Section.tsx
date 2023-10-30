@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
 
-import { Labels, SubSections } from 'meta/assessment'
+import { CommentableDescriptionName, Labels, SubSections } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 
 import { useCycle } from 'client/store/assessment'
@@ -14,7 +14,9 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 import CommentableDescription from './Descriptions/CommentableDescription'
+import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
+import Contacts from './Contacts'
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
 import SectionHeader from './SectionHeader'
@@ -32,6 +34,7 @@ const Section: React.FC<Props> = (props: Props) => {
   const cycle = useCycle()
   const subSection = useSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
+  useGetDescriptionValues({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
   const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)
   const { print, onlyTables } = useIsPrintRoute()
@@ -99,11 +102,14 @@ const Section: React.FC<Props> = (props: Props) => {
         <CommentableDescription
           sectionName={sectionName}
           title={t('contactPersons.introductoryText')}
-          name="introductoryText"
+          name={CommentableDescriptionName.introductoryText}
           template={{ text: t('contactPersons.introductoryTextSupport') }}
           disabled={!canEditDescriptions}
         />
       )}
+
+      {renderIntroductoryText && <Contacts disabled={!canEditTableData} />}
+
       {renderGeneralComments && (
         <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
       )}
