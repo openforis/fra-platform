@@ -6,8 +6,8 @@ import { NodeExt } from 'meta/nodeExt'
 
 import DataGrid from 'client/components/DataGrid'
 import DataColumn from 'client/components/DataGrid/DataColumn'
+import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
-import { Components } from './Components'
 import { ColumnNodeExt } from './types'
 
 type Props = {
@@ -31,22 +31,12 @@ const TableNodeExt = (props: Props) => {
         )
       })}
 
-      {data.map(({ uuid, props: row }) => {
+      {data.map(({ uuid, props: datum }) => {
         return (
           <React.Fragment key={uuid}>
             {columns.map((column) => {
-              const { type, colName, items } = column
-              const Component = Components[type]
-              return (
-                <DataColumn key={`${uuid}_${colName}_data`}>
-                  <Component
-                    disabled={disabled}
-                    value={row[colName]}
-                    onChange={(value: string) => onChange(uuid, colName, value)}
-                    items={items}
-                  />
-                </DataColumn>
-              )
+              const key = `${uuid}_${column.colName}_data`
+              return <CellNodeExt key={key} onChange={onChange} disabled={disabled} datum={datum} column={column} />
             })}
           </React.Fragment>
         )

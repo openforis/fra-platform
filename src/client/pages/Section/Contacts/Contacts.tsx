@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
 
-import { RoleName, Users, UserTitles } from 'meta/user'
+import { ColumnNodeExtType } from 'meta/nodeExt'
+import { RoleName, Users, UserTitle } from 'meta/user'
 
 import { useContacts } from 'client/store/data'
 import TableNodeExt from 'client/components/TableNodeExt'
-import { ColumnNodeExt, ColumnNodeExtType } from 'client/components/TableNodeExt/types'
+import { ColumnNodeExt } from 'client/components/TableNodeExt/types'
 
 import { useGetContacts } from './hooks/useGetContacts'
 import { useOnChange } from './hooks/useOnChange'
@@ -14,7 +15,7 @@ type Props = {
 }
 
 const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
-const appellations = Object.values(UserTitles)
+const appellations = Object.values(UserTitle)
 
 const Contacts: React.FC<Props> = (props: Props) => {
   const { disabled } = props

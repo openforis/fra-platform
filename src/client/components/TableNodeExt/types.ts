@@ -1,12 +1,10 @@
-export enum ColumnNodeExtType {
-  text = 'text',
-  select = 'select',
-  multiselect = 'multiselect',
-}
+import { ColumnNodeExtType } from 'meta/nodeExt'
+
+import { Option } from 'client/components/Select/types'
 
 export type ColumnNodeExt = {
   type: ColumnNodeExtType
   colName: string
   header: string
-  items?: Array<{ label: string; value: string }>
+  items?: Array<Option>
 }

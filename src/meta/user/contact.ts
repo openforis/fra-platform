@@ -1,5 +1,5 @@
-import { CountryIso } from 'meta/area'
 import { SectionName } from 'meta/assessment'
+import { NodeExt } from 'meta/nodeExt'
 import { RoleName } from 'meta/user/userRole'
 
 export interface ContactProps {
@@ -13,9 +13,4 @@ export interface ContactProps {
   readOnly?: boolean
 }
 
-export interface Contact {
-  readonly id: number
-  readonly uuid: string
-  countryIso: CountryIso
-  props: ContactProps
-}
+export type Contact = NodeExt<ContactProps>

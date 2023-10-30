@@ -2,12 +2,13 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Autocomplete from 'client/components/Autocomplete'
+import { Option } from 'client/components/Select/types'
 
 type Props = {
   value: string
-  onChange: (params: { label: string; value: string }) => void
+  onChange: (params: Option) => void
   disabled: boolean
-  items: Array<{ label: string; value: string }>
+  items: Array<Option>
 }
 
 const Select: React.FC<Props> = (props) => {
