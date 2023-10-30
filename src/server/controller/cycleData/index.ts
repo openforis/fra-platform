@@ -1,12 +1,15 @@
-import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
+import { createContact } from './nodeExt/createContact'
+import { removeContact } from './nodeExt/removeContact'
+import { updateContact } from './nodeExt/updateContact'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
+import { deleteOriginalDataPointNationalClass } from './originalDataPoint/deleteOriginalDataPointNationalClass'
 import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
@@ -68,4 +71,10 @@ export const CycleDataController = {
 
   // bulk download
   getBulkDownload,
+
+  // ====== node ext
+  // -- contact
+  createContact,
+  updateContact,
+  removeContact,
 }

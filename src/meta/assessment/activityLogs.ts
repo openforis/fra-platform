@@ -23,6 +23,8 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.invitationAdd]: 'addInvitation',
   [ActivityLogMessage.invitationRemove]: 'removeInvitation',
   [ActivityLogMessage.contactCreate]: 'edited',
+  [ActivityLogMessage.contactUpdate]: 'edited',
+  [ActivityLogMessage.contactRemove]: 'edited',
 }
 
 const getLabelActionKey = (activity: ActivityLog<any>) => {

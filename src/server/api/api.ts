@@ -1,7 +1,6 @@
 import { Express } from 'express'
 
 import { ExtDataApi } from 'server/api/extData'
-import { NodeExtApi } from 'server/api/extNode'
 
 import { AdminApi } from './admin'
 import { AreaApi } from './area'
@@ -34,7 +33,6 @@ export const Api = {
     GeoApi.init(express)
     MessageCenterApi.init(express)
     MetadataApi.init(express)
-    NodeExtApi.init(express)
     UserApi.init(express)
   },
 }

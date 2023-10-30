@@ -8,6 +8,8 @@ export enum ActivityLogMessage {
   assessmentFileDelete = 'assessmentFileDelete',
   assessmentStatusUpdate = 'assessmentStatusUpdate',
   contactCreate = 'contactCreate',
+  contactUpdate = 'contactUpdate',
+  contactRemove = 'contactRemove',
   originalDataPointCreate = 'originalDataPointCreate',
   originalDataPointUpdate = 'originalDataPointUpdate',
   originalDataPointUpdateYear = 'originalDataPointUpdateYear',

@@ -4,7 +4,7 @@ import { CycleDataRequest } from 'meta/api/request'
 import { Contact } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { NodeExtController } from 'server/controller/nodeExt'
+import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
 export const createContact = async (req: CycleDataRequest<never, { contact: Contact }>, res: Response) => {
@@ -13,19 +13,13 @@ export const createContact = async (req: CycleDataRequest<never, { contact: Cont
     const { contact } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const props = {
-      assessment,
-      cycle,
-      countryIso,
-      sectionName,
-      user: Requests.getUser(req),
+    const user = Requests.getUser(req)
 
-      contact,
-    }
+    const props = { assessment, cycle, countryIso, sectionName, user, contact }
 
-    const _contact = await NodeExtController.createContact(props)
+    const createdContact = await CycleDataController.createContact(props)
 
-    Requests.send(res, _contact)
+    Requests.send(res, createdContact)
   } catch (e) {
     Requests.sendErr(res, e)
   }

@@ -18,4 +18,6 @@ export const acceptedMessages = [
   ActivityLogMessage.messageCreate,
   ActivityLogMessage.topicStatusChange,
   ActivityLogMessage.contactCreate,
+  ActivityLogMessage.contactUpdate,
+  ActivityLogMessage.contactRemove,
 ]
