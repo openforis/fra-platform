@@ -1,6 +1,7 @@
 import { Express } from 'express'
 
 import { ExtDataApi } from 'server/api/extData'
+import { NodeExtApi } from 'server/api/extNode'
 
 import { AdminApi } from './admin'
 import { AreaApi } from './area'
@@ -30,9 +31,10 @@ export const Api = {
     DefinitionApi.init(express)
     ExtDataApi.init(express)
     FileApi.init(express)
-    UserApi.init(express)
+    GeoApi.init(express)
     MessageCenterApi.init(express)
     MetadataApi.init(express)
-    GeoApi.init(express)
+    NodeExtApi.init(express)
+    UserApi.init(express)
   },
 }

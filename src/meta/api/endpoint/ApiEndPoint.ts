@@ -104,6 +104,10 @@ export const ApiEndPoint = {
     topicUnreadMessages: () => apiPath('message-center', 'topic', 'unread-messages'),
   },
 
+  NodeExt: {
+    contacts: () => apiPath('node-ext', 'contacts'),
+  },
+
   User: {
     many: () => apiPath('users'),
     one: () => apiPath('users', 'user'),

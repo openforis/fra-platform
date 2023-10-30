@@ -17,4 +17,5 @@ export const acceptedMessages = [
   ActivityLogMessage.assessmentStatusUpdate,
   ActivityLogMessage.messageCreate,
   ActivityLogMessage.topicStatusChange,
+  ActivityLogMessage.contactCreate,
 ]
