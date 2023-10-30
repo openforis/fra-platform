@@ -13,6 +13,7 @@ import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
 import { createContact } from './extNode/createContact'
+import { getContacts } from './extNode/getContacts'
 import { removeContact } from './extNode/removeContact'
 import { updateContact } from './extNode/updateContact'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
@@ -138,7 +139,13 @@ export const CycleDataApi = {
       // AuthMiddleware.requireEditTableData,
       createContact
     )
-    // TODO: get many contacts
+
+    express.get(
+      ApiEndPoint.NodeExt.contacts(),
+      // AuthMiddleware.requireView,
+      getContacts
+    )
+
     express.put(
       ApiEndPoint.NodeExt.contacts(),
       // AuthMiddleware.requireEditTableData,

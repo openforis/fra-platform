@@ -2,6 +2,7 @@ import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
+import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
 import { createContact } from './nodeExt/createContact'
@@ -77,4 +78,5 @@ export const CycleDataController = {
   createContact,
   updateContact,
   removeContact,
+  getContacts: NodeExtRepository.getMany,
 }
