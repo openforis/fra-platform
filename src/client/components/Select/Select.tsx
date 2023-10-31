@@ -31,10 +31,11 @@ const Select: React.FC<Props> = (props) => {
 
   return (
     <RSelect
-      isClearable
       classNamePrefix="fra-select"
       defaultValue={defaultValue}
+      isClearable
       isDisabled={disabled}
+      isSearchable={false}
       onChange={onChange}
       options={options}
     />
