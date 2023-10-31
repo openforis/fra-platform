@@ -6,5 +6,5 @@ export type ColumnNodeExt = {
   type: ColumnNodeExtType
   colName: string
   header: string
-  items?: Array<Option>
+  options?: Array<Option>
 }

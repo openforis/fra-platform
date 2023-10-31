@@ -15,15 +15,16 @@ const CellNodeExt: React.FC<Props> = (props: Props) => {
   const { datum: row, column, onChange, disabled } = props
   const { uuid } = row
 
-  const { type, colName, items } = column
+  const { type, colName, options } = column
   const Component = Components[type]
+
   return (
     <DataColumn>
       <Component
         disabled={disabled}
         value={row[colName]}
         onChange={(value: string) => onChange(uuid, colName, value)}
-        items={items}
+        options={options}
       />
     </DataColumn>
   )

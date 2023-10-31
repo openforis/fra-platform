@@ -1,32 +1,44 @@
+import './Select.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import RSelect from 'react-select'
 
-import Autocomplete from 'client/components/Autocomplete'
-import { Option } from 'client/components/Select/types'
+import { Option } from './types'
 
 type Props = {
   value: string
-  onChange: (params: Option) => void
+  onChange: (newValue: Option) => void
   disabled: boolean
-  items: Array<Option>
+  options: Array<Option>
 }
 
 const Select: React.FC<Props> = (props) => {
-  const { value, onChange, disabled, items: _items } = props
+  const { value, onChange, disabled, options: _options } = props
   const { t } = useTranslation()
 
-  const items = _items.map((item) => ({
-    ...item,
-    label: t(item.label),
-  }))
+  const options = _options.map(
+    (item): Option => ({
+      ...item,
+      label: t(item.label),
+    })
+  )
 
-  const _value = useMemo(() => {
-    return items.find((item) => {
+  const defaultValue = useMemo(() => {
+    return options.find((item) => {
       return item.value === value
-    })?.label
-  }, [items, value])
+    })
+  }, [options, value])
 
-  return <Autocomplete readOnlyOptions disabled={disabled} onSave={onChange} value={_value || value} items={items} />
+  return (
+    <RSelect
+      isClearable
+      classNamePrefix="fra-select"
+      defaultValue={defaultValue}
+      isDisabled={disabled}
+      onChange={onChange}
+      options={options}
+    />
+  )
 }
 
 export default Select

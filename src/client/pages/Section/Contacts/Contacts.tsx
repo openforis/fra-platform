@@ -24,7 +24,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const onChange = useOnChange()
 
-  const itemsRole = useMemo(() => {
+  const optionsRole = useMemo(() => {
     return allowedRoles.map((role) => {
       const label = Users.getI18nRoleLabelKey(role)
       const value = role
@@ -32,7 +32,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
     })
   }, [])
 
-  const itemsAppellation = useMemo(() => {
+  const optionsAppellation = useMemo(() => {
     return appellations.map((appellation) => {
       const label = `editUser.${appellation}`
       const value = appellation
@@ -41,10 +41,10 @@ const Contacts: React.FC<Props> = (props: Props) => {
   }, [])
 
   const columns: Array<ColumnNodeExt> = [
-    { type: ColumnNodeExtType.select, colName: 'appellation', header: 'editUser.title', items: itemsAppellation },
+    { type: ColumnNodeExtType.select, colName: 'appellation', header: 'editUser.title', options: optionsAppellation },
     { type: ColumnNodeExtType.text, colName: 'name', header: 'editUser.name' },
     { type: ColumnNodeExtType.text, colName: 'surname', header: 'editUser.surname' },
-    { type: ColumnNodeExtType.select, colName: 'role', header: 'editUser.role', items: itemsRole },
+    { type: ColumnNodeExtType.select, colName: 'role', header: 'editUser.role', options: optionsRole },
     { type: ColumnNodeExtType.text, colName: 'institution', header: 'editUser.institution' },
     { type: ColumnNodeExtType.multiselect, colName: 'contributions', header: 'editUser.contributions' },
   ]
