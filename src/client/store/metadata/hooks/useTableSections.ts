@@ -30,7 +30,7 @@ export const useTableSectionsCycle = (): Array<TableSection> => {
       (state: RootState) => state.metadata.tableSections?.[assessmentName]?.[cycleName] ?? {},
       (sections: Record<SectionName, Array<TableSection>>) => {
         return Object.values(sections).reduce<Array<TableSection>>((acc, tableSections) => {
-          tableSections.forEach((tableSection) => {
+          tableSections?.forEach((tableSection) => {
             acc.push(tableSection)
           })
           return acc
