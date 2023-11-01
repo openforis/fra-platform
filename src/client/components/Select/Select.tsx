@@ -3,28 +3,35 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import RSelect from 'react-select'
 
+import { ColumnNodeExt } from 'client/components/TableNodeExt/types'
+
 import { Option } from './types'
 
 type Props = {
   value: string
   onChange: (newValue: Option) => void
   disabled: boolean
-  options: Array<Option>
+  column: ColumnNodeExt
 }
 
 const Select: React.FC<Props> = (props) => {
-  const { value, onChange, disabled, options: _options } = props
+  const { value, onChange, disabled, column } = props
+  const { options: _options } = column.props
   const { t } = useTranslation()
 
-  const options = _options.map(
-    (item): Option => ({
-      ...item,
-      label: t(item.label),
-    })
+  const options = useMemo(
+    () =>
+      _options.map(
+        (item: Option): Option => ({
+          ...item,
+          label: t(item.label),
+        })
+      ),
+    [_options, t]
   )
 
   const defaultValue = useMemo(() => {
-    return options.find((item) => {
+    return options.find((item: Option) => {
       return item.value === value
     })
   }, [options, value])

@@ -11,7 +11,7 @@ export enum NodeExtType {
   node_ext = 'node_ext',
 }
 
-export type NodeExt<Datum = any> = {
+export type NodeExt<Datum = object> = {
   readonly uuid: string
   readonly countryIso: CountryIso
   readonly type: NodeExtType
