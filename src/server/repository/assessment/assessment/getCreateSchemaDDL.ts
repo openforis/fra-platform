@@ -343,13 +343,31 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
        primary_forest AS (SELECT c.id,
                                c.country_iso,
                                c.year,
-                               sum(((c.class ->> 'area'::text)::numeric) *
-                                   ((c.class ->> 'forestPercent'::text)::numeric) /
-                                   100::numeric * ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
-                                   100::numeric *
-                                   ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
-                                   100::numeric)
-                               as primary_forest
+                               case
+                                   -- case 1: when all national classes forestNaturalPercent is 0 then return 0 as primary forest
+                                   when
+                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalPercent')) =
+                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalPercent') filter
+                                               (where (c.class ->> 'forestNaturalPercent')::numeric = 0::numeric))
+                                       then 0::numeric
+                                   -- case 2: when at least one forestNaturalPercent is > 0 and at least value for forestNaturalForestOfWhichPrimaryForestPercent then sum
+                                   when
+                                           jsonb_array_length(jsonb_agg(c.class) filter
+                                               (where (c.class ->> 'forestNaturalPercent')::numeric > 0::numeric
+                                                   and
+                                                      ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent')::numeric >
+                                                       0::numeric)
+                                               )) > 0
+                                       then
+                                       sum(((c.class ->> 'area'::text)::numeric) *
+                                           ((c.class ->> 'forestPercent'::text)::numeric) /
+                                           100::numeric * ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
+                                           100::numeric *
+                                           ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
+                                           100::numeric)
+                                   -- case 3: when all forestNaturalForestOfWhichPrimaryForestPercent are empty, return null
+                                   else null
+                                   end as primary_forest
                         FROM classes c
                         WHERE c.class ->> 'forestNaturalPercent' IS NOT NULL
                           AND (c.class ->> 'forestNaturalPercent')::numeric >= 0
@@ -359,16 +377,32 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
      introduced_area AS (SELECT c.id,
                                 c.country_iso,
                                 c.year,
-                                sum(((c.class ->> 'area'::text)::numeric) *
-                                    ((c.class ->> 'forestPercent'::text)::numeric) /
-                                    100::numeric * ((c.class ->> 'forestPlantationPercent'::text)::numeric) /
-                                    100::numeric *
-                                    ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
-                                    100::numeric)
-                                as plantation_forest_introduced_area
+                                case
+                                    -- case 1: when all national classes forestPlantationPercent is 0 then return 0 as primary forest
+                                    when
+                                            jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationPercent')) =
+                                            jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationPercent') filter
+                                                (where (c.class ->> 'forestPlantationPercent')::numeric = 0::numeric))
+                                        then 0::numeric
+                                    -- case 2: when at least one forestNaturalPercent is > 0 and at least value for forestPlantationIntroducedPercent then sum
+                                    when
+                                            jsonb_array_length(jsonb_agg(c.class) filter
+                                                (where (c.class ->> 'forestPlantationPercent')::numeric > 0::numeric
+                                                    and ((c.class ->> 'forestPlantationIntroducedPercent')::numeric >
+                                                         0::numeric)
+                                                )) > 0
+                                        then
+                                        sum(((c.class ->> 'area'::text)::numeric) *
+                                            ((c.class ->> 'forestPercent'::text)::numeric) / 100::numeric *
+                                            ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric *
+                                            ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
+                                            100::numeric)
+                                    -- case 3: when all forestPlantationIntroducedPercent are empty, return null
+                                    else null
+                                    end as plantation_forest_introduced_area
                          FROM classes c
-                         WHERE c.class ->> 'forestPlantationPercent' IS NOT NULL
-                           AND (c.class ->> 'forestPercent')::numeric > 0
+                         WHERE (c.class ->> 'forestPlantationPercent'::text) IS NOT NULL
+                           AND ((c.class ->> 'forestPercent'::text)::numeric) > 0::numeric
                          GROUP BY c.id, c.country_iso, c.year
                          ORDER BY c.id, c.country_iso, c.year)
       select rv.country_iso,
