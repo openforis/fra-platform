@@ -16,7 +16,23 @@ const getValueOrNull = (value: string | null, rowIsMaxed: boolean): string | nul
   return value
 }
 
-const calculateValues = (nationalClass: ODPNationalClass) => {
+type CalculateValuesProps = {
+  odp: OriginalDataPoint
+  index: number
+  value: string
+  field: keyof ODPNationalClass
+}
+
+const calculateValues = (props: CalculateValuesProps) => {
+  const { odp, index, field, value } = props
+
+  const prevValue = odp.nationalClasses[index][field] as string
+
+  const nationalClass: ODPNationalClass = {
+    ...Objects.cloneDeep(odp.nationalClasses[index]),
+    [field]: value,
+  }
+
   const {
     forestNaturalPercent,
     forestPlantationPercent,
@@ -48,6 +64,24 @@ const calculateValues = (nationalClass: ODPNationalClass) => {
     _forestNaturalForestOfWhichPrimaryForestPercent = '0'
   }
 
+  // if previous value for naturally regenerating forest was 0, and now > 0 set primary forest to null
+  if (
+    field === 'forestNaturalPercent' &&
+    Numbers.eq(Numbers.toBigNumber(prevValue), 0) &&
+    Numbers.greaterThan(forestNaturalPercent, 0)
+  ) {
+    _forestNaturalForestOfWhichPrimaryForestPercent = null
+  }
+
+  // if previous value for forestPlantationPercent was 0, and now > 0 set forestPlantationIntroducedPercent to null
+  if (
+    field === 'forestPlantationPercent' &&
+    Numbers.eq(Numbers.toBigNumber(prevValue), 0) &&
+    Numbers.greaterThan(forestPlantationPercent, 0)
+  ) {
+    _forestPlantationIntroducedPercent = null
+  }
+
   return {
     ...nationalClass,
     forestNaturalPercent: getValueOrNull(forestNaturalPercent, rowIsMaxedForestCharacteristics),
@@ -69,7 +103,8 @@ export const updateNationalClass = (props: {
   const { odp: odpProps, index, field, value } = props
 
   const odp: OriginalDataPoint = Objects.cloneDeep(odpProps)
-  const nationalClass: ODPNationalClass = calculateValues({ ...odp.nationalClasses[index], [field]: value })
+  const calculateProps = { odp, index, field, value }
+  const nationalClass: ODPNationalClass = calculateValues(calculateProps)
 
   const wasPlaceHolder = !Objects.isNil(nationalClass.placeHolder)
   delete nationalClass.placeHolder

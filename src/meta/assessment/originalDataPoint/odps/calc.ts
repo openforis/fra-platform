@@ -58,9 +58,21 @@ export const calcTotalSubSubFieldArea = (props: {
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
       !Objects.isNil(nationalClass[field]) &&
-      !Objects.isNil(nationalClass[subField]) &&
-      !Objects.isNil(nationalClass[subSubField])
+      !Objects.isNil(nationalClass[subField])
   )
+
+  // get all national classes with parent value for this subsub field
+  const withParentValue = nationalClasses.filter((nationalClass) => {
+    return Numbers.greaterThan(nationalClass[subField] as string, 0)
+  })
+
+  // if we have one or more parent value and any subsub value is null, return null
+  if (
+    withParentValue.length > 0 &&
+    withParentValue.every((nationalClass) => Objects.isNil(nationalClass[subSubField]))
+  ) {
+    return null
+  }
 
   const values = nationalClasses.map((nationalClass) => {
     const x = Numbers.mul(nationalClass.area, nationalClass[field] as string)
