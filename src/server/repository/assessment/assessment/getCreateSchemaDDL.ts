@@ -378,7 +378,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                                 c.country_iso,
                                 c.year,
                                 case
-                                    -- case 1: when all national classes forestPlantationPercent is 0 then return 0 as primary forest
+                                    -- case 1: when all national classes forestPlantationPercent is 0 then return 0 as plantation forest introduced area
                                     when
                                             jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationPercent')) =
                                             jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationPercent') filter
