@@ -38,7 +38,16 @@ const TableNodeExt = (props: Props) => {
             {columns.map((column) => {
               const { colName } = column.props
               const key = `${uuid}_${colName}_data`
-              return <CellNodeExt key={key} onChange={onChange} disabled={disabled} datum={datum} column={column} />
+              return (
+                <CellNodeExt
+                  uuid={uuid}
+                  key={key}
+                  onChange={onChange}
+                  disabled={disabled}
+                  datum={datum}
+                  column={column}
+                />
+              )
             })}
           </React.Fragment>
         )

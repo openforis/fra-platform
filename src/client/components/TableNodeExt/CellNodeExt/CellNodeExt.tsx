@@ -1,45 +1,29 @@
 import React from 'react'
 
 import DataColumn from 'client/components/DataGrid/DataColumn'
-import Select from 'client/components/Select'
-import { Option } from 'client/components/Select/types'
+import CellMultiselect from 'client/components/TableNodeExt/CellNodeExt/CellMultiselect/CellMultiselect'
+import { CellProps } from 'client/components/TableNodeExt/CellNodeExt/CellProps'
 import { ColumnNodeExt } from 'client/components/TableNodeExt/types'
-import TextInput from 'client/components/TextInput'
+
+import CellSelect from './CellSelect'
+import CellText from './CellText'
 
 type Props = {
+  uuid: string
   datum: Record<string, any>
   column: ColumnNodeExt
   onChange: (uuid: string, colName: string, value: any) => void
   disabled: boolean
 }
 
-type CellProps = {
-  value: string | Array<string>
-  onChange: (newValue: string | Option) => void
-  disabled: boolean
-  options?: Array<any>
-  column: ColumnNodeExt
-}
-
 const components: Record<string, React.FC<CellProps>> = {
-  text: (props) => (
-    <TextInput
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-      onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => props.onChange(event.target.value)}
-    />
-  ),
-  select: Select,
-
-  // TODO: Placeholder
-  multiselect: (props) => {
-    return <div>{typeof props.value !== 'string' ? props.value?.join(',') : props.value}</div>
-  },
+  text: CellText,
+  select: CellSelect,
+  multiselect: CellMultiselect,
 }
 
 const CellNodeExt: React.FC<Props> = (props: Props) => {
-  const { datum: row, column, onChange, disabled } = props
-  const { uuid } = row
+  const { datum, column, onChange, disabled, uuid } = props
 
   const { type } = column
   const { colName } = column.props
@@ -49,7 +33,7 @@ const CellNodeExt: React.FC<Props> = (props: Props) => {
     <DataColumn>
       <Component
         disabled={disabled}
-        value={row[colName]}
+        value={datum[colName]}
         onChange={(value: string) => onChange(uuid, colName, value)}
         column={column}
       />

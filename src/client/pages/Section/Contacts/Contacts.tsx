@@ -26,7 +26,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const optionsRole = useMemo(() => {
     return allowedRoles.map((role) => {
-      const label = Users.getI18nRoleLabelKey(role)
+      const label = { key: Users.getI18nRoleLabelKey(role) }
       const value = role
       return { label, value }
     })
@@ -34,7 +34,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const optionsAppellation = useMemo(() => {
     return appellations.map((appellation) => {
-      const label = `editUser.${appellation}`
+      const label = { key: `editUser.${appellation}` }
       const value = appellation
       return { label, value }
     })
