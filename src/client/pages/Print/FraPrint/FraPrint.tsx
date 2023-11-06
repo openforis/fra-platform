@@ -1,5 +1,5 @@
 import './FraPrint.scss'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
@@ -7,7 +7,7 @@ import { Labels } from 'meta/assessment'
 import { useCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso, useOnUpdate } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Loading from 'client/components/Loading'
 import { useGetTableData } from 'client/pages/Print/FraPrint/hooks/useGetTableData'
@@ -31,9 +31,26 @@ const FraPrint: React.FC = () => {
   useGetDescriptionValues()
   const deskStudy = country?.props?.deskStudy
 
-  if (!sections) {
-    return <Loading />
-  }
+  const duration = 20000 // 20 seconds
+  const timerRef = useRef<NodeJS.Timer>()
+  const interval = 250
+  const [elapsed, setElapsed] = useState<number>(0)
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setElapsed((prevState) => prevState + interval)
+    }, interval)
+  }, [])
+
+  useOnUpdate(() => {
+    if (elapsed >= duration) {
+      clearInterval(timerRef.current)
+    }
+  }, [elapsed])
+
+  // if (!sections) {
+  //   return <Loading />
+  // }
 
   let title = ''
   if (onlyTables) title = t('print.titleTables', { cycleName: cycle.name })
@@ -41,34 +58,41 @@ const FraPrint: React.FC = () => {
   if (!onlyTables && !deskStudy) title = t('print.title', { cycleName: cycle.name })
 
   return (
-    <div>
-      <div className="fra-print__header">
-        <h1>{t(`area.${countryIso}.listName`)}</h1>
-        <h1>{title}</h1>
-      </div>
+    <>
+      {/* {elapsed < duration && <Loading completed={(elapsed / duration) * 100} />} */}
+      <Loading completed={(elapsed / duration) * 100} />
 
-      <hr />
-
-      {!onlyTables && <TableOfContent deskStudy={deskStudy} />}
-
-      {Object.entries(sections).map(([key, section], i) => {
-        return (
-          <div key={section.uuid} id={`section${key}`}>
-            {!onlyTables && (
-              <h1 className="title only-print">
-                {i === 0 ? '' : key} {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
-              </h1>
-            )}
-
-            {i === 0 && !deskStudy && !onlyTables && <ContactPersons />}
-
-            {Object.values(section.subSections).map((sectionItem) => {
-              return <Section key={sectionItem.uuid} section={sectionItem.props.name} />
-            })}
+      {sections && (
+        <div>
+          <div className="fra-print__header">
+            <h1>{t(`area.${countryIso}.listName`)}</h1>
+            <h1>{title}</h1>
           </div>
-        )
-      })}
-    </div>
+
+          <hr />
+
+          {!onlyTables && <TableOfContent deskStudy={deskStudy} />}
+
+          {Object.entries(sections).map(([key, section], i) => {
+            return (
+              <div key={section.uuid} id={`section${key}`}>
+                {!onlyTables && (
+                  <h1 className="title only-print">
+                    {i === 0 ? '' : key} {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
+                  </h1>
+                )}
+
+                {i === 0 && !deskStudy && !onlyTables && <ContactPersons />}
+
+                {Object.values(section.subSections).map((sectionItem) => {
+                  return <Section key={sectionItem.uuid} section={sectionItem.props.name} />
+                })}
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </>
   )
 }
 
