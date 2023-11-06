@@ -1,7 +1,10 @@
 import { Numbers } from 'utils/numbers'
 
 import { calcTotalArea } from 'meta/assessment/originalDataPoint/odps/calc'
-import { odp1, odp4, odp5 } from 'meta/assessment/originalDataPoint/odps/test/mockODP'
+
+import { odp1 } from './mock/odp1'
+import { odp4 } from './mock/odp4'
+import { odp5 } from './mock/odp5'
 
 export const testsCalcTotalArea = [
   {

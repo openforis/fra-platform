@@ -1,5 +1,8 @@
 import { calcTotalLandArea } from 'meta/assessment/originalDataPoint/odps/calc'
-import { odp1, odp10, odp11 } from 'meta/assessment/originalDataPoint/odps/test/mockODP'
+
+import { odp1 } from './mock/odp1'
+import { odp10 } from './mock/odp10'
+import { odp11 } from './mock/odp11'
 
 export const testsCalcTotalLandArea = [
   {

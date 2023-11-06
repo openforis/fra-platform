@@ -2,7 +2,10 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPNationalClass } from 'meta/assessment/originalDataPoint/odpNationalClass'
 import { calcTotalSubFieldArea } from 'meta/assessment/originalDataPoint/odps/calc'
-import { odp1, odp8, odp9 } from 'meta/assessment/originalDataPoint/odps/test/mockODP'
+
+import { odp1 } from './mock/odp1'
+import { odp8 } from './mock/odp8'
+import { odp9 } from './mock/odp9'
 
 export const testsCalcTotalSubFieldArea = [
   {
