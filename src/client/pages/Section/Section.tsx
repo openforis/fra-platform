@@ -16,6 +16,7 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import CommentableDescription from './Descriptions/CommentableDescription'
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
+import Contacts from './Contacts'
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
 import SectionHeader from './SectionHeader'
@@ -106,6 +107,9 @@ const Section: React.FC<Props> = (props: Props) => {
           disabled={!canEditDescriptions}
         />
       )}
+
+      {renderIntroductoryText && <Contacts disabled={!canEditTableData} />}
+
       {renderGeneralComments && (
         <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
       )}
