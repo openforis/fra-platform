@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { ODPNationalClass } from '../odpNationalClass'
 import { OriginalDataPoint } from '../originalDataPoint'
 
-export const calcTotalArea = (props: { originalDataPoint: OriginalDataPoint }): number => {
+export const calcTotalArea = (props: { originalDataPoint: OriginalDataPoint }): string | null => {
   const { originalDataPoint } = props
   const areas = originalDataPoint.nationalClasses
     .map((nationalClass) => nationalClass.area)
@@ -43,6 +43,7 @@ export const calcTotalSubFieldArea = (props: {
     const y = Numbers.mul(x, nationalClass[subField] as string)
     return Numbers.div(y, 10000.0)
   })
+
   return Numbers.sum(values)
 }
 

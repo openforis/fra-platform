@@ -1,43 +1,60 @@
-import { Numbers } from 'utils/numbers'
-
-import { calcTotalSubSubFieldArea } from 'meta/assessment/originalDataPoint/odps/calc'
-
-import { odp1, odp2, odp3 } from './mockODP'
-
-const testsCalcTotalSubSubFieldArea = [
-  {
-    name: 'calcTotalSubSubFieldArea - 1: all parent values 0, return 0',
-    odp: odp1,
-    expected: Numbers.toBigNumber('0'),
-  },
-  {
-    name: 'calcTotalSubSubFieldArea - 2: parent value exist, child value empty, return null',
-    odp: odp2,
-    expected: null,
-  },
-  {
-    name: 'calcTotalSubSubFieldArea - 3: parent values exist, child value empty, child value filled, return value',
-    odp: odp3,
-    expected: Numbers.BigNumber('375'),
-  },
-]
+import { ODPNationalClass } from '../../odpNationalClass'
+import {
+  calcTotalArea,
+  calcTotalFieldArea,
+  calcTotalLandArea,
+  calcTotalSubFieldArea,
+  calcTotalSubSubFieldArea,
+} from '../calc'
+import { testsCalcTotalArea } from './testCalcTotalArea'
+import { testsCalcTotalSubSubFieldArea } from './testCalcTotalSubSubFieldArea'
+import { testsCalcTotalFieldArea } from './testsCalcTotalFieldArea'
+import { testsCalcTotalLandArea } from './testsCalcTotalLandArea'
+import { testsCalcTotalSubFieldArea } from './testsCalcTotalSubFieldArea'
 
 describe('ODPs.calc', () => {
-  testsCalcTotalSubSubFieldArea.forEach((_test) => {
+  testsCalcTotalArea.forEach((_test) => {
     test(_test.name, () => {
-      const result = calcTotalSubSubFieldArea({
-        originalDataPoint: _test.odp,
-        field: 'forestPercent',
-        subField: 'forestNaturalPercent',
-        subSubField: 'forestNaturalForestOfWhichPrimaryForestPercent',
-      })
+      const props = { originalDataPoint: _test.odp }
+      const result = calcTotalArea(props)
       expect(result).toEqual(_test.expected)
     })
   })
 
-  // TODO: test calcTotalArea
-  // TODO: test calcTotalFieldArea
-  // TODO: test calcTotalSubFieldArea
-  // TODO: test calcTotalSubSubFieldArea
-  // TODO: test calcTotalLandArea
+  testsCalcTotalFieldArea.forEach((_test) => {
+    test(_test.name, () => {
+      const props = { originalDataPoint: _test.odp, field: _test.field }
+      const result = calcTotalFieldArea(props)
+      expect(result).toEqual(_test.expected)
+    })
+  })
+
+  testsCalcTotalSubFieldArea.forEach((_test) => {
+    test(_test.name, () => {
+      const props = { originalDataPoint: _test.odp, field: _test.field, subField: _test.subField }
+      const result = calcTotalSubFieldArea(props)
+      expect(result).toEqual(_test.expected)
+    })
+  })
+
+  testsCalcTotalSubSubFieldArea.forEach((_test) => {
+    test(_test.name, () => {
+      const props = {
+        originalDataPoint: _test.odp,
+        field: 'forestPercent' as keyof ODPNationalClass,
+        subField: 'forestNaturalPercent' as keyof ODPNationalClass,
+        subSubField: 'forestNaturalForestOfWhichPrimaryForestPercent' as keyof ODPNationalClass,
+      }
+      const result = calcTotalSubSubFieldArea(props)
+      expect(result).toEqual(_test.expected)
+    })
+  })
+
+  testsCalcTotalLandArea.forEach((_test) => {
+    test(_test.name, () => {
+      const props = { originalDataPoint: _test.odp }
+      const result = calcTotalLandArea(props)
+      expect(result).toEqual(_test.expected)
+    })
+  })
 })
