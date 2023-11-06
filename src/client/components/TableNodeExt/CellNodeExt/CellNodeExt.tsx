@@ -1,10 +1,10 @@
 import React from 'react'
 
 import DataColumn from 'client/components/DataGrid/DataColumn'
-import CellMultiselect from 'client/components/TableNodeExt/CellNodeExt/CellMultiselect/CellMultiselect'
-import { CellProps } from 'client/components/TableNodeExt/CellNodeExt/CellProps'
-import { ColumnNodeExt } from 'client/components/TableNodeExt/types'
 
+import { ColumnNodeExt } from '../types'
+import CellMultiselect from './CellMultiselect'
+import { CellProps } from './CellProps'
 import CellSelect from './CellSelect'
 import CellText from './CellText'
 

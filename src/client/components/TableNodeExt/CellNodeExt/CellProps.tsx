@@ -1,4 +1,4 @@
-import { ColumnNodeExt } from 'client/components/TableNodeExt/types'
+import { ColumnNodeExt } from '../types'
 
 export type CellProps = {
   value: string | Array<string>
