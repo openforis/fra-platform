@@ -92,42 +92,10 @@ hr {
   display: none;
 }
 
-.notfound {
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 100px;
-  width: 100vw;
-  height: 100%;
-  text-align: center;
-  margin: 0 auto;
-  background-color: rgb(white, 0.8);
-  z-index: $z-index-loader;
-
-  img {
-    animation: wobble 0.3s ease-in-out 0.1s;
-  }
-}
-
 .no-scroll {
   overflow: hidden;
 }
 
 .only-print {
   display: none;
-}
-
-@keyframes wobble {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(5deg);
-  }
-  75% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
 }

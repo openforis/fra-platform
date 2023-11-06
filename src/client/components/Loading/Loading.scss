@@ -1,0 +1,40 @@
+@import 'src/client/style/partials';
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 100px 30vw;
+  width: 100vw;
+  height: 100%;
+  text-align: center;
+  margin: 0 auto;
+  background-color: rgb(white, 0.8);
+  z-index: $z-index-loader;
+
+  img {
+    animation: wobble 3s ease-in-out 0.1s infinite;
+  }
+
+  .progress-bar {
+    margin-top: -30px;
+  }
+}
+
+@keyframes wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(3deg);
+  }
+  35% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
