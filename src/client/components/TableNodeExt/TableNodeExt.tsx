@@ -24,9 +24,10 @@ const TableNodeExt = (props: Props) => {
   return (
     <DataGrid className="table-node-ext--data-grid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
       {columns.map((column) => {
+        const { colName, header } = column.props
         return (
-          <DataColumn head key={`${column.colName}_header`}>
-            {t(column.header)}
+          <DataColumn head key={`${colName}_header`}>
+            {t(header)}
           </DataColumn>
         )
       })}
@@ -35,8 +36,18 @@ const TableNodeExt = (props: Props) => {
         return (
           <React.Fragment key={uuid}>
             {columns.map((column) => {
-              const key = `${uuid}_${column.colName}_data`
-              return <CellNodeExt key={key} onChange={onChange} disabled={disabled} datum={datum} column={column} />
+              const { colName } = column.props
+              const key = `${uuid}_${colName}_data`
+              return (
+                <CellNodeExt
+                  uuid={uuid}
+                  key={key}
+                  onChange={onChange}
+                  disabled={disabled}
+                  datum={datum}
+                  column={column}
+                />
+              )
             })}
           </React.Fragment>
         )

@@ -3,7 +3,7 @@ import { NodeExt } from 'meta/nodeExt'
 import { RoleName } from 'meta/user/userRole'
 
 export interface ContactProps {
-  index: number
+  rowIndex: number
   role: RoleName.NATIONAL_CORRESPONDENT | RoleName.ALTERNATE_NATIONAL_CORRESPONDENT | RoleName.COLLABORATOR
   appellation: string
   name: string

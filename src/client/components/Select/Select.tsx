@@ -1,32 +1,65 @@
-import React, { useMemo } from 'react'
+import './Select.scss'
+import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import RSelect from 'react-select'
 
-import Autocomplete from 'client/components/Autocomplete'
-import { Option } from 'client/components/Select/types'
+import { Labels } from 'meta/assessment'
+
+import { Option } from './types'
 
 type Props = {
   value: string
-  onChange: (params: Option) => void
+  onChange: (newValue: string) => void
   disabled: boolean
-  items: Array<Option>
+  options: Array<Option>
 }
 
+type TranslatedOption = {
+  label: string
+  value: string
+}
+
+type TranslatedOptions = Array<TranslatedOption>
+
 const Select: React.FC<Props> = (props) => {
-  const { value, onChange, disabled, items: _items } = props
+  const { value, onChange, disabled, options: _options } = props
   const { t } = useTranslation()
 
-  const items = _items.map((item) => ({
-    ...item,
-    label: t(item.label),
-  }))
+  const options: TranslatedOptions = useMemo(
+    () =>
+      _options.map(
+        (item: Option): TranslatedOption => ({
+          ...item,
+          label: Labels.getLabel({ label: item.label, t }),
+        })
+      ),
+    [_options, t]
+  )
 
-  const _value = useMemo(() => {
-    return items.find((item) => {
+  const defaultValue = useMemo(() => {
+    return options.find((item) => {
       return item.value === value
-    })?.label
-  }, [items, value])
+    })
+  }, [options, value])
 
-  return <Autocomplete readOnlyOptions disabled={disabled} onSave={onChange} value={_value || value} items={items} />
+  const _onChange = useCallback(
+    (option: TranslatedOption) => {
+      onChange(option?.value ?? null)
+    },
+    [onChange]
+  )
+
+  return (
+    <RSelect
+      classNamePrefix="fra-select"
+      defaultValue={defaultValue}
+      isClearable
+      isDisabled={disabled}
+      isSearchable={false}
+      onChange={_onChange}
+      options={options}
+    />
+  )
 }
 
 export default Select
