@@ -5,6 +5,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
+import { createContact } from './actions/createContact'
 import { getContacts } from './actions/getContacts'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
@@ -130,11 +131,14 @@ export const dataSlice = createSlice({
       Objects.setInPath({ obj: state, path, value: dataSources })
     })
 
-    builder.addMatcher(isAnyOf(getContacts.fulfilled, updateContact.fulfilled), (state, { payload, meta }) => {
-      const { assessmentName, cycleName, countryIso } = meta.arg
-      const path = ['contacts', assessmentName, cycleName, countryIso]
-      Objects.setInPath({ obj: state, path, value: payload })
-    })
+    builder.addMatcher(
+      isAnyOf(getContacts.fulfilled, updateContact.fulfilled, createContact.fulfilled),
+      (state, { payload, meta }) => {
+        const { assessmentName, cycleName, countryIso } = meta.arg
+        const path = ['contacts', assessmentName, cycleName, countryIso]
+        Objects.setInPath({ obj: state, path, value: payload })
+      }
+    )
   },
 })
 
@@ -161,6 +165,7 @@ export const DataActions = {
   getLinkedDataSources,
 
   // Contacts
+  createContact,
   getContacts,
   updateContact,
 }

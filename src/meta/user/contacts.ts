@@ -1,5 +1,3 @@
-import { Objects } from 'utils/objects'
-
 import { Contact, ContactProps, ContactValue } from './contact'
 
 const initialProps: ContactProps = {
@@ -22,7 +20,7 @@ const addPlaceholder = (contacts: Array<Contact>) => {
 }
 
 const removePlaceholder = (contacts: Array<Contact>) => {
-  return contacts.filter((contact) => Objects.isEmpty(contact.uuid))
+  return contacts.filter((contact) => contact.uuid)
 }
 
 export const Contacts = {
