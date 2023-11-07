@@ -9,14 +9,16 @@ const placeholder: Array<Contact> = [
     uuid: 'foo-bar-1',
     countryIso: 'X01',
     props: {
-      index: 1,
+      rowIndex: 1,
+      readOnly: true,
+    },
+    value: {
       role: RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
       appellation: 'mr',
-      name: 'John',
-      surname: 'Doe',
+      name: 'Read',
+      surname: 'Only',
       institution: 'Ministry of Health',
       contributions: ['1a', '1b'],
-      readOnly: true,
     },
   },
   {
@@ -24,14 +26,16 @@ const placeholder: Array<Contact> = [
     uuid: 'foo-bar-2',
     countryIso: 'X01',
     props: {
-      index: 0,
+      rowIndex: 0,
+      readOnly: true,
+    },
+    value: {
       role: RoleName.NATIONAL_CORRESPONDENT,
-      appellation: 'mr',
-      name: 'John',
-      surname: 'Doe',
+      appellation: 'ms',
+      name: 'Read',
+      surname: 'Onla',
       institution: 'Ministry of Health',
       contributions: ['2a'],
-      readOnly: true,
     },
   },
   {
@@ -39,7 +43,9 @@ const placeholder: Array<Contact> = [
     uuid: 'foo-bar-3',
     countryIso: 'X01',
     props: {
-      index: 2,
+      rowIndex: 2,
+    },
+    value: {
       role: RoleName.NATIONAL_CORRESPONDENT,
       appellation: 'mr',
       name: 'John',
@@ -53,7 +59,9 @@ const placeholder: Array<Contact> = [
     uuid: 'foo-bar-4',
     countryIso: 'X01',
     props: {
-      index: 3,
+      rowIndex: 3,
+    },
+    value: {
       role: RoleName.NATIONAL_CORRESPONDENT,
       appellation: 'mr',
       name: 'John',
@@ -67,7 +75,9 @@ const placeholder: Array<Contact> = [
     uuid: 'foo-bar-5',
     countryIso: 'X01',
     props: {
-      index: 4,
+      rowIndex: 4,
+    },
+    value: {
       role: RoleName.NATIONAL_CORRESPONDENT,
       appellation: 'mr',
       name: 'John',

@@ -11,20 +11,24 @@ type Props = {
   cycle: Cycle
   countryIso: string
   type: NodeExtType
-  props: any
+  props: unknown
+  value: unknown
 }
 
-export const create = (props: Props, client: BaseProtocol = DB): Promise<NodeExt> => {
-  const { assessment, cycle, countryIso, type, props: _props } = props
+export const create = <T extends NodeExt = NodeExt<unknown, unknown>>(
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<T> => {
+  const { assessment, cycle, countryIso, type, props: _props, value } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<NodeExt>(
+  return client.one<T>(
     `
-        insert into ${schemaCycle}.node_ext (country_iso, type, props)
-        values ($1, $2, $3::jsonb)
+        insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
+        values ($1, $2, $3::jsonb, $4::jsonb)
         returning *
     `,
-    [countryIso, type, JSON.stringify(_props)],
+    [countryIso, type, JSON.stringify(_props), JSON.stringify(value)],
     Objects.camelize
   )
 }

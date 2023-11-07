@@ -11,18 +11,23 @@ type Props = {
   nodeExt: NodeExt
 }
 
-export const update = (props: Props, client: BaseProtocol = DB): Promise<NodeExt> => {
+export const update = <T extends NodeExt = NodeExt<unknown, unknown>>(
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<T> => {
   const { assessment, cycle, nodeExt } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<NodeExt>(
+  const { uuid, props: _props, value } = nodeExt
+
+  return client.one<T>(
     `
         update ${schemaCycle}.node_ext
-        set props = $2::jsonb
+        set props = $2::jsonb, value = $3::jsonb
         where uuid = $1
         returning *
     `,
-    [nodeExt.uuid, JSON.stringify(nodeExt.props)],
+    [uuid, JSON.stringify(_props), JSON.stringify(value)],
     Objects.camelize
   )
 }

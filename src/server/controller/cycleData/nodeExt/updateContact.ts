@@ -20,7 +20,7 @@ export const updateContact = async (props: Props, client: BaseProtocol = DB): Pr
 
   return client.tx(async (t) => {
     const updateProps = { assessment, cycle, nodeExt: contact }
-    const target = await NodeExtRepository.update(updateProps, t)
+    const target = await NodeExtRepository.update<Contact>(updateProps, t)
 
     const section = sectionName
     const message = ActivityLogMessage.contactUpdate

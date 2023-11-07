@@ -20,7 +20,7 @@ export const removeContact = async (props: Props, client: BaseProtocol = DB): Pr
 
   return client.tx(async (t) => {
     const removeProps = { assessment, cycle, uuid }
-    const target = await NodeExtRepository.remove(removeProps, t)
+    const target = await NodeExtRepository.remove<Contact>(removeProps, t)
 
     const section = sectionName
     const message = ActivityLogMessage.contactRemove

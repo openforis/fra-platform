@@ -20,8 +20,10 @@ export const createContact = async (props: Props, client: BaseProtocol = DB): Pr
   const { assessment, cycle, countryIso, sectionName, contact, user } = props
 
   return client.tx(async (t) => {
-    const createProps = { assessment, cycle, countryIso, type: NodeExtType.contact, props: contact.props }
-    const target = await NodeExtRepository.create(createProps, t)
+    const { props: _props, value } = contact
+    const type = NodeExtType.contact
+    const createProps = { assessment, cycle, countryIso, type, props: _props, value }
+    const target = await NodeExtRepository.create<Contact>(createProps, t)
 
     const section = sectionName
     const message = ActivityLogMessage.contactCreate

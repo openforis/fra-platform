@@ -11,11 +11,14 @@ type Props = {
   uuid: string
 }
 
-export const remove = (props: Props, client: BaseProtocol = DB): Promise<NodeExt> => {
+export const remove = <T extends NodeExt = NodeExt<unknown, unknown>>(
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<T> => {
   const { assessment, cycle, uuid } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.one<NodeExt>(
+  return client.one<T>(
     `
         delete from ${schemaCycle}.node_ext
         where uuid = $1

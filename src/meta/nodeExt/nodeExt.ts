@@ -1,5 +1,4 @@
 import { CountryIso } from 'meta/area'
-import { NodeValue } from 'meta/assessment'
 
 export enum ColumnNodeExtType {
   text = 'text',
@@ -12,10 +11,11 @@ export enum NodeExtType {
   node = 'node',
 }
 
-export type NodeExt<Datum = object> = {
-  readonly uuid: string
+export type NodeExt<Props = unknown, Value = unknown> = {
   readonly countryIso: CountryIso
-  readonly type: NodeExtType
-  props: Record<string, Datum>
-  value: NodeValue
+  readonly id?: number
+  readonly type?: NodeExtType
+  readonly uuid: string
+  props: Props
+  value: Value
 }

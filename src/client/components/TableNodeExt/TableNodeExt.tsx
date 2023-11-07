@@ -10,14 +10,14 @@ import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
 import { ColumnNodeExt } from './types'
 
-type Props = {
+type Props<T = NodeExt<unknown, unknown>> = {
   columns: Array<ColumnNodeExt>
-  data: Array<NodeExt>
+  data: Array<T>
   disabled: boolean
-  onChange: (uuid: string, colName: string, value: any) => void
+  onChange: (uuid: string, colName: string, value: unknown) => void
 }
 
-const TableNodeExt = (props: Props) => {
+const TableNodeExt: React.FC<Props> = (props: Props) => {
   const { columns, data, onChange, disabled } = props
   const { t } = useTranslation()
 
@@ -32,7 +32,7 @@ const TableNodeExt = (props: Props) => {
         )
       })}
 
-      {data.map(({ uuid, props: datum }) => {
+      {data.map(({ uuid, value: datum }) => {
         return (
           <React.Fragment key={uuid}>
             {columns.map((column) => {
