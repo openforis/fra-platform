@@ -2,10 +2,10 @@ import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
-import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
 import { createContact } from './nodeExt/createContact'
+import { getContacts } from './nodeExt/getContacts'
 import { removeContact } from './nodeExt/removeContact'
 import { updateContact } from './nodeExt/updateContact'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
@@ -78,5 +78,5 @@ export const CycleDataController = {
   createContact,
   updateContact,
   removeContact,
-  getContacts: NodeExtRepository.getMany,
+  getContacts,
 }
