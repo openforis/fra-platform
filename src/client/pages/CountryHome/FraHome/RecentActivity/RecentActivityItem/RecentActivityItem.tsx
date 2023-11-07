@@ -10,8 +10,9 @@ import { ActivityLog, ActivityLogs } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useCountryIso } from 'client/hooks'
+import { useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ColumnComponentProps } from 'client/components/TablePaginated'
 import { Dates } from 'client/utils'
 
@@ -19,10 +20,11 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
   const { datum: activity, rowIndex } = props
   const { user, section: sectionName } = activity
 
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
+  const { i18n, t } = useTranslation()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const cycle = useCycle()
-  const { i18n } = useTranslation()
+  const section = useSection(sectionName)
+  const anchor = section?.props?.anchors?.[cycle.uuid]
 
   return (
     <div className={classNames('landing__activity-item', { firstRow: rowIndex === 0 })}>
@@ -33,18 +35,15 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
       />
       <div className="landing__activity-name">
         <strong>{Users.getFullName(user)}</strong>
-        <span>{ActivityLogs.getLabelAction(activity, i18n)}</span>
+        <span>{ActivityLogs.getLabelAction({ activity, t })}</span>
+
         {ActivityLogs.hasSectionLink(activity) && (
           <Link
             className={classNames('link', { disabled: ActivityLogs.isSectionLinkDisabled(activity) })}
-            to={Routes.Section.generatePath({
-              countryIso,
-              assessmentName: assessment.props.name,
-              cycleName: cycle.name,
-              sectionName,
-            })}
+            to={Routes.Section.generatePath({ countryIso, assessmentName, cycleName, sectionName })}
           >
-            {ActivityLogs.getLabelSection(activity, i18n)}
+            {anchor ? `${anchor} ` : ''}
+            {ActivityLogs.getLabelSection({ cycle, section, activity, t })}
           </Link>
         )}
       </div>
