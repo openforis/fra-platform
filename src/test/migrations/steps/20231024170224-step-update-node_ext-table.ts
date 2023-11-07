@@ -1,4 +1,3 @@
-import * as pgPromise from 'pg-promise'
 import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -18,13 +17,14 @@ const createTable = (_: TemplateStringsArray, schemaName: string) => {
           country_iso varchar(3) references country(country_iso) not null,
           type varchar(255) not null,
           props jsonb default '{}'::jsonb,
+          value jsonb default '{}'::jsonb,
           primary key (id)
       );
-    
-      
+
+
       -- add index 1
       create index node_ext_country_iso_idx on ${schemaName}.node_ext (country_iso);
-      
+
       -- add index 2
       create index node_ext_uuid_idx on ${schemaName}.node_ext (uuid);
   `
@@ -32,11 +32,12 @@ const createTable = (_: TemplateStringsArray, schemaName: string) => {
 
 const migrateOldData = (_: TemplateStringsArray, schemaName: string) => {
   return `
-      insert into ${schemaName}.node_ext (country_iso, type, props)
+      insert into ${schemaName}.node_ext (country_iso, type, props, value)
       select
         country_iso,
-        'node_ext',
-        jsonb_build_object('tableName', table_name, 'variableName', variable_name, 'colName', col_name, 'value', value)
+        'node',
+        jsonb_build_object('tableName', table_name, 'variableName', variable_name, 'colName', col_name),
+        value
       from ${schemaName}.node_ext_old;
     `
 }
@@ -62,19 +63,18 @@ const wrapWithIf = (schemaName: string, queries: string) => {
 }
 
 export default async (client: BaseProtocol) => {
-  const pgp = pgPromise()
   const assessments = await AssessmentController.getAll({}, client)
 
   await Promises.each(assessments, async (assessment) => {
     return Promises.each(assessment.cycles, async (cycle) => {
       const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-      const queries = `${pgp.helpers.concat([
+      const queries = [
         alterTable`${schemaCycle}`,
         createTable`${schemaCycle}`,
         migrateOldData`${schemaCycle}`,
+        getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle),
         dropOldTable`${schemaCycle}`,
-      ])};
-      ${getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle)}`
+      ].join('\n')
 
       const query = wrapWithIf(schemaCycle, queries)
 
