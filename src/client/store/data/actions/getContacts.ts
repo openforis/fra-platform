@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
 import { Contact } from 'meta/user'
+import { Contacts } from 'meta/user/contacts'
 
 export const getContacts = createAsyncThunk<Array<Contact>, CycleDataParams>('extNode/get/contacts', async (props) => {
   const { assessmentName, cycleName, countryIso } = props
@@ -11,5 +12,5 @@ export const getContacts = createAsyncThunk<Array<Contact>, CycleDataParams>('ex
   const config = { params }
   const contacts = await axios.get(ApiEndPoint.NodeExt.contacts(), config)
 
-  return contacts.data
+  return Contacts.addPlaceholder(contacts.data)
 })

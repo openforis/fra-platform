@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { ContactProps } from 'meta/user'
+import { ContactValue } from 'meta/user/contact'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions, useContacts } from 'client/store/data'
@@ -14,20 +14,17 @@ export const useOnChange = () => {
   const contacts = useContacts()
 
   return useCallback(
-    (uuid: string, key: keyof ContactProps, value: any) => {
-      const index = contacts.findIndex((contact) => contact.uuid === uuid)
-      if (index === -1) return
+    (uuid: string, key: keyof ContactValue, value: any) => {
+      if (!uuid) return // TODO: dispatch(DataActions.createContact(updateContactProps))
 
-      const contact = contacts[index]
+      const _contacts = contacts.map((_contact) =>
+        _contact.uuid === uuid ? { ..._contact, value: { ..._contact.value, [key]: value } } : _contact
+      )
 
-      const props = { ...contact.props, [key]: value }
-      const updatedContact = { ...contact, props }
+      const contact = _contacts.find((_contact) => _contact.uuid === uuid)
 
-      const updatedContacts = [...contacts]
-      updatedContacts[index] = updatedContact
-      const updateContactsProps = { assessmentName, cycleName, countryIso, sectionName, contacts: updatedContacts }
-
-      dispatch(DataActions.updateContacts(updateContactsProps))
+      const updateContactProps = { contact, contacts: _contacts, countryIso, cycleName, assessmentName, sectionName }
+      dispatch(DataActions.updateContact(updateContactProps))
     },
     [assessmentName, contacts, countryIso, cycleName, dispatch, sectionName]
   )

@@ -3,15 +3,9 @@ import { Objects } from 'utils/objects'
 
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { getContacts } from 'client/store/data/actions/getContacts'
-import { setNodeValues } from 'client/store/data/actions/setNodeValues'
-import { updateContacts } from 'client/store/data/actions/updateContacts'
-import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
-import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
-import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
-
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
+import { getContacts } from './actions/getContacts'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
@@ -19,8 +13,13 @@ import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp
 import { getODPTableData } from './actions/getODPTableData'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
+import { setNodeValues } from './actions/setNodeValues'
+import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
+import { setNodeValuesReducer } from './extraReducers/setNodeValues'
+import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
+import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
@@ -131,7 +130,7 @@ export const dataSlice = createSlice({
       Objects.setInPath({ obj: state, path, value: dataSources })
     })
 
-    builder.addMatcher(isAnyOf(getContacts.fulfilled, updateContacts.fulfilled), (state, { payload, meta }) => {
+    builder.addMatcher(isAnyOf(getContacts.fulfilled, updateContact.fulfilled), (state, { payload, meta }) => {
       const { assessmentName, cycleName, countryIso } = meta.arg
       const path = ['contacts', assessmentName, cycleName, countryIso]
       Objects.setInPath({ obj: state, path, value: payload })
@@ -163,7 +162,7 @@ export const DataActions = {
 
   // Contacts
   getContacts,
-  updateContacts,
+  updateContact,
 }
 
 export default dataSlice.reducer as Reducer<DataState>

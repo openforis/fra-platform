@@ -32,18 +32,22 @@ const TableNodeExt: React.FC<Props> = (props: Props) => {
         )
       })}
 
-      {data.map(({ uuid, value: datum }) => {
+      {data.map(({ uuid, value: datum, props }) => {
         return (
-          <React.Fragment key={uuid}>
+          <React.Fragment key={`row_${uuid}`}>
             {columns.map((column) => {
               const { colName } = column.props
+              const { readOnly } = props as { readOnly: boolean }
               const key = `${uuid}_${colName}_data`
+
+              const _disabled = disabled || readOnly
+
               return (
                 <CellNodeExt
                   uuid={uuid}
                   key={key}
                   onChange={onChange}
-                  disabled={disabled}
+                  disabled={_disabled}
                   datum={datum}
                   column={column}
                 />
