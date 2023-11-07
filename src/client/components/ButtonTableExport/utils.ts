@@ -33,7 +33,7 @@ export const getData = (
   dupRows = true,
   textMode = true,
   formatToNumber = true
-): Array<object> => {
+): Array<Array<string>> => {
   if (!table) {
     return []
   }
