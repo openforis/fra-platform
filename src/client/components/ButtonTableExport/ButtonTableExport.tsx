@@ -19,7 +19,7 @@ type Props = {
 const ButtonTableExport: React.FC<Props> = (props) => {
   const { disabled, filename, tableRef } = props
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Array<object>>([])
 
   const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()

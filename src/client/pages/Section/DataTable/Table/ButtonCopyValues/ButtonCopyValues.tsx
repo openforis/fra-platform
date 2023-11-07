@@ -64,7 +64,7 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
     // A list of indexes of the table columns that should be copied to clipboard
     const correctIndexes = colMapping.map((year) => csv[1].indexOf(year.toString()))
     const z = csv
-      .filter((row: string) => {
+      .filter((row) => {
         return include.some((translatedVariable) => row[0].includes(translatedVariable))
       })
       .map((row: string[]) => {
