@@ -51,7 +51,7 @@ const Message: React.FC<MessageProps> = (props) => {
           </div>
         </div>
       </div>
-      {!deleted && <p className="message-body">{message.message}</p>}
+      {!deleted && <div className="message-body">{message.message}</div>}
     </div>
   )
 }

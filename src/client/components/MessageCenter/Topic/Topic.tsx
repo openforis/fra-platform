@@ -116,7 +116,14 @@ const Topic: React.FC<TopicProps> = (props) => {
   }, [assessment, cycle, topic, dispatch])
 
   return (
-    <Resizable maxWidth={600} minWidth={250} className="topic">
+    <Resizable
+      defaultSize={{ width: 300, height: '100%' }}
+      minHeight={300}
+      minWidth={300}
+      maxWidth={800}
+      maxHeight="100%"
+      className="topic"
+    >
       <div className="topic-header">
         <div className="topic-title">
           {topic.title || topic.key}

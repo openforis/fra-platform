@@ -1,8 +1,6 @@
 @import 'src/client/style/partials';
 
 .topic {
-  width: $ui-app-review-width;
-  height: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -10,6 +8,7 @@
   border-left: $ui-thin-border;
   box-shadow: 0px 0px 12px 12px $ui-border;
   margin-right: 32px;
+  align-self: flex-end;
 }
 
 .topic-header {
