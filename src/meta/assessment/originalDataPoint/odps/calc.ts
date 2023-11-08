@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { ODPNationalClass } from '../odpNationalClass'
 import { OriginalDataPoint } from '../originalDataPoint'
 
-export const calcTotalArea = (props: { originalDataPoint: OriginalDataPoint }): number => {
+export const calcTotalArea = (props: { originalDataPoint: OriginalDataPoint }): string | null => {
   const { originalDataPoint } = props
   const areas = originalDataPoint.nationalClasses
     .map((nationalClass) => nationalClass.area)
@@ -43,6 +43,7 @@ export const calcTotalSubFieldArea = (props: {
     const y = Numbers.mul(x, nationalClass[subField] as string)
     return Numbers.div(y, 10000.0)
   })
+
   return Numbers.sum(values)
 }
 
@@ -58,9 +59,21 @@ export const calcTotalSubSubFieldArea = (props: {
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
       !Objects.isNil(nationalClass[field]) &&
-      !Objects.isNil(nationalClass[subField]) &&
-      !Objects.isNil(nationalClass[subSubField])
+      !Objects.isNil(nationalClass[subField])
   )
+
+  // get all national classes with parent value for this subsub field
+  const withParentValue = nationalClasses.filter((nationalClass) => {
+    return Numbers.greaterThan(nationalClass[subField] as string, 0)
+  })
+
+  // if we have one or more parent value and any subsub value is null, return null
+  if (
+    withParentValue.length > 0 &&
+    withParentValue.every((nationalClass) => Objects.isNil(nationalClass[subSubField]))
+  ) {
+    return null
+  }
 
   const values = nationalClasses.map((nationalClass) => {
     const x = Numbers.mul(nationalClass.area, nationalClass[field] as string)
