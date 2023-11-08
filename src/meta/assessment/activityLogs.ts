@@ -1,5 +1,8 @@
-import { i18n } from 'i18next'
+import { TFunction } from 'i18next'
 
+import { Cycle } from 'meta/assessment/cycle'
+import { Labels } from 'meta/assessment/labels'
+import { SubSection } from 'meta/assessment/section'
 import { Users } from 'meta/user'
 
 import { ActivityLog, ActivityLogMessage } from './activityLog'
@@ -24,7 +27,7 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.invitationRemove]: 'removeInvitation',
 }
 
-const getLabelActionKey = (activity: ActivityLog<any>) => {
+const _getLabelActionKey = (activity: ActivityLog<any>) => {
   const { message } = activity
 
   const key = messageToKey[message]
@@ -34,29 +37,30 @@ const getLabelActionKey = (activity: ActivityLog<any>) => {
   return 'landing.recentActivity.actions.edited'
 }
 
-const getLabelActionParams = (activity: ActivityLog<any>, i18n: i18n) => {
+const _getLabelActionParams = (activity: ActivityLog<any>, t: TFunction) => {
   const { target } = activity
   let params = {}
   const { user, role, assessment, status, file } = target ?? {}
   if (user)
     params = {
       user,
-      role: role ? i18n.t(Users.getI18nRoleLabelKey(role)) : null,
+      role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
     }
   else if (assessment)
     params = {
-      assessment: i18n.t(`assessment.${assessment}`),
-      status: i18n.t(`assessment.status.${status}.label`),
+      assessment: t(`assessment.${assessment}`),
+      status: t(`assessment.status.${status}.label`),
     }
   else if (file) params = { file }
   return params
 }
 
-const getLabelAction = (activity: ActivityLog<any>, i18n: i18n) => {
-  const labelActionKey = getLabelActionKey(activity)
-  const messageParams = getLabelActionParams(activity, i18n)
-  const label = i18n.t(labelActionKey, messageParams)
-  return label !== labelActionKey ? label : i18n.t('landing.recentActivity.actions.edited')
+const getLabelAction = (props: { activity: ActivityLog<any>; t: TFunction }) => {
+  const { activity, t } = props
+  const labelActionKey = _getLabelActionKey(activity)
+  const messageParams = _getLabelActionParams(activity, t)
+  const label = t(labelActionKey, messageParams)
+  return label !== labelActionKey ? label : t('landing.recentActivity.actions.edited')
 }
 
 // Section
@@ -83,9 +87,11 @@ const isSectionLinkDisabled = (activity: ActivityLog<any>) => {
   return ['fileRepository', 'messageBoard', 'odp'].includes(section) || labelSectionKey === 'dashboard.actions.deleted'
 }
 
-const getLabelSection = (activity: ActivityLog<any>, i18n: i18n) => {
-  const labelSectionKey = getLabelSectionKey(activity)
-  return i18n.t(labelSectionKey)
+const getLabelSection = (props: { cycle: Cycle; section?: SubSection; activity: ActivityLog<any>; t: TFunction }) => {
+  const { cycle, section, activity, t } = props
+  const labels = section?.props?.labels
+  const labelSectionKey = labels ? Labels.getCycleLabel({ cycle, labels, t }) : getLabelSectionKey(activity)
+  return t(labelSectionKey)
 }
 
 export const ActivityLogs = {
