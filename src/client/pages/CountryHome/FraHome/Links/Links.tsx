@@ -1,5 +1,5 @@
 import './Links.scss'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -11,7 +11,7 @@ import { Authorizer, Users } from 'meta/user'
 import { useAppDispatch } from 'client/store'
 import { useCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { AssessmentFilesActions } from 'client/store/ui/assessmentFiles'
+import { AssessmentFilesActions, useGetAssessmentFiles } from 'client/store/ui/assessmentFiles'
 import { useAssessmentFiles } from 'client/store/ui/assessmentFiles/hooks'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
@@ -39,6 +39,7 @@ const Links: React.FC = () => {
 
   const isAllowedToEdit = Authorizer.canEditAssessmentFile({ user, country, cycle })
 
+  // TODO: Move to store/ui/..
   const uploadAssessmentFile = useCallback(
     (fileCountryIso?: CountryIso) => {
       dispatch(
@@ -56,6 +57,7 @@ const Links: React.FC = () => {
     [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
   )
 
+  // TODO: Move to store/ui/..
   const deleteAssessmentFile = useCallback(
     (uuid: string, fileCountryIso?: CountryIso) => {
       dispatch(
@@ -73,15 +75,7 @@ const Links: React.FC = () => {
     [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
   )
 
-  useEffect(() => {
-    dispatch(
-      AssessmentFilesActions.getFiles({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-      })
-    )
-  }, [assessment, cycle, countryIso, dispatch])
+  useGetAssessmentFiles()
 
   const links = [
     {
@@ -144,6 +138,7 @@ const Links: React.FC = () => {
           <div className="landing__activity">
             <a
               className="link"
+              // TODO: use meta/.../assessmentFiles.getLink
               href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?countryIso=${countryIso}&assessmentName=${
                 assessment.props.name
               }&cycleName=${cycle.name}`}
