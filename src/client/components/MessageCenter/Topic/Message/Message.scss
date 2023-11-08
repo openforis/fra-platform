@@ -58,6 +58,7 @@
   .message-body {
     margin-top: $spacing-xxxs + 2;
     line-height: 1.5;
+    word-wrap: anywhere;
   }
 }
 
