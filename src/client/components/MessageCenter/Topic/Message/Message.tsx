@@ -2,8 +2,8 @@ import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getRelativeDate } from 'utils/dates'
 import classNames from 'classnames'
+import { getRelativeDate } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Message as MessageType } from 'meta/messageCenter/message'
@@ -51,7 +51,7 @@ const Message: React.FC<MessageProps> = (props) => {
           </div>
         </div>
       </div>
-      {!deleted && <div className="message-body">{message.message}</div>}
+      {!deleted && <p className="message-body">{message.message}</p>}
     </div>
   )
 }
