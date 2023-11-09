@@ -1,4 +1,5 @@
 import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
 import { AssessmentMetaCache, AssessmentName, RowCache } from 'meta/assessment'
 
@@ -14,36 +15,29 @@ import { DependencyEvaluator } from './dependencyEvaluator'
  */
 export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void> => {
   // 1. init assessments meta cache and rows
-  const assessments = await AssessmentRepository.getAll({ metaCache: true }, client)
+  const assessments = await AssessmentRepository.getAll({}, client)
   const rows: Record<AssessmentName, Array<RowCache>> = {}
-  await Promise.all(
-    assessments.map(async (assessment) => {
-      // init assessment meta cache
-      Objects.setInPath({ obj: assessment, path: ['metaCache'], value: {} })
-      // get rows
-      rows[assessment.props.name] = (await RowRepository.getManyCache({ assessment }, client)).filter(
-        (row) =>
-          Boolean(row.props.validateFns || row.props.calculateFn) ||
-          Boolean(row.cols.find((col) => Boolean(col.props.validateFns || col.props.calculateFn)))
-      )
+  await Promises.each(assessments, async (assessment) => {
+    rows[assessment.props.name] = (await RowRepository.getManyCache({ assessment }, client)).filter(
+      (row) =>
+        Boolean(row.props.validateFns || row.props.calculateFn) ||
+        Boolean(row.cols.find((col) => Boolean(col.props.validateFns || col.props.calculateFn)))
+    )
 
-      // init cycle meta cache
-      await Promise.all(
-        assessment.cycles.map(async (cycle) => {
-          const [variables, valueAggregate] = await Promise.all([
-            RowRepository.getVariablesCache({ assessment, cycle }, client),
-            ValueAggregateRepository.getVariablesCache({ assessment, cycle }, client),
-          ])
-          const metaCache: AssessmentMetaCache = {
-            calculations: { dependants: {}, dependencies: {} },
-            validations: { dependants: {}, dependencies: {} },
-            variablesByTable: { ...variables, ...valueAggregate },
-          }
-          Objects.setInPath({ obj: assessment, path: ['metaCache', cycle.uuid], value: metaCache })
-        })
-      )
+    // init cycle meta cache
+    await Promises.each(assessment.cycles, async (cycle) => {
+      const [variables, valueAggregate] = await Promise.all([
+        RowRepository.getVariablesCache({ assessment, cycle }, client),
+        ValueAggregateRepository.getVariablesCache({ assessment, cycle }, client),
+      ])
+      const metaCache: AssessmentMetaCache = {
+        calculations: { dependants: {}, dependencies: {} },
+        validations: { dependants: {}, dependencies: {} },
+        variablesByTable: { ...variables, ...valueAggregate },
+      }
+      Objects.setInPath({ obj: assessment, path: ['metaCache', cycle.uuid], value: metaCache })
     })
-  )
+  })
 
   // 2. generate assessments meta cache
   assessments.forEach((assessment) => {
