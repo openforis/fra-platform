@@ -21,20 +21,26 @@ const excludeDependant = (row: Row, tableName: string, variableName: string): bo
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): string {
-    const { assessmentMetaCache, row, tableName, type } = this.context
+    const { assessments, assessmentName, cycleName, row, type } = this.context
+
+    const assessment = assessments.find((a) => a.props.name === assessmentName)
+    const cycle = assessment.cycles.find((c) => c.name === cycleName)
+    const metaCache = assessment.metaCache[cycle.uuid]
+    const { tableName } = row
 
     const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
 
-    if (assessmentMetaCache.variablesByTable[memberVariable.tableName]) {
-      const dependantTable = assessmentMetaCache[type].dependants?.[memberVariable.tableName] ?? {}
+    if (metaCache.variablesByTable[memberVariable.tableName]) {
+      const dependantTable = metaCache[type].dependants?.[memberVariable.tableName] ?? {}
       const dependants = dependantTable[memberVariable.variableName] ?? []
       const dependant: VariableCache = { variableName: row.props.variableName, tableName }
+
       if (
         !excludeDependant(row, memberVariable.tableName, memberVariable.variableName) &&
         !includesVariableCache(dependants, dependant)
       ) {
-        assessmentMetaCache[type].dependants = {
-          ...assessmentMetaCache[type].dependants,
+        metaCache[type].dependants = {
+          ...metaCache[type].dependants,
           [memberVariable.tableName]: {
             ...dependantTable,
             [memberVariable.variableName]: [...dependants, dependant],
@@ -42,7 +48,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
         }
       }
 
-      const dependencyTable = assessmentMetaCache[type].dependencies?.[tableName] ?? {}
+      const dependencyTable = metaCache[type].dependencies?.[tableName] ?? {}
       const dependencies = dependencyTable[row.props.variableName] ?? []
       const dependency: VariableCache = {
         variableName: memberVariable.variableName,
@@ -55,8 +61,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       }
 
       if (!includesVariableCache(dependencies, dependency)) {
-        assessmentMetaCache[type].dependencies = {
-          ...assessmentMetaCache[type].dependencies,
+        metaCache[type].dependencies = {
+          ...metaCache[type].dependencies,
           [tableName]: {
             ...dependencyTable,
             [row.props.variableName]: [...dependencies, dependency],
@@ -66,6 +72,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
       return `${tableName}.${memberVariable.variableName}`
     }
+    // console.log('============ ', memberVariable)
+
     return `${memberVariable.tableName}.${memberVariable.variableName}`
   }
 }

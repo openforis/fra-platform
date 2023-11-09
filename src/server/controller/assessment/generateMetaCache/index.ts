@@ -50,8 +50,10 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
     const assessmentName = assessment.props.name
 
     assessment.cycles.forEach((cycle) => {
-      rows[assessmentName].forEach(({ tableName, ...row }) => {
-        const context = { row, tableName, assessmentMetaCache: assessment.metaCache[cycle.uuid] }
+      const cycleName = cycle.name
+
+      rows[assessmentName].forEach((row) => {
+        const context = { assessments, assessmentName, cycleName, row }
 
         if (row.props.calculateFn?.[cycle.uuid]) {
           DependencyEvaluator.evalDependencies(row.props.calculateFn[cycle.uuid], { ...context, type: 'calculations' })
