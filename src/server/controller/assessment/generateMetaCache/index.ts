@@ -1,72 +1,104 @@
-import { Assessment, AssessmentMetaCache, Cycle } from 'meta/assessment'
+import { Objects } from 'utils/objects'
 
-import { BaseProtocol } from 'server/db'
+import { AssessmentMetaCache, AssessmentName, RowCache } from 'meta/assessment'
+
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { RowRepository } from 'server/repository/assessment/row'
 import { ValueAggregateRepository } from 'server/repository/assessmentCycle/valueAggregate'
 
 import { DependencyEvaluator } from './dependencyEvaluator'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
-}
+/**
+ * This method generates meta cache for all assessments
+ */
+export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void> => {
+  // 1. init assessments meta cache and rows
+  const assessments = await AssessmentRepository.getAll({ metaCache: true }, client)
+  const rows: Record<AssessmentName, Array<RowCache>> = {}
+  await Promise.all(
+    assessments.map(async (assessment) => {
+      // init assessment meta cache
+      Objects.setInPath({ obj: assessment, path: ['metaCache'], value: {} })
+      // get rows
+      rows[assessment.props.name] = (await RowRepository.getManyCache({ assessment }, client)).filter(
+        (row) =>
+          Boolean(row.props.validateFns || row.props.calculateFn) ||
+          Boolean(row.cols.find((col) => Boolean(col.props.validateFns || col.props.calculateFn)))
+      )
 
-export const generateMetaCache = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle } = props
-
-  const [variables, valueAggregate] = await Promise.all([
-    RowRepository.getVariablesCache({ assessment, cycle }, client),
-    ValueAggregateRepository.getVariablesCache({ assessment, cycle }, client),
-  ])
-
-  const assessmentMetaCache: AssessmentMetaCache = {
-    calculations: { dependants: {}, dependencies: {} },
-    validations: { dependants: {}, dependencies: {} },
-    variablesByTable: { ...variables, ...valueAggregate },
-  }
-
-  const rows = (await RowRepository.getManyCache({ assessment }, client)).filter(
-    (row) =>
-      Boolean(row.props.validateFns || row.props.calculateFn) ||
-      Boolean(row.cols.find((col) => Boolean(col.props.validateFns || col.props.calculateFn)))
+      // init cycle meta cache
+      await Promise.all(
+        assessment.cycles.map(async (cycle) => {
+          const [variables, valueAggregate] = await Promise.all([
+            RowRepository.getVariablesCache({ assessment, cycle }, client),
+            ValueAggregateRepository.getVariablesCache({ assessment, cycle }, client),
+          ])
+          const metaCache: AssessmentMetaCache = {
+            calculations: { dependants: {}, dependencies: {} },
+            validations: { dependants: {}, dependencies: {} },
+            variablesByTable: { ...variables, ...valueAggregate },
+          }
+          Objects.setInPath({ obj: assessment, path: ['metaCache', cycle.uuid], value: metaCache })
+        })
+      )
+    })
   )
 
-  rows.forEach(({ tableName, ...row }) => {
-    const context = { row, tableName, assessmentMetaCache }
-    if (row.props.calculateFn?.[cycle.uuid]) {
-      DependencyEvaluator.evalDependencies(row.props.calculateFn[cycle.uuid], { ...context, type: 'calculations' })
-      if (row.props.calculateIf?.[cycle.uuid]) {
-        DependencyEvaluator.evalDependencies(row.props.calculateIf[cycle.uuid], { ...context, type: 'calculations' })
-      }
-    } else {
-      row.cols.forEach((col) => {
-        if (col.props.calculateFn?.[cycle.uuid]) {
-          DependencyEvaluator.evalDependencies(col.props.calculateFn[cycle.uuid], { ...context, type: 'calculations' })
-        }
-      })
-    }
+  // 2. generate assessments meta cache
+  assessments.forEach((assessment) => {
+    const assessmentName = assessment.props.name
 
-    if (row.props.validateFns?.[cycle.uuid]) {
-      row.props.validateFns[cycle.uuid].forEach((validateFn) =>
-        DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
-      )
-    } else {
-      row.cols.forEach((col) => {
-        if (col.props.validateFns?.[cycle.uuid]) {
-          col.props.validateFns?.[cycle.uuid].forEach((validateFn) => {
+    assessment.cycles.forEach((cycle) => {
+      rows[assessmentName].forEach(({ tableName, ...row }) => {
+        const context = { row, tableName, assessmentMetaCache: assessment.metaCache[cycle.uuid] }
+
+        if (row.props.calculateFn?.[cycle.uuid]) {
+          DependencyEvaluator.evalDependencies(row.props.calculateFn[cycle.uuid], { ...context, type: 'calculations' })
+          if (row.props.calculateIf?.[cycle.uuid]) {
+            DependencyEvaluator.evalDependencies(row.props.calculateIf[cycle.uuid], {
+              ...context,
+              type: 'calculations',
+            })
+          }
+        } else {
+          row.cols.forEach((col) => {
+            if (col.props.calculateFn?.[cycle.uuid]) {
+              DependencyEvaluator.evalDependencies(col.props.calculateFn[cycle.uuid], {
+                ...context,
+                type: 'calculations',
+              })
+            }
+          })
+        }
+
+        if (row.props.validateFns?.[cycle.uuid]) {
+          row.props.validateFns[cycle.uuid].forEach((validateFn) =>
             DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
+          )
+        } else {
+          row.cols.forEach((col) => {
+            if (col.props.validateFns?.[cycle.uuid]) {
+              col.props.validateFns?.[cycle.uuid].forEach((validateFn) => {
+                DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
+              })
+            }
           })
         }
       })
-    }
+    })
   })
 
-  return client.query(
-    `
+  await Promise.all(
+    assessments.map((assessment) =>
+      client.query<void>(
+        `
         update assessment
-        set meta_cache = jsonb_set(meta_cache, '{${cycle.uuid}}', $1::jsonb)
+        set meta_cache = $1::jsonb
         where id = $2
     `,
-    [JSON.stringify(assessmentMetaCache), assessment.id]
+        [assessment.metaCache, assessment.id]
+      )
+    )
   )
 }
