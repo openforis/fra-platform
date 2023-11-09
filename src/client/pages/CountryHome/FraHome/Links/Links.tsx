@@ -1,26 +1,21 @@
 import './Links.scss'
-import React, { useCallback, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
 import { Authorizer, Users } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
 import { useCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { AssessmentFilesActions, useGetAssessmentFiles } from 'client/store/ui/assessmentFiles'
-import { useAssessmentFiles } from 'client/store/ui/assessmentFiles/hooks'
+import { useGetAssessmentFiles, useUpdateAssessmentFiles } from 'client/store/ui/assessmentFiles'
+import { useAssessmentFiles, useDeleteAssessmentFile } from 'client/store/ui/assessmentFiles/hooks'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { useToaster } from 'client/hooks/useToaster'
 import Icon from 'client/components/Icon'
 
 const Links: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const { toaster } = useToaster()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -39,43 +34,10 @@ const Links: React.FC = () => {
 
   const isAllowedToEdit = Authorizer.canEditAssessmentFile({ user, country, cycle })
 
-  // TODO: Move to store/ui/..
-  const uploadAssessmentFile = useCallback(
-    (fileCountryIso?: CountryIso) => {
-      dispatch(
-        AssessmentFilesActions.upload({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          file: fileCountryIso ? countryFileRef?.current?.files[0] : globalFileRef?.current?.files[0],
-          fileCountryIso,
-        })
-      ).then(() => {
-        toaster.success(t('landing.links.fileUploaded'))
-      })
-    },
-    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
-  )
-
-  // TODO: Move to store/ui/..
-  const deleteAssessmentFile = useCallback(
-    (uuid: string, fileCountryIso?: CountryIso) => {
-      dispatch(
-        AssessmentFilesActions.deleteFile({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          uuid,
-          fileCountryIso,
-        })
-      ).then(() => {
-        toaster.success(t('landing.links.fileDeleted'))
-      })
-    },
-    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
-  )
-
   useGetAssessmentFiles()
+
+  const uploadAssessmentFile = useUpdateAssessmentFiles()
+  const deleteAssessmentFile = useDeleteAssessmentFile()
 
   const links = [
     {
@@ -103,7 +65,12 @@ const Links: React.FC = () => {
               ref={globalFileRef}
               type="file"
               style={{ display: 'none' }}
-              onChange={() => uploadAssessmentFile()}
+              onChange={() =>
+                uploadAssessmentFile({
+                  fileCountryIso: null,
+                  file: globalFileRef.current.files[0],
+                })
+              }
             />
             <button
               className="btn-s btn-primary"
@@ -175,7 +142,12 @@ const Links: React.FC = () => {
               ref={countryFileRef}
               type="file"
               style={{ display: 'none' }}
-              onChange={() => uploadAssessmentFile(countryIso)}
+              onChange={() =>
+                uploadAssessmentFile({
+                  fileCountryIso: countryIso,
+                  file: countryFileRef.current.files[0],
+                })
+              }
             />
             <button
               className="btn-s btn-primary"
