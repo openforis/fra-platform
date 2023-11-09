@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { CountryIso, Region, RegionCode } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment'
 import { RoleName, User, UserRole, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
@@ -82,6 +83,11 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
     }
   }, [dispatch, t, user])
 
+  const excludeRegions = useMemo(() => {
+    if (assessment.props.name === AssessmentNames.panEuropean) return []
+    return [RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]
+  }, [assessment.props.name, secondaryRegions.regions])
+
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
       <div className="edit-user__form-label">{t('editUser.role')}</div>
@@ -133,10 +139,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
       <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
-        excludedRegions={[
-          RegionCode.FE,
-          ...(secondaryRegions ? secondaryRegions.regions.map((r: Region) => r.regionCode) : []),
-        ]}
+        excludedRegions={excludeRegions}
         headerLabel={t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
         onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}

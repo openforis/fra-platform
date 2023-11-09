@@ -3,16 +3,19 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso, Region, RegionCode } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment'
 import { RoleName } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { useCountries, useSecondaryRegion } from 'client/store/area'
 import { useFilters, UserManagementActions, useRoleNames } from 'client/store/ui/userManagement'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import CountrySelectModal from '../CountrySelectModal'
 import MultiSelect from '../MultiSelect'
 
 const UserListFilters: React.FC = () => {
+  const { assessmentName } = useCountryRouteParams()
   const dispatch = useAppDispatch()
   const roleNames = useRoleNames()
   const { t } = useTranslation()
@@ -22,6 +25,12 @@ const UserListFilters: React.FC = () => {
   const secondaryRegions = useSecondaryRegion()
 
   const [modalOpen, setModalOpen] = useState(false)
+
+  const isPanEuropean = assessmentName === AssessmentNames.panEuropean
+
+  const excludeRegions = isPanEuropean
+    ? []
+    : [RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]
 
   return (
     <div className="users__table-filter">
@@ -77,7 +86,7 @@ const UserListFilters: React.FC = () => {
           <CountrySelectModal
             open={modalOpen}
             countries={countries}
-            excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
+            excludedRegions={excludeRegions}
             headerLabel={t('common.select')}
             initialSelection={filters.countries}
             onClose={(selectionUpdate: Array<string>) => {
