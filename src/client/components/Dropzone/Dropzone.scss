@@ -1,0 +1,34 @@
+@import 'src/client/style/partials';
+
+.dropzone {
+  align-items: center;
+  background-color: $ui-bg;
+  border-radius: 4px;
+  border: 2px dashed $ui-border;
+  color: $text-body;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out;
+
+  p {
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    font-size: $font-l;
+  }
+
+  &--isActive {
+    background-color: $ui-accent-light-extra;
+  }
+
+  &:hover {
+    background-color: $ui-bg-hover;
+    border-color: $ui-border-dark;
+  }
+}
