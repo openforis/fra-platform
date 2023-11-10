@@ -16,7 +16,7 @@ export const createContact = createAsyncThunk<Array<Contact>, Props>('extNode/po
   const data = { contact }
   const params = { countryIso, assessmentName, cycleName, sectionName }
   const config = { params }
-  const { data: newContact } = await axios.post(ApiEndPoint.NodeExt.contacts(), data, config)
+  const { data: newContact } = await axios.post(ApiEndPoint.Contacts.many(), data, config)
 
   const _contacts = Contacts.removePlaceholder(contacts)
   _contacts.push(newContact)

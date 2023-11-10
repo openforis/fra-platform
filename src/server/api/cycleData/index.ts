@@ -135,24 +135,24 @@ export const CycleDataApi = {
     // ext node
     // -- Contacts
     express.post(
-      ApiEndPoint.NodeExt.contacts(),
+      ApiEndPoint.Contacts.many(),
       // AuthMiddleware.requireEditTableData,
       createContact
     )
 
     express.get(
-      ApiEndPoint.NodeExt.contacts(),
+      ApiEndPoint.Contacts.many(),
       // AuthMiddleware.requireView,
       getContacts
     )
 
     express.put(
-      ApiEndPoint.NodeExt.contacts(),
+      ApiEndPoint.Contacts.many(),
       // AuthMiddleware.requireEditTableData,
       updateContact
     )
     express.delete(
-      ApiEndPoint.NodeExt.contacts(),
+      ApiEndPoint.Contacts.many(),
       // AuthMiddleware.requireEditTableData,
       removeContact
     )

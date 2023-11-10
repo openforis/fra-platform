@@ -30,6 +30,10 @@ export const ApiEndPoint = {
     resetPassword: () => joinPaths('auth', 'local', 'reset-password'),
   },
 
+  Contacts: {
+    many: () => apiPath('contacts'),
+  },
+
   CycleData: {
     activities: () => apiPath('cycle-data', 'activities'),
     activitiesCount: () => apiPath('cycle-data', 'activities', 'count'),
@@ -102,10 +106,6 @@ export const ApiEndPoint = {
     topicMessage: () => apiPath('message-center', 'topic', 'message'),
     topicResolve: () => apiPath('message-center', 'topic', 'resolve'),
     topicUnreadMessages: () => apiPath('message-center', 'topic', 'unread-messages'),
-  },
-
-  NodeExt: {
-    contacts: () => apiPath('node-ext', 'contacts'),
   },
 
   User: {

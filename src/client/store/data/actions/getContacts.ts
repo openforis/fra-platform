@@ -10,7 +10,7 @@ export const getContacts = createAsyncThunk<Array<Contact>, CycleDataParams>('ex
   const { assessmentName, cycleName, countryIso } = props
   const params = { countryIso, assessmentName, cycleName }
   const config = { params }
-  const contacts = await axios.get(ApiEndPoint.NodeExt.contacts(), config)
+  const contacts = await axios.get(ApiEndPoint.Contacts.many(), config)
 
   return Contacts.addPlaceholder(contacts.data)
 })

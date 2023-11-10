@@ -18,7 +18,7 @@ const putContact = Functions.debounce(
     const data = { contact }
     const params = { countryIso, assessmentName, cycleName, sectionName }
     const config = { params }
-    await axios.put(ApiEndPoint.NodeExt.contacts(), data, config)
+    await axios.put(ApiEndPoint.Contacts.many(), data, config)
   },
   1000,
   'putContact'
