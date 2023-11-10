@@ -242,6 +242,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           country_iso varchar(3) references country(country_iso) not null,
           type varchar(255) not null,
           props jsonb default '{}'::jsonb,
+          value jsonb default '{}'::jsonb,
           primary key (id)
       );
       create index node_ext_country_iso_idx on ${assessmentCycleSchemaName}.node_ext (country_iso);
@@ -344,9 +345,9 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
             r.props ->> 'variableName' as variable_name,
             r.props ->> 'tableName' as table_name,
             r.props ->> 'colName' as col_name,
-            r.props -> 'value' as value
+            r.value as value
         from ${assessmentCycleSchemaName}.node_ext r
-        where r.props ->> 'variableName' = 'totalLandArea' and r.props ->> 'tableName' = 'extentOfForest'
+        where type = 'node' and r.props ->> 'variableName' = 'totalLandArea' and r.props ->> 'tableName' = 'extentOfForest'
       ),
        primary_forest AS (SELECT c.id,
                                c.country_iso,
