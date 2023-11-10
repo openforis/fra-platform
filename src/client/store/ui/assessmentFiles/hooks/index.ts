@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AreaCode, CountryIso } from 'meta/area'
+import { AssessmentFileProps } from 'meta/assessment'
 
 import { useAppDispatch, useAppSelector } from 'client/store'
 import { AssessmentFilesActions } from 'client/store/ui/assessmentFiles/slice'
@@ -37,8 +38,8 @@ export const useUpdateAssessmentFiles = () => {
   const { t } = useTranslation()
 
   return useCallback(
-    (props: { fileCountryIso?: CountryIso | AreaCode; file: File }) => {
-      const { fileCountryIso, file } = props
+    (props: { fileCountryIso?: CountryIso | AreaCode; file: File; fileProps?: AssessmentFileProps }) => {
+      const { fileCountryIso, file, fileProps = {} } = props
       dispatch(
         AssessmentFilesActions.upload({
           assessmentName,
@@ -46,6 +47,7 @@ export const useUpdateAssessmentFiles = () => {
           countryIso,
           file,
           fileCountryIso,
+          fileProps,
         })
       ).then(() => {
         toaster.success(t('landing.links.fileUploaded'))

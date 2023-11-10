@@ -3,7 +3,7 @@ export { ActivityLogMessage } from './activityLog'
 export { ActivityLogs } from './activityLogs'
 export type { Assessment } from './assessment'
 export type { AssessmentProps } from './assessment'
-export type { AssessmentFile } from './assessmentFile'
+export type { AssessmentFile, AssessmentFileProps } from './assessmentFile'
 export type {
   AssessmentMetaCache,
   DependencyCache,

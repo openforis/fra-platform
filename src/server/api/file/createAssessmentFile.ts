@@ -10,7 +10,8 @@ export const createAssessmentFile = async (req: CycleRequest<never, AssessmentFi
   try {
     const assessmentFile = req.file
 
-    const { assessmentName, fileCountryIso } = req.body
+    const { assessmentName, fileCountryIso, fileProps: _fileProps } = req.body
+    const fileProps = JSON.parse(_fileProps)
 
     const user = Requests.getUser(req)
 
@@ -19,6 +20,7 @@ export const createAssessmentFile = async (req: CycleRequest<never, AssessmentFi
     const updatedAssessmentFile = await FileController.createAssessmentFile({
       assessment,
       assessmentFile,
+      fileProps,
       countryIso: fileCountryIso,
       user,
     })

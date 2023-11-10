@@ -71,6 +71,7 @@ const AddFromRepository: React.FC<AddFromRepositoryProps> = (props: AddFromRepos
       uploadAssessmentFile({
         fileCountryIso: countryIso,
         file,
+        fileProps: { public: true },
       })
     })
   }
