@@ -3,8 +3,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from 'utils/objects'
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
@@ -16,6 +16,7 @@ import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import Icon from 'client/components/Icon'
+import Resizable from 'client/components/Resizable'
 import { SocketClient } from 'client/service/socket'
 
 import Message from './Message'
@@ -115,7 +116,14 @@ const Topic: React.FC<TopicProps> = (props) => {
   }, [assessment, cycle, topic, dispatch])
 
   return (
-    <div className="topic">
+    <Resizable
+      defaultSize={{ width: 300, height: '100%' }}
+      minHeight={300}
+      minWidth={300}
+      maxWidth={800}
+      maxHeight="100%"
+      className="topic"
+    >
       <div className="topic-header">
         <div className="topic-title">
           {topic.title || topic.key}
@@ -175,7 +183,7 @@ const Topic: React.FC<TopicProps> = (props) => {
             </div>
           )}
       </div>
-    </div>
+    </Resizable>
   )
 }
 

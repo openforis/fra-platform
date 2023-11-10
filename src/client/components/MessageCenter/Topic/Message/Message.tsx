@@ -2,8 +2,8 @@ import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getRelativeDate } from 'utils/dates'
 import classNames from 'classnames'
+import { getRelativeDate } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Message as MessageType } from 'meta/messageCenter/message'
