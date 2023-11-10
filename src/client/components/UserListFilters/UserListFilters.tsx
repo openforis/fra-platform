@@ -2,35 +2,27 @@ import './UserListFilters.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso, Region, RegionCode } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { CountryIso } from 'meta/area'
 import { RoleName } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useCountries, useSecondaryRegion } from 'client/store/area'
+import { useCountries, useExcludedRegions } from 'client/store/area'
 import { useFilters, UserManagementActions, useRoleNames } from 'client/store/ui/userManagement'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import CountrySelectModal from '../CountrySelectModal'
 import MultiSelect from '../MultiSelect'
 
 const UserListFilters: React.FC = () => {
-  const { assessmentName } = useCountryRouteParams()
   const dispatch = useAppDispatch()
   const roleNames = useRoleNames()
   const { t } = useTranslation()
 
   const countries = useCountries()
   const filters = useFilters()
-  const secondaryRegions = useSecondaryRegion()
 
   const [modalOpen, setModalOpen] = useState(false)
 
-  const isPanEuropean = assessmentName === AssessmentNames.panEuropean
-
-  const excludeRegions = isPanEuropean
-    ? []
-    : [RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]
+  const excludeRegions = useExcludedRegions()
 
   return (
     <div className="users__table-filter">

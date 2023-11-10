@@ -5,12 +5,11 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { CountryIso, Region, RegionCode } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { CountryIso } from 'meta/area'
 import { RoleName, User, UserRole, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useCountries, useSecondaryRegion } from 'client/store/area'
+import { useCountries, useExcludedRegions } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
@@ -41,7 +40,8 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   const countries = useCountries()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const secondaryRegions = useSecondaryRegion()
+  const excludeRegions = useExcludedRegions()
+
   const initialModalState = useMemo(() => {
     return {
       open: false,
@@ -82,11 +82,6 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
       dispatch(UserManagementActions.updateUserAdminRole({ userId: user.id }))
     }
   }, [dispatch, t, user])
-
-  const excludeRegions = useMemo(() => {
-    if (assessment.props.name === AssessmentNames.panEuropean) return []
-    return [RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]
-  }, [assessment.props.name, secondaryRegions.regions])
 
   return (
     <div className="edit-user__form-item edit-user__form-item-roles">
