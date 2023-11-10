@@ -1,7 +1,7 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
 import { Objects } from 'utils/objects'
 
-import { Row, VariableCache } from 'meta/assessment'
+import { AssessmentMetaCaches, RowCache, VariableCache } from 'meta/assessment'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 import { Context } from './context'
@@ -17,45 +17,69 @@ const _includesVariableCache = (variables: Array<VariableCache>, variable: Varia
     )
   )
 
-const _excludeDependant = (row: Row, tableName: string, variableName: string): boolean =>
+const _excludeDependant = (row: RowCache, tableName: string, variableName: string): boolean =>
   Boolean(row.props?.dependantsExclude?.find((v) => v.tableName === tableName && v.variableName === variableName))
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): string {
+    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
+
+    this.#addDependant(memberVariable)
+    this.#addDependency(memberVariable)
+
+    return `${memberVariable.tableName}.${memberVariable.variableName}`
+  }
+
+  #addDependant(variable: VariableCache): void {
+    const { assessments, assessmentName, cycleName, row, type } = this.context
+
+    const assessment = assessments.find((a) => a.props.name === (variable.assessmentName ?? assessmentName))
+    const cycle = assessment.cycles.find((c) => c.name === (variable.cycleName ?? cycleName))
+    const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
+    const variablesCache = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
+
+    if (variablesCache[variable.tableName] && !_excludeDependant(row, variable.tableName, variable.variableName)) {
+      const propsDependants = { assessment, cycle, tableName: variable.tableName, variableName: variable.variableName }
+      const dependants =
+        type === 'calculations'
+          ? AssessmentMetaCaches.getCalculationsDependants(propsDependants)
+          : AssessmentMetaCaches.getValidationsDependants(propsDependants)
+      const dependant: VariableCache = {
+        assessmentName: assessmentName !== assessment.props.name ? assessmentName : undefined,
+        cycleName: cycleName !== cycle.name ? cycleName : undefined,
+        tableName: row.tableName,
+        variableName: row.props.variableName,
+      }
+
+      if (!_includesVariableCache(dependants, dependant)) {
+        const path = [type, 'dependants', variable.tableName, variable.variableName]
+        Objects.setInPath({ obj: metaCache, path, value: [...dependants, dependant] })
+      }
+    }
+  }
+
+  #addDependency(variable: VariableCache): void {
     const { assessments, assessmentName, cycleName, row, type } = this.context
 
     const assessment = assessments.find((a) => a.props.name === assessmentName)
     const cycle = assessment.cycles.find((c) => c.name === cycleName)
-    const metaCache = assessment.metaCache[cycle.uuid]
+    const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
+    const variablesCache = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
     const { tableName } = row
+    const { variableName } = row.props
 
-    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
+    // 1. parse internal dependencies
+    if (variablesCache[tableName]) {
+      const propsDependency = { assessment, cycle, tableName, variableName }
+      const dependencies =
+        type === 'calculations'
+          ? AssessmentMetaCaches.getCalculationsDependencies(propsDependency)
+          : AssessmentMetaCaches.getValidationsDependencies(propsDependency)
 
-    if (metaCache.variablesByTable[memberVariable.tableName]) {
-      const dependantTable = metaCache[type].dependants?.[memberVariable.tableName] ?? {}
-      const dependants = dependantTable[memberVariable.variableName] ?? []
-      const dependant: VariableCache = { variableName: row.props.variableName, tableName }
-
-      if (
-        !_excludeDependant(row, memberVariable.tableName, memberVariable.variableName) &&
-        !_includesVariableCache(dependants, dependant)
-      ) {
-        const path = [type, 'dependants', memberVariable.tableName, memberVariable.variableName]
-        Objects.setInPath({ obj: metaCache, path, value: [...dependants, dependant] })
+      if (!_includesVariableCache(dependencies, variable)) {
+        const path = [type, 'dependencies', tableName, variableName]
+        Objects.setInPath({ obj: metaCache, path, value: [...dependencies, variable] })
       }
-
-      const dependencyTable = metaCache[type].dependencies?.[tableName] ?? {}
-      const dependencies = dependencyTable[row.props.variableName] ?? []
-
-      if (!_includesVariableCache(dependencies, memberVariable)) {
-        const path = [type, 'dependencies', tableName, row.props.variableName]
-        Objects.setInPath({ obj: metaCache, path, value: [...dependencies, memberVariable] })
-      }
-
-      return `${tableName}.${memberVariable.variableName}`
     }
-    // console.log('============ ', memberVariable)
-
-    return `${memberVariable.tableName}.${memberVariable.variableName}`
   }
 }
