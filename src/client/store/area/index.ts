@@ -1,6 +1,7 @@
 export { useAssessmentCountry } from './hooks/useAssessmentCountry'
 export { useCountries } from './hooks/useCountries'
 export { useCountry } from './hooks/useCountry'
+export { useExcludedRegions } from './hooks/useExcludedRegions'
 export { useRegionGroups } from './hooks/useRegionGroups'
 export { useSecondaryRegion } from './hooks/useSecondaryRegion'
 export { AreaActions } from './slice'
