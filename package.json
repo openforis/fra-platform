@@ -163,6 +163,7 @@
     "@openforis/arena-core": "^0.0.79",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/multer": "^1.4.7",
+    "add": "^2.0.6",
     "assert": "^2.0.0",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
@@ -230,6 +231,7 @@
     "react": "^18.1.0",
     "react-csv": "^2.0.3",
     "react-dom": "^18.1.0",
+    "react-dropzone": "^14.2.3",
     "react-i18next": "^11.16.2",
     "react-paginate": "^8.1.4",
     "react-redux": "^8.0.2",
@@ -254,7 +256,8 @@
     "unified": "^10.1.2",
     "uuid": "^8.3.2",
     "webpack-node-externals": "^3.0.0",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "yarn": "^1.22.19"
   },
   "browserslist": [
     "last 2 versions"
