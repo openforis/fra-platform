@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
-import { Contact, User } from 'meta/user'
+import { Contact } from 'meta/contact'
+import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'

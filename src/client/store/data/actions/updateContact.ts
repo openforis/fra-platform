@@ -4,7 +4,7 @@ import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { Contact } from 'meta/user'
+import { Contact } from 'meta/contact'
 
 type Props = CycleDataParams & {
   contacts: Array<Contact>

@@ -1,7 +1,8 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
+import { Contact } from 'meta/contact'
 import { NodeExtType } from 'meta/nodeExt'
-import { Contact, RoleName } from 'meta/user'
+import { RoleName } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'

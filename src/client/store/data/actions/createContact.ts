@@ -3,8 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { Contact } from 'meta/user'
-import { Contacts } from 'meta/user/contacts'
+import { Contact, Contacts } from 'meta/contact'
 
 type Props = CycleDataParams & {
   contact: Contact

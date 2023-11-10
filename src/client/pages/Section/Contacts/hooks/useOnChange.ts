@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { ContactValue } from 'meta/user/contact'
+import { ContactValue } from 'meta/contact'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions, useContacts } from 'client/store/data'

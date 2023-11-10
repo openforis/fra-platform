@@ -11,8 +11,8 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
+import { Contact } from 'meta/contact'
 import { RecordAssessmentData } from 'meta/data'
-import { Contact } from 'meta/user'
 
 export interface DataBaseState {
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>

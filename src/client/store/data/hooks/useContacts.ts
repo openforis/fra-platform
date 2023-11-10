@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Contact } from 'meta/user'
+import { Contact } from 'meta/contact'
 
 import { useAppSelector } from 'client/store/store'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

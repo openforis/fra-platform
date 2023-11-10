@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { Contact } from 'meta/user'
+import { Contact } from 'meta/contact'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
