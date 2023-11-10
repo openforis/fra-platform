@@ -25,7 +25,7 @@ export const getMany = async (
       where
         (f.country_iso = $1
         or f.country_iso is null)
-      and f.private is not true;
+        and (f.private ->> 'private')::boolean is not true
     `,
     [countryIso],
     (row) => Objects.camelize(row)
