@@ -12,19 +12,19 @@ type Props = {
   cycle: Cycle
   countryIso: CountryIso
   sectionName: string
-  uuid: string
+  contact: Contact
   user: User
 }
 
-export const removeContact = async (props: Props, client: BaseProtocol = DB): Promise<Contact> => {
-  const { assessment, cycle, countryIso, sectionName, uuid, user } = props
+export const update = async (props: Props, client: BaseProtocol = DB): Promise<Contact> => {
+  const { assessment, cycle, countryIso, sectionName, contact, user } = props
 
   return client.tx(async (t) => {
-    const removeProps = { assessment, cycle, uuid }
-    const target = await NodeExtRepository.remove<Contact>(removeProps, t)
+    const updateProps = { assessment, cycle, nodeExt: contact }
+    const target = await NodeExtRepository.update<Contact>(updateProps, t)
 
     const section = sectionName
-    const message = ActivityLogMessage.contactRemove
+    const message = ActivityLogMessage.contactUpdate
     const activityLog = { target, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 

@@ -14,7 +14,7 @@ export const removeContact = async (req: CycleDataRequest, res: Response) => {
 
     const user = Requests.getUser(req)
     const props = { assessment, cycle, countryIso, sectionName, user, uuid }
-    const removedContact = await CycleDataController.removeContact(props)
+    const removedContact = await CycleDataController.Contacts.remove(props)
 
     Requests.send(res, removedContact)
   } catch (e) {

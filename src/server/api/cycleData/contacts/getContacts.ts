@@ -16,7 +16,7 @@ export const getContacts = async (req: CycleDataRequest, res: Response) => {
     const user = Requests.getUser(req)
     const props = { assessment, cycle, countryIso, sectionName, user, type: NodeExtType.contact }
 
-    const contacts = await CycleDataController.getContacts(props)
+    const contacts = await CycleDataController.Contacts.getMany(props)
 
     Requests.send(res, contacts)
   } catch (e) {

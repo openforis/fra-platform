@@ -4,10 +4,6 @@ import { DescriptionRepository } from 'server/repository/assessmentCycle/descrip
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
-import { createContact } from './nodeExt/createContact'
-import { getContacts } from './nodeExt/getContacts'
-import { removeContact } from './nodeExt/removeContact'
-import { updateContact } from './nodeExt/updateContact'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPointNationalClass } from './originalDataPoint/deleteOriginalDataPointNationalClass'
@@ -18,6 +14,7 @@ import { updateOriginalDataPointNationalClasses } from './originalDataPoint/upda
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { clearTableData } from './clearTableData'
+import { Contacts } from './contact'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getReviewStatus } from './getReviewStatus'
@@ -75,8 +72,5 @@ export const CycleDataController = {
 
   // ====== node ext
   // -- contact
-  createContact,
-  updateContact,
-  removeContact,
-  getContacts,
+  Contacts,
 }

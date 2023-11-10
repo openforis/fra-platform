@@ -13,7 +13,7 @@ type Props = {
   countryIso: CountryIso
 }
 
-export const getContacts = async (props: Props, client: BaseProtocol = DB): Promise<Array<Contact>> => {
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Contact>> => {
   const { assessment, cycle, countryIso } = props
 
   return client.tx(async (t) => {

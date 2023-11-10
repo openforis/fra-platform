@@ -17,7 +17,7 @@ type Props = {
   user: User
 }
 
-export const createContact = async (props: Props, client: BaseProtocol = DB): Promise<NodeExt> => {
+export const create = async (props: Props, client: BaseProtocol = DB): Promise<NodeExt> => {
   const { assessment, cycle, countryIso, sectionName, contact, user } = props
 
   return client.tx(async (t) => {

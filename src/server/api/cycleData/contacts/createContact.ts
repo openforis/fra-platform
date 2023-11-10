@@ -17,7 +17,7 @@ export const createContact = async (req: CycleDataRequest<never, { contact: Cont
 
     const props = { assessment, cycle, countryIso, sectionName, user, contact }
 
-    const createdContact = await CycleDataController.createContact(props)
+    const createdContact = await CycleDataController.Contacts.create(props)
 
     Requests.send(res, createdContact)
   } catch (e) {

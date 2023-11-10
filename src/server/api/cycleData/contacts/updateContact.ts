@@ -16,7 +16,7 @@ export const updateContact = async (req: CycleDataRequest<never, { contact: Cont
 
     const user = Requests.getUser(req)
     const props = { assessment, cycle, countryIso, sectionName, user, contact }
-    const updatedContact = await CycleDataController.updateContact(props)
+    const updatedContact = await CycleDataController.Contacts.update(props)
 
     Requests.send(res, updatedContact)
   } catch (e) {
