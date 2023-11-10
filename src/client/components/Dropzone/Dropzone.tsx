@@ -26,9 +26,9 @@ const Dropzone: React.FC<Props> = (props: Props) => {
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <input {...getInputProps()} />
       {isDragActive ? (
-        <p>{t('Drop files here')}</p>
+        <div>{t('Drop files here')}</div>
       ) : (
-        <p>{t('Drag and drop some files here, or click to select files')}</p>
+        <div>{t('Drag and drop some files here, or click to select files')}</div>
       )}
     </div>
   )

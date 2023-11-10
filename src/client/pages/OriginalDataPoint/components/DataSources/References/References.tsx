@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import type { Jodit } from 'jodit/types/jodit'
+import type { IControlType } from 'jodit/src/types/toolbar'
 import { Objects } from 'utils/objects'
 
 import { OriginalDataPoint } from 'meta/assessment'
@@ -13,7 +13,7 @@ import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import AddFromRepository from './AddFromRepository'
 
-type ButtonType = Jodit['options']['buttons'][0]
+type ButtonType = IControlType
 
 type ReferencesProps = {
   originalDataPoint: OriginalDataPoint
@@ -27,26 +27,25 @@ const References: React.FC<ReferencesProps> = (props) => {
 
   const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [editor, setEditor] = useState(null)
 
   const handleCustomButtonClick = () => {
-    // Open the custom modal
     setIsModalOpen(true)
   }
 
-  const closeModal = (x: string) => {
-    // Close the custom modal
+  const closeModal = (linksString: string) => {
     setIsModalOpen(false)
-
-    // TODO: This should go where cursor is
-    const dataSourceReferences = Objects.isEmpty(x) ? null : `${originalDataPoint.dataSourceReferences}\n${x}`
-    const originalDataPointUpdate = { ...originalDataPoint, dataSourceReferences }
-    updateOriginalDataPoint(originalDataPointUpdate)
+    editor.s.insertHTML(linksString)
+    setEditor(null)
   }
 
   const customButton: ButtonType = useMemo(() => {
     return {
       name: t('landing.links.repository'),
-      exec: handleCustomButtonClick,
+      exec: (editor) => {
+        setEditor(editor)
+        handleCustomButtonClick()
+      },
       /* TODO: label: Change or translate */
       tooltip: 'Add links to the repository',
     }

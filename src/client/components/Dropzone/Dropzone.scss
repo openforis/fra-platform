@@ -10,17 +10,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
   padding: 1rem;
   transition: all 0.3s ease-in-out;
 
-  p {
+  div {
     margin: 0;
     text-align: center;
-    width: 100%;
     font-size: $font-l;
+    white-space: initial;
   }
 
   &--isActive {
