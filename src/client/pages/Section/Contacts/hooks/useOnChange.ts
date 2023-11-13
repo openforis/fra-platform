@@ -14,11 +14,11 @@ export const useOnChange = () => {
   const contacts = useContacts()
 
   return useCallback(
-    (uuid: string, key: keyof ContactValue, value: any) => {
+    (rowIndex: number, key: keyof ContactValue, value: any) => {
       const commonProps = { countryIso, cycleName, assessmentName, sectionName }
+      const contact = contacts[rowIndex]
 
-      if (!uuid) {
-        const contact = contacts.find((_contact) => !_contact.uuid)
+      if (!contact.uuid) {
         const _value = { ...contact.value, [key]: value }
         const props = { rowIndex: contacts.length - 1 }
         const newContact = { ...contact, value: _value, props }
@@ -30,10 +30,9 @@ export const useOnChange = () => {
       }
 
       const _contacts = contacts.map((_contact) =>
-        _contact.uuid === uuid ? { ..._contact, value: { ..._contact.value, [key]: value } } : _contact
+        _contact.uuid === contact.uuid ? { ..._contact, value: { ..._contact.value, [key]: value } } : _contact
       )
 
-      const contact = _contacts.find((_contact) => _contact.uuid === uuid)
       const updateContactProps = { ...commonProps, contact, contacts: _contacts }
       dispatch(DataActions.updateContact(updateContactProps))
     },

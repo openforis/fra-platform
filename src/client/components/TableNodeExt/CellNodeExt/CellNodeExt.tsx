@@ -9,11 +9,11 @@ import CellSelect from './CellSelect'
 import CellText from './CellText'
 
 type Props = {
-  uuid: string
   datum: Record<string, any>
   column: ColumnNodeExt
-  onChange: (uuid: string, colName: string, value: any) => void
+  onChange: (rowIndex: number, colName: string, value: any) => void
   disabled: boolean
+  rowIndex: number
 }
 
 const components: Record<string, React.FC<CellProps>> = {
@@ -23,7 +23,7 @@ const components: Record<string, React.FC<CellProps>> = {
 }
 
 const CellNodeExt: React.FC<Props> = (props: Props) => {
-  const { datum, column, onChange, disabled, uuid } = props
+  const { datum, column, onChange, disabled, rowIndex } = props
 
   const { type } = column
   const { colName } = column.props
@@ -34,7 +34,7 @@ const CellNodeExt: React.FC<Props> = (props: Props) => {
       <Component
         disabled={disabled}
         value={datum[colName]}
-        onChange={(value: string) => onChange(uuid, colName, value)}
+        onChange={(value: string) => onChange(rowIndex, colName, value)}
         column={column}
       />
     </DataColumn>

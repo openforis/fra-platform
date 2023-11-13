@@ -14,7 +14,7 @@ type Props = {
   columns: Array<ColumnNodeExt>
   data: Array<NodeExt>
   disabled: boolean
-  onChange: (uuid: string, colName: string, value: unknown) => void
+  onChange: (rowIndex: number, colName: string, value: unknown) => void
 }
 
 const TableNodeExt: React.FC<Props> = (props: Props) => {
@@ -46,7 +46,7 @@ const TableNodeExt: React.FC<Props> = (props: Props) => {
 
               return (
                 <CellNodeExt
-                  uuid={uuid}
+                  rowIndex={rowIndex}
                   key={key}
                   onChange={onChange}
                   disabled={_disabled}
