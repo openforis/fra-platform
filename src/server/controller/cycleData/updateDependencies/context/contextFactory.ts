@@ -2,14 +2,11 @@ import { Country } from 'meta/area'
 import {
   Assessment,
   AssessmentMetaCaches,
-  ColName,
   Cycle,
   RowCacheKey,
   RowCaches,
-  TableName,
   TableNames,
   VariableCache,
-  VariableName,
 } from 'meta/assessment'
 import { NodeUpdates } from 'meta/data'
 
@@ -48,9 +45,15 @@ export class ContextFactory {
     this.#visitedVariables = []
   }
 
+  #isExternalVariable(variable: VariableCache): boolean {
+    const { assessment, cycle } = this.#props
+    const { assessmentName, cycleName } = variable
+    return assessmentName && cycleName && (assessmentName !== assessment.props.name || cycleName !== cycle.name)
+  }
+
   // keep track of which table data to fetch
-  #addTableCondition(props: { tableName: TableName; variableName: VariableName }): void {
-    const { tableName, variableName } = props
+  #addTableCondition(variable: VariableCache): void {
+    const { tableName, variableName } = variable
     const { assessment, cycle } = this.#props
     // this.#tables[tableName] = {}
     this.#tableNames.add(tableName)
@@ -95,17 +98,19 @@ export class ContextFactory {
   }
 
   // add node dependants to queue. Returns true if input node is dependant of itself, false otherwise
-  #addDependantsToQueue(props: { tableName: TableName; variableName: VariableName; colName: ColName }): boolean {
-    const { tableName, variableName, colName } = props
+  #addDependantsToQueue(variable: VariableCache): boolean {
+    const { tableName, variableName, colName } = variable
     const { assessment, cycle, includeSourceNodes } = this.#props
 
-    if (includeSourceNodes) this.#addToQueue(props)
+    if (includeSourceNodes) this.#addToQueue(variable)
 
     const dependants = AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
     dependants.forEach((variable) => {
       const dependant = { tableName: variable.tableName, variableName: variable.variableName, colName }
-
-      if (!this.#isInQueue(dependant) && this.#mustAddToQueue(dependant)) {
+      if (this.#isExternalVariable(variable)) {
+        // TODO
+        // console.log('-=========== found external variable ', dependant)
+      } else if (!this.#isInQueue(dependant) && this.#mustAddToQueue(dependant)) {
         this.#addToQueue(dependant)
         this.#addDependantsToQueue(dependant)
       }
