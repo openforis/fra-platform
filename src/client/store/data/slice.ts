@@ -131,14 +131,19 @@ export const dataSlice = createSlice({
       Objects.setInPath({ obj: state, path, value: dataSources })
     })
 
-    builder.addMatcher(
-      isAnyOf(getContacts.fulfilled, updateContact.fulfilled, createContact.fulfilled),
-      (state, { payload, meta }) => {
-        const { assessmentName, cycleName, countryIso } = meta.arg
-        const path = ['contacts', assessmentName, cycleName, countryIso]
-        Objects.setInPath({ obj: state, path, value: payload })
-      }
-    )
+    // contacts
+    builder.addCase(createContact.fulfilled, (state, { payload, meta }) => {
+      const { assessmentName, cycleName, countryIso } = meta.arg
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      const index = contacts.length - 1
+      contacts.splice(index, 0, payload)
+    })
+
+    builder.addMatcher(isAnyOf(getContacts.fulfilled, updateContact.fulfilled), (state, { payload, meta }) => {
+      const { assessmentName, cycleName, countryIso } = meta.arg
+      const path = ['contacts', assessmentName, cycleName, countryIso]
+      Objects.setInPath({ obj: state, path, value: payload })
+    })
   },
 })
 

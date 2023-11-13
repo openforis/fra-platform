@@ -23,8 +23,7 @@ export const useOnChange = () => {
         const offset = contacts.filter((c) => !c.props.readOnly).length
         const props = { rowIndex: offset - 1 }
         const newContact = { ...contact, value: _value, props }
-        const _contacts = contacts.map((_contact) => (_contact.uuid ? _contact : newContact))
-        const createContactProps = { ...commonProps, contact: newContact, contacts: _contacts }
+        const createContactProps = { ...commonProps, contact: newContact }
 
         dispatch(DataActions.createContact(createContactProps))
         return
