@@ -10,9 +10,9 @@ import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
 import { ColumnNodeExt } from './types'
 
-type Props<T = NodeExt<unknown, unknown>> = {
+type Props = {
   columns: Array<ColumnNodeExt>
-  data: Array<T>
+  data: Array<NodeExt>
   disabled: boolean
   onChange: (uuid: string, colName: string, value: unknown) => void
 }
@@ -32,15 +32,17 @@ const TableNodeExt: React.FC<Props> = (props: Props) => {
         )
       })}
 
-      {data.map(({ uuid, value: datum, props }, rowIndex) => {
+      {data.map((data, rowIndex) => {
+        const { value: datum, props } = data
+
         return (
           <React.Fragment key={`row_${String(rowIndex)}`}>
             {columns.map((column, colIndex) => {
               const { colName } = column.props
-              const { readOnly } = props as { readOnly: boolean }
+              const { readOnly } = props as { readOnly?: boolean }
               const key = `${colName}_${String(rowIndex)}_${String(colIndex)}`
 
-              const _disabled = disabled || readOnly
+              const _disabled = Boolean(disabled || readOnly)
 
               return (
                 <CellNodeExt

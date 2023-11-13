@@ -12,8 +12,12 @@ export interface ContactValue {
 }
 
 export interface ContactProps {
+  // When populating contacts from current users:
+  // set readOnly to true
   readOnly?: boolean
-  rowIndex: number
+  // and don't set rowIndex
+  // row index is the position of new, editable contacts in table
+  rowIndex?: number
 }
 
 export type Contact = NodeExt<ContactProps, ContactValue>

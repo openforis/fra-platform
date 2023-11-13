@@ -24,7 +24,6 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
         uuid: 'foo-bar-1',
         countryIso: 'X01',
         props: {
-          rowIndex: 1,
           readOnly: true,
         },
         value: {
@@ -41,7 +40,6 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
         uuid: 'foo-bar-2',
         countryIso: 'X01',
         props: {
-          rowIndex: 0,
           readOnly: true,
         },
         value: {
