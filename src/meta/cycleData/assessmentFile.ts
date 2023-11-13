@@ -1,8 +1,8 @@
 import { CountryIso } from 'meta/area'
 
 export interface AssessmentFile {
-  id: number
-  uuid: string
+  readonly id: number
+  readonly uuid: string
   countryIso?: CountryIso
   fileName: string
   file?: string
