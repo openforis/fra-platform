@@ -11,7 +11,6 @@ const panEuropean = require('./en/panEuropean/panEuropean')
 const print = require('./en/print')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const uc = require('./en/uc')
-const ui = require('./en/ui')
 
 module.exports.translation = {
   area,
@@ -26,7 +25,11 @@ module.exports.translation = {
   print,
   statisticalFactsheets,
   uc,
-  ui,
+
+  fileDrop: {
+    dropFilesHere: 'Drop files here',
+    dragAndDropOrClick: 'Drag and drop some files here, or click to select files',
+  },
 
   page: {
     assessmentSection,

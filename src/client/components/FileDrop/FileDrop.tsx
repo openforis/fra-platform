@@ -25,7 +25,7 @@ const FileDrop: React.FC<Props> = (props: Props) => {
     >
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <input {...getInputProps()} />
-      {isDragActive ? <div>{t('ui.fileDrop.dropFilesHere')}</div> : <div>{t('ui.fileDrop.dragAndDropOrClick')}</div>}
+      {isDragActive ? <div>{t('fileDrop.dropFilesHere')}</div> : <div>{t('fileDrop.dragAndDropOrClick')}</div>}
     </div>
   )
 }
