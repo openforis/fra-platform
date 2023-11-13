@@ -9,8 +9,8 @@ export type CycleRouteParams = AssessmentRouteParams & {
   cycleName: CycleName
 }
 
-export type CountryRouteParams = CycleRouteParams & {
-  countryIso: AreaCode
+export type CountryRouteParams<T = AreaCode> = CycleRouteParams & {
+  countryIso: T
 }
 
 export type CountryHomeRouteParams = CountryRouteParams & {
