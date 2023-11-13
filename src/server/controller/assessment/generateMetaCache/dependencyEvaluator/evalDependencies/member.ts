@@ -53,9 +53,10 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
         type === 'calculations'
           ? AssessmentMetaCaches.getCalculationsDependants(propsDependants)
           : AssessmentMetaCaches.getValidationsDependants(propsDependants)
+      const external = assessmentName !== assessment.props.name
       const dependant: VariableCache = {
-        assessmentName: assessmentName !== assessment.props.name ? assessmentName : undefined,
-        cycleName: cycleName !== cycle.name ? cycleName : undefined,
+        assessmentName: external ? assessmentName : undefined,
+        cycleName: external ? cycleName : undefined,
         tableName: row.tableName,
         variableName: row.props.variableName,
       }
