@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 
-import { AreaCode } from 'meta/area'
+import { AreaCode, CountryIso, Global, RegionCode } from 'meta/area'
 import {
   AssessmentRouteParams,
   CountryRouteParams,
@@ -13,7 +13,8 @@ export const useAssessmentRouteParams = () => useParams<AssessmentRouteParams>()
 
 export const useCycleRouteParams = () => useParams<CycleRouteParams>()
 
-export const useCountryRouteParams = <T extends string = AreaCode>() => useParams<CountryRouteParams<T>>()
+export const useCountryRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
+  useParams<CountryRouteParams<T>>()
 
 export const useSectionRouteParams = () => useParams<SectionRouteParams>()
 

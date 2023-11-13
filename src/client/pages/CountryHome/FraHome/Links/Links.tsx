@@ -16,7 +16,7 @@ import {
   useDeleteAssessmentFile,
   useGetAssessmentFiles,
   useUploadAssessmentFile,
-} from 'client/store/ui/assessmentFiles/hooks'
+} from 'client/store/ui/assessmentFiles'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
