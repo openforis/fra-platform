@@ -1,0 +1,39 @@
+@import 'src/client/style/partials';
+
+$file-drop-border-radius: 4px;
+$file-drop-border-width: 2px;
+$file-drop-padding: 1rem;
+$file-drop-transition-time: 0.3s;
+
+.file-drop {
+  align-items: center;
+  background-color: $ui-bg;
+  border-radius: $file-drop-border-radius;
+  border: $file-drop-border-width dashed $ui-border;
+  color: $text-body;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  padding: $file-drop-padding;
+  position: relative;
+  transition: all $file-drop-transition-time ease-in-out;
+  width: 100%;
+
+  div {
+    font-size: $font-l;
+    margin: 0;
+    text-align: center;
+    white-space: initial;
+  }
+
+  &:hover {
+    background-color: $ui-bg-hover;
+    border-color: $ui-border-dark;
+  }
+
+  &--isActive {
+    background-color: $ui-accent-light-extra;
+  }
+}
