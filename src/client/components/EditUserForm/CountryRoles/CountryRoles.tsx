@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { CountryIso, Region, RegionCode } from 'meta/area'
+import { CountryIso } from 'meta/area'
 import { RoleName, User, UserRole, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useCountries, useSecondaryRegion } from 'client/store/area'
+import { useCountries, useExcludedRegions } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
@@ -40,7 +40,8 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   const countries = useCountries()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const secondaryRegions = useSecondaryRegion()
+  const excludeRegions = useExcludedRegions()
+
   const initialModalState = useMemo(() => {
     return {
       open: false,
@@ -133,10 +134,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
       <CountrySelectModal
         open={modalOptions.open}
         countries={countries}
-        excludedRegions={[
-          RegionCode.FE,
-          ...(secondaryRegions ? secondaryRegions.regions.map((r: Region) => r.regionCode) : []),
-        ]}
+        excludedRegions={excludeRegions}
         headerLabel={t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
         onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}
