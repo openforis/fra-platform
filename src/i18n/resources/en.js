@@ -475,6 +475,7 @@ The FRA team
   },
 
   nationalDataPoint: {
+    addLinksToTheRepository: 'Add links to the repository',
     clickOnNDP: 'Click on the year to access original data',
     nationalDataPoint: 'National data point',
     addNationalDataPoint: 'Add national data point',
