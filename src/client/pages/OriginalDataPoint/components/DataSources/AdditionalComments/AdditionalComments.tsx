@@ -7,13 +7,14 @@ import { Topics } from 'meta/messageCenter'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
-type AdditionalCommentsProps = {
+type Props = {
   disabled: boolean
   originalDataPoint: OriginalDataPoint
   reviewIndicator: boolean
   updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
 }
-const AdditionalComments: React.FC<AdditionalCommentsProps> = (props) => {
+
+const AdditionalComments: React.FC<Props> = (props: Props) => {
   const { reviewIndicator, disabled, originalDataPoint, updateOriginalDataPoint } = props
   const { t } = useTranslation()
 

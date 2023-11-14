@@ -7,14 +7,14 @@ import { Topics } from 'meta/messageCenter'
 import MultiSelect from 'client/components/MultiSelect'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 
-type MethodsUsedProps = {
+type Props = {
   originalDataPoint: OriginalDataPoint
   updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
   disabled: boolean
   reviewIndicator: boolean
 }
 
-const MethodsUsed: React.FC<MethodsUsedProps> = (props) => {
+const MethodsUsed: React.FC<Props> = (props: Props) => {
   const { disabled, reviewIndicator, originalDataPoint, updateOriginalDataPoint } = props
   const { t } = useTranslation()
 

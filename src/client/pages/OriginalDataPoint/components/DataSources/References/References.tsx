@@ -10,14 +10,14 @@ import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 
-type ReferencesProps = {
+type Props = {
   originalDataPoint: OriginalDataPoint
   updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
   disabled: boolean
   reviewIndicator: boolean
 }
 
-const References: React.FC<ReferencesProps> = (props) => {
+const References: React.FC<Props> = (props: Props) => {
   const { originalDataPoint, updateOriginalDataPoint, reviewIndicator, disabled } = props
   const editorOptions = useMemo(() => ({ buttons: ['link'], statusbar: false }), [])
 
