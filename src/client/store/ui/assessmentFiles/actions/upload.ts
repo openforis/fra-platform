@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 import { CountryIso } from 'meta/area'
-import { AssessmentFile } from 'meta/assessment'
+import { AssessmentFile } from 'meta/cycleData'
 
 type Params = CycleParams & {
   file: File | null

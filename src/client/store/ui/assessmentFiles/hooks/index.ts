@@ -1,5 +1,4 @@
-import { useAppSelector } from 'client/store'
-
-import { AssessmentFilesState } from '../stateType'
+import { useAppSelector } from 'client/store/store'
+import { AssessmentFilesState } from 'client/store/ui/assessmentFiles/stateType'
 
 export const useAssessmentFiles = (): AssessmentFilesState => useAppSelector((state) => state.ui.assessmentFiles)
