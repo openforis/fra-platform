@@ -26,6 +26,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: 'Drop files here',
+    dragAndDropOrClick: 'Drag and drop some files here, or click to select files',
+  },
+
   page: {
     assessmentSection,
   },
