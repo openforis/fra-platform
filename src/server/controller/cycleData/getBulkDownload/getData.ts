@@ -8,9 +8,7 @@ export const getData = async (props: Props & { tableNames: Array<string> }) => {
     cycle,
     countryISOs: countries.map(({ countryIso }) => countryIso),
     tableNames,
-    columns: [],
     mergeOdp: true,
     aggregate: false,
-    variables: [],
   })
 }
