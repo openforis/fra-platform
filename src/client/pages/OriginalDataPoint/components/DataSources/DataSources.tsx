@@ -4,27 +4,22 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useUpdateDataSources } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useUpdateDataSources'
 
+import { useUpdateDataSources } from './hooks/useUpdateDataSources'
 import AdditionalComments from './AdditionalComments'
 import MethodsUsed from './MethodsUsed'
 import References from './References'
 
 type Props = {
-  canEditData: boolean
   originalDataPoint: OriginalDataPoint
 }
 
 const DataSources: React.FC<Props> = (props) => {
-  const { canEditData, originalDataPoint } = props
+  const { originalDataPoint } = props
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
   const updateOriginalDataPoint = useUpdateDataSources()
-
-  const reviewIndicator = originalDataPoint.id && !print && canEditData
-
-  const disabled = Boolean(print || !canEditData || !originalDataPoint.year)
 
   return (
     <div className="odp__section">
@@ -34,25 +29,13 @@ const DataSources: React.FC<Props> = (props) => {
         <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
           <table className="fra-table">
             <tbody>
-              <References
-                originalDataPoint={originalDataPoint}
-                updateOriginalDataPoint={updateOriginalDataPoint}
-                reviewIndicator={reviewIndicator}
-                disabled={disabled}
-              />
+              <References originalDataPoint={originalDataPoint} updateOriginalDataPoint={updateOriginalDataPoint} />
 
-              <MethodsUsed
-                originalDataPoint={originalDataPoint}
-                updateOriginalDataPoint={updateOriginalDataPoint}
-                reviewIndicator={reviewIndicator}
-                disabled={disabled}
-              />
+              <MethodsUsed originalDataPoint={originalDataPoint} updateOriginalDataPoint={updateOriginalDataPoint} />
 
               <AdditionalComments
                 originalDataPoint={originalDataPoint}
                 updateOriginalDataPoint={updateOriginalDataPoint}
-                reviewIndicator={reviewIndicator}
-                disabled={disabled}
               />
             </tbody>
           </table>

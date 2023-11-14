@@ -6,17 +6,20 @@ import { Topics } from 'meta/messageCenter'
 
 import MultiSelect from 'client/components/MultiSelect'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useIsDisabled } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useIsDisabled'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useShowReviewIndicator'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
   updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
-  disabled: boolean
-  reviewIndicator: boolean
 }
 
 const MethodsUsed: React.FC<Props> = (props: Props) => {
-  const { disabled, reviewIndicator, originalDataPoint, updateOriginalDataPoint } = props
+  const { originalDataPoint, updateOriginalDataPoint } = props
   const { t } = useTranslation()
+
+  const reviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const disabled = useIsDisabled(originalDataPoint)
 
   return (
     <tr>

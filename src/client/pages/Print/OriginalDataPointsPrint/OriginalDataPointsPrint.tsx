@@ -29,7 +29,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>
         {originalDataPoints.map((originalDataPoint) => (
-          <DataSources key={originalDataPoint.id} canEditData={false} originalDataPoint={originalDataPoint} />
+          <DataSources key={originalDataPoint.id} originalDataPoint={originalDataPoint} />
         ))}
       </div>
 

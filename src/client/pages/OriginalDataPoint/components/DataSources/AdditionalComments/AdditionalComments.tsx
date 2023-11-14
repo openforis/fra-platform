@@ -6,17 +6,20 @@ import { Topics } from 'meta/messageCenter'
 
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import { useIsDisabled } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useIsDisabled'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useShowReviewIndicator'
 
 type Props = {
-  disabled: boolean
   originalDataPoint: OriginalDataPoint
-  reviewIndicator: boolean
   updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
 }
 
 const AdditionalComments: React.FC<Props> = (props: Props) => {
-  const { reviewIndicator, disabled, originalDataPoint, updateOriginalDataPoint } = props
+  const { originalDataPoint, updateOriginalDataPoint } = props
   const { t } = useTranslation()
+
+  const reviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const disabled = useIsDisabled(originalDataPoint)
 
   return (
     <tr>
