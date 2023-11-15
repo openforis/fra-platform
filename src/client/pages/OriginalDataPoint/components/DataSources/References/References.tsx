@@ -9,19 +9,19 @@ import { Topics } from 'meta/messageCenter'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
 import ReviewIndicator from 'client/components/ReviewIndicator'
-import { useIsDisabled } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useIsDisabled'
-import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useShowReviewIndicator'
-import { useEditorOptions } from 'client/pages/OriginalDataPoint/components/DataSources/References/hooks/useEditorOptions'
 
+import { useIsDisabled } from '../hooks/useIsDisabled'
+import { useShowReviewIndicator } from '../hooks/useShowReviewIndicator'
+import { useUpdateDataSources } from '../hooks/useUpdateDataSources'
+import { useEditorOptions } from './hooks/useEditorOptions'
 import AddFromRepository from './AddFromRepository'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
-  updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
 }
 
 const References: React.FC<Props> = (props: Props) => {
-  const { originalDataPoint, updateOriginalDataPoint } = props
+  const { originalDataPoint } = props
   const { t } = useTranslation()
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -34,6 +34,7 @@ const References: React.FC<Props> = (props: Props) => {
   }
 
   const editorOptions = useEditorOptions({ setIsOpen })
+  const updateOriginalDataPoint = useUpdateDataSources()
 
   return (
     <tr>
