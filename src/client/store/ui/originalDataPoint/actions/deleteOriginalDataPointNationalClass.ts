@@ -15,8 +15,11 @@ type Props = CycleParams & {
 export const deleteOriginalDataPointNationalClass = createAsyncThunk<OriginalDataPoint, Props>(
   'originalDataPoint/nationalClasses/delete',
   async (props) => {
-    const { originalDataPoint } = props
-    const params = { ...props, odpId: originalDataPoint.id, sectionName: 'extentOfForest' }
+    const { assessmentName, cycleName, countryIso, index, originalDataPoint } = props
+    const { id: odpId } = originalDataPoint
+
+    const sectionName = 'extentOfForest'
+    const params = { assessmentName, cycleName, countryIso, index, sectionName, odpId }
     await axios.delete(ApiEndPoint.CycleData.OriginalDataPoint.nationalClass(), { params })
     return ODPs.deleteNationalClass({ odp: originalDataPoint, index: props.index })
   }
