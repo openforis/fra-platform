@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
@@ -13,6 +13,8 @@ import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useIsDisabled } from '../hooks/useIsDisabled'
 import { useShowReviewIndicator } from '../hooks/useShowReviewIndicator'
 import { useUpdateDataSources } from '../hooks/useUpdateDataSources'
+import { useEditorOptions } from './hooks/useEditorOptions'
+import AddFromRepository from './AddFromRepository'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
@@ -20,14 +22,19 @@ type Props = {
 
 const References: React.FC<Props> = (props: Props) => {
   const { originalDataPoint } = props
-  const editorOptions = useMemo(() => ({ buttons: ['link'], statusbar: false }), [])
+  const { t } = useTranslation()
+
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const reviewIndicator = useShowReviewIndicator(originalDataPoint)
   const disabled = useIsDisabled(originalDataPoint)
 
-  const updateOriginalDataPoint = useUpdateDataSources()
+  const onClose = () => {
+    setIsOpen(false)
+  }
 
-  const { t } = useTranslation()
+  const editorOptions = useEditorOptions({ setIsOpen })
+  const updateOriginalDataPoint = useUpdateDataSources()
 
   return (
     <tr>
@@ -40,15 +47,18 @@ const References: React.FC<Props> = (props: Props) => {
         )}
 
         {!disabled && (
-          <EditorWYSIWYG
-            onChange={(value) => {
-              const dataSourceReferences = Objects.isEmpty(value) ? null : value
-              const originalDataPointUpdate = { ...originalDataPoint, dataSourceReferences }
-              updateOriginalDataPoint(originalDataPointUpdate)
-            }}
-            options={editorOptions}
-            value={originalDataPoint.dataSourceReferences ?? ''}
-          />
+          <>
+            <EditorWYSIWYG
+              onChange={(value) => {
+                const dataSourceReferences = Objects.isEmpty(value) ? null : value
+                const originalDataPointUpdate = { ...originalDataPoint, dataSourceReferences }
+                updateOriginalDataPoint(originalDataPointUpdate)
+              }}
+              options={editorOptions}
+              value={originalDataPoint.dataSourceReferences ?? ''}
+            />
+            <AddFromRepository isOpen={isOpen} onClose={onClose} />
+          </>
         )}
       </td>
       {reviewIndicator && (

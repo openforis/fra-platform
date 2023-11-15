@@ -108,6 +108,9 @@
   .jodit-wysiwyg {
     height: $spacing-xxxl !important;
     min-height: $spacing-xxxl !important;
+    p {
+      margin: unset;
+    }
   }
 
   .vgtf__textarea {
