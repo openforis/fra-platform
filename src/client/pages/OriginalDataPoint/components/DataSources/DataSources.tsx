@@ -5,7 +5,6 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
-import { useUpdateDataSources } from './hooks/useUpdateDataSources'
 import AdditionalComments from './AdditionalComments'
 import MethodsUsed from './MethodsUsed'
 import References from './References'
@@ -19,7 +18,6 @@ const DataSources: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
-  const updateOriginalDataPoint = useUpdateDataSources()
 
   return (
     <div className="odp__section">
@@ -29,14 +27,11 @@ const DataSources: React.FC<Props> = (props) => {
         <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
           <table className="fra-table">
             <tbody>
-              <References originalDataPoint={originalDataPoint} updateOriginalDataPoint={updateOriginalDataPoint} />
+              <References originalDataPoint={originalDataPoint} />
 
-              <MethodsUsed originalDataPoint={originalDataPoint} updateOriginalDataPoint={updateOriginalDataPoint} />
+              <MethodsUsed originalDataPoint={originalDataPoint} />
 
-              <AdditionalComments
-                originalDataPoint={originalDataPoint}
-                updateOriginalDataPoint={updateOriginalDataPoint}
-              />
+              <AdditionalComments originalDataPoint={originalDataPoint} />
             </tbody>
           </table>
         </div>

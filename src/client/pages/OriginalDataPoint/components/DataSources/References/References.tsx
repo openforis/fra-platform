@@ -9,20 +9,23 @@ import { Topics } from 'meta/messageCenter'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
 import ReviewIndicator from 'client/components/ReviewIndicator'
-import { useIsDisabled } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useIsDisabled'
-import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useShowReviewIndicator'
+
+import { useIsDisabled } from '../hooks/useIsDisabled'
+import { useShowReviewIndicator } from '../hooks/useShowReviewIndicator'
+import { useUpdateDataSources } from '../hooks/useUpdateDataSources'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
-  updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
 }
 
 const References: React.FC<Props> = (props: Props) => {
-  const { originalDataPoint, updateOriginalDataPoint } = props
+  const { originalDataPoint } = props
   const editorOptions = useMemo(() => ({ buttons: ['link'], statusbar: false }), [])
 
   const reviewIndicator = useShowReviewIndicator(originalDataPoint)
   const disabled = useIsDisabled(originalDataPoint)
+
+  const updateOriginalDataPoint = useUpdateDataSources()
 
   const { t } = useTranslation()
 
