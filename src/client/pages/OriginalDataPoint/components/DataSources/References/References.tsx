@@ -1,7 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import type { IControlType } from 'jodit/src/types/toolbar'
 import { Objects } from 'utils/objects'
 
 import { OriginalDataPoint } from 'meta/assessment'
@@ -12,6 +11,7 @@ import MarkdownPreview from 'client/components/MarkdownPreview'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useIsDisabled } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useIsDisabled'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useShowReviewIndicator'
+import { useEditorOptions } from 'client/pages/OriginalDataPoint/components/DataSources/References/hooks/useEditorOptions'
 
 import AddFromRepository from './AddFromRepository'
 
@@ -20,35 +20,20 @@ type Props = {
   updateOriginalDataPoint: (originalDataPoint: OriginalDataPoint) => void
 }
 
-type ButtonType = IControlType
-
 const References: React.FC<Props> = (props: Props) => {
   const { originalDataPoint, updateOriginalDataPoint } = props
+  const { t } = useTranslation()
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const reviewIndicator = useShowReviewIndicator(originalDataPoint)
   const disabled = useIsDisabled(originalDataPoint)
 
-  const { t } = useTranslation()
-
   const onClose = () => {
     setIsOpen(false)
   }
 
-  const repositoryButton: ButtonType = useMemo(() => {
-    return {
-      name: t('landing.links.repository'),
-      exec: (_) => {
-        setIsOpen(true)
-      },
-      tooltip: t('nationalDataPoint.addLinksFromRepository'),
-    }
-  }, [t])
-
-  const editorOptions = useMemo(
-    () => ({ buttons: ['link', '|', repositoryButton], statusbar: false }),
-    [repositoryButton]
-  )
+  const editorOptions = useEditorOptions({ setIsOpen })
 
   return (
     <tr>
