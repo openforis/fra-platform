@@ -41,7 +41,7 @@ const References: React.FC<Props> = (props: Props) => {
       exec: (_) => {
         setIsOpen(true)
       },
-      tooltip: t('nationalDataPoint.addLinksToTheRepository'),
+      tooltip: t('nationalDataPoint.addLinksFromRepository'),
     }
   }, [t])
 
