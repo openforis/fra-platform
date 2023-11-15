@@ -1,28 +1,24 @@
 import './ButtonCheckBox.scss'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { ReactNode } from 'react'
 
 import classNames from 'classnames'
 
 type Props = {
   onClick: React.MouseEventHandler<HTMLButtonElement>
-  label: Array<string> | string
-  labelParam?: Record<string, string>
+  label: ReactNode
   className?: string
   checked: boolean
   suffix?: string
 }
 
 const ButtonCheckBox: React.FC<Props> = (props) => {
-  const i18n = useTranslation()
-  const { onClick, checked, className, labelParam, suffix } = props
-  let { label } = props
-  label = Array.isArray(label) ? label : [label]
+  const { onClick, checked, className, suffix } = props
+  const { label } = props
 
   return (
     <button type="button" className={`btn-s btn-checkbox ${className}`} onClick={onClick}>
       <div className={classNames('fra-checkbox', { checked })} />
-      <div>{label.map((key: string) => `${labelParam ? i18n.t(key, labelParam) : i18n.t(key)} `)}</div>
+      <div>{label}</div>
       {suffix && <span className="suffix">{suffix}</span>}
     </button>
   )
@@ -30,7 +26,6 @@ const ButtonCheckBox: React.FC<Props> = (props) => {
 
 ButtonCheckBox.defaultProps = {
   className: '',
-  labelParam: null,
   suffix: null,
 }
 
