@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Icon from 'client/components/Icon'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 type Props = {
@@ -20,11 +19,7 @@ const AddFromRepository = (props: Props) => {
   return (
     <Modal isOpen={isOpen}>
       <ModalHeader>
-        <h3 className="subhead">Select files</h3>
-        <a className="btn btn-link" href="#/">
-          {t('landing.sections.links')}
-          <Icon className="icon-sub icon-margin-left btn-link" name="external-link" />
-        </a>
+        <h3 className="subhead">{t('common.selectFiles')}</h3>
       </ModalHeader>
 
       <ModalBody>
@@ -33,7 +28,7 @@ const AddFromRepository = (props: Props) => {
 
       <ModalFooter>
         <button type="button" className="btn btn-transparent" onClick={onClose}>
-          Close
+          {t('common.close')}
         </button>
       </ModalFooter>
     </Modal>

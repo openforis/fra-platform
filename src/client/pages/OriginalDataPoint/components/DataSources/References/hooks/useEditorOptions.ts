@@ -15,8 +15,9 @@ export const useEditorOptions = (props: Props) => {
 
   const repositoryButton: ButtonType = useMemo(() => {
     const exec = () => setIsOpen(true)
-    const name = t('landing.links.repository')
-    const tooltip = t('nationalDataPoint.addLinksFromRepository')
+    const label = t('landing.links.repository')
+    const name = label
+    const tooltip = label
     return { name, exec, tooltip }
   }, [setIsOpen, t])
 
