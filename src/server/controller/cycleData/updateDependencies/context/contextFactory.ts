@@ -1,30 +1,17 @@
 import { Country } from 'meta/area'
-import {
-  Assessment,
-  AssessmentMetaCaches,
-  Cycle,
-  RowCacheKey,
-  RowCaches,
-  TableNames,
-  VariableCache,
-} from 'meta/assessment'
-import { NodeUpdates } from 'meta/data'
+import { AssessmentMetaCaches, RowCacheKey, RowCaches, TableNames, VariableCache } from 'meta/assessment'
+import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
+import { UpdateDependenciesProps } from 'server/controller/cycleData/updateDependencies/props'
 import { BaseProtocol, DB } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { RowRedisRepository } from 'server/repository/redis/row'
 
 import { Context } from './context'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
-  isODP: boolean
-  nodeUpdates: NodeUpdates
-  includeSourceNodes?: boolean
-}
+type Props = Omit<UpdateDependenciesProps, 'user'>
 
 export class ContextFactory {
   #country: Country
@@ -33,6 +20,7 @@ export class ContextFactory {
   readonly #rowKeys: Set<RowCacheKey>
   readonly #tableNames: Set<string>
   readonly #visitedVariables: Array<VariableCache>
+  readonly #externalDependants: Array<NodeUpdates>
   // TODO: use this object when refactoring getTableData tables condition input prop (and uncomment related code below)
   // readonly #tables: TablesCondition
 
@@ -43,12 +31,7 @@ export class ContextFactory {
     // this.#tables = {}
     this.#tableNames = new Set<string>()
     this.#visitedVariables = []
-  }
-
-  #isExternalVariable(variable: VariableCache): boolean {
-    const { assessment, cycle } = this.#props
-    const { assessmentName, cycleName } = variable
-    return assessmentName && cycleName && (assessmentName !== assessment.props.name || cycleName !== cycle.name)
+    this.#externalDependants = []
   }
 
   // keep track of which table data to fetch
@@ -97,20 +80,44 @@ export class ContextFactory {
     this.#rowKeys.add(RowCaches.getKey(variable)) // keep track of which rows must be fetched
   }
 
+  #isExternalVariable(variable: VariableCache): boolean {
+    const { assessment, cycle } = this.#props
+    const { assessmentName, cycleName } = variable
+    return assessmentName && cycleName && (assessmentName !== assessment.props.name || cycleName !== cycle.name)
+  }
+
   // add node dependants to queue. Returns true if input node is dependant of itself, false otherwise
   #addDependantsToQueue(variable: VariableCache): boolean {
     const { tableName, variableName, colName } = variable
-    const { assessment, cycle, includeSourceNodes } = this.#props
-
-    if (includeSourceNodes) this.#addToQueue(variable)
+    const { assessment, cycle } = this.#props
+    const { countryIso } = this.#country
 
     const dependants = AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
     dependants.forEach((variable) => {
+      const externalVariable = this.#isExternalVariable(variable)
+
+      // external variable
+      if (externalVariable) {
+        let externalNodeUpdates = this.#externalDependants.find(
+          (n) => n.assessmentName === variable.assessmentName && n.cycleName === variable.cycleName
+        )
+        const externalNodeNodeUpdate: NodeUpdate = { ...variable, colName, value: { raw: undefined } }
+        if (externalNodeUpdates) {
+          externalNodeUpdates.nodes.push(externalNodeNodeUpdate)
+        } else {
+          externalNodeUpdates = {
+            assessmentName: variable.assessmentName,
+            cycleName: variable.cycleName,
+            countryIso,
+            nodes: [externalNodeNodeUpdate],
+          }
+          this.#externalDependants.push(externalNodeUpdates)
+        }
+      }
+
+      // internal variable
       const dependant = { tableName: variable.tableName, variableName: variable.variableName, colName }
-      if (this.#isExternalVariable(variable)) {
-        // TODO
-        // console.log('-=========== found external variable ', dependant)
-      } else if (!this.#isInQueue(dependant) && this.#mustAddToQueue(dependant)) {
+      if (!externalVariable && !this.#isInQueue(dependant) && this.#mustAddToQueue(dependant)) {
         this.#addToQueue(dependant)
         this.#addDependantsToQueue(dependant)
       }
@@ -128,12 +135,12 @@ export class ContextFactory {
     this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
 
     nodes.forEach((node) => {
-      const { tableName, variableName, colName } = node
-      this.#addTableCondition({ tableName, variableName })
-      const selfIsDependant = this.#addDependantsToQueue({ tableName, variableName, colName })
+      this.#addTableCondition(node)
+      if (includeSourceNodes) this.#addToQueue(node)
+      const selfIsDependant = this.#addDependantsToQueue(node)
       // if self is not dependant of itself, mark it as visited
       if (!selfIsDependant && !includeSourceNodes) {
-        this.#visitedVariables.push({ variableName, tableName, colName })
+        this.#visitedVariables.push(node)
       }
     })
   }
@@ -144,11 +151,11 @@ export class ContextFactory {
     const queue = this.#queue
     const visitedVariables = this.#visitedVariables
     const tableNames = Array.from(this.#tableNames)
-
+    const externalDependants = this.#externalDependants
     const data = await getTableData({ assessment, cycle, countryISOs: [countryIso], tableNames, mergeOdp: true })
     const rows = await RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) })
 
-    return new Context({ assessment, cycle, countryIso, data, queue, rows, visitedVariables })
+    return new Context({ assessment, cycle, countryIso, data, queue, rows, visitedVariables, externalDependants })
   }
 
   static async newInstance(props: Props, client: BaseProtocol = DB): Promise<Context> {

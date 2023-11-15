@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, RecordRowCache, VariableCache } from 'meta/assessment'
-import { RecordAssessmentData, RecordCountryData } from 'meta/data'
+import { NodeUpdates, RecordAssessmentData, RecordCountryData } from 'meta/data'
 
 import { ContextResult } from './contextResult'
 
@@ -12,6 +12,7 @@ type ConstructorProps = {
   queue: Array<VariableCache>
   rows: RecordRowCache
   visitedVariables: Array<VariableCache>
+  externalDependants: Array<NodeUpdates>
 }
 
 export class Context {
@@ -23,9 +24,10 @@ export class Context {
   readonly #rows: RecordRowCache
   readonly #visitedVariables: Array<VariableCache>
   readonly #result: ContextResult
+  readonly #externalDependants: Array<NodeUpdates>
 
   constructor(props: ConstructorProps) {
-    const { assessment, cycle, countryIso, data, queue, rows, visitedVariables } = props
+    const { assessment, cycle, countryIso, data, queue, rows, visitedVariables, externalDependants } = props
 
     this.#assessment = assessment
     this.#cycle = cycle
@@ -34,6 +36,7 @@ export class Context {
     this.#queue = queue
     this.#rows = rows
     this.#visitedVariables = visitedVariables
+    this.#externalDependants = externalDependants
     this.#result = new ContextResult({ context: this })
   }
 
@@ -63,6 +66,10 @@ export class Context {
 
   get visitedVariables(): Array<VariableCache> {
     return this.#visitedVariables
+  }
+
+  get externalDependants(): Array<NodeUpdates> {
+    return this.#externalDependants
   }
 
   get result(): ContextResult {
