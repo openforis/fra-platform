@@ -1,12 +1,12 @@
-// export { default } from './AddFromRepository'
-// wrap with context:
-// <SelectedFilesProvider>
 import React from 'react'
+
 import { SelectedFilesProvider } from './context/selectedFilesContext'
 import AddFromRepository from './AddFromRepository'
+import { Props } from './Props'
 
-export default (props) => (
+export default (props: Props) => (
   <SelectedFilesProvider>
+    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <AddFromRepository {...props} />
   </SelectedFilesProvider>
 )

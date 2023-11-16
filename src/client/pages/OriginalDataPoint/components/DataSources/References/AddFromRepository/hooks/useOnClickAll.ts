@@ -1,13 +1,11 @@
 import { useCallback } from 'react'
 
-import { AssessmentFile } from 'meta/cycleData'
-
 import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
 
-export const useOnClickAll = (
-  selectedFiles: Array<AssessmentFile>,
-  setSelectedFiles: (files: Array<AssessmentFile>) => void
-) => {
+import { useSelectedFileContext } from '../context/selectedFilesContext'
+
+export const useOnClickAll = () => {
+  const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
   const countryFiles = useAssessmentCountryFiles()
 
   return useCallback(() => {

@@ -1,8 +1,8 @@
 import './AddFromRepository.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
+import { AssessmentFiles } from 'meta/cycleData'
 
 import { useAssessmentCountryFiles, useGetAssessmentFiles } from 'client/store/ui/assessmentFiles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -10,37 +10,34 @@ import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileDrop from 'client/components/FileDrop'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
 
-import { useAllSelected } from './hooks/UseAllSelected'
-import { useIsChecked } from './hooks/UseIsChecked'
-import { useOnClick } from './hooks/UseOnClick'
-import { useOnClickAll } from './hooks/UseOnClickAll'
-import { useOnDrop } from './hooks/UseOnDrop'
-
-type Props = {
-  isOpen: boolean
-  onClose: () => void
-}
+import { useSelectedFileContext } from './context/selectedFilesContext'
+import { useAllSelected } from './hooks/useAllSelected'
+import { useIsChecked } from './hooks/useIsChecked'
+import { useOnClick } from './hooks/useOnClick'
+import { useOnClickAll } from './hooks/useOnClickAll'
+import { useOnDrop } from './hooks/useOnDrop'
+import { Props } from './Props'
 
 const AddFromRepository = (props: Props) => {
   const { isOpen, onClose } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const { t } = useTranslation()
-  const [selectedFiles, setSelectedFiles] = useState<Array<AssessmentFile>>([])
+  const { setSelectedFiles } = useSelectedFileContext()
 
   useGetAssessmentFiles()
   const countryFiles = useAssessmentCountryFiles()
 
-  const isChecked = useIsChecked(selectedFiles)
-  const allSelected = useAllSelected(selectedFiles)
+  const isChecked = useIsChecked()
+  const allSelected = useAllSelected()
 
-  const onClickAll = useOnClickAll(selectedFiles, setSelectedFiles)
-  const onClick = useOnClick(selectedFiles, setSelectedFiles)
+  const onClickAll = useOnClickAll()
+  const onClick = useOnClick()
 
   const onDrop = useOnDrop()
 
   useEffect(() => {
     if (isOpen) setSelectedFiles([])
-  }, [isOpen])
+  }, [isOpen, setSelectedFiles])
 
   if (!isOpen) {
     return null

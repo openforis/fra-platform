@@ -1,17 +1,15 @@
 import { useCallback } from 'react'
 
-import { AssessmentFile } from 'meta/cycleData'
-
 import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
 
-import { useIsChecked } from './UseIsChecked'
+import { useSelectedFileContext } from '../context/selectedFilesContext'
+import { useIsChecked } from './useIsChecked'
 
-export const useOnClick = (
-  selectedFiles: Array<AssessmentFile>,
-  setSelectedFiles: (files: Array<AssessmentFile>) => void
-) => {
+export const useOnClick = () => {
+  const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
+
   const countryFiles = useAssessmentCountryFiles()
-  const isChecked = useIsChecked(selectedFiles)
+  const isChecked = useIsChecked()
 
   return useCallback(
     (uuid: string) => {
