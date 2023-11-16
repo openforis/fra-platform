@@ -14,6 +14,7 @@ import { useIsDisabled } from '../hooks/useIsDisabled'
 import { useShowReviewIndicator } from '../hooks/useShowReviewIndicator'
 import { useUpdateDataSources } from '../hooks/useUpdateDataSources'
 import { useEditorOptions } from './hooks/useEditorOptions'
+import { useOnClose } from './hooks/useOnClose'
 import AddFromRepository from './AddFromRepository'
 
 type Props = {
@@ -25,15 +26,14 @@ const References: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [editor, setEditor] = useState(null)
 
   const reviewIndicator = useShowReviewIndicator(originalDataPoint)
   const disabled = useIsDisabled(originalDataPoint)
 
-  const onClose = () => {
-    setIsOpen(false)
-  }
+  const onClose = useOnClose({ setIsOpen, setEditor, editor })
 
-  const editorOptions = useEditorOptions({ setIsOpen })
+  const editorOptions = useEditorOptions({ setIsOpen, setEditor })
   const updateOriginalDataPoint = useUpdateDataSources()
 
   return (

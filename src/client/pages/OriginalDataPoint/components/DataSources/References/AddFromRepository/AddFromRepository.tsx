@@ -18,7 +18,7 @@ import { useOnDrop } from './hooks/UseOnDrop'
 
 type Props = {
   isOpen: boolean
-  onClose: () => void
+  onClose: (selectedFiles: Array<AssessmentFile>) => void
 }
 
 const AddFromRepository = (props: Props) => {
@@ -78,7 +78,7 @@ const AddFromRepository = (props: Props) => {
       </ModalBody>
 
       <ModalFooter>
-        <button type="button" className="btn btn-transparent" onClick={onClose}>
+        <button type="button" className="btn btn-transparent" onClick={() => onClose(selectedFiles)}>
           {t('common.close')}
         </button>
       </ModalFooter>
