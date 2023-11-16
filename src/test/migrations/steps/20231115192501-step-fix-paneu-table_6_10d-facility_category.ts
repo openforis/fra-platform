@@ -65,16 +65,19 @@ export default async (client: BaseProtocol) => {
 
   const nodesWrongValue = nodes.filter((node) => !facilityCategory[node.value.raw])
 
-  await client.query(
-    nodesWrongValue.map<string>(
-      (node) => `
-          update ${schemaCycle}.node n
-          set value =  jsonb_build_object('raw', '${facilityCategoryInverse[node.value.raw]}')
-          where n.id = ${node.id}
-      `
-    ).join(`;
-  `)
+  const queries = nodesWrongValue.map<string>(
+    (node) => `
+        update ${schemaCycle}.node n
+        set value =  jsonb_build_object('raw', '${facilityCategoryInverse[node.value.raw]}')
+        where n.id = ${node.id}
+    `
   )
+  if (queries.length > 0) {
+    await client.query(
+      queries.join(`;
+    `)
+    )
+  }
 
   const countryISOs = Array.from(new Set(nodesWrongValue.map((n) => n.countryIso)))
   await Promises.each(countryISOs, (countryIso) =>
