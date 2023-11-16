@@ -10,11 +10,11 @@ import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileDrop from 'client/components/FileDrop'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
 
-import { useAllSelected } from './hooks/UseAllSelected'
-import { useIsChecked } from './hooks/UseIsChecked'
-import { useOnClick } from './hooks/UseOnClick'
-import { useOnClickAll } from './hooks/UseOnClickAll'
-import { useOnDrop } from './hooks/UseOnDrop'
+import { useAllSelected } from './hooks/useAllSelected'
+import { useIsChecked } from './hooks/useIsChecked'
+import { useOnClick } from './hooks/useOnClick'
+import { useOnClickAll } from './hooks/useOnClickAll'
+import { useOnDrop } from './hooks/useOnDrop'
 
 type Props = {
   isOpen: boolean

@@ -4,7 +4,7 @@ import { AssessmentFile } from 'meta/cycleData'
 
 import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
 
-import { useIsChecked } from './UseIsChecked'
+import { useIsChecked } from './useIsChecked'
 
 export const useAllSelected = (selectedFiles: Array<AssessmentFile>) => {
   const countryFiles = useAssessmentCountryFiles()
