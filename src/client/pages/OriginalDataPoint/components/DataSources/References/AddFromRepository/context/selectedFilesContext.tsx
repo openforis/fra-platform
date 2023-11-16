@@ -17,4 +17,4 @@ export const SelectedFilesProvider: React.FC<React.PropsWithChildren> = ({ child
   return <SelectedFilesContext.Provider value={value}>{children}</SelectedFilesContext.Provider>
 }
 
-export const useSelectedFileContext = () => useContext(SelectedFilesContext)
+export const useSelectedFileContext = (): SelectedFilesContextType => useContext(SelectedFilesContext)

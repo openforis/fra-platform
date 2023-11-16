@@ -18,7 +18,7 @@ import { useOnClickAll } from './hooks/useOnClickAll'
 import { useOnDrop } from './hooks/useOnDrop'
 import { Props } from './Props'
 
-const AddFromRepository = (props: Props) => {
+const AddFromRepository: React.FC<Props> = (props: Props) => {
   const { isOpen, onClose } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const { t } = useTranslation()

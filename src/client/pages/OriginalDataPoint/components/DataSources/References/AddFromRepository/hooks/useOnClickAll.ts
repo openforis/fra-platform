@@ -4,7 +4,7 @@ import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
 
 import { useSelectedFileContext } from '../context/selectedFilesContext'
 
-export const useOnClickAll = () => {
+export const useOnClickAll = (): (() => void) => {
   const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
   const countryFiles = useAssessmentCountryFiles()
 

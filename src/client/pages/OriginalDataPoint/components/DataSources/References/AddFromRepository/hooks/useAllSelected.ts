@@ -4,7 +4,7 @@ import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
 
 import { useIsChecked } from './useIsChecked'
 
-export const useAllSelected = () => {
+export const useAllSelected = (): boolean => {
   const countryFiles = useAssessmentCountryFiles()
   const isChecked = useIsChecked()
 
