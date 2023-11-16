@@ -16,7 +16,7 @@ import { Breakpoints } from 'client/utils/breakpoints'
 
 const CountrySelect: React.FC = () => {
   const dispatch = useAppDispatch()
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const { sectionName } = useParams<{ sectionName: string }>()
   const countries = useDataExportCountries()
   const selection = useDataExportSelection(sectionName)
@@ -24,10 +24,13 @@ const CountrySelect: React.FC = () => {
   const [countriesFiltered, setCountriesFiltered] = useState<Array<Country>>(countries)
   const inputRef = useRef(null)
 
-  const getDeskStudyLabel = useCallback((country: Country): string => {
-    const { deskStudy } = country.props
-    return deskStudy ? `(${i18n.t('assessment.deskStudy')})` : null
-  }, [])
+  const getDeskStudyLabel = useCallback(
+    (country: Country): string => {
+      const { deskStudy } = country.props
+      return deskStudy ? `(${t('assessment.deskStudy')})` : null
+    },
+    [t]
+  )
 
   const filterCountries = useCallback(() => {
     const value = Strings.normalize(inputRef.current.value)
@@ -36,13 +39,13 @@ const CountrySelect: React.FC = () => {
     } else {
       setCountriesFiltered(
         countries.filter((country) => {
-          const countryLabel = i18n.t(Areas.getTranslationKey(country.countryIso))
+          const countryLabel = t(Areas.getTranslationKey(country.countryIso))
           const searchString = Strings.normalize(`${countryLabel}${getDeskStudyLabel(country)}`)
           return searchString.includes(value)
         })
       )
     }
-  }, [countries])
+  }, [countries, getDeskStudyLabel, t])
 
   const filterCountriesThrottle = useCallback(Functions.throttle(filterCountries, 250, { trailing: true }), [countries])
 
@@ -59,18 +62,18 @@ const CountrySelect: React.FC = () => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all search">
-        <h4>{i18n.t('common.country')}</h4>
+        <h4>{t('common.country')}</h4>
         <input
           ref={inputRef}
           type="text"
           className="text-input"
-          placeholder={i18n.t('emoji.picker.search')}
+          placeholder={t('emoji.picker.search')}
           onChange={filterCountriesThrottle}
         />
         <ButtonCheckBox
           className="btn-all"
           checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
-          label={selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          label={t(selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
           onClick={() => {
             const countryISOs: Array<string> =
               selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
@@ -93,7 +96,7 @@ const CountrySelect: React.FC = () => {
             const { countryIso } = country
             return (
               <option key={countryIso} value={countryIso}>
-                {i18n.t(Areas.getTranslationKey(country.countryIso))}
+                {t(Areas.getTranslationKey(country.countryIso))}
               </option>
             )
           })}
@@ -112,7 +115,7 @@ const CountrySelect: React.FC = () => {
                 <ButtonCheckBox
                   key={countryIso}
                   checked={selected}
-                  label={i18n.t(Areas.getTranslationKey(country.countryIso))}
+                  label={t(Areas.getTranslationKey(country.countryIso))}
                   suffix={getDeskStudyLabel(country)}
                   onClick={() => {
                     const countryISOs = [...selection.countryISOs]

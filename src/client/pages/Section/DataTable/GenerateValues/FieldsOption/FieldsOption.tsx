@@ -15,7 +15,7 @@ type Props = {
 }
 
 const FieldsOption: React.FC<Props> = (props) => {
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const { method, fields, setFields } = props
 
   const setField = (field: GenerateValuesField, idx: number): void => {
@@ -47,8 +47,8 @@ const FieldsOption: React.FC<Props> = (props) => {
     <>
       {method === Method.annualChange && (
         <div className="annual-change-rates">
-          <div className="annual-change-rates__label">{i18n.t('tableWithOdp.placeholderPast')}</div>
-          <div className="annual-change-rates__label">{i18n.t('tableWithOdp.placeholderFuture')}</div>
+          <div className="annual-change-rates__label">{t('tableWithOdp.placeholderPast')}</div>
+          <div className="annual-change-rates__label">{t('tableWithOdp.placeholderFuture')}</div>
         </div>
       )}
 
@@ -56,7 +56,7 @@ const FieldsOption: React.FC<Props> = (props) => {
         const { variableName, labelKey, selected, annualChangeRates } = field
         return (
           <React.Fragment key={variableName}>
-            <ButtonCheckBox checked={selected} label={labelKey} onClick={() => toggleSelected(fieldIdx)} />
+            <ButtonCheckBox checked={selected} label={t(labelKey)} onClick={() => toggleSelected(fieldIdx)} />
 
             {method === Method.annualChange && (
               <div className="annual-change-rates">
@@ -72,7 +72,7 @@ const FieldsOption: React.FC<Props> = (props) => {
                   value={annualChangeRates.future}
                   onChange={(e) => setAnnualChangeRateValue(fieldIdx, 'future', e.target.value)}
                 />
-                <div className="annual-change-rates__unit">{i18n.t('tableWithOdp._1000haYear')}</div>
+                <div className="annual-change-rates__unit">{t('tableWithOdp._1000haYear')}</div>
               </div>
             )}
           </React.Fragment>

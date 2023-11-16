@@ -14,7 +14,7 @@ import { Breakpoints } from 'client/utils/breakpoints'
 
 const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   const dispatch = useAppDispatch()
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const { assessmentName, sectionName } = useParams<{
     assessmentName: AssessmentName
     sectionName: string
@@ -45,11 +45,11 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all">
-        <h4>{i18n.t('common.column')}</h4>
+        <h4>{t('common.column')}</h4>
         <ButtonCheckBox
           className="btn-all"
           checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
-          label={selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          label={t(selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
           onClick={() => updateSelection(selection.sections[sectionName].columns.length > 0 ? [] : columns.map(String))}
         />
       </div>
@@ -64,10 +64,10 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           }}
         >
           {columns.map((column: string) => {
-            const label = getColumnLabelKeys(column, sectionName, assessmentName)
+            const label = getColumnLabelKeys(column, sectionName, assessmentName).map(t).join(' ')
             return (
               <option key={column} value={column}>
-                {i18n.t(label)}
+                {label}
               </option>
             )
           })}
@@ -79,7 +79,7 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           <div className="export__form-section-variables">
             {columns.map((column: string) => {
               const selected = selectionColumns.includes(column)
-              const label = getColumnLabelKeys(column, sectionName, assessmentName)
+              const label = getColumnLabelKeys(column, sectionName, assessmentName).map(t).join(' ')
 
               return (
                 <ButtonCheckBox
