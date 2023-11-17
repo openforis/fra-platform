@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useSelectedFileContext } from '../context/selectedFilesContext'
+import { useSelectedFileContext } from '../../context/selectedFilesContext'
 
 export const useIsChecked = (): ((uuid: string) => boolean) => {
   const { selectedFiles } = useSelectedFileContext()

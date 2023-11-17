@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
 
-import { useSelectedFileContext } from '../context/selectedFilesContext'
+import { useSelectedFileContext } from '../../context/selectedFilesContext'
 import { useIsChecked } from './useIsChecked'
 
 export const useOnClick = (): ((uuid: string) => void) => {

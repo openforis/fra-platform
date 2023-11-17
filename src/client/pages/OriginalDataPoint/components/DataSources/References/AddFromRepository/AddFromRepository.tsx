@@ -2,7 +2,7 @@ import './AddFromRepository.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentFiles } from 'meta/cycleData'
+import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
 
 import { useAssessmentCountryFiles, useGetAssessmentFiles } from 'client/store/ui/assessmentFiles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -10,19 +10,23 @@ import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileDrop from 'client/components/FileDrop'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
 
-import { useSelectedFileContext } from './context/selectedFilesContext'
+import { useSelectedFileContext } from '../context/selectedFilesContext'
 import { useAllSelected } from './hooks/useAllSelected'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
 import { useOnClickAll } from './hooks/useOnClickAll'
 import { useOnDrop } from './hooks/useOnDrop'
-import { Props } from './Props'
+
+type Props = {
+  isOpen: boolean
+  onClose: (selectedFiles: Array<AssessmentFile>) => void
+}
 
 const AddFromRepository: React.FC<Props> = (props: Props) => {
   const { isOpen, onClose } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const { t } = useTranslation()
-  const { setSelectedFiles } = useSelectedFileContext()
+  const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
 
   useGetAssessmentFiles()
   const countryFiles = useAssessmentCountryFiles()
@@ -75,7 +79,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
       </ModalBody>
 
       <ModalFooter>
-        <button type="button" className="btn btn-transparent" onClick={onClose}>
+        <button type="button" className="btn btn-transparent" onClick={() => onClose(selectedFiles)}>
           {t('common.close')}
         </button>
       </ModalFooter>
