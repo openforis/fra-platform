@@ -2,11 +2,11 @@ import './UserListFilters.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso, Region, RegionCode } from 'meta/area'
+import { CountryIso } from 'meta/area'
 import { RoleName } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useCountries, useSecondaryRegion } from 'client/store/area'
+import { useCountries, useExcludedRegions } from 'client/store/area'
 import { useFilters, UserManagementActions, useRoleNames } from 'client/store/ui/userManagement'
 
 import CountrySelectModal from '../CountrySelectModal'
@@ -19,9 +19,10 @@ const UserListFilters: React.FC = () => {
 
   const countries = useCountries()
   const filters = useFilters()
-  const secondaryRegions = useSecondaryRegion()
 
   const [modalOpen, setModalOpen] = useState(false)
+
+  const excludeRegions = useExcludedRegions()
 
   return (
     <div className="users__table-filter">
@@ -77,7 +78,7 @@ const UserListFilters: React.FC = () => {
           <CountrySelectModal
             open={modalOpen}
             countries={countries}
-            excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
+            excludedRegions={excludeRegions}
             headerLabel={t('common.select')}
             initialSelection={filters.countries}
             onClose={(selectionUpdate: Array<string>) => {
