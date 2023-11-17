@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { NodeCalculations, RowCache } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -37,28 +36,28 @@ export const useData = (props: Props): RecordAssessmentData => {
 
     if (Objects.isEmpty(countryData)) {
       setDataState(dataStore)
-      return
+      // return
     }
 
-    const data = Objects.cloneDeep(dataStore)
+    // const data = Objects.cloneDeep(dataStore)
 
-    rowsData.forEach((row) => {
-      const { variableName } = row.props
-
-      row.cols.forEach((col) => {
-        const { colName } = col.props
-
-        if (colName) {
-          const propsCalculate = { assessment, cycle, countryIso, tableName, row: row as RowCache, col, data }
-          const valueCalc = NodeCalculations.calculate(propsCalculate)
-          if (valueCalc) {
-            const propsUpdate = { assessmentName, cycleName, countryIso, tableName, variableName, colName, data }
-            RecordAssessmentDatas.updateDatum({ ...propsUpdate, value: valueCalc })
-          }
-        }
-      })
-    })
-    setDataState(data)
+    // rowsData.forEach((row) => {
+    //   const { variableName } = row.props
+    //
+    //   row.cols.forEach((col) => {
+    //     const { colName } = col.props
+    //
+    //     if (colName) {
+    //       const propsCalculate = { assessment, cycle, countryIso, tableName, row: row as RowCache, col, data }
+    //       const valueCalc = NodeCalculations.calculate(propsCalculate)
+    //       if (valueCalc) {
+    //         const propsUpdate = { assessmentName, cycleName, countryIso, tableName, variableName, colName, data }
+    //         RecordAssessmentDatas.updateDatum({ ...propsUpdate, value: valueCalc })
+    //       }
+    //     }
+    //   })
+    // })
+    // setDataState(data)
   }, [assessment, countryIso, cycle, dataStore, rowsData, tableDataFetching, tableName])
 
   return dataState
