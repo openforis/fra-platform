@@ -1,5 +1,8 @@
 import { Promises } from 'utils/promises'
 
+import { NodeUpdates } from 'meta/data'
+import { User } from 'meta/user'
+
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies/scheduleUpdateDependencies'
@@ -19,6 +22,25 @@ const _getLogKey = (job: UpdateDependenciesJob): string => {
   return `[updateDependencies-workerThread] [${[assessmentName, cycleName, countryIso].join('-')}] [job-${job.id}]`
 }
 
+const _scheduleExternalDependantsUpdate = async (props: {
+  logKey: string
+  nodeUpdates: NodeUpdates
+  user: User
+}): Promise<void> => {
+  const { logKey, nodeUpdates, user } = props
+
+  const { assessmentName, cycleName, countryIso } = nodeUpdates
+
+  const propsAssessment = { assessmentName, cycleName, metaCache: true }
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(propsAssessment)
+  const country = await AreaController.getCountry({ assessment, cycle, countryIso })
+
+  if (country) {
+    Logger.info(`${logKey} scheduling updates ${assessmentName}-${cycleName} of ${nodeUpdates.nodes.length} nodes.`)
+    await scheduleUpdateDependencies({ assessment, cycle, nodeUpdates, includeSourceNodes: true, user })
+  }
+}
+
 export default async (job: UpdateDependenciesJob) => {
   const logKey = _getLogKey(job)
   try {
@@ -31,15 +53,9 @@ export default async (job: UpdateDependenciesJob) => {
     await persistResults({ result, user })
 
     // schedule external assessment/cycle updates
-    await Promises.each(context.externalDependants, async (nodeUpdates) => {
-      const { assessmentName, cycleName, countryIso } = nodeUpdates
-      const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-      const country = await AreaController.getCountry({ assessment, cycle, countryIso })
-      if (country) {
-        Logger.info(`${logKey} scheduling updates ${assessmentName}-${cycleName} of ${nodeUpdates.nodes.length} nodes.`)
-        await scheduleUpdateDependencies({ assessment, cycle, nodeUpdates, includeSourceNodes: true, user })
-      }
-    })
+    await Promises.each(context.externalDependants, (nodeUpdates) =>
+      _scheduleExternalDependantsUpdate({ logKey, nodeUpdates, user })
+    )
 
     const resultNodeUpdates = result.nodeUpdates
     const duration = (new Date().getTime() - time) / 1000
