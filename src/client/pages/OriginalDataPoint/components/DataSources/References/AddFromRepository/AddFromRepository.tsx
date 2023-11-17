@@ -10,7 +10,7 @@ import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileDrop from 'client/components/FileDrop'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
 
-import { useSelectedFileContext } from './context/selectedFilesContext'
+import { useSelectedFileContext } from '../context/selectedFilesContext'
 import { useAllSelected } from './hooks/useAllSelected'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'

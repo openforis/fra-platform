@@ -6,7 +6,7 @@ import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-import { useSelectedFileContext } from '../AddFromRepository/context/selectedFilesContext'
+import { useSelectedFileContext } from '../context/selectedFilesContext'
 
 export const useOnClose = (props: {
   setIsOpen: (isOpen: boolean) => void
