@@ -1,5 +1,5 @@
 import './AddFromRepository.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
@@ -10,6 +10,7 @@ import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileDrop from 'client/components/FileDrop'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
 
+import { useSelectedFileContext } from './context/selectedFilesContext'
 import { useAllSelected } from './hooks/useAllSelected'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
@@ -21,26 +22,26 @@ type Props = {
   onClose: (selectedFiles: Array<AssessmentFile>) => void
 }
 
-const AddFromRepository = (props: Props) => {
+const AddFromRepository: React.FC<Props> = (props: Props) => {
   const { isOpen, onClose } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const { t } = useTranslation()
-  const [selectedFiles, setSelectedFiles] = useState<Array<AssessmentFile>>([])
+  const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
 
   useGetAssessmentFiles()
   const countryFiles = useAssessmentCountryFiles()
 
-  const isChecked = useIsChecked(selectedFiles)
-  const allSelected = useAllSelected(selectedFiles)
+  const isChecked = useIsChecked()
+  const allSelected = useAllSelected()
 
-  const onClickAll = useOnClickAll(selectedFiles, setSelectedFiles)
-  const onClick = useOnClick(selectedFiles, setSelectedFiles)
+  const onClickAll = useOnClickAll()
+  const onClick = useOnClick()
 
   const onDrop = useOnDrop()
 
   useEffect(() => {
     if (isOpen) setSelectedFiles([])
-  }, [isOpen])
+  }, [isOpen, setSelectedFiles])
 
   if (!isOpen) {
     return null

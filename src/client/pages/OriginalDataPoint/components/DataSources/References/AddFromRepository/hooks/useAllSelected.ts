@@ -1,14 +1,12 @@
 import { useMemo } from 'react'
 
-import { AssessmentFile } from 'meta/cycleData'
-
 import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
 
 import { useIsChecked } from './useIsChecked'
 
-export const useAllSelected = (selectedFiles: Array<AssessmentFile>) => {
+export const useAllSelected = (): boolean => {
   const countryFiles = useAssessmentCountryFiles()
-  const isChecked = useIsChecked(selectedFiles)
+  const isChecked = useIsChecked()
 
   return useMemo(
     () => countryFiles.every((assessmentFile) => isChecked(assessmentFile.uuid)),
