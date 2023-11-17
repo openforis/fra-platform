@@ -1,4 +1,4 @@
-export { useAssessmentFiles } from './hooks'
+export { useAssessmentCountryFiles, useAssessmentFiles } from './hooks'
 export { useDeleteAssessmentFile } from './hooks/useDeleteAssessmentFile'
 export { useGetAssessmentFiles } from './hooks/useGetAssessmentFiles'
 export { useUploadAssessmentFile } from './hooks/useUploadAssessmentFile'
