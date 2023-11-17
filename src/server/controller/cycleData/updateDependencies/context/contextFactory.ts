@@ -121,7 +121,7 @@ export class ContextFactory extends BaseContextBuilder {
     await Promises.each(nodes, async (node) => {
       await this.#dataContextBuilder.addVariable(node)
       if (includeSourceNodes) await this.#addToQueue(node)
-      const selfIsDependant = this.#addDependantsToQueue(node)
+      const selfIsDependant = await this.#addDependantsToQueue(node)
       // if self is not dependant of itself, mark it as visited
       if (!selfIsDependant && !includeSourceNodes) {
         this.#visitedVariables.push(node)
