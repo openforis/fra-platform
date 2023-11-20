@@ -531,6 +531,7 @@ The FRA team
       otherWoodedLand: 'Other wooded land',
       otherLand: 'Other land',
     },
+    fileAddedWillBecomePublic: 'A file added as reference will become publicly accessible',
   },
 
   userManagement: {
