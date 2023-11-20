@@ -82,7 +82,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
       </ModalBody>
 
       <ModalFooter>
-        <button type="button" className="btn btn-transparent" onClick={() => onClose(selectedFiles)}>
+        <button type="button" className="btn btn-primary" onClick={() => onClose(selectedFiles)}>
           {t('common.apply')}
         </button>
       </ModalFooter>
