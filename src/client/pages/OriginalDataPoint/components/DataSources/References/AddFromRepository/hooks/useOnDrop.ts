@@ -12,8 +12,9 @@ export const useOnDrop = (): ((files: Array<File>) => void) => {
   return useCallback(
     (files: Array<File>) => {
       files.forEach((file) => {
-        const props = { fileCountryIso: countryIso, file }
-        uploadAssessmentFile(props)
+        const props = { public: true }
+        const uploadProps = { fileCountryIso: countryIso, file, props }
+        uploadAssessmentFile(uploadProps)
       })
     },
     [countryIso, uploadAssessmentFile]
