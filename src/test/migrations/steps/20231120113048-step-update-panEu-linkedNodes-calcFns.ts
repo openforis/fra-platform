@@ -64,6 +64,8 @@ export default async (client: BaseProtocol) => {
     (res) => Objects.camelize(res)
   )
 
+  await AssessmentController.generateMetaCache(client)
+
   await Promises.each(variables, async (variable) => {
     const { sectionName, tableName, variableName } = variable
     await updateCalculatedVariable({ assessment, cycle, sectionName, tableName, variableName }, client)
