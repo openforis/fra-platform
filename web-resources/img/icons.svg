@@ -294,4 +294,7 @@
         <path d="M13.419 12.387h10.323v4.129h-10.323v-4.129z"></path>
         <path d="M13.419 18.581h6.194v4.129h-6.194v-4.129z"></path>
     </symbol>
+    <symbol id="icon-files" viewBox="0 0 24 24">
+        <path d="M5 0v3h-3v21h17v-3h3v-21h-17zM17 22h-13v-17h1v16h12v1zM20 19h-13v-17h13v17zM15 5h-6v2h6v-2zM18 8h-9v1h9v-1zM18 10h-9v1h9v-1zM18 12h-9v1h9v-1zM12 14h-3v1h3v-1z"></path>
+    </symbol>
 </svg>

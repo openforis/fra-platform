@@ -1,8 +1,11 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
 import type { IControlType } from 'jodit/src/types/toolbar'
 import type { Jodit } from 'jodit/types/jodit'
+
+import Icon from 'client/components/Icon'
 
 type ButtonType = IControlType
 
@@ -21,9 +24,9 @@ export const useEditorOptions = (props: Props) => {
       setIsOpen(true)
     }
     const label = t('landing.links.repository')
-    const name = label
     const tooltip = label
-    return { name, exec, tooltip }
+    const icon = renderToStaticMarkup(<Icon name="icon-files" />)
+    return { icon, exec, tooltip }
   }, [setEditor, setIsOpen, t])
 
   return useMemo(() => {

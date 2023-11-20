@@ -102,6 +102,10 @@
     border: unset !important;
     height: unset !important;
     min-height: unset !important;
+
+    .icon.jodit-icon {
+      stroke: none;
+    }
   }
 
   .jodit-workplace,

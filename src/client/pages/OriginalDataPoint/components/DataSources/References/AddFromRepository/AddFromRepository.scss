@@ -1,6 +1,15 @@
+@import 'src/client/style/partials';
+
 .references-file-list {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-gap: 10px;
   padding: 10px;
+}
+
+.repository-modal {
+  .modal-header span {
+    font-size: $font-s;
+    font-weight: initial;
+  }
 }

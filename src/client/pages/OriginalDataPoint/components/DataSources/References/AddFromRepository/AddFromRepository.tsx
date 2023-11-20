@@ -48,9 +48,12 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal className="repository-modal" isOpen={isOpen}>
       <ModalHeader>
-        <h3 className="subhead">{t('common.selectFiles')}</h3>
+        <div>
+          <h3 className="subhead">{t('common.selectFiles')}</h3>
+          <span>{t('nationalDataPoint.fileAddedWillBecomePublic')}</span>
+        </div>
       </ModalHeader>
 
       <ModalBody>
@@ -79,8 +82,8 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
       </ModalBody>
 
       <ModalFooter>
-        <button type="button" className="btn btn-transparent" onClick={() => onClose(selectedFiles)}>
-          {t('common.close')}
+        <button type="button" className="btn btn-primary" onClick={() => onClose(selectedFiles)}>
+          {t('common.apply')}
         </button>
       </ModalFooter>
     </Modal>
