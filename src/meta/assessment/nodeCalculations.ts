@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Col } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { Cycle } from 'meta/assessment/cycle'
@@ -12,6 +12,7 @@ import { RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 type Props = {
+  assessments: RecordAssessments
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
@@ -22,16 +23,16 @@ type Props = {
 }
 
 const calculateIf = (props: Props): boolean => {
-  const { assessment, cycle, countryIso, row, col, data } = props
+  const { assessments, assessment, cycle, countryIso, row, col, data } = props
   const { colName } = col.props
   const formula = row.props.calculateIf?.[cycle.uuid]
 
-  const paramsCalculate = { assessment, countryIso, cycle, data, colName, row, formula }
+  const paramsCalculate = { assessments, assessment, countryIso, cycle, data, colName, row, formula }
   return Boolean(ExpressionEvaluator.evalFormula<boolean>(paramsCalculate))
 }
 
 const calculate = (props: Props): NodeValue | undefined => {
-  const { assessment, cycle, countryIso, tableName, row, col, data } = props
+  const { assessments, assessment, cycle, countryIso, tableName, row, col, data } = props
   const formula = Cols.getCalculateFn({ cycle, row, col })
 
   if (!formula) {
@@ -52,7 +53,7 @@ const calculate = (props: Props): NodeValue | undefined => {
     : Objects.isEmpty(value) || value.calculated
 
   if (canCalculate) {
-    const paramsCalculate = { assessment, countryIso, cycle, data, colName, row, formula }
+    const paramsCalculate = { assessments, assessment, countryIso, cycle, data, colName, row, formula }
     const rawResult = ExpressionEvaluator.evalFormula<string | undefined>(paramsCalculate)
 
     // Objects.isEmpty required to avoid failing on 0
