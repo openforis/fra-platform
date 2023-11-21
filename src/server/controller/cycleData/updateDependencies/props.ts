@@ -14,6 +14,7 @@ export type UpdateDependenciesProps = {
 }
 
 export type UpdateDependenciesResult = {
+  externalDependants: Array<NodeUpdates>
   nodeUpdates: NodeUpdates
 }
 

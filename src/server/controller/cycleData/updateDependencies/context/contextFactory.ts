@@ -85,7 +85,11 @@ export class ContextFactory extends BaseContextBuilder {
         let externalNodeUpdates = this.#externalDependants.find(
           (n) => n.assessmentName === variable.assessmentName && n.cycleName === variable.cycleName
         )
-        const externalNodeNodeUpdate: NodeUpdate = { ...variable, colName, value: { raw: undefined } }
+        const externalNodeNodeUpdate: NodeUpdate = {
+          ...variable,
+          colName: variable!.colName,
+          value: { raw: undefined },
+        }
         if (externalNodeUpdates) {
           externalNodeUpdates.nodes.push(externalNodeNodeUpdate)
         } else {
