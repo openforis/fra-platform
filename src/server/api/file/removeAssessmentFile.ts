@@ -12,14 +12,23 @@ export const removeAssessmentFile = async (req: CycleRequest, res: Response) => 
 
     const user = Requests.getUser(req)
 
-    const { assessmentName } = req.query
+    const { assessmentName, cycleName } = req.query
 
-    const assessment = await AssessmentController.getOne({ assessmentName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    await FileController.removeAssessmentFile({ assessment, uuid, user })
+    await FileController.removeAssessmentFile({ assessment, cycle, uuid, user })
 
     Requests.sendOk(res)
   } catch (e) {
+    if (Array.isArray(e)) {
+      const err = {
+        params: { sectionNames: e },
+        message: 'landing.links.fileCannotBeDeleted',
+      }
+      Requests.sendErr(res, err, 400)
+      return
+    }
+
     Requests.sendErr(res, e)
   }
 }
