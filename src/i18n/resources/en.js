@@ -292,6 +292,7 @@ The FRA team fra@fao.org
       fileUploaded: 'File successfully uploaded',
       confirmDelete: 'Delete {{file}}? This cannot be undone.',
       fileDeleted: 'File successfully deleted',
+      fileCannotBeDeleted: `File cannot be deleted because it's currently used in the following sections:\n{{sectionNames, bulletList}}`,
     },
     dataExport: {
       downloadData: 'Download data',

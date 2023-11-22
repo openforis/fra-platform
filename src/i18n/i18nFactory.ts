@@ -1,12 +1,13 @@
 import * as i18next from 'i18next'
-
 import { TFunction } from 'i18next'
+
 import { Lang } from 'meta/lang'
-import * as enTranslation from './resources/en'
-import * as frTranslation from './resources/fr'
-import * as esTranslation from './resources/es'
-import * as ruTranslation from './resources/ru'
+
 import * as arTranslation from './resources/ar'
+import * as enTranslation from './resources/en'
+import * as esTranslation from './resources/es'
+import * as frTranslation from './resources/fr'
+import * as ruTranslation from './resources/ru'
 import * as zhTranslation from './resources/zh'
 
 // @ts-ignore
@@ -21,9 +22,30 @@ const translationsFiles: { [langCode: string]: any } = {
   zh: zhTranslation.translation,
 }
 
+const format = (value: any, format: string) => {
+  if (format === 'bulletList' && Array.isArray(value)) {
+    // Bullet list expected format: [{ name: 'name/translation.key', suffixes?: ['suffix', 'translation.key'] }]
+    const bulletstr = '•'
+    const _value = value.map((item: any) => {
+      const key = `$t(${item.key})`
+      const suffix = item.suffixes ? `(${item.suffixes.map((suffix: any) => `$t(${suffix})`).join(', ')})` : ''
+
+      return `${bulletstr} ${key} ${suffix}\n`
+    })
+    return _value.join('')
+  }
+  return value
+}
+
 export const createParams = (lang: string) => ({
   fallbackLng: 'en',
   debug: false,
+
+  interpolation: {
+    escapeValue: false, // not needed for react as it escapes by default
+    skipOnVariables: false,
+    format,
+  },
 
   // react i18next special options (optional)
   react: {
