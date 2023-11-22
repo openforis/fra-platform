@@ -13,11 +13,22 @@ export const fileIsInUse = async (
 
   return client.map<{ key: string; suffixes?: Array<string> }>(
     `
+-- Check usage:
+-- Original Data Point
         select
             jsonb_build_object(
                     'key', 'nationalDataPoint.nationalDataPoint',
                     'suffixes', jsonb_build_array(odp.year, 'nationalDataPoint.references')) as values
         from ${schemaCycle}.original_data_point odp where odp.data_source_references ilike '%$1#%'
+        union
+-- Section descriptions
+        select
+            jsonb_build_object(
+                    'key', d.section_name || '.' || d.section_name,
+                    'suffixes', jsonb_build_array('description' || '.' || d.name )) as values
+        from ${schemaCycle}.descriptions d
+        where d.value::text ilike '%$1#%'
+
     `,
     [uuid],
     (row) => row.values
