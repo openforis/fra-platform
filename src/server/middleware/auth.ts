@@ -10,13 +10,14 @@ import { AssessmentController } from 'server/controller/assessment'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
 import { tryCatch } from 'server/middleware/tryCatch'
+import { fileError } from 'server/middleware/util/fileError'
+import { AssessmentFileRepository } from 'server/repository/assessment/file'
 import { Requests } from 'server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
   if (allowed) return next()
   return next(new Error(`userNotAuthorized`))
 }
-
 const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction) => {
   const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
@@ -184,13 +185,34 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
 }
 
 const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+  const { assessmentName, countryIso, cycleName } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams
   const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
   _next(Authorizer.canEditAssessmentFile({ country, cycle, user }), next)
+}
+
+const requireEditExistingAssessmentFile = async (req: Request, res: Response, next: NextFunction) => {
+  const { assessmentName, cycleName, uuid } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams & { uuid: string }
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+  const fileSections = await AssessmentFileRepository.fileIsInUse({ assessment, cycle, uuid })
+  if (fileSections.length) {
+    const msg = await fileError({ req, fileSections, assessmentName, cycleName })
+    return next({ statusCode: 400, message: msg })
+  }
+
+  return requireEditAssessmentFile(req, res, next)
 }
 
 const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
@@ -213,5 +235,6 @@ export const AuthMiddleware = {
   requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),
   requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
+  requireEditExistingAssessmentFile: tryCatch(requireEditExistingAssessmentFile),
   requireUser: tryCatch(requireUser),
 }

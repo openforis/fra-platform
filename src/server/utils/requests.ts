@@ -9,7 +9,7 @@ import { AccessControlException } from './accessControl'
 
 /* Response Utils */
 
-export const sendErr = (res: any, err?: any, statusCode = 500) => {
+export const sendErr = (res: any, err?: any, statusCode = err.statusCode ?? 500) => {
   if (err instanceof AccessControlException) {
     // @ts-ignore
     res.status(403).json({ error: err.error })
