@@ -1,6 +1,6 @@
-import { UUIDs } from 'utils/uuids'
 import axios, { AxiosStatic } from 'axios'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
+import { UUIDs } from 'utils/uuids'
 
 import { NotificationActions } from 'client/store/ui/notification/slice'
 
@@ -13,6 +13,7 @@ const createAxiosMiddleware =
           id: UUIDs.v4(),
           type: 'error',
           message: error.response.data.error,
+          params: error.response.data.params,
         })
       )
       return Promise.reject(error)

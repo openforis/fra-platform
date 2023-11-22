@@ -18,10 +18,11 @@ export const useDeleteAssessmentFile = (): UseDeleteAssessmentFile => {
   return useCallback<UseDeleteAssessmentFile>(
     (uuid: string, fileCountryIso?: CountryIso) => {
       const deleteFileProps = { assessmentName, cycleName, countryIso, uuid, fileCountryIso }
-      const callback = () => {
-        toaster.success(t('landing.links.fileDeleted'))
-      }
-      dispatch(AssessmentFilesActions.deleteFile(deleteFileProps)).then(callback)
+      dispatch(AssessmentFilesActions.deleteFile(deleteFileProps)).then((action) => {
+        if (action.type.includes('fulfilled')) {
+          toaster.success(t('landing.links.fileDeleted'))
+        }
+      })
     },
     [dispatch, assessmentName, cycleName, countryIso, toaster, t]
   )

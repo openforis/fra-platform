@@ -8,6 +8,7 @@
   right: 0;
   position: fixed;
   z-index: $z-index-toaster;
+  white-space: pre;
 
   @include min-width($tablet-portrait) {
     max-width: 50vw;
@@ -34,7 +35,7 @@
     border-color: $ui-accent;
     background-color: lighten($ui-accent, 55%);
     .toast-icon {
-      color: $ui-accent
+      color: $ui-accent;
     }
   }
   &.success {
