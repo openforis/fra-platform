@@ -208,8 +208,8 @@ const requireEditExistingAssessmentFile = async (req: Request, res: Response, ne
 
   const fileSections = await AssessmentFileRepository.fileIsInUse({ assessment, cycle, uuid })
   if (fileSections.length) {
-    const msg = await fileError({ req, fileSections, assessmentName, cycleName })
-    return next({ statusCode: 400, message: msg })
+    const message = await fileError({ req, fileSections, assessmentName, cycleName })
+    return next({ statusCode: 400, message })
   }
 
   return requireEditAssessmentFile(req, res, next)
