@@ -5,16 +5,13 @@ import { BaseProtocol, DB } from 'server/db'
 import { AssessmentFileRepository } from 'server/repository/assessment/file'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
-type removeAssessmentFileProps = {
+type Props = {
   assessment: Assessment
   uuid: string
   user?: User
 }
 
-export const removeAssessmentFile = async (
-  props: removeAssessmentFileProps,
-  client: BaseProtocol = DB
-): Promise<void> => {
+export const removeAssessmentFile = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, uuid, user } = props
 
   return client.tx(async (t) => {
