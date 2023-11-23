@@ -1,11 +1,12 @@
-import { createSlice, isAllOf, isAnyOf, isFulfilled, isPending, isRejected, Reducer } from '@reduxjs/toolkit'
+import { createSlice, Reducer } from '@reduxjs/toolkit'
+
+import { setFileLoadingReducer } from 'client/store/ui/assessmentFiles/reducers/setFileLoading'
 
 import { deleteFile, getFiles, upload } from './actions'
 import { AssessmentFilesState } from './stateType'
 
 const initialState: AssessmentFilesState = {
   globals: [],
-  loading: false,
 }
 
 export const assessmentFilesSlice = createSlice({
@@ -43,17 +44,7 @@ export const assessmentFilesSlice = createSlice({
       if (fileCountryIso) state[fileCountryIso].push(payload)
       else state.globals.push(payload)
     })
-
-    builder.addMatcher(isAnyOf(isPending(deleteFile, getFiles, upload)), (state) => {
-      state.loading = true
-    })
-
-    builder.addMatcher(
-      isAllOf(isAnyOf(isFulfilled(deleteFile, getFiles, upload), isRejected(deleteFile, getFiles, upload))),
-      (state) => {
-        state.loading = false
-      }
-    )
+    setFileLoadingReducer(builder)
   },
 })
 
