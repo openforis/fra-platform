@@ -292,6 +292,7 @@ The FRA team fra@fao.org
       fileUploaded: 'File successfully uploaded',
       confirmDelete: 'Delete {{file}}? This cannot be undone.',
       fileDeleted: 'File successfully deleted',
+      fileOperationFailed: `The operation cannot be performed because the file it’s used in:\n{{sectionNames}}`,
     },
     dataExport: {
       downloadData: 'Download data',

@@ -118,6 +118,7 @@ const Links: React.FC = () => {
           {isAdmin && (
             <div className="landing__activity-time">
               <button
+                disabled={assessmentFile.loading}
                 type="button"
                 className="btn-xs"
                 onClick={() =>
@@ -182,6 +183,7 @@ const Links: React.FC = () => {
           {isAllowedToEdit && (
             <div className="landing__activity-time">
               <button
+                disabled={assessmentFile.loading}
                 type="button"
                 className="btn-xs"
                 onClick={() =>

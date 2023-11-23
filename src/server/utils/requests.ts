@@ -9,14 +9,17 @@ import { AccessControlException } from './accessControl'
 
 /* Response Utils */
 
-export const sendErr = (res: any, err?: any, statusCode = 500) => {
+export const sendErr = (res: any, err?: any, statusCode = err.statusCode ?? 500) => {
   if (err instanceof AccessControlException) {
     // @ts-ignore
     res.status(403).json({ error: err.error })
   } else if (typeof err === 'string') {
     res.status(statusCode).json({ error: err })
   } else {
-    res.status(statusCode).json({ error: err.message ? err.message : 'Could not serve' })
+    res.status(statusCode).json({
+      error: err.message ?? 'Could not serve',
+      params: err.params ?? {},
+    })
   }
 }
 
