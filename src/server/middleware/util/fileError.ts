@@ -9,15 +9,15 @@ type FileErrorParams = {
   assessmentName: AssessmentName
   cycleName: CycleName
   req: Request
-  fileSections: Array<FileUsage>
+  fileUsages: Array<FileUsage>
 }
 
 export const fileError = async (props: FileErrorParams): Promise<string> => {
-  const { assessmentName, cycleName, req, fileSections } = props
+  const { assessmentName, cycleName, req, fileUsages } = props
   const lang = req.headers.locale || Lang.en
   const i18n = await createI18nPromise(lang)
 
-  const sectionNames = fileSections.reduce<string>((acc: string, item) => {
+  const sectionNames = fileUsages.reduce<string>((acc: string, item) => {
     const { key, suffixes } = item
 
     const suffixesStr = suffixes.map((suffix: string) => i18n.t(suffix, { assessmentName, cycleName })).join(', ')

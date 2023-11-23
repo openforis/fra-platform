@@ -7,11 +7,11 @@ import { Authorizer, CollaboratorEditPropertyType, Users } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
+import { FileController } from 'server/controller/file'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
 import { tryCatch } from 'server/middleware/tryCatch'
 import { fileError } from 'server/middleware/util/fileError'
-import { AssessmentFileRepository } from 'server/repository/assessment/file'
 import { Requests } from 'server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
@@ -206,9 +206,9 @@ const requireEditCountryFile = async (req: Request, res: Response, next: NextFun
   } as CycleParams & { uuid: string }
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  const fileSections = await AssessmentFileRepository.fileUsages({ assessment, cycle, uuid })
-  if (fileSections.length) {
-    const message = await fileError({ req, fileSections, assessmentName, cycleName })
+  const fileUsages = await FileController.fileUsages({ assessment, cycle, uuid })
+  if (fileUsages.length) {
+    const message = await fileError({ req, fileUsages, assessmentName, cycleName })
     return next({ statusCode: 400, message })
   }
 

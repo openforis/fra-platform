@@ -8,4 +8,5 @@ export const FileController = {
   getAssessmentFile: AssessmentFileRepository.getOne,
   getAssessmentFiles: AssessmentFileRepository.getMany,
   removeAssessmentFile,
+  fileUsages: AssessmentFileRepository.fileUsages,
 }
