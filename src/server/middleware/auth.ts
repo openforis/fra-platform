@@ -198,7 +198,7 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
   _next(Authorizer.canEditAssessmentFile({ country, cycle, user }), next)
 }
 
-const requireEditExistingAssessmentFile = async (req: Request, res: Response, next: NextFunction) => {
+const requireEditCountryFile = async (req: Request, res: Response, next: NextFunction) => {
   const { assessmentName, cycleName, uuid } = {
     ...req.params,
     ...req.query,
@@ -206,7 +206,7 @@ const requireEditExistingAssessmentFile = async (req: Request, res: Response, ne
   } as CycleParams & { uuid: string }
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  const fileSections = await AssessmentFileRepository.fileIsInUse({ assessment, cycle, uuid })
+  const fileSections = await AssessmentFileRepository.fileUsages({ assessment, cycle, uuid })
   if (fileSections.length) {
     const message = await fileError({ req, fileSections, assessmentName, cycleName })
     return next({ statusCode: 400, message })
@@ -235,6 +235,6 @@ export const AuthMiddleware = {
   requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),
   requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
-  requireEditExistingAssessmentFile: tryCatch(requireEditExistingAssessmentFile),
+  requireEditCountryFile: tryCatch(requireEditCountryFile),
   requireUser: tryCatch(requireUser),
 }

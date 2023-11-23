@@ -2,13 +2,14 @@ import { Request } from 'express'
 import { createI18nPromise } from 'i18n/i18nFactory'
 
 import { AssessmentName, CycleName } from 'meta/assessment'
+import { FileUsage } from 'meta/cycleData'
 import { Lang } from 'meta/lang'
 
 type FileErrorParams = {
   assessmentName: AssessmentName
   cycleName: CycleName
   req: Request
-  fileSections: Array<{ key: string; suffixes?: Array<string> }>
+  fileSections: Array<FileUsage>
 }
 
 export const fileError = async (props: FileErrorParams): Promise<string> => {
