@@ -206,7 +206,7 @@ const requireEditCountryFile = async (req: Request, res: Response, next: NextFun
   } as CycleParams & { uuid: string }
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  const fileUsages = await FileController.fileUsages({ assessment, cycle, uuid })
+  const fileUsages = await FileController.getFileUsages({ assessment, cycle, uuid })
   if (fileUsages.length) {
     const message = await fileError({ req, fileUsages, assessmentName, cycleName })
     return next({ statusCode: 400, message })

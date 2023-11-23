@@ -4,7 +4,7 @@ import { FileUsage } from 'meta/cycleData'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type FileIsInUseProps = { assessment: Assessment; cycle: Cycle; uuid: string }
-export const fileUsages = async (props: FileIsInUseProps, client: BaseProtocol = DB): Promise<Array<FileUsage>> => {
+export const getFileUsages = async (props: FileIsInUseProps, client: BaseProtocol = DB): Promise<Array<FileUsage>> => {
   const { assessment, cycle, uuid } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)

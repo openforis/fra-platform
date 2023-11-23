@@ -1,5 +1,5 @@
 import { create } from './create'
-import { fileUsages } from './fileUsages'
+import { getFileUsages } from './getFileUsages'
 import { getMany } from './getMany'
 import { getOne } from './getOne'
 import { remove } from './remove'
@@ -9,5 +9,5 @@ export const AssessmentFileRepository = {
   getMany,
   getOne,
   remove,
-  fileUsages,
+  getFileUsages,
 }
