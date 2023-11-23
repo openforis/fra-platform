@@ -3,6 +3,7 @@ import { AssessmentFilesState } from 'client/store/ui/assessmentFiles/stateType'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useAssessmentFiles = (): AssessmentFilesState => useAppSelector((state) => state.ui.assessmentFiles)
+export const useIsLoadingAssessmentFiles = (): boolean => useAppSelector((state) => state.ui.assessmentFiles.loading)
 
 export const useAssessmentCountryFiles = () => {
   const assessmentFiles = useAssessmentFiles()

@@ -10,7 +10,7 @@ type Params = CycleParams & {
   fileCountryIso?: CountryIso
 }
 
-export const deleteFile = createAsyncThunk<void, Params>('assessment/files/delete', async (params) => {
+export const deleteFile = createAsyncThunk<void, Params>('assessmentFiles/delete/one', async (params) => {
   const { uuid } = params
   const { data } = await axios.delete(ApiEndPoint.File.Assessment.one(uuid), { params })
   return data

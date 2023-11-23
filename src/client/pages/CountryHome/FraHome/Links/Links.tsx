@@ -17,6 +17,7 @@ import {
   useGetAssessmentFiles,
   useUploadAssessmentFile,
 } from 'client/store/ui/assessmentFiles'
+import { useIsLoadingAssessmentFiles } from 'client/store/ui/assessmentFiles/hooks'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
@@ -41,6 +42,7 @@ const Links: React.FC = () => {
 
   const uploadAssessmentFile = useUploadAssessmentFile()
   const deleteAssessmentFile = useDeleteAssessmentFile()
+  const isLoadingAssessmentFiles = useIsLoadingAssessmentFiles()
   useGetAssessmentFiles()
 
   const params = new URLSearchParams({ assessmentName, cycleName, countryIso })
@@ -76,6 +78,7 @@ const Links: React.FC = () => {
               }
             />
             <button
+              disabled={isLoadingAssessmentFiles}
               className="btn-s btn-primary"
               onClick={() => {
                 globalFileRef.current.value = ''
@@ -118,6 +121,7 @@ const Links: React.FC = () => {
           {isAdmin && (
             <div className="landing__activity-time">
               <button
+                disabled={isLoadingAssessmentFiles}
                 type="button"
                 className="btn-xs"
                 onClick={() =>
@@ -150,6 +154,7 @@ const Links: React.FC = () => {
               }
             />
             <button
+              disabled={isLoadingAssessmentFiles}
               className="btn-s btn-primary"
               onClick={() => {
                 countryFileRef.current.value = ''
@@ -182,6 +187,7 @@ const Links: React.FC = () => {
           {isAllowedToEdit && (
             <div className="landing__activity-time">
               <button
+                disabled={isLoadingAssessmentFiles}
                 type="button"
                 className="btn-xs"
                 onClick={() =>

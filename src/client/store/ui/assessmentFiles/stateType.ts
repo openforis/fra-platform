@@ -1,6 +1,10 @@
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { AssessmentFile } from 'meta/cycleData'
 
-export type AssessmentFilesState = {
-  [key in CountryIso | string]: Array<AssessmentFile>
+export type BaseState = {
+  [key in AreaCode | 'globals']?: Array<AssessmentFile>
+}
+
+export interface AssessmentFilesState extends BaseState {
+  loading: boolean
 }
