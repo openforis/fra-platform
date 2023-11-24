@@ -9,7 +9,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileDrop from 'client/components/FileDrop'
 import Icon from 'client/components/Icon'
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
+import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import { useSelectedFileContext } from '../context/selectedFilesContext'
 import { useIsChecked } from './hooks/useIsChecked'
@@ -53,6 +53,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
           <h3 className="subhead">{t('common.selectFiles')}</h3>
           <span>{t('nationalDataPoint.fileAddedWillBecomePublic')}</span>
         </div>
+        <ModalClose onClose={() => onClose([])} />
       </ModalHeader>
 
       <ModalBody>
@@ -67,9 +68,8 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
               const label = assessmentFile.fileName
 
               return (
-                <div className="file-row">
+                <div key={assessmentFile.uuid} className="file-row">
                   <ButtonCheckBox
-                    key={assessmentFile.uuid}
                     checked={isChecked(assessmentFile.uuid)}
                     label={label}
                     onClick={() => onClick(assessmentFile.uuid)}
