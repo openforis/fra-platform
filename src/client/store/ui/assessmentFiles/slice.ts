@@ -45,6 +45,19 @@ export const assessmentFilesSlice = createSlice({
       if (fileCountryIso) state[fileCountryIso].push(payload)
       else state.globals.push(payload)
     })
+
+    builder.addCase(updatePublic.fulfilled, (state, reducer) => {
+      const {
+        meta: { arg },
+        payload,
+      } = reducer
+      const { fileCountryIso } = arg
+      const files = fileCountryIso ? state[fileCountryIso] : state.globals
+      const updatedFiles = files.filter((f) => !payload.find((p) => p.uuid === f.uuid)).concat(payload)
+      if (fileCountryIso) state[fileCountryIso] = updatedFiles
+      else state.globals = updatedFiles
+    })
+
     setFileLoadingReducer(builder)
   },
 })

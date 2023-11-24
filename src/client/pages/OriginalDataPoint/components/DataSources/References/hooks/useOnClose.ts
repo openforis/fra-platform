@@ -32,6 +32,7 @@ export const useOnClose = (props: {
           assessmentName,
           cycleName,
           countryIso,
+          fileCountryIso: selectedFiles[0]?.countryIso,
           files: selectedFiles,
           public: true,
         })
