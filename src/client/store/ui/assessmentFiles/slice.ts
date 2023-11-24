@@ -1,5 +1,6 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { updatePublic } from 'client/store/ui/assessmentFiles/actions/updatePublic'
 import { setFileLoadingReducer } from 'client/store/ui/assessmentFiles/reducers/setFileLoading'
 
 import { deleteFile, getFiles, upload } from './actions'
@@ -53,6 +54,7 @@ export const AssessmentFilesActions = {
   deleteFile,
   getFiles,
   upload,
+  updatePublic,
 }
 
 export default assessmentFilesSlice.reducer as Reducer<AssessmentFilesState>

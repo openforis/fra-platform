@@ -6,6 +6,7 @@ export enum ActivityLogMessage {
   assessmentCycleCreate = 'assessmentCycleCreate',
   assessmentFileCreate = 'assessmentFileCreate',
   assessmentFileDelete = 'assessmentFileDelete',
+  assessmentFileUpdate = 'assessmentFileUpdate',
   assessmentStatusUpdate = 'assessmentStatusUpdate',
   originalDataPointCreate = 'originalDataPointCreate',
   originalDataPointUpdate = 'originalDataPointUpdate',
