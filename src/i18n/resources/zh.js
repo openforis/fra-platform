@@ -24,6 +24,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: '将文件放在此处',
+    dragAndDropOrClick: '在此处拖放文件，或点击选择文件',
+  },
+
   page: {
     assessmentSection,
   },
@@ -501,6 +506,7 @@ FRA工作组
       otherWoodedLand: '其他林地',
       otherLand: '其他土地',
     },
+    fileAddedWillBecomePublic: '添加的参考文件将可公开访问',
     forestCategoriesLabel2025: '森林、其他林地和其它土地',
     nationalClassifications: '国家级分类',
     categories: '类别',

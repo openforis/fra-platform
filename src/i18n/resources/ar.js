@@ -24,6 +24,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: 'ضع الملف هنا',
+    dragAndDropOrClick: 'اسحب و ضع الملفات هنا, او اضغط لاختيار الملف ',
+  },
+
   page: {
     assessmentSection,
   },
@@ -536,6 +541,7 @@ The FRA team
     forestCategoriesLabel2025: 'الغابات والأراضي الحرجية الأخرى والأراضي المتبقية',
     nationalClassifications: 'التصنيفات الوطنية',
     categories: 'فئات',
+    fileAddedWillBecomePublic: ' سيصبح الملف الذي تمت إضافته كمرجع , متاح للوصول إليها بشكل عام من جميع المستخدمين',
   },
 
   userManagement: {

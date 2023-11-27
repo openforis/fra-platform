@@ -22,6 +22,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: 'Enregistrer les fichiers ici',
+    dragAndDropOrClick: 'Glisser-déposer les fichiers ici, ou cliquer pour sélectionner les fichiers',
+  },
+
   page: {
     assessmentSection,
   },
@@ -451,6 +456,7 @@ L'équipe de FRA
     forestCategoriesLabel2025: 'Forêt, autres terres boisées et terres restantes',
     nationalClassifications: 'Classifications nationales',
     categories: 'Catégories',
+    fileAddedWillBecomePublic: 'Un fichier ajouté comme référence sera accessible au public',
   },
 
   userManagement: {
