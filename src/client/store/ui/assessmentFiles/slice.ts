@@ -1,7 +1,7 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { setFileLoadingReducer } from 'client/store/ui/assessmentFiles/reducers/setFileLoading'
-
+import { updateAccess } from './actions/updateAccess'
+import { setFileLoadingReducer } from './reducers/setFileLoading'
 import { deleteFile, getFiles, upload } from './actions'
 import { AssessmentFilesState } from './stateType'
 
@@ -44,6 +44,19 @@ export const assessmentFilesSlice = createSlice({
       if (fileCountryIso) state[fileCountryIso].push(payload)
       else state.globals.push(payload)
     })
+
+    builder.addCase(updateAccess.fulfilled, (state, reducer) => {
+      const {
+        meta: { arg },
+        payload,
+      } = reducer
+      const { fileCountryIso } = arg
+      const files = fileCountryIso ? state[fileCountryIso] : state.globals
+      const updatedFiles = files.filter((f) => !payload.find((p) => p.uuid === f.uuid)).concat(payload)
+      if (fileCountryIso) state[fileCountryIso] = updatedFiles
+      else state.globals = updatedFiles
+    })
+
     setFileLoadingReducer(builder)
   },
 })
@@ -53,6 +66,7 @@ export const AssessmentFilesActions = {
   deleteFile,
   getFiles,
   upload,
+  updateAccess,
 }
 
 export default assessmentFilesSlice.reducer as Reducer<AssessmentFilesState>

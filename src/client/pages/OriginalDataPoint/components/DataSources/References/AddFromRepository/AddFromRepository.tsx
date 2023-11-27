@@ -8,13 +8,12 @@ import { useAssessmentCountryFiles, useGetAssessmentFiles } from 'client/store/u
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileDrop from 'client/components/FileDrop'
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'client/components/Modal'
+import Icon from 'client/components/Icon'
+import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import { useSelectedFileContext } from '../context/selectedFilesContext'
-import { useAllSelected } from './hooks/useAllSelected'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
-import { useOnClickAll } from './hooks/useOnClickAll'
 import { useOnDrop } from './hooks/useOnDrop'
 
 type Props = {
@@ -32,9 +31,9 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
   const countryFiles = useAssessmentCountryFiles()
 
   const isChecked = useIsChecked()
-  const allSelected = useAllSelected()
+  // const allSelected = useAllSelected()
 
-  const onClickAll = useOnClickAll()
+  // const onClickAll = useOnClickAll()
   const onClick = useOnClick()
 
   const onDrop = useOnDrop()
@@ -54,25 +53,31 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
           <h3 className="subhead">{t('common.selectFiles')}</h3>
           <span>{t('nationalDataPoint.fileAddedWillBecomePublic')}</span>
         </div>
+        <ModalClose onClose={() => onClose([])} />
       </ModalHeader>
 
       <ModalBody>
         <div className="references-file-list">
           <div>
-            <ButtonCheckBox onClick={onClickAll} checked={allSelected} label={t('contactPersons.all')} />
-            <div className="divider" />
+            {/* <ButtonCheckBox onClick={onClickAll} checked={allSelected} label={t('contactPersons.all')} /> */}
+            {/* <div className="divider" /> */}
 
             {countryFiles.map((assessmentFile) => {
               const { uuid } = assessmentFile
               const url = AssessmentFiles.getHref({ assessmentName, cycleName, countryIso, uuid })
-              const label = <a href={url}>{assessmentFile.fileName}</a>
+              const label = assessmentFile.fileName
+
               return (
-                <ButtonCheckBox
-                  key={assessmentFile.uuid}
-                  checked={isChecked(assessmentFile.uuid)}
-                  label={label}
-                  onClick={() => onClick(assessmentFile.uuid)}
-                />
+                <div key={assessmentFile.uuid} className="file-row">
+                  <ButtonCheckBox
+                    checked={isChecked(assessmentFile.uuid)}
+                    label={label}
+                    onClick={() => onClick(assessmentFile.uuid)}
+                  />
+                  <a href={url}>
+                    <Icon name="hit-down" className="icon-sub " />
+                  </a>
+                </div>
               )
             })}
           </div>

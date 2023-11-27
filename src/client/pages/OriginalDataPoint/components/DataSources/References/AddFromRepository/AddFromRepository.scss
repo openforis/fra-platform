@@ -3,8 +3,19 @@
 .references-file-list {
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-gap: 10px;
-  padding: 10px;
+  gap: $spacing-xs;
+
+  .file-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: $spacing-xxs;
+    align-items: center;
+    cursor: pointer;
+
+    button.btn-checkbox {
+      justify-content: flex-start;
+    }
+  }
 }
 
 .repository-modal {
