@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { DataSource } from 'meta/assessment'
 import { TooltipId } from 'meta/tooltip'
 
-import DataColumn from 'client/components/DataGrid/DataColumn'
+import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
 import Icon from 'client/components/Icon'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 

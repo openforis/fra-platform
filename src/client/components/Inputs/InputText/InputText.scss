@@ -1,0 +1,26 @@
+@import 'src/client/style/partials';
+
+.input-text {
+  $inputOffset: 2px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: inherit;
+  font-size: inherit;
+  height: calc(100% + $inputOffset);
+  line-height: inherit;
+  margin: -1px;
+  padding: $spacing-xxs + $inputOffset;
+  position: relative;
+  text-align: inherit;
+  width: calc(100% + $inputOffset);
+  z-index: 1;
+
+  &:focus {
+    outline: none;
+    border: 1px solid $text-body;
+  }
+
+  &::placeholder {
+    color: $text-disabled;
+  }
+}

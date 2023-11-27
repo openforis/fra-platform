@@ -11,12 +11,17 @@ import { DOMs } from 'client/utils/dom'
 
 type State = any
 type Props = {
+  // eslint-disable-next-line react/require-default-props
   placeholder?: string
   value: any
   onChange: any
   disabled: any
 }
 
+/**
+ * @deprecated
+ * Use client/components/Inputs/InputText
+ */
 export default class TextInput extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
@@ -24,10 +29,12 @@ export default class TextInput extends React.Component<Props, State> {
     this.state = { hasFocus: false, placeholder }
   }
 
+  // @ts-ignore
   componentDidUpdate(prevProps: {}, prevState: State, snapshot: any) {
     if ((this.props as any).value) {
       const row = (this.refs.readOnlyElement as any).closest('tr')
       if (row) {
+        // @ts-ignore
         const { height } = DOMs.elementOffset(this.refs.readOnlyElement)
         const { height: rowHeight } = DOMs.elementOffset(row)
         row.style.height = `${Math.max(height, rowHeight, 40)}px`
