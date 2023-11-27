@@ -15,7 +15,8 @@ import { AssessmentFileLoading } from 'client/store/ui/assessmentFiles/stateType
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
-import { useOnSelectChange } from 'client/pages/CountryHome/FraHome/Links/AssessmentFileRow/hooks/useOnSelectChange'
+
+import { useOnSelectChange } from './hooks/useOnSelectChange'
 
 type Props = {
   withBorder: boolean
