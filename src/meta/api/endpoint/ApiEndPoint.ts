@@ -93,7 +93,7 @@ export const ApiEndPoint = {
     Assessment: {
       one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
       many: () => apiPath('file', 'assessment'),
-      updatePublic: () => apiPath('file', 'assessment', 'update-public'),
+      updateAccess: () => apiPath('file', 'assessment', 'update-access'),
     },
   },
 

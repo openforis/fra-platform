@@ -28,7 +28,7 @@ export const useOnClose = (props: {
       }
       // When adding a file from file repository, we make it public
       dispatch(
-        AssessmentFilesActions.updatePublic({
+        AssessmentFilesActions.updateAccess({
           assessmentName,
           cycleName,
           countryIso,

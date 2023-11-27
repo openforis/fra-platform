@@ -12,15 +12,15 @@ type Params = CycleParams & {
   public: boolean
 }
 
-export const updatePublic = createAsyncThunk<Array<AssessmentFile>, Params>(
-  'assessmentFiles/put/updatePublic',
+export const updateAccess = createAsyncThunk<Array<AssessmentFile>, Params>(
+  'assessmentFiles/put/updateAccess',
   async (params) => {
     const { countryIso, assessmentName, cycleName, files, public: _public } = params
 
     const UUIDs = files.map((f) => f.uuid)
     const data = { public: _public, UUIDs }
     const config = { params: { countryIso, assessmentName, cycleName } }
-    const { data: assessmentFiles } = await axios.put(ApiEndPoint.File.Assessment.updatePublic(), data, config)
+    const { data: assessmentFiles } = await axios.put(ApiEndPoint.File.Assessment.updateAccess(), data, config)
     return assessmentFiles
   }
 )
