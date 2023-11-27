@@ -5,10 +5,7 @@ import { Assessment } from 'meta/assessment'
 import { AssessmentFile } from 'meta/cycleData'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-
-const fields: Array<string> = ['id', 'uuid', 'country_iso', 'file_name']
-
-const selectFields = fields.map((f) => `f.${f}`).join(',')
+import { selectFields } from 'server/repository/assessment/file/selectFields'
 
 export const getMany = async (
   props: { assessment: Assessment; countryIso: CountryIso },

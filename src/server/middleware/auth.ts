@@ -204,6 +204,7 @@ const requireEditCountryFile = async (req: Request, res: Response, next: NextFun
     ...req.query,
     ...req.body,
   } as CycleParams & { uuid: string }
+
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
   const fileUsages = await FileController.getFileUsages({ assessment, cycle, uuid })
