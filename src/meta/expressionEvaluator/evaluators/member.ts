@@ -1,7 +1,7 @@
 import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 
-import { AssessmentMetaCaches, Cycle } from 'meta/assessment'
+import { AssessmentMetaCaches } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 
@@ -26,7 +26,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     )
 
     const assessment = externalVariable ? this.context.assessments[memberAssessmentName] : assessmentContext
-    const cycle = externalVariable ? assessment.cycles.find((c: Cycle) => c.name === memberCycleName) : cycleContext
+    const cycle = externalVariable ? assessment.cycles.find((c) => c.name === memberCycleName) : cycleContext
     const variablesByTables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
 
     const assessmentName = assessment.props.name

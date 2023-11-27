@@ -1,8 +1,7 @@
 export type { ActivityLog } from './activityLog'
 export { ActivityLogMessage } from './activityLog'
 export { ActivityLogs } from './activityLogs'
-export type { Assessment, RecordAssessments } from './assessment'
-export type { AssessmentProps } from './assessment'
+export type { Assessment, AssessmentProps, RecordAssessments } from './assessment'
 export type {
   AssessmentMetaCache,
   DependencyCache,
