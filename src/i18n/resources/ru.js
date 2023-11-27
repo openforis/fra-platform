@@ -269,6 +269,7 @@ module.exports.translation = {
       confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',
       fileUploaded: 'Файл успешно загружен',
       fileDeleted: 'Файл успешно удален',
+      fileOperationFailed: `Операция не может быть выполнена, так как файл используется в:\n{{sectionNames}}`,
     },
     dataExport: {
       downloadData: 'Загрузить данные',

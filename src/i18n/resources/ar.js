@@ -309,6 +309,7 @@ Thanks,
       confirmDelete: 'هل ستحذف {{file}}? لا يمكنك العودة عن هذه الخطوة',
       fileUploaded: 'تم تحميل الملف بنجاح',
       fileDeleted: 'تم حذف الملف بنجاح',
+      fileOperationFailed: `:لا يمكن تنفيذ العملية لأن الملف قيد الاستخدام في :\n{{sectionNames}}`,
     },
     dataExport: {
       downloadData: 'تحميل البيانات',

@@ -278,6 +278,7 @@ FRA工作组 fra@fao.org
       confirmDelete: '删除 {{file}}? 此操作无法撤销。',
       fileUploaded: '文件成功上传',
       fileDeleted: '文件成功删除',
+      fileOperationFailed: `该操作无法进行，因为此文件已被用于:\n{{sectionNames}}`,
     },
     dataExport: {
       downloadData: '下载数据',
