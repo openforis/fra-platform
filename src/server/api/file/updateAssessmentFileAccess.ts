@@ -6,7 +6,7 @@ import { FileController } from 'server/controller/file'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import Requests from 'server/utils/requests'
 
-export const updatePublicAssessmentFile = async (
+export const updateAssessmentFileAccess = async (
   req: CycleRequest<never, { UUIDs: Array<string>; public: boolean }>,
   res: Response
 ) => {
@@ -16,7 +16,7 @@ export const updatePublicAssessmentFile = async (
     const assessment = await AssessmentRepository.getOne({ assessmentName })
     const user = Requests.getUser(req)
 
-    const updatedFiles = await FileController.updateManyAssessmentFiles({
+    const updatedFiles = await FileController.updateManyAssessmentFileAccess({
       assessment,
       UUIDs,
       props: { public: _public },

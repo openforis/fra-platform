@@ -5,7 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { getBulkDownload } from 'server/api/file/getBulkDownload'
 import { getPrivateFile } from 'server/api/file/getPrivateFile'
 import { getUserGuideFile } from 'server/api/file/getUserGuide'
-import { updatePublicAssessmentFile } from 'server/api/file/updatePublicAssessmentFile'
+import { updateAssessmentFileAccess } from 'server/api/file/updateAssessmentFileAccess'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { createAssessmentFile } from './createAssessmentFile'
@@ -50,7 +50,7 @@ export const FileApi = {
     express.put(
       ApiEndPoint.File.Assessment.updatePublic(),
       AuthMiddleware.requireEditAssessmentFile,
-      updatePublicAssessmentFile
+      updateAssessmentFileAccess
     )
   },
 }

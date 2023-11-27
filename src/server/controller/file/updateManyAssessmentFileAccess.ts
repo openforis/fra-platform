@@ -15,7 +15,7 @@ type Props = {
   UUIDs: Array<string>
 }
 
-export const updateManyAssessmentFiles = async (
+export const updateManyAssessmentFileAccess = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<Array<AssessmentFile>> => {
@@ -31,7 +31,7 @@ export const updateManyAssessmentFiles = async (
     }))
 
     const target = { files }
-    const message = ActivityLogMessage.assessmentFileUpdate
+    const message = ActivityLogMessage.assessmentFileUpdateAccess
     const activityLog = { target, section: 'assessment', message, countryIso, user }
     const activityLogParams = { activityLog, assessment }
     await ActivityLogRepository.insertActivityLog(activityLogParams, t)
