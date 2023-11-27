@@ -29,6 +29,7 @@ module.exports = {
   select: 'Выбрать',
   selectAll: 'Выделить все',
   selectArea: 'Выбрать географический район',
+  selectFiles: 'Выбрать файлы',
   statisticalFactsheets: 'Статистические бюллетени',
   status: 'Статус',
   submit: 'Направить',

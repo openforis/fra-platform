@@ -25,6 +25,7 @@ module.exports = {
   select: 'اختيار',
   selectAll: 'اختيار الكل',
   selectArea: 'اختيار منطقة جغرافية',
+  selectFiles: 'اختر الملف',
   statisticalFactsheets: 'صحائف وقائع إحصائية',
   status: 'الحالة',
   submit: 'تقديم',

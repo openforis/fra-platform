@@ -25,6 +25,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: 'Coloque aquí los archivos',
+    dragAndDropOrClick: 'Arrastre y coloque los archivos aquí, o haga clic en "Seleccionar archivos"',
+  },
+
   page: {
     assessmentSection,
   },
@@ -458,6 +463,7 @@ El equipo de FRA
     forestCategoriesLabel2025: 'Bosque, Otras Tierras Boscosas y Superfície Terrestre Restante',
     nationalClassifications: 'Clasificaciones nacionales',
     categories: 'Categorías',
+    fileAddedWillBecomePublic: 'Los archivos añadidos como referencias serán de acceso público',
   },
 
   userManagement: {
