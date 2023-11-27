@@ -23,6 +23,11 @@
   }
 }
 
+.landing__activity-item-controls {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
 .landing__activity-avatar {
   flex-shrink: 0;
   border-radius: 100%;
