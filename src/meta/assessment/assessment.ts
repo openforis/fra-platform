@@ -14,3 +14,5 @@ export interface Assessment {
   props: AssessmentProps
   metaCache?: Record<CycleUuid, AssessmentMetaCache>
 }
+
+export type RecordAssessments = Record<AssessmentName, Assessment>

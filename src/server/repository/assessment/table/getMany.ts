@@ -3,21 +3,22 @@ import { Assessment, Cycle, Table } from 'meta/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { TableAdapter } from 'server/repository/adapter'
 
-export const getOne = async (
-  props: { assessment: Assessment; cycle: Cycle; tableName: string },
-  client: BaseProtocol = DB
-): Promise<Table> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+}
+
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Table>> => {
   const { assessment, cycle } = props
   const schemaName = Schemas.getName(assessment)
 
-  return client.one<Table>(
+  return client.map<Table>(
     `
           select t.*
           from ${schemaName}.table t
-          where props ->> 'name' = $2 
-            and props -> 'cycles' ? $1;
+          where props -> 'cycles' ? $1;
       `,
-    [cycle.uuid, props.tableName],
+    [cycle.uuid],
     TableAdapter
   )
 }
