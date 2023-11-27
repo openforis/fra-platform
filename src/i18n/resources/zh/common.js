@@ -25,6 +25,7 @@ module.exports = {
   select: '选择',
   selectAll: '选择所有',
   selectArea: '选择地理区域',
+  selectFiles: '选择文件',
   statisticalFactsheets: '统计资料表',
   status: '状况',
   tier: '等级',

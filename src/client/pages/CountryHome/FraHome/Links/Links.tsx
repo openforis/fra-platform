@@ -1,28 +1,28 @@
 import './Links.scss'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
+import { AssessmentFiles } from 'meta/cycleData'
 import { Authorizer, Users } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
 import { useCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { AssessmentFilesActions } from 'client/store/ui/assessmentFiles'
-import { useAssessmentFiles } from 'client/store/ui/assessmentFiles/hooks'
+import { useCycle } from 'client/store/assessment'
+import {
+  useAssessmentFiles,
+  useDeleteAssessmentFile,
+  useGetAssessmentFiles,
+  useUploadAssessmentFile,
+} from 'client/store/ui/assessmentFiles'
 import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
-import { useToaster } from 'client/hooks/useToaster'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 
 const Links: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const { toaster } = useToaster()
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
   const country = useCountry(countryIso)
   const { t } = useTranslation()
@@ -39,59 +39,18 @@ const Links: React.FC = () => {
 
   const isAllowedToEdit = Authorizer.canEditAssessmentFile({ user, country, cycle })
 
-  const uploadAssessmentFile = useCallback(
-    (fileCountryIso?: CountryIso) => {
-      dispatch(
-        AssessmentFilesActions.upload({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          file: fileCountryIso ? countryFileRef?.current?.files[0] : globalFileRef?.current?.files[0],
-          fileCountryIso,
-        })
-      ).then(() => {
-        toaster.success(t('landing.links.fileUploaded'))
-      })
-    },
-    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
-  )
+  const uploadAssessmentFile = useUploadAssessmentFile()
+  const deleteAssessmentFile = useDeleteAssessmentFile()
+  useGetAssessmentFiles()
 
-  const deleteAssessmentFile = useCallback(
-    (uuid: string, fileCountryIso?: CountryIso) => {
-      dispatch(
-        AssessmentFilesActions.deleteFile({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          uuid,
-          fileCountryIso,
-        })
-      ).then(() => {
-        toaster.success(t('landing.links.fileDeleted'))
-      })
-    },
-    [dispatch, assessment.props.name, cycle.name, countryIso, toaster, t]
-  )
-
-  useEffect(() => {
-    dispatch(
-      AssessmentFilesActions.getFiles({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-      })
-    )
-  }, [assessment, cycle, countryIso, dispatch])
-
+  const params = new URLSearchParams({ assessmentName, cycleName, countryIso })
   const links = [
     {
       href: 'https://unfccc.int/process/parties-non-party-stakeholders/parties/national-focal-point',
       key: 'unfcccFocalPoints',
     },
     {
-      href: `${ApiEndPoint.File.sdgFocalPoints()}?assessmentName=${
-        assessment.props.name
-      }&countryIso=${countryIso}&cycleName=${cycle.name}`,
+      href: `${ApiEndPoint.File.sdgFocalPoints()}?${params}`,
       key: 'sdgFocalPoints',
     },
     { href: 'https://slms4redd.org/', key: 'reddPortal' },
@@ -109,7 +68,12 @@ const Links: React.FC = () => {
               ref={globalFileRef}
               type="file"
               style={{ display: 'none' }}
-              onChange={() => uploadAssessmentFile()}
+              onChange={() =>
+                uploadAssessmentFile({
+                  fileCountryIso: null,
+                  file: globalFileRef.current.files[0],
+                })
+              }
             />
             <button
               className="btn-s btn-primary"
@@ -144,9 +108,7 @@ const Links: React.FC = () => {
           <div className="landing__activity">
             <a
               className="link"
-              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?countryIso=${countryIso}&assessmentName=${
-                assessment.props.name
-              }&cycleName=${cycle.name}`}
+              href={AssessmentFiles.getHref({ assessmentName, cycleName, countryIso, uuid: assessmentFile.uuid })}
               target="_blank"
               rel="noreferrer"
             >
@@ -156,6 +118,7 @@ const Links: React.FC = () => {
           {isAdmin && (
             <div className="landing__activity-time">
               <button
+                disabled={assessmentFile.loading}
                 type="button"
                 className="btn-xs"
                 onClick={() =>
@@ -180,7 +143,12 @@ const Links: React.FC = () => {
               ref={countryFileRef}
               type="file"
               style={{ display: 'none' }}
-              onChange={() => uploadAssessmentFile(countryIso)}
+              onChange={() =>
+                uploadAssessmentFile({
+                  fileCountryIso: countryIso,
+                  file: countryFileRef.current.files[0],
+                })
+              }
             />
             <button
               className="btn-s btn-primary"
@@ -205,9 +173,7 @@ const Links: React.FC = () => {
           <div className="landing__activity">
             <a
               className="link"
-              href={`${ApiEndPoint.File.Assessment.one(assessmentFile.uuid)}?countryIso=${countryIso}&assessmentName=${
-                assessment.props.name
-              }&cycleName=${cycle.name}`}
+              href={AssessmentFiles.getHref({ assessmentName, cycleName, countryIso, uuid: assessmentFile.uuid })}
               target="_blank"
               rel="noreferrer"
             >
@@ -217,6 +183,7 @@ const Links: React.FC = () => {
           {isAllowedToEdit && (
             <div className="landing__activity-time">
               <button
+                disabled={assessmentFile.loading}
                 type="button"
                 className="btn-xs"
                 onClick={() =>

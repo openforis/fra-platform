@@ -24,6 +24,7 @@ module.exports = {
   select: 'Choisissez',
   selectAll: 'Tout sélectionner',
   selectArea: 'Choisissez une zone géographique',
+  selectFiles: 'Sélectionner les fichiers',
   statisticalFactsheets: 'Fiches statistiques',
   status: 'Statut',
   submit: 'Envoyer',

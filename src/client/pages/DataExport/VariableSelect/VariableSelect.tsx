@@ -69,7 +69,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
         <ButtonCheckBox
           className="btn-all"
           checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
-          label={selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+          label={t(selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
           onClick={() => {
             updateSelection(
               selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)

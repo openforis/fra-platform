@@ -71,7 +71,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
               key={allOrNone}
               checked={selectedSections === allOrNone}
               className="label-bold"
-              label={`contactPersons.${allOrNone}`}
+              label={t(`contactPersons.${allOrNone}`)}
               onClick={() => setSelectedSections(allOrNone === 'all' ? 'all' : 'none')}
             />
           ))}
@@ -88,7 +88,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
                 key={permission}
                 checked={checked}
                 className="label-bold"
-                label={`userManagement.permissionNames.${permission}`}
+                label={t(`userManagement.permissionNames.${permission}`)}
                 onClick={() => toggleOptions(permission, !checked)}
               />
             )
@@ -108,7 +108,7 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
                   <ButtonCheckBox
                     key={`${section}-${permission}`}
                     checked={checked}
-                    label={label}
+                    label={t(label)}
                     onClick={() => toggleOption(section, permission)}
                   />
                 )

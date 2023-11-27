@@ -31,6 +31,7 @@ module.exports = {
   select: 'Select',
   selectAll: 'Select all',
   selectArea: 'Select geographical area',
+  selectFiles: 'Select files',
   statisticalFactsheets: 'Statistical factsheets',
   status: 'Status',
   submit: 'Submit',

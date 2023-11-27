@@ -24,6 +24,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: 'Загрузить файлы',
+    dragAndDropOrClick: 'Переместите некоторые файлы сюда или нажмите для выбора файлов',
+  },
+
   page: {
     assessmentSection,
   },
@@ -264,6 +269,7 @@ module.exports.translation = {
       confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',
       fileUploaded: 'Файл успешно загружен',
       fileDeleted: 'Файл успешно удален',
+      fileOperationFailed: `Операция не может быть выполнена, так как файл используется в:\n{{sectionNames}}`,
     },
     dataExport: {
       downloadData: 'Загрузить данные',
@@ -488,6 +494,7 @@ module.exports.translation = {
     dataSource2025ExplanatoryText:
       'Перечисленные источники данных были представлены в ОЛР-2020. Просьба скопировать и вставить соответствующие источники данных в таблицу выше.',
     confirmCopyPreviousValues: 'Вы хотите изменить предыдущие значения? Эту операцию нельзя отменить.',
+    fileAddedWillBecomePublic: 'Файл, добавленный в качестве справочного документа, станет общедоступным',
   },
 
   userManagement: {

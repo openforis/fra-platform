@@ -96,17 +96,25 @@
 
 .odp__data-source-input-column {
   width: 75%;
+  white-space: initial;
 
   .jodit-container {
     border: unset !important;
     height: unset !important;
     min-height: unset !important;
+
+    .icon.jodit-icon {
+      stroke: none;
+    }
   }
 
   .jodit-workplace,
   .jodit-wysiwyg {
     height: $spacing-xxxl !important;
     min-height: $spacing-xxxl !important;
+    p {
+      margin: unset;
+    }
   }
 
   .vgtf__textarea {

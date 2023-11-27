@@ -22,6 +22,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: 'Enregistrer les fichiers ici',
+    dragAndDropOrClick: 'Glisser-déposer les fichiers ici, ou cliquer pour sélectionner les fichiers',
+  },
+
   page: {
     assessmentSection,
   },
@@ -241,6 +246,7 @@ des domaines boréal, tempéré et sous-tropical`,
       confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
       fileUploaded: 'Fichier téléchargé avec succès',
       fileDeleted: 'Fichier supprimé avec succès',
+      fileOperationFailed: `L'opération ne peut pas être réalisée parce que le fichier est en cours d'utilisation dans:\n{{sectionNames}}`,
     },
   },
 
@@ -451,6 +457,7 @@ L'équipe de FRA
     forestCategoriesLabel2025: 'Forêt, autres terres boisées et terres restantes',
     nationalClassifications: 'Classifications nationales',
     categories: 'Catégories',
+    fileAddedWillBecomePublic: 'Un fichier ajouté comme référence sera accessible au public',
   },
 
   userManagement: {

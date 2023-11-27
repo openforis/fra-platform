@@ -26,6 +26,11 @@ module.exports.translation = {
   statisticalFactsheets,
   uc,
 
+  fileDrop: {
+    dropFilesHere: 'Drop files here',
+    dragAndDropOrClick: 'Drag and drop some files here, or click to select files',
+  },
+
   page: {
     assessmentSection,
   },
@@ -287,6 +292,7 @@ The FRA team fra@fao.org
       fileUploaded: 'File successfully uploaded',
       confirmDelete: 'Delete {{file}}? This cannot be undone.',
       fileDeleted: 'File successfully deleted',
+      fileOperationFailed: `The operation cannot be performed because the file is used in:\n{{sectionNames}}`,
     },
     dataExport: {
       downloadData: 'Download data',
@@ -526,6 +532,7 @@ The FRA team
       otherWoodedLand: 'Other wooded land',
       otherLand: 'Other land',
     },
+    fileAddedWillBecomePublic: 'A file added as reference will become publicly accessible',
   },
 
   userManagement: {

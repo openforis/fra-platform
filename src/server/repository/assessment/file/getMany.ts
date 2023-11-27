@@ -1,13 +1,11 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, AssessmentFile } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { AssessmentFile } from 'meta/cycleData'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-
-const fields: Array<string> = ['id', 'uuid', 'country_iso', 'file_name']
-
-const selectFields = fields.map((f) => `f.${f}`).join(',')
+import { selectFields } from 'server/repository/assessment/file/selectFields'
 
 export const getMany = async (
   props: { assessment: Assessment; countryIso: CountryIso },
@@ -25,7 +23,7 @@ export const getMany = async (
       where
         (f.country_iso = $1
         or f.country_iso is null)
-      and f.private is not true;
+        and (f.props ->> 'hidden')::boolean is not true
     `,
     [countryIso],
     (row) => Objects.camelize(row)

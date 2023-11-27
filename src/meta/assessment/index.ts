@@ -2,7 +2,6 @@ export type { ActivityLog } from './activityLog'
 export { ActivityLogMessage } from './activityLog'
 export { ActivityLogs } from './activityLogs'
 export type { Assessment, AssessmentProps, RecordAssessments } from './assessment'
-export type { AssessmentFile } from './assessmentFile'
 export type {
   AssessmentMetaCache,
   DependencyCache,
@@ -66,3 +65,4 @@ export type { Table, TableColumnNames, TableName, TableProps } from './table'
 export { TableNames } from './table'
 export type { TableSection, TableSectionProps } from './tableSection'
 export { Unit } from './unit'
+export type { AssessmentFile } from 'meta/cycleData/assessmentFile'
