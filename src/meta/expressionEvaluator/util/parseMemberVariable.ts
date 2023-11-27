@@ -1,5 +1,7 @@
 import { MemberExpression } from '@openforis/arena-core'
 
+import { VariableCache } from 'meta/assessment'
+
 const getExpressionDepth = (expressionNode: MemberExpression): number => {
   let depth = 0
   let currentExpressionNode = expressionNode
@@ -11,16 +13,7 @@ const getExpressionDepth = (expressionNode: MemberExpression): number => {
   return depth
 }
 
-export const parseMemberVariable = (
-  expressionNode: MemberExpression
-): {
-  tableName: string
-  variableName: string
-  colName?: string
-  assessmentName?: string
-  cycleName?: string
-  depth?: number
-} => {
+export const parseMemberVariable = (expressionNode: MemberExpression): VariableCache => {
   const depth = getExpressionDepth(expressionNode)
 
   switch (depth) {

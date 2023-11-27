@@ -38,11 +38,11 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props): Prom
 
   originalDataPoints.forEach(({ originalDataPoint }) => {
     const colName = String(originalDataPoint.year)
-    const nodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => {
+    const opdNodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => {
       return { tableName, variableName, colName, value: undefined }
     })
 
-    nodes.push(...nodes)
+    nodes.push(...opdNodes)
   })
 
   const nodeUpdates = { assessmentName, cycleName, countryIso, nodes }

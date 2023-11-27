@@ -1,1 +1,1 @@
-export { useData } from './useData'
+export { useDataStore as useData } from './useDataStore'
