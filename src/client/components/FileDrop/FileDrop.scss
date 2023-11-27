@@ -1,8 +1,8 @@
 @import 'src/client/style/partials';
 
-$file-drop-border-radius: 4px;
+$file-drop-border-radius: $spacing-xxxs;
 $file-drop-border-width: 2px;
-$file-drop-padding: 1rem;
+$file-drop-padding: $spacing-xs;
 $file-drop-transition-time: 0.3s;
 
 .file-drop {

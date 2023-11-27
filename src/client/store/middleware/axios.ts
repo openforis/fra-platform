@@ -12,7 +12,7 @@ const createAxiosMiddleware =
     axios.interceptors.request.use((config) => {
       const userLanguage = getState().user?.props?.lang ?? localStorage.getItem('i18n/lang') ?? Lang.en
       // eslint-disable-next-line no-param-reassign
-      config.headers.locale = userLanguage
+      config.headers['Content-Language'] = userLanguage
       return config
     })
 

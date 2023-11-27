@@ -3,7 +3,8 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 
 import { AssessmentName, CycleName } from 'meta/assessment'
 import { FileUsage } from 'meta/cycleData'
-import { Lang } from 'meta/lang'
+
+import { Requests } from 'server/utils'
 
 type FileErrorParams = {
   assessmentName: AssessmentName
@@ -14,7 +15,7 @@ type FileErrorParams = {
 
 export const fileError = async (props: FileErrorParams): Promise<string> => {
   const { assessmentName, cycleName, req, fileUsages } = props
-  const lang = req.headers.locale || Lang.en
+  const lang = Requests.getContentLanguage(req)
   const i18n = await createI18nPromise(lang)
 
   const sectionNames = fileUsages.reduce<string>((acc: string, item) => {
