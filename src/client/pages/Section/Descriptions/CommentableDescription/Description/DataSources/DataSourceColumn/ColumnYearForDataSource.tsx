@@ -2,7 +2,7 @@ import React from 'react'
 
 import { DataSource } from 'meta/assessment'
 
-import DataColumn from 'client/components/DataGrid/DataColumn'
+import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 type Props = {

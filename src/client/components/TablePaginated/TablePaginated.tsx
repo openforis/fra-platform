@@ -2,7 +2,7 @@ import './TablePaginated.scss'
 import React from 'react'
 
 import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
-import DataGrid from 'client/components/DataGrid'
+import DataGrid from 'client/components/DataGridDeprecated'
 
 import { useFetchData } from './hooks/useFetchData'
 import Body from './Body'

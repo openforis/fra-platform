@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import { useTablePaginatedCount, useTablePaginatedData } from 'client/store/ui/tablePaginated'
 import { limit } from 'client/store/ui/tablePaginated/constants'
-import DataColumn from 'client/components/DataGrid/DataColumn'
+import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
 import { Props } from 'client/components/TablePaginated/types'
 
 const Body = <Datum extends object>(props: Props<Datum>) => {

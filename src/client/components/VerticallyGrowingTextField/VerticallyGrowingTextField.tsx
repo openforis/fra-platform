@@ -8,6 +8,10 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   disabled?: boolean
 }
 
+/**
+ * @deprecated
+ * Use client/components/Inputs/TextArea
+ */
 const VerticallyGrowingTextField = forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
   const { value, minWidth: minWidthProps, disabled, ...rest } = props
   const minWidth = minWidthProps ? `${minWidthProps}px` : null
