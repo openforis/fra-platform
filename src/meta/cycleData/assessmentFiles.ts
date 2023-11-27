@@ -1,11 +1,11 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AreaCode, CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName } from 'meta/assessment'
 
 type GetHrefProps = {
   assessmentName: AssessmentName
   cycleName: CycleName
-  countryIso: CountryIso | AreaCode
+  countryIso: AreaCode
   uuid: string
 }
 

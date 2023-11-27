@@ -249,6 +249,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
       confirmDelete: '¿Borrar {{file}}? Esta acción no puede deshacerse.',
       fileUploaded: 'Archivo cargado correctamente',
       fileDeleted: 'Archivo eliminado correctamente',
+      fileOperationFailed: `La operación no se puede realizar porque el archivo se utiliza en:\n{{sectionNames}}`,
     },
     dataExport: {
       downloadData: 'Descargar datos',

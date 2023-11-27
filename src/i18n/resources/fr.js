@@ -246,6 +246,7 @@ des domaines boréal, tempéré et sous-tropical`,
       confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
       fileUploaded: 'Fichier téléchargé avec succès',
       fileDeleted: 'Fichier supprimé avec succès',
+      fileOperationFailed: `L'opération ne peut pas être réalisée parce que le fichier est en cours d'utilisation dans:\n{{sectionNames}}`,
     },
   },
 

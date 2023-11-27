@@ -53,6 +53,10 @@ const getUser = (req: Request) => {
   return req.user as User
 }
 
+const getContentLanguage = (req: Request) => {
+  return req.headers['content-language'] as string
+}
+
 export const Requests = {
   isGet,
   getMethod,
@@ -67,6 +71,7 @@ export const Requests = {
 
   // User
   getUser,
+  getContentLanguage,
 }
 
 export default Requests
