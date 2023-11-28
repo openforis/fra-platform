@@ -23,6 +23,18 @@
   }
 }
 
+.landing__activity-item-controls {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+
+  > .controls__separator {
+    width: 1px;
+    height: 60%;
+    background: radial-gradient($ui-border, lighten($ui-border, 12%));
+    margin: auto $spacing-xxs;
+  }
+}
+
 .landing__activity-avatar {
   flex-shrink: 0;
   border-radius: 100%;

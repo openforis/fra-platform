@@ -6,20 +6,15 @@ import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
-import { AssessmentFiles } from 'meta/cycleData'
 import { Authorizer, Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
-import {
-  useAssessmentFiles,
-  useDeleteAssessmentFile,
-  useGetAssessmentFiles,
-  useUploadAssessmentFile,
-} from 'client/store/ui/assessmentFiles'
+import { useAssessmentFiles, useGetAssessmentFiles, useUploadAssessmentFile } from 'client/store/ui/assessmentFiles'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
+import AssessmentFileRow from 'client/pages/CountryHome/FraHome/Links/AssessmentFileRow'
 
 const Links: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
@@ -36,11 +31,9 @@ const Links: React.FC = () => {
   const globalFiles = assessmentFiles.globals
 
   const isAdmin = Users.isAdministrator(user)
-
   const isAllowedToEdit = Authorizer.canEditAssessmentFile({ user, country, cycle })
 
   const uploadAssessmentFile = useUploadAssessmentFile()
-  const deleteAssessmentFile = useDeleteAssessmentFile()
   useGetAssessmentFiles()
 
   const params = new URLSearchParams({ assessmentName, cycleName, countryIso })
@@ -104,34 +97,7 @@ const Links: React.FC = () => {
       ))}
 
       {globalFiles.map((assessmentFile) => (
-        <div key={assessmentFile.uuid} className="landing__activity-item withBorder withPadding">
-          <div className="landing__activity">
-            <a
-              className="link"
-              href={AssessmentFiles.getHref({ assessmentName, cycleName, countryIso, uuid: assessmentFile.uuid })}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {assessmentFile.fileName}
-            </a>
-          </div>
-          {isAdmin && (
-            <div className="landing__activity-time">
-              <button
-                disabled={assessmentFile.loading}
-                type="button"
-                className="btn-xs"
-                onClick={() =>
-                  window.confirm(t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
-                    ? deleteAssessmentFile(assessmentFile.uuid)
-                    : null
-                }
-              >
-                <Icon className="icon-no-margin" name="trash-simple" />
-              </button>
-            </div>
-          )}
-        </div>
+        <AssessmentFileRow key={assessmentFile.uuid} withBorder assessmentFile={assessmentFile} />
       ))}
 
       <div className="landing__page-container-header landing__repository-header">
@@ -166,37 +132,7 @@ const Links: React.FC = () => {
       </div>
 
       {countryFiles.map((assessmentFile, index) => (
-        <div
-          key={assessmentFile.uuid}
-          className={classNames('landing__activity-item', 'withPadding', { withBorder: index !== 0 })}
-        >
-          <div className="landing__activity">
-            <a
-              className="link"
-              href={AssessmentFiles.getHref({ assessmentName, cycleName, countryIso, uuid: assessmentFile.uuid })}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {assessmentFile.fileName}
-            </a>
-          </div>
-          {isAllowedToEdit && (
-            <div className="landing__activity-time">
-              <button
-                disabled={assessmentFile.loading}
-                type="button"
-                className="btn-xs"
-                onClick={() =>
-                  window.confirm(t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
-                    ? deleteAssessmentFile(assessmentFile.uuid, countryIso)
-                    : null
-                }
-              >
-                <Icon className="icon-no-margin" name="trash-simple" />
-              </button>
-            </div>
-          )}
-        </div>
+        <AssessmentFileRow key={assessmentFile.uuid} withBorder={index !== 0} assessmentFile={assessmentFile} />
       ))}
     </div>
   )

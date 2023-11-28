@@ -52,7 +52,11 @@ export const assessmentFilesSlice = createSlice({
       } = reducer
       const { fileCountryIso } = arg
       const files = fileCountryIso ? state[fileCountryIso] : state.globals
-      const updatedFiles = files.filter((f) => !payload.find((p) => p.uuid === f.uuid)).concat(payload)
+      const updatedFiles = files
+        .filter((f) => !payload.find((p) => p.uuid === f.uuid))
+        .concat(payload)
+        .sort((a, b) => a.fileName.localeCompare(b.fileName))
+
       if (fileCountryIso) state[fileCountryIso] = updatedFiles
       else state.globals = updatedFiles
     })
