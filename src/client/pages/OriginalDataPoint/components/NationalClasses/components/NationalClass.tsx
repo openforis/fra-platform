@@ -1,99 +1,90 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
-import { Objects } from 'utils/objects'
-
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { DataCell } from 'client/components/DataGrid'
 import Icon from 'client/components/Icon'
+import InputText from 'client/components/Inputs/InputText'
+import TextArea from 'client/components/Inputs/TextArea'
 import ReviewIndicator from 'client/components/ReviewIndicator'
-import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
-import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
+// import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
+import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
 
 import { useOnChangeNationalClass } from './hooks/onChangeNationalClass'
 
 type Props = {
-  canEditData: boolean
   index: number
   originalDataPoint: OriginalDataPoint
 }
 
 const NationalClass: React.FC<Props> = (props) => {
-  const { index, canEditData, originalDataPoint } = props
-  const { year } = originalDataPoint
-  const disabled = !canEditData || !year
+  const { index, originalDataPoint } = props
+  const { nationalClasses } = originalDataPoint
+
   const i18n = useTranslation()
-
   const { print } = useIsPrintRoute()
+  const canEditData = useCanEditData(originalDataPoint)
 
-  const nationalClass = originalDataPoint.nationalClasses[index]
+  const nationalClass = nationalClasses[index]
   const { name, definition, uuid, placeHolder } = nationalClass
-  const target = [originalDataPoint.id, 'class', `${uuid}`, 'definition'] as string[]
-  const classNameRowComments = useNationalClassNameComments(target)
+  const lastRow = canEditData && !print ? placeHolder : index === nationalClasses.length - (print ? 1 : 2)
+  // TODO next pr
+  // const target = [originalDataPoint.id, 'class', `${uuid}`, 'definition'] as string[]
+  // const classNameRowComments = useNationalClassNameComments(target)
+
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
+  const error = !nationalClassValidation.validClassName
 
   const { onChangeDefinition, onChangeName, onDeleteNationalClass, onPasteDefinition, onPasteName } =
     useOnChangeNationalClass({ index })
 
-  /* placeHolder-rows can't be removed */
-  const shouldRenderDeleteButton = !placeHolder && canEditData && !print
-  const shouldRenderReviewIndicator = !print && canEditData && !placeHolder && !Objects.isNil(originalDataPoint.id)
+  if (!canEditData && placeHolder) {
+    return null
+  }
+
   return (
-    <tr className={classNameRowComments}>
-      <td
-        className={classNames(`fra-table__cell-left odp__nc-table__name`, {
-          error: !nationalClassValidation.validClassName,
-        })}
-      >
-        <div className="odp__nc-table__input-container">
-          {print ? (
-            <div className="text-input__readonly-view only-print" style={{ paddingTop: 0, paddingBottom: 0 }}>
-              {name || ''}
-            </div>
-          ) : (
-            <input
-              className="odp__nc-table__input validation-error-sensitive-field"
-              type="text"
-              placeholder={
-                placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
-              }
-              value={name || ''}
-              onChange={onChangeName}
-              onPaste={onPasteName}
-              disabled={disabled}
-            />
-          )}
+    <>
+      <DataCell error={error} lastRow={lastRow}>
+        <InputText
+          disabled={!canEditData}
+          onChange={onChangeName}
+          onPaste={onPasteName}
+          placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
+          value={name ?? ''}
+        />
+      </DataCell>
 
-          {shouldRenderDeleteButton && (
-            <button type="button" className="odp__nc-table__remove" onClick={onDeleteNationalClass}>
-              <Icon name="remove" />
-            </button>
-          )}
-        </div>
-      </td>
-
-      <td className="fra-table__cell-left odp__nc-table__def">
-        <VerticallyGrowingTextField
-          value={definition || ''}
+      <DataCell lastCol lastRow={lastRow}>
+        <TextArea
+          disabled={!canEditData}
           onChange={onChangeDefinition}
           onPaste={onPasteDefinition}
-          disabled={print || disabled}
+          value={definition ?? ''}
         />
-      </td>
+      </DataCell>
 
-      {shouldRenderReviewIndicator && (
-        <td className="fra-table__review-cell no-print">
-          <ReviewIndicator
-            title={name}
-            subtitle={i18n.t('nationalDataPoint.nationalDataPoint')}
-            topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'definition')}
-          />
-        </td>
+      {canEditData && !placeHolder && (
+        <>
+          <DataCell className="odp__grid__cell-delete" review>
+            {!placeHolder && (
+              <button className="btn-s btn-link-destructive" onClick={onDeleteNationalClass} type="button">
+                <Icon className="icon-no-margin" name="trash-simple" />
+              </button>
+            )}
+          </DataCell>
+          <DataCell review>
+            <ReviewIndicator
+              subtitle={i18n.t('nationalDataPoint.nationalDataPoint')}
+              title={name}
+              topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'definition')}
+            />
+          </DataCell>
+        </>
       )}
-    </tr>
+    </>
   )
 }
 
