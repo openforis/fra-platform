@@ -9,12 +9,12 @@ import { Responses } from 'server/utils/responses'
 
 type GetPrivateFileRequest = Request<never, never, never, { assessmentName: AssessmentName; fileName: string }>
 
-export const getPrivateFile = async (req: GetPrivateFileRequest, res: Response) => {
+export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response) => {
   try {
     const { assessmentName, fileName } = req.query
 
     const assessment = await AssessmentController.getOne({ assessmentName })
-    const assessmentFile = await FileController.getAssessmentFile({ assessment, fileName })
+    const assessmentFile = await FileController.getHiddenAssessmentFile({ assessment, fileName })
 
     Responses.sendAssessmentFile(res, assessmentFile)
   } catch (err) {
