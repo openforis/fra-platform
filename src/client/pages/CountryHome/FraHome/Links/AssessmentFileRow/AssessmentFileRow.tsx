@@ -67,7 +67,7 @@ const AssessmentFileRow: React.FC<Props> = (props: Props) => {
                 <option value="private">{t('common.private')}</option>
                 <option value="public">{t('common.public')}</option>
               </select>
-              <div className="toolbar__separator" />
+              <div className="controls__separator" />
             </>
           )}
           <button

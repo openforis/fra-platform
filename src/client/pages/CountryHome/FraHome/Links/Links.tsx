@@ -97,7 +97,7 @@ const Links: React.FC = () => {
       ))}
 
       {globalFiles.map((assessmentFile) => (
-        <AssessmentFileRow withBorder assessmentFile={assessmentFile} />
+        <AssessmentFileRow key={assessmentFile.uuid} withBorder assessmentFile={assessmentFile} />
       ))}
 
       <div className="landing__page-container-header landing__repository-header">
@@ -132,7 +132,7 @@ const Links: React.FC = () => {
       </div>
 
       {countryFiles.map((assessmentFile, index) => (
-        <AssessmentFileRow withBorder={index !== 0} assessmentFile={assessmentFile} />
+        <AssessmentFileRow key={assessmentFile.uuid} withBorder={index !== 0} assessmentFile={assessmentFile} />
       ))}
     </div>
   )
