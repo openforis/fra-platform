@@ -2,10 +2,15 @@ import { Objects } from 'utils/objects'
 
 import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
 import { AssessmentStatus } from 'meta/area/country'
-import { Assessment, Cycle, Section, SubSection } from 'meta/assessment'
+import { Assessment, AssessmentFile, Cycle, Section, SubSection } from 'meta/assessment'
 import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
 import { Users } from 'meta/user/users'
+
+const userHasRoleForCountryInCycle = (user: User, countryIso: AreaCode, cycle: Cycle) =>
+  user?.roles.some((role) => {
+    return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
+  })
 
 /**
  *  CanView
@@ -24,11 +29,7 @@ const canView = (props: { assessment: Assessment; countryIso: AreaCode; cycle: C
   // if global or region, user must have at least one role in that assessment
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return Users.hasRoleInAssessment({ assessment, user })
 
-  const userHasRoleForCountryInCycle = user?.roles.some((role) => {
-    return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
-  })
-
-  return userHasRoleForCountryInCycle
+  return userHasRoleForCountryInCycle(user, countryIso, cycle)
 }
 
 /**
@@ -45,11 +46,7 @@ const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User 
   if (Users.isAdministrator(user)) return true
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
 
-  const userHasRoleForCountryInCycle = user?.roles.some((role) => {
-    return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
-  })
-
-  return userHasRoleForCountryInCycle
+  return userHasRoleForCountryInCycle(user, countryIso, cycle)
 }
 
 /**
@@ -156,9 +153,30 @@ const canEditCountryProps = (props: {
 const canEditAssessmentFile = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
   canEditCountryProps({ ...props, allowCollaborator: true })
 
+const canViewCountryFile = (props: {
+  assessment: Assessment
+  cycle: Cycle
+  countryIso: CountryIso
+  user: User
+  assessmentFile: AssessmentFile
+}): boolean => {
+  const { assessment, countryIso, user, cycle, assessmentFile } = props
+  if (Users.isAdministrator(user)) return true
+
+  const userCanView = canView({ assessment, user, countryIso, cycle })
+  const isPublic = assessmentFile?.props.public
+
+  if (isPublic) {
+    return userCanView
+  }
+
+  return userHasRoleForCountryInCycle(user, countryIso, cycle)
+}
+
 export const Authorizer = {
   canView,
   canViewUsers,
+  canViewCountryFile,
   canEditData,
   canEditCountryProps,
   canEditAssessmentFile,

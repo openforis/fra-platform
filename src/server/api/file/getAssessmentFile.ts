@@ -11,10 +11,11 @@ export const getAssessmentFile = async (req: CycleRequest, res: Response) => {
   try {
     const { uuid } = req.params
 
-    const { assessmentName } = req.query
+    const { assessmentName, cycleName, countryIso } = req.query
+    const user = Requests.getUser(req)
 
-    const assessment = await AssessmentController.getOne({ assessmentName })
-    const assessmentFile = await FileController.getAssessmentFile({ assessment, uuid })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const assessmentFile = await FileController.getAssessmentFile({ assessment, cycle, countryIso, user, uuid })
 
     Responses.sendAssessmentFile(res, assessmentFile)
   } catch (e) {

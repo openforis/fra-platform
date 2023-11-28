@@ -18,7 +18,6 @@ export const sendErr = (res: any, err?: any, statusCode = err.statusCode ?? 500)
   } else {
     res.status(statusCode).json({
       error: err.message ?? 'Could not serve',
-      params: err.params ?? {},
     })
   }
 }
