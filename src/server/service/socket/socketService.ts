@@ -7,7 +7,6 @@ import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 let io: Server
-// let emitter: Emitter
 
 const init = async (server: http.Server): Promise<void> => {
   const clientAdapter = createClient({ url: ProcessEnv.redisQueueUrl })
