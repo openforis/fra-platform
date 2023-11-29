@@ -69,11 +69,9 @@ const NationalClass: React.FC<Props> = (props) => {
       {canEditData && !placeHolder && (
         <>
           <DataCell className="odp__grid__cell-delete" review>
-            {!placeHolder && (
-              <button className="btn-s btn-link-destructive" onClick={onDeleteNationalClass} type="button">
-                <Icon className="icon-no-margin" name="trash-simple" />
-              </button>
-            )}
+            <button className="btn-s btn-link-destructive" onClick={onDeleteNationalClass} type="button">
+              <Icon className="icon-no-margin" name="trash-simple" />
+            </button>
           </DataCell>
           <DataCell review>
             <ReviewIndicator
