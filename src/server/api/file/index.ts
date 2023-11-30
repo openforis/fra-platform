@@ -52,7 +52,7 @@ export const FileApi = {
     express.delete(ApiEndPoint.File.Assessment.one(), AuthMiddleware.requireEditCountryFile, removeAssessmentFile)
     express.put(
       ApiEndPoint.File.Assessment.updateAccess(),
-      AuthMiddleware.requireEditAssessmentFile,
+      AuthMiddleware.requireEditAssessmentFileAccess,
       updateAssessmentFileAccess
     )
   },
