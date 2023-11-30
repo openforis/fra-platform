@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import DataColumn from 'client/components/DataGrid/DataColumn'
+import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
 import OrderBy from 'client/components/TablePaginated/Header/OrderBy'
 import { Column } from 'client/components/TablePaginated/types'
 

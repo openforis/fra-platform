@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { DataSource, Labels } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import DataColumn from 'client/components/DataGrid/DataColumn'
+import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
 import MultiSelect from 'client/components/MultiSelect'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 

@@ -1,5 +1,4 @@
 @import 'src/client/style/partials';
-@import 'src/client/styles/config';
 @import 'src/client/styles/fraTable';
 @import 'src/client/styles/inputMixins';
 
@@ -8,26 +7,6 @@
   font-size: $font-s;
   padding: $padding;
   text-align: $align;
-}
-
-.odp__section {
-  margin-top: 32px;
-  margin-bottom: 32px;
-
-  > .subhead,
-  > .headline {
-    margin-bottom: 16px;
-  }
-}
-
-.odp__section-header {
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 16px;
-
-  > * {
-    margin-right: 16px;
-  }
 }
 
 .odp__year-selection {
@@ -92,48 +71,6 @@
   margin-left: 8px;
 }
 
-// Custom table styles
-
-.odp__data-source-input-column {
-  width: 75%;
-  white-space: initial;
-
-  .jodit-container {
-    border: unset !important;
-    height: unset !important;
-    min-height: unset !important;
-
-    .icon.jodit-icon {
-      stroke: none;
-    }
-  }
-
-  .jodit-workplace,
-  .jodit-wysiwyg {
-    height: $spacing-xxxl !important;
-    min-height: $spacing-xxxl !important;
-    p {
-      margin: unset;
-    }
-  }
-
-  .vgtf__textarea {
-    p {
-      margin: unset;
-    }
-  }
-}
-
-// This is a workaround for MultiSelect problem (multiselect increases vertical scroll
-// instead of popping out of the wrapper
-.fra-table__scroll-wrapper.odp__data-source-table-wrapper {
-  overflow-x: visible;
-}
-
-.fra-table__cell.odp__data-source-input-column {
-  white-space: normal;
-}
-
 .odp__review-indicator-row-anchor {
   position: absolute;
   right: 0;
@@ -145,38 +82,6 @@
 
   .fra-review__issue-status {
     height: 37px;
-  }
-}
-
-.odp__nc-table {
-  .odp__nc-table__name {
-    width: 40%;
-    min-width: 240px;
-  }
-
-  .odp__nc-table__def {
-    width: 60%;
-    min-width: 240px;
-  }
-
-  .odp__nc-table__input-container {
-    @include mixin-input-container;
-  }
-
-  .odp__nc-table__input {
-    @include mixin-input-field;
-    padding-left: 24px;
-  }
-
-  .odp__nc-table__remove {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    top: 50%;
-    left: 4px;
-    margin-top: -8px;
-    padding: 0;
-    border: none;
   }
 }
 
@@ -279,12 +184,8 @@
 
 // ===== print view
 .odp__section-print-mode {
-  .odp__section {
-    margin: 0px;
-  }
-
   .subhead {
-    margin: 16px 0;
+    margin-top: $spacing-xs;
   }
 
   .odp__year-column {

@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
 import { Topics } from 'meta/messageCenter'
 
+import { DataCell } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import MarkdownPreview from 'client/components/MarkdownPreview'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { Props } from 'client/pages/OriginalDataPoint/components/DataSources/References/Props'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
-import { useShowReviewIndicator } from '../hooks/useShowReviewIndicator'
 import { useUpdateDataSources } from '../hooks/useUpdateDataSources'
 import { useEditorOptions } from './hooks/useEditorOptions'
 import { useOnClose } from './hooks/useOnClose'
 import AddFromRepository from './AddFromRepository'
+
+type OnChange = (value?: string) => void
 
 const References: React.FC<Props> = (props: Props) => {
   const { originalDataPoint } = props
@@ -26,18 +29,25 @@ const References: React.FC<Props> = (props: Props) => {
 
   const reviewIndicator = useShowReviewIndicator(originalDataPoint)
   const disabled = useIsDisabled(originalDataPoint)
-
   const onClose = useOnClose({ setIsOpen, setEditor, editor })
-
   const editorOptions = useEditorOptions({ setIsOpen, setEditor })
   const updateOriginalDataPoint = useUpdateDataSources()
 
+  const onChange = useCallback<OnChange>(
+    (value) => {
+      const dataSourceReferences = Objects.isEmpty(value) ? null : value
+      const originalDataPointUpdate = { ...originalDataPoint, dataSourceReferences }
+      updateOriginalDataPoint(originalDataPointUpdate)
+    },
+    [originalDataPoint, updateOriginalDataPoint]
+  )
+
   return (
-    <tr>
-      <th className="fra-table__header-cell-left">{t('nationalDataPoint.references')}</th>
-      <td className="fra-table__cell-left odp__data-source-input-column">
+    <>
+      <DataCell header>{t('nationalDataPoint.references')}</DataCell>
+      <DataCell lastCol>
         {disabled && (
-          <div className="vgtf__textarea">
+          <div className="input-container">
             <MarkdownPreview value={originalDataPoint.dataSourceReferences ?? ''} />
           </div>
         )}
@@ -45,28 +55,25 @@ const References: React.FC<Props> = (props: Props) => {
         {!disabled && (
           <>
             <EditorWYSIWYG
-              onChange={(value) => {
-                const dataSourceReferences = Objects.isEmpty(value) ? null : value
-                const originalDataPointUpdate = { ...originalDataPoint, dataSourceReferences }
-                updateOriginalDataPoint(originalDataPointUpdate)
-              }}
+              onChange={onChange}
               options={editorOptions}
               value={originalDataPoint.dataSourceReferences ?? ''}
             />
             <AddFromRepository isOpen={isOpen} onClose={onClose} />
           </>
         )}
-      </td>
+      </DataCell>
+
       {reviewIndicator && (
-        <td className="fra-table__review-cell no-print">
+        <DataCell review>
           <ReviewIndicator
             title={t('nationalDataPoint.references')}
             subtitle={t('nationalDataPoint.dataSources')}
             topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceReferences')}
           />
-        </td>
+        </DataCell>
       )}
-    </tr>
+    </>
   )
 }
 

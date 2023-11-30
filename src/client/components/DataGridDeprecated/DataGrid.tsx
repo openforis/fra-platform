@@ -7,10 +7,14 @@ type Props = {
   className?: string
   style?: React.CSSProperties
 }
+
+/**
+ * @deprecated
+ */
 const DataGrid: React.FC<React.PropsWithChildren<Props>> = (props: React.PropsWithChildren<Props>) => {
   const { children, className, style } = props
   return (
-    <div className={classNames('data-grid', className)} style={style}>
+    <div className={classNames('data-grid-deprecated', className)} style={style}>
       {children}
     </div>
   )

@@ -67,7 +67,7 @@ const GenerateValues: React.FC<Props> = (props) => {
             generateValues()
             setTimeout(() => {
               setButtonEnabled(true)
-            }, 15_000)
+            }, 4_000)
           }}
         >
           {t(buttonLabel)}
