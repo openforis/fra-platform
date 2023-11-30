@@ -1,4 +1,5 @@
 import './OriginalDataPoint.scss'
+import './OriginalDataPointSection.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -42,7 +43,7 @@ const OriginalDataPoint: React.FC = () => {
       </div>
 
       <YearSelection canEditData={isEditTableDataEnabled} />
-      <DataSources originalDataPoint={originalDataPoint} canEditData={canEditData} />
+      <DataSources originalDataPoint={originalDataPoint} />
       <NationalClasses originalDataPoint={originalDataPoint} canEditData={canEditData} />
       <OriginalData originalDataPoint={originalDataPoint} canEditData={canEditData} />
       <Comments canEditData={canEditData} />

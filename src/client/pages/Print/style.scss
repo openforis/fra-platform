@@ -1,8 +1,11 @@
+@import 'src/client/style/partials';
+
 .fra-print__container {
-  padding: 28px 32px;
+  padding: $spacing-s;
+  overflow: hidden;
 
   .app-view__container {
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   .app-view__content {
@@ -40,10 +43,6 @@
   .validation-error,
   .validation-error-sensitive-field {
     background-color: transparent !important;
-  }
-
-  .odp__nc-table__input-container {
-    position: relative !important;
   }
 
   .number-input__readonly-view {
@@ -91,7 +90,7 @@
     .page-break {
       display: block;
       height: 1px;
-      margin: 30px 0;
+      margin: $spacing-m 0;
     }
   }
 }
