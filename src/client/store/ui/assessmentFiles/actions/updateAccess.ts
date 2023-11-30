@@ -20,7 +20,7 @@ export const updateAccess = createAsyncThunk<Array<AssessmentFile>, Params>(
     const UUIDs = files.map((f) => f.uuid)
     const data = { public: _public, UUIDs }
     const config = { params: { countryIso, assessmentName, cycleName } }
-    const { data: assessmentFiles } = await axios.put(ApiEndPoint.File.Assessment.updateAccess(), data, config)
+    const { data: assessmentFiles } = await axios.put(ApiEndPoint.File.Assessment.access(), data, config)
     return assessmentFiles
   }
 )
