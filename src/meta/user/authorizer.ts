@@ -7,11 +7,6 @@ import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
 import { Users } from 'meta/user/users'
 
-const userHasRoleForCountryInCycle = (user: User, countryIso: AreaCode, cycle: Cycle) =>
-  user?.roles.some((role) => {
-    return role.countryIso === countryIso && role.cycleUuid === cycle.uuid
-  })
-
 /**
  *  CanView
  *  if cycle is published, everyone can view
@@ -29,7 +24,7 @@ const canView = (props: { assessment: Assessment; countryIso: AreaCode; cycle: C
   // if global or region, user must have at least one role in that assessment
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return Users.hasRoleInAssessment({ assessment, user })
 
-  return userHasRoleForCountryInCycle(user, countryIso, cycle)
+  return Users.hasRoleInCountry({ user, countryIso, cycle })
 }
 
 /**
@@ -46,7 +41,7 @@ const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User 
   if (Users.isAdministrator(user)) return true
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
 
-  return userHasRoleForCountryInCycle(user, countryIso, cycle)
+  return Users.hasRoleInCountry({ user, countryIso, cycle })
 }
 
 /**
@@ -164,13 +159,12 @@ const canViewCountryFile = (props: {
   if (Users.isAdministrator(user)) return true
 
   const userCanView = canView({ assessment, user, countryIso, cycle })
-  const isPublic = assessmentFile?.props.public
 
-  if (isPublic) {
+  if (assessmentFile?.props.public) {
     return userCanView
   }
 
-  return userHasRoleForCountryInCycle(user, countryIso, cycle)
+  return Users.hasRoleInCountry({ user, countryIso, cycle })
 }
 
 export const Authorizer = {

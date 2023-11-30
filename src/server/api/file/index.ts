@@ -32,7 +32,7 @@ export const FileApi = {
     express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
     express.get(ApiEndPoint.File.userGuide(), getUserGuideFile)
     express.get(ApiEndPoint.File.sdgFocalPoints(), AuthMiddleware.requireView, getSdgFocalPointsFile)
-    express.get(ApiEndPoint.File.private(), AuthMiddleware.requireUser, getHiddenFile)
+    express.get(ApiEndPoint.File.hidden(), AuthMiddleware.requireUser, getHiddenFile)
 
     // BiomassStock
     express.get(ApiEndPoint.File.biomassStock({}), AuthMiddleware.requireEditTableData, getBiomassStockFile)
