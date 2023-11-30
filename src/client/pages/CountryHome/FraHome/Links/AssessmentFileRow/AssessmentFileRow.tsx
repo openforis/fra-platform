@@ -60,6 +60,7 @@ const AssessmentFileRow: React.FC<Props> = (props: Props) => {
           {isCountryFile && (
             <>
               <select
+                disabled={assessmentFile.loading}
                 onChange={onSelectChange}
                 value={assessmentFile.props.public ? 'public' : 'private'}
                 className="select-s"

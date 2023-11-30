@@ -20,6 +20,8 @@ export const useOnClose = (props: {
   return useCallback(
     (selectedFiles: Array<AssessmentFile>) => {
       setIsOpen(false)
+      if (!selectedFiles.length) return
+
       const mapFunction = (file: AssessmentFile) => {
         const { uuid } = file
         const hrefProps = { assessmentName, cycleName, countryIso, uuid }
