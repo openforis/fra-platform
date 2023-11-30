@@ -5,45 +5,50 @@ import { OriginalDataPoint } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
+import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
 
 import NationalClass from './NationalClass'
 
-export const NationalClassesTable = (props: { canEditData: boolean; originalDataPoint: OriginalDataPoint }) => {
-  const { canEditData, originalDataPoint } = props
+type Props = {
+  originalDataPoint: OriginalDataPoint
+}
+
+export const NationalClassesTable = (props: Props) => {
+  const { originalDataPoint } = props
   const { nationalClasses, year } = originalDataPoint
-  const cycle = useCycle()
-
-  const { print } = useIsPrintRoute()
-
   const { t } = useTranslation()
+  const cycle = useCycle()
+  const { print } = useIsPrintRoute()
+  const canEdit = useCanEditData(originalDataPoint)
 
   return (
-    <div className="fra-table__container">
-      <div className="fra-table__scroll-wrapper">
-        <table className="fra-table odp__nc-table">
-          <tbody>
-            <tr>
-              {print && (
-                <th className="fra-table__header-cell odp__year-column" rowSpan={nationalClasses.length + 1}>
-                  {year}
-                </th>
-              )}
-              <th className="fra-table__header-cell-left">
-                {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClass'}`)}
-              </th>
-              <th className="fra-table__header-cell-left">{t('nationalDataPoint.definition')}</th>
-            </tr>
-            {nationalClasses.map((nationalClass, idx) => (
-              <NationalClass
-                originalDataPoint={originalDataPoint}
-                key={nationalClass.uuid}
-                index={idx}
-                canEditData={canEditData}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <DataGrid
+      gridTemplateColumns={`${print ? `100px ` : ''}minmax(240px, 40%) 1fr${canEdit ? ` 32px` : ''}`}
+      withReview={canEdit}
+    >
+      {print && (
+        <DataCell gridRow={`1/${nationalClasses.length + 2}`} header lastRow>
+          {year}
+        </DataCell>
+      )}
+
+      <DataCell header>
+        {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClass'}`)}
+      </DataCell>
+      <DataCell header lastCol>
+        {t('nationalDataPoint.definition')}
+      </DataCell>
+      {canEdit && (
+        <>
+          <div />
+          <div />
+        </>
+      )}
+
+      {nationalClasses.map((nationalClass, idx) => (
+        <NationalClass index={idx} key={nationalClass.uuid} originalDataPoint={originalDataPoint} />
+      ))}
+    </DataGrid>
   )
 }

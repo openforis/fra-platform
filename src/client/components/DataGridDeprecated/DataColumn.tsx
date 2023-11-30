@@ -5,6 +5,9 @@ import classNames from 'classnames'
 
 type Props = React.PropsWithChildren<{ className?: string; head?: boolean }>
 
+/**
+ * @deprecated
+ */
 const DataColumn: React.FC<Props> = (props: Props) => {
   const { children, className, head, ...rest } = props
   return (

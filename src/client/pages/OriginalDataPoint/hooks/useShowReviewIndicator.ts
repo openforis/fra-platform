@@ -1,7 +1,7 @@
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCanEditData } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useCanEditData'
+import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
 
 export const useShowReviewIndicator = (originalDataPoint: OriginalDataPoint) => {
   const { print } = useIsPrintRoute()
