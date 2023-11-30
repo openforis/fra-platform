@@ -7,32 +7,32 @@ import type { Jodit } from 'jodit/types/jodit'
 
 import Icon from 'client/components/Icon'
 
-type ButtonType = IControlType
-
 type Props = {
   setIsOpen: (isOpen: boolean) => void
   setEditor: (editor: Jodit) => void
 }
 
-export const useEditorOptions = (props: Props) => {
+type Returned = Partial<Jodit['options']>
+
+export const useEditorOptions = (props: Props): Returned => {
   const { setIsOpen, setEditor } = props
   const { t } = useTranslation()
 
-  const repositoryButton: ButtonType = useMemo(() => {
+  const repositoryButton = useMemo<IControlType>(() => {
     const exec = (editor: Jodit) => {
       setEditor(editor)
       setIsOpen(true)
     }
-    const label = t('landing.links.repository')
-    const tooltip = label
-    const icon = renderToStaticMarkup(<Icon name="icon-files" />)
+    const tooltip = t('landing.links.repository')
+    const icon = renderToStaticMarkup(<Icon name="icon-files" className="icon-reference-files" />)
+
     return { icon, exec, tooltip }
   }, [setEditor, setIsOpen, t])
 
-  return useMemo(() => {
+  return useMemo<Returned>(() => {
     const buttons = ['link', '|', repositoryButton]
     const statusbar = false
 
-    return { buttons, statusbar }
+    return { buttons, inline: true, statusbar }
   }, [repositoryButton])
 }

@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
+import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
 
 import AdditionalComments from './AdditionalComments'
 import MethodsUsed from './MethodsUsed'
@@ -18,24 +20,23 @@ const DataSources: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
+  const canEdit = useCanEditData(originalDataPoint)
 
   return (
     <div className="odp__section">
       {!print && <h3 className="subhead">{t('nationalDataPoint.dataSources')}</h3>}
 
-      <div className="fra-table__container">
-        <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
-          <table className="fra-table">
-            <tbody>
-              <References originalDataPoint={originalDataPoint} />
+      <DataGrid gridTemplateColumns={`${print ? `100px ` : ''}180px 1fr`} withReview={canEdit}>
+        {print && (
+          <DataCell gridRow="1/4" header lastRow>
+            {originalDataPoint.year}
+          </DataCell>
+        )}
 
-              <MethodsUsed originalDataPoint={originalDataPoint} />
-
-              <AdditionalComments originalDataPoint={originalDataPoint} />
-            </tbody>
-          </table>
-        </div>
-      </div>
+        <References originalDataPoint={originalDataPoint} />
+        <MethodsUsed originalDataPoint={originalDataPoint} />
+        <AdditionalComments originalDataPoint={originalDataPoint} />
+      </DataGrid>
     </div>
   )
 }

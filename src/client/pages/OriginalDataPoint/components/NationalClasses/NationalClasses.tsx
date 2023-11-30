@@ -18,7 +18,7 @@ const NationalClasses: React.FC<Props> = (props) => {
     <div className="odp__section">
       <Title />
       <Prefill canEditData={canEditData} originalDataPoint={originalDataPoint} />
-      <NationalClassesTable canEditData={canEditData} originalDataPoint={originalDataPoint} />
+      <NationalClassesTable originalDataPoint={originalDataPoint} />
     </div>
   )
 }

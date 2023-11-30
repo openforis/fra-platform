@@ -1,0 +1,37 @@
+@import 'src/client/style/partials';
+
+.data-cell {
+  border-left: 1px solid $ui-border;
+  border-top: 1px solid $ui-border;
+  position: relative;
+
+  &.header {
+    background-color: $ui-bg;
+    font-weight: 600;
+    padding: $spacing-xxs;
+  }
+
+  &.lastCol {
+    border-right: 1px solid $ui-border;
+  }
+
+  &.lastRow {
+    border-bottom: 1px solid $ui-border;
+  }
+
+  &.review {
+    align-self: center;
+    border: unset;
+  }
+}
+
+@include rtl {
+  .data-cell {
+    border-left: unset;
+    border-right: 1px solid $ui-border;
+
+    &.lastCol {
+      border-left: 1px solid $ui-border;
+    }
+  }
+}

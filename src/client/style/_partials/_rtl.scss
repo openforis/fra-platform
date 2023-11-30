@@ -1,0 +1,5 @@
+@mixin rtl {
+  .rtl {
+    @content;
+  }
+}

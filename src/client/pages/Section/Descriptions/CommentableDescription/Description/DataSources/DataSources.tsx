@@ -9,8 +9,8 @@ import { CommentableDescriptionValue, DataSource } from 'meta/assessment'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useSection } from 'client/store/metadata'
-import DataGrid from 'client/components/DataGrid'
-import DataColumn from 'client/components/DataGrid/DataColumn'
+import DataGrid from 'client/components/DataGridDeprecated'
+import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
 
 import { useDescriptions } from '../../../Descriptions'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'

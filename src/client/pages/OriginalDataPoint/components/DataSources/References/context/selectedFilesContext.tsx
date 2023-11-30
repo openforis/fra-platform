@@ -12,7 +12,7 @@ const SelectedFilesContext = createContext<SelectedFilesContextType | undefined>
 export const SelectedFilesProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [selectedFiles, setSelectedFiles] = useState<Array<AssessmentFile>>([])
 
-  const value = useMemo(() => ({ selectedFiles, setSelectedFiles }), [selectedFiles])
+  const value = useMemo<SelectedFilesContextType>(() => ({ selectedFiles, setSelectedFiles }), [selectedFiles])
 
   return <SelectedFilesContext.Provider value={value}>{children}</SelectedFilesContext.Provider>
 }

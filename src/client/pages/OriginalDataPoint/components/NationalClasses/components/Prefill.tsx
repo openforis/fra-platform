@@ -29,7 +29,7 @@ export const Prefill = (props: { canEditData: boolean; originalDataPoint: Origin
   const copyDisabled = !year || year === -1 || originalDataPointUpdating || reservedYearsWithClasses.length < 1
   return (
     <div className="odp__previous-year-selection">
-      <strong>{t('nationalDataPoint.prefillWith')}</strong>
+      <h4>{t('nationalDataPoint.prefillWith')}</h4>
       <select
         className="select"
         value={selectedPreviousYear}
