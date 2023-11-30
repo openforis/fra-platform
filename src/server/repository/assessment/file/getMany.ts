@@ -24,6 +24,7 @@ export const getMany = async (
         (f.country_iso = $1
         or f.country_iso is null)
         and (f.props ->> 'hidden')::boolean is not true
+      order by id
     `,
     [countryIso],
     (row) => Objects.camelize(row)

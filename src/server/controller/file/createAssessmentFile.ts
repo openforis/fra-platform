@@ -7,7 +7,7 @@ import { BaseProtocol, DB } from 'server/db'
 import { AssessmentFileRepository } from 'server/repository/assessment/file'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
-type CreateAssessmentFileProps = {
+type Props = {
   assessment: Assessment
   file: Express.Multer.File
   countryIso?: CountryIso
@@ -15,10 +15,7 @@ type CreateAssessmentFileProps = {
   user?: User
 }
 
-export const createAssessmentFile = async (
-  props: CreateAssessmentFileProps,
-  client: BaseProtocol = DB
-): Promise<AssessmentFile> => {
+export const createAssessmentFile = async (props: Props, client: BaseProtocol = DB): Promise<AssessmentFile> => {
   const { assessment, countryIso, user } = props
 
   return client.tx(async (t) => {
