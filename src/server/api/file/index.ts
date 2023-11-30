@@ -51,8 +51,8 @@ export const FileApi = {
     express.get(ApiEndPoint.File.Assessment.one(), /* Auth handled in controller */ getAssessmentFile)
     express.delete(ApiEndPoint.File.Assessment.one(), AuthMiddleware.requireEditCountryFile, removeAssessmentFile)
     express.put(
-      ApiEndPoint.File.Assessment.updateAccess(),
-      AuthMiddleware.requireEditAssessmentFile,
+      ApiEndPoint.File.Assessment.access(),
+      AuthMiddleware.requireEditAssessmentFileAccess,
       updateAssessmentFileAccess
     )
   },

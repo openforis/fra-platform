@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
+import { Promises } from 'utils/promises'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
 import { CountryIso } from 'meta/area'
@@ -216,6 +217,35 @@ const requireEditCountryFile = async (req: Request, res: Response, next: NextFun
   return requireEditAssessmentFile(req, res, next)
 }
 
+const requireEditAssessmentFileAccess = async (req: Request, res: Response, next: NextFunction) => {
+  const {
+    assessmentName,
+    cycleName,
+    UUIDs,
+    public: _public,
+  } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams & { UUIDs: Array<string>; public: boolean }
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+  // When setting file access to private, check that file is not in use:
+  if (!_public) {
+    await Promises.each(UUIDs, async (uuid) => {
+      const fileUsages = await FileController.getFileUsages({ assessment, cycle, uuid })
+      if (fileUsages.length) {
+        const message = await fileError({ req, fileUsages, assessmentName, cycleName })
+        return next({ statusCode: 400, message })
+      }
+      return true
+    })
+  }
+
+  return requireEditAssessmentFile(req, res, next)
+}
+
 const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
   const user = Requests.getUser(req)
 
@@ -237,5 +267,6 @@ export const AuthMiddleware = {
   requireViewUsers: tryCatch(requireViewUsers),
   requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
   requireEditCountryFile: tryCatch(requireEditCountryFile),
+  requireEditAssessmentFileAccess: tryCatch(requireEditAssessmentFileAccess),
   requireUser: tryCatch(requireUser),
 }
