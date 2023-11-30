@@ -156,12 +156,8 @@ const canViewCountryFile = (props: {
   assessmentFile: AssessmentFile
 }): boolean => {
   const { assessment, countryIso, user, cycle, assessmentFile } = props
-  if (Users.isAdministrator(user)) return true
-
-  const userCanView = canView({ assessment, user, countryIso, cycle })
-
   if (assessmentFile?.props.public) {
-    return userCanView
+    return canView({ assessment, user, countryIso, cycle })
   }
 
   return Users.hasRoleInCountry({ user, countryIso, cycle })
