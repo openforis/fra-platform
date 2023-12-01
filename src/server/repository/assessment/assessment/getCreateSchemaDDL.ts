@@ -355,7 +355,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                                            jsonb_array_length(jsonb_agg(c.class) filter
                                                (where (c.class ->> 'forestNaturalPercent')::numeric > 0::numeric
                                                    and
-                                                      ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent')::numeric >
+                                                      ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent')::numeric >=
                                                        0::numeric)
                                                )) > 0
                                        then
@@ -388,7 +388,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                                     when
                                             jsonb_array_length(jsonb_agg(c.class) filter
                                                 (where (c.class ->> 'forestPlantationPercent')::numeric > 0::numeric
-                                                    and ((c.class ->> 'forestPlantationIntroducedPercent')::numeric >
+                                                    and ((c.class ->> 'forestPlantationIntroducedPercent')::numeric >=
                                                          0::numeric)
                                                 )) > 0
                                         then
