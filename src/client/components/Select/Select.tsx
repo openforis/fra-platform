@@ -51,6 +51,9 @@ const Select: React.FC<Props> = (props) => {
 
   return (
     <RSelect
+      components={{
+        IndicatorSeparator: null,
+      }}
       classNamePrefix="fra-select"
       defaultValue={defaultValue}
       isClearable
