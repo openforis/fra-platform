@@ -1,6 +1,6 @@
-@import 'src/client/style/partials';
+@import '../../../style/partials';
 
-.fra-select {
+.select {
   &__control {
     border: 0 !important;
     border-radius: 0 !important;
@@ -23,11 +23,11 @@
   &__control--is-disabled {
     background-color: white !important;
 
-    .fra-select__indicators {
+    .select__indicators {
       display: none;
     }
 
-    .fra-select__single-value {
+    .select__single-value {
       color: $text-body !important;
     }
   }
