@@ -9,7 +9,7 @@ import { Users } from 'meta/user'
 import { useCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
@@ -27,6 +27,7 @@ const Toolbar: React.FC = () => {
   const country = useCountry(countryIso as CountryIso)
   const { print } = useIsPrintRoute()
   const user = useUser()
+  const isInGeoPage = useIsGeoRoute()
 
   if (print) return null
 
@@ -53,6 +54,11 @@ const Toolbar: React.FC = () => {
         />
       </div>
 
+      {isInGeoPage && (
+        <MediaQuery minWidth={Breakpoints.tabletPortrait}>
+          <div className="toolbar__geo-beta-message">FRA GEO - Beta version</div>
+        </MediaQuery>
+      )}
       {isCountry && (
         <>
           <MediaQuery minWidth={Breakpoints.laptop}>
@@ -67,7 +73,6 @@ const Toolbar: React.FC = () => {
           </div>
         </>
       )}
-
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />
       </MediaQuery>

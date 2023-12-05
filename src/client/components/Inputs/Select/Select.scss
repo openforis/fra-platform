@@ -1,0 +1,78 @@
+@import 'client/style/partials';
+
+div.select__control {
+  background-color: transparent;
+  border: unset;
+  border-radius: unset;
+  color: $text-body;
+  cursor: pointer;
+  padding: 0 $spacing-xxs;
+
+  &.isDisabled {
+    cursor: none;
+  }
+
+  &.isFocused {
+    box-shadow: 0 0 0 1px $text-mute;
+  }
+}
+
+div.select__valueContainer {
+  padding: unset;
+}
+
+div.select__singleValue {
+  color: $text-body;
+  margin: unset;
+}
+
+div.select__input {
+  margin: unset;
+  padding: unset;
+}
+
+div.select__menuList {
+  border: unset;
+  padding: unset;
+}
+
+div.select__menu {
+  border-left: 1px solid $text-mute;
+  border-right: 1px solid $text-mute;
+  border-bottom: 1px solid $text-mute;
+  border-radius: unset;
+  margin: -1px 0 0 -1px;
+  width: calc(100% + 2px);
+  padding: unset;
+}
+
+div.select__group {
+  padding: 0;
+}
+
+div.select__groupHeading {
+  text-transform: unset;
+  font-size: $font-xs;
+  font-weight: 600;
+  padding: $spacing-xxs;
+  white-space: break-spaces;
+  color: $text-disabled;
+  margin: unset;
+}
+
+div.select__option {
+  padding: $spacing-xxs;
+  white-space: break-spaces;
+
+  &.isFocused {
+    background-color: lighten($ui-accent-light-extra, 3%);
+    cursor: pointer;
+  }
+
+  &.isSelected {
+    background-color: transparent;
+    color: $text-body;
+    cursor: unset;
+    font-weight: 600;
+  }
+}

@@ -11,6 +11,7 @@ type Props = {
   cycle: Cycle
   force?: boolean
 }
+
 export const generateDataCache = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
   const { assessment, cycle, force } = props
   const assessmentName = assessment.props.name
