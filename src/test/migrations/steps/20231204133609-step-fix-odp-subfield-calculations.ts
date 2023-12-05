@@ -6,6 +6,8 @@ import { BaseProtocol, Schemas } from 'server/db'
 import { getCreateSchemaCycleOriginalDataPointViewDDL } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
+import { updateODPDependencies } from 'test/migrations/steps/utils/updateODPDependencies'
+
 export default async (client: BaseProtocol) => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra', metaCache: true }, client)
 
@@ -26,7 +28,8 @@ export default async (client: BaseProtocol) => {
     const getCountriesDataProps = { assessment, cycle, countryISOs, tables, force: true }
     // eslint-disable-next-line no-await-in-loop
     await DataRedisRepository.getCountriesData(getCountriesDataProps, client)
-  }
 
-  // await updateOdpDependants(client)
+    // eslint-disable-next-line no-await-in-loop
+    await updateODPDependencies({ assessment, cycle }, client)
+  }
 }
