@@ -1,13 +1,18 @@
 import './TextArea.scss'
 import React, { forwardRef, TextareaHTMLAttributes, useEffect, useImperativeHandle, useRef } from 'react'
 
+type AdditionalProps = {
+  maxHeight?: number | null
+}
+
 type Props = Pick<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   'disabled' | 'onChange' | 'onPaste' | 'placeholder' | 'value'
->
+> &
+  AdditionalProps
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
-  const { disabled, onChange, onPaste, placeholder, value } = props
+  const { disabled, maxHeight, onChange, onPaste, placeholder, value } = props
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   useImperativeHandle(outerRef, () => textAreaRef.current!, [])
@@ -15,8 +20,9 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
   useEffect(() => {
     const textArea = textAreaRef.current
     textArea.style.height = 'auto'
-    textArea.style.height = `${textArea.scrollHeight}px`
-  }, [disabled, textAreaRef, value])
+    const newHeight = Math.min(textArea.scrollHeight, maxHeight)
+    textArea.style.height = `${newHeight}px`
+  }, [disabled, textAreaRef, value, maxHeight])
 
   return (
     <textarea
@@ -31,5 +37,9 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
     />
   )
 })
+
+TextArea.defaultProps = {
+  maxHeight: null,
+}
 
 export default TextArea
