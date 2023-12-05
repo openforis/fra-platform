@@ -1,6 +1,6 @@
-import { LayerRequestBody } from '@meta/api/request/geo/layer'
-import { CountryIso } from '@meta/area'
-import { LayerKey, LayerSource } from '@meta/geo'
+import { LayerRequestBody } from 'meta/api/request/geo/layer'
+import { CountryIso } from 'meta/area'
+import { LayerKey, LayerSource } from 'meta/geo'
 
 import { LayersSectionState, LayerState } from '../stateType'
 

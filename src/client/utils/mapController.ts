@@ -1,7 +1,7 @@
 // @ts-ignore
 import ee from '@google/earthengine'
 
-import { MapLayerKey } from '@meta/geo'
+import { MapLayerKey } from 'meta/geo'
 
 export class MapController {
   #map: google.maps.Map

@@ -1,4 +1,4 @@
-import { ApiEndPoint } from '@meta/api/endpoint'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { burnedAreaLayers, forestLayers, LayerSection, LayerSectionKey, protectedAreaLayers } from '.'
 

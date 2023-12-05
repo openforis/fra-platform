@@ -1,7 +1,7 @@
 import './MapVisualizerPanel.scss'
 import React from 'react'
 
-import { sections } from '@meta/geo'
+import { sections } from 'meta/geo'
 
 import GeoMenuItem from '../../GeoMapMenuItem'
 import LayersSectionPanel from './LayersSectionPanel'

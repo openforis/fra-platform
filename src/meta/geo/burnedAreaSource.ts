@@ -1,4 +1,4 @@
-import { Arrays } from '@utils/arrays'
+import { Arrays } from 'utils/arrays'
 
 import { LayerMetadata, LayerSection, LayerSectionKey } from './layer'
 

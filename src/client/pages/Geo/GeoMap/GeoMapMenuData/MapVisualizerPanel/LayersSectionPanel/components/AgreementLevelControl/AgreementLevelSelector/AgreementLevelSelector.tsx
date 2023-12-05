@@ -3,9 +3,9 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { LayerKey, LayerSection } from '@meta/geo/layer'
+import { LayerKey, LayerSection } from 'meta/geo/layer'
 
-import { LayerState } from '@client/store/ui/geo/stateType'
+import { LayerState } from 'client/store/ui/geo/stateType'
 
 interface Props {
   countLayersSelected: number

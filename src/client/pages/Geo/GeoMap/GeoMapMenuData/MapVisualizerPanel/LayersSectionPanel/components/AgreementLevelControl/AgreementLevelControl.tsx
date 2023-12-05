@@ -1,13 +1,13 @@
 import './AgreementLevelControl.scss'
 import React from 'react'
 
-import { LayerKey, LayerSection, LayerSectionKey } from '@meta/geo/layer'
+import { LayerKey, LayerSection, LayerSectionKey } from 'meta/geo/layer'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
-import { LayerFetchStatus, LayersSectionState } from '@client/store/ui/geo/stateType'
-import GeoMapMenuListElement from '@client/pages/Geo/GeoMap/GeoMapMenuListElement'
-import { useFetchAgreementLevelLayer } from '@client/pages/Geo/GeoMap/hooks'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
+import { LayerFetchStatus, LayersSectionState } from 'client/store/ui/geo/stateType'
+import GeoMapMenuListElement from 'client/pages/Geo/GeoMap/GeoMapMenuListElement'
+import { useFetchAgreementLevelLayer } from 'client/pages/Geo/GeoMap/hooks'
 
 import LayerOpacityControl from '../LayerOpacityControl/LayerOpacityControl'
 import AgreementLevelSelector from './AgreementLevelSelector/AgreementLevelSelector'

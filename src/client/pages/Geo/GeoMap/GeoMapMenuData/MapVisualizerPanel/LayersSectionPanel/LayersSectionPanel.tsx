@@ -2,12 +2,12 @@ import './LayersSectionPanel.scss'
 import React, { useState } from 'react'
 import { batch } from 'react-redux'
 
-import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection } from '@meta/geo'
+import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useGeoLayerSection } from '@client/store/ui/geo'
-import { LayerFetchStatus } from '@client/store/ui/geo/stateType'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useGeoLayerSection } from 'client/store/ui/geo'
+import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
+import { useCountryIso } from 'client/hooks'
 
 import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
 import AgreementLevelControl from './components/AgreementLevelControl/AgreementLevelControl'

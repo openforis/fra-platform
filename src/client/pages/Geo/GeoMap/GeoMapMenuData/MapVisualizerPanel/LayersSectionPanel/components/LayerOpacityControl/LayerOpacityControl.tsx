@@ -1,7 +1,7 @@
 import './LayerOpacityControl.scss'
 import React from 'react'
 
-import { GLOBAL_OPACITY_KEY, LayerKey } from '@meta/geo'
+import { GLOBAL_OPACITY_KEY, LayerKey } from 'meta/geo'
 
 interface Props {
   checked: boolean

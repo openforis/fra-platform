@@ -1,12 +1,12 @@
 import './YearControl.scss'
 import React from 'react'
 
-import { Layer, LayerKey, LayerSectionKey } from '@meta/geo'
+import { Layer, LayerKey, LayerSectionKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions } from '@client/store/ui/geo'
-import { LayerState } from '@client/store/ui/geo/stateType'
-import { useFetchNewLayerOption } from '@client/pages/Geo/GeoMap/hooks'
+import { useAppDispatch } from 'client/store'
+import { GeoActions } from 'client/store/ui/geo'
+import { LayerState } from 'client/store/ui/geo/stateType'
+import { useFetchNewLayerOption } from 'client/pages/Geo/GeoMap/hooks'
 
 interface Props {
   sectionKey: LayerSectionKey

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { LayerKey, LayerSectionKey } from '@meta/geo'
+import { LayerKey, LayerSectionKey } from 'meta/geo'
 
-import { useGeoLayerSection } from '@client/store/ui/geo'
+import { useGeoLayerSection } from 'client/store/ui/geo'
 
 export const useCountSectionSelectedLayers = (sectionKey: LayerSectionKey) => {
   const [selectedLayersCount, setSelectedLayerCount] = useState(0)

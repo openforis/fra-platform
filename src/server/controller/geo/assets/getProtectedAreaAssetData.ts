@@ -22,7 +22,7 @@ export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; 
 
       asset = {
         img: ftcWDPAPolygons.style({ color: '#6666FF', fillColor: '6666FF30', width: 1.5 }),
-        metadata: protectedAreaSourcesMetadata[layer.key],
+        metadata: protectedAreaLayersMetadata[layer.key],
       }
       break
     }

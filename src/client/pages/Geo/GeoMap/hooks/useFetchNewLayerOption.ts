@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import { LayerKey, LayerSectionKey } from '@meta/geo'
+import { LayerKey, LayerSectionKey } from 'meta/geo'
 
-import { useAppDispatch } from '@client/store'
-import { GeoActions, useGeoLayer } from '@client/store/ui/geo'
-import { LayerStateOptions } from '@client/store/ui/geo/stateType'
-import { useCountryIso } from '@client/hooks'
+import { useAppDispatch } from 'client/store'
+import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
+import { LayerStateOptions } from 'client/store/ui/geo/stateType'
+import { useCountryIso } from 'client/hooks'
 
 export const useFetchNewLayerOption = (
   sectionKey: LayerSectionKey,

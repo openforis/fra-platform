@@ -87,7 +87,7 @@ export const protectedAreaLayers: ProtectedAreaLayer[] = [
 
 export const burnedAreaLayers: BurnedAreaLayer[] = [
   {
-    key: BurnedAreaKey.MODIS,
+    key: BurnedAreaKey.MODIS_FIRE,
     title: 'MODIS',
     opacity: 1,
   },

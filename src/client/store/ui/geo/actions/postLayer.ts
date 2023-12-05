@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { CountryIso } from '@meta/area'
-import { LayerKey, LayerSectionKey, sectionsApiEndpoint } from '@meta/geo'
+import { CountryIso } from 'meta/area'
+import { LayerKey, LayerSectionKey, sectionsApiEndpoint } from 'meta/geo'
 
-import { RootState } from '@client/store/RootState'
+import { RootState } from 'client/store/RootState'
 
 import { _getLayerRequestBody } from '.'
 
