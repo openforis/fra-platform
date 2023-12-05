@@ -29,8 +29,8 @@ export const updateODPDependencies = async (props: Props, client: BaseProtocol =
     const allNodesDb: Array<NodeDb> = []
     const allNodes: Array<{ nodes: Record<string, NodeUpdate[]>; countryIso: CountryIso }> = []
 
-    const odpProps = { assessment, cycle, countryIso }
-    const originalDataPoints = await CycleDataController.getOriginalDataPoints(odpProps, client)
+    const getOriginalDataPointsProps = { assessment, cycle, countryIso }
+    const originalDataPoints = await CycleDataController.getOriginalDataPoints(getOriginalDataPointsProps, client)
 
     if (originalDataPoints.length === 0) return
 
