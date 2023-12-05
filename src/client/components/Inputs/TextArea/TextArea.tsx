@@ -1,10 +1,13 @@
 import './TextArea.scss'
 import React, { forwardRef, TextareaHTMLAttributes, useEffect, useImperativeHandle, useRef } from 'react'
 
-type Props = Pick<TextareaHTMLAttributes<HTMLTextAreaElement>, 'disabled' | 'onChange' | 'onPaste' | 'value'>
+type Props = Pick<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  'disabled' | 'onChange' | 'onPaste' | 'placeholder' | 'value'
+>
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
-  const { disabled, onChange, onPaste, value } = props
+  const { disabled, onChange, onPaste, placeholder, value } = props
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   useImperativeHandle(outerRef, () => textAreaRef.current!, [])
@@ -21,6 +24,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
       disabled={disabled}
       onChange={onChange}
       onPaste={onPaste}
+      placeholder={placeholder}
       ref={textAreaRef}
       rows={1}
       value={value}
