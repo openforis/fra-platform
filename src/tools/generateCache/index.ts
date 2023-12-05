@@ -6,9 +6,6 @@ import { DB } from 'server/db'
 import { RedisData } from 'server/repository/redis/redisData'
 import { Logger } from 'server/utils/logger'
 
-import { generateAssessmentCache } from './generateAssessmentCache'
-import { generateMetadataCache } from './generateMetadataCache'
-
 const exec = async () => {
   await RedisData.getInstance().flushall()
 
@@ -17,12 +14,11 @@ const exec = async () => {
   await Promise.all(
     assessments.map(async (assessment) =>
       Promise.all([
-        // assessment cache
-        generateAssessmentCache({ assessment }),
-        // cycles cache
+        // assessment and cycles metadata cache
+        AssessmentController.generateMetadataCache({ assessment }),
+        // cycles data cache
         Promise.all(
           assessment.cycles.map(async (cycle) => {
-            await generateMetadataCache({ assessment, cycle })
             await AssessmentController.generateDataCache({ assessment, cycle })
           })
         ),
