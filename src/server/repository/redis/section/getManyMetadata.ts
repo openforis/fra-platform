@@ -1,5 +1,6 @@
 import { Assessment, Cycle, SectionName, TableSection } from 'meta/assessment'
 
+import { BaseProtocol, DB } from 'server/db'
 import { SectionRepository } from 'server/repository/assessment/section'
 import { getKeyCycle, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
@@ -27,19 +28,22 @@ const _getSectionNames = async (props: Pick<Props, 'assessment' | 'cycle'>): Pro
   return sectionNames
 }
 
-export const getManyMetadata = async (props: Props): Promise<RecordMetadata> => {
+export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): Promise<RecordMetadata> => {
   const { assessment, cycle, sectionNames, force } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Section.sectionsMetadata })
 
-  const length = await redis.hlen(key)
-  const updateCache = force || length === 0
+  if (force) {
+    await redis.del(key)
+  }
 
-  if (updateCache) {
+  const length = await redis.hlen(key)
+
+  if (length === 0) {
     const sectionNamesCache = sectionNames ?? (await _getSectionNames({ assessment, cycle }))
     const propsMetadata = { assessment, cycle, sectionNames: sectionNamesCache }
-    const sectionsMetadata = await SectionRepository.getManyMetadata(propsMetadata)
+    const sectionsMetadata = await SectionRepository.getManyMetadata(propsMetadata, client)
     await Promise.all(
       Object.entries(sectionsMetadata).map(async ([name, tableSections]) => {
         return redis.hset(key, name, JSON.stringify(tableSections))
