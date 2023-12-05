@@ -169,6 +169,7 @@ const Topic: React.FC<TopicProps> = (props) => {
               maxHeight={commentTextAreaMaxHeight}
               onChange={(e) => setMessage(e.target.value)}
               placeholder={i18n.t('review.writeComment')}
+              rows={2}
               value={message}
             />
             <button

@@ -7,12 +7,12 @@ type AdditionalProps = {
 
 type Props = Pick<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
-  'disabled' | 'onChange' | 'onPaste' | 'placeholder' | 'value'
+  'disabled' | 'onChange' | 'onPaste' | 'placeholder' | 'rows' | 'value'
 > &
   AdditionalProps
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
-  const { disabled, maxHeight, onChange, onPaste, placeholder, value } = props
+  const { disabled, maxHeight, onChange, onPaste, placeholder, rows, value } = props
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   useImperativeHandle(outerRef, () => textAreaRef.current!, [])
@@ -32,7 +32,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
       onPaste={onPaste}
       placeholder={placeholder}
       ref={textAreaRef}
-      rows={1}
+      rows={rows}
       value={value}
     />
   )
@@ -40,6 +40,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
 
 TextArea.defaultProps = {
   maxHeight: null,
+  rows: 1,
 }
 
 export default TextArea
