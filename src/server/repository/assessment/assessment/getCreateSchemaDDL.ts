@@ -437,6 +437,5 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                    ON pf.country_iso::text = rv.country_iso::text AND pf.year::text = rv.year::text
          LEFT JOIN introduced_area ia
                    ON ia.country_iso::text = rv.country_iso::text AND ia.year::text = rv.year::text;
-      ;
   `
 }
