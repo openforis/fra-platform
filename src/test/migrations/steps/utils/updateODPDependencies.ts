@@ -25,7 +25,7 @@ export const updateODPDependencies = async (props: Props, client: BaseProtocol =
     `
         select country_iso, year
         from ${schemaCycle}.original_data_point
-        where national_classes != '[]'::jsonb
+        where jsonb_array_length(national_classes) > 0
   `,
     [],
     (res) => Objects.camelize(res)
