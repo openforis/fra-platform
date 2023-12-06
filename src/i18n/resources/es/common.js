@@ -19,6 +19,8 @@ module.exports = {
   name: 'Nombre',
   other: 'Otros',
   otherSpecifyInComments: 'Otros (especifique en los comentarios)',
+  public: 'Público',
+  private: 'Privado',
   regions: 'Regiones',
   resetAll: 'Resetear',
   role: 'Función',
