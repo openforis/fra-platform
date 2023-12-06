@@ -1,5 +1,4 @@
 import { Objects } from 'utils/objects'
-import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
@@ -32,7 +31,7 @@ export const updateODPDependencies = async (props: Props, client: BaseProtocol =
     (res) => Objects.camelize(res)
   )
 
-  await Promises.each(originalDataPoints, async ({ countryIso, year }) => {
+  originalDataPoints.forEach(({ countryIso, year }) => {
     countryNodes[countryIso] = []
 
     const colName = String(year)
