@@ -1,5 +1,8 @@
+import { createSelector } from '@reduxjs/toolkit'
+
 import { CountryIso } from 'meta/area'
 import { GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
+import { BurnedAreaModis } from 'meta/geo/forest'
 
 import { RootState, useAppSelector } from 'client/store'
 
@@ -29,3 +32,27 @@ export const useGeoLayerSection = (sectionKey: LayerSectionKey): LayersSectionSt
 
 export const useGeoLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState | undefined =>
   useAppSelector((state) => state.geo.sections[sectionKey]?.[layerKey])
+
+export const useGeoBurnedAreaMODIS = (): BurnedAreaModis =>
+  useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.burnedAreaMODIS)
+
+export const useGeoProtectedAreas = () => {
+  return useAppSelector(
+    createSelector(
+      (state: RootState) => state,
+      (state: RootState) => ({
+        faCopernicusProtected: state.geo?.geoStatistics?.forestEstimations?.data?.faCopernicusProtected,
+        faEsa2009Protected: state.geo?.geoStatistics?.forestEstimations?.data?.faEsa2009Protected,
+        faEsa2020Protected: state.geo?.geoStatistics?.forestEstimations?.data?.faEsa2020Protected,
+        faEsriProtected: state.geo?.geoStatistics?.forestEstimations?.data?.faEsriProtected,
+        faGlobelandProtected: state.geo?.geoStatistics?.forestEstimations?.data?.faGlobelandProtected,
+        faHansen10Protected: state.geo?.geoStatistics?.forestEstimations?.data?.faHansen10Protected,
+        faHansen20Protected: state.geo?.geoStatistics?.forestEstimations?.data?.faHansen20Protected,
+        faHansen30Protected: state.geo?.geoStatistics?.forestEstimations?.data?.faHansen30Protected,
+        faJaxaProtected: state.geo?.geoStatistics?.forestEstimations?.data?.faJaxaProtected,
+        faTandemxProtected: state.geo?.geoStatistics?.forestEstimations?.data?.faTandemxProtected,
+        fra3bProtected: state.geo?.geoStatistics?.forestEstimations?.data?.fra3bProtected,
+      })
+    )
+  )
+}

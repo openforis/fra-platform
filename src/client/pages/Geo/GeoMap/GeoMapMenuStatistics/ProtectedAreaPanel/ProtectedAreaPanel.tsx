@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Numbers } from 'utils/numbers'
 
-import { ExtraEstimation, ForestSource } from 'meta/geo'
+import { ExtraEstimation, ForestKey } from 'meta/geo'
 
 import StatisticsTable from '../../components/StatisticsTable'
 
@@ -14,16 +14,16 @@ type Props = {
 
 // refactor
 const sourceName: Record<string, string> = {
-  faCopernicusProtected: ForestSource.Copernicus,
-  faEsa2009Protected: ForestSource.ESAGlobCover,
-  faEsa2020Protected: ForestSource.ESAWorldCover,
-  faEsriProtected: ForestSource.ESRI,
-  faGlobelandProtected: ForestSource.GlobeLand,
+  faCopernicusProtected: ForestKey.Copernicus,
+  faEsa2009Protected: ForestKey.ESAGlobCover,
+  faEsa2020Protected: ForestKey.ESAWorldCover,
+  faEsriProtected: ForestKey.ESRI,
+  faGlobelandProtected: ForestKey.GlobeLand,
   faHansen10Protected: 'All (GFC Hansen >=10%)',
   faHansen20Protected: 'All (GFC Hansen >=20%)',
   faHansen30Protected: 'All (GFC Hansen >=30%)',
-  faJaxaProtected: ForestSource.JAXA,
-  faTandemxProtected: ForestSource.TandemX,
+  faJaxaProtected: ForestKey.JAXA,
+  faTandemxProtected: ForestKey.TandemX,
   fra3bProtected: ExtraEstimation.ReportedToFRA,
 }
 
