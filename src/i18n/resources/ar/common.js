@@ -19,6 +19,8 @@ module.exports = {
   name: 'الاسم',
   other: 'غير ذلك',
   otherSpecifyInComments: 'أخرى (حدد في التعليقات)',
+  public: 'عام',
+  private: 'خاص',
   regions: 'المناطق',
   resetAll: 'إعادة ضبط الكل',
   role: 'الدور',

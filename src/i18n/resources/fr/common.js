@@ -18,6 +18,8 @@ module.exports = {
   name: 'Nom',
   other: 'Autre',
   otherSpecifyInComments: 'Autre (préciser dans les commentaires)',
+  private: 'Privé',
+  public: 'Public',
   regions: 'Régions',
   resetAll: 'Effacer tout',
   role: 'Rôle',
