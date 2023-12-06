@@ -1,15 +1,10 @@
 import './TextArea.scss'
 import React, { forwardRef, TextareaHTMLAttributes, useEffect, useImperativeHandle, useRef } from 'react'
 
-type AdditionalProps = {
-  maxHeight?: number | null
-}
-
 type Props = Pick<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   'disabled' | 'onChange' | 'onPaste' | 'placeholder' | 'rows' | 'value'
-> &
-  AdditionalProps
+> & { maxHeight?: number | null }
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
   const { disabled, maxHeight, onChange, onPaste, placeholder, rows, value } = props
@@ -17,11 +12,29 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   useImperativeHandle(outerRef, () => textAreaRef.current!, [])
 
-  useEffect(() => {
+  const adjustTextAreaHeight = (textAreaRef: React.MutableRefObject<HTMLTextAreaElement>, maxHeight: number | null) => {
     const textArea = textAreaRef.current
+    if (!textArea) return
+
     textArea.style.height = 'auto'
     const newHeight = Math.min(textArea.scrollHeight, maxHeight)
     textArea.style.height = `${newHeight}px`
+  }
+
+  useEffect(() => {
+    const handleResize = () => {
+      adjustTextAreaHeight(textAreaRef, maxHeight)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [textAreaRef, maxHeight])
+
+  useEffect(() => {
+    adjustTextAreaHeight(textAreaRef, maxHeight)
   }, [disabled, textAreaRef, value, maxHeight])
 
   return (
@@ -41,6 +54,6 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
 TextArea.defaultProps = {
   maxHeight: null,
   rows: 1,
-}
+} as Props
 
 export default TextArea

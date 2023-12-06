@@ -116,11 +116,9 @@ const Topic: React.FC<TopicProps> = (props) => {
     }
   }, [assessment, cycle, topic, dispatch])
 
-  const [commentTextAreaMaxHeight, setCommentTextAreaMaxHeight] = useState(200)
-
-  const handleTopicResize = (_e, _direction, elementRef: HTMLElement, _delta) => {
-    setCommentTextAreaMaxHeight(elementRef.scrollHeight * 0.5) // 50 % of available space.
-  }
+  const handleTopicResize = useCallback(() => {
+    window.dispatchEvent(new Event('resize'))
+  }, [])
 
   return (
     <Resizable
@@ -166,7 +164,7 @@ const Topic: React.FC<TopicProps> = (props) => {
             (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)))) && (
           <div className="topic-form">
             <TextArea
-              maxHeight={commentTextAreaMaxHeight}
+              maxHeight={200}
               onChange={(e) => setMessage(e.target.value)}
               placeholder={i18n.t('review.writeComment')}
               rows={2}
