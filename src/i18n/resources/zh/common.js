@@ -19,6 +19,8 @@ module.exports = {
   name: '姓名',
   other: '其他',
   otherSpecifyInComments: '其他(在评论中阐述)',
+  private: '私有',
+  public: '公共',
   regions: '区域',
   resetAll: '重置所有',
   role: '身份',
