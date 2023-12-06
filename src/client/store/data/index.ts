@@ -1,4 +1,5 @@
 export { useCommentableDescriptionValue } from './hooks/useCommentableDescriptionValue'
+export { useContacts } from './hooks/useContacts'
 export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
 export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
 export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'

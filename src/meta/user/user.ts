@@ -2,6 +2,13 @@ import { Lang } from 'meta/lang'
 
 import { RoleName, UserRole } from './index'
 
+export enum UserTitle {
+  mr = 'mr',
+  mrs = 'mrs',
+  ms = 'ms',
+  other = 'other',
+}
+
 export enum UserStatus {
   invitationPending = 'invitationPending',
   active = 'active',
@@ -9,7 +16,7 @@ export enum UserStatus {
 }
 
 export type UserProps = {
-  title?: string
+  title?: UserTitle
   name: string
   surname?: string
   lang: Lang
