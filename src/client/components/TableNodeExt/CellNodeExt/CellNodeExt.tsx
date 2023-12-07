@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
+import { DataCell } from 'client/components/DataGrid'
 
 import { ColumnNodeExt } from '../types'
 import CellMultiselect from './CellMultiselect'
@@ -14,6 +14,8 @@ type Props = {
   column: ColumnNodeExt
   onChange: (uuid: string, colName: string, value: any) => void
   disabled: boolean
+  lastRow: boolean
+  lastCol: boolean
 }
 
 const components: Record<string, React.FC<CellProps>> = {
@@ -23,21 +25,21 @@ const components: Record<string, React.FC<CellProps>> = {
 }
 
 const CellNodeExt: React.FC<Props> = (props: Props) => {
-  const { datum, column, onChange, disabled, uuid } = props
+  const { column, datum, disabled, lastRow, onChange, uuid, lastCol } = props
 
   const { type } = column
   const { colName } = column.props
   const Component = components[type]
 
   return (
-    <DataColumn>
+    <DataCell lastCol={lastCol} lastRow={lastRow}>
       <Component
         disabled={disabled}
         value={datum[colName]}
         onChange={(value: string) => onChange(uuid, colName, value)}
         column={column}
       />
-    </DataColumn>
+    </DataCell>
   )
 }
 

@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { NodeExt } from 'meta/nodeExt'
 
-import DataGrid from 'client/components/DataGridDeprecated'
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
 import { ColumnNodeExt } from './types'
@@ -22,20 +21,20 @@ const TableNodeExt = (props: Props) => {
   const { t } = useTranslation()
 
   return (
-    <DataGrid className="table-node-ext--data-grid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
-      {columns.map((column) => {
+    <DataGrid gridTemplateColumns={`repeat(${columns.length}, auto)`}>
+      {columns.map((column, i) => {
         const { colName, header } = column.props
         return (
-          <DataColumn head key={`${colName}_header`}>
+          <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
             {t(header)}
-          </DataColumn>
+          </DataCell>
         )
       })}
 
-      {data.map(({ uuid, props: datum }) => {
+      {data.map(({ uuid, props: datum }, i) => {
         return (
           <React.Fragment key={uuid}>
-            {columns.map((column) => {
+            {columns.map((column, j) => {
               const { colName } = column.props
               const key = `${uuid}_${colName}_data`
               return (
@@ -46,6 +45,8 @@ const TableNodeExt = (props: Props) => {
                   disabled={disabled}
                   datum={datum}
                   column={column}
+                  lastRow={i === data.length - 1}
+                  lastCol={j === columns.length - 1}
                 />
               )
             })}
