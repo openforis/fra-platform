@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Labels } from 'meta/assessment'
 import { NodeExt } from 'meta/nodeExt'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -25,7 +26,7 @@ const TableNodeExt = (props: Props) => {
         const { colName, header } = column.props
         return (
           <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
-            {t(header)}
+            {Labels.getLabel({ label: header, t })}
           </DataCell>
         )
       })}

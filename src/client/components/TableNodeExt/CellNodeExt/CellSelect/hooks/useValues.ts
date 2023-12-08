@@ -15,12 +15,10 @@ export const useValues = (props: { column: ColumnNodeExt; value: string }) => {
     () =>
       options.map((option) => ({
         ...option,
-        label: t(
-          Labels.getLabel({
-            label: option.label,
-            t,
-          })
-        ),
+        label: Labels.getLabel({
+          label: option.label,
+          t,
+        }),
       })),
     [options, t]
   )

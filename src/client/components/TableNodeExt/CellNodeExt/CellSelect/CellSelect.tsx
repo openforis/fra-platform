@@ -2,10 +2,10 @@ import React from 'react'
 
 import Select from 'client/components/Inputs/Select'
 
-import { CellProps } from '../CellProps'
+import { CellSelectProps } from '../CellProps'
 import { useValues } from './hooks/useValues'
 
-const CellSelect: React.FC<CellProps & { value: string }> = (props: CellProps & { value: string }) => {
+const CellSelect: React.FC<CellSelectProps> = (props: CellSelectProps) => {
   const { onChange, disabled, column, value: _value } = props
 
   const { value, options } = useValues({ column, value: _value })

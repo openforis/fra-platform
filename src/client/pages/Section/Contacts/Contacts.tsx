@@ -43,13 +43,19 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const columns: Array<ColumnNodeExt> = [
     {
       type: ColumnNodeExtType.select,
-      props: { colName: 'appellation', header: 'editUser.title', options: optionsAppellation },
+      props: { colName: 'appellation', header: { key: 'editUser.title' }, options: optionsAppellation },
     },
-    { type: ColumnNodeExtType.text, props: { colName: 'name', header: 'editUser.name' } },
-    { type: ColumnNodeExtType.text, props: { colName: 'surname', header: 'editUser.surname' } },
-    { type: ColumnNodeExtType.select, props: { colName: 'role', header: 'editUser.role', options: optionsRole } },
-    { type: ColumnNodeExtType.text, props: { colName: 'institution', header: 'editUser.institution' } },
-    { type: ColumnNodeExtType.multiselect, props: { colName: 'contributions', header: 'editUser.contributions' } },
+    { type: ColumnNodeExtType.text, props: { colName: 'name', header: { key: 'editUser.name' } } },
+    { type: ColumnNodeExtType.text, props: { colName: 'surname', header: { key: 'editUser.surname' } } },
+    {
+      type: ColumnNodeExtType.select,
+      props: { colName: 'role', header: { key: 'editUser.role' }, options: optionsRole },
+    },
+    { type: ColumnNodeExtType.text, props: { colName: 'institution', header: { key: 'editUser.institution' } } },
+    {
+      type: ColumnNodeExtType.multiselect,
+      props: { colName: 'contributions', header: { key: 'editUser.contributions' } },
+    },
   ]
 
   return <TableNodeExt disabled={disabled} onChange={onChange} columns={columns} data={contacts} />

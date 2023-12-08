@@ -7,7 +7,7 @@ export type ColumnNodeExt = {
   type: ColumnNodeExtType
   props: {
     colName: string
-    header: string
+    header: Label
     // label is passed as Label, but translated before rendering
     options?: Array<Omit<Option, 'label'> & { label: Label }>
   }
