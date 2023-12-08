@@ -26,7 +26,7 @@ const links = [
   },
   {
     key: 'footer.reportMisconduct',
-    to: 'http://www.fao.org/contact-us/report-fraud/',
+    to: 'https://www.fao.org/contact-us/report-misconduct/',
   },
 ]
 
