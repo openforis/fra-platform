@@ -13,7 +13,7 @@ import { Logger } from 'server/utils/logger'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  // nodes: Array<NodeUpdate>
+  includeSourceNodes?: boolean
   isODP?: boolean
 } & (
   | {
@@ -25,7 +25,7 @@ type Props = {
 )
 
 export const updateDependencies = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, isODP } = props
+  const { assessment, cycle, includeSourceNodes, isODP } = props
   const allNodesDb: Array<NodeDb> = []
   const allNodes: Array<{ nodes: Record<string, NodeUpdate[]>; countryIso: CountryIso }> = []
 
@@ -35,7 +35,7 @@ export const updateDependencies = async (props: Props, client: BaseProtocol = DB
     const cycleName = cycle.name
 
     const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
-    const contextProps = { assessment, cycle, isODP, nodeUpdates, includeSourceNodes: true }
+    const contextProps = { assessment, cycle, isODP, nodeUpdates, includeSourceNodes }
     const context = await ContextFactory.newInstance(contextProps, client)
     const result = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
 
