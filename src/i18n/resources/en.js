@@ -1138,5 +1138,8 @@ The FRA team
     ndpAdd: 'The FRA platform user tutorial - How to add a national data point',
     passwordLoginShort: 'How to log in with a self-defined password',
     googleLoginShort: 'How to log in using Google authentication',
+    guidelinesAndSpecifications: 'Guidelines and Specifications',
+    ndpAddReferenceLink: 'The FRA platform user tutorial - How to add a reference link for a national data point',
+    nationalDataAddReferenceLink: 'The FRA platform user tutorial - How to add a reference link for national data',
   },
 }
