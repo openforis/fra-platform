@@ -16,6 +16,7 @@ import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import Icon from 'client/components/Icon'
+import TextArea from 'client/components/Inputs/TextArea'
 import Resizable from 'client/components/Resizable'
 import { SocketClient } from 'client/service/socket'
 
@@ -115,6 +116,10 @@ const Topic: React.FC<TopicProps> = (props) => {
     }
   }, [assessment, cycle, topic, dispatch])
 
+  const handleTopicResize = useCallback(() => {
+    window.dispatchEvent(new Event('resize'))
+  }, [])
+
   return (
     <Resizable
       defaultSize={{ width: 300, height: '100%' }}
@@ -123,6 +128,7 @@ const Topic: React.FC<TopicProps> = (props) => {
       maxWidth={800}
       maxHeight="100%"
       className="topic"
+      onResize={handleTopicResize}
     >
       <div className="topic-header">
         <div className="topic-title">
@@ -157,10 +163,12 @@ const Topic: React.FC<TopicProps> = (props) => {
           (topic.status === MessageTopicStatus.resolved &&
             (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)))) && (
           <div className="topic-form">
-            <textarea
-              value={message}
-              placeholder={i18n.t('review.writeComment')}
+            <TextArea
+              maxHeight={200}
               onChange={(e) => setMessage(e.target.value)}
+              placeholder={i18n.t('review.writeComment')}
+              rows={2}
+              value={message}
             />
             <button
               className="btn-s btn-primary"
