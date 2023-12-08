@@ -1,22 +1,16 @@
 import { ColumnNodeExt } from '../types'
 
-type MultiValueProps = {
-  value: Array<string>
-  onChange: (newValue: Array<string>) => void
-}
-
-type SingleValueProps = {
-  value: string
-  onChange: (newValue: string) => void
-}
-
 export type CellProps = {
   disabled: boolean
   column: ColumnNodeExt
 }
 
-export type CellMultiselectProps = CellProps & MultiValueProps
+export type CellValueMultiProps = CellProps & {
+  value: Array<string>
+  onChange: (newValue: Array<string>) => void
+}
 
-export type CellTextProps = CellProps & SingleValueProps
-
-export type CellSelectProps = CellProps & SingleValueProps
+export type CellValueSingleProps = CellProps & {
+  value: string
+  onChange: (newValue: string) => void
+}

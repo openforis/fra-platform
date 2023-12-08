@@ -26,7 +26,7 @@ const TableNodeExt = (props: Props) => {
         const { colName, header } = column.props
         return (
           <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
-            {Labels.getLabel({ label: header, t })}
+            {Labels.getLabel({ label: header.label, t })}
           </DataCell>
         )
       })}

@@ -2,9 +2,9 @@ import React from 'react'
 
 import TextInput from 'client/components/Inputs/InputText'
 
-import { CellTextProps } from '../CellProps'
+import { CellValueSingleProps } from '../CellProps'
 
-const CellText: React.FC<CellTextProps> = (props: CellTextProps) => {
+const CellText: React.FC<CellValueSingleProps> = (props: CellValueSingleProps) => {
   const { value, onChange, disabled } = props
 
   return <TextInput disabled={disabled} value={value} onChange={(event) => onChange(event.target.value)} />

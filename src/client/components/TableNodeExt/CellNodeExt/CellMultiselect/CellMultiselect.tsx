@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { CellMultiselectProps } from '../CellProps'
+import { CellValueMultiProps } from '../CellProps'
 
-const CellMultiselect: React.FC<CellMultiselectProps> = (props: CellMultiselectProps) => {
+const CellMultiselect: React.FC<CellValueMultiProps> = (props: CellValueMultiProps) => {
   const { value } = props
   return <div>{value.join(',')}</div>
 }

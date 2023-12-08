@@ -4,7 +4,7 @@ import { DataCell } from 'client/components/DataGrid'
 
 import { ColumnNodeExt } from '../types'
 import CellMultiselect from './CellMultiselect'
-import { CellProps } from './CellProps'
+import { CellValueMultiProps, CellValueSingleProps } from './CellProps'
 import CellSelect from './CellSelect'
 import CellText from './CellText'
 
@@ -18,7 +18,9 @@ type Props = {
   lastCol: boolean
 }
 
-const components: Record<string, React.FC<CellProps>> = {
+type ComponentPropType = CellValueMultiProps | CellValueSingleProps
+
+const components: Record<string, React.FC<ComponentPropType>> = {
   text: CellText,
   select: CellSelect,
   multiselect: CellMultiselect,
