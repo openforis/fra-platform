@@ -2,13 +2,11 @@ import './Footer.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
 import { Routes } from 'meta/routes'
 
-import { useUser } from 'client/store/user'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
+import { useFooterLogic } from './hooks/useFooterLogic'
 import SendFeedback from './SendFeedback'
 
 const links = [
@@ -33,14 +31,14 @@ const links = [
 const Footer: React.FC = () => {
   const { i18n, t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
-  const user = useUser()
   const { language } = i18n
-  const { print } = useIsPrintRoute()
-
-  if (print || !cycleName || !assessmentName) return null
 
   // @ts-ignore
   const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`
+
+  const { isUserGuideLinkVisible, isTutorialLinkVisible, userGuideLink, isFooterVisible } = useFooterLogic()
+
+  if (!isFooterVisible) return null
 
   return (
     <footer>
@@ -55,18 +53,21 @@ const Footer: React.FC = () => {
           </React.Fragment>
         ))}
 
-        {user && (
+        {isUserGuideLinkVisible && (
           <>
             <div className="separator" />
-            <a target="_top" href={`${ApiEndPoint.File.userGuide(language)}`}>
+            <a target="_top" href={userGuideLink}>
               {t('footer.userGuide')}
             </a>
           </>
         )}
 
-        <div className="separator" />
-
-        <a href={Routes.Tutorials.generatePath({ assessmentName, cycleName })}>{t('footer.tutorials')}</a>
+        {isTutorialLinkVisible && (
+          <>
+            <div className="separator" />
+            <a href={Routes.Tutorials.generatePath({ assessmentName, cycleName })}>{t('footer.tutorials')}</a>
+          </>
+        )}
 
         <div className="separator" />
 
