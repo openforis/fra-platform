@@ -7,6 +7,7 @@ import { Routes } from 'meta/routes'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 import { useFooterLogic } from './hooks/useFooterLogic'
+import UserGuideLink from './UserGuideLink/UserGuideLink'
 import SendFeedback from './SendFeedback'
 
 const links = [
@@ -36,7 +37,7 @@ const Footer: React.FC = () => {
   // @ts-ignore
   const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`
 
-  const { isUserGuideLinkVisible, isTutorialLinkVisible, userGuideLink, isFooterVisible } = useFooterLogic()
+  const { isTutorialLinkVisible, isFooterVisible } = useFooterLogic()
 
   if (!isFooterVisible) return null
 
@@ -53,14 +54,7 @@ const Footer: React.FC = () => {
           </React.Fragment>
         ))}
 
-        {isUserGuideLinkVisible && (
-          <>
-            <div className="separator" />
-            <a target="_top" href={userGuideLink}>
-              {t('footer.userGuide')}
-            </a>
-          </>
-        )}
+        <UserGuideLink />
 
         {isTutorialLinkVisible && (
           <>
