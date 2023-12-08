@@ -1,9 +1,11 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { getContacts } from 'client/store/data/actions/getContacts'
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
+import { updateContacts } from 'client/store/data/actions/updateContacts'
 import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
 import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
@@ -21,6 +23,7 @@ import { updateNodeValues } from './actions/updateNodeValues'
 import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
+  contacts: {},
   descriptions: {},
   nodeValueValidations: {},
   nodeValuesEstimations: {},
@@ -123,6 +126,12 @@ export const dataSlice = createSlice({
       const path = [assessmentName, cycleName, 'linkedDataSources', sectionName]
       Objects.setInPath({ obj: state, path, value: dataSources })
     })
+
+    builder.addMatcher(isAnyOf(getContacts.fulfilled, updateContacts.fulfilled), (state, { payload, meta }) => {
+      const { assessmentName, cycleName, countryIso } = meta.arg
+      const path = ['contacts', assessmentName, cycleName, countryIso]
+      Objects.setInPath({ obj: state, path, value: payload })
+    })
   },
 })
 
@@ -146,6 +155,10 @@ export const DataActions = {
   updateDescription,
   copyPreviousDatasources,
   getLinkedDataSources,
+
+  // Contacts
+  getContacts,
+  updateContacts,
 }
 
 export default dataSlice.reducer as Reducer<DataState>
