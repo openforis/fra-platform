@@ -2,13 +2,9 @@ import './Footer.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Routes } from 'meta/routes'
-
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-
 import { useFooterLogic } from './hooks/useFooterLogic'
-import UserGuideLink from './UserGuideLink/UserGuideLink'
 import SendFeedback from './SendFeedback'
+import UserGuideLink from './UserGuideLink'
 
 const links = [
   {
@@ -31,13 +27,12 @@ const links = [
 
 const Footer: React.FC = () => {
   const { i18n, t } = useTranslation()
-  const { assessmentName, cycleName } = useCycleRouteParams()
   const { language } = i18n
 
   // @ts-ignore
   const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`
 
-  const { isTutorialLinkVisible, isFooterVisible } = useFooterLogic()
+  const { isFooterVisible } = useFooterLogic()
 
   if (!isFooterVisible) return null
 
@@ -55,13 +50,6 @@ const Footer: React.FC = () => {
         ))}
 
         <UserGuideLink />
-
-        {isTutorialLinkVisible && (
-          <>
-            <div className="separator" />
-            <a href={Routes.Tutorials.generatePath({ assessmentName, cycleName })}>{t('footer.tutorials')}</a>
-          </>
-        )}
 
         <div className="separator" />
 
