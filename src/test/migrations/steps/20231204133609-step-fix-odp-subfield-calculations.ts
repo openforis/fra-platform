@@ -4,7 +4,7 @@ import { TableNames } from 'meta/assessment'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 import { getCreateSchemaCycleOriginalDataPointViewDDL } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
@@ -16,7 +16,7 @@ export default async (client: BaseProtocol) => {
   await Promises.each(assessment.cycles, async (cycle) => {
     const schemaCycle = Schemas.getNameCycle(assessment, cycle)
     const odpViewQuery = getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle)
-    await client.query(odpViewQuery)
+    await DB.query(odpViewQuery)
     const countryISOs = (await AreaController.getCountries({ assessment, cycle }, client)).map((c) => c.countryIso)
 
     const tables = { [TableNames.originalDataPointValue]: {} }

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { Resizable as ReResizable } from 're-resizable'
+import { Resizable as ReResizable, ResizeCallback } from 're-resizable'
 
 type ResizableProps = {
   className?: string
@@ -12,12 +12,13 @@ type ResizableProps = {
   minHeight?: number | string
   maxWidth?: number | string
   minWidth?: number | string
+  onResize?: ResizeCallback
 }
 
 type Props = React.PropsWithChildren<ResizableProps>
 
 const Resizable: React.FC<Props> = (props: Props) => {
-  const { children, defaultSize, className, maxHeight, minHeight, maxWidth, minWidth } = props
+  const { children, defaultSize, className, maxHeight, minHeight, maxWidth, minWidth, onResize } = props
 
   const enable = useMemo(
     () => ({
@@ -42,6 +43,7 @@ const Resizable: React.FC<Props> = (props: Props) => {
       minWidth={minWidth}
       className={className}
       defaultSize={defaultSize}
+      onResize={onResize}
     >
       {React.Children.toArray(children)}
     </ReResizable>
@@ -55,6 +57,7 @@ Resizable.defaultProps = {
   maxWidth: undefined,
   minWidth: undefined,
   defaultSize: undefined,
+  onResize: undefined,
 }
 
 export default Resizable
