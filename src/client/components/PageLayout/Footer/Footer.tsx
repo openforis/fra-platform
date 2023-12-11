@@ -2,7 +2,7 @@ import './Footer.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useFooterLogic } from './hooks/useFooterLogic'
+import { useIsFooterVisible } from './hooks/useIsFooterVisible'
 import SendFeedback from './SendFeedback'
 import UserGuideLink from './UserGuideLink'
 
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
   // @ts-ignore
   const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`
 
-  const { isFooterVisible } = useFooterLogic()
+  const isFooterVisible = useIsFooterVisible()
 
   if (!isFooterVisible) return null
 
