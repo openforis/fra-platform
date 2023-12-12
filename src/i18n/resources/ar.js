@@ -97,7 +97,6 @@ module.exports.translation = {
     termsAndConditions: 'الأحكام والشروط',
     scamAlert: 'تبليغ عن احتيال',
     reportMisconduct: 'تبليغ عن سوء تصرف',
-    userGuide: 'دليل المستخدم',
     tutorials: 'الفيديو',
     sendFeedback: 'أرسل رأيك',
     licenses: 'التراخيص',

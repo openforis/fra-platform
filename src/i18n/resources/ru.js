@@ -51,7 +51,6 @@ module.exports.translation = {
     termsAndConditions: 'Положения и условия',
     scamAlert: 'Опасайтесь мошенников',
     reportMisconduct: 'Сообщить о нарушении',
-    userGuide: 'Руководство пользователя',
     tutorials: 'Видео',
     sendFeedback: 'Направить отзыв',
     licenses: 'Лицензирование',

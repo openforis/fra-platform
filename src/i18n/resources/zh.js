@@ -66,7 +66,6 @@ module.exports.translation = {
     termsAndConditions: '条款和条件',
     scamAlert: '防欺诈警告',
     reportMisconduct: '报告不当行为',
-    userGuide: '使用指南',
     tutorials: '视频',
     sendFeedback: '发送反馈',
     licenses: '许可',

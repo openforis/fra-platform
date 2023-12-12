@@ -40,7 +40,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
     <>
       <div className="separator" />
       <a target="_top" href={userGuideLink}>
-        {t('footer.userGuide')}
+        {t('common.userGuide')}
       </a>
     </>
   )
