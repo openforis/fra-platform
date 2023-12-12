@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { ContactProps } from 'meta/user'
+import { ContactProps } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions, useContacts } from 'client/store/data'
@@ -11,7 +11,7 @@ export const useOnChange = () => {
   const { assessmentName, cycleName, countryIso: _countryIso, sectionName } = useSectionRouteParams()
   const countryIso = _countryIso as CountryIso
   const dispatch = useAppDispatch()
-  const contacts = useContacts()
+  const { contacts } = useContacts()
 
   return useCallback(
     (uuid: string, key: keyof ContactProps, value: any) => {

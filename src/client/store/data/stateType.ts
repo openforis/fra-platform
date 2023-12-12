@@ -11,8 +11,8 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
+import { Contact } from 'meta/cycleData'
 import { RecordAssessmentData } from 'meta/data'
-import { Contact } from 'meta/user'
 
 export interface DataBaseState {
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
@@ -41,7 +41,8 @@ export type RecordTableDataStatus = Record<
   Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
 >
 
-export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
+export type ContactState = { prefilled: Array<Contact>; contacts: Array<Contact> }
+export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, ContactState>>>
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {

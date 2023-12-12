@@ -9,6 +9,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
 import { getActivitiesCount } from './activities/getActivitiesCount'
+import { getContacts } from './contacts/getContacts'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
@@ -123,5 +124,14 @@ export const CycleDataApi = {
     // Activities
     express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)
     express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireView, getActivitiesCount)
+
+    // ext node
+    // -- Contacts
+    // express.post(      ApiEndPoint.CycleData.Contacts.many(),      // AuthMiddleware.requireEditTableData,      createContact    )
+
+    express.get(ApiEndPoint.CycleData.Contacts.many(), getContacts)
+
+    // express.put(      ApiEndPoint.CycleData.Contacts.many(),      // AuthMiddleware.requireEditTableData,      updateContact    )
+    // express.delete(      ApiEndPoint.CycleData.Contacts.many(),      // AuthMiddleware.requireEditTableData,      removeContact    )
   },
 }

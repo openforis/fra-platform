@@ -2,10 +2,11 @@ import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode, CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment, Cycle, Section, SubSections } from 'meta/assessment'
 
 import type { User, UserProps } from './user'
 import {
+  CollaboratorPermissions,
   RoleName,
   UserContactPreference,
   UserContactPreferenceMethod,
@@ -188,6 +189,27 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
 
 const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
 
+const getUserTableAnchors = (props: {
+  user: User
+  countryIso: CountryIso
+  cycle: Cycle
+  sections: Array<Section>
+}): Array<string> => {
+  const { countryIso, cycle, user, sections } = props
+  const userRole = getRole(user, countryIso, cycle)
+  const sectionAnchors = SubSections.getAnchorsByUuid({ cycle, sections })
+
+  if (isCollaborator(user, countryIso, cycle)) {
+    const { permissions }: { permissions: CollaboratorPermissions } = userRole
+    if (!Objects.isEmpty(permissions?.sections)) {
+      return Object.keys(permissions?.sections)
+        .map((sectionUuid) => sectionAnchors[sectionUuid])
+        .sort((a, b) => a.localeCompare(b))
+    }
+  }
+  return ['all']
+}
+
 export const Users = {
   getRole,
   getFullName,
@@ -202,6 +224,7 @@ export const Users = {
 
   getRolesAllowedToEdit,
   getRolesAllowedToView,
+  getUserTableAnchors,
   getI18nRoleLabelKey,
   hasEditorRole,
   hasRoleInAssessment,

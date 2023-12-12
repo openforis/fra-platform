@@ -14,24 +14,27 @@ type Props = {
   data: Array<NodeExt>
   disabled: boolean
   onChange: (uuid: string, colName: string, value: any) => void
+  gridTemplateColumns: string
+  header?: boolean
 }
 
 const TableNodeExt = (props: Props) => {
-  const { columns, data, onChange, disabled } = props
+  const { columns, data, onChange, disabled, gridTemplateColumns, header } = props
   const { t } = useTranslation()
 
   return (
-    <DataGrid gridTemplateColumns={`repeat(${columns.length}, auto)`}>
-      {columns.map((column, i) => {
-        const { colName, header } = column.props
-        return (
-          <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
-            {Labels.getLabel({ label: header.label, t })}
-          </DataCell>
-        )
-      })}
+    <DataGrid gridTemplateColumns={gridTemplateColumns}>
+      {header &&
+        columns.map((column, i) => {
+          const { colName, header } = column.props
+          return (
+            <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
+              {Labels.getLabel({ label: header.label, t })}
+            </DataCell>
+          )
+        })}
 
-      {data.map(({ uuid, props: datum }, i) => {
+      {data.map(({ uuid, value: datum }, i) => {
         return (
           <React.Fragment key={uuid}>
             {columns.map((column, j) => {
@@ -55,6 +58,10 @@ const TableNodeExt = (props: Props) => {
       })}
     </DataGrid>
   )
+}
+
+TableNodeExt.defaultProps = {
+  header: true,
 }
 
 export default TableNodeExt

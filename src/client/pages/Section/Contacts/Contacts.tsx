@@ -61,7 +61,27 @@ const Contacts: React.FC<Props> = (props: Props) => {
     },
   ]
 
-  return <TableNodeExt disabled={disabled} onChange={onChange} columns={columns} data={contacts} />
+  const gridTemplateColumns = `12ch repeat(${columns.length - 1}, 1fr)`
+
+  return (
+    <>
+      <TableNodeExt
+        gridTemplateColumns={gridTemplateColumns}
+        disabled
+        onChange={onChange}
+        columns={columns}
+        data={contacts.prefilled}
+      />
+      <TableNodeExt
+        gridTemplateColumns={gridTemplateColumns}
+        header={false}
+        disabled={disabled}
+        onChange={onChange}
+        columns={columns}
+        data={contacts.prefilled}
+      />
+    </>
+  )
 }
 
 export default Contacts
