@@ -202,7 +202,7 @@ const getUserTableAnchors = (props: {
   if (isCollaborator(user, countryIso, cycle)) {
     const { permissions }: { permissions: CollaboratorPermissions } = userRole
     if (!Objects.isEmpty(permissions?.sections)) {
-      return Object.keys(permissions?.sections)
+      return Object.keys(permissions.sections)
         .map((sectionUuid) => sectionAnchors[sectionUuid])
         .sort((a, b) => a.localeCompare(b))
     }

@@ -78,7 +78,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
         disabled={disabled}
         onChange={onChange}
         columns={columns}
-        data={contacts.prefilled}
+        data={contacts.contacts}
       />
     </>
   )
