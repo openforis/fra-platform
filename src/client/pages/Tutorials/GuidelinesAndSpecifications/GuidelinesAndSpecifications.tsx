@@ -1,11 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentName, AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
 
 import { useUser } from 'client/store/user'
 import { useLanguage } from 'client/hooks/useLanguage'
-import AssessmentSwitch from 'client/components/AssessmentSwitch'
 import CycleSwitch from 'client/components/CycleSwitch'
 
 export const userGuideUrls: Record<string, string> = {
@@ -35,25 +34,17 @@ const Fra2025GuidelinesAndSpecifications: React.FC = () => {
   )
 }
 
-const FraCycleComponents: { [key: AssessmentName]: React.FC } = {
-  '2020': null,
-  '2025': Fra2025GuidelinesAndSpecifications,
-}
-
-const FraGuidelinesAndSpecificationss: React.FC = () => {
-  return <CycleSwitch components={FraCycleComponents} />
-}
-
-const AssessmentComponents: { [key: AssessmentName]: React.FC } = {
-  [AssessmentNames.fra]: FraGuidelinesAndSpecificationss,
-  [AssessmentNames.panEuropean]: null,
+const GuidelinesAndSpecificationsComponents = {
+  [AssessmentNames.fra]: {
+    '2025': Fra2025GuidelinesAndSpecifications,
+  },
 }
 
 const GuidelinesAndSpecifications: React.FC = () => {
   const user = useUser()
   if (!user) return null
 
-  return <AssessmentSwitch components={AssessmentComponents} />
+  return <CycleSwitch components={GuidelinesAndSpecificationsComponents} />
 }
 
 export default GuidelinesAndSpecifications

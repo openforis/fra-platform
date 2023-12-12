@@ -2,12 +2,11 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentName, AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 
 import { useUser } from 'client/store/user'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-import AssessmentSwitch from 'client/components/AssessmentSwitch'
 import CycleSwitch from 'client/components/CycleSwitch'
 
 enum UserGuideLinkOption {
@@ -47,25 +46,18 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
   )
 }
 
-const FraCycleComponents: { [key: AssessmentName]: React.FC } = {
-  '2020': () => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.File }),
-  '2025': () => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.TutorialPage }),
-}
-
-const FraUserGuideLinks: React.FC = () => {
-  return <CycleSwitch components={FraCycleComponents} />
-}
-
-const AssessmentComponents: { [key: AssessmentName]: React.FC } = {
-  [AssessmentNames.fra]: FraUserGuideLinks,
-  [AssessmentNames.panEuropean]: null,
+const UserGuideLinkComponents = {
+  [AssessmentNames.fra]: {
+    '2020': () => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.File }),
+    '2025': () => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.TutorialPage }),
+  },
 }
 
 const UserGuideLink: React.FC = () => {
   const user = useUser()
   if (!user) return null
 
-  return <AssessmentSwitch components={AssessmentComponents} />
+  return <CycleSwitch components={UserGuideLinkComponents} />
 }
 
 export default UserGuideLink

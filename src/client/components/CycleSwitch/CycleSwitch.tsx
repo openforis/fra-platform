@@ -1,29 +1,24 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-type Props = {
-  components: Record<string, React.FC<{ query?: string }>>
-  defaultKey?: string
-  query?: string
-}
+import { AssessmentName, CycleName } from 'meta/assessment'
 
-const Placeholder: React.FC<{ query?: string }> = () => {
-  return <div />
+type Props = {
+  components: Record<AssessmentName, Record<CycleName, React.FC>>
 }
 
 const CycleSwitch: React.FC<Props> = (props) => {
-  const { cycleName } = useParams()
+  const { assessmentName, cycleName } = useParams()
 
-  const { components, defaultKey, ...otherProps } = props
-  const key = cycleName ?? defaultKey
+  const { components } = props
 
-  const Component = components[key] ?? Placeholder
-  return React.createElement(Component, otherProps)
-}
+  const Component = components[assessmentName]?.[cycleName]
 
-CycleSwitch.defaultProps = {
-  defaultKey: '2020',
-  query: null,
+  if (Component) {
+    return <Component />
+  }
+
+  return null
 }
 
 export default CycleSwitch
