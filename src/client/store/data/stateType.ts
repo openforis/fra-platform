@@ -41,8 +41,7 @@ export type RecordTableDataStatus = Record<
   Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
 >
 
-export type ContactState = { prefilled: Array<Contact>; contacts: Array<Contact> }
-export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, ContactState>>>
+export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {

@@ -14,10 +14,7 @@ type Props = {
   countryIso: CountryIso
 }
 
-type Returned = {
-  prefilled: Array<Contact>
-  contacts: Array<Contact>
-}
+type Returned = Array<Contact>
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { assessment, cycle, countryIso } = props
@@ -52,6 +49,6 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
     /* const contacts = await NodeExtRepository.getMany<Contact>({ assessment, cycle, countryIso, type: NodeExtType.contact },t) */
     const contacts: Array<Contact> = []
 
-    return { prefilled, contacts }
+    return [...prefilled, ...contacts]
   })
 }

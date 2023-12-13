@@ -34,7 +34,9 @@ const TableNodeExt = (props: Props) => {
           )
         })}
 
-      {data.map(({ uuid, value: datum }, i) => {
+      {data.map(({ uuid, value: datum, props: _props }, i) => {
+        const { readOnly } = _props as { readOnly?: boolean }
+
         return (
           <React.Fragment key={uuid}>
             {columns.map((column, j) => {
@@ -45,7 +47,7 @@ const TableNodeExt = (props: Props) => {
                   uuid={uuid}
                   key={key}
                   onChange={onChange}
-                  disabled={disabled}
+                  disabled={disabled || readOnly}
                   datum={datum}
                   column={column}
                   lastRow={i === data.length - 1}
