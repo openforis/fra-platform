@@ -15,24 +15,22 @@ type Props = {
   disabled: boolean
   onChange: (uuid: string, colName: string, value: any) => void
   gridTemplateColumns: string
-  header?: boolean
 }
 
 const TableNodeExt = (props: Props) => {
-  const { columns, data, onChange, disabled, gridTemplateColumns, header } = props
+  const { columns, data, onChange, disabled, gridTemplateColumns } = props
   const { t } = useTranslation()
 
   return (
     <DataGrid gridTemplateColumns={gridTemplateColumns}>
-      {header &&
-        columns.map((column, i) => {
-          const { colName, header } = column.props
-          return (
-            <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
-              {Labels.getLabel({ label: header.label, t })}
-            </DataCell>
-          )
-        })}
+      {columns.map((column, i) => {
+        const { colName, header } = column.props
+        return (
+          <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
+            {Labels.getLabel({ label: header.label, t })}
+          </DataCell>
+        )
+      })}
 
       {data.map(({ uuid, value: datum, props: _props }, i) => {
         const { readOnly } = _props as { readOnly?: boolean }
@@ -60,10 +58,6 @@ const TableNodeExt = (props: Props) => {
       })}
     </DataGrid>
   )
-}
-
-TableNodeExt.defaultProps = {
-  header: true,
 }
 
 export default TableNodeExt
