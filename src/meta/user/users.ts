@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode, CountryIso } from 'meta/area'
-import { Assessment, Cycle, Section, SubSections } from 'meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 
 import type { User, UserProps } from './user'
 import {
@@ -189,21 +189,15 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
 
 const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
 
-const getUserTableAnchors = (props: {
-  user: User
-  countryIso: CountryIso
-  cycle: Cycle
-  sections: Array<Section>
-}): Array<string> => {
-  const { countryIso, cycle, user, sections } = props
+const getUserSections = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<string> => {
+  const { countryIso, cycle, user } = props
   const userRole = getRole(user, countryIso, cycle)
-  const sectionAnchors = SubSections.getAnchorsByUuid({ cycle, sections })
 
   if (isCollaborator(user, countryIso, cycle)) {
     const { permissions }: { permissions: CollaboratorPermissions } = userRole
     if (!Objects.isEmpty(permissions?.sections)) {
       return Object.keys(permissions.sections)
-        .map((sectionUuid) => sectionAnchors[sectionUuid])
+        .map((sectionUuid) => sectionUuid)
         .sort((a, b) => a.localeCompare(b))
     }
   }
@@ -224,7 +218,7 @@ export const Users = {
 
   getRolesAllowedToEdit,
   getRolesAllowedToView,
-  getUserTableAnchors,
+  getUserSections,
   getI18nRoleLabelKey,
   hasEditorRole,
   hasRoleInAssessment,

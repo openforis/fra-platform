@@ -42,14 +42,14 @@ const TableNodeExt = (props: Props) => {
               const key = `${uuid}_${colName}_data`
               return (
                 <CellNodeExt
-                  uuid={uuid}
-                  key={key}
-                  onChange={onChange}
-                  disabled={disabled || readOnly}
-                  datum={datum}
                   column={column}
-                  lastRow={i === data.length - 1}
+                  datum={datum}
+                  disabled={disabled || readOnly}
+                  key={key}
                   lastCol={j === columns.length - 1}
+                  lastRow={i === data.length - 1}
+                  onChange={onChange}
+                  uuid={uuid}
                 />
               )
             })}

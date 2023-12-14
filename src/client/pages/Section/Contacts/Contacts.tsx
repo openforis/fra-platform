@@ -65,11 +65,11 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   return (
     <TableNodeExt
-      gridTemplateColumns={gridTemplateColumns}
-      disabled={disabled}
-      onChange={onChange}
       columns={columns}
       data={contacts}
+      disabled={disabled}
+      gridTemplateColumns={gridTemplateColumns}
+      onChange={onChange}
     />
   )
 }

@@ -1,10 +1,11 @@
-import { SectionName } from 'meta/assessment'
 import { NodeExt } from 'meta/nodeExt'
 import { RoleName } from 'meta/user/userRole'
 
+type SectionUUID = string
+
 export interface ContactValue {
   appellation: string
-  contributions: Array<SectionName>
+  contributions: Array<SectionUUID>
   institution: string
   name: string
   role: RoleName.NATIONAL_CORRESPONDENT | RoleName.ALTERNATE_NATIONAL_CORRESPONDENT | RoleName.COLLABORATOR
