@@ -1,13 +1,22 @@
 import { useMemo } from 'react'
 
+import { Label } from 'meta/assessment'
 import { ColumnNodeExtType } from 'meta/nodeExt'
 import { RoleName, Users, UserTitle } from 'meta/user'
+
+import { Option } from 'client/components/Inputs/Select'
+import { ColumnNodeExt } from 'client/components/TableNodeExt/types'
 
 const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
 const appellations = Object.values(UserTitle)
 
-export const useColumns = () => {
-  const optionsRole = useMemo(() => {
+type Options = Array<{
+  label: Label
+  value: Option['value']
+}>
+
+export const useColumns = (): Array<ColumnNodeExt> => {
+  const optionsRole = useMemo<Options>(() => {
     return allowedRoles.map((role) => {
       const label = { key: Users.getI18nRoleLabelKey(role) }
       const value = role
@@ -15,7 +24,7 @@ export const useColumns = () => {
     })
   }, [])
 
-  const optionsAppellation = useMemo(() => {
+  const optionsAppellation = useMemo<Options>(() => {
     return appellations.map((appellation) => {
       const label = { key: `editUser.${appellation}` }
       const value = appellation
@@ -23,7 +32,7 @@ export const useColumns = () => {
     })
   }, [])
 
-  return useMemo(
+  return useMemo<Array<ColumnNodeExt>>(
     () => [
       {
         type: ColumnNodeExtType.select,

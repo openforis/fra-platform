@@ -1,8 +1,11 @@
 import { Objects } from 'utils/objects'
 
 import { Contact } from 'meta/cycleData'
+import { CollaboratorPermissions } from 'meta/user'
 
-export const ContactAdapter = ({ permissions, ...contact }: any): Contact => {
+type Row = Contact & { permissions: CollaboratorPermissions }
+
+export const ContactAdapter = ({ permissions, ...contact }: Row): Contact => {
   if (Objects.isEmpty(permissions) || permissions.sections === 'all') {
     // eslint-disable-next-line no-param-reassign
     contact.value.contributions = ['all']

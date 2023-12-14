@@ -6,7 +6,6 @@ import { Assessment, Cycle } from 'meta/assessment'
 
 import type { User, UserProps } from './user'
 import {
-  CollaboratorPermissions,
   RoleName,
   UserContactPreference,
   UserContactPreferenceMethod,
@@ -189,21 +188,6 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
 
 const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
 
-const getUserSections = (props: { user: User; countryIso: CountryIso; cycle: Cycle }): Array<string> => {
-  const { countryIso, cycle, user } = props
-  const userRole = getRole(user, countryIso, cycle)
-
-  if (isCollaborator(user, countryIso, cycle)) {
-    const { permissions }: { permissions: CollaboratorPermissions } = userRole
-    if (!Objects.isEmpty(permissions?.sections)) {
-      return Object.keys(permissions.sections)
-        .map((sectionUuid) => sectionUuid)
-        .sort((a, b) => a.localeCompare(b))
-    }
-  }
-  return ['all']
-}
-
 export const Users = {
   getRole,
   getFullName,
@@ -218,7 +202,6 @@ export const Users = {
 
   getRolesAllowedToEdit,
   getRolesAllowedToView,
-  getUserSections,
   getI18nRoleLabelKey,
   hasEditorRole,
   hasRoleInAssessment,
