@@ -8,13 +8,13 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayerSection } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
-
-import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
-import AgreementLevelControl from './components/AgreementLevelControl/AgreementLevelControl'
-import CustomAssetControl from './components/CustomAssetControl'
-import LayerOpacityControl from './components/LayerOpacityControl'
-import TreeCoverPercentageControl from './components/TreeCoverPercentageControl/TreeCoverPercentageControl'
-import YearControl from './components/YearControl'
+import AgreementLevelControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/AgreementLevelControl'
+import CustomAssetControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/CustomAssetControl'
+import LayerOpacityControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/LayerOpacityControl'
+import RecipeSelector from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/RecipeSelector/RecipeSelector'
+import TreeCoverPercentageControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/TreeCoverPercentageControl/TreeCoverPercentageControl'
+import YearControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/YearControl'
+import GeoMapMenuListElement from 'client/pages/Geo/GeoMap/GeoMapMenuListElement/'
 
 interface Props {
   section: LayerSection
@@ -51,6 +51,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
   return (
     <div className="geo-map-section-panel-container">
       <div className="geo-map-section-panel-layers">
+        {section.recipes !== undefined && <RecipeSelector recipes={section.recipes} sectionKey={section.key} />}
         {section.layers.length > 2 && (
           <GeoMapMenuListElement
             key={`${section.key}-global-opacity`}
