@@ -56,3 +56,6 @@ export const useGeoProtectedAreas = () => {
     )
   )
 }
+
+export const useGeoLayerSectionRecipeName = (sectionKey: LayerSectionKey): string | undefined =>
+  useAppSelector((state) => state.geo.recipes[sectionKey])
