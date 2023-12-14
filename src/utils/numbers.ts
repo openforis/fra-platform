@@ -90,7 +90,7 @@ const format = (value: number | BigNumber, precision = 2): string | null =>
         .toFormat(precision)
         .replace(/^-0(.00)?$/, '0$1')
 
-const countDecimal = (value: number): number => {
+const countDecimals = (value: number): number => {
   if (Math.floor(value.valueOf()) === value.valueOf()) return 0
   return value.toString().split('.')[1].length ?? 0
 }
@@ -132,5 +132,5 @@ export const Numbers = {
   format,
   toFixed,
   toString,
-  countDecimal,
+  countDecimals,
 }

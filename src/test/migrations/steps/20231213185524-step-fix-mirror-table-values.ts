@@ -109,8 +109,8 @@ const exec = async (props: Props, client: BaseProtocol): Promise<void> => {
     }
 
     if (avg.raw && tot.raw) {
-      const avgDec = Numbers.countDecimal(Number(avg.raw))
-      const totDec = Numbers.countDecimal(Number(tot.raw))
+      const avgDec = Numbers.countDecimals(Number(avg.raw))
+      const totDec = Numbers.countDecimals(Number(tot.raw))
       if (avgDec <= 2) {
         // Logger.info(`avg not, total yes ${logKey} avg:${JSON.stringify(avg)} tot:${JSON.stringify(tot)}}`)
         _addUpdate({ avgCalc: false, check })
