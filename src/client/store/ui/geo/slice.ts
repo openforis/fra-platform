@@ -3,10 +3,17 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOptions, MosaicSource } from 'meta/geo'
 
+import {
+  getForestEstimationData,
+  postLayer,
+  setLayerOpacity,
+  setLayerSectionRecipe,
+  setSectionGlobalOpacity,
+  toggleLayer,
+} from 'client/store/ui/geo/actions'
+import { postMosaicOptions } from 'client/store/ui/geo/actions/postMosaicOptions'
 import { mapController } from 'client/utils'
 
-import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestEstimationData, postLayer, setLayerSectionRecipe, toggleLayer } from './actions'
 import {
   AgreementLevelState,
   GeoState,
@@ -213,7 +220,7 @@ export const geoSlice = createSlice({
       const layerState = getLayerState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey] = { ...layerState, options: { ...options } }
     },
-    setLayerOpacity: (
+    setLayerOpacityValue: (
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
     ) => {
@@ -262,26 +269,6 @@ export const geoSlice = createSlice({
       }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; reducerScale: number }>
     ) => {
       state.sections[sectionKey][layerKey].options.agreementLayer.reducerScale = reducerScale
-    },
-    setSectionGlobalOpacity: (
-      state: Draft<GeoState>,
-      action: PayloadAction<{ sectionKey: LayerSectionKey; opacity: number }>
-    ) => {
-      const { sectionKey, opacity } = action.payload
-
-      // Safely get the object with the layer keys of the section
-      const sectionState = getSectionState(state, sectionKey)
-
-      Object.keys(sectionState).forEach((layerKey) => {
-        if (layerKey === 'Agreement') return // Ignore any agreement layer
-
-        const layerSelectState = state.sections[sectionKey][layerKey as LayerKey].selected
-        if (layerSelectState === undefined || !layerSelectState) return // Ignore non-selected layers
-
-        state.sections[sectionKey][layerKey as LayerKey].opacity = opacity
-        const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey as LayerKey}`
-        mapController.setEarthEngineLayerOpacity(mapLayerKey, opacity)
-      })
     },
     resetLayerStatus: (
       state: Draft<GeoState>,
@@ -348,11 +335,13 @@ export const geoSlice = createSlice({
 })
 
 export const GeoActions = {
-  ...geoSlice.actions,
-  postMosaicOptions,
   postLayer,
+  postMosaicOptions,
+  setLayerOpacity,
   setLayerSectionRecipe,
+  setSectionGlobalOpacity,
   toggleLayer,
+  ...geoSlice.actions,
 }
 
 export default geoSlice.reducer as Reducer<GeoState>

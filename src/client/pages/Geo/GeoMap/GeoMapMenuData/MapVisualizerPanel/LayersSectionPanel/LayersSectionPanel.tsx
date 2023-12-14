@@ -28,9 +28,9 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
   const handleOpacityChange = (opacity: number, layerKey: LayerKey | typeof GLOBAL_OPACITY_KEY) => {
     if (layerKey === GLOBAL_OPACITY_KEY) {
       setGlobalOpacity(opacity)
-      dispatch(GeoActions.setSectionGlobalOpacity({ sectionKey: section.key, opacity }))
+      dispatch(GeoActions.setSectionGlobalOpacity({ sectionKey: section.key, countryIso, opacity }))
     } else {
-      dispatch(GeoActions.setLayerOpacity({ sectionKey: section.key, layerKey, opacity }))
+      dispatch(GeoActions.setLayerOpacity({ sectionKey: section.key, layerKey, countryIso, opacity }))
     }
   }
 
