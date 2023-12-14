@@ -60,8 +60,6 @@ const Footer: React.FC = () => {
         <a target="_blank" href={`https://www.fao.org/contact-us/terms/db-terms-of-use/${language}`} rel="noreferrer">
           {t('footer.licenses')}
         </a>
-
-        <div className="separator" />
       </div>
 
       <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
