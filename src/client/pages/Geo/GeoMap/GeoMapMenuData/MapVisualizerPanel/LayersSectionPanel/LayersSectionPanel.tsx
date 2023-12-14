@@ -1,6 +1,5 @@
 import './LayersSectionPanel.scss'
 import React, { useState } from 'react'
-import { batch } from 'react-redux'
 
 import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection } from 'meta/geo'
 
@@ -36,16 +35,11 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
   }
 
   const toggleLayer = (layerKey: LayerKey, fetch = true) => {
-    const layerState = sectionState?.[layerKey]
-    const newSelectedState = !layerState?.selected
-    const currentMapId = layerState?.mapId
-    batch(() => {
-      // If the layer is selected and doesn't have a mapId cached, fetch it
-      if (newSelectedState && !currentMapId && fetch) {
-        dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey }))
-      }
-      dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
-    })
+    if (fetch) {
+      dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey, fetchLayerParams: { countryIso } }))
+      return
+    }
+    dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
   }
 
   return (
