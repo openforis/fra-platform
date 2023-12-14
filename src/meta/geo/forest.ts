@@ -103,77 +103,82 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
 export const forestAgreementRecipes: Array<Recipe> = [
   {
     layers: [
-      ForestKey.TandemX,
-      ForestKey.JAXA,
-      ForestKey.GlobeLand,
-      ForestKey.ESAGlobCover,
-      ForestKey.Copernicus,
-      ForestKey.ESRI,
-      ForestKey.ESAWorldCover,
-      ForestKey.Hansen,
+      { key: ForestKey.TandemX },
+      { key: ForestKey.JAXA },
+      { key: ForestKey.GlobeLand },
+      { key: ForestKey.ESAGlobCover },
+      { key: ForestKey.Copernicus },
+      { key: ForestKey.ESRI },
+      { key: ForestKey.ESAWorldCover },
+      {
+        key: ForestKey.Hansen,
+        options: {
+          gteTreeCoverPercent: 10,
+        },
+      },
     ],
-    gteHansenTreeCoverPerc: 10,
     forestAreaDataProperty: 'faAgreementHansen10',
     recipeLabel: 'All (GFC Hansen >=10%)',
   },
   {
     layers: [
-      ForestKey.JAXA,
-      ForestKey.TandemX,
-      ForestKey.GlobeLand,
-      ForestKey.ESAGlobCover,
-      ForestKey.Copernicus,
-      ForestKey.ESRI,
-      ForestKey.ESAWorldCover,
-      ForestKey.Hansen,
+      { key: ForestKey.JAXA },
+      { key: ForestKey.TandemX },
+      { key: ForestKey.GlobeLand },
+      { key: ForestKey.ESAGlobCover },
+      { key: ForestKey.Copernicus },
+      { key: ForestKey.ESRI },
+      { key: ForestKey.ESAWorldCover },
+      {
+        key: ForestKey.Hansen,
+        options: {
+          gteTreeCoverPercent: 20,
+        },
+      },
     ],
-    gteHansenTreeCoverPerc: 20,
     forestAreaDataProperty: 'faAgreementHansen20',
     recipeLabel: 'All (GFC Hansen >=20%)',
   },
   {
     layers: [
-      ForestKey.JAXA,
-      ForestKey.TandemX,
-      ForestKey.GlobeLand,
-      ForestKey.ESAGlobCover,
-      ForestKey.Copernicus,
-      ForestKey.ESRI,
-      ForestKey.ESAWorldCover,
-      ForestKey.Hansen,
+      { key: ForestKey.JAXA },
+      { key: ForestKey.TandemX },
+      { key: ForestKey.GlobeLand },
+      { key: ForestKey.ESAGlobCover },
+      { key: ForestKey.Copernicus },
+      { key: ForestKey.ESRI },
+      { key: ForestKey.ESAWorldCover },
+      {
+        key: ForestKey.Hansen,
+        options: {
+          gteTreeCoverPercent: 30,
+        },
+      },
     ],
-    gteHansenTreeCoverPerc: 30,
     forestAreaDataProperty: 'faAgreementHansen30',
     recipeLabel: 'All (GFC Hansen >=30%)',
   },
   {
-    layers: [ForestKey.ESRI, ForestKey.ESAWorldCover, ForestKey.GlobeLand, ForestKey.Hansen],
-    gteHansenTreeCoverPerc: 10,
+    layers: [
+      { key: ForestKey.ESRI },
+      { key: ForestKey.ESAWorldCover },
+      { key: ForestKey.GlobeLand },
+      {
+        key: ForestKey.Hansen,
+        options: {
+          gteTreeCoverPercent: 10,
+        },
+      },
+    ],
     forestAreaDataProperty: 'faAgreementEsriEsaGloHansen10',
     recipeLabel: 'ESRI, ESA, Globland 2020 & GFC Hansen >=10%',
   },
   {
-    layers: [ForestKey.ESRI, ForestKey.ESAWorldCover],
+    layers: [{ key: ForestKey.ESRI }, { key: ForestKey.ESAWorldCover }],
     forestAreaDataProperty: 'faAgreementEsriEsa',
     recipeLabel: 'ESRI & ESA',
   },
 ]
-
-export const getRecipeAgreementAreaProperty = (
-  selectedLayers: Array<ForestKey>,
-  gteAgreementLevel: number,
-  gteHansenTreeCoverPerc?: number
-): string => {
-  const recipe = forestAgreementRecipes.find((recipe) => {
-    return (
-      recipe.layers.length === selectedLayers.length &&
-      (recipe.gteHansenTreeCoverPerc === gteHansenTreeCoverPerc || recipe.gteHansenTreeCoverPerc === undefined) &&
-      recipe.layers.every((layer) => selectedLayers.includes(layer as ForestKey))
-    )
-  })
-
-  return recipe === undefined ? null : `${recipe.forestAreaDataProperty}Gte${gteAgreementLevel}`
-}
 
 export const forestLayers: LayerSection = {
   key: LayerSectionKey.Forest,
