@@ -13,7 +13,7 @@ export const ContactAdapter = ({ permissions, ...contact }: any): Contact => {
     contact.value.contributions = ['none']
   }
 
-  if (!Objects.isEmpty(permissions?.sections) && typeof permissions?.sections !== 'string') {
+  if (!Objects.isEmpty(permissions.sections) && typeof permissions.sections !== 'string') {
     // eslint-disable-next-line no-param-reassign
     contact.value.contributions = Object.keys(permissions.sections)
   }
