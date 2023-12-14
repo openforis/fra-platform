@@ -35,6 +35,7 @@ module.exports = {
   trend: 'Tendances',
   unknown: 'Aucune fonction/Fonction inconnue',
   unselectAll: 'Tout déselectionner',
+  userGuide: "Guide de l'utilisateur",
   variable: 'FRA Variable',
   view: 'Просмотреть',
   year: 'Année',

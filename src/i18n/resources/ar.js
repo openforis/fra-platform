@@ -97,7 +97,6 @@ module.exports.translation = {
     termsAndConditions: 'الأحكام والشروط',
     scamAlert: 'تبليغ عن احتيال',
     reportMisconduct: 'تبليغ عن سوء تصرف',
-    userGuide: 'دليل المستخدم',
     tutorials: 'الفيديو',
     sendFeedback: 'أرسل رأيك',
     licenses: 'التراخيص',
@@ -1138,6 +1137,9 @@ The FRA team
     ndpAdd: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة نقطة بيانات وطنية',
     passwordLoginShort: 'كيفية تسجيل الدخول باستخدام كلمة مرور محددة ذاتيًا',
     googleLoginShort: 'كيفية تسجيل الدخول باستخدام جوجل',
+    guidelinesAndSpecifications: 'المبادئ التوجيهية والمواصفات',
+    ndpAddReferenceLink: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة رابط مرجعي لنقطة البيانات الوطنية؟',
+    nationalDataAddReferenceLink: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة رابط مرجعي للبيانات الوطنية؟',
   },
 
   panEuropean: {
