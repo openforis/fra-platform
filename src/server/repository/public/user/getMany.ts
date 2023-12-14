@@ -25,8 +25,6 @@ export const getMany = async (
 
     limit?: number
     offset?: number
-
-    withProps?: boolean
   },
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
@@ -41,7 +39,6 @@ export const getMany = async (
     roles,
     administrators,
     statuses = [UserStatus.active, UserStatus.invitationPending],
-    withProps = false,
   } = props
 
   const selectedCountries = !Objects.isEmpty(countries)
@@ -91,10 +88,8 @@ export const getMany = async (
     )`)
   }
 
-  const propsCondition = withProps ? '' : "- 'props'"
-
   const query = `
-      select ${selectFields}, jsonb_agg(to_jsonb(ur.*) ${propsCondition}) as roles
+      select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
       from public.users u
                join public.users_role ur on (u.id = ur.user_id)
       where ${whereConditions.join(`
