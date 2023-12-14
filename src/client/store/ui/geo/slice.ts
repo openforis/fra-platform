@@ -6,7 +6,7 @@ import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOption
 import { mapController } from 'client/utils'
 
 import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getForestEstimationData, postLayer, setLayerSectionRecipe } from './actions'
+import { getForestEstimationData, postLayer, setLayerSectionRecipe, toggleLayer } from './actions'
 import {
   AgreementLevelState,
   GeoState,
@@ -182,28 +182,24 @@ export const geoSlice = createSlice({
         state.geoStatistics.tabularEstimationData.splice(index, 0, entry)
       }
     },
-    toggleLayer: (
+    setLayerSelected: (
       state: Draft<GeoState>,
-      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; selected: boolean }>
     ) => {
-      const { sectionKey, layerKey } = action.payload
+      const { sectionKey, layerKey, selected } = action.payload
       const layerState = getLayerState(state, sectionKey, layerKey)
 
-      let newLayerState = {}
       // If the property is not defined, it means the layer has not been selected before,
-      // so toggle to selected and intialize the opacity
-      if (layerState.selected === undefined) {
-        newLayerState = { ...layerState, selected: true, opacity: 1 }
-      } else {
-        // Otherwise, toggle the previous state
-        newLayerState = { ...layerState, selected: !layerState.selected }
-      }
+      // so set selected and intialize the opacity
+      const newLayerState =
+        layerState.selected === undefined ? { ...layerState, selected, opacity: 1 } : { ...layerState, selected }
+
       state.sections[sectionKey][layerKey] = newLayerState
 
       // Render or remove layer from the map
-      const { selected, mapId } = state.sections[sectionKey][layerKey]
+      const { selected: isLayerSelected, mapId } = state.sections[sectionKey][layerKey]
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
-      if (selected && mapId) {
+      if (isLayerSelected && mapId) {
         mapController.addEarthEngineLayer(mapLayerKey, mapId)
       } else {
         mapController.removeLayer(mapLayerKey)
@@ -356,6 +352,7 @@ export const GeoActions = {
   postMosaicOptions,
   postLayer,
   setLayerSectionRecipe,
+  toggleLayer,
 }
 
 export default geoSlice.reducer as Reducer<GeoState>
