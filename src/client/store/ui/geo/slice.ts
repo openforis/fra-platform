@@ -24,6 +24,7 @@ const initialMosaicOptions: MosaicOptions = {
 
 const initialState: GeoState = {
   sections: {} as Record<LayerSectionKey, LayersSectionState>,
+  recipes: {} as Record<LayerSectionKey, string>,
   isMapAvailable: false,
   selectedPanel: null,
   mosaicOptions: {
@@ -205,6 +206,14 @@ export const geoSlice = createSlice({
         mapController.removeLayer(mapLayerKey)
       }
     },
+    setLayerOptions: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ layerKey: LayerKey; options: LayerStateOptions; sectionKey: LayerSectionKey }>
+    ) => {
+      const { layerKey, options, sectionKey } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, options: { ...options } }
+    },
     setLayerOpacity: (
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
@@ -289,6 +298,10 @@ export const geoSlice = createSlice({
           state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].status = LayerFetchStatus.Unfetched
         })
       })
+    },
+    setLayerSectionRecipeName: (state, action: PayloadAction<{ recipe: string; sectionKey: LayerSectionKey }>) => {
+      const { sectionKey, recipe } = action.payload
+      state.recipes[sectionKey] = recipe
     },
   },
   extraReducers: (builder) => {
