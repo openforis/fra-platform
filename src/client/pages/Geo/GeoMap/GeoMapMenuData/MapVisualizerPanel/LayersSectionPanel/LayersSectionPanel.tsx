@@ -1,6 +1,5 @@
 import './LayersSectionPanel.scss'
 import React, { useState } from 'react'
-import { batch } from 'react-redux'
 
 import { GLOBAL_OPACITY_KEY, LayerKey, LayerSection } from 'meta/geo'
 
@@ -8,13 +7,13 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayerSection } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
-
-import GeoMapMenuListElement from '../../../GeoMapMenuListElement'
-import AgreementLevelControl from './components/AgreementLevelControl/AgreementLevelControl'
-import CustomAssetControl from './components/CustomAssetControl'
-import LayerOpacityControl from './components/LayerOpacityControl'
-import TreeCoverPercentageControl from './components/TreeCoverPercentageControl/TreeCoverPercentageControl'
-import YearControl from './components/YearControl'
+import AgreementLevelControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/AgreementLevelControl'
+import CustomAssetControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/CustomAssetControl'
+import LayerOpacityControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/LayerOpacityControl'
+import RecipeSelector from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/RecipeSelector/RecipeSelector'
+import TreeCoverPercentageControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/TreeCoverPercentageControl/TreeCoverPercentageControl'
+import YearControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/YearControl'
+import GeoMapMenuListElement from 'client/pages/Geo/GeoMap/GeoMapMenuListElement/'
 
 interface Props {
   section: LayerSection
@@ -29,28 +28,24 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
   const handleOpacityChange = (opacity: number, layerKey: LayerKey | typeof GLOBAL_OPACITY_KEY) => {
     if (layerKey === GLOBAL_OPACITY_KEY) {
       setGlobalOpacity(opacity)
-      dispatch(GeoActions.setSectionGlobalOpacity({ sectionKey: section.key, opacity }))
+      dispatch(GeoActions.setSectionGlobalOpacity({ sectionKey: section.key, countryIso, opacity }))
     } else {
-      dispatch(GeoActions.setLayerOpacity({ sectionKey: section.key, layerKey, opacity }))
+      dispatch(GeoActions.setLayerOpacity({ sectionKey: section.key, layerKey, countryIso, opacity }))
     }
   }
 
   const toggleLayer = (layerKey: LayerKey, fetch = true) => {
-    const layerState = sectionState?.[layerKey]
-    const newSelectedState = !layerState?.selected
-    const currentMapId = layerState?.mapId
-    batch(() => {
-      // If the layer is selected and doesn't have a mapId cached, fetch it
-      if (newSelectedState && !currentMapId && fetch) {
-        dispatch(GeoActions.postLayer({ countryIso, sectionKey: section.key, layerKey }))
-      }
-      dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
-    })
+    if (fetch) {
+      dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey, fetchLayerParams: { countryIso } }))
+      return
+    }
+    dispatch(GeoActions.toggleLayer({ sectionKey: section.key, layerKey }))
   }
 
   return (
     <div className="geo-map-section-panel-container">
       <div className="geo-map-section-panel-layers">
+        {section.recipes !== undefined && <RecipeSelector recipes={section.recipes} sectionKey={section.key} />}
         {section.layers.length > 2 && (
           <GeoMapMenuListElement
             key={`${section.key}-global-opacity`}
