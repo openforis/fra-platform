@@ -14,14 +14,15 @@ type Props = {
   data: Array<NodeExt>
   disabled: boolean
   onChange: (uuid: string, colName: string, value: any) => void
+  gridTemplateColumns: string
 }
 
 const TableNodeExt = (props: Props) => {
-  const { columns, data, onChange, disabled } = props
+  const { columns, data, onChange, disabled, gridTemplateColumns } = props
   const { t } = useTranslation()
 
   return (
-    <DataGrid gridTemplateColumns={`repeat(${columns.length}, auto)`}>
+    <DataGrid gridTemplateColumns={gridTemplateColumns}>
       {columns.map((column, i) => {
         const { colName, header } = column.props
         return (
@@ -31,7 +32,9 @@ const TableNodeExt = (props: Props) => {
         )
       })}
 
-      {data.map(({ uuid, props: datum }, i) => {
+      {data.map(({ uuid, value: datum, props: _props }, i) => {
+        const { readOnly } = _props as { readOnly?: boolean }
+
         return (
           <React.Fragment key={uuid}>
             {columns.map((column, j) => {
@@ -39,14 +42,14 @@ const TableNodeExt = (props: Props) => {
               const key = `${uuid}_${colName}_data`
               return (
                 <CellNodeExt
-                  uuid={uuid}
-                  key={key}
-                  onChange={onChange}
-                  disabled={disabled}
-                  datum={datum}
                   column={column}
-                  lastRow={i === data.length - 1}
+                  datum={datum}
+                  disabled={disabled || readOnly}
+                  key={key}
                   lastCol={j === columns.length - 1}
+                  lastRow={i === data.length - 1}
+                  onChange={onChange}
+                  uuid={uuid}
                 />
               )
             })}
