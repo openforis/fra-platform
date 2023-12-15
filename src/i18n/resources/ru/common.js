@@ -40,6 +40,7 @@ module.exports = {
   trend: 'Тренд',
   unknown: 'Отсутствует/неизвестна',
   unselectAll: 'Снять выделение',
+  userGuide: 'Руководство пользователя',
   variable: 'ОЛР Переменная',
   view: 'Просмотреть',
   year: 'Год',

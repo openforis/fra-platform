@@ -49,5 +49,8 @@
 
 .toolbar__geo-beta-message {
   font-size: $font-l;
-  margin-left: $spacing-l;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }

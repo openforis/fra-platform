@@ -43,6 +43,7 @@ module.exports = {
   trend: 'Trend',
   unknown: 'None/unknown',
   unselectAll: 'Unselect all',
+  userGuide: 'User guide',
   variable: 'FRA Variable',
   view: 'View',
   year: 'Year',
