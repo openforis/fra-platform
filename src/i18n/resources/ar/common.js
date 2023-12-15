@@ -36,6 +36,7 @@ module.exports = {
   trend: 'اتجاه',
   unknown: 'ولا واحدة/مجهولة',
   unselectAll: 'إلغاء اختيار الكل',
+  userGuide: 'دليل المستخدم',
   variable: 'تقييم الموارد الحرجية متاح',
   view: 'مشاهدة',
   year: 'العام',

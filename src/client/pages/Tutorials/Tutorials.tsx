@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useLanguage } from 'client/hooks/useLanguage'
 import Icon from 'client/components/Icon'
+import GuidelinesAndSpecifications from 'client/pages/Tutorials/GuidelinesAndSpecifications'
 
 export const videoResources: Array<{
   idx: number
@@ -69,6 +70,8 @@ const Tutorials: React.FC = () => {
 
   return (
     <div className="app-view__content">
+      <GuidelinesAndSpecifications />
+
       <div className="landing__page-header">
         <h1 className="landing__page-title title">{t('Tutorials')}</h1>
       </div>

@@ -59,6 +59,7 @@ const Toolbar: React.FC = () => {
           <div className="toolbar__geo-beta-message">FRA GEO - Beta version</div>
         </MediaQuery>
       )}
+
       {isCountry && (
         <>
           <MediaQuery minWidth={Breakpoints.laptop}>

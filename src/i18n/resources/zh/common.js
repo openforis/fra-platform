@@ -36,6 +36,7 @@ module.exports = {
   trend: '趋势',
   unknown: '无/未知',
   unselectAll: '取消所有选项',
+  userGuide: '使用指南',
   variable: 'FRA变量',
   view: '查看',
   year: '年份',

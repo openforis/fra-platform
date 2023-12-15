@@ -66,7 +66,6 @@ module.exports.translation = {
     termsAndConditions: '条款和条件',
     scamAlert: '防欺诈警告',
     reportMisconduct: '报告不当行为',
-    userGuide: '使用指南',
     tutorials: '视频',
     sendFeedback: '发送反馈',
     licenses: '许可',
@@ -1109,6 +1108,9 @@ FRA工作组
     ndpAdd: '全球森林资源评估平台用户教程 - 如何添加国家数据点',
     passwordLoginShort: '如何使用自定义密码登录',
     googleLoginShort: '如何使用Google邮箱验证登录',
+    guidelinesAndSpecifications: '准则和规范',
+    ndpAddReferenceLink: '全球森林资源评估平台用户教程 - 如何为国家数据点添加参考链接',
+    nationalDataAddReferenceLink: '全球森林资源评估平台用户教程 - 如何为国家数据添加参考链接',
   },
 
   panEuropean: {

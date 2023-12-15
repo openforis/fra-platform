@@ -54,7 +54,6 @@ des domaines boréal, tempéré et sous-tropical`,
     termsAndConditions: 'Termes et conditions',
     scamAlert: 'Alerte aux messages frauduleux',
     reportMisconduct: 'Signaler un cas de mauvaise conduite',
-    userGuide: "Guide de l'utilisateur",
     tutorials: 'Vidéo',
     sendFeedback: 'Envoyer réactions',
     licenses: 'Autorisations',
@@ -1068,5 +1067,10 @@ L'équipe de FRA
     ndpAdd: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un point de données national",
     passwordLoginShort: 'Comment se connecter avec un mot de passe personnalisé',
     googleLoginShort: 'Comment se connecter à partir de son compte Google',
+    guidelinesAndSpecifications: 'Lignes directrices et spécifications',
+    ndpAddReferenceLink:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter le lien d'une référence pour un point de données national",
+    nationalDataAddReferenceLink:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter le lien d'une référence pour des données nationales",
   },
 }
