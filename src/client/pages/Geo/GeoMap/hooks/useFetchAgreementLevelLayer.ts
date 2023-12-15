@@ -14,7 +14,7 @@ export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKe
   const sectionState = useGeoLayerSection(sectionKey)
   const layerState = sectionState?.[layerKey]
   const agreementLevel = layerState?.options?.agreementLayer?.level
-  const countSelectedLayers = useCountSectionSelectedLayers(sectionKey)
+  const countSelectedLayers = useCountSectionSelectedLayers({ sectionKey, ignoreAgreementLayer: true })
 
   useEffect(() => {
     if (agreementLevel === undefined) return // Skip when the property is not set

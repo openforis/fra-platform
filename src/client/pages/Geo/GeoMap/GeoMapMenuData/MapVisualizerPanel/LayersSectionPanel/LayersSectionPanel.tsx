@@ -95,7 +95,6 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
                 layerKey={layer.key}
                 loadingStatus={loadingStatus}
                 section={section}
-                sectionState={sectionState}
               />
             )
           }
