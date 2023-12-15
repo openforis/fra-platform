@@ -51,7 +51,6 @@ module.exports.translation = {
     termsAndConditions: 'Положения и условия',
     scamAlert: 'Опасайтесь мошенников',
     reportMisconduct: 'Сообщить о нарушении',
-    userGuide: 'Руководство пользователя',
     tutorials: 'Видео',
     sendFeedback: 'Направить отзыв',
     licenses: 'Лицензирование',
@@ -1104,6 +1103,9 @@ module.exports.translation = {
     ndpAdd: 'Руководство пользователя платформы ОЛР — Как добавить национальный отчетный год',
     passwordLoginShort: 'Как войти в систему с помощью собственного пароля',
     googleLoginShort: 'Как войти в систему, используя аутентификацию Google',
+    guidelinesAndSpecifications: 'Руководство и спецификации',
+    ndpAddReferenceLink: 'Руководство пользователя платформы ОЛР - Как добавить ссылку для национальной точки данных',
+    nationalDataAddReferenceLink: 'Руководство пользователя платформы ОЛР - Как добавить ссылку на национальные данные',
   },
 
   panEuropean: {

@@ -13,37 +13,51 @@ import { Logger } from 'server/utils/logger'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  nodes: Array<NodeUpdate>
+  includeSourceNodes?: boolean
   isODP?: boolean
-}
+} & (
+  | {
+      nodes: Array<NodeUpdate>
+    }
+  | {
+      countryNodes: Record<CountryIso, Array<NodeUpdate>>
+    }
+)
 
 export const updateDependencies = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, nodes, isODP } = props
-
-  const countryISOs = (await AreaController.getCountries({ assessment, cycle }, client)).map((c) => c.countryIso)
-
+  const { assessment, cycle, includeSourceNodes, isODP } = props
   const allNodesDb: Array<NodeDb> = []
-  const allNodes: Array<{
-    nodes: Record<string, NodeUpdate[]>
-    countryIso: CountryIso
-  }> = []
+  const allNodes: Array<{ nodes: Record<string, NodeUpdate[]>; countryIso: CountryIso }> = []
 
-  await Promise.all(
-    countryISOs.map(async (countryIso) => {
-      const assessmentName = assessment.props.name
-      const cycleName = cycle.name
+  const _execJob = async (props: { countryIso: CountryIso; nodes: Array<NodeUpdate> }): Promise<void> => {
+    const { countryIso, nodes } = props
+    const assessmentName = assessment.props.name
+    const cycleName = cycle.name
 
-      const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
-      const contextProps = { assessment, cycle, isODP, nodeUpdates, includeSourceNodes: true }
-      const context = await ContextFactory.newInstance(contextProps, client)
-      const result = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
+    const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
+    const contextProps = { assessment, cycle, isODP, nodeUpdates, includeSourceNodes }
+    const context = await ContextFactory.newInstance(contextProps, client)
+    const result = updateCalculationDependencies({ context, jobId: `migration_step-${Date.now()}` })
 
-      if (result.nodesDb.length > 0) {
-        allNodesDb.push(...result.nodesDb)
-        allNodes.push({ nodes: result.nodes, countryIso })
-      }
-    })
-  )
+    if (result.nodesDb.length > 0) {
+      allNodesDb.push(...result.nodesDb)
+      allNodes.push({ nodes: result.nodes, countryIso })
+    }
+  }
+
+  if ('countryNodes' in props) {
+    await Promise.all(
+      Object.entries(props.countryNodes).map(([countryIso, nodes]: [CountryIso, Array<NodeUpdate>]) =>
+        _execJob({ countryIso, nodes })
+      )
+    )
+  }
+
+  if ('nodes' in props) {
+    const { nodes } = props
+    const countryISOs = (await AreaController.getCountries({ assessment, cycle }, client)).map((c) => c.countryIso)
+    await Promise.all(countryISOs.map((countryIso) => _execJob({ countryIso, nodes })))
+  }
 
   try {
     if (allNodesDb.length > 0) {

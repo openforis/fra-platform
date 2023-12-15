@@ -1,19 +1,20 @@
 import './TextArea.scss'
-import React, { forwardRef, TextareaHTMLAttributes, useEffect, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, TextareaHTMLAttributes, useImperativeHandle, useRef } from 'react'
 
-type Props = Pick<TextareaHTMLAttributes<HTMLTextAreaElement>, 'disabled' | 'onChange' | 'onPaste' | 'value'>
+import useResize from './hooks/useResize'
+
+type Props = Pick<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  'disabled' | 'onChange' | 'onPaste' | 'placeholder' | 'rows' | 'value'
+> & { maxHeight?: number }
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
-  const { disabled, onChange, onPaste, value } = props
+  const { disabled, maxHeight, onChange, onPaste, placeholder, rows, value } = props
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   useImperativeHandle(outerRef, () => textAreaRef.current!, [])
 
-  useEffect(() => {
-    const textArea = textAreaRef.current
-    textArea.style.height = 'auto'
-    textArea.style.height = `${textArea.scrollHeight}px`
-  }, [disabled, textAreaRef, value])
+  useResize({ textAreaRef, maxHeight, value })
 
   return (
     <textarea
@@ -21,11 +22,17 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
       disabled={disabled}
       onChange={onChange}
       onPaste={onPaste}
+      placeholder={placeholder}
       ref={textAreaRef}
-      rows={1}
+      rows={rows}
       value={value}
     />
   )
 })
+
+TextArea.defaultProps = {
+  maxHeight: null,
+  rows: 1,
+} as Props
 
 export default TextArea

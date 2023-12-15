@@ -12,18 +12,16 @@ const exec = async () => {
   const assessments = await AssessmentController.getAll({})
 
   await Promise.all(
-    assessments.map(async (assessment) =>
-      Promise.all([
-        // assessment and cycles metadata cache
-        AssessmentController.generateMetadataCache({ assessment }),
-        // cycles data cache
-        Promise.all(
-          assessment.cycles.map(async (cycle) => {
-            await AssessmentController.generateDataCache({ assessment, cycle })
-          })
-        ),
-      ])
-    )
+    assessments.map(async (assessment) => {
+      // assessment and cycles metadata cache
+      await AssessmentController.generateMetadataCache({ assessment })
+      // cycles data cache
+      await Promise.all(
+        assessment.cycles.map(async (cycle) => {
+          await AssessmentController.generateDataCache({ assessment, cycle })
+        })
+      )
+    })
   )
 }
 
