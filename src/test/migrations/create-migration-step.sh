@@ -12,8 +12,8 @@ _DATE=$(date +%Y%m%d%H%M%S)
 _FILENAME=$_DATE-step-$1.ts
 _FILEPATH=$_DIR/steps/$_FILENAME
 
-cp $_DIR/steps/template.ts $_FILEPATH
+cp "$_DIR/steps/template.ts" "$_FILEPATH"
 
-sed -i '' "s/#NAME#/$1/g" $_FILEPATH
+sed -i '' "s/#NAME#/$1/g" "$_FILEPATH"
 
 echo "Created migration step $_FILEPATH"
