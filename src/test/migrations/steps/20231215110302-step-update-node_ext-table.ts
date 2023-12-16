@@ -1,5 +1,7 @@
 import { Promises } from 'utils/promises'
 
+import { AssessmentNames } from 'meta/assessment'
+
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 import { getCreateSchemaCycleOriginalDataPointViewDDL } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
@@ -79,6 +81,10 @@ export default async (client: BaseProtocol) => {
       const query = wrapWithIf(schemaCycle, queries)
 
       await client.query(query)
+
+      if (assessment.props.name === AssessmentNames.fra) {
+        await AssessmentController.generateDataCache({ assessment, cycle, force: true }, client)
+      }
     })
   })
 }
