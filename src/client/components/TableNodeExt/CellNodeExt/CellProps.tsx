@@ -1,11 +1,11 @@
-import { ColumnNodeExt } from '../types'
+import { ColumnNodeExt, SelectableColumnNode } from '../types'
 
-export type CellProps = {
+export type CellProps<Column = ColumnNodeExt> = {
   disabled: boolean
-  column: ColumnNodeExt
+  column: Column
 }
 
-export type CellValueMultiProps = CellProps & {
+export type CellValueMultiProps = CellProps<SelectableColumnNode> & {
   value: Array<string>
   onChange: (newValue: Array<string>) => void
 }

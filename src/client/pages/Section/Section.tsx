@@ -100,6 +100,8 @@ const Section: React.FC<Props> = (props: Props) => {
         )
       })}
 
+      {renderIntroductoryText && <Contacts disabled={!canEditTableData} />}
+
       {renderIntroductoryText && (
         <CommentableDescription
           sectionName={sectionName}
@@ -109,8 +111,6 @@ const Section: React.FC<Props> = (props: Props) => {
           disabled={!canEditDescriptions}
         />
       )}
-
-      {renderIntroductoryText && <Contacts disabled={!canEditTableData} />}
 
       {renderGeneralComments && (
         <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />

@@ -22,6 +22,7 @@ export type SelectableColumnNode = ColumnNode & {
     options: Array<{
       label: Label
       value: Option['value']
+      type?: 'header'
     }>
   }
 }

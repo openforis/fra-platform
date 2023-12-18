@@ -69,18 +69,22 @@ export const MultiSelect: React.FC<Props> = (props: Props) => {
       <div className="multi-select__opened-content-anchor">
         {open && (
           <div className="multi-select__opened">
-            {options.map(({ label, value }: Option) => (
-              <div
-                role="presentation"
-                className="multi-select__opened-item"
-                key={value}
-                onMouseDown={(e) => e.stopPropagation()}
-                onClick={optionClick(values, onChange, value)}
-              >
-                <span className={classNames(`fra-checkbox`, { checked: values.includes(value) })} />
-                <span className="multi-select__opened-item-label">{t(label)}</span>
-              </div>
-            ))}
+            {options.map(({ label, value, type }: Option) => {
+              const header = type === 'header'
+              const onClick = header ? undefined : optionClick(values, onChange, value)
+              return (
+                <div
+                  role="presentation"
+                  className={classNames('multi-select__opened-item', { header })}
+                  key={value}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={onClick}
+                >
+                  {!header && <span className={classNames(`fra-checkbox`, { checked: values.includes(value) })} />}
+                  <span className="multi-select__opened-item-label">{t(label)}</span>
+                </div>
+              )
+            })}
           </div>
         )}
       </div>
