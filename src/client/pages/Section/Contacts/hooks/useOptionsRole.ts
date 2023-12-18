@@ -5,7 +5,7 @@ import { Users } from 'meta/user'
 
 import { Options } from './options'
 
-export const useOptionsRole = () => {
+export const useOptionsRole = (): Options => {
   return useMemo<Options>(() => {
     return Contacts.allowedRoles.map((role) => {
       const label = { key: Users.getI18nRoleLabelKey(role) }

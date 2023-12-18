@@ -19,7 +19,7 @@ export const useOptionsContributions = (): Options => {
   const cycle = useCycle()
   const sections = useSections()
 
-  return useMemo(
+  return useMemo<Options>(
     () =>
       sections.flatMap((section) => {
         const subSections = section.subSections.flatMap((subSection) => {
