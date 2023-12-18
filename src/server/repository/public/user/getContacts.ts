@@ -24,11 +24,19 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Retu
                   'name',u.props ->> 'name',
                   'surname',u.props ->> 'surname',
                   'institution',ur.props ->> 'organization',
-                  'contributions', '[]'::jsonb
+                  'contributions',
+                  case when ur.role = 'COLLABORATOR'
+                      then coalesce( jsonb_agg(s.uuid) filter (where s.uuid is not null), '["none"]'::jsonb)
+                      else '["all"]'
+                  end
           ) as value
-      from public.users u left join public.users_role ur on (u.id = ur.user_id)
+      from public.users u
+          left join public.users_role ur on (u.id = ur.user_id)
+          left join assessment_fra_2025."activity_log_$3:raw"
+              al on u.id::numeric = (al."user" ->> 'id')::numeric
+          left join assessment_fra.section s on al.section = s.props ->> 'name'
       where
-              ur.role in ($4:list)
+          ur.role in ($4:list)
           and ur.country_iso = $3
           and ur.cycle_uuid = $2
           and ur.assessment_id = $1
