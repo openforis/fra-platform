@@ -22,13 +22,15 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const gridTemplateColumns = useMemo(() => `12ch repeat(${columns.length - 1}, 1fr)`, [columns.length])
 
   return (
-    <TableNodeExt
-      columns={columns}
-      data={contacts}
-      disabled={disabled}
-      gridTemplateColumns={gridTemplateColumns}
-      onChange={onChange}
-    />
+    <div className="fra-table__container">
+      <TableNodeExt
+        columns={columns}
+        data={contacts}
+        disabled={disabled}
+        gridTemplateColumns={gridTemplateColumns}
+        onChange={onChange}
+      />
+    </div>
   )
 }
 

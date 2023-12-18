@@ -11,7 +11,7 @@ export const useOnChange = () => {
   const { assessmentName, cycleName, countryIso: _countryIso, sectionName } = useSectionRouteParams()
   const countryIso = _countryIso as CountryIso
   const dispatch = useAppDispatch()
-  const { contacts } = useContacts()
+  const contacts = useContacts()
 
   return useCallback(
     (uuid: string, key: keyof ContactProps, value: any) => {
@@ -20,8 +20,8 @@ export const useOnChange = () => {
 
       const contact = contacts[index]
 
-      const props = { ...contact.props, [key]: value }
-      const updatedContact = { ...contact, props }
+      const _value = { ...contact.value, [key]: value }
+      const updatedContact = { ...contact, value: _value }
 
       const updatedContacts = [...contacts]
       updatedContacts[index] = updatedContact

@@ -1,36 +1,17 @@
 import { useMemo } from 'react'
 
-import { Label } from 'meta/assessment'
 import { ColumnNodeExtType } from 'meta/nodeExt'
-import { RoleName, Users, UserTitle } from 'meta/user'
 
-import { Option } from 'client/components/Inputs/Select'
 import { ColumnNodeExt } from 'client/components/TableNodeExt/types'
 
-const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
-const appellations = Object.values(UserTitle)
-
-type Options = Array<{
-  label: Label
-  value: Option['value']
-}>
+import { useOptionsAppellation } from './useOptionsAppellation'
+import { useOptionsContributions } from './useOptionsContributions'
+import { useOptionsRole } from './useOptionsRole'
 
 export const useColumns = (): Array<ColumnNodeExt> => {
-  const optionsRole = useMemo<Options>(() => {
-    return allowedRoles.map((role) => {
-      const label = { key: Users.getI18nRoleLabelKey(role) }
-      const value = role
-      return { label, value }
-    })
-  }, [])
-
-  const optionsAppellation = useMemo<Options>(() => {
-    return appellations.map((appellation) => {
-      const label = { key: `editUser.${appellation}` }
-      const value = appellation
-      return { label, value }
-    })
-  }, [])
+  const optionsContributions = useOptionsContributions()
+  const optionsRole = useOptionsRole()
+  const optionsAppellation = useOptionsAppellation()
 
   return useMemo<Array<ColumnNodeExt>>(
     () => [
@@ -50,9 +31,13 @@ export const useColumns = (): Array<ColumnNodeExt> => {
       },
       {
         type: ColumnNodeExtType.multiselect,
-        props: { colName: 'contributions', header: { label: { key: 'editUser.contributions' } } },
+        props: {
+          colName: 'contributions',
+          header: { label: { key: 'editUser.contributions' } },
+          options: optionsContributions,
+        },
       },
     ],
-    [optionsAppellation, optionsRole]
+    [optionsAppellation, optionsContributions, optionsRole]
   )
 }
