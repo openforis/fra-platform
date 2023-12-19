@@ -1,7 +1,9 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { Contact } from 'meta/cycleData'
+import { NodeExtType } from 'meta/nodeExt'
 
+import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
 import { UserRepository } from 'server/repository/public/user'
 
 type Props = {
@@ -18,8 +20,8 @@ export const getMany = async (props: Props): Promise<Returned> => {
   const getContactsProps = { assessment, cycle, countryIso }
   const prefilled = await UserRepository.getContacts(getContactsProps)
 
-  /* const contacts = await NodeExtRepository.getMany<Contact>({ assessment, cycle, countryIso, type: NodeExtType.contact },t) */
-  const contacts: Array<Contact> = []
+  const getManyProps = { assessment, cycle, countryIso, type: NodeExtType.contact }
+  const contacts = await NodeExtRepository.getMany<Contact>(getManyProps)
 
   return [...prefilled, ...contacts]
 }
