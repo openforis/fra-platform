@@ -4,11 +4,11 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { clearTable } from 'server/api/cycleData/table/clearTable'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
 import { getActivitiesCount } from './activities/getActivitiesCount'
+import { createContact } from './contacts/createContact'
 import { getContacts } from './contacts/getContacts'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
@@ -28,6 +28,7 @@ import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateO
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
+import { clearTable } from './table/clearTable'
 import { estimateValues } from './table/estimateValues'
 import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
@@ -127,7 +128,7 @@ export const CycleDataApi = {
 
     // ext node
     // -- Contacts
-    // express.post(      ApiEndPoint.CycleData.Contacts.many(),      // AuthMiddleware.requireEditTableData,      createContact    )
+    express.post(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireEditTableData, createContact)
 
     express.get(ApiEndPoint.CycleData.Contacts.many(), getContacts)
 
