@@ -165,6 +165,7 @@ module.exports = {
     no8_ranked_in_terms_of_volume: '#8 Ranked in terms of volume',
     no9_ranked_in_terms_of_volume: '#9 Ranked in terms of volume',
     no10_ranked_in_terms_of_volume: '#10 Ranked in terms of volume',
+    noShort_ranked_in_terms_of_volume: '#1,#2,...,#10 Ranked in terms of volume',
     remaining: 'Remaining',
     total: 'TOTAL',
     scientific_name: 'Scientific name',
