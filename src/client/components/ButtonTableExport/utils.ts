@@ -1,5 +1,6 @@
 // Inspiration/base from cheerio-tableparser
 //
+import { Objects } from 'utils/objects'
 
 const normalizeString = (string = '') => string.trim().replace(/\s/g, ' ')
 
@@ -52,13 +53,13 @@ export const getData = (
       // Handle spanning cells
       for (let x = 0; x < rowSpan; x += 1) {
         for (let y = 0; y < colSpan; y += 1) {
-          if (!columns[currentY + y]) {
+          if (Objects.isNil(columns[currentY + y])) {
             columns[currentY + y] = []
           }
 
-          while (columns[currentY + y][currentX + x]) {
+          while (!Objects.isNil(columns[currentY + y][currentX + x])) {
             currentY += 1
-            if (!columns[currentY + y]) {
+            if (Objects.isNil(columns[currentY + y])) {
               columns[currentY + y] = []
             }
           }
