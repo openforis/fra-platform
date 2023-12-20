@@ -9,7 +9,7 @@ export enum ContactField {
   surname = 'surname',
 }
 
-export type ContactNodeProps = NodeExt<null> & {
+export type ContactNodeProps = {
   field: ContactField
 }
 

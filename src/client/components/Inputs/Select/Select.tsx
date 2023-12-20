@@ -1,6 +1,6 @@
 import './Select.scss'
-import React from 'react'
-import RSelect, { Props as PropsReactSelect } from 'react-select'
+import React, { useCallback } from 'react'
+import RSelect from 'react-select'
 
 import classNames from 'classnames'
 
@@ -8,15 +8,23 @@ import { ClearIndicator, DropdownIndicator, IndicatorsContainer } from 'client/c
 
 import { Option, OptionsOrGroups } from './types'
 
-type Props = Pick<PropsReactSelect, 'onChange'> & {
+type Props = {
   disabled?: boolean
+  onChange: (value: string | null) => void
   options: OptionsOrGroups
   placeholder?: string
   value?: Option
 }
 
 const Select: React.FC<Props> = (props) => {
-  const { disabled, onChange, options, placeholder, value } = props
+  const { disabled, onChange: onChangeProps, options, placeholder, value } = props
+
+  const onChange = useCallback(
+    (option?: Option) => {
+      onChangeProps(option?.value ?? null)
+    },
+    [onChangeProps]
+  )
 
   return (
     <RSelect

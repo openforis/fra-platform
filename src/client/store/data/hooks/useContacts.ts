@@ -1,10 +1,25 @@
+import { useMemo } from 'react'
+
 import { CountryIso } from 'meta/area'
-import { Contact } from 'meta/cycleData'
+import { Contact, Contacts } from 'meta/cycleData'
 
 import { useAppSelector } from 'client/store/store'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useContacts = (): Array<Contact> => {
+type Props = {
+  canEdit?: boolean
+}
+
+type Returned = Array<Contact>
+
+export const useContacts = (props: Props): Returned => {
+  const { canEdit } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  return useAppSelector((state) => state.data.contacts[assessmentName]?.[cycleName]?.[countryIso] ?? [])
+
+  const contacts = useAppSelector((state) => state.data.contacts[assessmentName]?.[cycleName]?.[countryIso] ?? [])
+
+  return useMemo<Returned>(
+    () => (canEdit ? [...contacts, Contacts.newContact({ countryIso, rowIndex: contacts.length })] : contacts),
+    [canEdit, contacts, countryIso]
+  )
 }

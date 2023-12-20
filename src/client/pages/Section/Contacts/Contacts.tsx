@@ -20,8 +20,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   useGetContacts()
-  const contacts = useContacts()
-
+  const contacts = useContacts({ canEdit })
   // const onChange = useOnChange()
   const { columns, fields } = useColumns()
   const gridTemplateColumns = useMemo(() => `12ch repeat(${fields.length - 1}, 1fr)`, [fields.length])
