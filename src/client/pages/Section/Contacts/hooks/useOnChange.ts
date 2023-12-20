@@ -1,34 +1,32 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { ContactProps } from 'meta/cycleData'
+import { NodeValue } from 'meta/assessment'
+import { Contact, ContactField } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store'
-import { DataActions, useContacts } from 'client/store/data'
+import { DataActions } from 'client/store/data'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
-export const useOnChange = () => {
-  const { assessmentName, cycleName, countryIso: _countryIso, sectionName } = useSectionRouteParams()
-  const countryIso = _countryIso as CountryIso
+type PropsOnChange = {
+  contact: Contact
+  field: ContactField
+  raw: NodeValue['raw']
+}
+
+type Returned = (props: PropsOnChange) => void
+
+export const useOnChange = (): Returned => {
+  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
-  const contacts = useContacts()
 
-  return useCallback(
-    (uuid: string, key: keyof ContactProps, value: any) => {
-      const index = contacts.findIndex((contact) => contact.uuid === uuid)
-      if (index === -1) return
+  return useCallback<Returned>(
+    (props) => {
+      const { contact, field, raw } = props
 
-      const contact = contacts[index]
-
-      const _value = { ...contact.value, [key]: value }
-      const updatedContact = { ...contact, value: _value }
-
-      const updatedContacts = [...contacts]
-      updatedContacts[index] = updatedContact
-      const updateContactsProps = { assessmentName, cycleName, countryIso, sectionName, contacts: updatedContacts }
-
-      dispatch(DataActions.updateContacts(updateContactsProps))
+      const upsertProps = { assessmentName, cycleName, countryIso, sectionName, contact, field, raw }
+      dispatch(DataActions.upsertContact(upsertProps))
     },
-    [assessmentName, contacts, countryIso, cycleName, dispatch, sectionName]
+    [assessmentName, countryIso, cycleName, dispatch, sectionName]
   )
 }

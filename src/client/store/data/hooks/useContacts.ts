@@ -18,8 +18,11 @@ export const useContacts = (props: Props): Returned => {
 
   const contacts = useAppSelector((state) => state.data.contacts[assessmentName]?.[cycleName]?.[countryIso] ?? [])
 
-  return useMemo<Returned>(
-    () => (canEdit ? [...contacts, Contacts.newContact({ countryIso, rowIndex: contacts.length })] : contacts),
-    [canEdit, contacts, countryIso]
-  )
+  return useMemo<Returned>(() => {
+    const lastPlaceholder = contacts.at(-1)?.placeholder
+
+    return canEdit && !lastPlaceholder
+      ? [...contacts, Contacts.newContact({ countryIso, rowIndex: contacts.length })]
+      : contacts
+  }, [canEdit, contacts, countryIso])
 }

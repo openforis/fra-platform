@@ -9,7 +9,7 @@ import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
 import { useColumns } from './hooks/useColumns'
 import { useGetContacts } from './hooks/useGetContacts'
-// import { useOnChange } from './hooks/useOnChange'
+import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
   canEdit: boolean
@@ -21,7 +21,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   useGetContacts()
   const contacts = useContacts({ canEdit })
-  // const onChange = useOnChange()
+  const onChange = useOnChange()
   const { columns, fields } = useColumns()
   const gridTemplateColumns = useMemo(() => `12ch repeat(${fields.length - 1}, 1fr)`, [fields.length])
 
@@ -54,9 +54,8 @@ const Contacts: React.FC<Props> = (props: Props) => {
                     key={`${contact.uuid}_${field}`}
                     lastCol={j === fields.length - 1}
                     lastRow={i === contacts.length - 1}
-                    onChange={() => {
-                      // TODO
-                      // console.log('----', value)
+                    onChange={(raw) => {
+                      onChange({ contact, field, raw })
                     }}
                     nodeExt={nodeExt}
                   />

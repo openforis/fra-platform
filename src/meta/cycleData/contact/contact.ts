@@ -29,4 +29,5 @@ export type Contact = NodeExt<ContactProps, null> & {
   [ContactField.name]: ContactNode
   [ContactField.role]: ContactNode
   [ContactField.surname]: ContactNode
+  placeholder?: boolean
 }

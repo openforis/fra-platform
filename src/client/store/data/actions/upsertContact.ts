@@ -4,10 +4,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 // import { Functions } from 'utils/functions'
 // import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { Contact } from 'meta/cycleData'
+import { NodeValue } from 'meta/assessment'
+import { Contact, ContactField } from 'meta/cycleData'
 
 type Props = CycleDataParams & {
-  contacts: Array<Contact>
+  contact: Contact
+  field: ContactField
+  raw: NodeValue['raw']
 }
 
 // TODO: Implement backend endpoint
@@ -24,7 +27,6 @@ type Props = CycleDataParams & {
 //   'putContacts'
 // )
 
-export const updateContacts = createAsyncThunk<Array<Contact>, Props>('extNode/put/contacts', async (props) => {
-  // putContacts(props)
-  return props.contacts
+export const upsertContact = createAsyncThunk<void, Props>('contact/upsert', async () => {
+  // const { assessmentName, cycleName, countryIso, sectionName, contact, field, raw } = props
 })
