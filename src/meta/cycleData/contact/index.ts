@@ -1,2 +1,3 @@
-export type { Contact, ContactProps, ContactValue } from './contact'
+export type { Contact, ContactNode, ContactNodeProps, ContactProps } from './contact'
+export { ContactField } from './contact'
 export { Contacts } from './contacts'

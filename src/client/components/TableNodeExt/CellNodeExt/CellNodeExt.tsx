@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { NodeExt } from 'meta/nodeExt'
+
 import { DataCell } from 'client/components/DataGrid'
 
 import { ColumnNodeExt } from '../types'
@@ -9,37 +11,34 @@ import CellSelect from './CellSelect'
 import CellText from './CellText'
 
 type Props = {
-  uuid: string
-  datum: Record<string, any>
   column: ColumnNodeExt
-  onChange: (uuid: string, colName: string, value: any) => void
   disabled: boolean
-  lastRow: boolean
   lastCol: boolean
+  lastRow: boolean
+  nodeExt: NodeExt<unknown>
+  onChange: (value: any) => void
 }
 
 type ComponentPropType = CellValueMultiProps | CellValueSingleProps
 
 const components: Record<string, React.FC<ComponentPropType>> = {
-  text: CellText,
-  select: CellSelect,
   multiselect: CellMultiselect,
+  select: CellSelect,
+  text: CellText,
 }
 
 const CellNodeExt: React.FC<Props> = (props: Props) => {
-  const { column, datum, disabled, lastRow, onChange, uuid, lastCol } = props
+  const { column, disabled, lastRow, nodeExt, onChange, lastCol } = props
 
-  const { type } = column
-  const { colName } = column.props
-  const Component = components[type]
+  const Component = components[column.type]
 
   return (
     <DataCell lastCol={lastCol} lastRow={lastRow}>
       <Component
-        disabled={disabled}
-        value={datum[colName]}
-        onChange={(value: string) => onChange(uuid, colName, value)}
         column={column}
+        disabled={disabled}
+        onChange={(value: string) => onChange(value)}
+        value={nodeExt.value.raw}
       />
     </DataCell>
   )

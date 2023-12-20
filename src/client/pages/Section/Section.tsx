@@ -100,7 +100,7 @@ const Section: React.FC<Props> = (props: Props) => {
         )
       })}
 
-      {renderIntroductoryText && <Contacts disabled={!canEditTableData} />}
+      {renderIntroductoryText && <Contacts canEdit={canEditTableData} />}
 
       {renderIntroductoryText && (
         <CommentableDescription

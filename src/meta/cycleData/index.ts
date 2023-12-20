@@ -1,3 +1,4 @@
 export type { AssessmentFile, AssessmentFileProps, FileUsage } from './assessmentFile'
 export { AssessmentFiles } from './assessmentFiles'
-export type { Contact, ContactProps } from './contact'
+export type { Contact, ContactNode, ContactNodeProps, ContactProps } from './contact'
+export { ContactField, Contacts } from './contact'

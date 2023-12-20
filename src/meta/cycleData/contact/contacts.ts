@@ -2,29 +2,29 @@ import { RoleName, UserTitle } from 'meta/user'
 
 import { Contact } from './contact'
 
-const placeholder: Contact = {
-  countryIso: undefined,
-  uuid: undefined,
-  props: {
-    rowIndex: -1,
-    readOnly: false,
-  },
-  value: {
-    appellation: '',
-    contributions: [],
-    institution: '',
-    name: '',
-    role: undefined,
-    surname: '',
-  },
-}
+// const placeholder: Contact = {
+//   countryIso: undefined,
+//   uuid: undefined,
+//   props: {
+//     rowIndex: -1,
+//     readOnly: false,
+//   },
+//   value: {
+//     appellation: '',
+//     contributions: [],
+//     institution: '',
+//     name: '',
+//     role: undefined,
+//     surname: '',
+//   },
+// }
 
 const addPlaceholder = (contacts: Array<Contact>) => {
-  return [...contacts, placeholder]
+  return [...contacts]
 }
 
 const removePlaceholder = (contacts: Array<Contact>) => {
-  return contacts.filter((contact) => contact.uuid)
+  return contacts.filter((contact) => Boolean(contact.uuid))
 }
 
 const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]

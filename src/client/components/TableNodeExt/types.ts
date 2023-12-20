@@ -4,7 +4,6 @@ import { ColumnNodeExtType } from 'meta/nodeExt'
 import { Option } from 'client/components/Inputs/Select/types'
 
 type Props = {
-  colName: string
   header: {
     label: Label
   }
@@ -16,7 +15,7 @@ type ColumnNode = {
 }
 
 export type SelectableColumnNode = ColumnNode & {
-  type: ColumnNodeExtType.select
+  type: ColumnNodeExtType.select | ColumnNodeExtType.multiselect
   props: Props & {
     // label is passed as Label, but translated before rendering
     options: Array<{

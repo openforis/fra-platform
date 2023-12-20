@@ -11,10 +11,10 @@ import { ColumnNodeExt } from './types'
 
 type Props = {
   columns: Array<ColumnNodeExt>
-  data: Array<NodeExt>
+  data: Array<NodeExt<unknown>>
   disabled: boolean
-  onChange: (uuid: string, colName: string, value: any) => void
   gridTemplateColumns: string
+  onChange: (value: any) => void
 }
 
 const TableNodeExt = (props: Props) => {
@@ -24,32 +24,28 @@ const TableNodeExt = (props: Props) => {
   return (
     <DataGrid gridTemplateColumns={gridTemplateColumns}>
       {columns.map((column, i) => {
-        const { colName, header } = column.props
+        const { header } = column.props
         return (
-          <DataCell lastCol={i === columns.length - 1} header key={`${colName}_header`}>
+          <DataCell lastCol={i === columns.length - 1} header key={`${String(i)}_header`}>
             {Labels.getLabel({ label: header.label, t })}
           </DataCell>
         )
       })}
 
-      {data.map(({ uuid, value: datum, props: _props }, i) => {
-        const { readOnly } = _props as { readOnly?: boolean }
-
+      {data.map((nodeExt, i) => {
+        const key = `nodeExt_${nodeExt.uuid}`
         return (
-          <React.Fragment key={uuid}>
+          <React.Fragment key={key}>
             {columns.map((column, j) => {
-              const { colName } = column.props
-              const key = `${uuid}_${colName}_data`
               return (
                 <CellNodeExt
                   column={column}
-                  datum={datum}
-                  disabled={disabled || readOnly}
+                  disabled={disabled}
                   key={key}
                   lastCol={j === columns.length - 1}
                   lastRow={i === data.length - 1}
+                  nodeExt={nodeExt}
                   onChange={onChange}
-                  uuid={uuid}
                 />
               )
             })}

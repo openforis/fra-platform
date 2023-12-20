@@ -1,24 +1,32 @@
 import { NodeExt } from 'meta/nodeExt'
-import { RoleName } from 'meta/user/userRole'
 
-type SectionUUID = string
-
-export interface ContactValue {
-  appellation: string
-  contributions: Array<SectionUUID>
-  institution: string
-  name: string
-  role: RoleName.NATIONAL_CORRESPONDENT | RoleName.ALTERNATE_NATIONAL_CORRESPONDENT | RoleName.COLLABORATOR
-  surname: string
+export enum ContactField {
+  appellation = 'appellation',
+  contributions = 'contributions',
+  institution = 'institution',
+  name = 'name',
+  role = 'role',
+  surname = 'surname',
 }
 
-export interface ContactProps {
-  // When populating contacts from current users:
-  // set readOnly to true
+export type ContactNodeProps = NodeExt<null> & {
+  field: ContactField
+}
+
+export type ContactNode = NodeExt<ContactNodeProps> & {
+  parentUuid: string
+}
+
+export type ContactProps = {
   readOnly?: boolean
-  // and don't set rowIndex
-  // row index is the position of new, editable contacts in table
   rowIndex?: number
 }
 
-export type Contact = NodeExt<ContactProps, ContactValue>
+export type Contact = NodeExt<ContactProps, null> & {
+  [ContactField.appellation]: ContactNode
+  [ContactField.contributions]: ContactNode
+  [ContactField.institution]: ContactNode
+  [ContactField.name]: ContactNode
+  [ContactField.role]: ContactNode
+  [ContactField.surname]: ContactNode
+}

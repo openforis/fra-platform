@@ -1,35 +1,72 @@
 import React, { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Labels } from 'meta/assessment'
 
 import { useContacts } from 'client/store/data'
-import TableNodeExt from 'client/components/TableNodeExt'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
+import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
 import { useColumns } from './hooks/useColumns'
 import { useGetContacts } from './hooks/useGetContacts'
-import { useOnChange } from './hooks/useOnChange'
+// import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
-  disabled: boolean
+  canEdit: boolean
 }
 
 const Contacts: React.FC<Props> = (props: Props) => {
-  const { disabled } = props
+  const { canEdit } = props
 
+  const { t } = useTranslation()
   useGetContacts()
   const contacts = useContacts()
 
-  const onChange = useOnChange()
-  const columns = useColumns()
-  const gridTemplateColumns = useMemo(() => `12ch repeat(${columns.length - 1}, 1fr)`, [columns.length])
+  // const onChange = useOnChange()
+  const { columns, fields } = useColumns()
+  const gridTemplateColumns = useMemo(() => `12ch repeat(${fields.length - 1}, 1fr)`, [fields.length])
 
   return (
     <div className="fra-table__container">
-      <TableNodeExt
-        columns={columns}
-        data={contacts}
-        disabled={disabled}
-        gridTemplateColumns={gridTemplateColumns}
-        onChange={onChange}
-      />
+      <DataGrid gridTemplateColumns={gridTemplateColumns}>
+        {fields.map((field, i) => {
+          const { header } = columns[field].props
+
+          return (
+            <DataCell lastCol={i === fields.length - 1} header key={`${field}_header`}>
+              {Labels.getLabel({ label: header.label, t })}
+            </DataCell>
+          )
+        })}
+
+        {contacts.map((contact, i) => {
+          const { readOnly } = contact.props
+
+          return (
+            <React.Fragment key={contact.uuid}>
+              {fields.map((field, j) => {
+                const column = columns[field]
+                const nodeExt = contact[field]
+
+                return (
+                  <CellNodeExt
+                    column={column}
+                    disabled={!canEdit || readOnly}
+                    key={`${contact.uuid}_${field}`}
+                    lastCol={j === fields.length - 1}
+                    lastRow={i === contacts.length - 1}
+                    onChange={() => {
+                      // TODO
+                      // console.log('----', value)
+                    }}
+                    nodeExt={nodeExt}
+                  />
+                )
+              })}
+            </React.Fragment>
+          )
+        })}
+      </DataGrid>
     </div>
   )
 }
