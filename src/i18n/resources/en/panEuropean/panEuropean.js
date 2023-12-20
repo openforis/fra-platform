@@ -165,6 +165,7 @@ module.exports = {
     no8_ranked_in_terms_of_volume: '#8 Ranked in terms of volume',
     no9_ranked_in_terms_of_volume: '#9 Ranked in terms of volume',
     no10_ranked_in_terms_of_volume: '#10 Ranked in terms of volume',
+    noShort_ranked_in_terms_of_volume: '#1,#2,...,#10 Ranked in terms of volume',
     remaining: 'Remaining',
     total: 'TOTAL',
     scientific_name: 'Scientific name',
@@ -482,7 +483,7 @@ module.exports = {
     annualForestExpansionAndRegenerationNumber: 'II. Annual forest expansion and regeneration',
     categoryYear: 'Category - Year',
     totalAreaOfForestByExpansionRegenerationType1000ha:
-      'Total area of forest by expansion/regeneration type (1 000 ha / year)',
+      'Total area of forest by expansion/regeneration type (1 000 ha)',
     natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
     afforestation_and_regeneration_by_planting_and_or_seeding:
       'Afforestation and regeneration by planting and/or seeding',
