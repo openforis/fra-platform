@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 // import axios from 'axios'
 // import { Functions } from 'utils/functions'
 // import { ApiEndPoint } from 'meta/api/endpoint'
@@ -27,6 +29,18 @@ type Props = CycleDataParams & {
 //   'putContacts'
 // )
 
-export const upsertContact = createAsyncThunk<void, Props>('contact/upsert', async () => {
-  // const { assessmentName, cycleName, countryIso, sectionName, contact, field, raw } = props
+const create = async (props: Props): Promise<void> => {
+  const { assessmentName, cycleName, countryIso, sectionName, contact, field, raw } = props
+
+  const body = { contact, field, raw }
+  const params = { assessmentName, cycleName, countryIso, sectionName }
+  await axios.post(ApiEndPoint.CycleData.Contacts.one(), body, { params })
+}
+
+export const upsertContact = createAsyncThunk<void, Props>('contact/upsert', async (props) => {
+  const { contact } = props
+
+  if (contact.placeholder) {
+    await create(props)
+  }
 })

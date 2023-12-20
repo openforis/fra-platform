@@ -27,7 +27,8 @@ const createTable = (_: TemplateStringsArray, schemaName: string) => {
 
       alter table ${schemaName}.node_ext
           add constraint node_ext_node_ext_uuid_fk
-              foreign key (parent_uuid) references ${schemaName}.node_ext (uuid);
+              foreign key (parent_uuid) references ${schemaName}.node_ext (uuid)
+                  on update cascade on delete cascade;
 
       -- add index 1
       create index node_ext_country_iso_idx on ${schemaName}.node_ext (country_iso);

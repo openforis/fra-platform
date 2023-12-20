@@ -2,51 +2,53 @@ import { User } from '../user'
 
 export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',
-  assessmentUpdate = 'assessmentUpdate',
   assessmentCycleCreate = 'assessmentCycleCreate',
   assessmentFileCreate = 'assessmentFileCreate',
   assessmentFileDelete = 'assessmentFileDelete',
   assessmentFileUpdateAccess = 'assessmentFileUpdateAccess',
   assessmentStatusUpdate = 'assessmentStatusUpdate',
-  originalDataPointCreate = 'originalDataPointCreate',
-  originalDataPointUpdate = 'originalDataPointUpdate',
-  originalDataPointUpdateYear = 'originalDataPointUpdateYear',
-  originalDataPointUpdateDescription = 'originalDataPointUpdateDescription',
-  originalDataPointUpdateDataSources = 'originalDataPointUpdateDataSources',
-  originalDataPointUpdateNationalClasses = 'originalDataPointUpdateNationalClasses',
-  originalDataPointUpdateOriginalData = 'originalDataPointUpdateOriginalData',
-  originalDataPointRemove = 'originalDataPointRemove',
+  assessmentUpdate = 'assessmentUpdate',
+  contactCreate = 'contactCreate',
+  contactUpdate = 'contactUpdate',
   descriptionUpdate = 'descriptionUpdate',
-  nodeValueUpdate = 'nodeValueUpdate',
-  nodeValueEstimate = 'nodeValueEstimate',
-  nodeValuesEstimationCreate = 'nodeValuesEstimationCreate',
-  tableValuesClear = 'tableValuesClear',
-  nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
+  invitationAccept = 'invitationAccept',
+  invitationAdd = 'invitationAdd',
+  invitationRemove = 'invitationRemove',
   messageCreate = 'messageCreate',
   messageMarkDeleted = 'messageMarkDeleted',
-  topicStatusChange = 'topicStatusChange',
-  invitationAdd = 'invitationAdd',
-  invitationAccept = 'invitationAccept',
-  invitationRemove = 'invitationRemove',
-  userRemove = 'userRemove',
-  userUpdate = 'userUpdate',
-  userRolesUpdate = 'userRolesUpdate',
+  nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
+  nodeValueEstimate = 'nodeValueEstimate',
+  nodeValueUpdate = 'nodeValueUpdate',
+  nodeValuesEstimationCreate = 'nodeValuesEstimationCreate',
+  originalDataPointCreate = 'originalDataPointCreate',
+  originalDataPointRemove = 'originalDataPointRemove',
+  originalDataPointUpdate = 'originalDataPointUpdate',
+  originalDataPointUpdateDataSources = 'originalDataPointUpdateDataSources',
+  originalDataPointUpdateDescription = 'originalDataPointUpdateDescription',
+  originalDataPointUpdateNationalClasses = 'originalDataPointUpdateNationalClasses',
+  originalDataPointUpdateOriginalData = 'originalDataPointUpdateOriginalData',
+  originalDataPointUpdateYear = 'originalDataPointUpdateYear',
   sectionCreate = 'sectionCreate',
-  sectionUpdate = 'sectionUpdate',
   sectionDelete = 'sectionDelete',
-  tableSectionCreate = 'tableSectionCreate',
-  tableSectionUpdate = 'tableSectionUpdate',
-  tableSectionDelete = 'tableSectionDelete',
+  sectionUpdate = 'sectionUpdate',
   tableCreate = 'tableCreate',
-  tableUpdate = 'tableUpdate',
   tableDelete = 'tableDelete',
+  tableSectionCreate = 'tableSectionCreate',
+  tableSectionDelete = 'tableSectionDelete',
+  tableSectionUpdate = 'tableSectionUpdate',
+  tableUpdate = 'tableUpdate',
+  tableValuesClear = 'tableValuesClear',
+  topicStatusChange = 'topicStatusChange',
+  userRemove = 'userRemove',
+  userRolesUpdate = 'userRolesUpdate',
+  userUpdate = 'userUpdate',
 }
 
 export interface ActivityLog<Target> {
-  target: Target
-  message: ActivityLogMessage
   countryIso?: string
+  message: ActivityLogMessage
   section: string
-  user: User
+  target: Target
   time?: string
+  user: User
 }

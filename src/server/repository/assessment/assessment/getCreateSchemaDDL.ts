@@ -249,7 +249,8 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       );
       alter table ${assessmentCycleSchemaName}.node_ext
           add constraint node_ext_node_ext_uuid_fk
-              foreign key (parent_uuid) references ${assessmentCycleSchemaName}.node_ext (uuid);
+              foreign key (parent_uuid) references ${assessmentCycleSchemaName}.node_ext (uuid)
+                on update cascade on delete cascade;
       create index node_ext_country_iso_idx on ${assessmentCycleSchemaName}.node_ext (country_iso);
       
       create table ${assessmentCycleSchemaName}.node_values_estimation

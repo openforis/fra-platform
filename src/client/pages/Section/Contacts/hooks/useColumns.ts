@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { ContactField } from 'meta/cycleData/contact'
+import { ContactField, contactFields } from 'meta/cycleData'
 import { ColumnNodeExtType } from 'meta/nodeExt'
 
 import { ColumnNodeExt } from 'client/components/TableNodeExt'
@@ -54,15 +54,6 @@ export const useColumns = (): Returned => {
       [ContactField.contributions]: contributions,
     }
 
-    const fields: Returned['fields'] = [
-      ContactField.appellation,
-      ContactField.name,
-      ContactField.surname,
-      ContactField.role,
-      ContactField.institution,
-      ContactField.contributions,
-    ]
-
-    return { columns, fields }
+    return { columns, fields: contactFields }
   }, [optionsAppellation, optionsContributions, optionsRole])
 }

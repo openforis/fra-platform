@@ -31,3 +31,12 @@ export type Contact = NodeExt<ContactProps, null> & {
   [ContactField.surname]: ContactNode
   placeholder?: boolean
 }
+
+export const contactFields: Array<ContactField> = [
+  ContactField.appellation,
+  ContactField.name,
+  ContactField.surname,
+  ContactField.role,
+  ContactField.institution,
+  ContactField.contributions,
+]

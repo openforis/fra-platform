@@ -22,7 +22,7 @@ export const useContacts = (props: Props): Returned => {
     const lastPlaceholder = contacts.at(-1)?.placeholder
 
     return canEdit && !lastPlaceholder
-      ? [...contacts, Contacts.newContact({ countryIso, rowIndex: contacts.length })]
+      ? [...contacts, Contacts.newContact({ countryIso, rowIndex: contacts.filter((c) => !c.props.readOnly).length })]
       : contacts
   }, [canEdit, contacts, countryIso])
 }
