@@ -10,21 +10,21 @@ import { ActivityLog, ActivityLogMessage } from './activityLog'
 // Action
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
-  [ActivityLogMessage.originalDataPointCreate]: 'added',
-  [ActivityLogMessage.originalDataPointRemove]: 'deleted',
-  [ActivityLogMessage.originalDataPointUpdate]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateDescription]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateDataSources]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateNationalClasses]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateYear]: 'updated',
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
-  [ActivityLogMessage.messageCreate]: 'commented',
-  [ActivityLogMessage.messageMarkDeleted]: 'deleted',
-  [ActivityLogMessage.topicStatusChange]: 'resolved',
   [ActivityLogMessage.invitationAccept]: 'acceptInvitation',
   [ActivityLogMessage.invitationAdd]: 'addInvitation',
   [ActivityLogMessage.invitationRemove]: 'removeInvitation',
+  [ActivityLogMessage.messageCreate]: 'commented',
+  [ActivityLogMessage.messageMarkDeleted]: 'deleted',
+  [ActivityLogMessage.originalDataPointCreate]: 'added',
+  [ActivityLogMessage.originalDataPointRemove]: 'deleted',
+  [ActivityLogMessage.originalDataPointUpdateDataSources]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateDescription]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateNationalClasses]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateYear]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdate]: 'updated',
+  [ActivityLogMessage.topicStatusChange]: 'resolved',
 }
 
 const _getLabelActionKey = (activity: ActivityLog<any>) => {
