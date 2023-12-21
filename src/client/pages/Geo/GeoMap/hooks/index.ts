@@ -3,7 +3,7 @@
 export { useDownloadChart } from './useDownloadChart'
 // export { useForestLayersHandler } from './useForestLayersHandler'
 export { useGeoStatisticsHandler } from './useGeoStatisticsHandler'
-// export { useMapLayersHandler } from './useMapLayersHandler'
+export { useMapLayersHandler } from './useMapLayersHandler'
 // export { useProtectedAreaLayersHandler } from './useProtectedAreaLayersHandler'
 // export { useRecipeLayerPropertyName } from './useRecipeLayerPropertyName'
 export { useFetchAgreementLevelLayer } from './useFetchAgreementLevelLayer'

@@ -27,7 +27,7 @@ export type LayerState = {
   opacity?: number
   status?: LayerFetchStatus
   options?: LayerStateOptions
-  mapId?: string
+  mapId?: string | null
 }
 
 export type LayersSectionState = Record<LayerKey, LayerState>

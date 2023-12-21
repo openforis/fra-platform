@@ -3,6 +3,7 @@ export {
   useGeoLayer,
   useGeoLayerSection,
   useGeoLayerSectionRecipeName,
+  useGeoLayerSections,
   useGeoStatistics,
   useIsGeoMapAvailable,
   useMosaicFailed,

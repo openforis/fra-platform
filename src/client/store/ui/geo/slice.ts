@@ -230,6 +230,14 @@ export const geoSlice = createSlice({
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
       mapController.setEarthEngineLayerOpacity(mapLayerKey, opacity)
     },
+    setLayerMapId: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; mapId: string | null }>
+    ) => {
+      const { sectionKey, layerKey, mapId } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, mapId }
+    },
     setAssetId: (
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>

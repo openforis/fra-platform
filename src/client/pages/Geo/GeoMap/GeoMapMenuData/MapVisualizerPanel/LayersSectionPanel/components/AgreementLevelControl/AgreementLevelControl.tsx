@@ -5,9 +5,10 @@ import { LayerKey, LayerSection, LayerSectionKey } from 'meta/geo/layer'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
-import { LayerFetchStatus, LayersSectionState } from 'client/store/ui/geo/stateType'
+import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import GeoMapMenuListElement from 'client/pages/Geo/GeoMap/GeoMapMenuListElement'
 import { useFetchAgreementLevelLayer } from 'client/pages/Geo/GeoMap/hooks'
+import { useCountSectionSelectedLayers } from 'client/pages/Geo/GeoMap/hooks/useCountSectionSelectedLayers'
 
 import LayerOpacityControl from '../LayerOpacityControl/LayerOpacityControl'
 import AgreementLevelSelector from './AgreementLevelSelector/AgreementLevelSelector'
@@ -21,7 +22,6 @@ interface Props {
   layerKey: LayerKey
   loadingStatus: LayerFetchStatus
   section: LayerSection
-  sectionState: LayersSectionState
 }
 const AgreementLevelControl: React.FC<Props> = ({
   checked,
@@ -32,7 +32,6 @@ const AgreementLevelControl: React.FC<Props> = ({
   layerKey,
   loadingStatus,
   section,
-  sectionState,
 }) => {
   const dispatch = useAppDispatch()
   const layerState = useGeoLayer(sectionKey, layerKey)
@@ -42,14 +41,7 @@ const AgreementLevelControl: React.FC<Props> = ({
     dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level }))
   }
 
-  let countLayersSelected = 0
-  if (sectionState) {
-    Object.keys(sectionState).forEach((layerKey) => {
-      if (layerKey === 'Agreement') return
-      const layerState = sectionState[layerKey as LayerKey]
-      if (layerState.selected) countLayersSelected += 1
-    })
-  }
+  const countLayersSelected = useCountSectionSelectedLayers({ ignoreAgreementLayer: true, sectionKey })
 
   if (countLayersSelected < 2) return null
 
