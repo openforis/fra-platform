@@ -23,20 +23,21 @@ export const toggleLayer = createAsyncThunk<void, Params>(
     const layerState = (state as RootState).geo?.sections?.[sectionKey]?.[layerKey]
 
     const currentLayerSelected = layerState?.selected ?? false
-    const currentMapId = layerState?.mapId
-
-    // If the layer is now selected and doesn't have a mapId cached, fetch it
-    if (!currentLayerSelected && !currentMapId && fetchLayerParams) {
-      dispatch(
-        GeoActions.postLayer({
-          sectionKey,
-          layerKey,
-          countryIso: fetchLayerParams.countryIso,
-          layerSource: fetchLayerParams.layerSource,
-        })
-      )
-    }
-
     dispatch(GeoActions.setLayerSelected({ sectionKey, layerKey, selected: !currentLayerSelected }))
+
+    // If the layer is now selected, doesn't have a mapId cached and is visible, fetch it
+    const currentMapId = layerState?.mapId
+    if (currentLayerSelected || currentMapId) return
+    if (layerState?.opacity === 0) return
+
+    if (!fetchLayerParams) return
+    dispatch(
+      GeoActions.postLayer({
+        sectionKey,
+        layerKey,
+        countryIso: fetchLayerParams.countryIso,
+        layerSource: fetchLayerParams.layerSource,
+      })
+    )
   }
 )
