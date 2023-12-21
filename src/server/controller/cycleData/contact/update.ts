@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Assessment, Cycle, NodeValue } from 'meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle, NodeValue, SectionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { User } from 'meta/user'
 
@@ -11,7 +11,7 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
-  sectionName: string
+  sectionName: SectionName
   nodeExt: ContactNode
   raw: NodeValue['raw']
   user: User

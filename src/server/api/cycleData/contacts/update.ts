@@ -23,9 +23,9 @@ export const updateContact = async (req: CycleDataRequest<never, Body>, res: Res
     const user = Requests.getUser(req)
 
     const props = { assessment, cycle, countryIso, sectionName, user, nodeExt: contact[field], raw }
-    const createdContact = await CycleDataController.Contacts.update(props)
+    const updatedContact = await CycleDataController.Contacts.update(props)
 
-    Requests.send(res, createdContact)
+    Requests.send(res, updatedContact)
   } catch (e) {
     Requests.sendErr(res, e)
   }

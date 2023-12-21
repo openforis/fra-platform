@@ -24,7 +24,7 @@ export const upsert = <T extends NodeExt<unknown>>(props: Props, client: BasePro
            (country_iso, parent_uuid, props, type, uuid, value)
          values ($1, $2, $3::jsonb, $4, $5, $6::jsonb)
              on conflict (uuid) do update
-              set (parent_uuid, props, value) = ($2, $3::jsonb, $6::jsonb)
+              set (props, value) = ($3::jsonb, $6::jsonb)
          returning *
      `,
     [

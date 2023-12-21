@@ -2,6 +2,7 @@ import { ActivityLogMessage } from 'meta/assessment'
 
 export const acceptedMessages = [
   ActivityLogMessage.assessmentStatusUpdate,
+  ActivityLogMessage.contactCreate,
   ActivityLogMessage.contactUpdate,
   ActivityLogMessage.descriptionUpdate,
   ActivityLogMessage.invitationAccept,
