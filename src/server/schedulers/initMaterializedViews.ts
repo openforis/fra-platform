@@ -22,7 +22,7 @@ const _getActivityLogEntries = async (props: { jobTimestamp: number }): Promise<
   const jobCreatedAt = new Date(jobTimestamp).toISOString()
 
   const activities = await client.map<{ assessmentUuid: string; cycleUuid: string; countryIso: CountryIso }>(
-    `select assessment_uuid, cycle_uuid, country_iso from public.activity_log where time > $1 order by time desc`,
+    `select assessment_uuid, cycle_uuid, country_iso from public.activity_log where time > $1 country_iso is not null and cycle_uuid is not null order by time desc`,
     [jobCreatedAt],
     (row) => Objects.camelize(row)
   )
