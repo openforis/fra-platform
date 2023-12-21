@@ -9,8 +9,6 @@ type Props = CycleDataParams & {
 }
 
 export const deleteContact = createAsyncThunk<void, Props>('contact/delete', async (props) => {
-  const { countryIso, assessmentName, cycleName, sectionName, uuid } = props
-  const params = { assessmentName, cycleName, sectionName, countryIso, uuid }
-  const config = { params }
+  const config = { params: props }
   await axios.delete(ApiEndPoint.CycleData.Contacts.one(), config)
 })

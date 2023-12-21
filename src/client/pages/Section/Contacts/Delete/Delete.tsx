@@ -4,7 +4,8 @@ import { Contact } from 'meta/cycleData'
 
 import { DataCell } from 'client/components/DataGrid'
 import Icon from 'client/components/Icon'
-import { useOnClick } from 'client/pages/Section/Contacts/Delete/hooks/useOnClick'
+
+import { useOnClick } from './hooks/useOnClick'
 
 type Props = {
   disabled: boolean
