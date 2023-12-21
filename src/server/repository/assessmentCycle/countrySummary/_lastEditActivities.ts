@@ -2,6 +2,7 @@ import { ActivityLogMessage } from 'meta/assessment'
 
 export const activitiesLastEdit = [
   ActivityLogMessage.contactUpdate,
+  ActivityLogMessage.contactDelete,
   ActivityLogMessage.nodeValueCalculatedUpdate,
   ActivityLogMessage.nodeValueUpdate,
   ActivityLogMessage.originalDataPointCreate,
