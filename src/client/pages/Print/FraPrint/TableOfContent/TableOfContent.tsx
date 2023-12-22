@@ -26,7 +26,11 @@ const TableOfContent: React.FC<Props> = (props) => {
 
       <div className="disclaimer">
         <p>{t('print.disclaimer')}</p>
-        <p>{deskStudy ? t('print.disclaimerGeneratedDeskStudy') : t('print.disclaimerGenerated')}</p>
+        <p>
+          {deskStudy
+            ? t('print.disclaimerGeneratedDeskStudy')
+            : t('print.disclaimerGenerated', { cycleName: cycle?.name })}
+        </p>
       </div>
 
       <div className="page-break" />
