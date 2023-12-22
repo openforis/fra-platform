@@ -19,27 +19,31 @@ export const useOptionsContributions = (): Options => {
   const cycle = useCycle()
   const sections = useSections()
 
-  return useMemo<Options>(
-    () =>
-      sections.flatMap((section) => {
-        const subSections = section.subSections.flatMap((subSection) => {
-          const anchor = t(
-            SubSections.getAnchorLabel({ assessment, cycle, subSection }),
-            SubSections.getAnchor({ cycle, subSection })
-          )
+  return useMemo<Options>(() => {
+    const options = sections.flatMap((section) => {
+      const subSections = section.subSections.flatMap((subSection) => {
+        const anchor = t(
+          SubSections.getAnchorLabel({ assessment, cycle, subSection }),
+          SubSections.getAnchor({ cycle, subSection })
+        )
 
-          const _label = Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })
+        const _label = Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })
 
-          const label = { key: `${anchor} ${_label}` }
-          const value = subSection.uuid
+        const label = { key: `${anchor} ${_label}` }
+        const value = subSection.uuid
 
-          return { label, value }
-        })
+        return { label, value }
+      })
 
-        const label = { key: Labels.getCycleLabel({ cycle, labels: section.props.labels, t }) }
+      const label = { key: Labels.getCycleLabel({ cycle, labels: section.props.labels, t }) }
 
-        return [{ label, value: section.uuid, type: 'header' }, ...subSections]
-      }),
-    [assessment, cycle, sections, t]
-  )
+      return [{ label, value: section.uuid, type: 'header' }, ...subSections]
+    })
+
+    return [
+      ...options,
+      { label: { key: t('contactPersons.all') }, value: 'all' },
+      { label: { key: t('contactPersons.none') }, value: 'none' },
+    ]
+  }, [assessment, cycle, sections, t])
 }
