@@ -1,9 +1,9 @@
 import { getManyContacts } from './getManyContacts'
-import { remove } from './remove'
+import { removeContact } from './removeContact'
 import { upsert } from './upsert'
 
 export const NodeExtRepository = {
   getManyContacts,
-  remove,
+  removeContact,
   upsert,
 }

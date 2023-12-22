@@ -20,7 +20,7 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<v
   const section = sectionName
 
   await client.tx(async (t) => {
-    const target = await NodeExtRepository.remove({ assessment, cycle, uuid }, t)
+    const target = (await NodeExtRepository.removeContact({ assessment, cycle, uuid }, t)).uuid
     const message = ActivityLogMessage.contactDelete
     const activityLog = { target, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)

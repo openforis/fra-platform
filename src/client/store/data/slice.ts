@@ -151,13 +151,21 @@ export const dataSlice = createSlice({
     })
 
     builder.addCase(deleteContact.pending, (state, action) => {
-      const { assessmentName, cycleName, countryIso, uuid } = action.meta.arg
+      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
 
       const path = ['contacts', assessmentName, cycleName, countryIso]
-      const value = contacts.filter((c) => c.uuid !== uuid)
+      const value = contacts.filter((c) => c.uuid !== contact.uuid)
       Objects.setInPath({ obj: state, path, value })
+    })
+
+    builder.addCase(deleteContact.rejected, (state, action) => {
+      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      contacts.push(contact)
+      contacts.sort((a, b) => a.props.rowIndex - b.props.rowIndex)
     })
 
     builder.addCase(upsertContact.fulfilled, (state, action) => {

@@ -15,13 +15,11 @@ export const useOnClick = (contact: Contact): Returned => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const { uuid } = contact
-
   return useCallback<Returned>(() => {
     const user = contact[ContactField.name].value.raw
     if (window.confirm(t('userManagement.confirmDelete', { user }))) {
-      const deleteParams = { uuid, assessmentName, cycleName, countryIso, sectionName }
+      const deleteParams = { contact, assessmentName, cycleName, countryIso, sectionName }
       dispatch(DataActions.deleteContact(deleteParams))
     }
-  }, [assessmentName, contact, countryIso, cycleName, dispatch, sectionName, t, uuid])
+  }, [assessmentName, contact, countryIso, cycleName, dispatch, sectionName, t])
 }
