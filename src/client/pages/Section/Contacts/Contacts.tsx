@@ -24,7 +24,10 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const contacts = useContacts({ canEdit })
   const onChange = useOnChange()
   const { columns, fields } = useColumns()
-  const gridTemplateColumns = useMemo(() => `12ch repeat(${fields.length - 1}, 1fr) 4ch`, [fields.length])
+  const gridTemplateColumns = useMemo(() => {
+    const deleteButton = canEdit ? '32px' : ''
+    return `12ch repeat(${fields.length - 1}, 1fr) ${deleteButton}`
+  }, [fields.length, canEdit])
 
   return (
     <div className="fra-table__container">
@@ -40,7 +43,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
         })}
 
         {/* Delete button placeholder */}
-        <div />
+        {canEdit && <div />}
 
         {contacts.map((contact, i) => {
           const { readOnly } = contact.props
@@ -66,7 +69,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
-              <Delete contact={contact} disabled={disabled} />
+              {canEdit && <Delete contact={contact} disabled={disabled} />}
             </React.Fragment>
           )
         })}

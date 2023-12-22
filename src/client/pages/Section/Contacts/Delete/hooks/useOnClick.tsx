@@ -8,12 +8,16 @@ import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
-export const useOnClick = (contact: Contact) => {
+type Returned = () => void
+
+export const useOnClick = (contact: Contact): Returned => {
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
-  const { t } = useTranslation()
-  const { uuid } = contact
   const dispatch = useAppDispatch()
-  return useCallback(() => {
+  const { t } = useTranslation()
+
+  const { uuid } = contact
+
+  return useCallback<Returned>(() => {
     const user = contact[ContactField.name].value.raw
     if (window.confirm(t('userManagement.confirmDelete', { user }))) {
       const deleteParams = { uuid, assessmentName, cycleName, countryIso, sectionName }
