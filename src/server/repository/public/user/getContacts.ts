@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment, Cycle, TableNames } from 'meta/assessment'
 import { Contact, ContactField } from 'meta/cycleData'
 import { RoleName } from 'meta/user'
 
@@ -30,13 +30,38 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
   const roles = [RoleName.COLLABORATOR, RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]
 
   const query = `
-      with contributions as
-               (select (a.user -> 'id')::numeric as user_id
-                     , jsonb_agg(s.uuid)         as section_uuids
-                from ${schemaCycle}."activity_log_${countryIso}" a
-                         inner join ${schemaAssessment}.section s
-                                    on a.section = s.props ->> 'name'
-                group by a.user -> 'id')
+      with odp as
+          (select distinct coalesce((c.props -> 'forestCharacteristics' ->> 'useOriginalDataPoint'),
+                                    'false')::boolean as use_1b
+           from ${schemaCycle}."activity_log_${countryIso}" a
+                    left join ${schemaCycle}.country c
+                              on c.country_iso = '${countryIso}')
+         , sections as
+          (select distinct (jsonb_array_elements_text
+                            (case
+                                 when a.section = 'odp'
+                                     then case
+                                              when odp.use_1b
+                                                  then '["${TableNames.extentOfForest}","${
+    TableNames.forestCharacteristics
+  }"]'::jsonb
+                                              else '["${TableNames.extentOfForest}"]'::jsonb
+                                     end
+                                 else jsonb_build_array(a.section)
+                      end
+                            ))::text as section_name
+           from ${schemaCycle}."activity_log_${countryIso}" a
+                    left join odp
+                              on odp.use_1b = odp.use_1b)
+         , contributions as
+          (select (a.user -> 'id')::numeric as user_id
+                , jsonb_agg(s.uuid)         as section_uuids
+           from ${schemaCycle}."activity_log_${countryIso}" a
+                    left join sections ss
+                              on a.section = ss.section_name
+                    inner join ${schemaAssessment}.section s
+                               on ss.section_name = s.props ->> 'name'
+           group by a.user -> 'id')
       select u.uuid
            , ur.country_iso
            , jsonb_build_object('readOnly', true) as props
