@@ -9,16 +9,14 @@ import Icon from 'client/components/Icon'
 import { useOnClick } from './hooks/useOnClick'
 
 type Props = {
-  disabled: boolean
   contact: Contact
 }
 
 const Delete: React.FC<Props> = (props: Props) => {
-  const { disabled, contact } = props
-
+  const { contact } = props
   const onClick = useOnClick(contact)
 
-  if (disabled) return <div />
+  if (contact.props.readOnly) return <div />
 
   return (
     <DataCell className="contacts__grid__cell-delete" review>

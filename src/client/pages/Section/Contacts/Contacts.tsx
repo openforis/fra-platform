@@ -24,6 +24,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const contacts = useContacts({ canEdit })
   const onChange = useOnChange()
   const { columns, fields } = useColumns()
+
   const gridTemplateColumns = useMemo(() => {
     const deleteButton = canEdit ? '32px' : ''
     return `12ch repeat(${fields.length - 1}, 1fr) ${deleteButton}`
@@ -69,7 +70,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
-              {canEdit && <Delete contact={contact} disabled={disabled} />}
+              {canEdit && <Delete contact={contact} />}
             </React.Fragment>
           )
         })}
