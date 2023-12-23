@@ -1,11 +1,13 @@
-import React, { useMemo } from 'react'
+import './Contacts.scss'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
-import { useContacts } from 'client/store/data'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
+import { useContactsData } from 'client/pages/Section/Contacts/hooks/useContactsData'
 
 import { useColumns } from './hooks/useColumns'
 import { useGetContacts } from './hooks/useGetContacts'
@@ -20,16 +22,21 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   useGetContacts()
-  const contacts = useContacts({ canEdit })
+  const { print } = useIsPrintRoute()
+  const contacts = useContactsData({ canEdit })
   const onChange = useOnChange()
-  const { columns, fields } = useColumns()
-  const gridTemplateColumns = useMemo(() => `12ch repeat(${fields.length - 1}, 1fr)`, [fields.length])
+  const { columns, fields, gridTemplateColumns } = useColumns()
 
   return (
-    <div className="fra-table__container">
+    <div className="contacts">
+      <h2 className="headline">{t('contactPersons.reportPreparationAndContactPersons')}</h2>
+      {print && <div className="contacts__subTitle">{t('contactPersons.contactPersonsSupport')}</div>}
+
       <DataGrid gridTemplateColumns={gridTemplateColumns}>
-        {fields.map((field, i) => {
+        {fields.map(({ field, hidden }, i) => {
           const { header } = columns[field].props
+
+          if (hidden) return null
 
           return (
             <DataCell lastCol={i === fields.length - 1} header key={`${field}_header`}>
@@ -43,9 +50,11 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
           return (
             <React.Fragment key={contact.uuid}>
-              {fields.map((field, j) => {
+              {fields.map(({ field, hidden }, j) => {
                 const column = columns[field]
                 const nodeExt = contact[field]
+
+                if (hidden) return null
 
                 return (
                   <CellNodeExt

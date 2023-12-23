@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { ContactField, contactFields } from 'meta/cycleData'
 import { ColumnNodeExtType } from 'meta/nodeExt'
 
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { ColumnNodeExt } from 'client/components/TableNodeExt'
 
 import { useOptionsAppellation } from './useOptionsAppellation'
@@ -11,10 +12,12 @@ import { useOptionsRole } from './useOptionsRole'
 
 type Returned = {
   columns: Record<ContactField, ColumnNodeExt>
-  fields: Array<ContactField>
+  fields: Array<{ field: ContactField; hidden: boolean }>
+  gridTemplateColumns: string
 }
 
 export const useColumns = (): Returned => {
+  const { print } = useIsPrintRoute()
   const optionsContributions = useOptionsContributions()
   const optionsRole = useOptionsRole()
   const optionsAppellation = useOptionsAppellation()
@@ -54,6 +57,15 @@ export const useColumns = (): Returned => {
       [ContactField.contributions]: contributions,
     }
 
-    return { columns, fields: contactFields }
-  }, [optionsAppellation, optionsContributions, optionsRole])
+    const fields = contactFields.map((field) => ({
+      field,
+      hidden: print && [ContactField.appellation, ContactField.surname].includes(field),
+    }))
+
+    const noCols = fields.filter((f) => !f.hidden).length - (print ? 0 : 1)
+    const title = `${print ? '' : '12ch '}`
+    const gridTemplateColumns = `${title} repeat(${noCols}, 1fr)`
+
+    return { columns, fields, gridTemplateColumns }
+  }, [optionsAppellation, optionsContributions, optionsRole, print])
 }

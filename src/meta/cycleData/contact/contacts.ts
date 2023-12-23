@@ -66,8 +66,14 @@ const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATION
 
 const appellations = Object.values(UserTitle)
 
+const getFieldValue = (props: { contact: Contact; field: ContactField }): NodeValue['raw'] => {
+  const { contact, field } = props
+  return contact[field].value.raw
+}
+
 export const Contacts = {
   appellations,
   allowedRoles,
+  getFieldValue,
   newContact,
 }
