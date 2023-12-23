@@ -7,9 +7,10 @@ import { Labels } from 'meta/assessment'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 import Delete from 'client/pages/Section/Contacts/Delete'
-import { useContactsData } from 'client/pages/Section/Contacts/hooks/useContactsData'
+import { useGridTemplateColumns } from 'client/pages/Section/Contacts/hooks/useGridTemplateColumns'
 
 import { useColumns } from './hooks/useColumns'
+import { useContactsData } from './hooks/useContactsData'
 import { useGetContacts } from './hooks/useGetContacts'
 import { useOnChange } from './hooks/useOnChange'
 
@@ -24,8 +25,9 @@ const Contacts: React.FC<Props> = (props: Props) => {
   useGetContacts()
 
   const contacts = useContactsData({ canEdit })
+  const { columns, fields } = useColumns()
+  const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
   const onChange = useOnChange()
-  const { columns, fields, gridTemplateColumns } = useColumns()
 
   return (
     <div className="contacts">
@@ -44,6 +46,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
             </DataCell>
           )
         })}
+        {canEdit && <div />}
 
         {contacts.map((contact, i) => {
           const { readOnly } = contact.props

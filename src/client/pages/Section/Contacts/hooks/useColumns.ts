@@ -5,6 +5,7 @@ import { ColumnNodeExtType } from 'meta/nodeExt'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { ColumnNodeExt } from 'client/components/TableNodeExt'
+import { Field } from 'client/pages/Section/Contacts/types'
 
 import { useOptionsAppellation } from './useOptionsAppellation'
 import { useOptionsContributions } from './useOptionsContributions'
@@ -12,8 +13,7 @@ import { useOptionsRole } from './useOptionsRole'
 
 type Returned = {
   columns: Record<ContactField, ColumnNodeExt>
-  fields: Array<{ field: ContactField; hidden: boolean }>
-  gridTemplateColumns: string
+  fields: Array<Field>
 }
 
 export const useColumns = (): Returned => {
@@ -62,10 +62,6 @@ export const useColumns = (): Returned => {
       hidden: print && [ContactField.appellation, ContactField.surname].includes(field),
     }))
 
-    const noCols = fields.filter((f) => !f.hidden).length - (print ? 0 : 1)
-    const title = `${print ? '' : '12ch '}`
-    const gridTemplateColumns = `${title} repeat(${noCols}, 1fr)`
-
-    return { columns, fields, gridTemplateColumns }
+    return { columns, fields }
   }, [optionsAppellation, optionsContributions, optionsRole, print])
 }
