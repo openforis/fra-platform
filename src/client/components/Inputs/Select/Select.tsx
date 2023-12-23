@@ -34,7 +34,7 @@ const Select: React.FC<Props> = (props) => {
         group: () => 'select__group',
         groupHeading: () => 'select__groupHeading',
         input: () => 'select__input',
-        menu: () => classNames('select__menu'),
+        menu: ({ placement }) => classNames('select__menu', placement),
         menuList: () => classNames('select__menuList'),
         option: ({ isFocused, isSelected }) => classNames('select__option', { isFocused, isSelected }),
         singleValue: () => 'select__singleValue',
@@ -44,6 +44,8 @@ const Select: React.FC<Props> = (props) => {
       isClearable
       isDisabled={disabled}
       isSearchable
+      menuPlacement="auto"
+      menuPosition="fixed"
       onChange={onChange}
       options={options}
       placeholder={placeholder}
