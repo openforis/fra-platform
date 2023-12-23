@@ -42,7 +42,8 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
 
     // persist activity log
     const activityLog = {
-      target: { countryIso, tableName, nodes },
+      countryIso,
+      target: { tableName, nodes },
       section: sectionName,
       message: ActivityLogMessage.tableValuesClear,
       user,
