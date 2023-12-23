@@ -4,6 +4,7 @@ import { Objects } from 'utils/objects'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { deleteContact } from 'client/store/data/actions/deleteContact'
 import { getContacts } from 'client/store/data/actions/getContacts'
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
 import { upsertContact } from 'client/store/data/actions/upsertContact'
@@ -148,6 +149,25 @@ export const dataSlice = createSlice({
         contacts.push(contactUpdate)
       }
     })
+
+    builder.addCase(deleteContact.pending, (state, action) => {
+      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+
+      const path = ['contacts', assessmentName, cycleName, countryIso]
+      const value = contacts.filter((c) => c.uuid !== contact.uuid)
+      Objects.setInPath({ obj: state, path, value })
+    })
+
+    builder.addCase(deleteContact.rejected, (state, action) => {
+      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      contacts.push(contact)
+      contacts.sort((a, b) => a.props.rowIndex - b.props.rowIndex)
+    })
+
     builder.addCase(upsertContact.fulfilled, (state, action) => {
       const { assessmentName, cycleName, countryIso, contact: contactAction } = action.meta.arg
 
@@ -186,6 +206,7 @@ export const DataActions = {
   // Contacts
   getContacts,
   upsertContact,
+  deleteContact,
 }
 
 export default dataSlice.reducer as Reducer<DataState>

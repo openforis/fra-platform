@@ -6,6 +6,7 @@ import { Labels } from 'meta/assessment'
 import { useContacts } from 'client/store/data'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
+import Delete from 'client/pages/Section/Contacts/Delete'
 
 import { useColumns } from './hooks/useColumns'
 import { useGetContacts } from './hooks/useGetContacts'
@@ -23,7 +24,11 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const contacts = useContacts({ canEdit })
   const onChange = useOnChange()
   const { columns, fields } = useColumns()
-  const gridTemplateColumns = useMemo(() => `12ch repeat(${fields.length - 1}, 1fr)`, [fields.length])
+
+  const gridTemplateColumns = useMemo(() => {
+    const deleteButton = canEdit ? '32px' : ''
+    return `12ch repeat(${fields.length - 1}, 1fr) ${deleteButton}`
+  }, [fields.length, canEdit])
 
   return (
     <div className="fra-table__container">
@@ -38,8 +43,12 @@ const Contacts: React.FC<Props> = (props: Props) => {
           )
         })}
 
+        {/* Delete button placeholder */}
+        {canEdit && <div />}
+
         {contacts.map((contact, i) => {
           const { readOnly } = contact.props
+          const disabled = !canEdit || readOnly
 
           return (
             <React.Fragment key={contact.uuid}>
@@ -50,7 +59,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                 return (
                   <CellNodeExt
                     column={column}
-                    disabled={!canEdit || readOnly}
+                    disabled={disabled}
                     key={`${contact.uuid}_${field}`}
                     lastCol={j === fields.length - 1}
                     lastRow={i === contacts.length - 1}
@@ -61,6 +70,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
+              {canEdit && <Delete contact={contact} disabled={disabled} />}
             </React.Fragment>
           )
         })}
