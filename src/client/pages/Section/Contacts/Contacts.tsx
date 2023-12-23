@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 import { useContactsData } from 'client/pages/Section/Contacts/hooks/useContactsData'
@@ -22,7 +21,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   useGetContacts()
-  const { print } = useIsPrintRoute()
+
   const contacts = useContactsData({ canEdit })
   const onChange = useOnChange()
   const { columns, fields, gridTemplateColumns } = useColumns()
@@ -30,7 +29,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
   return (
     <div className="contacts">
       <h2 className="headline">{t('contactPersons.reportPreparationAndContactPersons')}</h2>
-      {print && <div className="contacts__subTitle">{t('contactPersons.contactPersonsSupport')}</div>}
+      <div className="contacts__subTitle">{t('contactPersons.contactPersonsSupport')}</div>
 
       <DataGrid gridTemplateColumns={gridTemplateColumns}>
         {fields.map(({ field, hidden }, i) => {

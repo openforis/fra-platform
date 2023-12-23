@@ -1,9 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountry } from 'client/store/area'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Contacts from 'client/pages/Section/Contacts'
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
@@ -17,11 +19,13 @@ const Introduction: React.FC<Props> = (props) => {
   const { canEditData, canEditDescriptions, sectionName } = props
 
   const { t } = useTranslation()
-  const { print } = useIsPrintRoute()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
+  const country = useCountry(countryIso)
+
+  const { deskStudy } = country.props
 
   return (
     <>
-      {print && <Contacts canEdit={canEditData} />}
       <CommentableDescription
         sectionName={sectionName}
         title={t('contactPersons.introductoryText')}
@@ -29,7 +33,7 @@ const Introduction: React.FC<Props> = (props) => {
         template={{ text: t('contactPersons.introductoryTextSupport') }}
         disabled={!canEditDescriptions}
       />
-      {!print && <Contacts canEdit={canEditData} />}
+      {!deskStudy && <Contacts canEdit={canEditData} />}
     </>
   )
 }
