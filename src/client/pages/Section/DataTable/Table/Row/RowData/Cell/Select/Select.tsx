@@ -1,3 +1,4 @@
+import './Select.scss'
 import React, { useCallback } from 'react'
 
 import SelectCommon from 'client/components/Inputs/Select'
@@ -20,7 +21,7 @@ const Select: React.FC<PropsCell> = (props) => {
   )
 
   return (
-    <div className="table__select">
+    <div className="table__select-container">
       <SelectCommon disabled={disabled} onChange={onChange} options={options} value={value} />
     </div>
   )

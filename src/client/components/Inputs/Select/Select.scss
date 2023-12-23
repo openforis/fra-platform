@@ -1,19 +1,26 @@
 @import 'client/style/partials';
 
+div.select__container {
+  height: 100%;
+}
+
 div.select__control {
   background-color: transparent;
-  border: unset;
   border-radius: unset;
+  border: unset;
   color: $text-body;
   cursor: pointer;
-  padding: 0 $spacing-xxs;
+  height: 100%;
+  padding: $spacing-xxs;
 
   &.isDisabled {
+    align-content: start;
     cursor: none;
   }
 
   &.isFocused {
-    box-shadow: 0 0 0 1px $text-mute;
+    box-shadow: unset;
+    border: 1px solid $text-mute;
   }
 }
 
@@ -38,12 +45,20 @@ div.select__menuList {
 
 div.select__menu {
   border-left: 1px solid $text-mute;
-  border-right: 1px solid $text-mute;
-  border-bottom: 1px solid $text-mute;
   border-radius: unset;
-  margin: -1px 0 0 -1px;
-  width: calc(100% + 2px);
+  border-right: 1px solid $text-mute;
+  margin-left: -1px;
   padding: unset;
+  width: calc(100% + 2px);
+
+  &.bottom {
+    border-bottom: 1px solid $text-mute;
+    margin-top: -1px;
+  }
+  &.top {
+    border-top: 1px solid $text-mute;
+    margin-bottom: -1px;
+  }
 }
 
 div.select__group {

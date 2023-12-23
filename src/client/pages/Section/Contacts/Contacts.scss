@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.contacts {
+  margin-bottom: unset;
+  display: grid;
+  grid-row-gap: $spacing-xxxs;
+}
+
+.contacts__subTitle {
+  margin-bottom: $spacing-xxs;
+}

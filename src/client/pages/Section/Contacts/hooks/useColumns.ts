@@ -3,7 +3,9 @@ import { useMemo } from 'react'
 import { ContactField, contactFields } from 'meta/cycleData'
 import { ColumnNodeExtType } from 'meta/nodeExt'
 
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { ColumnNodeExt } from 'client/components/TableNodeExt'
+import { Field } from 'client/pages/Section/Contacts/types'
 
 import { useOptionsAppellation } from './useOptionsAppellation'
 import { useOptionsContributions } from './useOptionsContributions'
@@ -11,10 +13,11 @@ import { useOptionsRole } from './useOptionsRole'
 
 type Returned = {
   columns: Record<ContactField, ColumnNodeExt>
-  fields: Array<ContactField>
+  fields: Array<Field>
 }
 
 export const useColumns = (): Returned => {
+  const { print } = useIsPrintRoute()
   const optionsContributions = useOptionsContributions()
   const optionsRole = useOptionsRole()
   const optionsAppellation = useOptionsAppellation()
@@ -54,6 +57,11 @@ export const useColumns = (): Returned => {
       [ContactField.contributions]: contributions,
     }
 
-    return { columns, fields: contactFields }
-  }, [optionsAppellation, optionsContributions, optionsRole])
+    const fields = contactFields.map((field) => ({
+      field,
+      hidden: print && [ContactField.appellation, ContactField.surname].includes(field),
+    }))
+
+    return { columns, fields }
+  }, [optionsAppellation, optionsContributions, optionsRole, print])
 }

@@ -1,14 +1,16 @@
-import React, { useMemo } from 'react'
+import './Contacts.scss'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
-import { useContacts } from 'client/store/data'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 import Delete from 'client/pages/Section/Contacts/Delete'
+import { useGridTemplateColumns } from 'client/pages/Section/Contacts/hooks/useGridTemplateColumns'
 
 import { useColumns } from './hooks/useColumns'
+import { useContactsData } from './hooks/useContactsData'
 import { useGetContacts } from './hooks/useGetContacts'
 import { useOnChange } from './hooks/useOnChange'
 
@@ -21,20 +23,22 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   useGetContacts()
-  const contacts = useContacts({ canEdit })
-  const onChange = useOnChange()
-  const { columns, fields } = useColumns()
 
-  const gridTemplateColumns = useMemo(() => {
-    const deleteButton = canEdit ? '32px' : ''
-    return `12ch repeat(${fields.length - 1}, 1fr) ${deleteButton}`
-  }, [fields.length, canEdit])
+  const contacts = useContactsData({ canEdit })
+  const { columns, fields } = useColumns()
+  const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
+  const onChange = useOnChange()
 
   return (
-    <div className="fra-table__container">
+    <div className="contacts">
+      <h2 className="headline">{t('contactPersons.reportPreparationAndContactPersons')}</h2>
+      <div className="contacts__subTitle">{t('contactPersons.contactPersonsSupport')}</div>
+
       <DataGrid gridTemplateColumns={gridTemplateColumns}>
-        {fields.map((field, i) => {
+        {fields.map(({ field, hidden }, i) => {
           const { header } = columns[field].props
+
+          if (hidden) return null
 
           return (
             <DataCell lastCol={i === fields.length - 1} header key={`${field}_header`}>
@@ -42,8 +46,6 @@ const Contacts: React.FC<Props> = (props: Props) => {
             </DataCell>
           )
         })}
-
-        {/* Delete button placeholder */}
         {canEdit && <div />}
 
         {contacts.map((contact, i) => {
@@ -52,9 +54,11 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
           return (
             <React.Fragment key={contact.uuid}>
-              {fields.map((field, j) => {
+              {fields.map(({ field, hidden }, j) => {
                 const column = columns[field]
                 const nodeExt = contact[field]
+
+                if (hidden) return null
 
                 return (
                   <CellNodeExt

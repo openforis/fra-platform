@@ -10,8 +10,8 @@ type Props = {
 }
 
 type ColumnNode = {
-  type: ColumnNodeExtType
   props: Props
+  type: ColumnNodeExtType
 }
 
 export type SelectableColumnNode = ColumnNode & {
