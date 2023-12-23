@@ -70,7 +70,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
-              {canEdit && <Delete contact={contact} />}
+              {canEdit && <Delete contact={contact} disabled={disabled} />}
             </React.Fragment>
           )
         })}
