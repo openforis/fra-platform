@@ -10,6 +10,7 @@ export enum ActivityLogMessage {
   assessmentUpdate = 'assessmentUpdate',
   contactCreate = 'contactCreate',
   contactUpdate = 'contactUpdate',
+  contactDelete = 'contactDelete',
   descriptionUpdate = 'descriptionUpdate',
   invitationAccept = 'invitationAccept',
   invitationAdd = 'invitationAdd',

@@ -10,6 +10,7 @@ import { getActivities } from './activities/getActivities'
 import { getActivitiesCount } from './activities/getActivitiesCount'
 import { createContact } from './contacts/create'
 import { getContacts } from './contacts/getContacts'
+import { removeContact } from './contacts/remove'
 import { updateContact } from './contacts/update'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
@@ -132,6 +133,6 @@ export const CycleDataApi = {
     express.post(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, createContact)
     express.get(ApiEndPoint.CycleData.Contacts.many(), getContacts)
     express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
-    // express.delete(      ApiEndPoint.CycleData.Contacts.many(),      // AuthMiddleware.requireEditTableData,      removeContact    )
+    express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
   },
 }

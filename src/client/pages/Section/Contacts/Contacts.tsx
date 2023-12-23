@@ -6,6 +6,7 @@ import { Labels } from 'meta/assessment'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
+import Delete from 'client/pages/Section/Contacts/Delete'
 import { useContactsData } from 'client/pages/Section/Contacts/hooks/useContactsData'
 
 import { useColumns } from './hooks/useColumns'
@@ -46,6 +47,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
         {contacts.map((contact, i) => {
           const { readOnly } = contact.props
+          const disabled = !canEdit || readOnly
 
           return (
             <React.Fragment key={contact.uuid}>
@@ -58,7 +60,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                 return (
                   <CellNodeExt
                     column={column}
-                    disabled={!canEdit || readOnly}
+                    disabled={disabled}
                     key={`${contact.uuid}_${field}`}
                     lastCol={j === fields.length - 1}
                     lastRow={i === contacts.length - 1}
@@ -69,6 +71,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
+              {canEdit && <Delete contact={contact} disabled={disabled} />}
             </React.Fragment>
           )
         })}
