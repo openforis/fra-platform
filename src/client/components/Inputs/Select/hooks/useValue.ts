@@ -25,8 +25,7 @@ export const useValue = (props: SelectProps): ValueSelect => {
         const optionOrGroup = options[i]
         if (Object.hasOwn(optionOrGroup, 'options')) {
           _value = (optionOrGroup as OptionsGroup).options.find((option) => option.value === valueInput)
-        }
-        if ((optionOrGroup as Option).value === valueInput) {
+        } else if ((optionOrGroup as Option).value === valueInput) {
           _value = optionOrGroup as Option
         }
         if (_value) break
