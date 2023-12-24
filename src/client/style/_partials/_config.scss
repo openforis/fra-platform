@@ -30,6 +30,10 @@ $ui-accent-light-extra: #dbf1f5;
 $ui-destructive: #d0021b;
 $ui-alert: #f58020;
 
+$ui-input-focus: #f3f3f3;
+$ui-edit-border: $text-mute;
+$ui-edit-background-error: lighten($ui-destructive, 50%);
+
 //Theme 2
 $ui-accent-2: #d46e33;
 
