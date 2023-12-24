@@ -9,8 +9,8 @@ import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 import Delete from 'client/pages/Section/Contacts/Delete'
 import { useGridTemplateColumns } from 'client/pages/Section/Contacts/hooks/useGridTemplateColumns'
 
-import { useColumns } from './hooks/useColumns'
 import { useContactsData } from './hooks/useContactsData'
+import { useColumns, useFields } from './hooks/useDefinitions'
 import { useGetContacts } from './hooks/useGetContacts'
 import { useOnChange } from './hooks/useOnChange'
 
@@ -25,7 +25,8 @@ const Contacts: React.FC<Props> = (props: Props) => {
   useGetContacts()
 
   const contacts = useContactsData({ canEdit })
-  const { columns, fields } = useColumns()
+  const columns = useColumns()
+  const fields = useFields()
   const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
   const onChange = useOnChange()
 

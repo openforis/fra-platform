@@ -1,29 +1,22 @@
 import { Label } from 'meta/assessment'
-import { ColumnNodeExtType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt'
 
-import { Option } from 'client/components/Inputs/Select/types'
+import { OptionsOrGroups } from 'client/components/Inputs/Select'
 
-type Props = {
+type NodeExtCellProps<P = unknown> = P & {
   header: {
     label: Label
   }
 }
 
-type ColumnNode = {
+export type NodeExtCell<Type extends NodeExtCellType, Props extends NodeExtCellProps = NodeExtCellProps> = {
   props: Props
-  type: ColumnNodeExtType
+  type: Type
 }
 
-export type SelectableColumnNode = ColumnNode & {
-  type: ColumnNodeExtType.select | ColumnNodeExtType.multiselect
-  props: Props & {
-    // label is passed as Label, but translated before rendering
-    options: Array<{
-      label: Label
-      value: Option['value']
-      type?: 'header'
-    }>
-  }
-}
+export type NodeExtCellPropsSelect = NodeExtCellProps<{ options: OptionsOrGroups }>
 
-export type ColumnNodeExt = ColumnNode | SelectableColumnNode
+export type NodeExtCellSelect = NodeExtCell<
+  NodeExtCellType.select | NodeExtCellType.multiselect,
+  NodeExtCellPropsSelect
+>

@@ -1,15 +1,16 @@
 import React from 'react'
 
-import MultiSelect from 'client/components/MultiSelect'
+import Select from 'client/components/Inputs/Select'
 
-import { CellValueMultiProps } from '../CellProps'
-import { useOptions } from './hooks/useOptions'
+import { CellSelectProps } from '../CellProps'
 
-const CellMultiselect: React.FC<CellValueMultiProps> = (props: CellValueMultiProps) => {
-  const { value, onChange, disabled, column } = props
-  const options = useOptions(column.props.options)
+const CellMultiselect: React.FC<CellSelectProps> = (props) => {
+  const { column, disabled, nodeExt, onChange } = props
 
-  return <MultiSelect disabled={disabled} options={options} values={value} onChange={onChange} />
+  const { options } = column.props
+  const value = nodeExt.value.raw
+
+  return <Select disabled={disabled} isMulti onChange={onChange} options={options} value={value} />
 }
 
 export default CellMultiselect

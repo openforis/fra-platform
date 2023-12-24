@@ -2,15 +2,14 @@ import React from 'react'
 
 import Select from 'client/components/Inputs/Select'
 
-import { CellValueSingleProps } from '../CellProps'
-import { useValues } from './hooks/useValues'
+import { CellSelectProps } from '../CellProps'
 
-const CellSelect: React.FC<CellValueSingleProps> = (props: CellValueSingleProps) => {
-  const { onChange, disabled, column, value: _value } = props
+const CellSelect: React.FC<CellSelectProps> = (props) => {
+  const { column, disabled, nodeExt, onChange } = props
 
-  const { value, options } = useValues({ column, value: _value })
+  const value = nodeExt.value.raw
 
-  return <Select disabled={disabled} value={value} onChange={onChange} options={options} />
+  return <Select disabled={disabled} value={value} onChange={onChange} options={column.props.options} />
 }
 
 export default CellSelect

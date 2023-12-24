@@ -36,6 +36,47 @@ div.select__singleValue {
 div.select__input {
   margin: unset;
   padding: unset;
+
+  &.isDisabled {
+    display: none;
+  }
+}
+
+div.select__multiValue {
+  background-color: $ui-input-focus;
+  border: 1px dashed $ui-edit-border;
+  margin: 0 1px 1px 0;
+  padding: $spacing-xxxxs;
+
+  &.isDisabled {
+    background-color: transparent;
+    border-color: transparent;
+    flex: 0 0 100%;
+    padding: 0 0 $spacing-xxxxs 0;
+  }
+}
+
+div.select__multiValueLabel {
+  border-radius: unset;
+  color: $text-body;
+  font-size: inherit;
+  padding: unset;
+
+  &.isDisabled {
+    white-space: break-spaces;
+  }
+}
+
+div.select__multiValueRemove {
+  padding: 0 $spacing-xxxxs;
+
+  &:hover {
+    background-color: $ui-edit-background-error;
+  }
+
+  &.isDisabled {
+    display: none;
+  }
 }
 
 div.select__menuList {

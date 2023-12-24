@@ -1,54 +1,51 @@
 import { useMemo } from 'react'
 
 import { ContactField, contactFields } from 'meta/cycleData'
-import { ColumnNodeExtType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { ColumnNodeExt } from 'client/components/TableNodeExt'
+import { NodeExtCell, NodeExtCellSelect } from 'client/components/TableNodeExt/types'
 import { Field } from 'client/pages/Section/Contacts/types'
 
 import { useOptionsAppellation } from './useOptionsAppellation'
 import { useOptionsContributions } from './useOptionsContributions'
 import { useOptionsRole } from './useOptionsRole'
 
-type Returned = {
-  columns: Record<ContactField, ColumnNodeExt>
-  fields: Array<Field>
-}
+type Columns = Record<ContactField, NodeExtCell<NodeExtCellType>>
+type Fields = Array<Field>
 
-export const useColumns = (): Returned => {
-  const { print } = useIsPrintRoute()
+export const useColumns = (): Columns => {
   const optionsContributions = useOptionsContributions()
   const optionsRole = useOptionsRole()
   const optionsAppellation = useOptionsAppellation()
 
-  return useMemo<Returned>(() => {
-    const appellation: ColumnNodeExt = {
+  return useMemo<Columns>(() => {
+    const appellation: NodeExtCellSelect = {
       props: { header: { label: { key: 'editUser.title' } }, options: optionsAppellation },
-      type: ColumnNodeExtType.select,
+      type: NodeExtCellType.select,
     }
-    const name: ColumnNodeExt = {
+    const name: NodeExtCell<NodeExtCellType.text> = {
       props: { header: { label: { key: 'editUser.name' } } },
-      type: ColumnNodeExtType.text,
+      type: NodeExtCellType.text,
     }
-    const surname: ColumnNodeExt = {
+    const surname: NodeExtCell<NodeExtCellType.text> = {
       props: { header: { label: { key: 'editUser.surname' } } },
-      type: ColumnNodeExtType.text,
+      type: NodeExtCellType.text,
     }
-    const role: ColumnNodeExt = {
+    const role: NodeExtCellSelect = {
       props: { header: { label: { key: 'editUser.role' } }, options: optionsRole },
-      type: ColumnNodeExtType.select,
+      type: NodeExtCellType.select,
     }
-    const institution: ColumnNodeExt = {
+    const institution: NodeExtCell<NodeExtCellType.text> = {
       props: { header: { label: { key: 'editUser.institution' } } },
-      type: ColumnNodeExtType.text,
+      type: NodeExtCellType.text,
     }
-    const contributions: ColumnNodeExt = {
+    const contributions: NodeExtCellSelect = {
       props: { header: { label: { key: 'editUser.contributions' } }, options: optionsContributions },
-      type: ColumnNodeExtType.multiselect,
+      type: NodeExtCellType.multiselect,
     }
 
-    const columns: Returned['columns'] = {
+    return {
       [ContactField.appellation]: appellation,
       [ContactField.name]: name,
       [ContactField.surname]: surname,
@@ -56,12 +53,16 @@ export const useColumns = (): Returned => {
       [ContactField.institution]: institution,
       [ContactField.contributions]: contributions,
     }
+  }, [optionsAppellation, optionsContributions, optionsRole])
+}
 
-    const fields = contactFields.map((field) => ({
+export const useFields = (): Fields => {
+  const { print } = useIsPrintRoute()
+
+  return useMemo<Fields>(() => {
+    return contactFields.map((field) => ({
       field,
       hidden: print && [ContactField.appellation, ContactField.surname].includes(field),
     }))
-
-    return { columns, fields }
-  }, [optionsAppellation, optionsContributions, optionsRole, print])
+  }, [print])
 }
