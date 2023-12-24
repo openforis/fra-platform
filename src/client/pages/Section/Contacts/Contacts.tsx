@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
+import { useContacts } from 'client/store/data'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
-import Delete from 'client/pages/Section/Contacts/Delete'
-import { useGridTemplateColumns } from 'client/pages/Section/Contacts/hooks/useGridTemplateColumns'
 
 import { useColumns } from './hooks/useColumns'
-import { useContactsData } from './hooks/useContactsData'
 import { useGetContacts } from './hooks/useGetContacts'
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useOnChange } from './hooks/useOnChange'
+import Delete from './Delete'
+import NewContactButton from './NewContactButton'
 
 type Props = {
   canEdit: boolean
@@ -24,10 +25,10 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   useGetContacts()
 
-  const contacts = useContactsData({ canEdit })
+  const contacts = useContacts()
+  const onChange = useOnChange()
   const { columns, fields } = useColumns()
   const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
-  const onChange = useOnChange()
 
   return (
     <div className="contacts">
@@ -79,6 +80,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
           )
         })}
       </DataGrid>
+      <NewContactButton canEdit={canEdit} />
     </div>
   )
 }

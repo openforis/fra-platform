@@ -21,12 +21,7 @@ const Delete: React.FC<Props> = (props: Props) => {
 
   return (
     <DataCell className="contacts__grid__cell-delete" review>
-      <button
-        disabled={disabled || contact.placeholder}
-        className="btn-s btn-link-destructive"
-        onClick={onClick}
-        type="button"
-      >
+      <button disabled={disabled} className="btn-s btn-link-destructive" onClick={onClick} type="button">
         <Icon className="icon-no-margin" name="trash-simple" />
       </button>
     </DataCell>
