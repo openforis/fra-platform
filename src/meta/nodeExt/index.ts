@@ -1,2 +1,2 @@
 export type { NodeExt } from './nodeExt'
-export { ColumnNodeExtType, NodeExtType } from './nodeExt'
+export { NodeExtCellType, NodeExtType } from './nodeExt'

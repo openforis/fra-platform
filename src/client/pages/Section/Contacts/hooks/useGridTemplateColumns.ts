@@ -15,8 +15,11 @@ export const useGridTemplateColumns = (props: Props): string => {
   return useMemo<string>(() => {
     const deleteButton = canEdit ? '32px' : ''
     const noCols = fields.filter((f) => !f.hidden).length - (print ? 0 : 1)
-    const title = `${print ? '' : '12ch '}`
 
-    return `${title} repeat(${noCols}, 1fr) ${deleteButton}`
+    const title = `${print ? '' : '12ch '}`
+    const name = `minMax(130px, 0.8fr)`
+    const contributions = `minMax(130px, 2fr)`
+
+    return `${title} ${name} repeat(${noCols - 2}, minMax(60px, 1fr)) ${contributions} ${deleteButton}`
   }, [canEdit, fields, print])
 }

@@ -8,7 +8,7 @@ import { useContacts } from 'client/store/data'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
-import { useColumns } from './hooks/useColumns'
+import { useColumns, useFields } from './hooks/useDefinitions'
 import { useGetContacts } from './hooks/useGetContacts'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useOnChange } from './hooks/useOnChange'
@@ -27,7 +27,9 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const contacts = useContacts()
   const onChange = useOnChange()
-  const { columns, fields } = useColumns()
+
+  const columns = useColumns()
+  const fields = useFields()
   const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
 
   return (

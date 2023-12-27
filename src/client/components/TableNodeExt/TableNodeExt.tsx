@@ -2,19 +2,19 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
-import { NodeExt } from 'meta/nodeExt'
+import { NodeExt, NodeExtCellType } from 'meta/nodeExt'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
-import { ColumnNodeExt } from './types'
+import { NodeExtCell } from './types'
 
 type Props = {
-  columns: Array<ColumnNodeExt>
+  columns: Array<NodeExtCell<NodeExtCellType>>
   data: Array<NodeExt<unknown>>
   disabled: boolean
   gridTemplateColumns: string
-  onChange: (value: any) => void
+  onChange: (value: string | Array<string>) => void
 }
 
 const TableNodeExt = (props: Props) => {
