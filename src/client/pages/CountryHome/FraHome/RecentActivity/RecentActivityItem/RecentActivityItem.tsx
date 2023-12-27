@@ -7,7 +7,6 @@ import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLog, ActivityLogs } from 'meta/assessment'
-import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
@@ -40,7 +39,7 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
         {ActivityLogs.hasSectionLink(activity) && (
           <Link
             className={classNames('link', { disabled: ActivityLogs.isSectionLinkDisabled(activity) })}
-            to={Routes.Section.generatePath({ countryIso, assessmentName, cycleName, sectionName })}
+            to={ActivityLogs.getSectionLink({ countryIso, assessmentName, cycleName, sectionName })}
           >
             {anchor ? `${anchor} ` : ''}
             {ActivityLogs.getLabelSection({ cycle, section, activity, t })}
