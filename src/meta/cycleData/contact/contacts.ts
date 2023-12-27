@@ -54,7 +54,6 @@ const newContact = (props: { countryIso: CountryIso; rowIndex: number }): Contac
     [ContactField.surname]: newContactNode({ countryIso, field: ContactField.surname, parentUuid: uuid, raw: '' }),
     countryIso: props.countryIso,
     parentUuid: null,
-    placeholder: true,
     props: { rowIndex },
     type: NodeExtType.contact,
     uuid,

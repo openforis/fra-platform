@@ -4,24 +4,24 @@ import { Objects } from 'utils/objects'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { deleteContact } from 'client/store/data/actions/deleteContact'
-import { getContacts } from 'client/store/data/actions/getContacts'
-import { setNodeValues } from 'client/store/data/actions/setNodeValues'
-import { upsertContact } from 'client/store/data/actions/upsertContact'
-import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
-import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
-import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
-
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
+import { createContact } from './actions/createContact'
+import { deleteContact } from './actions/deleteContact'
+import { getContacts } from './actions/getContacts'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
+import { setNodeValues } from './actions/setNodeValues'
+import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
+import { setNodeValuesReducer } from './extraReducers/setNodeValues'
+import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
+import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
@@ -135,7 +135,7 @@ export const dataSlice = createSlice({
       const path = ['contacts', assessmentName, cycleName, countryIso]
       Objects.setInPath({ obj: state, path, value: payload ?? [] })
     })
-    builder.addCase(upsertContact.pending, (state, action) => {
+    builder.addCase(updateContact.pending, (state, action) => {
       const { assessmentName, cycleName, countryIso, contact: contactAction, field, raw } = action.meta.arg
 
       const fieldUpdate: ContactNode = { ...contactAction[field], value: { raw } }
@@ -165,19 +165,26 @@ export const dataSlice = createSlice({
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       contacts.push(contact)
-      contacts.sort((a, b) => a.props.rowIndex - b.props.rowIndex)
     })
 
-    builder.addCase(upsertContact.fulfilled, (state, action) => {
+    builder.addCase(updateContact.fulfilled, (state, action) => {
       const { assessmentName, cycleName, countryIso, contact: contactAction } = action.meta.arg
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       const contactIdx = contacts.findIndex((c) => c.uuid === contactAction.uuid)
       if (contactIdx >= 0) {
-        contacts[contactIdx] = { ...contacts[contactIdx], placeholder: false }
+        contacts[contactIdx] = { ...contacts[contactIdx] }
       } else {
         throw new Error(`Contact not found`)
       }
+    })
+
+    builder.addCase(createContact.fulfilled, (state, action) => {
+      const { assessmentName, cycleName, countryIso } = action.meta.arg
+      const contactAction = action.payload
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      contacts.push(contactAction)
     })
   },
 })
@@ -204,9 +211,10 @@ export const DataActions = {
   getLinkedDataSources,
 
   // Contacts
-  getContacts,
-  upsertContact,
+  createContact,
   deleteContact,
+  getContacts,
+  updateContact,
 }
 
 export default dataSlice.reducer as Reducer<DataState>
