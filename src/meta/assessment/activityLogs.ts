@@ -114,11 +114,11 @@ type GetSectionLinkProp = {
 const getSectionLink = (props: GetSectionLinkProp): string => {
   const { countryIso, assessmentName, cycleName, sectionName: sectionNameProp } = props
 
-  let sectionName = sectionNameProp
-
-  if (sectionName === SectionNames.contacts) {
-    sectionName = SectionNames.contactPersons
+  const sectionNameMap: { [key in SectionName]?: SectionName } = {
+    [SectionNames.contacts]: SectionNames.contactPersons,
   }
+
+  const sectionName = sectionNameMap[sectionNameProp] ?? sectionNameProp
 
   return Routes.Section.generatePath({ countryIso, assessmentName, cycleName, sectionName })
 }
