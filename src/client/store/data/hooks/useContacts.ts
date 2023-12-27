@@ -8,5 +8,9 @@ type Returned = Array<Contact>
 
 export const useContacts = (): Returned => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  return useAppSelector<Returned>((state) => state.data.contacts[assessmentName]?.[cycleName]?.[countryIso] ?? [])
+  const contacts = useAppSelector<Returned>(
+    (state) => state.data.contacts[assessmentName]?.[cycleName]?.[countryIso] ?? []
+  )
+
+  return [...contacts].sort((a, b) => a.props.rowIndex - b.props.rowIndex)
 }

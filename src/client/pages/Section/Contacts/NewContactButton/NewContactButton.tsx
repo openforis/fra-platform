@@ -13,13 +13,13 @@ type Props = {
 const NewContactButton: React.FC<Props> = (props: Props) => {
   const { canEdit } = props
   const { t } = useTranslation()
-  const onClick = useOnClick()
+  const { onClick, loading } = useOnClick()
 
   if (!canEdit) return null
 
   return (
     <div className="contacts__button-add-container">
-      <button className="btn btn-primary no-print btn-add-contact" onClick={onClick} type="button">
+      <button disabled={loading} className="btn btn-primary no-print btn-add-contact" onClick={onClick} type="button">
         <Icon className="icon-sub icon-white" name="small-add" />
         {t('review.add')}
       </button>
