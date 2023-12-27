@@ -4,6 +4,10 @@ import { Label } from './label'
 
 export type SectionName = string
 
+export enum SectionNames {
+  'contacts' = 'contacts',
+}
+
 export interface SectionProps {
   anchors: Record<CycleUuid, string> // anchor by cycle uuid
   index: number
