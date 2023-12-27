@@ -31,10 +31,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<v
     await Promise.all(
       contactFields.map(async (contactField) => {
         const nodeExt = contact[contactField]
-        const target = await NodeExtRepository.upsert({ assessment, cycle, countryIso, nodeExt }, t)
-        const message = ActivityLogMessage.contactFieldCreate
-        const activityLog = { target, section, message, countryIso, user }
-        await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+        await NodeExtRepository.upsert({ assessment, cycle, countryIso, nodeExt }, t)
       })
     )
   })

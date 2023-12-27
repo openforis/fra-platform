@@ -22,5 +22,5 @@ const _update = async (props: Props): Promise<void> => {
 }
 
 export const updateContact = createAsyncThunk<void, Props>('contact/update', async (props) => {
-  Functions.debounce(_update, 1_000, `updateContact${props.field}`)(props)
+  Functions.debounce(_update, 1_000, `updateContact-${props.field}-${props.contact.uuid}`)(props)
 })

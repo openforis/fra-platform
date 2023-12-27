@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
-import { useContacts } from 'client/store/data'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 
+import { useContactsData } from './hooks/useContactsData'
 import { useColumns, useFields } from './hooks/useDefinitions'
 import { useGetContacts } from './hooks/useGetContacts'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
@@ -25,7 +25,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   useGetContacts()
 
-  const contacts = useContacts()
+  const contacts = useContactsData()
   const onChange = useOnChange()
 
   const columns = useColumns()
