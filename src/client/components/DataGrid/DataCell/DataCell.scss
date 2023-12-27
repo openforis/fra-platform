@@ -23,8 +23,15 @@ $border-editable: 1px dashed $ui-edit-border-color;
   }
 
   &.review {
+    align-items: center;
     align-self: center;
     border: unset;
+    display: flex;
+    justify-content: center;
+
+    &.bordered {
+      border-right: 1px solid $ui-border;
+    }
   }
 }
 
@@ -56,6 +63,13 @@ $border-editable: 1px dashed $ui-edit-border-color;
 
     &.lastCol {
       border-left: 1px solid $ui-border;
+    }
+
+    &.review {
+      &.bordered {
+        border-left: 1px solid $ui-border;
+        border-right: unset;
+      }
     }
   }
 
