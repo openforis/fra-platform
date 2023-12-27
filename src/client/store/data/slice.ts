@@ -165,7 +165,6 @@ export const dataSlice = createSlice({
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       contacts.push(contact)
-      contacts.sort((a, b) => a.props.rowIndex - b.props.rowIndex)
     })
 
     builder.addCase(updateContact.fulfilled, (state, action) => {
@@ -186,7 +185,6 @@ export const dataSlice = createSlice({
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       contacts.push(contactAction)
-      contacts.sort((a, b) => a.props.rowIndex - b.props.rowIndex)
     })
   },
 })

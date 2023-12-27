@@ -35,6 +35,8 @@ export const getManyContacts = (props: Props, client: BaseProtocol = DB): Promis
               left join ${schemaCycle}.node_ext s on c.uuid = s.parent_uuid and s.props->>'field' = '${ContactField.surname}'
 
         where c.parent_uuid is null and c.type = 'contact' and c.country_iso = $1
+        
+        order by c.props->>'rowIndex' asc
      `,
     [countryIso],
     (row) => Objects.camelize(row)
