@@ -4,7 +4,6 @@ import { ODPNationalClass, ODPs } from 'meta/assessment'
 
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
-import { useDeleteNationalClass } from 'client/pages/OriginalDataPoint/components/NationalClasses/components/hooks/useDeleteNationalClass'
 import { useUpdateNationalClasses } from 'client/pages/OriginalDataPoint/components/NationalClasses/components/hooks/useUpdateNationalClasses'
 
 const columns: Columns = [
@@ -71,16 +70,10 @@ export const useOnChangeNationalClass = (props: Props) => {
     [_onPaste, updateNationalClasses]
   )
 
-  const onDeleteNationalClass = useDeleteNationalClass({
-    index,
-    originalDataPoint,
-  })
-
   return {
     onChangeName,
     onPasteName,
     onChangeDefinition,
     onPasteDefinition,
-    onDeleteNationalClass,
   }
 }
