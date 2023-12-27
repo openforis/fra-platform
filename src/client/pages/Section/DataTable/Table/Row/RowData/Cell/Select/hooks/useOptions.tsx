@@ -17,21 +17,15 @@ type Props = {
   nodeValue: NodeValue
 }
 
-type Returned = {
-  options: OptionsOrGroups
-  value?: Option
-}
-
-export const useValues = (props: Props): Returned => {
-  const { col, nodeValue } = props
+export const useOptions = (props: Props): OptionsOrGroups => {
+  const { col } = props
   const { options: optionsProps, labelKeyPrefix } = col.props.select
 
   const { t } = useTranslation()
 
-  return useMemo<Returned>(() => {
+  return useMemo<OptionsOrGroups>(() => {
     const groups: Array<OptionsGroup> = []
     let options: Array<Option> = []
-    let value: Option = null
 
     optionsProps.forEach((optionProps) => {
       const label = getLabel(optionProps, t, labelKeyPrefix)
@@ -43,13 +37,9 @@ export const useValues = (props: Props): Returned => {
       } else {
         const option = { label, value: optionProps.name }
         options.push(option)
-
-        if (optionProps.name === nodeValue.raw) {
-          value = option
-        }
       }
     })
 
-    return { options: groups.length > 0 ? groups : options, value }
-  }, [optionsProps, t, labelKeyPrefix, nodeValue.raw])
+    return groups.length > 0 ? groups : options
+  }, [labelKeyPrefix, optionsProps, t])
 }

@@ -1,10 +1,15 @@
 import { ActivityLogMessage } from 'meta/assessment'
 
 export const acceptedMessages = [
+  ActivityLogMessage.assessmentStatusUpdate,
+  ActivityLogMessage.contactCreate,
+  ActivityLogMessage.contactDelete,
+  ActivityLogMessage.contactUpdate,
+  ActivityLogMessage.descriptionUpdate,
   ActivityLogMessage.invitationAccept,
   ActivityLogMessage.invitationAdd,
   ActivityLogMessage.invitationRemove,
-  ActivityLogMessage.descriptionUpdate,
+  ActivityLogMessage.messageCreate,
   ActivityLogMessage.nodeValueUpdate,
   ActivityLogMessage.originalDataPointCreate,
   ActivityLogMessage.originalDataPointRemove,
@@ -14,7 +19,5 @@ export const acceptedMessages = [
   ActivityLogMessage.originalDataPointUpdateNationalClasses,
   ActivityLogMessage.originalDataPointUpdateOriginalData,
   ActivityLogMessage.originalDataPointUpdateYear,
-  ActivityLogMessage.assessmentStatusUpdate,
-  ActivityLogMessage.messageCreate,
   ActivityLogMessage.topicStatusChange,
 ]

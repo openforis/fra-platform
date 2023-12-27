@@ -1,8 +1,11 @@
 import { TFunction } from 'i18next'
 
-import { Cycle } from 'meta/assessment/cycle'
+import { AreaCode } from 'meta/area'
+import { AssessmentName } from 'meta/assessment/assessmentName'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
-import { SubSection } from 'meta/assessment/section'
+import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { ActivityLog, ActivityLogMessage } from './activityLog'
@@ -10,21 +13,23 @@ import { ActivityLog, ActivityLogMessage } from './activityLog'
 // Action
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
-  [ActivityLogMessage.originalDataPointCreate]: 'added',
-  [ActivityLogMessage.originalDataPointRemove]: 'deleted',
-  [ActivityLogMessage.originalDataPointUpdate]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateDescription]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateDataSources]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateNationalClasses]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateYear]: 'updated',
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
-  [ActivityLogMessage.messageCreate]: 'commented',
-  [ActivityLogMessage.messageMarkDeleted]: 'deleted',
-  [ActivityLogMessage.topicStatusChange]: 'resolved',
+  [ActivityLogMessage.contactCreate]: 'added',
+  [ActivityLogMessage.contactDelete]: 'deleted',
   [ActivityLogMessage.invitationAccept]: 'acceptInvitation',
   [ActivityLogMessage.invitationAdd]: 'addInvitation',
   [ActivityLogMessage.invitationRemove]: 'removeInvitation',
+  [ActivityLogMessage.messageCreate]: 'commented',
+  [ActivityLogMessage.messageMarkDeleted]: 'deleted',
+  [ActivityLogMessage.originalDataPointCreate]: 'added',
+  [ActivityLogMessage.originalDataPointRemove]: 'deleted',
+  [ActivityLogMessage.originalDataPointUpdateDataSources]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateDescription]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateNationalClasses]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateYear]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdate]: 'updated',
+  [ActivityLogMessage.topicStatusChange]: 'resolved',
 }
 
 const _getLabelActionKey = (activity: ActivityLog<any>) => {
@@ -73,6 +78,11 @@ const getLabelSectionKey = (activity: ActivityLog<any>) => {
   if (section === 'fileRepository') {
     return 'landing.sections.links'
   }
+
+  if (section === SectionNames.contacts) {
+    return 'landing.users.users'
+  }
+
   return `${section}.${section}`
 }
 
@@ -94,9 +104,29 @@ const getLabelSection = (props: { cycle: Cycle; section?: SubSection; activity: 
   return t(labelSectionKey)
 }
 
+type GetSectionLinkProp = {
+  countryIso: AreaCode
+  assessmentName: AssessmentName
+  cycleName: CycleName
+  sectionName: SectionName
+}
+
+const getSectionLink = (props: GetSectionLinkProp): string => {
+  const { countryIso, assessmentName, cycleName, sectionName: sectionNameProp } = props
+
+  const sectionNameMap: { [key in SectionName]?: SectionName } = {
+    [SectionNames.contacts]: SectionNames.contactPersons,
+  }
+
+  const sectionName = sectionNameMap[sectionNameProp] ?? sectionNameProp
+
+  return Routes.Section.generatePath({ countryIso, assessmentName, cycleName, sectionName })
+}
+
 export const ActivityLogs = {
   getLabelAction,
+  getLabelSection,
+  getSectionLink,
   hasSectionLink,
   isSectionLinkDisabled,
-  getLabelSection,
 }

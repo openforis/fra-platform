@@ -1,9 +1,12 @@
 @import 'src/client/style/partials';
 
+$border-editable: 1px dashed $ui-edit-border-color;
+
 .data-cell {
   border-left: 1px solid $ui-border;
   border-top: 1px solid $ui-border;
   position: relative;
+  transition: background-color 0.2s ease-out;
 
   &.header {
     background-color: $ui-bg;
@@ -20,8 +23,36 @@
   }
 
   &.review {
+    align-items: center;
     align-self: center;
     border: unset;
+    display: flex;
+    justify-content: center;
+
+    &.bordered {
+      border-right: 1px solid $ui-border;
+    }
+  }
+}
+
+.data-cell.editable {
+  border-left: $border-editable;
+  border-top: $border-editable;
+
+  &.lastCol {
+    border-right: $border-editable;
+  }
+
+  &.lastRow {
+    border-bottom: $border-editable;
+  }
+
+  &:focus-within {
+    background-color: lighten($ui-input-focus, 1%);
+
+    > :first-child {
+      outline: 1px solid $ui-edit-border-color;
+    }
   }
 }
 
@@ -32,6 +63,21 @@
 
     &.lastCol {
       border-left: 1px solid $ui-border;
+    }
+
+    &.review {
+      &.bordered {
+        border-left: 1px solid $ui-border;
+        border-right: unset;
+      }
+    }
+  }
+
+  .data-cell.editable {
+    border-right: $border-editable;
+
+    &.lastCol {
+      border-left: $border-editable;
     }
   }
 }

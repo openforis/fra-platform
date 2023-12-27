@@ -1,27 +1,28 @@
+import './Select.scss'
 import React, { useCallback } from 'react'
 
-import SelectCommon, { Option } from 'client/components/Inputs/Select'
+import SelectCommon from 'client/components/Inputs/Select'
 
 import { PropsCell } from '../props'
-import { useValues } from './hooks/useValues'
+import { useOptions } from './hooks/useOptions'
 
 const Select: React.FC<PropsCell> = (props) => {
   const { col, disabled, nodeValue, onChange: onChangeProps } = props
 
-  const { options, value } = useValues({ col, nodeValue })
+  const options = useOptions({ col, nodeValue })
 
   const onChange = useCallback(
-    (option: Option) => {
+    (value: string | null) => {
       // TODO: Refactor -> onChange should take string | undefined, not event
       // @ts-ignore
-      onChangeProps({ target: { value: option?.value ?? null } })
+      onChangeProps({ target: { value } })
     },
     [onChangeProps]
   )
 
   return (
-    <div className="table__select">
-      <SelectCommon disabled={disabled} onChange={onChange} options={options} value={value} />
+    <div className="table__select-container">
+      <SelectCommon disabled={disabled} onChange={onChange} options={options} value={nodeValue.raw} />
     </div>
   )
 }

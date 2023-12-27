@@ -1,26 +1,31 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
+import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
-
-import { setNodeValues } from 'client/store/data/actions/setNodeValues'
-import { setNodeValuesReducer } from 'client/store/data/extraReducers/setNodeValues'
-import { deleteOriginalDataPoint } from 'client/store/data/reducers/deleteOriginalDataPoint'
-import { setNodeValueValidations } from 'client/store/data/reducers/setNodeValueValidations'
 
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
+import { createContact } from './actions/createContact'
+import { deleteContact } from './actions/deleteContact'
+import { getContacts } from './actions/getContacts'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
+import { setNodeValues } from './actions/setNodeValues'
+import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
+import { setNodeValuesReducer } from './extraReducers/setNodeValues'
+import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
+import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
+  contacts: {},
   descriptions: {},
   nodeValueValidations: {},
   nodeValuesEstimations: {},
@@ -123,6 +128,64 @@ export const dataSlice = createSlice({
       const path = [assessmentName, cycleName, 'linkedDataSources', sectionName]
       Objects.setInPath({ obj: state, path, value: dataSources })
     })
+
+    // contacts
+    builder.addCase(getContacts.fulfilled, (state, { payload, meta }) => {
+      const { assessmentName, cycleName, countryIso } = meta.arg
+      const path = ['contacts', assessmentName, cycleName, countryIso]
+      Objects.setInPath({ obj: state, path, value: payload ?? [] })
+    })
+    builder.addCase(updateContact.pending, (state, action) => {
+      const { assessmentName, cycleName, countryIso, contact: contactAction, field, raw } = action.meta.arg
+
+      const fieldUpdate: ContactNode = { ...contactAction[field], value: { raw } }
+      const contactUpdate = { ...contactAction, [field]: fieldUpdate }
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      const contactIdx = contacts.findIndex((c) => c.uuid === contactAction.uuid)
+      if (contactIdx >= 0) {
+        contacts[contactIdx] = contactUpdate
+      } else {
+        contacts.push(contactUpdate)
+      }
+    })
+
+    builder.addCase(deleteContact.pending, (state, action) => {
+      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+
+      const path = ['contacts', assessmentName, cycleName, countryIso]
+      const value = contacts.filter((c) => c.uuid !== contact.uuid)
+      Objects.setInPath({ obj: state, path, value })
+    })
+
+    builder.addCase(deleteContact.rejected, (state, action) => {
+      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      contacts.push(contact)
+    })
+
+    builder.addCase(updateContact.fulfilled, (state, action) => {
+      const { assessmentName, cycleName, countryIso, contact: contactAction } = action.meta.arg
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      const contactIdx = contacts.findIndex((c) => c.uuid === contactAction.uuid)
+      if (contactIdx >= 0) {
+        contacts[contactIdx] = { ...contacts[contactIdx] }
+      } else {
+        throw new Error(`Contact not found`)
+      }
+    })
+
+    builder.addCase(createContact.fulfilled, (state, action) => {
+      const { assessmentName, cycleName, countryIso } = action.meta.arg
+      const contactAction = action.payload
+
+      const contacts = state.contacts[assessmentName][cycleName][countryIso]
+      contacts.push(contactAction)
+    })
   },
 })
 
@@ -146,6 +209,12 @@ export const DataActions = {
   updateDescription,
   copyPreviousDatasources,
   getLinkedDataSources,
+
+  // Contacts
+  createContact,
+  deleteContact,
+  getContacts,
+  updateContact,
 }
 
 export default dataSlice.reducer as Reducer<DataState>

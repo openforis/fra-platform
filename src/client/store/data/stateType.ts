@@ -11,6 +11,7 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
+import { Contact } from 'meta/cycleData'
 import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
@@ -40,8 +41,11 @@ export type RecordTableDataStatus = Record<
   Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
 >
 
+export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
+
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
+  contacts: RecordContacts
   descriptions: Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
   nodeValueValidations: RecordAssessmentValidationsState
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>

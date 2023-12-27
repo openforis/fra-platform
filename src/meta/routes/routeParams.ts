@@ -21,7 +21,7 @@ export type CountryUserRouteParams = CountryRouteParams & {
   id: number
 }
 
-export type SectionRouteParams = CountryRouteParams & {
+export type SectionRouteParams<T = AreaCode> = CountryRouteParams<T> & {
   sectionName: SectionName
 }
 

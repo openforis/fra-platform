@@ -9,10 +9,13 @@ const InputText = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
 
+  if (disabled) {
+    return <div className="input-text disabled validation-error-sensitive-field">{value}</div>
+  }
+
   return (
     <input
       className="input-text validation-error-sensitive-field"
-      disabled={disabled}
       onChange={onChange}
       onPaste={onPaste}
       ref={inputRef}

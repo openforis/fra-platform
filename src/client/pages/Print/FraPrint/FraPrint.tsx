@@ -15,7 +15,6 @@ import Section from 'client/pages/Section'
 
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import { useGetTableSections } from './hooks/useGetTableSections'
-import ContactPersons from './ContactPersons'
 import TableOfContent from './TableOfContent'
 
 const FraPrint: React.FC = () => {
@@ -59,8 +58,6 @@ const FraPrint: React.FC = () => {
                 {i === 0 ? '' : key} {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
               </h1>
             )}
-
-            {i === 0 && !deskStudy && !onlyTables && <ContactPersons />}
 
             {Object.values(section.subSections).map((sectionItem) => {
               return <Section key={sectionItem.uuid} section={sectionItem.props.name} />
