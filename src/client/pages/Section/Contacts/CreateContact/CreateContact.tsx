@@ -6,16 +6,9 @@ import Icon from 'client/components/Icon'
 
 import { useOnClick } from './hooks/useOnClick'
 
-type Props = {
-  canEdit: boolean
-}
-
-const CreateContact: React.FC<Props> = (props: Props) => {
-  const { canEdit } = props
+const CreateContact: React.FC = () => {
   const { t } = useTranslation()
   const { onClick, loading } = useOnClick()
-
-  if (!canEdit) return null
 
   return (
     <div className="contacts__create-container">

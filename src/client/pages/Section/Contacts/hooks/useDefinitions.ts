@@ -5,14 +5,11 @@ import { NodeExtCellType } from 'meta/nodeExt'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { NodeExtCell, NodeExtCellSelect } from 'client/components/TableNodeExt/types'
-import { Field } from 'client/pages/Section/Contacts/types'
+import { Columns, Fields } from 'client/pages/Section/Contacts/types'
 
 import { useOptionsAppellation } from './useOptionsAppellation'
 import { useOptionsContributions } from './useOptionsContributions'
 import { useOptionsRole } from './useOptionsRole'
-
-type Columns = Record<ContactField, NodeExtCell<NodeExtCellType>>
-type Fields = Array<Field>
 
 export const useColumns = (): Columns => {
   const optionsContributions = useOptionsContributions()
