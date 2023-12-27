@@ -9,6 +9,7 @@ export enum ActivityLogMessage {
   assessmentStatusUpdate = 'assessmentStatusUpdate',
   assessmentUpdate = 'assessmentUpdate',
   contactCreate = 'contactCreate',
+  contactFieldCreate = 'contactFieldCreate',
   contactUpdate = 'contactUpdate',
   contactDelete = 'contactDelete',
   descriptionUpdate = 'descriptionUpdate',
