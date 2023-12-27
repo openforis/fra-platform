@@ -131,7 +131,7 @@ export const CycleDataApi = {
     // ext node
     // -- Contacts
     express.post(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, createContact)
-    express.get(ApiEndPoint.CycleData.Contacts.many(), getContacts)
+    express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
     express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
     express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
   },
