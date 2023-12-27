@@ -1,9 +1,12 @@
 @import 'src/client/style/partials';
 
+$border-editable: 1px dashed $ui-edit-border-color;
+
 .data-cell {
   border-left: 1px solid $ui-border;
   border-top: 1px solid $ui-border;
   position: relative;
+  transition: background-color 0.2s ease-out;
 
   &.header {
     background-color: $ui-bg;
@@ -25,6 +28,27 @@
   }
 }
 
+.data-cell.editable {
+  border-left: $border-editable;
+  border-top: $border-editable;
+
+  &.lastCol {
+    border-right: $border-editable;
+  }
+
+  &.lastRow {
+    border-bottom: $border-editable;
+  }
+
+  &:focus-within {
+    background-color: lighten($ui-input-focus, 1%);
+
+    > :first-child {
+      outline: 1px solid $ui-edit-border-color;
+    }
+  }
+}
+
 @include rtl {
   .data-cell {
     border-left: unset;
@@ -32,6 +56,14 @@
 
     &.lastCol {
       border-left: 1px solid $ui-border;
+    }
+  }
+
+  .data-cell.editable {
+    border-right: $border-editable;
+
+    &.lastCol {
+      border-left: $border-editable;
     }
   }
 }

@@ -24,7 +24,7 @@ const CellNodeExt: CellNodeExtFC = (props) => {
   const Component = components[column.type]
 
   return (
-    <DataCell lastCol={lastCol} lastRow={lastRow}>
+    <DataCell editable={!disabled} lastCol={lastCol} lastRow={lastRow}>
       <Component
         column={column}
         disabled={disabled}
