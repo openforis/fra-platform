@@ -8,18 +8,12 @@ import { Contact, ContactField, Contacts } from 'meta/cycleData'
 import { useContacts } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
-type Props = {
-  canEdit: boolean
-}
-
 type Returned = Array<Contact>
 
-export const useContactsData = (props: Props): Returned => {
-  const { canEdit } = props
-
+export const useContactsData = (): Returned => {
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
-  const contacts = useContacts({ canEdit })
+  const contacts = useContacts()
 
   return useMemo<Returned>(() => {
     // in print view -> merges name with `appellation name surname`
