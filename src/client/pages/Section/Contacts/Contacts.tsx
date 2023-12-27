@@ -6,8 +6,8 @@ import { Labels } from 'meta/assessment'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
-import DeleteButton from 'client/pages/Section/Contacts/DeleteButton'
-import NewContactButton from 'client/pages/Section/Contacts/NewContactButton'
+import CreateContact from 'client/pages/Section/Contacts/CreateContact'
+import DeleteContact from 'client/pages/Section/Contacts/DeleteContact'
 
 import { useContactsData } from './hooks/useContactsData'
 import { useColumns, useFields } from './hooks/useDefinitions'
@@ -77,12 +77,12 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
-              {canEdit && <DeleteButton contact={contact} disabled={disabled} />}
+              {canEdit && <DeleteContact contact={contact} disabled={disabled} />}
             </React.Fragment>
           )
         })}
       </DataGrid>
-      <NewContactButton canEdit={canEdit} />
+      <CreateContact canEdit={canEdit} />
     </div>
   )
 }
