@@ -1,8 +1,11 @@
 import { TFunction } from 'i18next'
 
-import { Cycle } from 'meta/assessment/cycle'
+import { AreaCode } from 'meta/area'
+import { AssessmentName } from 'meta/assessment/assessmentName'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
-import { SubSection } from 'meta/assessment/section'
+import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { ActivityLog, ActivityLogMessage } from './activityLog'
@@ -11,6 +14,8 @@ import { ActivityLog, ActivityLogMessage } from './activityLog'
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
+  [ActivityLogMessage.contactCreate]: 'added',
+  [ActivityLogMessage.contactDelete]: 'deleted',
   [ActivityLogMessage.invitationAccept]: 'acceptInvitation',
   [ActivityLogMessage.invitationAdd]: 'addInvitation',
   [ActivityLogMessage.invitationRemove]: 'removeInvitation',
@@ -73,6 +78,11 @@ const getLabelSectionKey = (activity: ActivityLog<any>) => {
   if (section === 'fileRepository') {
     return 'landing.sections.links'
   }
+
+  if (section === SectionNames.contacts) {
+    return 'landing.users.users'
+  }
+
   return `${section}.${section}`
 }
 
@@ -94,9 +104,29 @@ const getLabelSection = (props: { cycle: Cycle; section?: SubSection; activity: 
   return t(labelSectionKey)
 }
 
+type GetSectionLinkProp = {
+  countryIso: AreaCode
+  assessmentName: AssessmentName
+  cycleName: CycleName
+  sectionName: SectionName
+}
+
+const getSectionLink = (props: GetSectionLinkProp): string => {
+  const { countryIso, assessmentName, cycleName, sectionName: sectionNameProp } = props
+
+  let sectionName = sectionNameProp
+
+  if (sectionName === SectionNames.contacts) {
+    sectionName = SectionNames.contactPersons
+  }
+
+  return Routes.Section.generatePath({ countryIso, assessmentName, cycleName, sectionName })
+}
+
 export const ActivityLogs = {
   getLabelAction,
+  getLabelSection,
+  getSectionLink,
   hasSectionLink,
   isSectionLinkDisabled,
-  getLabelSection,
 }
