@@ -1,4 +1,4 @@
-import './Delete.scss'
+import './DeleteButton.scss'
 import React from 'react'
 
 import { Contact } from 'meta/cycleData'
@@ -13,7 +13,7 @@ type Props = {
   disabled: boolean
 }
 
-const Delete: React.FC<Props> = (props: Props) => {
+const DeleteButton: React.FC<Props> = (props: Props) => {
   const { contact, disabled } = props
   const onClick = useOnClick(contact)
 
@@ -28,4 +28,4 @@ const Delete: React.FC<Props> = (props: Props) => {
   )
 }
 
-export default Delete
+export default DeleteButton

@@ -9,3 +9,13 @@
 .contacts__subTitle {
   margin-bottom: $spacing-xxs;
 }
+
+.contacts__button-add-container {
+  display: flex;
+  justify-content: flex-end;
+
+  button.contacts__button-add {
+    margin-top: $spacing-m;
+    margin-right: $spacing-m;
+  }
+}

@@ -6,14 +6,14 @@ import { Labels } from 'meta/assessment'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
+import DeleteButton from 'client/pages/Section/Contacts/DeleteButton'
+import NewContactButton from 'client/pages/Section/Contacts/NewContactButton'
 
 import { useContactsData } from './hooks/useContactsData'
 import { useColumns, useFields } from './hooks/useDefinitions'
 import { useGetContacts } from './hooks/useGetContacts'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useOnChange } from './hooks/useOnChange'
-import Delete from './Delete'
-import NewContactButton from './NewContactButton'
 
 type Props = {
   canEdit: boolean
@@ -77,7 +77,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
-              {canEdit && <Delete contact={contact} disabled={disabled} />}
+              {canEdit && <DeleteButton contact={contact} disabled={disabled} />}
             </React.Fragment>
           )
         })}
