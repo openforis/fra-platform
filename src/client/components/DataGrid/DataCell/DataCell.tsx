@@ -5,6 +5,7 @@ import classNames from 'classnames'
 
 type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className'>> &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridRow'> & {
+    editable?: boolean
     error?: boolean
     header?: boolean
     lastCol?: boolean
@@ -13,11 +14,11 @@ type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className'>
   }
 
 const DataCell: React.FC<Props> = (props) => {
-  const { children, className, error, gridColumn, gridRow, header, lastCol, lastRow, review } = props
+  const { children, className, editable, error, gridColumn, gridRow, header, lastCol, lastRow, review } = props
 
   return (
     <div
-      className={classNames('data-cell', { error, header, lastCol, lastRow, review }, className)}
+      className={classNames('data-cell', { editable, error, header, lastCol, lastRow, review }, className)}
       style={{ gridColumn, gridRow }}
     >
       {React.Children.toArray(children)}
@@ -26,6 +27,7 @@ const DataCell: React.FC<Props> = (props) => {
 }
 
 DataCell.defaultProps = {
+  editable: false,
   error: false,
   header: false,
   lastCol: false,
