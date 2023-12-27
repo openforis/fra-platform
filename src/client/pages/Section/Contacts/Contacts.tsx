@@ -6,12 +6,13 @@ import { Labels } from 'meta/assessment'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
-import Delete from 'client/pages/Section/Contacts/Delete'
-import { useGridTemplateColumns } from 'client/pages/Section/Contacts/hooks/useGridTemplateColumns'
+import CreateContact from 'client/pages/Section/Contacts/CreateContact'
+import DeleteContact from 'client/pages/Section/Contacts/DeleteContact'
 
-import { useColumns } from './hooks/useColumns'
 import { useContactsData } from './hooks/useContactsData'
+import { useColumns, useFields } from './hooks/useDefinitions'
 import { useGetContacts } from './hooks/useGetContacts'
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
@@ -24,10 +25,12 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   useGetContacts()
 
-  const contacts = useContactsData({ canEdit })
-  const { columns, fields } = useColumns()
-  const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
+  const contacts = useContactsData()
   const onChange = useOnChange()
+
+  const columns = useColumns()
+  const fields = useFields()
+  const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
 
   return (
     <div className="contacts">
@@ -74,11 +77,12 @@ const Contacts: React.FC<Props> = (props: Props) => {
                   />
                 )
               })}
-              {canEdit && <Delete contact={contact} disabled={disabled} />}
+              {canEdit && <DeleteContact contact={contact} disabled={disabled} />}
             </React.Fragment>
           )
         })}
       </DataGrid>
+      <CreateContact canEdit={canEdit} />
     </div>
   )
 }

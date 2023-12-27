@@ -1,44 +1,37 @@
 import React from 'react'
 
-import { NodeExt } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt'
 
 import { DataCell } from 'client/components/DataGrid'
 
-import { ColumnNodeExt } from '../types'
+import { NodeExtCell } from '../types'
 import CellMultiselect from './CellMultiselect'
-import { CellValueMultiProps, CellValueSingleProps } from './CellProps'
+import { CellProps } from './CellProps'
 import CellSelect from './CellSelect'
 import CellText from './CellText'
 
-type Props = {
-  column: ColumnNodeExt
-  disabled: boolean
-  lastCol: boolean
-  lastRow: boolean
-  nodeExt: NodeExt<unknown>
-  onChange: (value: any) => void
-}
+type CellNodeExtFC = React.FC<CellProps<NodeExtCell<NodeExtCellType>>>
 
-type ComponentPropType = CellValueMultiProps | CellValueSingleProps
-
-const components: Record<string, React.FC<ComponentPropType>> = {
+const components: Record<string, CellNodeExtFC> = {
   multiselect: CellMultiselect,
   select: CellSelect,
   text: CellText,
 }
 
-const CellNodeExt: React.FC<Props> = (props: Props) => {
-  const { column, disabled, lastRow, nodeExt, onChange, lastCol } = props
+const CellNodeExt: CellNodeExtFC = (props) => {
+  const { column, disabled, lastCol, lastRow, nodeExt, onChange } = props
 
   const Component = components[column.type]
 
   return (
-    <DataCell lastCol={lastCol} lastRow={lastRow}>
+    <DataCell editable={!disabled} lastCol={lastCol} lastRow={lastRow}>
       <Component
         column={column}
         disabled={disabled}
-        onChange={(value: string) => onChange(value)}
-        value={nodeExt.value.raw}
+        lastCol={lastCol}
+        lastRow={lastRow}
+        nodeExt={nodeExt}
+        onChange={onChange}
       />
     </DataCell>
   )

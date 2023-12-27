@@ -1,4 +1,4 @@
-import './Delete.scss'
+import 'client/pages/Section/Contacts/DeleteContact/DeleteContact.scss'
 import React from 'react'
 
 import { Contact } from 'meta/cycleData'
@@ -13,7 +13,7 @@ type Props = {
   disabled: boolean
 }
 
-const Delete: React.FC<Props> = (props: Props) => {
+const DeleteContact: React.FC<Props> = (props: Props) => {
   const { contact, disabled } = props
   const onClick = useOnClick(contact)
 
@@ -21,16 +21,11 @@ const Delete: React.FC<Props> = (props: Props) => {
 
   return (
     <DataCell className="contacts__grid__cell-delete" review>
-      <button
-        disabled={disabled || contact.placeholder}
-        className="btn-s btn-link-destructive"
-        onClick={onClick}
-        type="button"
-      >
+      <button disabled={disabled} className="btn-s btn-link-destructive" onClick={onClick} type="button">
         <Icon className="icon-no-margin" name="trash-simple" />
       </button>
     </DataCell>
   )
 }
 
-export default Delete
+export default DeleteContact

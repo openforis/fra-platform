@@ -1,5 +1,7 @@
 @import 'client/style/partials';
 
+$border-menu: 1px solid $ui-edit-border-color;
+
 div.select__container {
   height: 100%;
 }
@@ -20,7 +22,7 @@ div.select__control {
 
   &.isFocused {
     box-shadow: unset;
-    border: 1px solid $text-mute;
+    //border: 1px solid $text-mute;
   }
 }
 
@@ -36,6 +38,47 @@ div.select__singleValue {
 div.select__input {
   margin: unset;
   padding: unset;
+
+  &.isDisabled {
+    display: none;
+  }
+}
+
+div.select__multiValue {
+  background-color: $ui-input-focus;
+  border: 1px dashed $ui-edit-border-color;
+  margin: 0 1px 1px 0;
+  padding: $spacing-xxxxs;
+
+  &.isDisabled {
+    background-color: transparent;
+    border-color: transparent;
+    flex: 0 0 100%;
+    padding: 0 0 $spacing-xxxxs 0;
+  }
+}
+
+div.select__multiValueLabel {
+  border-radius: unset;
+  color: $text-body;
+  font-size: inherit;
+  padding: unset;
+
+  &.isDisabled {
+    white-space: break-spaces;
+  }
+}
+
+div.select__multiValueRemove {
+  padding: 0 $spacing-xxxxs;
+
+  &:hover {
+    background-color: $ui-edit-background-error;
+  }
+
+  &.isDisabled {
+    display: none;
+  }
 }
 
 div.select__menuList {
@@ -44,19 +87,19 @@ div.select__menuList {
 }
 
 div.select__menu {
-  border-left: 1px solid $text-mute;
+  border-left: $border-menu;
   border-radius: unset;
-  border-right: 1px solid $text-mute;
+  border-right: $border-menu;
   margin-left: -1px;
   padding: unset;
   width: calc(100% + 2px);
 
   &.bottom {
-    border-bottom: 1px solid $text-mute;
+    border-bottom: $border-menu;
     margin-top: -1px;
   }
   &.top {
-    border-top: 1px solid $text-mute;
+    border-top: $border-menu;
     margin-bottom: -1px;
   }
 }

@@ -1,15 +1,20 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Contacts } from 'meta/cycleData/contact'
 
-import { Options } from './options'
+import { Option } from 'client/components/Inputs/Select'
 
-export const useOptionsAppellation = (): Options => {
-  return useMemo<Options>(() => {
+type Returned = Array<Option>
+
+export const useOptionsAppellation = (): Returned => {
+  const { t } = useTranslation()
+
+  return useMemo<Returned>(() => {
     return Contacts.appellations.map((appellation) => {
-      const label = { key: `editUser.${appellation}` }
+      const label = t(`editUser.${appellation}`)
       const value = appellation
       return { label, value }
     })
-  }, [])
+  }, [t])
 }

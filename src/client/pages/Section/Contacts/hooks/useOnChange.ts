@@ -25,7 +25,7 @@ export const useOnChange = (): Returned => {
       const { contact, field, raw } = props
 
       const upsertProps = { assessmentName, cycleName, countryIso, sectionName, contact, field, raw }
-      dispatch(DataActions.upsertContact(upsertProps))
+      dispatch(DataActions.updateContact(upsertProps))
     },
     [assessmentName, countryIso, cycleName, dispatch, sectionName]
   )
