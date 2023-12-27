@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle, SectionNames } from 'meta/assessment'
 import { Contact, contactFields } from 'meta/cycleData'
 import { User } from 'meta/user'
 
@@ -11,19 +11,18 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
-  sectionName: string
   contact: Contact
   user: User
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, sectionName, contact, user } = props
-  const section = sectionName
+  const { assessment, cycle, countryIso, contact, user } = props
 
   await client.tx(async (t) => {
     // create contact
     const target = await NodeExtRepository.upsert({ assessment, cycle, countryIso, nodeExt: contact }, t)
     const message = ActivityLogMessage.contactCreate
+    const section = SectionNames.contacts
     const activityLog = { target, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
