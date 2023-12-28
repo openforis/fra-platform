@@ -14,6 +14,14 @@ $border-editable: 1px dashed $ui-edit-border-color;
     padding: $spacing-xxs;
   }
 
+  &.review {
+    align-items: center;
+    align-self: center;
+    border: unset;
+    display: flex;
+    justify-content: center;
+  }
+
   &.lastCol {
     border-right: 1px solid $ui-border;
   }
@@ -22,16 +30,8 @@ $border-editable: 1px dashed $ui-edit-border-color;
     border-bottom: 1px solid $ui-border;
   }
 
-  &.review {
-    align-items: center;
-    align-self: center;
+  &.noBorder {
     border: unset;
-    display: flex;
-    justify-content: center;
-
-    &.bordered {
-      border-right: 1px solid $ui-border;
-    }
   }
 }
 
@@ -61,15 +61,12 @@ $border-editable: 1px dashed $ui-edit-border-color;
     border-left: unset;
     border-right: 1px solid $ui-border;
 
-    &.lastCol {
-      border-left: 1px solid $ui-border;
+    &.review {
+      border: unset;
     }
 
-    &.review {
-      &.bordered {
-        border-left: 1px solid $ui-border;
-        border-right: unset;
-      }
+    &.lastCol {
+      border-left: 1px solid $ui-border;
     }
   }
 

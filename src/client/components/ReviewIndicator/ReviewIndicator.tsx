@@ -1,16 +1,15 @@
 import './ReviewIndicator.scss'
 import React, { useCallback } from 'react'
-import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { CountryIso } from 'meta/area'
 import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useReviewStatus } from 'client/store/ui/review/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 
 type Props = {
@@ -23,27 +22,23 @@ const ReviewIndicator = (props: Props) => {
   const { title, subtitle, topicKey } = props
 
   const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const { sectionName } = useParams<{ sectionName?: string }>()
-
+  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const { messagesCount = 0, status = MessageTopicStatus.opened, hasUnreadMessages = false } = useReviewStatus(topicKey)
 
   const openTopic = useCallback(() => {
     dispatch(
       MessageCenterActions.openTopic({
+        assessmentName,
+        cycleName,
         countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
+        sectionName,
         title,
         subtitle,
         key: topicKey,
         type: MessageTopicType.review,
-        sectionName,
       })
     )
-  }, [dispatch, countryIso, assessment, cycle, title, subtitle, topicKey, sectionName])
+  }, [assessmentName, countryIso, cycleName, dispatch, sectionName, subtitle, title, topicKey])
 
   return (
     <button
