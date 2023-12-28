@@ -15,6 +15,7 @@ import { useAssessment, useCycle } from 'client/store/assessment'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
 import Icon from 'client/components/Icon'
 import TextArea from 'client/components/Inputs/TextArea'
 import Resizable from 'client/components/Resizable'
@@ -140,7 +141,8 @@ const Topic: React.FC<TopicProps> = (props) => {
         </div>
       </div>
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
-        {!Objects.isEmpty(topic.messages) ? (
+        {!topic.loading &&
+          !Objects.isEmpty(topic.messages) &&
           topic.messages.map((message) => (
             <Message
               key={message.id}
@@ -148,37 +150,42 @@ const Topic: React.FC<TopicProps> = (props) => {
               isMine={Number(message.userId) === Number(user.id)}
               deleteFunc={deleteMessage}
             />
-          ))
-        ) : (
-          <div className="no-comments">
+          ))}
+        {!topic.loading && Objects.isEmpty(topic.messages) && (
+          <div className="topic__no-comments">
             <Icon className="icon-24" name="chat-46" />
             <br />
             {i18n.t<string>('review.noComments')}
           </div>
         )}
-        {topic.loading && <div className="loading">{i18n.t<string>('review.loading')}</div>}
+        {topic.loading && <div className="topic__loading">{i18n.t<string>('review.loading')}...</div>}
       </div>
-      <div className="topic-footer">
+
+      <div className="topic__footer">
         {(topic.status === MessageTopicStatus.opened ||
           (topic.status === MessageTopicStatus.resolved &&
             (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)))) && (
-          <div className="topic-form">
-            <TextArea
-              maxHeight={200}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder={i18n.t('review.writeComment')}
-              rows={2}
-              value={message}
-            />
-            <button
-              className="btn-s btn-primary"
-              disabled={Objects.isEmpty(message)}
-              onClick={postMessage}
-              type="submit"
-            >
-              {i18n.t<string>('review.add')}
-            </button>
-          </div>
+          <DataGrid className="topic-form" gridTemplateColumns="1fr auto">
+            <DataCell lastCol lastRow>
+              <TextArea
+                maxHeight={200}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder={i18n.t('review.writeComment')}
+                rows={2}
+                value={message}
+              />
+            </DataCell>
+            <DataCell noBorder>
+              <button
+                className="btn-s btn-primary"
+                disabled={Objects.isEmpty(message)}
+                onClick={postMessage}
+                type="submit"
+              >
+                {i18n.t<string>('review.add')}
+              </button>
+            </DataCell>
+          </DataGrid>
         )}
         {topic.type === MessageTopicType.review &&
           topic.status === MessageTopicStatus.opened &&

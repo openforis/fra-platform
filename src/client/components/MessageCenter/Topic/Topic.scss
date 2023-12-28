@@ -46,30 +46,25 @@
   &.empty {
     align-content: center;
   }
-  .no-comments {
-    color: $text-disabled;
-    text-align: center;
-    align-self: center;
-  }
 }
 
-.topic-footer {
-  padding: 8px 16px 12px;
+.topic__no-comments {
+  color: $text-disabled;
+  text-align: center;
+  align-self: center;
+}
+
+.topic__loading {
+  font-style: italic;
+  justify-self: center;
+}
+
+.topic__footer {
+  padding: $spacing-xs;
+
   .topic-form {
-    display: flex;
     align-items: end;
-    textarea {
-      width: 100%;
-      border-color: $ui-border;
-      resize: none;
-      padding: $spacing-xxs;
-      &:focus {
-        outline: none;
-      }
-    }
-    button {
-      margin-left: $spacing-xxs;
-    }
+    grid-column-gap: $spacing-xxs;
   }
   .topic-review {
     float: right;
