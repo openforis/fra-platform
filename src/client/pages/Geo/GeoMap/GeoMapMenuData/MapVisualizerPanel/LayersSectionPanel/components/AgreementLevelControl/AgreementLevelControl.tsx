@@ -15,23 +15,25 @@ import AgreementLevelSelector from './AgreementLevelSelector/AgreementLevelSelec
 
 interface Props {
   checked: boolean
-  opacity: number
-  onOpacityChange: (value: number, layerKey: LayerKey) => void
-  onToggle: (layerKey: LayerKey, fetch?: boolean) => void
-  sectionKey: LayerSectionKey
   layerKey: LayerKey
   loadingStatus: LayerFetchStatus
+  onOpacityChange: (value: number, layerKey: LayerKey) => void
+  onToggle: (layerKey: LayerKey, fetch?: boolean) => void
+  opacity: number
   section: LayerSection
+  sectionKey: LayerSectionKey
+  title: string
 }
 const AgreementLevelControl: React.FC<Props> = ({
   checked,
-  opacity,
-  onToggle,
-  onOpacityChange,
-  sectionKey,
   layerKey,
   loadingStatus,
+  onOpacityChange,
+  onToggle,
+  opacity,
   section,
+  sectionKey,
+  title,
 }) => {
   const dispatch = useAppDispatch()
   const layerState = useGeoLayer(sectionKey, layerKey)
@@ -47,7 +49,7 @@ const AgreementLevelControl: React.FC<Props> = ({
 
   return (
     <GeoMapMenuListElement
-      title="Agreement layer"
+      title={title}
       tabIndex={0}
       checked={checked}
       onCheckboxClick={() => onToggle(layerKey, false)}
