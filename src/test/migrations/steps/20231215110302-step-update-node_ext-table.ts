@@ -3,7 +3,7 @@ import { Promises } from 'utils/promises'
 import { AssessmentNames } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 import { getCreateSchemaCycleOriginalDataPointViewDDL } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 
 const alterTable = (_: TemplateStringsArray, schemaName: string) => {
@@ -68,7 +68,9 @@ const wrapWithIf = (schemaName: string, queries: string) => {
     end $$;`
 }
 
-export default async (client: BaseProtocol) => {
+const client: BaseProtocol = DB
+
+export default async () => {
   const assessments = await AssessmentController.getAll({}, client)
 
   await Promises.each(assessments, async (assessment) => {
