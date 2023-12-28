@@ -71,10 +71,9 @@ export const useDependencies = (props: Props): Returned => {
 
         internal.tableNames.add(tableName)
         staticDependencies[tableName]?.forEach((t) => internal.tableNames.add(t))
-        if (withOdp) {
-          internal.tableNames.add(TableNames.originalDataPointValue)
-          internal.tableWithOdp = tableName
-        }
+
+        if (forestCharacteristicsUseOdp) internal.tableNames.add(TableNames.originalDataPointValue)
+        if (withOdp) internal.tableWithOdp = tableName
 
         if (table.calculationDependencies) {
           addDependencies(Object.values(table.calculationDependencies))
