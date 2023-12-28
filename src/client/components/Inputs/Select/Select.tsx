@@ -16,6 +16,9 @@ const Select: React.FC<SelectProps> = (props) => {
   const value = useValue(props)
   const onChange = useOnChange(props)
 
+  // Keep menu open when selecting an option in multi-select mode
+  const closeMenuOnSelect = !isMulti
+
   return (
     <ReactSelect
       classNames={{
@@ -33,6 +36,7 @@ const Select: React.FC<SelectProps> = (props) => {
         singleValue: () => 'select__singleValue',
         valueContainer: () => 'select__valueContainer',
       }}
+      closeMenuOnSelect={closeMenuOnSelect}
       components={{ ClearIndicator, DropdownIndicator, IndicatorsContainer, IndicatorSeparator: null }}
       isClearable
       isDisabled={disabled}
