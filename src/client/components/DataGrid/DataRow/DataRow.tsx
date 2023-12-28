@@ -33,10 +33,10 @@ const DataRow: React.FC<DataRowProps> = (props) => {
 
   return (
     <>
-      {React.Children.map(children, (child) => React.cloneElement(child))}
+      {React.Children.map(children, (child) => (child ? React.cloneElement(child) : null))}
 
       {deleteRow && (
-        <DataCell bordered review>
+        <DataCell lastCol review>
           {deleteRow.placeholder ?? <ButtonDelete onClick={deleteRow.onDelete} />}
         </DataCell>
       )}
