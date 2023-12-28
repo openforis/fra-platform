@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { DataSource, DataSourceType } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import Autocomplete from 'client/components/Autocomplete'
 import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
+import Select from 'client/components/Inputs/Select'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 type Props = {
@@ -28,9 +28,9 @@ const SelectInput: React.FC<Props> = (props: Props) => {
   const { dataSourceValue, disabled, onChange } = props
 
   const { t } = useTranslation()
-  const _onChange = ({ value }: { value: string }) => onChange('type', value)
+  const _onChange = (value: string) => onChange('type', value)
 
-  const items = useMemo(() => {
+  const options = useMemo(() => {
     return Object.keys(DataSourceType).map((type) => {
       return {
         label: t(`dataSource.${type}`),
@@ -39,15 +39,7 @@ const SelectInput: React.FC<Props> = (props: Props) => {
     })
   }, [t])
 
-  return (
-    <Autocomplete
-      readOnlyOptions
-      disabled={disabled}
-      onSave={_onChange}
-      value={dataSourceValue.type ? t(`dataSource.${dataSourceValue.type}`) : ''}
-      items={items}
-    />
-  )
+  return <Select disabled={disabled} onChange={_onChange} options={options} value={dataSourceValue.type} />
 }
 
 const ColumnTypeOfDataSource: React.FC<Props & { dataSourceMetadata: DataSourceDescription }> = (

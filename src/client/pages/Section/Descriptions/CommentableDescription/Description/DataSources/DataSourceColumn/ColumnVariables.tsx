@@ -5,7 +5,7 @@ import { DataSource, Labels } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
 import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import MultiSelect from 'client/components/MultiSelect'
+import Select from 'client/components/Inputs/Select'
 import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
 
 type Props = {
@@ -47,14 +47,7 @@ const Variables: React.FC<Props> = (props: Props) => {
     onChange('variables', value)
   }
 
-  return (
-    <MultiSelect
-      disabled={disabled}
-      values={(dataSourceValue as any).variables}
-      options={options}
-      onChange={_onChange}
-    />
-  )
+  return <Select isMulti disabled={disabled} value={dataSourceValue.variables} onChange={_onChange} options={options} />
 }
 
 const ColumnVariables: React.FC<Props> = (props: Props) => {

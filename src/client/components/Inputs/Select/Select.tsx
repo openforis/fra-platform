@@ -33,6 +33,7 @@ const Select: React.FC<SelectProps> = (props) => {
         singleValue: () => 'select__singleValue',
         valueContainer: () => 'select__valueContainer',
       }}
+      closeMenuOnSelect={!isMulti}
       components={{ ClearIndicator, DropdownIndicator, IndicatorsContainer, IndicatorSeparator: null }}
       isClearable
       isDisabled={disabled}
