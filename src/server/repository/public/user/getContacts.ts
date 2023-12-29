@@ -13,7 +13,7 @@ type Props = {
   countryIso: CountryIso
 }
 
-const _getField = (field: ContactField, raw: string): string => `, jsonb_build_object(
+const _getField = (field: ContactField, raw: string): string => `jsonb_build_object(
               'countryIso', ur.country_iso,
               'parentUuid', u.uuid,
               'props', jsonb_build_object('field', '${field}'),
@@ -68,12 +68,17 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
            , null                                 as parent_uuid
            , 'contact'                            as type
            , null                                 as value
-          ${_getField(ContactField.appellation, `lower(u.props ->> 'title')`)}
-           ${_getField(ContactField.contributions, `coalesce(c.section_uuids, '["none"]'::jsonb)`)}
-           ${_getField(ContactField.institution, `ur.props ->> 'organization'`)}
-           ${_getField(ContactField.name, `u.props ->> 'name'`)}
-           ${_getField(ContactField.role, `ur.role`)}
-           ${_getField(ContactField.surname, `u.props ->> 'surname'`)}
+           , ${_getField(ContactField.appellation, `lower(u.props ->> 'title')`)}
+           , ${_getField(ContactField.contributions, `coalesce(c.section_uuids, '["none"]'::jsonb)`)}
+           , ${_getField(ContactField.institution, `ur.props ->> 'organization'`)}
+           , ${_getField(ContactField.name, `u.props ->> 'name'`)}
+           , ${_getField(ContactField.role, `ur.role`)}
+           , ${_getField(ContactField.surname, `u.props ->> 'surname'`)}
+           , case
+                 when ur.role = '${RoleName.NATIONAL_CORRESPONDENT}' then 1
+                 when ur.role = '${RoleName.ALTERNATE_NATIONAL_CORRESPONDENT}' then 2
+                 else 3
+          end                                     as role_order
       from public.users u
                left join public.users_role ur on (u.id = ur.user_id)
                left join contributions c on u.id = c.user_id
@@ -82,7 +87,9 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
         and ur.cycle_uuid = $2
         and ur.assessment_id = $1
         and u.status = 'active'
+        and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
       group by u.id, ur.id, c.section_uuids
+      order by role_order, u.props ->> 'surname', u.props ->> 'name'
   `
 
   const queryParams = [assessment.id, cycle.uuid, countryIso, roles]
