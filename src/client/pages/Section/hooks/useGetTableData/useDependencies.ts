@@ -72,14 +72,33 @@ export const useDependencies = (props: Props): Returned => {
         internal.tableNames.add(tableName)
         staticDependencies[tableName]?.forEach((t) => internal.tableNames.add(t))
 
-        if (forestCharacteristicsUseOdp) internal.tableNames.add(TableNames.originalDataPointValue)
-        if (withOdp) internal.tableWithOdp = tableName
+        if (withOdp) {
+          internal.tableNames.add(TableNames.originalDataPointValue)
+          internal.tableWithOdp = tableName
+        }
 
         if (table.calculationDependencies) {
           addDependencies(Object.values(table.calculationDependencies))
         }
+
         if (canEdit && table.validationDependencies) {
-          addDependencies(Object.values(table.validationDependencies))
+          const dependenciesArray = Object.values(table.validationDependencies)
+          addDependencies(dependenciesArray)
+
+          // add originalDataPointValue to dependencies if ODPs are enabled (in 1b)
+          const found =
+            forestCharacteristicsUseOdp &&
+            dependenciesArray.find((deps) =>
+              deps.find(
+                (variableCache) =>
+                  variableCache.tableName === TableNames.extentOfForest ||
+                  variableCache.tableName === TableNames.forestCharacteristics
+              )
+            )
+
+          if (found) {
+            addDependencies([[{ tableName: TableNames.originalDataPointValue, variableName: undefined }]])
+          }
         }
       })
     })
