@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
+import { useCountry } from 'client/store/area'
 import { DataActions } from 'client/store/data/slice'
 import { useCanEdit } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -20,13 +21,16 @@ export const useGetTableData = (props: Props) => {
   const { print } = useIsPrintRoute()
   const dependencies = useDependencies(props)
 
+  const country = useCountry(countryIso)
+  const mergeOdp = country.props.forestCharacteristics?.useOriginalDataPoint
+
   useEffect(() => {
     const { external, internal } = dependencies
     const { tableNames, tableWithOdp } = internal
     if (!print) {
       // fetch internal dependencies
       if (tableNames.size > 0) {
-        const propsFetch = { assessmentName, cycleName, countryIso }
+        const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp }
 
         dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
@@ -44,5 +48,5 @@ export const useGetTableData = (props: Props) => {
         })
       })
     }
-  }, [assessmentName, canEdit, countryIso, cycleName, dependencies, dispatch, print, sectionName])
+  }, [assessmentName, canEdit, countryIso, cycleName, dependencies, dispatch, mergeOdp, print, sectionName])
 }
