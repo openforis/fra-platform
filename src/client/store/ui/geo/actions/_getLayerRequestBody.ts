@@ -4,7 +4,7 @@ import { LayerKey, LayerSource } from 'meta/geo'
 
 import { LayersSectionState, LayerState } from '../stateType'
 
-const _buildLayerData = (layerKey: LayerKey, layerState: LayerState): LayerSource => {
+export const buildLayerData = (layerKey: LayerKey, layerState: LayerState): LayerSource => {
   return {
     key: layerKey,
     ...(layerState?.options && { options: { ...layerState.options } }),
@@ -22,7 +22,7 @@ const _buildAgreementLayerData = (
     if (layerKey === 'Agreement') return
     const layerState = sectionState[layerKey as LayerKey]
     if (layerState.selected) {
-      layers.push(_buildLayerData(layerKey as LayerKey, layerState))
+      layers.push(buildLayerData(layerKey as LayerKey, layerState))
     }
   })
   return {
@@ -47,7 +47,7 @@ export const _getLayerRequestBody = (
     layer:
       layerKey === 'Agreement' && sectionState
         ? _buildAgreementLayerData(sectionState, layerKey, layerState)
-        : _buildLayerData(layerKey, layerState),
+        : buildLayerData(layerKey, layerState),
   }
   return requestBody
 }

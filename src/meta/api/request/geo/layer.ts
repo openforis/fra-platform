@@ -30,14 +30,17 @@ export type ForestEstimationsRequest = Request<
     year: any
   }
 >
+
+export type ForestAgreementAreaEstimationRequestBody = {
+  countryIso: CountryIso
+  gteAgreementLevel: number
+  layers: Array<LayerSource>
+  scale: number
+}
+
 export type ForestAgreementAreaEstimationRequest = Request<
   never,
   never,
-  {
-    countryIso: CountryIso
-    layers: Array<LayerSource>
-    gteAgreementLevel: number
-    scale: number
-  },
+  ForestAgreementAreaEstimationRequestBody,
   never
 >

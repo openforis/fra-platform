@@ -1,5 +1,6 @@
 export { _getLayerRequestBody } from './_getLayerRequestBody'
 export { getForestEstimationData } from './getForestEstimationData'
+export { postExtraEstimation } from './postExtraEstimation'
 export { postLayer } from './postLayer'
 export { postMosaicOptions } from './postMosaicOptions'
 export { setLayerOpacity } from './setLayerOpacity'
