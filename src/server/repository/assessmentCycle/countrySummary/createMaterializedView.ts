@@ -45,7 +45,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                  from country c
                           left join public.activity_log a
                                     on c.country_iso = a.country_iso
-                 where a.cycle_uuid = '66da2217-da42-492f-9ff4-c99a59e6675c'
+                 where a.cycle_uuid = '${cycle.uuid}'
                    and a.section = 'assessment'
                    and a.message = '${ActivityLogMessage.assessmentStatusUpdate}'
                  group by 1, 2)
