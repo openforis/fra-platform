@@ -1,10 +1,24 @@
 import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey, MosaicOptions, MosaicSource } from 'meta/geo'
+import {
+  ExtraEstimation,
+  ForestEstimations,
+  LayerKey,
+  LayerSectionKey,
+  MapLayerKey,
+  MosaicOptions,
+  MosaicSource,
+} from 'meta/geo'
+import {
+  ExtraEstimationSectionState,
+  ExtraEstimationState,
+  GeoStatisticsExtraEstimations,
+} from 'meta/geo/geoStatistics'
 
 import {
   getForestEstimationData,
+  postExtraEstimation,
   postLayer,
   setLayerOpacity,
   setLayerSectionRecipe,
@@ -47,7 +61,22 @@ const initialState: GeoState = {
     tabularEstimationData: [],
     isLoading: false,
     error: null,
+    extraEstimations: {} as GeoStatisticsExtraEstimations,
   },
+}
+
+const getExtraEstimationState = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  extraEstimation: ExtraEstimation
+): ExtraEstimationState => {
+  state.geoStatistics.extraEstimations[sectionKey] ??= {} as ExtraEstimationSectionState
+  state.geoStatistics.extraEstimations[sectionKey][extraEstimation] ??= {
+    error: null,
+    isLoading: false,
+  }
+
+  return state.geoStatistics.extraEstimations[sectionKey][extraEstimation]
 }
 
 const getSectionState = (state: Draft<GeoState>, sectionKey: LayerSectionKey): LayersSectionState => {
@@ -339,10 +368,33 @@ export const geoSlice = createSlice({
       .addCase(postLayer.rejected, (state, { meta }) => {
         handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Failed)
       })
+      .addCase(postExtraEstimation.fulfilled, (state, { payload: [extraEstimation, sectionKey, _scale] }) => {
+        getExtraEstimationState(state, sectionKey, extraEstimation)
+        state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
+          error: null,
+          isLoading: false,
+        }
+      })
+      .addCase(postExtraEstimation.pending, (state, { meta }) => {
+        getExtraEstimationState(state, meta.arg.sectionKey, meta.arg.extraEstimation)
+        state.geoStatistics.extraEstimations[meta.arg.sectionKey][meta.arg.extraEstimation] = {
+          error: null,
+          isLoading: true,
+        }
+      })
+      .addCase(postExtraEstimation.rejected, (state, action) => {
+        const { sectionKey, extraEstimation } = action.meta.arg
+        getExtraEstimationState(state, sectionKey, extraEstimation)
+        state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
+          error: action.payload as string,
+          isLoading: false,
+        }
+      })
   },
 })
 
 export const GeoActions = {
+  postExtraEstimation,
   postLayer,
   postMosaicOptions,
   setLayerOpacity,
