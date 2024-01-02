@@ -15,12 +15,10 @@ export const useGetTableData = (props: Props) => {
   const { sectionName } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso: _countryIso } = useCountryRouteParams()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const canEdit = useCanEdit(sectionName)
   const { print } = useIsPrintRoute()
   const dependencies = useDependencies(props)
-
-  const countryIso = _countryIso as CountryIso
 
   useEffect(() => {
     const { external, internal } = dependencies
@@ -28,7 +26,7 @@ export const useGetTableData = (props: Props) => {
     if (!print) {
       // fetch internal dependencies
       if (tableNames.size > 0) {
-        const propsFetch = { assessmentName, cycleName, countryIso }
+        const propsFetch = { assessmentName, cycleName, countryIso, mergeODp: !tableWithOdp }
 
         dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
