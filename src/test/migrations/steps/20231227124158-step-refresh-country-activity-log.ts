@@ -2,11 +2,13 @@ import { Promises } from 'utils/promises'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol } from 'server/db'
+import { DB } from 'server/db'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import { Logger } from 'server/utils/logger'
 
-export default async (client: BaseProtocol) => {
+const client = DB
+
+export default async () => {
   const assessments = await AssessmentController.getAll({}, client)
 
   await Promises.each(assessments, (assessment) =>
