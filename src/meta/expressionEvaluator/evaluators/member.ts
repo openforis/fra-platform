@@ -22,13 +22,20 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const memberCycleName = memberVariable.cycleName
 
     const externalVariable = Boolean(
-      memberAssessmentName && memberAssessmentName !== assessmentContext.props.name && this.context.assessments
+      ((memberAssessmentName && memberAssessmentName !== assessmentContext.props.name) ||
+        (memberCycleName && memberCycleName !== cycleContext.name)) &&
+        this.context.assessments
     )
 
     const assessment = externalVariable ? this.context.assessments[memberAssessmentName] : assessmentContext
     const cycle = externalVariable ? assessment.cycles.find((c) => c.name === memberCycleName) : cycleContext
-    const variablesByTables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
 
+    // client side validations: metaCache can be null if not fetched yet
+    if (!AssessmentMetaCaches.getMetaCache({ assessment, cycle })) {
+      return null
+    }
+
+    const variablesByTables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
     const { tableName, variableName, colName: memberColName } = memberVariable

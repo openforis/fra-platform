@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
+import { AssessmentActions } from 'client/store/assessment'
 import { DataActions } from 'client/store/data/slice'
 import { useCanEdit } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -41,6 +42,8 @@ export const useGetTableData = (props: Props) => {
         Object.entries(cycleDependencies).forEach(([cycleName, tableNames]) => {
           const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true }
           dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+
+          dispatch(AssessmentActions.getMetaCache({ assessmentName, cycleName }))
         })
       })
     }
