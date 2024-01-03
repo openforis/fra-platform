@@ -1,8 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
-import { GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
+import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
 import { BurnedAreaModis } from 'meta/geo/forest'
+import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
 import { RootState, useAppSelector } from 'client/store'
 
@@ -62,3 +63,9 @@ export const useGeoLayerSectionRecipeName = (sectionKey: LayerSectionKey): strin
 
 export const useGeoLayerSections = (): Record<LayerSectionKey, LayersSectionState> | undefined =>
   useAppSelector((state) => state.geo?.sections)
+
+export const useGeoExtaEstimation = (
+  sectionKey: LayerSectionKey,
+  extraEstimation: ExtraEstimation
+): ExtraEstimationState | undefined =>
+  useAppSelector((state) => state.geo?.geoStatistics?.extraEstimations?.[sectionKey]?.[extraEstimation])

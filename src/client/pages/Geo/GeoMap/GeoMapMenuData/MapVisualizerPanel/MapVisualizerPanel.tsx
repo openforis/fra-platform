@@ -11,7 +11,7 @@ const MapVisualizerPanel: React.FC = () => {
     <div>
       {sections.map((layerSection) => {
         return (
-          <GeoMenuItem key={layerSection.key} title={layerSection.key} checked={null} tabIndex={0}>
+          <GeoMenuItem key={layerSection.key} title={layerSection.title} checked={null} tabIndex={0}>
             <LayersSectionPanel section={layerSection} />
           </GeoMenuItem>
         )

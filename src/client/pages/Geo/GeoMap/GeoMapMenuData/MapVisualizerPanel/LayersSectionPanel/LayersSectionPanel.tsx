@@ -87,6 +87,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
             return (
               <AgreementLevelControl
                 key={`${section.key}-${layer.key}`}
+                title={layer.metadata?.title ?? layer.key}
                 onToggle={toggleLayer}
                 onOpacityChange={handleOpacityChange}
                 opacity={opacity}
@@ -101,7 +102,7 @@ const LayersSectionPanel: React.FC<React.PropsWithChildren<Props>> = ({ section 
           return (
             <GeoMapMenuListElement
               key={`${section.key}-${layer.key}`}
-              title={layer.key}
+              title={layer.metadata?.title ?? layer.key}
               tabIndex={0}
               checked={isLayerSelected}
               onCheckboxClick={() => toggleLayer(layer.key, fetchOnSelect)}
