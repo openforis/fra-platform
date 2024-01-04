@@ -6,8 +6,8 @@ import classNames from 'classnames'
 import { DataSource } from 'meta/assessment'
 import { TooltipId } from 'meta/tooltip'
 
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import { DataCell } from 'client/components/DataGrid'
+import TextArea from 'client/components/Inputs/TextArea'
 
 import { datasourceValidators } from './datasourceValidators'
 
@@ -15,10 +15,11 @@ type Props = {
   disabled: boolean
   dataSourceValue: DataSource
   onChange: (key: string, value: string) => void
+  lastRow: boolean
 }
 
 const ColumnComments: React.FC<Props> = (props: Props) => {
-  const { dataSourceValue, disabled, onChange } = props
+  const { dataSourceValue, disabled, onChange, lastRow } = props
   const { t } = useTranslation()
   const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('comments', event.target.value)
 
@@ -27,17 +28,17 @@ const ColumnComments: React.FC<Props> = (props: Props) => {
   }, [dataSourceValue.comments])
 
   return (
-    <DataColumn
+    <DataCell
+      lastCol
+      lastRow={lastRow}
       data-tooltip-id={TooltipId.error}
       data-tooltip-content={validationError ? t('generalValidation.shouldContainAtLeastOneCharacter') : ''}
-      className={classNames('data-source-column', {
+      className={classNames({
         'validation-error': validationError,
       })}
     >
-      <div className="data-source__text-area-wrapper">
-        <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.comments} />
-      </div>
-    </DataColumn>
+      <TextArea disabled={disabled} onChange={_onChange} value={dataSourceValue.comments} />
+    </DataCell>
   )
 }
 export default ColumnComments

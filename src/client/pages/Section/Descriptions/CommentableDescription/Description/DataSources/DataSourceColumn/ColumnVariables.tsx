@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { DataSource, Labels } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import MultiSelect from 'client/components/MultiSelect'
-import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import Select from 'client/components/Inputs/Select'
+import { DataCell } from 'client/components/DataGrid'
+import TextArea from 'client/components/Inputs/TextArea'
 
 type Props = {
   disabled: boolean
@@ -21,7 +21,7 @@ const Variable: React.FC<Omit<Props, 'dataSourceMetadata'>> = (props: Omit<Props
     onChange('variables', event.target.value ? [event.target.value] : [])
   const [value] = dataSourceValue.variables ?? []
 
-  return <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={value} />
+  return <TextArea disabled={disabled} onChange={_onChange} value={value} />
 }
 
 const Variables: React.FC<Props> = (props: Props) => {
@@ -47,24 +47,17 @@ const Variables: React.FC<Props> = (props: Props) => {
     onChange('variables', value)
   }
 
-  return (
-    <MultiSelect
-      disabled={disabled}
-      values={(dataSourceValue as any).variables}
-      options={options}
-      onChange={_onChange}
-    />
-  )
+  return <Select isMulti disabled={disabled} value={dataSourceValue.variables} onChange={_onChange} options={options} />
 }
 
-const ColumnVariables: React.FC<Props> = (props: Props) => {
-  const { dataSourceMetadata } = props
+const ColumnVariables: React.FC<Props & { lastRow: boolean }> = (props: Props & { lastRow: boolean }) => {
+  const { dataSourceMetadata, lastRow } = props
   const multiSelect = dataSourceMetadata.table?.variables?.length > 0
   return (
-    <DataColumn className="data-source-column">
+    <DataCell lastRow={lastRow}>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       {multiSelect ? <Variables {...props} /> : <Variable {...props} />}
-    </DataColumn>
+    </DataCell>
   )
 }
 

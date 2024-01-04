@@ -9,8 +9,7 @@ import { CommentableDescriptionValue, DataSource } from 'meta/assessment'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useSection } from 'client/store/metadata'
-import DataGrid from 'client/components/DataGridDeprecated'
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
 
 import { useDescriptions } from '../../../Descriptions'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
@@ -90,15 +89,16 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           sectionName={sectionName}
         />
       )}
-
-      <DataGrid className="data-source-grid">
+      <DataGrid gridTemplateColumns="0px minmax(0, 400px) auto minmax(0, 300px) minmax(0, 100px) minmax(0, 400px) min-content">
         <div />
 
-        <DataColumn head>{t(`${keyPrefix}.referenceToTataSource`)}</DataColumn>
-        <DataColumn head>{t(`${keyPrefix}.typeOfDataSource`)}</DataColumn>
-        <DataColumn head>{t(`${keyPrefix}.variable`)}</DataColumn>
-        <DataColumn head>{t(`${keyPrefix}.yearForDataSource`)}</DataColumn>
-        <DataColumn head>{t(`${keyPrefix}.comments`)}</DataColumn>
+        <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
+        <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
+        <DataCell header>{t(`${keyPrefix}.variable`)}</DataCell>
+        <DataCell header>{t(`${keyPrefix}.yearForDataSource`)}</DataCell>
+        <DataCell header lastCol>
+          {t(`${keyPrefix}.comments`)}
+        </DataCell>
 
         <div />
 
@@ -112,6 +112,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
               onChange={() => ({})}
               onDelete={() => ({})}
               placeholder={false}
+              lastRow={i === dataSourcesLinked.length - 1}
             />
           ))}
 
@@ -125,6 +126,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
               onChange={_onChange}
               onDelete={() => _onDelete(dataSourceValue.uuid)}
               placeholder={!dataSourceValue.uuid}
+              lastRow={disabled ? i === dataSourceValues.length - 1 : i === dataSourceValues.length}
             />
           )
         })}
