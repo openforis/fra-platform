@@ -1,5 +1,5 @@
 import './Toolbar.scss'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
@@ -28,12 +28,13 @@ const Toolbar: React.FC = () => {
   const { print } = useIsPrintRoute()
   const user = useUser()
   const isInGeoPage = useIsGeoRoute()
+  const isAReviewer = useMemo<boolean>(() => Users.isAReviewer(user, cycle), [user, cycle])
 
   if (print) return null
 
   const isCountry = Areas.isISOCountry(countryIso)
   const isAdmin = Users.isAdministrator(user)
-  const includeGlobals = isAdmin || cycle.published
+  const includeGlobals = isAdmin || cycle.published || isAReviewer
   const includeRegions = isAdmin || cycle.published
   const withLock = user && isCountry && Users.hasEditorRole({ user, countryIso, cycle })
 
