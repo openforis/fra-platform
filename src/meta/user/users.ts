@@ -37,8 +37,7 @@ const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.REVIEWER, countryIso, cycle)
 
 const isAReviewer = (user: User, cycle: Cycle): boolean => {
-  if (Objects.isNil(user?.roles)) return false
-  return user.roles.some(
+  return user?.roles?.some(
     (userRole: UserRole<never>) => userRole?.role === RoleName.REVIEWER && userRole?.cycleUuid === cycle.uuid
   )
 }
