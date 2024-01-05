@@ -34,6 +34,7 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
                 , u.props
                 , ur.country_iso
                 , ur.role
+                , ur.props                     as props_role
                 , row_to_json(jsonb_each(
                       (case
                            when ur.permissions -> 'sections' is null or
@@ -60,11 +61,12 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
                 , u.props
                 , u.country_iso
                 , u.role
+                , u.props_role
                 , jsonb_agg(u.section ->> 'key') as contributions
            from users_disagg u
            where (u.section -> 'value' ->> 'tableData')::boolean is true
               or (u.section -> 'value' ->> 'descriptions')::boolean is true
-           group by 1, 2, 3, 4, 5)
+           group by 1, 2, 3, 4, 5, 6)
       select u.uuid
            , u.country_iso
            , jsonb_build_object('readOnly', true) as props
@@ -73,7 +75,7 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
            , null                                 as value
            , ${_getField(ContactField.appellation, `lower(u.props ->> 'title')`)}
            , ${_getField(ContactField.contributions, `u.contributions`)}
-           , ${_getField(ContactField.institution, `u.props ->> 'organization'`)}
+           , ${_getField(ContactField.institution, `u.props_role ->> 'organization'`)}
            , ${_getField(ContactField.name, `u.props ->> 'name'`)}
            , ${_getField(ContactField.role, `u.role`)}
            , ${_getField(ContactField.surname, `u.props ->> 'surname'`)}
