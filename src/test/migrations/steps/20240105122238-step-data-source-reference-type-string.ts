@@ -24,7 +24,7 @@ type DBType<T> = {
 }
 
 // Update old dataSource reference from object to a string
-const _fixReference = (reference: { text: string; link?: string }): string => {
+const _fixReference = (reference: { text: string; link?: string } | string): string => {
   if (typeof reference === 'string') return reference
   if (reference.link) {
     return `<p><a href="${reference.link}">${reference.text}</a></p>`
