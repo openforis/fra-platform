@@ -9,6 +9,10 @@ import { RoleName } from 'meta/user'
 import { useContacts } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
+type Props = {
+  canEdit: boolean
+}
+
 type Returned = Array<Contact>
 
 const compareContacts = (contactA: Contact, contactB: Contact): number => {
@@ -27,15 +31,23 @@ const compareContacts = (contactA: Contact, contactB: Contact): number => {
   return 0
 }
 
-export const useContactsData = (): Returned => {
+export const useContactsData = (props: Props): Returned => {
+  const { canEdit } = props
+
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
   const contacts = useContacts()
 
   return useMemo<Returned>(() => {
+    const contactsReturn = [...contacts]
+
+    if (!canEdit) {
+      contactsReturn.sort(compareContacts)
+    }
+
     // in print view -> merges name with `appellation name surname`
     if (print) {
-      return [...contacts].sort(compareContacts).map((contact) => {
+      return contactsReturn.map((contact) => {
         const appellation = Contacts.getFieldValue({ contact, field: ContactField.appellation })
         const title = Objects.isEmpty(appellation) ? '' : t(`editUser.${appellation}`)
         const name = Contacts.getFieldValue({ contact, field: ContactField.name })
@@ -51,6 +63,6 @@ export const useContactsData = (): Returned => {
       })
     }
 
-    return contacts
-  }, [contacts, print, t])
+    return contactsReturn
+  }, [canEdit, contacts, print, t])
 }
