@@ -6,6 +6,7 @@ import { Labels } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
   deskStudy: boolean
@@ -15,6 +16,8 @@ const TableOfContent: React.FC<Props> = (props) => {
   const { deskStudy } = props
 
   const { t } = useTranslation()
+
+  const { assessmentName } = useCountryRouteParams()
   const cycle = useCycle()
   const sections = useSections()
 
@@ -25,18 +28,18 @@ const TableOfContent: React.FC<Props> = (props) => {
       <div className="page-break" />
 
       <div className="disclaimer">
-        <p>{t('print.disclaimer')}</p>
+        <p>{t(`${assessmentName}.print.disclaimer`)}</p>
         <p>
           {deskStudy
-            ? t('print.disclaimerGeneratedDeskStudy')
-            : t('print.disclaimerGenerated', { cycleName: cycle?.name })}
+            ? t(`${assessmentName}.print.disclaimerGeneratedDeskStudy`)
+            : t(`${assessmentName}.print.disclaimerGenerated`, { cycleName: cycle?.name })}
         </p>
       </div>
 
       <div className="page-break" />
 
       <div>
-        <h2 className="table-of-content__header">{t('print.tableOfContent')}</h2>
+        <h2 className="table-of-content__header">{t(`${assessmentName}.print.tableOfContent`)}</h2>
 
         <ol className="table-of-content__list">
           {Object.entries(sections).map(([key, section]) => (

@@ -5,10 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { Labels } from 'meta/assessment'
 
 import { useCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Loading from 'client/components/Loading'
 import TableOfContent from 'client/pages/Print/TableOfContent'
 import Section from 'client/pages/Section'
@@ -18,7 +19,7 @@ import { useGetTableData } from './hooks/useGetTableData'
 import { useGetTableSections } from './hooks/useGetTableSections'
 
 const Print: React.FC = () => {
-  const assessment = useAssessment()
+  const { assessmentName } = useCountryRouteParams()
 
   const { t } = useTranslation()
   const countryIso = useCountryIso()
@@ -32,14 +33,14 @@ const Print: React.FC = () => {
   useGetDescriptionValues()
   const deskStudy = country?.props?.deskStudy
 
-  if (!sections || !assessment) {
+  if (!sections || !assessmentName) {
     return <Loading />
   }
 
   let title = ''
-  if (onlyTables) title = t('print.titleTables', { cycleName: cycle.name })
-  if (!onlyTables && deskStudy) title = `${t('assessment.fra')} ${t('assessment.deskStudy')}`
-  if (!onlyTables && !deskStudy) title = t('print.title', { cycleName: cycle.name })
+  if (onlyTables) title = t(`${assessmentName}.print.titleTables`, { cycleName: cycle.name })
+  if (!onlyTables && deskStudy) title = `${t(`assessment.${assessmentName}`)} ${t('assessment.deskStudy')}`
+  if (!onlyTables && !deskStudy) title = t(`${assessmentName}.print.title`, { cycleName: cycle.name })
 
   return (
     <div className="fra-print__container">
