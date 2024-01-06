@@ -104,3 +104,14 @@
     }
   }
 }
+
+.fra-print__header {
+  display: grid;
+  align-items: center;
+  grid-row-gap: 10px;
+
+  > * {
+    display: flex;
+    align-items: center;
+  }
+}
