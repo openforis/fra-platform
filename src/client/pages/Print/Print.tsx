@@ -2,12 +2,12 @@ import './style.scss'
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment'
 
 import { useCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Loading from 'client/components/Loading'
@@ -19,10 +19,9 @@ import { useGetTableData } from './hooks/useGetTableData'
 import { useGetTableSections } from './hooks/useGetTableSections'
 
 const Print: React.FC = () => {
-  const { assessmentName } = useCountryRouteParams()
+  const { assessmentName, countryIso } = useCountryRouteParams<CountryIso>()
 
   const { t } = useTranslation()
-  const countryIso = useCountryIso()
 
   const cycle = useCycle()
   const country = useCountry(countryIso)
