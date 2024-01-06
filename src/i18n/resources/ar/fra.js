@@ -1,4 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const print = require('./print')
+
 module.exports = {
+  print,
+
   // common
   area100HaYear: 'المساحة (1000 هـ)',
   categoryHeader2020: 'فئات تقييم الموارد الحرجية 2020',

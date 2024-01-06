@@ -7,7 +7,6 @@ const dataSource = require('./zh/dataSource')
 const fra = require('./zh/fra')
 const generalValidation = require('./zh/generalValidation')
 const login = require('./zh/login')
-const print = require('./zh/print')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const uc = require('./zh/uc')
 
@@ -20,7 +19,6 @@ module.exports.translation = {
   fra,
   generalValidation,
   login,
-  print,
   statisticalFactsheets,
   uc,
 
