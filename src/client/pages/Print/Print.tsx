@@ -43,9 +43,9 @@ const Print: React.FC = () => {
   if (!onlyTables && !deskStudy) title = t(`${assessmentName}.print.title`, { cycleName: cycle.name })
 
   return (
-    <div className="fra-print__container">
+    <div className="print__container">
       <div>
-        <div className="fra-print__header">
+        <div className="print__header">
           <h1>{t(`area.${countryIso}.listName`)}</h1>
           <h1>{title}</h1>
         </div>

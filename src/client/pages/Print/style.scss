@@ -1,6 +1,6 @@
 @import 'src/client/style/partials';
 
-.fra-print__container {
+.print__container {
   padding: $spacing-s;
   overflow: hidden;
 
@@ -86,7 +86,7 @@
     display: none;
   }
 
-  .fra-print__container {
+  .print__container {
     .page-break {
       display: block;
       height: 1px;
@@ -96,7 +96,7 @@
 }
 
 @media print {
-  .fra-print__container {
+  .print__container {
     padding: 0;
 
     .page-break {
@@ -105,7 +105,7 @@
   }
 }
 
-.fra-print__header {
+.print__header {
   display: grid;
   align-items: center;
   grid-row-gap: 10px;
