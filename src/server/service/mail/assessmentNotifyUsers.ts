@@ -1,7 +1,6 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { Country, CountryIso } from 'meta/area'
-import { AssessmentStatus } from 'meta/area/country'
+import { AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { AssessmentName, Cycle } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 import { RoleName, User, Users } from 'meta/user'

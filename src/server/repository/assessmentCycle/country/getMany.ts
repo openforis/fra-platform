@@ -23,6 +23,10 @@ export const getMany = async (
     `
         select c.*,
                cs.last_edit,
+               cs.last_in_review,
+               cs.last_for_approval,
+               cs.last_accepted,
+               cs.last_update,
                jsonb_agg(cr.region_code) as region_codes
         from ${cycleSchema}.country c
                  left join ${cycleSchema}.country_region cr
@@ -30,7 +34,7 @@ export const getMany = async (
                  left join ${cycleSchema}.country_summary cs
                            on c.country_iso = cs.country_iso
                                ${atlantis}
-        group by 1, 2, 3
+        group by 1, 2, 3, 4, 5, 6, 7
         order by 1
     `,
     [cycle.uuid],

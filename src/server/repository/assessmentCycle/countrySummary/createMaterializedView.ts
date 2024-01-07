@@ -1,4 +1,4 @@
-import { AssessmentStatus } from 'meta/area/country'
+import { AssessmentStatus } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

@@ -40,19 +40,19 @@ const useColumns = (): Array<Column<CountrySummary>> => {
       },
       {
         component: ({ datum: { lastInReview } }) => <DateCell date={lastInReview} />,
-        header: t('common.lastInReview'),
+        header: t('common.submittedToReview'),
         key: 'lastInReview',
         orderByProperty: 'last_in_review',
       },
       {
         component: ({ datum: { lastForApproval } }) => <DateCell date={lastForApproval} />,
-        header: t('common.lastForApproval'),
+        header: t('common.submittedForApproval'),
         key: 'lastForApproval',
         orderByProperty: 'last_for_approval',
       },
       {
         component: ({ datum: { lastAccepted } }) => <DateCell date={lastAccepted} />,
-        header: t('common.lastAccepted'),
+        header: t('common.accepted'),
         key: 'lastAccepted',
         orderByProperty: 'last_accepted',
       },
