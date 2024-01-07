@@ -47,7 +47,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
           <span className="country-selection-list__secondary-col">
             {`${i18n.t(Assessments.getShortLabel(assessment.props.name))} ${cycle.name}`}
           </span>
-          <span className="country-selection-list__secondary-col">{i18n.t<string>('audit.edited')}</span>
+          <span className="country-selection-list__secondary-col">{i18n.t<string>('common.updated')}</span>
         </div>
       )}
 

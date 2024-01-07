@@ -3,43 +3,49 @@ import React from 'react'
 import { CSVLink } from 'react-csv'
 import { useTranslation } from 'react-i18next'
 
+import { Dates } from 'utils/dates'
+
 import { Areas } from 'meta/area'
 import { Users } from 'meta/user'
 
 import { useCountries } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { useUser, useUserCountries } from 'client/store/user'
+import { useUser } from 'client/store/user'
 import Icon from 'client/components/Icon'
-import { Dates } from 'client/utils'
+
+const formatDate = (date?: string): string => (date ? Dates.format(Dates.parseISO(date), 'dd MMMM yyyy') : '')
 
 const CountryListDownload: React.FC = () => {
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const user = useUser()
   const assessment = useAssessment()
   const cycle = useCycle()
   const countries = useCountries()
-  const userCountryISOs = useUserCountries()
 
   if (!Users.isAdministrator(user)) return null
 
-  const data = userCountryISOs.map((countryIso) => {
-    const country = countries.find((c) => c.countryIso === countryIso)
-    const { props, lastEdit } = country
+  const data = countries.map((country) => {
     const status = Areas.getStatus(country)
 
     return {
-      name: i18n.t(`area.${countryIso}.listName`),
-      status: i18n.t(`assessment.status.${status}.label`),
-      edited: lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : i18n.t('audit.notStarted'),
-      deskStudy: i18n.t(`yesNoTextSelect.${props.deskStudy ? 'yes' : 'no'}`),
+      name: t(`area.${country.countryIso}.listName`),
+      status: t(`assessment.status.${status}.label`),
+      lastEdit: formatDate(country.lastEdit),
+      lastInReview: formatDate(country.lastInReview),
+      lastForApproval: formatDate(country.lastForApproval),
+      lastAccepted: formatDate(country.lastAccepted),
+      deskStudy: t(`yesNoTextSelect.${country.props.deskStudy ? 'yes' : 'no'}`),
     }
   })
 
   const headers = [
-    { label: i18n.t('common.country'), key: 'name' },
-    { label: `${i18n.t(`${assessment.props.name}.labels.short`)} ${cycle.name}`, key: 'status' },
-    { label: i18n.t('audit.edited'), key: 'edited' },
-    { label: i18n.t('assessment.deskStudy'), key: 'deskStudy' },
+    { label: t('common.country'), key: 'name' },
+    { label: `${t(`${assessment.props.name}.labels.short`)} ${cycle.name}`, key: 'status' },
+    { label: t('common.lastEdit'), key: 'lastEdit' },
+    { label: t('common.lastInReview'), key: 'lastInReview' },
+    { label: t('common.lastForApproval'), key: 'lastForApproval' },
+    { label: t('common.lastAccepted'), key: 'lastAccepted' },
+    { label: t('assessment.deskStudy'), key: 'deskStudy' },
   ]
 
   return (
