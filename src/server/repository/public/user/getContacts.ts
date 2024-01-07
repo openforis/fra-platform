@@ -1,11 +1,11 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, TableNames } from 'meta/assessment'
+import { Assessment, Cycle } from 'meta/assessment'
 import { Contact, ContactField } from 'meta/cycleData'
 import { RoleName } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 type Props = {
   assessment: Assessment
@@ -14,7 +14,7 @@ type Props = {
 }
 
 const _getField = (field: ContactField, raw: string): string => `jsonb_build_object(
-              'countryIso', ur.country_iso,
+              'countryIso', u.country_iso,
               'parentUuid', u.uuid,
               'props', jsonb_build_object('field', '${field}'),
               'type', 'contact',
@@ -25,70 +25,66 @@ const _getField = (field: ContactField, raw: string): string => `jsonb_build_obj
 export const getContacts = async (props: Props, client: BaseProtocol = DB): Promise<Array<Contact>> => {
   const { countryIso, assessment, cycle } = props
 
-  const schemaAssessment = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const roles = [RoleName.COLLABORATOR, RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]
 
   const query = `
-      with odp as
-          (select distinct coalesce((c.props -> 'forestCharacteristics' ->> 'useOriginalDataPoint'),
-                                    'false')::boolean as use_1b
-           from ${schemaCycle}."activity_log_${countryIso}" a
-                    left join ${schemaCycle}.country c
-                              on c.country_iso = '${countryIso}')
-         , sections as
-          (select distinct (jsonb_array_elements_text
-                            (case
-                                 when a.section = 'odp'
-                                     then case
-                                              when odp.use_1b
-                                                  then '["${TableNames.extentOfForest}","${
-    TableNames.forestCharacteristics
-  }"]'::jsonb
-                                              else '["${TableNames.extentOfForest}"]'::jsonb
-                                     end
-                                 else jsonb_build_array(a.section)
-                      end
-                            ))::text as section_name
-           from ${schemaCycle}."activity_log_${countryIso}" a
-                    left join odp
-                              on odp.use_1b = odp.use_1b)
-         , contributions as
-          (select (a.user -> 'id')::numeric as user_id
-                , jsonb_agg(s.uuid)         as section_uuids
-           from ${schemaCycle}."activity_log_${countryIso}" a
-                    left join sections ss
-                              on a.section = ss.section_name
-                    inner join ${schemaAssessment}.section s
-                               on ss.section_name = s.props ->> 'name'
-           group by a.user -> 'id')
+      with users_disagg as
+          (select u.id
+                , u.uuid
+                , u.props
+                , ur.country_iso
+                , ur.role
+                , ur.props                     as props_role
+                , row_to_json(jsonb_each(
+                      (case
+                           when ur.permissions -> 'sections' is null or
+                                ur.permissions ->> 'sections' in ('all', 'none')
+                               then jsonb_build_object(
+                                   'sections',
+                                   jsonb_build_object(
+                                           coalesce(ur.permissions ->> 'sections', 'all'),
+                                           jsonb_build_object('tableData', true)
+                                   ))
+                           else ur.permissions
+                          end) -> 'sections')) as section
+           from public.users u
+                    left join public.users_role ur on (u.id = ur.user_id)
+           where ur.role in ($4:list)
+             and ur.country_iso = $3
+             and ur.cycle_uuid = $2
+             and ur.assessment_id = $1
+             and u.status = 'active'
+             and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null))
+         , users as
+          (select u.id
+                , u.uuid
+                , u.props
+                , u.country_iso
+                , u.role
+                , u.props_role
+                , jsonb_agg(u.section ->> 'key') as contributions
+           from users_disagg u
+           where (u.section -> 'value' ->> 'tableData')::boolean is true
+              or (u.section -> 'value' ->> 'descriptions')::boolean is true
+           group by 1, 2, 3, 4, 5, 6)
       select u.uuid
-           , ur.country_iso
+           , u.country_iso
            , jsonb_build_object('readOnly', true) as props
            , null                                 as parent_uuid
            , 'contact'                            as type
            , null                                 as value
            , ${_getField(ContactField.appellation, `lower(u.props ->> 'title')`)}
-           , ${_getField(ContactField.contributions, `coalesce(c.section_uuids, '["none"]'::jsonb)`)}
-           , ${_getField(ContactField.institution, `ur.props ->> 'organization'`)}
+           , ${_getField(ContactField.contributions, `u.contributions`)}
+           , ${_getField(ContactField.institution, `u.props_role ->> 'organization'`)}
            , ${_getField(ContactField.name, `u.props ->> 'name'`)}
-           , ${_getField(ContactField.role, `ur.role`)}
+           , ${_getField(ContactField.role, `u.role`)}
            , ${_getField(ContactField.surname, `u.props ->> 'surname'`)}
            , case
-                 when ur.role = '${RoleName.NATIONAL_CORRESPONDENT}' then 1
-                 when ur.role = '${RoleName.ALTERNATE_NATIONAL_CORRESPONDENT}' then 2
+                 when u.role = '${RoleName.NATIONAL_CORRESPONDENT}' then 1
+                 when u.role = '${RoleName.ALTERNATE_NATIONAL_CORRESPONDENT}' then 2
                  else 3
           end                                     as role_order
-      from public.users u
-               left join public.users_role ur on (u.id = ur.user_id)
-               left join contributions c on u.id = c.user_id
-      where ur.role in ($4:list)
-        and ur.country_iso = $3
-        and ur.cycle_uuid = $2
-        and ur.assessment_id = $1
-        and u.status = 'active'
-        and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
-      group by u.id, ur.id, c.section_uuids
+      from users u
       order by role_order, u.props ->> 'surname', u.props ->> 'name'
   `
 

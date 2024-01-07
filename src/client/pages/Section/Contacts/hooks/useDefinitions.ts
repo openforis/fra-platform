@@ -34,7 +34,7 @@ export const useColumns = (): Columns => {
       type: NodeExtCellType.select,
     }
     const institution: NodeExtCell<NodeExtCellType.text> = {
-      props: { header: { label: { key: 'editUser.institution' } } },
+      props: { header: { label: { key: 'editUser.organization' } } },
       type: NodeExtCellType.text,
     }
     const contributions: NodeExtCellSelect = {

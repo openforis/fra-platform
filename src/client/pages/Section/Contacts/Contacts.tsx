@@ -22,9 +22,7 @@ const Contacts: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   useGetContacts()
-
-  const contacts = useContactsData()
-
+  const contacts = useContactsData({ canEdit })
   const columns = useColumns()
   const fields = useFields()
   const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
