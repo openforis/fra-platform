@@ -2,7 +2,7 @@ import './TableOfContent.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels } from 'meta/assessment'
+import { AssessmentNames, Labels } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'
@@ -27,16 +27,19 @@ const TableOfContent: React.FC<Props> = (props) => {
     <>
       <div className="page-break" />
 
-      <div className="disclaimer">
-        <p>{t(`${assessmentName}.print.disclaimer`)}</p>
-        <p>
-          {deskStudy
-            ? t(`${assessmentName}.print.disclaimerGeneratedDeskStudy`)
-            : t(`${assessmentName}.print.disclaimerGenerated`, { cycleName: cycle?.name })}
-        </p>
-      </div>
-
-      <div className="page-break" />
+      {assessmentName === AssessmentNames.fra && (
+        <>
+          <div className="disclaimer">
+            <p>{t(`${assessmentName}.print.disclaimer`)}</p>
+            <p>
+              {deskStudy
+                ? t(`${assessmentName}.print.disclaimerGeneratedDeskStudy`)
+                : t(`${assessmentName}.print.disclaimerGenerated`, { cycleName: cycle?.name })}
+            </p>
+          </div>
+          <div className="page-break" />
+        </>
+      )}
 
       <div>
         <h2 className="table-of-content__header">{t(`${assessmentName}.print.tableOfContent`)}</h2>
