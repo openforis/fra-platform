@@ -29,7 +29,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const isDataLocked = useIsDataLocked()
 
   const _onChange = useCallback(
-    (field: string, value: string | Record<string, string>) => {
+    (field: string, value: string) => {
       if (dataSourceValue[field as keyof DataSource] === value) return
       onChange({
         ...dataSourceValue,
@@ -52,13 +52,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         )}
       </div>
 
-      <ColumnReference
-        dataSourceValue={dataSourceValue}
-        onChange={_onChange}
-        disabled={disabled}
-        placeholder={placeholder}
-        lastRow={lastRow}
-      />
+      <ColumnReference dataSourceValue={dataSourceValue} onChange={_onChange} disabled={disabled} lastRow={lastRow} />
       <ColumnTypeOfDataSource
         dataSourceMetadata={dataSourceMetadata}
         dataSourceValue={dataSourceValue}
