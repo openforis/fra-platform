@@ -6,7 +6,7 @@ import MarkdownPreview from 'client/components/MarkdownPreview'
 
 import { useEditorOptions } from './hooks/useEditorOptions'
 import { useOnClose } from './hooks/useOnClose'
-import { Props } from './props'
+import type { Props } from './props'
 
 const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
   const { onChange, value, disabled } = props
