@@ -8,7 +8,6 @@ const editUser = require('./es/editUser')
 const fra = require('./es/fra')
 const generalValidation = require('./es/generalValidations')
 const login = require('./es/login')
-const print = require('./es/print')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 const uc = require('./es/uc')
 
@@ -21,7 +20,6 @@ module.exports.translation = {
   fra,
   generalValidation,
   login,
-  print,
   statisticalFactsheets,
   uc,
 

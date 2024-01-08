@@ -8,7 +8,6 @@ const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
 const login = require('./en/login')
 const panEuropean = require('./en/panEuropean/panEuropean')
-const print = require('./en/print')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const uc = require('./en/uc')
 
@@ -22,7 +21,6 @@ module.exports.translation = {
   generalValidation,
   login,
   panEuropean,
-  print,
   statisticalFactsheets,
   uc,
 

@@ -2,7 +2,6 @@ import React from 'react'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 
-import { AssessmentNames } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -16,8 +15,6 @@ type Props = {
 const LinksPrint: React.FC<Props> = (props) => {
   const { withSeparator } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
-
-  if (assessmentName !== AssessmentNames.fra) return null
 
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>
