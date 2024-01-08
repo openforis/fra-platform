@@ -7,6 +7,7 @@ import { DataSource } from 'meta/assessment'
 import { TooltipId } from 'meta/tooltip'
 
 import { DataCell } from 'client/components/DataGrid'
+import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 
 import { datasourceValidators } from './datasourceValidators'
 
@@ -34,15 +35,12 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
 
   return (
     <DataCell
-      lastRow={lastRow}
-      data-tooltip-id={TooltipId.error}
+      className={classNames('data-source__column-reference', { 'validation-error': validationError })}
       data-tooltip-content={validationError ? t('generalValidation.shouldContainAtLeastOneCharacter') : ''}
-      className={classNames('data-source__column-reference', {
-        'validation-error': validationError,
-      })}
+      data-tooltip-id={TooltipId.error}
+      lastRow={lastRow}
     >
-      {disabled && <div>{dataSourceValue.reference}</div>}
-      {!disabled && <div>{dataSourceValue.reference}</div>}
+      <EditorWYSIWYGLinks disabled={disabled} onChange={_onChange} value={dataSourceValue.reference ?? ''} />
     </DataCell>
   )
 }

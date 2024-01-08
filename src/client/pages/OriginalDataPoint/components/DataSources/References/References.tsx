@@ -8,7 +8,6 @@ import { Topics } from 'meta/messageCenter'
 
 import { DataCell } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
-import MarkdownPreview from 'client/components/MarkdownPreview'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -43,20 +42,18 @@ const References: React.FC<Props> = (props: Props) => {
     <>
       <DataCell header>{t('nationalDataPoint.references')}</DataCell>
       <DataCell lastCol>
-        {disabled && (
-          <div className="input-container">
-            <MarkdownPreview value={originalDataPoint.dataSourceReferences ?? ''} />
-          </div>
-        )}
-
-        {!disabled && <EditorWYSIWYGLinks onChange={onChange} value={originalDataPoint.dataSourceReferences ?? ''} />}
+        <EditorWYSIWYGLinks
+          disabled={disabled}
+          onChange={onChange}
+          value={originalDataPoint.dataSourceReferences ?? ''}
+        />
       </DataCell>
 
       {reviewIndicator && (
         <DataCell review>
           <ReviewIndicator
-            title={t('nationalDataPoint.references')}
             subtitle={t('nationalDataPoint.dataSources')}
+            title={t('nationalDataPoint.references')}
             topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceReferences')}
           />
         </DataCell>
