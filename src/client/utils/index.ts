@@ -1,5 +1,4 @@
 export { Breakpoints } from './breakpoints'
 export { checkMatch } from './checkMatch'
-export { Dates } from './dates'
 export { mapController } from './mapControllerProvider'
 export { Urls } from './urls'

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
+import { Dates } from 'utils/dates'
 
 import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
@@ -9,7 +10,6 @@ import { UserRoles } from 'meta/user/userRoles'
 import { useCountry } from 'client/store/area'
 import { useIsCycleLandingRoute } from 'client/hooks'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
-import { Dates } from 'client/utils'
 
 type Props = {
   country: { countryIso: CountryIso | Global | RegionCode }
@@ -63,7 +63,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
           </div>
 
           <span className="country-selection-list__secondary-col">
-            {country?.lastEdit ? Dates.getRelativeDate(country.lastEdit, i18n) : '-'}
+            {country?.lastUpdate ? Dates.getRelativeDate(country.lastUpdate, i18n) : '-'}
           </span>
         </>
       )}

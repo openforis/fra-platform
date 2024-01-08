@@ -1,7 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
-import { AssessmentStatus } from 'meta/area/country'
+import { AreaCode, Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { Assessment, AssessmentFile, Cycle, Section, SubSection } from 'meta/assessment'
 import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'

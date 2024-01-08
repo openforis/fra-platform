@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
+import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLog, ActivityLogs } from 'meta/assessment'
@@ -13,7 +14,6 @@ import { useCycle } from 'client/store/assessment'
 import { useSection } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ColumnComponentProps } from 'client/components/TablePaginated'
-import { Dates } from 'client/utils'
 
 const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (props) => {
   const { datum: activity, rowIndex } = props

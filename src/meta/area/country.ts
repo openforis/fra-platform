@@ -1,28 +1,17 @@
-import { CountryIso } from './countryIso'
-import { RegionCode } from './regionCode'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountrySummary } from 'meta/area/countrySummary'
+import { RegionCode } from 'meta/area/regionCode'
+import { AssessmentStatus } from 'meta/area/status'
 
-/**
- * TODO: rename to CountryStatus
- */
-export enum AssessmentStatus {
-  notStarted = 'notStarted',
-  editing = 'editing',
-  review = 'review',
-  approval = 'approval',
-  accepted = 'accepted',
-  changing = 'changing',
-}
-
-export interface CountryProps {
+export type CountryProps = {
   deskStudy: boolean
   domain: string // ex: tropical
   forestCharacteristics: { useOriginalDataPoint: boolean }
   status: AssessmentStatus
 }
 
-export interface Country {
+export type Country = {
   countryIso: CountryIso
-  lastEdit?: string
   props?: CountryProps
   regionCodes?: Array<RegionCode>
-}
+} & Pick<CountrySummary, 'lastAccepted' | 'lastEdit' | 'lastForApproval' | 'lastInReview' | 'lastUpdate'>
