@@ -19,31 +19,23 @@ type Returned = {
 export const useSortedDomains = (): Returned => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
-  const recordAssessmentData = useRecordAssessmentData()
+  const data = useRecordAssessmentData()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const propsFetch = {
-      assessmentName,
-      countryIso,
-      cycleName,
-      tableNames: [TableNames.climaticDomain],
-    }
+    const tableNames = [TableNames.climaticDomain]
+    const propsFetch = { assessmentName, countryIso, cycleName, tableNames }
     dispatch(DataActions.getTableData(propsFetch))
   }, [assessmentName, countryIso, cycleName, dispatch])
-
-  const climaticDomainTableData = RecordAssessmentDatas.getTableData({
-    assessmentName,
-    cycleName,
-    tableName: TableNames.climaticDomain,
-    data: recordAssessmentData,
-    countryIso,
-  })
 
   return useMemo<Returned>(() => {
     const domains = ['boreal', 'temperate', 'tropical', 'subtropical']
     const countryDomain = country?.props?.domain ?? domains[0]
     const defaultDomains = { domains, defaultSelectedDomain: countryDomain }
+
+    const tableName = TableNames.climaticDomain
+    const props = { assessmentName, cycleName, tableName, data, countryIso }
+    const climaticDomainTableData = RecordAssessmentDatas.getTableData({ ...props })
 
     if (Objects.isEmpty(climaticDomainTableData?.percentOfForestArea2015)) return defaultDomains
 
@@ -66,5 +58,5 @@ export const useSortedDomains = (): Returned => {
     const sortedDomains = domains.sort(customSort)
 
     return { domains: sortedDomains, defaultSelectedDomain: sortedDomains[0] }
-  }, [climaticDomainTableData, country?.props?.domain])
+  }, [assessmentName, country?.props?.domain, countryIso, cycleName, data])
 }
