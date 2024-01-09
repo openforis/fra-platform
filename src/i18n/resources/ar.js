@@ -7,7 +7,6 @@ const dataSource = require('./ar/dataSource')
 const fra = require('./ar/fra')
 const generalValidation = require('./ar/generalValidation')
 const login = require('./ar/login')
-const print = require('./ar/print')
 const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const uc = require('./ar/uc')
 
@@ -20,7 +19,6 @@ module.exports.translation = {
   fra,
   generalValidation,
   login,
-  print,
   statisticalFactsheets,
   uc,
 
