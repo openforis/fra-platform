@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -9,6 +9,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountry } from 'client/store/area'
 import { useIsCycleLandingRoute } from 'client/hooks'
+import { useOnMount } from 'client/hooks/useOnMount'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 
 type Props = {
@@ -36,35 +37,30 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const selected = selectedValue === countryIso && !isCycleLanding
   const hasRole = role !== UserRoles.noRole.role
 
-  useEffect(() => {
+  useOnMount(() => {
     if (selected) {
       countryNameRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  })
 
   return (
     <div
-      className={classNames('country-selection-list__row', { selected })}
+      className={classNames('country-selection-list__row', role, { selected })}
       onClick={(e) => {
         e.preventDefault()
         onElementSelect(countryIso)
       }}
       aria-hidden="true"
     >
-      <span className="country-selection-list__primary-col" ref={countryNameRef}>
-        {i18n.t<string>(Areas.getTranslationKey(countryIso))}
-      </span>
+      <div ref={countryNameRef}>{i18n.t<string>(Areas.getTranslationKey(countryIso))}</div>
 
       {hasRole && (
         <>
-          <div className="country-selection-list__secondary-col">
+          <div>
             <CountryStatusIndicator status={status} />
           </div>
 
-          <span className="country-selection-list__secondary-col">
-            {country?.lastUpdate ? Dates.getRelativeDate(country.lastUpdate, i18n) : '-'}
-          </span>
+          <div>{country?.lastUpdate ? Dates.getRelativeDate(country.lastUpdate, i18n) : '-'}</div>
         </>
       )}
     </div>
