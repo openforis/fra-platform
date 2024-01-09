@@ -2,6 +2,7 @@ import { AreaState } from './area/state'
 import { AssessmentState } from './assessment/state'
 import { DataState } from './data/stateType'
 import { LoginState } from './login/stateType'
+import { AreaSelectorSlice, AreaSelectorState } from './ui/areaSelector'
 import { AssessmentFilesState } from './ui/assessmentFiles/stateType'
 import { AssessmentSectionState } from './ui/assessmentSection'
 import { DataExportState } from './ui/dataExport'
@@ -28,6 +29,7 @@ export type RootState = {
   metadata: MetadataState
 
   ui: {
+    [AreaSelectorSlice.name]: AreaSelectorState
     assessmentFiles: AssessmentFilesState
     assessmentSection: AssessmentSectionState
     dataExport: DataExportState
