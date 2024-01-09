@@ -27,7 +27,7 @@ export const useGetTableData = (props: Props) => {
     if (!print) {
       // fetch internal dependencies
       if (tableNames.size > 0) {
-        const propsFetch = { assessmentName, cycleName, countryIso, mergeODp: !tableWithOdp }
+        const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: !tableWithOdp }
 
         dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
