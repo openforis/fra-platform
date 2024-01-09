@@ -3,10 +3,13 @@
 const _2020 = require('./2020')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const _2025 = require('./2025')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const print = require('./print')
 
 module.exports = {
   2020: _2020,
   2025: _2025,
+  print,
 
   // assessment labels
   labels: {
