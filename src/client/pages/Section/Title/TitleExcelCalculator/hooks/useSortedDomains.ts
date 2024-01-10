@@ -34,23 +34,26 @@ export const useSortedDomains = (): Returned => {
     const defaultDomains = { domains, defaultSelectedDomain: countryDomain }
 
     const tableName = TableNames.climaticDomain
-    const props = { assessmentName, cycleName, tableName, data, countryIso }
-    const climaticDomainTableData = RecordAssessmentDatas.getTableData({ ...props })
+    const propsGetData = { assessmentName, cycleName, tableName, data, countryIso }
+    const climaticDomainTableData = RecordAssessmentDatas.getTableData(propsGetData)
 
-    if (Objects.isEmpty(climaticDomainTableData?.percentOfForestArea2015)) return defaultDomains
+    let overrideColumnAvailable = true
+    if (Objects.isEmpty(climaticDomainTableData?.percentOfForestArea2015)) overrideColumnAvailable = false
 
-    const allRawValuesEmpty = Object.values(climaticDomainTableData.percentOfForestArea2015).every((entry) =>
+    const allRawValuesEmpty = Object.values(climaticDomainTableData?.percentOfForestArea2015 || {}).every((entry) =>
       Objects.isEmpty(entry?.raw)
     )
-    if (allRawValuesEmpty) return defaultDomains
+    if (allRawValuesEmpty) overrideColumnAvailable = false
+
+    if (!overrideColumnAvailable && Objects.isEmpty(climaticDomainTableData?.percentOfForestArea2015Default))
+      return defaultDomains
 
     const customSort = (domainA: string, domainB: string): number => {
       const getRawValue = (domain: string): number => {
-        return (
-          parseFloat(
-            climaticDomainTableData.percentOfForestArea2015[domain === 'subtropical' ? 'sub_tropical' : domain]?.raw
-          ) || 0
-        )
+        const climaticDomainColumn = overrideColumnAvailable
+          ? climaticDomainTableData.percentOfForestArea2015
+          : climaticDomainTableData.percentOfForestArea2015Default
+        return parseFloat(climaticDomainColumn[domain === 'subtropical' ? 'sub_tropical' : domain]?.raw) || 0
       }
 
       return getRawValue(domainB) - getRawValue(domainA)
