@@ -16,7 +16,7 @@ module.exports = {
   fraPlatform: 'Plataforma de FRA',
   globalFRA: 'Evaluación de los recursos forestales mundiales',
   language: 'Idioma',
-  lastEdit: 'Dernière modification',
+  lastEdit: 'Última edición',
   login: 'Área reservada',
   name: 'Nombre',
   other: 'Otros',

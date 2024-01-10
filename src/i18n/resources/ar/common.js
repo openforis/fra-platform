@@ -16,6 +16,7 @@ module.exports = {
   fraPlatform: 'منصة تقييم الموارد الحرجية',
   globalFRA: 'تقييم الموارد الحرجية العالمية',
   language: 'اللغة',
+  lastEdit: 'آخر تعديل',
   login: 'المنطقة المحجوزة',
   name: 'الاسم',
   other: 'غير ذلك',
