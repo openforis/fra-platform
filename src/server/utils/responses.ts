@@ -8,8 +8,7 @@ const sendAssessmentFile = (res: Response, assessmentFile: AssessmentFile): void
   if (assessmentFile?.file) {
     const fileName = encodeURIComponent(assessmentFile.fileName)
 
-    res.setHeader('Content-Disposition', `attachment; filename*=utf-8''${fileName}`)
-
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"; filename*=utf-8''${fileName}`)
     res.end(assessmentFile.file, 'binary')
   } else {
     Requests.send404(res)
