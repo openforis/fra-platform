@@ -11,10 +11,12 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
 import { useUser } from 'client/store/user'
+import CountryListRow from 'client/components/AreaSelector/CountryList/CountryListRow'
 import { checkMatch } from 'client/utils'
 
-import CountryListRow from '../CountryListRow'
+import { useToggleMode } from './hooks/useToggleMode'
 
 type Props = {
   countryISOs: Array<CountryIso>
@@ -41,26 +43,38 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
+  const expanded = useIsAreaSelectorExpanded()
+  const toggleMode = useToggleMode()
 
   const admin = Users.isAdministrator(user)
 
   return (
     <div className="country-selection-list__roleSection">
       {role !== UserRoles.noRole.role && (
-        <div className={classNames('country-selection-list__header', { admin })}>
+        <div className={classNames('country-selection-list__header', { admin, expanded })}>
           <div>{t(Users.getI18nRoleLabelKey(role))}</div>
           <div>{`${t(Assessments.getShortLabel(assessment.props.name))} ${cycle.name}`}</div>
-          <div>{t('common.updated')}</div>
+
+          {expanded && (
+            <>
+              <div>{t('audit.edited')}</div>
+              <div>{t('common.submittedToReview')}</div>
+              <div>{t('common.submittedForApproval')}</div>
+              <div>{t('common.accepted')}</div>
+            </>
+          )}
+          {!expanded && <div>{t('common.updated')}</div>}
 
           {admin && (
             <button
               className="btn btn-s btn-transparent country-selection-list__btn-show-more"
               onClick={(event) => {
                 event.stopPropagation()
+                toggleMode()
               }}
               type="button"
             >
-              {`${t('common.showMore')}`}
+              {expanded ? t('common.showLess') : t('common.showMore')}
             </button>
           )}
         </div>

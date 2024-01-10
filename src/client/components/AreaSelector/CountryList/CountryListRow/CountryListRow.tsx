@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -8,6 +8,7 @@ import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountry } from 'client/store/area'
+import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
 import { useIsCycleLandingRoute } from 'client/hooks'
 import { useOnMount } from 'client/hooks/useOnMount'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
@@ -29,13 +30,16 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   const { i18n } = useTranslation()
   const country = useCountry(countryIso as CountryIso)
-
   const isCycleLanding = useIsCycleLandingRoute()
+  const expanded = useIsAreaSelectorExpanded()
+
   const countryNameRef = useRef(null)
 
   const status = Areas.getStatus(country)
   const selected = selectedValue === countryIso && !isCycleLanding
   const hasRole = role !== UserRoles.noRole.role
+
+  const formatDate = useCallback((date?: string): string => (date ? Dates.getRelativeDate(date, i18n) : '-'), [i18n])
 
   useOnMount(() => {
     if (selected) {
@@ -45,7 +49,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <div
-      className={classNames('country-selection-list__row', role, { selected })}
+      className={classNames('country-selection-list__row', role, { expanded, selected })}
       onClick={(e) => {
         e.preventDefault()
         onElementSelect(countryIso)
@@ -60,7 +64,15 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
             <CountryStatusIndicator status={status} />
           </div>
 
-          <div>{country?.lastUpdate ? Dates.getRelativeDate(country.lastUpdate, i18n) : '-'}</div>
+          {!expanded && <div>{formatDate(country.lastUpdate)}</div>}
+          {expanded && (
+            <>
+              <div>{formatDate(country.lastEdit)}</div>
+              <div>{formatDate(country.lastInReview)}</div>
+              <div>{formatDate(country.lastForApproval)}</div>
+              <div>{formatDate(country.lastAccepted)}</div>
+            </>
+          )}
         </>
       )}
     </div>

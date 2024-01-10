@@ -1,3 +1,4 @@
+const admin = require('./zh/admin')
 const area = require('./zh/area')
 const assessmentSection = require('./zh/assessmentSection')
 const common = require('./zh/common')
@@ -11,6 +12,7 @@ const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const uc = require('./zh/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -1082,12 +1084,6 @@ FRA工作组
       atlantis: '亚特兰蒂斯',
       forest_europe: '欧洲森林保护部长级会议',
     },
-  },
-
-  admin: {
-    admin: '管理',
-    filter: '筛选，按照',
-    invitationPending: '邀请待处理',
   },
 
   countryMessageBoard: {

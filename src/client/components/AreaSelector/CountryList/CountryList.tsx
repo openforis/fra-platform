@@ -2,6 +2,7 @@ import './countryList.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
 import { i18n } from 'i18next'
 
 import { Areas, CountryIso, Global, Region, RegionCode } from 'meta/area'
@@ -9,6 +10,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries, useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
+import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
 import { useIsPanEuropeanRoute } from 'client/hooks'
 import { checkMatch } from 'client/utils'
 
@@ -56,11 +58,12 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const allCountries = useCountries()
   const isPanEuropean = useIsPanEuropeanRoute()
   const cycle = useCycle()
+  const expanded = useIsAreaSelectorExpanded()
 
   const global = isPanEuropean ? RegionCode.FE : Global.WO
 
   return (
-    <div className="country-selection-list">
+    <div className={classNames('country-selection-list', { expanded })}>
       {enableDownload && <CountryListDownload />}
 
       <div className="country-selection-list__content">

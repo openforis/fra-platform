@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux'
 
-import { TablePaginatedSlice } from 'client/store/ui/tablePaginated'
-
 import AreaSlice from './area/slice'
 import AssessmentSlice from './assessment/slice'
 import DataSlice from './data/slice'
 import LoginSlice from './login/slice'
 import MetadataSlice from './metadata/slice'
+import { AreaSelectorSlice } from './ui/areaSelector'
 import assessmentFilesSlice from './ui/assessmentFiles/slice'
 import AssessmentSectionSlice from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -18,6 +17,7 @@ import NavigationSlice from './ui/navigation/slice'
 import NotificationSlice from './ui/notification/slice'
 import OriginalDataPointSlice from './ui/originalDataPoint/slice'
 import ReviewSlice from './ui/review/slice'
+import { TablePaginatedSlice } from './ui/tablePaginated'
 import UserManagementSlice from './ui/userManagement/slice'
 import UserSlice from './user/slice'
 
@@ -29,6 +29,8 @@ export default {
   data: DataSlice,
   metadata: MetadataSlice,
   ui: combineReducers({
+    [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
+    [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,
     assessmentFiles: assessmentFilesSlice,
     assessmentSection: AssessmentSectionSlice,
     dataExport: DataExportSlice,
@@ -39,7 +41,6 @@ export default {
     notification: NotificationSlice,
     originalDataPoint: OriginalDataPointSlice,
     review: ReviewSlice,
-    [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,
     userManagement: UserManagementSlice,
   }),
   geo: GeoSlice,
