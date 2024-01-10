@@ -65,26 +65,28 @@ export default async (client: BaseProtocol) => {
         ..._fixRow(row),
       }))
 
-      const pgp = pgPromise()
-      const cs = new pgp.helpers.ColumnSet<CommentableDescription>(
-        [
+      if (fixedRows.length > 0) {
+        const pgp = pgPromise()
+        const cs = new pgp.helpers.ColumnSet<CommentableDescription>(
+          [
+            {
+              name: 'value',
+              cast: 'jsonb',
+            },
+            {
+              name: 'id',
+              cast: 'bigint',
+              cnd: true,
+            },
+          ],
           {
-            name: 'value',
-            cast: 'jsonb',
-          },
-          {
-            name: 'id',
-            cast: 'bigint',
-            cnd: true,
-          },
-        ],
-        {
-          table: { table: 'descriptions', schema: schemaCycle },
-        }
-      )
+            table: { table: 'descriptions', schema: schemaCycle },
+          }
+        )
 
-      const query = `${pgp.helpers.update(fixedRows, cs)} where v.id = t.id;`
-      await client.query(query)
+        const query = `${pgp.helpers.update(fixedRows, cs)} where v.id = t.id;`
+        await client.query(query)
+      }
     })
   )
 }
