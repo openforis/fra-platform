@@ -1,3 +1,4 @@
+const admin = require('./ar/admin')
 const area = require('./ar/area')
 const assessmentSection = require('./ar/assessmentSection')
 const common = require('./ar/common')
@@ -11,6 +12,7 @@ const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const uc = require('./ar/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -1116,12 +1118,6 @@ The FRA team
       atlantis: 'أطلانطس',
       forest_europe: 'المبادرة الأوروبية للغابات',
     },
-  },
-
-  admin: {
-    admin: 'المدير',
-    filter: 'غربلة وفق',
-    invitationPending: 'تعليق الدعوة',
   },
 
   countryMessageBoard: {
