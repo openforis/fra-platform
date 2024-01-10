@@ -2,7 +2,7 @@ import './CountryStatusIndicator.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentStatus } from 'meta/area/country'
+import { AssessmentStatus } from 'meta/area'
 
 type Props = { status: AssessmentStatus }
 

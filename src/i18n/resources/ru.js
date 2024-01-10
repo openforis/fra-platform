@@ -1,3 +1,4 @@
+const admin = require('./ru/admin')
 const area = require('./ru/area')
 const assessmentSection = require('./ru/assessmentSection')
 const common = require('./ru/common')
@@ -11,6 +12,7 @@ const statisticalFactsheets = require('./ru/statisticalFactsheets')
 const uc = require('./ru/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -1077,12 +1079,6 @@ module.exports.translation = {
       atlantis: 'Атлантида',
       forest_europe: 'Forest Europe',
     },
-  },
-
-  admin: {
-    admin: 'Администратор',
-    filter: 'Фильтровать по',
-    invitationPending: 'Приглашение в стадии рассмотрения',
   },
 
   countryMessageBoard: {

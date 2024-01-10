@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { AreaCode, CountryAdmin } from 'meta/area'
+import { AreaCode, CountrySummary } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -15,7 +15,7 @@ type Props = {
   offset: string
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountryAdmin>> => {
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountrySummary>> => {
   const { assessment, cycle, countryIso, limit, offset } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)

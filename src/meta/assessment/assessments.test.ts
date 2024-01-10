@@ -1,5 +1,4 @@
-import { CountryIso } from 'meta/area'
-import { AssessmentStatus, Country } from 'meta/area/country'
+import { AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { RoleName, User } from 'meta/user'
 
 import { AssessmentStatusTransition, AssessmentStatusTransitions } from './assessments'

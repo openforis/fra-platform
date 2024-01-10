@@ -1,18 +1,26 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Dates } from 'utils/dates'
+
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryAdmin } from 'meta/area'
+import { CountrySummary } from 'meta/area'
 
 import CountryLink from 'client/components/CountryLink'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
-import { Dates } from 'client/utils'
 
-const useColumns = (): Array<Column<CountryAdmin>> => {
-  const { t, i18n } = useTranslation()
+const DateCell: React.FC<{ date: string }> = (props) => {
+  const { date } = props
+  const { i18n } = useTranslation()
 
-  return useMemo<Array<Column<CountryAdmin>>>(
+  return <span>{date ? Dates.getRelativeDate(date, i18n) : '-'}</span>
+}
+
+const useColumns = (): Array<Column<CountrySummary>> => {
+  const { t } = useTranslation()
+
+  return useMemo<Array<Column<CountrySummary>>>(
     () => [
       {
         component: ({ datum }) => <CountryLink countryIso={datum.countryIso} />,
@@ -26,10 +34,28 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
         orderByProperty: 'status',
       },
       {
-        component: ({ datum: { lastEdit } }) => <span>{lastEdit ? Dates.getRelativeDate(lastEdit, i18n) : '-'}</span>,
+        component: ({ datum: { lastEdit } }) => <DateCell date={lastEdit} />,
         header: t('common.lastEdit'),
         key: 'lastEdit',
         orderByProperty: 'last_edit',
+      },
+      {
+        component: ({ datum: { lastInReview } }) => <DateCell date={lastInReview} />,
+        header: t('common.submittedToReview'),
+        key: 'lastInReview',
+        orderByProperty: 'last_in_review',
+      },
+      {
+        component: ({ datum: { lastForApproval } }) => <DateCell date={lastForApproval} />,
+        header: t('common.submittedForApproval'),
+        key: 'lastForApproval',
+        orderByProperty: 'last_for_approval',
+      },
+      {
+        component: ({ datum: { lastAccepted } }) => <DateCell date={lastAccepted} />,
+        header: t('common.accepted'),
+        key: 'lastAccepted',
+        orderByProperty: 'last_accepted',
       },
       {
         component: ({ datum }) => <span>{datum.usersCount}</span>,
@@ -50,7 +76,7 @@ const useColumns = (): Array<Column<CountryAdmin>> => {
         orderByProperty: 'invitations_accepted_count',
       },
     ],
-    [i18n, t]
+    [t]
   )
 }
 
