@@ -654,6 +654,7 @@ The FRA team
     boreal: 'شمالية',
     temperate: 'معتدلة',
     subtropical: 'دون استوائية',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'استوائية',
   },
 
