@@ -62,10 +62,29 @@ const getCountryUsers = async (props: {
   return UserRepository.readCountryUsersByRole({ countryISOs, cycle, roles })
 }
 
-const getRecipients = async (props: { countryISOs: Array<CountryIso>; cycle: Cycle; status: AssessmentStatus }) => {
-  const { countryISOs, status, cycle } = props
+const getRecipients = async (props: {
+  countryISOs: Array<CountryIso>
+  cycle: Cycle
+  status: AssessmentStatus
+  notifySelf: boolean
+  notifyUsers: boolean
+  user: User
+}) => {
+  const { countryISOs, status, cycle, notifySelf, notifyUsers, user } = props
+  if (!notifyUsers) {
+    return notifySelf ? [user] : []
+  }
+
   const roles = UserRoles.getRecipientRoles({ status })
-  return getCountryUsers({ cycle, countryISOs, roles })
+  let recipients = await getCountryUsers({ cycle, countryISOs, roles })
+
+  if (!notifySelf) {
+    recipients = recipients.filter((recipient) => recipient.id !== user.id)
+  } else if (!recipients.some((recipient) => recipient.id === user.id)) {
+    recipients.push(user)
+  }
+
+  return recipients
 }
 
 export const assessmentNotifyUsers = async (props: {
@@ -75,6 +94,8 @@ export const assessmentNotifyUsers = async (props: {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycle: Cycle
+  notifySelf: boolean
+  notifyUsers: boolean
 }) => {
   const {
     user,
@@ -85,9 +106,11 @@ export const assessmentNotifyUsers = async (props: {
     assessmentName,
     countryIso,
     cycle,
+    notifySelf,
+    notifyUsers,
   } = props
-  const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status })
 
+  const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status, notifySelf, notifyUsers, user })
   const emailPromises = recipients.map(async (recipient: User) => {
     return createMail({
       user,
