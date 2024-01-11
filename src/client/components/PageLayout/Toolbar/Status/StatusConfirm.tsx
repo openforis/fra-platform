@@ -33,6 +33,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
   const country = useAssessmentCountry()
 
   const [notifyUsers, setNotifyUsers] = useState<boolean>(true)
+  const [notifySelf, setNotifySelf] = useState<boolean>(true)
 
   const [textareaValue, setTextareaValue] = useState<string>('')
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
@@ -69,6 +70,16 @@ const StatusConfirm: React.FC<Props> = (props) => {
           </div>
         )}
         {notifyUsers && <UserList readOnly users={recipients} />}
+        <div
+          className="nav-assessment-status-confirm__notify-self"
+          onClick={() => setNotifySelf(!notifySelf)}
+          onKeyDown={() => setNotifySelf(!notifySelf)}
+          role="button"
+          tabIndex={0}
+        >
+          <div className={classNames('fra-checkbox', { checked: notifySelf })} />
+          {i18n.t('navigation.notifySelf')}
+        </div>
       </ModalBody>
 
       <ModalFooter>
@@ -81,6 +92,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             dispatch(
               AreaActions.updateCountry({
                 notifyUsers,
+                notifySelf,
                 country: {
                   ...country,
                   props: {
