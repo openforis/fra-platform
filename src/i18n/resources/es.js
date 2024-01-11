@@ -583,6 +583,7 @@ El equipo de FRA
     boreal: 'Boreal',
     temperate: 'Templada',
     subtropical: 'Subtropical',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Tropical',
   },
 

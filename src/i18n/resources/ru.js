@@ -608,6 +608,7 @@ module.exports.translation = {
     boreal: 'Бореальная',
     temperate: 'Умеренная',
     subtropical: 'Субтропическая',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Тропическая',
   },
 
