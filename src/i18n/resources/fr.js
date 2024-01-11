@@ -576,6 +576,7 @@ L'équipe de FRA fra@fao.org
     boreal: 'Boréal',
     temperate: 'Tempéré',
     subtropical: 'Sous-tropical',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Tropical',
   },
 

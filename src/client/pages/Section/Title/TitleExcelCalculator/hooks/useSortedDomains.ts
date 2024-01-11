@@ -29,7 +29,7 @@ export const useSortedDomains = (): Returned => {
   }, [assessmentName, countryIso, cycleName, dispatch])
 
   return useMemo<Returned>(() => {
-    const domains = ['boreal', 'temperate', 'tropical', 'subtropical']
+    const domains = ['boreal', 'temperate', 'tropical', 'sub_tropical']
     const countryDomain = country?.props?.domain ?? domains[0]
     const defaultDomains = { domains, defaultSelectedDomain: countryDomain }
 
@@ -53,7 +53,7 @@ export const useSortedDomains = (): Returned => {
         const climaticDomainColumn = overrideColumnAvailable
           ? climaticDomainTableData.percentOfForestArea2015
           : climaticDomainTableData.percentOfForestArea2015Default
-        return parseFloat(climaticDomainColumn[domain === 'subtropical' ? 'sub_tropical' : domain]?.raw) || 0
+        return parseFloat(climaticDomainColumn[domain]?.raw) || 0
       }
 
       return getRawValue(domainB) - getRawValue(domainA)

@@ -620,6 +620,7 @@ FRA工作组 fra@fao.org
     boreal: '寒带',
     temperate: '温带',
     subtropical: '亚热带',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: '热带',
   },
 
