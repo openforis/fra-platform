@@ -13,9 +13,9 @@ import { AreaActions, useAssessmentCountry } from 'client/store/area'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
-import { useRecipients } from 'client/components/PageLayout/Toolbar/Status/useRecipients'
 import UserList from 'client/components/UserList'
 
+import { useRecipients } from './hooks/useRecipients'
 import { StatusTransition } from './types'
 
 type Props = {
