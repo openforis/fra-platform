@@ -25,7 +25,6 @@ export default async () => {
   `)
 
   // 2. For each assessment/schema, create repository
-
   const assessments = await AssessmentRepository.getAll({}, client)
 
   await Promises.each(assessments, (assessment) =>
@@ -78,5 +77,13 @@ export default async () => {
                left join assessment_fra.file af using (uuid)
          `)
 
-  // TODO: Migrate deleted files for fra 2020?
+  // 6. Drop unused tables
+  await Promises.each(assessments, (assessment) =>
+    Promises.each(assessment.cycles, async (cycle) => {
+      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      await client.query(`
+            drop table if exists ${schemaCycle}.file;
+        `)
+    })
+  )
 }
