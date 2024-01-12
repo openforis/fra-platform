@@ -4,3 +4,11 @@
   background: $ui-bg;
   border-left: $ui-thin-border;
 }
+
+.sliding-panel__close {
+  position: absolute;
+  top: $spacing-xxs;
+  right: 0;
+  padding: $spacing-s;
+  cursor: pointer;
+}

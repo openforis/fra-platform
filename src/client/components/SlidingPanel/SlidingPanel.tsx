@@ -3,6 +3,8 @@ import 'react-sliding-side-panel/lib/index.css'
 import React from 'react'
 import SlidingPanelComponent from 'react-sliding-side-panel'
 
+import Icon from 'client/components/Icon'
+
 type Props = {
   openPanel: boolean
   setOpenPanel: (isOpen: boolean) => void
@@ -22,7 +24,18 @@ const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
       panelClassName="sliding-panel"
       panelContainerClassName=""
     >
-      <div className="panel-container">{children}</div>
+      <>
+        <button
+          className="btn-s btn btn-transparent sliding-panel__close"
+          onClick={() => {
+            setOpenPanel(!openPanel)
+          }}
+          type="button"
+        >
+          <Icon name="remove" />
+        </button>
+        <div className="panel-container">{children}</div>
+      </>
     </SlidingPanelComponent>
   )
 }
