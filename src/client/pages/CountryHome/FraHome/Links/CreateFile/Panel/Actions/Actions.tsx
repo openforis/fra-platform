@@ -11,7 +11,7 @@ const Actions: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
 
   return (
-    <div className="create-file__actions">
+    <div className="repository-form__actions">
       <button className="btn btn-primary" type="button">
         {t('editUser.done')}
       </button>

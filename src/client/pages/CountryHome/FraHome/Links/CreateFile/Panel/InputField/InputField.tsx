@@ -14,9 +14,9 @@ const InputField: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
 
   return (
-    <div className={`create-file__input-field ${className}`}>
-      <div className="create-file__label">{t(label)}</div>
-      <input className="create-file__input" name={name} type={type} />
+    <div className={`repository-form__input-field ${className}`}>
+      <div className="repository-form__label">{t(label)}</div>
+      <input className="repository-form__input" name={name} type={type} />
     </div>
   )
 }

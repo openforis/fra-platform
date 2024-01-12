@@ -17,7 +17,7 @@ const Panel: React.FC<Props> = (props: Props) => {
 
   return (
     <SlidingPanel openPanel={openPanel} setOpenPanel={setOpenPanel}>
-      <div className="create-file__container">
+      <div className="repository-form__container">
         <ClosePanel setOpenPanel={setOpenPanel} openPanel={openPanel} />
         <InputField label="editUser.name" name="name" type="text" />
         <InputField label="common.link" name="link" type="text" />

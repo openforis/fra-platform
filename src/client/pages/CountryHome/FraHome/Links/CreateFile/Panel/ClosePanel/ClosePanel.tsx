@@ -13,7 +13,7 @@ const ClosePanel: React.FC<Props> = (props: Props) => {
 
   return (
     <button
-      className="create-file__close-button btn-s btn btn-transparent"
+      className="repository-form__close-button btn-s btn btn-transparent"
       onClick={() => {
         setOpenPanel(!openPanel)
       }}
