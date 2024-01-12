@@ -53,12 +53,14 @@ const Print: React.FC = () => {
 
         {!onlyTables && <TableOfContent deskStudy={deskStudy} />}
 
-        {Object.entries(sections).map(([key, section], i) => {
+        {Object.values(sections).map((section) => {
+          const sectionIndex = section.props.index
           return (
-            <div key={section.uuid} id={`section${key}`}>
+            <div key={section.uuid} id={`section${sectionIndex}`}>
               {!onlyTables && (
                 <h1 className="title only-print">
-                  {i === 0 ? '' : key} {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
+                  {sectionIndex === 0 ? '' : sectionIndex}{' '}
+                  {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
                 </h1>
               )}
 
