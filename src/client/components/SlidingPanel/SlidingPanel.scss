@@ -6,9 +6,9 @@
 }
 
 .sliding-panel__close {
-  position: absolute;
-  top: $spacing-xxs;
-  right: 0;
-  padding: $spacing-s;
   cursor: pointer;
+  padding: $spacing-s;
+  position: absolute;
+  right: 0;
+  top: $spacing-xxs;
 }
