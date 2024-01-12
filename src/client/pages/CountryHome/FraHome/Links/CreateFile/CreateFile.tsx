@@ -11,7 +11,7 @@ const CreateFile: React.FC = () => {
   return (
     <>
       <button
-        className="btn-s btn-primary no-print"
+        className="btn-s btn-primary"
         onClick={() => {
           setOpenPanel(!openPanel)
         }}
