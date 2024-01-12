@@ -47,8 +47,17 @@ export const updateCalculationDependencies = (props: Props): ContextResult => {
           }
         }
       } else {
+        /**
+         * Soring columns is a HACK FOR HAVING RIGHT CALCULATION ORDER!! =D.
+         * in panEuropean table4.3bII col native_species depends on introduced_species that depends on 4.3I.plantations. but in column orders comes before introduced_species.
+         * Therefore, when introduced_species or 4.3I.plantations change, native_species gets calculated before introduced_species/
+         * TODO: To fix this handle dependencies per column
+         */
+        const colsSorted = row.cols.sort((colA, colB) => {
+          return (colA.props.calcOrder ?? 0) - (colB.props.calcOrder ?? 0)
+        })
         // TODO: TO avoid calculating all columns, handle dependencies per column, not row
-        row.cols.forEach((col) => {
+        colsSorted.forEach((col) => {
           if (col.props.calculateFn?.[cycle.uuid] && col.props.colName) {
             const value = NodeCalculations.calculate({ ...propsCalculate, col })
             if (value) {

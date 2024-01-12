@@ -29,12 +29,13 @@ export const getValidationMessage = (
   categoriesSum: number,
   categoryLabelKeys: Array<string>,
   label: string,
-  parentLabelParams?: string
+  parentLabelParams?: string,
+  parentColLabelKey?: string
 ): Array<NodeValueValidationMessage> => {
   const parentLabel = `${parentTableAnchor} ${t(
     parentLabelKey,
     parentLabelParams ? JSON.parse(parentLabelParams) : null
-  )}`
+  )}${parentColLabelKey ? ` ${t(parentColLabelKey)}` : ''}`
 
   return [
     {
