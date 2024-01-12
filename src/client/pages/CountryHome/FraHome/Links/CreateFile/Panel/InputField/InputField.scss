@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+.repository-form__input-field {
+  display: grid;
+  grid-gap: $spacing-xxs;
+  grid-template-columns: 1fr;
+}
+
+.repository-form__input {
+  border-radius: $spacing-xxxs;
+  border: $ui-thin-border;
+  padding: $spacing-xxs;
+}
+
+.repository-form__label {
+  font-weight: 700;
+}
