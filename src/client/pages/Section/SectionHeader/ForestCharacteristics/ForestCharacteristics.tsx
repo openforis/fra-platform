@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from 'client/store'
-import { AreaActions, useAssessmentCountry } from 'client/store/area'
+import { AreaActions, useAssessmentCountry, useIsUpdatingCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useHasOriginalDataPointData } from 'client/store/data'
 import { useUser } from 'client/store/user'
@@ -21,6 +21,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const hasOriginalDataPointData = useHasOriginalDataPointData()
+  const updatingCountry = useIsUpdatingCountry()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
   if (!user || !hasOriginalDataPointData || !country) {
@@ -47,7 +48,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
             })
           )
         }
-        disabled={disabled}
+        disabled={disabled || updatingCountry}
       >
         {useOriginalDataPoint
           ? t('forestCharacteristics.dontUseOriginalDataPoints')
