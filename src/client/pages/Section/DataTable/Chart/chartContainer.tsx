@@ -4,12 +4,12 @@ import React, { memo, useEffect, useState } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Table } from 'meta/assessment'
+import { Table, TableName } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
 import { useIsSomeTableDataFetching } from 'client/store/data'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import DataTrend from './components/dataTrend'
 import Legend from './components/legend'
@@ -27,51 +27,53 @@ type ChartContainerProps = {
   wrapperWidth: number
 }
 
-const toObject = (tableData: RecordCountryData, countryIso: CountryIso): Array<Record<string, string | number>> => {
+const toObject = (
+  tableData: RecordCountryData,
+  countryIso: CountryIso,
+  tableName: TableName
+): Array<Record<string, string | number>> => {
   const newData: Array<Record<string, string | number>> = []
-  const countryValues = tableData?.[countryIso]
+  const countryValues = tableData?.[countryIso]?.[tableName]
   if (!countryValues) return []
 
-  Object.entries(countryValues).forEach(([section, sectionValues]) => {
-    Object.entries(sectionValues).forEach(([year, yearValues]: any[]) => {
-      // Display chart for section 1a and 1b
-      if (!['extentOfForest', 'forestCharacteristics'].includes(section)) return
-      newData.push({
-        countryIso,
-        section,
-        year: Number(year),
-        name: year,
-        ...Object.keys(yearValues).reduce(
-          (acc, key) => ({
-            ...acc,
-            [key === 'forest' ? 'forestArea' : key]: yearValues?.[key]?.raw,
-            [`${key}Estimated`]: yearValues?.[key]?.estimated || false,
-            type: yearValues?.[key]?.odp ? 'odp' : 'fra',
-          }),
-          {}
-        ),
-      })
+  Object.entries(countryValues).forEach(([year, yearValues]: any[]) => {
+    newData.push({
+      countryIso,
+      section: tableName,
+      year: Number(year),
+      name: year,
+      ...Object.keys(yearValues).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key === 'forest' ? 'forestArea' : key]: yearValues?.[key]?.raw,
+          [`${key}Estimated`]: yearValues?.[key]?.estimated || false,
+          type: yearValues?.[key]?.odp ? 'odp' : 'fra',
+        }),
+        {}
+      ),
     })
   })
+  // })
   return newData
 }
 
 const ChartContainer = (props: ChartContainerProps) => {
   const { data: _data, table, wrapperWidth } = props
+  const { name: tableName } = table.props
 
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const { print } = useIsPrintRoute()
   const trends = useTrends({ table })
-  const [data, setData] = useState(toObject(_data, countryIso))
+  const [data, setData] = useState(toObject(_data, countryIso, tableName))
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)
   const dataFetching = useIsSomeTableDataFetching()
   const { left, height, bottom } = Chart.styles
 
   useEffect(() => {
     if (!dataFetching) {
-      setData(toObject(_data, countryIso))
+      setData(toObject(_data, countryIso, tableName))
     }
-  }, [_data, countryIso, dataFetching])
+  }, [_data, countryIso, dataFetching, tableName])
 
   return (
     <div>

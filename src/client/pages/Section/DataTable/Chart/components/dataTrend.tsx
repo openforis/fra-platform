@@ -2,7 +2,6 @@ import React, { memo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { getTrendOdps } from '../chart'
 import DataPath from './dataPath'
 import DataPoints from './dataPoints'
 
@@ -25,30 +24,13 @@ type DataTrendProps = {
 const DataTrend = (props: DataTrendProps) => {
   const { className, color, data, xScale, yScale }: any = props
 
-  const prev = (v: any) => data.filter((d: any) => d.year <= v.year && d.type === 'fra') ?? {}
-  const next = (v: any) => data.filter((d: any) => d.year >= v.year && d.type === 'fra') ?? {}
-
-  const fra = data.filter((d) => (d.type === 'dp' ? prev(d).estimated && next(d).estimated : true))
-
   return (
     <g className={className}>
       <DataPath
-        data={fra}
+        data={data}
         style={{
           fill: 'none',
           stroke: hexToRgba(color, 0.5),
-          strokeWidth: 1.5,
-          shapeRendering: 'geometricPrecision',
-          strokeDasharray: '5,4',
-        }}
-        xScale={xScale}
-        yScale={yScale}
-      />
-      <DataPath
-        data={getTrendOdps(data)}
-        style={{
-          fill: 'none',
-          stroke: hexToRgba(color, 0.75),
           strokeWidth: 2,
           shapeRendering: 'geometricPrecision',
         }}
