@@ -30,7 +30,7 @@ const getRecipientRoles = (props: { status: AssessmentStatus }) => {
     case AssessmentStatus.review:
       return [RoleName.REVIEWER]
     case AssessmentStatus.approval:
-      return [RoleName.ADMINISTRATOR, RoleName.REVIEWER, RoleName.COLLABORATOR]
+      return [RoleName.ADMINISTRATOR, RoleName.REVIEWER]
     case AssessmentStatus.accepted:
       return [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
     default:

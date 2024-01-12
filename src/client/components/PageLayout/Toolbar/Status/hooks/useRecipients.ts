@@ -13,7 +13,6 @@ import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/ty
 const approvalRolesOrder: Partial<Record<RoleName, number>> = {
   [RoleName.ADMINISTRATOR]: 0,
   [RoleName.REVIEWER]: 1,
-  [RoleName.COLLABORATOR]: 2,
 }
 
 type Props = {
