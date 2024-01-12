@@ -1,0 +1,7 @@
+@import 'src/client/style/partials';
+
+.create-file__actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: $spacing-s;
+}

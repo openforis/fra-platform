@@ -1,0 +1,19 @@
+@import 'src/client/style/partials';
+
+.create-file__separator {
+  align-items: center;
+  color: $text-mute;
+  display: flex;
+  height: 10px;
+  text-align: center;
+}
+
+.create-file__separator-line {
+  border-top: 1px solid $text-disabled;
+  border: 0;
+  flex-grow: 1;
+}
+
+.create-file__separator-text {
+  padding: 0 $spacing-s;
+}

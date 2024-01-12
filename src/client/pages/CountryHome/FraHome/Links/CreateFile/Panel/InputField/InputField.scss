@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+.create-file__input-field {
+  display: grid;
+  grid-gap: $spacing-xxs;
+  grid-template-columns: 1fr;
+}
+
+.create-file__input {
+  border-radius: $spacing-xxxs;
+  border: $ui-thin-border;
+  padding: $spacing-xxs;
+}
+
+.create-file__label {
+  font-weight: 700;
+}
