@@ -45,11 +45,16 @@ const TableOfContent: React.FC<Props> = (props) => {
         <h2 className="table-of-content__header">{t(`${assessmentName}.print.tableOfContent`)}</h2>
 
         <ol className="table-of-content__list">
-          {Object.entries(sections).map(([key, section]) => (
-            <li key={key} data-idx={key}>
-              <a href={`#section${key}`}>{Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}</a>
-            </li>
-          ))}
+          {Object.values(sections).map((section) => {
+            const sectionIndex = section.props.index
+            return (
+              <li key={sectionIndex} data-idx={sectionIndex}>
+                <a href={`#section${sectionIndex}`}>
+                  {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
+                </a>
+              </li>
+            )
+          })}
         </ol>
       </div>
 
