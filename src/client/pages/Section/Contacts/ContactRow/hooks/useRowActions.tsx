@@ -2,7 +2,9 @@ import React, { useMemo } from 'react'
 
 import { Contact, ContactField } from 'meta/cycleData'
 import { Topics } from 'meta/messageCenter'
+import { Users } from 'meta/user'
 
+import { useUser } from 'client/store/user'
 import { DataRowActions } from 'client/components/DataGrid'
 
 import { useDeleteContact } from './useDeleteContact'
@@ -16,6 +18,8 @@ type Returned = DataRowActions | undefined
 
 export const useRowActions = (props: Props): Returned => {
   const { canEdit, contact } = props
+  const user = useUser()
+  const isAdmin = Users.isAdministrator(user)
 
   const deleteContact = useDeleteContact({ contact })
 
@@ -23,7 +27,11 @@ export const useRowActions = (props: Props): Returned => {
     const { readOnly } = contact.props
 
     if (canEdit) {
-      return {
+      const actions: DataRowActions = {
+        userLink: {
+          placeholder: isAdmin && contact.props.userId ? undefined : <div />,
+          userId: contact.props.userId,
+        },
         delete: {
           onDelete: deleteContact,
           placeholder: readOnly ? <div /> : undefined,
@@ -34,8 +42,10 @@ export const useRowActions = (props: Props): Returned => {
           topicKey: Topics.getContactKey(contact),
         },
       }
+
+      return actions
     }
 
     return undefined
-  }, [canEdit, contact, deleteContact])
+  }, [canEdit, contact, deleteContact, isAdmin])
 }

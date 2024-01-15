@@ -13,7 +13,7 @@ export const useGridTemplateColumns = (props: Props): string => {
   const { print } = useIsPrintRoute()
 
   return useMemo<string>(() => {
-    const actions = canEdit ? 'repeat(2, 32px)' : ''
+    const actions = canEdit ? `${3 * 32}px` : ''
     const noCols = fields.filter((f) => !f.hidden).length - (print ? 0 : 1)
 
     const title = `${print ? '' : '12ch '}`
