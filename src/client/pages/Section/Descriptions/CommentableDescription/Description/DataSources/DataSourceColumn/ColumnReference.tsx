@@ -40,7 +40,7 @@ const ColumnReference: React.FC<DataSourceReferenceColumnProps> = (props: DataSo
       data-tooltip-id={TooltipId.error}
       lastRow={lastRow}
     >
-      <EditorWYSIWYGLinks disabled={disabled} onChange={_onChange} value={dataSourceValue.reference ?? ''} />
+      <EditorWYSIWYGLinks disabled={disabled} onChange={_onChange} repository value={dataSourceValue.reference ?? ''} />
     </DataCell>
   )
 }

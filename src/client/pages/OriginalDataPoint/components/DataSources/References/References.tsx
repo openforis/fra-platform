@@ -45,6 +45,7 @@ const References: React.FC<Props> = (props: Props) => {
         <EditorWYSIWYGLinks
           disabled={disabled}
           onChange={onChange}
+          repository
           value={originalDataPoint.dataSourceReferences ?? ''}
         />
       </DataCell>
