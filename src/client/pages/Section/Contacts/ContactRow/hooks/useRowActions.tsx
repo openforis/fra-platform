@@ -2,9 +2,11 @@ import React, { useMemo } from 'react'
 
 import { Contact, ContactField } from 'meta/cycleData'
 import { Topics } from 'meta/messageCenter'
+import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useUser } from 'client/store/user'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataRowActions } from 'client/components/DataGrid'
 
 import { useDeleteContact } from './useDeleteContact'
@@ -18,6 +20,8 @@ type Returned = DataRowActions | undefined
 
 export const useRowActions = (props: Props): Returned => {
   const { canEdit, contact } = props
+
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const user = useUser()
   const isAdmin = Users.isAdministrator(user)
 
@@ -28,9 +32,16 @@ export const useRowActions = (props: Props): Returned => {
 
     if (canEdit) {
       const actions: DataRowActions = {
-        userLink: {
+        editLink: {
           placeholder: isAdmin && contact.props.userId ? undefined : <div />,
-          userId: contact.props.userId,
+          url: contact.props.userId
+            ? Routes.CountryUser.generatePath({
+                assessmentName,
+                cycleName,
+                countryIso,
+                id: contact.props.userId,
+              })
+            : '',
         },
         delete: {
           onDelete: deleteContact,
@@ -47,5 +58,5 @@ export const useRowActions = (props: Props): Returned => {
     }
 
     return undefined
-  }, [canEdit, contact, deleteContact, isAdmin])
+  }, [assessmentName, canEdit, contact, countryIso, cycleName, deleteContact, isAdmin])
 }

@@ -1,16 +1,15 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Link } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
-
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonDelete from 'client/components/Buttons/ButtonDelete'
+import ButtonEdit from 'client/components/Buttons/ButtonEdit'
 import DataCell from 'client/components/DataGrid/DataCell'
-import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 
 export type DataRowActions = {
-  userLink?: any
+  editLink?: {
+    placeholder?: ReactNode
+    url: string
+  }
   delete?: {
     onDelete?: () => void
     placeholder?: ReactNode
@@ -30,10 +29,9 @@ export type DataRowProps = {
 
 const DataRow: React.FC<DataRowProps> = (props) => {
   const { actions, children } = props
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
-  const { delete: deleteRow, review, userLink } = actions
-  const hasAction = userLink || deleteRow || review
+  const { delete: deleteRow, review, editLink } = actions
+  const hasAction = editLink || deleteRow || review
 
   // TODO: Add review opened cells style
   // const openTopics = useTopicKeys()
@@ -45,22 +43,8 @@ const DataRow: React.FC<DataRowProps> = (props) => {
 
       {hasAction && (
         <DataCell review actions>
-          {userLink &&
-            (userLink.placeholder ?? (
-              <Link
-                target="_blank"
-                to={Routes.CountryUser.generatePath({
-                  countryIso,
-                  assessmentName,
-                  cycleName,
-                  id: userLink.userId,
-                })}
-                type="button"
-                className="btn-s btn-link"
-              >
-                <Icon name="pencil" />
-              </Link>
-            ))}
+          {editLink && (editLink.placeholder ?? <ButtonEdit url={editLink.url} />)}
+
           {deleteRow && (deleteRow.placeholder ?? <ButtonDelete onClick={deleteRow.onDelete} />)}
 
           {review &&
