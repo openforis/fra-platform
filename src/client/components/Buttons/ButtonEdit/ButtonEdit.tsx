@@ -1,3 +1,4 @@
+import './ButtonEdit.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -11,7 +12,7 @@ const ButtonEdit: React.FC<Props> = (props) => {
   const { url } = props
 
   return (
-    <Link target="_blank" to={url} type="button" className="btn-s btn-link">
+    <Link target="_blank" to={url} type="button" className="btn-s btn-link btn-edit">
       <Icon name="pencil" />
     </Link>
   )

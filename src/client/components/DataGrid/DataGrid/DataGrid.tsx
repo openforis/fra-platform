@@ -12,7 +12,7 @@ const DataGrid: React.FC<Props> = (props) => {
   const { children, className, gridTemplateColumns, withReview } = props
 
   const style = useMemo<CSSProperties>(() => {
-    if (withReview) return { gridTemplateColumns: `${gridTemplateColumns} 32px` }
+    if (withReview) return { gridTemplateColumns: `${gridTemplateColumns} auto` }
     return { gridTemplateColumns }
   }, [gridTemplateColumns, withReview])
 
