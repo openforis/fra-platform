@@ -20,18 +20,18 @@ export const useRowActions = (props: Props): Returned => {
   const { index, canEdit, originalDataPoint } = props
 
   const { t } = useTranslation()
-  const onDelete = useDeleteNationalClass({ index, originalDataPoint })
+  const deleteNationalClass = useDeleteNationalClass({ index, originalDataPoint })
   const { name, uuid } = originalDataPoint.nationalClasses[index]
   const odpId = originalDataPoint.id
 
   return useMemo<Returned>(() => {
     if (!canEdit) return []
 
-    const buttonDelete = { type: DataRowActionType.Delete, onDelete }
+    const buttonDelete = { type: DataRowActionType.Delete, onClick: deleteNationalClass }
     const subtitle = t('nationalDataPoint.nationalDataPoint')
     const topicKey = Topics.getOdpClassReviewTopicKey(odpId, uuid, 'definition')
     const buttonReview = { type: DataRowActionType.Review, title: name, subtitle, topicKey }
 
     return [buttonDelete, buttonReview]
-  }, [canEdit, name, odpId, onDelete, t, uuid])
+  }, [canEdit, name, odpId, deleteNationalClass, t, uuid])
 }

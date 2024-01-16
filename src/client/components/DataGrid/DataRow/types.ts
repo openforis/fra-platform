@@ -11,7 +11,7 @@ type EditLink = {
 
 type Delete = {
   type: DataRowActionType.Delete
-  onDelete?: () => void
+  onClick?: () => void
 }
 
 type Review = {

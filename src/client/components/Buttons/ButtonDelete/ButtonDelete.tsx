@@ -4,14 +4,14 @@ import React from 'react'
 import Icon from 'client/components/Icon'
 
 type Props = {
-  onDelete: () => void
+  onClick: () => void
 }
 
 const ButtonDelete: React.FC<Props> = (props) => {
-  const { onDelete } = props
+  const { onClick } = props
 
   return (
-    <button className="btn-s btn-link-destructive btn-delete" onClick={onDelete} type="button">
+    <button className="btn-s btn-link-destructive btn-delete" onClick={onClick} type="button">
       <Icon className="icon-no-margin" name="trash-simple" />
     </button>
   )

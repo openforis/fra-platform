@@ -50,7 +50,7 @@ export const useRowActions = (props: Props): Returned => {
     if (!readOnly) {
       actions.push({
         type: DataRowActionType.Delete,
-        onDelete: deleteContact,
+        onClick: deleteContact,
       })
 
       actions.push({
