@@ -2,18 +2,18 @@ import React from 'react'
 
 import ButtonDelete from 'client/components/Buttons/ButtonDelete'
 import ButtonEdit from 'client/components/Buttons/ButtonEdit'
+import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import DataCell from 'client/components/DataGrid/DataCell'
-import { Action } from 'client/components/DataGrid/DataRow/types'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 
-const Components: Record<Action['type'], React.FC<any>> = {
+const Components: Record<DataRowActionType, React.FC<any>> = {
   editLink: ButtonEdit,
   delete: ButtonDelete,
   review: ReviewIndicator,
 }
 
 type Props = {
-  actions: Array<Action>
+  actions: Array<DataRowAction>
 }
 
 const Actions: React.FC<Props> = (props: Props) => {

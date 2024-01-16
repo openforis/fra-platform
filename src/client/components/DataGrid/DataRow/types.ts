@@ -1,17 +1,23 @@
+export enum DataRowActionType {
+  EditLink = 'editLink',
+  Delete = 'delete',
+  Review = 'review',
+}
+
 type EditLink = {
-  type: 'editLink'
+  type: DataRowActionType.EditLink
   url?: string
 }
 
 type Delete = {
-  type: 'delete'
+  type: DataRowActionType.Delete
   onDelete?: () => void
 }
 
 type Review = {
-  type: 'review'
+  type: DataRowActionType.Review
   title?: string
   topicKey?: string
 }
 
-export type Action = EditLink | Delete | Review
+export type DataRowAction = EditLink | Delete | Review

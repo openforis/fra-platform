@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 
+import { DataRowAction } from 'client/components/DataGrid'
 import Actions from 'client/components/DataGrid/DataRow/Actions'
-import { Action } from 'client/components/DataGrid/DataRow/types'
 
 type DataRowProps = {
-  actions?: Array<Action>
+  actions?: Array<DataRowAction>
   children: ReactElement | Array<ReactElement>
 }
 

@@ -7,7 +7,7 @@ import { Users } from 'meta/user'
 
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { Action } from 'client/components/DataGrid/DataRow/types'
+import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 
 import { useDeleteContact } from './useDeleteContact'
 
@@ -16,7 +16,7 @@ type Props = {
   contact: Contact
 }
 
-export type Returned = Array<Action> | undefined
+export type Returned = Array<DataRowAction> | undefined
 
 export const useRowActions = (props: Props): Returned => {
   const { canEdit, contact } = props
@@ -29,7 +29,7 @@ export const useRowActions = (props: Props): Returned => {
 
   return useMemo<Returned>(() => {
     const { readOnly } = contact.props
-    const actions: Array<Action> = []
+    const actions: Array<DataRowAction> = []
 
     if (!canEdit) {
       return actions
@@ -37,7 +37,7 @@ export const useRowActions = (props: Props): Returned => {
 
     if (isAdmin && contact.props.userId) {
       actions.push({
-        type: 'editLink',
+        type: DataRowActionType.EditLink,
         url: Routes.CountryUser.generatePath({
           assessmentName,
           cycleName,
@@ -49,12 +49,12 @@ export const useRowActions = (props: Props): Returned => {
 
     if (!readOnly) {
       actions.push({
-        type: 'delete',
+        type: DataRowActionType.Delete,
         onDelete: deleteContact,
       })
 
       actions.push({
-        type: 'review',
+        type: DataRowActionType.Review,
         title: `${contact[ContactField.name].value.raw} ${contact[ContactField.surname].value.raw}`,
         topicKey: Topics.getContactKey(contact),
       })
