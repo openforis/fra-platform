@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { Contact, ContactField } from 'meta/cycleData'
 import { Topics } from 'meta/messageCenter'
@@ -7,7 +7,7 @@ import { Users } from 'meta/user'
 
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { DataRowActions } from 'client/components/DataGrid'
+import { Action } from 'client/components/DataGrid/DataRow/types'
 
 import { useDeleteContact } from './useDeleteContact'
 
@@ -16,7 +16,7 @@ type Props = {
   contact: Contact
 }
 
-type Returned = DataRowActions | undefined
+export type Returned = Array<Action> | undefined
 
 export const useRowActions = (props: Props): Returned => {
   const { canEdit, contact } = props
@@ -29,34 +29,37 @@ export const useRowActions = (props: Props): Returned => {
 
   return useMemo<Returned>(() => {
     const { readOnly } = contact.props
+    const actions: Array<Action> = []
 
-    if (canEdit) {
-      const actions: DataRowActions = {
-        editLink: {
-          placeholder: isAdmin && contact.props.userId ? undefined : <div />,
-          url: contact.props.userId
-            ? Routes.CountryUser.generatePath({
-                assessmentName,
-                cycleName,
-                countryIso,
-                id: contact.props.userId,
-              })
-            : '',
-        },
-        delete: {
-          onDelete: deleteContact,
-          placeholder: readOnly ? <div /> : undefined,
-        },
-        review: {
-          placeholder: readOnly ? <div /> : undefined,
-          title: `${contact[ContactField.name].value.raw} ${contact[ContactField.surname].value.raw}`,
-          topicKey: Topics.getContactKey(contact),
-        },
-      }
-
+    if (!canEdit) {
       return actions
     }
 
-    return undefined
+    if (isAdmin && contact.props.userId) {
+      actions.push({
+        type: 'editLink',
+        url: Routes.CountryUser.generatePath({
+          assessmentName,
+          cycleName,
+          countryIso,
+          id: contact.props.userId,
+        }),
+      })
+    }
+
+    if (!readOnly) {
+      actions.push({
+        type: 'delete',
+        onDelete: deleteContact,
+      })
+
+      actions.push({
+        type: 'review',
+        title: `${contact[ContactField.name].value.raw} ${contact[ContactField.surname].value.raw}`,
+        topicKey: Topics.getContactKey(contact),
+      })
+    }
+
+    return actions
   }, [assessmentName, canEdit, contact, countryIso, cycleName, deleteContact, isAdmin])
 }

@@ -12,21 +12,16 @@ type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className'>
     lastCol?: boolean
     lastRow?: boolean
     noBorder?: boolean
-    review?: boolean
   }
 
 const DataCell: React.FC<Props> = (props) => {
   const { children, gridColumn, gridRow } = props
   // style props
-  const { actions, className, editable, error, header, lastCol, lastRow, noBorder, review } = props
+  const { actions, className, editable, error, header, lastCol, lastRow, noBorder } = props
 
   return (
     <div
-      className={classNames(
-        'data-cell',
-        { editable, error, header, lastCol, lastRow, noBorder, review, actions },
-        className
-      )}
+      className={classNames('data-cell', { editable, error, header, lastCol, lastRow, noBorder, actions }, className)}
       style={{ gridColumn, gridRow }}
     >
       {React.Children.toArray(children)}
@@ -42,7 +37,6 @@ DataCell.defaultProps = {
   lastCol: false,
   lastRow: false,
   noBorder: false,
-  review: false,
 }
 
 export default DataCell
