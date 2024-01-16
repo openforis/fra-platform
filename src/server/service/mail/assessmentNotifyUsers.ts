@@ -1,4 +1,5 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
+import { Arrays } from 'utils/arrays'
 
 import { AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { AssessmentName, Cycle } from 'meta/assessment'
@@ -76,15 +77,20 @@ const getRecipients = async (props: {
   }
 
   const roles = UserRoles.getRecipientRoles({ status })
-  let recipients = await getCountryUsers({ cycle, countryISOs, roles })
+
+  const recipientsPromise = getCountryUsers({ cycle, countryISOs, roles })
+  const adminsPromise = roles.includes(RoleName.ADMINISTRATOR) ? UserRepository.getAdmins() : undefined
+  const [recipients, admins = []] = await Promise.all([recipientsPromise, adminsPromise])
+
+  let uniqueRecipients: User[] = Arrays.uniqueBy([...recipients, ...(admins ?? [])], 'id')
 
   if (!notifySelf) {
-    recipients = recipients.filter((recipient) => recipient.id !== user.id)
-  } else if (!recipients.some((recipient) => recipient.id === user.id)) {
-    recipients.push(user)
+    uniqueRecipients = uniqueRecipients.filter((recipient) => recipient.id !== user.id)
+  } else if (!uniqueRecipients.some((recipient) => recipient.id === user.id)) {
+    uniqueRecipients.push(user)
   }
 
-  return recipients
+  return uniqueRecipients
 }
 
 export const assessmentNotifyUsers = async (props: {
