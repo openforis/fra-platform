@@ -81,11 +81,11 @@ const CustomAssetControl: React.FC<Props> = ({
               type="text"
               value={layerState?.options?.assetId ?? ''}
               onChange={handleInputChange}
-              placeholder="Asset ID"
+              placeholder="GEE asset id"
               className={classNames('custom-input', { error: !validInput })}
             />
             <button type="button" className="btn-primary" onClick={handleSubmit}>
-              Submit
+              Load
             </button>
           </div>
         </div>
