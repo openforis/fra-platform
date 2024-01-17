@@ -23,7 +23,7 @@ export const NationalClassesTable = (props: Props) => {
   const canEdit = useCanEditData(originalDataPoint)
 
   return (
-    <DataGrid gridTemplateColumns={`${print ? `100px ` : ''}minmax(240px, 40%) 1fr`} withReview={canEdit}>
+    <DataGrid gridTemplateColumns={`${print ? `100px ` : ''}minmax(240px, 40%) 1fr`} withActions={canEdit}>
       {print && (
         <DataCell gridRow={`1/${nationalClasses.length + 2}`} header lastRow>
           {year}
