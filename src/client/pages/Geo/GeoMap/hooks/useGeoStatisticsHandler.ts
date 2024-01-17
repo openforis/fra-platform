@@ -18,7 +18,7 @@ export const useGeoStatisticsHandler = () => {
 
   useEffect(() => {
     if (!geoStatistics.forestEstimations) return
-    let data: [string, number, number][] = []
+    let data: [string, number, number, string][] = []
     try {
       data = builForestEstimationsDataTable(geoStatistics.forestEstimations)
     } catch (error) {

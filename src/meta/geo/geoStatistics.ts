@@ -11,7 +11,7 @@ export type GeoStatisticsExtraEstimations = Record<LayerSectionKey, ExtraEstimat
 
 export interface GeoStatisticsState {
   forestEstimations: ForestEstimations | null
-  tabularEstimationData: [string, number, number][]
+  tabularEstimationData: [string, number, number, string][]
   isLoading: boolean
   error: string | null
   extraEstimations: GeoStatisticsExtraEstimations

@@ -34,7 +34,12 @@ export const postExtraEstimation = createAsyncThunk<[ExtraEstimation, LayerSecti
       const label = extraEstimation
       const fra1ALandArea = (state as RootState).geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea ?? null
       const percentage = fra1ALandArea != null ? (area * 100) / (fra1ALandArea * 1000) : 0
-      const entry: [string, number, number] = [label, Number(area.toFixed(2)), Number(percentage.toFixed(2))]
+      const entry: [string, number, number, string] = [
+        label,
+        Number(area.toFixed(2)),
+        Number(percentage.toFixed(2)),
+        extraEstimation,
+      ]
 
       dispatch(GeoActions.insertTabularEstimationEntry([-1, entry]))
       return [extraEstimation, sectionKey, scale]

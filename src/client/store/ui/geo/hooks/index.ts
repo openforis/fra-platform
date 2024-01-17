@@ -69,3 +69,6 @@ export const useGeoExtaEstimation = (
   extraEstimation: ExtraEstimation
 ): ExtraEstimationState | undefined =>
   useAppSelector((state) => state.geo?.geoStatistics?.extraEstimations?.[sectionKey]?.[extraEstimation])
+
+export const useGeoFra1aLandArea = (): number | undefined =>
+  useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea)
