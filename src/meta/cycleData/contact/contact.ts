@@ -19,6 +19,7 @@ export type ContactNode = NodeExt<ContactNodeProps> & {
 
 export type ContactProps = {
   readOnly?: boolean
+  userId?: number
   rowIndex?: number
 }
 

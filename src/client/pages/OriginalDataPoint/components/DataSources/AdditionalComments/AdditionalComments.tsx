@@ -55,7 +55,7 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
       </DataCell>
 
       {reviewIndicator && (
-        <DataCell review>
+        <DataCell actions>
           <ReviewIndicator
             title={t('nationalDataPoint.additionalComments')}
             subtitle={t('nationalDataPoint.dataSources')}

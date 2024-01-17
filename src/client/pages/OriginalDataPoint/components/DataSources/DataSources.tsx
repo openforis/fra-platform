@@ -26,7 +26,7 @@ const DataSources: React.FC<Props> = (props) => {
     <div className="odp__section">
       {!print && <h3 className="subhead">{t('nationalDataPoint.dataSources')}</h3>}
 
-      <DataGrid gridTemplateColumns={`${print ? `100px ` : ''}180px 1fr`} withReview={canEdit}>
+      <DataGrid gridTemplateColumns={`${print ? `100px ` : ''}180px 1fr`} withActions={canEdit}>
         {print && (
           <DataCell gridRow="1/4" header lastRow>
             {originalDataPoint.year}
