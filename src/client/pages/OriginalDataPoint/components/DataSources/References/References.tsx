@@ -51,7 +51,7 @@ const References: React.FC<Props> = (props: Props) => {
       </DataCell>
 
       {reviewIndicator && (
-        <DataCell review>
+        <DataCell actions>
           <ReviewIndicator
             subtitle={t('nationalDataPoint.dataSources')}
             title={t('nationalDataPoint.references')}
