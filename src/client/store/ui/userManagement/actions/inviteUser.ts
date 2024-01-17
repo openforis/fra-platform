@@ -10,9 +10,10 @@ import { getUsers } from './getUsers'
 
 type Params = CycleParams & {
   email: string
+  lang: Lang
   name: string
   role: RoleName
-  lang: Lang
+  surname: string
 }
 
 export const inviteUser = createAsyncThunk<void, Params>(
