@@ -12,17 +12,18 @@ import { MailService } from 'server/service'
 export const invite = async (
   props: {
     assessment: Assessment
-    countryIso: CountryIso
     cycle: Cycle
+    countryIso: CountryIso
     email: string
+    lang: Lang
     name?: string
     roleName: RoleName
+    surname?: string
     user: User
-    lang: Lang
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName>; user: User }> => {
-  const { user, assessment, countryIso, email, name, roleName, cycle, lang } = props
+  const { assessment, cycle, countryIso, email, lang, name, roleName, surname, user } = props
 
   return client.tx(async (t) => {
     // Get user with primary email
@@ -31,7 +32,10 @@ export const invite = async (
     if (!userToInvite) userToInvite = await UserRepository.getOne({ emailGoogle: email }, t)
     // If neither of above, create new user
     if (!userToInvite)
-      userToInvite = await UserRepository.create({ user: { email, props: { name: name ?? '', lang } } }, client)
+      userToInvite = await UserRepository.create(
+        { user: { email, props: { name: name ?? '', surname: surname ?? '', lang } } },
+        client
+      )
 
     const userRole = await UserRoleRepository.create(
       {
