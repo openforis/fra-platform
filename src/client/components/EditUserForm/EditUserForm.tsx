@@ -2,6 +2,7 @@ import './EditUserForm.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Areas } from 'meta/area'
 import { Collaborator, RoleName, User, UserRole, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
@@ -10,6 +11,7 @@ import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
 import { useCountryIso, useOnUpdate } from 'client/hooks'
 import DisableUser from 'client/components/EditUserForm/DisableUser'
+import UserCountryRoleSelector from 'client/components/EditUserForm/UserCountryRoleSelector'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
@@ -74,6 +76,8 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
   const userRole = Users.getRole(user, countryIso, cycle)
 
   const enabled = canEditUser
+  const isAdmin = Users.isAdministrator(userInfo)
+  const showRoleSelector = !Areas.isGlobal(countryIso) && isAdmin
 
   return (
     <div className="edit-user__form-container">
@@ -100,6 +104,8 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
       />
       <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} mandatory />
       <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} mandatory />
+      {showRoleSelector && <UserCountryRoleSelector user={user} enabled={enabled} />}
+
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
         userRole?.role
       ) &&
@@ -112,7 +118,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
       )}
       {canEditRoles && <CountryRoles user={user} />}
 
-      {Users.isAdministrator(userInfo) && <DisableUser user={user} changeUser={changeUser} />}
+      {isAdmin && <DisableUser user={user} changeUser={changeUser} />}
     </div>
   )
 }
