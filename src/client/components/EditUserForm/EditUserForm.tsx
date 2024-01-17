@@ -86,7 +86,6 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
         userId={user.id}
         enabled={enabled}
       />
-      {showRoleSelector && <UserCountryRoleSelector user={user} enabled={enabled} />}
       <TextInputField
         name="email"
         value={user.email}
@@ -105,6 +104,8 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
       />
       <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} mandatory />
       <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} mandatory />
+      {showRoleSelector && <UserCountryRoleSelector user={user} enabled={enabled} />}
+
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
         userRole?.role
       ) &&
