@@ -12,7 +12,7 @@ const ButtonEdit: React.FC<Props> = (props) => {
   const { url } = props
 
   return (
-    <Link target="_blank" to={url} type="button" className="btn-s btn-link btn-edit">
+    <Link to={url} type="button" className="btn-s btn-link btn-edit">
       <Icon name="pencil" />
     </Link>
   )

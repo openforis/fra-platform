@@ -25,8 +25,12 @@ const Actions: React.FC<Props> = (props: Props) => {
     <DataCell actions>
       {actions.map((action) => {
         const Component = Components[action.type]
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        return <Component {...action} />
+        return (
+          <div className="action">
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <Component {...action} />
+          </div>
+        )
       })}
     </DataCell>
   )

@@ -21,13 +21,12 @@ $border: 1px solid $ui-border;
     border: unset;
     display: flex;
 
-    // divider between actions
-    > * {
-      border-left: $border;
+    > .action {
+      border-right: $border;
     }
 
-    > :first-child {
-      border-left: unset;
+    > :last-child {
+      border-right: unset;
     }
   }
 
@@ -71,13 +70,13 @@ $border: 1px solid $ui-border;
     border-right: $border;
 
     &.actions {
-      > * {
+      > .action {
         border: unset;
-        border-right: $border;
+        border-left: $border;
       }
 
       > :first-child {
-        border-right: unset;
+        border-left: unset;
       }
     }
 
