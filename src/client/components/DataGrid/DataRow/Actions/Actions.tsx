@@ -26,7 +26,7 @@ const Actions: React.FC<Props> = (props: Props) => {
       {actions.map((action) => {
         const Component = Components[action.type]
         return (
-          <div className="action">
+          <div key={action.type} className="action">
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...action} />
           </div>
