@@ -5,14 +5,13 @@ import { Numbers } from 'utils/numbers'
 import StatisticsTable from '../../components/StatisticsTable'
 
 type Props = {
-  data: [string, number, number][]
+  data: [string, number, number, string][]
   countryIso: string
   year: number
 }
 
 const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
   const columns = ['Source', 'Forest area', 'Forest area % of land area']
-  const title = 'Extent of forest per source and reported on 2020 (1a)'
   const units = ['', 'ha', '%']
   const loaded = true
   const { data, countryIso, year } = props
@@ -30,7 +29,6 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
 
   return (
     <div>
-      <h3 className="table-title">{title}</h3>
       <StatisticsTable
         columns={columns}
         units={units}

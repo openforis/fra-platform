@@ -189,7 +189,7 @@ export const geoSlice = createSlice({
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
     },
-    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number][]>) => {
+    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number, string][]>) => {
       state.geoStatistics.tabularEstimationData = payload
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
@@ -203,11 +203,11 @@ export const geoSlice = createSlice({
     },
     insertTabularEstimationEntry: (
       state,
-      { payload: [index, entry] }: PayloadAction<[number, [string, number, number]]>
+      { payload: [index, entry] }: PayloadAction<[number, [string, number, number, string]]>
     ) => {
       let replaced = false
       state.geoStatistics.tabularEstimationData = state.geoStatistics.tabularEstimationData.map((row) => {
-        let newRow: [string, number, number] = [...row]
+        let newRow: [string, number, number, string] = [...row]
         if (newRow[0] === entry[0]) {
           newRow = entry
           replaced = true

@@ -66,7 +66,7 @@ export interface ForestEstimations {
 }
 
 export enum ExtraEstimation {
-  ReportedToFRA = 'Reported to FRA',
+  ReportedToFRA = 'Reported to FRA 2020',
   PrecalculatedRecipe = 'Forest agreement selected',
   CustomRecipe = 'Custom agreement selected',
 }
