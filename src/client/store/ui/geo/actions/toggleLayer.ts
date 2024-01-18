@@ -24,6 +24,7 @@ export const toggleLayer = createAsyncThunk<void, Params>(
 
     const currentLayerSelected = layerState?.selected ?? false
     dispatch(GeoActions.setLayerSelected({ sectionKey, layerKey, selected: !currentLayerSelected }))
+    dispatch(GeoActions.setLayerSectionRecipeName({ recipe: 'custom', sectionKey }))
 
     // If the layer is now selected, doesn't have a mapId cached and is visible, fetch it
     const currentMapId = layerState?.mapId
