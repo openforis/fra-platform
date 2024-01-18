@@ -17,7 +17,7 @@ interface Props {
 const TreeCoverPercentageControl: React.FC<Props> = ({ sectionKey, layerKey, layerState, layer }) => {
   const dispatch = useAppDispatch()
 
-  useFetchNewLayerOption(sectionKey, layerKey, 'gteTreeCoverPercent')
+  useFetchNewLayerOption(sectionKey, layerKey, 'gteTreeCoverPercent', layer)
 
   const handlePercentageChange = (percentage: number) => {
     dispatch(GeoActions.setLayerGteTreeCoverPercent({ sectionKey, layerKey, gteTreeCoverPercent: percentage }))

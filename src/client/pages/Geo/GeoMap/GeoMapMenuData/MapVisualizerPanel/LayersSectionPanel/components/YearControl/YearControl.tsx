@@ -17,7 +17,7 @@ interface Props {
 const YearControl: React.FC<Props> = ({ sectionKey, layerKey, layerState, layer }) => {
   const dispatch = useAppDispatch()
 
-  useFetchNewLayerOption(sectionKey, layerKey, 'year')
+  useFetchNewLayerOption(sectionKey, layerKey, 'year', layer)
 
   const handleYearChange = (year: string) => {
     dispatch(GeoActions.setLayerYear({ sectionKey, layerKey, year: Number(year) }))
