@@ -2,7 +2,7 @@ import React from 'react'
 
 import { RoleName, UserContactPreference, UserRole } from 'meta/user/userRole'
 
-import { useIsEnabled } from 'client/components/EditUserForm/UserRolePropsFields/hooks/useIsEnabled'
+import { useCanEditRoleProps } from 'client/hooks/useAuth'
 
 import ContactMethodField from '../ContactMethodField'
 import CountrySelectField from '../CountrySelectField'
@@ -23,7 +23,7 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
 
   const changeContactPreference = (value: UserContactPreference) => onChange('contactPreference', value)
 
-  const enabled = useIsEnabled(enabledProp)
+  const enabled = useCanEditRoleProps() && enabledProp
 
   return (
     <>

@@ -7,7 +7,7 @@ import { useCountry } from 'client/store/area'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useIsEnabled = (enabled: boolean): boolean => {
+export const useCanEditRoleProps = (): boolean => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
   const country = useCountry(countryIso)
@@ -15,6 +15,6 @@ export const useIsEnabled = (enabled: boolean): boolean => {
   const isAdmin = Users.isAdministrator(user)
 
   return useMemo<boolean>(() => {
-    return enabled && (isAdmin || Areas.getStatus(country) === AssessmentStatus.editing)
-  }, [enabled, isAdmin, country])
+    return isAdmin || Areas.getStatus(country) === AssessmentStatus.editing
+  }, [isAdmin, country])
 }
