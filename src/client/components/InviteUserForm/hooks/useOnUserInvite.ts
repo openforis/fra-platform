@@ -42,6 +42,7 @@ export const useOnUserInvite = (props: {
   return useCallback(() => {
     const fieldErrors = {
       name: !validateName(userToInvite.name),
+      surname: !validateName(userToInvite.surname),
       role: !validateRole(userToInvite.role),
       email: !validateEmail(userToInvite.email),
     }
@@ -50,13 +51,14 @@ export const useOnUserInvite = (props: {
     if (!Object.values(fieldErrors).find((value) => !!value))
       dispatch(
         UserManagementActions.inviteUser({
-          countryIso,
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
-          name: userToInvite.name,
-          role: userToInvite.role as RoleName,
+          countryIso,
           email: userToInvite.email,
           lang: userToInvite.lang,
+          name: userToInvite.name,
+          role: userToInvite.role as RoleName,
+          surname: userToInvite.surname,
         })
       )
         .unwrap()
@@ -83,5 +85,6 @@ export const useOnUserInvite = (props: {
     userToInvite.lang,
     userToInvite.name,
     userToInvite.role,
+    userToInvite.surname,
   ])
 }
