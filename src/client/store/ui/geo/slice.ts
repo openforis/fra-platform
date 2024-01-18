@@ -1,5 +1,6 @@
 import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { Objects } from 'utils/objects'
 
 import {
   ExtraEstimation,
@@ -36,6 +37,7 @@ import {
   LayerState,
   LayerStateOptions,
 } from './stateType'
+import { getAgreementLayerCacheKey } from './utils'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -112,28 +114,52 @@ const getAgreementOptionsState = (
   return layerStateOptions.agreementLayer
 }
 
+const setMapIdCache = (state: Draft<GeoState>, sectionKey: LayerSectionKey, layerKey: LayerKey, mapId: string) => {
+  const layerState = getLayerState(state, sectionKey, layerKey)
+  const layerOptions = getLayerStateOptions(state, sectionKey, layerKey)
+
+  if (Objects.isEmpty(layerOptions) || layerOptions.assetId !== undefined) return
+
+  if (Objects.isEmpty(layerState.cache)) layerState.cache = {}
+  const { agreementLayer, year, gteTreeCoverPercent } = layerOptions
+  switch (true) {
+    case agreementLayer?.level !== undefined: {
+      const sectionState = getSectionState(state, sectionKey)
+      const agreementLayerCacheKey = getAgreementLayerCacheKey(sectionState)
+      layerState.cache[agreementLayerCacheKey] = mapId
+      break
+    }
+    case year !== undefined:
+      layerState.cache[year] = mapId
+      break
+    case gteTreeCoverPercent !== undefined:
+      layerState.cache[gteTreeCoverPercent] = mapId
+      break
+    default:
+      break
+  }
+}
+
 const handlePostLayerStatus = (
   state: Draft<GeoState>,
   sectionKey: LayerSectionKey,
   layerKey: LayerKey,
   status: LayerFetchStatus,
-  mapId = ''
+  mapId: string | null = null
 ): LayerState => {
   const layerState = getLayerState(state, sectionKey, layerKey)
-  let newLayerState = { ...layerState, status, mapId }
+  let newLayerState = { status, mapId } as LayerState
 
   const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
 
   switch (status) {
     case LayerFetchStatus.Ready:
-      if (newLayerState.selected && mapId) {
-        mapController.addEarthEngineLayer(mapLayerKey, mapId)
-        mapController.setEarthEngineLayerOpacity(mapLayerKey, newLayerState.opacity ?? 1)
-      }
-      if (layerKey === 'Agreement') {
-        const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
-        newLayerState.options ??= {} as LayerStateOptions
-        newLayerState.options.agreementLayer = agreementOptionsState
+      if (mapId) {
+        setMapIdCache(state, sectionKey, layerKey, mapId)
+        if (layerState.selected) {
+          mapController.addEarthEngineLayer(mapLayerKey, mapId)
+          mapController.setEarthEngineLayerOpacity(mapLayerKey, layerState.opacity ?? 1)
+        }
       }
       break
     case LayerFetchStatus.Loading:
@@ -146,8 +172,8 @@ const handlePostLayerStatus = (
     default:
       return null
   }
-  state.sections[sectionKey][layerKey] = newLayerState
-  return newLayerState
+  state.sections[sectionKey][layerKey] = { ...state.sections[sectionKey][layerKey], ...newLayerState }
+  return state.sections[sectionKey][layerKey]
 }
 
 export const geoSlice = createSlice({
@@ -261,11 +287,23 @@ export const geoSlice = createSlice({
     },
     setLayerMapId: (
       state: Draft<GeoState>,
-      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; mapId: string | null }>
+      action: PayloadAction<{
+        sectionKey: LayerSectionKey
+        layerKey: LayerKey
+        mapId: string | null
+        drawLayer?: boolean
+      }>
     ) => {
-      const { sectionKey, layerKey, mapId } = action.payload
+      const { sectionKey, layerKey, mapId, drawLayer = true } = action.payload
       const layerState = getLayerState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey] = { ...layerState, mapId }
+
+      if (!drawLayer || mapId === null) return
+
+      const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+      mapController.removeLayer(mapLayerKey)
+      mapController.addEarthEngineLayer(mapLayerKey, mapId)
+      mapController.setEarthEngineLayerOpacity(mapLayerKey, layerState.opacity ?? 1)
     },
     setAssetId: (
       state: Draft<GeoState>,
@@ -319,6 +357,8 @@ export const geoSlice = createSlice({
       Object.keys(state.sections).forEach((sectionKey) => {
         Object.keys(state.sections[sectionKey as LayerSectionKey]).forEach((layerKey) => {
           state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].status = LayerFetchStatus.Unfetched
+          state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].cache = undefined
+          state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].mapId = null
         })
       })
     },

@@ -28,6 +28,7 @@ export type LayerState = {
   status?: LayerFetchStatus
   options?: LayerStateOptions
   mapId?: string | null
+  cache?: Record<string | number, string>
 }
 
 export type LayersSectionState = Record<LayerKey, LayerState>

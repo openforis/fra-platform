@@ -27,6 +27,21 @@ export const useFetchNewLayerOption = (
       }
       return
     }
-    dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
-  }, [countryIso, layer, layerKey, layerOptionKey, layerOptionValue, layerState?.selected, sectionKey, dispatch])
+    const cachedMapId = layerState.cache?.[layerOptionValue]
+    if (cachedMapId === undefined) {
+      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
+    } else {
+      dispatch(GeoActions.setLayerMapId({ sectionKey, layerKey, mapId: cachedMapId, drawLayer: true }))
+    }
+  }, [
+    countryIso,
+    dispatch,
+    layer,
+    layerKey,
+    layerOptionKey,
+    layerOptionValue,
+    layerState?.cache,
+    layerState?.selected,
+    sectionKey,
+  ])
 }
