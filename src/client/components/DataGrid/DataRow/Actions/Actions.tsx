@@ -19,7 +19,9 @@ type Props = {
 const Actions: React.FC<Props> = (props: Props) => {
   const { actions } = props
   const hasAction = actions?.length > 0
-  if (!hasAction) return null
+  if (!hasAction) {
+    return <DataCell actions />
+  }
 
   return (
     <DataCell actions>

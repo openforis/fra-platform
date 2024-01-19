@@ -44,7 +44,8 @@ const Contacts: React.FC<Props> = (props: Props) => {
             </DataCell>
           )
         })}
-        {canEdit && <div />}
+
+        <div />
 
         {contacts.map((contact, i) => {
           return (
