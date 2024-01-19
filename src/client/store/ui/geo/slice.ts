@@ -263,6 +263,7 @@ export const geoSlice = createSlice({
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
       if (isLayerSelected && mapId) {
         mapController.addEarthEngineLayer(mapLayerKey, mapId)
+        mapController.setEarthEngineLayerOpacity(mapLayerKey, newLayerState.opacity ?? 1)
       } else {
         mapController.removeLayer(mapLayerKey)
       }
