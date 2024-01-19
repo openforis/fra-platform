@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { MessageTopicType } from 'meta/messageCenter'
+import { Users } from 'meta/user/users'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
+import { useUser } from 'client/store/user'
 import { useCountryIso, useGetRequest } from 'client/hooks'
 import Icon from 'client/components/Icon'
 
@@ -25,6 +27,8 @@ const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, t
 
   const i18n = useTranslation()
   const dispatch = useAppDispatch()
+
+  const user = useUser()
 
   const { data: unreadMessages = 0, dispatch: fetchData } = useGetRequest(
     ApiEndPoint.MessageCenter.topicUnreadMessages(),
@@ -44,6 +48,7 @@ const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, t
 
   return (
     <button
+      disabled={Users.isAdministrator(user)}
       type="button"
       className="btn-secondary btn-message"
       onClick={() => {
