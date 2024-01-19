@@ -25,6 +25,11 @@ export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKe
       dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
       return
     }
+    if (countSelectedLayers < 2 || agreementLevel > countSelectedLayers) {
+      dispatch(GeoActions.setLayerSelected({ sectionKey, layerKey, selected: false }))
+      dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
+      return
+    }
 
     const cachedMapId = layerState?.cache?.[cacheKey]
     if (cachedMapId === undefined) {
