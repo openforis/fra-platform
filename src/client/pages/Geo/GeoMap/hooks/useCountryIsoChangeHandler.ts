@@ -20,16 +20,7 @@ export const useCountryIsoChangeHandler = () => {
     Object.keys(allSectionsState ?? {}).forEach((sectionKey) => {
       Object.keys(allSectionsState[sectionKey as LayerSectionKey]).forEach((layerKey) => {
         const layerState = allSectionsState[sectionKey as LayerSectionKey][layerKey as LayerKey]
-        if (!layerState.selected || (layerState.opacity ?? 0) === 0) {
-          dispatch(
-            GeoActions.setLayerMapId({
-              sectionKey: sectionKey as LayerSectionKey,
-              layerKey: layerKey as LayerKey,
-              mapId: null,
-            })
-          )
-          return
-        }
+        if (!layerState.selected || (layerState.opacity ?? 0) === 0) return
 
         dispatch(
           GeoActions.postLayer({

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { LayerKey, LayerSectionKey } from 'meta/geo'
+import { Layer, LayerKey, LayerSectionKey } from 'meta/geo'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
@@ -10,7 +10,8 @@ import { useCountryIso } from 'client/hooks'
 export const useFetchNewLayerOption = (
   sectionKey: LayerSectionKey,
   layerKey: LayerKey,
-  layerOptionKey: keyof Omit<LayerStateOptions, 'agreementLayer'>
+  layerOptionKey: keyof Omit<LayerStateOptions, 'agreementLayer'>,
+  layer: Layer
 ) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
@@ -18,7 +19,29 @@ export const useFetchNewLayerOption = (
   const layerOptionValue = layerState?.options?.[layerOptionKey]
 
   useEffect(() => {
-    if (layerOptionValue === undefined) return // Skip when the property is not set
-    dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
-  }, [countryIso, layerKey, layerOptionValue, sectionKey, dispatch])
+    if (!layerState?.selected) return
+    if (layerOptionValue === undefined) {
+      if (layerOptionKey === 'gteTreeCoverPercent') {
+        const gteTreeCoverPercent = layer.options.gteTreeCoverPercent.at(0)
+        dispatch(GeoActions.setLayerGteTreeCoverPercent({ sectionKey, layerKey, gteTreeCoverPercent }))
+      }
+      return
+    }
+    const cachedMapId = layerState.cache?.[layerOptionValue]
+    if (cachedMapId === undefined) {
+      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
+    } else {
+      dispatch(GeoActions.setLayerMapId({ sectionKey, layerKey, mapId: cachedMapId, drawLayer: true }))
+    }
+  }, [
+    countryIso,
+    dispatch,
+    layer,
+    layerKey,
+    layerOptionKey,
+    layerOptionValue,
+    layerState?.cache,
+    layerState?.selected,
+    sectionKey,
+  ])
 }
