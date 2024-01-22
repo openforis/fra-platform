@@ -29,9 +29,12 @@ export const useRecipients = (props: Props): Returned => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
   return useMemo<Returned>(() => {
-    const userList = users.filter((user) =>
-      user.roles.find((role) => currentUser.id !== user.id && UserRoles.getRecipientRoles(status).includes(role.role))
-    )
+    const recipientRoles = UserRoles.getRecipientRoles(status)
+    const userList = users.filter((user) => {
+      const userCountryRole = Users.getRole(user, countryIso, cycle)?.role
+      return currentUser.id !== user.id && recipientRoles.includes(userCountryRole)
+    })
+
     if (status.status !== AssessmentStatus.approval) return userList
 
     const getApprovalRoleOrder = (user: User): number => {
