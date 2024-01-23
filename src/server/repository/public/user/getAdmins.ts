@@ -14,21 +14,22 @@ export const getAdmins = async (
   client: BaseProtocol = DB
 ): Promise<Array<User>> => {
   const { statuses = [UserStatus.active] } = props
-  const statusWhereCondition = `u.status in (${statuses.map((status) => `'${status}'`).join(',')})`
-
-  const query = `
+  return client.map<User>(
+    `
       select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
       from public.users u
-               join public.users_role ur on (u.id = ur.user_id)
+              join public.users_role ur on (u.id = ur.user_id)
       where ur.role = '${RoleName.ADMINISTRATOR}'
-        and ${statusWhereCondition}
+        and u.status in ($1:list)
       group by ${selectFields}
-  `
-
-  return client.manyOrNone<User>(query).then((data) =>
-    data.map(({ roles, ...user }) => ({
-      ...Objects.camelize(user),
-      roles: roles.map(UserRoleAdapter),
-    }))
+    `,
+    [statuses],
+    (row) => {
+      const { roles, ...user } = row
+      return {
+        ...Objects.camelize(user),
+        roles: roles.map(UserRoleAdapter),
+      }
+    }
   )
 }
