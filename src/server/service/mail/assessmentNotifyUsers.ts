@@ -1,4 +1,5 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
+import { Arrays } from 'utils/arrays'
 
 import { AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { AssessmentName, Cycle } from 'meta/assessment'
@@ -62,10 +63,34 @@ const getCountryUsers = async (props: {
   return UserRepository.readCountryUsersByRole({ countryISOs, cycle, roles })
 }
 
-const getRecipients = async (props: { countryISOs: Array<CountryIso>; cycle: Cycle; status: AssessmentStatus }) => {
-  const { countryISOs, status, cycle } = props
+const getRecipients = async (props: {
+  countryISOs: Array<CountryIso>
+  cycle: Cycle
+  status: AssessmentStatus
+  notifySelf: boolean
+  notifyUsers: boolean
+  user: User
+}) => {
+  const { countryISOs, status, cycle, notifySelf, notifyUsers, user } = props
+  if (!notifyUsers) {
+    return notifySelf ? [user] : []
+  }
+
   const roles = UserRoles.getRecipientRoles({ status })
-  return getCountryUsers({ cycle, countryISOs, roles })
+
+  const recipientsPromise = getCountryUsers({ cycle, countryISOs, roles })
+  const adminsPromise = roles.includes(RoleName.ADMINISTRATOR) ? UserRepository.getAdmins() : undefined
+  const [recipients, admins = []] = await Promise.all([recipientsPromise, adminsPromise])
+
+  let uniqueRecipients: User[] = Arrays.uniqueBy([...recipients, ...(admins ?? [])], 'id')
+
+  if (!notifySelf) {
+    uniqueRecipients = uniqueRecipients.filter((recipient) => recipient.id !== user.id)
+  } else if (!uniqueRecipients.some((recipient) => recipient.id === user.id)) {
+    uniqueRecipients.push(user)
+  }
+
+  return uniqueRecipients
 }
 
 export const assessmentNotifyUsers = async (props: {
@@ -75,6 +100,8 @@ export const assessmentNotifyUsers = async (props: {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycle: Cycle
+  notifySelf: boolean
+  notifyUsers: boolean
 }) => {
   const {
     user,
@@ -85,9 +112,11 @@ export const assessmentNotifyUsers = async (props: {
     assessmentName,
     countryIso,
     cycle,
+    notifySelf,
+    notifyUsers,
   } = props
-  const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status })
 
+  const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status, notifySelf, notifyUsers, user })
   const emailPromises = recipients.map(async (recipient: User) => {
     return createMail({
       user,

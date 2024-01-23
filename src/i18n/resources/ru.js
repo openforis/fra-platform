@@ -371,6 +371,7 @@ module.exports.translation = {
     cancel: 'Отмена',
     changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
     doNotNotifyUsers: 'Не уведомлять пользователей',
+    notifySelf: 'Отправить копию самому себе',
   },
 
   header: {

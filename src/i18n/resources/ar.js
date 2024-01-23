@@ -432,6 +432,7 @@ The FRA team
     cancel: 'إلغاء',
     changeStatusTextPlaceholder: 'إضافة رسالة اختيارية',
     doNotNotifyUsers: 'عدم إرسال إشعار إلى المستخدمين',
+    notifySelf: 'إرسال نسخة الي البريد الالكتروني الخاص بك',
   },
 
   header: {
