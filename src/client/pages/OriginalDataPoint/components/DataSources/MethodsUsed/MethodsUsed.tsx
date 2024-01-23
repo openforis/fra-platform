@@ -57,7 +57,7 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
       </DataCell>
 
       {reviewIndicator && (
-        <DataCell review>
+        <DataCell actions>
           <ReviewIndicator
             title={t('nationalDataPoint.methodsUsed')}
             subtitle={t('nationalDataPoint.dataSources')}

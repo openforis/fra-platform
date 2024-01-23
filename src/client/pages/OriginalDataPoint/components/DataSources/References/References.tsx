@@ -45,12 +45,13 @@ const References: React.FC<Props> = (props: Props) => {
         <EditorWYSIWYGLinks
           disabled={disabled}
           onChange={onChange}
+          repository
           value={originalDataPoint.dataSourceReferences ?? ''}
         />
       </DataCell>
 
       {reviewIndicator && (
-        <DataCell review>
+        <DataCell actions>
           <ReviewIndicator
             subtitle={t('nationalDataPoint.dataSources')}
             title={t('nationalDataPoint.references')}

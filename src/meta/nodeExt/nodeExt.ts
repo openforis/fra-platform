@@ -2,9 +2,10 @@ import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment'
 
 export enum NodeExtCellType {
-  text = 'text',
-  select = 'select',
+  link = 'link',
   multiselect = 'multiselect',
+  select = 'select',
+  text = 'text',
 }
 
 export enum NodeExtType {

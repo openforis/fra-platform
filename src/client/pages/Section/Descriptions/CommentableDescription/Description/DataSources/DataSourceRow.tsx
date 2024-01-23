@@ -75,7 +75,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       />
       <ColumnComments disabled={disabled} dataSourceValue={dataSourceValue} onChange={_onChange} lastRow={lastRow} />
 
-      <DataCell review>
+      <DataCell actions>
         {!isDataLocked && dataSourceValue.uuid && <ReviewIndicator title={title} topicKey={dataSourceValue.uuid} />}
       </DataCell>
     </>
