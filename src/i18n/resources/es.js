@@ -355,6 +355,7 @@ El equipo de FRA
     cancel: 'Cancelar',
     changeStatusTextPlaceholder: 'Añadir un mensaje opcional',
     doNotNotifyUsers: 'No notificar a los usuarios',
+    notifySelf: 'Enviar copia a uno mismo',
   },
 
   header: {

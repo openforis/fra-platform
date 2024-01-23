@@ -19,6 +19,7 @@ export const UserController = {
   create,
   count: UserRepository.count,
   update,
+  getAdmins: UserRepository.getAdmins,
   getMany: UserRepository.getMany,
   getManyInvitations: UserInvitationRepository.getMany,
   getCountInvitations: UserInvitationRepository.getCount,
