@@ -69,7 +69,7 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
            group by 1, 2, 3, 4, 5, 6)
       select u.uuid
            , u.country_iso
-           , jsonb_build_object('readOnly', true) as props
+           , jsonb_build_object('readOnly', true, 'userId', u.id) as props
            , null                                 as parent_uuid
            , 'contact'                            as type
            , null                                 as value

@@ -2,6 +2,8 @@ import React from 'react'
 
 import { RoleName, UserContactPreference, UserRole } from 'meta/user/userRole'
 
+import { useCanEditRoleProps } from 'client/hooks/useAuth'
+
 import ContactMethodField from '../ContactMethodField'
 import CountrySelectField from '../CountrySelectField'
 import PhoneField from '../PhoneField'
@@ -14,13 +16,14 @@ type Props = {
 }
 
 const UserRolePropsFields: React.FC<Props> = (props) => {
-  const { role, onChange, enabled } = props
-
+  const { role, onChange, enabled: enabledProp } = props
   const { props: roleProps } = role
 
   const changeAddress = (name: string, value: string) => onChange('address', { ...roleProps.address, [name]: value })
 
   const changeContactPreference = (value: UserContactPreference) => onChange('contactPreference', value)
+
+  const enabled = useCanEditRoleProps() && enabledProp
 
   return (
     <>
