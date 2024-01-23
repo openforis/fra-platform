@@ -51,6 +51,7 @@
   display: grid;
   line-height: $spacing-xs;
   padding: $spacing-xxs $spacing-xs;
+  align-items: center;
 }
 
 .country-selection-list__header,
