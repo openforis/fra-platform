@@ -401,6 +401,7 @@ FRA工作组
     cancel: '取消',
     changeStatusTextPlaceholder: '添加可选消息',
     doNotNotifyUsers: '不通知用户',
+    notifySelf: '将副本发送给自己',
   },
 
   header: {

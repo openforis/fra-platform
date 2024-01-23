@@ -418,6 +418,7 @@ The FRA team
     cancel: 'Cancel',
     changeStatusTextPlaceholder: 'Add an optional message',
     doNotNotifyUsers: "Don't notify users",
+    notifySelf: 'Send copy to self',
   },
 
   header: {
