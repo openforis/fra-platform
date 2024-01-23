@@ -25,7 +25,7 @@ export const validatorPrivateOwnership: ExpressionFunction<Context> = {
           valid = Numbers.lessThan(Numbers.sum(subCategoryValues), privateOwnership)
           key = 'generalValidation.mustBeLessThanPrivateOwnership'
         } else {
-          valid = Numbers.eq(privateOwnership, Numbers.sum(subCategoryValues))
+          valid = Numbers.eqWithTolerance(privateOwnership, Numbers.sum(subCategoryValues))
           key = 'generalValidation.mustBeEqualToPrivateOwnership'
         }
       }
