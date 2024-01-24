@@ -11,7 +11,7 @@ import { useValue } from './hooks/useValue'
 import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
-  const { disabled, isMulti, options, placeholder } = props
+  const { disabled, isMulti, options } = props
 
   const value = useValue(props)
   const onChange = useOnChange(props)
@@ -43,7 +43,7 @@ const Select: React.FC<SelectProps> = (props) => {
       menuPosition="fixed"
       onChange={onChange}
       options={options}
-      placeholder={placeholder}
+      placeholder=""
       value={value}
     />
   )
