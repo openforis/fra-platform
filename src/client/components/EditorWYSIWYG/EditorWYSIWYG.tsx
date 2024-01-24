@@ -1,5 +1,7 @@
+import './EditorWYSIWYG.scss'
 import React, { useCallback, useMemo, useRef } from 'react'
 
+import classNames from 'classnames'
 import type { Jodit } from 'jodit/types/jodit'
 import JoditEditor from 'jodit-react'
 import rehypeParse from 'rehype-parse'
@@ -9,6 +11,7 @@ import rehypeStringify from 'rehype-stringify'
 import { unified } from 'unified'
 
 type Props = {
+  disabled?: boolean
   onChange: (value?: string) => void
   options?: Partial<Jodit['options']>
   value: string
@@ -34,19 +37,26 @@ const buttons = [
 const processor = unified().use(rehypeRaw).use(rehypeSanitize).use(rehypeParse, { fragment: true }).use(rehypeStringify)
 
 const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
-  const { onChange, options, value } = props
+  const { disabled, onChange, options, value } = props
   const editor = useRef(null)
 
+  // all options from https://xdsoft.net/jodit/docs/
   const config = useMemo<Partial<Jodit['options']>>(
     () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/docs/
+      addNewLine: false,
       buttons,
-      toolbarAdaptive: false,
-      uploader: undefined,
+      enter: 'div',
+      placeholder: '',
+      readonly: disabled,
       spellcheck: true,
+      statusbar: false,
+      toolbar: !disabled,
+      toolbarAdaptive: false,
+      toolbarButtonSize: 'small',
+      uploader: undefined,
       ...options,
     }),
-    [options]
+    [options, disabled]
   )
 
   // Sanitize user input on save
@@ -59,16 +69,19 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
   )
 
   return (
-    <JoditEditor
-      ref={editor}
-      value={value}
-      config={config}
-      onBlur={onBlur} // preferred to use only this option to update the content for performance reasons
-    />
+    <div className={classNames('editorWYSIWYG')}>
+      <JoditEditor
+        ref={editor}
+        value={value}
+        config={config}
+        onBlur={onBlur} // preferred to use only this option to update the content for performance reasons
+      />
+    </div>
   )
 }
 
 EditorWYSIWYG.defaultProps = {
+  disabled: false,
   options: {},
 }
 

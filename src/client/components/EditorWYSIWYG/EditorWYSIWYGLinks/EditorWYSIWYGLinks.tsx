@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG/EditorWYSIWYG'
 import AddFromRepository from 'client/components/EditorWYSIWYG/EditorWYSIWYGLinks/AddFromRepository'
-import MarkdownPreview from 'client/components/MarkdownPreview'
 
 import { useEditorOptions } from './hooks/useEditorOptions'
 import { useOnClose } from './hooks/useOnClose'
@@ -16,17 +15,9 @@ const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
   const onClose = useOnClose({ setIsOpen, setEditor, editor })
   const editorOptions = useEditorOptions({ setIsOpen, setEditor, repository })
 
-  if (disabled) {
-    return (
-      <div className="input-container">
-        <MarkdownPreview value={value} />
-      </div>
-    )
-  }
-
   return (
     <>
-      <EditorWYSIWYG onChange={onChange} options={editorOptions} value={value} />
+      <EditorWYSIWYG disabled={disabled} onChange={onChange} options={editorOptions} value={value} />
       <AddFromRepository isOpen={isOpen} onClose={onClose} />
     </>
   )
