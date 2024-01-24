@@ -4,6 +4,7 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { createFile } from 'server/api/cycleData/repository/createFile'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
@@ -35,6 +36,13 @@ import { estimateValues } from './table/estimateValues'
 import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
 import { persistNodeValues } from './table/persistNodeValues'
+import multer = require('multer')
+
+const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileFilterCallback) => {
+  // eslint-disable-next-line no-param-reassign
+  file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
+  callback(null, true)
+}
 
 export const CycleDataApi = {
   init: (express: Express): void => {
@@ -134,5 +142,13 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
     express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
     express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
+
+    // repository
+    express.post(
+      ApiEndPoint.CycleData.Repository.one(),
+      multer({ fileFilter }).single('file'),
+      AuthMiddleware.requireEditAssessmentFile,
+      createFile
+    )
   },
 }

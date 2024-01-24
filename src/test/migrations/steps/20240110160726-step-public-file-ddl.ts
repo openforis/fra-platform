@@ -49,8 +49,8 @@ export default async () => {
 
   // 3. Migrate all existing files to new file table
   await client.query(`
-      insert into public.file (id, uuid, file_name, file)
-      select id, uuid, file_name, file
+      insert into public.file (uuid, file_name, file)
+      select uuid, file_name, file
       from assessment_fra.file;
   `)
 
