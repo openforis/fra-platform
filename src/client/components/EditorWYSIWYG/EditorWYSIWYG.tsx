@@ -71,10 +71,10 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
   return (
     <div className={classNames('editorWYSIWYG')}>
       <JoditEditor
-        ref={editor}
-        value={value}
         config={config}
         onBlur={onBlur} // preferred to use only this option to update the content for performance reasons
+        ref={editor}
+        value={value}
       />
     </div>
   )
