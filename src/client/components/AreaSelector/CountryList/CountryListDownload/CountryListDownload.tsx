@@ -9,7 +9,6 @@ import { Areas } from 'meta/area'
 import { Users } from 'meta/user'
 
 import { useCountries } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import Icon from 'client/components/Icon'
 
@@ -18,8 +17,6 @@ const formatDate = (date?: string): string => (date ? Dates.format(Dates.parseIS
 const CountryListDownload: React.FC = () => {
   const { t } = useTranslation()
   const user = useUser()
-  const assessment = useAssessment()
-  const cycle = useCycle()
   const countries = useCountries()
 
   if (!Users.isAdministrator(user)) return null
@@ -40,7 +37,7 @@ const CountryListDownload: React.FC = () => {
 
   const headers = [
     { label: t('common.country'), key: 'name' },
-    { label: `${t(`${assessment.props.name}.labels.short`)} ${cycle.name}`, key: 'status' },
+    { label: t('common.status'), key: 'status' },
     { label: t('common.lastEdit'), key: 'lastEdit' },
     { label: t('common.lastInReview'), key: 'lastInReview' },
     { label: t('common.lastForApproval'), key: 'lastForApproval' },
