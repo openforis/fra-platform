@@ -535,6 +535,7 @@ module.exports = {
     categoryYear: 'Category - Year',
     area1000ha: 'Area (1 000 ha)',
     semiNatural: 'Semi-natural',
+    semiNaturalSubclasses: 'Semi-natural subclasses',
     plantations: 'Plantations',
     naturally_established: 'Semi-natural: Naturally established',
     naturallyEstablished: 'Naturally established',

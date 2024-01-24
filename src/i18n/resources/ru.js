@@ -371,6 +371,7 @@ module.exports.translation = {
     cancel: 'Отмена',
     changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
     doNotNotifyUsers: 'Не уведомлять пользователей',
+    notifySelf: 'Отправить копию самому себе',
   },
 
   header: {
@@ -608,6 +609,7 @@ module.exports.translation = {
     boreal: 'Бореальная',
     temperate: 'Умеренная',
     subtropical: 'Субтропическая',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Тропическая',
   },
 

@@ -418,6 +418,7 @@ The FRA team
     cancel: 'Cancel',
     changeStatusTextPlaceholder: 'Add an optional message',
     doNotNotifyUsers: "Don't notify users",
+    notifySelf: 'Send copy to self',
   },
 
   header: {
@@ -650,6 +651,7 @@ The FRA team fra@fao.org
     boreal: 'Boreal',
     temperate: 'Temperate',
     subtropical: 'Sub-tropical',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Tropical',
   },
 

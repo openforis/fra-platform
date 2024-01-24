@@ -10,12 +10,13 @@ import Icon from 'client/components/Icon'
 type Props = {
   setIsOpen: (isOpen: boolean) => void
   setEditor: (editor: Jodit) => void
+  repository: boolean
 }
 
 type Returned = Partial<Jodit['options']>
 
 export const useEditorOptions = (props: Props): Returned => {
-  const { setIsOpen, setEditor } = props
+  const { setIsOpen, setEditor, repository } = props
   const { t } = useTranslation()
 
   const repositoryButton = useMemo<IControlType>(() => {
@@ -30,9 +31,10 @@ export const useEditorOptions = (props: Props): Returned => {
   }, [setEditor, setIsOpen, t])
 
   return useMemo<Returned>(() => {
-    const buttons = ['link', '|', repositoryButton]
+    const buttons: Array<string | IControlType> = ['link']
+    if (repository) buttons.push('|', repositoryButton)
     const statusbar = false
 
     return { buttons, inline: true, statusbar }
-  }, [repositoryButton])
+  }, [repository, repositoryButton])
 }

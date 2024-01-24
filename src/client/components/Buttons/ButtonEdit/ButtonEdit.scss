@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+.btn-edit {
+  svg {
+    color: $text-disabled;
+    transition: all 0.1s ease-out;
+    height: $spacing-xs;
+    width: $spacing-xs;
+  }
+
+  &:hover {
+    svg {
+      color: $ui-accent;
+      transform: scale(1.1);
+    }
+  }
+}

@@ -355,6 +355,7 @@ El equipo de FRA
     cancel: 'Cancelar',
     changeStatusTextPlaceholder: 'Añadir un mensaje opcional',
     doNotNotifyUsers: 'No notificar a los usuarios',
+    notifySelf: 'Enviar copia a uno mismo',
   },
 
   header: {
@@ -583,6 +584,7 @@ El equipo de FRA
     boreal: 'Boreal',
     temperate: 'Templada',
     subtropical: 'Subtropical',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Tropical',
   },
 

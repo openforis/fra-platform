@@ -401,6 +401,7 @@ FRA工作组
     cancel: '取消',
     changeStatusTextPlaceholder: '添加可选消息',
     doNotNotifyUsers: '不通知用户',
+    notifySelf: '将副本发送给自己',
   },
 
   header: {
@@ -620,6 +621,7 @@ FRA工作组 fra@fao.org
     boreal: '寒带',
     temperate: '温带',
     subtropical: '亚热带',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: '热带',
   },
 

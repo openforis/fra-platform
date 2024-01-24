@@ -15,10 +15,11 @@ type Props = {
   validator?: (partial: Partial<User> | Partial<UserProps>) => boolean
   enabled?: boolean
   mandatory?: boolean
+  placeholder?: boolean
 }
 
 const SelectField: React.FC<Props> = (props) => {
-  const { name, value, options, onChange, validator, enabled, mandatory } = props
+  const { name, value, options, onChange, validator, enabled, mandatory, placeholder } = props
 
   const { t } = useTranslation()
 
@@ -46,7 +47,7 @@ const SelectField: React.FC<Props> = (props) => {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)}
           disabled={!enabled}
         >
-          <option value="">{t('userManagement.placeholder')}</option>
+          {placeholder && <option value="">{t('userManagement.placeholder')}</option>}
           {Object.entries(options).map(([k, v]) => (
             <option key={k} value={k}>
               {v}
@@ -62,6 +63,7 @@ SelectField.defaultProps = {
   validator: undefined,
   enabled: false,
   mandatory: false,
+  placeholder: true,
 }
 
 export default SelectField
