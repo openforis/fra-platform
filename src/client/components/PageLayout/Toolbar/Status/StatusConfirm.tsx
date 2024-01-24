@@ -40,6 +40,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
 
   const recipients = useRecipients({ status })
+  const hasRecipients = recipients.length > 0
 
   return (
     <Modal isOpen>
@@ -58,7 +59,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           />
         </div>
 
-        {status.status !== AssessmentStatus.approval && Users.isAdministrator(user) && (
+        {status.status !== AssessmentStatus.approval && Users.isAdministrator(user) && hasRecipients && (
           <div
             className="nav-assessment-status-confirm__notify-users"
             onClick={() => setNotifyUsers(!notifyUsers)}
@@ -70,7 +71,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
-        {notifyUsers && <UserList readOnly users={recipients} />}
+        {notifyUsers && hasRecipients && <UserList readOnly users={recipients} />}
         <div
           className="nav-assessment-status-confirm__notify-self"
           onClick={() => setNotifySelf(!notifySelf)}
