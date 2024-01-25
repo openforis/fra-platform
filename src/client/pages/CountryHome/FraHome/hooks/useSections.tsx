@@ -10,8 +10,8 @@ import Dashboard from 'client/pages/Dashboard'
 
 import Collaborators from '../Collaborators'
 import CountryMessageBoard from '../CountryMessageBoard'
-import Links from '../Links'
 import RecentActivity from '../RecentActivity'
+import Repository from '../Repository'
 
 type Section = {
   name: string
@@ -36,7 +36,7 @@ export const useSections = (): Array<Section> => {
     if (user) {
       sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
       sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
-      sections.push({ name: SectionNames.Country.Home.links, component: Links })
+      sections.push({ name: SectionNames.Country.Home.links, component: Repository })
     }
 
     if (Users.getRolesAllowedToView({ user, countryIso, cycle }).length > 0) {

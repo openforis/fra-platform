@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Icon from 'client/components/Icon'
-import Panel from 'client/pages/CountryHome/FraHome/Links/CreateFile/Panel'
+import Panel from 'client/pages/CountryHome/FraHome/Repository/CreateFile/Panel'
 
 const CreateFile: React.FC = () => {
   const { t } = useTranslation()

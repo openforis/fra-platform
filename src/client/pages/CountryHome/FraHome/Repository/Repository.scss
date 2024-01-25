@@ -1,0 +1,37 @@
+@import 'src/client/style/partials';
+
+// TODO: Use partials & check CSS
+
+.landing__page-repository {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.landing__page-container-header {
+  text-align: center;
+}
+
+.table-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-repository-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing__page-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
