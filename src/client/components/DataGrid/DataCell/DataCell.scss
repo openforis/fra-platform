@@ -23,6 +23,7 @@ $border: 1px solid $ui-border;
 
     > .action {
       border-right: $border;
+      width: $spacing-m;
     }
 
     > :last-child {
