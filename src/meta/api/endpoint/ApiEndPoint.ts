@@ -42,10 +42,6 @@ export const ApiEndPoint = {
       one: () => apiPath('cycle-data', 'contacts', 'contact'),
     },
 
-    Repository: {
-      one: () => apiPath('cycle-data', 'repository'),
-    },
-
     OriginalDataPoint: {
       one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
       many: () => apiPath('cycle-data', 'original-data-points'),
@@ -64,10 +60,16 @@ export const ApiEndPoint = {
       // Table Data (1a, 1b)
       reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
     },
+
+    Repository: {
+      one: () => apiPath('cycle-data', 'repository'),
+    },
+
     Review: {
       status: () => apiPath('cycle-data', 'review', 'status'),
       summary: () => apiPath('cycle-data', 'review', 'summary'),
     },
+
     Table: {
       estimate: () => apiPath('cycle-data', 'table', 'estimate'),
       nodes: () => apiPath('cycle-data', 'table', 'nodes'),
