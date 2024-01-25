@@ -78,8 +78,8 @@
     "@types/lodash.range": "^3.2.6",
     "@types/lodash.reverse": "^4.0.6",
     "@types/lodash.throttle": "^4.1.6",
-    "@types/lodash.uniqwith": "^4.5.6",
     "@types/lodash.uniqby": "^4.7.0",
+    "@types/lodash.uniqwith": "^4.5.6",
     "@types/marked": "^4.0.3",
     "@types/mocha": "^9.1.0",
     "@types/morgan": "^1.9.3",
@@ -215,8 +215,8 @@
     "lodash.range": "^3.2.0",
     "lodash.reverse": "^4.0.1",
     "lodash.throttle": "^4.1.1",
+    "lodash.uniqby": "^4.7.0",
     "lodash.uniqwith": "^4.5.0",
-    "lodash.uniqby": "^4.7.0", 
     "marked": "^4.0.10",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
@@ -266,7 +266,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.1.1",
+  "version": "3.1.2",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
