@@ -19,13 +19,24 @@ type Props = {
   user: User
 }
 
+type Target = {
+  fileName: string
+  uuid: string
+  link?: string
+  fileUuid?: string
+}
+
 export const create = async (props: Props): Promise<RepositoryEntity> => {
   const { assessment, countryIso, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {
     const createdRepository = await RepositoryRepository.create(props, t)
 
-    const target = { fileName: createdRepository.name, uuid: createdRepository.uuid }
+    const target: Target = { fileName: createdRepository.name, uuid: createdRepository.uuid }
+
+    if ('link' in createdRepository) target.link = createdRepository.link
+    if ('fileUuid' in createdRepository) target.fileUuid = createdRepository.fileUuid
+
     const message = ActivityLogMessage.assessmentFileCreate
     const activityLog = { target, section: 'assessment', message, countryIso, user }
     const activityLogParams = { activityLog, assessment }
