@@ -14,7 +14,9 @@ const getHref = (props: GetHrefProps) => {
   const params = new URLSearchParams(rest)
   return `${ApiEndPoint.File.Assessment.one(uuid)}?${params.toString()}`
 }
-
+/**
+ * @deprecated
+ */
 export const AssessmentFiles = {
   getHref,
 }

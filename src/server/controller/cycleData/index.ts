@@ -1,4 +1,5 @@
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
+import { Repository } from 'server/controller/cycleData/repository'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
@@ -73,4 +74,7 @@ export const CycleDataController = {
   // ====== node ext
   // -- contact
   Contacts,
+
+  // ====== repository
+  Repository,
 }
