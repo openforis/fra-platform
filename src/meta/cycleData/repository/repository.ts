@@ -10,7 +10,6 @@ export type Repository = {
   readonly uuid: string
 
   countryIso?: AreaCode
-  file?: string
   fileUuid?: string
   link?: string
   name: string
