@@ -4,7 +4,6 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { createFile } from 'server/api/cycleData/repository/createFile'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
@@ -29,6 +28,7 @@ import { updateOriginalDataPointDescription } from './originalDataPoint/updateOr
 import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
+import { createFile } from './repository/createFile'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { clearTable } from './table/clearTable'
