@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { AreaCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
-import { RepositoryEntity } from 'meta/cycleData'
+import { Repository } from 'meta/cycleData'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -15,7 +15,7 @@ type Props = {
   link?: string
 }
 
-export const create = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryEntity> => {
+export const create = async (props: Props, client: BaseProtocol = DB): Promise<Repository> => {
   const { assessment, cycle, countryIso, file, link, name } = props
 
   if (file && link) throw new Error('Cannot create both file and link')
@@ -32,7 +32,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<R
     uuid = result.uuid
   }
 
-  return client.one<RepositoryEntity>(
+  return client.one<Repository>(
     `
       insert into ${schemaCycle}.repository (country_iso, name, file_uuid, link)
       values ($1, $2, $3, $4)

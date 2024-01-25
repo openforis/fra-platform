@@ -8,19 +8,11 @@ export interface RepositoryProps {
 export type Repository = {
   readonly id: number
   readonly uuid: string
+
   countryIso?: AreaCode
+  file?: string
+  fileUuid?: string
+  link?: string
   name: string
   props?: RepositoryProps
 }
-
-export type RepositoryFile = Repository & {
-  readonly fileUuid: string
-  // File is populated only when reading the file content
-  file?: string
-}
-
-export type RepositoryLink = Repository & {
-  readonly link: string
-}
-
-export type RepositoryEntity = RepositoryFile | RepositoryLink

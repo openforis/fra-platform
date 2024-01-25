@@ -1,1 +1,1 @@
-export type { Repository, RepositoryEntity, RepositoryFile, RepositoryLink, RepositoryProps } from './repository'
+export type { Repository, RepositoryProps } from './repository'

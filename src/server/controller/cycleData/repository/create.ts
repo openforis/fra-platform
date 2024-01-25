@@ -1,6 +1,6 @@
 import { AreaCode } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
-import { RepositoryEntity } from 'meta/cycleData'
+import { Repository } from 'meta/cycleData'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -26,7 +26,7 @@ type Target = {
   fileUuid?: string
 }
 
-export const create = async (props: Props): Promise<RepositoryEntity> => {
+export const create = async (props: Props): Promise<Repository> => {
   const { assessment, countryIso, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {
