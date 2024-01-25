@@ -10,14 +10,15 @@ type EditLink = {
 }
 
 type Delete = {
-  type: DataRowActionType.Delete
   onClick?: () => void
+  type: DataRowActionType.Delete
 }
 
 type Review = {
-  type: DataRowActionType.Review
+  subtitle?: string
   title?: string
   topicKey?: string
+  type: DataRowActionType.Review
 }
 
 export type DataRowAction = EditLink | Delete | Review
