@@ -19,10 +19,10 @@ type Props = {
   user: User
 }
 
-export const create = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryEntity> => {
+export const create = async (props: Props): Promise<RepositoryEntity> => {
   const { assessment, countryIso, user } = props
 
-  return client.tx(async (t: BaseProtocol) => {
+  return DB.tx(async (t: BaseProtocol) => {
     const createdRepository = await RepositoryRepository.create(props, t)
 
     const target = { fileName: createdRepository.name, uuid: createdRepository.uuid }
