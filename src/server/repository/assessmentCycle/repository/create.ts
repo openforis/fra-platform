@@ -11,26 +11,17 @@ type Props = {
   cycle: Cycle
   countryIso: AreaCode
   name: string
-  file?: Express.Multer.File
+  fileUuid?: string
   link?: string
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<Repository> => {
-  const { assessment, cycle, countryIso, file, link, name } = props
+  const { assessment, cycle, countryIso, fileUuid, link, name } = props
 
-  if (file && link) throw new Error('Cannot create both file and link')
-  if (!file && !link) throw new Error('No file or link provided')
+  if (fileUuid && link) throw new Error('Cannot create both fileUuid and link')
+  if (!fileUuid && !link) throw new Error('No file or link provided')
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
-  let uuid = null
-  if (file) {
-    const result = await client.one(`insert into public.file (file_name, file) values ($1, $2) returning uuid`, [
-      file.originalname,
-      file.buffer,
-    ])
-    uuid = result.uuid
-  }
 
   return client.one<Repository>(
     `
@@ -38,7 +29,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<R
       values ($1, $2, $3, $4)
       returning *
     `,
-    [countryIso, name, uuid, link],
+    [countryIso, name, fileUuid, link],
     (row) => Objects.camelize(row)
   )
 }
