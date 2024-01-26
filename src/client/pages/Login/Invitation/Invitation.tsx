@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Assessments } from 'meta/assessment'
-import { Routes } from 'meta/routes'
+import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { AuthProvider, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useAppDispatch } from 'client/store'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { useUser } from 'client/store/user'
+import { useSearchParams } from 'client/hooks/useSearchParams'
 import Icon from 'client/components/Icon'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { videoResources } from 'client/pages/Tutorials'
-import { Urls } from 'client/utils'
+
+import { useInitInvitation } from './hooks/useInitInvitation'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -22,7 +24,9 @@ const Invitation: React.FC = () => {
   const navigate = useNavigate()
   const loggedUser = useUser()
 
-  const invitationUuid = Urls.getRequestParam('invitationUuid')
+  useInitInvitation()
+
+  const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()
   const { userRole, assessment, invitedUser, userProviders } = useInvitation()
 
   const [isLocal, setIsLocal] = useState<boolean>(false)
@@ -36,14 +40,6 @@ const Invitation: React.FC = () => {
   const cycleName = cycle?.name
   const showPassword2 =
     (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
-
-  useEffect(() => {
-    if (invitationUuid) {
-      dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
-    } else {
-      navigate('/')
-    }
-  }, [dispatch, invitationUuid, navigate])
 
   useEffect(() => {
     if (invitedUser?.email) setEmail(invitedUser.email)
@@ -74,11 +70,10 @@ const Invitation: React.FC = () => {
   }
 
   if (userRole?.acceptedAt) {
-    return (
-      <div className="login__form">
-        <h3>{t('login.alreadyAcceptedInvitation')}</h3>
-      </div>
-    )
+    if (loggedUser) {
+      return <Navigate to={Routes.Root.generatePath()} replace />
+    }
+    return <Navigate to={Routes.Login.generatePath({ cycleName, assessmentName })} replace />
   }
 
   if (userRole && UserRoles.isInvitationExpired(userRole)) {
