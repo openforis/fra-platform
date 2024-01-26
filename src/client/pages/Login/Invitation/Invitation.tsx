@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Assessments } from 'meta/assessment'
@@ -69,15 +69,12 @@ const Invitation: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    if (userRole?.acceptedAt) {
-      if (loggedUser) {
-        navigate(Routes.Root.generatePath())
-      } else {
-        navigate(Routes.Login.generatePath({ cycleName, assessmentName }))
-      }
+  if (userRole?.acceptedAt) {
+    if (loggedUser) {
+      return <Navigate to={Routes.Root.generatePath()} />
     }
-  }, [userRole?.acceptedAt, loggedUser, navigate, cycleName, assessmentName])
+    return <Navigate to={Routes.Login.generatePath({ cycleName, assessmentName })} />
+  }
 
   if (userRole && UserRoles.isInvitationExpired(userRole)) {
     return (

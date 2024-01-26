@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { LoginInvitationQueryParams } from 'meta/routes'
+import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
 import { LoginActions } from 'client/store/login'
@@ -17,7 +17,7 @@ export const useInitInvitation = (): void => {
     if (invitationUuid) {
       dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
     } else {
-      navigate('/')
+      navigate(Routes.Root.generatePath())
     }
   }, [dispatch, invitationUuid, navigate])
 }
