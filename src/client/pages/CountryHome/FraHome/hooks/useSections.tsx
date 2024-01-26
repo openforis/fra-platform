@@ -8,10 +8,10 @@ import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Dashboard from 'client/pages/Dashboard'
 
+import Repository from '../../Repository'
 import Collaborators from '../Collaborators'
 import CountryMessageBoard from '../CountryMessageBoard'
 import RecentActivity from '../RecentActivity'
-import Repository from '../Repository'
 
 type Section = {
   name: string
