@@ -16,11 +16,15 @@ import Icon from 'client/components/Icon'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { videoResources } from 'client/pages/Tutorials'
 
+import { useInitInvitation } from './hooks/useInitInvitation'
+
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
   const { i18n, t } = useTranslation()
   const navigate = useNavigate()
   const loggedUser = useUser()
+
+  useInitInvitation()
 
   const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()
   const { userRole, assessment, invitedUser, userProviders } = useInvitation()
@@ -36,14 +40,6 @@ const Invitation: React.FC = () => {
   const cycleName = cycle?.name
   const showPassword2 =
     (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
-
-  useEffect(() => {
-    if (invitationUuid) {
-      dispatch(LoginActions.fetchUserByInvitation({ invitationUuid }))
-    } else {
-      navigate('/')
-    }
-  }, [dispatch, invitationUuid, navigate])
 
   useEffect(() => {
     if (invitedUser?.email) setEmail(invitedUser.email)
