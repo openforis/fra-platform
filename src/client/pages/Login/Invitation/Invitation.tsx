@@ -69,13 +69,15 @@ const Invitation: React.FC = () => {
     }
   }
 
-  if (userRole?.acceptedAt) {
-    return (
-      <div className="login__form">
-        <h3>{t('login.alreadyAcceptedInvitation')}</h3>
-      </div>
-    )
-  }
+  useEffect(() => {
+    if (userRole?.acceptedAt) {
+      if (loggedUser) {
+        navigate(Routes.Root.generatePath())
+      } else {
+        navigate(Routes.Login.generatePath({ cycleName, assessmentName }))
+      }
+    }
+  }, [userRole?.acceptedAt, loggedUser, navigate, cycleName, assessmentName])
 
   if (userRole && UserRoles.isInvitationExpired(userRole)) {
     return (
