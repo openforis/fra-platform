@@ -4,17 +4,17 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Assessments } from 'meta/assessment'
-import { Routes } from 'meta/routes'
+import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { AuthProvider, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useAppDispatch } from 'client/store'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { useUser } from 'client/store/user'
+import { useSearchParams } from 'client/hooks/useSearchParams'
 import Icon from 'client/components/Icon'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { videoResources } from 'client/pages/Tutorials'
-import { Urls } from 'client/utils'
 
 const Invitation: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -22,7 +22,7 @@ const Invitation: React.FC = () => {
   const navigate = useNavigate()
   const loggedUser = useUser()
 
-  const invitationUuid = Urls.getRequestParam('invitationUuid')
+  const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()
   const { userRole, assessment, invitedUser, userProviders } = useInvitation()
 
   const [isLocal, setIsLocal] = useState<boolean>(false)
