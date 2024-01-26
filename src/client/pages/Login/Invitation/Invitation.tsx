@@ -71,9 +71,9 @@ const Invitation: React.FC = () => {
 
   if (userRole?.acceptedAt) {
     if (loggedUser) {
-      return <Navigate to={Routes.Root.generatePath()} />
+      return <Navigate to={Routes.Root.generatePath()} replace />
     }
-    return <Navigate to={Routes.Login.generatePath({ cycleName, assessmentName })} />
+    return <Navigate to={Routes.Login.generatePath({ cycleName, assessmentName })} replace />
   }
 
   if (userRole && UserRoles.isInvitationExpired(userRole)) {
