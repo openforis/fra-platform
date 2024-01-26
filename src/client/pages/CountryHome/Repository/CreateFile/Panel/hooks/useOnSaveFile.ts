@@ -1,32 +1,24 @@
 import { useCallback } from 'react'
 
-import axios from 'axios'
+import { CountryIso } from 'meta/area'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-
+import { useAppDispatch } from 'client/store'
+import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { NewFile } from 'client/pages/CountryHome/Repository/CreateFile/Panel/newFile'
 
 type Returned = () => Promise<void>
 
-export const useOnSaveFile = (file: NewFile | null): Returned => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+export const useOnSaveFile = (file: NewFile | null, setOpenPanel: (open: boolean) => void): Returned => {
+  const dispatch = useAppDispatch()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
   return useCallback<Returned>(async () => {
-    const formData = new FormData()
-    formData.append('name', file?.name || '')
-    formData.append('link', file?.link || '')
-
-    if (file?.file) {
-      formData.append('file', file.file)
-    }
-
-    await axios.post(ApiEndPoint.CycleData.Repository.one(), formData, {
-      params: {
-        countryIso,
-        assessmentName,
-        cycleName,
-      },
-    })
-  }, [file, assessmentName, cycleName, countryIso])
+    const saveParams = { assessmentName, cycleName, countryIso, file }
+    dispatch(RepositoryActions.save(saveParams))
+      .unwrap()
+      .then(() => {
+        setOpenPanel(false)
+      })
+  }, [assessmentName, cycleName, countryIso, file, dispatch, setOpenPanel])
 }

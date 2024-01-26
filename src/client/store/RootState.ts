@@ -1,3 +1,5 @@
+import { RepositorySlice, RepositoryState } from 'client/store/ui/repository'
+
 import { AreaState } from './area/state'
 import { AssessmentState } from './assessment/state'
 import { DataState } from './data/stateType'
@@ -39,6 +41,7 @@ export type RootState = {
     navigation: NavigationState
     notification: NotificationState
     originalDataPoint: OriginalDataPointState
+    [RepositorySlice.name]: RepositoryState
     review: ReviewState
     tablePaginated: TablePaginatedState
     userManagement: UserManagementState

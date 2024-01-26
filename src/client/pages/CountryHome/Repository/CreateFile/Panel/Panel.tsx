@@ -18,7 +18,7 @@ const Panel: React.FC<Props> = (props: Props) => {
   const { openPanel, setOpenPanel } = props
 
   const { file, onChange } = useOnChange()
-  const onSaveFile = useOnSaveFile(file)
+  const onSaveFile = useOnSaveFile(file, setOpenPanel)
 
   return (
     <SlidingPanel openPanel={openPanel} setOpenPanel={setOpenPanel}>
