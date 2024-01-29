@@ -23,7 +23,7 @@ const Actions: React.FC = () => {
       </div>
       <SlidingPanel openPanel={openPanel} setOpenPanel={setOpenPanel}>
         <button onClick={() => setOpenPanel(false)} className="btn btn-destructive" type="button">
-          {t('nationalDataPoint.delete')}
+          {t('common.delete')}
         </button>
         <button onClick={() => setOpenPanel(false)} className="btn btn-secondary" type="button">
           {t('common.cancel')}
