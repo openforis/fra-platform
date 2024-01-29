@@ -1,16 +1,16 @@
 import { useCallback, useState } from 'react'
 
-import { NewFile } from 'client/pages/CountryHome/Repository/CreateFile/Panel/newFile'
+import { RepositoryEdit } from 'client/pages/CountryHome/Repository/CreateFile/Panel/repositoryEdit'
 
 type OnChange = (name: string, value: string | File) => void
 
 type Returned = {
-  file: NewFile | null
+  file: RepositoryEdit | null
   onChange: OnChange
 }
 
 export const useOnChange = (): Returned => {
-  const [file, setFile] = useState<NewFile | null>(null)
+  const [file, setFile] = useState<RepositoryEdit | null>(null)
   const onChange = useCallback<OnChange>(
     (name: string, value: string | File) => {
       if (name === 'file') {

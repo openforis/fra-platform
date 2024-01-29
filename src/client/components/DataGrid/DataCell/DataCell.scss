@@ -15,7 +15,7 @@ $border: 1px solid $ui-border;
     padding: $spacing-xxs;
   }
 
-  &.actions {
+  &.repository-actions {
     align-items: center;
     align-self: center;
     border: unset;
@@ -69,7 +69,7 @@ $border: 1px solid $ui-border;
     border-left: unset;
     border-right: $border;
 
-    &.actions {
+    &.repository-actions {
       > .action {
         border: unset;
         border-left: $border;

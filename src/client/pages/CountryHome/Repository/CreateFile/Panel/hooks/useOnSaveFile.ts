@@ -5,11 +5,11 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { NewFile } from 'client/pages/CountryHome/Repository/CreateFile/Panel/newFile'
+import { RepositoryEdit } from 'client/pages/CountryHome/Repository/CreateFile/Panel/repositoryEdit'
 
 type Returned = () => Promise<void>
 
-export const useOnSaveFile = (file: NewFile | null, setOpenPanel: (open: boolean) => void): Returned => {
+export const useOnSaveFile = (file: RepositoryEdit | null, setOpenPanel: (open: boolean) => void): Returned => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 

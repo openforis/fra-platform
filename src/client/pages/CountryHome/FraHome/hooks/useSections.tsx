@@ -6,12 +6,11 @@ import { Users } from 'meta/user'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
+import CountryMessageBoard from 'client/pages/CountryHome/FraHome/CountryMessageBoard'
+import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
+import Repository from 'client/pages/CountryHome/Repository'
 import Dashboard from 'client/pages/Dashboard'
-
-import Repository from '../../Repository'
-import Collaborators from '../Collaborators'
-import CountryMessageBoard from '../CountryMessageBoard'
-import RecentActivity from '../RecentActivity'
 
 type Section = {
   name: string

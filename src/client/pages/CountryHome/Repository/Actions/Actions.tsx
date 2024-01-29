@@ -10,7 +10,7 @@ const Actions: React.FC = () => {
 
   return (
     <>
-      <div className="actions">
+      <div className="repository-actions">
         <button
           className="btn-s btn-link btn-edit"
           onClick={() => {

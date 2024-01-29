@@ -2,12 +2,12 @@ import './Panel.scss'
 import React from 'react'
 
 import SlidingPanel from 'client/components/SlidingPanel'
-import { useOnChange } from 'client/pages/CountryHome/Repository/CreateFile/Panel/hooks/useOnChange'
-import { useOnSaveFile } from 'client/pages/CountryHome/Repository/CreateFile/Panel/hooks/useOnSaveFile'
+import Actions from 'client/pages/CountryHome/Repository/CreateFile/Panel/Actions'
+import InputField from 'client/pages/CountryHome/Repository/CreateFile/Panel/InputField'
+import Separator from 'client/pages/CountryHome/Repository/CreateFile/Panel/Separator'
 
-import Actions from './Actions'
-import InputField from './InputField'
-import Separator from './Separator'
+import { useOnChange } from './hooks/useOnChange'
+import { useOnSaveFile } from './hooks/useOnSaveFile'
 
 interface Props {
   openPanel: boolean
