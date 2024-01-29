@@ -1,6 +1,13 @@
 import { Assessment } from 'meta/assessment'
 import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
 
+export interface InvitationState {
+  assessment?: Assessment
+  invitedUser?: User
+  userProviders?: Array<AuthProvider>
+  userRole?: UserRole<RoleName>
+}
+
 export interface LoginState {
   login: {
     status?: string
@@ -8,12 +15,7 @@ export interface LoginState {
     email?: string
     password?: string
   }
-  invitation: {
-    assessment?: Assessment
-    invitedUser?: User
-    userRole?: UserRole<RoleName>
-    userProviders?: Array<AuthProvider>
-  }
+  invitation: InvitationState
   resetPassword?: {
     error?: string
     message?: string

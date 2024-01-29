@@ -1,13 +1,4 @@
-import { Assessment } from 'meta/assessment'
-import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
-
 import { useAppSelector } from 'client/store'
+import { InvitationState } from 'client/store/login/stateType'
 
-export const useInvitation = ():
-  | {
-      userRole?: UserRole<RoleName>
-      assessment?: Assessment
-      invitedUser?: User
-      userProviders?: Array<AuthProvider>
-    }
-  | undefined => useAppSelector((state) => state.login?.invitation)
+export const useInvitation = (): InvitationState | undefined => useAppSelector((state) => state.login?.invitation)
