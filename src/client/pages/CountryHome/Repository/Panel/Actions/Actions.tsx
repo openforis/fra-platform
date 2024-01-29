@@ -25,7 +25,7 @@ const Actions: React.FC<Props> = (props: Props) => {
         className={classNames('btn btn-primary', { disabled })}
         type="button"
       >
-        {t('editUser.done')}
+        {t('common.done')}
       </button>
       <button className="btn btn-secondary" type="button" onClick={() => setOpenPanel(false)}>
         {t('common.cancel')}
