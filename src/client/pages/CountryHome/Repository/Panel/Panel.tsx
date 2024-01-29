@@ -2,9 +2,9 @@ import './Panel.scss'
 import React from 'react'
 
 import SlidingPanel from 'client/components/SlidingPanel'
-import Actions from 'client/pages/CountryHome/Repository/CreateFile/Panel/Actions'
-import InputField from 'client/pages/CountryHome/Repository/CreateFile/Panel/InputField'
-import Separator from 'client/pages/CountryHome/Repository/CreateFile/Panel/Separator'
+import Actions from 'client/pages/CountryHome/Repository/Panel/Actions'
+import InputField from 'client/pages/CountryHome/Repository/Panel/InputField'
+import Separator from 'client/pages/CountryHome/Repository/Panel/Separator'
 
 import { useOnChange } from './hooks/useOnChange'
 import { useOnSaveFile } from './hooks/useOnSaveFile'

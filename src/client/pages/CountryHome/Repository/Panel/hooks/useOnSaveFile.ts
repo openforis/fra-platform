@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { RepositoryEdit } from 'client/pages/CountryHome/Repository/CreateFile/Panel/repositoryEdit'
+import { RepositoryEdit } from 'client/pages/CountryHome/Repository/Panel/repositoryEdit'
 
 type Returned = () => Promise<void>
 

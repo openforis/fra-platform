@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { RepositoryEdit } from 'client/pages/CountryHome/Repository/CreateFile/Panel/repositoryEdit'
+import { RepositoryEdit } from 'client/pages/CountryHome/Repository/Panel/repositoryEdit'
 
 type OnChange = (name: string, value: string | File) => void
 
