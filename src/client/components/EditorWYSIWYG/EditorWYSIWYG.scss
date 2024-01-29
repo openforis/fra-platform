@@ -33,16 +33,18 @@
     border-right: 1px dashed $ui-edit-border-color;
   }
 
-  div.toolbar-disabled {
-    display: none;
-    border: unset;
-  }
-
   span.jodit-toolbar-button {
     margin: 0;
 
     button {
       border-radius: 0;
+    }
+  }
+
+  &.disabled {
+    .jodit-toolbar__box {
+      display: none;
+      border: unset;
     }
   }
 }

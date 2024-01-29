@@ -78,11 +78,10 @@ const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (joditEditor) joditEditor.setReadOnly(disabled)
-    if (joditEditor?.container) joditEditor.toolbarContainer.classList.toggle('toolbar-disabled', disabled)
   }, [disabled, joditEditor])
 
   return (
-    <div className={classNames('editorWYSIWYG')}>
+    <div className={classNames('editorWYSIWYG', { disabled })}>
       <JoditEditor
         config={config}
         onBlur={onBlur} // preferred to use only this option to update the content for performance reasons
