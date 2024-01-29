@@ -4,10 +4,10 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 
-import { NewFile } from 'client/pages/CountryHome/Repository/CreateFile/Panel/newFile'
+import { RepositoryEdit } from 'client/pages/CountryHome/Repository/CreateFile/Panel/repositoryEdit'
 
 type Params = CycleParams & {
-  file: NewFile
+  file: RepositoryEdit
 }
 
 export const save = createAsyncThunk<void, Params>('repository/save', async (props) => {

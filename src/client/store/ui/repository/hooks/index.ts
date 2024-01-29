@@ -1,5 +1,6 @@
 import { useAppSelector } from 'client/store/store'
+import { RepositorySelectors } from 'client/store/ui/repository/selectors'
 
 export const useIsRepositoryLoading = () => {
-  return useAppSelector((state) => state.ui.repository.loading)
+  return useAppSelector(RepositorySelectors.isLoading)
 }
