@@ -10,7 +10,6 @@ import { useInvitation } from 'client/store/login'
 import { useUser } from 'client/store/user'
 import { useSearchParams } from 'client/hooks/useSearchParams'
 import AcceptInvitationButtons from 'client/pages/Login/components/AcceptInvitationButtons'
-import AccessLimited from 'client/pages/Login/components/AccessLimited'
 import { useInitInvitation } from 'client/pages/Login/Invitation/hooks/useInitInvitation'
 
 import { useOnAcceptInvitationLocal } from './hooks/useOnAcceptInvitationLocal'
@@ -118,7 +117,6 @@ const InvitationLocal: React.FC = () => {
 
         <AcceptInvitationButtons onAcceptInvitationLocalClick={onAcceptInvitation} />
       </div>
-      <AccessLimited />
     </div>
   )
 }

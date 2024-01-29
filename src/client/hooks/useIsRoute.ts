@@ -29,3 +29,6 @@ export const useIsPanEuropeanRoute = () => {
 }
 
 export const useIsGeoRoute = () => useIsRoute({ path: Routes.Geo.path.absolute, exact: false })
+
+export const useIsInvitationLocalRoute = () =>
+  useIsRoute({ path: Routes.LoginInvitationLocal.path.absolute, exact: false })

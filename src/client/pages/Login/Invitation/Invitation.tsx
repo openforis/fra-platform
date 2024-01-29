@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 
 import { Assessments } from 'meta/assessment'
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
@@ -10,6 +10,7 @@ import { UserRoles } from 'meta/user/userRoles'
 import { useAppDispatch } from 'client/store'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { useUser } from 'client/store/user'
+import { useIsInvitationLocalRoute } from 'client/hooks/useIsRoute'
 import { useSearchParams } from 'client/hooks/useSearchParams'
 import AcceptInvitationButtons from 'client/pages/Login/components/AcceptInvitationButtons'
 import AccessLimited from 'client/pages/Login/components/AccessLimited'
@@ -21,6 +22,7 @@ const Invitation: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const loggedUser = useUser()
+  const isInInvitationLocal = useIsInvitationLocalRoute()
 
   useInitInvitation()
 
@@ -36,7 +38,7 @@ const Invitation: React.FC = () => {
     navigate(Routes.Root.generatePath())
   }
 
-  const onAcceptInvitationLocal = () => {
+  const goToAcceptInvitationLocal = () => {
     navigate(Routes.LoginInvitationLocal.generatePath({ assessmentName, cycleName }, { invitationUuid, lang }))
   }
 
@@ -72,13 +74,15 @@ const Invitation: React.FC = () => {
         <h3>{t('login.invitationProvidersRegistered', { authProviderNames: userProviders.join(', ') })}</h3>
       )}
 
+      <Outlet />
+
       {loggedUser?.email === invitedUser.email ? (
         <button type="button" className="btn" onClick={onAccept}>
           {t('login.acceptInvitation')}
         </button>
       ) : (
         <div className="login__form">
-          <AcceptInvitationButtons onAcceptInvitationLocalClick={onAcceptInvitationLocal} />
+          {!isInInvitationLocal && <AcceptInvitationButtons onAcceptInvitationLocalClick={goToAcceptInvitationLocal} />}
         </div>
       )}
 

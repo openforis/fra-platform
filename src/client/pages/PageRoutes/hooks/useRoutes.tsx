@@ -67,8 +67,7 @@ export const useRoutes = () => {
             {/* Login */}
             <Route path={Routes.Login.path.relative} element={<Login />}>
               <Route index element={<LoginForm />} />
-              <Route path={Routes.LoginInvitation.path.relative}>
-                <Route index element={<LoginInvitation />} />
+              <Route path={Routes.LoginInvitation.path.relative} element={<LoginInvitation />}>
                 <Route path={Routes.LoginInvitationLocal.path.relative} element={<LoginInvitationLocal />} />
               </Route>
               <Route path={Routes.LoginResetPassword.path.relative} element={<LoginResetPassword />} />
