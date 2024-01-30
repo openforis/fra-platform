@@ -10,6 +10,7 @@ module.exports = {
   country: '国家',
   dashboard: '主界面',
   dataExport: '数据输出',
+  delete: '删除',
   done: '完成',
   email: '电子邮箱',
   filterCountries: '筛选国家',

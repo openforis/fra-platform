@@ -433,7 +433,6 @@ L'équipe de FRA
     fraClasses: 'Classes de FRA',
     area: 'Superficie (1000 ha)',
     total: 'Total',
-    delete: 'Supprimer',
     modifiedExplanation: 'Point des données nationales avec modifications',
     confirmDelete: 'Supprimer ce point des données? Cette action ne peut pas être annulée.',
     discardChanges: 'Annuler les modifications',

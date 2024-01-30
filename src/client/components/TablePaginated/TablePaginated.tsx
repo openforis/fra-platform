@@ -15,12 +15,13 @@ type TablePaginatedProps<Datum extends object> = Props<Datum> & {
   EmptyListComponent?: React.FC
   className?: string
   header?: boolean
+  counter?: boolean
 }
 
 const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>) => {
-  const { className, columns, header, path, limit, EmptyListComponent } = props
+  const { className, columns, header, counter, path, limit, EmptyListComponent } = props
 
-  useFetchData({ path, limit })
+  useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
 
   if (count?.total === 0) {
@@ -40,7 +41,7 @@ const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>)
 
       <Paginator path={path} />
 
-      <Count path={path} />
+      {counter && <Count path={path} />}
     </div>
   )
 }
@@ -49,6 +50,7 @@ TablePaginated.defaultProps = {
   EmptyListComponent: () => <div />,
   className: '',
   header: true,
+  counter: true,
 }
 
 export default TablePaginated

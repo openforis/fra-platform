@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
 
+import { RepositorySlice } from 'client/store/ui/repository'
+
 import AreaSlice from './area/slice'
 import AssessmentSlice from './assessment/slice'
 import DataSlice from './data/slice'
@@ -40,6 +42,7 @@ export default {
     navigation: NavigationSlice,
     notification: NotificationSlice,
     originalDataPoint: OriginalDataPointSlice,
+    [RepositorySlice.name]: RepositorySlice.reducer,
     review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),
