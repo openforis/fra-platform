@@ -18,6 +18,5 @@ export type SelectProps = Pick<ReactSelectProps, 'isMulti'> & {
   disabled?: boolean
   onChange: (value: string | Array<string> | null) => void
   options: OptionsOrGroups
-  placeholder?: string
   value?: ValueInput
 }

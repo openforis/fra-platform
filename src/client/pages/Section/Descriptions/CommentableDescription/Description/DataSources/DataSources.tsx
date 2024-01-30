@@ -86,7 +86,8 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           sectionName={sectionName}
         />
       )}
-      <DataGrid gridTemplateColumns="0px minmax(0, 400px) auto minmax(0, 300px) minmax(0, 100px) minmax(0, 400px) min-content">
+
+      <DataGrid gridTemplateColumns="0px minmax(200px, 1fr) minmax(200px, 1fr) minmax(250px, 1fr) minmax(150px, 300px) minmax(100px, 1fr) min-content">
         <div />
 
         <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>

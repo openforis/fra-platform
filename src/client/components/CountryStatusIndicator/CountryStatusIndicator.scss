@@ -1,10 +1,14 @@
 @import 'src/client/style/partials';
 
 .country-status-indicator {
-  min-width: 128px;
   text-decoration: none;
   white-space: nowrap;
   width: 100%;
+
+  > span {
+    text-wrap: wrap;
+    word-break: normal;
+  }
 
   &.uppercase {
     text-transform: uppercase;

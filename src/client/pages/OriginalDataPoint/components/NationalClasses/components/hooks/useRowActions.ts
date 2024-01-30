@@ -14,7 +14,7 @@ type Props = {
   originalDataPoint: OriginalDataPoint
 }
 
-export type Returned = Array<DataRowAction> | undefined
+export type Returned = Array<DataRowAction>
 
 export const useRowActions = (props: Props): Returned => {
   const { index, canEdit, originalDataPoint } = props
