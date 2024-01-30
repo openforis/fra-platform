@@ -5,21 +5,20 @@ import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
 import { LoginActions } from 'client/store/login'
-import { InvitationLocalFormData } from 'client/pages/Login/InvitationLocal/InvitationLocal'
+import { AcceptInvitationFormState } from 'client/store/login/stateType'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 
 type Props = {
-  formData: InvitationLocalFormData
+  formData: AcceptInvitationFormState | undefined
   invitationUuid: string
-  setErrors: (value: ((prevState: Record<string, string>) => Record<string, string>) | Record<string, string>) => void
   showPassword2: boolean
 }
 
 type Returned = () => void
 
 export const useOnAcceptInvitationLocal = (props: Props): Returned => {
-  const { formData, invitationUuid, setErrors, showPassword2 } = props
-  const { email, password, password2 } = formData
+  const { formData, invitationUuid, showPassword2 } = props
+  const { email, password, password2 } = formData ?? {}
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -28,7 +27,7 @@ export const useOnAcceptInvitationLocal = (props: Props): Returned => {
     const fieldErrors = showPassword2
       ? LoginValidator.invitationValidate(email, password, password2)
       : LoginValidator.localValidate(email, password)
-    setErrors(fieldErrors)
+    dispatch(LoginActions.updateAcceptInvitationFormErrors(fieldErrors))
 
     if (!isError(fieldErrors)) {
       dispatch(
@@ -38,8 +37,9 @@ export const useOnAcceptInvitationLocal = (props: Props): Returned => {
           password,
         })
       ).then(() => {
+        dispatch(LoginActions.resetAcceptInvitationForm())
         navigate(Routes.Root.path.absolute)
       })
     }
-  }, [dispatch, email, invitationUuid, navigate, password, password2, setErrors, showPassword2])
+  }, [dispatch, email, invitationUuid, navigate, password, password2, showPassword2])
 }
