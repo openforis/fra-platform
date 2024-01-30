@@ -14,18 +14,20 @@ export interface RowDB {
 
 export const RowAdapter = (rowDB: RowDB): Row => {
   const {
-    props: { calculateFn, calculateIf, linkToSection, validateFns, chart, ...rest },
+    props: { calculateFn, calculateIf, chart, linkToSection, validateFns, withReview, ...rest },
     ...row
   } = rowDB
+
   const _row = {
     ...Objects.camelize(row),
     props: {
       ...Objects.camelize(rest),
       calculateFn,
       calculateIf,
+      chart,
       linkToSection,
       validateFns,
-      chart,
+      withReview,
     },
   }
 
