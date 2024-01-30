@@ -8,7 +8,7 @@ type Props = {
   datum: RepositoryType
 }
 
-const Link = (props: Props) => {
+const RepositoryLink = (props: Props) => {
   const { datum } = props
 
   if (datum.link) {
@@ -22,4 +22,4 @@ const Link = (props: Props) => {
   return <ReactRouterLink to={ApiEndPoint.CycleData.Repository.file(datum.fileUuid)}>{datum.name}</ReactRouterLink>
 }
 
-export default Link
+export default RepositoryLink

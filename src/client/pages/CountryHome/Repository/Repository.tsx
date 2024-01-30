@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import TablePaginated from 'client/components/TablePaginated'
-import CreateFile from 'client/pages/CountryHome/Repository/CreateFile'
+import EditForm from 'client/pages/CountryHome/Repository/EditForm'
 import { useColumns } from 'client/pages/CountryHome/Repository/hooks/useColumns'
 
 const Repository: React.FC = () => {
@@ -30,7 +30,7 @@ const Repository: React.FC = () => {
         path={ApiEndPoint.CycleData.Repository.files()}
       />
 
-      <CreateFile />
+      <EditForm />
     </div>
   )
 }

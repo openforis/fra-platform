@@ -1,16 +1,16 @@
-import './CreateFile.scss'
+import './EditForm.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Icon from 'client/components/Icon'
 import Panel from 'client/pages/CountryHome/Repository/Panel'
 
-const CreateFile: React.FC = () => {
+const EditForm: React.FC = () => {
   const { t } = useTranslation()
   const [openPanel, setOpenPanel] = React.useState(false)
 
   return (
-    <div className="create-file">
+    <div className="edit-form">
       <button
         className="btn-s btn-primary"
         onClick={() => {
@@ -27,4 +27,4 @@ const CreateFile: React.FC = () => {
   )
 }
 
-export default CreateFile
+export default EditForm

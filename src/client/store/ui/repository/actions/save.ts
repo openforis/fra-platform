@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 
-import { RepositoryEdit } from 'client/pages/CountryHome/Repository/CreateFile/Panel/repositoryEdit'
+import { RepositoryEdit } from 'client/pages/CountryHome/Repository/Panel/repositoryEdit'
 
 type Params = CycleParams & {
   file: RepositoryEdit
