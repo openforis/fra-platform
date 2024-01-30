@@ -1,9 +1,8 @@
+import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
+
 import { create } from './create'
-import { getManyFiles } from './getManyFiles'
-import { getManyLinks } from './getManyLinks'
 
 export const Repository = {
   create,
-  getManyLinks,
-  getManyFiles,
+  getMany: RepositoryRepository.getMany,
 }

@@ -6,14 +6,18 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getManyRepositoryLinks = async (req: CycleRequest, res: Response) => {
+type Request = CycleRequest & {
+  global: boolean
+}
+
+export const getManyRepository = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, cycleName, countryIso, global } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const props = { assessment, cycle, countryIso }
-    const createdRepositoryEntity = await CycleDataController.Repository.getManyLinks(props)
+    const props = { assessment, cycle, countryIso, global }
+    const createdRepositoryEntity = await CycleDataController.Repository.getMany(props)
 
     Requests.send(res, createdRepositoryEntity)
   } catch (e) {
