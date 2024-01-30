@@ -19,12 +19,12 @@ const RowData: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const cycle = useCycle()
+  const openTopics = useTopicKeys()
 
-  const { secondary } = table.props
   const { cols } = row
   const colHeader = [ColType.placeholder, ColType.header].includes(cols[0].props.colType) ? cols[0] : undefined
   const colsData = colHeader ? cols.slice(1, cols.length) : cols
-  const openTopics = useTopicKeys()
+  const withReview = !table.props.secondary || row.props.withReview[cycle.uuid]
 
   const id = `${row.props.type}_${row.id}_${row.props.variableName ?? ''}`
   const className = classNames({ 'fra-row-comments__open': openTopics.includes(row.uuid) })
@@ -47,7 +47,7 @@ const RowData: React.FC<Props> = (props) => {
         />
       ))}
 
-      {!disabled && !secondary && (
+      {!disabled && withReview && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={colHeader ? Cols.getLabel({ cycle, col: colHeader, t }) : ''}
