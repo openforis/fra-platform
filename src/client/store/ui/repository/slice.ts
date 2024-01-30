@@ -1,11 +1,8 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
-import { saveReducer } from './reducers/saveReducer'
-import { RepositoryState } from './stateType'
+import { initialState, RepositoryState } from 'client/store/ui/repository/state'
 
-const initialState: RepositoryState = {
-  loading: false,
-}
+import { saveReducer } from './reducers/saveReducer'
 
 export const RepositorySlice = createSlice({
   name: 'repository',
