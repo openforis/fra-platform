@@ -1,1 +1,1 @@
-export type { Repository, RepositoryProps } from './repository'
+export type { RepositoryItem, RepositoryItemProps } from './repository'

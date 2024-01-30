@@ -1,11 +1,11 @@
 import { AreaCode } from 'meta/area'
 
-export interface RepositoryProps {
+export interface RepositoryItemProps {
   hidden?: boolean // File not visible in UI
   public?: boolean // File visible for non-logged in users
 }
 
-export type Repository = {
+export type RepositoryItem = {
   readonly id: number
   readonly uuid: string
 
@@ -13,5 +13,5 @@ export type Repository = {
   fileUuid?: string
   link?: string
   name: string
-  props?: RepositoryProps
+  props?: RepositoryItemProps
 }

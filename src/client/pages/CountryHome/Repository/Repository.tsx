@@ -19,16 +19,11 @@ const Repository: React.FC = () => {
         header={false}
         counter={false}
         columns={columns}
-        path={ApiEndPoint.CycleData.Repository.links()}
+        path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
       />
 
       <h3 className="repository__header">{t('landing.links.repository')}</h3>
-      <TablePaginated
-        header={false}
-        counter={false}
-        columns={columns}
-        path={ApiEndPoint.CycleData.Repository.files()}
-      />
+      <TablePaginated header={false} counter={false} columns={columns} path={ApiEndPoint.CycleData.Repository.many()} />
 
       <EditForm />
     </div>

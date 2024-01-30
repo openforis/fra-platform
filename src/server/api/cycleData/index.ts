@@ -29,6 +29,7 @@ import { updateOriginalDataPointNationalClasses } from './originalDataPoint/upda
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { createFile } from './repository/createFile'
+import { getManyRepository } from './repository/getManyRepository'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { clearTable } from './table/clearTable'
@@ -150,5 +151,6 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditAssessmentFile,
       createFile
     )
+    express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
   },
 }
