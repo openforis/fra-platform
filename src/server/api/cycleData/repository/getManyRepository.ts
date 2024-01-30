@@ -17,9 +17,9 @@ export const getManyRepository = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { assessment, cycle, countryIso, global }
-    const createdRepositoryEntity = await CycleDataController.Repository.getMany(props)
+    const items = await CycleDataController.Repository.getMany(props)
 
-    Requests.send(res, createdRepositoryEntity)
+    Requests.send(res, items)
   } catch (e) {
     Requests.sendErr(res, e)
   }

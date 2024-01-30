@@ -5,7 +5,7 @@ export interface RepositoryProps {
   public?: boolean // File visible for non-logged in users
 }
 
-export type Repository = {
+export type RepositoryItem = {
   readonly id: number
   readonly uuid: string
 

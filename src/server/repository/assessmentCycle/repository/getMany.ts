@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { AreaCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
-import { Repository } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -13,7 +13,7 @@ type Props = {
   global: boolean
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Repository>> => {
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<RepositoryItem>> => {
   const { assessment, cycle, countryIso, global } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -23,7 +23,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
     condition = 'country_iso is null'
   }
 
-  return client.map<Repository>(
+  return client.map<RepositoryItem>(
     `
       select * from ${schemaCycle}.repository
       where

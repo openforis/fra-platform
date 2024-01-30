@@ -1,6 +1,6 @@
 import { AreaCode } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
-import { Repository } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -20,7 +20,7 @@ type Props = {
   user: User
 }
 
-export const create = async (props: Props): Promise<Repository> => {
+export const create = async (props: Props): Promise<RepositoryItem> => {
   const { assessment, countryIso, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {

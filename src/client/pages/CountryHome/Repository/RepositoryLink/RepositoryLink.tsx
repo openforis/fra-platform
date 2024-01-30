@@ -2,10 +2,10 @@ import React from 'react'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Repository as RepositoryType } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData'
 
 type Props = {
-  datum: RepositoryType
+  datum: RepositoryItem
 }
 
 const RepositoryLink = (props: Props) => {
