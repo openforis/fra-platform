@@ -463,7 +463,6 @@ module.exports.translation = {
     fraClasses: 'Классы ОЛР',
     area: 'Площадь (1000 га)',
     total: 'Итого',
-    delete: 'Удалить',
     modifiedExplanation: 'Национальный отчетный год с изменениями',
     confirmDelete: 'Удалить этот отчетный год? Его невозможно будет восстановить.',
     discardChanges: 'Отменить изменения',

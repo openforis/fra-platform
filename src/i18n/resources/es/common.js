@@ -10,6 +10,7 @@ module.exports = {
   country: 'País',
   dashboard: 'Cuadro de mandos',
   dataExport: 'Exportación de datos',
+  delete: 'Borrar',
   done: 'Hecho',
   email: 'Correo electrónico',
   filterCountries: 'Filtrar países',

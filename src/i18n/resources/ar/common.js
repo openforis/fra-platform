@@ -10,6 +10,7 @@ module.exports = {
   country: 'البلد',
   dashboard: 'لوحة التحكم',
   dataExport: 'تصدير البيانات',
+  delete: 'حذف',
   done: 'تم',
   email: 'البريد الإلكتروني',
   filterCountries: 'غربلة البلدان',

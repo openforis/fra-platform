@@ -11,6 +11,7 @@ module.exports = {
   country: 'Country',
   dashboard: 'Dashboard',
   dataExport: 'Data Export',
+  delete: 'Delete',
   done: 'Done',
   email: 'Email',
   expired: 'Expired',

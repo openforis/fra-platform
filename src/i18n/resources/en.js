@@ -509,7 +509,6 @@ The FRA team
     fraClasses: 'FRA classes',
     area: 'Area (1000 ha)',
     total: 'Total',
-    delete: 'Delete',
     modifiedExplanation: 'National data point with modifications',
     confirmDelete: 'Delete this data point? This cannot be undone.',
     discardChanges: 'Discard changes',

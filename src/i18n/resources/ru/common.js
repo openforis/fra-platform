@@ -12,6 +12,7 @@ module.exports = {
   country: 'Страна',
   dashboard: 'Панель управления',
   dataExport: 'Экспорт данных',
+  delete: 'Удалить',
   done: 'Готово',
   email: 'Электронная почта',
   filterCountries: 'Отфильтровать страны',

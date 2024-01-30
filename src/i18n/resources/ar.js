@@ -516,7 +516,6 @@ The FRA team
     class: 'شريحة',
     area: 'المساحة (1000 هـ)',
     total: 'الإجمالي',
-    delete: 'حذف',
     modifiedExplanation: 'نقطة البيانات الوطنية مع التعديلات',
     confirmDelete: 'هل تود حذف نقطة البيانات هذه؟ لايمكن الرجوع عن هذه الخطوة.',
     discardChanges: 'إهمال التغييرات',

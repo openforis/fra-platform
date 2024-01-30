@@ -1,0 +1,9 @@
+@import 'src/client/style/partials';
+
+.repository__header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-xs;
+  margin-top: $spacing-s;
+}

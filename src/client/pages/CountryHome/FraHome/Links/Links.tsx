@@ -15,8 +15,10 @@ import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 import AssessmentFileRow from 'client/pages/CountryHome/FraHome/Links/AssessmentFileRow'
-import CreateFile from 'client/pages/CountryHome/FraHome/Links/CreateFile'
 
+/**
+ * @Deprecated
+ */
 const Links: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
@@ -135,7 +137,6 @@ const Links: React.FC = () => {
       {countryFiles.map((assessmentFile, index) => (
         <AssessmentFileRow key={assessmentFile.uuid} withBorder={index !== 0} assessmentFile={assessmentFile} />
       ))}
-      <CreateFile />
     </div>
   )
 }
