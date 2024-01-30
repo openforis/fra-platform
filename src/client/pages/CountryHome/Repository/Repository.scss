@@ -1,17 +1,9 @@
-.repository-actions {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
+@import 'src/client/style/partials';
 
-.btn-repository-add {
+.repository__header {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.landing__page-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-bottom: $spacing-xs;
+  margin-top: $spacing-s;
 }

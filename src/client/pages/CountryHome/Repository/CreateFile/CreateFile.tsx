@@ -1,3 +1,4 @@
+import './CreateFile.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,7 +10,7 @@ const CreateFile: React.FC = () => {
   const [openPanel, setOpenPanel] = React.useState(false)
 
   return (
-    <>
+    <div className="create-file">
       <button
         className="btn-s btn-primary"
         onClick={() => {
@@ -22,7 +23,7 @@ const CreateFile: React.FC = () => {
       </button>
 
       <Panel openPanel={openPanel} setOpenPanel={setOpenPanel} />
-    </>
+    </div>
   )
 }
 
