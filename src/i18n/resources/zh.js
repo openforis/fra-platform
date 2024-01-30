@@ -484,7 +484,6 @@ FRA工作组
     fraClasses: 'FRA界定的类别',
     area: '面积(1000公顷)',
     total: '总计',
-    delete: '删除',
     modifiedExplanation: '修正后的国家数据点',
     confirmDelete: '确定删除这一数据点吗？此操作不可撤销。',
     discardChanges: '放弃修改',

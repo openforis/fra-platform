@@ -438,7 +438,6 @@ El equipo de FRA
     fraClasses: 'Clases de FRA',
     area: 'Área (1000 ha)',
     total: 'Total',
-    delete: 'Borrar',
     modifiedExplanation: 'Punto de datos nacionales con modificaciones',
     confirmDelete: '¿Borrar este punto de datos? Esta acción no puede deshacerse.',
     discardChanges: 'Cancelar cambios',

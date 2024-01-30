@@ -10,6 +10,7 @@ module.exports = {
   country: 'Pays',
   dashboard: 'Tableau de bord',
   dataExport: 'Exportation de données',
+  delete: 'Supprimer',
   email: 'Email',
   filterCountries: 'Filtrer les pays',
   fraPlatform: 'Plateforme de FRA',
