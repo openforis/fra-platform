@@ -23,6 +23,7 @@ $border: 1px solid $ui-border;
 
     > .action {
       border-right: $border;
+      width: $spacing-m;
     }
 
     > :last-child {
@@ -56,7 +57,7 @@ $border: 1px solid $ui-border;
   }
 
   &:focus-within {
-    background-color: lighten($ui-input-focus, 1%);
+    background-color: $ui-input-focus;
 
     > :first-child {
       outline: 1px solid $ui-edit-border-color;

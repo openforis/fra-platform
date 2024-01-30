@@ -5,12 +5,10 @@ import classNames from 'classnames'
 import { TFunction } from 'i18next'
 
 import { Areas, Country, CountryIso, Global, RegionCode } from 'meta/area'
-import { Assessments } from 'meta/assessment'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
 import { useUser } from 'client/store/user'
 import CountryListRow from 'client/components/AreaSelector/CountryList/CountryListRow'
@@ -40,8 +38,6 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   const countries = useCountries()
-  const assessment = useAssessment()
-  const cycle = useCycle()
   const user = useUser()
   const expanded = useIsAreaSelectorExpanded()
   const toggleMode = useToggleMode()
@@ -53,7 +49,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
       {role !== UserRoles.noRole.role && (
         <div className={classNames('country-selection-list__header', { admin, expanded })}>
           <div>{t(Users.getI18nRoleLabelKey(role))}</div>
-          <div>{`${t(Assessments.getShortLabel(assessment.props.name))} ${cycle.name}`}</div>
+          <div>{t('common.status')}</div>
 
           {expanded && (
             <>

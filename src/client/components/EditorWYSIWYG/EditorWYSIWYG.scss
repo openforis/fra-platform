@@ -1,0 +1,50 @@
+@import 'src/client/style/partials';
+
+.editorWYSIWYG {
+  height: 100%;
+  word-break: break-word;
+
+  p {
+    margin: unset;
+  }
+
+  div.jodit-react-container,
+  div.jodit-container,
+  div.jodit-workplace {
+    height: 100%;
+  }
+
+  div.jodit-wysiwyg {
+    padding: $spacing-xxs;
+  }
+
+  div.jodit-toolbar__box {
+    background-color: $ui-bg !important;
+    border-bottom: 1px dashed $ui-edit-border-color;
+    border-radius: 0;
+  }
+
+  div.jodit-toolbar-editor-collection_mode_horizontal:after {
+    display: none;
+  }
+
+  div.jodit-ui-separator {
+    margin: 0 1px;
+    border-right: 1px dashed $ui-edit-border-color;
+  }
+
+  span.jodit-toolbar-button {
+    margin: 0;
+
+    button {
+      border-radius: 0;
+    }
+  }
+
+  &.disabled {
+    .jodit-toolbar__box {
+      display: none;
+      border: unset;
+    }
+  }
+}

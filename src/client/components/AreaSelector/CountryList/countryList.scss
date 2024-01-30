@@ -56,10 +56,10 @@
 .country-selection-list__header,
 .country-selection-list__row:not(.NONE) {
   grid-column-gap: $spacing-xxs;
-  grid-template-columns: 220px 100px 1fr;
+  grid-template-columns: 220px 128px 1fr;
 
   &.expanded {
-    grid-template-columns: 220px 100px repeat(4, 180px);
+    grid-template-columns: 220px 128px repeat(4, 180px);
   }
 }
 

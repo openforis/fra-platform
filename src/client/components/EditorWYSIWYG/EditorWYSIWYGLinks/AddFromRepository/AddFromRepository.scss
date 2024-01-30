@@ -1,9 +1,10 @@
 @import 'src/client/style/partials';
 
 .references-file-list {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: $spacing-xs;
+  .file-drop {
+    height: 56px;
+    margin-top: $spacing-xs;
+  }
 
   .file-row {
     display: grid;
@@ -14,6 +15,12 @@
 
     button.btn-checkbox {
       justify-content: flex-start;
+    }
+
+    .btn-s {
+      text-align: left;
+      white-space: unset;
+      word-break: break-all;
     }
   }
 }
