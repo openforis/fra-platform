@@ -10,7 +10,7 @@ const EditForm: React.FC = () => {
   const [openPanel, setOpenPanel] = React.useState(false)
 
   return (
-    <div className="edit-form">
+    <div className="repository__edit-form">
       <button
         className="btn-s btn-primary"
         onClick={() => {
