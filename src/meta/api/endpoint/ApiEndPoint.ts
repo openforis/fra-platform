@@ -62,10 +62,9 @@ export const ApiEndPoint = {
     },
 
     Repository: {
-      one: () => apiPath('cycle-data', 'repository', 'repository'),
       file: (uuid = ':uuid') => apiPath('cycle-data', 'repository', 'file', uuid),
-      files: () => apiPath('cycle-data', 'repository', 'files'),
-      links: () => apiPath('cycle-data', 'repository', 'links'),
+      many: () => apiPath('cycle-data', 'repository'),
+      one: () => apiPath('cycle-data', 'repository', 'repository'),
     },
 
     Review: {
