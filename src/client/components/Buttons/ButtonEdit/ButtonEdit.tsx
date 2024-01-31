@@ -4,17 +4,31 @@ import { Link } from 'react-router-dom'
 
 import Icon from 'client/components/Icon'
 
-type Props = {
+type LinkProps = {
   url: string
 }
 
-const ButtonEdit: React.FC<Props> = (props) => {
-  const { url } = props
+type ButtonProps = {
+  onClick: () => void
+}
 
+type Props = LinkProps | ButtonProps
+
+const ButtonEdit: React.FC<Props> = (props) => {
+  if ('url' in props) {
+    const { url } = props
+    return (
+      <Link to={url} type="button" className="btn-s btn-link btn-edit">
+        <Icon name="pencil" />
+      </Link>
+    )
+  }
+
+  const { onClick } = props
   return (
-    <Link to={url} type="button" className="btn-s btn-link btn-edit">
+    <button className="btn-s btn-link btn-edit" onClick={onClick} type="button">
       <Icon name="pencil" />
-    </Link>
+    </button>
   )
 }
 
