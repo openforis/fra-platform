@@ -7,6 +7,7 @@ import Icon from 'client/components/Icon'
 
 type Props = {
   openPanel: boolean
+  // TODO: Rename this to closePanel
   setOpenPanel: (isOpen: boolean) => void
 }
 

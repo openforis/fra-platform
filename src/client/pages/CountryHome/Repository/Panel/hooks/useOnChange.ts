@@ -1,25 +1,19 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 
-import { RepositoryEdit } from 'client/pages/CountryHome/Repository/Panel/repositoryEdit'
+import { useAppDispatch } from 'client/store'
+import { RepositoryActions } from 'client/store/ui/repository'
+import { useRepositoryItem } from 'client/store/ui/repository/hooks'
 
-type OnChange = (name: string, value: string | File) => void
-
-type Returned = {
-  file: RepositoryEdit | null
-  onChange: OnChange
-}
+type Returned = (name: string, value: string) => void
 
 export const useOnChange = (): Returned => {
-  const [file, setFile] = useState<RepositoryEdit | null>(null)
-  const onChange = useCallback<OnChange>(
-    (name: string, value: string | File) => {
-      if (name === 'file') {
-        setFile({ ...file, file: value as File })
-      } else {
-        setFile({ ...file, [name]: value })
-      }
+  const dispatch = useAppDispatch()
+  const repositoryItem = useRepositoryItem()
+
+  return useCallback<Returned>(
+    (name: string, value: string) => {
+      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, [name]: value }))
     },
-    [file]
+    [dispatch, repositoryItem]
   )
-  return { file, onChange }
 }
