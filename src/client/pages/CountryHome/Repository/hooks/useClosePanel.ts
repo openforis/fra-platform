@@ -3,7 +3,9 @@ import { useCallback } from 'react'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 
-export const useClosePanel = () => {
+type Returned = () => void
+
+export const useClosePanel = (): Returned => {
   const dispatch = useAppDispatch()
-  return useCallback(() => dispatch(RepositoryActions.setRepositoryItem(undefined)), [dispatch])
+  return useCallback<Returned>(() => dispatch(RepositoryActions.setRepositoryItem(undefined)), [dispatch])
 }
