@@ -12,6 +12,7 @@ import { useUser } from 'client/store/user'
 import { useCountryIso, useOnUpdate } from 'client/hooks'
 import DisableUser from 'client/components/EditUserForm/DisableUser'
 import UserCountryRoleSelector from 'client/components/EditUserForm/UserCountryRoleSelector'
+import { useOptionsAppellation } from 'client/pages/Section/Contacts/hooks/useOptionsAppellation'
 
 import CollaboratorPermissions from './CollaboratorPermissions'
 import CountryRoles from './CountryRoles'
@@ -34,6 +35,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
   const cycle = useCycle()
   const userInfo = useUser()
   const { t } = useTranslation()
+  const appellationOptions = useOptionsAppellation()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(user)
@@ -98,7 +100,7 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
         name="title"
         value={user.props.title}
         onChange={changeUserProp}
-        options={{ Ms: 'Ms', Mr: 'Mr', Other: 'Other' }}
+        options={appellationOptions}
         enabled={enabled}
         mandatory
       />
