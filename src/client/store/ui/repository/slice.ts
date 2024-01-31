@@ -7,7 +7,11 @@ import { saveReducer } from './reducers/saveReducer'
 export const RepositorySlice = createSlice({
   name: 'repository',
   initialState,
-  reducers: {},
+  reducers: {
+    setRepositoryItem: (state, action) => {
+      state.repositoryItem = action.payload
+    },
+  },
   extraReducers: (builder) => {
     saveReducer(builder)
   },
