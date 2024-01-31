@@ -6,10 +6,10 @@ import { Objects } from 'utils/objects'
 import { useRepositoryItem } from 'client/store/ui/repository/hooks'
 import SlidingPanel from 'client/components/SlidingPanel'
 import Actions from 'client/pages/CountryHome/Repository/Panel/Actions'
-import { useClosePanel } from 'client/pages/CountryHome/Repository/Panel/hooks/useClosePanel'
 import InputField from 'client/pages/CountryHome/Repository/Panel/InputField'
 import Separator from 'client/pages/CountryHome/Repository/Panel/Separator'
 
+import { useClosePanel } from '../hooks/useClosePanel'
 import { useOnChange } from './hooks/useOnChange'
 
 const Panel: React.FC = () => {
