@@ -8,10 +8,11 @@ type Props = {
   name: string
   onChange: (name: string, value: File | string) => void
   type: string
+  value?: string
 }
 
 const InputField: React.FC<Props> = (props: Props) => {
-  const { label, name, type, className, onChange } = props
+  const { label, name, type, className, onChange, value } = props
   const { t } = useTranslation()
 
   const _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,13 +26,14 @@ const InputField: React.FC<Props> = (props: Props) => {
   return (
     <div className={`repository-form__input-field ${className}`}>
       <div className="repository-form__label">{t(label)}</div>
-      <input onChange={_onChange} className="repository-form__input" name={name} type={type} />
+      <input value={value} onChange={_onChange} className="repository-form__input" name={name} type={type} />
     </div>
   )
 }
 
 InputField.defaultProps = {
   className: '',
+  value: '',
 }
 
 export default InputField
