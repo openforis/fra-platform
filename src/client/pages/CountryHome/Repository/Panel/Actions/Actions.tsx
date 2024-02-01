@@ -6,8 +6,9 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository/hooks'
-import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClosePanel'
-import { useUpsertRepositoryItem } from 'client/pages/CountryHome/Repository/Panel/Actions/hooks/useActions'
+
+import { useClosePanel } from '../../hooks/useClosePanel'
+import { useUpsertRepositoryItem } from './hooks/useUpsertRepositoryItem'
 
 const Actions: React.FC = () => {
   const { t } = useTranslation()
@@ -31,11 +32,13 @@ const Actions: React.FC = () => {
       >
         {t('common.done')}
       </button>
+
       {showDelete && (
         <button className="btn btn-destructive" type="button">
           {t('common.delete')}
         </button>
       )}
+
       <button className="btn btn-secondary" type="button" onClick={closePanel}>
         {t('common.cancel')}
       </button>
