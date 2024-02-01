@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
@@ -7,6 +7,7 @@ import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
 
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
@@ -20,6 +21,7 @@ type Props = {
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
+  const { year } = originalDataPoint
   const assessment = useAssessment()
   const cycle = useCycle()
 
@@ -48,6 +50,8 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     naturallyRegeneratingForestTotal &&
     Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
+  const tableRef = useRef(null)
+
   return (
     <div className="odp__section">
       {!print && (
@@ -67,7 +71,12 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
-          <table className="fra-table">
+          <ButtonTableExport
+            tableRef={tableRef}
+            filename={`FRA${cycle.name} - ${t('nationalDataPoint.forestCharacteristics')} ${year ?? ''}`}
+            disabled={year === -1 || year === undefined}
+          />
+          <table ref={tableRef} className="fra-table">
             <tbody>
               <tr>
                 {print && (
@@ -139,9 +148,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
           </table>
         </div>
       </div>
-
       {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
-
       {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
     </div>
   )
