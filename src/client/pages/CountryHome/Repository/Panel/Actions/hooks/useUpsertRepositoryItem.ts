@@ -15,7 +15,7 @@ export const useUpsertRepositoryItem = (): Returned => {
   const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
 
   return useCallback<Returned>(async () => {
-    const saveParams = { assessmentName, cycleName, countryIso, file: selectedFiles[0] }
+    const saveParams = { assessmentName, cycleName, countryIso, file: selectedFiles?.[0] }
     dispatch(RepositoryActions.upsertRepositoryItem(saveParams))
       .unwrap()
       .then(() => {
