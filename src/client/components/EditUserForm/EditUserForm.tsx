@@ -77,7 +77,8 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
 
   const enabled = canEditUser
   const isAdmin = Users.isAdministrator(userInfo)
-  const showRoleSelector = !Areas.isGlobal(countryIso) && isAdmin
+  const isCurrentUserAdmin = Users.isAdministrator(user)
+  const showRoleSelector = !Areas.isGlobal(countryIso) && isAdmin && !isCurrentUserAdmin
 
   return (
     <div className="edit-user__form-container">
