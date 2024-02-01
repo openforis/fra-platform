@@ -7,17 +7,14 @@ import { Objects } from 'utils/objects'
 
 import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository/hooks'
 import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClosePanel'
-
-import { useOnSaveFile } from './hooks/useOnSaveFile'
+import { useUpsertRepositoryItem } from 'client/pages/CountryHome/Repository/Panel/Actions/hooks/useActions'
 
 const Actions: React.FC = () => {
   const { t } = useTranslation()
   const repositoryItem = useRepositoryItem()
 
-  const onSaveFile = useOnSaveFile()
+  const upsertRepositoryItem = useUpsertRepositoryItem()
 
-  // TODO: Implement this
-  const onUpdateFile = () => {}
   const closePanel = useClosePanel()
   const disabled = useIsRepositoryLoading()
 
@@ -28,7 +25,7 @@ const Actions: React.FC = () => {
     <div className="repository-form__actions">
       <button
         disabled={disabled}
-        onClick={repositoryItem.uuid ? onUpdateFile : onSaveFile}
+        onClick={upsertRepositoryItem}
         className={classNames('btn btn-primary', { disabled })}
         type="button"
       >

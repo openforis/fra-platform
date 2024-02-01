@@ -11,8 +11,8 @@ type Props = CycleParams & {
   file?: File
 }
 
-export const createRepositoryItem = createAsyncThunk<void, Props, ThunkApiConfig>(
-  'repositoryItem/create',
+export const upsertRepositoryItem = createAsyncThunk<void, Props, ThunkApiConfig>(
+  'repositoryItem/upsert',
   async (props, { getState }) => {
     const { file } = props
     const repositoryItem = RepositorySelectors.getRepositoryItem(getState())

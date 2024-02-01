@@ -6,14 +6,14 @@ import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-type Returned = () => Promise<void>
+type Returned = () => void
 
-export const useOnSaveFile = (): Returned => {
+export const useUpsertRepositoryItem = (): Returned => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
   return useCallback<Returned>(async () => {
     const saveParams = { assessmentName, cycleName, countryIso }
-    dispatch(RepositoryActions.createRepositoryItem(saveParams))
+    dispatch(RepositoryActions.upsertRepositoryItem(saveParams))
   }, [assessmentName, cycleName, countryIso, dispatch])
 }
