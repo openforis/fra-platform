@@ -42,6 +42,10 @@ const PrintTables = createRoute<CountryRouteParams>({ path: 'tables', parent: Pr
 // Login routes and sub routes
 const Login = createRoute<CycleRouteParams, LoginQueryParams>({ path: 'login', parent: Cycle })
 const LoginInvitation = createRoute<CycleRouteParams, LoginInvitationQueryParams>({ path: 'invitation', parent: Login })
+const LoginInvitationLocal = createRoute<CycleRouteParams, LoginInvitationQueryParams>({
+  path: 'local',
+  parent: LoginInvitation,
+})
 const LoginResetPassword = createRoute<CycleRouteParams, LoginResetPasswordQueryParams>({
   path: 'resetPassword',
   parent: Login,
@@ -75,5 +79,6 @@ export const Routes = {
   // login
   Login,
   LoginInvitation,
+  LoginInvitationLocal,
   LoginResetPassword,
 }
