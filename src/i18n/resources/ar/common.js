@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'تم قبوله',
+  add: 'إضافة',
   apply: 'نفذ',
   cancel: 'إلغاء',
   clearTable: 'حذف بيانات الجدول',

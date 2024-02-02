@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'Accepted',
+  add: 'Add',
   apply: 'Apply',
   areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   cancel: 'Cancel',

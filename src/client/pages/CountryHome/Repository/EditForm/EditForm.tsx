@@ -15,7 +15,7 @@ const EditForm: React.FC = () => {
     <div className="repository__edit-form">
       <button className="btn-s btn-primary" onClick={openPanel} type="button">
         <Icon className="icon-sub icon-white" name="small-add" />
-        {t('review.add')}
+        {t('common.add')}
       </button>
       <Panel />
     </div>

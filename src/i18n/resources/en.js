@@ -454,7 +454,6 @@ The FRA team
     delete: 'Delete',
     writeComment: 'Write a comment…',
     commentingClosed: 'Commenting closed',
-    add: 'Add',
     cancel: 'Cancel',
   },
 

@@ -14,7 +14,7 @@ const CreateContact: React.FC = () => {
     <div className="contacts__create-container">
       <button disabled={loading} className="btn-s btn-primary no-print" onClick={onClick} type="button">
         <Icon className="icon-sub icon-white" name="small-add" />
-        {t('review.add')}
+        {t('common.add')}
       </button>
     </div>
   )

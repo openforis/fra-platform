@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'Aceptado',
+  add: 'Añadir',
   apply: 'Aplicar',
   cancel: 'Cancelar',
   clearTable: 'Despejar la tabla',

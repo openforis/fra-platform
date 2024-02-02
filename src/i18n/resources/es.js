@@ -390,7 +390,6 @@ El equipo de FRA
     delete: 'Borrar',
     writeComment: 'Escriba un comentario…',
     commentingClosed: 'Se han desactivado los comentarios',
-    add: 'Añadir',
     cancel: 'Cancelar',
     loading: 'Cargando',
   },
