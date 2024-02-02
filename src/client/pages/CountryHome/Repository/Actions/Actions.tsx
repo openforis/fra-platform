@@ -1,36 +1,28 @@
 import './Actions.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
-import Icon from 'client/components/Icon'
-import SlidingPanel from 'client/components/SlidingPanel'
+import { RepositoryItem } from 'meta/cycleData'
 
-const Actions: React.FC = () => {
-  const { t } = useTranslation()
-  const [openPanel, setOpenPanel] = React.useState(false)
+import { useAppDispatch } from 'client/store'
+import { RepositoryActions } from 'client/store/ui/repository'
+import ButtonEdit from 'client/components/Buttons/ButtonEdit'
+
+type Props = {
+  repositoryItem: RepositoryItem
+}
+
+const Actions: React.FC<Props> = (props) => {
+  const { repositoryItem } = props
+  const dispatch = useAppDispatch()
 
   return (
-    <>
-      <div className="repository-actions">
-        <button
-          className="btn-s btn-link btn-edit"
-          onClick={() => {
-            setOpenPanel(!openPanel)
-          }}
-          type="button"
-        >
-          <Icon name="pencil" />
-        </button>
-      </div>
-      <SlidingPanel openPanel={openPanel} setOpenPanel={setOpenPanel}>
-        <button onClick={() => setOpenPanel(false)} className="btn btn-destructive" type="button">
-          {t('common.delete')}
-        </button>
-        <button onClick={() => setOpenPanel(false)} className="btn btn-secondary" type="button">
-          {t('common.cancel')}
-        </button>
-      </SlidingPanel>
-    </>
+    <div className="repository-actions">
+      <ButtonEdit
+        onClick={() => {
+          dispatch(RepositoryActions.setRepositoryItem(repositoryItem))
+        }}
+      />
+    </div>
   )
 }
 

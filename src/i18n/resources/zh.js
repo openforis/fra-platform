@@ -436,7 +436,6 @@ FRA工作组
     delete: '删除',
     writeComment: '写评论…',
     commentingClosed: '评论关闭',
-    add: '添加',
     cancel: '取消',
     loading: '正在加载',
   },

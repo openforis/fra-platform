@@ -1,5 +1,6 @@
 module.exports = {
   accepted: '已接受',
+  add: '添加',
   apply: '应用',
   cancel: '取消',
   clearTable: '清除表格',
