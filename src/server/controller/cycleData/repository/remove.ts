@@ -15,14 +15,14 @@ type Props = {
 }
 
 export const remove = async (props: Props): Promise<void> => {
-  const { assessment, countryIso, user } = props
+  const { assessment, cycle, countryIso, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {
     const target = await RepositoryRepository.remove(props, t)
 
     const message = ActivityLogMessage.assessmentFileDelete
     const activityLog = { target, section: 'assessment', message, countryIso, user }
-    const activityLogParams = { activityLog, assessment }
+    const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams, t)
   })
 }
