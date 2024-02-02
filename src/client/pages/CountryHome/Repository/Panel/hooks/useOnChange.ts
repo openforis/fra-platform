@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useRepositoryItem } from 'client/store/ui/repository/hooks'
-import { useSelectedFileContext } from 'client/context/selectedFilesContext'
+import { useFileUploadContext } from 'client/components/FileUpload'
 
 type Returned = (name: string, value: string) => void
 
@@ -11,7 +11,7 @@ export const useOnChange = (): Returned => {
   const dispatch = useAppDispatch()
   const repositoryItem = useRepositoryItem()
 
-  const { selectedFiles } = useSelectedFileContext()
+  const { files } = useFileUploadContext()
 
   const onChange = useCallback<Returned>(
     (name: string, value: string) => {
@@ -23,12 +23,12 @@ export const useOnChange = (): Returned => {
   // When a file is selected and the name is empty,
   // set the name to the file name
   useEffect(() => {
-    if (selectedFiles?.length > 0 && repositoryItem?.name === '') {
-      const file = selectedFiles[0]
+    if (files?.length > 0 && repositoryItem?.name === '') {
+      const file = files[0]
       const name = file.name.split('.')[0]
       onChange('name', name)
     }
-  }, [onChange, repositoryItem?.name, selectedFiles])
+  }, [files, onChange, repositoryItem?.name])
 
   return onChange
 }

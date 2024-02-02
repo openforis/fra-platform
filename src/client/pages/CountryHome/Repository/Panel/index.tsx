@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { SelectedFilesProvider } from 'client/context/selectedFilesContext'
+import { FileUploadProvider } from 'client/components/FileUpload'
 
 import Panel from './Panel'
 
 const WrappedPanel: React.FC = () => {
   return (
-    <SelectedFilesProvider>
+    <FileUploadProvider>
       <Panel />
-    </SelectedFilesProvider>
+    </FileUploadProvider>
   )
 }
 

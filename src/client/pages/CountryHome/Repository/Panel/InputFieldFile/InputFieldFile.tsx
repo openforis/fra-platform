@@ -1,15 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useSelectedFileContext } from 'client/context/selectedFilesContext'
+import { useFileUploadContext } from 'client/components/FileUpload'
 
 const FileInputField: React.FC = () => {
   const { t } = useTranslation()
 
-  const { setSelectedFiles } = useSelectedFileContext()
+  const { setFiles } = useFileUploadContext()
 
   const _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFiles(event.target.files)
+    setFiles(event.target.files)
   }
 
   const label = `common.file`
