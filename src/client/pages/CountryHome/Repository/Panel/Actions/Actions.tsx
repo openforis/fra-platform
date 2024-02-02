@@ -6,9 +6,9 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository/hooks'
-import { useOnDelete } from 'client/pages/CountryHome/Repository/Panel/Actions/hooks/useOnDelete'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
+import { useOnDelete } from './hooks/useOnDelete'
 import { useUpsertRepositoryItem } from './hooks/useUpsertRepositoryItem'
 
 const Actions: React.FC = () => {
