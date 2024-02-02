@@ -1,18 +1,18 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-type Props = {
-  label: string
-  onChange: (value: FileList) => void
-}
+import { useSelectedFileContext } from 'client/context/selectedFilesContext'
 
-const FileInputField: React.FC<Props> = (props: Props) => {
-  const { label, onChange } = props
+const FileInputField: React.FC = () => {
   const { t } = useTranslation()
 
+  const { setSelectedFiles } = useSelectedFileContext()
+
   const _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.files)
+    setSelectedFiles(event.target.files)
   }
+
+  const label = `common.file`
   const id = `repository_form-input-file`
 
   return (
