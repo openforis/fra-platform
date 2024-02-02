@@ -3,7 +3,7 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { upsertRepositoryItem } from 'client/store/ui/repository/actions/upsertRepositoryItem'
 import { RepositoryState } from 'client/store/ui/repository/state'
 
-export const createRepositoryItemReducer = (builder: ActionReducerMapBuilder<RepositoryState>) => {
+export const upsertRepositoryItemReducer = (builder: ActionReducerMapBuilder<RepositoryState>) => {
   builder.addCase(upsertRepositoryItem.pending, (state) => {
     state.loading = true
   })
