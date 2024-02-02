@@ -4,7 +4,7 @@ import { SelectedFilesProvider } from 'client/context/selectedFilesContext'
 
 import Panel from './Panel'
 
-const WrappedPanel = () => {
+const WrappedPanel: React.FC = () => {
   return (
     <SelectedFilesProvider>
       <Panel />
