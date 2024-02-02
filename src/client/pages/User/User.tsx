@@ -24,7 +24,7 @@ const User: React.FC = () => {
   const cycle = useCycle()
   const user = useUser()
   const isCountry = useIsCountryRoute()
-  const userToEdit = useUserToEdit()
+  const targetUser = useUserToEdit()
   const location = useLocation()
   const { toaster } = useToaster()
 
@@ -54,12 +54,12 @@ const User: React.FC = () => {
     }
   }, [assessmentName, countryIso, cycleName, dispatch, userId])
 
-  if (!userToEdit) return null
+  if (!targetUser) return null
 
   const isAdministrator = Users.isAdministrator(user)
   const isReviewer = Users.isReviewer(user, countryIso, cycle)
 
-  const isSelf = user.id === userToEdit.id
+  const isSelf = user.id === targetUser.id
 
   const canEditUser = isSelf || isAdministrator
 
@@ -77,7 +77,7 @@ const User: React.FC = () => {
         canEditPermissions={canEditPermissions}
         canEditRoles={canEditRoles}
         canEditUser={canEditUser}
-        user={userToEdit}
+        targetUser={targetUser}
       />
       <ButtonContinue />
     </div>
