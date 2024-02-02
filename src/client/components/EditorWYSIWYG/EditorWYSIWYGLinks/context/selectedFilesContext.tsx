@@ -2,13 +2,21 @@ import React, { createContext, Dispatch, SetStateAction, useContext, useMemo, us
 
 import { AssessmentFile } from 'meta/cycleData'
 
+/**
+ * @deprecated
+ */
 type SelectedFilesContextType = {
   selectedFiles: AssessmentFile[]
   setSelectedFiles: Dispatch<SetStateAction<AssessmentFile[]>>
 }
-
+/**
+ * @deprecated
+ */
 const SelectedFilesContext = createContext<SelectedFilesContextType | undefined>(undefined)
 
+/**
+ * @deprecated
+ */
 export const SelectedFilesProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [selectedFiles, setSelectedFiles] = useState<Array<AssessmentFile>>([])
 
@@ -17,4 +25,7 @@ export const SelectedFilesProvider: React.FC<React.PropsWithChildren> = ({ child
   return <SelectedFilesContext.Provider value={value}>{children}</SelectedFilesContext.Provider>
 }
 
+/**
+ * @deprecated
+ */
 export const useSelectedFileContext = (): SelectedFilesContextType => useContext(SelectedFilesContext)

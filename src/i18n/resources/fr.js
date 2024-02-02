@@ -385,7 +385,6 @@ L'équipe de FRA
     delete: 'Supprimer',
     writeComment: 'Écrire un commentaire…',
     commentingClosed: 'Période de commentaires terminée',
-    add: 'Ajouter',
     cancel: 'Effacer',
     loading: 'Chargement',
   },

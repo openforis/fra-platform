@@ -3,31 +3,43 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { useIsRepositoryLoading } from 'client/store/ui/repository/hooks'
+import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository/hooks'
 
-type Props = {
-  setOpenPanel: (open: boolean) => void
-  onSave: () => void
-}
+import { useClosePanel } from '../../hooks/useClosePanel'
+import { useUpsertRepositoryItem } from './hooks/useUpsertRepositoryItem'
 
-const Actions: React.FC<Props> = (props: Props) => {
-  const { setOpenPanel, onSave } = props
+const Actions: React.FC = () => {
   const { t } = useTranslation()
+  const repositoryItem = useRepositoryItem()
 
+  const upsertRepositoryItem = useUpsertRepositoryItem()
+
+  const closePanel = useClosePanel()
   const disabled = useIsRepositoryLoading()
+
+  if (!repositoryItem) return null
+  const showDelete = !Objects.isEmpty(repositoryItem.uuid)
 
   return (
     <div className="repository-form__actions">
       <button
         disabled={disabled}
-        onClick={onSave}
+        onClick={upsertRepositoryItem}
         className={classNames('btn btn-primary', { disabled })}
         type="button"
       >
         {t('common.done')}
       </button>
-      <button className="btn btn-secondary" type="button" onClick={() => setOpenPanel(false)}>
+
+      {showDelete && (
+        <button className="btn btn-destructive" type="button">
+          {t('common.delete')}
+        </button>
+      )}
+
+      <button className="btn btn-secondary" type="button" onClick={closePanel}>
         {t('common.cancel')}
       </button>
     </div>

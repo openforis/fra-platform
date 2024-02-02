@@ -18,7 +18,7 @@ export const useColumns = (): Array<Column<RepositoryItem>> => {
         key: 'link',
       },
       {
-        component: () => <Actions />,
+        component: ({ datum }) => <Actions repositoryItem={datum} />,
         header: t('common.name'),
         key: 'name',
       },

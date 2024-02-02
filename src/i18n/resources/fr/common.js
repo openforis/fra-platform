@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'Accepté',
+  add: 'Ajouter',
   apply: 'Appliquer',
   cancel: 'Effacer',
   clearTable: 'Supprimer tableau',

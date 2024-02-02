@@ -468,7 +468,6 @@ The FRA team
     delete: 'إلغاء',
     writeComment: 'كتابة تعليق...',
     commentingClosed: 'إغلاق التعليقات',
-    add: 'إضافة',
     cancel: 'إلغاء',
     loading: 'تحميل',
   },

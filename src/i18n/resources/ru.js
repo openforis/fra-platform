@@ -415,7 +415,6 @@ module.exports.translation = {
     delete: 'Удалить',
     writeComment: 'Написать комментарий…',
     commentingClosed: 'Комментирование закрыто',
-    add: 'Добавить',
     cancel: 'Отмена',
     loading: 'Загрузка',
   },

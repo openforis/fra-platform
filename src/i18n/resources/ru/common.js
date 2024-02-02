@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'Принято',
+  add: 'Добавить',
   apply: 'Применить',
   areYouSureYouWantToDeleteAllTableData: 'Вы уверены, что хотите удалить все данные из таблицы?',
   cancel: 'Отмена',

@@ -18,7 +18,7 @@ type Props = {
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
   const { assessment, cycle, countryIso, fileUuid, link, name } = props
 
-  if (fileUuid && link) throw new Error('Cannot create both fileUuid and link')
+  if (fileUuid && link) throw new Error('Cannot create both file and link')
   if (!fileUuid && !link) throw new Error('No file or link provided')
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)

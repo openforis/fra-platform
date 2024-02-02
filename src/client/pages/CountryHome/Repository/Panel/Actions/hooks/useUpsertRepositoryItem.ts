@@ -5,20 +5,21 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { RepositoryEdit } from 'client/pages/CountryHome/Repository/Panel/repositoryEdit'
+import { useFileUploadContext } from 'client/components/FileUpload'
 
-type Returned = () => Promise<void>
+type Returned = () => void
 
-export const useOnSaveFile = (file: RepositoryEdit | null, setOpenPanel: (open: boolean) => void): Returned => {
+export const useUpsertRepositoryItem = (): Returned => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { files, setFiles } = useFileUploadContext()
 
   return useCallback<Returned>(async () => {
-    const saveParams = { assessmentName, cycleName, countryIso, file }
-    dispatch(RepositoryActions.save(saveParams))
+    const saveParams = { assessmentName, cycleName, countryIso, file: files?.[0] }
+    dispatch(RepositoryActions.upsertRepositoryItem(saveParams))
       .unwrap()
       .then(() => {
-        setOpenPanel(false)
+        setFiles(null)
       })
-  }, [assessmentName, cycleName, countryIso, file, dispatch, setOpenPanel])
+  }, [assessmentName, cycleName, countryIso, dispatch, files, setFiles])
 }

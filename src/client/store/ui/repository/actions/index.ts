@@ -1,5 +1,7 @@
-import { save } from 'client/store/ui/repository/actions/save'
+import { upsertRepositoryItem } from 'client/store/ui/repository/actions/upsertRepositoryItem'
+import { RepositorySlice } from 'client/store/ui/repository/slice'
 
 export const RepositoryActions = {
-  save,
+  upsertRepositoryItem,
+  ...RepositorySlice.actions,
 }
