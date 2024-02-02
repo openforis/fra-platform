@@ -8,10 +8,7 @@
 .nav {
   @extend .nav-base;
   grid-area: navigation;
-  overflow-x: hidden;
-  overflow-y: auto;
   height: 100%;
-  padding: 8px 0;
 
   .nav__bulk-download {
     margin-left: 16px;

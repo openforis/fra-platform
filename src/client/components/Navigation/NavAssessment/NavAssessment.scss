@@ -1,0 +1,8 @@
+@import 'src/client/style/partials';
+
+.nav-assessment {
+  overflow-y: auto;
+  padding: $spacing-xxs 0;
+  position: sticky;
+  top: 50px;
+}
