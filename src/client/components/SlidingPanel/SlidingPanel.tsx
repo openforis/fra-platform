@@ -7,12 +7,11 @@ import Icon from 'client/components/Icon'
 
 type Props = {
   openPanel: boolean
-  // TODO: Rename this to closePanel
-  setOpenPanel: (isOpen: boolean) => void
+  closePanel: () => void
 }
 
 const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
-  const { children, openPanel, setOpenPanel } = props
+  const { children, openPanel, closePanel } = props
   const panelType = 'right'
   const panelSize = 30
 
@@ -20,19 +19,13 @@ const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
     <SlidingPanelComponent
       type={panelType}
       isOpen={openPanel}
-      backdropClicked={() => setOpenPanel(false)}
+      backdropClicked={closePanel}
       size={panelSize}
       panelClassName="sliding-panel"
       panelContainerClassName=""
     >
       <>
-        <button
-          className="btn-s btn btn-transparent sliding-panel__close"
-          onClick={() => {
-            setOpenPanel(!openPanel)
-          }}
-          type="button"
-        >
+        <button className="btn-s btn btn-transparent sliding-panel__close" onClick={closePanel} type="button">
           <Icon name="remove" />
         </button>
         <div className="panel-container">{children}</div>

@@ -21,7 +21,7 @@ const Panel: React.FC = () => {
   const closePanel = useClosePanel()
 
   return (
-    <SlidingPanel openPanel={openPanel} setOpenPanel={closePanel}>
+    <SlidingPanel openPanel={openPanel} closePanel={closePanel}>
       <div className="repository-form__container">
         <InputField value={repositoryItem?.name} onChange={onChange} label="editUser.name" name="name" />
         <InputField value={repositoryItem?.link} onChange={onChange} label="common.link" name="link" />

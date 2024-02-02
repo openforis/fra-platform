@@ -10,7 +10,7 @@ type Props = {
 }
 
 const InputField: React.FC<Props> = (props: Props) => {
-  const { label, name, onChange, value = '' } = props
+  const { label, name, onChange, value } = props
   const { t } = useTranslation()
 
   const _onChange = useCallback(
@@ -25,7 +25,14 @@ const InputField: React.FC<Props> = (props: Props) => {
       <label htmlFor={id} className="repository-form__label">
         {t(label)}
       </label>
-      <input id={id} value={value} onChange={_onChange} className="repository-form__input" name={name} type="text" />
+      <input
+        id={id}
+        value={value ?? ''}
+        onChange={_onChange}
+        className="repository-form__input"
+        name={name}
+        type="text"
+      />
     </div>
   )
 }

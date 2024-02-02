@@ -8,6 +8,7 @@ import { Objects } from 'utils/objects'
 import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository/hooks'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
+import { useOnDelete } from './hooks/useOnDelete'
 import { useUpsertRepositoryItem } from './hooks/useUpsertRepositoryItem'
 
 const Actions: React.FC = () => {
@@ -18,6 +19,7 @@ const Actions: React.FC = () => {
 
   const closePanel = useClosePanel()
   const disabled = useIsRepositoryLoading()
+  const onDelete = useOnDelete()
 
   if (!repositoryItem) return null
   const showDelete = !Objects.isEmpty(repositoryItem.uuid)
@@ -34,12 +36,12 @@ const Actions: React.FC = () => {
       </button>
 
       {showDelete && (
-        <button className="btn btn-destructive" type="button">
+        <button disabled={disabled} onClick={onDelete} className="btn btn-destructive" type="button">
           {t('common.delete')}
         </button>
       )}
 
-      <button className="btn btn-secondary" type="button" onClick={closePanel}>
+      <button disabled={disabled} className="btn btn-secondary" type="button" onClick={closePanel}>
         {t('common.cancel')}
       </button>
     </div>
