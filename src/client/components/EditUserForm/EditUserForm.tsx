@@ -21,28 +21,29 @@ import TextInputField from './TextInputField'
 import UserRolePropsFields from './UserRolePropsFields'
 
 type Props = {
-  user: User
+  targetUser: User
   canEditPermissions?: boolean
   canEditRoles?: boolean
   canEditUser?: boolean
 }
 
-const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles, canEditUser }) => {
+const EditUserForm: React.FC<Props> = (props: Props) => {
+  const { targetUser, canEditPermissions, canEditRoles, canEditUser } = props
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const countryIso = useCountryIso()
   const cycle = useCycle()
-  const userInfo = useUser()
+  const user = useUser()
   const { t } = useTranslation()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
-  const [userToEdit, setUserToEdit] = useState<User>(user)
-  const [roleToEdit, setRoleToEdit] = useState<UserRole<any, any>>(Users.getRole(user, countryIso, cycle))
+  const [userToEdit, setUserToEdit] = useState<User>(targetUser)
+  const [roleToEdit, setRoleToEdit] = useState<UserRole<any, any>>(Users.getRole(targetUser, countryIso, cycle))
 
-  const changeUser = (name: string, value: string) => setUserToEdit({ ...user, [name]: value })
+  const changeUser = (name: string, value: string) => setUserToEdit({ ...targetUser, [name]: value })
 
   const changeUserProp = (name: string, value: any) =>
-    setUserToEdit({ ...user, props: { ...user.props, [name]: value } })
+    setUserToEdit({ ...targetUser, props: { ...targetUser.props, [name]: value } })
 
   const changeUserRoleProp = (name: string, value: string) =>
     setRoleToEdit({ ...roleToEdit, props: { ...roleToEdit.props, [name]: value } })
@@ -71,41 +72,47 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
     )
   }, [profilePicture, userToEdit])
 
-  if (!user) return null
+  if (!targetUser) return null
 
-  const userRole = Users.getRole(user, countryIso, cycle)
+  const userRole = Users.getRole(targetUser, countryIso, cycle)
 
   const enabled = canEditUser
-  const isAdmin = Users.isAdministrator(userInfo)
-  const isCurrentUserAdmin = Users.isAdministrator(user)
-  const showRoleSelector = !Areas.isGlobal(countryIso) && isAdmin && !isCurrentUserAdmin
+  const isAdmin = Users.isAdministrator(user)
+  const isTargetAdmin = Users.isAdministrator(targetUser)
+  const showRoleSelector = !Areas.isGlobal(countryIso) && isAdmin && !isTargetAdmin
 
   return (
     <div className="edit-user__form-container">
       <ProfilePicture
         onChange={(profilePicture: File) => setProfilePicture(profilePicture)}
-        userId={user.id}
+        userId={targetUser.id}
         enabled={enabled}
       />
       <TextInputField
         name="email"
-        value={user.email}
+        value={targetUser.email}
         onChange={changeUser}
         validator={Users.validEmailField}
-        enabled={Users.isAdministrator(userInfo)}
+        enabled={Users.isAdministrator(user)}
         mandatory
       />
       <SelectField
         name="title"
-        value={user.props.title}
+        value={targetUser.props.title}
         onChange={changeUserProp}
         options={{ Ms: 'Ms', Mr: 'Mr', Other: 'Other' }}
         enabled={enabled}
         mandatory
       />
-      <TextInputField name="name" value={user.props.name} onChange={changeUserProp} enabled={enabled} mandatory />
-      <TextInputField name="surname" value={user.props.surname} onChange={changeUserProp} enabled={enabled} mandatory />
-      {showRoleSelector && <UserCountryRoleSelector user={user} enabled={enabled} />}
+      <TextInputField name="name" value={targetUser.props.name} onChange={changeUserProp} enabled={enabled} mandatory />
+      <TextInputField
+        name="surname"
+        value={targetUser.props.surname}
+        onChange={changeUserProp}
+        enabled={enabled}
+        mandatory
+      />
+      {showRoleSelector && <UserCountryRoleSelector user={targetUser} enabled={enabled} />}
 
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
         userRole?.role
@@ -117,9 +124,9 @@ const EditUserForm: React.FC<Props> = ({ user, canEditPermissions, canEditRoles,
       {canEditPermissions && userRole?.role === RoleName.COLLABORATOR && (
         <CollaboratorPermissions userRole={userRole as Collaborator} />
       )}
-      {canEditRoles && <CountryRoles user={user} />}
+      {canEditRoles && <CountryRoles user={targetUser} />}
 
-      {isAdmin && <DisableUser user={user} changeUser={changeUser} />}
+      {isAdmin && <DisableUser user={targetUser} changeUser={changeUser} />}
     </div>
   )
 }
