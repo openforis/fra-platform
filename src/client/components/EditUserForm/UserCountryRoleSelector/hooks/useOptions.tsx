@@ -11,12 +11,15 @@ export const useOptions = (): Returned => {
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
-    const options = Object.keys(RoleName)
-      .filter((key) => key !== RoleName.ADMINISTRATOR)
-      .map((key) => ({
-        label: t(Users.getI18nRoleLabelKey(key)),
-        value: key,
-      }))
+    const options = Object.keys(RoleName).reduce<Returned>((acc, key) => {
+      if (key !== RoleName.ADMINISTRATOR) {
+        acc.push({
+          label: t(Users.getI18nRoleLabelKey(key)),
+          value: key,
+        })
+      }
+      return acc
+    }, [])
 
     return options
   }, [t])
