@@ -2,18 +2,16 @@
 
 .edit-user__form-field {
   &.edit-user__form-select-field {
-    gap: $spacing-xs;
+    display: block;
 
-    select {
-      border: none;
-      width: 100%;
-      padding: 10px;
-    }
-  }
+    &.error {
+      .select__container {
+        background-color: rgba($ui-destructive, 0.1) !important;
 
-  &.error {
-    select {
-      background-color: rgba($ui-destructive, 0.1) !important;
+        input {
+          background-color: transparent !important;
+        }
+      }
     }
   }
 }
