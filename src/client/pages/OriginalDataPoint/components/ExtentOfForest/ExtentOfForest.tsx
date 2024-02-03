@@ -5,8 +5,8 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPs, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
 
@@ -20,8 +20,7 @@ type Props = {
 const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
-  const assessment = useAssessment()
-  const cycle = useCycle()
+  const { assessmentName, cycleName } = useCycleRouteParams()
 
   const {
     t,
@@ -41,12 +40,19 @@ const ExtentOfForest: React.FC<Props> = (props) => {
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
+          <ButtonTableExport
+            tableRef={tableRef}
+            filename={`FRA${cycleName} - ${t(
+              `nationalDataPoint.forestCategoriesLabel${cycleName === '2025' ? '2025' : ''}`
+            )} ${year ?? ''}`}
+            disabled={year === -1 || year === undefined}
+          />
           <h3 className="subhead">
-            {t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
+            {t(`nationalDataPoint.forestCategoriesLabel${cycleName === '2025' ? '2025' : ''}`)}
           </h3>
           <DefinitionLink
-            assessmentName={assessment.props.name}
-            cycleName={cycle.name}
+            assessmentName={assessmentName}
+            cycleName={cycleName}
             document="tad"
             anchor="1a"
             title={t('definition.definitionLabel')}
@@ -56,13 +62,6 @@ const ExtentOfForest: React.FC<Props> = (props) => {
       )}
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
-          <ButtonTableExport
-            tableRef={tableRef}
-            filename={`FRA${cycle.name} - ${t(
-              `nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`
-            )} ${year ?? ''}`}
-            disabled={year === -1 || year === undefined}
-          />
           <table ref={tableRef} className="fra-table">
             <tbody>
               <tr>
@@ -72,7 +71,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
+                  {t(`nationalDataPoint.${cycleName === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
                   {t(`nationalDataPoint.fraClasses`)}
@@ -83,10 +82,10 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell fra-table__divider">{t('nationalDataPoint.area')}</th>
                 <th className="fra-table__header-cell">{t('fraClass.forest')}</th>
                 <th className="fra-table__header-cell">
-                  {t(`${cycle.name === '2025' ? 'fra.extentOfForest.otherWoodedLand' : 'fraClass.otherWoodedLand'}`)}
+                  {t(`${cycleName === '2025' ? 'fra.extentOfForest.otherWoodedLand' : 'fraClass.otherWoodedLand'}`)}
                 </th>
                 <th className="fra-table__header-cell">
-                  {t(`${cycle.name === '2025' ? 'fra.extentOfForest.remainingLandArea' : 'fraClass.otherLand'}`)}
+                  {t(`${cycleName === '2025' ? 'fra.extentOfForest.remainingLandArea' : 'fraClass.otherLand'}`)}
                 </th>
               </tr>
 

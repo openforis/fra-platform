@@ -5,8 +5,8 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
 
@@ -22,8 +22,7 @@ type Props = {
 const ForestCharacteristics: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
-  const assessment = useAssessment()
-  const cycle = useCycle()
+  const { assessmentName, cycleName } = useCycleRouteParams()
 
   const {
     t,
@@ -46,7 +45,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
   // Display primary_forest only for ODP/Cycle2025
   const hasNaturallyRegeneratingForest =
-    cycle.name === '2025' &&
+    cycleName === '2025' &&
     naturallyRegeneratingForestTotal &&
     Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
@@ -56,11 +55,17 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
+          <ButtonTableExport
+            tableRef={tableRef}
+            filename={`FRA${cycleName} - ${t('nationalDataPoint.forestCharacteristics')} ${year ?? ''}`}
+            disabled={year === -1 || year === undefined}
+          />
+
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
 
           <DefinitionLink
-            assessmentName={assessment.props.name}
-            cycleName={cycle.name}
+            assessmentName={assessmentName}
+            cycleName={cycleName}
             document="tad"
             anchor="1b"
             title={t('definition.definitionLabel')}
@@ -71,11 +76,6 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
-          <ButtonTableExport
-            tableRef={tableRef}
-            filename={`FRA${cycle.name} - ${t('nationalDataPoint.forestCharacteristics')} ${year ?? ''}`}
-            disabled={year === -1 || year === undefined}
-          />
           <table ref={tableRef} className="fra-table">
             <tbody>
               <tr>
@@ -85,7 +85,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
+                  {t(`nationalDataPoint.${cycleName === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
                   {t(`nationalDataPoint.fraClasses`)}
