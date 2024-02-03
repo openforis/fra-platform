@@ -10,6 +10,7 @@ import { useAssessment, useCycle } from 'client/store/assessment'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
 import { useCountryIso, useOnUpdate } from 'client/hooks'
+import { useOptionsAppellation } from 'client/hooks/useOptionsAppellation'
 import DisableUser from 'client/components/EditUserForm/DisableUser'
 import UserCountryRoleSelector from 'client/components/EditUserForm/UserCountryRoleSelector'
 
@@ -35,6 +36,7 @@ const EditUserForm: React.FC<Props> = (props: Props) => {
   const cycle = useCycle()
   const user = useUser()
   const { t } = useTranslation()
+  const appellationOptions = useOptionsAppellation()
 
   const [profilePicture, setProfilePicture] = useState<File>(null)
   const [userToEdit, setUserToEdit] = useState<User>(targetUser)
@@ -100,7 +102,7 @@ const EditUserForm: React.FC<Props> = (props: Props) => {
         name="title"
         value={targetUser.props.title}
         onChange={changeUserProp}
-        options={{ Ms: 'Ms', Mr: 'Mr', Other: 'Other' }}
+        options={appellationOptions}
         enabled={enabled}
         mandatory
       />
