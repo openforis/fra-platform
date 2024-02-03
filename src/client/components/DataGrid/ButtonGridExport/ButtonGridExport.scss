@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.fra-table__btn-export {
+  font-size: $font-xs;
+
+  svg.icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+  }
+}
