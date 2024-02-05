@@ -17,7 +17,7 @@ import CycleHome from 'client/pages/CycleHome'
 import DataDownload from 'client/pages/DataDownload'
 import Geo from 'client/pages/Geo'
 import Landing from 'client/pages/Landing'
-import Login, { LoginForm, LoginInvitation, LoginResetPassword } from 'client/pages/Login'
+import Login, { LoginForm, LoginInvitation, LoginInvitationLocal, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
 import Print from 'client/pages/Print'
 import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
@@ -67,7 +67,9 @@ export const useRoutes = () => {
             {/* Login */}
             <Route path={Routes.Login.path.relative} element={<Login />}>
               <Route index element={<LoginForm />} />
-              <Route path={Routes.LoginInvitation.path.relative} element={<LoginInvitation />} />
+              <Route path={Routes.LoginInvitation.path.relative} element={<LoginInvitation />}>
+                <Route path={Routes.LoginInvitationLocal.path.relative} element={<LoginInvitationLocal />} />
+              </Route>
               <Route path={Routes.LoginResetPassword.path.relative} element={<LoginResetPassword />} />
             </Route>
           </Route>

@@ -1,13 +1,5 @@
 @import 'src/client/style/partials';
 
-.nav-header {
-  margin-top: $spacing-xs;
-
-  @include min-width($laptop) {
-    margin-top: $spacing-xxxs;
-  }
-}
-
 .nav-header__sep-container {
   display: grid;
   grid-template-columns: $spacing-xl 1fr $spacing-xl - 4;
