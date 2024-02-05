@@ -4,7 +4,6 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { removeRepositoryItem } from 'server/api/cycleData/repository/removeRepositoryItem'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
@@ -31,6 +30,8 @@ import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateO
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { createFile } from './repository/createFile'
 import { getManyRepository } from './repository/getManyRepository'
+import { getRepositoryFile } from './repository/getRepositoryFile'
+import { removeRepositoryItem } from './repository/removeRepositoryItem'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { clearTable } from './table/clearTable'
@@ -152,6 +153,7 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditAssessmentFile,
       createFile
     )
+    express.get(ApiEndPoint.CycleData.Repository.file(), getRepositoryFile)
     express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
     express.delete(
       ApiEndPoint.CycleData.Repository.one(),
