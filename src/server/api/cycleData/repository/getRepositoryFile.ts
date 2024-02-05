@@ -11,13 +11,12 @@ type Request = CycleRequest<never>
 
 export const getRepositoryFile = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, cycleName } = req.query
     const { uuid } = req.params
-    const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const props = { assessment, cycle, countryIso, user, uuid }
+    const props = { assessment, cycle, uuid }
     const { file, repositoryItem } = await CycleDataController.Repository.getFile(props)
 
     Responses.sendFile(res, repositoryItem.name, file)

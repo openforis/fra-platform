@@ -7,6 +7,7 @@ import { remove } from './remove'
 export const Repository = {
   create,
   getMany: RepositoryRepository.getMany,
+  getOne: RepositoryRepository.get,
   getFile,
   remove,
 }
