@@ -1,11 +1,11 @@
 import { create } from './create'
-import { get } from './get'
 import { getMany } from './getMany'
+import { getOne } from './getOne'
 import { remove } from './remove'
 
 export const RepositoryRepository = {
   create,
   remove,
-  get,
+  getOne,
   getMany,
 }

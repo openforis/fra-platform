@@ -1,7 +1,6 @@
 import { Assessment, Cycle } from 'meta/assessment'
 import { RepositoryItem } from 'meta/cycleData'
 
-import { BaseProtocol, DB } from 'server/db'
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/repository/public/file'
 
@@ -20,12 +19,10 @@ type Returned = {
 export const getFile = async (props: Props): Promise<Returned> => {
   const { assessment, cycle, uuid } = props
 
-  return DB.tx(async (t: BaseProtocol) => {
-    const getRepositoryItemProps = { assessment, cycle, uuid }
-    const repositoryItem = await RepositoryRepository.get(getRepositoryItemProps, t)
+  const getRepositoryItemProps = { assessment, cycle, uuid }
+  const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps)
 
-    const repositoryProps = { fileUuid: repositoryItem.fileUuid }
-    const { file } = await FileRepository.get(repositoryProps, t)
-    return { file, repositoryItem }
-  })
+  const repositoryProps = { fileUuid: repositoryItem.fileUuid }
+  const { file } = await FileRepository.get(repositoryProps)
+  return { file, repositoryItem }
 }

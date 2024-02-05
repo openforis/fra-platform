@@ -12,7 +12,7 @@ type Props = {
   uuid: string
 }
 
-export const get = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
+export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
   const { assessment, cycle, uuid } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
