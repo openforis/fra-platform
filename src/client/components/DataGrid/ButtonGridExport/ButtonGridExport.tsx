@@ -28,16 +28,16 @@ const ButtonGridExport: React.FC<Props> = (props) => {
 
   return (
     <CSVLink
-      className={classNames('fra-table__btn-export', 'btn-xs', 'btn-primary', 'no-print', {
+      asyncOnClick
+      className={classNames('data-grid__btn-export', 'btn-xs', 'btn-primary', 'no-print', {
         disabled: !isLocked || disabled,
       })}
       data={data}
+      filename={`${filename}.csv`}
       onClick={(_, done) => {
         setData(Utils.getDataGridData(gridRef.current))
         done()
       }}
-      asyncOnClick
-      filename={`${filename}.csv`}
       target="_blank"
     >
       <Icon className="icon-sub icon-white" name="hit-down" />
