@@ -9,25 +9,6 @@
   @extend .nav-base;
   grid-area: navigation;
   height: 100%;
-
-  .nav__bulk-download {
-    margin-left: 16px;
-    margin-top: 24px;
-  }
-}
-
-.nav__divider {
-  height: 1px;
-  background-color: $ui-border;
-  margin: 8px 0;
-}
-
-.nav__scroll-content {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: calc(100vh - 64px);
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 // Basic link item

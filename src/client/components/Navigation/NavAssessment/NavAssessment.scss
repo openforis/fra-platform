@@ -6,3 +6,11 @@
   position: sticky;
   top: 50px;
 }
+
+.nav-assessment__bulk-download {
+  margin-top: $spacing-xxs;
+
+  svg {
+    color: $text-body;
+  }
+}
