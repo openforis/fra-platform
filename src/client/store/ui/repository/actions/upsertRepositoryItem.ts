@@ -5,8 +5,8 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 
 import { ThunkApiConfig } from 'client/store/types'
+import { fetchRepositoryItems } from 'client/store/ui/repository/actions/fetchRepositoryItems'
 import { RepositorySelectors } from 'client/store/ui/repository/selectors'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 
 type Props = CycleParams & {
   file?: File
@@ -27,10 +27,6 @@ export const upsertRepositoryItem = createAsyncThunk<void, Props, ThunkApiConfig
     const params = { countryIso, assessmentName, cycleName }
     const config = { params }
     await axios.post(ApiEndPoint.CycleData.Repository.one(), formData, config)
-    const path = ApiEndPoint.CycleData.Repository.many()
-    const limit: number = undefined
-    const page: number = undefined
-    const getDataProps = { assessmentName, cycleName, countryIso, path, limit, page }
-    dispatch(TablePaginatedActions.getData(getDataProps))
+    fetchRepositoryItems({ ...params, dispatch })
   }
 )
