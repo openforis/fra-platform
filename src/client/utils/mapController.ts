@@ -99,6 +99,15 @@ export class MapController {
     // Insert at index 0 so it doesn't overlay the other layers.
     this.#map.overlayMapTypes.insertAt(0, layer)
   }
+
+  addOrUpdateEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, opacity: number, overwrite = false): void {
+    if (mapId && opacity > 0) {
+      this.addEarthEngineLayer(mapLayerKey, mapId, overwrite)
+      this.setEarthEngineLayerOpacity(mapLayerKey, opacity)
+    } else {
+      this.removeLayer(mapLayerKey)
+    }
+  }
 }
 
 export default MapController

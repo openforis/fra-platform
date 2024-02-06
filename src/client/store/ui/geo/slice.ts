@@ -156,9 +156,11 @@ const handlePostLayerStatus = (
     case LayerFetchStatus.Ready:
       if (mapId) {
         setMapIdCache(state, sectionKey, layerKey, mapId)
+        const opacity = layerState.opacity ?? 1
         if (layerState.selected) {
-          mapController.addEarthEngineLayer(mapLayerKey, mapId)
-          mapController.setEarthEngineLayerOpacity(mapLayerKey, layerState.opacity ?? 1)
+          mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
+        } else {
+          mapController.removeLayer(mapLayerKey)
         }
       }
       break
@@ -261,9 +263,9 @@ export const geoSlice = createSlice({
       // Render or remove layer from the map
       const { selected: isLayerSelected, mapId } = state.sections[sectionKey][layerKey]
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
-      if (isLayerSelected && mapId) {
-        mapController.addEarthEngineLayer(mapLayerKey, mapId)
-        mapController.setEarthEngineLayerOpacity(mapLayerKey, newLayerState.opacity ?? 1)
+      const opacity = newLayerState.opacity ?? 1
+      if (isLayerSelected) {
+        mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
       } else {
         mapController.removeLayer(mapLayerKey)
       }
@@ -284,7 +286,9 @@ export const geoSlice = createSlice({
       const layerState = getLayerState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey] = { ...layerState, opacity }
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
-      mapController.setEarthEngineLayerOpacity(mapLayerKey, opacity)
+      const { mapId } = state.sections[sectionKey][layerKey]
+
+      mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
     },
     setLayerMapId: (
       state: Draft<GeoState>,
@@ -303,8 +307,8 @@ export const geoSlice = createSlice({
 
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
       mapController.removeLayer(mapLayerKey)
-      mapController.addEarthEngineLayer(mapLayerKey, mapId)
-      mapController.setEarthEngineLayerOpacity(mapLayerKey, layerState.opacity ?? 1)
+      const opacity = layerState.opacity ?? 0
+      mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
     },
     setAssetId: (
       state: Draft<GeoState>,
