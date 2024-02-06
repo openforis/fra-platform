@@ -3,18 +3,20 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
+import { RepositoryItem } from 'meta/cycleData'
 
 import { ThunkApiConfig } from 'client/store/types'
-import { fetchRepositoryItems } from 'client/store/ui/repository/actions/fetchRepositoryItems'
-import { RepositorySelectors } from 'client/store/ui/repository/selectors'
 
-type Props = CycleDataParams
+type Props = CycleDataParams & {
+  repositoryItem: RepositoryItem
+}
 
-export const removeRepositoryItem = createAsyncThunk<void, Props, ThunkApiConfig>(
+export const removeRepositoryItem = createAsyncThunk<RepositoryItem, Props, ThunkApiConfig>(
   'repositoryItem/remove',
-  async (props, { getState, dispatch }) => {
-    const { uuid } = RepositorySelectors.getRepositoryItem(getState())
+  async (props) => {
+    const { repositoryItem } = props
+    const { uuid } = repositoryItem
     await axios.delete(ApiEndPoint.CycleData.Repository.one(), { params: { uuid, ...props } })
-    fetchRepositoryItems({ ...props, dispatch })
+    return repositoryItem
   }
 )
