@@ -168,7 +168,7 @@ const handlePostLayerStatus = (
       mapController.removeLayer(mapLayerKey)
       break
     case LayerFetchStatus.Failed:
-      newLayerState = { ...newLayerState, selected: false }
+      if (layerState.options?.assetId) newLayerState = { ...newLayerState, selected: false }
       mapController.removeLayer(mapLayerKey)
       break
     default:
