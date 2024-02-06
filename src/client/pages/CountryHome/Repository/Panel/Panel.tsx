@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { useRepositoryItem } from 'client/store/ui/repository/hooks'
+import { useRepositoryItem } from 'client/store/ui/repository'
 import SlidingPanel from 'client/components/SlidingPanel'
 import Actions from 'client/pages/CountryHome/Repository/Panel/Actions'
 import InputField from 'client/pages/CountryHome/Repository/Panel/InputField'

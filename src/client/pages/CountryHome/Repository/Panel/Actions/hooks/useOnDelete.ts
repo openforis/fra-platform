@@ -3,8 +3,7 @@ import { useCallback } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
-import { RepositoryActions } from 'client/store/ui/repository'
-import { useRepositoryItem } from 'client/store/ui/repository/hooks'
+import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClosePanel'
 

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository/hooks'
+import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
 import { useOnDelete } from './hooks/useOnDelete'
