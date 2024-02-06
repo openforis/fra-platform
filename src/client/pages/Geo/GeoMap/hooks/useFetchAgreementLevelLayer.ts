@@ -19,33 +19,42 @@ export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKe
   const countSelectedLayers = useCountSectionSelectedLayers({ sectionKey, ignoreAgreementLayer: true })
   const cacheKey = getAgreementLayerCacheKey(sectionState ?? ({} as LayersSectionState))
 
-  useEffect(() => {
-    if (!layerState?.selected) return
-    if (agreementLevel === undefined) {
-      dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
-      return
-    }
-    if (countSelectedLayers < 2 || agreementLevel > countSelectedLayers) {
-      dispatch(GeoActions.setLayerSelected({ sectionKey, layerKey, selected: false }))
-      dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
-      return
-    }
+  useEffect(
+    () => {
+      if (!layerState?.selected) return
+      if (agreementLevel === undefined) {
+        dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
+        return
+      }
+      if (countSelectedLayers < 2 || agreementLevel > countSelectedLayers) {
+        dispatch(GeoActions.setLayerSelected({ sectionKey, layerKey, selected: false }))
+        dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
+        return
+      }
 
-    const cachedMapId = layerState?.cache?.[cacheKey]
-    if (cachedMapId === undefined) {
-      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
-    } else {
-      dispatch(GeoActions.setLayerMapId({ sectionKey, layerKey, mapId: cachedMapId, drawLayer: true }))
-    }
-  }, [
-    agreementLevel,
-    cacheKey,
-    countSelectedLayers,
-    countryIso,
-    dispatch,
-    layerKey,
-    layerState?.cache,
-    layerState?.selected,
-    sectionKey,
-  ])
+      const cachedMapId = layerState?.cache?.[cacheKey]
+      if (cachedMapId === undefined) {
+        if (layerState?.opacity > 0) {
+          dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
+        } else {
+          dispatch(GeoActions.resetLayerStatus({ sectionKey, layerKey }))
+        }
+      } else {
+        dispatch(GeoActions.setLayerMapId({ sectionKey, layerKey, mapId: cachedMapId, drawLayer: true }))
+      }
+    },
+    // Ignore opacity changes:
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      agreementLevel,
+      cacheKey,
+      countSelectedLayers,
+      countryIso,
+      dispatch,
+      layerKey,
+      layerState?.cache,
+      layerState?.selected,
+      sectionKey,
+    ]
+  )
 }
