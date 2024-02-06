@@ -1,8 +1,7 @@
 import { useCallback, useEffect } from 'react'
 
 import { useAppDispatch } from 'client/store'
-import { RepositoryActions } from 'client/store/ui/repository'
-import { useRepositoryItem } from 'client/store/ui/repository/hooks'
+import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
 import { useFileUploadContext } from 'client/components/FileUpload'
 
 type Returned = (name: string, value: string) => void

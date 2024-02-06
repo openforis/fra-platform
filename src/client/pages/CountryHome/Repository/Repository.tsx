@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { useRepositoryItemChangeListener } from 'client/store/ui/repository'
 import TablePaginated from 'client/components/TablePaginated'
 import EditForm from 'client/pages/CountryHome/Repository/EditForm'
 import { useColumns } from 'client/pages/CountryHome/Repository/hooks/useColumns'
@@ -11,6 +12,8 @@ import { useColumns } from 'client/pages/CountryHome/Repository/hooks/useColumns
 const Repository: React.FC = () => {
   const { t } = useTranslation()
   const columns = useColumns()
+
+  useRepositoryItemChangeListener()
 
   return (
     <div className="repository">

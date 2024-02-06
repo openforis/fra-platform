@@ -3,19 +3,19 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
+import { RepositoryItem } from 'meta/cycleData'
 
 import { ThunkApiConfig } from 'client/store/types'
-import { RepositorySelectors } from 'client/store/ui/repository/selectors'
 
 type Props = CycleParams & {
   file?: File
+  repositoryItem: RepositoryItem
 }
 
-export const upsertRepositoryItem = createAsyncThunk<void, Props, ThunkApiConfig>(
+export const upsertRepositoryItem = createAsyncThunk<RepositoryItem, Props, ThunkApiConfig>(
   'repositoryItem/upsert',
-  async (props, { getState }) => {
-    const { file } = props
-    const repositoryItem = RepositorySelectors.getRepositoryItem(getState())
+  async (props) => {
+    const { file, repositoryItem } = props
     const { assessmentName, cycleName, countryIso } = props
     const formData = new FormData()
     formData.append('name', repositoryItem?.name)
@@ -25,6 +25,8 @@ export const upsertRepositoryItem = createAsyncThunk<void, Props, ThunkApiConfig
 
     const params = { countryIso, assessmentName, cycleName }
     const config = { params }
-    await axios.post(ApiEndPoint.CycleData.Repository.one(), formData, config)
+    const { data } = await axios.post(ApiEndPoint.CycleData.Repository.one(), formData, config)
+
+    return data
   }
 )
