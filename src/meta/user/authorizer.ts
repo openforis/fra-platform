@@ -2,6 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { AreaCode, Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { Assessment, AssessmentFile, Cycle, Section, SubSection } from 'meta/assessment'
+import { RepositoryItem } from 'meta/cycleData'
 import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
 import { Users } from 'meta/user/users'
@@ -147,6 +148,9 @@ const canEditCountryProps = (props: {
 const canEditAssessmentFile = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
   canEditCountryProps({ ...props, allowCollaborator: true })
 
+/**
+ * @deprecated
+ */
 const canViewCountryFile = (props: {
   assessment: Assessment
   cycle: Cycle
@@ -162,11 +166,27 @@ const canViewCountryFile = (props: {
   return Users.hasRoleInCountry({ user, countryIso, cycle })
 }
 
+const canViewRepositoryItem = (props: {
+  assessment: Assessment
+  cycle: Cycle
+  countryIso: CountryIso
+  user: User
+  repositoryItem: RepositoryItem
+}): boolean => {
+  const { assessment, countryIso, user, cycle, repositoryItem } = props
+  if (repositoryItem?.props.public) {
+    return canView({ assessment, user, countryIso, cycle })
+  }
+
+  return Users.hasRoleInCountry({ user, countryIso, cycle })
+}
+
 export const Authorizer = {
-  canView,
-  canViewUsers,
-  canViewCountryFile,
-  canEditData,
-  canEditCountryProps,
   canEditAssessmentFile,
+  canEditCountryProps,
+  canEditData,
+  canView,
+  canViewCountryFile,
+  canViewRepositoryItem,
+  canViewUsers,
 }

@@ -8,6 +8,7 @@ import { Authorizer, CollaboratorEditPropertyType, Users } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
 import { FileController } from 'server/controller/file'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
@@ -252,21 +253,36 @@ const requireUser = async (req: Request, _res: Response, next: NextFunction) => 
   _next(Boolean(user), next)
 }
 
+const requireViewFile = async (req: Request, _res: Response, next: NextFunction) => {
+  const { assessmentName, cycleName, countryIso, uuid } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams & { uuid: string }
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, uuid })
+  const user = Requests.getUser(req)
+
+  _next(Authorizer.canViewRepositoryItem({ assessment, cycle, countryIso, user, repositoryItem }), next)
+}
+
 export const AuthMiddleware = {
-  requireEditCountryProps: tryCatch(requireEditCountryProps),
-  requireEditDescriptions: tryCatch(requireEditDescriptions),
-  requireEditTableData: tryCatch(requireEditTableData),
-  requireView: tryCatch(requireView),
   requireAdmin: tryCatch(requireAdmin),
   requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
-  requireResolveTopic: tryCatch(requireResolveTopic),
+  requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
+  requireEditAssessmentFileAccess: tryCatch(requireEditAssessmentFileAccess),
+  requireEditCountryFile: tryCatch(requireEditCountryFile),
+  requireEditCountryProps: tryCatch(requireEditCountryProps),
+  requireEditDescriptions: tryCatch(requireEditDescriptions),
   requireEditMessageTopic: tryCatch(requireEditMessageTopic),
+  requireEditTableData: tryCatch(requireEditTableData),
   requireEditUser: tryCatch(requireEditUser),
   requireInviteUser: tryCatch(requireInviteUser),
+  requireResolveTopic: tryCatch(requireResolveTopic),
+  requireUser: tryCatch(requireUser),
+  requireView: tryCatch(requireView),
+  requireViewFile: tryCatch(requireViewFile),
   requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),
-  requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
-  requireEditCountryFile: tryCatch(requireEditCountryFile),
-  requireEditAssessmentFileAccess: tryCatch(requireEditAssessmentFileAccess),
-  requireUser: tryCatch(requireUser),
 }
