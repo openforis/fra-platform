@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
+
+import DataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSources'
 
 import CommentableDescription from '../CommentableDescription'
 
@@ -14,27 +16,51 @@ type Props = {
   nationalData: NationalDataDescription
 }
 
+type DataSourcesProps = {
+  withTable: boolean
+  withText: boolean
+}
+
 const NationalDataDescriptions: React.FC<Props> = (props) => {
   const { sectionName, disabled, nationalData, showAlertEmptyContent, showDashEmptyContent } = props
 
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
+
+  const dataSourcesProps = useMemo<DataSourcesProps>(() => {
+    const withTable = Boolean(nationalData.dataSources?.table)
+    const withText = Boolean(nationalData.dataSources?.text)
+    return { withTable, withText }
+  }, [nationalData.dataSources?.table, nationalData.dataSources?.text])
 
   return (
     <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{i18n.t<string>('description.nationalData')}</h2>
+      <h2 className="headline fra-description__group-header">{t('description.nationalData')}</h2>
+
       {nationalData.dataSources && (
+        // <>
+        //   {dataSourcesProps.withTable && (
+        //     <div className="fra-description__header-row">
+        //       <Title title={t('description.dataSourcesPlus')} />
+        //     </div>
+        //   )}
+        // </>
         <CommentableDescription
-          title={i18n.t<string>('description.dataSourcesPlus')}
+          title={t<string>('description.dataSourcesPlus')}
           disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.dataSources}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
-        />
+        >
+          {dataSourcesProps.withTable && (
+            <DataSources disabled={false} nationalData={nationalData} sectionName={sectionName} />
+          )}
+        </CommentableDescription>
       )}
+
       {nationalData.nationalClassification && (
         <CommentableDescription
-          title={i18n.t<string>('description.nationalClassificationAndDefinitions')}
+          title={t('description.nationalClassificationAndDefinitions')}
           disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.nationalClassificationAndDefinitions}
@@ -42,9 +68,10 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
           showDashEmptyContent={showDashEmptyContent}
         />
       )}
+
       {nationalData.originalData && (
         <CommentableDescription
-          title={i18n.t<string>('description.originalData')}
+          title={t('description.originalData')}
           disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.originalData}

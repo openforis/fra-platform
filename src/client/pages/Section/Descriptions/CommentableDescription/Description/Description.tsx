@@ -1,5 +1,5 @@
 import './Description.scss'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { PropsWithChildren, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
@@ -16,14 +16,12 @@ import { useCountryIso } from 'client/hooks'
 import { useIsFra2020 } from 'client/hooks/useIsFra2020'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
-import MarkdownPreview from 'client/components/MarkdownPreview'
-import DataSources from 'client/pages/Section/Descriptions/CommentableDescription/Description/DataSources/DataSources'
+import { useDescriptions } from 'client/pages/Section/Descriptions/hooks/useDescriptions'
 
-import { useDescriptions } from '../../Descriptions'
 import Title from './Title'
 import Toggle from './Toggle'
 
-type Props = {
+type Props = PropsWithChildren<{
   disabled?: boolean
   title: string
   name: CommentableDescriptionName
@@ -31,27 +29,34 @@ type Props = {
   sectionName: string
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
-}
+}>
 
 const Description: React.FC<Props> = (props) => {
-  const { title, name, sectionName, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const { children, title, name, sectionName, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
   const section = useSection(sectionName)
-  const descriptionsMetadata = useDescriptions({
-    disabled,
-    sectionName,
-    descriptions: section.props.descriptions[cycle.uuid],
-  })
+  const descriptions = section.props.descriptions[cycle.uuid]
+
+  const descriptionsMetadata = useDescriptions({ sectionName, descriptions })
 
   const user = useUser()
   const { print } = useIsPrintRoute()
-  const commentableDescriptionValue = useCommentableDescriptionValue({ name, sectionName, template })
+  const value = useCommentableDescriptionValue({ name, sectionName, template })
   const isDataLocked = useIsDataLocked()
   const { t } = useTranslation()
 
+  const textContent = useMemo<string>(() => {
+    const { innerText } = new DOMParser().parseFromString(value.text, 'text/html').documentElement
+    return innerText
+  }, [value.text])
+
+  const error = useMemo<boolean>(
+    () => Boolean(user && showAlertEmptyContent && Objects.isEmpty(textContent)),
+    [showAlertEmptyContent, textContent, user]
+  )
   const isFra2020 = useIsFra2020()
 
   const [open, setOpen] = useState(false)
@@ -72,8 +77,9 @@ const Description: React.FC<Props> = (props) => {
     [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
   )
 
-  const error = user && showAlertEmptyContent && !commentableDescriptionValue
-  let text = commentableDescriptionValue.text || template.text
+  // const error = user && showAlertEmptyContent && !value.text
+  // console.log(user, showAlertEmptyContent, commentableDescriptionValue)
+  let text = value.text || template.text
   if (print) text = text?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   useEffect(() => {
@@ -85,7 +91,7 @@ const Description: React.FC<Props> = (props) => {
   const isDataSources = name === 'dataSources'
   const shouldShowEditor = ['introductoryText', 'generalComments'].includes(name)
 
-  const dataSourceHasTable = isDataSources && descriptionsMetadata.nationalData?.dataSources?.table
+  // const dataSourceHasTable = isDataSources && descriptionsMetadata.nationalData?.dataSources?.table
   const hasText = shouldShowEditor || Boolean(descriptionsMetadata.nationalData?.dataSources?.text)
   const dataSourceTextReadOnly = isDataSources && descriptionsMetadata.nationalData?.dataSources?.text?.readOnly
 
@@ -105,31 +111,46 @@ const Description: React.FC<Props> = (props) => {
     <div className="fra-description__header-row">
       <Title error={error} title={title} />
       {!disabled && <Toggle setOpen={setOpen} open={open} />}
-      {dataSourceHasTable && (
-        <DataSources
-          commentableDescriptionValue={commentableDescriptionValue}
-          onChange={onChange}
-          disabled={!open}
-          sectionName={sectionName}
-        />
-      )}
-      {open && !Objects.isEmpty(text) && dataSourceTextReadOnly && (
-        <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p>
-      )}
-      {showMarkdownEditor && (
+
+      {children &&
+        React.Children.map(children, (child) => React.cloneElement(child as ReactElement, { disabled: !open }))}
+
+      {!children && (
         <div className="fra-description__preview">
           <EditorWYSIWYG
-            value={text}
-            onChange={(content) => onChange({ ...commentableDescriptionValue, text: content })}
+            disabled={!open}
+            onChange={(content) => onChange({ ...value, text: content })}
+            value={!open && Objects.isEmpty(textContent) && showDashEmptyContent ? '-' : text}
           />
         </div>
       )}
-      {showPreview && (
-        <div className="fra-description__preview">
-          <MarkdownPreview allowImages={isFra2020} value={text} />
-        </div>
-      )}
-      {!open && !text && showDashEmptyContent && <div>-</div>}
+
+      {/* {dataSourceHasTable && ( */}
+      {/*  <DataSources */}
+      {/*    commentableDescriptionValue={commentableDescriptionValue} */}
+      {/*    onChange={onChange} */}
+      {/*    disabled={!open} */}
+      {/*    sectionName={sectionName} */}
+      {/*  /> */}
+      {/* )} */}
+
+      {/* {open && !Objects.isEmpty(text) && dataSourceTextReadOnly && ( */}
+      {/*  <p>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</p> */}
+      {/* )} */}
+      {/* {showMarkdownEditor && ( */}
+      {/*  <div className="fra-description__preview"> */}
+      {/*    <EditorWYSIWYG */}
+      {/*      value={text} */}
+      {/*      onChange={(content) => onChange({ ...commentableDescriptionValue, text: content })} */}
+      {/*    /> */}
+      {/*  </div> */}
+      {/* )} */}
+      {/* {showPreview && ( */}
+      {/*  <div className="fra-description__preview"> */}
+      {/*    <MarkdownPreview allowImages={isFra2020} value={text} /> */}
+      {/*  </div> */}
+      {/* )} */}
+      {/* {!open && !text && showDashEmptyContent && <div>-</div>} */}
     </div>
   )
 }

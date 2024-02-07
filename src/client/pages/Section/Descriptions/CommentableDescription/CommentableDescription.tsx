@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import classNames from 'classnames'
 
@@ -11,18 +11,19 @@ import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import Description from './Description'
 
-type Props = {
+type Props = PropsWithChildren<{
   disabled?: boolean
-  title: string
-  sectionName: string
   name: CommentableDescriptionName
-  template?: CommentableDescriptionValue
+  sectionName: string
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
-}
+  template?: CommentableDescriptionValue
+  title: string
+}>
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { disabled, title, sectionName, name, template, showAlertEmptyContent, showDashEmptyContent } = props
+  const { children, disabled, name, sectionName, showAlertEmptyContent, showDashEmptyContent, template, title } = props
+
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -38,7 +39,9 @@ const CommentableDescription: React.FC<Props> = (props) => {
           disabled={disabled}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
-        />
+        >
+          {children}
+        </Description>
       </div>
       <div className="fra-description__review-indicator-wrapper">
         {!disabled && (
@@ -54,9 +57,9 @@ const CommentableDescription: React.FC<Props> = (props) => {
 
 CommentableDescription.defaultProps = {
   disabled: false,
-  template: { text: '' },
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
+  template: { text: '' },
 }
 
 export default CommentableDescription
