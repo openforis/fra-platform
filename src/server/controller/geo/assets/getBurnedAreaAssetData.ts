@@ -1,13 +1,13 @@
 // @ts-ignore
 import { Filter, Image, ImageCollection, Reducer } from '@google/earthengine'
 
-import { BurnedAreaKey, burnedAreaSourcesMetadata, LayerSource } from 'meta/geo'
+import { BurnedAreaKey, burnedAreaLayersMetadata, LayerSource } from 'meta/geo'
 
 export const getBurnedAreaAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
   let asset = {} as { year?: number; img: Image; metadata: any }
 
   switch (layer.key) {
-    case BurnedAreaKey.MODIS: {
+    case BurnedAreaKey.MODIS_FIRE: {
       const imcMODIS = ImageCollection('MODIS/061/MCD64A1').filter(
         Filter.date(`${layer.options.year}-01-01`, `${layer.options.year}-12-31`)
       )
@@ -17,7 +17,7 @@ export const getBurnedAreaAssetData = (layer: LayerSource): { year?: number; img
       asset = {
         year: layer.options.year,
         img: imgMODIS,
-        metadata: burnedAreaSourcesMetadata[layer.key],
+        metadata: burnedAreaLayersMetadata[layer.key],
       }
       break
     }

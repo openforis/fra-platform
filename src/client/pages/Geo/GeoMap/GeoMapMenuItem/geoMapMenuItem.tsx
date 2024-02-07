@@ -3,8 +3,7 @@ import React, { useCallback, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { LayerStatus } from 'meta/geo'
-
+import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import Icon from 'client/components/Icon'
 
 interface Props {
@@ -24,9 +23,9 @@ const GeoMenuItem: React.FC<React.PropsWithChildren<Props>> = ({
   loadingStatus,
 }) => {
   let checkBoxContent = null
-  if (loadingStatus === LayerStatus.loading) {
+  if (loadingStatus === LayerFetchStatus.Loading) {
     checkBoxContent = <div className="loading-spinner" />
-  } else if (loadingStatus === LayerStatus.failed) {
+  } else if (loadingStatus === LayerFetchStatus.Failed) {
     checkBoxContent = <div className={classNames('fra-checkbox', 'failed')} />
   } else {
     checkBoxContent = <div className={classNames('fra-checkbox', { checked })} />
