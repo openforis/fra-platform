@@ -6,13 +6,12 @@ import { LayerKey, LayerSection, LayerSectionKey } from 'meta/geo/layer'
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
+import AgreementLevelSelector from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/AgreementLevelControl/AgreementLevelSelector/AgreementLevelSelector'
 import ReducerScaleSelector from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/AgreementLevelControl/ReducerScaleSelector/ReducerScaleSelector'
 import LayerOpacityControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/LayerOpacityControl'
 import GeoMapMenuListElement from 'client/pages/Geo/GeoMap/GeoMapMenuListElement'
 import { useFetchAgreementLevelLayer } from 'client/pages/Geo/GeoMap/hooks'
 import { useCountSectionSelectedLayers } from 'client/pages/Geo/GeoMap/hooks/useCountSectionSelectedLayers'
-
-import AgreementLevelSelector from './AgreementLevelSelector/AgreementLevelSelector'
 
 interface Props {
   checked: boolean

@@ -9,8 +9,7 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
-
-import LayerOpacityControl from '../LayerOpacityControl'
+import LayerOpacityControl from 'client/pages/Geo/GeoMap/GeoMapMenuData/MapVisualizerPanel/LayersSectionPanel/components/LayerOpacityControl/LayerOpacityControl'
 
 interface Props {
   checked: boolean
