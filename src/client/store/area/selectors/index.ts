@@ -37,8 +37,14 @@ const getRegionGroups = createSelector(
   }
 )
 
+const isUpdatingCountry = createSelector(
+  (state: RootState) => state.area,
+  (areaState) => areaState.updatingCountry
+)
+
 export const AreaSelectors = {
   getCountries,
   getCountry,
   getRegionGroups,
+  isUpdatingCountry,
 }

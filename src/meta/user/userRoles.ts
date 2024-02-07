@@ -1,8 +1,7 @@
 import i18n from 'i18next'
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
-import { AssessmentStatus } from 'meta/area/country'
+import { Areas, AssessmentStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment'
 import { User } from 'meta/user/user'
 
@@ -31,7 +30,7 @@ const getRecipientRoles = (props: { status: AssessmentStatus }) => {
     case AssessmentStatus.review:
       return [RoleName.REVIEWER]
     case AssessmentStatus.approval:
-      return [RoleName.ADMINISTRATOR]
+      return [RoleName.ADMINISTRATOR, RoleName.REVIEWER]
     case AssessmentStatus.accepted:
       return [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
     default:

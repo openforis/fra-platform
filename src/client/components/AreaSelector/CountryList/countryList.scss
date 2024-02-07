@@ -15,6 +15,11 @@
     left: 0;
     min-width: 400px;
     max-width: 550px;
+
+    &.expanded {
+      max-width: unset;
+      width: 1150px;
+    }
   }
 }
 
@@ -25,63 +30,82 @@
 }
 
 .country-selection-list__global {
-  margin-top: 12px;
+  margin-top: $spacing-xxs;
 
   hr {
-    margin: 12px 0;
+    margin: $spacing-xxs 0;
   }
 }
 
-.country-selection-list__section {
+.country-selection-list__roleSection {
   border-bottom: $ui-thin-border;
-  padding: 8px 0;
+  padding: $spacing-xxs 0;
 
   &:last-of-type {
     border: none;
   }
 }
 
-.country-selection-list__primary-col {
-  min-width: 192px;
-  width: 100%;
-}
-
-.country-selection-list__secondary-col {
-  margin-left: 16px;
-  min-width: 128px;
-  width: 100%;
-  white-space: nowrap;
-
-  &.uppercase {
-    text-transform: uppercase;
-  }
+.country-selection-list__header,
+.country-selection-list__row {
+  display: grid;
+  line-height: $spacing-xs;
+  padding: $spacing-xxs $spacing-xs;
 }
 
 .country-selection-list__header,
-.country-selection-list__row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  line-height: 16px;
-  padding: 8px 16px;
-  font-weight: normal;
+.country-selection-list__row:not(.NONE) {
+  grid-column-gap: $spacing-xxs;
+  grid-template-columns: 220px 128px 1fr;
+
+  &.expanded {
+    grid-template-columns: 220px 128px repeat(4, 180px);
+  }
 }
 
 .country-selection-list__header {
-  color: $text-mute;
+  color: $text-disabled;
+  font-size: $font-s;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.admin {
+    background-color: white;
+    position: sticky;
+    top: -1px;
+  }
 }
 
 .country-selection-list__row {
-  color: $text-link;
-  text-decoration: none;
-
   &:hover {
     background-color: darken($ui-bg, 4%);
     color: inherit;
   }
 
   &.selected {
-    background-color: $ui-accent-light;
+    background-color: $ui-accent-light-extra;
     color: inherit;
+  }
+}
+
+button.country-selection-list__btn-show-more {
+  align-items: center;
+  color: $ui-accent;
+  display: flex;
+  font-size: $font-xxs;
+  font-weight: bold;
+  height: $spacing-m;
+  margin-left: $spacing-xs;
+  padding: unset;
+  position: absolute;
+  right: $spacing-xs;
+  text-transform: uppercase;
+  top: 0;
+}
+
+@include rtl {
+  button.country-selection-list__btn-show-more {
+    left: $spacing-xs;
+    right: unset;
   }
 }

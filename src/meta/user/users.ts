@@ -36,6 +36,12 @@ const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
 const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.REVIEWER, countryIso, cycle)
 
+const isAReviewer = (user: User, cycle: Cycle): boolean => {
+  return user?.roles?.some(
+    (userRole: UserRole<never>) => userRole?.role === RoleName.REVIEWER && userRole?.cycleUuid === cycle.uuid
+  )
+}
+
 const isNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso, cycle)
 
@@ -198,6 +204,7 @@ export const Users = {
   isNationalCorrespondent,
   isPersonalInfoRequired,
   isReviewer,
+  isAReviewer,
   isViewer,
 
   getRolesAllowedToEdit,

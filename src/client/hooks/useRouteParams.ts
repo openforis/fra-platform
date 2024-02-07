@@ -16,6 +16,7 @@ export const useCycleRouteParams = () => useParams<CycleRouteParams>()
 export const useCountryRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
   useParams<CountryRouteParams<T>>()
 
-export const useSectionRouteParams = () => useParams<SectionRouteParams>()
+export const useSectionRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
+  useParams<SectionRouteParams<T>>()
 
 export const useOriginalDataPointRouteParams = () => useParams<OriginalDataPointRouteParams>()

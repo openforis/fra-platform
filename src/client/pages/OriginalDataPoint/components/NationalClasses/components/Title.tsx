@@ -1,11 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useCycle } from 'client/store/assessment'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { ButtonGridExport } from 'client/components/DataGrid'
 
-export const Title = () => {
-  const cycle = useCycle()
+type Props = {
+  gridRef: React.MutableRefObject<HTMLDivElement>
+  year?: number
+}
+
+export const Title = (props: Props) => {
+  const { gridRef, year } = props
+  const { cycleName } = useCycleRouteParams()
+
   const { print } = useIsPrintRoute()
 
   const { t } = useTranslation()
@@ -14,9 +22,14 @@ export const Title = () => {
 
   return (
     <div className="odp__section-header">
+      <ButtonGridExport disabled={year === -1} filename={`FRA${cycleName}-NDP${year}.csv`} gridRef={gridRef} />
       <h3 className="subhead">
-        {t(`nationalDataPoint.${cycle.name === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
+        {t(`nationalDataPoint.${cycleName === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
       </h3>
     </div>
   )
+}
+
+Title.defaultProps = {
+  year: -1,
 }

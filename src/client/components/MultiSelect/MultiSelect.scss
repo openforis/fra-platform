@@ -59,6 +59,12 @@
   line-height: 16px;
   color: $text-body;
 
+  &.header {
+    color: $text-disabled;
+    font-weight: 600;
+    cursor: default;
+  }
+
   &:hover {
     background-color: darken($ui-bg, 4%);
     cursor: pointer;

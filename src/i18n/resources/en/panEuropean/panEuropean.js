@@ -5,10 +5,13 @@ const countryComments = require('./countryComments')
 const _2020 = require('./2020')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const _2025 = require('./2025')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const print = require('./print')
 
 module.exports = {
   2020: _2020,
   2025: _2025,
+  print,
 
   // assessment labels
   labels: {
@@ -165,6 +168,7 @@ module.exports = {
     no8_ranked_in_terms_of_volume: '#8 Ranked in terms of volume',
     no9_ranked_in_terms_of_volume: '#9 Ranked in terms of volume',
     no10_ranked_in_terms_of_volume: '#10 Ranked in terms of volume',
+    noShort_ranked_in_terms_of_volume: '#1,#2,...,#10 Ranked in terms of volume',
     remaining: 'Remaining',
     total: 'TOTAL',
     scientific_name: 'Scientific name',
@@ -477,12 +481,13 @@ module.exports = {
 
   // table 4.2a
   totalForestAreaByExpansionAndRegenerationType: {
+    forestAreaByExpansionAndRegenerationSubcategories: 'Forest area by expansion and regeneration subcategories',
     totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
     totalForestAreaByExpansionAndRegenerationTypeNumber: 'I. Total forest area by expansion and regeneration type',
     annualForestExpansionAndRegenerationNumber: 'II. Annual forest expansion and regeneration',
     categoryYear: 'Category - Year',
     totalAreaOfForestByExpansionRegenerationType1000ha:
-      'Total area of forest by expansion/regeneration type (1 000 ha / year)',
+      'Total area of forest by expansion/regeneration type (1 000 ha)',
     natural_expansion_and_natural_regeneration: 'Natural expansion and natural regeneration',
     afforestation_and_regeneration_by_planting_and_or_seeding:
       'Afforestation and regeneration by planting and/or seeding',
@@ -531,6 +536,7 @@ module.exports = {
     categoryYear: 'Category - Year',
     area1000ha: 'Area (1 000 ha)',
     semiNatural: 'Semi-natural',
+    semiNaturalSubclasses: 'Semi-natural subclasses',
     plantations: 'Plantations',
     naturally_established: 'Semi-natural: Naturally established',
     naturallyEstablished: 'Naturally established',

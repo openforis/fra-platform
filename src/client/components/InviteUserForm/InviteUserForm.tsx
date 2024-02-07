@@ -53,6 +53,20 @@ const InviteUserForm: React.FC = () => {
       </div>
 
       <div className="edit-user__form-item">
+        <div className="edit-user__form-label">{t('editUser.surname')}*</div>
+        <input
+          className="edit-user__form-field edit-user__form-input-text-field text-input__input-field"
+          onFocus={() => setErrors({ ...errors, surname: null })}
+          name="surname"
+          value={userToInvite.surname}
+          type="text"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUserToInvite({ ...userToInvite, surname: e.target.value })
+          }
+        />
+      </div>
+
+      <div className="edit-user__form-item">
         <div className="edit-user__form-label">{t('common.role')}*</div>
         <div className="edit-user__form-field edit-user__form-select-field">
           <select

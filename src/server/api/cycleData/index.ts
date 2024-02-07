@@ -4,11 +4,14 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { clearTable } from 'server/api/cycleData/table/clearTable'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
 import { getActivitiesCount } from './activities/getActivitiesCount'
+import { createContact } from './contacts/create'
+import { getContacts } from './contacts/getContacts'
+import { removeContact } from './contacts/remove'
+import { updateContact } from './contacts/update'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { upsertDescription } from './descriptions/upsertDescription'
@@ -27,6 +30,7 @@ import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateO
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
+import { clearTable } from './table/clearTable'
 import { estimateValues } from './table/estimateValues'
 import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
@@ -123,5 +127,12 @@ export const CycleDataApi = {
     // Activities
     express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)
     express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireView, getActivitiesCount)
+
+    // ext node
+    // -- Contacts
+    express.post(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, createContact)
+    express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
+    express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
+    express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
   },
 }

@@ -64,6 +64,13 @@ export interface ColProps {
   style: Record<CycleUuid, ColStyle>
   validateFns?: Record<CycleUuid, Array<string>>
   variableNo?: Record<CycleUuid, string>
+
+  /**
+   * Adding and deprecating this prop already.
+   * See HACK FOR HAVING RIGHT CALCULATION ORDER in src/server/controller/cycleData/updateDependencies/updateCalculationDependencies/updateCalculationDependencies.ts
+   * @deprecated
+   */
+  calcOrder?: number
 }
 
 export interface Col extends CycledPropsObject<ColProps> {

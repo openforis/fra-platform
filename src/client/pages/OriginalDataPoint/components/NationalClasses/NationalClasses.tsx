@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment'
 
@@ -13,12 +13,14 @@ type Props = {
 
 const NationalClasses: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
+  const { year } = originalDataPoint
+  const gridRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className="odp__section">
-      <Title />
+      <Title gridRef={gridRef} year={year} />
       <Prefill canEditData={canEditData} originalDataPoint={originalDataPoint} />
-      <NationalClassesTable originalDataPoint={originalDataPoint} />
+      <NationalClassesTable originalDataPoint={originalDataPoint} gridRef={gridRef} />
     </div>
   )
 }

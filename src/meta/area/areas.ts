@@ -1,6 +1,6 @@
 import { Country, CountryIso, Global, RegionCode } from 'meta/area'
-import { AssessmentStatus } from 'meta/area/country'
 import { fraRegionCodes } from 'meta/area/regionCode'
+import { AssessmentStatus } from 'meta/area/status'
 
 const getTranslationKey = (isoCode: CountryIso | RegionCode | Global): string => `area.${isoCode}.listName`
 

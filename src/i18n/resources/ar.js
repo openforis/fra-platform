@@ -1,3 +1,4 @@
+const admin = require('./ar/admin')
 const area = require('./ar/area')
 const assessmentSection = require('./ar/assessmentSection')
 const common = require('./ar/common')
@@ -7,11 +8,11 @@ const dataSource = require('./ar/dataSource')
 const fra = require('./ar/fra')
 const generalValidation = require('./ar/generalValidation')
 const login = require('./ar/login')
-const print = require('./ar/print')
 const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const uc = require('./ar/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -20,7 +21,6 @@ module.exports.translation = {
   fra,
   generalValidation,
   login,
-  print,
   statisticalFactsheets,
   uc,
 
@@ -97,7 +97,6 @@ module.exports.translation = {
     termsAndConditions: 'الأحكام والشروط',
     scamAlert: 'تبليغ عن احتيال',
     reportMisconduct: 'تبليغ عن سوء تصرف',
-    userGuide: 'دليل المستخدم',
     tutorials: 'الفيديو',
     sendFeedback: 'أرسل رأيك',
     licenses: 'التراخيص',
@@ -433,6 +432,7 @@ The FRA team
     cancel: 'إلغاء',
     changeStatusTextPlaceholder: 'إضافة رسالة اختيارية',
     doNotNotifyUsers: 'عدم إرسال إشعار إلى المستخدمين',
+    notifySelf: 'إرسال نسخة الي البريد الالكتروني الخاص بك',
   },
 
   header: {
@@ -655,6 +655,7 @@ The FRA team
     boreal: 'شمالية',
     temperate: 'معتدلة',
     subtropical: 'دون استوائية',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'استوائية',
   },
 
@@ -1065,42 +1066,47 @@ The FRA team
   },
 
   editUser: {
-    chooseProfilePicture: 'اختر صورة',
-    name: 'الاسم',
-    role: 'الدور',
-    email: 'البريد الإلكتروني',
-    loginEmail: 'تسجيل دخول',
-    institution: 'المؤسسة',
-    position: 'المنصب',
-    done: 'حفظ',
-    deactivate: 'إلغاء التفعيل',
     activate: 'تفعيل',
-    picture1MbMax: 'لا يجب أن يزيد حجم صورة الملف الشخصي عن 1 ميجابايت',
-    title: 'التسمية',
-    surname: 'اللقب ',
-    professionalTitle: 'المسمى الوظيفي',
-    organizationalUnit: 'وحدة تنظيمية',
-    organization: 'المنظمة',
-    street: 'العنوان',
-    zipCode: 'الرمز البريدي',
-    poBox: 'الصندوق البريدي',
+    activated: 'مفعل',
+    chooseProfilePicture: 'اختر صورة',
     city: 'المدينة',
-    countryIso: 'البلد',
-    primaryEmail: 'عنوان البريد الإلكتروني الرئيسي',
-    secondaryEmail: 'عنوان البريد الإلكتروني الثانوي',
-    primaryPhoneNumber: 'رقم الهاتف الأساسي',
-    secondaryPhoneNumber: 'رقم الهاتف الثانوي',
-    skype: 'اسم المستخدم في سكايب',
     contactPreference: 'الطريقة المفضلة للاتصال',
     contactPreferenceMethod: 'طريقة الاتصال',
-    platformChat: 'منصة الدردشة',
-    signal: 'الإشارة',
-    whatsapp: 'رقم الواتس اب',
-    activated: 'مفعل',
-    status: 'الحالة',
+    contributions: 'مساهمات',
+    countryIso: 'البلد',
+    deactivate: 'إلغاء التفعيل',
     demoteToUser: 'هل أنت متأكد أنك تريد إزالة امتيازات المسؤول؟',
-    promoteToAdmin: 'هل أنت متأكد أنك تريد منح امتيازات المسؤول؟',
+    done: 'حفظ',
+    email: 'البريد الإلكتروني',
+    institution: 'المؤسسة',
+    loginEmail: 'تسجيل دخول',
     mandatoryFields: '* هي خانات إلزامية',
+    mr: 'السيد',
+    mrs: 'السيدة',
+    ms: 'السيدة',
+    name: 'الاسم',
+    organization: 'المنظمة',
+    organizationalUnit: 'وحدة تنظيمية',
+    other: 'الاخر',
+    picture1MbMax: 'لا يجب أن يزيد حجم صورة الملف الشخصي عن 1 ميجابايت',
+    platformChat: 'منصة الدردشة',
+    poBox: 'الصندوق البريدي',
+    position: 'المنصب',
+    primaryEmail: 'عنوان البريد الإلكتروني الرئيسي',
+    primaryPhoneNumber: 'رقم الهاتف الأساسي',
+    professionalTitle: 'المسمى الوظيفي',
+    promoteToAdmin: 'هل أنت متأكد أنك تريد منح امتيازات المسؤول؟',
+    role: 'الدور',
+    secondaryEmail: 'عنوان البريد الإلكتروني الثانوي',
+    secondaryPhoneNumber: 'رقم الهاتف الثانوي',
+    signal: 'الإشارة',
+    skype: 'اسم المستخدم في سكايب',
+    status: 'الحالة',
+    street: 'العنوان',
+    surname: 'اللقب ',
+    title: 'التسمية',
+    whatsapp: 'رقم الواتس اب',
+    zipCode: 'الرمز البريدي',
   },
 
   country: {
@@ -1114,12 +1120,6 @@ The FRA team
       atlantis: 'أطلانطس',
       forest_europe: 'المبادرة الأوروبية للغابات',
     },
-  },
-
-  admin: {
-    admin: 'المدير',
-    filter: 'غربلة وفق',
-    invitationPending: 'تعليق الدعوة',
   },
 
   countryMessageBoard: {
@@ -1138,6 +1138,9 @@ The FRA team
     ndpAdd: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة نقطة بيانات وطنية',
     passwordLoginShort: 'كيفية تسجيل الدخول باستخدام كلمة مرور محددة ذاتيًا',
     googleLoginShort: 'كيفية تسجيل الدخول باستخدام جوجل',
+    guidelinesAndSpecifications: 'المبادئ التوجيهية والمواصفات',
+    ndpAddReferenceLink: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة رابط مرجعي لنقطة البيانات الوطنية؟',
+    nationalDataAddReferenceLink: 'البرنامج التعليمي لمنصة الفرا - كيفية إضافة رابط مرجعي للبيانات الوطنية؟',
   },
 
   panEuropean: {

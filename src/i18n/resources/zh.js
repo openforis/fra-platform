@@ -1,3 +1,4 @@
+const admin = require('./zh/admin')
 const area = require('./zh/area')
 const assessmentSection = require('./zh/assessmentSection')
 const common = require('./zh/common')
@@ -7,11 +8,11 @@ const dataSource = require('./zh/dataSource')
 const fra = require('./zh/fra')
 const generalValidation = require('./zh/generalValidation')
 const login = require('./zh/login')
-const print = require('./zh/print')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const uc = require('./zh/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -20,7 +21,6 @@ module.exports.translation = {
   fra,
   generalValidation,
   login,
-  print,
   statisticalFactsheets,
   uc,
 
@@ -66,7 +66,6 @@ module.exports.translation = {
     termsAndConditions: '条款和条件',
     scamAlert: '防欺诈警告',
     reportMisconduct: '报告不当行为',
-    userGuide: '使用指南',
     tutorials: '视频',
     sendFeedback: '发送反馈',
     licenses: '许可',
@@ -402,6 +401,7 @@ FRA工作组
     cancel: '取消',
     changeStatusTextPlaceholder: '添加可选消息',
     doNotNotifyUsers: '不通知用户',
+    notifySelf: '将副本发送给自己',
   },
 
   header: {
@@ -621,6 +621,7 @@ FRA工作组 fra@fao.org
     boreal: '寒带',
     temperate: '温带',
     subtropical: '亚热带',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: '热带',
   },
 
@@ -1031,42 +1032,47 @@ FRA工作组
   },
 
   editUser: {
-    chooseProfilePicture: '选择图片',
-    name: '姓名',
-    role: '身份',
-    email: '电子邮箱',
-    loginEmail: '登陆',
-    institution: '机构',
-    position: '职位',
-    done: '保存',
-    deactivate: '取消激活',
     activate: '激活',
-    picture1MbMax: '个人简介中的图片不得超过1MB',
-    title: '称呼',
-    surname: '姓氏',
-    professionalTitle: '专业职称',
-    organizationalUnit: '组织单位',
-    organization: '组织机构',
-    street: '街道地址',
-    zipCode: '邮编',
-    poBox: '邮政信箱',
+    activated: '已激活',
+    chooseProfilePicture: '选择图片',
     city: '城市',
-    countryIso: '国家',
-    primaryEmail: '主要电子邮件地址',
-    secondaryEmail: '次要电子邮件地址',
-    primaryPhoneNumber: '主要的联系电话',
-    secondaryPhoneNumber: '次要的联系电话',
-    skype: 'Skype名称',
     contactPreference: '首选的联系方式',
     contactPreferenceMethod: '联系方式',
-    platformChat: 'PlatformChat',
-    signal: 'Signal',
-    whatsapp: 'Whatsapp',
-    activated: '已激活',
-    status: '状态',
+    contributions: '贡献',
+    countryIso: '国家',
+    deactivate: '取消激活',
     demoteToUser: '你确定要删除管理员权限吗？',
-    promoteToAdmin: '您确定要授予管理员权限吗？',
+    done: '保存',
+    email: '电子邮箱',
+    institution: '机构',
+    loginEmail: '登陆',
     mandatoryFields: '*为必填项',
+    mr: '先生',
+    mrs: '夫人',
+    ms: '女士',
+    name: '姓名',
+    organization: '组织机构',
+    organizationalUnit: '组织单位',
+    other: '其他',
+    picture1MbMax: '个人简介中的图片不得超过1MB',
+    platformChat: 'PlatformChat',
+    poBox: '邮政信箱',
+    position: '职位',
+    primaryEmail: '主要电子邮件地址',
+    primaryPhoneNumber: '主要的联系电话',
+    professionalTitle: '专业职称',
+    promoteToAdmin: '您确定要授予管理员权限吗？',
+    role: '身份',
+    secondaryEmail: '次要电子邮件地址',
+    secondaryPhoneNumber: '次要的联系电话',
+    signal: 'Signal',
+    skype: 'Skype名称',
+    status: '状态',
+    street: '街道地址',
+    surname: '姓氏',
+    title: '称呼',
+    whatsapp: 'Whatsapp',
+    zipCode: '邮编',
   },
 
   country: {
@@ -1080,12 +1086,6 @@ FRA工作组
       atlantis: '亚特兰蒂斯',
       forest_europe: '欧洲森林保护部长级会议',
     },
-  },
-
-  admin: {
-    admin: '管理',
-    filter: '筛选，按照',
-    invitationPending: '邀请待处理',
   },
 
   countryMessageBoard: {
@@ -1104,6 +1104,9 @@ FRA工作组
     ndpAdd: '全球森林资源评估平台用户教程 - 如何添加国家数据点',
     passwordLoginShort: '如何使用自定义密码登录',
     googleLoginShort: '如何使用Google邮箱验证登录',
+    guidelinesAndSpecifications: '准则和规范',
+    ndpAddReferenceLink: '全球森林资源评估平台用户教程 - 如何为国家数据点添加参考链接',
+    nationalDataAddReferenceLink: '全球森林资源评估平台用户教程 - 如何为国家数据添加参考链接',
   },
 
   panEuropean: {

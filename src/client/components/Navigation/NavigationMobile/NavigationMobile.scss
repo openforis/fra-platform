@@ -1,23 +1,21 @@
 @import 'src/client/style/partials';
 
 .navM {
+  background-color: var(--ui-bg);
+  border-bottom-left-radius: $spacing-xxs;
+  border-bottom-right-radius: $spacing-xxs;
+  box-shadow: 0 0 2px rgba($text-heading, 0.8);
+  display: grid;
+  height: 100vh;
+  left: 0;
+  overflow-y: auto;
+  padding: $spacing-s $spacing-xs;
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow-y: auto;
-  background-color: var(--ui-bg);
-  border-bottom-right-radius: $spacing-xxs;
-  border-bottom-left-radius: $spacing-xxs;
-  padding: $spacing-s $spacing-xs;
   transform: translateX(-120vw);
   transition: all 0.25s ease-in;
-  box-shadow: 0 0 2px rgba($text-heading, 0.8);
+  width: 100vw;
   z-index: $z-index-popover;
-  //display: grid;
-  //align-content: start;
-  //grid-row-gap: $spacing-s;
 
   * {
     opacity: 0;
@@ -26,7 +24,6 @@
 
   &.open {
     transform: translateX(0);
-    //opacity: 1;
 
     * {
       opacity: 1;
@@ -34,15 +31,17 @@
   }
 }
 
-.navM__btnClose {
-  position: absolute;
-  right: $spacing-xxs;
-  top: $spacing-xxs;
+button.navM__btnClose {
+  align-items: center;
+  background-color: transparent;
   border: unset;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: unset;
+  padding: $spacing-xxxs;
+  position: absolute;
+  right: $spacing-xxs;
+  top: $spacing-xxs;
+  z-index: 1;
 
   .icon {
     margin: unset;

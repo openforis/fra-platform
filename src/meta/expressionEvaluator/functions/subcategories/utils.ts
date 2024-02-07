@@ -28,13 +28,20 @@ export const getValidationMessage = (
   parentTableAnchor: string,
   categoriesSum: number,
   categoryLabelKeys: Array<string>,
-  label: string
+  label: string,
+  parentLabelParams?: string,
+  parentColLabelKey?: string
 ): Array<NodeValueValidationMessage> => {
+  const parentLabel = `${parentTableAnchor} ${t(
+    parentLabelKey,
+    parentLabelParams ? JSON.parse(parentLabelParams) : null
+  )}${parentColLabelKey ? ` ${t(parentColLabelKey)}` : ''}`
+
   return [
     {
       key: `generalValidation.${label}`,
       params: {
-        parentLabel: `${t<string>(parentLabelKey)}(${parentTableAnchor})`,
+        parentLabel,
         parentValue: Numbers.format(Number(parentValue)),
         categoriesSum: Numbers.format(categoriesSum),
         categoryLabels: categoryLabelKeys.map((labelKey) => t<string>(labelKey)).join(', '),

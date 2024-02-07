@@ -5,13 +5,14 @@ import { Assessment, Cycle } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 
-import { useCountryIso, useIsAdminRoute } from 'client/hooks'
+import { useIsAdminRoute } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useNavigateTo = () => {
   const navigate = useNavigate()
   // const { countryIso } = useCountryRouteParams()
   const isAdminPage = useIsAdminRoute()
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams()
 
   return useCallback(
     (props: { assessment: Assessment; cycle: Cycle; user: User }) => {

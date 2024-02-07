@@ -7,10 +7,12 @@ import classNames from 'classnames'
 import { User } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 
+import Select, { Option } from 'client/components/Inputs/Select'
+
 type Props = {
   name: string
   value: string
-  options: Record<string, string>
+  options: Array<Option>
   onChange: (name: string, value: string) => void
   validator?: (partial: Partial<User> | Partial<UserProps>) => boolean
   enabled?: boolean
@@ -32,6 +34,10 @@ const SelectField: React.FC<Props> = (props) => {
     setValid(validationChain.reduce((valid, validationFnc) => valid && validationFnc(value), true))
   }, [mandatory, name, validator, value])
 
+  const _onLocalChange = (value: string) => {
+    onChange(name, value)
+  }
+
   return (
     <div className="edit-user__form-item" key={name}>
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
@@ -41,18 +47,7 @@ const SelectField: React.FC<Props> = (props) => {
           error: !valid,
         })}
       >
-        <select
-          value={value}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(name, e.target.value)}
-          disabled={!enabled}
-        >
-          <option value="">{t('userManagement.placeholder')}</option>
-          {Object.entries(options).map(([k, v]) => (
-            <option key={k} value={k}>
-              {v}
-            </option>
-          ))}
-        </select>
+        <Select disabled={!enabled} onChange={_onLocalChange} options={options} value={value} />
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 export { Authorizer } from './authorizer'
 export type { User } from './user'
-export { UserStatus } from './user'
+export { UserStatus, UserTitle } from './user'
 export type { UserAuthProvider } from './userAuth'
 export { AuthProvider } from './userAuth'
 export type { UserInvitationSummary } from './userInvitationSummary'

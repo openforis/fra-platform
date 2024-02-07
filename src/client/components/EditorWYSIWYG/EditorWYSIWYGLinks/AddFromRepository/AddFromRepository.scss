@@ -1,0 +1,33 @@
+@import 'src/client/style/partials';
+
+.references-file-list {
+  .file-drop {
+    height: 56px;
+    margin-top: $spacing-xs;
+  }
+
+  .file-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: $spacing-xxs;
+    align-items: center;
+    cursor: pointer;
+
+    button.btn-checkbox {
+      justify-content: flex-start;
+    }
+
+    .btn-s {
+      text-align: left;
+      white-space: unset;
+      word-break: break-all;
+    }
+  }
+}
+
+.repository-modal {
+  .modal-header span {
+    font-size: $font-s;
+    font-weight: initial;
+  }
+}

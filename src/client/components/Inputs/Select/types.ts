@@ -1,3 +1,5 @@
+import { Props as ReactSelectProps } from 'react-select'
+
 export type Option = {
   label: string
   value: string
@@ -9,3 +11,12 @@ export type OptionsGroup = {
 }
 
 export type OptionsOrGroups = readonly (Option | OptionsGroup)[]
+
+export type ValueInput = string | Array<string> | null
+
+export type SelectProps = Pick<ReactSelectProps, 'isMulti'> & {
+  disabled?: boolean
+  onChange: (value: string | Array<string> | null) => void
+  options: OptionsOrGroups
+  value?: ValueInput
+}

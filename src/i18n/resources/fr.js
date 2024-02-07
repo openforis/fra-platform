@@ -1,3 +1,4 @@
+const admin = require('./fr/admin')
 const area = require('./fr/area')
 const assessmentSection = require('./fr/assessmentSection')
 const common = require('./fr/common')
@@ -11,6 +12,7 @@ const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const uc = require('./fr/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -54,7 +56,6 @@ des domaines boréal, tempéré et sous-tropical`,
     termsAndConditions: 'Termes et conditions',
     scamAlert: 'Alerte aux messages frauduleux',
     reportMisconduct: 'Signaler un cas de mauvaise conduite',
-    userGuide: "Guide de l'utilisateur",
     tutorials: 'Vidéo',
     sendFeedback: 'Envoyer réactions',
     licenses: 'Autorisations',
@@ -349,6 +350,7 @@ L'équipe de FRA
     cancel: 'Annuler',
     changeStatusTextPlaceholder: 'Ajouter un message facultatif',
     doNotNotifyUsers: 'Ne pas notifier les utilisateurs',
+    notifySelf: "S'envoyer une copie à soi-même",
   },
 
   header: {
@@ -575,6 +577,7 @@ L'équipe de FRA fra@fao.org
     boreal: 'Boréal',
     temperate: 'Tempéré',
     subtropical: 'Sous-tropical',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Tropical',
   },
 
@@ -990,40 +993,45 @@ L'équipe de FRA
   },
 
   editUser: {
+    activated: 'Activé',
     chooseProfilePicture: "Choisir l'image",
-    name: 'Nom',
-    role: 'Rôle',
-    email: 'Email',
-    loginEmail: 'Identifiant',
-    institution: 'Institution',
-    position: 'Position',
-    done: 'Enregistrer',
-    picture1MbMax: "L'image de profil ne peut pas dépasser 1 Mo",
-    title: 'Appelation',
-    surname: 'Nom(s) de famille',
-    professionalTitle: 'Titre professionnel',
-    organizationalUnit: 'Unité organisationnelle',
-    organization: 'Organisation',
-    street: 'Adresse (rue)',
-    zipCode: 'Code postal',
-    poBox: 'Boîte postale',
     city: 'Ville',
-    countryIso: 'Pays',
-    primaryEmail: 'Adresse électronique principale',
-    secondaryEmail: 'Adresse électronique secondaire',
-    primaryPhoneNumber: 'Numéro de téléphone principal',
-    secondaryPhoneNumber: 'Numéro de téléphone secondaire',
-    skype: 'Nom sur Skype',
     contactPreference: 'Mode de contact préféré',
     contactPreferenceMethod: 'Méthode de contact',
-    platformChat: 'Chat sur la plateforme',
-    signal: 'Signal',
-    whatsapp: 'Whatsapp',
-    activated: 'Activé',
-    status: 'Statut',
+    contributions: 'Contributions',
+    countryIso: 'Pays',
     demoteToUser: "Êtes-vous sûr de vouloir supprimer les privilèges d'administrateur ?",
-    promoteToAdmin: "Êtes-vous sûr de vouloir accorder des privilèges d'administrateur ?",
+    done: 'Enregistrer',
+    email: 'Email',
+    institution: 'Institution',
+    loginEmail: 'Identifiant',
     mandatoryFields: '* sont des champs obligatoires',
+    mr: 'M.',
+    mrs: 'Mme',
+    ms: 'Mlle',
+    name: 'Nom',
+    organization: 'Organisation',
+    organizationalUnit: 'Unité organisationnelle',
+    other: 'Autre',
+    picture1MbMax: "L'image de profil ne peut pas dépasser 1 Mo",
+    platformChat: 'Chat sur la plateforme',
+    poBox: 'Boîte postale',
+    position: 'Position',
+    primaryEmail: 'Adresse électronique principale',
+    primaryPhoneNumber: 'Numéro de téléphone principal',
+    professionalTitle: 'Titre professionnel',
+    promoteToAdmin: "Êtes-vous sûr de vouloir accorder des privilèges d'administrateur ?",
+    role: 'Rôle',
+    secondaryEmail: 'Adresse électronique secondaire',
+    secondaryPhoneNumber: 'Numéro de téléphone secondaire',
+    signal: 'Signal',
+    skype: 'Nom sur Skype',
+    status: 'Statut',
+    street: 'Adresse (rue)',
+    surname: 'Nom(s) de famille',
+    title: 'Appelation',
+    whatsapp: 'Whatsapp',
+    zipCode: 'Code postal',
   },
 
   country: {
@@ -1037,12 +1045,6 @@ L'équipe de FRA
       atlantis: 'Atlantis',
       forest_europe: 'Forest Europe',
     },
-  },
-
-  admin: {
-    admin: 'Administration',
-    filter: 'Filtrer par',
-    invitationPending: 'Invitation en attente',
   },
 
   countryMessageBoard: {
@@ -1063,5 +1065,10 @@ L'équipe de FRA
     ndpAdd: "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un point de données national",
     passwordLoginShort: 'Comment se connecter avec un mot de passe personnalisé',
     googleLoginShort: 'Comment se connecter à partir de son compte Google',
+    guidelinesAndSpecifications: 'Lignes directrices et spécifications',
+    ndpAddReferenceLink:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter le lien d'une référence pour un point de données national",
+    nationalDataAddReferenceLink:
+      "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter le lien d'une référence pour des données nationales",
   },
 }

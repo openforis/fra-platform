@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountryAdmin } from 'meta/area'
+import { CountrySummary } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
@@ -15,7 +15,7 @@ type Props = {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountryAdmin>> => {
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountrySummary>> => {
   const { assessment, cycle, limit, offset, orderBy, orderByDirection } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)

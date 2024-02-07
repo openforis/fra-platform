@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
 
-import { CommentableDescriptionName, Labels, SubSections } from 'meta/assessment'
+import { Labels, SubSections } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 
 import { useCycle } from 'client/store/assessment'
@@ -12,8 +12,8 @@ import { useSection, useTableSections } from 'client/store/metadata'
 import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from 'client/store/user/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import Introduction from 'client/pages/Section/Introduction'
 
-import CommentableDescription from './Descriptions/CommentableDescription'
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import { useGetTableData } from './hooks/useGetTableData'
 import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
@@ -100,14 +100,13 @@ const Section: React.FC<Props> = (props: Props) => {
       })}
 
       {renderIntroductoryText && (
-        <CommentableDescription
+        <Introduction
+          canEditData={canEditTableData}
+          canEditDescriptions={canEditDescriptions}
           sectionName={sectionName}
-          title={t('contactPersons.introductoryText')}
-          name={CommentableDescriptionName.introductoryText}
-          template={{ text: t('contactPersons.introductoryTextSupport') }}
-          disabled={!canEditDescriptions}
         />
       )}
+
       {renderGeneralComments && (
         <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
       )}

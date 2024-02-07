@@ -14,6 +14,7 @@ import { updateOriginalDataPointNationalClasses } from './originalDataPoint/upda
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { clearTableData } from './clearTableData'
+import { Contacts } from './contact'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getReviewStatus } from './getReviewStatus'
@@ -68,4 +69,8 @@ export const CycleDataController = {
 
   // bulk download
   getBulkDownload,
+
+  // ====== node ext
+  // -- contact
+  Contacts,
 }

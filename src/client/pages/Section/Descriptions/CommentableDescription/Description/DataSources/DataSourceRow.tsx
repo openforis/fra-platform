@@ -4,6 +4,7 @@ import { DataSource } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
 import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { DataCell } from 'client/components/DataGrid'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 
@@ -20,14 +21,15 @@ type Props = {
   placeholder: boolean
   onChange: (dataSource: DataSource) => void
   onDelete: () => void
+  lastRow: boolean
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { dataSourceValue, dataSourceMetadata, disabled, onChange, onDelete, placeholder } = props
+  const { dataSourceValue, dataSourceMetadata, disabled, onChange, onDelete, placeholder, lastRow } = props
   const isDataLocked = useIsDataLocked()
 
   const _onChange = useCallback(
-    (field: string, value: string | Record<string, string>) => {
+    (field: string, value: string) => {
       if (dataSourceValue[field as keyof DataSource] === value) return
       onChange({
         ...dataSourceValue,
@@ -50,30 +52,32 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         )}
       </div>
 
-      <ColumnReference
-        dataSourceValue={dataSourceValue}
-        onChange={_onChange}
-        disabled={disabled}
-        placeholder={placeholder}
-      />
+      <ColumnReference dataSourceValue={dataSourceValue} onChange={_onChange} disabled={disabled} lastRow={lastRow} />
       <ColumnTypeOfDataSource
         dataSourceMetadata={dataSourceMetadata}
         dataSourceValue={dataSourceValue}
         onChange={_onChange}
         disabled={disabled}
+        lastRow={lastRow}
       />
       <ColumnVariables
         dataSourceValue={dataSourceValue}
         dataSourceMetadata={dataSourceMetadata}
         onChange={_onChange}
         disabled={disabled}
+        lastRow={lastRow}
       />
-      <ColumnYearForDataSource disabled={disabled} dataSourceValue={dataSourceValue} onChange={_onChange} />
-      <ColumnComments disabled={disabled} dataSourceValue={dataSourceValue} onChange={_onChange} />
+      <ColumnYearForDataSource
+        disabled={disabled}
+        dataSourceValue={dataSourceValue}
+        onChange={_onChange}
+        lastRow={lastRow}
+      />
+      <ColumnComments disabled={disabled} dataSourceValue={dataSourceValue} onChange={_onChange} lastRow={lastRow} />
 
-      <div className="data-source__relative-cell">
+      <DataCell actions>
         {!isDataLocked && dataSourceValue.uuid && <ReviewIndicator title={title} topicKey={dataSourceValue.uuid} />}
-      </div>
+      </DataCell>
     </>
   )
 }

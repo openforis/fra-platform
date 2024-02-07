@@ -1,0 +1,23 @@
+@import 'src/client/style/partials';
+
+.btn-delete {
+  align-items: center;
+  display: grid;
+  height: $spacing-s;
+  justify-content: center;
+  width: $spacing-m;
+
+  svg {
+    color: $text-disabled;
+    transition: all 0.1s ease-out;
+    height: $spacing-xs;
+    width: $spacing-xs;
+  }
+
+  &:hover {
+    svg {
+      color: $ui-destructive;
+      transform: scale(1.1);
+    }
+  }
+}

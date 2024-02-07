@@ -60,6 +60,7 @@ export const useValidate = (props: Props): void => {
 
               return ExpressionEvaluator.evalFormula<NodeValueValidation>({
                 assessment,
+                assessments: { [assessment.props.name]: assessment },
                 countryIso,
                 cycle,
                 data,

@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { DataSource, DataSourceType } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import Autocomplete from 'client/components/Autocomplete'
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import Select from 'client/components/Inputs/Select'
+import { DataCell } from 'client/components/DataGrid'
+import TextArea from 'client/components/Inputs/TextArea'
 
 type Props = {
   disabled: boolean
@@ -17,20 +17,16 @@ type Props = {
 const TextInput: React.FC<Props> = (props: Props) => {
   const { dataSourceValue, disabled, onChange } = props
   const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('type', event.target.value)
-  return (
-    <div className="data-source__text-area-wrapper">
-      <VerticallyGrowingTextField disabled={disabled} onChange={_onChange} value={dataSourceValue.type} />
-    </div>
-  )
+  return <TextArea disabled={disabled} onChange={_onChange} value={dataSourceValue.type} />
 }
 
 const SelectInput: React.FC<Props> = (props: Props) => {
   const { dataSourceValue, disabled, onChange } = props
 
   const { t } = useTranslation()
-  const _onChange = ({ value }: { value: string }) => onChange('type', value)
+  const _onChange = (value: string) => onChange('type', value)
 
-  const items = useMemo(() => {
+  const options = useMemo(() => {
     return Object.keys(DataSourceType).map((type) => {
       return {
         label: t(`dataSource.${type}`),
@@ -39,28 +35,20 @@ const SelectInput: React.FC<Props> = (props: Props) => {
     })
   }, [t])
 
-  return (
-    <Autocomplete
-      readOnlyOptions
-      disabled={disabled}
-      onSave={_onChange}
-      value={dataSourceValue.type ? t(`dataSource.${dataSourceValue.type}`) : ''}
-      items={items}
-    />
-  )
+  return <Select disabled={disabled} onChange={_onChange} options={options} value={dataSourceValue.type} />
 }
 
-const ColumnTypeOfDataSource: React.FC<Props & { dataSourceMetadata: DataSourceDescription }> = (
-  props: Props & { dataSourceMetadata: DataSourceDescription }
+const ColumnTypeOfDataSource: React.FC<Props & { dataSourceMetadata: DataSourceDescription; lastRow: boolean }> = (
+  props: Props & { dataSourceMetadata: DataSourceDescription; lastRow: boolean }
 ) => {
-  const { dataSourceMetadata } = props
+  const { dataSourceMetadata, lastRow } = props
   const { typeOfDataSourceText } = dataSourceMetadata?.table || {}
 
   return (
-    <DataColumn className="data-source-column">
+    <DataCell lastRow={lastRow}>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       {typeOfDataSourceText ? <TextInput {...props} /> : <SelectInput {...props} />}
-    </DataColumn>
+    </DataCell>
   )
 }
 

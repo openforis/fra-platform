@@ -133,7 +133,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        {otherLand}
+        <span>{otherLand}</span>
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 

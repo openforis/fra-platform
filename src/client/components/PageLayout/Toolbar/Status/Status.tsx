@@ -6,8 +6,7 @@ import MediaQuery from 'react-responsive'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
-import { AssessmentStatus } from 'meta/area/country'
+import { Areas, AssessmentStatus } from 'meta/area'
 import { AssessmentStatusTransitions } from 'meta/assessment/assessments'
 import { Users } from 'meta/user'
 

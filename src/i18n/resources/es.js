@@ -1,3 +1,4 @@
+const admin = require('./es/admin')
 const area = require('./es/area')
 const assessmentSection = require('./es/assessmentSection')
 const common = require('./es/common')
@@ -8,11 +9,11 @@ const editUser = require('./es/editUser')
 const fra = require('./es/fra')
 const generalValidation = require('./es/generalValidations')
 const login = require('./es/login')
-const print = require('./es/print')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 const uc = require('./es/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -21,7 +22,6 @@ module.exports.translation = {
   fra,
   generalValidation,
   login,
-  print,
   statisticalFactsheets,
   uc,
 
@@ -58,7 +58,6 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     termsAndConditions: 'Términos y condiciones',
     scamAlert: 'Alerta de estafa',
     reportMisconduct: 'Reportar mala conducta',
-    userGuide: 'Guía del usuario',
     tutorials: 'Vídeo',
     sendFeedback: 'Enviar comentarios',
     licenses: 'Licencias',
@@ -356,6 +355,7 @@ El equipo de FRA
     cancel: 'Cancelar',
     changeStatusTextPlaceholder: 'Añadir un mensaje opcional',
     doNotNotifyUsers: 'No notificar a los usuarios',
+    notifySelf: 'Enviar copia a uno mismo',
   },
 
   header: {
@@ -584,6 +584,7 @@ El equipo de FRA
     boreal: 'Boreal',
     temperate: 'Templada',
     subtropical: 'Subtropical',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Tropical',
   },
 
@@ -1016,12 +1017,6 @@ El equipo de FRA
     },
   },
 
-  admin: {
-    admin: 'Administración',
-    filter: 'Filtrar por',
-    invitationPending: 'Invitación pendiente',
-  },
-
   countryMessageBoard: {
     messageBoard: 'Tablero de mensajes',
     messageBoardDesc: 'Los mensajes publicados aquí son visibles para todos los miembros del país.',
@@ -1038,5 +1033,10 @@ El equipo de FRA
     ndpAdd: 'Manual de usuario de la plataforma FRA - Cómo añadir un punto de dato nacional',
     passwordLoginShort: 'Cómo iniciar sesión con una contraseña autodefinida',
     googleLoginShort: 'Cómo iniciar sesión utilizando la autenticación de Google',
+    guidelinesAndSpecifications: 'Directrices y Especificaciones',
+    ndpAddReferenceLink:
+      'Tutorial del usuario de la plataforma FRA - Cómo agregar un enlace de referencia para un punto de datos nacional',
+    nationalDataAddReferenceLink:
+      'Tutorial del usuario de la plataforma FRA - Cómo agregar un enlace de referencia para datos nacionales',
   },
 }

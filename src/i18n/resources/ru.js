@@ -1,3 +1,4 @@
+const admin = require('./ru/admin')
 const area = require('./ru/area')
 const assessmentSection = require('./ru/assessmentSection')
 const common = require('./ru/common')
@@ -7,11 +8,11 @@ const dataSource = require('./ru/dataSource')
 const fra = require('./ru/fra')
 const generalValidation = require('./ru/generalValidation')
 const login = require('./ru/login')
-const print = require('./ru/print')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
 const uc = require('./ru/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -20,7 +21,6 @@ module.exports.translation = {
   fra,
   generalValidation,
   login,
-  print,
   statisticalFactsheets,
   uc,
 
@@ -51,7 +51,6 @@ module.exports.translation = {
     termsAndConditions: 'Положения и условия',
     scamAlert: 'Опасайтесь мошенников',
     reportMisconduct: 'Сообщить о нарушении',
-    userGuide: 'Руководство пользователя',
     tutorials: 'Видео',
     sendFeedback: 'Направить отзыв',
     licenses: 'Лицензирование',
@@ -372,6 +371,7 @@ module.exports.translation = {
     cancel: 'Отмена',
     changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
     doNotNotifyUsers: 'Не уведомлять пользователей',
+    notifySelf: 'Отправить копию самому себе',
   },
 
   header: {
@@ -609,6 +609,7 @@ module.exports.translation = {
     boreal: 'Бореальная',
     temperate: 'Умеренная',
     subtropical: 'Субтропическая',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Тропическая',
   },
 
@@ -1026,42 +1027,47 @@ module.exports.translation = {
   },
 
   editUser: {
-    chooseProfilePicture: 'Выбрать картинку',
-    name: 'Имя',
-    role: 'Роль',
-    email: 'Электронная почта',
-    loginEmail: 'Логин',
-    institution: 'Учреждение',
-    position: 'Должность',
-    done: 'Сохранить',
-    deactivate: 'Деактивировать',
     activate: 'Активировать',
-    picture1MbMax: 'Картинка в профиле не может превышать 1MB',
-    title: 'Апелляция',
-    surname: 'Фамилия',
-    professionalTitle: 'Должность',
-    organizationalUnit: 'Организационное подразделение',
-    organization: 'Организация',
-    street: 'Адрес ',
-    zipCode: 'Почтовый индекс',
-    poBox: 'Абонентский ящик',
+    activated: 'Активирован',
+    chooseProfilePicture: 'Выбрать картинку',
     city: 'Город',
-    countryIso: 'Страна',
-    primaryEmail: 'Основной адрес электронной почты',
-    secondaryEmail: 'Дополнительный адрес электронной почты',
-    primaryPhoneNumber: 'Основной телефон',
-    secondaryPhoneNumber: 'Второй номер телефона',
-    skype: 'Имя пользователя Skype',
     contactPreference: 'Предпочтительный способ контакта',
     contactPreferenceMethod: 'Метод контакта',
-    platformChat: 'Чат на платформе',
-    signal: 'Signal',
-    whatsapp: 'WhatsApp',
-    activated: 'Активирован',
-    status: 'Статус',
+    contributions: 'Вклад',
+    countryIso: 'Страна',
+    deactivate: 'Деактивировать',
     demoteToUser: 'Вы уверены, что хотите удалить привилегии администратора?',
-    promoteToAdmin: 'Вы уверены, что хотите предоставить административные привилегии?',
+    done: 'Сохранить',
+    email: 'Электронная почта',
+    institution: 'Учреждение',
+    loginEmail: 'Логин',
     mandatoryFields: '* Обязательные поля',
+    mr: 'Г-н',
+    mrs: 'Г-жа',
+    ms: 'Г-жа',
+    name: 'Имя',
+    organization: 'Организация',
+    organizationalUnit: 'Организационное подразделение',
+    other: 'Другое',
+    picture1MbMax: 'Картинка в профиле не может превышать 1MB',
+    platformChat: 'Чат на платформе',
+    poBox: 'Абонентский ящик',
+    position: 'Должность',
+    primaryEmail: 'Основной адрес электронной почты',
+    primaryPhoneNumber: 'Основной телефон',
+    professionalTitle: 'Должность',
+    promoteToAdmin: 'Вы уверены, что хотите предоставить административные привилегии?',
+    role: 'Роль',
+    secondaryEmail: 'Дополнительный адрес электронной почты',
+    secondaryPhoneNumber: 'Второй номер телефона',
+    signal: 'Signal',
+    skype: 'Имя пользователя Skype',
+    status: 'Статус',
+    street: 'Адрес ',
+    surname: 'Фамилия',
+    title: 'Апелляция',
+    whatsapp: 'WhatsApp',
+    zipCode: 'Почтовый индекс',
   },
 
   country: {
@@ -1075,12 +1081,6 @@ module.exports.translation = {
       atlantis: 'Атлантида',
       forest_europe: 'Forest Europe',
     },
-  },
-
-  admin: {
-    admin: 'Администратор',
-    filter: 'Фильтровать по',
-    invitationPending: 'Приглашение в стадии рассмотрения',
   },
 
   countryMessageBoard: {
@@ -1099,6 +1099,9 @@ module.exports.translation = {
     ndpAdd: 'Руководство пользователя платформы ОЛР — Как добавить национальный отчетный год',
     passwordLoginShort: 'Как войти в систему с помощью собственного пароля',
     googleLoginShort: 'Как войти в систему, используя аутентификацию Google',
+    guidelinesAndSpecifications: 'Руководство и спецификации',
+    ndpAddReferenceLink: 'Руководство пользователя платформы ОЛР - Как добавить ссылку для национальной точки данных',
+    nationalDataAddReferenceLink: 'Руководство пользователя платформы ОЛР - Как добавить ссылку на национальные данные',
   },
 
   panEuropean: {

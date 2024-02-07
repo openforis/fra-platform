@@ -16,7 +16,9 @@ export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Conte
       parentLabelKey: string,
       parentTableAnchor: string,
       categoryValues: Array<string | undefined>,
-      categoryLabelKeys: Array<string>
+      categoryLabelKeys: Array<string>,
+      parentLabelParams?: string,
+      parentColLabelKey?: string
     ): NodeValueValidation => {
       const categoriesSum = calculateCategoriesSum(categoryValues, categoryLabelKeys)
 
@@ -36,7 +38,9 @@ export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Conte
         parentTableAnchor,
         categoriesSum,
         categoryLabelKeys,
-        'sumSubCategoriesNotEqualToParent'
+        'sumSubCategoriesNotEqualToParent',
+        parentLabelParams,
+        parentColLabelKey
       )
 
       return { valid, messages }

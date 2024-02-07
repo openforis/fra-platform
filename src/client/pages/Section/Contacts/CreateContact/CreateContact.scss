@@ -1,0 +1,7 @@
+@import 'src/client/style/partials';
+
+.contacts__create-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: $spacing-xxxl;
+}

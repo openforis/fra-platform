@@ -4,17 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
+import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLog, ActivityLogs } from 'meta/assessment'
-import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useSection } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ColumnComponentProps } from 'client/components/TablePaginated'
-import { Dates } from 'client/utils'
 
 const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (props) => {
   const { datum: activity, rowIndex } = props
@@ -40,7 +39,7 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
         {ActivityLogs.hasSectionLink(activity) && (
           <Link
             className={classNames('link', { disabled: ActivityLogs.isSectionLinkDisabled(activity) })}
-            to={Routes.Section.generatePath({ countryIso, assessmentName, cycleName, sectionName })}
+            to={ActivityLogs.getSectionLink({ countryIso, assessmentName, cycleName, sectionName })}
           >
             {anchor ? `${anchor} ` : ''}
             {ActivityLogs.getLabelSection({ cycle, section, activity, t })}

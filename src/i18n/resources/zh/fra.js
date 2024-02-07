@@ -1,4 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const print = require('./print')
+
 module.exports = {
+  print,
+
   // common
   area100HaYear: '面积 (1000 公顷)',
   categoryHeader2020: 'FRA 2020类别',

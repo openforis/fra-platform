@@ -1,3 +1,4 @@
+const admin = require('./en/admin')
 const area = require('./en/area')
 const assessmentSection = require('./en/assessmentSection')
 const common = require('./en/common')
@@ -8,11 +9,11 @@ const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
 const login = require('./en/login')
 const panEuropean = require('./en/panEuropean/panEuropean')
-const print = require('./en/print')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const uc = require('./en/uc')
 
 module.exports.translation = {
+  admin,
   area,
   common,
   contentCheck,
@@ -22,7 +23,6 @@ module.exports.translation = {
   generalValidation,
   login,
   panEuropean,
-  print,
   statisticalFactsheets,
   uc,
 
@@ -72,7 +72,6 @@ followed by the boreal, temperate and subtropical domains.`,
     termsAndConditions: 'Terms and Conditions',
     scamAlert: 'Scam Alert',
     reportMisconduct: 'Report Misconduct',
-    userGuide: 'User guide',
     tutorials: 'Tutorials',
     sendFeedback: 'Send feedback',
     licenses: 'Licenses',
@@ -419,6 +418,7 @@ The FRA team
     cancel: 'Cancel',
     changeStatusTextPlaceholder: 'Add an optional message',
     doNotNotifyUsers: "Don't notify users",
+    notifySelf: 'Send copy to self',
   },
 
   header: {
@@ -651,6 +651,7 @@ The FRA team fra@fao.org
     boreal: 'Boreal',
     temperate: 'Temperate',
     subtropical: 'Sub-tropical',
+    sub_tropical: '$t(climaticDomain.subtropical)',
     tropical: 'Tropical',
   },
 
@@ -1061,43 +1062,48 @@ The FRA team
   },
 
   editUser: {
+    activate: 'Activate',
+    activated: 'Activated',
     chooseProfilePicture: 'Choose picture',
-    title: 'Appellation',
-    name: 'Name',
-    surname: 'Surname(s)',
-    professionalTitle: 'Professional title',
-    organizationalUnit: 'Organizational unit',
-    organization: 'Organization',
-    street: 'Street address',
-    zipCode: 'Zip code',
-    poBox: 'P.O. Box',
     city: 'City',
-    countryIso: 'Country',
-    primaryEmail: 'Primary email address',
-    secondaryEmail: 'Secondary email address',
-    primaryPhoneNumber: 'Primary telephone number',
-    secondaryPhoneNumber: 'Secondary telephone number',
-    skype: 'Skypename',
     contactPreference: 'Preferred way of contacting',
     contactPreferenceMethod: 'Contacting method',
-    platformChat: 'PlatformChat',
-    signal: 'Signal',
-    whatsapp: 'Whatsapp',
-    role: 'Role',
-    email: 'Email',
-    loginEmail: 'Login',
-    institution: 'Institution',
-    position: 'Position',
-    done: 'Save',
+    contributions: 'Contributions',
+    countryIso: 'Country',
     deactivate: 'Deactivate',
-    activate: 'Activate',
-    picture1MbMax: 'Profile picture cannot exceed 1MB',
-    activated: 'Activated',
-    status: 'Status',
     demoteToUser: 'Are you sure you want to remove Admin privileges?',
-    promoteToAdmin: 'Are you sure you want to grant Admin privileges?',
-    mandatoryFields: '* are mandatory fields',
     disabled: 'Disabled',
+    done: 'Save',
+    email: 'Email',
+    institution: 'Institution',
+    loginEmail: 'Login',
+    mandatoryFields: '* are mandatory fields',
+    mr: 'Mr.',
+    mrs: 'Mrs.',
+    ms: 'Ms.',
+    name: 'Name',
+    organization: 'Organization',
+    organizationalUnit: 'Organizational unit',
+    other: 'Other',
+    picture1MbMax: 'Profile picture cannot exceed 1MB',
+    platformChat: 'PlatformChat',
+    poBox: 'P.O. Box',
+    position: 'Position',
+    primaryEmail: 'Primary email address',
+    primaryPhoneNumber: 'Primary telephone number',
+    professionalTitle: 'Professional title',
+    promoteToAdmin: 'Are you sure you want to grant Admin privileges?',
+    role: 'Role',
+    secondaryEmail: 'Secondary email address',
+    secondaryPhoneNumber: 'Secondary telephone number',
+    signal: 'Signal',
+    skype: 'Skypename',
+    status: 'Status',
+    street: 'Street address',
+    surname: 'Surname(s)',
+    title: 'Appellation',
+    whatsapp: 'Whatsapp',
+    zipCode: 'Zip code',
   },
 
   country: {
@@ -1111,15 +1117,6 @@ The FRA team
       atlantis: 'Atlantis',
       forest_europe: 'Forest Europe',
     },
-  },
-
-  admin: {
-    admin: 'Admin',
-    filter: 'Filter by',
-    invitationPending: 'Invitation pending',
-    invitationsAcceptedCount: 'No. of Invitations accepted',
-    invitationsSentCount: 'No. of Invitations sent',
-    usersCount: 'No. of Users',
   },
 
   countryMessageBoard: {
@@ -1138,5 +1135,8 @@ The FRA team
     ndpAdd: 'The FRA platform user tutorial - How to add a national data point',
     passwordLoginShort: 'How to log in with a self-defined password',
     googleLoginShort: 'How to log in using Google authentication',
+    guidelinesAndSpecifications: 'Guidelines and Specifications',
+    ndpAddReferenceLink: 'The FRA platform user tutorial - How to add a reference link for a national data point',
+    nationalDataAddReferenceLink: 'The FRA platform user tutorial - How to add a reference link for national data',
   },
 }

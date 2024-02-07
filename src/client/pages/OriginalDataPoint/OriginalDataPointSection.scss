@@ -22,27 +22,9 @@
 // custom data grid
 .odp__section {
   .data-grid {
-    .input-container,
     // TODO: multi select refactor style
     .multi-select__closed-content {
       padding: $spacing-xxs;
-    }
-
-    p {
-      margin: unset;
-    }
-
-    .jodit-toolbar__box {
-      background-color: $ui-bg !important;
-    }
-
-    .jodit-wysiwyg {
-      padding: $spacing-xxs;
-
-      // TODO: failed tentative of giving black border to jodit when focused. try again :D
-      //&:not(:has(* [data-jodit-temp='true'])) {
-      //  border: 1px solid $text-body;
-      //}
     }
 
     // TODO: multi select refactor style
@@ -55,17 +37,6 @@
 
     svg.icon-reference-files {
       stroke: none;
-    }
-  }
-
-  div.odp__grid__cell-delete {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-right: 1px solid $ui-border;
-
-    svg {
-      color: $ui-destructive;
     }
   }
 }

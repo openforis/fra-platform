@@ -4,14 +4,8 @@
   margin-top: $spacing-xs;
 }
 
-.data-source-grid {
-  grid-template-columns: 0px 400px 400px repeat(3, 1fr) 0px;
-  margin: $spacing-s 0;
-
-  .data-source-column {
-    position: relative;
-    min-height: 2rem;
-  }
+.data-source__relative-cell {
+  position: relative;
 
   .data-source__delete-button {
     position: absolute;
@@ -19,44 +13,13 @@
     top: 0;
     bottom: 0;
     border: 0;
+    align-items: center;
+
+    background-color: transparent;
     background-color: transparent;
 
     svg {
       color: $ui-destructive;
     }
-  }
-
-  .data-source__relative-cell {
-    position: relative;
-
-    .review-indicator {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      align-items: center;
-    }
-  }
-}
-
-.data-source__text-area-wrapper {
-  display: flex;
-  height: 100%;
-
-  > button {
-    border: 0;
-    background-color: transparent;
-  }
-
-  > div {
-    width: 100%;
-  }
-
-  textarea:focus {
-    box-shadow: none;
-  }
-
-  &:focus-within {
-    outline: none;
-    box-shadow: 0 0 0 1px $text-body;
   }
 }
