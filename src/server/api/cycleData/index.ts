@@ -32,6 +32,7 @@ import { createFile } from './repository/createFile'
 import { getManyRepository } from './repository/getManyRepository'
 import { getRepositoryFile } from './repository/getRepositoryFile'
 import { removeRepositoryItem } from './repository/removeRepositoryItem'
+import { updateRepositoryItem } from './repository/updateRepositoryItem'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { clearTable } from './table/clearTable'
@@ -155,6 +156,12 @@ export const CycleDataApi = {
     )
     express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewFile, getRepositoryFile)
     express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
+    express.patch(
+      ApiEndPoint.CycleData.Repository.one(),
+      multer({ fileFilter }).single('file'),
+      AuthMiddleware.requireEditAssessmentFile,
+      updateRepositoryItem
+    )
     express.delete(
       ApiEndPoint.CycleData.Repository.one(),
       AuthMiddleware.requireEditAssessmentFile,

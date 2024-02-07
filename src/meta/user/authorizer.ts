@@ -174,7 +174,7 @@ const canViewRepositoryItem = (props: {
   repositoryItem: RepositoryItem
 }): boolean => {
   const { assessment, countryIso, user, cycle, repositoryItem } = props
-  if (repositoryItem?.props.public) {
+  if (repositoryItem?.props?.public) {
     return canView({ assessment, user, countryIso, cycle })
   }
 
