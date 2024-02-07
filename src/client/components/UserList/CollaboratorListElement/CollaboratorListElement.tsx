@@ -1,6 +1,7 @@
 import React from 'react'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
@@ -20,7 +21,10 @@ const CollaboratorListElement: React.FC<{ user: User; readOnly: boolean }> = ({ 
   const currentUser = useUser()
   const isReviewer = Users.isReviewer(currentUser, countryIso, cycle)
   const userRole = Users.getRole(user, countryIso, cycle)
-  const { acceptedAt, invitationUuid } = userRole ?? {}
+
+  if (Objects.isEmpty(userRole)) return null
+
+  const { acceptedAt, invitationUuid } = userRole
 
   const showLink = !readOnly
 
