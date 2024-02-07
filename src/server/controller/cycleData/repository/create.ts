@@ -14,8 +14,7 @@ type Props = {
   countryIso: AreaCode
 
   file: Express.Multer.File
-  link?: string
-  name: string
+  repositoryItem: RepositoryItem
 
   user: User
 }
@@ -27,7 +26,8 @@ export const create = async (props: Props): Promise<RepositoryItem> => {
     let fileUuid = null
     if (props.file) fileUuid = await FileRepository.create(props, t)
 
-    const repositoryProps = { ...props, fileUuid }
+    const repositoryItem = { ...props.repositoryItem, fileUuid }
+    const repositoryProps = { ...props, repositoryItem }
     const target = await RepositoryRepository.create(repositoryProps, t)
 
     const message = ActivityLogMessage.assessmentFileCreate

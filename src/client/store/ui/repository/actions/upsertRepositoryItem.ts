@@ -12,43 +12,28 @@ type Props = CycleParams & {
   repositoryItem: RepositoryItem
 }
 
-const updateRepositoryItem = async (props: Props) => {
+const _getFormData = (props: Props) => {
   const { file, repositoryItem } = props
-  const { assessmentName, cycleName, countryIso } = props
   const formData = new FormData()
   formData.append('repositoryItem', JSON.stringify(repositoryItem))
-
   if (file) formData.append('file', file)
-
-  const params = { countryIso, assessmentName, cycleName }
-  const config = { params }
-
-  const { data } = await axios.patch(ApiEndPoint.CycleData.Repository.one(), formData, config)
-  return data
+  return formData
 }
 
-const createRepositoryItem = async (props: Props): Promise<RepositoryItem> => {
-  const { file, repositoryItem } = props
+const _getParamsConfig = (props: Props) => {
   const { assessmentName, cycleName, countryIso } = props
-  const formData = new FormData()
-  formData.append('name', repositoryItem?.name)
-  formData.append('link', repositoryItem?.link)
-
-  if (file) formData.append('file', file)
-
   const params = { countryIso, assessmentName, cycleName }
-  const config = { params }
-
-  const { data } = await axios.post(ApiEndPoint.CycleData.Repository.one(), formData, config)
-  return data
+  return { params }
 }
 
 export const upsertRepositoryItem = createAsyncThunk<RepositoryItem, Props, ThunkApiConfig>(
   'repositoryItem/upsert',
   async (props) => {
-    const repositoryItem = props.repositoryItem.uuid
-      ? await updateRepositoryItem(props)
-      : await createRepositoryItem(props)
-    return repositoryItem
+    const formData = _getFormData(props)
+    const config = _getParamsConfig(props)
+
+    const request = props.repositoryItem.uuid ? axios.patch : axios.post
+    const { data } = await request(ApiEndPoint.CycleData.Repository.one(), formData, config)
+    return data
   }
 )

@@ -8,7 +8,6 @@ import { RepositoryActions } from 'client/store/ui/repository'
 const initialRepositoryItem: RepositoryItem = {
   name: '',
   link: '',
-  file: '',
 } as unknown as RepositoryItem
 
 export const useOpenPanel = (repositoryItem?: RepositoryItem) => {
