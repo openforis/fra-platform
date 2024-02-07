@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from 'client/store'
 import { GeoActions } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
-import { useMapLayersHandler } from 'client/pages/Geo/GeoMap/hooks'
 import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 import { mapController } from 'client/utils'
+
+import { useMapLayersHandler } from './hooks'
 
 type Props = {
   viewport?: google.maps.LatLngBoundsLiteral

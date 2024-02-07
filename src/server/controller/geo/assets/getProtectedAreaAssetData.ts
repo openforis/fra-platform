@@ -1,7 +1,7 @@
 // @ts-ignore
 import { FeatureCollection, Image } from '@google/earthengine'
 
-import { LayerSource, ProtectedAreaKey, protectedAreaSourcesMetadata } from 'meta/geo'
+import { LayerSource, ProtectedAreaKey, protectedAreaLayersMetadata } from 'meta/geo'
 
 export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
   let asset = {} as { year?: number; img: Image; metadata: any }
@@ -13,7 +13,7 @@ export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; 
       asset = {
         year: 2020,
         img: imgFilteredWDPA,
-        metadata: protectedAreaSourcesMetadata[layer.key],
+        metadata: protectedAreaLayersMetadata[layer.key],
       }
       break
     }
@@ -22,7 +22,7 @@ export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; 
 
       asset = {
         img: ftcWDPAPolygons.style({ color: '#6666FF', fillColor: '6666FF30', width: 1.5 }),
-        metadata: protectedAreaSourcesMetadata[layer.key],
+        metadata: protectedAreaLayersMetadata[layer.key],
       }
       break
     }
@@ -31,7 +31,7 @@ export const getProtectedAreaAssetData = (layer: LayerSource): { year?: number; 
 
       asset = {
         img: imgCustom,
-        metadata: protectedAreaSourcesMetadata[layer.key],
+        metadata: protectedAreaLayersMetadata[layer.key],
       }
       break
     }
