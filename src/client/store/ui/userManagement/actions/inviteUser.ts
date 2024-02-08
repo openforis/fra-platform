@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 import { Lang } from 'meta/lang'
-import { RoleName } from 'meta/user'
+import { CollaboratorPermissions, RoleName } from 'meta/user'
 
 import { getUsers } from './getUsers'
 
@@ -16,10 +16,20 @@ type Params = CycleParams & {
   surname: string
 }
 
-export const inviteUser = createAsyncThunk<void, Params>(
+type Body = {
+  permissions?: CollaboratorPermissions
+}
+
+type Props = {
+  body?: Body
+  params: Params
+}
+
+export const inviteUser = createAsyncThunk<void, Props>(
   'userManagement/post/invitation',
-  async (params, { dispatch }) => {
-    const { status } = await axios.post(ApiEndPoint.User.invite(), null, { params })
+  async (props, { dispatch }) => {
+    const { body, params } = props
+    const { status } = await axios.post(ApiEndPoint.User.invite(), body, { params })
     if (status === 200) {
       // Update list of users after inviting a new user
       dispatch(getUsers(params))
