@@ -13,6 +13,8 @@ type Props = {
   name: CommentableDescriptionName
 }
 
+type ToggleEdit = () => void
+
 const Toggle: React.FC<Props> = (props) => {
   const { sectionName, name } = props
 
@@ -23,7 +25,7 @@ const Toggle: React.FC<Props> = (props) => {
   const editable = useIsDescriptionEditable({ sectionName, name })
   const editEnabled = useIsDescriptionEditEnabled({ sectionName, name })
 
-  const toggleEdit = useCallback(() => {
+  const toggleEdit = useCallback<ToggleEdit>(() => {
     dispatch(AssessmentSectionActions.toggleEditDescription({ sectionName, name }))
   }, [dispatch, name, sectionName])
 

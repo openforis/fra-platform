@@ -10,14 +10,13 @@ import CommentableDescription from '../CommentableDescription'
 
 type Props = {
   sectionName: string
-  disabled: boolean
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
   analysisAndProcessing: AnalysisAndProcessingDescription
 }
 
 const AnalysisDescriptions: React.FC<Props> = (props) => {
-  const { analysisAndProcessing, sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const { analysisAndProcessing, sectionName, showAlertEmptyContent, showDashEmptyContent } = props
   const cycle = useCycle()
 
   const { t } = useTranslation()
@@ -28,7 +27,6 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
       {analysisAndProcessing.estimationAndForecasting && (
         <CommentableDescription
           title={t('description.estimationAndForecasting')}
-          disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.estimationAndForecasting}
           showAlertEmptyContent={showAlertEmptyContent}
@@ -38,7 +36,6 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
       {analysisAndProcessing.reclassification && (
         <CommentableDescription
           title={t('description.reclassification', { cycleName: cycle.name })}
-          disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.reclassification}
           showAlertEmptyContent={showAlertEmptyContent}

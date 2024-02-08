@@ -9,11 +9,10 @@ import DataSources from 'client/pages/Section/Descriptions/NationalDataDescripti
 import CommentableDescription from '../CommentableDescription'
 
 type Props = {
+  nationalData: NationalDataDescription
   sectionName: string
-  disabled: boolean
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
-  nationalData: NationalDataDescription
 }
 
 type DataSourcesProps = {
@@ -22,7 +21,7 @@ type DataSourcesProps = {
 }
 
 const NationalDataDescriptions: React.FC<Props> = (props) => {
-  const { sectionName, disabled, nationalData, showAlertEmptyContent, showDashEmptyContent } = props
+  const { sectionName, nationalData, showAlertEmptyContent, showDashEmptyContent } = props
 
   const { t } = useTranslation()
 
@@ -39,7 +38,6 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       {nationalData.dataSources && (
         <CommentableDescription
           title={t<string>('description.dataSourcesPlus')}
-          disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.dataSources}
           showAlertEmptyContent={showAlertEmptyContent}
@@ -52,7 +50,6 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       {nationalData.nationalClassification && (
         <CommentableDescription
           title={t('description.nationalClassificationAndDefinitions')}
-          disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.nationalClassificationAndDefinitions}
           showAlertEmptyContent={showAlertEmptyContent}
@@ -63,7 +60,6 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       {nationalData.originalData && (
         <CommentableDescription
           title={t('description.originalData')}
-          disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.originalData}
           showAlertEmptyContent={showAlertEmptyContent}
