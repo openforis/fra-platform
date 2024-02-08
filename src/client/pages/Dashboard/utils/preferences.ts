@@ -81,10 +81,10 @@ export const commonOptions = {
   },
 }
 
-export const scaleLabel = (labelString: string) => ({
+export const scaleLabel = (text: string) => ({
   display: true,
   fontFamily: `'Open Sans', sans-serif`,
   fontSize: 11,
   lineHeight: 1,
-  labelString,
+  text,
 })
