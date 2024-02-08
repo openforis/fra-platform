@@ -25,7 +25,7 @@ export const update = async (props: Props): Promise<RepositoryItem> => {
   return DB.tx(async (t: BaseProtocol) => {
     let fileUuid = repositoryItemProps.link ? undefined : repositoryItemProps.fileUuid
     if (props.file) {
-      fileUuid = await FileRepository.create(props, t)
+      fileUuid = (await FileRepository.create(props, t)).uuid
     }
 
     const repositoryItem = { ...repositoryItemProps, fileUuid }

@@ -14,7 +14,9 @@ type Props = {
   uuid?: string
   user?: User
 }
-
+/**
+ * @Deprecated
+ */
 export const getAssessmentFile = async (props: Props, client: BaseProtocol = DB): Promise<AssessmentFile> => {
   const { assessment, cycle, countryIso, user } = props
 

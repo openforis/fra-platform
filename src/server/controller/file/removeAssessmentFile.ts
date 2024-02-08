@@ -10,7 +10,9 @@ type Props = {
   uuid: string
   user?: User
 }
-
+/**
+ * @Deprecated
+ */
 export const removeAssessmentFile = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, uuid, user } = props
 

@@ -88,6 +88,7 @@ export const ApiEndPoint = {
   },
 
   File: {
+    many: () => apiPath('file'),
     biomassStock: ({
       assessmentName = ':assessmentName',
       cycleName = ':cycleName',

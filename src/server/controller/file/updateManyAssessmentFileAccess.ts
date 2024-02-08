@@ -14,7 +14,9 @@ type Props = {
   user?: User
   UUIDs: Array<string>
 }
-
+/**
+ * @Deprecated
+ */
 export const updateManyAssessmentFileAccess = async (
   props: Props,
   client: BaseProtocol = DB

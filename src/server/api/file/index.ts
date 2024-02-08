@@ -2,6 +2,7 @@ import { Express } from 'express'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { createManyFiles } from 'server/api/file/createManyFiles'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { createAssessmentFile } from './createAssessmentFile'
@@ -38,18 +39,40 @@ export const FileApi = {
     express.get(ApiEndPoint.File.biomassStock({}), AuthMiddleware.requireEditTableData, getBiomassStockFile)
 
     // Files
+    express.post(
+      ApiEndPoint.File.many(),
+      multer({ fileFilter }).array('file'),
+      // AuthMiddleware.requireEditCountryFile,
+      createManyFiles
+    )
+
     // File list
+    /**
+     * @Deprecated
+     */
     express.get(ApiEndPoint.File.Assessment.many(), AuthMiddleware.requireView, getAssessmentFiles)
 
     // File operations
+    /**
+     * @Deprecated
+     */
     express.put(
       ApiEndPoint.File.Assessment.many(),
       multer({ fileFilter }).single('file'),
       AuthMiddleware.requireEditAssessmentFile,
       createAssessmentFile
     )
+    /**
+     * @Deprecated
+     */
     express.get(ApiEndPoint.File.Assessment.one(), /* Auth handled in controller */ getAssessmentFile)
+    /**
+     * @Deprecated
+     */
     express.delete(ApiEndPoint.File.Assessment.one(), AuthMiddleware.requireEditCountryFile, removeAssessmentFile)
+    /**
+     * @Deprecated
+     */
     express.put(
       ApiEndPoint.File.Assessment.access(),
       AuthMiddleware.requireEditAssessmentFileAccess,
