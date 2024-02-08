@@ -65,20 +65,15 @@ const ForestArea = () => {
     scales: {
       x: {
         stacked: true,
-        scaleLabel: scaleLabel(t('common.year')),
+        title: scaleLabel(t('common.year')),
       },
       y: {
-        scaleLabel: scaleLabel(unit),
         stacked: true,
         ticks: {
           maxTicksLimit: 6,
           beginAtZero: true,
         },
-        title: {
-          color: '#7f7f7f',
-          display: true,
-          text: unit,
-        },
+        title: scaleLabel(unit),
       },
     },
   } as unknown as ChartOptions<'bar'>
