@@ -5,10 +5,10 @@ import { RepositoryItem } from 'meta/cycleData'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 
-const initialRepositoryItem: RepositoryItem = {
+const initialRepositoryItem: Partial<RepositoryItem> = {
   name: '',
   link: '',
-} as unknown as RepositoryItem
+}
 
 export const useOpenPanel = (repositoryItem?: RepositoryItem) => {
   const _repositoryItem = repositoryItem ?? initialRepositoryItem
