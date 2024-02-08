@@ -45,9 +45,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         >
-          {dataSourcesProps.withTable && (
-            <DataSources disabled={false} nationalData={nationalData} sectionName={sectionName} />
-          )}
+          {dataSourcesProps.withTable && <DataSources nationalData={nationalData} sectionName={sectionName} />}
         </CommentableDescription>
       )}
 

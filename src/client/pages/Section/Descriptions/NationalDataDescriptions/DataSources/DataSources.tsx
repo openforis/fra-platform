@@ -6,6 +6,7 @@ import { CommentableDescriptionName, CommentableDescriptionValue, DataSource } f
 import { NationalDataDescription } from 'meta/assessment/description'
 
 import { useCommentableDescriptionValue } from 'client/store/data'
+import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import ButtonCopyDataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopyDataSources'
@@ -15,7 +16,6 @@ import { useActions } from './hooks/useActions'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 
 type Props = {
-  disabled: boolean
   nationalData: NationalDataDescription
   sectionName: string
 }
@@ -32,46 +32,18 @@ const template: CommentableDescriptionValue = { text: '' }
 const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
 
 export const DataSources: React.FC<Props> = (props: Props) => {
-  const { disabled, nationalData, sectionName } = props
+  const { nationalData, sectionName } = props
 
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
+  const editable = useIsDescriptionEditable({ sectionName, name })
   const value = useCommentableDescriptionValue({ name, sectionName, template })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
   const { onChange, onDelete } = useActions({ sectionName })
 
   const { dataSources: dataSourceValues = [] } = value
 
-  // const _onChange = useCallback(
-  //   (dataSource: DataSource) => {
-  //     const { uuid } = dataSource
-  //     const updatedDescription = Objects.cloneDeep({
-  //       ...commentableDescriptionValue,
-  //       dataSources: Objects.cloneDeep(dataSourceValues),
-  //     })
-  //     // If we don't have UUID, it's a new data source
-  //     if (uuid) {
-  //       const i = updatedDescription.dataSources.findIndex((dataSource) => dataSource.uuid === uuid)
-  //       updatedDescription.dataSources[i] = dataSource
-  //     } else {
-  //       updatedDescription.dataSources.push({ ...dataSource, uuid: UUIDs.v4() })
-  //     }
-  //     onChange(updatedDescription)
-  //   },
-  //   [dataSourceValues, commentableDescriptionValue, onChange]
-  // )
-  //
-  // const _onDelete = useCallback(
-  //   (uuid: string) => {
-  //     onChange({
-  //       ...commentableDescriptionValue,
-  //       dataSources: commentableDescriptionValue.dataSources.filter((dataSource) => dataSource.uuid !== uuid),
-  //     })
-  //   },
-  //   [commentableDescriptionValue, onChange]
-  // )
-
-  if (!dataSourceValues.length && !dataSourcesLinked?.length && disabled) return null
+  if (!dataSourceValues.length && !dataSourcesLinked?.length && !editable) return null
 
   const copyDisabled = dataSourceValues.length !== 0
 
@@ -79,7 +51,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="data-source wrapper">
-      {!disabled && <ButtonCopyDataSources disabled={copyDisabled} currentValue={value} sectionName={sectionName} />}
+      {editable && <ButtonCopyDataSources disabled={copyDisabled} value={value} sectionName={sectionName} />}
 
       <DataGrid gridTemplateColumns="0px minmax(200px, 1fr) minmax(200px, 1fr) minmax(250px, 1fr) minmax(150px, 300px) minmax(100px, 1fr) min-content">
         <div />
@@ -108,17 +80,17 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             />
           ))}
 
-        {dataSourceValues.concat(disabled ? [] : placeholder).map((dataSourceValue, i) => {
+        {dataSourceValues.concat(editable ? placeholder : []).map((dataSourceValue, i) => {
           return (
             <DataSourceRow
               dataSourceMetadata={nationalData.dataSources}
               dataSourceValue={dataSourceValue}
-              disabled={disabled}
+              disabled={!editable}
               key={String(`data-source-row-${i}`)}
               onChange={onChange}
               onDelete={() => onDelete(dataSourceValue.uuid)}
               placeholder={!dataSourceValue.uuid}
-              lastRow={disabled ? i === dataSourceValues.length - 1 : i === dataSourceValues.length}
+              lastRow={i === dataSourceValues.length - (editable ? 0 : 1)}
             />
           )
         })}

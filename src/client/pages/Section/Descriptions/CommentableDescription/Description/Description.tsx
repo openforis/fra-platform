@@ -1,22 +1,21 @@
 import './Description.scss'
-import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react'
+import React, { PropsWithChildren, useCallback } from 'react'
 
-import { Objects } from 'utils/objects'
-
+import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { DataActions, useCommentableDescriptionValue } from 'client/store/data'
-import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
+import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
+import { useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import Title from 'client/pages/Section/Descriptions/CommentableDescription/Description/Title'
+import Toggle from 'client/pages/Section/Descriptions/CommentableDescription/Description/Toggle'
 
-import Title from './Title'
-import Toggle from './Toggle'
+import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
 
 type Props = PropsWithChildren<{
-  // disabled?: boolean
   title: string
   name: CommentableDescriptionName
   template?: CommentableDescriptionValue
@@ -27,54 +26,33 @@ type Props = PropsWithChildren<{
 
 const Description: React.FC<Props> = (props) => {
   const { children, title, name, sectionName, template, showAlertEmptyContent, showDashEmptyContent } = props
+
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
   // const section = useSection(sectionName)
-  // const editable = useIsDescriptionEditable({ sectionName, name })
-  const editable = false
+  const editable = useIsDescriptionEditable({ sectionName, name })
+  const editEnabled = useIsDescriptionEditEnabled({ sectionName, name })
+  const value = useCommentableDescriptionValue({ name, sectionName, template })
+  const { empty, error } = useDescriptionErrorState({ showAlertEmptyContent, value })
 
   // const descriptions = section.props.descriptions[cycle.uuid]
-  // const descriptionsMetadata = useDescriptions({ sectionName, descriptions })
 
-  const user = useUser()
+  // const descriptionsMetadata = useDescriptions({ sectionName, descriptions })
   // const { print } = useIsPrintRoute()
-  const value = useCommentableDescriptionValue({ name, sectionName, template })
   // const { t } = useTranslation()
 
-  const textContent = useMemo<string>(() => {
-    const { innerText } = new DOMParser().parseFromString(value.text, 'text/html').documentElement
-    return innerText
-  }, [value.text])
-
-  const error = useMemo<boolean>(
-    () => Boolean(user && showAlertEmptyContent && Objects.isEmpty(textContent)),
-    [showAlertEmptyContent, textContent, user]
-  )
   // const isFra2020 = useIsFra2020()
-
-  const [open] = useState(false)
 
   const onChange = useCallback(
     (value: CommentableDescriptionValue) => {
-      dispatch(
-        DataActions.updateDescription({
-          countryIso,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          sectionName,
-          name,
-          value,
-        })
-      )
+      dispatch(DataActions.updateDescription({ assessmentName, cycleName, countryIso, sectionName, name, value }))
     },
-    [assessment.props.name, countryIso, cycle.name, dispatch, name, sectionName]
+    [assessmentName, countryIso, cycleName, dispatch, name, sectionName]
   )
 
   // const error = user && showAlertEmptyContent && !value.text
   // console.log(user, showAlertEmptyContent, commentableDescriptionValue)
-  const { text } = value // template.text
+  // const { text } = value // template.text
   // if (print) text = text?.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   // const isDataSources = name === 'dataSources'
@@ -109,7 +87,7 @@ const Description: React.FC<Props> = (props) => {
             disabled={!editable}
             onChange={(content) => onChange({ ...value, text: content })}
             options={{ inline: true }}
-            value={!open && Objects.isEmpty(textContent) && showDashEmptyContent ? '-' : text}
+            value={!editEnabled && empty && showDashEmptyContent ? '-' : value.text}
           />
         </div>
       )}
