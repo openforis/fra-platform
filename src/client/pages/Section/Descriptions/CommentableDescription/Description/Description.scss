@@ -53,62 +53,66 @@
 }
 
 .fra-description__preview {
-  padding-top: 4px;
-  padding-bottom: 20px;
+  padding: $spacing-xxs 0;
 
-  > *:first-child {
-    margin-top: 0;
+  div.jodit-wysiwyg {
+    padding: unset;
   }
 
-  > *:last-child {
-    margin-bottom: 0;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    font-size: $font-m;
-    font-weight: 700;
-  }
-
-  ol,
-  ul,
-  dl {
-    padding: 0 24px;
-  }
-
-  hr {
-    border: 0;
-    border-top: $ui-thin-border;
-  }
-
-  img  {
-    max-width: 100%;
-    height: auto;
-  }
-
-  table {
-    border-collapse: collapse;
-    font-size: $font-s;
-  }
-
-  table,
-  th,
-  td {
-    border: $ui-thin-border;
-  }
-
-  td,
-  th {
-    padding: 6px;
-    text-align: left;
-
-    > p {
-      margin: 0;
-    }
-  }
+  // TODO: do we really need all this css ?
+  //> *:first-child {
+  //  margin-top: 0;
+  //}
+  //
+  //> *:last-child {
+  //  margin-bottom: 0;
+  //}
+  //
+  //h1,
+  //h2,
+  //h3,
+  //h4,
+  //h5 {
+  //  font-size: $font-m;
+  //  font-weight: 700;
+  //}
+  //
+  //ol,
+  //ul,
+  //dl {
+  //  padding: 0 24px;
+  //}
+  //
+  //hr {
+  //  border: 0;
+  //  border-top: $ui-thin-border;
+  //}
+  //
+  //img  {
+  //  max-width: 100%;
+  //  height: auto;
+  //}
+  //
+  //table {
+  //  border-collapse: collapse;
+  //  font-size: $font-s;
+  //}
+  //
+  //table,
+  //th,
+  //td {
+  //  border: $ui-thin-border;
+  //}
+  //
+  //td,
+  //th {
+  //  padding: 6px;
+  //  text-align: left;
+  //
+  //  > p {
+  //    margin: 0;
+  //  }
+  //}
 }
 
 div.fra-row-comments__open {

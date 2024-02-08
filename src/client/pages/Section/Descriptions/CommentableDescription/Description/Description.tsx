@@ -86,7 +86,6 @@ const Description: React.FC<Props> = (props) => {
           <EditorWYSIWYG
             disabled={!editable}
             onChange={(content) => onChange({ ...value, text: content })}
-            options={{ inline: true }}
             value={!editEnabled && empty && showDashEmptyContent ? '-' : value.text}
           />
         </div>
