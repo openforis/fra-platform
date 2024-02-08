@@ -7,12 +7,11 @@ import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { DataCell } from 'client/components/DataGrid'
 import Icon from 'client/components/Icon'
 import ReviewIndicator from 'client/components/ReviewIndicator'
-
-import ColumnComments from './DataSourceColumn/ColumnComments'
-import ColumnReference from './DataSourceColumn/ColumnReference'
-import ColumnTypeOfDataSource from './DataSourceColumn/ColumnTypeOfDataSource'
-import ColumnVariables from './DataSourceColumn/ColumnVariables'
-import ColumnYearForDataSource from './DataSourceColumn/ColumnYearForDataSource'
+import ColumnComments from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnComments'
+import ColumnReference from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnReference'
+import ColumnTypeOfDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnTypeOfDataSource'
+import ColumnVariables from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnVariables'
+import ColumnYearForDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnYearForDataSource'
 
 type Props = {
   dataSourceValue: DataSource
