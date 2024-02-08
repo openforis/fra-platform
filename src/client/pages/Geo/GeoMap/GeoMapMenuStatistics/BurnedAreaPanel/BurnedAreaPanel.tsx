@@ -4,7 +4,7 @@ import { Numbers } from 'utils/numbers'
 
 import { BurnedAreaModis } from 'meta/geo/forest'
 
-import StatisticsTable from '../../components/StatisticsTable'
+import StatisticsTable from 'client/pages/Geo/GeoMap/components/StatisticsTable'
 
 type Props = {
   geoBurnedAreaMODIS: BurnedAreaModis

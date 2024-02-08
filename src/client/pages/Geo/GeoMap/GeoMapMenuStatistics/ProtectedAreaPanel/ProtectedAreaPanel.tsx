@@ -2,9 +2,9 @@ import React from 'react'
 
 import { Numbers } from 'utils/numbers'
 
-import { ExtraEstimation, ForestSource } from 'meta/geo'
+import { ExtraEstimation, ForestKey, forestLayersMetadata } from 'meta/geo'
 
-import StatisticsTable from '../../components/StatisticsTable'
+import StatisticsTable from 'client/pages/Geo/GeoMap/components/StatisticsTable'
 
 type Props = {
   geoProtectedAreas: Record<string, number>
@@ -14,16 +14,16 @@ type Props = {
 
 // refactor
 const sourceName: Record<string, string> = {
-  faCopernicusProtected: ForestSource.Copernicus,
-  faEsa2009Protected: ForestSource.ESAGlobCover,
-  faEsa2020Protected: ForestSource.ESAWorldCover,
-  faEsriProtected: ForestSource.ESRI,
-  faGlobelandProtected: ForestSource.GlobeLand,
+  faCopernicusProtected: forestLayersMetadata[ForestKey.Copernicus].title,
+  faEsa2009Protected: forestLayersMetadata[ForestKey.ESAGlobCover].title,
+  faEsa2020Protected: forestLayersMetadata[ForestKey.ESAWorldCover].title,
+  faEsriProtected: forestLayersMetadata[ForestKey.ESRI].title,
+  faGlobelandProtected: forestLayersMetadata[ForestKey.GlobeLand].title,
   faHansen10Protected: 'All (GFC Hansen >=10%)',
   faHansen20Protected: 'All (GFC Hansen >=20%)',
   faHansen30Protected: 'All (GFC Hansen >=30%)',
-  faJaxaProtected: ForestSource.JAXA,
-  faTandemxProtected: ForestSource.TandemX,
+  faJaxaProtected: forestLayersMetadata[ForestKey.JAXA].title,
+  faTandemxProtected: forestLayersMetadata[ForestKey.TandemX].title,
   fra3bProtected: ExtraEstimation.ReportedToFRA,
 }
 

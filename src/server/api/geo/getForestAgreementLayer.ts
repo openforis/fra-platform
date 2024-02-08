@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { ForestAgreementLayerRequest } from 'meta/api/request'
-import { ForestSource } from 'meta/geo'
+import { ForestKey } from 'meta/geo'
 
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'
@@ -11,7 +11,7 @@ export const getForestAgreementLayer = async (req: ForestAgreementLayerRequest, 
     const agreementLayer = {
       countryIso: req.body.countryIso,
       layer: {
-        key: ForestSource.Agreement,
+        key: ForestKey.Agreement,
         options: {
           agreement: {
             layers: req.body.layers,

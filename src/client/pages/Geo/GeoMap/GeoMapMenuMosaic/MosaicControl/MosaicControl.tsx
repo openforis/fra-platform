@@ -18,7 +18,7 @@ const MosaicControl: React.FC<Props> = ({ loadingStatus }) => {
   return (
     <div>
       <GeoMenuItem
-        title="Show mosaic layer"
+        title="Show satellite mosaic"
         checked={mosaicSelected}
         loadingStatus={loadingStatus}
         tabIndex={-1}
