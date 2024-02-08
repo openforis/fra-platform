@@ -8,11 +8,10 @@ import CommentableDescription from '../CommentableDescription'
 type Props = {
   assessmentName: string
   sectionName: string
-  disabled: boolean
 }
 
 const GeneralComments: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, disabled } = props
+  const { assessmentName, sectionName } = props
   const isPanEuropean = assessmentName === AssessmentNames.panEuropean
 
   const { t } = useTranslation()
@@ -20,10 +19,9 @@ const GeneralComments: React.FC<Props> = (props) => {
   return (
     <div className="fra-description__container">
       <CommentableDescription
+        name={CommentableDescriptionName.generalComments}
         sectionName={sectionName}
         title={t(isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle')}
-        name={CommentableDescriptionName.generalComments}
-        disabled={disabled}
       />
     </div>
   )

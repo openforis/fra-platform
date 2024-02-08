@@ -6,13 +6,13 @@ import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/as
 import { Topics } from 'meta/messageCenter'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCountryIso } from 'client/hooks'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import Description from './Description'
 
 type Props = PropsWithChildren<{
-  disabled?: boolean
   name: CommentableDescriptionName
   sectionName: string
   showAlertEmptyContent?: boolean
@@ -22,11 +22,12 @@ type Props = PropsWithChildren<{
 }>
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { children, disabled, name, sectionName, showAlertEmptyContent, showDashEmptyContent, template, title } = props
+  const { children, name, sectionName, showAlertEmptyContent, showDashEmptyContent, template, title } = props
 
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const editable = useIsDescriptionEditable({ sectionName, name })
 
   return (
     <div className="fra-description">
@@ -43,7 +44,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
         </Description>
       </div>
       <div className="fra-description__review-indicator-wrapper">
-        {!disabled && (
+        {!editable && (
           <ReviewIndicator
             title={title}
             topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, sectionName, name)}
@@ -55,7 +56,6 @@ const CommentableDescription: React.FC<Props> = (props) => {
 }
 
 CommentableDescription.defaultProps = {
-  disabled: false,
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
   template: { text: '' },

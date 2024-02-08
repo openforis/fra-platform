@@ -10,12 +10,11 @@ import { useDescriptions } from './hooks/useDescriptions'
 
 type Props = {
   descriptions: Description
-  disabled: boolean
   sectionName: string
 }
 
 const Descriptions: React.FC<Props> = (props: Props) => {
-  const { disabled, sectionName, descriptions } = props
+  const { sectionName, descriptions } = props
 
   const { print, onlyTables } = useIsPrintRoute()
   const { analysisAndProcessing, nationalData } = useDescriptions({ descriptions, sectionName })
@@ -26,7 +25,6 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         <NationalDataDescriptions
           nationalData={nationalData}
           sectionName={sectionName}
-          disabled={disabled}
           showAlertEmptyContent={!print}
           showDashEmptyContent={print}
         />
@@ -36,7 +34,6 @@ const Descriptions: React.FC<Props> = (props: Props) => {
         <AnalysisDescriptions
           analysisAndProcessing={analysisAndProcessing}
           sectionName={sectionName}
-          disabled={disabled}
           showAlertEmptyContent={!print}
           showDashEmptyContent={print}
         />

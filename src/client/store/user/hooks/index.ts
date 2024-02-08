@@ -56,12 +56,6 @@ const useCanEditSection = (sectionName: string, permission: CollaboratorEditProp
 export const useIsEditTableDataEnabled = (sectionName: string) =>
   useCanEditSection(sectionName, CollaboratorEditPropertyType.tableData)
 
-/**
- * @deprecated. Use useIsDescriptionEditable
- */
-export const useIsEditDescriptionsEnabled = (sectionName: string) =>
-  useCanEditSection(sectionName, CollaboratorEditPropertyType.descriptions)
-
 export const useCanEditDescription = (props: { sectionName: SectionName }): boolean =>
   useCanEditSection(props.sectionName, CollaboratorEditPropertyType.descriptions)
 
