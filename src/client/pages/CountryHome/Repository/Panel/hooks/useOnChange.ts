@@ -4,7 +4,12 @@ import { useAppDispatch } from 'client/store'
 import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
 import { useFileUploadContext } from 'client/components/FileUpload'
 
-type Returned = (name: string, value: string) => void
+type OnChange = (name: string, value: string | boolean) => void
+
+type Returned = {
+  onChangeField: OnChange
+  onChangeProps: OnChange
+}
 
 export const useOnChange = (): Returned => {
   const dispatch = useAppDispatch()
@@ -12,9 +17,17 @@ export const useOnChange = (): Returned => {
 
   const { files } = useFileUploadContext()
 
-  const onChange = useCallback<Returned>(
+  const onChangeField = useCallback<OnChange>(
     (name: string, value: string) => {
       dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, [name]: value }))
+    },
+    [dispatch, repositoryItem]
+  )
+  // update repositoryItem.props
+  const onChangeProps = useCallback<OnChange>(
+    (name: string, value: string) => {
+      const props = { ...(repositoryItem.props ?? {}), [name]: value }
+      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, props }))
     },
     [dispatch, repositoryItem]
   )
@@ -25,9 +38,9 @@ export const useOnChange = (): Returned => {
     if (files?.length > 0 && repositoryItem?.name === '') {
       const file = files[0]
       const name = file.name.split('.')[0]
-      onChange('name', name)
+      onChangeField('name', name)
     }
-  }, [files, onChange, repositoryItem?.name])
+  }, [files, onChangeField, repositoryItem?.name])
 
-  return onChange
+  return { onChangeField, onChangeProps }
 }

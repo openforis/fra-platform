@@ -7,6 +7,7 @@ import { useRepositoryItem } from 'client/store/ui/repository'
 import SlidingPanel from 'client/components/SlidingPanel'
 import Actions from 'client/pages/CountryHome/Repository/Panel/Actions'
 import InputField from 'client/pages/CountryHome/Repository/Panel/InputField'
+import InputFieldCheckbox from 'client/pages/CountryHome/Repository/Panel/InputFieldCheckbox'
 import InputFieldFile from 'client/pages/CountryHome/Repository/Panel/InputFieldFile'
 import Separator from 'client/pages/CountryHome/Repository/Panel/Separator'
 
@@ -17,16 +18,18 @@ const Panel: React.FC = () => {
   const repositoryItem = useRepositoryItem()
   const openPanel = !Objects.isEmpty(repositoryItem)
 
-  const onChange = useOnChange()
+  const { onChangeField, onChangeProps } = useOnChange()
   const closePanel = useClosePanel()
 
   return (
     <SlidingPanel openPanel={openPanel} closePanel={closePanel}>
       <div className="repository-form__container">
-        <InputField value={repositoryItem?.name} onChange={onChange} label="editUser.name" name="name" />
-        <InputField value={repositoryItem?.link} onChange={onChange} label="common.link" name="link" />
+        <InputField value={repositoryItem?.name} onChange={onChangeField} label="editUser.name" name="name" />
+        <InputField value={repositoryItem?.link} onChange={onChangeField} label="common.link" name="link" />
         <Separator />
         <InputFieldFile />
+        <Separator />
+        <InputFieldCheckbox name="public" value={repositoryItem?.props?.public} onChange={onChangeProps} />
         <Actions />
       </div>
     </SlidingPanel>
