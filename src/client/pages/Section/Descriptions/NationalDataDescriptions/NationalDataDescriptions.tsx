@@ -37,13 +37,6 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       <h2 className="headline fra-description__group-header">{t('description.nationalData')}</h2>
 
       {nationalData.dataSources && (
-        // <>
-        //   {dataSourcesProps.withTable && (
-        //     <div className="fra-description__header-row">
-        //       <Title title={t('description.dataSourcesPlus')} />
-        //     </div>
-        //   )}
-        // </>
         <CommentableDescription
           title={t<string>('description.dataSourcesPlus')}
           disabled={disabled}

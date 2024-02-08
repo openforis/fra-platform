@@ -36,7 +36,6 @@ const CommentableDescription: React.FC<Props> = (props) => {
           sectionName={sectionName}
           name={name}
           template={template}
-          disabled={disabled}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         >
