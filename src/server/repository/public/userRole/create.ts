@@ -9,22 +9,22 @@ import { BaseProtocol, DB } from 'server/db'
 
 export const create = async (
   props: {
-    user: Pick<User, 'id'>
     assessment: Pick<Assessment, 'id'>
     country: CountryIso
-    role: RoleName
     cycle: Cycle
     props?: UserRoleBaseProps | UserRoleExtendedProps
+    role: RoleName
+    user: Pick<User, 'id'>
   },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName>> => {
   const {
-    user: { id: userId },
     assessment: { id: assessmentId },
     country,
-    role,
     cycle,
     props: properties,
+    role,
+    user: { id: userId },
   } = props
 
   return client.one<UserRole<RoleName>>(

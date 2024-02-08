@@ -39,12 +39,12 @@ export const invite = async (
 
     const userRole = await UserRoleRepository.create(
       {
-        user: userToInvite,
         assessment,
         country: countryIso,
-        role: roleName,
         cycle,
-        props: { primaryEmail: email, address: { countryIso } },
+        props: { address: { countryIso }, primaryEmail: email },
+        role: roleName,
+        user: userToInvite,
       },
       t
     )
