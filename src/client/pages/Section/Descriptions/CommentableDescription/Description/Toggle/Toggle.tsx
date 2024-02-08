@@ -1,26 +1,52 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CommentableDescriptionName, SectionName } from 'meta/assessment'
+
+import { useAppDispatch } from 'client/store'
+import { AssessmentSectionActions, useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+
 type Props = {
-  setOpen: (open: boolean) => void
-  open: boolean
+  sectionName: SectionName
+  name: CommentableDescriptionName
 }
 
 const Toggle: React.FC<Props> = (props) => {
-  const { setOpen, open } = props
+  const { sectionName, name } = props
 
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+  const dataLocked = useIsDataLocked()
+  const canEdit = useCanEditDescription({ sectionName })
+  const editable = useIsDescriptionEditable({ sectionName, name })
+  const editEnabled = useIsDescriptionEditEnabled({ sectionName, name })
+
+  const toggleEdit = useCallback(() => {
+    dispatch(AssessmentSectionActions.toggleEditDescription({ sectionName, name }))
+  }, [dispatch, name, sectionName])
+
+  useEffect(() => {
+    if (editEnabled && dataLocked) {
+      toggleEdit()
+    }
+  }, [dataLocked, editEnabled, toggleEdit])
+
+  if (!canEdit) {
+    return null
+  }
 
   return (
     <span
-      role="button"
       aria-label=""
-      tabIndex={0}
       className="link fra-description__link no-print"
-      onClick={() => setOpen(!open)}
-      onKeyDown={() => setOpen(!open)}
+      onClick={toggleEdit}
+      onKeyDown={toggleEdit}
+      role="button"
+      tabIndex={0}
     >
-      {open ? t('description.done') : t('description.edit')}
+      {editable ? t('description.done') : t('description.edit')}
     </span>
   )
 }
