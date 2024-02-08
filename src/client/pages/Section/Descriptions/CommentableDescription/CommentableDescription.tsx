@@ -44,7 +44,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
         </Description>
       </div>
       <div className="fra-description__review-indicator-wrapper">
-        {!editable && (
+        {editable && (
           <ReviewIndicator
             title={title}
             topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, sectionName, name)}
