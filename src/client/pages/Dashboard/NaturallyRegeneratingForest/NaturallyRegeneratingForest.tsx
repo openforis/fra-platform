@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import { ChartOptions } from 'chart.js'
+import { Numbers } from 'utils/numbers'
 
 import { Areas } from 'meta/area'
 import { TableNames } from 'meta/assessment'
@@ -21,10 +21,10 @@ const NaturallyRegeneratingForest = () => {
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const section = 'naturallyRegeneratingForest'
   const columns = ['1990', '2000', '2010', '2020']
-  const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
+  const unit = isIsoCountry ? t('unit.haThousand') : t('unit.haMillion')
   const tableName = isIsoCountry ? TableNames.forestCharacteristics : TableNames.valueAggregate
   const variables = ['naturalForestArea', 'plantedForest']
 
@@ -41,7 +41,7 @@ const NaturallyRegeneratingForest = () => {
     datasets: variables.map((variable, i) => ({
       // @ts-ignore
       ...preferences[colors[i]],
-      label: i18n.t<string>(`statisticalFactsheets.rowName.${variable}`),
+      label: t(`statisticalFactsheets.rowName.${variable}`),
       unit,
 
       data: columns.map((column) => {
@@ -67,7 +67,7 @@ const NaturallyRegeneratingForest = () => {
     },
     scales: {
       x: {
-        scaleLabel: scaleLabel(i18n.t<string>('common.year')),
+        scaleLabel: scaleLabel(t('common.year')),
       },
 
       y: {
@@ -76,13 +76,18 @@ const NaturallyRegeneratingForest = () => {
           maxTicksLimit: 6,
           beginAtZero: true,
         },
+        title: {
+          color: '#7f7f7f',
+          display: true,
+          text: unit,
+        },
       },
     },
   } as unknown as ChartOptions<'bar'>
 
   return (
     <div className="row-l">
-      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{t(`statisticalFactsheets.${section}.title`)}</h3>
       {loaded && <Chart type="bar" data={data} options={options} />}
     </div>
   )

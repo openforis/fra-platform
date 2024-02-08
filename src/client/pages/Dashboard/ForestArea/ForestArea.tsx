@@ -15,14 +15,14 @@ import useDashboardData from '../hooks/useDashboardData'
 import { commonOptions, preferences, scaleLabel } from '../utils/preferences'
 
 const ForestArea = () => {
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
   const section = 'forestArea'
   const columns = ['1990', '2000', '2010', '2020']
   const countryIso = useCountryIso()
   const isIsoCountry = Areas.isISOCountry(countryIso)
-  const unit = isIsoCountry ? i18n.t<string>('unit.haThousand') : i18n.t<string>('unit.haMillion')
+  const unit = isIsoCountry ? t('unit.haThousand') : t('unit.haMillion')
   const tableNames = [isIsoCountry ? TableNames.extentOfForest : TableNames.valueAggregate]
   const variable = 'forestArea'
 
@@ -37,7 +37,7 @@ const ForestArea = () => {
     datasets: [
       {
         ...preferences.green,
-        label: i18n.t<string>(`statisticalFactsheets.rowName.${variable}`),
+        label: t(`statisticalFactsheets.rowName.${variable}`),
         unit,
 
         data: tableNames
@@ -65,7 +65,7 @@ const ForestArea = () => {
     scales: {
       x: {
         stacked: true,
-        scaleLabel: scaleLabel(i18n.t<string>('common.year')),
+        scaleLabel: scaleLabel(t('common.year')),
       },
       y: {
         scaleLabel: scaleLabel(unit),
@@ -74,13 +74,18 @@ const ForestArea = () => {
           maxTicksLimit: 6,
           beginAtZero: true,
         },
+        title: {
+          color: '#7f7f7f',
+          display: true,
+          text: unit,
+        },
       },
     },
   } as unknown as ChartOptions<'bar'>
 
   return (
     <div className="row-m">
-      <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
+      <h3 className="header">{t(`statisticalFactsheets.${section}.title`)}</h3>
       {data && <Chart type="bar" options={options} data={data} />}
     </div>
   )
