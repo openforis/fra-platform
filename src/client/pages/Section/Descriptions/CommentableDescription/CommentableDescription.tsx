@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
 import { useCommentableDescriptionValue } from 'client/store/data'
-import { useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
@@ -30,14 +30,15 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const value = useCommentableDescriptionValue({ name, sectionName, template })
   const { empty, error } = useDescriptionErrorState({ showAlertEmptyContent, value })
 
+  const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const onChange = useOnChange({ sectionName, name })
   const actions = useDescriptionActions({ sectionName, name, title })
 
   return (
-    <DataGrid className="description" gridTemplateColumns={`1fr${editable ? ' 32px' : ''}`}>
+    <DataGrid className="description" gridTemplateColumns={`1fr${canEdit ? ' 32px' : ''}`}>
       <Title error={error} name={name} sectionName={sectionName} title={title} />
-      {editable && <div />}
+      {canEdit && <div />}
 
       <DataRow actions={actions}>
         <DataCell editable={editable && !children} lastCol lastRow noBorder={Boolean(children || !editable)}>
