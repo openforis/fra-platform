@@ -10,13 +10,12 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso: AreaCode
-  name: string
-  fileUuid?: string
-  link?: string
+  repositoryItem: RepositoryItem
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
-  const { assessment, cycle, countryIso, fileUuid, link, name } = props
+  const { assessment, cycle, countryIso, repositoryItem } = props
+  const { fileUuid, link, name, props: _props } = repositoryItem
 
   if (fileUuid && link) throw new Error('Cannot create both file and link')
   if (!fileUuid && !link) throw new Error('No file or link provided')
@@ -25,11 +24,11 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<R
 
   return client.one<RepositoryItem>(
     `
-      insert into ${schemaCycle}.repository (country_iso, name, file_uuid, link)
-      values ($1, $2, $3, $4)
+      insert into ${schemaCycle}.repository (country_iso, name, file_uuid, link, props)
+      values ($1, $2, $3, $4, $5)
       returning *
     `,
-    [countryIso, name, fileUuid, link],
+    [countryIso, name, fileUuid, link, _props],
     (row) => Objects.camelize(row)
   )
 }
