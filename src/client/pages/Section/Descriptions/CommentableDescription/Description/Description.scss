@@ -1,17 +1,5 @@
 @import 'src/client/style/partials';
 
-.fra-description__container {
-  border-bottom: $ui-thin-border;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-
-  &:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-}
-
 .fra-description {
   display: flex;
   justify-content: space-between;
@@ -30,10 +18,6 @@
 
 .fra-description__header-row {
   padding: 8px 0;
-}
-
-.fra-description__group-header {
-  margin-bottom: 8px;
 }
 
 .fra-description__header {

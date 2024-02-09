@@ -17,13 +17,11 @@ const GeneralComments: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   return (
-    <div className="fra-description__container">
-      <CommentableDescription
-        name={CommentableDescriptionName.generalComments}
-        sectionName={sectionName}
-        title={t(isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle')}
-      />
-    </div>
+    <CommentableDescription
+      name={CommentableDescriptionName.generalComments}
+      sectionName={sectionName}
+      title={t(isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle')}
+    />
   )
 }
 

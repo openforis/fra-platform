@@ -1,3 +1,4 @@
+import './Descriptions.scss'
 import React from 'react'
 
 import { Description } from 'meta/assessment'
@@ -19,27 +20,32 @@ const Descriptions: React.FC<Props> = (props: Props) => {
   const { print, onlyTables } = useIsPrintRoute()
   const { analysisAndProcessing, nationalData } = useDescriptions({ descriptions, sectionName })
 
+  if (!nationalData && !analysisAndProcessing) {
+    return null
+  }
+
   return (
     <>
-      {nationalData && (
-        <NationalDataDescriptions
-          nationalData={nationalData}
-          sectionName={sectionName}
-          showAlertEmptyContent={!print}
-          showDashEmptyContent={print}
-        />
-      )}
+      <div className="descriptions">
+        {nationalData && (
+          <NationalDataDescriptions
+            nationalData={nationalData}
+            sectionName={sectionName}
+            showAlertEmptyContent={!print}
+            showDashEmptyContent={print}
+          />
+        )}
 
-      {analysisAndProcessing && (
-        <AnalysisDescriptions
-          analysisAndProcessing={analysisAndProcessing}
-          sectionName={sectionName}
-          showAlertEmptyContent={!print}
-          showDashEmptyContent={print}
-        />
-      )}
-
-      {print && !onlyTables && (nationalData || analysisAndProcessing) && <div className="page-break" />}
+        {analysisAndProcessing && (
+          <AnalysisDescriptions
+            analysisAndProcessing={analysisAndProcessing}
+            sectionName={sectionName}
+            showAlertEmptyContent={!print}
+            showDashEmptyContent={print}
+          />
+        )}
+      </div>
+      {print && !onlyTables && <div className="page-break" />}
     </>
   )
 }
