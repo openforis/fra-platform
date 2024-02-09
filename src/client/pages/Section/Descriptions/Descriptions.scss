@@ -10,7 +10,7 @@
   border-bottom: $ui-thin-border;
   display: grid;
   grid-row-gap: $spacing-xs;
-  padding-bottom: $spacing-xxs;
+  padding-bottom: $spacing-s;
 }
 
 @include print {
