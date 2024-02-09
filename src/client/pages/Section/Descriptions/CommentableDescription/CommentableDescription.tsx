@@ -35,12 +35,14 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const onChange = useOnChange({ sectionName, name })
   const actions = useDescriptionActions({ sectionName, name, title })
 
-  return (
-    <DataGrid className="description" gridTemplateColumns={`1fr${canEdit ? ' 32px' : ''}`}>
-      <Title error={error} name={name} sectionName={sectionName} title={title} />
-      {canEdit && <div />}
+  const withReview = canEdit && !children
 
-      <DataRow actions={actions}>
+  return (
+    <DataGrid className="description" gridTemplateColumns={`1fr${withReview ? ' 32px' : ''}`}>
+      <Title error={error} name={name} sectionName={sectionName} title={title} />
+      {withReview && <div />}
+
+      <DataRow actions={children ? [] : actions}>
         <DataCell editable={editable && !children} lastCol lastRow noBorder={Boolean(children || !editable)}>
           {children && React.Children.toArray(children)}
 
