@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+.progress-bar {
+  background-color: $ui-bg;
+  border-radius: 5px;
+  box-shadow: $shadow-3;
+  height: 10px;
+  margin: $spacing-xxs 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.progress-bar__loaded {
+  height: 100%;
+  background-color: $ui-accent-light;
+}

@@ -11,9 +11,11 @@ export const uploadFilesReducer = (builder: ActionReducerMapBuilder<FileUploadSt
   builder.addCase(uploadFiles.fulfilled, (state, action) => {
     state.loading = false
     state.files = action.payload
+    state.progress = undefined
   })
 
   builder.addCase(uploadFiles.rejected, (state) => {
     state.loading = false
+    state.progress = undefined
   })
 }
