@@ -1,5 +1,9 @@
 @import 'src/client/style/partials';
 
+.data-source__copy-btn {
+  justify-self: start;
+}
+
 .data-source__relative-cell {
   position: relative;
 
@@ -11,7 +15,6 @@
     border: 0;
     align-items: center;
 
-    background-color: transparent;
     background-color: transparent;
 
     svg {

@@ -9,6 +9,7 @@ import { useCommentableDescriptionValue } from 'client/store/data'
 import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
+import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 import ButtonCopyDataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopyDataSources'
 import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceRow'
 
@@ -50,7 +51,9 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
 
   return (
-    <div>
+    <DataGrid className="description">
+      <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
+
       {editable && <ButtonCopyDataSources disabled={copyDisabled} value={value} sectionName={sectionName} />}
 
       <DataGrid gridTemplateColumns="0px minmax(200px, 1fr) minmax(200px, 1fr) minmax(250px, 1fr) minmax(150px, 300px) minmax(100px, 1fr) min-content">
@@ -95,7 +98,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           )
         })}
       </DataGrid>
-    </div>
+    </DataGrid>
   )
 }
 
