@@ -2,16 +2,25 @@
 
 .progress-bar {
   background-color: $ui-bg;
-  border-radius: 5px;
-  box-shadow: $shadow-3;
-  height: 10px;
-  margin: $spacing-xxs 0;
-  overflow: hidden;
-  position: relative;
+  border-radius: $spacing-xxs;
+  height: $spacing-xs;
   width: 100%;
 }
 
-.progress-bar__loaded {
+.progress-bar__filler {
+  align-items: center;
+  background-color: $ui-accent;
+  border-radius: $spacing-xxs;
+  display: flex;
   height: 100%;
-  background-color: $ui-accent-light;
+  justify-content: flex-end;
+  padding-right: $spacing-xxs;
+  text-align: right;
+  transition: width 0.4s;
+}
+
+.progress-bar__label {
+  color: white;
+  font-size: $font-xs;
+  font-weight: bold;
 }
