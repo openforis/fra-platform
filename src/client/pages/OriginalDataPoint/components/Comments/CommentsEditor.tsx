@@ -3,9 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-import { useIsFra2020 } from 'client/hooks/useIsFra2020'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
-import MarkdownPreview from 'client/components/MarkdownPreview'
 import { useUpdateDescription } from 'client/pages/OriginalDataPoint/components/Comments/hooks/useUpdateDescription'
 
 type Props = {
@@ -18,8 +16,6 @@ const CommentsEditor: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const originalDataPoint = useOriginalDataPoint()
   const isDataLocked = useIsDataLocked()
-
-  const isFra2020 = useIsFra2020()
 
   const updateDescription = useUpdateDescription()
 
@@ -46,11 +42,7 @@ const CommentsEditor: React.FC<Props> = (props) => {
       )}
 
       <div className="fra-description__preview">
-        {open ? (
-          <EditorWYSIWYG value={originalDataPoint.description} onChange={updateDescription} />
-        ) : (
-          <MarkdownPreview allowImages={isFra2020} value={originalDataPoint.description} />
-        )}
+        <EditorWYSIWYG disabled={!open} onChange={updateDescription} value={originalDataPoint.description} />
       </div>
     </div>
   )
