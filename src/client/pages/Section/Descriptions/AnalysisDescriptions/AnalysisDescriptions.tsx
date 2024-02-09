@@ -5,8 +5,7 @@ import { CommentableDescriptionName } from 'meta/assessment'
 import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
 
 import { useCycle } from 'client/store/assessment'
-
-import CommentableDescription from '../CommentableDescription'
+import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
 type Props = {
   sectionName: string
@@ -22,8 +21,8 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   return (
-    <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{t('description.analysisAndProcessing')}</h2>
+    <div className="descriptions__group">
+      <h2 className="headline">{t('description.analysisAndProcessing')}</h2>
       {analysisAndProcessing.estimationAndForecasting && (
         <CommentableDescription
           title={t('description.estimationAndForecasting')}
@@ -33,6 +32,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
           showDashEmptyContent={showDashEmptyContent}
         />
       )}
+
       {analysisAndProcessing.reclassification && (
         <CommentableDescription
           title={t('description.reclassification', { cycleName: cycle.name })}

@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
+import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 import DataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSources'
-
-import CommentableDescription from '../CommentableDescription'
 
 type Props = {
   nationalData: NationalDataDescription
@@ -32,8 +31,8 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
   }, [nationalData.dataSources?.table, nationalData.dataSources?.text])
 
   return (
-    <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{t('description.nationalData')}</h2>
+    <div className="descriptions__group">
+      <h2 className="headline">{t('description.nationalData')}</h2>
 
       {nationalData.dataSources && (
         <CommentableDescription

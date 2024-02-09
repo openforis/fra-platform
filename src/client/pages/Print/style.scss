@@ -61,21 +61,6 @@
     display: none;
   }
 
-  .fra-description__container {
-    border-bottom: unset;
-    margin-bottom: unset;
-    padding-bottom: unset;
-
-    .fra-description__header-row,
-    .fra-description__preview {
-      padding-bottom: unset;
-    }
-  }
-
-  .fra-description__container + .fra-description__container {
-    margin-top: 24px;
-  }
-
   .assessment-section__table-title {
     margin-bottom: 16px;
   }
