@@ -51,16 +51,14 @@ export const useOnUserInvite = (props: {
     if (!Object.values(fieldErrors).find((value) => !!value))
       dispatch(
         UserManagementActions.inviteUser({
-          params: {
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-            countryIso,
-            email: userToInvite.email,
-            lang: userToInvite.lang,
-            name: userToInvite.name,
-            role: userToInvite.role as RoleName,
-            surname: userToInvite.surname,
-          },
+          assessmentName: assessment.props.name,
+          cycleName: cycle.name,
+          countryIso,
+          email: userToInvite.email,
+          lang: userToInvite.lang,
+          name: userToInvite.name,
+          role: userToInvite.role as RoleName,
+          surname: userToInvite.surname,
         })
       )
         .unwrap()
