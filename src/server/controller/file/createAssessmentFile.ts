@@ -14,7 +14,9 @@ type Props = {
   props?: AssessmentFileProps
   user?: User
 }
-
+/**
+ * @Deprecated
+ */
 export const createAssessmentFile = async (props: Props, client: BaseProtocol = DB): Promise<AssessmentFile> => {
   const { assessment, countryIso, user } = props
 
