@@ -27,21 +27,12 @@
   align-items: center;
 }
 
-.fra-description__link {
-  color: darken($ui-accent, 2%);
-  white-space: nowrap;
-
-  &:hover {
-    color: darken($ui-accent, 4%);
-  }
-}
-
 .fra-description__preview {
-  padding: $spacing-xxs 0;
-
-  div.jodit-wysiwyg {
-    padding: unset;
-  }
+  //padding: $spacing-xxs 0;
+  //
+  //div.jodit-wysiwyg {
+  //  padding: unset;
+  //}
 
   // TODO: do we really need all this css ?
   //> *:first-child {
@@ -99,10 +90,10 @@
   //}
 }
 
-div.fra-row-comments__open {
-  padding: 0 8px;
-
-  .fra-description__preview {
-    padding-bottom: 8px;
-  }
-}
+//div.fra-row-comments__open {
+//  padding: 0 8px;
+//
+//  .fra-description__preview {
+//    padding-bottom: 8px;
+//  }
+//}

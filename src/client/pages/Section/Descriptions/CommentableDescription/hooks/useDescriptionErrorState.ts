@@ -22,7 +22,9 @@ export const useDescriptionErrorState = (props: Props): Returned => {
   const user = useUser()
 
   return useMemo<Returned>(() => {
-    const { innerText } = new DOMParser().parseFromString(value.text, 'text/html').documentElement
+    const innerText = new DOMParser()
+      .parseFromString(value.text, 'text/html')
+      .documentElement.innerText.replaceAll('\n', '')
 
     const empty = Objects.isEmpty(innerText)
     const error = Boolean(user && showAlertEmptyContent && empty)

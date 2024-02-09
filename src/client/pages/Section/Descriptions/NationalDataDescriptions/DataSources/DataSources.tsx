@@ -50,7 +50,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
 
   return (
-    <div className="data-source wrapper">
+    <div>
       {editable && <ButtonCopyDataSources disabled={copyDisabled} value={value} sectionName={sectionName} />}
 
       <DataGrid gridTemplateColumns="0px minmax(200px, 1fr) minmax(200px, 1fr) minmax(250px, 1fr) minmax(150px, 300px) minmax(100px, 1fr) min-content">
