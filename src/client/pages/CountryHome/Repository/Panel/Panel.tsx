@@ -28,7 +28,6 @@ const Panel: React.FC = () => {
         <InputField value={repositoryItem?.link} onChange={onChangeField} label="common.link" name="link" />
         <Separator />
         <InputFieldFile />
-        <Separator />
         <InputFieldCheckbox name="public" value={repositoryItem?.props?.public} onChange={onChangeProps} />
         <Actions />
       </div>

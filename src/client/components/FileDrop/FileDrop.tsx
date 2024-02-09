@@ -9,6 +9,9 @@ type Props = {
   onDrop: (files: Array<File>) => void
 }
 
+/**
+ * @deprecated
+ */
 const FileDrop: React.FC<Props> = (props: Props) => {
   const { onDrop } = props
   const { t } = useTranslation()
