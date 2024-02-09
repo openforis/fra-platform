@@ -2,7 +2,7 @@ import { RepositoryItem } from 'meta/cycleData'
 
 export type RepositoryState = {
   loading: boolean
-  repositoryItem?: RepositoryItem
+  repositoryItem?: Partial<RepositoryItem>
 }
 
 export const initialState: RepositoryState = {
