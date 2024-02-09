@@ -1,5 +1,3 @@
-import { RepositorySlice, RepositoryState } from 'client/store/ui/repository'
-
 import { AreaState } from './area/state'
 import { AssessmentState } from './assessment/state'
 import { DataState } from './data/stateType'
@@ -9,12 +7,14 @@ import { AssessmentFilesState } from './ui/assessmentFiles/stateType'
 import { AssessmentSectionState } from './ui/assessmentSection'
 import { DataExportState } from './ui/dataExport'
 import { DataLockState } from './ui/dataLock'
+import { FileUploadSlice, FileUploadState } from './ui/fileUpload'
 import { GeoState } from './ui/geo/stateType'
 import { HomeState } from './ui/home/stateType'
 import { MessageCenterState } from './ui/messageCenter/stateType'
 import { NavigationState } from './ui/navigation/stateType'
 import { NotificationState } from './ui/notification/stateType'
 import { OriginalDataPointState } from './ui/originalDataPoint'
+import { RepositorySlice, RepositoryState } from './ui/repository'
 import { ReviewState } from './ui/review'
 import { TablePaginatedState } from './ui/tablePaginated/state'
 import { UserManagementState } from './ui/userManagement'
@@ -36,6 +36,7 @@ export type RootState = {
     assessmentSection: AssessmentSectionState
     dataExport: DataExportState
     dataLock: DataLockState
+    [FileUploadSlice.name]: FileUploadState
     home: HomeState
     messageCenter: MessageCenterState
     navigation: NavigationState

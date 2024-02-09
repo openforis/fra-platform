@@ -10,7 +10,7 @@ export const RepositorySlice = createSlice({
   name: 'repository',
   initialState,
   reducers: {
-    setRepositoryItem: (state: RepositoryState, action: PayloadAction<RepositoryItem>) => {
+    setRepositoryItem: (state: RepositoryState, action: PayloadAction<Partial<RepositoryItem>>) => {
       state.repositoryItem = action.payload
     },
   },
