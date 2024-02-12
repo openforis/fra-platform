@@ -37,16 +37,6 @@ export const useOnChange = (): Returned => {
     if (!hasFiles) return
 
     const file = files[0]
-    if (file.uuid !== repositoryItem?.fileUuid) {
-      onChangeField('fileUuid', files[0].uuid)
-    }
-  }, [files, onChangeField, repositoryItem?.fileUuid])
-
-  useEffect(() => {
-    const hasFiles = files?.length > 0
-    if (!hasFiles) return
-
-    const file = files[0]
     // When a file is selected, update the fileUuid
     if (file.uuid !== repositoryItem?.fileUuid) {
       onChangeField('fileUuid', files[0].uuid)
