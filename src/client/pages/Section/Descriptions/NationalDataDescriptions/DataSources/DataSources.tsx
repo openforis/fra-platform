@@ -2,34 +2,27 @@ import './DataSources.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionName, CommentableDescriptionValue, DataSource } from 'meta/assessment'
+import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
-import { useCommentableDescriptionValue } from 'client/store/data'
 import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
+import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { useDescriptionErrorState } from 'client/pages/Section/Descriptions/CommentableDescription/hooks/useDescriptionErrorState'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
-import ButtonCopyDataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopyDataSources'
+import ButtonCopy from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopy'
 import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceRow'
 
-import { useActions } from './hooks/useActions'
+import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 
 type Props = {
   nationalData: NationalDataDescription
-  sectionName: string
+  sectionName: SectionName
 }
 
-const placeholder: DataSource = {
-  type: '',
-  variables: [],
-  comments: '',
-  year: '',
-  reference: '',
-}
-
-const template: CommentableDescriptionValue = { text: '' }
 const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
 
 export const DataSources: React.FC<Props> = (props: Props) => {
@@ -37,67 +30,71 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
-  const editable = useIsDescriptionEditable({ sectionName, name })
-  const value = useCommentableDescriptionValue({ name, sectionName, template })
+  const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
-  const { onChange, onDelete } = useActions({ sectionName })
+  const editable = useIsDescriptionEditable({ sectionName, name })
+  const { empty } = useDescriptionErrorState({ name, sectionName, showAlertEmptyContent: false })
+  const gridTemplateColumns = useGridTemplateColumns({ sectionName })
 
-  const { dataSources: dataSourceValues = [] } = value
-
-  if (!dataSourceValues.length && !dataSourcesLinked?.length && !editable) return null
-
-  const copyDisabled = dataSourceValues.length !== 0
-
+  const renderGrid = Boolean(dataSources?.length || dataSourcesLinked?.length || editable)
   const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
 
   return (
     <DataGrid className="description">
       <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
 
-      {editable && <ButtonCopyDataSources disabled={copyDisabled} value={value} sectionName={sectionName} />}
+      {renderGrid && (
+        <>
+          {editable && <ButtonCopy disabled={dataSources.length !== 0} sectionName={sectionName} />}
 
-      <DataGrid gridTemplateColumns="0px minmax(200px, 1fr) minmax(200px, 1fr) minmax(250px, 1fr) minmax(150px, 300px) minmax(100px, 1fr) min-content">
-        <div />
+          <DataGrid gridTemplateColumns={gridTemplateColumns}>
+            <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
+            <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
+            <DataCell header>{t(`${keyPrefix}.variable`)}</DataCell>
+            <DataCell header>{t(`${keyPrefix}.yearForDataSource`)}</DataCell>
+            <DataCell header lastCol>
+              {t(`${keyPrefix}.comments`)}
+            </DataCell>
+            {editable && <div />}
 
-        <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
-        <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
-        <DataCell header>{t(`${keyPrefix}.variable`)}</DataCell>
-        <DataCell header>{t(`${keyPrefix}.yearForDataSource`)}</DataCell>
-        <DataCell header lastCol>
-          {t(`${keyPrefix}.comments`)}
-        </DataCell>
+            {dataSourcesLinked &&
+              dataSourcesLinked.map((dataSource, i) => (
+                <React.Fragment key={`linkedDataSource_${dataSource.data.uuid}`}>
+                  <DataSourceRow
+                    meta={dataSource.meta}
+                    dataSource={dataSource.data}
+                    disabled
+                    lastRow={i === dataSourcesLinked.length - 1}
+                    sectionName={sectionName}
+                  />
+                  {editable && <div />}
+                </React.Fragment>
+              ))}
 
-        <div />
+            {dataSources.map((dataSourceValue, i) => {
+              return (
+                <DataSourceRow
+                  dataSource={dataSourceValue}
+                  disabled={!editable}
+                  key={String(`dataSource_${dataSourceValue.uuid}`)}
+                  lastRow={i === dataSources.length - 1}
+                  meta={nationalData.dataSources}
+                  sectionName={sectionName}
+                />
+              )
+            })}
+          </DataGrid>
 
-        {dataSourcesLinked &&
-          dataSourcesLinked.map((dataSource, i) => (
-            <DataSourceRow
-              dataSourceMetadata={dataSource.meta}
-              dataSourceValue={dataSource.data}
-              disabled
-              key={String(`linkedDataSource_${i}`)}
-              onChange={() => ({})}
-              onDelete={() => ({})}
-              placeholder={false}
-              lastRow={i === dataSourcesLinked.length - 1}
-            />
-          ))}
-
-        {dataSourceValues.concat(editable ? placeholder : []).map((dataSourceValue, i) => {
-          return (
-            <DataSourceRow
-              dataSourceMetadata={nationalData.dataSources}
-              dataSourceValue={dataSourceValue}
-              disabled={!editable}
-              key={String(`data-source-row-${i}`)}
-              onChange={onChange}
-              onDelete={() => onDelete(dataSourceValue.uuid)}
-              placeholder={!dataSourceValue.uuid}
-              lastRow={i === dataSourceValues.length - (editable ? 0 : 1)}
-            />
-          )
-        })}
-      </DataGrid>
+          {nationalData.dataSources?.text?.readOnly && !empty && editable && (
+            <div className="data-sources__readOnlyText">
+              <h5>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</h5>
+              <div className="description__editor-container">
+                <EditorWYSIWYG disabled onChange={() => ({})} value={text} />
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </DataGrid>
   )
 }

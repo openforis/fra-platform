@@ -1,25 +1,16 @@
 @import 'src/client/style/partials';
 
-.data-source__copy-btn {
-  justify-self: start;
-  margin-bottom: -$spacing-xxxs;
-}
+.data-sources__readOnlyText {
+  background-color: lighten($ui-bg, 2%);
+  display: grid;
+  grid-row-gap: $spacing-xs;
+  margin-top: $spacing-xxs;
+  padding: $spacing-xs;
 
-.data-source__relative-cell {
-  position: relative;
-
-  .data-source__delete-button {
-    position: absolute;
-    left: -30px;
-    top: 0;
-    bottom: 0;
-    border: 0;
-    align-items: center;
-
-    background-color: transparent;
-
-    svg {
-      color: $ui-destructive;
-    }
+  h5 {
+    color: $text-link;
+    font-size: $font-xxs;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 }
