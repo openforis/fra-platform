@@ -5,22 +5,29 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { useFileUploadProgress } from 'client/store/ui/fileUpload'
+import { Files } from 'meta/file'
+
+import { useFileUploadProgress, useUploadedFiles } from 'client/store/ui/fileUpload'
+import { useOnPanelClose } from 'client/components/FileUpload/useOnPanelClose'
 import ProgressBar from 'client/components/ProgressBar'
 
+import { useOnDrop } from './hooks/useOnDrop'
+
 type Props = {
-  onDrop: (files: Array<File>) => void
   multiple?: boolean
   id?: string
 }
 
 const FileUpload: React.FC<Props> = (props: Props) => {
-  const { onDrop, id, multiple } = props
+  const { id, multiple } = props
   const { t } = useTranslation()
 
+  const files = useUploadedFiles()
+  const onDrop = useOnDrop()
+  const progress = useFileUploadProgress()
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, multiple })
 
-  const progress = useFileUploadProgress()
+  useOnPanelClose()
 
   return (
     <>
@@ -35,9 +42,21 @@ const FileUpload: React.FC<Props> = (props: Props) => {
         <input id={id} {...getInputProps()} />
         {isDragActive ? <div>{t('fileDrop.dropFilesHere')}</div> : <div>{t('fileDrop.dragAndDropOrClick')}</div>}
       </div>
-      <div className="progress-bar-container">
+      <div className="file-upload__progress-bar-container">
         {progress && <ProgressBar loaded={progress.loaded} total={progress.total} />}
       </div>
+      {files?.length > 0 && (
+        <dl>
+          {files.map((file, index) => (
+            <React.Fragment key={String(index) + file.name}>
+              <dt>{file.name}</dt>
+              <dd>
+                <span>{Files.humanReadableSize(file.size)}</span>
+              </dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      )}
     </>
   )
 }
