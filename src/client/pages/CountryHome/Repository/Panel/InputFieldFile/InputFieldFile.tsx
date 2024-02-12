@@ -1,16 +1,25 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useFileUploadContext } from 'client/components/FileUpload'
+import { useUploadedFiles } from 'client/store/ui/fileUpload'
+import FileUpload from 'client/components/FileUpload'
+
+import { useOnDrop } from './hooks/useOnDrop'
+
+// TODO: move
+const humanFileSize = (size: number) => {
+  const i = size === 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024))
+  // @ts-ignore
+  return `${(size / 1024 ** i).toFixed(2) * 1} ${['B', 'kB', 'MB', 'GB', 'TB'][i]}`
+}
 
 const FileInputField: React.FC = () => {
   const { t } = useTranslation()
 
-  const { setFiles } = useFileUploadContext()
+  const files = useUploadedFiles()
+  const file = files?.[0]
 
-  const _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFiles(event.target.files)
-  }
+  const onDrop = useOnDrop()
 
   const label = `common.file`
   const id = `repository_form-input-file`
@@ -20,7 +29,15 @@ const FileInputField: React.FC = () => {
       <label htmlFor={id} className="repository-form__label">
         {t(label)}
       </label>
-      <input id={id} onChange={_onChange} className="repository-form__input" name="file" type="file" />
+      <FileUpload id={id} onDrop={onDrop} />
+      {file && (
+        <dl>
+          <dt>{file.name}</dt>
+          <dd>
+            <span>{humanFileSize(file.size)}</span>
+          </dd>
+        </dl>
+      )}
     </div>
   )
 }

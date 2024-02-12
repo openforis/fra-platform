@@ -1,7 +1,8 @@
 export type File = {
+  readonly createdAt: string
+  readonly file: Buffer
+  readonly name: string
+  readonly size: number
   readonly id: number
   readonly uuid: string
-  readonly fileName: string
-  readonly file: Buffer
-  readonly createdAt: string
 }

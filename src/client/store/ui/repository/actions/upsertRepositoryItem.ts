@@ -8,16 +8,7 @@ import { RepositoryItem } from 'meta/cycleData'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CycleParams & {
-  file?: File
-  repositoryItem: RepositoryItem
-}
-
-const _getFormData = (props: Props) => {
-  const { file, repositoryItem } = props
-  const formData = new FormData()
-  formData.append('repositoryItem', JSON.stringify(repositoryItem))
-  if (file) formData.append('file', file)
-  return formData
+  repositoryItem: Partial<RepositoryItem>
 }
 
 const _getParamsConfig = (props: Props) => {
@@ -29,11 +20,11 @@ const _getParamsConfig = (props: Props) => {
 export const upsertRepositoryItem = createAsyncThunk<RepositoryItem, Props, ThunkApiConfig>(
   'repositoryItem/upsert',
   async (props) => {
-    const formData = _getFormData(props)
+    const { repositoryItem } = props
     const config = _getParamsConfig(props)
 
-    const request = props.repositoryItem.uuid ? axios.patch : axios.post
-    const { data } = await request(ApiEndPoint.CycleData.Repository.one(), formData, config)
+    const request = repositoryItem.uuid ? axios.patch : axios.post
+    const { data } = await request(ApiEndPoint.CycleData.Repository.one(), { repositoryItem }, config)
     return data
   }
 )

@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from 'react'
 
 import { useAppDispatch } from 'client/store'
+import { useUploadedFiles } from 'client/store/ui/fileUpload'
 import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
-import { useFileUploadContext } from 'client/components/FileUpload'
 
 type OnChange = (name: string, value: string | boolean) => void
 
@@ -15,7 +15,7 @@ export const useOnChange = (): Returned => {
   const dispatch = useAppDispatch()
   const repositoryItem = useRepositoryItem()
 
-  const { files } = useFileUploadContext()
+  const files = useUploadedFiles()
 
   const onChangeField = useCallback<OnChange>(
     (name: string, value: string) => {

@@ -1,16 +1,15 @@
 import { useCallback } from 'react'
 
 import { useAppDispatch } from 'client/store'
+import { FileUploadActions } from 'client/store/ui/fileUpload'
 import { RepositoryActions } from 'client/store/ui/repository'
-import { useFileUploadContext } from 'client/components/FileUpload'
 
 type Returned = () => void
 
 export const useClosePanel = (): Returned => {
-  const { setFiles } = useFileUploadContext()
   const dispatch = useAppDispatch()
   return useCallback<Returned>(() => {
-    setFiles(null)
+    dispatch(FileUploadActions.reset())
     dispatch(RepositoryActions.setRepositoryItem(undefined))
-  }, [dispatch, setFiles])
+  }, [dispatch])
 }
