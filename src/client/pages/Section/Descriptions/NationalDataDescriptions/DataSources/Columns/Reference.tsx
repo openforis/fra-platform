@@ -12,14 +12,14 @@ import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 import { useOnChange } from './hook/useOnChange'
 import { datasourceValidators } from './datasourceValidators'
 
-interface DataSourceReferenceColumnProps {
+type Props = {
   dataSource: DataSource
   disabled: boolean
   lastRow: boolean
   sectionName: SectionName
 }
 
-const Reference: React.FC<DataSourceReferenceColumnProps> = (props: DataSourceReferenceColumnProps) => {
+const Reference: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, lastRow, sectionName } = props
 
   const { t } = useTranslation()
