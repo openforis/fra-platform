@@ -1,8 +1,6 @@
 import './Description.scss'
 import React from 'react'
 
-import classNames from 'classnames'
-
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
 import { useCommentableDescriptionValue } from 'client/store/data'
@@ -41,14 +39,12 @@ const CommentableDescription: React.FC<Props> = (props) => {
       {canEdit && <div />}
 
       <DataRow actions={actions}>
-        <DataCell editable={editable} lastCol lastRow noBorder={!editable}>
-          <div className={classNames('description__editor-container', { editable })}>
-            <EditorWYSIWYG
-              disabled={!editable}
-              onChange={(content) => onChange({ ...value, text: content })}
-              value={!editable && empty && showDashEmptyContent ? '-' : value.text}
-            />
-          </div>
+        <DataCell className="description__editor-container" editable={editable} lastCol lastRow noBorder={!editable}>
+          <EditorWYSIWYG
+            disabled={!editable}
+            onChange={(content) => onChange({ ...value, text: content })}
+            value={!editable && empty && showDashEmptyContent ? '-' : value.text}
+          />
         </DataCell>
       </DataRow>
     </DataGrid>

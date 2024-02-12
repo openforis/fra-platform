@@ -77,7 +77,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
                   dataSource={dataSourceValue}
                   disabled={!editable}
                   key={String(`dataSource_${dataSourceValue.uuid}`)}
-                  lastRow={i === dataSources.length - (editable ? 0 : 1)}
+                  lastRow={i === dataSources.length - 1}
                   meta={nationalData.dataSources}
                   sectionName={sectionName}
                 />

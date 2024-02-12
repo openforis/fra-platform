@@ -2,6 +2,11 @@
 
 .description {
   grid-row-gap: $spacing-xxxs;
+
+  .data-cell.actions {
+    align-self: start;
+    padding-top: $spacing-xs;
+  }
 }
 
 .description__editor-container:not(.editable) {
