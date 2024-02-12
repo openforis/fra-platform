@@ -28,7 +28,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const { name, sectionName, showAlertEmptyContent, showDashEmptyContent, template, title } = props
 
   const value = useCommentableDescriptionValue({ name, sectionName, template })
-  const { empty, error } = useDescriptionErrorState({ showAlertEmptyContent, value })
+  const { empty, error } = useDescriptionErrorState({ name, sectionName, showAlertEmptyContent })
 
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })

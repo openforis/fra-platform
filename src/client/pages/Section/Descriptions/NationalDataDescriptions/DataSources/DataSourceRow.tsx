@@ -1,83 +1,43 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
-import { DataSource } from 'meta/assessment'
+import { DataSource, SectionName } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import { useIsDataLocked } from 'client/store/ui/dataLock'
-import { DataCell } from 'client/components/DataGrid'
-import Icon from 'client/components/Icon'
-import ReviewIndicator from 'client/components/ReviewIndicator'
-import ColumnComments from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnComments'
-import ColumnReference from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnReference'
-import ColumnTypeOfDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnTypeOfDataSource'
-import ColumnVariables from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnVariables'
-import ColumnYearForDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceColumn/ColumnYearForDataSource'
+import { DataRow } from 'client/components/DataGrid'
+import YearForDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/ColumnYearForDataSource'
+import Comments from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Comments'
+import Reference from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Reference'
+import TypeOfDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/TypeOfDataSource'
+import Variables from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Variables'
+import { useDataSourceActions } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/hooks/useDataSourceActions'
 
 type Props = {
-  dataSourceValue: DataSource
-  dataSourceMetadata: DataSourceDescription
+  dataSource: DataSource
   disabled: boolean
-  placeholder: boolean
-  onChange: (dataSource: DataSource) => void
-  onDelete: () => void
   lastRow: boolean
+  meta: DataSourceDescription
+  sectionName: SectionName
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { dataSourceValue, dataSourceMetadata, disabled, onChange, onDelete, placeholder, lastRow } = props
-  const isDataLocked = useIsDataLocked()
+  const { dataSource, disabled, lastRow, meta, sectionName } = props
 
-  const _onChange = useCallback(
-    (field: string, value: string) => {
-      if (dataSourceValue[field as keyof DataSource] === value) return
-      onChange({
-        ...dataSourceValue,
-        [field]: value,
-      })
-    },
-    [dataSourceValue, onChange]
-  )
-
-  const titleVariable = dataSourceValue.variables?.join(', ')
-  const title = `${titleVariable} | ${dataSourceValue.year}`
+  const actions = useDataSourceActions({ dataSource, disabled, sectionName })
 
   return (
-    <>
-      <div className="data-source__relative-cell">
-        {!placeholder && !disabled && (
-          <button type="button" onClick={onDelete} className="data-source__delete-button">
-            <Icon className="delete" name="trash-simple" />
-          </button>
-        )}
-      </div>
-
-      <ColumnReference dataSourceValue={dataSourceValue} onChange={_onChange} disabled={disabled} lastRow={lastRow} />
-      <ColumnTypeOfDataSource
-        dataSourceMetadata={dataSourceMetadata}
-        dataSourceValue={dataSourceValue}
-        onChange={_onChange}
+    <DataRow actions={actions}>
+      <Reference dataSource={dataSource} disabled={disabled} lastRow={lastRow} sectionName={sectionName} />
+      <TypeOfDataSource
+        dataSource={dataSource}
         disabled={disabled}
         lastRow={lastRow}
+        meta={meta}
+        sectionName={sectionName}
       />
-      <ColumnVariables
-        dataSourceValue={dataSourceValue}
-        dataSourceMetadata={dataSourceMetadata}
-        onChange={_onChange}
-        disabled={disabled}
-        lastRow={lastRow}
-      />
-      <ColumnYearForDataSource
-        disabled={disabled}
-        dataSourceValue={dataSourceValue}
-        onChange={_onChange}
-        lastRow={lastRow}
-      />
-      <ColumnComments disabled={disabled} dataSourceValue={dataSourceValue} onChange={_onChange} lastRow={lastRow} />
-
-      <DataCell actions>
-        {!isDataLocked && dataSourceValue.uuid && <ReviewIndicator title={title} topicKey={dataSourceValue.uuid} />}
-      </DataCell>
-    </>
+      <Variables dataSource={dataSource} disabled={disabled} lastRow={lastRow} meta={meta} sectionName={sectionName} />
+      <YearForDataSource dataSource={dataSource} disabled={disabled} lastRow={lastRow} sectionName={sectionName} />
+      <Comments disabled={disabled} dataSource={dataSource} lastRow={lastRow} sectionName={sectionName} />
+    </DataRow>
   )
 }
 

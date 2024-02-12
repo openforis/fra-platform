@@ -2,13 +2,15 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 
+import { useCommentableDescriptionValue } from 'client/store/data'
 import { useUser } from 'client/store/user'
 
 type Props = {
+  name: CommentableDescriptionName
+  sectionName: SectionName
   showAlertEmptyContent: boolean
-  value: CommentableDescriptionValue
 }
 
 type Returned = {
@@ -17,9 +19,10 @@ type Returned = {
 }
 
 export const useDescriptionErrorState = (props: Props): Returned => {
-  const { showAlertEmptyContent, value } = props
+  const { name, sectionName, showAlertEmptyContent } = props
 
   const user = useUser()
+  const value = useCommentableDescriptionValue({ name, sectionName })
 
   return useMemo<Returned>(() => {
     const innerText = new DOMParser()

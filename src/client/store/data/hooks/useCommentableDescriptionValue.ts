@@ -7,11 +7,11 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 type Props = {
   name: CommentableDescriptionName
   sectionName: string
-  template: CommentableDescriptionValue
+  template?: CommentableDescriptionValue
 }
 
 export const useCommentableDescriptionValue = (props: Props): CommentableDescriptionValue => {
-  const { name, sectionName, template } = props
+  const { name, sectionName, template = { text: '' } } = props
 
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 

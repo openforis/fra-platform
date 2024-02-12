@@ -40,11 +40,11 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
 
           {!dataSourcesProps.withTable && (
             <CommentableDescription
-              title={t('description.dataSourcesPlus')}
-              sectionName={sectionName}
               name={CommentableDescriptionName.dataSources}
+              sectionName={sectionName}
               showAlertEmptyContent={showAlertEmptyContent}
               showDashEmptyContent={showDashEmptyContent}
+              title={t('description.dataSourcesPlus')}
             />
           )}
         </>
@@ -52,21 +52,21 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
 
       {nationalData.nationalClassification && (
         <CommentableDescription
-          title={t('description.nationalClassificationAndDefinitions')}
-          sectionName={sectionName}
           name={CommentableDescriptionName.nationalClassificationAndDefinitions}
+          sectionName={sectionName}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
+          title={t('description.nationalClassificationAndDefinitions')}
         />
       )}
 
       {nationalData.originalData && (
         <CommentableDescription
-          title={t('description.originalData')}
-          sectionName={sectionName}
           name={CommentableDescriptionName.originalData}
+          sectionName={sectionName}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
+          title={t('description.originalData')}
         />
       )}
     </div>
