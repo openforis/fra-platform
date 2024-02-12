@@ -30,7 +30,12 @@ export const ButtonCopyDataSources: React.FC<Props> = (props: Props) => {
   }, [assessmentName, countryIso, currentValue, cycleName, dispatch, previousSectionName, sectionName])
 
   return (
-    <button className="btn-s btn-primary" disabled={disabled || !previousSection} onClick={onCopyClick} type="button">
+    <button
+      className="btn-s btn-primary data-source__copy-btn"
+      disabled={disabled || !previousSection}
+      onClick={onCopyClick}
+      type="button"
+    >
       {t('nationalDataPoint.copyPreviousValues')}
     </button>
   )

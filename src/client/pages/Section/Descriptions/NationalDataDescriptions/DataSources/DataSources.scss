@@ -1,7 +1,8 @@
 @import 'src/client/style/partials';
 
-.data-source {
-  padding-top: $spacing-xs;
+.data-source__copy-btn {
+  justify-self: start;
+  margin-bottom: -$spacing-xxxs;
 }
 
 .data-source__relative-cell {
@@ -15,7 +16,6 @@
     border: 0;
     align-items: center;
 
-    background-color: transparent;
     background-color: transparent;
 
     svg {

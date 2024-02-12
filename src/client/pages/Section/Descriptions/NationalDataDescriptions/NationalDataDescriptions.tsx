@@ -35,15 +35,19 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       <h2 className="headline">{t('description.nationalData')}</h2>
 
       {nationalData.dataSources && (
-        <CommentableDescription
-          title={t<string>('description.dataSourcesPlus')}
-          sectionName={sectionName}
-          name={CommentableDescriptionName.dataSources}
-          showAlertEmptyContent={showAlertEmptyContent}
-          showDashEmptyContent={showDashEmptyContent}
-        >
+        <>
           {dataSourcesProps.withTable && <DataSources nationalData={nationalData} sectionName={sectionName} />}
-        </CommentableDescription>
+
+          {!dataSourcesProps.withTable && (
+            <CommentableDescription
+              title={t('description.dataSourcesPlus')}
+              sectionName={sectionName}
+              name={CommentableDescriptionName.dataSources}
+              showAlertEmptyContent={showAlertEmptyContent}
+              showDashEmptyContent={showDashEmptyContent}
+            />
+          )}
+        </>
       )}
 
       {nationalData.nationalClassification && (

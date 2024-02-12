@@ -9,8 +9,8 @@
 .descriptions__group {
   border-bottom: $ui-thin-border;
   display: grid;
-  grid-row-gap: $spacing-xxs;
-  padding-bottom: $spacing-xxs;
+  grid-row-gap: $spacing-xs;
+  padding-bottom: $spacing-s;
 }
 
 @include print {

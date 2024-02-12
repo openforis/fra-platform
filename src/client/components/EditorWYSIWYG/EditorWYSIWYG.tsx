@@ -2,7 +2,6 @@ import './EditorWYSIWYG.scss'
 import React from 'react'
 
 import classNames from 'classnames'
-// import type { Jodit } from 'jodit/esm'
 import JoditEditor from 'jodit-react'
 
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'

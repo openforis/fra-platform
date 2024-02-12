@@ -10,13 +10,10 @@ import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
 import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
-import Title from 'client/pages/Section/Descriptions/CommentableDescription/Description/Title'
-import Toggle from 'client/pages/Section/Descriptions/CommentableDescription/Description/Toggle'
 
-import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
+import { useDescriptionErrorState } from '../hooks/useDescriptionErrorState'
 
 type Props = PropsWithChildren<{
-  title: string
   name: CommentableDescriptionName
   template?: CommentableDescriptionValue
   sectionName: string
@@ -25,7 +22,7 @@ type Props = PropsWithChildren<{
 }>
 
 const Description: React.FC<Props> = (props) => {
-  const { children, title, name, sectionName, template, showAlertEmptyContent, showDashEmptyContent } = props
+  const { children, name, sectionName, template, showAlertEmptyContent, showDashEmptyContent } = props
 
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
@@ -33,7 +30,7 @@ const Description: React.FC<Props> = (props) => {
   const editable = useIsDescriptionEditable({ sectionName, name })
   const editEnabled = useIsDescriptionEditEnabled({ sectionName, name })
   const value = useCommentableDescriptionValue({ name, sectionName, template })
-  const { empty, error } = useDescriptionErrorState({ showAlertEmptyContent, value })
+  const { empty } = useDescriptionErrorState({ showAlertEmptyContent, value })
 
   // const descriptions = section.props.descriptions[cycle.uuid]
 
@@ -76,9 +73,6 @@ const Description: React.FC<Props> = (props) => {
 
   return (
     <div className="fra-description__header-row">
-      <Title error={error} title={title} />
-      <Toggle sectionName={sectionName} name={name} />
-
       {children && React.Children.toArray(children)}
 
       {!children && (
