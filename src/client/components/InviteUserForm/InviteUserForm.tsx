@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Lang, LanguageCodes } from 'meta/lang'
-import { RoleName, Users } from 'meta/user'
+import { CollaboratorPermissions, RoleName, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useInitialState } from 'client/components/InviteUserForm/hooks/initialState'
+import InviteCollaboratorPermissions from 'client/components/InviteUserForm/InviteCollaboratorPermissions'
 
 import { useOnUserInvite } from './hooks/useOnUserInvite'
 import { UserToInvite } from './userToInvite'
@@ -31,6 +32,10 @@ const InviteUserForm: React.FC = () => {
   const goBack = useCallback(() => {
     navigate(-1)
   }, [navigate])
+
+  const handlePermissionsChange = (permissions: CollaboratorPermissions) => {
+    setUserToInvite({ ...userToInvite, permissions })
+  }
 
   return (
     <div className="edit-user__form-container invite-user-container">
@@ -115,6 +120,13 @@ const InviteUserForm: React.FC = () => {
           </select>
         </div>
       </div>
+
+      {userToInvite.role === RoleName.COLLABORATOR && (
+        <InviteCollaboratorPermissions
+          onPermissionsChange={handlePermissionsChange}
+          permissions={userToInvite.permissions}
+        />
+      )}
 
       <div className="edit-user__form-item button-container">
         <button className="btn btn-secondary" onClick={goBack} type="submit">

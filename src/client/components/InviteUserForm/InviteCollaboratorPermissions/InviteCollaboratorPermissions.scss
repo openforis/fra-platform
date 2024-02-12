@@ -1,0 +1,14 @@
+@import 'src/client/style/partials';
+
+.edit-user__form-item.invite-user__form-item-permissions {
+  height: auto;
+}
+
+.invite-user__form-field-premissions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: $spacing-xs;
+  font-size: $font-xs;
+}
