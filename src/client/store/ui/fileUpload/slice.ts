@@ -7,6 +7,7 @@ export const FileUploadSlice = createSlice({
   name: 'fileUpload',
   initialState,
   reducers: {
+    reset: () => initialState,
     setProgress: (state, action) => {
       state.progress = action.payload
     },

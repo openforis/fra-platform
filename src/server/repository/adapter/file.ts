@@ -5,7 +5,7 @@ import { File } from 'meta/file'
 export type FileDB = {
   id: number
   uuid: string
-  file_name: string
+  name: string
   file: Buffer
   created_at: string
 }

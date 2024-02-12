@@ -21,7 +21,7 @@ export const createMany = async (props: Props, client: BaseProtocol = DB): Promi
       files.map(async (multerFile) => {
         const file = await FileRepository.create({ ...props, file: multerFile }, t)
 
-        const target = { fileName: file.fileName, uuid: file.uuid }
+        const target = { fileName: file.name, uuid: file.uuid }
         const message = ActivityLogMessage.fileCreate
         const activityLog = { target, section: 'assessment', message, user }
         const activityLogParams = { activityLog, assessment, cycle }

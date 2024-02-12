@@ -13,7 +13,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<F
   const { file } = props
 
   return client.one(
-    `insert into public.file (file_name, file) values ($1, $2) returning ${fields.join(', ')}`,
+    `insert into public.file (name, file) values ($1, $2) returning ${fields.join(', ')}`,
     [file.originalname, file.buffer],
     FileAdapter
   )
