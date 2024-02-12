@@ -32,15 +32,33 @@ export const useOnChange = (): Returned => {
     [dispatch, repositoryItem]
   )
 
-  // When a file is selected and the name is empty,
-  // set the name to the file name
   useEffect(() => {
-    if (files?.length > 0 && repositoryItem?.name === '') {
-      const file = files[0]
+    const hasFiles = files?.length > 0
+    if (!hasFiles) return
+
+    const file = files[0]
+    if (file.uuid !== repositoryItem?.fileUuid) {
+      onChangeField('fileUuid', files[0].uuid)
+    }
+  }, [files, onChangeField, repositoryItem?.fileUuid])
+
+  useEffect(() => {
+    const hasFiles = files?.length > 0
+    if (!hasFiles) return
+
+    const file = files[0]
+    // When a file is selected, update the fileUuid
+    if (file.uuid !== repositoryItem?.fileUuid) {
+      onChangeField('fileUuid', files[0].uuid)
+    }
+
+    // When a file is selected and the name is empty,
+    // set the name to the file name
+    if (repositoryItem?.name === '') {
       const name = file.name.split('.')[0]
       onChangeField('name', name)
     }
-  }, [files, onChangeField, repositoryItem?.name])
+  }, [files, onChangeField, repositoryItem?.fileUuid, repositoryItem?.name])
 
   return { onChangeField, onChangeProps }
 }
