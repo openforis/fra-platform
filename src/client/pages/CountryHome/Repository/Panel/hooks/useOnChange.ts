@@ -1,5 +1,9 @@
 import { useCallback, useEffect } from 'react'
 
+import { Objects } from 'utils/objects'
+
+import { RepositoryItem } from 'meta/cycleData'
+
 import { useAppDispatch } from 'client/store'
 import { useUploadedFiles } from 'client/store/ui/fileUpload'
 import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
@@ -19,16 +23,16 @@ export const useOnChange = (): Returned => {
 
   const onChangeField = useCallback<OnChange>(
     (name: string, value: string) => {
-      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, [name]: value }))
+      dispatch(RepositoryActions.setRepositoryItemProp({ key: name as keyof RepositoryItem, value }))
     },
-    [dispatch, repositoryItem]
+    [dispatch]
   )
 
   // update repositoryItem.props
   const onChangeProps = useCallback<OnChange>(
     (name: string, value: string) => {
       const props = { ...(repositoryItem.props ?? {}), [name]: value }
-      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, props }))
+      dispatch(RepositoryActions.setRepositoryItemProp({ key: 'props', value: props }))
     },
     [dispatch, repositoryItem]
   )
@@ -38,11 +42,12 @@ export const useOnChange = (): Returned => {
 
     const file = files[0]
     const fileUuid = file.uuid
-    if (fileUuid !== repositoryItem?.fileUuid) {
+    if (!Objects.isEmpty(repositoryItem) && fileUuid !== repositoryItem?.fileUuid) {
       const name = file.name.split('.')[0]
-      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, name, fileUuid }))
+      dispatch(RepositoryActions.setRepositoryItemProp({ key: 'fileUuid', value: fileUuid }))
+      dispatch(RepositoryActions.setRepositoryItemProp({ key: 'name', value: name }))
     }
-  }, [dispatch, files, repositoryItem])
+  }, [dispatch, files, repositoryItem, repositoryItem?.fileUuid])
 
   return { onChangeField, onChangeProps }
 }
