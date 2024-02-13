@@ -5,8 +5,5 @@ import { UserToInvite } from 'client/components/InviteUserForm/userToInvite'
 
 export const useInitialState = (): UserToInvite => {
   const language = useLanguage()
-  return useMemo(
-    () => ({ name: '', surname: '', email: '', role: '', lang: language, permissions: { sections: 'all' } }),
-    [language]
-  )
+  return useMemo(() => ({ name: '', surname: '', email: '', role: '', lang: language }), [language])
 }

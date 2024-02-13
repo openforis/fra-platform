@@ -77,7 +77,14 @@ const InviteUserForm: React.FC = () => {
           <select
             className="fra-table__select"
             value={userToInvite.role}
-            onChange={(e) => setUserToInvite({ ...userToInvite, role: e.target.value as RoleName })}
+            onChange={(e) => {
+              const role = e.target.value as RoleName
+              if (role !== RoleName.COLLABORATOR) {
+                setUserToInvite({ ...userToInvite, role, permissions: undefined })
+              } else {
+                setUserToInvite({ ...userToInvite, role })
+              }
+            }}
           >
             <option value="">{t('userManagement.placeholder')}</option>
             {Users.getRolesAllowedToEdit({ user, countryIso, cycle }).map((role: RoleName) => (
