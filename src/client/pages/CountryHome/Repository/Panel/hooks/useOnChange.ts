@@ -23,6 +23,7 @@ export const useOnChange = (): Returned => {
     },
     [dispatch, repositoryItem]
   )
+
   // update repositoryItem.props
   const onChangeProps = useCallback<OnChange>(
     (name: string, value: string) => {
@@ -33,22 +34,15 @@ export const useOnChange = (): Returned => {
   )
 
   useEffect(() => {
-    const hasFiles = files?.length > 0
-    if (!hasFiles) return
+    if (!files || files.length <= 0) return
 
     const file = files[0]
-    // When a file is selected, update the fileUuid
-    if (file.uuid !== repositoryItem?.fileUuid) {
-      onChangeField('fileUuid', files[0].uuid)
-    }
-
-    // When a file is selected and the name is empty,
-    // set the name to the file name
-    if (repositoryItem?.name === '') {
+    const fileUuid = file.uuid
+    if (fileUuid !== repositoryItem?.fileUuid) {
       const name = file.name.split('.')[0]
-      onChangeField('name', name)
+      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, name, fileUuid }))
     }
-  }, [files, onChangeField, repositoryItem?.fileUuid, repositoryItem?.name])
+  }, [dispatch, files, onChangeField, repositoryItem, repositoryItem?.fileUuid, repositoryItem?.name])
 
   return { onChangeField, onChangeProps }
 }
