@@ -1,82 +1,51 @@
+import './Descriptions.scss'
 import React from 'react'
 
 import { Description } from 'meta/assessment'
 
-import { useAssessmentCountry } from 'client/store/area'
-import { useHasOriginalDataPointData } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import AnalysisDescriptions from 'client/pages/Section/Descriptions/AnalysisDescriptions'
+import NationalDataDescriptions from 'client/pages/Section/Descriptions/NationalDataDescriptions'
 
-import AnalysisDescriptions from './AnalysisDescriptions'
-import NationalDataDescriptions from './NationalDataDescriptions'
+import { useDescriptions } from './hooks/useDescriptions'
 
 type Props = {
   descriptions: Description
-  disabled: boolean
   sectionName: string
 }
 
-export const useDescriptions = (props: Props): Description => {
-  const { descriptions, sectionName } = props
-  const { onlyTables } = useIsPrintRoute()
-
-  const country = useAssessmentCountry()
-  const hasOriginalDataPointData = useHasOriginalDataPointData()
-  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
-
-  if (onlyTables) {
-    return {}
-  }
-
-  // Only show comments if section has ODP data
-  const onlyComments =
-    (sectionName === 'extentOfForest' && hasOriginalDataPointData) ||
-    (sectionName === 'forestCharacteristics' && hasOriginalDataPointData && useOriginalDataPoint)
-
-  if (onlyComments) {
-    return {
-      comments: true,
-    }
-  }
-
-  return {
-    nationalData: descriptions.nationalData,
-    analysisAndProcessing: descriptions.analysisAndProcessing,
-  }
-}
-
 const Descriptions: React.FC<Props> = (props: Props) => {
-  const { disabled, sectionName, descriptions } = props
+  const { sectionName, descriptions } = props
 
   const { print, onlyTables } = useIsPrintRoute()
+  const { analysisAndProcessing, nationalData } = useDescriptions({ descriptions, sectionName })
 
-  const { analysisAndProcessing, nationalData } = useDescriptions({
-    descriptions,
-    sectionName,
-    disabled,
-  })
+  if (!nationalData && !analysisAndProcessing) {
+    return null
+  }
+
   return (
     <>
-      {nationalData && (
-        <NationalDataDescriptions
-          nationalData={nationalData}
-          sectionName={sectionName}
-          disabled={disabled}
-          showAlertEmptyContent={!print}
-          showDashEmptyContent={print}
-        />
-      )}
+      <div className="descriptions">
+        {nationalData && (
+          <NationalDataDescriptions
+            nationalData={nationalData}
+            sectionName={sectionName}
+            showAlertEmptyContent={!print}
+            showDashEmptyContent={print}
+          />
+        )}
 
-      {analysisAndProcessing && (
-        <AnalysisDescriptions
-          analysisAndProcessing={analysisAndProcessing}
-          sectionName={sectionName}
-          disabled={disabled}
-          showAlertEmptyContent={!print}
-          showDashEmptyContent={print}
-        />
-      )}
-
-      {print && !onlyTables && (nationalData || analysisAndProcessing) && <div className="page-break" />}
+        {analysisAndProcessing && (
+          <AnalysisDescriptions
+            analysisAndProcessing={analysisAndProcessing}
+            sectionName={sectionName}
+            showAlertEmptyContent={!print}
+            showDashEmptyContent={print}
+          />
+        )}
+      </div>
+      {print && !onlyTables && <div className="page-break" />}
     </>
   )
 }
