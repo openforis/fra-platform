@@ -34,6 +34,7 @@ div.select__valueContainer {
 div.select__singleValue {
   color: $text-body;
   margin: unset;
+  white-space: normal;
 }
 
 div.select__input {
