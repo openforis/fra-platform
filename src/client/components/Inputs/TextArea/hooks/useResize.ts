@@ -15,8 +15,12 @@ const useResize = (props: {
       if (!textArea) return
 
       textArea.style.height = 'auto'
-      const newHeight = maxHeight !== null ? Math.min(textArea.scrollHeight, maxHeight) : textArea.scrollHeight
-      textArea.style.height = `${newHeight}px`
+      const { height: parentHeight } = (textArea.parentNode as Element).getBoundingClientRect()
+      // This is a fix to make textarea fit Section->NationalData->DataSources GridCell. investigate further if needed
+      const realHeight = parentHeight > textArea.scrollHeight ? '100%' : `${textArea.scrollHeight}px`
+      const newHeight = maxHeight !== null ? `${Math.min(textArea.scrollHeight, maxHeight)}px` : realHeight
+
+      textArea.style.height = newHeight
 
       textArea.style.overflowY = maxHeight !== null && textArea.scrollHeight > maxHeight ? 'scroll' : 'hidden'
     }
