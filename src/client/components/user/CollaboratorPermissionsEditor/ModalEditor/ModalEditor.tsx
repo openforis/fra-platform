@@ -1,4 +1,4 @@
-import './collaboratorAccessModal.scss'
+import './ModalEditor.scss'
 import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -22,7 +22,7 @@ type Props = {
 
 const permissionTypes = [CollaboratorEditPropertyType.tableData, CollaboratorEditPropertyType.descriptions]
 
-const CollaboratorAccessModal: React.FC<Props> = (props) => {
+const ModalEditor: React.FC<Props> = (props) => {
   const { onClose, onPermissionsChange, open, permissions } = props
 
   const { t } = useTranslation()
@@ -107,4 +107,4 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   )
 }
 
-export default CollaboratorAccessModal
+export default ModalEditor
