@@ -2,16 +2,18 @@
 
 $login-height: 50vh;
 
+.login-view {
+  .app-view__content {
+    padding: unset;
+  }
+}
+
 .login {
   min-height: $login-height;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-.login__container {
+  padding: $spacing-l 0;
   position: relative;
   background-color: $ui-bg;
   border-bottom: $ui-thin-border;

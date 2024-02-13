@@ -6,17 +6,17 @@ import Partners from 'client/pages/CycleHome/Partners'
 
 const Login: React.FC = () => {
   return (
-    <>
-      <div className="login__container">
+    <div className="login-view">
+      <div className="app-view__content">
         <div className="login">
           <Outlet />
+
+          <img alt="" src="/img/tucan.svg" className="login__tucan" />
         </div>
 
-        <img alt="" src="/img/tucan.svg" className="login__tucan" />
+        <Partners />
       </div>
-
-      <Partners />
-    </>
+    </div>
   )
 }
 
