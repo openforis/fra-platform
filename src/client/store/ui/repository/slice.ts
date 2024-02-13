@@ -13,6 +13,9 @@ export const RepositorySlice = createSlice({
     setRepositoryItem: (state: RepositoryState, action: PayloadAction<Partial<RepositoryItem>>) => {
       state.repositoryItem = action.payload
     },
+    setRepositoryItemProps: (state: RepositoryState, action: PayloadAction<Partial<RepositoryItem>>) => {
+      state.repositoryItem = { ...state.repositoryItem, ...action.payload }
+    },
   },
   extraReducers: (builder) => {
     upsertRepositoryItemReducer(builder)

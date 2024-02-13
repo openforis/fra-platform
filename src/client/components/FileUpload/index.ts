@@ -1,1 +1,1 @@
-export { FileUploadProvider, useFileUploadContext } from './FileUploadProvider'
+export { default } from './FileUpload'

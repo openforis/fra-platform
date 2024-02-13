@@ -8,10 +8,10 @@ import { RepositoryItem } from 'meta/cycleData'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CycleDataParams & {
-  repositoryItem: RepositoryItem
+  repositoryItem: Partial<RepositoryItem>
 }
 
-export const removeRepositoryItem = createAsyncThunk<RepositoryItem, Props, ThunkApiConfig>(
+export const removeRepositoryItem = createAsyncThunk<Partial<RepositoryItem>, Props, ThunkApiConfig>(
   'repositoryItem/remove',
   async (props) => {
     const { repositoryItem } = props

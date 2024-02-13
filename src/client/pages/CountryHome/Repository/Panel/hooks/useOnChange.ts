@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from 'react'
 
 import { useAppDispatch } from 'client/store'
+import { useUploadedFiles } from 'client/store/ui/fileUpload'
 import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
-import { useFileUploadContext } from 'client/components/FileUpload'
 
 type OnChange = (name: string, value: string | boolean) => void
 
@@ -15,32 +15,34 @@ export const useOnChange = (): Returned => {
   const dispatch = useAppDispatch()
   const repositoryItem = useRepositoryItem()
 
-  const { files } = useFileUploadContext()
+  const files = useUploadedFiles()
 
   const onChangeField = useCallback<OnChange>(
     (name: string, value: string) => {
-      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, [name]: value }))
+      dispatch(RepositoryActions.setRepositoryItemProps({ [name]: value }))
     },
-    [dispatch, repositoryItem]
+    [dispatch]
   )
+
   // update repositoryItem.props
   const onChangeProps = useCallback<OnChange>(
     (name: string, value: string) => {
       const props = { ...(repositoryItem.props ?? {}), [name]: value }
-      dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, props }))
+      dispatch(RepositoryActions.setRepositoryItemProps({ props }))
     },
     [dispatch, repositoryItem]
   )
 
-  // When a file is selected and the name is empty,
-  // set the name to the file name
   useEffect(() => {
-    if (files?.length > 0 && repositoryItem?.name === '') {
-      const file = files[0]
+    if (!files || files.length <= 0) return
+
+    const file = files[0]
+    const fileUuid = file.uuid
+    if (fileUuid) {
       const name = file.name.split('.')[0]
-      onChangeField('name', name)
+      dispatch(RepositoryActions.setRepositoryItemProps({ fileUuid, name }))
     }
-  }, [files, onChangeField, repositoryItem?.name])
+  }, [dispatch, files])
 
   return { onChangeField, onChangeProps }
 }
