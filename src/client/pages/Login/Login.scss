@@ -3,17 +3,19 @@
 $login-height: 50vh;
 
 .login {
-  position: relative;
   min-height: $login-height;
-  // height: $login-height;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.login__container {
+  position: relative;
   background-color: $ui-bg;
   border-bottom: $ui-thin-border;
   background-image: url('/img/FRAPublPattern.svg');
-  padding-top: 3rem;
-  padding-bottom: 3rem;
 
   a,
   button {
