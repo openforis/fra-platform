@@ -1,16 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useFileUploadContext } from 'client/components/FileUpload'
+import FileUpload from 'client/components/FileUpload'
 
 const FileInputField: React.FC = () => {
   const { t } = useTranslation()
-
-  const { setFiles } = useFileUploadContext()
-
-  const _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFiles(event.target.files)
-  }
 
   const label = `common.file`
   const id = `repository_form-input-file`
@@ -20,7 +14,7 @@ const FileInputField: React.FC = () => {
       <label htmlFor={id} className="repository-form__label">
         {t(label)}
       </label>
-      <input id={id} onChange={_onChange} className="repository-form__input" name="file" type="file" />
+      <FileUpload id={id} />
     </div>
   )
 }

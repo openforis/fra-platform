@@ -10,5 +10,5 @@ type Props = {
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<File> => {
   const { fileUuid } = props
 
-  return client.one(`select * from public.file where uuid = $1`, [fileUuid], FileAdapter)
+  return client.one(`select *, length(file) as size from public.file where uuid = $1`, [fileUuid], FileAdapter)
 }

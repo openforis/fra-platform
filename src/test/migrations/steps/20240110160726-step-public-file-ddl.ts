@@ -15,7 +15,7 @@ export default async () => {
           (
             id         bigserial    not null,
             uuid       uuid         not null default uuid_generate_v4(),
-            file_name  varchar(255) not null,
+            name       varchar(255) not null,
             file       bytea        not null,
             created_at timestamp    not null default now(),
             primary key (id),
@@ -48,9 +48,9 @@ export default async () => {
 
   // 3. Migrate all existing files to new file table
   await client.query(`
-      insert into public.file (uuid, file_name, file)
-      select uuid, file_name, file
-      from assessment_fra.file;
+      insert into public.file (uuid, name, file)
+      select f.uuid, f.file_name, f.file
+      from assessment_fra.file f;
   `)
 
   const assessmentFRA = assessments.find((assessment) => assessment.props.name === AssessmentNames.fra)
@@ -72,7 +72,7 @@ export default async () => {
              r.file_name,
              af.props
       from _legacy.repository r
-               inner join public.file f using (file_name)
+               inner join public.file f on r.file_name = f.name
                left join assessment_fra.file af using (uuid)
          `)
 
