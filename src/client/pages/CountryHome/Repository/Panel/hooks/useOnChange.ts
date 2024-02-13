@@ -42,7 +42,7 @@ export const useOnChange = (): Returned => {
       const name = file.name.split('.')[0]
       dispatch(RepositoryActions.setRepositoryItem({ ...repositoryItem, name, fileUuid }))
     }
-  }, [dispatch, files, onChangeField, repositoryItem, repositoryItem?.fileUuid, repositoryItem?.name])
+  }, [dispatch, files, repositoryItem])
 
   return { onChangeField, onChangeProps }
 }
