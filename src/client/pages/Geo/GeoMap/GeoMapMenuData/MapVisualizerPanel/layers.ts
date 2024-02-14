@@ -1,7 +1,7 @@
-import { BurnedAreaKey, ForestSource, ProtectedAreaKey } from 'meta/geo'
+import { BurnedAreaKey, ForestKey, ProtectedAreaKey } from 'meta/geo'
 
 export interface ForestLayer {
-  key: ForestSource
+  key: ForestKey
   title: string
   opacity: number
 }
@@ -20,47 +20,47 @@ export interface BurnedAreaLayer {
 
 export const forestLayers: ForestLayer[] = [
   {
-    key: ForestSource.JAXA,
+    key: ForestKey.JAXA,
     title: 'JAXA (2017)',
     opacity: 1,
   },
   {
-    key: ForestSource.TandemX,
+    key: ForestKey.TandemX,
     title: 'TanDEM-X (2019)',
     opacity: 1,
   },
   {
-    key: ForestSource.GlobeLand,
+    key: ForestKey.GlobeLand,
     title: 'GlobeLand (2020)',
     opacity: 1,
   },
   {
-    key: ForestSource.ESAGlobCover,
+    key: ForestKey.ESAGlobCover,
     title: 'ESA GlobCover (2009)',
     opacity: 1,
   },
   {
-    key: ForestSource.Copernicus,
+    key: ForestKey.Copernicus,
     title: 'Copernicus (2019)',
     opacity: 1,
   },
   {
-    key: ForestSource.ESRI,
+    key: ForestKey.ESRI,
     title: 'ESRI (2020)',
     opacity: 1,
   },
   {
-    key: ForestSource.ESAWorldCover,
+    key: ForestKey.ESAWorldCover,
     title: 'ESA (2020)',
     opacity: 1,
   },
   {
-    key: ForestSource.Hansen,
+    key: ForestKey.Hansen,
     title: 'Hansen GFC (2020)',
     opacity: 1,
   },
   {
-    key: ForestSource.CustomFnF,
+    key: ForestKey.CustomFnF,
     title: 'Custom layer',
     opacity: 1,
   },
@@ -87,7 +87,7 @@ export const protectedAreaLayers: ProtectedAreaLayer[] = [
 
 export const burnedAreaLayers: BurnedAreaLayer[] = [
   {
-    key: BurnedAreaKey.MODIS,
+    key: BurnedAreaKey.MODIS_FIRE,
     title: 'MODIS',
     opacity: 1,
   },

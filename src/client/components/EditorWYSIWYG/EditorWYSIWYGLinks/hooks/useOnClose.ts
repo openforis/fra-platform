@@ -1,6 +1,6 @@
-import { useCallback } from 'react'
+import { Dispatch, SetStateAction, useCallback } from 'react'
 
-import type { Jodit } from 'jodit/types/jodit'
+import type { Jodit } from 'jodit-react'
 
 import { CountryIso } from 'meta/area'
 import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
@@ -8,34 +8,35 @@ import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
 import { useUpdateAccess } from 'client/store/ui/assessmentFiles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useOnClose = (props: {
-  setIsOpen: (isOpen: boolean) => void
-  setEditor: (editor: Jodit) => void
+type Props = {
   editor: Jodit
-}) => {
+  setEditor: Dispatch<SetStateAction<Jodit>>
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+type Returned = (files: Array<AssessmentFile>) => void
+
+export const useOnClose = (props: Props): Returned => {
   const { setIsOpen, setEditor, editor } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const updateAccess = useUpdateAccess()
 
-  return useCallback(
-    (selectedFiles: Array<AssessmentFile>) => {
+  return useCallback<Returned>(
+    (files: Array<AssessmentFile>) => {
       setIsOpen(false)
-      if (!selectedFiles.length) return
+      if (!files.length) return
 
       const mapFunction = (file: AssessmentFile) => {
         const { uuid } = file
         const hrefProps = { assessmentName, cycleName, countryIso, uuid }
         return `<a href="${AssessmentFiles.getHref(hrefProps)}" target="_blank">${file.fileName}</a>`
       }
+
       // When adding a file from file repository, we make it public
+      const fileCountryIso = files[0]?.countryIso
+      updateAccess({ fileCountryIso, files, public: true })
 
-      updateAccess({
-        files: selectedFiles,
-        public: true,
-        fileCountryIso: selectedFiles[0]?.countryIso,
-      })
-
-      const linksString = selectedFiles.map(mapFunction).join(' ')
+      const linksString = files.map(mapFunction).join(' ')
       editor?.s.insertHTML(linksString)
       setEditor(null)
     },

@@ -5,40 +5,37 @@ import { CommentableDescriptionName } from 'meta/assessment'
 import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
 
 import { useCycle } from 'client/store/assessment'
-
-import CommentableDescription from '../CommentableDescription'
+import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
 type Props = {
   sectionName: string
-  disabled: boolean
   showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
   analysisAndProcessing: AnalysisAndProcessingDescription
 }
 
 const AnalysisDescriptions: React.FC<Props> = (props) => {
-  const { analysisAndProcessing, sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
+  const { analysisAndProcessing, sectionName, showAlertEmptyContent, showDashEmptyContent } = props
   const cycle = useCycle()
 
   const { t } = useTranslation()
 
   return (
-    <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{t('description.analysisAndProcessing')}</h2>
+    <div className="descriptions__group">
+      <h2 className="headline">{t('description.analysisAndProcessing')}</h2>
       {analysisAndProcessing.estimationAndForecasting && (
         <CommentableDescription
           title={t('description.estimationAndForecasting')}
-          disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.estimationAndForecasting}
           showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
         />
       )}
+
       {analysisAndProcessing.reclassification && (
         <CommentableDescription
           title={t('description.reclassification', { cycleName: cycle.name })}
-          disabled={disabled}
           sectionName={sectionName}
           name={CommentableDescriptionName.reclassification}
           showAlertEmptyContent={showAlertEmptyContent}

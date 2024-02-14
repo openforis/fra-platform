@@ -73,7 +73,7 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
            , null                                 as parent_uuid
            , 'contact'                            as type
            , null                                 as value
-           , ${_getField(ContactField.appellation, `lower(u.props ->> 'title')`)}
+           , ${_getField(ContactField.appellation, `u.props ->> 'title'`)}
            , ${_getField(ContactField.contributions, `u.contributions`)}
            , ${_getField(ContactField.institution, `u.props_role ->> 'organization'`)}
            , ${_getField(ContactField.name, `u.props ->> 'name'`)}

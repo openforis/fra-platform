@@ -3,7 +3,6 @@
 
 .textarea {
   @extend .input-text;
-  margin: -1px -1px -5px;
   overflow-y: hidden;
   resize: none;
 }

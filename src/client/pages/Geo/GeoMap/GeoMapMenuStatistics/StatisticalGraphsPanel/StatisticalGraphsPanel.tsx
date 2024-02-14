@@ -1,16 +1,16 @@
 import './StatisticalGraphsPanel.scss'
 import React, { useEffect, useState } from 'react'
 
-import { Numbers } from 'utils/numbers'
 import { ChartOptions, Plugin } from 'chart.js'
+import { Numbers } from 'utils/numbers'
 
-import { ExtraEstimation, extraEstimationsMetadata, ForestSource, sourcesMetadata } from 'meta/geo'
+import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 
 import Chart from 'client/components/Chart'
 import { displayPercentagesPlugin, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
 
 type Props = {
-  data: [string, number, number][]
+  data: [string, number, number, string][]
   countryIso: string
   year: number
 }
@@ -42,14 +42,14 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
     })
 
     const backgroundColors = data.map((row) => {
-      const source = row[0] as ForestSource | ExtraEstimation
-      if (Object.values(ExtraEstimation).includes(source as ExtraEstimation)) {
-        return extraEstimationsMetadata[source as ExtraEstimation].palette[0]
+      const sourceKey = row[3] as ForestKey | ExtraEstimation
+      if (Object.values(ExtraEstimation).includes(sourceKey as ExtraEstimation)) {
+        return extraEstimationsMetadata[sourceKey as ExtraEstimation].palette[0]
       }
-      if (source.toUpperCase().indexOf(ForestSource.Hansen.toUpperCase()) === -1) {
-        return sourcesMetadata[source as ForestSource].palette[0]
+      if (sourceKey.toUpperCase().indexOf(ForestKey.Hansen.toUpperCase()) === -1) {
+        return forestLayersMetadata[sourceKey as ForestKey].palette[0]
       }
-      return sourcesMetadata.Hansen.palette[0]
+      return forestLayersMetadata.Hansen.palette[0]
     })
 
     const options = {
