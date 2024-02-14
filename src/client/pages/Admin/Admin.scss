@@ -1,11 +1,7 @@
 @import 'src/client/style/partials';
 
-.app-view__content {
-  grid-area: content;
-  height: 100%;
-  padding: 28px 32px 48px 32px;
-  overflow-x: auto;
-  overflow-y: hidden;
+.admin-view {
+  padding: $spacing-s;
 }
 
 .admin__page-header {
