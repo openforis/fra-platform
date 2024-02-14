@@ -8,7 +8,6 @@ import { useAppDispatch } from 'client/store'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryIso } from 'client/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-import CollaboratorAccessList from 'client/components/CollaboratorAccessList'
 import CollaboratorPermissionsEditor from 'client/components/user/CollaboratorPermissionsEditor'
 
 type Props = {
@@ -44,8 +43,6 @@ const CollaboratorPermissions = (props: Props) => {
       <div className="edit-user__form-label">{t(`userManagement.permissions`)}</div>
 
       <div className="edit-user__form-field edit-user__form-field-premissions">
-        <CollaboratorAccessList permissions={permissions} />
-
         <CollaboratorPermissionsEditor permissions={permissions} onPermissionsChange={handlePermissionsChange} />
       </div>
     </div>

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 
 import { CollaboratorPermissions } from 'meta/user'
 
-import CollaboratorAccessList from 'client/components/CollaboratorAccessList'
 import CollaboratorPermissionsEditor from 'client/components/user/CollaboratorPermissionsEditor'
 
 type Props = {
@@ -19,10 +18,7 @@ const InviteCollaboratorPermissions: React.FC<Props> = (props) => {
   return (
     <div className="edit-user__form-item invite-user__form-item-permissions">
       <div className="edit-user__form-label">{t(`userManagement.permissions`)}</div>
-
       <div className="edit-user__form-field invite-user__form-field-premissions">
-        <CollaboratorAccessList permissions={permissions} />
-
         <CollaboratorPermissionsEditor permissions={permissions} onPermissionsChange={onPermissionsChange} />
       </div>
     </div>

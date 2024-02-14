@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CollaboratorPermissions } from 'meta/user'
 
 import { useSections } from 'client/store/metadata'
+import CollaboratorAccessList from 'client/components/user/CollaboratorPermissionsEditor/CollaboratorAccessList'
 import ModalEditor from 'client/components/user/CollaboratorPermissionsEditor/ModalEditor'
 
 type Props = {
@@ -30,6 +31,8 @@ const CollaboratorPermissionsEditor: React.FC<Props> = (props) => {
 
   return (
     <>
+      <CollaboratorAccessList permissions={permissions} />
+
       <button className="btn-xs btn-primary" onClick={_onEditPermissionsClick} type="button">
         {t('userManagement.editPermissions')}
       </button>
