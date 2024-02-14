@@ -1,15 +1,15 @@
 import { useCallback } from 'react'
 
-import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
+import { useRepositoryItems } from 'client/store/ui/repository/hooks'
 
 import { useSelectedFileContext } from '../../context/selectedFilesContext'
 
 export const useOnClickAll = (): (() => void) => {
   const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
-  const countryFiles = useAssessmentCountryFiles()
+  const repositoryItems = useRepositoryItems()
 
   return useCallback(() => {
-    if (selectedFiles.length === countryFiles.length) setSelectedFiles([])
-    else setSelectedFiles(countryFiles)
-  }, [countryFiles, selectedFiles.length, setSelectedFiles])
+    if (selectedFiles.length === repositoryItems.length) setSelectedFiles([])
+    else setSelectedFiles(repositoryItems)
+  }, [repositoryItems, selectedFiles.length, setSelectedFiles])
 }

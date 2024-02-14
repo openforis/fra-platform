@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
 import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItems } from 'meta/cycleData/repository/repositoryItems'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -11,8 +11,7 @@ type Props = {
 }
 
 const RepositoryLink = (props: Props) => {
-  const countryRouteParams = useCountryRouteParams()
-  const queryParams = useMemo(() => new URLSearchParams(countryRouteParams), [countryRouteParams])
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
   const { datum } = props
 
@@ -24,7 +23,7 @@ const RepositoryLink = (props: Props) => {
     )
   }
 
-  const url = `${ApiEndPoint.CycleData.Repository.file(datum.uuid)}?${queryParams.toString()}`
+  const url = RepositoryItems.getURL({ repositoryItem: datum, assessmentName, cycleName, countryIso })
   return (
     <ReactRouterLink target="_blank" to={url}>
       {datum.name}
