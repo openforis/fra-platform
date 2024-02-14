@@ -2,8 +2,7 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { RepositoryItem } from 'meta/cycleData'
 
-import { removeRepositoryItemReducer } from 'client/store/ui/repository/reducers/removeRepositoryItemReducer'
-import { upsertRepositoryItemReducer } from 'client/store/ui/repository/reducers/upsertRepositoryItemReducer'
+import { repositoryItemReducer } from 'client/store/ui/repository/reducers/repositoryItemReducer'
 import { initialState, RepositoryState } from 'client/store/ui/repository/state'
 
 export const RepositorySlice = createSlice({
@@ -18,8 +17,7 @@ export const RepositorySlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    upsertRepositoryItemReducer(builder)
-    removeRepositoryItemReducer(builder)
+    repositoryItemReducer(builder)
   },
 })
 
