@@ -5,6 +5,7 @@ import { Objects } from 'utils/objects'
 
 import { useRepositoryItem } from 'client/store/ui/repository'
 import SlidingPanel from 'client/components/SlidingPanel'
+import Errors from 'client/pages/CountryHome/Repository/Errors'
 import Actions from 'client/pages/CountryHome/Repository/Panel/Actions'
 import InputField from 'client/pages/CountryHome/Repository/Panel/InputField'
 import InputFieldCheckbox from 'client/pages/CountryHome/Repository/Panel/InputFieldCheckbox'
@@ -29,6 +30,7 @@ const Panel: React.FC = () => {
         <Separator />
         <InputFieldFile />
         <InputFieldCheckbox name="public" value={repositoryItem?.props?.public} onChange={onChangeProps} />
+        <Errors />
         <Actions />
       </div>
     </SlidingPanel>
