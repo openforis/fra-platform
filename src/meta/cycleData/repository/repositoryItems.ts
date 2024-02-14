@@ -12,15 +12,21 @@ const validate = (repositoryItem: Partial<RepositoryItem>): Validation => {
   const { name, fileUuid, link } = repositoryItem || {}
 
   if (!name) {
-    return { name: 'Name is required' }
+    return { name: 'generalValidation.repositoryValidationName' }
   }
 
   if (!fileUuid && !link) {
-    return { file: 'File or link is required', link: 'File or link is required' }
+    return {
+      file: 'generalValidation.repositoryValidationFileOrLink',
+      link: 'generalValidation.repositoryValidationFileOrLink',
+    }
   }
 
   if (fileUuid && link) {
-    return { file: 'Only one of file or link is required', link: 'Only one of file or link is required' }
+    return {
+      file: 'generalValidation.repositoryValidationEitherFileOrLink',
+      link: 'generalValidation.repositoryValidationEitherFileOrLink',
+    }
   }
 
   return undefined
