@@ -23,16 +23,7 @@ const UserCountryRoleSelector: React.FC<Props> = (props: Props) => {
   const options = useOptions()
   const onChange = useOnChange(user)
 
-  return (
-    <SelectField
-      placeholder={false}
-      onChange={onChange}
-      name="role"
-      options={options}
-      value={userRole.role}
-      enabled={enabled}
-    />
-  )
+  return <SelectField onChange={onChange} name="role" options={options} value={userRole.role} enabled={enabled} />
 }
 
 export default UserCountryRoleSelector

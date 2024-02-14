@@ -27,8 +27,8 @@ const GeoMapMenuStatistics: React.FC = () => {
       <GeoMapMenuButton panel="statistics" text="Statistics" icon="histogram" />
       {selectedPanel === 'statistics' && (
         <div>
-          {/* Tree Cover Area */}
-          <GeoMenuItem title="Tree Cover Area" checked={null} tabIndex={-1}>
+          {/* Extent of forest/tree cover by source */}
+          <GeoMenuItem title="Extent of forest/tree cover by source" checked={null} tabIndex={-1}>
             {!isLoading && statisticsData.length > 0 && (
               <TreeCoverAreaPanel data={statisticsData} countryIso={countryIso} year={year} />
             )}

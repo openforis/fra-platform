@@ -481,6 +481,7 @@ module.exports = {
 
   // table 4.2a
   totalForestAreaByExpansionAndRegenerationType: {
+    forestAreaByExpansionAndRegenerationSubcategories: 'Forest area by expansion and regeneration subcategories',
     totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
     totalForestAreaByExpansionAndRegenerationTypeNumber: 'I. Total forest area by expansion and regeneration type',
     annualForestExpansionAndRegenerationNumber: 'II. Annual forest expansion and regeneration',

@@ -71,12 +71,14 @@ $border: 1px solid $ui-border;
     border-right: $border;
 
     &.actions {
+      border: unset;
+
       > .action {
         border: unset;
         border-left: $border;
       }
 
-      > :first-child {
+      > :last-child {
         border-left: unset;
       }
     }
@@ -92,5 +94,9 @@ $border: 1px solid $ui-border;
     &.lastCol {
       border-left: $border-editable;
     }
+  }
+
+  .data-cell.noBorder {
+    border: unset;
   }
 }

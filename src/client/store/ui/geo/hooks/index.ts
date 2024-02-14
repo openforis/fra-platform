@@ -1,17 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
-import {
-  BurnedAreasOptions,
-  ForestOptions,
-  GeoStatisticsState,
-  MapPanel,
-  MosaicOptions,
-  ProtectedAreasOptions,
-} from 'meta/geo'
+import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
 import { BurnedAreaModis } from 'meta/geo/forest'
+import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
 import { RootState, useAppSelector } from 'client/store'
+
+import { LayersSectionState, LayerState } from '../stateType'
 
 export const useMosaicUrl = (countryIso: CountryIso): string =>
   useAppSelector((state) => state.geo?.mosaicOptions.mosaicUrl[countryIso])
@@ -28,16 +24,15 @@ export const useAppliedMosaicOptions = (): MosaicOptions => useAppSelector((stat
 
 export const useSelectedPanel = (): MapPanel => useAppSelector((state) => state.geo?.selectedPanel)
 
-export const useForestSourceOptions = (): ForestOptions => useAppSelector((state) => state.geo?.forestOptions)
-
 export const useIsGeoMapAvailable = (): boolean => useAppSelector((state) => state.geo?.isMapAvailable)
 
 export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)
 
-export const useProtectedAreasOptions = (): ProtectedAreasOptions =>
-  useAppSelector((state) => state.geo?.protectedAreasOptions)
+export const useGeoLayerSection = (sectionKey: LayerSectionKey): LayersSectionState | undefined =>
+  useAppSelector((state) => state.geo.sections[sectionKey])
 
-export const useBurnedAreasOptions = (): BurnedAreasOptions => useAppSelector((state) => state.geo?.burnedAreasOptions)
+export const useGeoLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState | undefined =>
+  useAppSelector((state) => state.geo.sections[sectionKey]?.[layerKey])
 
 export const useGeoBurnedAreaMODIS = (): BurnedAreaModis =>
   useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.burnedAreaMODIS)
@@ -62,3 +57,18 @@ export const useGeoProtectedAreas = () => {
     )
   )
 }
+
+export const useGeoLayerSectionRecipeName = (sectionKey: LayerSectionKey): string | undefined =>
+  useAppSelector((state) => state.geo.recipes[sectionKey])
+
+export const useGeoLayerSections = (): Record<LayerSectionKey, LayersSectionState> | undefined =>
+  useAppSelector((state) => state.geo?.sections)
+
+export const useGeoExtaEstimation = (
+  sectionKey: LayerSectionKey,
+  extraEstimation: ExtraEstimation
+): ExtraEstimationState | undefined =>
+  useAppSelector((state) => state.geo?.geoStatistics?.extraEstimations?.[sectionKey]?.[extraEstimation])
+
+export const useGeoFra1aLandArea = (): number | undefined =>
+  useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea)

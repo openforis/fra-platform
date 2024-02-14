@@ -20,12 +20,13 @@ export enum CommentableDescriptionName {
 }
 
 export interface DataSource {
-  uuid?: string
+  comments: string
+  placeholder?: boolean
   reference: string
   type: string
+  uuid?: string
   variables?: string[]
   year: string
-  comments: string
 }
 
 export interface CommentableDescriptionValue {

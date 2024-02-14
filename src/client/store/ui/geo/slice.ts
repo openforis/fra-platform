@@ -1,20 +1,43 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
+import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { Objects } from 'utils/objects'
 
 import {
-  BurnedAreaKey,
-  BurnedAreasUIOptions,
+  ExtraEstimation,
   ForestEstimations,
-  LayerStatus,
+  LayerKey,
+  LayerSectionKey,
+  MapLayerKey,
   MosaicOptions,
   MosaicSource,
-  ProtectedAreaKey,
 } from 'meta/geo'
-import { forestAgreementRecipes, ForestSource, HansenPercentage } from 'meta/geo/forest'
+import {
+  ExtraEstimationSectionState,
+  ExtraEstimationState,
+  GeoStatisticsExtraEstimations,
+} from 'meta/geo/geoStatistics'
 
-import { postMosaicOptions } from './actions/postMosaicOptions'
-import { getBurnedAreaLayer, getForestEstimationData, getForestLayer, getProtectedAreaLayer } from './actions'
-import { GeoState } from './stateType'
+import {
+  getForestEstimationData,
+  postExtraEstimation,
+  postLayer,
+  setLayerOpacity,
+  setLayerSectionRecipe,
+  setSectionGlobalOpacity,
+  toggleLayer,
+} from 'client/store/ui/geo/actions'
+import { postMosaicOptions } from 'client/store/ui/geo/actions/postMosaicOptions'
+import { mapController } from 'client/utils'
+
+import {
+  AgreementLevelState,
+  GeoState,
+  LayerFetchStatus,
+  LayersSectionState,
+  LayerState,
+  LayerStateOptions,
+} from './stateType'
+import { getAgreementLayerCacheKey } from './utils'
 
 const initialMosaicOptions: MosaicOptions = {
   sources: ['landsat'],
@@ -22,13 +45,9 @@ const initialMosaicOptions: MosaicOptions = {
   maxCloudCoverage: 30,
 }
 
-const initialBurnedAreasUIOptions: BurnedAreasUIOptions = {
-  startYear: 2000,
-  endYear: new Date().getFullYear(),
-  selectedYear: 2020,
-}
-
 const initialState: GeoState = {
+  sections: {} as Record<LayerSectionKey, LayersSectionState>,
+  recipes: {} as Record<LayerSectionKey, string>,
   isMapAvailable: false,
   selectedPanel: null,
   mosaicOptions: {
@@ -39,43 +58,124 @@ const initialState: GeoState = {
     mosaicFailed: false,
     mosaicUrl: {},
   },
-  forestOptions: {
-    selected: [],
-    fetchedLayers: {},
-    pendingLayers: {},
-    failedLayers: {},
-    opacity: {},
-    hansenPercentage: 10,
-    agreementLayerSelected: false,
-    agreementLayerStatus: null,
-    agreementLevel: 1,
-    agreementPalette: [],
-    recipe: 'custom',
-    customAssetId: null,
-  },
-  protectedAreasOptions: {
-    selected: [],
-    fetchedLayers: {},
-    pendingLayers: {},
-    failedLayers: {},
-    opacity: {},
-    customAssetId: null,
-  },
-  burnedAreasOptions: {
-    ui: { ...initialBurnedAreasUIOptions },
-    applied: { ...initialBurnedAreasUIOptions },
-    selected: [],
-    fetchedLayers: {},
-    pendingLayers: {},
-    failedLayers: {},
-    opacity: {},
-  },
   geoStatistics: {
     forestEstimations: null,
     tabularEstimationData: [],
     isLoading: false,
     error: null,
+    extraEstimations: {} as GeoStatisticsExtraEstimations,
   },
+}
+
+const getExtraEstimationState = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  extraEstimation: ExtraEstimation
+): ExtraEstimationState => {
+  state.geoStatistics.extraEstimations[sectionKey] ??= {} as ExtraEstimationSectionState
+  state.geoStatistics.extraEstimations[sectionKey][extraEstimation] ??= {
+    error: null,
+    isLoading: false,
+  }
+
+  return state.geoStatistics.extraEstimations[sectionKey][extraEstimation]
+}
+
+const getSectionState = (state: Draft<GeoState>, sectionKey: LayerSectionKey): LayersSectionState => {
+  // Default the states to an empty object if they don't exist yet
+  state.sections[sectionKey] ??= {} as LayersSectionState
+  return state.sections[sectionKey]
+}
+
+const getLayerState = (state: Draft<GeoState>, sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState => {
+  // Default the states to an empty object if they don't exist yet
+  const sectionState = getSectionState(state, sectionKey)
+  sectionState[layerKey] ??= {}
+  return sectionState[layerKey]
+}
+
+const getLayerStateOptions = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey
+): LayerStateOptions => {
+  const layerState = getLayerState(state, sectionKey, layerKey)
+  layerState.options ??= {}
+  return layerState.options
+}
+
+const getAgreementOptionsState = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey
+): AgreementLevelState => {
+  const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+  layerStateOptions.agreementLayer ??= {} as AgreementLevelState
+  return layerStateOptions.agreementLayer
+}
+
+const setMapIdCache = (state: Draft<GeoState>, sectionKey: LayerSectionKey, layerKey: LayerKey, mapId: string) => {
+  const layerState = getLayerState(state, sectionKey, layerKey)
+  const layerOptions = getLayerStateOptions(state, sectionKey, layerKey)
+
+  if (Objects.isEmpty(layerOptions) || layerOptions.assetId !== undefined) return
+
+  if (Objects.isEmpty(layerState.cache)) layerState.cache = {}
+  const { agreementLayer, year, gteTreeCoverPercent } = layerOptions
+  switch (true) {
+    case agreementLayer?.level !== undefined: {
+      const sectionState = getSectionState(state, sectionKey)
+      const agreementLayerCacheKey = getAgreementLayerCacheKey(sectionState)
+      layerState.cache[agreementLayerCacheKey] = mapId
+      break
+    }
+    case year !== undefined:
+      layerState.cache[year] = mapId
+      break
+    case gteTreeCoverPercent !== undefined:
+      layerState.cache[gteTreeCoverPercent] = mapId
+      break
+    default:
+      break
+  }
+}
+
+const handlePostLayerStatus = (
+  state: Draft<GeoState>,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey,
+  status: LayerFetchStatus,
+  mapId: string | null = null
+): LayerState => {
+  const layerState = getLayerState(state, sectionKey, layerKey)
+  let newLayerState = { status, mapId } as LayerState
+
+  const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+
+  switch (status) {
+    case LayerFetchStatus.Ready:
+      if (mapId) {
+        setMapIdCache(state, sectionKey, layerKey, mapId)
+        const opacity = layerState.opacity ?? 1
+        if (layerState.selected) {
+          mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
+        } else {
+          mapController.removeLayer(mapLayerKey)
+        }
+      }
+      break
+    case LayerFetchStatus.Loading:
+      mapController.removeLayer(mapLayerKey)
+      break
+    case LayerFetchStatus.Failed:
+      if (layerState.options?.assetId) newLayerState = { ...newLayerState, selected: false }
+      mapController.removeLayer(mapLayerKey)
+      break
+    default:
+      return null
+  }
+  state.sections[sectionKey][layerKey] = { ...state.sections[sectionKey][layerKey], ...newLayerState }
+  return state.sections[sectionKey][layerKey]
 }
 
 export const geoSlice = createSlice({
@@ -112,211 +212,12 @@ export const geoSlice = createSlice({
     updateSelectedPanel: (state, { payload }) => {
       state.selectedPanel = payload
     },
-    updateForestOptions: (state, { payload }) => {
-      state.forestOptions = payload
-    },
-    toggleForestLayer: (state, { payload }: PayloadAction<ForestSource>) => {
-      const i = state.forestOptions.selected.findIndex((key) => key === payload)
-      if (i === -1) {
-        delete state.forestOptions.failedLayers[payload] // In case the loading failed and it is manually re-tried
-        state.forestOptions.selected.push(payload)
-      } else {
-        state.forestOptions.selected.splice(i, 1)
-        // Reset opacity
-        delete state.forestOptions.opacity[payload]
-      }
-    },
-    setForestLayers: (
-      state,
-      { payload: { sources, opacity } }: PayloadAction<{ sources: ForestSource[]; opacity?: number }>
-    ) => {
-      state.forestOptions.selected = sources
-      state.forestOptions.opacity = {}
-
-      if (opacity !== undefined) {
-        state.forestOptions.selected.forEach((key) => {
-          state.forestOptions.opacity[key] = opacity
-        })
-      }
-    },
-    setForestLayerOpacity: (state, { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>) => {
-      state.forestOptions.opacity[key] = opacity
-    },
-    setForestGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
-      state.forestOptions.selected.forEach((layerKey) => {
-        state.forestOptions.opacity[layerKey] = payload
-      })
-    },
-    setHansenPercentage: (state, { payload }: PayloadAction<HansenPercentage>) => {
-      state.forestOptions.hansenPercentage = payload
-    },
-    setAgreementLayerSelected: (state, { payload }: PayloadAction<boolean>) => {
-      state.forestOptions.agreementLayerSelected = payload
-      if (!payload) {
-        delete state.forestOptions.opacity.Agreement
-      }
-    },
-    setAgreementLevel: (state, { payload }: PayloadAction<number>) => {
-      state.forestOptions.agreementLevel = payload
-    },
-    setAgreementPalette: (state, { payload }: PayloadAction<Array<string>>) => {
-      state.forestOptions.agreementPalette = payload
-    },
-    resetAgreementPalette: (state) => {
-      state.forestOptions.agreementPalette = initialState.forestOptions.agreementPalette
-    },
-    resetAgreementLayer: (state) => {
-      state.forestOptions.agreementLayerSelected = initialState.forestOptions.agreementLayerSelected
-      state.forestOptions.agreementLevel = initialState.forestOptions.agreementLevel
-    },
-    setAgreementLayerStatus: (state, { payload }: PayloadAction<LayerStatus>) => {
-      state.forestOptions.agreementLayerStatus = payload
-    },
-    resetForestLayersStates: (state) => {
-      state.forestOptions.fetchedLayers = initialState.forestOptions.fetchedLayers
-      state.forestOptions.pendingLayers = initialState.forestOptions.pendingLayers
-      state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
-    },
-    resetSingleForestLayerStates: (state, { payload }: PayloadAction<ForestSource>) => {
-      delete state.forestOptions.fetchedLayers[payload]
-      delete state.forestOptions.pendingLayers[payload]
-      delete state.forestOptions.failedLayers[payload]
-    },
-    setForestLayersRecipe: (state, { payload }: PayloadAction<string>) => {
-      // If the recipe is not custom, reset the failed layers so they are fetched again
-      if (payload !== 'custom') state.forestOptions.failedLayers = initialState.forestOptions.failedLayers
-      const recipe = forestAgreementRecipes.find((r) => r.forestAreaDataProperty === payload)
-      const opacity = 0
-      const agreementLevel = 1
-
-      // Set the selected recipe
-      state.forestOptions.recipe = payload
-
-      if (!recipe) return
-
-      // Select the layers based on the recipe and set their opacity
-      state.forestOptions.selected = recipe.layers
-      state.forestOptions.opacity = Object.fromEntries(state.forestOptions.selected.map((key) => [key, opacity]))
-      // Set Hansen percentage based on the recipe
-      if (recipe.gteHansenTreeCoverPerc) {
-        state.forestOptions.hansenPercentage = recipe.gteHansenTreeCoverPerc
-      }
-      // Select agreement layer and set agreement level
-      state.forestOptions.agreementLayerSelected = true
-      state.forestOptions.agreementLevel = agreementLevel
-    },
-    setCustomForestAssetId: (state, { payload }: PayloadAction<string>) => {
-      state.forestOptions.customAssetId = payload
-    },
-    toggleProtectedAreaLayer: (state, { payload }: PayloadAction<ProtectedAreaKey>) => {
-      const i = state.protectedAreasOptions.selected.findIndex((key) => key === payload)
-      if (i === -1) {
-        delete state.protectedAreasOptions.failedLayers[payload] // In case the loading failed and it is manually re-tried
-        state.protectedAreasOptions.selected.push(payload)
-      } else {
-        state.protectedAreasOptions.selected.splice(i, 1)
-        // Reset opacity
-        delete state.protectedAreasOptions.opacity[payload]
-      }
-    },
-    setProtectedAreasLayers: (
-      state,
-      { payload: { sources, opacity } }: PayloadAction<{ sources: ProtectedAreaKey[]; opacity?: number }>
-    ) => {
-      state.protectedAreasOptions.selected = sources
-      state.protectedAreasOptions.opacity = {}
-
-      if (opacity !== undefined) {
-        state.protectedAreasOptions.selected.forEach((key) => {
-          state.protectedAreasOptions.opacity[key] = opacity
-        })
-      }
-    },
-    setProtectedAreaLayerOpacity: (
-      state,
-      { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>
-    ) => {
-      state.protectedAreasOptions.opacity[key] = opacity
-    },
-    setProtectedAreaGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
-      state.protectedAreasOptions.selected.forEach((layerKey) => {
-        state.protectedAreasOptions.opacity[layerKey] = payload
-      })
-    },
-    resetProtectedAreaLayersStates: (state) => {
-      state.protectedAreasOptions.fetchedLayers = initialState.protectedAreasOptions.fetchedLayers
-      state.protectedAreasOptions.pendingLayers = initialState.protectedAreasOptions.pendingLayers
-      state.protectedAreasOptions.failedLayers = initialState.protectedAreasOptions.failedLayers
-    },
-    resetSingleProtectedAreaLayerStates: (state, { payload }: PayloadAction<ProtectedAreaKey>) => {
-      delete state.protectedAreasOptions.fetchedLayers[payload]
-      delete state.protectedAreasOptions.pendingLayers[payload]
-      delete state.protectedAreasOptions.failedLayers[payload]
-    },
-    setCustomProtectedAreaAssetId: (state, { payload }: PayloadAction<string>) => {
-      state.protectedAreasOptions.customAssetId = payload
-    },
-    applyBurnedAreasUIOptions: (state) => {
-      // If changes are applied, clear the cache
-      state.burnedAreasOptions.fetchedLayers = initialState.burnedAreasOptions.fetchedLayers
-      state.burnedAreasOptions.pendingLayers = initialState.burnedAreasOptions.pendingLayers
-      state.burnedAreasOptions.failedLayers = initialState.burnedAreasOptions.failedLayers
-      state.burnedAreasOptions.applied = { ...state.burnedAreasOptions.ui }
-    },
-    setBurnedAreasSelectedYear: (state, { payload }: PayloadAction<number>) => {
-      state.burnedAreasOptions.ui.selectedYear = payload
-    },
-    toggleBurnedAreaLayer: (state, { payload }: PayloadAction<BurnedAreaKey>) => {
-      const i = state.burnedAreasOptions.selected.findIndex((key) => key === payload)
-      if (i === -1) {
-        delete state.burnedAreasOptions.failedLayers[payload] // In case the loading failed and it is manually re-tried
-        state.burnedAreasOptions.selected.push(payload)
-      } else {
-        state.burnedAreasOptions.selected.splice(i, 1)
-        // Reset opacity
-        delete state.burnedAreasOptions.opacity[payload]
-      }
-    },
-    setBurnedAreasLayers: (
-      state,
-      { payload: { sources, opacity } }: PayloadAction<{ sources: BurnedAreaKey[]; opacity?: number }>
-    ) => {
-      state.burnedAreasOptions.selected = sources
-      state.burnedAreasOptions.opacity = {}
-
-      if (opacity !== undefined) {
-        state.burnedAreasOptions.selected.forEach((key) => {
-          state.burnedAreasOptions.opacity[key] = opacity
-        })
-      }
-    },
-    setBurnedAreaLayerOpacity: (
-      state,
-      { payload: { key, opacity } }: PayloadAction<{ key: string; opacity: number }>
-    ) => {
-      state.burnedAreasOptions.opacity[key] = opacity
-    },
-    setBurnedAreaGlobalOpacity: (state, { payload }: PayloadAction<number>) => {
-      state.burnedAreasOptions.selected.forEach((layerKey) => {
-        state.burnedAreasOptions.opacity[layerKey] = payload
-      })
-    },
-    resetBurnedAreaLayersStates: (state) => {
-      state.burnedAreasOptions.fetchedLayers = initialState.burnedAreasOptions.fetchedLayers
-      state.burnedAreasOptions.pendingLayers = initialState.burnedAreasOptions.pendingLayers
-      state.burnedAreasOptions.failedLayers = initialState.burnedAreasOptions.failedLayers
-    },
-    resetSingleBurnedAreaLayerStates: (state, { payload }: PayloadAction<BurnedAreaKey>) => {
-      delete state.burnedAreasOptions.fetchedLayers[payload]
-      delete state.burnedAreasOptions.pendingLayers[payload]
-      delete state.burnedAreasOptions.failedLayers[payload]
-    },
     setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {
       state.geoStatistics.forestEstimations = payload
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
     },
-    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number][]>) => {
+    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number, string][]>) => {
       state.geoStatistics.tabularEstimationData = payload
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
@@ -330,11 +231,11 @@ export const geoSlice = createSlice({
     },
     insertTabularEstimationEntry: (
       state,
-      { payload: [index, entry] }: PayloadAction<[number, [string, number, number]]>
+      { payload: [index, entry] }: PayloadAction<[number, [string, number, number, string]]>
     ) => {
       let replaced = false
       state.geoStatistics.tabularEstimationData = state.geoStatistics.tabularEstimationData.map((row) => {
-        let newRow: [string, number, number] = [...row]
+        let newRow: [string, number, number, string] = [...row]
         if (newRow[0] === entry[0]) {
           newRow = entry
           replaced = true
@@ -344,6 +245,131 @@ export const geoSlice = createSlice({
       if (!replaced) {
         state.geoStatistics.tabularEstimationData.splice(index, 0, entry)
       }
+    },
+    setLayerSelected: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; selected: boolean }>
+    ) => {
+      const { sectionKey, layerKey, selected } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+
+      // If the property is not defined, it means the layer has not been selected before,
+      // so set selected and intialize the opacity
+      const newLayerState =
+        layerState.selected === undefined ? { ...layerState, selected, opacity: 1 } : { ...layerState, selected }
+
+      state.sections[sectionKey][layerKey] = newLayerState
+
+      // Render or remove layer from the map
+      const { selected: isLayerSelected, mapId } = state.sections[sectionKey][layerKey]
+      const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+      const opacity = newLayerState.opacity ?? 1
+      if (isLayerSelected) {
+        mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
+      } else {
+        mapController.removeLayer(mapLayerKey)
+      }
+    },
+    setLayerOptions: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ layerKey: LayerKey; options: LayerStateOptions; sectionKey: LayerSectionKey }>
+    ) => {
+      const { layerKey, options, sectionKey } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, options: { ...options } }
+    },
+    setLayerOpacityValue: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
+    ) => {
+      const { sectionKey, layerKey, opacity } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, opacity }
+      const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+      const { mapId } = state.sections[sectionKey][layerKey]
+
+      mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
+    },
+    setLayerMapId: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{
+        sectionKey: LayerSectionKey
+        layerKey: LayerKey
+        mapId: string | null
+        drawLayer?: boolean
+      }>
+    ) => {
+      const { sectionKey, layerKey, mapId, drawLayer = true } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, mapId }
+
+      if (!drawLayer || mapId === null) return
+
+      const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
+      mapController.removeLayer(mapLayerKey)
+      const opacity = layerState.opacity ?? 0
+      mapController.addOrUpdateEarthEngineLayer(mapLayerKey, mapId, opacity)
+    },
+    setAssetId: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
+    ) => {
+      const { sectionKey, layerKey, assetId } = action.payload
+      const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options = { ...layerStateOptions, assetId }
+    },
+    setLayerGteTreeCoverPercent: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; gteTreeCoverPercent: number }>
+    ) => {
+      const { sectionKey, layerKey, gteTreeCoverPercent } = action.payload
+      const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options = { ...layerStateOptions, gteTreeCoverPercent }
+    },
+    setLayerYear: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; year: number }>
+    ) => {
+      const { sectionKey, layerKey, year } = action.payload
+      const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options = { ...layerStateOptions, year }
+    },
+    setAgreementLevel: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
+    ) => {
+      const { sectionKey, layerKey, level } = action.payload
+      const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey].options.agreementLayer = { ...agreementOptionsState, level }
+    },
+    setAgreementReducerScale: (
+      state,
+      {
+        payload: { sectionKey, layerKey, reducerScale },
+      }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; reducerScale: number }>
+    ) => {
+      state.sections[sectionKey][layerKey].options.agreementLayer.reducerScale = reducerScale
+    },
+    resetLayerStatus: (
+      state: Draft<GeoState>,
+      action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
+    ) => {
+      const { sectionKey, layerKey } = action.payload
+      const layerState = getLayerState(state, sectionKey, layerKey)
+      state.sections[sectionKey][layerKey] = { ...layerState, status: LayerFetchStatus.Unfetched }
+    },
+    resetAllLayersStatus: (state) => {
+      Object.keys(state.sections).forEach((sectionKey) => {
+        Object.keys(state.sections[sectionKey as LayerSectionKey]).forEach((layerKey) => {
+          state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].status = LayerFetchStatus.Unfetched
+          state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].cache = undefined
+          state.sections[sectionKey as LayerSectionKey][layerKey as LayerKey].mapId = null
+        })
+      })
+    },
+    setLayerSectionRecipeName: (state, action: PayloadAction<{ recipe: string; sectionKey: LayerSectionKey }>) => {
+      const { sectionKey, recipe } = action.payload
+      state.recipes[sectionKey] = recipe
     },
   },
   extraReducers: (builder) => {
@@ -365,26 +391,6 @@ export const geoSlice = createSlice({
         state.mosaicOptions.mosaicSelected = false
         state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
       })
-      .addCase(getForestLayer.fulfilled, (state, { payload: [key, mapId] }) => {
-        state.forestOptions.fetchedLayers[key] = mapId
-        delete state.forestOptions.pendingLayers[key]
-        delete state.forestOptions.failedLayers[key]
-      })
-      .addCase(getForestLayer.pending, (state, { meta }) => {
-        state.forestOptions.pendingLayers[meta.arg.key] = meta.arg.uri
-        delete state.forestOptions.fetchedLayers[meta.arg.key]
-        delete state.forestOptions.failedLayers[meta.arg.key]
-      })
-      .addCase(getForestLayer.rejected, (state, { meta }) => {
-        state.forestOptions.failedLayers[meta.arg.key] = meta.arg.uri
-        delete state.forestOptions.pendingLayers[meta.arg.key]
-        delete state.forestOptions.fetchedLayers[meta.arg.key]
-        // Un-select the layer if the fetching fails
-        const i = state.forestOptions.selected.findIndex((key) => key === meta.arg.key)
-        if (i !== -1) {
-          state.forestOptions.selected.splice(i, 1)
-        }
-      })
       .addCase(getForestEstimationData.fulfilled, (state, { payload: forestEstimations }) => {
         state.geoStatistics.forestEstimations = forestEstimations
         state.geoStatistics.isLoading = false
@@ -398,52 +404,49 @@ export const geoSlice = createSlice({
         state.geoStatistics.isLoading = false
         state.geoStatistics.error = action.error ? (action.error.message as string) : 'Data Unavailable.'
       })
-      .addCase(getProtectedAreaLayer.fulfilled, (state, { payload: [key, mapId] }) => {
-        state.protectedAreasOptions.fetchedLayers[key] = mapId
-        delete state.protectedAreasOptions.pendingLayers[key]
-        delete state.protectedAreasOptions.failedLayers[key]
+      .addCase(postLayer.fulfilled, (state, { payload: [sectionKey, layerKey, mapId] }) => {
+        handlePostLayerStatus(state, sectionKey, layerKey, LayerFetchStatus.Ready, mapId)
       })
-      .addCase(getProtectedAreaLayer.pending, (state, { meta }) => {
-        state.protectedAreasOptions.pendingLayers[meta.arg.key] = meta.arg.uri
-        delete state.protectedAreasOptions.fetchedLayers[meta.arg.key]
-        delete state.protectedAreasOptions.failedLayers[meta.arg.key]
+      .addCase(postLayer.pending, (state, { meta }) => {
+        handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Loading)
       })
-      .addCase(getProtectedAreaLayer.rejected, (state, { meta }) => {
-        state.protectedAreasOptions.failedLayers[meta.arg.key] = meta.arg.uri
-        delete state.protectedAreasOptions.pendingLayers[meta.arg.key]
-        delete state.protectedAreasOptions.fetchedLayers[meta.arg.key]
-        // Un-select the layer if the fetching fails
-        const i = state.protectedAreasOptions.selected.findIndex((key) => key === meta.arg.key)
-        if (i !== -1) {
-          state.protectedAreasOptions.selected.splice(i, 1)
+      .addCase(postLayer.rejected, (state, { meta }) => {
+        handlePostLayerStatus(state, meta.arg.sectionKey, meta.arg.layerKey, LayerFetchStatus.Failed)
+      })
+      .addCase(postExtraEstimation.fulfilled, (state, { payload: [extraEstimation, sectionKey, _scale] }) => {
+        getExtraEstimationState(state, sectionKey, extraEstimation)
+        state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
+          error: null,
+          isLoading: false,
         }
       })
-      .addCase(getBurnedAreaLayer.fulfilled, (state, { payload: [key, mapId] }) => {
-        state.burnedAreasOptions.fetchedLayers[key] = mapId
-        delete state.burnedAreasOptions.pendingLayers[key]
-        delete state.burnedAreasOptions.failedLayers[key]
+      .addCase(postExtraEstimation.pending, (state, { meta }) => {
+        getExtraEstimationState(state, meta.arg.sectionKey, meta.arg.extraEstimation)
+        state.geoStatistics.extraEstimations[meta.arg.sectionKey][meta.arg.extraEstimation] = {
+          error: null,
+          isLoading: true,
+        }
       })
-      .addCase(getBurnedAreaLayer.pending, (state, { meta }) => {
-        state.burnedAreasOptions.pendingLayers[meta.arg.key] = meta.arg.uri
-        delete state.burnedAreasOptions.fetchedLayers[meta.arg.key]
-        delete state.burnedAreasOptions.failedLayers[meta.arg.key]
-      })
-      .addCase(getBurnedAreaLayer.rejected, (state, { meta }) => {
-        state.burnedAreasOptions.failedLayers[meta.arg.key] = meta.arg.uri
-        delete state.burnedAreasOptions.pendingLayers[meta.arg.key]
-        delete state.burnedAreasOptions.fetchedLayers[meta.arg.key]
-        // Un-select the layer if the fetching fails
-        const i = state.burnedAreasOptions.selected.findIndex((key) => key === meta.arg.key)
-        if (i !== -1) {
-          state.burnedAreasOptions.selected.splice(i, 1)
+      .addCase(postExtraEstimation.rejected, (state, action) => {
+        const { sectionKey, extraEstimation } = action.meta.arg
+        getExtraEstimationState(state, sectionKey, extraEstimation)
+        state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
+          error: action.payload as string,
+          isLoading: false,
         }
       })
   },
 })
 
 export const GeoActions = {
-  ...geoSlice.actions,
+  postExtraEstimation,
+  postLayer,
   postMosaicOptions,
+  setLayerOpacity,
+  setLayerSectionRecipe,
+  setSectionGlobalOpacity,
+  toggleLayer,
+  ...geoSlice.actions,
 }
 
 export default geoSlice.reducer as Reducer<GeoState>
