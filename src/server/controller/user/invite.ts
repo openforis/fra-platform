@@ -12,8 +12,8 @@ import { MailService } from 'server/service'
 export const invite = async (
   props: {
     assessment: Assessment
-    cycle: Cycle
     countryIso: CountryIso
+    cycle: Cycle
     email: string
     lang: Lang
     name?: string
@@ -43,6 +43,7 @@ export const invite = async (
         assessment,
         country: countryIso,
         cycle,
+        invitedByUserUuid: user.uuid,
         permissions,
         props: { address: { countryIso }, primaryEmail: email },
         role: roleName,
