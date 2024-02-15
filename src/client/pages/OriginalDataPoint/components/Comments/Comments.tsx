@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Topics } from 'meta/messageCenter'
-
+import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-import ReviewIndicator from 'client/components/ReviewIndicator'
+import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
+import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 
-import { useNationalClassNameComments } from '../../hooks'
-import CommentsEditor from './CommentsEditor'
+import { useUpdateDescription } from './hooks/useUpdateDescription'
+import { useCommentsActions } from './useCommentsActions'
 
 type Props = {
   canEditData: boolean
@@ -17,29 +17,40 @@ type Props = {
 
 const Comments: React.FC<Props> = (props) => {
   const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
 
   const { t } = useTranslation()
-  const target = [`${originalDataPoint.id}`, 'comments']
-  const className = useNationalClassNameComments(target)
+  const originalDataPoint = useOriginalDataPoint()
+  const isDataLocked = useIsDataLocked()
+  const updateDescription = useUpdateDescription()
+  const actions = useCommentsActions({ canEditData })
+  const [open, setOpen] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (open && isDataLocked) {
+      setOpen(!isDataLocked)
+    }
+  }, [isDataLocked, open])
 
   return (
-    <div className="odp__section">
-      <div className="fra-description">
-        <div className={classNames('fra-description__wrapper', className)}>
-          <CommentsEditor canEditData={canEditData} />
-        </div>
+    <DataGrid className="odp__section description" gridTemplateColumns={`1fr${canEditData ? ' 32px' : ''}`}>
+      <DataCell className="description-title" noBorder>
+        <h3 className="subhead description-title__label">{t('review.comments')}</h3>
+        {canEditData && (
+          <button className="btn-s description-title__btn-edit no-print" onClick={() => setOpen(!open)} type="button">
+            {open ? t('description.done') : t('description.edit')}
+          </button>
+        )}
+      </DataCell>
+      {canEditData && <div />}
 
-        <div className="fra-description__review-indicator-wrapper">
-          {originalDataPoint.id && canEditData && (
-            <ReviewIndicator
-              title={t('nationalDataPoint.nationalDataPoint')}
-              topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'nationalDataPointComments')}
-            />
-          )}
-        </div>
-      </div>
-    </div>
+      <DataRow actions={actions}>
+        <DataCell editable={open} lastCol lastRow noBorder={!open}>
+          <div className={classNames('description__editor-container', { editable: open })}>
+            <EditorWYSIWYG disabled={!open} onChange={updateDescription} value={originalDataPoint.description} />
+          </div>
+        </DataCell>
+      </DataRow>
+    </DataGrid>
   )
 }
 

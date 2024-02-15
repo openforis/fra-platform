@@ -1,10 +1,12 @@
 import './statisticsTable.scss'
 import React, { useRef } from 'react'
 
-import ButtonStatisticsTableExport from '../ButtonStatisticsTableExport'
+import ButtonStatisticsTableExport from 'client/pages/Geo/GeoMap/components/ButtonStatisticsTableExport'
+import { CustomCsvDownload } from 'client/pages/Geo/GeoMap/components/ButtonStatisticsTableExport/types'
 
 type Props = {
   columns: string[]
+  customCsvDownload?: CustomCsvDownload
   units: string[]
   loaded: boolean
   tableData: (string | number)[][]
@@ -13,7 +15,7 @@ type Props = {
 }
 
 const StatisticsTable = (props: Props) => {
-  const { columns, units, loaded, tableData, countryIso, year } = props
+  const { columns, customCsvDownload, units, loaded, tableData, countryIso, year } = props
   const tableRef = useRef(null)
 
   if (!loaded) {
@@ -46,13 +48,19 @@ const StatisticsTable = (props: Props) => {
           })}
         </tbody>
       </table>
-      <ButtonStatisticsTableExport tableRef={tableRef} filename={`forest-estimations-${countryIso}-${year}`} />
+
+      <ButtonStatisticsTableExport
+        tableRef={tableRef}
+        filename={`forest-estimations-${countryIso}-${year}`}
+        customCsvDownload={customCsvDownload}
+      />
     </div>
   )
 }
 
 StatisticsTable.defaultProps = {
   year: undefined,
+  customCsvDownload: undefined,
 }
 
 export default StatisticsTable

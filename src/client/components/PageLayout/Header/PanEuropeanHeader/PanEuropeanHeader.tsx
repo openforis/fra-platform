@@ -12,7 +12,7 @@ const PanEuropeanHeader: React.FC = () => {
   const cycle = useCycle()
 
   return (
-    <div className="app-header no-print">
+    <header className="app-header no-print">
       <img alt="FAO" src={`/img/fao/FAO${i18n.resolvedLanguage}.svg`} />
       <div className="app-header__separator" />
       <div className="app-header__global-fra">
@@ -24,7 +24,7 @@ const PanEuropeanHeader: React.FC = () => {
         <UserLinks />
         <LinkHome />
       </div>
-    </div>
+    </header>
   )
 }
 

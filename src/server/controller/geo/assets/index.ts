@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Image } from '@google/earthengine'
 
-import { BurnedAreaKey, ForestSource, LayerSource, ProtectedAreaKey } from 'meta/geo'
+import { BurnedAreaKey, ForestKey, LayerSource, ProtectedAreaKey } from 'meta/geo'
 
 import { getBurnedAreaAssetData } from './getBurnedAreaAssetData'
 import { getCountryBoundaries } from './getCountryBoundaries'
@@ -15,7 +15,7 @@ export const getAssetData = (source: LayerSource): { year?: number; img: Image; 
     asset = getProtectedAreaAssetData(source)
   } else if (Object.keys(BurnedAreaKey).includes(source.key)) {
     asset = getBurnedAreaAssetData(source)
-  } else if (Object.keys(ForestSource).includes(source.key)) {
+  } else if (Object.keys(ForestKey).includes(source.key)) {
     asset = getForestAssetData(source)
   }
   return asset

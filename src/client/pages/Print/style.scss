@@ -49,31 +49,12 @@
     padding: 10px 2px;
   }
 
-  .fra-description {
-    width: calc(100% - 5px);
-  }
-
   .fra-table__calculated-cell {
     padding: 10px 0;
   }
 
   .multi-select__placeholder {
     display: none;
-  }
-
-  .fra-description__container {
-    border-bottom: unset;
-    margin-bottom: unset;
-    padding-bottom: unset;
-
-    .fra-description__header-row,
-    .fra-description__preview {
-      padding-bottom: unset;
-    }
-  }
-
-  .fra-description__container + .fra-description__container {
-    margin-top: 24px;
   }
 
   .assessment-section__table-title {

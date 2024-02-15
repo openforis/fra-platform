@@ -4,10 +4,10 @@ import { ContactField, contactFields } from 'meta/cycleData'
 import { NodeExtCellType } from 'meta/nodeExt'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useOptionsAppellation } from 'client/hooks/useOptionsAppellation'
 import { NodeExtCell, NodeExtCellSelect } from 'client/components/TableNodeExt/types'
 import { Columns, Fields } from 'client/pages/Section/Contacts/types'
 
-import { useOptionsAppellation } from './useOptionsAppellation'
 import { useOptionsContributions } from './useOptionsContributions'
 import { useOptionsRole } from './useOptionsRole'
 
