@@ -38,4 +38,8 @@
     font-style: italic;
     font-size: $font-s;
   }
+
+  .file-drop {
+    border-color: $ui-destructive;
+  }
 }

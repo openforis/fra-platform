@@ -1,14 +1,14 @@
 import { RepositoryItem } from 'meta/cycleData/repository/repository'
 
-type Validation =
+export type RepositoryItemValidation =
   | {
       name?: string
-      file?: string
+      fileUuid?: string
       link?: string
     }
   | undefined
 
-const validate = (repositoryItem: Partial<RepositoryItem>): Validation => {
+const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation => {
   const { name, fileUuid, link } = repositoryItem || {}
 
   if (!name) {
@@ -17,14 +17,14 @@ const validate = (repositoryItem: Partial<RepositoryItem>): Validation => {
 
   if (!fileUuid && !link) {
     return {
-      file: 'validation.repositoryItem.repositoryValidationFileOrLink',
+      fileUuid: 'validation.repositoryItem.repositoryValidationFileOrLink',
       link: 'validation.repositoryItem.repositoryValidationFileOrLink',
     }
   }
 
   if (fileUuid && link) {
     return {
-      file: 'validation.repositoryItem.repositoryValidationEitherFileOrLink',
+      fileUuid: 'validation.repositoryItem.repositoryValidationEitherFileOrLink',
       link: 'validation.repositoryItem.repositoryValidationEitherFileOrLink',
     }
   }
