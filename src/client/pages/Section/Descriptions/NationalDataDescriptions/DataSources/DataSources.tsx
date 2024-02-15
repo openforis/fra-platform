@@ -33,7 +33,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
-  const { empty } = useDescriptionErrorState({ name, sectionName, showAlertEmptyContent: false })
+  const { empty } = useDescriptionErrorState({ name, sectionName })
   const gridTemplateColumns = useGridTemplateColumns({ sectionName })
 
   const renderGrid = Boolean(dataSources?.length || dataSourcesLinked?.length || editable)

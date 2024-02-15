@@ -100,7 +100,7 @@ const Section: React.FC<Props> = (props: Props) => {
 
       {renderIntroductoryText && <Introduction canEditData={canEditTableData} sectionName={sectionName} />}
 
-      {renderGeneralComments && <GeneralComments assessmentName={assessmentName} sectionName={sectionName} />}
+      {renderGeneralComments && <GeneralComments sectionName={sectionName} />}
 
       <div className="page-break" />
     </div>

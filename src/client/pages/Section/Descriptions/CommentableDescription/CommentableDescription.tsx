@@ -16,17 +16,16 @@ import { useOnChange } from './hooks/useOnChange'
 type Props = {
   name: CommentableDescriptionName
   sectionName: string
-  showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
   template?: CommentableDescriptionValue
   title: string
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { name, sectionName, showAlertEmptyContent, showDashEmptyContent, template, title } = props
+  const { name, sectionName, showDashEmptyContent, template, title } = props
 
   const value = useCommentableDescriptionValue({ name, sectionName, template })
-  const { empty, error } = useDescriptionErrorState({ name, sectionName, showAlertEmptyContent })
+  const { empty } = useDescriptionErrorState({ name, sectionName })
 
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
@@ -35,7 +34,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
 
   return (
     <DataGrid className="description" gridTemplateColumns={`1fr${canEdit ? ' 32px' : ''}`}>
-      <Title error={error} name={name} sectionName={sectionName} title={title} />
+      <Title name={name} sectionName={sectionName} title={title} />
       {canEdit && <div />}
 
       <DataRow actions={actions}>
@@ -52,7 +51,6 @@ const CommentableDescription: React.FC<Props> = (props) => {
 }
 
 CommentableDescription.defaultProps = {
-  showAlertEmptyContent: false,
   showDashEmptyContent: false,
   template: { text: '' },
 }
