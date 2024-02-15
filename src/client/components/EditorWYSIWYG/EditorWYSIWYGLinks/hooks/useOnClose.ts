@@ -6,6 +6,7 @@ import { CountryIso } from 'meta/area'
 import { RepositoryItem } from 'meta/cycleData'
 import { RepositoryItems } from 'meta/cycleData/repository/repositoryItems'
 
+import { useUpdateRepositoryItemsAccess } from 'client/store/ui/repository/hooks/useUpdateRepositoryItemAccess'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
@@ -19,7 +20,8 @@ type Returned = (files: Array<RepositoryItem>) => void
 export const useOnClose = (props: Props): Returned => {
   const { setIsOpen, setEditor, editor } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  // const updateAccess = useUpdateAccess()
+
+  const updateRepositoryAccess = useUpdateRepositoryItemsAccess()
 
   return useCallback<Returned>(
     (repositoryItems: Array<RepositoryItem>) => {
@@ -31,18 +33,14 @@ export const useOnClose = (props: Props): Returned => {
         return `<a href="${url}" target="_blank">${repositoryItem.name}</a>`
       }
 
-      // When adding a file from file repository, we make it public
-      // const fileCountryIso = files[0]?.countryIso
-      // updateAccess({ fileCountryIso, files, public: true })
-      // TODO:
-      // On drop:
-      // Upload the file to the server
-      // Create new repository item with { props: { public: true } }
+      repositoryItems.forEach((_repositoryItem: RepositoryItem) => {
+        updateRepositoryAccess({ repositoryItems, value: true })
+      })
 
       const linksString = repositoryItems.map(mapFunction).join(' ')
       editor?.s.insertHTML(linksString)
       setEditor(null)
     },
-    [setIsOpen, editor?.s, setEditor, assessmentName, cycleName, countryIso]
+    [setIsOpen, editor?.s, setEditor, assessmentName, cycleName, countryIso, updateRepositoryAccess]
   )
 }

@@ -9,14 +9,14 @@ import { useRepositoryItems } from 'client/store/ui/repository/hooks'
 import { useGetRepositoryItems } from 'client/store/ui/repository/hooks/useGetRepositoryItems'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
-import FileDrop from 'client/components/FileDrop'
+import FileUpload from 'client/components/FileUpload'
 import Icon from 'client/components/Icon'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import { useSelectedFileContext } from '../context/selectedFilesContext'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
-import { useOnDrop } from './hooks/useOnDrop'
+import { useOnSuccess } from './hooks/useOnSuccess'
 
 type Props = {
   isOpen: boolean
@@ -38,7 +38,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
   // const onClickAll = useOnClickAll()
   const onClick = useOnClick()
 
-  const onDrop = useOnDrop()
+  const onSuccess = useOnSuccess()
 
   useEffect(() => {
     if (isOpen) setSelectedFiles([])
@@ -83,7 +83,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
             })}
           </div>
 
-          <FileDrop onDrop={onDrop} />
+          <FileUpload multiple onSuccess={onSuccess} />
         </div>
       </ModalBody>
 
