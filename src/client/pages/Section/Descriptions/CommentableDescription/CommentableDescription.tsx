@@ -33,7 +33,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const actions = useDescriptionActions({ sectionName, name, title })
 
   return (
-    <DataGrid className="description" gridTemplateColumns={`1fr${canEdit ? ' 32px' : ''}`}>
+    <DataGrid className="description" withActions={canEdit}>
       <Title name={name} sectionName={sectionName} title={title} />
       {canEdit && <div />}
 
