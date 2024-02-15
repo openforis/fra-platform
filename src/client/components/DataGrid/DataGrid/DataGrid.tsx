@@ -9,7 +9,7 @@ type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className'>
   }
 
 const DataGrid = forwardRef<HTMLDivElement, Props>((props, outerRef) => {
-  const { children, className, gridColumn, gridTemplateColumns, withActions } = props
+  const { children, className, gridColumn, gridTemplateColumns = '1fr', withActions } = props
 
   const style = useMemo<CSSProperties>(() => {
     const _gridTemplateColumns = withActions ? `${gridTemplateColumns} auto` : gridTemplateColumns

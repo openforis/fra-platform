@@ -17,7 +17,6 @@ import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescrip
 import { useDataSourcesActions } from './hooks/useDataSourcesActions'
 import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
-import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 
 type Props = {
   nationalData: NationalDataDescription
@@ -37,13 +36,12 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const editable = useIsDescriptionEditable({ sectionName, name })
   const actions = useDataSourcesActions({ sectionName })
   const { empty } = useDescriptionErrorState({ name, sectionName })
-  const gridTemplateColumns = useGridTemplateColumns({ sectionName })
 
   const renderGrid = Boolean(dataSources?.length || dataSourcesLinked?.length || editable)
   const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
 
   return (
-    <DataGrid className="description" gridTemplateColumns={`1fr${canEdit ? ` 32px` : ''}`}>
+    <DataGrid className="description" withActions={canEdit}>
       <DataRow actions={actions}>
         <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
       </DataRow>
@@ -52,7 +50,11 @@ export const DataSources: React.FC<Props> = (props: Props) => {
         <>
           {editable && <ButtonCopy disabled={dataSources.length !== 0} sectionName={sectionName} />}
 
-          <DataGrid gridColumn={canEdit ? `1/3` : undefined} gridTemplateColumns={gridTemplateColumns}>
+          <DataGrid
+            gridColumn={canEdit ? `1/3` : undefined}
+            gridTemplateColumns="minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr) minmax(150px, 300px) minmax(150px, 1fr)"
+            withActions={canEdit}
+          >
             <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
             <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
             <DataCell header>{t(`${keyPrefix}.variable`)}</DataCell>
