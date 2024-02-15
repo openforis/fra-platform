@@ -1,39 +1,41 @@
+import './FileUpload.scss'
 import React from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Files } from 'meta/file'
+import { File, Files } from 'meta/file'
 
-import { useFileUploadProgress, useUploadedFiles } from 'client/store/ui/fileUpload'
+import { useFileUploadProgress, useUploadedFiles, useUploadFiles } from 'client/store/ui/fileUpload'
 import ProgressBar from 'client/components/ProgressBar'
 
-import { useOnDrop } from './hooks/useOnDrop'
 import { useResetFilesOnUnmount } from './hooks/useResetFilesOnUnmount'
 
 type Props = {
   multiple?: boolean
   id?: string
+  onSuccess?: (files: Array<File>) => void
 }
 
 const FileUpload: React.FC<Props> = (props: Props) => {
-  const { id, multiple } = props
+  const { id, multiple, onSuccess } = props
   const { t } = useTranslation()
 
   const files = useUploadedFiles()
-  const onDrop = useOnDrop()
+  const onDrop = useUploadFiles({ onSuccess })
+
   const progress = useFileUploadProgress()
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, multiple })
 
   useResetFilesOnUnmount()
 
   return (
-    <>
+    <div className="file-upload">
       <div
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...getRootProps()}
-        className={classNames('file-drop', {
+        className={classNames('file-upload__file-drop', {
           'dropzone--isActive': isDragActive,
         })}
       >
@@ -54,13 +56,14 @@ const FileUpload: React.FC<Props> = (props: Props) => {
           ))}
         </dl>
       )}
-    </>
+    </div>
   )
 }
 
 FileUpload.defaultProps = {
   id: 'file-upload',
   multiple: false,
+  onSuccess: undefined,
 }
 
 export default FileUpload

@@ -5,7 +5,7 @@ $file-drop-border-width: 2px;
 $file-drop-padding: $spacing-xs;
 $file-drop-transition-time: 0.3s;
 
-.file-drop {
+.file-upload__file-drop {
   align-items: center;
   background-color: $ui-bg;
   border-radius: $file-drop-border-radius;
