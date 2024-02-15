@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { RepositoryItems } from 'meta/cycleData/repository'
+import { RepositoryItemValidator } from 'meta/cycleData'
 
 import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
 import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
@@ -22,7 +22,7 @@ const Actions: React.FC = () => {
 
   const closePanel = useClosePanel()
   const fileUploadLoading = useIsFileUploadLoading()
-  const valid = Objects.isEmpty(RepositoryItems.validate(repositoryItem))
+  const valid = Objects.isEmpty(RepositoryItemValidator.validate(repositoryItem))
   const isRepositoryLoading = useIsRepositoryLoading()
   const disabled = isRepositoryLoading || fileUploadLoading
   const disabledDone = disabled || !valid
