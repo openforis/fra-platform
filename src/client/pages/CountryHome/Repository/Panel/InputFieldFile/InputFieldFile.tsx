@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { useRepositoryItem, useRepositoryItemPropValidation } from 'client/store/ui/repository'
+import ButtonDelete from 'client/components/Buttons/ButtonDelete'
 import FileUpload from 'client/components/FileUpload'
 
 import { useOnRemoveFile } from './hooks/useOnRemoveFile'
@@ -24,11 +25,7 @@ const FileInputField: React.FC = () => {
         {t(label)}
       </label>
       <FileUpload id={id} />
-      {repositoryItem?.fileUuid && (
-        <button type="button" onClick={onRemoveFile}>
-          remove
-        </button>
-      )}
+      {repositoryItem?.fileUuid && <ButtonDelete onClick={onRemoveFile} />}
       <div className="repository-form__error">{error ? t(error) : ''}</div>
     </div>
   )
