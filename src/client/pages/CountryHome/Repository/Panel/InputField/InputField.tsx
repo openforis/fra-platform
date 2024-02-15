@@ -2,6 +2,10 @@ import './InputField.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
+import { useRepositoryItemPropValidation } from 'client/store/ui/repository/hooks'
+
 type Props = {
   label: string
   name: string
@@ -19,9 +23,10 @@ const InputField: React.FC<Props> = (props: Props) => {
   )
 
   const id = `repository_edit-input-${name}`
+  const error = useRepositoryItemPropValidation(name)
 
   return (
-    <div className="repository-form__input-field">
+    <div className={classNames('repository-form__input-field', { error })}>
       <label htmlFor={id} className="repository-form__label">
         {t(label)}
       </label>
@@ -33,6 +38,7 @@ const InputField: React.FC<Props> = (props: Props) => {
         name={name}
         type="text"
       />
+      <div className="repository-form__error">{error ? t(error) : ''}</div>
     </div>
   )
 }

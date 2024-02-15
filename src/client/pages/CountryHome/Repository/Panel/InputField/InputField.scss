@@ -15,3 +15,27 @@
 .repository-form__label {
   font-weight: 700;
 }
+
+.repository-form__error {
+  min-height: 20px;
+}
+
+.error {
+  label.repository-form__label {
+    color: $ui-destructive;
+    &::after {
+      content: '*';
+      color: $ui-destructive;
+    }
+  }
+
+  .repository-form__input {
+    border-color: $ui-destructive;
+  }
+
+  .repository-form__error {
+    color: $ui-destructive;
+    font-style: italic;
+    font-size: $font-s;
+  }
+}
