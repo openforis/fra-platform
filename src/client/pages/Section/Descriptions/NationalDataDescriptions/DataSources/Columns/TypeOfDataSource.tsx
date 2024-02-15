@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionName, DataSource, DataSourceType, SectionName } from 'meta/assessment'
+import { DataSource, DataSourceType, SectionName } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
-import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataCell } from 'client/components/DataGrid'
 import Select from 'client/components/Inputs/Select'
 import TextArea from 'client/components/Inputs/TextArea'
@@ -13,12 +12,11 @@ import { useOnChange } from './hook/useOnChange'
 
 type Props = {
   dataSource: DataSource
+  disabled: boolean
   sectionName: SectionName
 }
 
-type InnerProps = Props & { disabled: boolean }
-
-const TextInput: React.FC<InnerProps> = (props) => {
+const TextInput: React.FC<Props> = (props) => {
   const { dataSource, disabled, sectionName } = props
 
   const onChange = useOnChange({ sectionName, dataSource })
@@ -27,7 +25,7 @@ const TextInput: React.FC<InnerProps> = (props) => {
   return <TextArea disabled={disabled} onChange={_onChange} value={dataSource.type} />
 }
 
-const SelectInput: React.FC<InnerProps> = (props) => {
+const SelectInput: React.FC<Props> = (props) => {
   const { dataSource, disabled, sectionName } = props
 
   const { t } = useTranslation()
@@ -47,15 +45,13 @@ const SelectInput: React.FC<InnerProps> = (props) => {
 }
 
 const TypeOfDataSource: React.FC<Props & { meta: DataSourceDescription; lastRow: boolean }> = (props) => {
-  const { dataSource, meta, lastRow, sectionName } = props
-
-  const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
+  const { dataSource, disabled, meta, lastRow, sectionName } = props
 
   const Component = meta?.table?.typeOfDataSourceText ? TextInput : SelectInput
 
   return (
-    <DataCell editable={editable} lastRow={lastRow}>
-      <Component dataSource={dataSource} disabled={!editable} sectionName={sectionName} />
+    <DataCell editable={!disabled} lastRow={lastRow}>
+      <Component dataSource={dataSource} disabled={disabled} sectionName={sectionName} />
     </DataCell>
   )
 }

@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { DataSource, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
+import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataRow } from 'client/components/DataGrid'
 import Comments from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Comments'
 import Reference from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Reference'
@@ -23,14 +24,22 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const { dataSource, lastRow, meta, readOnly, sectionName } = props
 
   const actions = useDataSourceActions({ dataSource, readOnly, sectionName })
+  const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
+  const disabled = !editable || readOnly
 
   return (
     <DataRow actions={actions}>
-      <Reference dataSource={dataSource} lastRow={lastRow} sectionName={sectionName} />
-      <TypeOfDataSource dataSource={dataSource} lastRow={lastRow} meta={meta} sectionName={sectionName} />
-      <Variables dataSource={dataSource} lastRow={lastRow} meta={meta} sectionName={sectionName} />
-      <YearForDataSource dataSource={dataSource} lastRow={lastRow} sectionName={sectionName} />
-      <Comments dataSource={dataSource} lastRow={lastRow} sectionName={sectionName} />
+      <Reference dataSource={dataSource} disabled={disabled} lastRow={lastRow} sectionName={sectionName} />
+      <TypeOfDataSource
+        dataSource={dataSource}
+        disabled={disabled}
+        lastRow={lastRow}
+        meta={meta}
+        sectionName={sectionName}
+      />
+      <Variables dataSource={dataSource} disabled={disabled} lastRow={lastRow} meta={meta} sectionName={sectionName} />
+      <YearForDataSource dataSource={dataSource} disabled={disabled} lastRow={lastRow} sectionName={sectionName} />
+      <Comments dataSource={dataSource} disabled={disabled} lastRow={lastRow} sectionName={sectionName} />
     </DataRow>
   )
 }
