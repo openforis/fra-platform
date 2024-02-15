@@ -31,7 +31,6 @@ const Descriptions: React.FC<Props> = (props: Props) => {
           <NationalDataDescriptions
             nationalData={nationalData}
             sectionName={sectionName}
-            showAlertEmptyContent={!print}
             showDashEmptyContent={print}
           />
         )}
@@ -40,7 +39,6 @@ const Descriptions: React.FC<Props> = (props: Props) => {
           <AnalysisDescriptions
             analysisAndProcessing={analysisAndProcessing}
             sectionName={sectionName}
-            showAlertEmptyContent={!print}
             showDashEmptyContent={print}
           />
         )}

@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { DataSource, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
+import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataRow } from 'client/components/DataGrid'
 import Comments from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Comments'
 import Reference from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Reference'
@@ -13,16 +14,18 @@ import { useDataSourceActions } from 'client/pages/Section/Descriptions/National
 
 type Props = {
   dataSource: DataSource
-  disabled: boolean
   lastRow: boolean
   meta: DataSourceDescription
+  readOnly?: boolean
   sectionName: SectionName
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, lastRow, meta, sectionName } = props
+  const { dataSource, lastRow, meta, readOnly, sectionName } = props
 
-  const actions = useDataSourceActions({ dataSource, disabled, sectionName })
+  const actions = useDataSourceActions({ dataSource, readOnly, sectionName })
+  const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
+  const disabled = !editable || readOnly
 
   return (
     <DataRow actions={actions}>
@@ -36,9 +39,13 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       />
       <Variables dataSource={dataSource} disabled={disabled} lastRow={lastRow} meta={meta} sectionName={sectionName} />
       <YearForDataSource dataSource={dataSource} disabled={disabled} lastRow={lastRow} sectionName={sectionName} />
-      <Comments disabled={disabled} dataSource={dataSource} lastRow={lastRow} sectionName={sectionName} />
+      <Comments dataSource={dataSource} disabled={disabled} lastRow={lastRow} sectionName={sectionName} />
     </DataRow>
   )
+}
+
+DataSourceRow.defaultProps = {
+  readOnly: false,
 }
 
 export default DataSourceRow
