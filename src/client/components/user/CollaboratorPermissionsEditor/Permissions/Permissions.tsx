@@ -1,4 +1,4 @@
-import './CollaboratorAccessList.scss'
+import './Permissions.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +14,7 @@ type Props = {
   permissions: CollaboratorPermissions | undefined
 }
 
-const CollaboratorAccessList: React.FC<Props> = (props) => {
+const Permissions: React.FC<Props> = (props) => {
   const { permissions } = props
 
   const { t } = useTranslation()
@@ -57,4 +57,4 @@ const CollaboratorAccessList: React.FC<Props> = (props) => {
   )
 }
 
-export default CollaboratorAccessList
+export default Permissions
