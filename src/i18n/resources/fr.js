@@ -480,6 +480,22 @@ L'équipe de FRA
     invitationLink: "Lien d'invitation",
     sendInvitation: "Envoyer un email d'invitation",
     inviteAgain: 'Inviter de nouveau',
+    invitationAcceptedNotification: {
+      subject: 'L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation',
+      textMessage: `Cher {{recipientName}} {{recipientSurname}},
+
+L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la {{country}}
+{{- manageCollaboratorsUrl}}
+
+L’équipe FRA
+    `,
+      htmlMessage: `Cher {{recipientName}} {{recipientSurname}},
+<br/><br/>
+L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la <b><a href="{{- manageCollaboratorsUrl}}">{{country}}</a></b>.
+<br/><br/>
+L’équipe FRA
+    `,
+    },
     invitationEmail: {
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
