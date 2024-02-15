@@ -1,4 +1,3 @@
-import './InviteCollaboratorPermissions.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -16,9 +15,9 @@ const InviteCollaboratorPermissions: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   return (
-    <div className="edit-user__form-item invite-user__form-item-permissions">
+    <div className="edit-user__form-item-permissions">
       <div className="edit-user__form-label">{t(`userManagement.permissions`)}</div>
-      <div className="edit-user__form-field invite-user__form-field-premissions">
+      <div className="edit-user__form-field">
         <CollaboratorPermissionsEditor permissions={permissions} onPermissionsChange={onPermissionsChange} />
       </div>
     </div>

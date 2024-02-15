@@ -1,4 +1,3 @@
-import './CollaboratorPermissions.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -39,10 +38,10 @@ const CollaboratorPermissions = (props: Props) => {
   }
 
   return (
-    <div className="edit-user__form-item edit-user__form-item-permissions">
+    <div className="edit-user__form-item-permissions">
       <div className="edit-user__form-label">{t(`userManagement.permissions`)}</div>
 
-      <div className="edit-user__form-field edit-user__form-field-premissions">
+      <div className="edit-user__form-field">
         <CollaboratorPermissionsEditor permissions={permissions} onPermissionsChange={handlePermissionsChange} />
       </div>
     </div>

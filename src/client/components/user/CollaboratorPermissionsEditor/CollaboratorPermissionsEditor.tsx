@@ -1,3 +1,4 @@
+import './CollaboratorPermissionsEditor.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -30,7 +31,7 @@ const CollaboratorPermissionsEditor: React.FC<Props> = (props) => {
   if (!sections) return null
 
   return (
-    <div>
+    <div className="permissions-editor__container">
       <Permissions permissions={permissions} />
 
       <button className="btn-xs btn-primary" onClick={_onEditPermissionsClick} type="button">
