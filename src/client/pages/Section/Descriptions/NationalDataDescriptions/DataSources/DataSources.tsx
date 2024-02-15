@@ -7,13 +7,14 @@ import { NationalDataDescription } from 'meta/assessment/description'
 
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-import { DataCell, DataGrid } from 'client/components/DataGrid'
+import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useDescriptionErrorState } from 'client/pages/Section/Descriptions/CommentableDescription/hooks/useDescriptionErrorState'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 import ButtonCopy from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopy'
 import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceRow'
 
+import { useDataSourcesActions } from './hooks/useDataSourcesActions'
 import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
@@ -34,6 +35,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
+  const actions = useDataSourcesActions({ sectionName })
   const { empty } = useDescriptionErrorState({ name, sectionName })
   const gridTemplateColumns = useGridTemplateColumns({ sectionName })
 
@@ -41,14 +43,16 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
 
   return (
-    <DataGrid className="description">
-      <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
+    <DataGrid className="description" gridTemplateColumns={`1fr${canEdit ? ` 32px` : ''}`}>
+      <DataRow actions={actions}>
+        <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
+      </DataRow>
 
       {renderGrid && (
         <>
           {editable && <ButtonCopy disabled={dataSources.length !== 0} sectionName={sectionName} />}
 
-          <DataGrid gridTemplateColumns={gridTemplateColumns}>
+          <DataGrid gridColumn={canEdit ? `1/3` : undefined} gridTemplateColumns={gridTemplateColumns}>
             <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
             <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
             <DataCell header>{t(`${keyPrefix}.variable`)}</DataCell>

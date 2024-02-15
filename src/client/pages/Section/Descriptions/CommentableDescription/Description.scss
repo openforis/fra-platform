@@ -3,9 +3,13 @@
 .description {
   grid-row-gap: $spacing-xxxs;
 
-  .data-cell.actions {
-    align-self: start;
-    padding-top: $spacing-xs;
+  .data-cell {
+    min-height: $spacing-s;
+
+    &.actions {
+      align-self: start;
+      padding-top: $spacing-xxxxs;
+    }
   }
 }
 
