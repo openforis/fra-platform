@@ -2,15 +2,6 @@
 
 .description {
   grid-row-gap: $spacing-xxxs;
-
-  .data-cell {
-    min-height: $spacing-s;
-
-    &.actions {
-      align-self: start;
-      padding-top: $spacing-xxxxs;
-    }
-  }
 }
 
 .description__editor-container:not(.editable) {
