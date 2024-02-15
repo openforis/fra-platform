@@ -44,7 +44,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
       {renderGrid && (
         <>
-          {editable && <ButtonCopy disabled={dataSources.length !== 0} sectionName={sectionName} />}
+          {editable && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
 
           <DataGrid
             gridColumn={canEdit ? `1/3` : undefined}
