@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { DataSource, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
 import { TooltipId } from 'meta/tooltip'
 
+import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataCell } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 
@@ -14,15 +15,15 @@ import { datasourceValidators } from './datasourceValidators'
 
 type Props = {
   dataSource: DataSource
-  disabled: boolean
   lastRow: boolean
   sectionName: SectionName
 }
 
 const Reference: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, lastRow, sectionName } = props
+  const { dataSource, lastRow, sectionName } = props
 
   const { t } = useTranslation()
+  const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
   const onChange = useOnChange({ sectionName, dataSource })
 
   const _onChange = useCallback(
@@ -41,10 +42,10 @@ const Reference: React.FC<Props> = (props: Props) => {
       className={classNames('data-source__column-reference', { 'validation-error': validationError })}
       data-tooltip-content={validationError ? t('generalValidation.shouldContainAtLeastOneCharacter') : ''}
       data-tooltip-id={TooltipId.error}
-      editable={!disabled}
+      editable={editable}
       lastRow={lastRow}
     >
-      <EditorWYSIWYGLinks disabled={disabled} onChange={_onChange} repository value={dataSource.reference ?? ''} />
+      <EditorWYSIWYGLinks disabled={!editable} onChange={_onChange} repository value={dataSource.reference ?? ''} />
     </DataCell>
   )
 }

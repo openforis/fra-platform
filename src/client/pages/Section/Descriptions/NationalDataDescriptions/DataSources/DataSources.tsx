@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
-import { useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
@@ -32,6 +32,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { assessmentName, cycleName } = useCycleRouteParams()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
+  const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
   const gridTemplateColumns = useGridTemplateColumns({ sectionName })
@@ -55,19 +56,19 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             <DataCell header lastCol>
               {t(`${keyPrefix}.comments`)}
             </DataCell>
-            {editable && <div />}
+            {canEdit && <div />}
 
             {dataSourcesLinked &&
               dataSourcesLinked.map((dataSource, i) => (
                 <React.Fragment key={`linkedDataSource_${dataSource.data.uuid}`}>
                   <DataSourceRow
-                    meta={dataSource.meta}
                     dataSource={dataSource.data}
-                    disabled
                     lastRow={i === dataSourcesLinked.length - 1}
+                    meta={dataSource.meta}
+                    readOnly
                     sectionName={sectionName}
                   />
-                  {editable && <div />}
+                  {canEdit && <div />}
                 </React.Fragment>
               ))}
 
@@ -75,7 +76,6 @@ export const DataSources: React.FC<Props> = (props: Props) => {
               return (
                 <DataSourceRow
                   dataSource={dataSourceValue}
-                  disabled={!editable}
                   key={String(`dataSource_${dataSourceValue.uuid}`)}
                   lastRow={i === dataSources.length - 1}
                   meta={nationalData.dataSources}
