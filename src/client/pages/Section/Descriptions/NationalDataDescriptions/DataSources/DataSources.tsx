@@ -7,14 +7,13 @@ import { NationalDataDescription } from 'meta/assessment/description'
 
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useDescriptionErrorState } from 'client/pages/Section/Descriptions/CommentableDescription/hooks/useDescriptionErrorState'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 import ButtonCopy from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopy'
 import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceRow'
 
-import { useDataSourcesActions } from './hooks/useDataSourcesActions'
 import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 
@@ -34,7 +33,6 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
-  const actions = useDataSourcesActions({ sectionName })
   const { empty } = useDescriptionErrorState({ name, sectionName })
 
   const renderGrid = Boolean(dataSources?.length || dataSourcesLinked?.length || editable)
@@ -42,9 +40,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   return (
     <DataGrid className="description" withActions={canEdit}>
-      <DataRow actions={actions}>
-        <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
-      </DataRow>
+      <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
 
       {renderGrid && (
         <>

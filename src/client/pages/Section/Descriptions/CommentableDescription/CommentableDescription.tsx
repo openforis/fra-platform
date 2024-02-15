@@ -9,7 +9,6 @@ import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 
-import { useDescriptionActions } from './hooks/useDescriptionActions'
 import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
 import { useOnChange } from './hooks/useOnChange'
 
@@ -30,15 +29,20 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const onChange = useOnChange({ sectionName, name })
-  const actions = useDescriptionActions({ sectionName, name, title })
 
   return (
     <DataGrid className="description" withActions={canEdit}>
       <Title name={name} sectionName={sectionName} title={title} />
-      {canEdit && <div />}
 
-      <DataRow actions={actions}>
-        <DataCell className="description__editor-container" editable={editable} lastCol lastRow noBorder={!editable}>
+      <DataRow>
+        <DataCell
+          className="description__editor-container"
+          editable={editable}
+          gridColumn={canEdit ? `1/3` : undefined}
+          lastCol
+          lastRow
+          noBorder={!editable}
+        >
           <EditorWYSIWYG
             disabled={!editable}
             onChange={(content) => onChange({ ...value, text: content })}
