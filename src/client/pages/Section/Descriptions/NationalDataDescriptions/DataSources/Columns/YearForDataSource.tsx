@@ -8,8 +8,8 @@ import TextArea from 'client/components/Inputs/TextArea'
 import { useOnChange } from './hook/useOnChange'
 
 type Props = {
-  disabled: boolean
   dataSource: DataSource
+  disabled: boolean
   lastRow: boolean
   sectionName: SectionName
 }
