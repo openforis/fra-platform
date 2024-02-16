@@ -23,6 +23,7 @@ export const acceptInvitation = async (
 
   return client.tx(async (t) => {
     if (UserRoles.isInvitationExpired(userRole)) throw new Error('login.invitationExpired')
+    if (userRole.acceptedAt !== null) throw new Error('login.alreadyAcceptedInvitation')
 
     await UserRoleRepository.acceptInvitation({ userRole }, t)
 
