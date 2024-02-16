@@ -34,6 +34,9 @@ const _updateCache = async (props: Props) => {
   ])
 }
 
+/**
+ * @deprecated
+ */
 export const updateCalculatedVariable = async (props: Props, client: BaseProtocol) => {
   const { assessment, cycle, sectionName, variableName, tableName } = props
 
