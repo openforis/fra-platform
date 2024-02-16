@@ -9,8 +9,8 @@ export default async (client: BaseProtocol) => {
           JOIN public.users_role ur 
                         ON ur.user_id = (al.target ->> 'userId')::bigint
                        AND ur.country_iso = al.country_iso
-          						 AND ur.role = (al.target ->> 'role')::user_role
-          						 AND ur.cycle_uuid = al.cycle_uuid 
+                       AND ur.role = (al.target ->> 'role')::user_role
+                       AND ur.cycle_uuid = al.cycle_uuid 
           JOIN public.users u ON u.id = al.user_id
           WHERE al.section = 'users' 
             AND al.message = 'invitationAdd'
