@@ -2,12 +2,23 @@
 
 .sliding-panel {
   background: lighten($ui-bg, 2%);
+  padding: $spacing-l $spacing-s $spacing-s;
+  position: relative;
 }
 
-.sliding-panel__close {
+button.sliding-panel__close {
+  align-items: center;
   cursor: pointer;
-  padding: $spacing-s;
+  display: flex;
+  height: $spacing-s;
+  justify-content: center;
+  left: $spacing-xxxs;
+  padding: 0;
   position: absolute;
-  right: 0;
-  top: $spacing-xxs;
+  top: $spacing-xxxs;
+  width: $spacing-s;
+
+  svg.icon {
+    margin: unset;
+  }
 }
