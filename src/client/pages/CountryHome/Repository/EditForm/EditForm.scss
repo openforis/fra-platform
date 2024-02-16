@@ -1,8 +1,7 @@
 @import 'src/client/style/partials';
 
 .repository-form__container {
-  display: grid;
-  grid-gap: $spacing-s;
-  grid-template-columns: 1fr;
-  padding: $spacing-m;
+  align-items: center;
+  grid-row-gap: $spacing-s;
+  grid-column-gap: $spacing-xs;
 }

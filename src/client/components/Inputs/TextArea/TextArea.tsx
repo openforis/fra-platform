@@ -18,7 +18,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
 
   return (
     <textarea
-      className="textarea validation-error-sensitive-field"
+      className="textarea"
       disabled={disabled}
       onChange={onChange}
       onPaste={onPaste}

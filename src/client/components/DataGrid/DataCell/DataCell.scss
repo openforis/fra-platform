@@ -63,6 +63,10 @@ $border: 1px solid $ui-border;
       outline: 1px solid $ui-edit-border-color;
     }
   }
+
+  &.error:focus-within {
+    background-color: rgba($ui-destructive, 0.1);
+  }
 }
 
 @include rtl {

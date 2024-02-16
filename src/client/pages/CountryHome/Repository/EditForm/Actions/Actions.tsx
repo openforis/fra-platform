@@ -7,6 +7,8 @@ import { Objects } from 'utils/objects'
 
 import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
 import { useIsRepositoryItemValid, useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
+import { DataCell } from 'client/components/DataGrid'
+import Icon from 'client/components/Icon'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -30,26 +32,32 @@ const Actions: React.FC = () => {
   const showDelete = !Objects.isEmpty(repositoryItem.uuid)
 
   return (
-    <div className="repository-form__actions">
-      <button
-        disabled={disabledDone}
-        onClick={upsertRepositoryItem}
-        className={classNames('btn btn-primary', { disabled })}
-        type="button"
-      >
-        {t('common.done')}
-      </button>
-
-      {showDelete && (
-        <button disabled={disabled} onClick={onDelete} className="btn btn-destructive" type="button">
-          {t('common.delete')}
+    <>
+      <DataCell className="repository-form__actions" noBorder>
+        <button disabled={disabled} className="btn btn-secondary" type="button" onClick={closePanel}>
+          {t('common.cancel')}
         </button>
-      )}
 
-      <button disabled={disabled} className="btn btn-secondary" type="button" onClick={closePanel}>
-        {t('common.cancel')}
-      </button>
-    </div>
+        <button
+          disabled={disabledDone}
+          onClick={upsertRepositoryItem}
+          className={classNames('btn btn-primary', { disabled })}
+          type="button"
+        >
+          {/* TODO: Move to common.save */}
+          {t('editUser.done')}
+        </button>
+      </DataCell>
+
+      <DataCell className="repository-form__actions-delete">
+        {showDelete && (
+          <button disabled={disabled} onClick={onDelete} className="btn btn-destructive" type="button">
+            <Icon className="icon-sub icon-white" name="trash-simple" />
+            {t('common.delete')}
+          </button>
+        )}
+      </DataCell>
+    </>
   )
 }
 
