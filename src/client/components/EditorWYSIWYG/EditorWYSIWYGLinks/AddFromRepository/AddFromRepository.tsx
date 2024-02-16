@@ -2,8 +2,7 @@ import './AddFromRepository.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RepositoryItem } from 'meta/cycleData'
-import { RepositoryItems } from 'meta/cycleData/repository'
+import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 
 import { useRepositoryItems } from 'client/store/ui/repository'
 import { useGetRepositoryItems } from 'client/store/ui/repository/hooks/useGetRepositoryItems'

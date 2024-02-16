@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
-import { RepositoryItem } from 'meta/cycleData'
-import { RepositoryItems } from 'meta/cycleData/repository'
+import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

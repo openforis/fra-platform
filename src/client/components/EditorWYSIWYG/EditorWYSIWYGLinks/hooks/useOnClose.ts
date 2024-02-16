@@ -3,8 +3,7 @@ import { Dispatch, SetStateAction, useCallback } from 'react'
 import type { Jodit } from 'jodit-react'
 
 import { CountryIso } from 'meta/area'
-import { RepositoryItem } from 'meta/cycleData'
-import { RepositoryItems } from 'meta/cycleData/repository'
+import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 
 import { useUpdateRepositoryItemsAccess } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
