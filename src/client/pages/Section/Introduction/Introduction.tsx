@@ -11,12 +11,11 @@ import CommentableDescription from 'client/pages/Section/Descriptions/Commentabl
 
 type Props = {
   canEditData: boolean
-  canEditDescriptions: boolean
   sectionName: SectionName
 }
 
 const Introduction: React.FC<Props> = (props) => {
-  const { canEditData, canEditDescriptions, sectionName } = props
+  const { canEditData, sectionName } = props
 
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
@@ -31,7 +30,6 @@ const Introduction: React.FC<Props> = (props) => {
         title={t('contactPersons.introductoryText')}
         name={CommentableDescriptionName.introductoryText}
         template={{ text: t('contactPersons.introductoryTextSupport') }}
-        disabled={!canEditDescriptions}
       />
       {!deskStudy && <Contacts canEdit={canEditData} />}
     </>

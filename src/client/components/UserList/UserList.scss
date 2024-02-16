@@ -62,13 +62,15 @@
 
     th {
       &.user-list__edit-column {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-
         .btn-s {
           margin-left: $spacing-xs;
+        }
+
+        .user-list__edit-column-buttons-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
         }
       }
     }

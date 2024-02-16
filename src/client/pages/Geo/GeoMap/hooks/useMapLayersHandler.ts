@@ -1,13 +1,7 @@
-import {
-  useAgreementLayerHandler,
-  useBurnedAreaLayersHandler,
-  useForestLayersHandler,
-  useProtectedAreaLayersHandler,
-} from '.'
+import useCountryIsoChangeHandler from './useCountryIsoChangeHandler'
 
 export const useMapLayersHandler = () => {
-  useAgreementLayerHandler()
-  useForestLayersHandler()
-  useProtectedAreaLayersHandler()
-  useBurnedAreaLayersHandler()
+  useCountryIsoChangeHandler()
 }
+
+export default useMapLayersHandler

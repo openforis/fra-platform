@@ -43,7 +43,7 @@ const Admin: React.FC = () => {
   if (Objects.isEmpty(countries)) return null
 
   return (
-    <div className="app-view__content">
+    <div className="admin-view">
       <div className="admin__page-header">
         <h1 className="admin__page-title">{t('admin.admin')}</h1>
       </div>
