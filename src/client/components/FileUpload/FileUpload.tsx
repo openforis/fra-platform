@@ -41,7 +41,9 @@ const FileUpload: React.FC<Props> = (props: Props) => {
       >
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <input id={id} {...getInputProps()} />
-        {isDragActive ? <div>{t('fileDrop.dropFilesHere')}</div> : <div>{t('fileDrop.dragAndDropOrClick')}</div>}
+        <div className="file-drop__text">
+          {t(isDragActive ? 'fileDrop.dropFilesHere' : 'fileDrop.dragAndDropOrClick')}
+        </div>
       </div>
       {progress && <ProgressBar loaded={progress.loaded} total={progress.total} />}
       {files?.length > 0 && (

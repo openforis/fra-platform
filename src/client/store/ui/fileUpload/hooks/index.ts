@@ -10,3 +10,7 @@ export const useUploadedFiles = (): Array<File> => {
 export const useFileUploadProgress = (): ProgressEvent => {
   return useAppSelector(FileUploadSelectors.getProgress)
 }
+
+export const useIsFileUploadLoading = (): boolean => {
+  return useAppSelector(FileUploadSelectors.isLoading)
+}

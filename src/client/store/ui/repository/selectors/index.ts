@@ -7,9 +7,11 @@ const _getState = (state: RootState) => state.ui[RepositorySlice.name]
 const isLoading = createSelector(_getState, (repository) => repository.loading)
 const getRepositoryItem = createSelector(_getState, (repository) => repository.repositoryItem)
 const getRepositoryItems = createSelector(_getState, (repository) => repository.repositoryItems)
+const getRepositoryItemValidation = createSelector(_getState, (repository) => repository.repositoryItemValidation)
 
 export const RepositorySelectors = {
   isLoading,
   getRepositoryItem,
   getRepositoryItems,
+  getRepositoryItemValidation,
 }

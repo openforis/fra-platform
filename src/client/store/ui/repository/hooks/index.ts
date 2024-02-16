@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { RepositoryItem } from 'meta/cycleData'
 
 import { useAppSelector } from 'client/store/store'
@@ -13,4 +15,18 @@ export const useRepositoryItem = (): Partial<RepositoryItem> | undefined => {
 
 export const useRepositoryItems = (): Array<RepositoryItem> => {
   return useAppSelector(RepositorySelectors.getRepositoryItems)
+}
+
+export const useRepositoryItemValidation = (): Record<string, string> | undefined => {
+  return useAppSelector(RepositorySelectors.getRepositoryItemValidation)
+}
+
+export const useIsRepositoryItemValid = (): boolean => {
+  const repositoryItemValidation = useRepositoryItemValidation()
+  return Objects.isEmpty(repositoryItemValidation)
+}
+
+export const useRepositoryItemPropValidation = (name: string): string => {
+  const repositoryItemValidation = useRepositoryItemValidation()
+  return repositoryItemValidation?.[name] as string
 }

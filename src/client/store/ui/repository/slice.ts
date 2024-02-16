@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem, RepositoryItemValidator } from 'meta/cycleData'
 
 import { repositoryItemReducer } from 'client/store/ui/repository/reducers/repositoryItemReducer'
 import { repositoryItemsReducer } from 'client/store/ui/repository/reducers/repositoryItemsReducer'
@@ -12,9 +12,12 @@ export const RepositorySlice = createSlice({
   reducers: {
     setRepositoryItem: (state: RepositoryState, action: PayloadAction<Partial<RepositoryItem>>) => {
       state.repositoryItem = action.payload
+      state.repositoryItemValidation = undefined
     },
     setRepositoryItemProps: (state: RepositoryState, action: PayloadAction<Partial<RepositoryItem>>) => {
-      state.repositoryItem = { ...state.repositoryItem, ...action.payload }
+      const repositoryItem = { ...state.repositoryItem, ...action.payload }
+      state.repositoryItem = repositoryItem
+      state.repositoryItemValidation = RepositoryItemValidator.validate(repositoryItem)
     },
   },
   extraReducers: (builder) => {
