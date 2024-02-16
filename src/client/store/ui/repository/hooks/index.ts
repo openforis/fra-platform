@@ -1,5 +1,3 @@
-import { RepositoryItemValidator } from 'meta/cycleData'
-
 import { useAppSelector } from 'client/store/store'
 import { RepositorySelectors } from 'client/store/ui/repository/selectors'
 
@@ -12,8 +10,7 @@ export const useRepositoryItem = () => {
 }
 
 export const useRepositoryItemValidation = (): Record<string, string> | undefined => {
-  const repositoryItem = useRepositoryItem()
-  return RepositoryItemValidator.validate(repositoryItem)
+  return useAppSelector(RepositorySelectors.getRepositoryItemValidation)
 }
 
 export const useRepositoryItemPropValidation = (name: string): string => {
