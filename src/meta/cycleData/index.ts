@@ -4,3 +4,4 @@ export type { Contact, ContactNode, ContactNodeProps, ContactProps } from './con
 export { ContactField, Contacts } from './contact'
 export { contactFields } from './contact/contact'
 export type { RepositoryItem, RepositoryItemProps } from './repository'
+export { RepositoryItemValidator } from './repository'

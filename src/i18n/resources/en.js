@@ -11,6 +11,7 @@ const login = require('./en/login')
 const panEuropean = require('./en/panEuropean/panEuropean')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const uc = require('./en/uc')
+const validation = require('./en/validation')
 
 module.exports.translation = {
   admin,
@@ -25,6 +26,7 @@ module.exports.translation = {
   panEuropean,
   statisticalFactsheets,
   uc,
+  validation,
 
   fileDrop: {
     dropFilesHere: 'Drop files here',

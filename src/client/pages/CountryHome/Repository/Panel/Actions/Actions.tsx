@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
+import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
+import { useIsRepositoryItemValid, useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -18,7 +19,11 @@ const Actions: React.FC = () => {
   const upsertRepositoryItem = useUpsertRepositoryItem()
 
   const closePanel = useClosePanel()
-  const disabled = useIsRepositoryLoading()
+  const fileUploadLoading = useIsFileUploadLoading()
+  const valid = useIsRepositoryItemValid()
+  const isRepositoryLoading = useIsRepositoryLoading()
+  const disabled = isRepositoryLoading || fileUploadLoading
+  const disabledDone = disabled || !valid
   const onDelete = useOnDelete()
 
   if (!repositoryItem) return null
@@ -27,7 +32,7 @@ const Actions: React.FC = () => {
   return (
     <div className="repository-form__actions">
       <button
-        disabled={disabled}
+        disabled={disabledDone}
         onClick={upsertRepositoryItem}
         className={classNames('btn btn-primary', { disabled })}
         type="button"

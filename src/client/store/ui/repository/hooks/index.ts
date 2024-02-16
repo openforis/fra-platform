@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { useAppSelector } from 'client/store/store'
 import { RepositorySelectors } from 'client/store/ui/repository/selectors'
 
@@ -7,4 +9,18 @@ export const useIsRepositoryLoading = () => {
 
 export const useRepositoryItem = () => {
   return useAppSelector(RepositorySelectors.getRepositoryItem)
+}
+
+export const useRepositoryItemValidation = (): Record<string, string> | undefined => {
+  return useAppSelector(RepositorySelectors.getRepositoryItemValidation)
+}
+
+export const useIsRepositoryItemValid = (): boolean => {
+  const repositoryItemValidation = useRepositoryItemValidation()
+  return Objects.isEmpty(repositoryItemValidation)
+}
+
+export const useRepositoryItemPropValidation = (name: string): string => {
+  const repositoryItemValidation = useRepositoryItemValidation()
+  return repositoryItemValidation?.[name] as string
 }
