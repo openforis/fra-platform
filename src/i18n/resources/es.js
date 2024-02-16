@@ -6,6 +6,7 @@ const contentCheck = require('./es/contentCheck')
 const dataDownload = require('./es/dataDownload')
 const dataSource = require('./es/dataSource')
 const editUser = require('./es/editUser')
+const email = require('./es/email')
 const fra = require('./es/fra')
 const generalValidation = require('./es/generalValidations')
 const login = require('./es/login')
@@ -19,6 +20,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,

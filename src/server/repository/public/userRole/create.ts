@@ -12,6 +12,7 @@ export const create = async (
     assessment: Pick<Assessment, 'id'>
     country: CountryIso
     cycle: Cycle
+    invitedByUserUuid: string
     permissions?: CollaboratorPermissions
     props?: UserRoleBaseProps | UserRoleExtendedProps
     role: RoleName
@@ -23,6 +24,7 @@ export const create = async (
     assessment: { id: assessmentId },
     country,
     cycle,
+    invitedByUserUuid,
     permissions,
     props: properties,
     role,
@@ -32,11 +34,11 @@ export const create = async (
   return client.one<UserRole<RoleName>>(
     `
         insert into public.users_role (
-            user_id, assessment_id, country_iso, role, props, cycle_uuid, permissions)
-            values ($1, $2, $3, $4, $5, $6, $7)
+            user_id, assessment_id, country_iso, role, props, cycle_uuid, permissions, invited_by_user_uuid)
+            values ($1, $2, $3, $4, $5, $6, $7, $8)
             returning *;
     `,
-    [userId, assessmentId, country, role, properties ?? {}, cycle.uuid, permissions ?? {}],
+    [userId, assessmentId, country, role, properties ?? {}, cycle.uuid, permissions ?? {}, invitedByUserUuid],
     Objects.camelize
   )
 }
