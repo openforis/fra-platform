@@ -1,24 +1,37 @@
 import './EditForm.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
-import Icon from 'client/components/Icon'
-import Panel from 'client/pages/CountryHome/Repository/Panel'
+import { Objects } from 'utils/objects'
 
-import { useOpenPanel } from '../hooks/useOpenPanel'
+import { useRepositoryItem } from 'client/store/ui/repository'
+import SlidingPanel from 'client/components/SlidingPanel'
+import Actions from 'client/pages/CountryHome/Repository/EditForm/Actions'
+import InputField from 'client/pages/CountryHome/Repository/EditForm/InputField'
+import InputFieldCheckbox from 'client/pages/CountryHome/Repository/EditForm/InputFieldCheckbox'
+import InputFieldFile from 'client/pages/CountryHome/Repository/EditForm/InputFieldFile'
+import Separator from 'client/pages/CountryHome/Repository/EditForm/Separator'
+
+import { useClosePanel } from '../hooks/useClosePanel'
+import { useOnChange } from './hooks/useOnChange'
 
 const EditForm: React.FC = () => {
-  const { t } = useTranslation()
-  const openPanel = useOpenPanel()
+  const repositoryItem = useRepositoryItem()
+  const { onChangeField, onChangeProps } = useOnChange()
+  const closePanel = useClosePanel()
+
+  const opened = !Objects.isEmpty(repositoryItem)
 
   return (
-    <div className="repository__edit-form">
-      <button className="btn-s btn-primary" onClick={openPanel} type="button">
-        <Icon className="icon-sub icon-white" name="small-add" />
-        {t('common.add')}
-      </button>
-      <Panel />
-    </div>
+    <SlidingPanel opened={opened} closePanel={closePanel}>
+      <div className="repository-form__container">
+        <InputField value={repositoryItem?.name} onChange={onChangeField} label="editUser.name" name="name" />
+        <InputField value={repositoryItem?.link} onChange={onChangeField} label="common.link" name="link" />
+        <Separator />
+        <InputFieldFile />
+        <InputFieldCheckbox name="public" value={repositoryItem?.props?.public} onChange={onChangeProps} />
+        <Actions />
+      </div>
+    </SlidingPanel>
   )
 }
 

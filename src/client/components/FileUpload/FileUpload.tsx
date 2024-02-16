@@ -45,7 +45,9 @@ const FileUpload: React.FC<Props> = (props: Props) => {
           {t(isDragActive ? 'fileDrop.dropFilesHere' : 'fileDrop.dragAndDropOrClick')}
         </div>
       </div>
+
       {progress && <ProgressBar loaded={progress.loaded} total={progress.total} />}
+
       {files?.length > 0 && (
         <dl>
           {files.map((file, index) => (

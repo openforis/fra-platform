@@ -1,8 +1,7 @@
 @import 'src/client/style/partials';
 
 .sliding-panel {
-  background: $ui-bg;
-  border-left: $ui-thin-border;
+  background: lighten($ui-bg, 2%);
 }
 
 .sliding-panel__close {
