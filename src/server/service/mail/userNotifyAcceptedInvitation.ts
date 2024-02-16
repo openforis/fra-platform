@@ -47,9 +47,9 @@ export const userNotifyAcceptedInvitation = async (props: {
 
   const acceptedInvitationEmail = {
     to: recipient.email,
-    subject: i18n.t('userManagement.invitationAcceptedNotification.subject', emailProps),
-    text: i18n.t('userManagement.invitationAcceptedNotification.textMessage', emailProps),
-    html: i18n.t('userManagement.invitationAcceptedNotification.htmlMessage', emailProps),
+    subject: i18n.t('email.invitationAccepted.subject', emailProps),
+    text: i18n.t('email.invitationAccepted.textMessage', emailProps),
+    html: i18n.t('email.invitationAccepted.htmlMessage', emailProps),
   }
 
   await sendMail(acceptedInvitationEmail)

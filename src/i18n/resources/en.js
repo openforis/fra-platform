@@ -5,6 +5,7 @@ const common = require('./en/common')
 const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
 const dataSource = require('./en/dataSource')
+const email = require('./en/email')
 const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
 const login = require('./en/login')
@@ -19,6 +20,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,
@@ -560,21 +562,6 @@ The FRA team
     sendInvitation: 'Send invitation email',
     userAdded: '{{email}} has been added',
     userModified: '{{user}} has been modified',
-    invitationAcceptedNotification: {
-      subject: 'User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation',
-      textMessage: `Dear {{recipientName}} {{recipientSurname}},
-
-User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for {{country}}:
-{{- manageCollaboratorsUrl}}
-
-The FRA team
-    `,
-      htmlMessage: `Dear {{recipientName}} {{recipientSurname}},
-<br/><br/>
-User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for <b><a href="{{- manageCollaboratorsUrl}}">{{country}}</a></b>.
-<br/><br/>
-The FRA team`,
-    },
     invitationEmail: {
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},

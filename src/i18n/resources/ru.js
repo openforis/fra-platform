@@ -5,6 +5,7 @@ const common = require('./ru/common')
 const contentCheck = require('./ru/contentCheck')
 const dataDownload = require('./ru/dataDownload')
 const dataSource = require('./ru/dataSource')
+const email = require('./ru/email')
 const fra = require('./ru/fra')
 const generalValidation = require('./ru/generalValidation')
 const login = require('./ru/login')
@@ -18,6 +19,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,
@@ -515,21 +517,6 @@ module.exports.translation = {
     invitationLink: 'Ссылка на приглашение',
     inviteAgain: 'Пригласить заново',
     sendInvitation: 'Направить приглашение по электронной почте',
-    invitationAcceptedNotification: {
-      subject: 'Пользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение',
-      textMessage: `Уважаемый (ая) {{recipientName}} {{recipientSurname}},
-
-Пользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение на {{assessmentName}} {{cycleName}} в качестве {{role}} для {{country}}
-{{- manageCollaboratorsUrl}}
-
-Команда по ОЛР
-     `,
-      htmlMessage: `Уважаемый (ая) {{recipientName}} {{recipientSurname}},
-<br/><br/>
-Пользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение на {{assessmentName}} {{cycleName}} в качестве {{role}} для <b><a href="{{- manageCollaboratorsUrl}}">{{country}}</a></b>.
-<br/><br/>
-Команда по ОЛР`,
-    },
     invitationEmail: {
       subject: 'Приглашение на платформу ОЛР',
       textMessage: `Уважаемый(ая) {{invitedUser}},
