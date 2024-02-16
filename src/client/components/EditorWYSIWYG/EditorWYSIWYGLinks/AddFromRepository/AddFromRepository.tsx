@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next'
 
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 
-import { useRepositoryItems } from 'client/store/ui/repository'
-import { useGetRepositoryItems } from 'client/store/ui/repository/hooks/useGetRepositoryItems'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileUpload from 'client/components/FileUpload'
@@ -13,9 +11,11 @@ import Icon from 'client/components/Icon'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import { useSelectedFileContext } from '../context/selectedFilesContext'
+import { useGetRepositoryItems } from './hooks/useGetRepositoryItems'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
 import { useOnSuccess } from './hooks/useOnSuccess'
+import { useRepositoryItems } from './hooks/useRepositoryItems'
 
 type Props = {
   isOpen: boolean

@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 
-import { useRepositoryItems } from 'client/store/ui/repository'
-
 import { useIsChecked } from './useIsChecked'
+import { useRepositoryItems } from './useRepositoryItems'
 
 export const useAllSelected = (): boolean => {
   const repositoryItems = useRepositoryItems()

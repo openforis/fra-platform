@@ -4,7 +4,6 @@ export {
   useIsRepositoryLoading,
   useRepositoryItem,
   useRepositoryItemPropValidation,
-  useRepositoryItems,
   useRepositoryItemValidation,
 } from './hooks'
 export { useRepositoryItemChangeListener } from './hooks/useRepositoryItemChangeListener'

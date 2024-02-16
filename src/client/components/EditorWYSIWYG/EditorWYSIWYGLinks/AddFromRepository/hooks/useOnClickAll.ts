@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
 
-import { useRepositoryItems } from 'client/store/ui/repository'
-
 import { useSelectedFileContext } from '../../context/selectedFilesContext'
+import { useRepositoryItems } from './useRepositoryItems'
 
 export const useOnClickAll = (): (() => void) => {
   const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
