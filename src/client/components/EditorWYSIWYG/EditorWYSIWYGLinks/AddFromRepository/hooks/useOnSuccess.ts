@@ -7,10 +7,13 @@ import { File } from 'meta/file'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useGetRepositoryItems } from 'client/components/EditorWYSIWYG/EditorWYSIWYGLinks/AddFromRepository/hooks/useGetRepositoryItems'
 
 export const useOnSuccess = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
+  const getRepositoryItems = useGetRepositoryItems()
+
   return useCallback(
     (files: Array<File>) => {
       files?.forEach((file) => {
@@ -20,10 +23,10 @@ export const useOnSuccess = () => {
         dispatch(RepositoryActions.upsertRepositoryItem(saveParams))
           .unwrap()
           .then(() => {
-            dispatch(RepositoryActions.getRepositoryItems({ assessmentName, cycleName, countryIso }))
+            getRepositoryItems()
           })
       })
     },
-    [assessmentName, countryIso, cycleName, dispatch]
+    [assessmentName, cycleName, countryIso, dispatch, getRepositoryItems]
   )
 }

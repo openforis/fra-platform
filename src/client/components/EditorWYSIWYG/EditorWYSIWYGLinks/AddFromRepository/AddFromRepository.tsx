@@ -63,7 +63,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
             {/* <ButtonCheckBox onClick={onClickAll} checked={allSelected} label={t('contactPersons.all')} /> */}
             {/* <div className="divider" /> */}
 
-            {repositoryItems.map((repositoryItem) => {
+            {repositoryItems?.map((repositoryItem) => {
               const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
               const label = repositoryItem.name
 
