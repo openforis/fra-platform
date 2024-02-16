@@ -1,12 +1,10 @@
 import { RepositoryItem } from 'meta/cycleData/repository/repository'
 
-export type RepositoryItemValidation =
-  | {
-      name?: string
-      fileUuid?: string
-      link?: string
-    }
-  | undefined
+export type RepositoryItemValidation = {
+  name?: string
+  fileUuid?: string
+  link?: string
+}
 
 const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation => {
   const { name, fileUuid, link } = repositoryItem || {}
