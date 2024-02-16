@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
-import { useIsRepositoryLoading, useRepositoryItem, useRepositoryItemValidation } from 'client/store/ui/repository'
+import { useIsRepositoryItemValid, useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -20,8 +20,7 @@ const Actions: React.FC = () => {
 
   const closePanel = useClosePanel()
   const fileUploadLoading = useIsFileUploadLoading()
-  const repositoryItemValidation = useRepositoryItemValidation()
-  const valid = Objects.isEmpty(repositoryItemValidation)
+  const valid = useIsRepositoryItemValid()
   const isRepositoryLoading = useIsRepositoryLoading()
   const disabled = isRepositoryLoading || fileUploadLoading
   const disabledDone = disabled || !valid

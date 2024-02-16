@@ -6,7 +6,7 @@ export type RepositoryItemValidation = {
   link?: string
 }
 
-const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation => {
+const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation | undefined => {
   const { name, fileUuid, link } = repositoryItem || {}
 
   if (!name) {

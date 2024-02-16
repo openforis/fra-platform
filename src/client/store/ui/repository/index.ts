@@ -1,5 +1,6 @@
 export { RepositoryActions } from './actions'
 export {
+  useIsRepositoryItemValid,
   useIsRepositoryLoading,
   useRepositoryItem,
   useRepositoryItemPropValidation,
