@@ -7,18 +7,7 @@
 }
 
 button.sliding-panel__close {
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  height: $spacing-s;
-  justify-content: center;
-  left: $spacing-xxxs;
-  padding: 0;
+  left: $spacing-xxs;
   position: absolute;
-  top: $spacing-xxxs;
-  width: $spacing-s;
-
-  svg.icon {
-    margin: unset;
-  }
+  top: $spacing-xxs;
 }

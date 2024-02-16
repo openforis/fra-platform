@@ -3,7 +3,7 @@ import 'react-sliding-side-panel/lib/index.css'
 import React from 'react'
 import SlidingPanelComponent from 'react-sliding-side-panel'
 
-import Icon from 'client/components/Icon'
+import ButtonClose from 'client/components/Buttons/ButtonClose'
 
 type Props = {
   closePanel: () => void
@@ -24,9 +24,7 @@ const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
       type={panelType}
     >
       <>
-        <button className="btn-s btn btn-transparent sliding-panel__close" onClick={closePanel} type="button">
-          <Icon name="remove" />
-        </button>
+        <ButtonClose className="sliding-panel__close" onClick={closePanel} />
         <div className="panel-container">{children}</div>
       </>
     </SlidingPanelComponent>
