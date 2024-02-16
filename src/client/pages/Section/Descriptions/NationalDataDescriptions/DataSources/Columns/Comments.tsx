@@ -13,8 +13,8 @@ import { useOnChange } from './hook/useOnChange'
 import { datasourceValidators } from './datasourceValidators'
 
 type Props = {
-  disabled: boolean
   dataSource: DataSource
+  disabled: boolean
   lastRow: boolean
   sectionName: SectionName
 }

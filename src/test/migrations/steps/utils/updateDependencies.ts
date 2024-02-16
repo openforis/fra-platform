@@ -20,7 +20,7 @@ type Props = {
       nodes: Array<NodeUpdate>
     }
   | {
-      countryNodes: Record<CountryIso, Array<NodeUpdate>>
+      countryNodes: { [key in CountryIso]?: Array<NodeUpdate> }
     }
 )
 

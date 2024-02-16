@@ -10,13 +10,14 @@ import TextArea from 'client/components/Inputs/TextArea'
 import { useOnChange } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/hook/useOnChange'
 
 type Props = {
-  disabled: boolean
   dataSource: DataSource
+  disabled: boolean
+  // eslint-disable-next-line react/no-unused-prop-types
   meta: DataSourceDescription
   sectionName: SectionName
 }
 
-const VariablesText: React.FC<Omit<Props, 'meta'>> = (props: Omit<Props, 'meta'>) => {
+const VariablesText: React.FC<Props> = (props) => {
   const { dataSource, disabled, sectionName } = props
 
   const onChange = useOnChange({ sectionName, dataSource })
@@ -28,7 +29,7 @@ const VariablesText: React.FC<Omit<Props, 'meta'>> = (props: Omit<Props, 'meta'>
   return <TextArea disabled={disabled} onChange={_onChange} value={value} />
 }
 
-const VariablesSelect: React.FC<Props> = (props: Props) => {
+const VariablesSelect: React.FC<Props> = (props) => {
   const { dataSource, disabled, meta, sectionName } = props
 
   const { t } = useTranslation()
@@ -57,14 +58,13 @@ const VariablesSelect: React.FC<Props> = (props: Props) => {
 }
 
 const Variables: React.FC<Props & { lastRow: boolean }> = (props) => {
-  const { disabled, meta, lastRow } = props
+  const { dataSource, disabled, meta, lastRow, sectionName } = props
 
-  const multiSelect = meta.table?.variables?.length > 0
+  const Component = meta.table?.variables?.length > 0 ? VariablesSelect : VariablesText
 
   return (
     <DataCell editable={!disabled} lastRow={lastRow}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      {multiSelect ? <VariablesSelect {...props} /> : <VariablesText {...props} />}
+      <Component dataSource={dataSource} disabled={disabled} meta={meta} sectionName={sectionName} />
     </DataCell>
   )
 }

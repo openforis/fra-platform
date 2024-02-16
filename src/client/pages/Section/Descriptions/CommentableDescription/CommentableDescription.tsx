@@ -9,37 +9,40 @@ import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 
-import { useDescriptionActions } from './hooks/useDescriptionActions'
 import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
 import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
   name: CommentableDescriptionName
   sectionName: string
-  showAlertEmptyContent?: boolean
   showDashEmptyContent?: boolean
   template?: CommentableDescriptionValue
   title: string
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { name, sectionName, showAlertEmptyContent, showDashEmptyContent, template, title } = props
+  const { name, sectionName, showDashEmptyContent, template, title } = props
 
   const value = useCommentableDescriptionValue({ name, sectionName, template })
-  const { empty, error } = useDescriptionErrorState({ name, sectionName, showAlertEmptyContent })
+  const { empty } = useDescriptionErrorState({ name, sectionName })
 
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const onChange = useOnChange({ sectionName, name })
-  const actions = useDescriptionActions({ sectionName, name, title })
 
   return (
-    <DataGrid className="description" gridTemplateColumns={`1fr${canEdit ? ' 32px' : ''}`}>
-      <Title error={error} name={name} sectionName={sectionName} title={title} />
-      {canEdit && <div />}
+    <DataGrid className="description" withActions={canEdit}>
+      <Title name={name} sectionName={sectionName} title={title} />
 
-      <DataRow actions={actions}>
-        <DataCell className="description__editor-container" editable={editable} lastCol lastRow noBorder={!editable}>
+      <DataRow>
+        <DataCell
+          className="description__editor-container"
+          editable={editable}
+          gridColumn={canEdit ? `1/3` : undefined}
+          lastCol
+          lastRow
+          noBorder={!editable}
+        >
           <EditorWYSIWYG
             disabled={!editable}
             onChange={(content) => onChange({ ...value, text: content })}
@@ -52,7 +55,6 @@ const CommentableDescription: React.FC<Props> = (props) => {
 }
 
 CommentableDescription.defaultProps = {
-  showAlertEmptyContent: false,
   showDashEmptyContent: false,
   template: { text: '' },
 }
