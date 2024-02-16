@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useRepositoryItems } from 'client/store/ui/repository/hooks'
+import { useRepositoryItems } from 'client/store/ui/repository'
 
 import { useIsChecked } from './useIsChecked'
 

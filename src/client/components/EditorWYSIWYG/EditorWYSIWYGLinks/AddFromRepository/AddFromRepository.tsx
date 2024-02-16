@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RepositoryItem } from 'meta/cycleData'
-import { RepositoryItems } from 'meta/cycleData/repository/repositoryItems'
+import { RepositoryItems } from 'meta/cycleData/repository'
 
-import { useRepositoryItems } from 'client/store/ui/repository/hooks'
+import { useRepositoryItems } from 'client/store/ui/repository'
 import { useGetRepositoryItems } from 'client/store/ui/repository/hooks/useGetRepositoryItems'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useRepositoryItems } from 'client/store/ui/repository/hooks'
+import { useRepositoryItems } from 'client/store/ui/repository'
 
 import { useSelectedFileContext } from '../../context/selectedFilesContext'
 import { useIsChecked } from './useIsChecked'

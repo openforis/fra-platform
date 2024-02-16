@@ -1,5 +1,6 @@
 export { RepositoryActions } from './actions'
-export { useIsRepositoryLoading, useRepositoryItem } from './hooks'
+export { useIsRepositoryLoading, useRepositoryItem, useRepositoryItems } from './hooks'
 export { useRepositoryItemChangeListener } from './hooks/useRepositoryItemChangeListener'
+export { useUpdateRepositoryItemAccess, useUpdateRepositoryItemsAccess } from './hooks/useUpdateRepositoryItemAccess'
 export { RepositorySlice } from './slice'
 export type { RepositoryState } from './state'

@@ -4,9 +4,9 @@ import type { Jodit } from 'jodit-react'
 
 import { CountryIso } from 'meta/area'
 import { RepositoryItem } from 'meta/cycleData'
-import { RepositoryItems } from 'meta/cycleData/repository/repositoryItems'
+import { RepositoryItems } from 'meta/cycleData/repository'
 
-import { useUpdateRepositoryItemsAccess } from 'client/store/ui/repository/hooks/useUpdateRepositoryItemAccess'
+import { useUpdateRepositoryItemsAccess } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
