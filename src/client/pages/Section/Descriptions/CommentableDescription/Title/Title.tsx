@@ -8,9 +8,10 @@ import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 import { TooltipId } from 'meta/tooltip'
 
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
-import { DataCell } from 'client/components/DataGrid'
+import { DataCell, DataRow } from 'client/components/DataGrid'
 import Icon from 'client/components/Icon'
 
+import { useDescriptionActions } from './hooks/useDescriptionActions'
 import { useToggleEdit } from './hooks/useToggleEdit'
 
 type Props = {
@@ -27,25 +28,28 @@ const Title: React.FC<Props> = (props) => {
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const toggleEdit = useToggleEdit({ name, sectionName })
+  const actions = useDescriptionActions({ sectionName, name, title })
 
   return (
-    <DataCell className="description-title" noBorder>
-      <h3
-        className={classNames('subhead', 'description-title__label', { 'icon-red': error })}
-        data-tooltip-id={TooltipId.error}
-        data-tooltip-content={error ? t('generalValidation.notEmpty') : null}
-      >
-        <span>{title}</span>
-      </h3>
+    <DataRow actions={actions}>
+      <DataCell className="description-title" noBorder>
+        <h3
+          className={classNames('subhead', 'description-title__label', { 'icon-red': error })}
+          data-tooltip-id={TooltipId.error}
+          data-tooltip-content={error ? t('generalValidation.notEmpty') : null}
+        >
+          <span>{title}</span>
+        </h3>
 
-      {error && <Icon key="icon-error" className="icon-red" name="alert" />}
+        {error && <Icon key="icon-error" className="icon-red" name="alert" />}
 
-      {canEdit && (
-        <button className="btn-s description-title__btn-edit no-print" onClick={toggleEdit} type="button">
-          {editable ? t('description.done') : t('description.edit')}
-        </button>
-      )}
-    </DataCell>
+        {canEdit && (
+          <button className="btn-s description-title__btn-edit no-print" onClick={toggleEdit} type="button">
+            {editable ? t('description.done') : t('description.edit')}
+          </button>
+        )}
+      </DataCell>
+    </DataRow>
   )
 }
 
