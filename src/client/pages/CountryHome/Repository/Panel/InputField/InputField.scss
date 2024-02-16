@@ -16,7 +16,7 @@
   font-weight: 700;
 }
 
-.repository-form__error {
+.repository-form__error-label {
   min-height: 20px;
 }
 
@@ -33,7 +33,7 @@
     border-color: $ui-destructive;
   }
 
-  .repository-form__error {
+  .repository-form__error-label {
     color: $ui-destructive;
     font-style: italic;
     font-size: $font-s;

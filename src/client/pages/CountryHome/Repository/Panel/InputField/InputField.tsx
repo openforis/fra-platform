@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { useRepositoryItemPropValidation } from 'client/store/ui/repository/hooks'
+import { useRepositoryItemPropValidation } from 'client/store/ui/repository'
 
 type Props = {
   label: string
@@ -38,7 +38,7 @@ const InputField: React.FC<Props> = (props: Props) => {
         name={name}
         type="text"
       />
-      <div className="repository-form__error">{error ? t(error) : ''}</div>
+      <div className="repository-form__error-label">{error ? t(error) : ''}</div>
     </div>
   )
 }

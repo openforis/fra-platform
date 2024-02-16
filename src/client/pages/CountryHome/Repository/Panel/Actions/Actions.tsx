@@ -6,8 +6,7 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
-import { useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
-import { useRepositoryItemValidation } from 'client/store/ui/repository/hooks'
+import { useIsRepositoryLoading, useRepositoryItem, useRepositoryItemValidation } from 'client/store/ui/repository'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
 import { useOnDelete } from './hooks/useOnDelete'

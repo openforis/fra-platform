@@ -26,7 +26,7 @@ const FileInputField: React.FC = () => {
       </label>
       <FileUpload id={id} />
       {repositoryItem?.fileUuid && <ButtonDelete onClick={onRemoveFile} />}
-      <div className="repository-form__error">{error ? t(error) : ''}</div>
+      <div className="repository-form__error-label">{error ? t(error) : ''}</div>
     </div>
   )
 }
