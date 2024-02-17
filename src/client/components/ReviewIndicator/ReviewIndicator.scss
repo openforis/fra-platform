@@ -32,7 +32,11 @@
 
   &.resolved {
     svg {
-      color: $text-body;
+      color: darken($ui-accent, 20%);
+
+      &:hover {
+        color: darken($ui-accent, 25%);
+      }
     }
   }
 }
