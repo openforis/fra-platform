@@ -18,7 +18,7 @@ export default async (client: BaseProtocol) => {
                         , split_part(t.key, '-', 2)::numeric as topic_opd_id
                         , t.country_iso
                    from ${schemaCycle}.message_topic t
-                   where t.key like ${Topics.getOdpReviewTopicKeyPrefix('%')}%)
+                   where t.key like '${Topics.getOdpReviewTopicKeyPrefix('%')}%')
                  , topics_odp as
                   (select t.topic_id
                         , t.topic_opd_id

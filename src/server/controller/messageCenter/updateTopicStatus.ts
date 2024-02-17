@@ -3,45 +3,36 @@ import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
+import { _checkAndNotifyReviewUpdates } from 'server/controller/messageCenter/_checkAndNotifyReviewUpdates'
 import { BaseProtocol, DB } from 'server/db'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
-export const updateTopicStatus = async (
-  props: {
-    user: User
-    countryIso: CountryIso
-    assessment: Assessment
-    cycle: Cycle
-    sectionName: string
-    key: string
-    status: MessageTopicStatus
-  },
-  client: BaseProtocol = DB
-): Promise<MessageTopic> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  countryIso: CountryIso
+  sectionName: string
+  key: string
+  status: MessageTopicStatus
+  user: User
+}
+
+export const updateTopicStatus = async (props: Props, client: BaseProtocol = DB): Promise<MessageTopic> => {
   const { user, countryIso, assessment, cycle, sectionName, key, status } = props
 
   return client.tx(async (t) => {
-    const topic = await MessageTopicRepository.updateStatus(
-      { countryIso, assessment, cycle, key, status, includeMessages: true },
+    const target = await MessageTopicRepository.updateStatus(
+      { assessment, cycle, countryIso, key, status, includeMessages: true },
       t
     )
 
-    await ActivityLogRepository.insertActivityLog(
-      {
-        activityLog: {
-          target: topic,
-          section: sectionName,
-          message: ActivityLogMessage.topicStatusChange,
-          countryIso,
-          user,
-        },
-        assessment,
-        cycle,
-      },
-      t
-    )
+    const message = ActivityLogMessage.topicStatusChange
+    const activityLog = { target, section: sectionName, message, countryIso, user }
+    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    return topic
+    await _checkAndNotifyReviewUpdates({ assessment, cycle, countryIso, sectionName, topic: target })
+
+    return target
   })
 }
