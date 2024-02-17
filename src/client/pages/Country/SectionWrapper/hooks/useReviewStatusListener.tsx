@@ -24,18 +24,18 @@ export const useReviewStatusListener = (): void => {
     const eventProps = { assessmentName, cycleName, countryIso, sectionName }
     const reviewStatusEvent = Sockets.getRequestReviewStatusEvent(eventProps)
 
-    const updateReviewStatus = () => {
+    const getReviewStatus = () => {
       dispatch(ReviewActions.getReviewStatus({ ...eventProps, odpId }))
     }
 
     if (user) {
-      updateReviewStatus()
-      SocketClient.on(reviewStatusEvent, updateReviewStatus)
+      getReviewStatus()
+      SocketClient.on(reviewStatusEvent, getReviewStatus)
     }
 
     return () => {
       if (user) {
-        SocketClient.off(reviewStatusEvent, updateReviewStatus)
+        SocketClient.off(reviewStatusEvent, getReviewStatus)
       }
     }
   }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch, odpId])
