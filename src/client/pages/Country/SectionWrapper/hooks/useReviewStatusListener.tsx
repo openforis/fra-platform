@@ -1,19 +1,18 @@
 import { useEffect } from 'react'
 
+import { CountryIso } from 'meta/area'
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { ReviewActions } from 'client/store/ui/review'
 import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useReviewStatusListener = (): void => {
-  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
+  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
   const user = useUser()
   const originalDataPoint = useOriginalDataPoint()
 
