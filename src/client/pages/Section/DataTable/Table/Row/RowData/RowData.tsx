@@ -24,7 +24,7 @@ const RowData: React.FC<Props> = (props) => {
   const { cols } = row
   const colHeader = [ColType.placeholder, ColType.header].includes(cols[0].props.colType) ? cols[0] : undefined
   const colsData = colHeader ? cols.slice(1, cols.length) : cols
-  const withReview = !table.props.secondary || row.props.withReview[cycle.uuid]
+  const withReview = !table.props.secondary || row.props.withReview?.[cycle.uuid]
 
   const id = `${row.props.type}_${row.id}_${row.props.variableName ?? ''}`
   const className = classNames({ 'fra-row-comments__open': openTopics.includes(row.uuid) })

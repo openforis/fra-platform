@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+.data-sources__readOnlyText {
+  background-color: lighten($ui-bg, 2%);
+  display: grid;
+  grid-row-gap: $spacing-xs;
+  margin-top: $spacing-xxs;
+  padding: $spacing-xs;
+
+  h5 {
+    color: $text-link;
+    font-size: $font-xxs;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}

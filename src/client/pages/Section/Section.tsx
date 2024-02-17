@@ -9,7 +9,7 @@ import { Routes } from 'meta/routes'
 import { useCycle } from 'client/store/assessment'
 import { useIsSectionDataEmpty } from 'client/store/data'
 import { useSection, useTableSections } from 'client/store/metadata'
-import { useIsEditDescriptionsEnabled, useIsEditTableDataEnabled } from 'client/store/user/hooks'
+import { useIsEditTableDataEnabled } from 'client/store/user/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Introduction from 'client/pages/Section/Introduction'
@@ -37,7 +37,6 @@ const Section: React.FC<Props> = (props: Props) => {
   useGetTableData({ sectionName: subSection?.props.name })
   useGetDescriptionValues({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
-  const canEditDescriptions = useIsEditDescriptionsEnabled(sectionProp)
   const { print, onlyTables } = useIsPrintRoute()
   useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
 
@@ -68,7 +67,7 @@ const Section: React.FC<Props> = (props: Props) => {
 
       <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditTableData} />
 
-      <Descriptions sectionName={sectionName} descriptions={descriptions[cycle.uuid]} disabled={!canEditDescriptions} />
+      <Descriptions sectionName={sectionName} descriptions={descriptions[cycle.uuid]} />
       {showTitle && <Title subSection={subSection} />}
 
       {tableSections.map((tableSection) => {
@@ -99,17 +98,9 @@ const Section: React.FC<Props> = (props: Props) => {
         )
       })}
 
-      {renderIntroductoryText && (
-        <Introduction
-          canEditData={canEditTableData}
-          canEditDescriptions={canEditDescriptions}
-          sectionName={sectionName}
-        />
-      )}
+      {renderIntroductoryText && <Introduction canEditData={canEditTableData} sectionName={sectionName} />}
 
-      {renderGeneralComments && (
-        <GeneralComments assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditDescriptions} />
-      )}
+      {renderGeneralComments && <GeneralComments sectionName={sectionName} />}
 
       <div className="page-break" />
     </div>

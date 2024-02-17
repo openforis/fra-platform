@@ -1,0 +1,20 @@
+@import 'src/client/style/partials';
+
+.description-title {
+  align-items: center;
+  display: flex;
+}
+
+.description-title__label {
+  margin-right: $spacing-xxxs;
+}
+
+.description-title__btn-edit {
+  color: darken($ui-accent, 2%);
+  padding: 0 $spacing-xxs;
+  white-space: nowrap;
+
+  &:hover {
+    color: darken($ui-accent, 6%);
+  }
+}

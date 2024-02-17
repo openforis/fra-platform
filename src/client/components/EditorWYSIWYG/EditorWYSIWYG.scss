@@ -1,10 +1,11 @@
 @import 'src/client/style/partials';
 
-.editorWYSIWYG {
+div.editorWYSIWYG {
   height: 100%;
   word-break: break-word;
 
-  p {
+  p,
+  table {
     margin: unset;
   }
 
