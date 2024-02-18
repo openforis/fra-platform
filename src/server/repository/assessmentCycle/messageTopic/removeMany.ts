@@ -1,15 +1,15 @@
 import { Assessment, Cycle } from 'meta/assessment'
-import { Topics } from 'meta/messageCenter'
 
 import { BaseProtocol, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  odpId: number
+  keyPrefix: string
 }
-export const removeOriginalDataPointTopics = (props: Props, client: BaseProtocol): Promise<number> => {
-  const { assessment, cycle, odpId } = props
+
+export const removeMany = (props: Props, client: BaseProtocol): Promise<number> => {
+  const { assessment, cycle, keyPrefix } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -19,6 +19,6 @@ export const removeOriginalDataPointTopics = (props: Props, client: BaseProtocol
       where mt.id in
             (select t.id
              from ${schemaCycle}.message_topic t
-             where t.key like '${Topics.getOdpReviewTopicKeyPrefix(odpId)}%')
+             where t.key like '${keyPrefix}%')
   `)
 }

@@ -1,13 +1,11 @@
 import { create } from './create'
 import { getOneOrNone } from './getOneOrNone'
-import { removeOriginalDataPointTopics } from './removeOriginalDataPointTopics'
+import { removeMany } from './removeMany'
 import { updateStatus } from './updateStatus'
 
 export const MessageTopicRepository = {
   create,
   getOneOrNone,
+  removeMany,
   updateStatus,
-
-  // odp
-  removeOriginalDataPointTopics,
 }

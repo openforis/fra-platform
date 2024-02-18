@@ -1,4 +1,5 @@
 import { ActivityLog, ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
@@ -25,7 +26,8 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
 
   const odpReturn = await client.tx(async (t) => {
     const target = await OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t)
-    await MessageTopicRepository.removeOriginalDataPointTopics({ assessment, cycle, odpId: originalDataPoint.id }, t)
+    const keyPrefix = Topics.getOdpReviewTopicKeyPrefix(originalDataPoint.id)
+    await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
 
     const message = ActivityLogMessage.originalDataPointRemove
     const activityLog: ActivityLog<OriginalDataPoint> = { target, section: 'odp', message, countryIso, user }
