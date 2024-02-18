@@ -3,7 +3,6 @@ import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { Message, MessageTopic, MessageTopicType, Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { _checkAndNotifyReviewUpdates } from 'server/controller/messageCenter/_checkAndNotifyReviewUpdates'
 import { BaseProtocol, DB } from 'server/db'
 import { SectionRepository } from 'server/repository/assessment/section'
 import { MessageRepository } from 'server/repository/assessmentCycle/message'
@@ -71,8 +70,6 @@ export const addMessage = async (
 
       await MailService.oneToOneMessage({ assessmentName, cycleName, countryIso, recipient, sender, url })
     }
-
-    await _checkAndNotifyReviewUpdates({ assessment, cycle, countryIso, sectionName, topic })
 
     return { topic, message }
   })

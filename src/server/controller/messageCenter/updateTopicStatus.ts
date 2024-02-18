@@ -3,7 +3,6 @@ import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { _checkAndNotifyReviewUpdates } from 'server/controller/messageCenter/_checkAndNotifyReviewUpdates'
 import { BaseProtocol, DB } from 'server/db'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -30,8 +29,6 @@ export const updateTopicStatus = async (props: Props, client: BaseProtocol = DB)
     const message = ActivityLogMessage.topicStatusChange
     const activityLog = { target, section: sectionName, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
-
-    await _checkAndNotifyReviewUpdates({ assessment, cycle, countryIso, sectionName, topic: target })
 
     return target
   })
