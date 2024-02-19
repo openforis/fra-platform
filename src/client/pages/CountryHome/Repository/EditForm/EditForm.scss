@@ -1,5 +1,7 @@
-.repository__edit-form {
-  display: flex;
-  justify-content: center;
+@import 'src/client/style/partials';
+
+.repository-form__container {
   align-items: center;
+  grid-row-gap: $spacing-s;
+  grid-column-gap: $spacing-xs;
 }

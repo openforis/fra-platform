@@ -3,9 +3,9 @@ import { Dispatch, SetStateAction, useCallback } from 'react'
 import type { Jodit } from 'jodit-react'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
+import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 
-import { useUpdateAccess } from 'client/store/ui/assessmentFiles'
+import { useUpdateRepositoryItemsAccess } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
@@ -14,32 +14,32 @@ type Props = {
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-type Returned = (files: Array<AssessmentFile>) => void
+type Returned = (files: Array<RepositoryItem>) => void
 
 export const useOnClose = (props: Props): Returned => {
   const { setIsOpen, setEditor, editor } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  const updateAccess = useUpdateAccess()
+
+  const updateRepositoryAccess = useUpdateRepositoryItemsAccess()
 
   return useCallback<Returned>(
-    (files: Array<AssessmentFile>) => {
+    (repositoryItems: Array<RepositoryItem>) => {
       setIsOpen(false)
-      if (!files.length) return
+      if (!repositoryItems.length) return
 
-      const mapFunction = (file: AssessmentFile) => {
-        const { uuid } = file
-        const hrefProps = { assessmentName, cycleName, countryIso, uuid }
-        return `<a href="${AssessmentFiles.getHref(hrefProps)}" target="_blank">${file.fileName}</a>`
+      const mapFunction = (repositoryItem: RepositoryItem) => {
+        const url = RepositoryItems.getURL({ repositoryItem, assessmentName, cycleName, countryIso })
+        return `<a href="${url}" target="_blank">${repositoryItem.name}</a>`
       }
 
-      // When adding a file from file repository, we make it public
-      const fileCountryIso = files[0]?.countryIso
-      updateAccess({ fileCountryIso, files, public: true })
+      repositoryItems.forEach((_repositoryItem: RepositoryItem) => {
+        updateRepositoryAccess({ repositoryItems, value: true })
+      })
 
-      const linksString = files.map(mapFunction).join(' ')
+      const linksString = repositoryItems.map(mapFunction).join(' ')
       editor?.s.insertHTML(linksString)
       setEditor(null)
     },
-    [setIsOpen, updateAccess, editor?.s, setEditor, assessmentName, cycleName, countryIso]
+    [setIsOpen, editor?.s, setEditor, assessmentName, cycleName, countryIso, updateRepositoryAccess]
   )
 }

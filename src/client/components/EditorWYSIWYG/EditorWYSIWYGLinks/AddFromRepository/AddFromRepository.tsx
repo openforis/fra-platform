@@ -2,23 +2,24 @@ import './AddFromRepository.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentFile, AssessmentFiles } from 'meta/cycleData'
+import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 
-import { useAssessmentCountryFiles, useGetAssessmentFiles } from 'client/store/ui/assessmentFiles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
-import FileDrop from 'client/components/FileDrop'
+import FileUpload from 'client/components/FileUpload'
 import Icon from 'client/components/Icon'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import { useSelectedFileContext } from '../context/selectedFilesContext'
+import { useGetRepositoryItems } from './hooks/useGetRepositoryItems'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
-import { useOnDrop } from './hooks/useOnDrop'
+import { useOnSuccess } from './hooks/useOnSuccess'
+import { useRepositoryItems } from './hooks/useRepositoryItems'
 
 type Props = {
   isOpen: boolean
-  onClose: (selectedFiles: Array<AssessmentFile>) => void
+  onClose: (selectedFiles: Array<RepositoryItem>) => void
 }
 
 const AddFromRepository: React.FC<Props> = (props: Props) => {
@@ -27,8 +28,8 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
 
-  useGetAssessmentFiles()
-  const countryFiles = useAssessmentCountryFiles()
+  useGetRepositoryItems()
+  const repositoryItems = useRepositoryItems()
 
   const isChecked = useIsChecked()
   // const allSelected = useAllSelected()
@@ -36,7 +37,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
   // const onClickAll = useOnClickAll()
   const onClick = useOnClick()
 
-  const onDrop = useOnDrop()
+  const onSuccess = useOnSuccess()
 
   useEffect(() => {
     if (isOpen) setSelectedFiles([])
@@ -62,17 +63,16 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
             {/* <ButtonCheckBox onClick={onClickAll} checked={allSelected} label={t('contactPersons.all')} /> */}
             {/* <div className="divider" /> */}
 
-            {countryFiles.map((assessmentFile) => {
-              const { uuid } = assessmentFile
-              const url = AssessmentFiles.getHref({ assessmentName, cycleName, countryIso, uuid })
-              const label = assessmentFile.fileName
+            {repositoryItems?.map((repositoryItem) => {
+              const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
+              const label = repositoryItem.name
 
               return (
-                <div key={assessmentFile.uuid} className="file-row">
+                <div key={repositoryItem.uuid} className="file-row">
                   <ButtonCheckBox
-                    checked={isChecked(assessmentFile.uuid)}
+                    checked={isChecked(repositoryItem.uuid)}
                     label={label}
-                    onClick={() => onClick(assessmentFile.uuid)}
+                    onClick={() => onClick(repositoryItem.uuid)}
                   />
                   <a href={url}>
                     <Icon name="hit-down" className="icon-sub " />
@@ -82,7 +82,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
             })}
           </div>
 
-          <FileDrop onDrop={onDrop} />
+          <FileUpload multiple onSuccess={onSuccess} />
         </div>
       </ModalBody>
 
