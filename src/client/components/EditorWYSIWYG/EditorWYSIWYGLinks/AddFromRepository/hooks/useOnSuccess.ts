@@ -17,8 +17,8 @@ export const useOnSuccess = () => {
   return useCallback(
     (files: Array<File>) => {
       files?.forEach((file) => {
-        const props = { public: true }
-        const repositoryItem: Partial<RepositoryItem> = { countryIso, fileUuid: file.uuid, name: file.name, props }
+        const props = { public: true, translations: { en: file.name } }
+        const repositoryItem: Partial<RepositoryItem> = { countryIso, fileUuid: file.uuid, props }
         const saveParams = { assessmentName, cycleName, countryIso, repositoryItem }
         dispatch(RepositoryActions.upsertRepositoryItem(saveParams))
           .unwrap()

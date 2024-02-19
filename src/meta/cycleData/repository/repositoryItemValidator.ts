@@ -7,7 +7,13 @@ export type RepositoryItemValidation = {
 }
 
 const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation | undefined => {
-  const { name, fileUuid, link } = repositoryItem || {}
+  const {
+    props: {
+      translations: { en: name },
+    },
+    fileUuid,
+    link,
+  } = repositoryItem || {}
 
   if (!name) {
     return { name: 'validation.repositoryItem.repositoryValidationName' }
