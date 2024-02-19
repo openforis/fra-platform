@@ -128,7 +128,10 @@ export const dataSlice = createSlice({
 
       const name = CommentableDescriptionName.dataSources
       const value = state.descriptions[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]?.[name]
-      const dataSources = value!.dataSources.filter((d) => d.uuid !== uuid)
+      if (!value) {
+        throw new Error(`Unable to find data source value ${assessmentName}-${cycleName}-${countryIso}-${sectionName}}`)
+      }
+      const dataSources = value.dataSources.filter((d) => d.uuid !== uuid)
       const valueUpdate = { ...value, dataSources }
 
       const path = ['descriptions', assessmentName, cycleName, countryIso, sectionName, name]
