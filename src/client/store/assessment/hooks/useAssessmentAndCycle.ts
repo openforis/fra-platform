@@ -4,7 +4,7 @@ import { Assessment, Cycle, CycleUuid } from 'meta/assessment'
 
 import { AssessmentSelectors } from 'client/store/assessment/selectors'
 import { useAppSelector } from 'client/store/store'
-import { useAssessmentRouteParams, useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useAssessmentRouteParams, useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 export const useAssessment = (): Assessment => {
   const { assessmentName } = useAssessmentRouteParams()
@@ -20,8 +20,7 @@ export const useAssessments = (): Array<Assessment> => {
 }
 
 export const useCycle = (cycleUuid?: CycleUuid): Cycle => {
-  const { cycleName } = useCountryRouteParams()
-
+  const { cycleName } = useCycleRouteParams()
   const assessment = useAssessment()
 
   return useMemo<Cycle>(() => {
