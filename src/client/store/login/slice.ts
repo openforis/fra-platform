@@ -37,6 +37,16 @@ export const loginSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(localLogin.fulfilled, () => initialState)
 
+    builder.addCase(localLogin.pending, (state) => {
+      state.login ??= {}
+      state.login.isLoading = true
+    })
+
+    builder.addCase(localLogin.rejected, (state) => {
+      state.login ??= {}
+      state.login.isLoading = false
+    })
+
     builder.addCase(acceptInvitation.fulfilled, () => initialState)
 
     builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {

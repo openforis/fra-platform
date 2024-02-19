@@ -57,6 +57,7 @@ export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps
   assessmentId?: number
   cycleUuid: string
   countryIso?: CountryIso
+  invitedByUserUuid?: string
   permissions: Permissions
   props: Props
   role: Name
