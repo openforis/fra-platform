@@ -5,7 +5,7 @@
 
 // Mixins
 
-@mixin mixin-table-cell($fontWeight, $align, $padding, $cell: false){
+@mixin mixin-table-cell($fontWeight, $align, $padding, $cell: false) {
   border: $ui-thin-border;
   font-weight: $fontWeight;
   padding: $padding;
@@ -19,6 +19,7 @@
 }
 
 .fra-table__container {
+  display: grid;
   position: relative;
   margin-bottom: 28px;
 }
@@ -34,7 +35,7 @@
 
 .fra-table {
   th {
-    background-color: rgba(0,0,0, 0.04);
+    background-color: rgba(0, 0, 0, 0.04);
   }
 
   tbody {
@@ -52,15 +53,15 @@
 }
 
 .fra-table__header-cell {
-@include mixin-table-cell(600, center, 10px);
+  @include mixin-table-cell(600, center, 10px);
 }
 
 .fra-table__header-cell-left {
-@include mixin-table-cell(600, left, 10px);
+  @include mixin-table-cell(600, left, 10px);
 }
 
 .fra-table__category-cell {
-@include mixin-table-cell(400, left, 10px);
+  @include mixin-table-cell(400, left, 10px);
 
   .link {
     font-weight: 600;
@@ -68,11 +69,11 @@
 }
 
 .fra-table__category-cell-right {
-@include mixin-table-cell(400, right, 10px);
+  @include mixin-table-cell(400, right, 10px);
 }
 
 .fra-table__subcategory1-cell {
-@include mixin-table-cell(400, left, 10px 10px 10px 20px);
+  @include mixin-table-cell(400, left, 10px 10px 10px 20px);
   font-size: $font-xs;
   color: $text-mute;
 }
@@ -84,15 +85,15 @@
 }
 
 .fra-table__cell {
-@include mixin-table-cell(400, right, 0, true);
+  @include mixin-table-cell(400, right, 0, true);
 }
 
 .fra-table__cell-left {
-@include mixin-table-cell(400, left, 0, true);
+  @include mixin-table-cell(400, left, 0, true);
 }
 
 .fra-table__calculated-cell {
-@include mixin-table-cell(600, right, 10px, true);
+  @include mixin-table-cell(600, right, 10px, true);
   cursor: default;
 
   &:empty:after {
@@ -103,12 +104,12 @@
   }
 
   &.error {
-  @include mixin-validation-error;
+    @include mixin-validation-error;
   }
 }
 
 .fra-table__calculated-sub-cell {
-@include mixin-table-cell(400, right, 10px, true);
+  @include mixin-table-cell(400, right, 10px, true);
   cursor: default;
 }
 
@@ -157,14 +158,14 @@
 
 // Select cell
 .fra-table__select-container {
-@include mixin-input-container;
+  @include mixin-input-container;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .fra-table__select {
-@include mixin-select-base(10px, none, 0);
+  @include mixin-select-base(10px, none, 0);
   font-size: $font-s;
   height: 100%;
   min-width: 100%;
@@ -222,7 +223,6 @@
   word-wrap: break-word;
 }
 
-
 // fra secondary table
 .fra-secondary-table__wrapper {
   margin-top: 16px;
@@ -235,5 +235,5 @@
 }
 
 .fra-secondary-table__heading-cell {
-@include mixin-table-cell(600, left, 10px);
+  @include mixin-table-cell(600, left, 10px);
 }
