@@ -411,8 +411,8 @@ Explanatory note
 
 Explanatory notes
 
-1. Includes IUCN Categories I а IV.
-2. Excludes IUCN Categories V а VI.
+1. Includes IUCN Categories I - IV.
+2. Excludes IUCN Categories V - VI.
 
 ### FOREST AREA WITH LONG-TERM MANAGEMENT PLAN
 
