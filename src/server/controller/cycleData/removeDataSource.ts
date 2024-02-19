@@ -20,11 +20,17 @@ type Props = {
 const name = CommentableDescriptionName.dataSources
 
 export const removeDataSource = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { countryIso, assessment, cycle, sectionName, uuid, user } = props
+  const { assessment, cycle, countryIso, sectionName, uuid, user } = props
   return client.tx(async (t) => {
     const values = await DescriptionRepository.getValues({ assessment, cycle, countryIso, sectionName, name }, t)
-
     const value = values[countryIso][sectionName].dataSources
+
+    if (!value) {
+      throw new Error(
+        `Unable to find data source value ${assessment.props.name}-${cycle.name}-${countryIso}-${sectionName}}`
+      )
+    }
+
     const index = value.dataSources.findIndex((d) => d.uuid === uuid)
     value.dataSources.splice(index, 1)
 
