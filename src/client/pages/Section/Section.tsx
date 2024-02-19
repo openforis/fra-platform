@@ -58,14 +58,14 @@ const Section: React.FC<Props> = (props: Props) => {
   const renderIntroductoryText = !onlyTables && descriptions[cycle.uuid].introductoryText
 
   return (
-    <div className={`app-view__content assessment-section__${sectionName}`}>
+    <div className={`app-view__content assessment-section section__${sectionName}`}>
       {showTitle && print && (
         <h2 className="title only-print">
           {`${onlyTables ? '' : `${anchor} `}${Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}`}
         </h2>
       )}
 
-      <SectionHeader assessmentName={assessmentName} sectionName={sectionName} disabled={!canEditTableData} />
+      <SectionHeader sectionName={sectionName} disabled={!canEditTableData} />
 
       <Descriptions sectionName={sectionName} descriptions={descriptions[cycle.uuid]} />
       {showTitle && <Title subSection={subSection} />}

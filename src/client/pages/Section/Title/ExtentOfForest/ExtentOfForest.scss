@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.section-title-extentOfForest {
+  display: grid;
+  align-items: center;
+
+  &.withToggleODPs {
+    grid-column-gap: $spacing-xxs;
+    grid-template-columns: repeat(2, auto);
+  }
+}
