@@ -128,7 +128,7 @@ export const dataSlice = createSlice({
 
       const name = CommentableDescriptionName.dataSources
       const value = state.descriptions[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]?.[name]
-      const dataSources = value.dataSources.filter((d) => d.uuid !== uuid)
+      const dataSources = value!.dataSources.filter((d) => d.uuid !== uuid)
       const valueUpdate = { ...value, dataSources }
 
       const path = ['descriptions', assessmentName, cycleName, countryIso, sectionName, name]
