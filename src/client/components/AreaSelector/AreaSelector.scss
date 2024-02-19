@@ -62,11 +62,13 @@
   }
 
   .user-role {
-    font-size: $font-xxs;
+    font-size: $font-xxxs;
     font-weight: 600;
     color: $text-disabled;
+    letter-spacing: 0.1px;
     margin-top: -3px;
     opacity: 0.8;
+    text-transform: uppercase;
   }
 }
 
