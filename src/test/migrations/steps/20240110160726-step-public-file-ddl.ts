@@ -59,7 +59,7 @@ export default async () => {
   // 4. Migrate metadata for 2025
   await client.query(`
       insert into ${Schemas.getNameCycle(assessmentFRA, cycle2025)}.repository (country_iso, file_uuid, props)
-      select country_iso, uuid, jsonb_build_object('props', props, 'translations', jsonb_build_object('en', file_name))
+      select country_iso, uuid, props || jsonb_build_object('translations', jsonb_build_object('en', file_name))
       from assessment_fra.file;
   `)
 
@@ -68,7 +68,7 @@ export default async () => {
       insert into ${Schemas.getNameCycle(assessmentFRA, cycle2020)}.repository (country_iso, file_uuid, props)
       select r.country_iso,
              f.uuid,
-              jsonb_build_object('props', af.props, 'translations', jsonb_build_object('en', f.name))
+              props || jsonb_build_object('props', af.props, 'translations', jsonb_build_object('en', f.name))
       from _legacy.repository r
                inner join public.file f on r.file_name = f.name
                left join assessment_fra.file af using (uuid)
