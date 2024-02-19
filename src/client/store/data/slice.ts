@@ -1,6 +1,7 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
+import { CommentableDescriptionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
@@ -8,6 +9,7 @@ import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { createContact } from './actions/createContact'
 import { deleteContact } from './actions/deleteContact'
+import { deleteDataSource } from './actions/deleteDataSource'
 import { getContacts } from './actions/getContacts'
 import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
@@ -121,6 +123,18 @@ export const dataSlice = createSlice({
       Objects.setInPath({ obj: state, path, value })
     })
 
+    builder.addCase(deleteDataSource.pending, (state, action) => {
+      const { assessmentName, cycleName, countryIso, sectionName, uuid } = action.meta.arg
+
+      const name = CommentableDescriptionName.dataSources
+      const value = state.descriptions[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]?.[name]
+      const dataSources = value.dataSources.filter((d) => d.uuid !== uuid)
+      const valueUpdate = { ...value, dataSources }
+
+      const path = ['descriptions', assessmentName, cycleName, countryIso, sectionName, name]
+      Objects.setInPath({ obj: state, path, value: valueUpdate })
+    })
+
     builder.addCase(getLinkedDataSources.fulfilled, (state, { payload, meta }) => {
       const { dataSources, sectionName } = payload
       const { assessmentName, cycleName } = meta.arg
@@ -208,6 +222,7 @@ export const DataActions = {
   getDescription,
   updateDescription,
   copyPreviousDatasources,
+  deleteDataSource,
   getLinkedDataSources,
 
   // Contacts
