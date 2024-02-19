@@ -8,6 +8,7 @@ import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 import { oneToOneMessage } from './oneToOneMessage'
 import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
+import { userNotifyAcceptedInvitation } from './userNotifyAcceptedInvitation'
 
 const mailTransport = nodemailer.createTransport({
   pool: true,
@@ -69,4 +70,5 @@ export const MailService = {
   resetPassword,
   sendMail,
   userInvite,
+  userNotifyAcceptedInvitation,
 }

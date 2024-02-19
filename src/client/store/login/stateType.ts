@@ -21,13 +21,16 @@ export interface InvitationState {
   acceptForm?: AcceptInvitationFormState
 }
 
+export interface LoginInformationState {
+  email?: string
+  isLoading?: boolean
+  password?: string
+  status?: string
+  type?: string
+}
+
 export interface LoginState {
-  login: {
-    status?: string
-    type?: string
-    email?: string
-    password?: string
-  }
+  login: LoginInformationState
   invitation: InvitationState
   resetPassword?: {
     error?: string
