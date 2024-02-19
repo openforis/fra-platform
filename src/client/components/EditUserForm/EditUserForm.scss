@@ -41,6 +41,11 @@
   }
 }
 
+.edit-user__form-item-permissions {
+  @extend.edit-user__form-item;
+  height: auto;
+}
+
 .edit-user__form-item-picture {
   @extend.edit-user__form-item;
   height: auto;
