@@ -19,8 +19,8 @@ type Props = {
 export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Promise<MessageTopic | undefined> => {
   const { countryIso, assessment, cycle, includeMessages } = props
 
-  const key = (props as PropsKey)?.key
-  const id = (props as PropsId)?.id
+  const { key } = props as PropsKey
+  const { id } = props as PropsId
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
