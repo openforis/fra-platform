@@ -10,6 +10,6 @@ const _repositoryItemsSelector = createSelector(
   (tablePaginated) => tablePaginated[ApiEndPoint.CycleData.Repository.many()]?.data as unknown as Array<RepositoryItem>
 )
 
-export const useRepositoryItems = (): Array<RepositoryItem> => {
+export const useRepositoryItems = (): Array<RepositoryItem> | undefined => {
   return useAppSelector(_repositoryItemsSelector)
 }
