@@ -1,7 +1,7 @@
 import { AreaCode } from 'meta/area'
 import { Lang } from 'meta/lang'
 
-type Translations = {
+export type Translations = {
   [Lang.en]: string
 } & {
   [lang in Exclude<Lang, Lang.en>]?: string
