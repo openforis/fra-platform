@@ -19,7 +19,7 @@ export const getRepositoryFile = async (req: Request, res: Response) => {
     const props = { assessment, cycle, uuid }
     const { file, repositoryItem } = await CycleDataController.Repository.getFile(props)
 
-    Responses.sendFile(res, repositoryItem.props.translations.en, file)
+    Responses.sendFile(res, repositoryItem.props.translation.en, file)
   } catch (e) {
     Requests.sendErr(res, e)
   }

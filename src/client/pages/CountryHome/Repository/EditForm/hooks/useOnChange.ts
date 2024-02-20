@@ -36,8 +36,8 @@ export const useOnChange = (): Returned => {
 
   const onChangeTranslation = useCallback<OnChange>(
     (lang: string, value: string) => {
-      const translations = { ...(repositoryItem.props?.translations ?? {}), [lang]: value }
-      const props = { ...repositoryItem.props, translations }
+      const translation = { ...(repositoryItem.props?.translation ?? {}), [lang]: value }
+      const props = { ...repositoryItem.props, translation }
       dispatch(RepositoryActions.setRepositoryItemProps({ props }))
     },
     [dispatch, repositoryItem]
@@ -50,10 +50,8 @@ export const useOnChange = (): Returned => {
     const fileUuid = file.uuid
     if (fileUuid && repositoryItem?.fileUuid !== fileUuid) {
       const name = file.name.split('.')[0]
-      const translations = { ...(repositoryItem?.props?.translations ?? {}), en: name }
-      dispatch(
-        RepositoryActions.setRepositoryItemProps({ fileUuid, props: { ...repositoryItem?.props, translations } })
-      )
+      const translation = { ...(repositoryItem?.props?.translation ?? {}), en: name }
+      dispatch(RepositoryActions.setRepositoryItemProps({ fileUuid, props: { ...repositoryItem?.props, translation } }))
     }
   }, [dispatch, files, repositoryItem?.fileUuid, repositoryItem?.props])
 

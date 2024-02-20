@@ -7,7 +7,7 @@ import { RepositoryActions } from 'client/store/ui/repository'
 
 const initialRepositoryItem: Partial<RepositoryItem> = {
   props: {
-    translations: {
+    translation: {
       en: undefined,
     },
   },

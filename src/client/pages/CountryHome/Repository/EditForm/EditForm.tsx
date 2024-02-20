@@ -26,7 +26,7 @@ const EditForm: React.FC = () => {
     <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
       <DataGrid className="repository-form__container" gridTemplateColumns="60px 1fr">
         <InputField
-          value={repositoryItem?.props.translations.en}
+          value={repositoryItem?.props.translation.en}
           onChange={onChangeTranslation}
           label="editUser.name"
           name="en"

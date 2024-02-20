@@ -4,8 +4,9 @@ import * as pgPromise from 'pg-promise'
 import { Promises } from 'utils/promises'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { RepositoryItem, Translations } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData'
 import { LanguageCodes } from 'meta/lang'
+import { Translation } from 'meta/translation'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
@@ -42,7 +43,7 @@ export default async (client: BaseProtocol) => {
         const repositoryItem: RepositoryItem = {
           link: href,
           props: {
-            translations: {
+            translation: {
               en: '',
             },
           },
@@ -54,9 +55,9 @@ export default async (client: BaseProtocol) => {
             return { [lang]: i18n.t(`${i18nBase}.${key}`) }
           })
         )
-        repositoryItem.props.translations = props.reduce<Translations>(
+        repositoryItem.props.translation = props.reduce<Translation>(
           (acc, val) => Object.assign(acc, val),
-          {} as Translations
+          {} as Translation
         )
 
         return repositoryItem

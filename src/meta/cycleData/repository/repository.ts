@@ -1,17 +1,11 @@
 import { AreaCode } from 'meta/area'
-import { Lang } from 'meta/lang'
-
-export type Translations = {
-  [Lang.en]: string
-} & {
-  [lang in Exclude<Lang, Lang.en>]?: string
-}
+import { Translation } from 'meta/translation'
 
 export interface RepositoryItemProps {
   hidden?: boolean // File not visible in UI
   public?: boolean // File visible for non-logged in users
 
-  translations?: Translations
+  translation?: Translation
 }
 
 export type RepositoryItem = {
