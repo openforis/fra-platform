@@ -9,6 +9,7 @@ type OnChange = (name: string, value: string | boolean) => void
 type Returned = {
   onChangeField: OnChange
   onChangeProps: OnChange
+  onChangeTranslation: OnChange
 }
 
 export const useOnChange = (): Returned => {
@@ -33,16 +34,30 @@ export const useOnChange = (): Returned => {
     [dispatch, repositoryItem]
   )
 
+  const onChangeTranslation = useCallback<OnChange>(
+    (lang: string, value: string) => {
+      const translation = { ...(repositoryItem.props?.translation ?? {}), [lang]: value }
+      const props = { ...repositoryItem.props, translation }
+      dispatch(RepositoryActions.setRepositoryItemProps({ props }))
+    },
+    [dispatch, repositoryItem]
+  )
+
   useEffect(() => {
     if (!files || files.length <= 0) return
 
     const file = files[0]
     const fileUuid = file.uuid
-    if (fileUuid) {
+    if (fileUuid && repositoryItem?.fileUuid !== fileUuid) {
       const name = file.name.split('.')[0]
-      dispatch(RepositoryActions.setRepositoryItemProps({ fileUuid, name }))
+      const translation = { ...(repositoryItem?.props?.translation ?? {}), en: name }
+      dispatch(RepositoryActions.setRepositoryItemProps({ fileUuid, props: { ...repositoryItem?.props, translation } }))
     }
-  }, [dispatch, files])
+  }, [dispatch, files, repositoryItem?.fileUuid, repositoryItem?.props])
 
-  return { onChangeField, onChangeProps }
+  return {
+    onChangeField,
+    onChangeProps,
+    onChangeTranslation,
+  }
 }

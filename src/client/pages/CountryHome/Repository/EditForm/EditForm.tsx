@@ -17,7 +17,7 @@ import { useOnChange } from './hooks/useOnChange'
 
 const EditForm: React.FC = () => {
   const repositoryItem = useRepositoryItem()
-  const { onChangeField, onChangeProps } = useOnChange()
+  const { onChangeField, onChangeProps, onChangeTranslation } = useOnChange()
   const closePanel = useClosePanel()
 
   const opened = !Objects.isEmpty(repositoryItem)
@@ -25,7 +25,12 @@ const EditForm: React.FC = () => {
   return (
     <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
       <DataGrid className="repository-form__container" gridTemplateColumns="60px 1fr">
-        <InputField value={repositoryItem?.name} onChange={onChangeField} label="editUser.name" name="name" />
+        <InputField
+          value={repositoryItem?.props.translation.en}
+          onChange={onChangeTranslation}
+          label="editUser.name"
+          name="en"
+        />
         <InputFieldCheckbox name="public" value={repositoryItem?.props?.public} onChange={onChangeProps} />
 
         <InputField value={repositoryItem?.link} onChange={onChangeField} label="common.link" name="link" />

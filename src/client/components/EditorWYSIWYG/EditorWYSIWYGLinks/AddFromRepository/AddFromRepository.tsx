@@ -3,7 +3,9 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { Translations } from 'meta/translation'
 
+import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import FileUpload from 'client/components/FileUpload'
@@ -26,6 +28,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
   const { isOpen, onClose } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const { t } = useTranslation()
+  const language = useLanguage()
   const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
 
   useGetRepositoryItems()
@@ -65,7 +68,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
 
             {repositoryItems?.map((repositoryItem) => {
               const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
-              const label = repositoryItem.name
+              const label = Translations.getLabel({ translation: repositoryItem.props.translation, language })
 
               return (
                 <div key={repositoryItem.uuid} className="file-row">

@@ -37,8 +37,7 @@ export default async () => {
           country_iso varchar(3) references public.country (country_iso) on update cascade on delete cascade,
           file_uuid   uuid references public.file (uuid) on update cascade on delete cascade,
           link        varchar(2048),
-          name        varchar(2048) not null,
-          props       jsonb,
+          props       jsonb         not null,
           primary key (id),
           unique (uuid)
       );
@@ -59,18 +58,17 @@ export default async () => {
 
   // 4. Migrate metadata for 2025
   await client.query(`
-      insert into ${Schemas.getNameCycle(assessmentFRA, cycle2025)}.repository (country_iso, file_uuid, name, props)
-      select country_iso, uuid, file_name, props
+      insert into ${Schemas.getNameCycle(assessmentFRA, cycle2025)}.repository (country_iso, file_uuid, props)
+      select country_iso, uuid, props || jsonb_build_object('translation', jsonb_build_object('en', file_name))
       from assessment_fra.file;
   `)
 
   // 5. Migrate metadata for 2020
   await client.query(`
-      insert into ${Schemas.getNameCycle(assessmentFRA, cycle2020)}.repository (country_iso, file_uuid, name, props)
+      insert into ${Schemas.getNameCycle(assessmentFRA, cycle2020)}.repository (country_iso, file_uuid, props)
       select r.country_iso,
              f.uuid,
-             r.file_name,
-             af.props
+              props || jsonb_build_object('props', af.props, 'translation', jsonb_build_object('en', f.name))
       from _legacy.repository r
                inner join public.file f on r.file_name = f.name
                left join assessment_fra.file af using (uuid)

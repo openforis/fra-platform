@@ -1,8 +1,11 @@
 import { AreaCode } from 'meta/area'
+import { Translation } from 'meta/translation'
 
 export interface RepositoryItemProps {
   hidden?: boolean // File not visible in UI
   public?: boolean // File visible for non-logged in users
+
+  translation?: Translation
 }
 
 export type RepositoryItem = {
@@ -12,6 +15,5 @@ export type RepositoryItem = {
   countryIso?: AreaCode
   fileUuid?: string
   link?: string
-  name: string
   props?: RepositoryItemProps
 }

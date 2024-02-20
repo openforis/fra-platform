@@ -6,8 +6,11 @@ import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 
 const initialRepositoryItem: Partial<RepositoryItem> = {
-  name: '',
-  link: '',
+  props: {
+    translation: {
+      en: undefined,
+    },
+  },
 }
 
 export const useOpenPanel = (repositoryItem?: RepositoryItem) => {
