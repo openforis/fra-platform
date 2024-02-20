@@ -16,11 +16,16 @@ export interface SectionProps {
 }
 
 export interface SubSectionProps extends SectionProps {
+  dataExport?: boolean
   descriptions: Descriptions
+  hidden?: boolean
+  hints?: {
+    definitions?: Record<CycleUuid, boolean>
+    faqs?: Record<CycleUuid, boolean>
+    notes?: Record<CycleUuid, boolean>
+  }
   name: SectionName
   showTitle: boolean
-  dataExport?: boolean
-  hidden?: boolean
 }
 
 export interface Section extends CycledPropsObject<SectionProps> {
