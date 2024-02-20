@@ -5,6 +5,9 @@ import rehypeRaw from 'rehype-raw'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import { unified } from 'unified'
+import { Objects } from 'utils/objects'
+
+import { DOMs } from 'client/utils/dom'
 
 const schema = {
   ...defaultSchema,
@@ -25,8 +28,15 @@ export const useOnBlur = (props: { onChange: OnChange }): OnChange => {
   return useCallback<OnChange>(
     async (newValue: string) => {
       // Sanitize user input before saving
-      const v = await processor.process(newValue)
-      onChange(v.toString())
+      let sanitizedValue = (await processor.process(newValue)).toString()
+
+      // Sanitizes further - remove empty editor element <div><br></div>
+      const parsedValue = DOMs.parseDOMValue(sanitizedValue)
+      if (Objects.isEmpty(parsedValue)) {
+        sanitizedValue = ''
+      }
+
+      onChange(sanitizedValue)
     },
     [onChange]
   )

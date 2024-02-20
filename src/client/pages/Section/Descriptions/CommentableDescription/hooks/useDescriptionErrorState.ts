@@ -5,6 +5,7 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 
 import { useCommentableDescriptionValue } from 'client/store/data'
+import { DOMs } from 'client/utils/dom'
 
 type Props = {
   name: CommentableDescriptionName
@@ -21,11 +22,7 @@ export const useDescriptionErrorState = (props: Props): Returned => {
   const value = useCommentableDescriptionValue({ name, sectionName })
 
   return useMemo<Returned>(() => {
-    const innerText = new DOMParser()
-      .parseFromString(value.text, 'text/html')
-      .documentElement.innerText.replaceAll('\n', '')
-
-    const empty = Objects.isEmpty(innerText)
+    const empty = Objects.isEmpty(DOMs.parseDOMValue(value.text))
 
     return { empty }
   }, [value.text])

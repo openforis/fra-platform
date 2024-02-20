@@ -9,7 +9,7 @@ import { MessageTopic, MessageTopicType } from './messageTopic'
 const getDataReviewTopicKey = (row: Row): string => row.uuid
 
 // odp
-const getOdpReviewTopicKeyPrefix = (odpId: number) => `odp-${odpId}-`
+const getOdpReviewTopicKeyPrefix = (odpId: number | string) => `odp-${odpId}-`
 
 const getOdpClassReviewTopicKey = (odpId: number, uuid: string, rowId: string): string =>
   `${getOdpReviewTopicKeyPrefix(odpId)}class-${uuid}-${rowId}`

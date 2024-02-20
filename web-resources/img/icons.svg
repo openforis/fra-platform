@@ -2,14 +2,12 @@
     <symbol id="video" viewBox="0 0 24 24">
         <title>ondemand video</title>
         <g class="nc-icon-wrapper">
-            <path d="M9 7v8l7-4-7-4zm12-4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" fill="currentColor" stroke="none"></path>
+            <path d="M9 7v8l7-4-7-4zm12-4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
+                  fill="currentColor" stroke="none"></path>
         </g>
     </symbol>
-    <symbol id="content_copy" viewBox="0 0 24 24">
-        <title>content copy</title>
-        <g class="nc-icon-wrapper">
-            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor" stroke="none"></path>
-        </g>
+    <symbol id="content_copy" viewBox="0 0 32 32">
+        <path d="M1 11h20v20h-20v-20zM11 1v5h15v15h5v-20h-20z"></path>
     </symbol>
     <symbol id="text_fields" viewBox="0 0 24 24">
         <title>text fields</title>
@@ -20,15 +18,17 @@
     <symbol id="insert_link" viewBox="0 0 24 24">
         <title>insert link</title>
         <g class="nc-icon-wrapper">
-            <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.71-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" fill="currentColor" stroke="none"></path>
+            <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.71-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"
+                  fill="currentColor" stroke="none"></path>
         </g>
     </symbol>
-    <symbol id="small-down" viewBox="0 0 16 16">
-        <title>small down</title>
-        <g>
-            <g class="icon-wrapper">
-                <polygon fill="currentColor" points="8,11.4 2.6,6 4,4.6 8,8.6 12,4.6 13.4,6 "/>
-            </g>
+    <symbol id="small-down" viewBox="0 0 24 24">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L12 14.5858L18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289C20.0976 8.68342 20.0976 9.31658 19.7071 9.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289Z"
+                  fill="currentColor"></path>
         </g>
     </symbol>
     <symbol id="small-left" viewBox="0 0 16 16">
@@ -102,13 +102,15 @@
             </g>
         </g>
     </symbol>
-    <symbol id="hit-down" viewBox="0 0 16 16">
-        <title>hit down</title>
-        <g>
-            <g class="icon-wrapper">
-                <path fill="currentColor"
-                      d="M8,12c0.3,0,0.5-0.1,0.7-0.3L14.4,6L13,4.6l-4,4V0H7v8.6l-4-4L1.6,6l5.7,5.7C7.5,11.9,7.7,12,8,12z"/>
-                <rect fill="currentColor" x="1" y="14" width="14" height="2"/>
+    <symbol id="hit-down" viewBox="0 0 512 512">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <style type="text/css">.st0{fill:#000000;}</style>
+            <g>
+                <polygon class="st0"
+                         points="47.916,340.624 166.242,340.624 166.242,512 345.774,512 345.774,340.624 464.1,340.624 256.015,88.146 "></polygon>
+                <rect x="23.574" class="st0" width="464.851" height="72.132"></rect>
             </g>
         </g>
     </symbol>
@@ -161,18 +163,8 @@
             </g>
         </g>
     </symbol>
-    <symbol id="menu-left" viewBox="0 0 16 16">
-        <title>menu left</title>
-        <g>
-            <g class="icon-wrapper">
-                <path fill="currentColor"
-                      d="M8,14H1c-0.552,0-1-0.448-1-1v0c0-0.552,0.448-1,1-1h7c0.552,0,1,0.448,1,1v0C9,13.552,8.552,14,8,14z"/>
-                <path fill="currentColor"
-                      d="M15,4H1C0.448,4,0,3.552,0,3v0c0-0.552,0.448-1,1-1h14c0.552,0,1,0.448,1,1v0C16,3.552,15.552,4,15,4z"/>
-                <path fill="currentColor"
-                      d="M15,9H1C0.448,9,0,8.552,0,8v0c0-0.552,0.448-1,1-1h14c0.552,0,1,0.448,1,1v0 C16,8.552,15.552,9,15,9z"/>
-            </g>
-        </g>
+    <symbol id="menu-left" viewBox="0 0 24 24">
+        <path d="M1.2 13.2h21.6c0.662 0 1.2-0.538 1.2-1.2s-0.538-1.2-1.2-1.2h-21.6c-0.662 0-1.2 0.538-1.2 1.2s0.538 1.2 1.2 1.2zM1.2 6h21.6c0.662 0 1.2-0.538 1.2-1.2s-0.538-1.2-1.2-1.2h-21.6c-0.662 0-1.2 0.538-1.2 1.2s0.538 1.2 1.2 1.2zM1.2 20.4h21.6c0.662 0 1.2-0.538 1.2-1.2s-0.538-1.2-1.2-1.2h-21.6c-0.662 0-1.2 0.538-1.2 1.2s0.538 1.2 1.2 1.2z"></path>
     </symbol>
     <symbol id="round-e-info" viewBox="0 0 16 16">
         <title>round e info</title>
@@ -215,16 +207,10 @@
             </g>
         </g>
     </symbol>
-    <symbol id="trash-simple" viewBox="0 0 16 16">
-        <title>trash simple</title>
-        <g>
-            <g class="icon-wrapper">
-                <rect data-color="color-2" x="5" y="7" fill="currentColor" width="2" height="6"></rect>
-                <rect data-color="color-2" x="9" y="7" fill="currentColor" width="2" height="6"></rect>
-                <path fill="currentColor"
-                      d="M12,1c0-0.6-0.4-1-1-1H5C4.4,0,4,0.4,4,1v2H0v2h1v10c0,0.6,0.4,1,1,1h12c0.6,0,1-0.4,1-1V5h1V3h-4V1z M6,2h4 v1H6V2z M13,5v9H3V5H13z"></path>
-            </g>
-        </g>
+    <symbol id="trash-simple" viewBox="0 0 32 32">
+        <!--        <path d="M7.25 30h17.5l1.75-19.25h-21zM19.5 5.5v-3.5h-7v3.5h-8.75v5.25l1.75-1.75h21l1.75 1.75v-5.25h-8.75zM17.75 5.5h-3.5v-1.75h3.5v1.75z"></path>-->
+        <!--        <path d="M7.875 29h16.25l1.625-17.875h-19.5zM19.25 6.25v-3.25h-6.5v3.25h-8.125v4.875l1.625-1.625h19.5l1.625 1.625v-4.875h-8.125zM17.625 6.25h-3.25v-1.625h3.25v1.625z"></path>-->
+        <path d="M7.25 29h17.5l1.75-19.25h-21zM19.5 4.5v-3.5h-7v3.5h-8.75v5.25l1.75-1.75h21l1.75 1.75v-5.25h-8.75zM17.75 4.5h-3.5v-1.75h3.5v1.75z"></path>
     </symbol>
     <symbol id="lock-circle-open" viewBox="0 0 16 16">
         <title>lock circle open</title>
@@ -253,22 +239,16 @@
             </g>
         </g>
     </symbol>
-    <symbol id="icon-bar-chart" viewBox="0 0 32 32">
-        <title>bar-chart</title>
-        <g>
-            <g class="icon-wrapper">
-                <path fill="currentColor"
-                      d="M1.215 1.231h-1.215v29.538h32v-1.185l-30.764-0.062-0.021-28.292zM17.231 2.462c0-0.681-0.551-1.231-1.231-1.231h-3.692c-0.681 0-1.231 0.55-1.231 1.231v24.615h6.154v-24.615zM9.846 9.846c0-0.679-0.551-1.231-1.231-1.231h-3.692c-0.681 0-1.231 0.551-1.231 1.231v17.231h6.154v-17.231zM24.615 17.231c0-0.681-0.551-1.231-1.231-1.231h-3.692c-0.681 0-1.231 0.55-1.231 1.231v9.846h6.154v-9.846zM30.769 23.385h-3.692c-0.681 0-1.231 0.55-1.231 1.231v2.462h6.154v-2.462c0-0.681-0.551-1.231-1.231-1.231z"></path>
-            </g>
-        </g>
+    <symbol id="icon-bar-chart" viewBox="0 0 20 20">
+        <path d="M1 10h3v10h-3v-10zM6 0h3v20h-3v-20zM11 8h3v12h-3v-12zM16 4h3v16h-3v-16z"></path>
     </symbol>
-    <symbol id="unfold" viewBox="0 0 24 24" width="24">
-        <title>unfold</title>
-        <g class="icon-wrapper">
-            <path fill="currentColor"
-                  clip-rule="evenodd"
-                  d="m4 9c.28 0 .53-.11.71-.29l5.29-5.3 5.29 5.29c.18.19.43.3.71.3.55 0 1-.45 1-1 0-.28-.11-.53-.29-.71l-6-6c-.18-.18-.43-.29-.71-.29s-.53.11-.71.29l-6 6c-.18.18-.29.43-.29.71 0 .55.45 1 1 1zm12 2c-.28 0-.53.11-.71.29l-5.29 5.3-5.29-5.29c-.18-.19-.43-.3-.71-.3-.55 0-1 .45-1 1 0 .28.11.53.29.71l6 6c.18.18.43.29.71.29s.53-.11.71-.29l6-6c.18-.18.29-.43.29-.71 0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"/>
+    <symbol id="unfold" viewBox="0 0 52 52">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M48,9.5C48,8.7,47.3,8,46.5,8h-41C4.7,8,4,8.7,4,9.5v3C4,13.3,4.7,14,5.5,14h41c0.8,0,1.5-0.7,1.5-1.5V9.5z"></path>
+            <path d="M48,39.5c0-0.8-0.7-1.5-1.5-1.5h-41C4.7,38,4,38.7,4,39.5v3C4,43.3,4.7,44,5.5,44h41c0.8,0,1.5-0.7,1.5-1.5 V39.5z"></path>
+            <path d="M34.5,29c0.8,0,1.5-0.7,1.5-1.5v-3c0-0.8-0.7-1.5-1.5-1.5h-17c-0.8,0-1.5,0.7-1.5,1.5v3 c0,0.8,0.7,1.5,1.5,1.5H34.5z"></path>
         </g>
     </symbol>
     <symbol id="icon-paper-plane" viewBox="0 0 20 20">
