@@ -1,3 +1,4 @@
+import './Title.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -46,7 +47,7 @@ const Title: React.FC<Props> = (props) => {
             <DefinitionLink
               anchor={anchor}
               assessmentName={assessmentName}
-              className="margin-right-big"
+              className="title-hint__link"
               cycleName={cycleName}
               document={document}
               key={key}
