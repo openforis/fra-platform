@@ -28,6 +28,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
       select * from ${schemaCycle}.repository
       where
         ${condition} and (props ->> 'hidden')::boolean is not true
+      order by id -- TODO: order by rowIndex
     `,
     [countryIso],
     (row) => Objects.camelize(row)
