@@ -14,8 +14,8 @@ type Props = {
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
-  const { assessment, cycle, countryIso, repositoryItem } = props
-  const { fileUuid, link, props: _props } = repositoryItem
+  const { assessment, cycle, repositoryItem } = props
+  const { fileUuid, link, countryIso, props: _props } = repositoryItem
 
   if (fileUuid && link) throw new Error('Cannot create both file and link')
   if (!fileUuid && !link) throw new Error('No file or link provided')
