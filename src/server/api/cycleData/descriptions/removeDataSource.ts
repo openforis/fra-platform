@@ -8,19 +8,17 @@ import { CycleDataController } from 'server/controller/cycleData'
 import { SocketServer } from 'server/service/socket'
 import Requests from 'server/utils/requests'
 
-type Body = {
-  uuid: string
-}
+type Request = CycleDataRequest<{ uuid: string }>
 
-export const removeContact = async (req: CycleDataRequest<never, Body>, res: Response) => {
+export const removeDataSource = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, sectionName, uuid } = req.query
+    const { assessmentName, sectionName, cycleName, countryIso, uuid } = req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const user = Requests.getUser(req)
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const props = { assessment, cycle, countryIso, sectionName, user, uuid }
-    await CycleDataController.Contacts.remove(props)
+    const propsDelete = { assessment, cycle, countryIso, sectionName, uuid, user }
+    await CycleDataController.removeDataSource(propsDelete)
 
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))
 
