@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
 type Props = {
@@ -18,12 +18,7 @@ const ButtonAdd: React.FC<Props> = (props: Props) => {
 
   const openPanel = useOpenPanel({ countryIso: isAdmin ? undefined : countryIso })
 
-  return (
-    <button className="btn-s btn-primary" onClick={openPanel} type="button">
-      <Icon className="icon-sub icon-white" name="small-add" />
-      {t('common.add')}
-    </button>
-  )
+  return <Button iconName="small-add" label={t('common.add')} onClick={openPanel} size={ButtonSize.m} />
 }
 
 ButtonAdd.defaultProps = {
