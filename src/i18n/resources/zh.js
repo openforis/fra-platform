@@ -5,6 +5,7 @@ const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
 const dataSource = require('./zh/dataSource')
+const email = require('./zh/email')
 const fra = require('./zh/fra')
 const generalValidation = require('./zh/generalValidation')
 const login = require('./zh/login')
@@ -18,6 +19,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,

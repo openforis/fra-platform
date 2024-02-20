@@ -1,5 +1,8 @@
+import './ExtentOfForest.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import classNames from 'classnames'
 
 import { Labels } from 'meta/assessment'
 import { Users } from 'meta/user'
@@ -10,6 +13,7 @@ import { useOriginalDataPointYears } from 'client/store/data'
 import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { useUser } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import Button from 'client/components/Buttons/Button'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 
 import { Props } from '../props'
@@ -25,8 +29,9 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const odpYears = useOriginalDataPointYears()
   const showOdps = useShowOriginalDatapoints()
 
-  const hasOdps = Array.isArray(odpYears)
   const sectionName = subSection.props.name
+  const hasOdps = Array.isArray(odpYears)
+  const withToggleODPs = Users.isAdministrator(user) && hasOdps
 
   const onClick = useCallback(() => {
     dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())
@@ -34,14 +39,17 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
   return (
     <>
-      <h2 className="headline no-print">
-        {Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}
-        {Users.isAdministrator(user) && hasOdps && (
-          <button type="button" className="btn-s btn-secondary btn-toggle-odp" onClick={onClick}>
-            {t(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
-          </button>
+      <div className={classNames('justify_start', 'section-title-extentOfForest', { withToggleODPs })}>
+        <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+        {withToggleODPs && (
+          <Button
+            className="btn-toggle-odp"
+            inverse={showOdps}
+            label={t(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
+            onClick={onClick}
+          />
         )}
-      </h2>
+      </div>
 
       {hasOdps && print && !onlyTables && <OriginalDataPointsPrint sectionName={sectionName} />}
     </>

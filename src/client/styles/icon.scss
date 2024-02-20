@@ -67,3 +67,7 @@
   @include mixin-icon-base;
   filter: invert(98%);
 }
+
+svg.icon_hit-down {
+  transform: rotate(180deg);
+}

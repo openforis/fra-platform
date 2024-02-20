@@ -1,32 +1,34 @@
 @import 'src/client/style/partials';
 
-.assessment-section__extentOfForest {
-  .btn-toggle-odp {
-    margin-left: $spacing-xs;
+.assessment-section {
+  align-content: start;
+  display: grid;
+
+  .justify_start {
+    justify-self: start;
   }
 
-}
-
-.assessment-section__degradedForest {
-  .fra-table {
-    tr:nth-child(2) {
-      th:first-child {
-        min-width: 72px;
+  &.section__degradedForest {
+    .fra-table {
+      tr:nth-child(2) {
+        th:first-child {
+          min-width: 72px;
+        }
       }
     }
   }
-}
 
-.assessment-section__sustainableDevelopment {
-  .subhead {
-    margin-bottom: $spacing-xs;
-  }
+  &.section__sustainableDevelopment {
+    .subhead {
+      margin-bottom: $spacing-xs;
+    }
 
-  .fra-secondary-table__wrapper {
-    width: 100%;
+    .fra-secondary-table__wrapper {
+      width: 100%;
 
-    .fra-table__header-cell-left {
-      width: 25%;
+      .fra-table__header-cell-left {
+        width: 25%;
+      }
     }
   }
 }

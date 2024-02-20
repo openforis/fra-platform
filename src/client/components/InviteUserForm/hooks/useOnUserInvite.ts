@@ -48,6 +48,8 @@ export const useOnUserInvite = (props: {
     }
     setErrors(fieldErrors)
 
+    const permissions = userToInvite.role === RoleName.COLLABORATOR ? userToInvite.permissions : undefined
+
     if (!Object.values(fieldErrors).find((value) => !!value))
       dispatch(
         UserManagementActions.inviteUser({
@@ -57,6 +59,7 @@ export const useOnUserInvite = (props: {
           email: userToInvite.email,
           lang: userToInvite.lang,
           name: userToInvite.name,
+          permissions,
           role: userToInvite.role as RoleName,
           surname: userToInvite.surname,
         })
@@ -84,6 +87,7 @@ export const useOnUserInvite = (props: {
     userToInvite.email,
     userToInvite.lang,
     userToInvite.name,
+    userToInvite.permissions,
     userToInvite.role,
     userToInvite.surname,
   ])
