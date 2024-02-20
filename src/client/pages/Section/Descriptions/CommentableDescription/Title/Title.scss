@@ -1,12 +1,14 @@
 @import 'src/client/style/partials';
 
-.description-title {
+div.description-title {
   align-items: center;
-  display: flex;
-}
+  display: grid;
+  justify-self: start;
 
-.description-title__label {
-  margin-right: $spacing-xxxs;
+  &.editable {
+    grid-column-gap: $spacing-xxxs;
+    grid-template-columns: 1fr auto;
+  }
 }
 
 .description-title__btn-edit {

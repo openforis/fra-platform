@@ -9,13 +9,8 @@ import { useInitApp } from './hooks/useInitApp'
 import { useOpenSocket } from './hooks/useOpenSocket'
 import { useRoutes } from './hooks/useRoutes'
 
-const PageRoutes: React.FC = () => {
-  useInitApp()
-  useOpenSocket()
-  const isAppInitialized = useIsAppInitialized()
+const AppInitialized: React.FC = () => {
   const routes = useRoutes()
-
-  if (!isAppInitialized) return null
 
   return (
     <>
@@ -24,6 +19,16 @@ const PageRoutes: React.FC = () => {
       <Tooltips />
     </>
   )
+}
+
+const PageRoutes: React.FC = () => {
+  useInitApp()
+  useOpenSocket()
+  const isAppInitialized = useIsAppInitialized()
+
+  if (!isAppInitialized) return null
+
+  return <AppInitialized />
 }
 
 export default PageRoutes

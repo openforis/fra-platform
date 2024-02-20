@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { Lang } from 'meta/lang'
-import { RoleName, User, UserRole } from 'meta/user'
+import { CollaboratorPermissions, RoleName, User, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -12,18 +12,19 @@ import { MailService } from 'server/service'
 export const invite = async (
   props: {
     assessment: Assessment
-    cycle: Cycle
     countryIso: CountryIso
+    cycle: Cycle
     email: string
     lang: Lang
     name?: string
+    permissions?: CollaboratorPermissions
     roleName: RoleName
     surname?: string
     user: User
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName>; user: User }> => {
-  const { assessment, cycle, countryIso, email, lang, name, roleName, surname, user } = props
+  const { assessment, cycle, countryIso, email, lang, name, permissions, roleName, surname, user } = props
 
   return client.tx(async (t) => {
     // Get user with primary email
@@ -39,12 +40,14 @@ export const invite = async (
 
     const userRole = await UserRoleRepository.create(
       {
-        user: userToInvite,
         assessment,
         country: countryIso,
-        role: roleName,
         cycle,
-        props: { primaryEmail: email, address: { countryIso } },
+        invitedByUserUuid: user.uuid,
+        permissions,
+        props: { address: { countryIso }, primaryEmail: email },
+        role: roleName,
+        user: userToInvite,
       },
       t
     )

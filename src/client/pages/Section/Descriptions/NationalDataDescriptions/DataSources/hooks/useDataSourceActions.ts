@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
-import { DataActions, useCommentableDescriptionValue } from 'client/store/data'
+import { DataActions } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
@@ -15,15 +15,12 @@ type Props = {
   sectionName: SectionName
 }
 
-const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
-
 export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
   const { dataSource, readOnly, sectionName } = props
 
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
-  const dataSourcesValue = useCommentableDescriptionValue({ name, sectionName })
   const dispatch = useAppDispatch()
 
   return useMemo<Array<DataRowAction>>(() => {
@@ -33,10 +30,8 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
 
     if (editable) {
       const onDelete = () => {
-        const dataSources = dataSourcesValue.dataSources.filter((_dataSource) => _dataSource.uuid !== dataSource.uuid)
-        const valueUpdate = { ...dataSourcesValue, dataSources }
-        const updateProps = { assessmentName, cycleName, countryIso, sectionName, name, value: valueUpdate }
-        dispatch(DataActions.updateDescription(updateProps))
+        const deleteProps = { assessmentName, cycleName, countryIso, sectionName, uuid: dataSource.uuid }
+        dispatch(DataActions.deleteDataSource(deleteProps))
       }
       actions.push({ type: DataRowActionType.Delete, onClick: onDelete })
     }
@@ -55,7 +50,6 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
     dataSource.uuid,
     dataSource.variables,
     dataSource.year,
-    dataSourcesValue,
     dispatch,
     editable,
     readOnly,

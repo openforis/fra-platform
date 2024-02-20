@@ -29,6 +29,9 @@ export const addMessage = async (
 ): Promise<{ topic: MessageTopic; message: Message }> => {
   const { message: messageText, user, countryIso, assessment, cycle, key, type, sectionName } = props
 
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+
   return client.tx(async (t) => {
     let topic = await MessageTopicRepository.getOneOrNone(
       { countryIso, assessment, cycle, key, includeMessages: false },
@@ -37,13 +40,10 @@ export const addMessage = async (
 
     if (!topic) {
       // Country Message board section_uuid = null
-      let section
-      if (type === MessageTopicType.review && sectionName)
-        section = await SectionRepository.getOne({
-          assessment,
-          cycle,
-          sectionName,
-        })
+      const section =
+        type === MessageTopicType.review && sectionName
+          ? await SectionRepository.getOne({ assessment, cycle, sectionName })
+          : undefined
       topic = await MessageTopicRepository.create({ countryIso, assessment, cycle, key, type, section }, t)
     }
 
@@ -53,34 +53,22 @@ export const addMessage = async (
       await updateTopicReadTime({ assessment, cycle, topic, user }, t)
     }
 
-    await ActivityLogRepository.insertActivityLog(
-      {
-        activityLog: {
-          target: message,
-          section: sectionName,
-          message: ActivityLogMessage.messageCreate,
-          countryIso,
-          user,
-        },
-        assessment,
-        cycle,
-      },
-      t
-    )
+    const activityLog = {
+      target: message,
+      section: sectionName,
+      message: ActivityLogMessage.messageCreate,
+      countryIso,
+      user,
+    }
+    await ActivityLogRepository.insertActivityLog({ assessment, cycle, activityLog }, t)
 
     if (topic.type === MessageTopicType.chat) {
       const recipientId = Topics.getChatRecipientId(topic, user)
-
       const recipient = await UserController.getOne({ id: recipientId })
+      const sender = user
+      const url = ProcessEnv.appUri
 
-      await MailService.oneToOneMessage({
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        recipient,
-        sender: user,
-        url: ProcessEnv.appUri,
-      })
+      await MailService.oneToOneMessage({ assessmentName, cycleName, countryIso, recipient, sender, url })
     }
 
     return { topic, message }

@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: $spacing-xl 1fr $spacing-xl - 4;
   grid-auto-rows: $spacing-s/2;
+  margin: -6px 0;
 
   .btn-toggle {
     grid-row: 1/3;
@@ -16,16 +17,26 @@
     align-content: center;
     justify-content: center;
     padding: unset;
+    margin-right: -1.5px;
+    transition: all 0.2s;
 
     svg {
-      color: $text-body;
-      height: 17px;
-      width: 17px;
+      color: $text-link;
+      height: 15px;
+      width: 15px;
+      margin: unset;
     }
 
     &.active {
       svg {
         color: $ui-accent;
+      }
+    }
+
+    &:hover {
+      svg {
+        transform: scale(1.025);
+        color: $text-mute;
       }
     }
   }
@@ -36,6 +47,7 @@
     align-self: end;
     height: 1px;
     opacity: 0.8;
-    background: radial-gradient($ui-border, lighten($ui-border, 6%));
+    $color-hr: darken($ui-border, 10%);
+    background: radial-gradient($color-hr, lighten($color-hr, 32%));
   }
 }

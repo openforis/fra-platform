@@ -1,15 +1,13 @@
-import './collaboratorAccessModal.scss'
+import './ModalEditor.scss'
 import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { SubSections } from 'meta/assessment'
-import { Collaborator, CollaboratorEditPropertyType } from 'meta/user'
+import { CollaboratorEditPropertyType, CollaboratorPermissions } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'
-import { UserManagementActions } from 'client/store/ui/userManagement'
-import { useCountryIso, useOnUpdate } from 'client/hooks'
+import { useOnUpdate } from 'client/hooks'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import { Modal, ModalBody, ModalClose, ModalHeader } from 'client/components/Modal'
 
@@ -17,39 +15,27 @@ import { useActions } from './hooks/useActions'
 
 type Props = {
   onClose: () => void
+  onPermissionsChange: (permissions: CollaboratorPermissions) => void
   open: boolean
-  userRole: Collaborator
+  permissions: CollaboratorPermissions | undefined
 }
 
 const permissionTypes = [CollaboratorEditPropertyType.tableData, CollaboratorEditPropertyType.descriptions]
 
-const CollaboratorAccessModal: React.FC<Props> = (props) => {
-  const { onClose, open, userRole } = props
+const ModalEditor: React.FC<Props> = (props) => {
+  const { onClose, onPermissionsChange, open, permissions } = props
 
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const assessment = useAssessment()
   const cycle = useCycle()
-  const countryIso = useCountryIso()
   const sections = useSections()
 
   const options = useMemo(() => SubSections.getAnchorsByUuid({ cycle, sections }), [cycle, sections])
   const optionEntries = useMemo(() => Object.entries(options).sort((a, b) => a[1].localeCompare(b[1])), [options])
 
-  const { selectedSections, setSelectedSections, toggleOption, toggleOptions } = useActions({ options, userRole })
+  const { selectedSections, setSelectedSections, toggleOption, toggleOptions } = useActions({ options, permissions })
 
   useOnUpdate(() => {
-    dispatch(
-      UserManagementActions.updateSectionAuth({
-        id: userRole.id,
-        sections: selectedSections,
-        params: {
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-        },
-      })
-    )
+    onPermissionsChange({ sections: selectedSections })
   }, [selectedSections])
 
   useEffect(() => {
@@ -121,4 +107,4 @@ const CollaboratorAccessModal: React.FC<Props> = (props) => {
   )
 }
 
-export default CollaboratorAccessModal
+export default ModalEditor

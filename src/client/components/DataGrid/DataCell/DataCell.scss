@@ -38,10 +38,6 @@ $border: 1px solid $ui-border;
   &.lastRow {
     border-bottom: $border;
   }
-
-  &.noBorder {
-    border: unset;
-  }
 }
 
 .data-cell.editable {
@@ -66,6 +62,18 @@ $border: 1px solid $ui-border;
 
   &.error:focus-within {
     background-color: rgba($ui-destructive, 0.1);
+  }
+}
+
+.data-cell.noBorder {
+  border: unset;
+
+  &.editable:focus-within {
+    background-color: unset;
+
+    > :first-child {
+      outline: unset;
+    }
   }
 }
 
