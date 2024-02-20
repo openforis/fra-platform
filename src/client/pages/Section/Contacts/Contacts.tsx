@@ -25,14 +25,14 @@ const Contacts: React.FC<Props> = (props: Props) => {
   const contacts = useContactsData({ canEdit })
   const columns = useColumns()
   const fields = useFields()
-  const gridTemplateColumns = useGridTemplateColumns({ canEdit, fields })
+  const gridTemplateColumns = useGridTemplateColumns({ fields })
 
   return (
     <div className="contacts">
       <h2 className="headline">{t('contactPersons.reportPreparationAndContactPersons')}</h2>
       <div className="contacts__subTitle">{t('contactPersons.contactPersonsSupport')}</div>
 
-      <DataGrid gridTemplateColumns={gridTemplateColumns}>
+      <DataGrid gridTemplateColumns={gridTemplateColumns} withActions={canEdit}>
         {fields.map(({ field, hidden }, i) => {
           const { header } = columns[field].props
 

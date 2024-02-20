@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { AssessmentNames, Labels, SubSections } from 'meta/assessment'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import DefinitionLink from 'client/components/DefinitionLink'
 
 import ExtentOfForest from './ExtentOfForest/ExtentOfForest'
@@ -32,12 +33,10 @@ const TitleDefault: React.FC<Props> = (props) => {
 const Title: React.FC<Props> = (props) => {
   const { subSection } = props
 
-  const assessment = useAssessment()
   const { i18n, t } = useTranslation()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const cycle = useCycle()
 
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
   const fra = assessmentName === AssessmentNames.fra
   const panEu = assessmentName === AssessmentNames.panEuropean
   const secondDoc = fra ? 'faq' : 'rn'

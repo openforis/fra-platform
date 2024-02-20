@@ -34,8 +34,18 @@ export const ApiEndPoint = {
     activities: () => apiPath('cycle-data', 'activities'),
     activitiesCount: () => apiPath('cycle-data', 'activities', 'count'),
 
-    descriptions: () => apiPath('cycle-data', 'descriptions'),
-    descriptionsDataSources: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
+    Descriptions: {
+      many: () => apiPath('cycle-data', 'descriptions'),
+
+      DataSources: {
+        many: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
+        one: () => apiPath('cycle-data', 'descriptions', 'data-sources', 'data-source'),
+      },
+    },
+    DescriptionDataSources: {
+      many: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
+      one: () => apiPath('cycle-data', 'descriptions', 'data-sources', 'data-source'),
+    },
 
     Contacts: {
       many: () => apiPath('cycle-data', 'contacts'),

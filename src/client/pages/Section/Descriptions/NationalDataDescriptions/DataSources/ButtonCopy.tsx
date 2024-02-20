@@ -9,6 +9,7 @@ import { useAppDispatch } from 'client/store'
 import { DataActions, useCommentableDescriptionValue } from 'client/store/data'
 import { usePreviousSection } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import Button from 'client/components/Buttons/Button'
 
 interface Props {
   disabled: boolean
@@ -25,20 +26,19 @@ export const ButtonCopy: React.FC<Props> = (props: Props) => {
   const previousSection = usePreviousSection(sectionName)
   const previousSectionName = previousSection?.props.name
 
-  const onCopyClick = useCallback(() => {
+  const onClick = useCallback(() => {
     const propsCopy = { assessmentName, cycleName, countryIso, sectionName, currentValue, previousSectionName }
     dispatch(DataActions.copyPreviousDatasources(propsCopy))
   }, [assessmentName, countryIso, currentValue, cycleName, dispatch, previousSectionName, sectionName])
 
   return (
-    <button
-      className="btn-s btn-primary data-sources__btn-copy"
+    <Button
+      className="data-sources__btn-copy"
       disabled={disabled || !previousSection}
-      onClick={onCopyClick}
-      type="button"
-    >
-      {t('nationalDataPoint.copyPreviousValues')}
-    </button>
+      iconName="content_copy"
+      label={t('nationalDataPoint.copyPreviousValues')}
+      onClick={onClick}
+    />
   )
 }
 

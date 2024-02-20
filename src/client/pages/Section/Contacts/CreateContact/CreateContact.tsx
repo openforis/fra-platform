@@ -1,8 +1,7 @@
-import './CreateContact.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 
 import { useOnClick } from './hooks/useOnClick'
 
@@ -11,11 +10,8 @@ const CreateContact: React.FC = () => {
   const { onClick, loading } = useOnClick()
 
   return (
-    <div className="contacts__create-container">
-      <button disabled={loading} className="btn-s btn-primary no-print" onClick={onClick} type="button">
-        <Icon className="icon-sub icon-white" name="small-add" />
-        {t('common.add')}
-      </button>
+    <div>
+      <Button disabled={loading} iconName="small-add" label={t('review.add')} onClick={onClick} size={ButtonSize.m} />
     </div>
   )
 }
