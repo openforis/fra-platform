@@ -2,6 +2,7 @@ import React from 'react'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { Translations } from 'meta/translation'
 
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -15,7 +16,7 @@ const RepositoryLink = (props: Props) => {
   const language = useLanguage()
 
   const { datum } = props
-  const name = RepositoryItems.getName({ repositoryItem: datum, language })
+  const name = Translations.getLabel({ translation: datum.props.translation, language })
 
   if (datum.link) {
     return (

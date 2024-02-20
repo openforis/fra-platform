@@ -4,6 +4,7 @@ import type { Jodit } from 'jodit-react'
 
 import { CountryIso } from 'meta/area'
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { Translations } from 'meta/translation'
 
 import { useUpdateRepositoryItemsAccess } from 'client/store/ui/repository'
 import { useLanguage } from 'client/hooks/useLanguage'
@@ -31,7 +32,10 @@ export const useOnClose = (props: Props): Returned => {
 
       const mapFunction = (repositoryItem: RepositoryItem) => {
         const url = RepositoryItems.getURL({ repositoryItem, assessmentName, cycleName, countryIso })
-        return `<a href="${url}" target="_blank">${RepositoryItems.getName({ repositoryItem, language })}</a>`
+        return `<a href="${url}" target="_blank">${Translations.getLabel({
+          translation: repositoryItem.props.translation,
+          language,
+        })}</a>`
       }
 
       repositoryItems.forEach((_repositoryItem: RepositoryItem) => {

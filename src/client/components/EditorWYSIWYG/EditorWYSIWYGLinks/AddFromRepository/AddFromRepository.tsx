@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { Translations } from 'meta/translation'
 
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -67,7 +68,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
 
             {repositoryItems?.map((repositoryItem) => {
               const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
-              const label = RepositoryItems.getName({ repositoryItem, language })
+              const label = Translations.getLabel({ translation: repositoryItem.props.translation, language })
 
               return (
                 <div key={repositoryItem.uuid} className="file-row">
