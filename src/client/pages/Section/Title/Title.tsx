@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SubSectionProps, SubSections } from 'meta/assessment'
+import { SubSectionHints, SubSections } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
@@ -12,7 +12,7 @@ import { Props } from './props'
 
 type Hint = {
   document: string
-  key: keyof SubSectionProps['hints']
+  key: keyof SubSectionHints
   labelKey: string
 }
 
@@ -39,7 +39,7 @@ const Title: React.FC<Props> = (props) => {
 
       {hints.map((hint) => {
         const { document, key, labelKey } = hint
-        const show = Boolean(subSection.props?.hints?.[key]?.[cycle.uuid])
+        const show = Boolean(subSection.props?.hints?.[cycle.uuid]?.[key])
 
         if (show) {
           return (

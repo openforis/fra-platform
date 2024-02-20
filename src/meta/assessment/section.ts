@@ -15,15 +15,17 @@ export interface SectionProps {
   labels: Record<CycleUuid, Label>
 }
 
+export type SubSectionHints = {
+  definitions?: boolean
+  faqs?: boolean
+  notes?: boolean
+}
+
 export interface SubSectionProps extends SectionProps {
   dataExport?: boolean
   descriptions: Descriptions
   hidden?: boolean
-  hints?: {
-    definitions?: Record<CycleUuid, boolean>
-    faqs?: Record<CycleUuid, boolean>
-    notes?: Record<CycleUuid, boolean>
-  }
+  hints?: Record<CycleUuid, SubSectionHints>
   name: SectionName
   showTitle: boolean
 }
