@@ -8,7 +8,7 @@ import { Users } from 'meta/user'
 import { useRepositoryItemChangeListener } from 'client/store/ui/repository'
 import { useUser } from 'client/store/user'
 import TablePaginated from 'client/components/TablePaginated'
-import ButtonOpenPanel from 'client/pages/CountryHome/Repository/ButtonOpenPanel'
+import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import EditForm from 'client/pages/CountryHome/Repository/EditForm'
 
 import { useColumns } from './hooks/useColumns'
@@ -29,11 +29,11 @@ const Repository: React.FC = () => {
         header={false}
         path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
       />
-      {isAdmin && <ButtonOpenPanel isAdmin={isAdmin} />}
+      {isAdmin && <ButtonAdd isAdmin={isAdmin} />}
 
       <h3 className="repository__header">{t('landing.links.repository')}</h3>
       <TablePaginated columns={columns} counter={false} header={false} path={ApiEndPoint.CycleData.Repository.many()} />
-      <ButtonOpenPanel />
+      <ButtonAdd />
       <EditForm />
     </div>
   )

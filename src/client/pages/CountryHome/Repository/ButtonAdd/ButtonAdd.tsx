@@ -11,7 +11,7 @@ type Props = {
   isAdmin?: boolean
 }
 
-const ButtonOpenPanel: React.FC<Props> = (props: Props) => {
+const ButtonAdd: React.FC<Props> = (props: Props) => {
   const { isAdmin } = props
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
@@ -26,8 +26,8 @@ const ButtonOpenPanel: React.FC<Props> = (props: Props) => {
   )
 }
 
-ButtonOpenPanel.defaultProps = {
+ButtonAdd.defaultProps = {
   isAdmin: false,
 }
 
-export default ButtonOpenPanel
+export default ButtonAdd
