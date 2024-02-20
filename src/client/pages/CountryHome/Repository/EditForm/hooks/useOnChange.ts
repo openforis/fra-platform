@@ -49,7 +49,7 @@ export const useOnChange = (): Returned => {
     const file = files[0]
     const fileUuid = file.uuid
     if (fileUuid && repositoryItem?.fileUuid !== fileUuid) {
-      const name = file.name.split('.')[0]
+      const name = file.name.split('.').slice(0, -1).join('.')
       const translation = { ...(repositoryItem?.props?.translation ?? {}), en: name }
       dispatch(RepositoryActions.setRepositoryItemProps({ fileUuid, props: { ...repositoryItem?.props, translation } }))
     }
