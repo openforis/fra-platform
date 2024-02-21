@@ -3,9 +3,21 @@ import { User } from '../user'
 export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',
   assessmentCycleCreate = 'assessmentCycleCreate',
+  /**
+   * @deprecated
+   */
   assessmentFileCreate = 'assessmentFileCreate',
+  /**
+   * @deprecated
+   */
   assessmentFileDelete = 'assessmentFileDelete',
+  /**
+   * @deprecated
+   */
   assessmentFileUpdateAccess = 'assessmentFileUpdateAccess',
+  /**
+   * @deprecated
+   */
   assessmentFileUpdate = 'assessmentFileUpdate',
   assessmentStatusUpdate = 'assessmentStatusUpdate',
   assessmentUpdate = 'assessmentUpdate',
@@ -31,6 +43,10 @@ export enum ActivityLogMessage {
   originalDataPointUpdateNationalClasses = 'originalDataPointUpdateNationalClasses',
   originalDataPointUpdateOriginalData = 'originalDataPointUpdateOriginalData',
   originalDataPointUpdateYear = 'originalDataPointUpdateYear',
+  repositoryItemCreate = 'repositoryItemCreate',
+  repositoryItemDelete = 'repositoryItemDelete',
+  repositoryItemUpdate = 'repositoryItemUpdate',
+  repositoryItemUpdateAccess = 'repositoryItemUpdateAccess',
   sectionCreate = 'sectionCreate',
   sectionDelete = 'sectionDelete',
   sectionUpdate = 'sectionUpdate',
