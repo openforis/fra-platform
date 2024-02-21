@@ -753,7 +753,7 @@ The FRA team
   growingStockComposition: {
     native: 'أصلية',
     introduced: 'مدخلة',
-    growingStockComposition: 'تركيبة مخزون الأشجار الحية',
+    growingStockComposition: 'تكوين مخزون الأشجار الحيّة بالغابات',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
     nativeTreeSpecies: 'أنواع أشجار أصلية',
     introducedTreeSpecies: 'أنواع أشجار مدخلة',
@@ -1237,7 +1237,7 @@ The FRA team
 
     // table 1.2c
     growingStockComposition: {
-      growingStockComposition: 'تركيبة مخزون الأشجار الحية',
+      growingStockComposition: 'تكوين مخزون الأشجار الحيّة بالغابات',
       speciesName: 'اسم النوع',
       growingStockInForestMillionM3OB: 'المخزون من الأشجار الحية في الغابة (مليون م3 مع اللحاء)',
       rank: 'التصنيف',
