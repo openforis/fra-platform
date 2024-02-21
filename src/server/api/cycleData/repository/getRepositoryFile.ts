@@ -1,6 +1,8 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
+import { Lang } from 'meta/lang'
+import { Translations } from 'meta/translation'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
@@ -19,7 +21,12 @@ export const getRepositoryFile = async (req: Request, res: Response) => {
     const props = { assessment, cycle, uuid }
     const { file, repositoryItem } = await CycleDataController.Repository.getFile(props)
 
-    Responses.sendFile(res, repositoryItem.props.translation.en, file)
+    // Append the original file extension to the file name
+    const label = Translations.getLabel({ translation: repositoryItem.props.translation, language: Lang.en })
+    const extension = file.name.split('.').pop()
+    const fileName = `${label}.${extension}`
+
+    Responses.sendFile(res, fileName, file.file)
   } catch (e) {
     Requests.sendErr(res, e)
   }

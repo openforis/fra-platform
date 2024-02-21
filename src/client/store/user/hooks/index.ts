@@ -70,3 +70,15 @@ export const useIsDescriptionEditable = (props: {
 
   return useMemo<boolean>(() => canEdit && editEnabled, [canEdit, editEnabled])
 }
+
+export const useIsCountryRepositoryEditable = (): boolean => {
+  const locked = useIsDataLocked()
+  return !locked
+}
+
+export const useIsGlobalRepositoryEditable = (): boolean => {
+  const user = useUser()
+  const isAdmin = Users.isAdministrator(user)
+  const locked = useIsDataLocked()
+  return !locked && isAdmin
+}

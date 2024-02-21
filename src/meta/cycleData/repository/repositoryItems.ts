@@ -17,6 +17,12 @@ const getURL = (props: GetFileURLProps) => {
   return `${ApiEndPoint.CycleData.Repository.file(datum.uuid)}?${queryParams.toString()}`
 }
 
+const isGlobal = (props: { repositoryItem: RepositoryItem }): boolean => {
+  const { repositoryItem } = props
+  return !repositoryItem.countryIso
+}
+
 export const RepositoryItems = {
   getURL,
+  isGlobal,
 }
