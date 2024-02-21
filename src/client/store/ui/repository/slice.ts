@@ -2,7 +2,8 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { RepositoryItem, RepositoryItemValidator } from 'meta/cycleData'
 
-import { repositoryItemReducer } from 'client/store/ui/repository/reducers/repositoryItemReducer'
+import { repositoryFileReducer } from 'client/store/ui/repository/reducers/repositoryFileBuilder'
+import { repositoryReducer } from 'client/store/ui/repository/reducers/repositoryReducer'
 import { initialState, RepositoryState } from 'client/store/ui/repository/state'
 
 export const RepositorySlice = createSlice({
@@ -18,9 +19,13 @@ export const RepositorySlice = createSlice({
       state.repositoryItem = repositoryItem
       state.repositoryItemValidation = RepositoryItemValidator.validate(repositoryItem)
     },
+    resetFile: (state: RepositoryState) => {
+      state.file = undefined
+    },
   },
   extraReducers: (builder) => {
-    repositoryItemReducer(builder)
+    repositoryFileReducer(builder)
+    repositoryReducer(builder)
   },
 })
 
