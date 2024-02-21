@@ -41,7 +41,8 @@ export const initFileCleanup = (connection: IORedis): Worker => {
     { concurrency: 1, connection, lockDuration: 10_000, maxStalledCount: 0 }
   )
 
-  queue.add(`${name}-immediate`, undefined, { removeOnComplete: true, removeOnFail: false })
+  // Don't run immediate, only run on schedule
+  // queue.add(`${name}-immediate`, undefined, { removeOnComplete: true, removeOnFail: false })
   queue.add(`${name}-scheduler`, undefined, {
     repeat: { pattern: '0 0 * * 0' },
     removeOnComplete: true,
