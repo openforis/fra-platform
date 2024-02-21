@@ -166,7 +166,7 @@
     "@socket.io/redis-streams-adapter": "^0.1.0",
     "@types/multer": "^1.4.7",
     "assert": "^2.0.0",
-    "axios": "^0.25.0",
+    "axios": "^0.28.0",
     "bcrypt": "^5.0.1",
     "bignumber.js": "^9.0.1",
     "bluebird": "^3.7.2",
