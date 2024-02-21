@@ -22,6 +22,7 @@ export const RepositorySlice = createSlice({
     resetFile: (state: RepositoryState) => {
       state.file = undefined
     },
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     repositoryFileReducer(builder)
