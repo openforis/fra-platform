@@ -2,13 +2,12 @@ import './Actions.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
 import { useIsRepositoryItemValid, useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { DataCell } from 'client/components/DataGrid'
-import Icon from 'client/components/Icon'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -34,27 +33,26 @@ const Actions: React.FC = () => {
   return (
     <>
       <DataCell className="repository-form__actions" noBorder>
-        <button disabled={disabled} className="btn btn-secondary" type="button" onClick={closePanel}>
-          {t('common.cancel')}
-        </button>
-
-        <button
-          disabled={disabledDone}
+        <Button inverse size={ButtonSize.m} label={t('common.cancel')} onClick={closePanel} disabled={disabled} />
+        <Button
+          type={ButtonType.primary}
+          size={ButtonSize.m}
+          label={t('editUser.done')}
           onClick={upsertRepositoryItem}
-          className={classNames('btn btn-primary', { disabled })}
-          type="button"
-        >
-          {/* TODO: Move to common.save */}
-          {t('editUser.done')}
-        </button>
+          disabled={disabledDone}
+        />
       </DataCell>
 
       <DataCell className="repository-form__actions-delete">
         {showDelete && (
-          <button disabled={disabled} onClick={onDelete} className="btn btn-destructive" type="button">
-            <Icon className="icon-sub icon-white" name="trash-simple" />
-            {t('common.delete')}
-          </button>
+          <Button
+            type={ButtonType.danger}
+            size={ButtonSize.m}
+            label={t('common.delete')}
+            iconName="trash-simple"
+            onClick={onDelete}
+            disabled={disabled}
+          />
         )}
       </DataCell>
     </>
