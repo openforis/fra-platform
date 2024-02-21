@@ -232,7 +232,7 @@ Notas explicativas
 2.	Incluye árboles vivos derribados.
 3.	Excluye ramas, ramillas, hojas, flores, semillas y raíces
 
-## 2b Composición de las existencias en formación
+## 2b Composición de las existencias forestales en formación
 
 ### ESPECIES DE ÁRBOLES NATIVOS _(Término complementario)_
 
