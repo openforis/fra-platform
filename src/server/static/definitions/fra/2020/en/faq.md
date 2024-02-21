@@ -195,9 +195,9 @@ Yes, if it is not managed for agricultural purposes and the minimum area, crown 
 
 It is possible, but should be done with much caution; particularly the conversion and expansion factors need a growing stock per hectare as part of the input, so here some assumptions need to be made. Using wood density and biomass expansion factors is more straightforward.
 
-# 2b Growing stock composition
+# 2b Forest growing stock composition
 
-### Does Table 2b on growing stock composition refer to natural forests only? 
+### Does Table 2b on forest growing stock composition refer to natural forests only? 
 
 No. All the table refer to both natural and planted forests of both native and introduced species. 
 

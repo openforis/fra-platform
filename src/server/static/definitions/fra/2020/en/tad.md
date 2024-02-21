@@ -232,7 +232,7 @@ Explanatory notes
 2. Includes laying living trees.
 3. Excludes branches, twigs, foliage, flowers, seeds, and roots.
 
-## 2b Growing stock composition
+## 2b Forest growing stock composition
 
 ### NATIVE TREE SPECIES _(Supplementary term)_
 
