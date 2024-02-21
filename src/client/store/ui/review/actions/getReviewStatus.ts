@@ -1,14 +1,14 @@
-import { ApiEndPoint } from 'meta/api/endpoint'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 import { ReviewStatus } from 'meta/assessment'
 
 type Params = {
-  countryIso: CountryIso
   assessmentName: string
   cycleName: string
+  countryIso: CountryIso
   sectionName: string
   odpId?: number
 }

@@ -10,7 +10,9 @@ type Props = CycleParams & { sectionName?: SectionName; name?: string }
 type Returned = DescriptionCountryValues
 
 export const getDescription = createAsyncThunk<Returned, Props>('data/descriptions/get', async (props: Props) => {
-  const { data } = await axios.get<DescriptionCountryValues>(ApiEndPoint.CycleData.descriptions(), { params: props })
+  const { data } = await axios.get<DescriptionCountryValues>(ApiEndPoint.CycleData.Descriptions.many(), {
+    params: props,
+  })
 
   return data
 })
