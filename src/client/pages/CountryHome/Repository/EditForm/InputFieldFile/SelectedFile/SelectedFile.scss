@@ -1,7 +1,7 @@
 @import 'src/client/style/partials';
-@import 'client/components/Inputs/InputText/InputText';
 
 .repository-form__selected-file {
+  align-items: center;
   display: grid;
   grid-template-columns: repeat(2, auto);
   justify-content: space-between;
