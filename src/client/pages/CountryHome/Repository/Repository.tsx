@@ -18,18 +18,22 @@ const Repository: React.FC = () => {
 
   return (
     <div className="repository">
-      <h3 className="repository__header">{t('landing.links.links')}</h3>
+      <div className="repository__header">
+        <h3>{t('landing.links.links')}</h3>
+        <ButtonAdd isGlobal />
+      </div>
       <TablePaginated
         columns={columns}
         counter={false}
         header={false}
         path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
       />
-      <ButtonAdd isGlobal />
 
-      <h3 className="repository__header">{t('landing.links.repository')}</h3>
+      <div className="repository__header">
+        <h3>{t('landing.links.repository')}</h3>
+        <ButtonAdd />
+      </div>
       <TablePaginated columns={columns} counter={false} header={false} path={ApiEndPoint.CycleData.Repository.many()} />
-      <ButtonAdd />
       <EditForm />
     </div>
   )

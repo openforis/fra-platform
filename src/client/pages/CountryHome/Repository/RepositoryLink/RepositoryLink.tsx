@@ -1,5 +1,5 @@
+import './RepositoryLink.scss'
 import React from 'react'
-import { Link as ReactRouterLink } from 'react-router-dom'
 
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
@@ -12,25 +12,18 @@ type Props = {
 }
 
 const RepositoryLink = (props: Props) => {
+  const { datum } = props
+
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const language = useLanguage()
 
-  const { datum } = props
-  const name = Translations.getLabel({ translation: datum.props.translation, language })
-
-  if (datum.link) {
-    return (
-      <a target="_blank" href={datum.link} rel="noreferrer">
-        {name}
-      </a>
-    )
-  }
-
+  const label = Translations.getLabel({ translation: datum.props.translation, language })
   const url = RepositoryItems.getURL({ repositoryItem: datum, assessmentName, cycleName, countryIso })
+
   return (
-    <ReactRouterLink target="_blank" to={url}>
-      {name}
-    </ReactRouterLink>
+    <a className="repository-link" href={url} rel="noreferrer" target="_blank">
+      {label}
+    </a>
   )
 }
 

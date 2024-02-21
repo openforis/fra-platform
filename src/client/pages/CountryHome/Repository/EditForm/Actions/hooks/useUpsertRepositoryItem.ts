@@ -20,7 +20,7 @@ export const useUpsertRepositoryItem = (): Returned => {
       .unwrap()
       .then(() => {
         dispatch(FileUploadActions.reset())
-        dispatch(RepositoryActions.setRepositoryItem(undefined))
+        dispatch(RepositoryActions.reset())
       })
   }, [assessmentName, cycleName, countryIso, repositoryItem, dispatch])
 }

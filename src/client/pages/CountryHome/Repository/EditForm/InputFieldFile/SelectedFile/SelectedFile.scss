@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.repository-form__selected-file {
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  padding: $spacing-xxs;
+  text-decoration: none;
+}

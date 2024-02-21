@@ -2,13 +2,12 @@ import './Actions.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
 import { useIsRepositoryItemValid, useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { DataCell } from 'client/components/DataGrid'
-import Icon from 'client/components/Icon'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -34,27 +33,34 @@ const Actions: React.FC = () => {
   return (
     <>
       <DataCell className="repository-form__actions" noBorder>
-        <button disabled={disabled} className="btn btn-secondary" type="button" onClick={closePanel}>
-          {t('common.cancel')}
-        </button>
-
-        <button
+        <Button
+          disabled={disabled}
+          iconName="undo"
+          inverse
+          label={t('common.cancel')}
+          onClick={closePanel}
+          size={ButtonSize.m}
+        />
+        <Button
           disabled={disabledDone}
+          iconName="floppy-disk"
+          label={t('editUser.done')}
           onClick={upsertRepositoryItem}
-          className={classNames('btn btn-primary', { disabled })}
-          type="button"
-        >
-          {/* TODO: Move to common.save */}
-          {t('editUser.done')}
-        </button>
+          size={ButtonSize.m}
+          type={ButtonType.primary}
+        />
       </DataCell>
 
-      <DataCell className="repository-form__actions-delete">
+      <DataCell className="repository-form__actions-delete" noBorder>
         {showDelete && (
-          <button disabled={disabled} onClick={onDelete} className="btn btn-destructive" type="button">
-            <Icon className="icon-sub icon-white" name="trash-simple" />
-            {t('common.delete')}
-          </button>
+          <Button
+            disabled={disabled}
+            iconName="trash-simple"
+            label={t('common.delete')}
+            onClick={onDelete}
+            size={ButtonSize.m}
+            type={ButtonType.danger}
+          />
         )}
       </DataCell>
     </>

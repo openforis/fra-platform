@@ -1,9 +1,19 @@
 @import 'src/client/style/partials';
 
+.repository {
+  .data-grid-column {
+    height: $spacing-l;
+  }
+}
+
 .repository__header {
   align-items: center;
   display: flex;
+  height: $spacing-s;
   justify-content: center;
-  margin-bottom: $spacing-xs;
   margin-top: $spacing-s;
+
+  button {
+    margin-left: $spacing-xxs;
+  }
 }

@@ -1,0 +1,9 @@
+@import 'src/client/style/partials';
+
+.repository-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

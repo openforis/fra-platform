@@ -13,6 +13,10 @@ export const useRepositoryItem = (): Partial<RepositoryItem> | undefined => {
   return useAppSelector(RepositorySelectors.getRepositoryItem)
 }
 
+export const useRepositoryFile = (): Partial<RepositoryItem> | undefined => {
+  return useAppSelector(RepositorySelectors.getRepositoryFile)
+}
+
 export const useRepositoryItemValidation = (): Record<string, string> | undefined => {
   return useAppSelector(RepositorySelectors.getRepositoryItemValidation)
 }

@@ -55,7 +55,7 @@ $border: 1px solid $ui-border;
   &:focus-within {
     background-color: $ui-input-focus;
 
-    > :first-child {
+    > :first-child:not(a):not(button) {
       outline: 1px solid $ui-edit-border-color;
     }
   }

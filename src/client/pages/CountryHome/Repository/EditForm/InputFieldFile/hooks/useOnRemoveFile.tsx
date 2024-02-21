@@ -8,6 +8,7 @@ export const useOnRemoveFile = (): (() => void) => {
   const dispatch = useAppDispatch()
   return useCallback<() => void>(() => {
     dispatch(RepositoryActions.setRepositoryItemProps({ fileUuid: undefined }))
+    dispatch(RepositoryActions.resetFile())
     dispatch(FileUploadActions.reset())
   }, [dispatch])
 }
