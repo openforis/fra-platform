@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import Button from 'client/components/Buttons/Button'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
 type Props = {
@@ -30,7 +30,7 @@ const ButtonAdd: React.FC<Props> = (props: Props) => {
     return null
   }
 
-  return <Button iconName="small-add" label={t('common.add')} onClick={openPanel} size={ButtonSize.m} />
+  return <Button iconName="small-add" label={t('common.add')} onClick={openPanel} />
 }
 
 ButtonAdd.defaultProps = {

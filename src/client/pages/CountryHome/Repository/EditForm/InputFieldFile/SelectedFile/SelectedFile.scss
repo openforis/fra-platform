@@ -1,32 +1,10 @@
 @import 'src/client/style/partials';
 @import 'client/components/Inputs/InputText/InputText';
 
-$color-hover: darken($ui-bg, 5%);
-$transition: background-color 0.3s ease;
-
 .repository-form__selected-file {
-  @extend .input-text;
-
-  background-color: $ui-bg;
-  border: $ui-thin-border;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  padding: $spacing-xxs;
   text-decoration: none;
-  transition: $transition;
-
-  &:hover {
-    background-color: $color-hover;
-  }
-
-  .button-delete {
-    background-color: $ui-bg;
-    border: $ui-thin-border;
-    cursor: pointer;
-    padding: $spacing-xxs;
-    transition: $transition;
-
-    &:hover {
-      background-color: $color-hover;
-    }
-  }
 }

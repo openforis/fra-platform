@@ -33,9 +33,17 @@ const Actions: React.FC = () => {
   return (
     <>
       <DataCell className="repository-form__actions" noBorder>
-        <Button disabled={disabled} inverse label={t('common.cancel')} onClick={closePanel} size={ButtonSize.m} />
+        <Button
+          disabled={disabled}
+          iconName="undo"
+          inverse
+          label={t('common.cancel')}
+          onClick={closePanel}
+          size={ButtonSize.m}
+        />
         <Button
           disabled={disabledDone}
+          iconName="floppy-disk"
           label={t('editUser.done')}
           onClick={upsertRepositoryItem}
           size={ButtonSize.m}
@@ -43,7 +51,7 @@ const Actions: React.FC = () => {
         />
       </DataCell>
 
-      <DataCell className="repository-form__actions-delete">
+      <DataCell className="repository-form__actions-delete" noBorder>
         {showDelete && (
           <Button
             disabled={disabled}

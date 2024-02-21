@@ -26,14 +26,14 @@ const EditForm: React.FC = () => {
     <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
       <DataGrid className="repository-form__container" gridTemplateColumns="60px 1fr">
         <InputField
-          value={repositoryItem?.props.translation.en}
-          onChange={onChangeTranslation}
           label="editUser.name"
           name="en"
+          onChange={onChangeTranslation}
+          value={repositoryItem?.props.translation.en}
         />
-        <InputFieldCheckbox name="public" value={repositoryItem?.props?.public} onChange={onChangeProps} />
+        <InputFieldCheckbox name="public" onChange={onChangeProps} value={repositoryItem?.props?.public} />
 
-        <InputField value={repositoryItem?.link} onChange={onChangeField} label="common.link" name="link" />
+        <InputField label="common.link" name="link" onChange={onChangeField} value={repositoryItem?.link} />
         <Separator />
         <InputFieldFile />
         <Actions />

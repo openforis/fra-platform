@@ -29,7 +29,7 @@ const InputField: React.FC<Props> = (props: Props) => {
   return (
     <>
       <DataCell error={Boolean(error)} noBorder>
-        <label htmlFor={id} className="repository-form__label">
+        <label className="repository-form__label" htmlFor={id}>
           {t(label)}
         </label>
       </DataCell>

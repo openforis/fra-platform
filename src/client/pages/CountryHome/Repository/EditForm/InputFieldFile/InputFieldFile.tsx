@@ -9,11 +9,10 @@ import SelectedFile from 'client/pages/CountryHome/Repository/EditForm/InputFiel
 import { useGetFileMetadata } from './hooks/useGetFileMetadata'
 
 const FileInputField: React.FC = () => {
-  const file = useRepositoryFile()
   const { t } = useTranslation()
+  const file = useRepositoryFile()
 
   const id = `repository_form-input-file`
-  const label = `common.file`
 
   const error = useRepositoryItemPropValidation('fileUuid')
 
@@ -22,8 +21,8 @@ const FileInputField: React.FC = () => {
   return (
     <>
       <DataCell error={Boolean(error)} noBorder>
-        <label htmlFor={id} className="repository-form__label">
-          {t(label)}
+        <label className="repository-form__label" htmlFor={id}>
+          {t(`common.file`)}
         </label>
       </DataCell>
       <DataCell error={Boolean(error)} noBorder>
