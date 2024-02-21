@@ -231,7 +231,7 @@ Note(s) explicative(s)
 2.	Inclut les arbres vivants tombés.
 3.	Exclut les branches, les brindilles, le feuillage, les fleurs, les graines et les racines.
 
-## 2b Composition du matériel sur pied
+## 2b Composition du matériel sur pied de la forêt
 
 ### ESPÈCE D'ARBRE INDIGÈNE _(Terme complémentaire)_
 

@@ -675,7 +675,7 @@ L'équipe de FRA fra@fao.org
   growingStockComposition: {
     native: 'Indigène',
     introduced: 'Introduite',
-    growingStockComposition: 'Composition du matériel sur pied',
+    growingStockComposition: 'Composition du matériel sur pied de la forêt',
     categoryHeader: 'Catégories de FRA',
     nativeTreeSpecies: "Espèce d'arbre indigène",
     introducedTreeSpecies: "Espèce d'arbre introduite",
