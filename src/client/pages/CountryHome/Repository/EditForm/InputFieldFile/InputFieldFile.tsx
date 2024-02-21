@@ -1,22 +1,23 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useRepositoryItem, useRepositoryItemPropValidation } from 'client/store/ui/repository'
-import ButtonDelete from 'client/components/Buttons/ButtonDelete'
+import { useRepositoryFile, useRepositoryItemPropValidation } from 'client/store/ui/repository'
 import { DataCell } from 'client/components/DataGrid'
 import FileUpload from 'client/components/FileUpload'
+import SelectedFile from 'client/pages/CountryHome/Repository/EditForm/InputFieldFile/SelectedFile'
 
-import { useOnRemoveFile } from './hooks/useOnRemoveFile'
+import { useGetFileMetadata } from './hooks/useGetFileMetadata'
 
 const FileInputField: React.FC = () => {
-  const onRemoveFile = useOnRemoveFile()
-  const repositoryItem = useRepositoryItem()
+  const file = useRepositoryFile()
   const { t } = useTranslation()
 
   const id = `repository_form-input-file`
   const label = `common.file`
 
   const error = useRepositoryItemPropValidation('fileUuid')
+
+  useGetFileMetadata()
 
   return (
     <>
@@ -26,8 +27,7 @@ const FileInputField: React.FC = () => {
         </label>
       </DataCell>
       <DataCell error={Boolean(error)} noBorder>
-        <FileUpload id={id} />
-        {repositoryItem?.fileUuid && <ButtonDelete onClick={onRemoveFile} />}
+        {file?.uuid ? <SelectedFile /> : <FileUpload id={id} />}
         <div className="repository-form__error-label">{error ? t(error) : ''}</div>
       </DataCell>
     </>
