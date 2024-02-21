@@ -20,7 +20,7 @@ const RepositoryLink = (props: Props) => {
   const url = RepositoryItems.getURL({ repositoryItem: datum, assessmentName, cycleName, countryIso })
 
   return (
-    <a href={url} target="_blank" rel="noreferrer">
+    <a href={url} rel="noreferrer" target="_blank">
       {label}
     </a>
   )
