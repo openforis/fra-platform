@@ -719,7 +719,7 @@ FRA工作组 fra@fao.org
   growingStockComposition: {
     native: '本地',
     introduced: '引进',
-    growingStockComposition: '立木蓄积量组成',
+    growingStockComposition: '森林立木蓄积量组成',
     categoryHeader: 'FRA类别',
     nativeTreeSpecies: '本地树种',
     introducedTreeSpecies: '引进树种',
