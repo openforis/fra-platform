@@ -42,7 +42,7 @@ export const FileApi = {
     express.post(
       ApiEndPoint.File.many(),
       multer({ fileFilter }).array('file'),
-      AuthMiddleware.requireEditAssessmentFile,
+      AuthMiddleware.requireEditRepositoryItem,
       createManyFiles
     )
 
@@ -59,7 +59,7 @@ export const FileApi = {
     express.put(
       ApiEndPoint.File.Assessment.many(),
       multer({ fileFilter }).single('file'),
-      AuthMiddleware.requireEditAssessmentFile,
+      AuthMiddleware.requireEditRepositoryItem,
       createAssessmentFile
     )
     /**
