@@ -19,7 +19,7 @@ import { useOnChange } from './hooks/useOnChange'
 const EditForm: React.FC = () => {
   const { t } = useTranslation()
   const repositoryItem = useRepositoryItem()
-  const { onChangeField, onChangeProps, onChangeTranslation } = useOnChange()
+  const { onChangeField, onChangeTranslation, onChangeAccess } = useOnChange()
   const closePanel = useClosePanel()
 
   const opened = !Objects.isEmpty(repositoryItem)
@@ -34,12 +34,13 @@ const EditForm: React.FC = () => {
           value={repositoryItem?.props.translation.en}
         />
         <Hr />
+
         <InputField label="common.link" name="link" onChange={onChangeField} value={repositoryItem?.link} />
         <div className="repository-form__label">{t('common:or')}</div>
         <div />
         <InputFieldFile />
         <Hr />
-        <InputFieldCheckbox name="public" onChange={onChangeProps} value={repositoryItem?.props?.public} />
+        <InputFieldCheckbox name="public" onChange={onChangeAccess} value={repositoryItem?.props?.public} />
         <Hr />
         <Actions />
       </DataGrid>

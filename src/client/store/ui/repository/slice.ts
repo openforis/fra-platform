@@ -5,6 +5,7 @@ import { File } from 'meta/file'
 
 import { repositoryFileReducer } from 'client/store/ui/repository/reducers/repositoryFileBuilder'
 import { repositoryReducer } from 'client/store/ui/repository/reducers/repositoryReducer'
+import { updateAccessReducer } from 'client/store/ui/repository/reducers/updateAccessReducer'
 import { initialState, RepositoryState } from 'client/store/ui/repository/state'
 
 export const RepositorySlice = createSlice({
@@ -29,6 +30,7 @@ export const RepositorySlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: (builder) => {
+    updateAccessReducer(builder)
     repositoryFileReducer(builder)
     repositoryReducer(builder)
   },

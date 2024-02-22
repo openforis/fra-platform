@@ -7,14 +7,14 @@ type GetFileURLProps = CountryRouteParams & {
 }
 
 const getURL = (props: GetFileURLProps) => {
-  const { repositoryItem: datum, assessmentName, cycleName, countryIso } = props
+  const { repositoryItem, assessmentName, cycleName, countryIso } = props
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso })
 
-  if (datum.link) {
-    return datum.link
+  if (repositoryItem.link) {
+    return repositoryItem.link
   }
 
-  return `${ApiEndPoint.CycleData.Repository.file(datum.uuid)}?${queryParams.toString()}`
+  return `${ApiEndPoint.CycleData.Repository.file(repositoryItem.uuid)}?${queryParams.toString()}`
 }
 
 const isGlobal = (props: { repositoryItem: RepositoryItem }): boolean => {
