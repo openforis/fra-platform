@@ -23,15 +23,6 @@
   &:focus {
     outline: none;
   }
-}
-
-// === with icon
-.button.withIcon {
-  grid-template-columns: auto 1fr;
-
-  svg.icon_hit-down {
-    transform: rotate(180deg);
-  }
 
   &:hover {
     svg {
@@ -44,6 +35,11 @@
   }
 }
 
+// === with icon
+.button.withIcon {
+  grid-template-columns: auto 1fr;
+}
+
 // === size styles
 .button__size-xs {
   font-size: $font-xxxs;
@@ -51,11 +47,9 @@
   padding: 0 6px;
   grid-column-gap: 3px;
 
-  &.withIcon {
-    svg {
-      height: 9px;
-      width: 9px;
-    }
+  svg {
+    height: 9px;
+    width: 9px;
   }
 }
 
@@ -65,11 +59,9 @@
   padding: 0 $spacing-xxs;
   grid-column-gap: $spacing-xxxs;
 
-  &.withIcon {
-    svg {
-      height: 12px;
-      width: 12px;
-    }
+  svg {
+    height: 12px;
+    width: 12px;
   }
 }
 
@@ -79,11 +71,9 @@
   padding: 0 10px;
   grid-column-gap: $spacing-xxxs;
 
-  &.withIcon {
-    svg {
-      height: 15px;
-      width: 15px;
-    }
+  svg {
+    height: 15px;
+    width: 15px;
   }
 }
 

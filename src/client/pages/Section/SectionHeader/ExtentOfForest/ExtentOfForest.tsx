@@ -20,7 +20,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
-  const className = useButtonClassName({ disabled, iconName: 'small-add', size: ButtonSize.m })
+  const className = useButtonClassName({ disabled, iconName: 'small-add', label: '--', size: ButtonSize.m })
 
   if (!user) return null
 

@@ -19,7 +19,7 @@ const CountryListDownload: React.FC = () => {
   const { t } = useTranslation()
   const user = useUser()
   const countries = useCountries()
-  const className = useButtonClassName({ iconName: 'hit-down' })
+  const className = useButtonClassName({ iconName: 'hit-down', label: 'CSV' })
 
   if (!Users.isAdministrator(user)) return null
 
@@ -49,7 +49,7 @@ const CountryListDownload: React.FC = () => {
 
   return (
     <div className="country-selection-list__download">
-      <CSVLink className={className} target="_blank" filename="FRA-Countries.csv" data={data} headers={headers}>
+      <CSVLink className={className} data={data} filename="FRA-Countries.csv" headers={headers} target="_blank">
         <Icon className="icon-sub icon-white" name="hit-down" />
         CSV
       </CSVLink>

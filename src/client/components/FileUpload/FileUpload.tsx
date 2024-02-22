@@ -25,25 +25,26 @@ const FileUpload: React.FC<Props> = (props: Props) => {
   const onDrop = useUploadFiles({ onSuccess })
 
   const progress = useFileUploadProgress()
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, multiple })
+  const disabled = Boolean(progress)
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, multiple, disabled })
 
   useResetFilesOnUnmount()
 
   return (
     <div className="file-upload">
-      <div
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...getRootProps()}
-        className={classNames('file-upload__file-drop', {
-          'dropzone--isActive': isDragActive,
-        })}
-      >
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <input id={id} {...getInputProps()} />
-        <div className="file-drop__text">
-          {t(isDragActive ? 'fileDrop.dropFilesHere' : 'fileDrop.dragAndDropOrClick')}
+      {!disabled && (
+        <div
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...getRootProps()}
+          className={classNames('file-upload__file-drop', { 'dropzone--isActive': isDragActive })}
+        >
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <input id={id} {...getInputProps()} />
+          <div className="file-drop__text">
+            {t(isDragActive ? 'fileDrop.dropFilesHere' : 'fileDrop.dragAndDropOrClick')}
+          </div>
         </div>
-      </div>
+      )}
 
       {progress && <ProgressBar loaded={progress.loaded} total={progress.total} />}
     </div>

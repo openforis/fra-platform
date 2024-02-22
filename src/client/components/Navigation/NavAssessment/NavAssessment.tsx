@@ -11,6 +11,7 @@ import { Routes } from 'meta/routes'
 
 import { useSections } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
 import Header from 'client/components/Navigation/NavAssessment/Header'
 import NavigationSection from 'client/components/Navigation/NavAssessment/Section'
@@ -30,7 +31,7 @@ const NavAssessment: React.FC = () => {
 
   return (
     <div className="nav-assessment" style={{ maxHeight }}>
-      <Header showSections={showSections} setShowSections={setShowSections} />
+      <Header setShowSections={setShowSections} showSections={showSections} />
 
       {sections.map((section) => (
         <NavigationSection key={section.uuid} section={section} showSections={showSections} />
@@ -39,7 +40,7 @@ const NavAssessment: React.FC = () => {
       {Areas.isGlobal(countryIso) && (
         <MediaQuery minWidth={Breakpoints.laptop}>
           <div className="nav-header__sep-container">
-            <div className="hr" />
+            <Hr />
           </div>
           <Link
             className="nav-section__header nav-assessment__bulk-download"
