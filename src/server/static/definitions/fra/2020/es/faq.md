@@ -200,9 +200,9 @@ Sí, si no están manejados para fines agrícolas y si se cumplen los criterios 
 
 Es posible, pero se debe hacer con mucho cuidado; particularmente los factores de conversión y expansión necesitan existencias en formación por hectárea como parte del registro, por lo que deben hacerse algunos supuestos. Utilizar los factores de densidad de la madera y expansión de la biomasa es más directo.
 
-# 2b Composición de las existencias forestales en formación
+# 2b Composición de las existencias en formación
 
-### La Tabla 2b sobre la composición de las existencias forestales en formación, ¿hace referencia sólo a los bosques naturales?
+### La Tabla 2b sobre la composición de las existencias en formación, ¿hace referencia sólo a los bosques naturales?
 
 No. Toda la tabla hace referencia a los bosques naturales y los bosques plantados, ya sea de especies nativas o introducidas. 
 

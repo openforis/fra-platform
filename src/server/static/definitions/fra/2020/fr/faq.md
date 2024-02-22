@@ -196,9 +196,9 @@ Oui, s’ils ne sont pas gérés à des fins agricoles et que les critères de s
 
 Cela est possible, mais il faudra être particulièrement prudent: les facteurs de conversion et d’expansion utilisent les données du matériel sur pied par hectare, c'est pourquoi il faudra formuler des hypothèses. Il est plus simple d’utiliser la densité du bois et les facteurs d’expansion de la biomasse.
 
-# 2b Composition du matériel sur pied de la forêt
+# 2b Composition du matériel sur pied
 
-###	Le tableau 2b concernant la composition du matériel sur pied de la forêt se rapporte-t-il uniquement aux forêts naturelles?
+###	Le tableau 2b concernant la composition du matériel sur pied se rapporte-t-il uniquement aux forêts naturelles?
 
 Non. Tout le tableau se rapporte à la fois aux forêts naturelles et aux forêts plantées d’espèces indigènes et introduites. 
 
