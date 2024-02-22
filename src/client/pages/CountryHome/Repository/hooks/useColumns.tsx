@@ -5,7 +5,7 @@ import { RepositoryItem } from 'meta/cycleData'
 
 import { Column } from 'client/components/TablePaginated'
 import Actions from 'client/pages/CountryHome/Repository/Actions'
-import RepositoryLink from 'client/pages/CountryHome/Repository/RepositoryLink'
+import Item from 'client/pages/CountryHome/Repository/Item'
 
 export const useColumns = (): Array<Column<RepositoryItem>> => {
   const { t } = useTranslation()
@@ -13,7 +13,7 @@ export const useColumns = (): Array<Column<RepositoryItem>> => {
   return useMemo<Array<Column<RepositoryItem>>>(() => {
     return [
       {
-        component: ({ datum }) => <RepositoryLink datum={datum} />,
+        component: ({ datum }) => <Item repositoryItem={datum} />,
         header: t('common.link'),
         key: 'link',
       },

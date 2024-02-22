@@ -10,9 +10,10 @@
 
 .repository-form__error-label {
   color: $ui-destructive;
-  font-size: $font-xs;
+  font-size: $font-xxxs;
   font-weight: 600;
   position: absolute;
+  text-transform: uppercase;
 }
 
 .error {

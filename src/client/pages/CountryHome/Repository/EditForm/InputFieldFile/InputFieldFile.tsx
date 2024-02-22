@@ -25,7 +25,7 @@ const FileInputField: React.FC = () => {
           {t(`common.file`)}
         </label>
       </DataCell>
-      <DataCell error={Boolean(error)} noBorder>
+      <DataCell editable error={Boolean(error)} lastCol lastRow>
         {file?.uuid ? <SelectedFile /> : <FileUpload id={id} />}
         <div className="repository-form__error-label">{error ? t(error) : ''}</div>
       </DataCell>

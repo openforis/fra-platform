@@ -45,9 +45,6 @@
     grid-row: 1;
     grid-column: 2;
     align-self: end;
-    height: 1px;
-    opacity: 0.8;
     $color-hr: darken($ui-border, 10%);
-    background: radial-gradient($color-hr, lighten($color-hr, 32%));
   }
 }
