@@ -145,7 +145,7 @@ const canEditCountryProps = (props: {
   return false
 }
 
-const canEditAssessmentFile = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
+const canEditRepositoryItem = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
   canEditCountryProps({ ...props, allowCollaborator: true })
 
 /**
@@ -182,9 +182,9 @@ const canViewRepositoryItem = (props: {
 }
 
 export const Authorizer = {
-  canEditAssessmentFile,
   canEditCountryProps,
   canEditData,
+  canEditRepositoryItem,
   canView,
   canViewCountryFile,
   canViewRepositoryItem,

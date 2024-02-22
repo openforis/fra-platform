@@ -34,7 +34,7 @@ const Links: React.FC = () => {
   const globalFiles = assessmentFiles.globals
 
   const isAdmin = Users.isAdministrator(user)
-  const isAllowedToEdit = Authorizer.canEditAssessmentFile({ user, country, cycle })
+  const isAllowedToEdit = Authorizer.canEditRepositoryItem({ user, country, cycle })
 
   const uploadAssessmentFile = useUploadAssessmentFile()
   useGetAssessmentFiles()
@@ -62,14 +62,14 @@ const Links: React.FC = () => {
           <>
             <input
               ref={globalFileRef}
-              type="file"
-              style={{ display: 'none' }}
               onChange={() =>
                 uploadAssessmentFile({
                   fileCountryIso: null,
                   file: globalFileRef.current.files[0],
                 })
               }
+              style={{ display: 'none' }}
+              type="file"
             />
             <button
               className="btn-s btn-primary"
@@ -100,7 +100,7 @@ const Links: React.FC = () => {
       ))}
 
       {globalFiles.map((assessmentFile) => (
-        <AssessmentFileRow key={assessmentFile.uuid} withBorder assessmentFile={assessmentFile} />
+        <AssessmentFileRow key={assessmentFile.uuid} assessmentFile={assessmentFile} withBorder />
       ))}
 
       <div className="landing__page-container-header landing__repository-header">
@@ -110,14 +110,14 @@ const Links: React.FC = () => {
           <>
             <input
               ref={countryFileRef}
-              type="file"
-              style={{ display: 'none' }}
               onChange={() =>
                 uploadAssessmentFile({
                   fileCountryIso: countryIso,
                   file: countryFileRef.current.files[0],
                 })
               }
+              style={{ display: 'none' }}
+              type="file"
             />
             <button
               className="btn-s btn-primary"
@@ -135,7 +135,7 @@ const Links: React.FC = () => {
       </div>
 
       {countryFiles.map((assessmentFile, index) => (
-        <AssessmentFileRow key={assessmentFile.uuid} withBorder={index !== 0} assessmentFile={assessmentFile} />
+        <AssessmentFileRow key={assessmentFile.uuid} assessmentFile={assessmentFile} withBorder={index !== 0} />
       ))}
     </div>
   )

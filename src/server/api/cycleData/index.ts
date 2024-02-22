@@ -147,17 +147,17 @@ export const CycleDataApi = {
     express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
 
     // repository
-    express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditAssessmentFile, createRepositoryItem)
-    express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewFile, getRepositoryFile)
+    express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)
+    express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewRepositoryFile, getRepositoryFile)
     express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
     express.patch(
       ApiEndPoint.CycleData.Repository.one(),
-      AuthMiddleware.requireEditAssessmentFile,
+      AuthMiddleware.requireEditRepositoryItem,
       updateRepositoryItem
     )
     express.delete(
       ApiEndPoint.CycleData.Repository.one(),
-      AuthMiddleware.requireEditAssessmentFile,
+      AuthMiddleware.requireEditRepositoryItem,
       removeRepositoryItem
     )
   },
