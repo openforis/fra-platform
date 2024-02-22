@@ -1,0 +1,37 @@
+@import 'src/client/style/partials';
+
+$color-private: lighten($ui-destructive, 2.5%);
+$color-public: darken($ui-status-accepted, 15%);
+
+.repository-item {
+  display: grid;
+  grid-column-gap: $spacing-xxs;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
+}
+
+.repository-item__badge {
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid;
+  color: white;
+  display: grid;
+  font-size: 9px;
+  font-weight: 600;
+  height: 20px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  line-height: 0;
+  padding: 0 $spacing-xxs;
+  text-transform: uppercase;
+
+  &.private {
+    background-color: $color-private;
+    border-color: $color-private;
+  }
+
+  &.public {
+    background-color: $color-public;
+    border-color: $color-public;
+  }
+}
