@@ -31,39 +31,34 @@ const Actions: React.FC = () => {
   const showDelete = !Objects.isEmpty(repositoryItem.uuid)
 
   return (
-    <>
-      <DataCell className="repository-form__actions" noBorder>
+    <DataCell className="repository-form__actions" noBorder>
+      <Button
+        disabled={disabled}
+        iconName="undo"
+        inverse
+        label={t('common.cancel')}
+        onClick={closePanel}
+        size={ButtonSize.m}
+      />
+      <Button
+        disabled={disabledDone}
+        iconName="floppy-disk"
+        label={t('editUser.done')}
+        onClick={upsertRepositoryItem}
+        size={ButtonSize.m}
+        type={ButtonType.primary}
+      />
+      {showDelete && (
         <Button
+          className="button-delete"
           disabled={disabled}
-          iconName="undo"
-          inverse
-          label={t('common.cancel')}
-          onClick={closePanel}
+          iconName="trash-simple"
+          onClick={onDelete}
           size={ButtonSize.m}
+          type={ButtonType.danger}
         />
-        <Button
-          disabled={disabledDone}
-          iconName="floppy-disk"
-          label={t('editUser.done')}
-          onClick={upsertRepositoryItem}
-          size={ButtonSize.m}
-          type={ButtonType.primary}
-        />
-      </DataCell>
-
-      <DataCell className="repository-form__actions-delete" noBorder>
-        {showDelete && (
-          <Button
-            disabled={disabled}
-            iconName="trash-simple"
-            label={t('common.delete')}
-            onClick={onDelete}
-            size={ButtonSize.m}
-            type={ButtonType.danger}
-          />
-        )}
-      </DataCell>
-    </>
+      )}
+    </DataCell>
   )
 }
 
