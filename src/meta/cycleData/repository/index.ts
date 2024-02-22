@@ -1,3 +1,4 @@
+export type { FileUsage } from './fileUsage'
 export type { RepositoryItem, RepositoryItemProps } from './repository'
 export { RepositoryItems } from './repositoryItems'
 export type { RepositoryItemValidation } from './repositoryItemValidator'

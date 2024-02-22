@@ -1,5 +1,8 @@
 import { CountryIso } from 'meta/area'
 
+/**
+ * @deprecated
+ */
 export interface FileUsage {
   key: string
   suffixes?: Array<string>
