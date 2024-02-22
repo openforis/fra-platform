@@ -750,6 +750,7 @@ The FRA team fra@fao.org
     native: 'Native',
     introduced: 'Introduced',
     growingStockComposition: 'Growing stock composition',
+    forestGrowingStockComposition: 'Forest growing stock composition',
     categoryHeader: 'FRA categories',
     nativeTreeSpecies: 'Native tree species',
     introducedTreeSpecies: 'Introduced tree species',
