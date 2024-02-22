@@ -1,6 +1,7 @@
 import { create } from './create'
 import { getMany } from './getMany'
 import { getOne } from './getOne'
+import { getUsage } from './getUsage'
 import { remove } from './remove'
 import { update } from './update'
 
@@ -10,4 +11,5 @@ export const RepositoryRepository = {
   update,
   getMany,
   getOne,
+  getUsage,
 }

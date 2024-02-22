@@ -3,6 +3,7 @@ import { Promises } from 'utils/promises'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
 import { CountryIso } from 'meta/area'
+import { RepositoryItem } from 'meta/cycleData'
 import { MessageTopicStatus } from 'meta/messageCenter'
 import { Authorizer, CollaboratorEditPropertyType, Users } from 'meta/user'
 
@@ -247,6 +248,27 @@ const requireEditAssessmentFileAccess = async (req: Request, res: Response, next
   return requireEditRepositoryItem(req, res, next)
 }
 
+const requireEditRepositoryItemAccess = async (req: Request, res: Response, next: NextFunction) => {
+  const { assessmentName, cycleName, repositoryItem } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams & { repositoryItem: RepositoryItem }
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+  // When setting file access to private, check that file is not in use:
+  if (repositoryItem.props.public === false) {
+    const fileUsages = await CycleDataController.Repository.getUsage({ assessment, cycle, uuid: repositoryItem.uuid })
+    if (fileUsages.length) {
+      const message = await fileError({ req, fileUsages, assessmentName, cycleName })
+      return next({ statusCode: 400, message })
+    }
+  }
+
+  return requireEditRepositoryItem(req, res, next)
+}
+
 const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
   const user = Requests.getUser(req)
 
@@ -272,6 +294,7 @@ export const AuthMiddleware = {
   requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
   requireEditRepositoryItem: tryCatch(requireEditRepositoryItem),
   requireEditAssessmentFileAccess: tryCatch(requireEditAssessmentFileAccess),
+  requireEditRepositoryItemAccess: tryCatch(requireEditRepositoryItemAccess),
   requireEditCountryFile: tryCatch(requireEditCountryFile),
   requireEditCountryProps: tryCatch(requireEditCountryProps),
   requireEditDescriptions: tryCatch(requireEditDescriptions),

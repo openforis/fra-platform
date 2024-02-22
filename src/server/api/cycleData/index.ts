@@ -155,6 +155,11 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditRepositoryItem,
       updateRepositoryItem
     )
+    express.patch(
+      ApiEndPoint.CycleData.Repository.updateAccess(),
+      AuthMiddleware.requireEditRepositoryItemAccess,
+      updateRepositoryItem
+    )
     express.delete(
       ApiEndPoint.CycleData.Repository.one(),
       AuthMiddleware.requireEditRepositoryItem,
