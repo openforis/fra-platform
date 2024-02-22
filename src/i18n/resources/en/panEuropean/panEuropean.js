@@ -117,7 +117,8 @@ module.exports = {
   growingStock: {
     growingStockNumber: 'I. Growing stock',
     growingStockByForestTypeNumber: 'II. Growing stock by forest type',
-    growingStockCompositionNumber: 'III. Forest growing stock composition',
+    growingStockCompositionNumber: 'III. Growing stock composition',
+    forestGrowingStockCompositionNumber: 'III. Forest growing stock composition',
     growingStock: 'Growing stock',
     categoryYear: 'Category - Year',
     growingStockMillionM3OB: 'Growing stock (million m³ over bark)',
@@ -152,7 +153,7 @@ module.exports = {
 
   // table 1.2c
   growingStockComposition: {
-    growingStockComposition: 'Forest growing stock composition',
+    growingStockComposition: 'Growing stock composition',
     speciesName: 'Species name',
     growingStockInForestMillionM3OB: 'Growing stock in forest (million m³ over bark)',
     rank: 'Rank',

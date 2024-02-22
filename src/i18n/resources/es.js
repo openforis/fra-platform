@@ -682,7 +682,8 @@ El equipo de FRA
   growingStockComposition: {
     native: 'Nativa',
     introduced: 'Introducida',
-    growingStockComposition: 'Composición de las existencias forestales en formación',
+    growingStockComposition: 'Composición de las existencias en formación',
+    forestGrowingStockComposition: 'Composición de las existencias forestales en formación',
     categoryHeader: 'Categorías de FRA',
     nativeTreeSpecies: 'Especies de árboles nativos',
     introducedTreeSpecies: 'Especies introducidas',

@@ -7,7 +7,7 @@ module.exports = {
   forestAreaByForestType: 'Forest area by forest type',
   growingStock: 'Growing stock',
   growingStockByForestType: 'Growing stock by forest type',
-  growingStockComposition: 'Forest growing stock composition',
+  growingStockComposition: 'Growing stock composition',
   ageClassDistribution: 'Age class distribution (volume of even-aged stands) in forest available for wood supply',
   carbonStockInHarvestedWoodProductsHWP: 'Carbon stock in harvested wood products (HWP)',
   annualForestExpansionAndRegeneration: 'Annual forest expansion and regeneration',
