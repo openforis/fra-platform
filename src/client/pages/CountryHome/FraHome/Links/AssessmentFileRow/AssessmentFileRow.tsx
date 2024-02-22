@@ -22,7 +22,9 @@ type Props = {
   withBorder: boolean
   assessmentFile: AssessmentFileLoading
 }
-
+/**
+ * @deprecated
+ */
 const AssessmentFileRow: React.FC<Props> = (props: Props) => {
   const { withBorder, assessmentFile } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
@@ -35,7 +37,7 @@ const AssessmentFileRow: React.FC<Props> = (props: Props) => {
   const isAdmin = Users.isAdministrator(user)
 
   const isCountryFile = !Objects.isEmpty(assessmentFile.countryIso)
-  const canEditCountryFile = isCountryFile && Authorizer.canEditAssessmentFile({ user, country, cycle })
+  const canEditCountryFile = isCountryFile && Authorizer.canEditRepositoryItem({ user, country, cycle })
   const isAllowedToEdit = isAdmin || canEditCountryFile
 
   const deleteAssessmentFile = useDeleteAssessmentFile()
@@ -48,8 +50,8 @@ const AssessmentFileRow: React.FC<Props> = (props: Props) => {
         <a
           className="link"
           href={AssessmentFiles.getHref({ assessmentName, cycleName, countryIso, uuid: assessmentFile.uuid })}
-          target="_blank"
           rel="noreferrer"
+          target="_blank"
         >
           {assessmentFile.fileName}
         </a>
@@ -60,10 +62,10 @@ const AssessmentFileRow: React.FC<Props> = (props: Props) => {
           {isCountryFile && (
             <>
               <select
+                className="select-s"
                 disabled={assessmentFile.loading}
                 onChange={onSelectChange}
                 value={assessmentFile.props.public ? 'public' : 'private'}
-                className="select-s"
               >
                 <option value="private">{t('common.private')}</option>
                 <option value="public">{t('common.public')}</option>
@@ -72,14 +74,14 @@ const AssessmentFileRow: React.FC<Props> = (props: Props) => {
             </>
           )}
           <button
-            disabled={assessmentFile.loading}
-            type="button"
             className="btn-xs"
+            disabled={assessmentFile.loading}
             onClick={() =>
               window.confirm(t('landing.links.confirmDelete', { file: assessmentFile.fileName }))
                 ? deleteAssessmentFile(assessmentFile.uuid, countryIso)
                 : null
             }
+            type="button"
           >
             <Icon className="icon-no-margin" name="trash-simple" />
           </button>

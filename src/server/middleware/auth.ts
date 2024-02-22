@@ -186,7 +186,7 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
   _next((print === 'true' && cycle.published) || Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
-const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEditRepositoryItem = async (req: Request, _res: Response, next: NextFunction) => {
   const { assessmentName, countryIso, cycleName } = {
     ...req.params,
     ...req.query,
@@ -197,7 +197,7 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEditAssessmentFile({ country, cycle, user }), next)
+  _next(Authorizer.canEditRepositoryItem({ country, cycle, user }), next)
 }
 
 const requireEditCountryFile = async (req: Request, res: Response, next: NextFunction) => {
@@ -215,7 +215,7 @@ const requireEditCountryFile = async (req: Request, res: Response, next: NextFun
     return next({ statusCode: 400, message })
   }
 
-  return requireEditAssessmentFile(req, res, next)
+  return requireEditRepositoryItem(req, res, next)
 }
 
 const requireEditAssessmentFileAccess = async (req: Request, res: Response, next: NextFunction) => {
@@ -244,7 +244,7 @@ const requireEditAssessmentFileAccess = async (req: Request, res: Response, next
     })
   }
 
-  return requireEditAssessmentFile(req, res, next)
+  return requireEditRepositoryItem(req, res, next)
 }
 
 const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
@@ -253,7 +253,7 @@ const requireUser = async (req: Request, _res: Response, next: NextFunction) => 
   _next(Boolean(user), next)
 }
 
-const requireViewFile = async (req: Request, _res: Response, next: NextFunction) => {
+const requireViewRepositoryFile = async (req: Request, _res: Response, next: NextFunction) => {
   const { assessmentName, cycleName, countryIso, uuid } = {
     ...req.params,
     ...req.query,
@@ -270,7 +270,7 @@ const requireViewFile = async (req: Request, _res: Response, next: NextFunction)
 export const AuthMiddleware = {
   requireAdmin: tryCatch(requireAdmin),
   requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
-  requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
+  requireEditRepositoryItem: tryCatch(requireEditRepositoryItem),
   requireEditAssessmentFileAccess: tryCatch(requireEditAssessmentFileAccess),
   requireEditCountryFile: tryCatch(requireEditCountryFile),
   requireEditCountryProps: tryCatch(requireEditCountryProps),
@@ -282,7 +282,7 @@ export const AuthMiddleware = {
   requireResolveTopic: tryCatch(requireResolveTopic),
   requireUser: tryCatch(requireUser),
   requireView: tryCatch(requireView),
-  requireViewFile: tryCatch(requireViewFile),
+  requireViewRepositoryFile: tryCatch(requireViewRepositoryFile),
   requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),
 }
