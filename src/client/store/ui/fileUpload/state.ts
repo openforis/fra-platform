@@ -1,9 +1,11 @@
-import { File } from 'meta/file'
+export type FileUploadProgress = {
+  loaded: number
+  total: number
+}
 
 export type FileUploadState = {
   loading: boolean
-  files?: Array<File>
-  progress?: ProgressEvent
+  progress?: FileUploadProgress
 }
 
 export const initialState: FileUploadState = {

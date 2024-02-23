@@ -1,2 +1,2 @@
-export type { File, FileSummary } from './file'
+export type { File, FileMeta, FileSummary } from './file'
 export { Files } from './files'

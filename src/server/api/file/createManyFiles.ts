@@ -18,8 +18,8 @@ export const createManyFiles = async (req: Request, res: Response) => {
     const user = Requests.getUser(req)
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const createAssessmentFileProps = { assessment, cycle, files, user }
-    const createdFiles = await FileController.createMany(createAssessmentFileProps)
+    const createProps = { assessment, cycle, files, user }
+    const createdFiles = await FileController.createMany(createProps)
 
     Requests.sendOk(res, createdFiles)
   } catch (e) {

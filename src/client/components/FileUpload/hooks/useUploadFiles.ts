@@ -1,32 +1,27 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { File as FileType } from 'meta/file'
 
 import { useAppDispatch } from 'client/store'
 import { FileUploadActions } from 'client/store/ui/fileUpload'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { FileUploadProps } from 'client/components/FileUpload/types'
 
-type Props = {
-  onSuccess?: (files: Array<FileType>) => void
-}
+type Returned = (files: Array<File>) => void
 
-export const useUploadFiles = (props: Props): ((files: Array<File>) => void) => {
-  const { onSuccess } = props
+export const useUploadFiles = (props: Pick<FileUploadProps, 'onChange'>): Returned => {
+  const { onChange } = props
+
   const dispatch = useAppDispatch()
-
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
-  return useCallback(
+  return useCallback<Returned>(
     async (files: Array<File>) => {
-      dispatch(FileUploadActions.uploadFiles({ assessmentName, cycleName, countryIso, files }))
-        .unwrap()
-        .then((files) => {
-          if (onSuccess) {
-            onSuccess(files)
-          }
-        })
+      const uploadFiles = FileUploadActions.uploadFiles({ assessmentName, cycleName, countryIso, files })
+      const uploadedFiles = await dispatch(uploadFiles).unwrap()
+
+      onChange(uploadedFiles)
     },
-    [assessmentName, countryIso, cycleName, dispatch, onSuccess]
+    [assessmentName, countryIso, cycleName, dispatch, onChange]
   )
 }

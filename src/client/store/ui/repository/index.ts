@@ -2,7 +2,7 @@ export { RepositoryActions } from './actions'
 export {
   useIsRepositoryItemValid,
   useIsRepositoryLoading,
-  useRepositoryFile,
+  useRepositoryFileMeta,
   useRepositoryItem,
   useRepositoryItemPropValidation,
   useRepositoryItemValidation,
