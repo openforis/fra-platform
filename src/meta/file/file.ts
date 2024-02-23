@@ -10,11 +10,14 @@ export type File = FileSummary & {
   readonly file: Buffer
 }
 
-// export type FileUsages = {
-//
-// }
+export type FileUsage = {
+  sectionLabel: string
+  usageLabels: Array<string>
+}
+
+export type FileUsages = Array<FileUsage>
 
 export type FileMeta = {
   summary: FileSummary
-  // usages: FileUsages
+  usages: FileUsages
 }
