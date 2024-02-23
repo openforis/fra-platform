@@ -1,6 +1,5 @@
 export type FileSummary = {
   readonly createdAt: string
-  readonly file?: Buffer
   readonly id: number
   readonly name: string
   readonly size: number
