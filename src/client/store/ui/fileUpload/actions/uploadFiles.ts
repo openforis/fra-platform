@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
-import { File as FileType } from 'meta/file'
+import { FileSummary } from 'meta/file'
 
 import { ThunkApiConfig } from 'client/store/types'
 import { FileUploadActions } from 'client/store/ui/fileUpload/actions/index'
@@ -12,7 +12,7 @@ type Props = CycleParams & {
   files: Array<File>
 }
 
-export const uploadFiles = createAsyncThunk<Array<FileType>, Props, ThunkApiConfig>(
+export const uploadFiles = createAsyncThunk<Array<FileSummary>, Props, ThunkApiConfig>(
   'fileUpload/uploadFiles',
   async (props, { dispatch }) => {
     const { assessmentName, cycleName, countryIso, files } = props

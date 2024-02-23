@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { RepositoryItem } from 'meta/cycleData'
+import { FileMeta } from 'meta/file'
 
 import { useAppSelector } from 'client/store/store'
 import { RepositorySelectors } from 'client/store/ui/repository/selectors'
@@ -13,8 +14,8 @@ export const useRepositoryItem = (): Partial<RepositoryItem> | undefined => {
   return useAppSelector(RepositorySelectors.getRepositoryItem)
 }
 
-export const useRepositoryFile = (): Partial<RepositoryItem> | undefined => {
-  return useAppSelector(RepositorySelectors.getRepositoryFile)
+export const useRepositoryFileMeta = (): FileMeta | undefined => {
+  return useAppSelector(RepositorySelectors.getRepositoryFileMeta)
 }
 
 export const useRepositoryItemValidation = (): Record<string, string> | undefined => {

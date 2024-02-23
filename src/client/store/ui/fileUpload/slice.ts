@@ -1,14 +1,13 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { uploadFilesReducer } from 'client/store/ui/fileUpload/reducers/uploadFilesReducer'
-import { FileUploadState, initialState } from 'client/store/ui/fileUpload/state'
+import { FileUploadProgress, FileUploadState, initialState } from 'client/store/ui/fileUpload/state'
 
 export const FileUploadSlice = createSlice({
   name: 'fileUpload',
   initialState,
   reducers: {
-    reset: () => initialState,
-    setProgress: (state, action) => {
+    setProgress: (state, action: PayloadAction<FileUploadProgress>) => {
       state.progress = action.payload
     },
   },

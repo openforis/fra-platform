@@ -1,10 +1,16 @@
 @import 'src/client/style/partials';
 
-.repository-form__selected-file {
+.file-upload__files {
   align-items: center;
   display: grid;
   grid-template-columns: repeat(2, auto);
   justify-content: space-between;
   padding: $spacing-xxs;
   text-decoration: none;
+  width: 100%;
+  grid-row-gap: $spacing-xxs;
+
+  div {
+    cursor: default;
+  }
 }

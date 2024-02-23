@@ -9,3 +9,12 @@ export type FileSummary = {
 export type File = FileSummary & {
   readonly file: Buffer
 }
+
+// export type FileUsages = {
+//
+// }
+
+export type FileMeta = {
+  summary: FileSummary
+  // usages: FileUsages
+}

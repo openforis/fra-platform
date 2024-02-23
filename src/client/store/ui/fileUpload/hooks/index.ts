@@ -1,13 +1,8 @@
-import { File } from 'meta/file'
-
 import { useAppSelector } from 'client/store/store'
 import { FileUploadSelectors } from 'client/store/ui/fileUpload/selectors'
+import { FileUploadProgress } from 'client/store/ui/fileUpload/state'
 
-export const useUploadedFiles = (): Array<File> => {
-  return useAppSelector(FileUploadSelectors.getFiles)
-}
-
-export const useFileUploadProgress = (): ProgressEvent => {
+export const useFileUploadProgress = (): FileUploadProgress => {
   return useAppSelector(FileUploadSelectors.getProgress)
 }
 

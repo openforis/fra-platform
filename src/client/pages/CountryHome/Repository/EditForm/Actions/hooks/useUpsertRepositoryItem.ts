@@ -3,7 +3,6 @@ import { useCallback } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
-import { FileUploadActions } from 'client/store/ui/fileUpload'
 import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -19,7 +18,6 @@ export const useUpsertRepositoryItem = (): Returned => {
     dispatch(RepositoryActions.upsertRepositoryItem(saveParams))
       .unwrap()
       .then(() => {
-        dispatch(FileUploadActions.reset())
         dispatch(RepositoryActions.reset())
       })
   }, [assessmentName, cycleName, countryIso, repositoryItem, dispatch])

@@ -13,21 +13,17 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  font-size: $font-s;
+  font-weight: 600;
   height: 100%;
   justify-content: center;
+  margin: 0;
   padding: $spacing-xxs;
   position: relative;
+  text-transform: uppercase;
   transition: all 0.3s ease-in-out;
+  white-space: initial;
   width: 100%;
-
-  div {
-    font-size: $font-s;
-    font-weight: 600;
-    margin: 0;
-    text-align: center;
-    text-transform: uppercase;
-    white-space: initial;
-  }
 
   &:hover {
     background-color: $ui-bg-hover;
