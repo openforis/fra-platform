@@ -45,11 +45,12 @@ type Props = {
   row: Row
 }
 
+const emptyFn = () => ({})
+
 const Cell: React.FC<Props> = (props) => {
   const { data, assessmentName, sectionName, table, disabled: disabledProps, rowIndex, col, row } = props
 
   const cycle = useCycle()
-
   const nodeValue = useNodeValue({ col, data, row, table })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
   const validation = useNodeValueValidation({ table, row, col })
@@ -62,11 +63,9 @@ const Cell: React.FC<Props> = (props) => {
 
   if (!Component) return null
 
-  const id = `${col.props.colType}_${col.id}_${col.props.colName ?? ''}`
-
   return (
     <td
-      id={id}
+      id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
       colSpan={colSpan}
       className={className}
       rowSpan={rowSpan}
@@ -83,9 +82,9 @@ const Cell: React.FC<Props> = (props) => {
         col={col}
         row={row}
         nodeValue={nodeValue}
-        onChange={onChange}
-        onChangeNodeValue={onChangeNodeValue}
-        onPaste={onPaste}
+        onChange={disabled ? emptyFn : onChange}
+        onChangeNodeValue={disabled ? emptyFn : onChangeNodeValue}
+        onPaste={disabled ? emptyFn : onPaste}
       />
 
       <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />
