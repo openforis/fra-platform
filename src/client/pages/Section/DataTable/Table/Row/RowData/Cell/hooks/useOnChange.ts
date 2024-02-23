@@ -19,17 +19,18 @@ type Props = {
   data: RecordAssessmentData
   sectionName: string
 }
+
 export type OnChangeNodeValue = (value: NodeValue) => void
 export type OnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
 export type OnPaste = React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 
-type UseOnChange = {
+type Returned = {
   onChange: OnChange
   onChangeNodeValue: OnChangeNodeValue
   onPaste: OnPaste
 }
 
-export default (props: Props): UseOnChange => {
+export default (props: Props): Returned => {
   const { table, col, row, nodeValue: _nodeValue, data, sectionName } = props
   const type = col.props.colType
 
