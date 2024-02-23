@@ -1,5 +1,5 @@
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
-import { File } from 'meta/file'
+import { FileSummary } from 'meta/file'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -13,7 +13,7 @@ type Props = {
   user: User
 }
 
-export const createMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<File>> => {
+export const createMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<FileSummary>> => {
   const { assessment, cycle, files, user } = props
 
   return client.tx(async (t) => {

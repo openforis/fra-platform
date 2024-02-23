@@ -16,23 +16,18 @@ export const uploadFiles = createAsyncThunk<Array<FileType>, Props, ThunkApiConf
   'fileUpload/uploadFiles',
   async (props, { dispatch }) => {
     const { assessmentName, cycleName, countryIso, files } = props
+
     const formData = new FormData()
     files.forEach((file) => formData.append('file', file))
 
     const headers = { 'Content-Type': 'multipart/form-data' }
     const params = { assessmentName, cycleName, countryIso }
-
     const onUploadProgress = (progressEvent: ProgressEvent) => {
-      // Note: Do not dispatch the whole ProgressEvent here!
-      dispatch(
-        FileUploadActions.setProgress({
-          loaded: progressEvent.loaded,
-          total: progressEvent.total,
-        })
-      )
+      const { loaded, total } = progressEvent
+      dispatch(FileUploadActions.setProgress({ loaded, total }))
     }
-
     const config = { headers, params, onUploadProgress }
+
     const { data } = await axios.post(ApiEndPoint.File.many(), formData, config)
 
     return data
