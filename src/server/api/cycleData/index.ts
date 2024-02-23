@@ -4,7 +4,6 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { createRepositoryItem } from 'server/api/cycleData/repository/createRepositoryItem'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
@@ -30,8 +29,10 @@ import { updateOriginalDataPointDescription } from './originalDataPoint/updateOr
 import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
+import { createRepositoryItem } from './repository/createRepositoryItem'
 import { getManyRepository } from './repository/getManyRepository'
 import { getRepositoryFile } from './repository/getRepositoryFile'
+import { getRepositoryFileMeta } from './repository/getRepositoryFileMeta'
 import { removeRepositoryItem } from './repository/removeRepositoryItem'
 import { updateRepositoryItem } from './repository/updateRepositoryItem'
 import { getReviewStatus } from './review/getReviewStatus'
@@ -149,6 +150,11 @@ export const CycleDataApi = {
     // repository
     express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)
     express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewRepositoryFile, getRepositoryFile)
+    express.get(
+      ApiEndPoint.CycleData.Repository.fileMeta(),
+      AuthMiddleware.requireViewRepositoryFile,
+      getRepositoryFileMeta
+    )
     express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
     express.patch(
       ApiEndPoint.CycleData.Repository.one(),
