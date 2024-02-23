@@ -7,10 +7,11 @@ import classNames from 'classnames'
 
 import { File } from 'meta/file'
 
-import { useFileUploadProgress, useUploadFiles } from 'client/store/ui/fileUpload'
+import { useFileUploadProgress } from 'client/store/ui/fileUpload'
 import ProgressBar from 'client/components/ProgressBar'
 
 import { useResetFilesOnUnmount } from './hooks/useResetFilesOnUnmount'
+import { useUploadFiles } from './hooks/useUploadFiles'
 
 type Props = {
   multiple?: boolean

@@ -4,9 +4,12 @@ import { useAppDispatch } from 'client/store'
 import { FileUploadActions } from 'client/store/ui/fileUpload'
 import { RepositoryActions } from 'client/store/ui/repository'
 
-export const useOnRemoveFile = (): (() => void) => {
+type Returned = () => void
+
+export const useOnRemoveFile = (): Returned => {
   const dispatch = useAppDispatch()
-  return useCallback<() => void>(() => {
+
+  return useCallback<Returned>(() => {
     dispatch(RepositoryActions.setRepositoryItemProps({ fileUuid: undefined }))
     dispatch(RepositoryActions.resetFile())
     dispatch(FileUploadActions.reset())

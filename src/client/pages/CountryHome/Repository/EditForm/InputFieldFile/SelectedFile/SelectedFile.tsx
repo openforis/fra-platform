@@ -12,10 +12,6 @@ const SelectedFile: React.FC = () => {
   const onRemoveFile = useOnRemoveFile()
   const repositoryItem = useRepositoryItem()
 
-  if (!repositoryItem) {
-    return null
-  }
-
   return (
     <div className="repository-form__selected-file">
       <RepositoryLink datum={repositoryItem as RepositoryItem} />

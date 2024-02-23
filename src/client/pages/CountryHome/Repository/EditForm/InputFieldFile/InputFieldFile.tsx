@@ -11,12 +11,10 @@ import { useGetFileMetadata } from './hooks/useGetFileMetadata'
 const FileInputField: React.FC = () => {
   const { t } = useTranslation()
   const file = useRepositoryFile()
+  const error = useRepositoryItemPropValidation('fileUuid')
+  useGetFileMetadata()
 
   const id = `repository_form-input-file`
-
-  const error = useRepositoryItemPropValidation('fileUuid')
-
-  useGetFileMetadata()
 
   return (
     <>

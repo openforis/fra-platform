@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { File as FileType } from 'meta/file'
 
 import { useAppDispatch } from 'client/store'
-import { FileUploadActions } from 'client/store/ui/fileUpload/actions'
+import { FileUploadActions } from 'client/store/ui/fileUpload'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {

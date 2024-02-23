@@ -34,6 +34,7 @@ const Repository: React.FC = () => {
         <ButtonAdd />
       </div>
       <TablePaginated columns={columns} counter={false} header={false} path={ApiEndPoint.CycleData.Repository.many()} />
+
       <EditForm />
     </div>
   )
