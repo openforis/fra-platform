@@ -35,30 +35,34 @@ const Title: React.FC<Props> = (props) => {
   const Component = Components[assessmentName]?.[sectionName] ?? TitleDefault
 
   return (
-    <div>
+    <div className="section__title">
       {React.createElement(Component, { subSection })}
 
-      {hints.map((hint) => {
-        const { document, key, labelKey } = hint
-        const show = Boolean(subSection.props?.hints?.[cycle.uuid]?.[key])
+      {Object.keys(subSection.props?.hints?.[cycle.uuid]).length && (
+        <div>
+          {hints.map((hint) => {
+            const { document, key, labelKey } = hint
+            const show = Boolean(subSection.props?.hints?.[cycle.uuid]?.[key])
 
-        if (show) {
-          return (
-            <DefinitionLink
-              anchor={anchor}
-              assessmentName={assessmentName}
-              className="title-hint__link"
-              cycleName={cycleName}
-              document={document}
-              key={key}
-              lang={i18n.resolvedLanguage}
-              title={t(labelKey)}
-            />
-          )
-        }
+            if (show) {
+              return (
+                <DefinitionLink
+                  anchor={anchor}
+                  assessmentName={assessmentName}
+                  className="title-hint__link"
+                  cycleName={cycleName}
+                  document={document}
+                  key={key}
+                  lang={i18n.resolvedLanguage}
+                  title={t(labelKey)}
+                />
+              )
+            }
 
-        return null
-      })}
+            return null
+          })}
+        </div>
+      )}
     </div>
   )
 }
