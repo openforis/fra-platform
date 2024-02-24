@@ -35,7 +35,7 @@ const Title: React.FC<Props> = (props) => {
   const Component = Components[assessmentName]?.[sectionName] ?? TitleDefault
 
   return (
-    <>
+    <div>
       {React.createElement(Component, { subSection })}
 
       {hints.map((hint) => {
@@ -59,7 +59,7 @@ const Title: React.FC<Props> = (props) => {
 
         return null
       })}
-    </>
+    </div>
   )
 }
 export default Title
