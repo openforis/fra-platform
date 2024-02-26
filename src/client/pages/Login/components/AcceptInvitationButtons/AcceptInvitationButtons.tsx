@@ -7,7 +7,7 @@ import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { AuthProvider } from 'meta/user'
 
 import { useInvitation } from 'client/store/login'
-import { useAcceptInvitationForm } from 'client/store/login/hooks'
+import { useAcceptInvitationForm, useLoginInfo } from 'client/store/login/hooks'
 import { useIsInvitationLocalRoute } from 'client/hooks/useIsRoute'
 import { useSearchParams } from 'client/hooks/useSearchParams'
 import Icon from 'client/components/Icon'
@@ -29,6 +29,8 @@ const AcceptInvitationButtons: React.FC = () => {
   const isInInvitationLocal = useIsInvitationLocalRoute()
 
   const formData = useAcceptInvitationForm()
+  const loginInfo = useLoginInfo()
+
   const showPassword2 =
     (invitedUser && !userProviders) || (userProviders && !userProviders.includes(AuthProvider.local))
 
@@ -44,6 +46,7 @@ const AcceptInvitationButtons: React.FC = () => {
         type="button"
         className="btn"
         onClick={isInInvitationLocal ? onAcceptInvitationLocal : goToAcceptInvitationLocal}
+        disabled={isInInvitationLocal ? loginInfo?.isLoading : false}
       >
         {t('login.acceptInvitationWithFra')}
       </button>

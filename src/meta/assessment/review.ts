@@ -1,18 +1,18 @@
 import { MessageTopicStatus } from '../messageCenter'
 
 export interface ReviewStatus {
-  key?: string
   hasUnreadMessages: boolean
-  status: MessageTopicStatus
-  messagesCount?: number
+  key?: string
   lastMessageUserId?: number
+  messagesCount?: number
+  status: MessageTopicStatus
 }
 
 export interface ReviewSummary {
-  parentId: number
-  subSectionId: number
   hasUnreadMessages: boolean
-  status: MessageTopicStatus
   lastMessageCreatedTime: string
   lastOpenTime: string
+  parentId: number
+  status: MessageTopicStatus
+  subSectionId: number
 }

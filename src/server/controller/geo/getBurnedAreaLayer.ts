@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Layer, LayerSource } from 'meta/geo'
+import { LayerConfig, LayerSource } from 'meta/geo'
 
 import { AssetsController } from 'server/controller/geo/assets'
 
@@ -10,7 +10,7 @@ type Props = {
   layer: LayerSource
 }
 
-export const getBurnedAreaLayer = async (props: Props): Promise<Layer> => {
+export const getBurnedAreaLayer = async (props: Props): Promise<LayerConfig> => {
   const { countryIso, layer } = props
 
   const asset = AssetsController.getBurnedAreaAssetData(layer)

@@ -5,6 +5,7 @@ const common = require('./en/common')
 const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
 const dataSource = require('./en/dataSource')
+const email = require('./en/email')
 const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
 const login = require('./en/login')
@@ -19,6 +20,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,
@@ -748,6 +750,7 @@ The FRA team fra@fao.org
     native: 'Native',
     introduced: 'Introduced',
     growingStockComposition: 'Growing stock composition',
+    forestGrowingStockComposition: 'Forest growing stock composition',
     categoryHeader: 'FRA categories',
     nativeTreeSpecies: 'Native tree species',
     introducedTreeSpecies: 'Introduced tree species',

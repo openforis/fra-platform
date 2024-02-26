@@ -22,7 +22,7 @@ export const copyPreviousDatasources = createAsyncThunk<void, Props>(
 
     const name = CommentableDescriptionName.dataSources
     const params = { countryIso, assessmentName, cycleName, sectionName: previousSectionName, name }
-    const { data } = await axios.get<DescriptionCountryValues>(ApiEndPoint.CycleData.descriptions(), { params })
+    const { data } = await axios.get<DescriptionCountryValues>(ApiEndPoint.CycleData.Descriptions.many(), { params })
 
     const dataSources = data?.[countryIso]?.[previousSectionName]?.[name]?.dataSources
     const value = {

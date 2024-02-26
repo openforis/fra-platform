@@ -3,15 +3,12 @@ import { Request } from 'express'
 import { CountryIso } from 'meta/area'
 import { LayerSource } from 'meta/geo'
 
-export type LayerRequest = Request<
-  never,
-  never,
-  {
-    countryIso: CountryIso
-    layer: LayerSource
-  },
-  never
->
+export type LayerRequestBody = {
+  countryIso: CountryIso
+  layer: LayerSource
+}
+
+export type LayerRequest = Request<never, never, LayerRequestBody, never>
 
 export type ForestAgreementLayerRequest = Request<
   never,
@@ -33,14 +30,17 @@ export type ForestEstimationsRequest = Request<
     year: any
   }
 >
+
+export type ForestAgreementAreaEstimationRequestBody = {
+  countryIso: CountryIso
+  gteAgreementLevel: number
+  layers: Array<LayerSource>
+  scale: number
+}
+
 export type ForestAgreementAreaEstimationRequest = Request<
   never,
   never,
-  {
-    countryIso: CountryIso
-    layers: Array<LayerSource>
-    gteAgreementLevel: number
-    scale: number
-  },
+  ForestAgreementAreaEstimationRequestBody,
   never
 >

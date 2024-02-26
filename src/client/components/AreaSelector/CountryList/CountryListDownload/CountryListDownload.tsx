@@ -10,6 +10,7 @@ import { Users } from 'meta/user'
 
 import { useCountries } from 'client/store/area'
 import { useUser } from 'client/store/user'
+import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
 const formatDate = (date?: string): string => (date ? Dates.format(Dates.parseISO(date), 'dd MMMM yyyy') : '')
@@ -18,6 +19,7 @@ const CountryListDownload: React.FC = () => {
   const { t } = useTranslation()
   const user = useUser()
   const countries = useCountries()
+  const className = useButtonClassName({ iconName: 'hit-down' })
 
   if (!Users.isAdministrator(user)) return null
 
@@ -47,7 +49,7 @@ const CountryListDownload: React.FC = () => {
 
   return (
     <div className="country-selection-list__download">
-      <CSVLink className="btn-s btn-primary" target="_blank" filename="FRA-Countries.csv" data={data} headers={headers}>
+      <CSVLink className={className} target="_blank" filename="FRA-Countries.csv" data={data} headers={headers}>
         <Icon className="icon-sub icon-white" name="hit-down" />
         CSV
       </CSVLink>

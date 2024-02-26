@@ -2,17 +2,27 @@ import React from 'react'
 
 import { Numbers } from 'utils/numbers'
 
-import StatisticsTable from '../../components/StatisticsTable'
+import { useGeoFra1aLandArea } from 'client/store/ui/geo/hooks'
+import StatisticsTable from 'client/pages/Geo/GeoMap/components/StatisticsTable'
 
 type Props = {
-  data: [string, number, number][]
+  data: [string, number, number, string][]
   countryIso: string
   year: number
 }
 
 const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
+  const fra1aLandArea = useGeoFra1aLandArea()
   const columns = ['Source', 'Forest area', 'Forest area % of land area']
-  const title = 'Extent of forest per source and reported on 2020 (1a)'
+
+  const csvHeaders = [
+    { label: 'Source', key: 'source' },
+    { label: 'Land area', key: 'landArea' },
+    { label: 'Forest area, ha', key: 'forestAreaHa' },
+    { label: 'Forest area % of land area', key: 'forestAreaPercentage' },
+  ]
+  const csvData: { source: string; landArea: string; forestAreaHa: string; forestAreaPercentage: string }[] = []
+
   const units = ['', 'ha', '%']
   const loaded = true
   const { data, countryIso, year } = props
@@ -26,11 +36,21 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
     const percentage = rowData[2]
     const formatedArea = Numbers.format(area, 0)
     formattedTableData.push([sourceName, formatedArea, percentage])
+
+    csvData.push({
+      source: sourceName,
+      landArea: fra1aLandArea.toString(),
+      forestAreaHa: formatedArea,
+      forestAreaPercentage: `${percentage} %`,
+    })
   })
+  const customCsvDownload = {
+    headers: csvHeaders,
+    data: csvData,
+  }
 
   return (
     <div>
-      <h3 className="table-title">{title}</h3>
       <StatisticsTable
         columns={columns}
         units={units}
@@ -38,6 +58,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
         tableData={formattedTableData}
         countryIso={countryIso}
         year={year}
+        customCsvDownload={customCsvDownload}
       />
     </div>
   )

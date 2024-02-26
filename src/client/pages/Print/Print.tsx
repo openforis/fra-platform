@@ -1,5 +1,5 @@
 import './style.scss'
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
@@ -19,10 +19,8 @@ import { useGetTableData } from './hooks/useGetTableData'
 import { useGetTableSections } from './hooks/useGetTableSections'
 
 const Print: React.FC = () => {
-  const { assessmentName, countryIso } = useCountryRouteParams<CountryIso>()
-
   const { t } = useTranslation()
-
+  const { assessmentName, countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
   const country = useCountry(countryIso)
   const sections = useSections()
@@ -30,6 +28,12 @@ const Print: React.FC = () => {
   useGetTableSections()
   useGetTableData()
   useGetDescriptionValues()
+
+  // body height is 100vh. unset height to print all pages
+  useEffect(() => {
+    document.body.style.height = 'unset'
+  }, [])
+
   const deskStudy = country?.props?.deskStudy
 
   if (!sections || !assessmentName) {
@@ -43,34 +47,32 @@ const Print: React.FC = () => {
 
   return (
     <div className="print__container">
-      <div>
-        <div className="print__header">
-          <h1>{t(`area.${countryIso}.listName`)}</h1>
-          <h1>{title}</h1>
-        </div>
-
-        <hr />
-
-        {!onlyTables && <TableOfContent deskStudy={deskStudy} />}
-
-        {Object.values(sections).map((section) => {
-          const sectionIndex = section.props.index
-          return (
-            <div key={section.uuid} id={`section${sectionIndex}`}>
-              {!onlyTables && (
-                <h1 className="title only-print">
-                  {sectionIndex === 0 ? '' : sectionIndex}{' '}
-                  {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
-                </h1>
-              )}
-
-              {Object.values(section.subSections).map((sectionItem) => {
-                return <Section key={sectionItem.uuid} section={sectionItem.props.name} />
-              })}
-            </div>
-          )
-        })}
+      <div className="print__header">
+        <h1>{t(`area.${countryIso}.listName`)}</h1>
+        <h1>{title}</h1>
       </div>
+
+      <hr />
+
+      {!onlyTables && <TableOfContent deskStudy={deskStudy} />}
+
+      {Object.values(sections).map((section) => {
+        const sectionIndex = section.props.index
+        return (
+          <div key={section.uuid} id={`section${sectionIndex}`}>
+            {!onlyTables && (
+              <h1 className="title only-print">
+                {sectionIndex === 0 ? '' : sectionIndex}{' '}
+                {Labels.getCycleLabel({ cycle, labels: section.props.labels, t })}
+              </h1>
+            )}
+
+            {Object.values(section.subSections).map((sectionItem) => {
+              return <Section key={sectionItem.uuid} section={sectionItem.props.name} />
+            })}
+          </div>
+        )
+      })}
     </div>
   )
 }

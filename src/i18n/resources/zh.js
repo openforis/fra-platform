@@ -5,6 +5,7 @@ const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
 const dataSource = require('./zh/dataSource')
+const email = require('./zh/email')
 const fra = require('./zh/fra')
 const generalValidation = require('./zh/generalValidation')
 const login = require('./zh/login')
@@ -18,6 +19,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,
@@ -718,6 +720,7 @@ FRA工作组 fra@fao.org
     native: '本地',
     introduced: '引进',
     growingStockComposition: '立木蓄积量组成',
+    forestGrowingStockComposition: '森林立木蓄积量组成',
     categoryHeader: 'FRA类别',
     nativeTreeSpecies: '本地树种',
     introducedTreeSpecies: '引进树种',
@@ -1201,7 +1204,8 @@ FRA工作组
 
     // table 1.2c
     growingStockComposition: {
-      growingStockComposition: '立木的组成',
+      growingStockComposition: '立木蓄积量组成',
+      forestGrowingStockComposition: '森林立木蓄积量组成',
       speciesName: '树种名称',
       growingStockInForestMillionM3OB: '森林立木蓄积量[百万立方米（带皮）]',
       rank: '排名',

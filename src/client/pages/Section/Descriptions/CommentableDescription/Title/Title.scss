@@ -1,0 +1,22 @@
+@import 'src/client/style/partials';
+
+div.description-title {
+  align-items: center;
+  display: grid;
+  justify-self: start;
+
+  &.editable {
+    grid-column-gap: $spacing-xxxs;
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.description-title__btn-edit {
+  color: darken($ui-accent, 2%);
+  padding: 0 $spacing-xxs;
+  white-space: nowrap;
+
+  &:hover {
+    color: darken($ui-accent, 6%);
+  }
+}

@@ -21,7 +21,7 @@ const LinkLanding: React.FC = () => {
     <NavLink
       to={Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })}
       className={() => {
-        return classNames('nav-section__item', {
+        return classNames('nav-section__header', {
           selected: matchPath({ path: Routes.CountryHome.path.absolute, end: false }, pathname),
         })
       }}
@@ -30,7 +30,7 @@ const LinkLanding: React.FC = () => {
         <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
       </div>
 
-      <div className="nav-nav-section__label">{t('common.dashboard')}</div>
+      <div className="nav-section__label">{t('common.dashboard')}</div>
     </NavLink>
   )
 }

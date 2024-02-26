@@ -1,3 +1,4 @@
+import { ApiEndPoint } from 'meta/api/endpoint/ApiEndPoint'
 import { CountryIso } from 'meta/area'
 
 export interface ForestEstimationsData {
@@ -65,7 +66,7 @@ export interface ForestEstimations {
 }
 
 export enum ExtraEstimation {
-  ReportedToFRA = 'Reported to FRA',
+  ReportedToFRA = 'Reported to FRA 2020',
   PrecalculatedRecipe = 'Forest agreement selected',
   CustomRecipe = 'Custom agreement selected',
 }
@@ -80,4 +81,10 @@ export const extraEstimationsMetadata = {
   [ExtraEstimation.CustomRecipe]: {
     palette: ['#FF00FF'], // fuchsia
   },
+}
+
+export type ExtraEstimationsApiEndpoint = Partial<Record<ExtraEstimation, string>>
+
+export const extraEstimationsApiEndpoint: ExtraEstimationsApiEndpoint = {
+  [ExtraEstimation.CustomRecipe]: ApiEndPoint.Geo.Estimations.forestAgreement(),
 }

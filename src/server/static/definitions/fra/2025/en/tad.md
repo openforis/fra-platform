@@ -2,7 +2,7 @@
 
 _FRA 2025_
 
-## Introduction
+## Introduction <!-- section:Introduction -->
 
 The FAO Global Forest Resources Assessments have to a great extent contributed to the improvement of concepts, definitions and methods related to forest resources assessments. 
 
@@ -18,9 +18,9 @@ For more details on FRA Programme, please see: http://www.fao.org/forest-resourc
 
 ---
 
-# 1 Forest extent, characteristics and changes
+# 1 Forest extent, characteristics and changes <!-- section:1 -->
 
-## 1a Extent of forest and other wooded land
+## 1a Extent of forest and other wooded land <!-- section:1a -->
 
 ### FOREST
 
@@ -64,7 +64,7 @@ Explanatory notes
 ### CLIMATIC DOMAIN Source:
 http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
 
-## 1b Forest characteristics
+## 1b Forest characteristics <!-- section:1b -->
 
 ### NATURALLY REGENERATING FOREST
 
@@ -122,7 +122,7 @@ Explanatory note
 
 > **Planted forest** which is not classified as **plantation forest**.
 
-## 1c Specific forest categories
+## 1c Specific forest categories <!-- section:1c -->
 
 ### BAMBOOS
 
@@ -143,7 +143,7 @@ Explanatory note
 1. In this context, predominantly means that rubber wood trees are expected to constitute more than 50 percent of the growing stock at maturity.
 
 
-## 1d Annual forest expansion, deforestation and net change
+## 1d Annual forest expansion, deforestation and net change <!-- section:1d -->
 
 ### FOREST EXPANSION
 
@@ -174,7 +174,7 @@ Explanatory note
 
 1. The "Forest area net change" is the difference in forest area between two FRA reference years. The net change can be either positive (gain), negative (loss) or zero (no change).
 
-## 1e Other land with tree cover
+## 1e Other land with tree cover <!-- section:1e -->
 
 ### OTHER LAND WITH TREE COVER
 
@@ -215,9 +215,9 @@ Explanatory notes
 
 ---
 
-# 2 Forest growing stock, biomass and carbon
+# 2 Forest growing stock, biomass and carbon <!-- section:2 -->
 
-## 2a Growing stock
+## 2a Growing stock <!-- section:2a -->
 
 ### GROWING STOCK
 
@@ -229,7 +229,7 @@ Explanatory notes
 2. Includes laying living trees.
 3. Excludes branches, twigs, foliage, flowers, seeds, and roots.
 
-## 2b Growing stock composition
+## 2b Forest growing stock composition <!-- section:2b -->
 
 ### NATIVE TREE SPECIES _(Supplementary term)_
 
@@ -248,7 +248,7 @@ Explanatory notes
 1. If the species occurs naturally within the country borders it is considered native for the entire country. 
 2. Naturally regenerated forest of introduced tree species should be considered as *introduced* up to 250 years from the date of original introduction. Beyond 250 years, the species can be considered naturalized.
 
-## 2c Biomass stock
+## 2c Biomass stock <!-- section:2c -->
 
 ### ABOVE-GROUND BIOMASS
 
@@ -275,7 +275,7 @@ Explanatory note
 
 1.	The country may use another threshold value than 10 cm, but in such a case the threshold value used must be documented.
 
-## 2d Carbon stock
+## 2d Carbon stock <!-- section:2d -->
 
 ### CARBON IN ABOVE-GROUND BIOMASS
 
@@ -320,9 +320,9 @@ Explanatory note
 
 ---
 
-# 3 Forest designation and management
+# 3 Forest designation and management <!-- section:3 -->
 
-## 3a Designated management objective
+## 3a Designated management objective <!-- section:3a -->
 
 ### TOTAL AREA WITH DESIGNATED MANAGEMENT OBJECTIVE
 
@@ -404,7 +404,7 @@ Explanatory note
 
 > Forest where the **primary designated management objective** is unknown.
 
-## 3b Forest area within legally established protected areas and forest area with long-term management plans
+## 3b Forest area within legally established protected areas and forest area with long-term management plans <!-- section:3b -->
 
 ### FOREST AREA WITHIN LEGALLY ESTABLISHED PROTECTED AREAS
 
@@ -412,8 +412,8 @@ Explanatory note
 
 Explanatory notes
 
-1. Includes IUCN Categories I а IV.
-2. Excludes IUCN Categories V а VI.
+1. Includes IUCN Categories I - IV.
+2. Excludes IUCN Categories V - VI.
 3. Includes forest area within legally established protected areas whose IUCN category is unknown.
 
 ### FOREST AREA WITH LONG-TERM MANAGEMENT PLAN
@@ -431,7 +431,7 @@ Explanatory notes
 
 > **Forest** area within protected areas that has a long-term (ten years or more) documented management plan, aiming at defined management goals, and which is periodically revised.
 
-## 3c Forest restoration
+## 3c Forest restoration <!-- section:3c -->
 
 ### RESTORATION
 
@@ -442,9 +442,9 @@ Explanatory note
 
 ---
 
-# 4 Forest ownership and management rights
+# 4 Forest ownership and management rights <!-- section:4 -->
 
-## 4a Forest ownership
+## 4a Forest ownership <!-- section:4a -->
 
 ### FOREST OWNERSHIP _(Supplementary term)_
 
@@ -502,7 +502,7 @@ Explanatory notes
 Explanatory note
 1. Includes areas where ownership is unclear or disputed.
 
-## 4b Management rights of public forests
+## 4b Management rights of public forests <!-- section:4b -->
 
 ### MANAGEMENT RIGHTS OF PUBLIC FORESTS _(Supplementary term)_
 
@@ -535,9 +535,9 @@ Explanatory notes
 
 ---
 
-# 5 Forest disturbances
+# 5 Forest disturbances <!-- section:5 -->
 
-## 5a Forest damage
+## 5a Forest damage <!-- section:5a -->
 
 ### DAMAGE(To forest)
 
@@ -559,7 +559,7 @@ Explanatory note
 
 > Damage caused by abiotic factors, such as snow, storm, droughts, etc.
 
-## 5b Area affected by fire
+## 5b Area affected by fire <!-- section:5b -->
 
 ### BURNED AREA
 
@@ -569,7 +569,7 @@ Explanatory note
 
 > **Forest** area affected by fire.
 
-## 5c Degraded forest
+## 5c Degraded forest <!-- section:5c -->
 
 ### DEGRADED FOREST
 
@@ -581,9 +581,9 @@ Explanatory note
 
 ---
 
-# 6 Forest policy and legislation
+# 6 Forest policy and legislation <!-- section:6 -->
 
-## 6a Policies, legislation and national platform for stakeholder participation in forest policy
+## 6a Policies, legislation and national platform for stakeholder participation in forest policy <!-- section:6a -->
 
 ### POLICIES SUPPORTING SUSTAINABLE FOREST MANAGEMENT
 
@@ -601,7 +601,7 @@ Explanatory note
 
 > A system that provides the ability to trace the origin, location and movement of wood products by means of recorded identifications. This involves two main aspects: (1) identification of the product by marking, and (2) the recording of data on movement and location of the product all the way along the production, processing and distribution chain.
 
-## 6b Area of permanent forest estate
+## 6b Area of permanent forest estate <!-- section:6b -->
 
 ### PERMANENT FOREST ESTATE
 
@@ -613,9 +613,9 @@ Explanatory note
 
 ---
 
-# 7 NWFP removals and value 
+# 7 NWFP removals and value
 
-## 7 NWFP removals and value 
+## 7 NWFP removals and value  <!-- section:7 -->
 
 ### NON WOOD FOREST PRODUCT
 
@@ -644,7 +644,7 @@ Explanatory notes
 
 ---
 
-# 8 Additional terms and definitions
+# 8 Additional terms and definitions <!-- section:8 -->
 
 ### CANOPY COVER
 
