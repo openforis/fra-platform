@@ -12,7 +12,6 @@ export const getUsages = async (props: Props, client: BaseProtocol = DB): Promis
 
   return client.map<FileUsage>(
     `
--- Check usage:
 -- Original Data Point
         select
             jsonb_build_object(
