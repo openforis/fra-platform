@@ -6,10 +6,6 @@ import { Status, Wrapper } from '@googlemaps/react-wrapper'
 import Loading from 'client/components/Loading'
 
 import GeoMap from '../GeoMap'
-import GeoMapMenuData from '../GeoMap/GeoMapMenuData'
-import GeoMapMenuMosaic from '../GeoMap/GeoMapMenuMosaic'
-// import GeoMapMenuRecipes from '../GeoMap/GeoMapMenuRecipes'
-import GeoMapMenuStatistics from '../GeoMap/GeoMapMenuStatistics'
 
 // @ts-ignore
 // from webpack DefinePlugin
@@ -24,16 +20,7 @@ const GeoMapWrapper: React.FC = () => {
         // TODO: improve error handling
         return <p>Error</p>
       case Status.SUCCESS:
-        return (
-          <GeoMap>
-            <div className="geo-map-menu-container">
-              <GeoMapMenuMosaic />
-              <GeoMapMenuData />
-              {/* <GeoMapMenuRecipes /> */}
-              <GeoMapMenuStatistics />
-            </div>
-          </GeoMap>
-        )
+        return <GeoMap />
       // this should never happen
       default:
         return null
