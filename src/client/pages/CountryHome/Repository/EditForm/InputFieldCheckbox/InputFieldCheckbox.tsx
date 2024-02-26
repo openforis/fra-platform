@@ -2,7 +2,7 @@ import './InputFieldCheckbox.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useIsFileInUse } from 'client/store/ui/repository/hooks'
+import { useIsFileInUse } from 'client/store/ui/repository'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import { DataCell } from 'client/components/DataGrid'
 
