@@ -1,3 +1,5 @@
+import { Label } from 'meta/assessment'
+
 export type FileSummary = {
   readonly createdAt: string
   readonly id: number
@@ -10,11 +12,12 @@ export type File = FileSummary & {
   readonly file: Buffer
 }
 
-// export type FileUsages = {
-//
-// }
+export type FileUsage = {
+  sectionName: string
+  location: Array<Label>
+}
 
 export type FileMeta = {
   summary: FileSummary
-  // usages: FileUsages
+  usages: Array<FileUsage>
 }

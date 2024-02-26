@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
-import { useIsRepositoryItemValid, useIsRepositoryLoading, useRepositoryItem } from 'client/store/ui/repository'
+import {
+  useIsFileInUse,
+  useIsRepositoryItemValid,
+  useIsRepositoryLoading,
+  useRepositoryItem,
+} from 'client/store/ui/repository'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { DataCell } from 'client/components/DataGrid'
 
@@ -23,8 +28,10 @@ const Actions: React.FC = () => {
   const fileUploadLoading = useIsFileUploadLoading()
   const valid = useIsRepositoryItemValid()
   const isRepositoryLoading = useIsRepositoryLoading()
+  const isFileInUse = useIsFileInUse()
   const disabled = isRepositoryLoading || fileUploadLoading
   const disabledDone = disabled || !valid
+  const disableDelete = disabled || isFileInUse
   const onDelete = useOnDelete()
 
   if (!repositoryItem) return null
@@ -51,7 +58,7 @@ const Actions: React.FC = () => {
       {showDelete && (
         <Button
           className="button-delete"
-          disabled={disabled}
+          disabled={disableDelete}
           iconName="trash-simple"
           onClick={onDelete}
           size={ButtonSize.m}

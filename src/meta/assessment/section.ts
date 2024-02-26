@@ -7,6 +7,7 @@ export type SectionName = string
 export enum SectionNames {
   'contacts' = 'contacts',
   'contactPersons' = 'contactPersons',
+  'originalDataPoints' = 'originalDataPoints',
 }
 
 export interface SectionProps {

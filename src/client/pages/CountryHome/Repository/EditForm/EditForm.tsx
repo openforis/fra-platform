@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { useRepositoryItem } from 'client/store/ui/repository'
+import { useIsFileInUse, useRepositoryItem } from 'client/store/ui/repository'
 import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
 import SlidingPanel from 'client/components/SlidingPanel'
@@ -14,6 +14,7 @@ import InputFieldCheckbox from 'client/pages/CountryHome/Repository/EditForm/Inp
 import InputFieldFile from 'client/pages/CountryHome/Repository/EditForm/InputFieldFile'
 
 import { useClosePanel } from '../hooks/useClosePanel'
+import { useGetRepositoryFileMeta } from './hooks/useGetRepositoryFileMeta'
 import { useOnChange } from './hooks/useOnChange'
 
 const EditForm: React.FC = () => {
@@ -21,6 +22,9 @@ const EditForm: React.FC = () => {
   const repositoryItem = useRepositoryItem()
   const { onChangeField, onChangeProps, onChangeTranslation } = useOnChange()
   const closePanel = useClosePanel()
+  const isFileInUse = useIsFileInUse()
+
+  useGetRepositoryFileMeta()
 
   const opened = !Objects.isEmpty(repositoryItem)
 
@@ -28,6 +32,7 @@ const EditForm: React.FC = () => {
     <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
       <DataGrid className="repository-form" gridTemplateColumns="60px 1fr">
         <InputField
+          disabled={isFileInUse}
           label="common.label"
           name="en"
           onChange={onChangeTranslation}

@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { RepositoryItem, RepositoryItemValidator } from 'meta/cycleData'
 import { FileSummary } from 'meta/file'
 
-import { repositoryFileReducer } from 'client/store/ui/repository/reducers/repositoryFileBuilder'
+import { fileMetaReducer } from 'client/store/ui/repository/reducers/repositoryFileBuilder'
 import { repositoryReducer } from 'client/store/ui/repository/reducers/repositoryReducer'
 import { initialState, RepositoryState } from 'client/store/ui/repository/state'
 
@@ -43,7 +43,7 @@ export const RepositorySlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    repositoryFileReducer(builder)
+    fileMetaReducer(builder)
     repositoryReducer(builder)
   },
 })

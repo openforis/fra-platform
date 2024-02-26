@@ -18,6 +18,11 @@ export const useRepositoryFileMeta = (): FileMeta | undefined => {
   return useAppSelector(RepositorySelectors.getRepositoryFileMeta)
 }
 
+export const useIsFileInUse = (): boolean => {
+  const fileMeta = useRepositoryFileMeta()
+  return !Objects.isEmpty(fileMeta?.usages)
+}
+
 export const useRepositoryItemValidation = (): Record<string, string> | undefined => {
   return useAppSelector(RepositorySelectors.getRepositoryItemValidation)
 }

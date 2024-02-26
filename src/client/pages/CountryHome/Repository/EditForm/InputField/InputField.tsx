@@ -7,6 +7,7 @@ import { DataCell } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 
 type Props = {
+  disabled?: boolean
   label: string
   name: string
   onChange: (name: string, value: string) => void
@@ -14,7 +15,7 @@ type Props = {
 }
 
 const InputField: React.FC<Props> = (props: Props) => {
-  const { label, name, onChange, value } = props
+  const { disabled, label, name, onChange, value } = props
 
   const { t } = useTranslation()
 
@@ -34,11 +35,14 @@ const InputField: React.FC<Props> = (props: Props) => {
         </label>
       </DataCell>
       <DataCell className="repository-form__field" editable error={Boolean(error)} lastCol lastRow>
-        <InputText id={id} onChange={_onChange} value={value ?? ''} />
+        <InputText disabled={disabled} id={id} onChange={_onChange} value={value ?? ''} />
         <div className="repository-form__error-label">{error ? t(error) : ''}</div>
       </DataCell>
     </>
   )
 }
 
+InputField.defaultProps = {
+  disabled: false,
+}
 export default InputField
