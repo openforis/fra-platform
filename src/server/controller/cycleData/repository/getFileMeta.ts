@@ -20,7 +20,7 @@ export const getFileMeta = async (props: Props): Promise<Returned> => {
   const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps)
 
   const usages = await RepositoryRepository.getUsages({ uuid, cycle, assessment })
-  const summary = await FileRepository.getOne({ fileUuid: repositoryItem.fileUuid, meta: true })
+  const summary = await FileRepository.getSummary({ fileUuid: repositoryItem.fileUuid })
 
   return {
     usages,
