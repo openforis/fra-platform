@@ -10,12 +10,12 @@ import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
 import SlidingPanel from 'client/components/SlidingPanel'
 import Actions from 'client/pages/CountryHome/Repository/EditForm/Actions'
-import { useGetRepositoryFileMeta } from 'client/pages/CountryHome/Repository/EditForm/hooks/useGetRepositoryFileMeta'
 import InputField from 'client/pages/CountryHome/Repository/EditForm/InputField'
 import InputFieldCheckbox from 'client/pages/CountryHome/Repository/EditForm/InputFieldCheckbox'
 import InputFieldFile from 'client/pages/CountryHome/Repository/EditForm/InputFieldFile'
 
 import { useClosePanel } from '../hooks/useClosePanel'
+import { useGetRepositoryFileMeta } from './hooks/useGetRepositoryFileMeta'
 import { useOnChange } from './hooks/useOnChange'
 
 const EditForm: React.FC = () => {

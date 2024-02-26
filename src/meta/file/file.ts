@@ -15,9 +15,7 @@ export type FileUsage = {
   usageLabels: Array<string>
 }
 
-export type FileUsages = Array<FileUsage>
-
 export type FileMeta = {
   summary: FileSummary
-  usages: FileUsages
+  usages: Array<FileUsage>
 }
