@@ -20,6 +20,7 @@ import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
+import { removeDataSource } from './removeDataSource'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
@@ -62,6 +63,7 @@ export const CycleDataController = {
   getDataSources: DescriptionRepository.getDataSources,
   getDescriptionValues: DescriptionRepository.getValues,
   upsertDescription,
+  removeDataSource,
 
   // ==== activities
   getActivities: CountryActivityLogRepository.getMany,

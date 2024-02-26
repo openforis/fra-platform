@@ -38,10 +38,6 @@ $border: 1px solid $ui-border;
   &.lastRow {
     border-bottom: $border;
   }
-
-  &.noBorder {
-    border: unset;
-  }
 }
 
 .data-cell.editable {
@@ -65,18 +61,32 @@ $border: 1px solid $ui-border;
   }
 }
 
+.data-cell.noBorder {
+  border: unset;
+
+  &.editable:focus-within {
+    background-color: unset;
+
+    > :first-child {
+      outline: unset;
+    }
+  }
+}
+
 @include rtl {
   .data-cell {
     border-left: unset;
     border-right: $border;
 
     &.actions {
+      border: unset;
+
       > .action {
         border: unset;
         border-left: $border;
       }
 
-      > :first-child {
+      > :last-child {
         border-left: unset;
       }
     }
@@ -92,5 +102,9 @@ $border: 1px solid $ui-border;
     &.lastCol {
       border-left: $border-editable;
     }
+  }
+
+  .data-cell.noBorder {
+    border: unset;
   }
 }

@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, Row } from 'meta/assessment'
+import { AssessmentName, CommentableDescriptionName, CycleName, Row, SectionName } from 'meta/assessment'
 import { Contact } from 'meta/cycleData'
 import { User } from 'meta/user'
 
@@ -9,7 +9,7 @@ import { MessageTopic, MessageTopicType } from './messageTopic'
 const getDataReviewTopicKey = (row: Row): string => row.uuid
 
 // odp
-const getOdpReviewTopicKeyPrefix = (odpId: number) => `odp-${odpId}-`
+const getOdpReviewTopicKeyPrefix = (odpId: number | string) => `odp-${odpId}-`
 
 const getOdpClassReviewTopicKey = (odpId: number, uuid: string, rowId: string): string =>
   `${getOdpReviewTopicKeyPrefix(odpId)}class-${uuid}-${rowId}`
@@ -34,13 +34,16 @@ const getChatRecipientId = (topic: MessageTopic, sender: User): number | undefin
 }
 
 // descriptions
-const getCommentableDescriptionKey = (
-  countryIso: CountryIso,
-  assessment: Assessment,
-  cycle: Cycle,
-  sectionName: string,
-  name: string
-): string => `commentable-description-${[countryIso, assessment.props.name, cycle.name, sectionName, name].join('_')}`
+const getCommentableDescriptionKey = (props: {
+  assessmentName: AssessmentName
+  cycleName: CycleName
+  countryIso: CountryIso
+  sectionName: SectionName
+  name: CommentableDescriptionName
+}): string => {
+  const { assessmentName, cycleName, countryIso, sectionName, name } = props
+  return `commentable-description-${[countryIso, assessmentName, cycleName, sectionName, name].join('_')}`
+}
 
 // contacts
 const getContactKey = (contact: Contact): string => `contact_${contact.uuid}`

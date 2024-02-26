@@ -1,62 +1,62 @@
+import './Description.scss'
 import React from 'react'
 
-import classNames from 'classnames'
-
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
-import { Topics } from 'meta/messageCenter'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useCountryIso } from 'client/hooks'
-import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useCommentableDescriptionValue } from 'client/store/data'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
+import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 
-import Description from './Description'
+import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
+import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
-  disabled?: boolean
-  title: string
-  sectionName: string
   name: CommentableDescriptionName
-  template?: CommentableDescriptionValue
-  showAlertEmptyContent?: boolean
+  sectionName: string
   showDashEmptyContent?: boolean
+  template?: CommentableDescriptionValue
+  title: string
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { disabled, title, sectionName, name, template, showAlertEmptyContent, showDashEmptyContent } = props
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
+  const { name, sectionName, showDashEmptyContent, template, title } = props
+
+  const value = useCommentableDescriptionValue({ name, sectionName, template })
+  const { empty } = useDescriptionErrorState({ name, sectionName })
+
+  const canEdit = useCanEditDescription({ sectionName })
+  const editable = useIsDescriptionEditable({ sectionName, name })
+  const onChange = useOnChange({ sectionName, name })
 
   return (
-    <div className="fra-description">
-      <div className={classNames('fra-description__wrapper')}>
-        <Description
-          title={title}
-          sectionName={sectionName}
-          name={name}
-          template={template}
-          disabled={disabled}
-          showAlertEmptyContent={showAlertEmptyContent}
-          showDashEmptyContent={showDashEmptyContent}
-        />
-      </div>
-      <div className="fra-description__review-indicator-wrapper">
-        {!disabled && (
-          <ReviewIndicator
-            title={title}
-            topicKey={Topics.getCommentableDescriptionKey(countryIso, assessment, cycle, sectionName, name)}
+    <DataGrid className="description" withActions={canEdit}>
+      <Title name={name} sectionName={sectionName} title={title} />
+
+      <DataRow>
+        <DataCell
+          className="description__editor-container"
+          editable={editable}
+          gridColumn={canEdit ? `1/3` : undefined}
+          lastCol
+          lastRow
+          noBorder={!editable}
+        >
+          <EditorWYSIWYG
+            disabled={!editable}
+            onChange={(content) => onChange({ ...value, text: content })}
+            value={!editable && empty && showDashEmptyContent ? '-' : value.text}
           />
-        )}
-      </div>
-    </div>
+        </DataCell>
+      </DataRow>
+    </DataGrid>
   )
 }
 
 CommentableDescription.defaultProps = {
-  disabled: false,
-  template: { text: '' },
-  showAlertEmptyContent: false,
   showDashEmptyContent: false,
+  template: { text: '' },
 }
 
 export default CommentableDescription

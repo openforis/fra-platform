@@ -5,6 +5,7 @@ const common = require('./fr/common')
 const contentCheck = require('./fr/contentCheck')
 const dataDownload = require('./fr/dataDownload')
 const dataSource = require('./fr/dataSource')
+const email = require('./fr/email')
 const fra = require('./fr/fra')
 const generalValidation = require('./fr/generalValidation')
 const login = require('./fr/login')
@@ -18,6 +19,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,
@@ -674,6 +676,7 @@ L'équipe de FRA fra@fao.org
     native: 'Indigène',
     introduced: 'Introduite',
     growingStockComposition: 'Composition du matériel sur pied',
+    forestGrowingStockComposition: 'Composition du matériel sur pied de la forêt',
     categoryHeader: 'Catégories de FRA',
     nativeTreeSpecies: "Espèce d'arbre indigène",
     introducedTreeSpecies: "Espèce d'arbre introduite",

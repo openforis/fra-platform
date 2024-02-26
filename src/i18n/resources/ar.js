@@ -5,6 +5,7 @@ const common = require('./ar/common')
 const contentCheck = require('./ar/contentCheck')
 const dataDownload = require('./ar/dataDownload')
 const dataSource = require('./ar/dataSource')
+const email = require('./ar/email')
 const fra = require('./ar/fra')
 const generalValidation = require('./ar/generalValidation')
 const login = require('./ar/login')
@@ -18,6 +19,7 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,
@@ -752,6 +754,7 @@ The FRA team
     native: 'أصلية',
     introduced: 'مدخلة',
     growingStockComposition: 'تركيبة مخزون الأشجار الحية',
+    forestGrowingStockComposition: 'تكوين مخزون الأشجار الحيّة بالغابات',
     categoryHeader: 'فئات تقييم الموارد الحرجية',
     nativeTreeSpecies: 'أنواع أشجار أصلية',
     introducedTreeSpecies: 'أنواع أشجار مدخلة',
@@ -1236,6 +1239,7 @@ The FRA team
     // table 1.2c
     growingStockComposition: {
       growingStockComposition: 'تركيبة مخزون الأشجار الحية',
+      forestGrowingStockComposition: 'تكوين مخزون الأشجار الحيّة بالغابات',
       speciesName: 'اسم النوع',
       growingStockInForestMillionM3OB: 'المخزون من الأشجار الحية في الغابة (مليون م3 مع اللحاء)',
       rank: 'التصنيف',

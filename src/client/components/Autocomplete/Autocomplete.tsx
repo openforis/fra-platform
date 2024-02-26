@@ -33,6 +33,9 @@ const AutocompleteItem = (props: { item: Option; inputValue: string }) => {
   return <span dangerouslySetInnerHTML={{ __html: output }} />
 }
 
+/**
+ * @deprecated. use components/Inputs/Select
+ */
 const Autocomplete: React.FC<Props> = (props: Props) => {
   const { value, items, disabled, name, onInputValueChange, onPaste, onSave, readOnlyOptions } = props
   const [selectedItem, setSelectedItem] = useState<string>(null)

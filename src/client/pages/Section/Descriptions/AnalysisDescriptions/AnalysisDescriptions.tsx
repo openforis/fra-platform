@@ -1,48 +1,42 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
 
-import { useCycle } from 'client/store/assessment'
-
-import CommentableDescription from '../CommentableDescription'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
 type Props = {
-  sectionName: string
-  disabled: boolean
-  showAlertEmptyContent?: boolean
+  sectionName: SectionName
   showDashEmptyContent?: boolean
   analysisAndProcessing: AnalysisAndProcessingDescription
 }
 
 const AnalysisDescriptions: React.FC<Props> = (props) => {
-  const { analysisAndProcessing, sectionName, disabled, showAlertEmptyContent, showDashEmptyContent } = props
-  const cycle = useCycle()
+  const { analysisAndProcessing, sectionName, showDashEmptyContent } = props
 
   const { t } = useTranslation()
+  const { cycleName } = useCycleRouteParams()
 
   return (
-    <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{t('description.analysisAndProcessing')}</h2>
+    <div className="descriptions__group">
+      <h2 className="headline">{t('description.analysisAndProcessing')}</h2>
       {analysisAndProcessing.estimationAndForecasting && (
         <CommentableDescription
-          title={t('description.estimationAndForecasting')}
-          disabled={disabled}
-          sectionName={sectionName}
           name={CommentableDescriptionName.estimationAndForecasting}
-          showAlertEmptyContent={showAlertEmptyContent}
+          sectionName={sectionName}
           showDashEmptyContent={showDashEmptyContent}
+          title={t('description.estimationAndForecasting')}
         />
       )}
+
       {analysisAndProcessing.reclassification && (
         <CommentableDescription
-          title={t('description.reclassification', { cycleName: cycle.name })}
-          disabled={disabled}
-          sectionName={sectionName}
           name={CommentableDescriptionName.reclassification}
-          showAlertEmptyContent={showAlertEmptyContent}
+          sectionName={sectionName}
           showDashEmptyContent={showDashEmptyContent}
+          title={t('description.reclassification', { cycleName })}
         />
       )}
     </div>
@@ -50,7 +44,6 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
 }
 
 AnalysisDescriptions.defaultProps = {
-  showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
 

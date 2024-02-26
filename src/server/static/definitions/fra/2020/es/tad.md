@@ -2,7 +2,7 @@
 
 _FRA 2020_
 
-## Introducción
+## Introducción <!-- section:Introduction -->
 
 La FAO coordina evaluaciones de los recursos forestales mundiales cada 5 a 10 años desde 1946. Estas evaluaciones han contribuido, en gran medida, a mejorar las definiciones, los conceptos y los métodos relacionados con las evaluaciones de los recursos forestales.
 
@@ -18,9 +18,9 @@ Para más detalles sobre el Programa de FRA, sírvase consultar: http://www.fao.
 
 ---
 
-# 1 Extensión del bosque, características y cambios
+# 1 Extensión del bosque, características y cambios <!-- section:1 -->
 
-## 1a Extensión del bosque y otras tierras boscosas
+## 1a Extensión del bosque y otras tierras boscosas <!-- section:1a -->
 
 ### BOSQUE
 
@@ -61,7 +61,7 @@ Notas explicativas
 2.	Incluye tierras agrícolas, llanuras y pastizales, áreas edificadas, tierras baldías, tierras cubiertas de hielo permanente, etc. 
 3.	Incluye todas las áreas clasificadas bajo la subcategoría “otras tierras con cubierta de árboles”.
 
-## 1b Características de los bosques
+## 1b Características de los bosques <!-- section:1b -->
 
 ### BOSQUE REGENERADO DE FORMA NATURAL
 
@@ -97,7 +97,7 @@ Notas explicativas
 
 > **Bosque Plantado** el cual no está clasificado como **plantación forestal**.
 
-## 1c Expansión, deforestación anual y cambio neto anual
+## 1c Expansión, deforestación anual y cambio neto anual <!-- section:1c -->
 
 ### EXPANSIÓN DEL BOSQUE
 
@@ -128,7 +128,7 @@ Nota explicativa
 
 1.	El “Cambio neto en el área de bosque” es la diferencia del área de bosque entre dos años de referencia de FRA. El cambio neto puede ser positivo (ganancia), negativo (pérdida), o cero (sin cambio).
 
-## 1d Reforestación anual
+## 1d Reforestación anual <!-- section:1d -->
 
 ### REFORESTACIÓN
 
@@ -140,7 +140,7 @@ Notas explicativas
 2.	Incluye la plantación o siembra de áreas de bosque temporalmente sin cubierta de árboles, así como también la plantación o siembra en áreas de bosque con cubierta de árboles.
 3.	Incluye rebrote de árboles originariamente plantados o sembrados.
 
-## 1e Categorías específicas de los bosques
+## 1e Categorías específicas de los bosques <!-- section:1e -->
 
 ### BAMBÚES
 
@@ -179,7 +179,7 @@ Notas explicativas
     -	El área es suficientemente grande para preservar sus procesos ecológicos naturales;
     -	No presentan intervenciones significativas del hombre, o bien la última intervención significativa del hombre tuvo lugar mucho tiempo atrás habiendo permitido el restablecimiento de la composición natural de las especies arbóreas y de los procesos naturales.
 
-## 1f Otras tierras con cubierta de árboles
+## 1f Otras tierras con cubierta de árboles <!-- section:1f -->
 
 ### OTRAS TIERRAS CON CUBIERTA DE ÁRBOLES
 
@@ -218,9 +218,9 @@ Notas explicativas
 
 ---
 
-# 2 Existencias en formación, biomasa y carbono
+# 2 Existencias en formación, biomasa y carbono <!-- section:2 -->
 
-## 2a Existencias en formación
+## 2a Existencias en formación <!-- section:2a -->
 
 ### EXISTENCIAS EN FORMACIÓN
 
@@ -232,7 +232,7 @@ Notas explicativas
 2.	Incluye árboles vivos derribados.
 3.	Excluye ramas, ramillas, hojas, flores, semillas y raíces
 
-## 2b Composición de las existencias en formación
+## 2b Composición de las existencias en formación <!-- section:2b -->
 
 ### ESPECIES DE ÁRBOLES NATIVOS _(Término complementario)_
 
@@ -251,7 +251,7 @@ Notas explicativas
 1.	Si las especies están presentes de forma natural dentro de ´las fronteras del país se consideran nativas para todo el país. 
 2.	El bosque regenerado de forma natural de especies de árboles introducidos se debe considerar como “introducido” hasta 250 años después de la fecha de introducción original. Más allá de 250 años, las especies se pueden considerar naturalizadas.
 
-## 2c Biomasa
+## 2c Biomasa <!-- section:2c -->
 
 ### BIOMASA POR ENCIMA DEL SUELO
 
@@ -278,7 +278,7 @@ Nota explicativa
 
 1.	El país puede utilizar otro valor de umbral distinto a 10 cm, pero en ese caso este valor se debe documentar.
 
-## 2d Carbono
+## 2d Carbono <!-- section:2d -->
 
 ### CARBONO EN LA BIOMASA POR ENCIMA DEL SUELO
 
@@ -323,9 +323,9 @@ Nota explicativa
 
 ---
 
-# 3 Designación y gestión del bosque
+# 3 Designación y gestión del bosque <!-- section:3 -->
 
-## 3a Objetivo de gestión designado
+## 3a Objetivo de gestión designado <!-- section:3a -->
 
 ### ÁREA TOTAL CON UN OBJETIVO DE GESTIÓN DESIGNADO
 
@@ -403,7 +403,7 @@ Nota explicativa
 
 > Bosque cuyo objetivo primario de gestión es desconocido o no posee uno.
 
-## 3b Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con plan de gestión a largo plazo
+## 3b Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con plan de gestión a largo plazo <!-- section:3b -->
 
 ### ÁREA DE BOSQUE DENTRO DE ÁREAS PROTEGIDAS LEGALMENTE ESTABLECIDAS
 
@@ -431,9 +431,9 @@ Notas explicativas
 
 ---
 
-# 4 PROPIEDAD DEL BOSQUE Y DERECHOS DE GESTIÓN
+# 4 PROPIEDAD DEL BOSQUE Y DERECHOS DE GESTIÓN <!-- section:4 -->
 
-## 4a Propieda del bosque
+## 4a Propieda del bosque <!-- section:4a -->
 
 ### PROPIEDAD DEL BOSQUE _(Término complementario)_
 
@@ -487,7 +487,7 @@ Nota explicativa
 
 1.	Incluye áreas donde la propiedad no está clara o está en disputa.
 
-## 4b Derechos de gestión de bosques públicos
+## 4b Derechos de gestión de bosques públicos <!-- section:4b -->
 
 ### DERECHOS DE GESTIÓN DE BOSQUES PÚBLICOS _(Término complementario)_
 
@@ -520,9 +520,9 @@ Notas explicativas
 
 ---
 
-# 5 Perturbaciones en el bosque
+# 5 Perturbaciones en el bosque <!-- section:5 -->
 
-## 5a Perturbaciones
+## 5a Perturbaciones <!-- section:5a -->
 
 ### PERTURBACIÓN
 
@@ -544,7 +544,7 @@ Nota explicativa
 
 > Perturbaciones ocasionadas por factores abióticos, tales como nieve, tormentas, sequías, etc.
 
-## 5b Área afectada por incendios
+## 5b Área afectada por incendios <!-- section:5b -->
 
 ### ÁREA QUEMADA
 
@@ -554,7 +554,7 @@ Nota explicativa
 
 > Área de bosque afectada por incendios.
 
-## 5c Bosque degradado
+## 5c Bosque degradado <!-- section:5c -->
 
 ### BOSQUE DEGRADADO
 
@@ -566,9 +566,9 @@ Nota explicativa
 
 ---
 
-# 6 Política y legislación forestal
+# 6 Política y legislación forestal <!-- section:6 -->
 
-## 6a  Políticas, legislación y plataforma nacional para la participación de los grupos de interés en la política forestal
+## 6a  Políticas, legislación y plataforma nacional para la participación de los grupos de interés en la política forestal <!-- section:6a -->
 
 ### POLÍTICAS QUE APOYAN LA GESTIÓN FORESTAL SOSTENIBLE
 
@@ -586,7 +586,7 @@ Nota explicativa
 
 > Un sistema que proporciona la habilidad de rastrear el origen, ubicación y desplazamiento de los productos madereros mediante identificaciones registradas. Esto involucra dos aspectos principales: (1) identificación del producto por marqueo, y (2) el registro de datos sobre el desplazamiento y la ubicación del producto a lo largo de toda la cadena de producción, procesamiento y distribución.> A system that provides the ability to trace the origin, location and movement of wood products by means of recorded identifications. This involves two main aspects: (1) identification of the product by marking, and (2) the recording of data on movement and location of the product all the way along the production, processing and distribution chain.
 
-## 6b Área de zona forestal permanente
+## 6b Área de zona forestal permanente <!-- section:6b -->
 
 ### ZONA FORESTAL PERMANENTE
 
@@ -598,9 +598,9 @@ Nota explicativa
 
 ---
 
-# 7 Empleo, educación y PFNM
+# 7 Empleo, educación y PFNM <!-- section:7 -->
 
-## 7a Empleo en silvicultura y extracción de madera
+## 7a Empleo en silvicultura y extracción de madera <!-- section:7a -->
 
 ### EMPLEO EQUIVALENTE DEDICACIÓN COMPLETA (EDC) _(Término complementario)_
 
@@ -695,7 +695,7 @@ Actividades de servicios para la extraccíon de madera tales como:
 2.	Esta clase excluye:
 	-	explotación de viveros forestales
 
-## 7b Graduación de alumnos en estudios relativos al bosque
+## 7b Graduación de alumnos en estudios relativos al bosque <!-- section:7b -->
 
 ### ESTUDIOS RELATIVOS AL BOSQUE _(Término complementario)_
 
@@ -732,7 +732,7 @@ Nota explicativa
 
 > Calificación emitida por una institución de educación técnica consistente en educación superior de 1 a 3 años.
 
-## 7c Extracción y valor de los productos forestales no maderables
+## 7c Extracción y valor de los productos forestales no maderables <!-- section:7c -->
 
 ### PRODUCTOS FORESTALES NO MADERABLES
 
@@ -761,7 +761,7 @@ Notas explicativas
 
 ---
 
-# 8 Términos y definiciones adicionales
+# 8 Términos y definiciones adicionales <!-- section:8 -->
 
 ### COBERTURA DE COPA
 
