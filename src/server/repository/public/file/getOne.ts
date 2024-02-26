@@ -1,4 +1,4 @@
-import type { File, FileSummary } from 'meta/file'
+import type { File } from 'meta/file'
 
 import { BaseProtocol, DB } from 'server/db'
 import { FileAdapter } from 'server/repository/adapter'
@@ -8,7 +8,7 @@ type Props = {
   fileUuid: string
 }
 
-export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<File | FileSummary> => {
+export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<File> => {
   const { fileUuid } = props
 
   return client.one(
