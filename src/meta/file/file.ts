@@ -1,3 +1,5 @@
+import { Label } from 'meta/assessment'
+
 export type FileSummary = {
   readonly createdAt: string
   readonly id: number
@@ -11,8 +13,8 @@ export type File = FileSummary & {
 }
 
 export type FileUsage = {
-  sectionLabel: string
-  usageLabels: Array<string>
+  sectionName: string
+  location: Array<Label>
 }
 
 export type FileMeta = {
