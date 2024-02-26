@@ -1,296 +1,81 @@
-const puppeteer = require('puppeteer')
+const axios = require('axios')
 const { Cluster } = require('puppeteer-cluster')
 const fs = require('fs')
 const path = require('path')
 
-const countryISOs = [
-  'ABW',
-  'AFG',
-  'AGO',
-  'AIA',
-  'ALB',
-  'AND',
-  'ARE',
-  'ARG',
-  'ARM',
-  'ASM',
-  'ATG',
-  'AUS',
-  'AUT',
-  'AZE',
-  'BDI',
-  'BEL',
-  'BEN',
-  'BES',
-  'BFA',
-  'BGD',
-  'BGR',
-  'BHR',
-  'BHS',
-  'BIH',
-  'BLM',
-  'BLR',
-  'BLZ',
-  'BMU',
-  'BOL',
-  'BRA',
-  'BRB',
-  'BRN',
-  'BTN',
-  'BWA',
-  'CAF',
-  'CAN',
-  'CHE',
-  'CHL',
-  'CHN',
-  'CIV',
-  'CMR',
-  'COD',
-  'COG',
-  'COK',
-  'COL',
-  'COM',
-  'CPV',
-  'CRI',
-  'CUB',
-  'CUW',
-  'CYM',
-  'CYP',
-  'CZE',
-  'DEU',
-  'DJI',
-  'DMA',
-  'DNK',
-  'DOM',
-  'DZA',
-  'ECU',
-  'EGY',
-  'ERI',
-  'ESH',
-  'ESP',
-  'EST',
-  'ETH',
-  'FIN',
-  'FJI',
-  'FLK',
-  'FRA',
-  'FRO',
-  'FSM',
-  'GAB',
-  'GBR',
-  'GEO',
-  'GGY',
-  'GHA',
-  'GIB',
-  'GIN',
-  'GLP',
-  'GMB',
-  'GNB',
-  'GNQ',
-  'GRC',
-  'GRD',
-  'GRL',
-  'GTM',
-  'GUF',
-  'GUM',
-  'GUY',
-  'HND',
-  'HRV',
-  'HTI',
-  'HUN',
-  'IDN',
-  'IMN',
-  'IND',
-  'IRL',
-  'IRN',
-  'IRQ',
-  'ISL',
-  'ISR',
-  'ITA',
-  'JAM',
-  'JEY',
-  'JOR',
-  'JPN',
-  'KAZ',
-  'KEN',
-  'KGZ',
-  'KHM',
-  'KIR',
-  'KNA',
-  'KOR',
-  'KWT',
-  'LAO',
-  'LBN',
-  'LBR',
-  'LBY',
-  'LCA',
-  'LIE',
-  'LKA',
-  'LSO',
-  'LTU',
-  'LUX',
-  'LVA',
-  'MAF',
-  'MAR',
-  'MCO',
-  'MDA',
-  'MDG',
-  'MDV',
-  'MEX',
-  'MHL',
-  'MKD',
-  'MLI',
-  'MLT',
-  'MMR',
-  'MNE',
-  'MNG',
-  'MNP',
-  'MOZ',
-  'MRT',
-  'MSR',
-  'MTQ',
-  'MUS',
-  'MWI',
-  'MYS',
-  'MYT',
-  'NAM',
-  'NCL',
-  'NER',
-  'NFK',
-  'NGA',
-  'NIC',
-  'NIU',
-  'NLD',
-  'NOR',
-  'NPL',
-  'NRU',
-  'NZL',
-  'OMN',
-  'PAK',
-  'PAN',
-  'PCN',
-  'PER',
-  'PHL',
-  'PLW',
-  'PNG',
-  'POL',
-  'PRI',
-  'PRK',
-  'PRT',
-  'PRY',
-  'PSE',
-  'PYF',
-  'QAT',
-  'REU',
-  'ROU',
-  'RUS',
-  'RWA',
-  'SAU',
-  'SDN',
-  'SEN',
-  'SGP',
-  'SHN',
-  'SJM',
-  'SLB',
-  'SLE',
-  'SLV',
-  'SMR',
-  'SOM',
-  'SPM',
-  'SRB',
-  'SSD',
-  'STP',
-  'SUR',
-  'SVK',
-  'SVN',
-  'SWE',
-  'SWZ',
-  'SXM',
-  'SYC',
-  'SYR',
-  'TCA',
-  'TCD',
-  'TGO',
-  'THA',
-  'TJK',
-  'TKL',
-  'TKM',
-  'TLS',
-  'TON',
-  'TTO',
-  'TUN',
-  'TUR',
-  'TUV',
-  'TZA',
-  'UGA',
-  'UKR',
-  'URY',
-  'USA',
-  'UZB',
-  'VAT',
-  'VCT',
-  'VEN',
-  'VGB',
-  'VIR',
-  'VNM',
-  'VUT',
-  'WLF',
-  'WSM',
-  'X01',
-  'X02',
-  'X03',
-  'X04',
-  'X05',
-  'X06',
-  'X07',
-  'X08',
-  'X09',
-  'X10',
-  'X11',
-  'X12',
-  'X13',
-  'X14',
-  'X15',
-  'X16',
-  'X17',
-  'X18',
-  'X19',
-  'X20',
-  'YEM',
-  'ZAF',
-  'ZMB',
-  'ZWE',
-]
+const HOST = 'https://fra-data.fao.org'
+const ASSESSMENT_NAME = 'fra'
+const CYCLE_NAME = '2020'
+const API = `${HOST}/api`
+const BASE_URL = `${HOST}/assessments/${ASSESSMENT_NAME}/${CYCLE_NAME}`
+const DIR = path.join(__dirname, 'ss')
 
-const baseUrl = 'https://fra-data.fao.org/assessments/fra/2020'
+const languages = ['ar', 'en', 'es', 'fr', 'ru', 'zh']
 
-const dir = path.join(__dirname, 'ss')
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir)
+const _getCountryISOs = async () => {
+  const {
+    data: { countries },
+  } = await axios.get(`${API}/area/areas?assessmentName=${ASSESSMENT_NAME}&cycleName=${CYCLE_NAME}`)
+  return countries.map((country) => country.countryIso)
 }
-
-;(async () => {
+const _mkDir = () => {
+  if (!fs.existsSync(DIR)) {
+    fs.mkdirSync(DIR)
+  }
+}
+const _takeScreenshots = async (countryISOs) => {
   const cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_CONTEXT,
     maxConcurrency: 5,
   })
 
-  await cluster.task(async ({ page, data: countryIso }) => {
+  await cluster.task(async ({ page, data: { countryIso, lang } }) => {
     // select page we want to screenshot
-    const url = `${baseUrl}/${countryIso}/home/overview/`
+    const url = `${BASE_URL}/${countryIso}/home/overview/?lang=${lang}`
     await page.goto(url, { waitUntil: 'networkidle2' })
 
     await page.waitForTimeout(2000)
 
-    // select element we want to screenshot
-    const element = await page.$('.app-view__content')
-    await element.screenshot({ path: path.join(dir, `screenshot_${countryIso}.png`) })
+    // select parent element
+    const parentElement = await page.$('.app-view__content .statistical-factsheets')
+
+    // select all child elements
+    const childElements = await parentElement.$$('.row-l, .row-m, .row-s')
+
+    const titles = [
+      'forest_area_1990_2020',
+      'forest_growth_stock_and_carbon_1990_2020',
+      'forest_area_of_land_area_2020',
+      'primary_forest_of_forest_area_2020',
+      'forest_area_within_protected_areas_2020_of_forest_area',
+      'forest_ownership_2015',
+      'primary_designated_management_objective_1990_2020',
+      'naturally_regenerating_forest_area_1990_2020',
+    ]
+
+    for (let i = 0; i < childElements.length; i++) {
+      const child = childElements[i]
+      const title = titles[i]
+
+      const fileName = `screenshot_${ASSESSMENT_NAME}_${CYCLE_NAME}_${countryIso}_${lang}_${title}.png`
+      await child.screenshot({ path: path.join(DIR, fileName), type: 'jpeg', quality: 100 })
+    }
   })
 
-  for (const countryIso of countryISOs) {
-    cluster.queue(countryIso)
+  for (const lang of languages) {
+    for (const countryIso of countryISOs) {
+      cluster.queue({ countryIso, lang })
+    }
   }
 
   await cluster.idle()
   await cluster.close()
-})()
+}
+
+const exec = async () => {
+  _mkDir()
+  const countryISOs = await _getCountryISOs()
+  await _takeScreenshots(countryISOs)
+}
+
+exec()
