@@ -16,7 +16,8 @@ export const getUsages = async (props: Props, client: BaseProtocol = DB): Promis
         select
             jsonb_build_object(
                     'sectionName', '${SectionNames.originalDataPoints}',
-                    'location', jsonb_build_array(odp.year, 'nationalDataPoint.references')) as values
+                    'locations', jsonb_build_array(jsonb_build_object('key', 'nationalDataPoint.references'), jsonb_build_object('key', odp.year))) as values
+
         from ${schemaCycle}.original_data_point odp where odp.data_source_references ilike '%$1#%'
         union
 -- Section descriptions
