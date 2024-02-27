@@ -13,16 +13,16 @@ const GeoSection: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <div
+      <button
         aria-label={label}
         className="nav-geo-section__header"
         onClick={() => setExpanded(!expanded)}
         onKeyDown={() => setExpanded(!expanded)}
-        role="button"
+        type="button"
         tabIndex={0}
       >
-        <div className="nav-geo-section__label">{label}</div>
-      </div>
+        <span className="nav-geo-section__label">{label}</span>
+      </button>
       <div className={`nav-geo-section__items nav-geo-section__items-${expanded ? 'visible' : 'hidden'}`}>
         {expanded && children}
       </div>
