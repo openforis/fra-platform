@@ -29,7 +29,7 @@ export const useUsages = (): Returned => {
 
         if (usage.sectionName === SectionNames.originalDataPoints) {
           return {
-            section: t('nationalDataPoint.nationalDataPoint'),
+            section: `${t('nationalDataPoint.nationalDataPoint')} ${usage.suffix}`,
             locations,
           }
         }
