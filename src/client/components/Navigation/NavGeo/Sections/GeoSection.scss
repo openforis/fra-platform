@@ -1,0 +1,31 @@
+@import 'src/client/style/partials';
+
+.nav-geo-section__header {
+  @include mixin-nav-secondary-base(8px, true);
+  font-weight: 700;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.nav-geo-section__items {
+  @include mixin-nav-secondary-base(0px, true);
+  padding: $spacing-xxs 0 $spacing-xxs $spacing-m;
+}
+
+.nav-geo-section__items-hidden {
+  padding: 0 0 0 $spacing-m;
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+}
+
+.nav-geo-section__items-visible {
+  transition: max-height 0.25s ease-out;
+}
+
+.nav-geo-section__label {
+  padding-left: $spacing-xs;
+  font-size: $font-s;
+}
