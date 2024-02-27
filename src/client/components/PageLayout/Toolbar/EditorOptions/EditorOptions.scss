@@ -18,15 +18,11 @@
   align-items: center;
   color: $text-body;
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-column-gap: $spacing-xxxs;
   font-size: $font-xs;
   font-weight: 600;
+  grid-column-gap: $spacing-xxxs;
+  grid-template-columns: repeat(2, auto);
   outline: none;
   text-decoration: none;
   text-transform: uppercase;
-
-  img {
-    width: 20px;
-  }
 }

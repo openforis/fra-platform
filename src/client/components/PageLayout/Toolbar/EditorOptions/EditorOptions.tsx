@@ -8,6 +8,7 @@ import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
+import Icon from 'client/components/Icon'
 import Lock from 'client/components/PageLayout/Toolbar/Lock'
 import Status from 'client/components/PageLayout/Toolbar/Status'
 
@@ -32,7 +33,7 @@ const EditorOptions: React.FC = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <img alt="GitHub" src="/img/github.png" />
+            <Icon name="github" />
             {t('common.issues')}
           </a>
         </>
