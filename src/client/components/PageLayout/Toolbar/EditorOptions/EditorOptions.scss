@@ -1,0 +1,32 @@
+@import 'src/client/style/partials';
+
+.toolbar-editor {
+  align-items: center;
+  border: 1px dashed lighten($ui-edit-border-color, 15%);
+  display: grid;
+  grid-column-gap: $spacing-xs;
+  grid-template-columns: repeat(3, auto);
+  height: calc(100% + 2px);
+  padding: 0 $spacing-xs;
+
+  &.reviewer {
+    grid-template-columns: repeat(5, auto);
+  }
+}
+
+.toolbar-editor__github {
+  align-items: center;
+  color: $text-body;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: $spacing-xxxs;
+  font-size: $font-xs;
+  font-weight: 600;
+  outline: none;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  img {
+    width: 20px;
+  }
+}

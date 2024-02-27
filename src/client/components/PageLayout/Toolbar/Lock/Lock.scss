@@ -1,26 +1,41 @@
 @import 'src/client/style/partials';
 
-.lock-wrapper {
-  display: flex;
+button.btn-lock {
   align-items: center;
-  margin-left: 12px;
+  background-color: lighten($ui-status-accepted, 38%);
+  border-radius: 2px;
+  border: 1px solid $ui-status-accepted;
+  display: grid;
+  height: $spacing-m;
+  justify-content: center;
+  padding: unset;
+  transition: all 0.2s;
+  width: $spacing-l;
 
-  .btn-lock {
-    background-color: rgba($ui-status-accepted, 25%);
-    border-radius: 2px;
-    border: 1px solid rgba($ui-status-accepted, 5%) !important;
+  svg {
+    color: darken($ui-status-accepted, 15%);
+    height: 20px;
+    width: 20px;
+  }
 
-    &:hover {
-      background-color: rgba($ui-status-accepted, 30%);
+  &:hover {
+    background-color: lighten($ui-status-accepted, 35%);
+
+    svg {
+      transform: scale(1.02);
+    }
+  }
+
+  &.locked {
+    background-color: lighten($ui-destructive, 53%);
+    border: 1px solid lighten($ui-destructive, 30%);
+
+    svg {
+      color: darken($ui-destructive, 2.5%);
     }
 
-    &.locked {
-      background-color: rgba($ui-destructive, 20%);
-      border: 1px solid rgba($ui-destructive, 5%) !important;
-
-      &:hover {
-        background-color: rgba($ui-destructive, 25%);
-      }
+    &:hover {
+      background-color: lighten($ui-destructive, 51%);
     }
   }
 }
