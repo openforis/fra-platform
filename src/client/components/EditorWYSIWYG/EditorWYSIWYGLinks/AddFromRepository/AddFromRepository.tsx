@@ -78,19 +78,19 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
                     onClick={() => onClick(repositoryItem.uuid)}
                   />
                   <a href={url}>
-                    <Icon name="hit-down" className="icon-sub " />
+                    <Icon className="icon-sub " name="hit-down" />
                   </a>
                 </div>
               )
             })}
           </div>
 
-          <FileUpload multiple onSuccess={onSuccess} />
+          <FileUpload canDownload={false} multiple onChange={onSuccess} />
         </div>
       </ModalBody>
 
       <ModalFooter>
-        <button type="button" className="btn btn-primary" onClick={() => onClose(selectedFiles)}>
+        <button className="btn btn-primary" onClick={() => onClose(selectedFiles)} type="button">
           {t('common.apply')}
         </button>
       </ModalFooter>
