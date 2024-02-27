@@ -35,7 +35,7 @@ const EditorOptions: React.FC = () => {
             rel="noreferrer"
           >
             <img alt="GitHub" src="/img/github.png" />
-            {t('common:issues')}
+            {t('common.issues')}
           </a>
         </>
       )}
