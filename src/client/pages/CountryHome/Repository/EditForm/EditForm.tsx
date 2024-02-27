@@ -9,6 +9,7 @@ import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
 import SlidingPanel from 'client/components/SlidingPanel'
 import Actions from 'client/pages/CountryHome/Repository/EditForm/Actions'
+import FileUsages from 'client/pages/CountryHome/Repository/EditForm/FileUsages'
 import InputField from 'client/pages/CountryHome/Repository/EditForm/InputField'
 import InputFieldCheckbox from 'client/pages/CountryHome/Repository/EditForm/InputFieldCheckbox'
 import InputFieldFile from 'client/pages/CountryHome/Repository/EditForm/InputFieldFile'
@@ -47,6 +48,7 @@ const EditForm: React.FC = () => {
         <InputFieldCheckbox name="public" onChange={onChangeProps} value={repositoryItem?.props?.public} />
         <Hr />
         <Actions />
+        <FileUsages />
       </DataGrid>
     </SlidingPanel>
   )
