@@ -190,6 +190,7 @@ export const geoSlice = createSlice({
     toggleMosaicLayer: (state) => {
       const currentSelected = state.mosaicOptions.selected ?? false
       state.mosaicOptions.selected = !currentSelected
+      if (currentSelected) mapController.removeLayer('mosaic')
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
       const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
@@ -378,10 +379,12 @@ export const geoSlice = createSlice({
       .addCase(postMosaicOptions.pending, (state) => {
         state.mosaicOptions.url = initialState.mosaicOptions.url
         state.mosaicOptions.status = LayerFetchStatus.Loading
+        mapController.removeLayer('mosaic')
       })
       .addCase(postMosaicOptions.rejected, (state) => {
         state.mosaicOptions.url = initialState.mosaicOptions.url
         state.mosaicOptions.status = LayerFetchStatus.Failed
+        mapController.removeLayer('mosaic')
       })
       .addCase(getForestEstimationData.fulfilled, (state, { payload: forestEstimations }) => {
         state.geoStatistics.forestEstimations = forestEstimations
