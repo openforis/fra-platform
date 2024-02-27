@@ -5,21 +5,19 @@ import { Link } from 'react-router-dom'
 import { CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useUser } from 'client/store/user'
+import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { useSectionContext } from 'client/pages/Section/context'
 
-import { Props } from '../props'
-
-const sectionName = 'extentOfForest'
-
-const ExtentOfForest: React.FC<Props> = (props) => {
-  const { disabled } = props
-
+const ExtentOfForest: React.FC = () => {
   const { t } = useTranslation()
+  const { sectionName } = useSectionContext()
+  const editEnabled = useIsEditTableDataEnabled(sectionName)
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
+  const disabled = !editEnabled
   const className = useButtonClassName({ disabled, iconName: 'small-add', size: ButtonSize.m })
 
   if (!user) return null
