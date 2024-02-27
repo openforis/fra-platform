@@ -1,8 +1,8 @@
 import './NavGeo.scss'
 import React from 'react'
 
+import Background from 'client/components/Navigation/NavGeo/Background'
 import GeoSection from 'client/components/Navigation/NavGeo/Sections'
-import Background from 'client/components/Navigation/NavGeo/Sections/Background'
 
 const NavGeo: React.FC = () => {
   return (
