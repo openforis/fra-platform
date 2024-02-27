@@ -3,17 +3,18 @@ import { Description } from 'meta/assessment'
 import { useAssessmentCountry } from 'client/store/area'
 import { useHasOriginalDataPointData } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useSectionContext } from 'client/pages/Section/context'
 
 type Props = {
   descriptions: Description
-  sectionName: string
 }
 
 export const useDescriptions = (props: Props): Description => {
-  const { descriptions, sectionName } = props
-  const { onlyTables } = useIsPrintRoute()
+  const { descriptions } = props
 
+  const { onlyTables } = useIsPrintRoute()
   const country = useAssessmentCountry()
+  const { sectionName } = useSectionContext()
   const hasOriginalDataPointData = useHasOriginalDataPointData()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
