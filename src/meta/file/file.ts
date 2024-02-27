@@ -14,7 +14,8 @@ export type File = FileSummary & {
 
 export type FileUsage = {
   sectionName: string
-  location: Array<Label>
+  suffix?: string
+  locations: Array<Label>
 }
 
 export type FileMeta = {

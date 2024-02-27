@@ -16,20 +16,20 @@ const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValida
   } = repositoryItem || {}
 
   if (!name) {
-    return { name: 'validation.repositoryItem.repositoryValidationName' }
+    return { name: 'validation.repositoryItem.nameIsRequired' }
   }
 
   if (!fileUuid && !link) {
     return {
-      fileUuid: 'validation.repositoryItem.repositoryValidationFileOrLink',
-      link: 'validation.repositoryItem.repositoryValidationFileOrLink',
+      fileUuid: 'validation.repositoryItem.fileOrLink',
+      link: 'validation.repositoryItem.fileOrLink',
     }
   }
 
   if (fileUuid && link) {
     return {
-      fileUuid: 'validation.repositoryItem.repositoryValidationEitherFileOrLink',
-      link: 'validation.repositoryItem.repositoryValidationEitherFileOrLink',
+      fileUuid: 'validation.repositoryItem.eitherFileOrLink',
+      link: 'validation.repositoryItem.eitherFileOrLink',
     }
   }
 
