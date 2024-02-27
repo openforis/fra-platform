@@ -8,16 +8,14 @@ import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Lock from 'client/components/PageLayout/Toolbar/Lock'
 import Status from 'client/components/PageLayout/Toolbar/Status'
 
 const EditorOptions: React.FC = () => {
   const { t } = useTranslation()
-  const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
   const user = useUser()
-  const reviewer = Users.isReviewer(user, countryIso, cycle) || Users.isAdministrator(user)
+  const reviewer = Users.isAReviewer(user, cycle) || Users.isAdministrator(user)
 
   return (
     <div className={classNames('toolbar-editor', { reviewer })}>
