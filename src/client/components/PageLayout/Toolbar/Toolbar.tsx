@@ -13,11 +13,10 @@ import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
+import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
 import { Breakpoints } from 'client/utils'
 
 import LinksPrint from './LinksPrint'
-import Lock from './Lock'
-import Status from './Status'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const Toolbar: React.FC = () => {
@@ -36,7 +35,7 @@ const Toolbar: React.FC = () => {
   const isAdmin = Users.isAdministrator(user)
   const includeGlobals = isAdmin || cycle.published || isAReviewer
   const includeRegions = isAdmin || cycle.published
-  const withLock = user && isCountry && Users.hasEditorRole({ user, countryIso, cycle })
+  const editor = Users.hasEditorRole({ user, countryIso, cycle })
 
   return (
     <div className="toolbar">
@@ -64,14 +63,12 @@ const Toolbar: React.FC = () => {
       {isCountry && (
         <>
           <MediaQuery minWidth={Breakpoints.laptop}>
-            {user && <Status />}
+            {editor && <EditorOptions />}
             {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
           </MediaQuery>
 
           <div className="toolbar__utils-container">
-            {withLock && <Lock />}
-
-            <LinksPrint withSeparator={withLock} />
+            <LinksPrint />
           </div>
         </>
       )}

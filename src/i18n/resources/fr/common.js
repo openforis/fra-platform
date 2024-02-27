@@ -14,6 +14,7 @@ module.exports = {
   filterCountries: 'Filtrer les pays',
   fraPlatform: 'Plateforme de FRA',
   globalFRA: 'Évaluation des ressources forestières mondiales',
+  issues: 'Problèmes',
   language: 'Langue',
   lastEdit: 'Dernière modification',
   login: 'Espace réservé',
