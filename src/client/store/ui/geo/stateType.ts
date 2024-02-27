@@ -39,14 +39,11 @@ export type GeoState = {
   isMapAvailable: boolean
   selectedPanel: MapPanel
   mosaicOptions: {
-    ui: MosaicOptions
     applied: MosaicOptions
-    mosaicSelected: boolean
-    mosaicPending: boolean
-    mosaicFailed: boolean
-    mosaicUrl: {
-      [key in CountryIso]?: string
-    }
+    selected?: boolean
+    status?: LayerFetchStatus
+    ui: MosaicOptions
+    url: Partial<Record<CountryIso, string>>
   }
   geoStatistics: GeoStatisticsState
 }

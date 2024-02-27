@@ -51,12 +51,9 @@ const initialState: GeoState = {
   isMapAvailable: false,
   selectedPanel: null,
   mosaicOptions: {
-    ui: { ...initialMosaicOptions },
     applied: { ...initialMosaicOptions },
-    mosaicSelected: false,
-    mosaicPending: false,
-    mosaicFailed: false,
-    mosaicUrl: {},
+    ui: { ...initialMosaicOptions },
+    url: {},
   },
   geoStatistics: {
     forestEstimations: null,
@@ -186,14 +183,13 @@ export const geoSlice = createSlice({
       state.isMapAvailable = payload
     },
     applyMosaicOptions: (state) => {
-      state.mosaicOptions.mosaicUrl = {}
-      state.mosaicOptions.mosaicFailed = false
-      state.mosaicOptions.mosaicPending = false
+      state.mosaicOptions.url = {}
+      state.mosaicOptions.status = LayerFetchStatus.Unfetched
       state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
-      if (!state.mosaicOptions.mosaicSelected) state.mosaicOptions.mosaicFailed = false // The user is retrying
-      state.mosaicOptions.mosaicSelected = !state.mosaicOptions.mosaicSelected
+      const currentSelected = state.mosaicOptions.selected ?? false
+      state.mosaicOptions.selected = !currentSelected
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
       const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
@@ -376,20 +372,16 @@ export const geoSlice = createSlice({
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
         const { urlTemplate, countryIso } = payload
-        state.mosaicOptions.mosaicUrl[countryIso] = urlTemplate
-        state.mosaicOptions.mosaicFailed = false
-        state.mosaicOptions.mosaicPending = false
+        state.mosaicOptions.url[countryIso] = urlTemplate
+        state.mosaicOptions.status = LayerFetchStatus.Ready
       })
       .addCase(postMosaicOptions.pending, (state) => {
-        state.mosaicOptions.mosaicPending = true
-        state.mosaicOptions.mosaicFailed = false
-        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
+        state.mosaicOptions.url = initialState.mosaicOptions.url
+        state.mosaicOptions.status = LayerFetchStatus.Loading
       })
       .addCase(postMosaicOptions.rejected, (state) => {
-        state.mosaicOptions.mosaicFailed = true
-        state.mosaicOptions.mosaicPending = false
-        state.mosaicOptions.mosaicSelected = false
-        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
+        state.mosaicOptions.url = initialState.mosaicOptions.url
+        state.mosaicOptions.status = LayerFetchStatus.Failed
       })
       .addCase(getForestEstimationData.fulfilled, (state, { payload: forestEstimations }) => {
         state.geoStatistics.forestEstimations = forestEstimations
