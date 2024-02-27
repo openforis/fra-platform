@@ -7,7 +7,7 @@ import GeoSection from 'client/components/Navigation/NavGeo/Sections'
 const NavGeo: React.FC = () => {
   return (
     <div className="nav-geo">
-      <GeoSection key="background" showSections={false} sectionLabel="Background">
+      <GeoSection key="background" sectionLabel="Background">
         <Background />
       </GeoSection>
     </div>

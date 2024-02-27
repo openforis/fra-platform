@@ -1,20 +1,15 @@
 import './GeoSection.scss'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 
 type Props = {
   children: ReactElement
   sectionLabel: string
-  showSections: boolean
 }
 
 const GeoSection: React.FC<Props> = (props) => {
-  const { children, sectionLabel, showSections } = props
+  const { children, sectionLabel } = props
 
   const [expanded, setExpanded] = useState(false)
-
-  useEffect(() => {
-    setExpanded(showSections)
-  }, [showSections])
 
   return (
     <div>
