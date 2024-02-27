@@ -35,7 +35,6 @@ export const useUsages = (): Returned => {
         }
 
         const subSection = subsections?.find((subsection) => subsection.props.name === usage.sectionName)
-
         const label = Labels.getCycleLabel({ cycle, labels: subSection?.props.labels, t })
         const anchor = t(
           SubSections.getAnchorLabel({ assessment, cycle, subSection }),
