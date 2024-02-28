@@ -30,7 +30,7 @@ const FileInputField: React.FC = () => {
       </DataCell>
       <DataCell editable error={Boolean(error)} lastCol lastRow>
         <FileUpload
-          canDownload={false}
+          canDownload
           id={id}
           onChange={onChange}
           value={fileMeta?.summary ? [fileMeta.summary] : undefined}
