@@ -29,12 +29,7 @@ const FileInputField: React.FC = () => {
         </label>
       </DataCell>
       <DataCell editable error={Boolean(error)} lastCol lastRow>
-        <FileUpload
-          canDownload
-          id={id}
-          onChange={onChange}
-          value={fileMeta?.summary ? [fileMeta.summary] : undefined}
-        />
+        <FileUpload id={id} onChange={onChange} value={fileMeta?.summary ? [fileMeta.summary] : undefined} />
         <div className="repository-form__error-label">{error ? t(error) : ''}</div>
       </DataCell>
     </>
