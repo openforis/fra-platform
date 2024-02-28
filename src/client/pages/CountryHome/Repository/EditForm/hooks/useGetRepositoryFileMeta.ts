@@ -12,7 +12,7 @@ export const useGetRepositoryFileMeta = () => {
   const repositoryItem = useRepositoryItem() as RepositoryItem
   const dispatch = useAppDispatch()
   useEffect(() => {
-    if (repositoryItem?.fileUuid) {
+    if (repositoryItem?.fileUuid && repositoryItem?.uuid) {
       dispatch(RepositoryActions.getFileMeta({ repositoryItem, assessmentName, cycleName, countryIso }))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, repositoryItem])
