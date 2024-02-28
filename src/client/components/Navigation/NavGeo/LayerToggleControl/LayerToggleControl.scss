@@ -1,0 +1,24 @@
+@import 'src/client/style/partials';
+@import 'src/client/styles/spinner';
+
+.geo-layer-toggle__checkbox {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding-top: $spacing-xxs;
+
+  > .failed {
+    border-color: $ui-destructive;
+  }
+
+  > .fra-checkbox {
+    cursor: pointer;
+    margin: $spinner-margin;
+  }
+
+  > span {
+    font-size: $font-m;
+    font-weight: bold;
+    margin: 0;
+  }
+}
