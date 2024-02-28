@@ -85,7 +85,7 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
             })}
           </div>
 
-          <FileUpload canDownload={false} multiple onChange={onSuccess} />
+          <FileUpload multiple onChange={onSuccess} />
         </div>
       </ModalBody>
 
