@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 
@@ -10,6 +11,7 @@ import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClos
 type Returned = () => void
 
 export const useOnDelete = (): Returned => {
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const repositoryItem = useRepositoryItem()
@@ -17,11 +19,14 @@ export const useOnDelete = (): Returned => {
   const closePanel = useClosePanel()
 
   return useCallback<Returned>(() => {
+    const confirmed = window.confirm(t('common.areYouSure'))
+    if (!confirmed) return
+
     const params = { assessmentName, cycleName, countryIso, sectionName, repositoryItem }
     dispatch(RepositoryActions.removeRepositoryItem(params))
       .unwrap()
       .then(() => {
         closePanel()
       })
-  }, [assessmentName, cycleName, countryIso, sectionName, repositoryItem, dispatch, closePanel])
+  }, [t, assessmentName, cycleName, countryIso, sectionName, repositoryItem, dispatch, closePanel])
 }

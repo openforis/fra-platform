@@ -3,6 +3,7 @@ module.exports = {
   add: 'Add',
   apply: 'Apply',
   areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
+  areYouSure: 'Are you sure?',
   cancel: 'Cancel',
   clearTable: 'Clear table',
   column: 'Column',
