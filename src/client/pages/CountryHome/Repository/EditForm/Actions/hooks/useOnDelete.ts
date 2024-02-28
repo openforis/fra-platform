@@ -19,7 +19,7 @@ export const useOnDelete = (): Returned => {
   const closePanel = useClosePanel()
 
   return useCallback<Returned>(() => {
-    const confirmed = window.confirm(t('common.areYouSure'))
+    const confirmed = window.confirm(t('common.areYouSureYouWantToDelete'))
     if (!confirmed) return
 
     const params = { assessmentName, cycleName, countryIso, sectionName, repositoryItem }
