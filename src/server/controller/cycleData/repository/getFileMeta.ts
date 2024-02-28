@@ -26,6 +26,6 @@ export const getFileMeta = async (props: Props): Promise<Returned> => {
 
   return {
     usages,
-    summary,
+    summary: { ...summary, repositoryItemUuid: repositoryItem.uuid },
   }
 }
