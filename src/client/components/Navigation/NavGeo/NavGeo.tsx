@@ -2,8 +2,8 @@ import './NavGeo.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import GeoSection from 'client/components/Navigation/NavGeo/GeoSection'
 import SatelliteMosaic from 'client/components/Navigation/NavGeo/SatelliteMosaic'
-import GeoSection from 'client/components/Navigation/NavGeo/Sections'
 
 const NavGeo: React.FC = () => {
   const { t } = useTranslation()
