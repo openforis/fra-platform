@@ -1,34 +1,24 @@
 import './Files.scss'
 import React from 'react'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
-
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonDelete from 'client/components/Buttons/ButtonDelete'
+import FileDownload from 'client/components/FileUpload/Files/FileDownload'
 import { FileUploadProps } from 'client/components/FileUpload/types'
 
-const Files: React.FC<Pick<FileUploadProps, 'canDownload' | 'onChange' | 'value'>> = (props) => {
-  const { canDownload, onChange, value } = props
-
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso })
-
+type Props = Pick<FileUploadProps, 'canDownload' | 'onChange' | 'value'> & {
+  acceptedFiles: Array<File>
+}
+const Files: React.FC<Props> = (props) => {
+  const { canDownload, onChange, value, acceptedFiles } = props
   return (
     <div className="file-upload__files">
-      {value.map((file) => {
-        const url = `${ApiEndPoint.CycleData.Repository.file(file.uuid)}?${queryParams.toString()}`
-
+      {value.map((fileSummary) => {
         return (
-          <React.Fragment key={file.uuid}>
-            {canDownload && (
-              <a className="repository-link" href={url} rel="noreferrer" target="_blank">
-                {file.name}
-              </a>
-            )}
-            {!canDownload && <div>{file.name}</div>}
+          <React.Fragment key={fileSummary.uuid}>
+            {canDownload && <FileDownload acceptedFiles={acceptedFiles} fileSummary={fileSummary} />}
+            {!canDownload && <div>{fileSummary.name}</div>}
 
-            <ButtonDelete onClick={() => onChange(value.filter((f) => f.uuid !== file.uuid))} />
+            <ButtonDelete onClick={() => onChange(value.filter((f) => f.uuid !== fileSummary.uuid))} />
           </React.Fragment>
         )
       })}

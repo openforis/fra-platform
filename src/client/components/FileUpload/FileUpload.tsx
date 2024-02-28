@@ -18,11 +18,11 @@ const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps) => {
   const { t } = useTranslation()
   const onDrop = useUploadFiles({ onChange })
   const progress = useFileUploadProgress()
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, multiple })
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ onDrop, multiple })
 
   return (
     <div className="file-upload">
-      {value && <Files canDownload={canDownload} onChange={onChange} value={value} />}
+      {value && <Files acceptedFiles={acceptedFiles} canDownload={canDownload} onChange={onChange} value={value} />}
 
       {!progress && !value && (
         <div

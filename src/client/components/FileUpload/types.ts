@@ -1,6 +1,6 @@
 import { FileSummary } from 'meta/file'
 
-export type FileUploadOnChange = (files: Array<FileSummary>) => void
+export type FileUploadOnChange = (filesSummaries: Array<FileSummary>) => void
 
 export type FileUploadProps = {
   canDownload?: boolean
