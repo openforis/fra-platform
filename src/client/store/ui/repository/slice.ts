@@ -36,12 +36,11 @@ export const RepositorySlice = createSlice({
           const path = ['repositoryItem', 'props', 'translation', 'en']
           Objects.setInPath({ obj: state, path, value: name })
         }
-        state.repositoryItemValidation = RepositoryItemValidator.validate(repositoryItem)
       } else {
         state.repositoryItem.fileUuid = undefined
         state.fileMeta = undefined
-        state.repositoryItemValidation = RepositoryItemValidator.validate(state.repositoryItem)
       }
+      state.repositoryItemValidation = RepositoryItemValidator.validate(state.repositoryItem)
     },
   },
   extraReducers: (builder) => {
