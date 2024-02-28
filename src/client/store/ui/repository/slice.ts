@@ -40,6 +40,7 @@ export const RepositorySlice = createSlice({
         state.repositoryItem.fileUuid = undefined
         state.fileMeta = undefined
       }
+      state.repositoryItemValidation = RepositoryItemValidator.validate(state.repositoryItem)
     },
   },
   extraReducers: (builder) => {
