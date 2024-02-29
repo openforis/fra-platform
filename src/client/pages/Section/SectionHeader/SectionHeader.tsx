@@ -2,19 +2,22 @@ import React from 'react'
 
 import { AssessmentNames } from 'meta/assessment'
 
+import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionContext } from 'client/pages/Section/context'
+
 import ExtentOfForest from './ExtentOfForest'
 import ForestCharacteristics from './ForestCharacteristics'
-import { Props } from './props'
 
-const Components: Record<string, Record<string, React.FC<Props>>> = {
+const Components: Record<string, Record<string, React.FC>> = {
   [AssessmentNames.fra]: {
     extentOfForest: ExtentOfForest,
     forestCharacteristics: ForestCharacteristics,
   },
 }
 
-const SectionHeader: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, disabled } = props
+const SectionHeader: React.FC = () => {
+  const { sectionName } = useSectionContext()
+  const { assessmentName } = useAssessmentRouteParams()
 
   const Component = Components[assessmentName]?.[sectionName]
 
@@ -22,7 +25,7 @@ const SectionHeader: React.FC<Props> = (props) => {
     return null
   }
 
-  return React.createElement(Component, { assessmentName, sectionName, disabled })
+  return <Component />
 }
 
 export default SectionHeader

@@ -5,33 +5,34 @@ import { Topics } from 'meta/messageCenter'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useUser } from 'client/store/user'
+import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
+import { useSectionContext } from 'client/pages/Section/context'
 
 import { useDeleteContact } from './useDeleteContact'
 
 type Props = {
-  canEdit: boolean
   contact: Contact
 }
 
 export type Returned = Array<DataRowAction> | undefined
 
 export const useRowActions = (props: Props): Returned => {
-  const { canEdit, contact } = props
+  const { contact } = props
 
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const user = useUser()
-  const isAdmin = Users.isAdministrator(user)
-
   const deleteContact = useDeleteContact({ contact })
+  const { sectionName } = useSectionContext()
+  const editEnabled = useIsEditTableDataEnabled(sectionName)
+  const isAdmin = Users.isAdministrator(user)
 
   return useMemo<Returned>(() => {
     const { readOnly } = contact.props
     const actions: Array<DataRowAction> = []
 
-    if (!canEdit) {
+    if (!editEnabled) {
       return actions
     }
 
@@ -61,5 +62,5 @@ export const useRowActions = (props: Props): Returned => {
     }
 
     return actions
-  }, [assessmentName, canEdit, contact, countryIso, cycleName, deleteContact, isAdmin])
+  }, [assessmentName, contact, countryIso, cycleName, deleteContact, editEnabled, isAdmin])
 }

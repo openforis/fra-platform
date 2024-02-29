@@ -13,6 +13,7 @@ import { Users } from 'meta/user'
 import { useAppDispatch } from 'client/store'
 import { AreaActions, useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
@@ -30,6 +31,7 @@ const Status: React.FC = () => {
   const user = useUser()
   const country = useAssessmentCountry()
   const cycle = useCycle()
+  const dataLocked = useIsDataLocked()
   const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
   const { assessmentName, cycleName } = useCycleRouteParams()
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
@@ -66,7 +68,7 @@ const Status: React.FC = () => {
   ]
 
   const items: Array<PopoverItem> = []
-  if (![AssessmentStatus.changing, AssessmentStatus.notStarted].includes(status)) {
+  if (![AssessmentStatus.changing, AssessmentStatus.notStarted].includes(status) && !dataLocked) {
     const { next, previous } = AssessmentStatusTransitions.getAllowedTransition({
       country,
       countryIso,

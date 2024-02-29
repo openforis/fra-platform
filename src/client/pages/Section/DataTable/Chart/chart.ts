@@ -16,6 +16,7 @@ export const styles = {
 }
 
 export const getChartYears = (data: any[]) => {
+  // @ts-ignore
   const handleData = (d) => (Array.isArray(d) ? d.flatMap((x: any) => x.year) : d.year)
   const years: number[] = Object.values(data).flatMap(handleData)
   if (years.length > 0) {
@@ -41,10 +42,11 @@ export const getYScale = (data: any, trends: any) => {
     .map(Number)
     .filter((d) => d)
   const max = Math.max(...values)
+  const min = Math.min(...values)
 
   return d3
     .scaleLinear()
-    .domain([0, max > 0 ? max : yMaxValue])
+    .domain([min > 0 ? 0 : min, max > 0 ? max : yMaxValue])
     .range([styles.height - styles.bottom, styles.top])
 }
 

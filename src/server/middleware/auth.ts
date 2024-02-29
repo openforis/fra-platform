@@ -74,27 +74,17 @@ const requireAdmin = async (req: Request, _res: Response, next: NextFunction) =>
 }
 
 const requireEditMessageTopic = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, key } = <Record<string, string>>{
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  }
+  type Params = CycleParams & { key: string }
+  const { countryIso, assessmentName, cycleName, key } = { ...req.params, ...req.query, ...req.body } as Params
   const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const topic = await MessageCenterController.getTopic({
-    countryIso: countryIso as CountryIso,
-    assessment,
-    cycle,
-    key,
-    user,
-  })
+  const topic = await MessageCenterController.getTopic({ countryIso, assessment, cycle, key, user })
 
   if (topic) {
     _next(
       topic.status === MessageTopicStatus.opened ||
-        (topic.status === MessageTopicStatus.resolved &&
-          Users.hasEditorRole({ user, countryIso: countryIso as CountryIso, cycle })),
+        (topic.status === MessageTopicStatus.resolved && Users.hasEditorRole({ user, countryIso, cycle })),
       next
     )
   } else {

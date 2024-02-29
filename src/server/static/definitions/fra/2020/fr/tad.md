@@ -2,7 +2,7 @@
 
 _FRA 2020_
 
-## Introduction
+## Introduction <!-- section:Introduction -->
 
 La FAO coordonne des évaluations des ressources forestières mondiales tous les 5 à 10 ans depuis 1946. Ces évaluations ont largement contribué à améliorer les concepts, les définitions et les méthodes relatives aux ressources forestières.
 
@@ -18,9 +18,9 @@ Pour plus de détails sur le Programme de FRA, voir: http://www.fao.org/forest-r
 
 ---
 
-# 1 Étendue et changements des forêts
+# 1 Étendue et changements des forêts <!-- section:1 -->
 
-## 1a Étendue des forêts et des autres terres boisées
+## 1a Étendue des forêts et des autres terres boisées <!-- section:1a -->
 
 ### FORÊT
 
@@ -61,7 +61,7 @@ Note(s) explicative(s )
 2.	Inclut les terres à vocation agricole, les prairies et les pâturages, les zones construites, les terres dénudées, les terres couvertes de glace permanente, etc.
 3.	Inclut toutes les zones entrant dans la sous-catégorie «Autres terres dotées de couvert arboré».
 
-## 1b Caractéristiques des forêts
+## 1b Caractéristiques des forêts <!-- section:1b -->
 
 ### FORÊT NATURELLEMENT RÉGÉNÉRÉE
 
@@ -97,7 +97,7 @@ Note(s) explicative(s )
 
 > **Forêt plantée** qui n'entre pas dans la catégorie **forêt de plantation**.
 
-## 1c Expansion et déforestation annuelles et changement nette annuelle de la forêt
+## 1c Expansion et déforestation annuelles et changement nette annuelle de la forêt <!-- section:1c -->
 
 ### EXPANSION DE LA FORÊT
 
@@ -128,7 +128,7 @@ Note(s) explicative(s )
 
 1.	Le "changement net de superficie forestière" représente la différence de superficie forestière entre deux années de référence de FRA. Le changement net peut être positif (gain), négatif (perte) ou nul (situation inchangée).
 
-## 1d Reboisement annuel
+## 1d Reboisement annuel <!-- section:1d -->
 
 ### REBOISEMENT
 
@@ -140,7 +140,7 @@ Note(s) explicative(s )
 2.	Inclut la plantation ou le semis de zones forestières temporairement non boisées ainsi que la plantation ou le semis de zones avec un couvert forestier.
 3.	Inclut les taillis des arbres originairement plantés ou semés.
 
-## 1e Catégories spécifiques des forêts
+## 1e Catégories spécifiques des forêts <!-- section:1e -->
 
 ### BAMBOUS
 
@@ -179,7 +179,7 @@ Note(s) explicative(s )
 	-	la zone est suffisamment grande pour maintenir ses processus écologiques naturels; 
 	-	elles ne présentent pas d’interventions humaines importantes, ou bien la dernière intervention humaine importante a eu lieu il y a assez longtemps pour permettre à la composition naturelle des espèces et aux processus naturels de se rétablir.
 
-## 1f Autres terres dotées de couvert d’arbres
+## 1f Autres terres dotées de couvert d’arbres <!-- section:1f -->
 
 ### AUTRES TERRES DOTÉES DE COUVERT D’ARBRES
 
@@ -218,9 +218,9 @@ Note(s) explicative(s )
 
 ---
 
-# 2 Matériel sur pied, biomasse et carbone forestiers
+# 2 Matériel sur pied, biomasse et carbone forestiers <!-- section:2 -->
 
-## 2a Matériel sur pied
+## 2a Matériel sur pied <!-- section:2a -->
 
 ### MATÉRIEL SUR PIED
 
@@ -232,7 +232,7 @@ Note(s) explicative(s )
 2.	Inclut les arbres vivants tombés.
 3.	Exclut les branches, les brindilles, le feuillage, les fleurs, les graines et les racines.
 
-## 2b Composition du matériel sur pied
+## 2b Composition du matériel sur pied <!-- section:2b -->
 
 ### ESPÈCE D'ARBRE INDIGÈNE _(Terme complémentaire)_
 
@@ -251,7 +251,7 @@ Note(s) explicative(s )
 1.	Si l'espèce se manifeste de manière naturelle à l'intérieur des frontières nationales, elle sera considérée comme étant indigène pour l'ensemble du pays. 
 2.	Les forêts naturellement régénérées d'espèces arborescentes introduites devront être considérées comme des "espèces introduites" pendant 250 ans après la date de leur introduction. Après 250 ans, ces espèces seront considérées comme naturalisées.
 
-## 2c Biomasse
+## 2c Biomasse <!-- section:2c -->
 
 ### BIOMASSE AÉRIENNE
 
@@ -278,7 +278,7 @@ Note(s) explicative(s )
 
 1.	Le pays pourra utiliser une valeur-seuil autre que 10 cm et devra, le cas échéant, documenter la valeur-seuil utilisée.
 
-## 2d Stock de carbone
+## 2d Stock de carbone <!-- section:2d -->
 
 ### CARBONE DANS LA BIOMASSE AÉRIENNE
 
@@ -323,9 +323,9 @@ Note(s) explicative(s )
 
 ---
 
-# 3 Désignation et gestion des forêts 
+# 3 Désignation et gestion des forêts  <!-- section:3 -->
 
-## 3a Objectif de gestion designé
+## 3a Objectif de gestion designé <!-- section:3a -->
 
 ### SUPERFICIE TOTALE DE LA FORET AVEC UN OBJECTIF DE GESTION DÉSIGNÉ
 
@@ -403,7 +403,7 @@ Note(s) explicative(s )
 
 > Forêt sans objectif de gestion principal, ou dont l'objectif de gestion est inconnu.
 
-## 3b Superficie forestière se trouvant à l'interieur d'aires protégées juridiquement constituées et superficie forestières avec des plans de gestion à long-terme
+## 3b Superficie forestière se trouvant à l'interieur d'aires protégées juridiquement constituées et superficie forestières avec des plans de gestion à long-terme <!-- section:3b -->
 
 ### SUPERFICIE FORESTIÈRE À L’INTÉRIEUR DES AIRES PROTÉGÉES JURIDIQUEMENT CONSTITUÉES
 
@@ -431,9 +431,9 @@ Note(s) explicative(s )
 
 ---
 
-# 4 DROITS DE PROPRIÉTÉ ET DE GESTION DES FORETS
+# 4 DROITS DE PROPRIÉTÉ ET DE GESTION DES FORETS <!-- section:4 -->
 
-## 4a Propriété de la forêt
+## 4a Propriété de la forêt <!-- section:4a -->
 
 ### PROPRIÉTÉ DE LA FORÊT _(Terme complémentaire)_
 
@@ -487,7 +487,7 @@ Note(s) explicative(s )
 
 1.	Inclut les zones dont la propriété est ambiguë ou contestée.
 
-## 4b Droits de gestion des forêts publiques
+## 4b Droits de gestion des forêts publiques <!-- section:4b -->
 
 ### DROITS DE GESTION DES FORÊTS PUBLIQUES _(Terme complémentaire)_
 
@@ -520,9 +520,9 @@ Note(s) explicative(s )
 
 ---
 
-# 5 Perturbation forestière
+# 5 Perturbation forestière <!-- section:5 -->
 
-## 5a Perturbations
+## 5a Perturbations <!-- section:5a -->
 
 ### PERTURBATION
 
@@ -544,7 +544,7 @@ Note(s) explicative(s )
 
 > Perturbations provoquées par des facteurs abiotiques comme la neige, les tempêtes, la sécheresse, etc.
 
-## 5b Superficie touchée par des incendies
+## 5b Superficie touchée par des incendies <!-- section:5b -->
 
 ### SUPERFICIE BRÛLÉE
 
@@ -554,7 +554,7 @@ Note(s) explicative(s )
 
 > **Superficie forestière** touchée par des incendies.
 
-## 5c Forêt degradée
+## 5c Forêt degradée <!-- section:5c -->
 
 ### FORÊT DEGRADÉE
 
@@ -566,9 +566,9 @@ Note(s) explicative(s )
 
 ---
 
-# 6 Politiques et dispositions législatives sur les forêts
+# 6 Politiques et dispositions législatives sur les forêts <!-- section:6 -->
 
-## 6a  Politiques, dispositions législatives et plateforme nationale de participation des parties prenantes à la politique forestière
+## 6a  Politiques, dispositions législatives et plateforme nationale de participation des parties prenantes à la politique forestière <!-- section:6a -->
 
 ### POLITIQUES D'APPUI À LA GESTION DURABLE DES FORÊTS
 
@@ -586,7 +586,7 @@ Note(s) explicative(s )
 
 > Système qui permet de tracer l'origine, la localisation et la circulation des produits ligneux au moyen de documents d'identification. Il comporte deux aspects principaux: (1) l'identification du produit par marquage; (2) l'enregistrement des données sur la circulation et la localisation du produit tout au long de la chaîne de production, de transformation et de distribution.
 
-## 6b Superficie des domaines forestiers permanents
+## 6b Superficie des domaines forestiers permanents <!-- section:6b -->
 
 ### DOMAINE FORESTIER PERMANENT (DFP)
 
@@ -598,9 +598,9 @@ Note(s) explicative(s )
 
 ---
 
-# 7 Emploi, formation et PFNL
+# 7 Emploi, formation et PFNL <!-- section:7 -->
 
-## 7a Emploi dans le secteur forestier
+## 7a Emploi dans le secteur forestier <!-- section:7a -->
 
 ### EMPLOI-ÉQUIVALENT PLEIN TEMPS (EPT) _(Terme complémentaire)_
 
@@ -701,7 +701,7 @@ Les activités de services d'exploitation forestière, comme :
 2.	La catégorie exclut:
 	-	l'exploitation des pépinières forestières
 
-## 7b Obtention de diplômes liés a l'enseignement forestier
+## 7b Obtention de diplômes liés a l'enseignement forestier <!-- section:7b -->
 
 ### ENSEIGNEMENT FORESTIER _(Terme complémentaire)_
 
@@ -738,7 +738,7 @@ Note(s) explicative(s )
 
 > Qualification délivrée par un établissement technique d'enseignement exigeant 1 à 3 années d'études post-secondaires.
 
-## 7c Extraction de produits forestiers non ligneux et valeurs des PFNL extraits
+## 7c Extraction de produits forestiers non ligneux et valeurs des PFNL extraits <!-- section:7c -->
 
 ### PRODUITS FORESTIERS NON LIGNEUX
 
@@ -767,7 +767,7 @@ Note(s) explicative(s )
 
 ---
 
-# 8 Termes et définitions complémentaires
+# 8 Termes et définitions complémentaires <!-- section:8 -->
 
 ### COUVERT FORESTIER
 

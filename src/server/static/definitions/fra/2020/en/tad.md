@@ -2,7 +2,7 @@
 
 _FRA 2020_
 
-## Introduction
+## Introduction <!-- section:Introduction -->
 
 FAO has been coordinating global forest resources assessments every five to ten years since 1946. The assessments have to a great extent contributed to the improvement of concepts, definitions and methods related to forest resources assessments. 
 
@@ -18,9 +18,9 @@ For more details on FRA Programme, please see: http://www.fao.org/forest-resourc
 
 ---
 
-# 1 Forest extent, characteristics and changes
+# 1 Forest extent, characteristics and changes <!-- section:1 -->
 
-## 1a Extent of forest and other wooded land
+## 1a Extent of forest and other wooded land <!-- section:1a -->
 
 ### FOREST
 
@@ -61,7 +61,7 @@ Explanatory notes
 2. Includes agricultural land, meadows and pastures, built-up areas, barren land, land under permanent ice, etc. 
 3. Includes all areas classified under the sub-category "Other land with tree cover".
 
-## 1b Forest characteristics
+## 1b Forest characteristics <!-- section:1b -->
 
 ### NATURALLY REGENERATING FOREST
 
@@ -97,7 +97,7 @@ Explanatory notes
 
 > **Planted forest** which is not classified as **plantation forest**.
 
-## 1c Annual forest expansion, deforestation and net change
+## 1c Annual forest expansion, deforestation and net change <!-- section:1c -->
 
 ### FOREST EXPANSION
 
@@ -128,7 +128,7 @@ Explanatory note
 
 1. The "Forest area net change" is the difference in forest area between two FRA reference years. The net change can be either positive (gain), negative (loss) or zero (no change).
 
-## 1d Annual reforestation
+## 1d Annual reforestation <!-- section:1d -->
 
 ### REFORESTATION
 
@@ -140,7 +140,7 @@ Explanatory notes
 2. Includes planting/seeding of temporarily unstocked forest areas as well as planting/seeding of areas with forest cover.
 3. Includes coppice from trees that were originally planted or seeded.
 
-## 1e Specific forest categories
+## 1e Specific forest categories <!-- section:1e -->
 
 ### BAMBOOS
 
@@ -179,7 +179,7 @@ Explanatory notes
     -	the area is large enough to maintain its natural ecological processes; 
     -	there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed the natural species composition and processes to have become re-established.
 
-## 1f Other land with tree cover
+## 1f Other land with tree cover <!-- section:1f -->
 
 ### OTHER LAND WITH TREE COVER
 
@@ -218,9 +218,9 @@ Explanatory notes
 
 ---
 
-# 2 Forest growing stock, biomass and carbon
+# 2 Forest growing stock, biomass and carbon <!-- section:2 -->
 
-## 2a Growing stock
+## 2a Growing stock <!-- section:2a -->
 
 ### GROWING STOCK
 
@@ -232,7 +232,7 @@ Explanatory notes
 2. Includes laying living trees.
 3. Excludes branches, twigs, foliage, flowers, seeds, and roots.
 
-## 2b Growing stock composition
+## 2b Growing stock composition <!-- section:2b -->
 
 ### NATIVE TREE SPECIES _(Supplementary term)_
 
@@ -251,7 +251,7 @@ Explanatory notes
 1. If the species occurs naturally within the country borders it is considered native for the entire country. 
 2. Naturally regenerated forest of introduced tree species should be considered as *introduced* up to 250 years from the date of original introduction. Beyond 250 years, the species can be considered naturalized.
 
-## 2c Biomass stock
+## 2c Biomass stock <!-- section:2c -->
 
 ### ABOVE-GROUND BIOMASS
 
@@ -278,7 +278,7 @@ Explanatory note
 
 1.	The country may use another threshold value than 10 cm, but in such a case the threshold value used must be documented.
 
-## 2d Carbon stock
+## 2d Carbon stock <!-- section:2d -->
 
 ### CARBON IN ABOVE-GROUND BIOMASS
 
@@ -323,9 +323,9 @@ Explanatory note
 
 ---
 
-# 3 Forest designation and management
+# 3 Forest designation and management <!-- section:3 -->
 
-## 3a Designated management objective
+## 3a Designated management objective <!-- section:3a -->
 
 ### TOTAL AREA WITH DESIGNATED MANAGEMENT OBJECTIVE
 
@@ -403,7 +403,7 @@ Explanatory note
 
 > Forest with no or unknown primary management objective.
 
-## 3b Forest area within legally established protected areas and forest area with long-term forest management plans
+## 3b Forest area within legally established protected areas and forest area with long-term forest management plans <!-- section:3b -->
 
 ### FOREST AREA WITHIN LEGALLY ESTABLISHED PROTECTED AREAS
 
@@ -411,8 +411,8 @@ Explanatory note
 
 Explanatory notes
 
-1. Includes IUCN Categories I а IV.
-2. Excludes IUCN Categories V а VI.
+1. Includes IUCN Categories I - IV.
+2. Excludes IUCN Categories V - VI.
 
 ### FOREST AREA WITH LONG-TERM MANAGEMENT PLAN
 
@@ -432,9 +432,9 @@ Explanatory notes
 
 ---
 
-# 4 Forest ownership and management rights
+# 4 Forest ownership and management rights <!-- section:4 -->
 
-## 4a Forest ownership
+## 4a Forest ownership <!-- section:4a -->
 
 ### FOREST OWNERSHIP _(Supplementary term)_
 
@@ -487,7 +487,7 @@ Explanatory note
 
 1. Includes areas where ownership is unclear or disputed.
 
-## 4b Management rights of public forests
+## 4b Management rights of public forests <!-- section:4b -->
 
 ### MANAGEMENT RIGHTS OF PUBLIC FORESTS _(Supplementary term)_
 
@@ -520,9 +520,9 @@ Explanatory notes
 
 ---
 
-# 5 Forest disturbances
+# 5 Forest disturbances <!-- section:5 -->
 
-## 5a Disturbances
+## 5a Disturbances <!-- section:5a -->
 
 ### DISTURBANCE
 
@@ -544,7 +544,7 @@ Explanatory note
 
 > Disturbances caused by abiotic factors, such as snow, storm, droughts, etc.
 
-## 5b Area affected by fire
+## 5b Area affected by fire <!-- section:5b -->
 
 ### BURNED AREA
 
@@ -554,7 +554,7 @@ Explanatory note
 
 > **Forest** area affected by fire.
 
-## 5c Degraded forest
+## 5c Degraded forest <!-- section:5c -->
 
 ### DEGRADED FOREST
 
@@ -566,9 +566,9 @@ Explanatory note
 
 ---
 
-# 6 Forest policy and legislation
+# 6 Forest policy and legislation <!-- section:6 -->
 
-## 6a Policies, legislation and national platform for stakeholder participation in forest policy
+## 6a Policies, legislation and national platform for stakeholder participation in forest policy <!-- section:6a -->
 
 ### POLICIES SUPPORTING SUSTAINABLE FOREST MANAGEMENT
 
@@ -586,7 +586,7 @@ Explanatory note
 
 > A system that provides the ability to trace the origin, location and movement of wood products by means of recorded identifications. This involves two main aspects: (1) identification of the product by marking, and (2) the recording of data on movement and location of the product all the way along the production, processing and distribution chain.
 
-## 6b Area of permanent forest estate
+## 6b Area of permanent forest estate <!-- section:6b -->
 
 ### PERMANENT FOREST ESTATE
 
@@ -598,9 +598,9 @@ Explanatory note
 
 ---
 
-# 7 Employment, education and NWFP
+# 7 Employment, education and NWFP <!-- section:7 -->
 
-## 7a Employment in forestry and logging
+## 7a Employment in forestry and logging <!-- section:7a -->
 
 ### FULL-TIME EQUIVALENTS (FTE) _(Supplementary term)_
 
@@ -696,7 +696,7 @@ Forestry service activities such as
 2. The class excludes:
     - operation of forest tree nurseries
 
-## 7b Graduation of students in forest-related education
+## 7b Graduation of students in forest-related education <!-- section:7b -->
 
 ### FOREST-RELATED EDUCATION _(Supplementary term)_
 
@@ -733,7 +733,7 @@ Explanatory note
 
 > Qualification issued from a technical education institution consisting of 1 to 3 years post-secondary education.
 
-## 7c Non Wood Forest Products removals and value
+## 7c Non Wood Forest Products removals and value <!-- section:7c -->
 
 ### NON WOOD FOREST PRODUCT
 
@@ -762,7 +762,7 @@ Explanatory notes
 
 --
 
-# 8 Additional terms and definitions
+# 8 Additional terms and definitions <!-- section:8 -->
 
 ### CANOPY COVER
 

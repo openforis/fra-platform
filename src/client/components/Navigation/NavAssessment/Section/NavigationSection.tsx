@@ -9,9 +9,8 @@ import { Routes } from 'meta/routes'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useSectionReviewSummary } from 'client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from 'client/hooks'
+import SectionItemLink from 'client/components/Navigation/NavAssessment/Section/SectionItemLink'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
-
-import SectionItemLink from './SectionItemLink'
 
 type Props = {
   section: Section

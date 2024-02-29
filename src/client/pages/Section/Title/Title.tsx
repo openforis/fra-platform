@@ -1,78 +1,69 @@
+import './Title.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentNames, Labels, SubSections } from 'meta/assessment'
+import { SubSectionHints, SubSections } from 'meta/assessment'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import DefinitionLink from 'client/components/DefinitionLink'
+import { Components, TitleDefault } from 'client/pages/Section/Title/Components'
 
-import ExtentOfForest from './ExtentOfForest/ExtentOfForest'
-import ForestCharacteristics from './ForestCharacteristics/ForestCharacteristics'
 import { Props } from './props'
-import TitleWithExcelCalculator from './TitleExcelCalculator'
 
-const Components: Record<string, Record<string, React.FC<Props>>> = {
-  [AssessmentNames.fra]: {
-    extentOfForest: ExtentOfForest,
-    forestCharacteristics: ForestCharacteristics,
-    biomassStock: TitleWithExcelCalculator,
-    carbonStock: TitleWithExcelCalculator,
-  },
+type Hint = {
+  document: string
+  key: keyof SubSectionHints
+  labelKey: string
 }
 
-const TitleDefault: React.FC<Props> = (props) => {
-  const { subSection } = props
-
-  const cycle = useCycle()
-  const { t } = useTranslation()
-
-  return <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
-}
+const hints: Array<Hint> = [
+  { document: 'tad', key: 'definitions', labelKey: 'definition.definitionLabel' },
+  { document: 'faq', key: 'faqs', labelKey: 'definition.faqLabel' },
+  { document: 'rn', key: 'notes', labelKey: 'definition.seeReportingNotes' },
+]
 
 const Title: React.FC<Props> = (props) => {
   const { subSection } = props
 
-  const assessment = useAssessment()
   const { i18n, t } = useTranslation()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const cycle = useCycle()
 
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
-  const fra = assessmentName === AssessmentNames.fra
-  const panEu = assessmentName === AssessmentNames.panEuropean
-  const secondDoc = fra ? 'faq' : 'rn'
-  const secondLabel = fra ? 'definition.faqLabel' : 'definition.seeReportingNotes'
   const sectionName = subSection.props.name
   const anchor = SubSections.getAnchor({ cycle, subSection })
-  const Component = Components[assessmentName]?.[sectionName] || TitleDefault
+  const Component = Components[assessmentName]?.[sectionName] ?? TitleDefault
 
   return (
-    <>
+    <div className="section__title">
       {React.createElement(Component, { subSection })}
 
-      {(fra || (panEu && cycleName === '2025')) && (
-        <div className="app-view__section-toolbar no-print">
-          <DefinitionLink
-            assessmentName={assessmentName}
-            cycleName={cycleName}
-            className="margin-right-big"
-            document="tad"
-            anchor={anchor}
-            title={t('definition.definitionLabel')}
-            lang={i18n.resolvedLanguage}
-          />
-          <DefinitionLink
-            assessmentName={assessmentName}
-            cycleName={cycleName}
-            className="align-left"
-            document={secondDoc}
-            anchor={anchor}
-            title={t(secondLabel)}
-            lang={i18n.resolvedLanguage}
-          />
+      {Object.keys(subSection.props?.hints?.[cycle.uuid]).length && (
+        <div>
+          {hints.map((hint) => {
+            const { document, key, labelKey } = hint
+            const show = Boolean(subSection.props?.hints?.[cycle.uuid]?.[key])
+
+            if (show) {
+              return (
+                <DefinitionLink
+                  anchor={anchor}
+                  assessmentName={assessmentName}
+                  className="title-hint__link"
+                  cycleName={cycleName}
+                  document={document}
+                  key={key}
+                  lang={i18n.resolvedLanguage}
+                  title={t(labelKey)}
+                />
+              )
+            }
+
+            return null
+          })}
         </div>
       )}
-    </>
+    </div>
   )
 }
 export default Title
