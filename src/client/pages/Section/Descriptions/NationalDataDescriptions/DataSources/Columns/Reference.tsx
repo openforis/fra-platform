@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { DataSource, SectionName } from 'meta/assessment'
 import { TooltipId } from 'meta/tooltip'
@@ -10,7 +11,6 @@ import { DataCell } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 
 import { useOnChange } from './hook/useOnChange'
-import { datasourceValidators } from './datasourceValidators'
 
 type Props = {
   dataSource: DataSource
@@ -33,13 +33,13 @@ const Reference: React.FC<Props> = (props: Props) => {
   )
 
   const validationError = useMemo(() => {
-    return datasourceValidators.referenceText(dataSource.reference)
-  }, [dataSource.reference])
+    return !dataSource.placeholder && Objects.isEmpty(dataSource.reference)
+  }, [dataSource.placeholder, dataSource.reference])
 
   return (
     <DataCell
       className={classNames('data-source__column-reference', { 'validation-error': validationError })}
-      data-tooltip-content={validationError ? t('generalValidation.shouldContainAtLeastOneCharacter') : ''}
+      data-tooltip-content={validationError ? t('generalValidation.notEmpty') : ''}
       data-tooltip-id={TooltipId.error}
       editable={!disabled}
       lastRow={lastRow}
