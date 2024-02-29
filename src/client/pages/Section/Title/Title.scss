@@ -1,5 +1,11 @@
 @import 'src/client/style/partials';
 
+.section__title {
+  display: grid;
+  grid-row-gap: $spacing-xxxs;
+  margin-bottom: $spacing-xs;
+}
+
 .title-hint__link {
   margin-right: $spacing-xs;
 }

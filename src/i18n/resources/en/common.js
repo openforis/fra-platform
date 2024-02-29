@@ -23,6 +23,7 @@ module.exports = {
   globalFRA: 'Global Forest Resources Assessment',
   invitations: 'Invitations',
   invited: 'Invited',
+  issues: 'Issues',  
   label: 'Label',
   language: 'Language',
   lastEdit: 'Last edit',

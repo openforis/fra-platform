@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AreaCode, CountryIso } from 'meta/area'
+import { AreaCode, Areas, CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import type { User, UserProps } from './user'
@@ -53,10 +53,10 @@ const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(us
 const hasEditorRole = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): boolean => {
   const { countryIso, cycle, user } = props
 
+  if (!user || !Areas.isISOCountry(countryIso)) return false
   if (isAdministrator(user)) return true
 
   const role = getRole(user, countryIso, cycle)
-
   return role && role.role !== RoleName.VIEWER
 }
 

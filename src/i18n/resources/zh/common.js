@@ -19,6 +19,7 @@ module.exports = {
   globalFRA: '全球森林资源评估',
   language: '语言',
   lastEdit: '最后编辑',
+  issues: '问题',
   login: '保留区',
   name: '姓名',
   other: '其他',

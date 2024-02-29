@@ -2,9 +2,9 @@
 
 (Sorted in order of SFM indicators, not in alphabetical order)
 
-## Criterion I
+## Criterion I <!-- section:CriterionI -->
 
-# 1.1 Indicator 1.1
+# 1.1 Indicator 1.1 <!-- section:1.1 -->
 
 ### Forest
 
@@ -116,7 +116,7 @@ _(Source: FRA 2025)_
 
 _(Source: SoEF 2003, modified)_
 
-# 1.2 Indicator 1.2
+# 1.2 Indicator 1.2 <!-- section:1.2 -->
 
 ### Growing stock
 
@@ -144,7 +144,7 @@ _(Source: TBFRA 2000)_
 
 _(Source: TBFRA 2000)_
 
-# 1.3 Indicator 1.3
+# 1.3 Indicator 1.3 <!-- section:1.3 -->
 
 ### Stand
 
@@ -200,7 +200,7 @@ _(Source: IUFRO, 2000, modified)_
 
 _(Source: IUFRO, 2000, modified)_
 
-# 1.4 Indicator 1.4
+# 1.4 Indicator 1.4 <!-- section:1.4 -->
 
 ### Carbon in above-ground biomass
 
@@ -260,13 +260,13 @@ _(Source: FRA 2025)_
 
 _(Source: IPCC 2003)_
 
-# Criterion II
+# Criterion II <!-- section:CriterionII -->
 
-# 2.1 - 2.3
+# 2.1 - 2.3 <!-- section:2.1 -->
 
 > Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in separate document prepared for your information.
 
-# 2.4 Indicator 2.4
+# 2.4 Indicator 2.4 <!-- section:2.4 -->
 
 ### Damage to forest
 
@@ -314,15 +314,15 @@ _(Source: MCPFE 2003, TBFRA 2000)_
 
 > Forest or other wooded land damaged by more than one group of causing agents (e.g. both biotic and abiotic) and/or identification of primary cause not possible. Note: if the causing agent is unidentified but known to belong to insects or diseases, area should be reported in that category.
 
-# 2.5 Indicator 2.5
+# 2.5 Indicator 2.5 <!-- section:2.5 -->
 
 ### Degraded forest land
 
 > no additional information
 
-# Criterion III
+# Criterion III <!-- section:CriterionIII -->
 
-# 3.1 Indicator 3.1
+# 3.1 Indicator 3.1 <!-- section:3.1 -->
 
 ### Fellings (annual)
 
@@ -352,7 +352,7 @@ _(Source: TBFRA 2000, modified)_
 
 _(Source: TBFRA 2000, modified, FRA 2015)_
 
-# 3.2 Indicator 3.2
+# 3.2 Indicator 3.2 <!-- section:3.2 -->
 
 ### Total wood removals
 
@@ -398,7 +398,7 @@ _(Source: FRA 2015, Working paper 180, page 13)_
 
 _(Source: FRA 2010 - Non-wood forest products, Working paper 180, page 12, modified)_
 
-# 3.3 Indicator 3.3
+# 3.3 Indicator 3.3 <!-- section:3.3 -->
 
 ### Non-wood goods (NWG)
 
@@ -438,7 +438,7 @@ _(Source: FRA 2025)_
 
 _(Source: FRA 2025)_
 
-# 3.4 Indicator 3.4
+# 3.4 Indicator 3.4 <!-- section:3.4 -->
 
 ### Marketed forest services
 
@@ -457,9 +457,9 @@ _(Source: FRA 2025)_
 
 _(Source: Study on the Development and Marketing of Non-Market Forest Products and Services, European Commission 2008)_
 
-# Criteria IV-V
+# Criteria IV-V <!-- section:CriteriaIV-V -->
 
-# 4.1 Indicator 4.1
+# 4.1 Indicator 4.1 <!-- section:4.1 -->
 
 ### Tree
 
@@ -469,7 +469,7 @@ _(Source: Study on the Development and Marketing of Non-Market Forest Products a
 
 _(Source: TBFRA 2000)_
 
-# 4.2 Indicator 4.2
+# 4.2 Indicator 4.2 <!-- section:4.2 -->
 
 ### Forest expansion
 
@@ -531,7 +531,7 @@ _(Source: FRA 2020, Reforestation)_
 
 _(Source: TBFRA 2000)_
 
-# 4.3 Indicator 4.3
+# 4.3 Indicator 4.3 <!-- section:4.3 -->
 
 ### Naturalness
 
@@ -581,7 +581,7 @@ _(Source: FRA 2025, Primary forest)_
 
 _(Source: FRA 2025, Plantation forest)_
 
-# 4.4 Indicator 4.4
+# 4.4 Indicator 4.4 <!-- section:4.4 -->
 
 ### Introduced tree species
 
@@ -605,7 +605,7 @@ _(Source: MCPFE 2003, definition of invasive alien species from UNEP/CBD/COP/6/1
 
 _(Source: UNEP/CBD/COP/6/18/Add.1/Rev.1; 2002)_
 
-# 4.5 Indicator 4.5
+# 4.5 Indicator 4.5 <!-- section:4.5 -->
 
 ### Deadwood
 
@@ -615,15 +615,15 @@ _(Source: UNEP/CBD/COP/6/18/Add.1/Rev.1; 2002)_
 
 1. Excludes woody biomass contained in the litter, stumps or dead roots.
 
-# 4.6 Indicator 4.6
+# 4.6 Indicator 4.6 <!-- section:4.6 -->
 
 > Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-# 4.7 Indicator 4.7
+# 4.7 Indicator 4.7 <!-- section:4.7 -->
 
 > Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-# 4.8 Indicator 4.8
+# 4.8 Indicator 4.8 <!-- section:4.8 -->
 
 ### Forest species
 
@@ -655,9 +655,9 @@ _(Source: MCPFE 2003, from IUCN, 1998)_
 
 _(Source: MCPFE 2003, from IUCN, 1998)_
 
-# 4.9 Indicator 4.9
+# 4.9 Indicator 4.9 <!-- section:4.9 -->
 
-# 5.1 Indicator 5.1
+# 5.1 Indicator 5.1 <!-- section:5.1 -->
 
 **MCPFE Class**
 
@@ -719,15 +719,15 @@ _(Source: MCPFE 2003, from IUCN, 1998)_
 
 _(Source: MCPFE 2003)_
 
-# 4.10 Indicator 4.10
+# 4.10 Indicator 4.10 <!-- section:4.10 -->
 
 ### Common forest bird species
 
 > Species dependent exlusivelly on forest habitats during their lives that are listed at http://www.ebcc.info/index.php?ID=612 or (for sub-regions) at http://www.ebcc.info/index.php?ID=632.
 
-# Criterion VI
+# Criterion VI <!-- section:CriterionVI -->
 
-# 6.1 Indicator 6.1
+# 6.1 Indicator 6.1 <!-- section:6.1 -->
 
 ### Forest ownership
 
@@ -775,7 +775,7 @@ _(Source: FRA 2025)_
 
 _(Source: TBFRA 2000, definition as published in SoEF 2007)._
 
-## 6.2 Indicator 6.2
+## 6.2 Indicator 6.2 <!-- section:6.2 -->
 
 ### Gross Domestic Product
 
@@ -837,7 +837,7 @@ _(Source: International Standard Industrial Classification of All Economic Activ
 
 _(Source: International Standard Industrial Classification of All Economic Activities (ISIC), Revision 4, Department of Economic and Social Affairs, Statistical Division, United Nations, New York, 2008, page 105)_
 
-## 6.3 Indicator 6.3
+## 6.3 Indicator 6.3 <!-- section:6.3 -->
 
 ### Factor income
 
@@ -851,7 +851,7 @@ _(Source: International Standard Industrial Classification of All Economic Activ
 
 > Net entrepreneurial income measures the return to the forestry business owner, and consists of the compensation of unpaid labour, remuneration from land belonging to units and the yield arising from the use of capital. It can be derived from factor income by subtracting compensation of employees to get operating surplus, and then adding any interest received by forestry units organized as companies and deducting any rent and interest payments.
 
-# 6.4 Indicator 6.4
+# 6.4 Indicator 6.4 <!-- section:6.4 -->
 
 ### Capital transfers
 
@@ -871,7 +871,7 @@ _(Source: International Standard Industrial Classification of All Economic Activ
 
 > “Other gross fixed capital formation” includes software, management plans, major improvements to forest land (drainage, preparing soil, protection structure etc.) and other.
 
-# 6.5 indicator 6.5
+# 6.5 indicator 6.5 <!-- section:6.5 -->
 
 ### Labour Force Survey
 
@@ -907,7 +907,7 @@ _(Source: International Standard Industrial Classification of All Economic Activ
 
 1. For the purpose of this reporting unpaid family workers should be included in self-employed.
 
-# 6.6 indicator 6.6
+# 6.6 indicator 6.6 <!-- section:6.6 -->
 
 ### Occupational accident
 
@@ -925,15 +925,15 @@ _(Source: ILO, 1998)._
 
 _(Source: ILO, 1998)._
 
-# 6.7 indicator 6.7
+# 6.7 indicator 6.7 <!-- section:6.7 -->
 
 > Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-# 6.8 indicator 6.8
+# 6.8 indicator 6.8 <!-- section:6.8 -->
 
 > Definitions for these indicators are in the Technical Specifications for reporting by IDP, which is available in a separate document prepared for your information.
 
-# 6.9 indicator 6.9
+# 6.9 indicator 6.9 <!-- section:6.9 -->
 
 ### Total (national) Primary Energy Supply
 
@@ -1003,7 +1003,7 @@ _Source: UNECE/FAO/EUROSTAT/ITTO Joint Forest Sector Questionnaire (http://timbe
 
 _Source: UNECE/FAO Joint Wood Energy Enquiry 2011, Taken from FAO Unified Bioenergy Terminology (http://www.unece.org/fileadmin/DAM/timber/wood_energy/jwee-2011-eng.xlsx and http://www.unece.org/fileadmin/DAM/timber/wood_energy/JWEE2011manual.pdf)._
 
-# 6.10 Indicator 6.10
+# 6.10 Indicator 6.10 <!-- section:6.10 -->
 
 ### Area available for public recreation
 

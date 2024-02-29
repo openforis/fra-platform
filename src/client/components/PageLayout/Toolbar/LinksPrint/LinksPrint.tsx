@@ -8,18 +8,11 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 import { Breakpoints } from 'client/utils'
 
-type Props = {
-  withSeparator: boolean
-}
-
-const LinksPrint: React.FC<Props> = (props) => {
-  const { withSeparator } = props
+const LinksPrint: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>
-      {withSeparator && <div className="toolbar__separator" />}
-
       <Link
         className="btn btn-secondary"
         to={Routes.PrintTables.generatePath({ countryIso, assessmentName, cycleName })}
