@@ -1,6 +1,7 @@
 import { AreaCode } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { RepositoryItem } from 'meta/cycleData'
+import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -18,14 +19,15 @@ type Props = {
 }
 
 export const update = async (props: Props): Promise<RepositoryItem> => {
-  const { assessment, countryIso, user } = props
+  const { assessment, cycle, countryIso, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {
     const target = await RepositoryRepository.update(props, t)
 
-    const message = ActivityLogMessage.assessmentFileUpdate
-    const activityLog = { target, section: 'assessment', message, countryIso, user }
-    const activityLogParams = { activityLog, assessment }
+    const message = ActivityLogMessage.repositoryItemUpdate
+    const section = SectionNames.Country.Home.repository
+    const activityLog = { target, section, message, countryIso, user }
+    const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams, t)
 
     return target
