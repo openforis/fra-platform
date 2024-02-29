@@ -68,7 +68,8 @@ export default async () => {
       insert into ${Schemas.getNameCycle(assessmentFRA, cycle2020)}.repository (country_iso, file_uuid, props)
       select r.country_iso,
              f.uuid,
-              props || jsonb_build_object('props', af.props, 'translation', jsonb_build_object('en', f.name))
+              props || jsonb_build_object('translation', jsonb_build_object('en', f.name))
+      
       from _legacy.repository r
                inner join public.file f on r.file_name = f.name
                left join assessment_fra.file af using (uuid)
