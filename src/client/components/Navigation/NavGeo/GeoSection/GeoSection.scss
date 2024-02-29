@@ -17,7 +17,7 @@
 
 .nav-geo-section__items {
   @include mixin-nav-secondary-base(0px, true);
-  padding: $spacing-xxs 0 $spacing-xxs $spacing-m;
+  padding: $spacing-xxs $spacing-m $spacing-xxs $spacing-m;
 }
 
 .nav-geo-section__items-hidden {

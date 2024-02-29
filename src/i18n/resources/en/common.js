@@ -1,6 +1,7 @@
 module.exports = {
   accepted: 'Accepted',
   apply: 'Apply',
+  applyChanges: 'Apply changes',
   areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   cancel: 'Cancel',
   clearTable: 'Clear table',
@@ -36,6 +37,7 @@ module.exports = {
   selectFiles: 'Select files',
   showLess: 'Show less',
   showMore: 'Show more',
+  sources: 'Sources',
   statisticalFactsheets: 'Statistical factsheets',
   status: 'Status',
   submit: 'Submit',

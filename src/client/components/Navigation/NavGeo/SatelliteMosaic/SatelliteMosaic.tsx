@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useMosaicSelected, useMosaicStatus } from 'client/store/ui/geo'
+import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import LayerToggleControl from 'client/components/Navigation/NavGeo/LayerToggleControl'
+import MosaicControl from 'client/components/Navigation/NavGeo/SatelliteMosaic/MosaicControl'
 
 const SatelliteMosaic: React.FC = () => {
   const { t } = useTranslation()
@@ -17,8 +19,9 @@ const SatelliteMosaic: React.FC = () => {
         label={t('geo.showSatelliteMosaic')}
         checked={selected ?? false}
         onCheckboxClick={() => dispatch(GeoActions.toggleMosaicLayer())}
-        status={status}
+        status={status ?? LayerFetchStatus.Unfetched}
       />
+      <MosaicControl />
     </div>
   )
 }
