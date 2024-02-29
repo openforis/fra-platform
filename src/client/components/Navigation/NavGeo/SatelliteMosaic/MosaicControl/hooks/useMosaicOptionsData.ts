@@ -1,8 +1,10 @@
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { MosaicOptions, MosaicSource } from 'meta/geo'
 
 import { useAppliedMosaicOptions, useUiMosaicOptions } from 'client/store/ui/geo'
+import { Option } from 'client/components/Inputs/Select'
 
 type Sources = {
   key: MosaicSource
@@ -12,7 +14,7 @@ type Sources = {
 type Returned = {
   optionsHaveChanged: boolean
   sources: Array<Sources>
-  years: Array<number>
+  yearOptions: Array<Option>
 }
 
 const useMosaicOptionsData = (): Returned => {
@@ -21,12 +23,21 @@ const useMosaicOptionsData = (): Returned => {
   const uiMosaicOptions = useUiMosaicOptions()
   const appliedMosaicOptions = useAppliedMosaicOptions()
 
-  const startYear = 2000
-  const endYear = 2022
+  const yearOptions = useMemo<Array<Option>>(() => {
+    const startYear = 2000
+    const endYear = 2022
 
-  const years = Array(endYear - startYear + 1)
-    .fill(startYear)
-    .map((_, i) => startYear + i)
+    const years = Array(endYear - startYear + 1)
+      .fill(startYear)
+      .map((_, i) => startYear + i)
+
+    const yearOptions = years.map((year) => ({
+      label: year.toString(),
+      value: year.toString(),
+    }))
+
+    return yearOptions
+  }, [])
 
   const sources: Array<Sources> = [
     { key: 'sentinel', label: t('geo.sentinel') },
@@ -43,7 +54,7 @@ const useMosaicOptionsData = (): Returned => {
     }
   )
 
-  return { optionsHaveChanged, sources, years }
+  return { optionsHaveChanged, sources, yearOptions }
 }
 
 export default useMosaicOptionsData

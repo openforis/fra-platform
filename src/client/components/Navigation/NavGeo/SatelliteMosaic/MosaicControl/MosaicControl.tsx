@@ -6,7 +6,9 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions, useMosaicStatus, useUiMosaicOptions } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import InputRange from 'client/components/Inputs/InputRange'
+import Select from 'client/components/Inputs/Select'
 
 import useMosaicOptionsData from './hooks/useMosaicOptionsData'
 
@@ -16,7 +18,7 @@ const MosaicControl: React.FC = () => {
 
   const uiMosaicOptions = useUiMosaicOptions()
   const status = useMosaicStatus()
-  const { optionsHaveChanged, sources, years } = useMosaicOptionsData()
+  const { optionsHaveChanged, sources, yearOptions } = useMosaicOptionsData()
 
   return (
     <div className="geo-mosaic-control">
@@ -34,11 +36,13 @@ const MosaicControl: React.FC = () => {
       </div>
 
       <p>{t('common.year')}</p>
-      <select value={uiMosaicOptions.year} onChange={(e) => dispatch(GeoActions.setMosaicYear(Number(e.target.value)))}>
-        {years.map((year) => (
-          <option key={year}>{year}</option>
-        ))}
-      </select>
+      <div className="geo-mosaic-control__year-selector-container">
+        <Select
+          onChange={(value) => dispatch(GeoActions.setMosaicYear(Number(value)))}
+          options={yearOptions}
+          value={uiMosaicOptions.year.toString()}
+        />
+      </div>
 
       <p>{t('geo.maxCloudCoverage')}</p>
       <div className="geo-mosaic-control__max-cloud-coverage">
@@ -49,14 +53,12 @@ const MosaicControl: React.FC = () => {
         />
       </div>
 
-      <button
-        type="button"
-        className="btn btn-primary"
+      <Button
         disabled={!optionsHaveChanged}
+        label={t('common.apply')}
         onClick={() => dispatch(GeoActions.applyMosaicOptions())}
-      >
-        {t('common.applyChanges')}
-      </button>
+        size={ButtonSize.m}
+      />
 
       {status === LayerFetchStatus.Failed && (
         <p className="geo-mosaic-control__error-message">{t('geo.error.mosaic.noMosaicAvailableForConfiguration')}</p>
