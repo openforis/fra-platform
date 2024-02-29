@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+.input-range {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .input-range-value {
+    font-weight: bold;
+    margin-left: $spacing-xxs;
+    white-space: nowrap;
+  }
+}
