@@ -8,9 +8,6 @@ export enum SectionNames {
   'contactPersons' = 'contactPersons',
   'contacts' = 'contacts',
   'originalDataPoints' = 'originalDataPoints',
-
-  // Country home sections
-  repository = 'repository',
 }
 
 export interface SectionProps {
