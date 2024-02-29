@@ -11,14 +11,13 @@ import { useDescriptions } from './hooks/useDescriptions'
 
 type Props = {
   descriptions: Description
-  sectionName: string
 }
 
 const Descriptions: React.FC<Props> = (props: Props) => {
-  const { sectionName, descriptions } = props
+  const { descriptions } = props
 
   const { print, onlyTables } = useIsPrintRoute()
-  const { analysisAndProcessing, nationalData } = useDescriptions({ descriptions, sectionName })
+  const { analysisAndProcessing, nationalData } = useDescriptions({ descriptions })
 
   if (!nationalData && !analysisAndProcessing) {
     return null
@@ -27,20 +26,10 @@ const Descriptions: React.FC<Props> = (props: Props) => {
   return (
     <>
       <div className="descriptions">
-        {nationalData && (
-          <NationalDataDescriptions
-            nationalData={nationalData}
-            sectionName={sectionName}
-            showDashEmptyContent={print}
-          />
-        )}
+        {nationalData && <NationalDataDescriptions nationalData={nationalData} showDashEmptyContent={print} />}
 
         {analysisAndProcessing && (
-          <AnalysisDescriptions
-            analysisAndProcessing={analysisAndProcessing}
-            sectionName={sectionName}
-            showDashEmptyContent={print}
-          />
+          <AnalysisDescriptions analysisAndProcessing={analysisAndProcessing} showDashEmptyContent={print} />
         )}
       </div>
       {print && !onlyTables && <div className="page-break" />}

@@ -3,6 +3,7 @@
 .data-sources__readOnlyText {
   background-color: lighten($ui-bg, 2%);
   display: grid;
+  grid-column: 1 / -1;
   grid-row-gap: $spacing-xs;
   margin-top: $spacing-xxs;
   padding: $spacing-xs;

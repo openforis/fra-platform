@@ -5,6 +5,10 @@
   font-weight: 700;
   cursor: pointer;
 
+  svg {
+    color: $text-body;
+  }
+
   &:focus {
     outline: none;
   }

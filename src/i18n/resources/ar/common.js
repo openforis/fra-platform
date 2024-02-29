@@ -15,6 +15,7 @@ module.exports = {
   filterCountries: 'غربلة البلدان',
   fraPlatform: 'منصة تقييم الموارد الحرجية',
   globalFRA: 'تقييم الموارد الحرجية العالمية',
+  issues: 'مشاكل',
   language: 'اللغة',
   lastEdit: 'آخر تعديل',
   login: 'المنطقة المحجوزة',

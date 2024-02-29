@@ -7,11 +7,9 @@ import { Contact, ContactField, Contacts } from 'meta/cycleData'
 import { RoleName } from 'meta/user'
 
 import { useContacts } from 'client/store/data'
+import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-
-type Props = {
-  canEdit: boolean
-}
+import { useSectionContext } from 'client/pages/Section/context'
 
 type Returned = Array<Contact>
 
@@ -31,17 +29,17 @@ const compareContacts = (contactA: Contact, contactB: Contact): number => {
   return 0
 }
 
-export const useContactsData = (props: Props): Returned => {
-  const { canEdit } = props
-
+export const useContactsData = (): Returned => {
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
   const contacts = useContacts()
+  const { sectionName } = useSectionContext()
+  const editEnabled = useIsEditTableDataEnabled(sectionName)
 
   return useMemo<Returned>(() => {
     const contactsReturn = [...contacts]
 
-    if (!canEdit) {
+    if (!editEnabled) {
       contactsReturn.sort(compareContacts)
     }
 
@@ -64,5 +62,5 @@ export const useContactsData = (props: Props): Returned => {
     }
 
     return contactsReturn
-  }, [canEdit, contacts, print, t])
+  }, [contacts, editEnabled, print, t])
 }
