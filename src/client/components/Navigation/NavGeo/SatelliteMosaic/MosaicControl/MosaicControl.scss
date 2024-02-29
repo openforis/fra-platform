@@ -1,0 +1,41 @@
+@import 'src/client/style/partials';
+
+.geo-mosaic-control {
+  align-items: center;
+  display: grid;
+  gap: 0 $spacing-s;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
+  margin: $spacing-xxs 0 $spacing-xxs $spacing-xxxs;
+
+  .geo-mosaic-control__source {
+    padding-left: 0px;
+  }
+
+  > button {
+    grid-column: 2;
+  }
+
+  > p {
+    font-weight: bold;
+  }
+}
+
+.geo-mosaic-control__error-message {
+  color: $ui-destructive;
+  grid-column: span 2;
+}
+
+.geo-mosaic-control__max-cloud-coverage {
+  // Prevents layout shifts when the number of characters change.
+  .input-range {
+    .input-range-value {
+      margin-right: $spacing-xxs;
+      width: $spacing-s;
+    }
+  }
+}
+
+.geo-mosaic-control__year-selector-container {
+  min-width: $spacing-xxxl;
+}

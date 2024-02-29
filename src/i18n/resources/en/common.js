@@ -37,6 +37,7 @@ module.exports = {
   selectFiles: 'Select files',
   showLess: 'Show less',
   showMore: 'Show more',
+  sources: 'Sources',
   statisticalFactsheets: 'Statistical factsheets',
   status: 'Status',
   submit: 'Submit',
