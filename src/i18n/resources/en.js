@@ -8,6 +8,7 @@ const dataSource = require('./en/dataSource')
 const email = require('./en/email')
 const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
+const landing = require('./en/landing')
 const login = require('./en/login')
 const panEuropean = require('./en/panEuropean/panEuropean')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
@@ -24,6 +25,7 @@ module.exports.translation = {
   email,
   fra,
   generalValidation,
+  landing,
   login,
   panEuropean,
   statisticalFactsheets,
@@ -206,126 +208,6 @@ The FRA team fra@fao.org
     treesUrbanSettings: '…of which trees in urban settings',
   },
 
-  landing: {
-    home: 'Home',
-    sections: {
-      overview: 'Overview',
-      messageBoard: 'Message board',
-      about: 'About FRA',
-      recentActivity: 'Recent activity',
-      userManagement: 'Manage collaborators',
-      externalData: 'External data',
-      links: 'Links & Repository',
-      contentCheck: 'Content / Check',
-      versioning: 'Versioning',
-    },
-    overview: {
-      loadingMap: 'Loading map…',
-      withFinancialSupportOf: 'With the financial support of ',
-    },
-    milestones: {
-      milestones: 'Milestones',
-      milestone1: 'Global meeting of National Correspondents',
-      milestone2: 'Regional and sub-regional workshops',
-      milestone3: 'Deadline for submission of country reports',
-      milestone4: 'Validation of final country reports',
-      milestone5: 'FRA 2020 Preliminary Findings',
-      milestone6: 'FRA 2020 Main Report',
-      milestone7: 'Data analysis and report drafting',
-      milestone8: 'Launch of analysis and dissemination platform',
-      date1: 'March',
-      date2: 'April – September',
-      date3: 'October',
-      date4: 'January – February',
-      date5: 'March',
-      date6: 'July',
-      date7: 'March - December',
-      date8: 'August',
-    },
-    users: {
-      users: 'Contacts',
-      message: 'Message',
-    },
-    about: {
-      contact: 'Contact',
-      seniorForestryOfficer: 'Senior Forestry Officer',
-      faoForestryDepartment: 'FAO Forestry Department',
-      email: 'Email',
-      fraProcess:
-        'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
-      linkFraProcess: 'Read more about the FRA process',
-      or: 'Or',
-      selectArea: 'Select an area below to access FRA data',
-    },
-    recentActivity: {
-      noRecentActivityTitle: 'Looks like there’s no recent activity',
-      noRecentActivityBody:
-        'Changes done in the platform will appear here, so that you can get up to speed on what’s been happening while you were away.',
-      getStarted: 'Get started',
-      actions: {
-        added: 'added',
-        addedFile: 'added {{file}}',
-        commented: 'commented on',
-        deleted: 'deleted',
-        deletedFile: 'deleted {{file}}',
-        edited: 'edited',
-        resolved: 'resolved issue in',
-        status: 'changed status to',
-        addUser: 'added {{user}} as {{role}}',
-        updateUser: 'edited {{user}}',
-        removeUser: 'removed {{user}}',
-        acceptInvitation: 'joined as {{role}}',
-        addInvitation: 'invited {{user}} as {{role}}',
-        removeInvitation: 'removed invitation of {{user}} as {{role}}',
-        updateInvitation: 'invite updated for {{user}} as {{role}}',
-        updateAssessmentStatus: 'changed the status of {{assessment}} to {{status}}',
-      },
-      fraProcess:
-        'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
-      linkFraProcess: 'Read more about the FRA process',
-    },
-    links: {
-      links: 'Links',
-      unfcccFocalPoints: 'UNFCCC focal points',
-      sdgFocalPoints: 'National SDG focal points',
-      reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO',
-      fraGeoSpatialTools: 'FRA Geospatial tools',
-      repository: 'Repository',
-      uploadFile: 'Upload a file',
-      fileUploaded: 'File successfully uploaded',
-      confirmDelete: 'Delete {{file}}? This cannot be undone.',
-      fileDeleted: 'File successfully deleted',
-      fileOperationFailed: `The operation cannot be performed because the file is used in:\n{{sectionNames}}`,
-    },
-    dataExport: {
-      downloadData: 'Download data',
-    },
-    versioning: {
-      status: {
-        pending: 'Pending',
-        running: 'Running',
-        completed: 'Completed',
-        failed: 'Failed',
-      },
-      form: {
-        newVersion: 'New version',
-        versionNumber: 'Version',
-        date: 'Date',
-        cancel: 'Cancel',
-        error: 'There are errors in the form. Please, fix them and submit it again.',
-      },
-      table: {
-        noVersions: 'No versions yet',
-        databaseVersions: 'Database Versions',
-        versionNumber: 'Version Number',
-        publishedAt: 'Scheduled Time',
-        createdBy: 'Created By',
-        status: 'Status',
-        delete: 'Delete',
-        scheduledAt: 'Scheduled at',
-      },
-    },
-  },
   messageBoard: {
     messageBoard: '$t(landing.sections.messageBoard)',
   },
