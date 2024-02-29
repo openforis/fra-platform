@@ -7,9 +7,10 @@
   display: flex;
   font-size: $font-s;
   font-weight: 600;
+  height: $spacing-m;
   justify-self: start;
   letter-spacing: 0.25px;
-  padding: $spacing-xxxs $spacing-xxs;
+  padding: 0 12px;
   text-transform: uppercase;
   transition: $ease-out;
 

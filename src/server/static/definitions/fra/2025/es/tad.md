@@ -2,7 +2,7 @@
 
 _FRA 2025_
 
-## Introducción
+## Introducción <!-- section:Introduction -->
 
 Las Evaluaciones de los Recursos Forestales Mundiales de la FAO han contribuido, en gran medida, a mejorar las definiciones, los conceptos y los métodos relacionados con las evaluaciones de los recursos forestales.
 
@@ -18,9 +18,9 @@ Para más detalles sobre el Programa de FRA, sírvase consultar: http://www.fao.
 
 ---
 
-# 1 Extensión de bosque, características y cambios
+# 1 Extensión de bosque, características y cambios <!-- section:1 -->
 
-## 1a Extensión de bosque y otras tierras boscosas
+## 1a Extensión de bosque y otras tierras boscosas <!-- section:1a -->
 
 ### BOSQUE
 
@@ -71,7 +71,7 @@ Polar: Todos los meses con una temperatura media inferior a 10°C
 
 Fuente: http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
 
-## 1b CARACTERÍSTICAS DE LOS BOSQUES
+## 1b CARACTERÍSTICAS DE LOS BOSQUES <!-- section:1b -->
 
 ### BOSQUE CON PROCESOS DE REGENERACIÓN NATURAL
 
@@ -130,7 +130,7 @@ En este contexto, predominantemente significa que se espera que los árboles pla
 
 > **Bosques plantados** no clasificados como **plantación forestal**.
 
-## 1e Categorías específicas de los bosques
+## 1c Categorías específicas de los bosques <!-- section:1c -->
 
 ### BAMBÚES
 
@@ -151,7 +151,7 @@ Nota explicativa
 
 1.	En este contexto, el término “predominantemente” significa que los árboles de caucho constituyen más del 50 por ciento de las existencias forestales en formación al alcanzar madurez
 
-## 1d EXPANSIÓN FORESTAL, DEFORESTACIÓN Y CAMBIO NETO ANUAL
+## 1d EXPANSIÓN FORESTAL, DEFORESTACIÓN Y CAMBIO NETO ANUAL <!-- section:1d -->
 
 ### EXPANSIÓN FORESTAL
 
@@ -182,7 +182,7 @@ Nota explicativa
 
 1.	El "Cambio neto" es la diferencia de área de bosque entre dos años de referencia de FRA. El cambio neto puede ser positivo (ganancia), negativo (pérdida) o cero (sin cambios).
 
-## 1e OTRAS TIERRAS CON COBERTURA ARBÓREA
+## 1e OTRAS TIERRAS CON COBERTURA ARBÓREA <!-- section:1e -->
 
 ### OTRAS TIERRAS CON COBERTURA DE ÁRBOLES
 
@@ -224,9 +224,9 @@ Notas explicativas
 
 ---
 
-# 2 EXISTENCIAS FORESTALES EN FORMACIÓN, BIOMASA Y CARBONO
+# 2 EXISTENCIAS FORESTALES EN FORMACIÓN, BIOMASA Y CARBONO <!-- section:2 -->
 
-## 2a EXISTENCIAS FORESTALES EN FORMACIÓN
+## 2a EXISTENCIAS FORESTALES EN FORMACIÓN <!-- section:2a -->
 
 ### EXISTENCIAS FORESTALES EN FORMACIÓN
 
@@ -238,7 +238,7 @@ Notas explicativas
 2.	Incluye árboles vivos tumbados.
 3.	Excluye ramas, ramillas, hojas, flores, semillas y raíces.
 
-## 2b COMPOSICIÓN DE LAS EXISTENCIAS FORESTALES EN FORMACIÓN
+## 2b COMPOSICIÓN DE LAS EXISTENCIAS FORESTALES EN FORMACIÓN <!-- section:2b -->
 
 ### ESPECIE DE ÁRBOL NATIVA (Término complementario)
 
@@ -257,7 +257,7 @@ Notas explicativas
 1.	Si la especie está presente de forma natural dentro de las fronteras del país se considera nativa para todo el país. 
 2.	Los bosques con procesos de regeneración natural compuestos por especies de árboles introducidas deben considerarse como “introducidos” hasta 250 años después de la fecha de introducción original. Más allá de 250 años, las especies pueden considerarse naturalizadas.
 
-## 2c BIOMASA
+## 2c BIOMASA <!-- section:2c -->
 
 ### BIOMASA AÉREA
 
@@ -284,7 +284,7 @@ Nota explicativa
 
 1.	El país puede utilizar otro valor de umbral distinto a 10 cm para los tocones, siempre y cuando este valor sea documentado.
 
-## 2d CARBONO
+## 2d CARBONO <!-- section:2d -->
 
 ### CARBONO DE LA BIOMASA ÁEREA
 
@@ -329,9 +329,9 @@ Nota explicativa
 
 ---
 
-# 3 DESIGNACIÓN Y GESTIÓN FORESTAL 
+# 3 DESIGNACIÓN Y GESTIÓN FORESTAL  <!-- section:3 -->
 
-## 3a OBJETIVO DE GESTIÓN DESIGNADO
+## 3a OBJETIVO DE GESTIÓN DESIGNADO <!-- section:3a -->
 
 ### ÁREA TOTAL CON OBJETIVO DE GESTIÓN DESIGNADO 
 
@@ -417,7 +417,7 @@ Nota explicativa
 > **Bosque** cuyo objetivo principal de gestión es desconocido.
 
 
-## 3b ÁREA DE BOSQUE DENTRO DE ÁREAS PROTEGIDAS LEGALMENTE ESTABLECIDAS Y ÁREA DE BOSQUE CON PLANES DE GESTIÓN A LARGO PLAZO
+## 3b ÁREA DE BOSQUE DENTRO DE ÁREAS PROTEGIDAS LEGALMENTE ESTABLECIDAS Y ÁREA DE BOSQUE CON PLANES DE GESTIÓN A LARGO PLAZO <!-- section:3b -->
 
 ### ÁREA DE BOSQUE DENTRO DE ÁREAS PROTEGIDAS LEGALMENTE ESTABLECIDAS
 
@@ -446,7 +446,7 @@ Notas explicativas
 
 > Área de bosque dentro de áreas protegidas con un plan de gestión a largo plazo (diez años o más) documentado, orientado a objetivos de gestión definidos, y que se revisa periódicamente.
 
-## 3c RESTAURACIÓN FORESTAL
+## 3c RESTAURACIÓN FORESTAL <!-- section:3c -->
 
 ### RESTAURACIÓN
 
@@ -458,9 +458,9 @@ Notas explicativas
 
 ---
 
-# 4 PROPIEDAD FORESTAL Y DERECHOS DE GESTIÓN
+# 4 PROPIEDAD FORESTAL Y DERECHOS DE GESTIÓN <!-- section:4 -->
 
-## 4a PROPIEDAD DE LOS BOSQUES
+## 4a PROPIEDAD DE LOS BOSQUES <!-- section:4a -->
 
 ### PROPIEDAD DEL BOSQUE (Término complementario)
 
@@ -523,7 +523,7 @@ Nota explicativa
 
 1.	Incluye zonas cuya propiedad no está clara o son objeto de disputa.
 
-## 4b DERECHOS DE GESTIÓN DE BOSQUES PÚBLICOS
+## 4b DERECHOS DE GESTIÓN DE BOSQUES PÚBLICOS <!-- section:4b -->
 
 ### DERECHOS DE GESTIÓN DE BOSQUES PÚBLICOS (Término complementario)
 
@@ -556,9 +556,9 @@ Notas explicativas
 > Se desconocen los derechos de gestión de la zona forestal pública.
 ---
 
-# 5 PERTURBACIONES FORESTALES
+# 5 PERTURBACIONES FORESTALES <!-- section:5 -->
 
-## 5a DAÑOS FORESTALES
+## 5a DAÑOS FORESTALES <!-- section:5a -->
 
 ### DAÑO (al bosque) 
 
@@ -580,7 +580,7 @@ Nota explicativa
 
 > Daño causado por factores abióticos, tales como sequías, nieve, tormentas, etc.
 
-## 5b ÁREA AFECTADA POR INCENDIOS
+## 5b ÁREA AFECTADA POR INCENDIOS <!-- section:5b -->
 
 ### ÁREA QUEMADA
 
@@ -590,7 +590,7 @@ Nota explicativa
 
 > Área de bosque afectada por incendios.
 
-## 5c BOSQUE DEGRADADO
+## 5c BOSQUE DEGRADADO <!-- section:5c -->
 
 ### BOSQUE DEGRADADO
 
@@ -602,9 +602,9 @@ Nota explicativa
 
 ---
 
-# 6 POLÍTICA Y LEGISLACIÓN FORESTAL
+# 6 POLÍTICA Y LEGISLACIÓN FORESTAL <!-- section:6 -->
 
-## 6a  POLÍTICAS, LEGISLACIÓN Y PLATAFORMAS NACIONALES PARA LA PARTICIPACIÓN DE LAS PARTES INTERESADAS EN LA POLÍTICA FORESTAL
+## 6a  POLÍTICAS, LEGISLACIÓN Y PLATAFORMAS NACIONALES PARA LA PARTICIPACIÓN DE LAS PARTES INTERESADAS EN LA POLÍTICA FORESTAL <!-- section:6a -->
 
 ### POLÍTICAS DE APOYO A LA GESTIÓN FORESTAL SOSTENIBLE
 
@@ -622,7 +622,7 @@ Nota explicativa
 
 > Sistema que permite rastrear el origen, la ubicación y el movimiento de los productos madereros mediante identificaciones registradas. Esto implica dos aspectos principales: (1) la identificación del producto mediante el marcado, y (2) el registro de datos sobre el movimiento y la ubicación del producto a lo largo de toda la cadena de producción, transformación y distribución.
 
-## 6b ÁREA DE ZONA FORESTAL PERMANENTE
+## 6b ÁREA DE ZONA FORESTAL PERMANENTE <!-- section:6b -->
 
 ### ZONA FORESTAL PERMANENTE
 
@@ -634,9 +634,9 @@ Nota explicativa
 
 ---
 
-# 7 EXTRACCIÓN Y VALOR DE PRODUCTOS FORESTALES NO MADEREROS
+# 7 EXTRACCIÓN Y VALOR DE PRODUCTOS FORESTALES NO MADEREROS <!-- section:7 -->
 
-## 7a EXTRACCIÓN Y VALOR DE PRODUCTOS FORESTALES NO MADEREROS
+## 7a EXTRACCIÓN Y VALOR DE PRODUCTOS FORESTALES NO MADEREROS <!-- section:7a -->
 
 ### PRODUCTOS FORESTALES NO MADERABLES
 
@@ -666,7 +666,7 @@ Notas explicativas
 
 ---
 
-# 8 TÉRMINOS Y DEFINICIONES ADICIONALES
+# 8 TÉRMINOS Y DEFINICIONES ADICIONALES <!-- section:8 -->
 
 ### COBERTURA DE DOSEL
 

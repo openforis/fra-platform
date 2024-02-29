@@ -2,7 +2,7 @@
 
 _FRA 2025_
 
-# 1a Extent of forest and other wooded land
+# 1a Extent of forest and other wooded land <!-- section:1a -->
 
 ### Can I correct or change previously reported figures?
 
@@ -66,7 +66,7 @@ The thresholds should be selected by the country at the first national communica
 
 Power and telephone lines less than 20 m wide and crossing through forest areas should be classified as “forest”. In all other cases they should be classified as “other land”. 
 
-# 1b Forest characteristics
+# 1b Forest characteristics <!-- section:1b -->
 
 ###  How should I report areas where enrichment planting has been carried out?
 
@@ -108,7 +108,7 @@ Also this definition falls within the FRA definition of “naturally regeneratin
 
 Yes, a disturbed forest with no visible human impact and with a species composition and structure that resembles a mature or close-to-mature forest should be classified as “primary”, while a severely damaged forest with an age structure and species composition which is significantly different from a mature forest should be classified as a “naturally regenerating forest”. See also Explanatory note 1 to the definition of Primary Forest.
 
-# 1c Specific forest categories
+# 1c Specific forest categories <!-- section:1c -->
 
 ### What species should be considered as mangroves? 
 
@@ -153,7 +153,7 @@ FRA uses the definition of mangroves as of Tomlinson’s Botany of Mangroves, wh
 | Excoecaria agallocha         | Pelliciera rhizophorae       |       
 | Excoecaria indica            |                              |
 
-# 1d Annual forest expansion, deforestation and net change
+# 1d Annual forest expansion, deforestation and net change <!-- section:1d -->
 
 ### When do I consider that abandoned land has reverted to forest and therefore should be included under “natural expansion of forest”?
 
@@ -169,7 +169,7 @@ Afforestation is the planting/seeding of trees on areas that previously were eit
 
 No, the terminology on afforestation and reforestation is different. In the IPCC guidelines, both afforestation and reforestation imply a land use change and correspond to the FRA term afforestation, while the IPCC term revegetation corresponds approximately to the FRA term reforestation. 
 
-# 1e Other land with tree cover
+# 1e Other land with tree cover <!-- section:1e -->
 
 ### How should areas under multiple land use (agroforestry, forest grazing, etc.) be classified in a consistent way, when no land use is considered significantly more important than the others?
 
@@ -189,13 +189,13 @@ Yes, if it is not managed for agricultural purposes and the minimum area, crown 
 
 --
 
-# 2a Growing stock
+# 2a Growing stock <!-- section:2a -->
 
 ### Is it possible to estimate growing stock from biomass stock using the conversion factors?
 
 It is possible, but should be done with much caution; particularly the conversion and expansion factors need a growing stock per hectare as part of the input, so here some assumptions need to be made. Using wood density and biomass expansion factors is more straightforward.
 
-# 2b Forest growing stock composition
+# 2b Forest growing stock composition <!-- section:2b -->
 
 ### Does Table 2b on forest growing stock composition refer to natural forests only? 
 
@@ -213,7 +213,7 @@ By volume (growing stock).
 
 Yes, if national data do not allow the distinction of individual species within certain species groups, countries may report on genera (or groups) instead of species, and make a note in relevant comment field to the table.
 
-# 2c Biomass stock & 2d Carbon stock
+# 2c Biomass stock & 2d Carbon stock <!-- section:2c -->
 
 *General methodological aspects*
 
@@ -241,7 +241,7 @@ Generally, biomass equations are considered to give better estimates than defaul
 
 --
 
-# 3a Designated management objective
+# 3a Designated management objective <!-- section:3a -->
 
 ### If the national legislation states that all forests should be managed for production, conservation of biodiversity and protection of soil and water, should I then report all forest area as having “multiple use” as primary designated function?
 
@@ -249,7 +249,7 @@ The definition of primary designation function, explanatory note 2, says that �
 
 --
 
-# 4a Forest ownership & 4b Management rights of public forests
+# 4a Forest ownership & 4b Management rights of public forests <!-- section:4a -->
 
 ### How should I report on ownership where indigenous land overlaps protected areas?
 
@@ -297,7 +297,7 @@ In table 4a, report them as “Public”.  In 4b, report them under “Other” 
 
 --
 
-# 6b Area of permanent forest estate
+# 6b Area of permanent forest estate <!-- section:6b -->
 
 ### The concept of Permanent Forest Estate (PFE) does not fit into the national context. How should I report?
 
@@ -305,7 +305,7 @@ If the concept of Permanent Forest Estate does not fit in the national context t
 
 --
 
-# 7a Non Wood Forest Products removals and value
+# 7a Non Wood Forest Products removals and value <!-- section:7a -->
 
 ### Can we include services, such as water, ecotourism, recreation, hunting, carbon, etc., in the NWFP table?  In other contexts we report on non-wood goods and services where these are included.
 
