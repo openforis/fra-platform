@@ -78,10 +78,6 @@ module.exports = {
   },
   links: {
     links: 'Ссылки',
-    unfcccFocalPoints: 'Список координаторов РКИКООН',
-    sdgFocalPoints: 'Список национальных координаторов ЦУР',
-    reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО',
-    fraGeoSpatialTools: 'Геопространственные инструменты ОЛР',
     repository: 'Хранилище данных',
     uploadFile: 'Загрузить файл',
     confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',

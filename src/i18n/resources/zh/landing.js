@@ -77,10 +77,6 @@ module.exports = {
   },
   links: {
     links: '链接',
-    unfcccFocalPoints: '《气候变化框架公约》联络点（人）',
-    sdgFocalPoints: '国家可持续发展目标联络点（人）',
-    reddPortal: '卫星地面监测系统 (SLMS)，由UN-REDD/FAO授权',
-    fraGeoSpatialTools: 'FRA地理空间工具',
     repository: '资源库',
     uploadFile: '上传文件',
     confirmDelete: '删除 {{file}}? 此操作无法撤销。',
