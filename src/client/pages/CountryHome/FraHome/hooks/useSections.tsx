@@ -35,7 +35,7 @@ export const useSections = (): Array<Section> => {
     if (user) {
       sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
       sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
-      sections.push({ name: SectionNames.Country.Home.links, component: Repository })
+      sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
     }
 
     if (Users.getRolesAllowedToView({ user, countryIso, cycle }).length > 0) {

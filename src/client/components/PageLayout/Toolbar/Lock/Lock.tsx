@@ -16,6 +16,7 @@ const Lock: React.FC = () => {
   const locked = useIsDataLocked()
   const showOdps = useShowOriginalDatapoints()
   const [disabled, setDisabled] = useState<boolean>(false)
+  const [over, setOver] = useState<boolean>(false)
   const lockedOnHideOdpRef = useRef<boolean>(showOdps)
 
   const toggleLock = useCallback(() => dispatch(DataLockActions.toggleDataLock()), [dispatch])
@@ -38,18 +39,21 @@ const Lock: React.FC = () => {
   }, [locked, showOdps, toggleLock])
 
   return (
-    <div className="lock-wrapper">
-      <MediaQuery minWidth={Breakpoints.laptop}>
-        <button
-          type="button"
-          className={classNames('btn btn-secondary btn-lock', { locked })}
-          disabled={disabled}
-          onClick={toggleLock}
-        >
-          <Icon name={locked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin icon-sub" />
-        </button>
-      </MediaQuery>
-    </div>
+    <MediaQuery minWidth={Breakpoints.laptop}>
+      <button
+        className={classNames('btn-lock', { locked })}
+        disabled={disabled}
+        onClick={toggleLock}
+        onMouseEnter={() => setOver(true)}
+        onMouseLeave={() => setOver(false)}
+        type="button"
+      >
+        <Icon
+          className="icon-no-margin icon-sub"
+          name={(locked && !over) || (!locked && over) ? 'lock-circle' : 'lock-circle-open'}
+        />
+      </button>
+    </MediaQuery>
   )
 }
 

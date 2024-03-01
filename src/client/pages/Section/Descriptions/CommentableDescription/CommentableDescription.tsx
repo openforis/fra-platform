@@ -7,6 +7,7 @@ import { useCommentableDescriptionValue } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { useSectionContext } from 'client/pages/Section/context'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 
 import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
@@ -14,15 +15,15 @@ import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
   name: CommentableDescriptionName
-  sectionName: string
   showDashEmptyContent?: boolean
   template?: CommentableDescriptionValue
   title: string
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { name, sectionName, showDashEmptyContent, template, title } = props
+  const { name, showDashEmptyContent, template, title } = props
 
+  const { sectionName } = useSectionContext()
   const value = useCommentableDescriptionValue({ name, sectionName, template })
   const { empty } = useDescriptionErrorState({ name, sectionName })
 

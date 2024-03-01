@@ -13,6 +13,7 @@ import { Users } from 'meta/user'
 import { useAppDispatch } from 'client/store'
 import { AreaActions, useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
@@ -30,6 +31,7 @@ const Status: React.FC = () => {
   const user = useUser()
   const country = useAssessmentCountry()
   const cycle = useCycle()
+  const dataLocked = useIsDataLocked()
   const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
   const { assessmentName, cycleName } = useCycleRouteParams()
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
@@ -42,7 +44,7 @@ const Status: React.FC = () => {
     {
       content: (
         <div className="popover-control__checkbox-container">
-          <span style={{ marginRight: '8px' }} className={classNames('fra-checkbox', { checked: deskStudy })} />
+          <span className={classNames('fra-checkbox', { checked: deskStudy })} style={{ marginRight: '8px' }} />
           <span>{t<string>('assessment.deskStudy')}</span>
         </div>
       ),
@@ -66,7 +68,7 @@ const Status: React.FC = () => {
   ]
 
   const items: Array<PopoverItem> = []
-  if (![AssessmentStatus.changing, AssessmentStatus.notStarted].includes(status)) {
+  if (![AssessmentStatus.changing, AssessmentStatus.notStarted].includes(status) && !dataLocked) {
     const { next, previous } = AssessmentStatusTransitions.getAllowedTransition({
       country,
       countryIso,
@@ -91,7 +93,7 @@ const Status: React.FC = () => {
 
   return (
     <>
-      {targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />}
+      {targetStatus && <StatusConfirm onClose={() => setTargetStatus(null)} status={targetStatus} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-header__status status-${status}`}>
           <span>{t<string>(`assessment.status.${status}.label`)}</span>

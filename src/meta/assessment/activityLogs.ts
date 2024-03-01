@@ -76,7 +76,7 @@ const getLabelSectionKey = (activity: ActivityLog<any>) => {
     return 'nationalDataPoint.nationalDataPoint'
   }
   if (section === 'fileRepository') {
-    return 'landing.sections.links'
+    return 'landing.sections.repository'
   }
 
   if (section === SectionNames.contacts) {

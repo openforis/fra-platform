@@ -2,7 +2,7 @@
 
 _FRA 2020_
 
-# 1a Étendue des forêts et des autres terres boisées
+# 1a Étendue des forêts et des autres terres boisées <!-- section:1a -->
 
 ###	Je peux corriger ou changer les valeurs communiquées précédemment?
 
@@ -66,7 +66,7 @@ Les seuils devront être choisis par les pays lors de la première communication
 
 Les réseaux électriques et téléphoniques de moins de 20 m de largeur et qui traversent les superficies forestières devront être classifiés comme «forêt». Dans tous les autres cas, ils devront être classifiés comme «autres terres».
 
-# 1b Caractéristiques des forêts
+# 1b Caractéristiques des forêts <!-- section:1b -->
 
 ###	Comment dois-je rendre compte des superficies dans lesquelles ont été effectuées des plantations d'enrichissement?
 
@@ -80,7 +80,7 @@ Lorsque vous ne pouvez pas déterminer si la forêt est plantée ou naturellemen
 
 Les superficies avec des espèces naturalisées qui sont naturellement régénérées devront être considérées comme «forêt naturellement régénérée» et également comme «... dont d'espèces introduites» si elles représentent plus de 50 pour cent de matériel total sur pied à maturité.
 
-# 1c Expansion et déforestation annuelles et changement nette annuelle de la forêt
+# 1c Expansion et déforestation annuelles et changement nette annuelle de la forêt <!-- section:1c -->
 
 ### Quand puis-je considérer qu'une terre abandonnée est retournée à l'état de forêt et qu'en conséquence elle peut être incluse dans la catégorie «expansion naturelle de la forêt»?
 
@@ -97,7 +97,7 @@ Le boisement est l'établissement d’arbres par plantation et/ou par semis sur 
 Non, la terminologie pour le boisement et le reboisement est différente. Dans les directives du GIEC, les termes boisement et reboisement impliquent un changement d'utilisation et correspondent au terme boisement de FRA, alors que le terme végétalisation du GIEC correspond plus ou moins au terme reboisement de FRA.
 (à élaborer)
 
-# 1e Catégories spécifiques des forêts
+# 1e Catégories spécifiques des forêts <!-- section:1e -->
 
 ### Comment dois-je interpréter «trace d'activité humaine clairement visible» pour faire la distinction entre «forêt primaire» et «forêt naturellement régénérée»?
 
@@ -127,7 +127,7 @@ Cette définition aussi correspond à la définition FRA 2015 de «forêt nature
 
 Une forêt perturbée sans impact visible d'activité humaine présentant un mélange des espèces et une structure qui ressemblent à celles d’une forêt adulte ou proche de la maturité sera classée comme «primaire», tandis qu'une forêt gravement compromise avec une structure des âges et un mélange des espèces très différents d’une forêt adulte sera classée comme «forêt naturellement régénérée». Voir aussi la note explicative 1 qui accompagne la définition de Forêt primaire.
 
-# 1f Autres terres dotées de couvert d’arbres
+# 1f Autres terres dotées de couvert d’arbres <!-- section:1f -->
 
 ### Comment classifier de manière cohérente les terres à usages multiples (agroforesterie, pâturage en forêt, etc.) alors qu'aucune utilisation de la terre n’est considérée comme sensiblement plus importante que les autres?
 
@@ -190,13 +190,13 @@ Oui, s’ils ne sont pas gérés à des fins agricoles et que les critères de s
 
 --
 
-# 2a Matériel sur pied
+# 2a Matériel sur pied <!-- section:2a -->
 
 ### Est-il possible d’estimer le matériel sur pied à partir du stock de biomasse en utilisant les facteurs de conversion?
 
 Cela est possible, mais il faudra être particulièrement prudent: les facteurs de conversion et d’expansion utilisent les données du matériel sur pied par hectare, c'est pourquoi il faudra formuler des hypothèses. Il est plus simple d’utiliser la densité du bois et les facteurs d’expansion de la biomasse.
 
-# 2b Composition du matériel sur pied de la forêt
+# 2b Composition du matériel sur pied de la forêt <!-- section:2b -->
 
 ###	Le tableau 2b concernant la composition du matériel sur pied de la forêt se rapporte-t-il uniquement aux forêts naturelles?
 
@@ -214,7 +214,7 @@ Par volume (matériel sur pied).
 
 Oui. Si les données nationales ne permettent pas de distinguer les espèces individuelles dans certains groupes d’espèces, les pays pourront rendre compte des genres (ou des groupes) à la place des espèces mais ils devront le signaler dans la section pertinente des commentaires du tableau.
 
-# 2c Biomasse ET 2d Stock de carbone
+# 2c Biomasse ET 2d Stock de carbone <!-- section:2c -->
 
 *Aspects méthodologiques d’ordre général*
 
@@ -242,7 +242,7 @@ Généralement, les équations de la biomasse sont considérées plus fiables qu
 
 --
 
-# 3a Objectif de gestion designé
+# 3a Objectif de gestion designé <!-- section:3a -->
 
 ### Si la législation nationale précise que toutes les forêts doivent être gérées pour la production, la conservation de la biodiversité et la protection des sols et de l’eau, dois-je alors déclarer que toutes les superficies forestières ont  l'«usage multiple» comme fonction désignée principale?
 
@@ -250,7 +250,7 @@ Dans la note explicative 2, la définition de fonction désignée principale ind
 
 --
 
-# 4a Propriété de la forêt ET 4b Droits de gestion des forêts publiques
+# 4a Propriété de la forêt ET 4b Droits de gestion des forêts publiques <!-- section:4a -->
 
 ### Comment dois-je rendre compte du régime de propriété lorsque les terres indigènes débordent sur des aires protégées?
 
@@ -298,7 +298,7 @@ Dans le tableau 4a, il faudra les déclarer dans la catégorie «publique».  Da
 
 --
 
-# 6b Superficie des domaines forestiers permanents
+# 6b Superficie des domaines forestiers permanents <!-- section:6b -->
 
 ### La notion de Domaine forestier permanent (DFP) ne s'adapte pas au contexte national. Que dois-je déclarer ?
 
@@ -306,7 +306,7 @@ Si la notion de Domaine forestier permanent (DFP) ne s'adapte pas au contexte na
 
 --
 
-# 7a Extraction de produits forestiers non ligneux et valeurs des PFNL extraits
+# 7a Extraction de produits forestiers non ligneux et valeurs des PFNL extraits <!-- section:7a -->
 
 ### Peut-on inclure des services tels que l’eau, l’écotourisme, les loisirs, la chasse, le carbone, etc. dans le tableau sur les PFNL?  Dans d’autres contextes, on rend compte des produits non ligneux et des services qui leur sont éventuellement associés.
 

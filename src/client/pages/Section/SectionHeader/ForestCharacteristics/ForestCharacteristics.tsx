@@ -6,25 +6,22 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store'
 import { AreaActions, useAssessmentCountry, useIsUpdatingCountry } from 'client/store/area'
 import { useHasOriginalDataPointData } from 'client/store/data'
-import { useUser } from 'client/store/user'
+import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { useSectionContext } from 'client/pages/Section/context'
 
-import { Props } from '../props'
-
-const sectionName = 'forestCharacteristics'
-
-const ForestCharacteristics: React.FC<Props> = (props) => {
-  const { disabled } = props
-
+const ForestCharacteristics: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
   const country = useAssessmentCountry()
-  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
+  const { sectionName } = useSectionContext()
+  const editEnabled = useIsEditTableDataEnabled(sectionName)
   const hasOriginalDataPointData = useHasOriginalDataPointData()
   const updatingCountry = useIsUpdatingCountry()
+  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
   if (!user || !hasOriginalDataPointData || !country) {
     return null
@@ -40,17 +37,17 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     <>
       <div className="justify_start">
         <Button
-          disabled={disabled || updatingCountry}
+          disabled={!editEnabled || updatingCountry}
           inverse={useOriginalDataPoint}
           label={
             useOriginalDataPoint
               ? t('forestCharacteristics.dontUseOriginalDataPoints')
               : t('forestCharacteristics.useOriginalDataPoints')
           }
-          size={ButtonSize.m}
           onClick={() =>
             dispatch(AreaActions.updateCountryProp({ assessmentName, cycleName, countryIso, sectionName, countryProp }))
           }
+          size={ButtonSize.m}
         />
       </div>
 

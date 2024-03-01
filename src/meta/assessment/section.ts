@@ -5,8 +5,8 @@ import { Label } from './label'
 export type SectionName = string
 
 export enum SectionNames {
-  'contacts' = 'contacts',
   'contactPersons' = 'contactPersons',
+  'contacts' = 'contacts',
   'originalDataPoints' = 'originalDataPoints',
 }
 

@@ -9,6 +9,20 @@ const getDefinition = (props: Props) => {
     'utf8'
   )
 }
+
+const _getAnchorAndTextFromHeader = (header: string): { anchor: string; text: string } => {
+  const sectionMarkerMatch = header.match(/<!--\s*section:(.*?)\s*-->/)
+  let anchor = ''
+  let text = header
+  if (sectionMarkerMatch && sectionMarkerMatch.length > 1) {
+    anchor = sectionMarkerMatch[1].trim() // Result of the capturing group (.*?)
+    text = header.replace(sectionMarkerMatch[0], '').trim() // Remove HTML comment
+  } else {
+    anchor = header.toLowerCase().substring(0, header.indexOf(' ')).trim()
+  }
+  return { anchor, text }
+}
+
 export const getHtml = async (props: Props): Promise<string> => {
   const markdown = await getDefinition(props)
 
@@ -16,12 +30,12 @@ export const getHtml = async (props: Props): Promise<string> => {
   const renderer = new marked.Renderer()
   renderer.heading = function (text: string, level: number) {
     if (level < 3) {
-      const anchor = text.toLowerCase().substr(0, text.indexOf(' '))
+      const { anchor, text: newText } = _getAnchorAndTextFromHeader(text)
       toc.push({
         anchor,
-        text,
+        text: newText,
       })
-      return `<h${level} id="${anchor}" class="anchor-link">${text}</h${level}>`
+      return `<h${level} id="${anchor}" class="anchor-link">${newText}</h${level}>`
     }
 
     return `<h${level}>${text}</h${level}>`

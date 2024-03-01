@@ -2,7 +2,7 @@
 
 _FRA 2025_
 
-## Introduction
+## Introduction <!-- section:Introduction -->
 
 Les évaluations des ressources forestières mondiales de la FAO ont largement contribué à améliorer les concepts, les définitions et les méthodes relatives aux ressources forestières.
 
@@ -18,9 +18,9 @@ Pour plus de détails sur le Programme de FRA, voir: http://www.fao.org/forest-r
 
 ---
 
-# 1 Étendue et changements des forêts
+# 1 Étendue et changements des forêts <!-- section:1 -->
 
-## 1a Étendue des forêts et des autres terres boisées
+## 1a Étendue des forêts et des autres terres boisées <!-- section:1a -->
 
 ### FORÊT
 
@@ -64,7 +64,7 @@ Note(s) explicative(s)
 ### CLIMATIC DOMAIN Source:
 http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
 
-## 1b Caractéristiques des forêts
+## 1b Caractéristiques des forêts <!-- section:1b -->
 
 ### FORÊT NATURELLEMENT RÉGÉNÉRÉE
 
@@ -123,7 +123,7 @@ Note(s) explicative(s)
 
 > **Forêt plantée** qui n'entre pas dans la catégorie **forêt de plantation**.
 
-## 1c Catégories spécifiques des forêts
+## 1c Catégories spécifiques des forêts <!-- section:1c -->
 
 ### BAMBOUS
 
@@ -145,7 +145,7 @@ Note(s) explicative(s)
 
 1. Dans ce contexte, "à prédominance" signifie que les hévéas devraient constituer plus de 50 % du matériel sur pied à maturité.
 
-## 1d Expansion de la forêt, déforestation et changement net annuels
+## 1d Expansion de la forêt, déforestation et changement net annuels <!-- section:1d -->
 
 ### EXPANSION DE LA FORÊT
 
@@ -176,7 +176,7 @@ Note(s) explicative(s)
 
 1.	Le "changement net de superficie de forêt" représente la différence de superficie de forêt entre deux années de référence de FRA. Le changement net peut être positif (gain), négatif (perte) ou nul (situation inchangée).
 
-## 1e Autres terres avec un couvert arboré
+## 1e Autres terres avec un couvert arboré <!-- section:1e -->
 
 ### AUTRES TERRES DOTÉES DE COUVERT D’ARBRES
 
@@ -217,9 +217,9 @@ Note(s) explicative(s)
 
 ---
 
-# 2 Matériel sur pied, biomasse et carbone de la forêt
+# 2 Matériel sur pied, biomasse et carbone de la forêt <!-- section:2 -->
 
-## 2a Matériel sur pied
+## 2a Matériel sur pied <!-- section:2a -->
 
 ### MATÉRIEL SUR PIED
 
@@ -231,7 +231,7 @@ Note(s) explicative(s)
 2.	Inclut les arbres vivants tombés.
 3.	Exclut les branches, les brindilles, le feuillage, les fleurs, les graines et les racines.
 
-## 2b Composition du matériel sur pied de la forêt
+## 2b Composition du matériel sur pied de la forêt <!-- section:2b -->
 
 ### ESPÈCE D'ARBRE INDIGÈNE _(Terme complémentaire)_
 
@@ -250,7 +250,7 @@ Note(s) explicative(s)
 1.	Si l'espèce se manifeste de manière naturelle à l'intérieur des frontières nationales, elle sera considérée comme étant indigène pour l'ensemble du pays. 
 2.	Les forêts naturellement régénérées d'espèces d'arbres introduites doivent être considérées comme d'"espèces introduites" pendant les 250 années successives à la date d' introduction de ces espèces. Après 250 ans, ces espèces peuvent être considérées comme naturalisées.
 
-## 2c Biomasse
+## 2c Biomasse <!-- section:2c -->
 
 ### BIOMASSE AÉRIENNE
 
@@ -277,7 +277,7 @@ Note(s) explicative(s)
 
 1.	Le pays pourra utiliser une valeur-seuil autre que 10 cm et devra, le cas échéant, documenter la valeur-seuil utilisée.
 
-## 2d Stock de carbone
+## 2d Stock de carbone <!-- section:2d -->
 
 ### CARBONE DANS LA BIOMASSE AÉRIENNE
 
@@ -322,9 +322,9 @@ Note(s) explicative(s)
 
 ---
 
-# 3 Affectation et gestion des forêts 
+# 3 Affectation et gestion des forêts  <!-- section:3 -->
 
-## 3a Objectifs de gestion fixés
+## 3a Objectifs de gestion fixés <!-- section:3a -->
 
 ### SUPERFICIE TOTALE DE LA FORÊT AVEC UN OBJECTIF DE GESTION FIXÉ
 
@@ -406,7 +406,7 @@ Note(s) explicative(s)
 
 > Forêt dont l'objectif de gestion est inconnu.
 
-## 3b Superficie de forêt se trouvant à l'intérieur d'aires protégées juridiquement constituées et superficie de forêt avec des plans de gestion à long-terme
+## 3b Superficie de forêt se trouvant à l'intérieur d'aires protégées juridiquement constituées et superficie de forêt avec des plans de gestion à long-terme <!-- section:3b -->
 
 ### SUPERFICIE DE FORÊT À L’INTÉRIEUR DES AIRES PROTÉGÉES JURIDIQUEMENT CONSTITUÉES
 
@@ -445,9 +445,9 @@ Note(s) explicative(s)
 
 ---
 
-# 4 DROITS DE PROPRIÉTÉ ET DE GESTION DES FORÊTS
+# 4 DROITS DE PROPRIÉTÉ ET DE GESTION DES FORÊTS <!-- section:4 -->
 
-## 4a Propriété de la forêt
+## 4a Propriété de la forêt <!-- section:4a -->
 
 ### PROPRIÉTÉ DE LA FORÊT _(Terme complémentaire)_
 
@@ -507,7 +507,7 @@ Note(s) explicative(s)
 
 1.	Inclut les zones dont la propriété est ambiguë ou contestée.
 
-## 4b Droits de gestion des forêts publiques
+## 4b Droits de gestion des forêts publiques <!-- section:4b -->
 
 ### DROITS DE GESTION DES FORÊTS PUBLIQUES _(Terme complémentaire)_
 
@@ -544,9 +544,9 @@ Note(s) explicative(s)
 
 ---
 
-# 5 Perturbations forestières
+# 5 Perturbations forestières <!-- section:5 -->
 
-## 5a DOMMAGES CAUSÉS AUX FORÊTS
+## 5a DOMMAGES CAUSÉS AUX FORÊTS <!-- section:5a -->
 
 ### DOMMAGES (AUX FORÊTS)
 
@@ -568,7 +568,7 @@ Note(s) explicative(s)
 
 > Dommages causés par des facteurs abiotiques comme la neige, les tempêtes, la sécheresse, etc.
 
-## 5b Superficie touchée par des incendies
+## 5b Superficie touchée par des incendies <!-- section:5b -->
 
 ### SUPERFICIE BRÛLÉE
 
@@ -578,7 +578,7 @@ Note(s) explicative(s)
 
 > **Superficie de forêt** touchée par des incendies.
 
-## 5c Forêt degradée
+## 5c Forêt degradée <!-- section:5c -->
 
 ### FORÊT DEGRADÉE
 
@@ -590,9 +590,9 @@ Note(s) explicative(s )
 
 ---
 
-# 6 Politiques et dispositions législatives sur les forêts
+# 6 Politiques et dispositions législatives sur les forêts <!-- section:6 -->
 
-## 6a  Politiques, dispositions législatives et plateforme nationale de participation des parties prenantes à la politique forestière
+## 6a  Politiques, dispositions législatives et plateforme nationale de participation des parties prenantes à la politique forestière <!-- section:6a -->
 
 ### POLITIQUES D'APPUI À LA GESTION DURABLE DES FORÊTS
 
@@ -610,7 +610,7 @@ Note(s) explicative(s )
 
 > Système qui permet de tracer l'origine, la localisation et la circulation des produits ligneux au moyen de documents d'identification. Il comporte deux aspects principaux: (1) l'identification du produit par marquage; (2) l'enregistrement des données sur la circulation et la localisation du produit tout au long de la chaîne de production, de transformation et de distribution.
 
-## 6b Superficie des domaines forestiers permanents
+## 6b Superficie des domaines forestiers permanents <!-- section:6b -->
 
 ### DOMAINE FORESTIER PERMANENT (DFP)
 
@@ -622,9 +622,9 @@ Note(s) explicative(s)
 
 ---
 
-# 7 EXTRACTION ET VALEUR DES PRODUITS FORESTIERS NON LIGNEUX (PFNL)
+# 7 EXTRACTION ET VALEUR DES PRODUITS FORESTIERS NON LIGNEUX (PFNL) <!-- section:7 -->
 
-## 7a Extraction et valeur des produits forestiers non ligneux
+## 7a Extraction et valeur des produits forestiers non ligneux <!-- section:7a -->
 
 ### PRODUITS FORESTIERS NON LIGNEUX
 
@@ -653,7 +653,7 @@ Note(s) explicative(s)
 
 ---
 
-# 8 Termes et définitions complémentaires
+# 8 Termes et définitions complémentaires <!-- section:8 -->
 
 ### COUVERT ARBORÉ
 
