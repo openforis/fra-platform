@@ -3,7 +3,6 @@ import { i18n as i18nType } from 'i18next'
 import * as pgPromise from 'pg-promise'
 import { Promises } from 'utils/promises'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentNames } from 'meta/assessment'
 import { RepositoryItem } from 'meta/cycleData'
 import { LanguageCodes } from 'meta/lang'
@@ -26,7 +25,7 @@ const migrateStaticLinks = async () => {
         key: 'unfcccFocalPoints',
       },
       {
-        href: `${ApiEndPoint.File.sdgFocalPoints()}?${params}`,
+        href: `/api/file/sdg-focal-points?${params}`,
         key: 'sdgFocalPoints',
       },
       { href: 'https://slms4redd.org/', key: 'reddPortal' },
