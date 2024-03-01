@@ -28,9 +28,6 @@ export type { LoginRequest } from './auth/login'
 // cycleData
 export type { EstimateBody, NodesBody, NodesBodyValue } from './cycleData/table'
 
-// assessmentFile
-export type { AssessmentFileBody } from './file/assessmentFile'
-
 // layers
 export type { ForestAgreementLayerRequest, LayerRequest } from './geo/layer'
 

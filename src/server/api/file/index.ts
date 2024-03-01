@@ -5,17 +5,12 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { createManyFiles } from 'server/api/file/createManyFiles'
 import { AuthMiddleware } from 'server/middleware/auth'
 
-import { createAssessmentFile } from './createAssessmentFile'
 import { getFile } from './get'
-import { getAssessmentFile } from './getAssessmentFile'
-import { getAssessmentFiles } from './getAssessmentFiles'
 import { getBiomassStockFile } from './getBiomassStockFile'
 import { getBulkDownload } from './getBulkDownload'
 import { getDataDownloadFile } from './getDataDownloadFile'
 import { getHiddenFile } from './getHiddenFile'
 import { getUserGuideFile } from './getUserGuide'
-import { removeAssessmentFile } from './removeAssessmentFile'
-import { updateAssessmentFileAccess } from './updateAssessmentFileAccess'
 import multer = require('multer')
 
 const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileFilterCallback) => {
@@ -42,39 +37,6 @@ export const FileApi = {
       multer({ fileFilter }).array('file'),
       AuthMiddleware.requireEditRepositoryItem,
       createManyFiles
-    )
-
-    // File list
-    /**
-     * @Deprecated
-     */
-    express.get(ApiEndPoint.File.Assessment.many(), AuthMiddleware.requireView, getAssessmentFiles)
-
-    // File operations
-    /**
-     * @Deprecated
-     */
-    express.put(
-      ApiEndPoint.File.Assessment.many(),
-      multer({ fileFilter }).single('file'),
-      AuthMiddleware.requireEditRepositoryItem,
-      createAssessmentFile
-    )
-    /**
-     * @Deprecated
-     */
-    express.get(ApiEndPoint.File.Assessment.one(), /* Auth handled in controller */ getAssessmentFile)
-    /**
-     * @Deprecated
-     */
-    express.delete(ApiEndPoint.File.Assessment.one(), AuthMiddleware.requireEditCountryFile, removeAssessmentFile)
-    /**
-     * @Deprecated
-     */
-    express.put(
-      ApiEndPoint.File.Assessment.access(),
-      AuthMiddleware.requireEditAssessmentFileAccess,
-      updateAssessmentFileAccess
     )
   },
 }

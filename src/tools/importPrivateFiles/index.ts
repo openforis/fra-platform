@@ -7,8 +7,10 @@ import * as path from 'path'
 import { AssessmentNames } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { AssessmentFileRepository } from 'server/repository/assessment/file'
 import { Logger } from 'server/utils/logger'
+
+// TODO
+const AssessmentFileRepository = {}
 
 const exec = async () => {
   const dirName = path.resolve(__dirname, 'files')

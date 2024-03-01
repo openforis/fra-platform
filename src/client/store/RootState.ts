@@ -3,7 +3,6 @@ import { AssessmentState } from './assessment/state'
 import { DataState } from './data/stateType'
 import { LoginState } from './login/stateType'
 import { AreaSelectorSlice, AreaSelectorState } from './ui/areaSelector'
-import { AssessmentFilesState } from './ui/assessmentFiles/stateType'
 import { AssessmentSectionSlice, AssessmentSectionState } from './ui/assessmentSection'
 import { DataExportState } from './ui/dataExport'
 import { DataLockState } from './ui/dataLock'
@@ -32,7 +31,6 @@ export type RootState = {
 
   ui: {
     [AreaSelectorSlice.name]: AreaSelectorState
-    assessmentFiles: AssessmentFilesState
     [AssessmentSectionSlice.name]: AssessmentSectionState
     dataExport: DataExportState
     dataLock: DataLockState
