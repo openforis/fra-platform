@@ -9,6 +9,7 @@ module.exports = {
   copyToClipboard: 'Copy to clipboard',
   countries: 'Countries',
   country: 'Country',
+  custom: 'Custom',
   dashboard: 'Dashboard',
   dataExport: 'Data Export',
   done: 'Done',

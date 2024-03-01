@@ -28,7 +28,7 @@ export interface LayerSource {
 export interface Recipe {
   layers: Array<LayerSource>
   forestAreaDataProperty: string
-  recipeLabel: string
+  labelKey: string
 }
 
 export const CUSTOM_RECIPE_KEY = 'custom'

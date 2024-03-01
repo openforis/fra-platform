@@ -129,7 +129,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
       },
     ],
     forestAreaDataProperty: 'faAgreementHansen10',
-    recipeLabel: 'All (GFC Hansen >=10%)',
+    labelKey: 'geo.recipes.forest.allGfc10',
   },
   {
     layers: [
@@ -148,7 +148,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
       },
     ],
     forestAreaDataProperty: 'faAgreementHansen20',
-    recipeLabel: 'All (GFC Hansen >=20%)',
+    labelKey: 'geo.recipes.forest.allGfc20',
   },
   {
     layers: [
@@ -167,7 +167,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
       },
     ],
     forestAreaDataProperty: 'faAgreementHansen30',
-    recipeLabel: 'All (GFC Hansen >=30%)',
+    labelKey: 'geo.recipes.forest.allGfc30',
   },
   {
     layers: [
@@ -182,12 +182,12 @@ export const forestAgreementRecipes: Array<Recipe> = [
       },
     ],
     forestAreaDataProperty: 'faAgreementEsriEsaGloHansen10',
-    recipeLabel: 'ESRI, ESA, Globland 2020 & GFC Hansen >=10%',
+    labelKey: 'geo.recipes.forest.esriEsaGlobland2020Gfc10',
   },
   {
     layers: [{ key: ForestKey.ESRI }, { key: ForestKey.ESAWorldCover }],
     forestAreaDataProperty: 'faAgreementEsriEsa',
-    recipeLabel: 'ESRI & ESA',
+    labelKey: 'geo.recipes.forest.esriEsa',
   },
 ]
 
