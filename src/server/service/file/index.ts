@@ -9,13 +9,11 @@ type Type = {
   fileType: string
 }
 
+/*
+ ** @deprecated
+ */
 export const fileTypes = {
-  userGuide: {
-    key: 'userGuide',
-    folder: 'userGuide',
-    downloadName: 'User Guide FRA Platform',
-    fileType: 'pdf',
-  },
+  userGuide: { key: 'userGuide', folder: 'userGuide', downloadName: 'User Guide FRA Platform', fileType: 'pdf' },
   panEuropeanQuestionnaire: {
     key: 'panEuropeanQuestionnaire',
     folder: 'panEuropeanQuestionnaire',
@@ -40,12 +38,6 @@ export const fileTypes = {
     downloadName: `BiomassCalculator_${domain}`,
     fileType: 'xlsx',
   }),
-  sdgFocalPoints: {
-    key: 'NSO_SDG_Contact_Persons',
-    folder: 'sdgFocalPoints',
-    downloadName: 'NSO_SDG_Contact_Persons',
-    fileType: 'xlsx',
-  },
 }
 
 const _getRepositoryPath = (): string => path.resolve(__dirname, '..', '..', 'static', 'fileRepository')
