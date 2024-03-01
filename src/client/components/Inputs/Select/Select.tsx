@@ -11,7 +11,7 @@ import { useValue } from './hooks/useValue'
 import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
-  const { disabled, isMulti, options } = props
+  const { disabled, isClearable, isMulti, options } = props
 
   const value = useValue(props)
   const onChange = useOnChange(props)
@@ -35,7 +35,7 @@ const Select: React.FC<SelectProps> = (props) => {
       }}
       closeMenuOnSelect={!isMulti}
       components={{ ClearIndicator, DropdownIndicator, IndicatorsContainer, IndicatorSeparator: null }}
-      isClearable
+      isClearable={isClearable}
       isDisabled={disabled}
       isMulti={isMulti}
       isSearchable
@@ -47,6 +47,11 @@ const Select: React.FC<SelectProps> = (props) => {
       value={value}
     />
   )
+}
+
+Select.defaultProps = {
+  // eslint-disable-next-line react/default-props-match-prop-types
+  isClearable: true,
 }
 
 export default Select

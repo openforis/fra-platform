@@ -14,7 +14,7 @@ export type OptionsOrGroups = readonly (Option | OptionsGroup)[]
 
 export type ValueInput = string | Array<string> | null
 
-export type SelectProps = Pick<ReactSelectProps, 'isMulti'> & {
+export type SelectProps = Pick<ReactSelectProps, 'isClearable' | 'isMulti'> & {
   disabled?: boolean
   onChange: (value: string | Array<string> | null) => void
   options: OptionsOrGroups
