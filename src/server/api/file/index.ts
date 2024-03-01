@@ -13,7 +13,6 @@ import { getBiomassStockFile } from './getBiomassStockFile'
 import { getBulkDownload } from './getBulkDownload'
 import { getDataDownloadFile } from './getDataDownloadFile'
 import { getHiddenFile } from './getHiddenFile'
-import { getSdgFocalPointsFile } from './getSdgFocalPointsFile'
 import { getUserGuideFile } from './getUserGuide'
 import { removeAssessmentFile } from './removeAssessmentFile'
 import { updateAssessmentFileAccess } from './updateAssessmentFileAccess'
@@ -32,7 +31,6 @@ export const FileApi = {
     express.get(ApiEndPoint.File.dataDownload(), AuthMiddleware.requireView, getDataDownloadFile)
     express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
     express.get(ApiEndPoint.File.userGuide(), getUserGuideFile)
-    express.get(ApiEndPoint.File.sdgFocalPoints(), AuthMiddleware.requireView, getSdgFocalPointsFile)
     express.get(ApiEndPoint.File.hidden(), AuthMiddleware.requireUser, getHiddenFile)
 
     // BiomassStock
