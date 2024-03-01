@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
 import { LayerSectionKey } from 'meta/geo'
-import { LayerKey, LayerSource, Recipe } from 'meta/geo/layer'
+import { CUSTOM_RECIPE_KEY, LayerKey, LayerSource, Recipe } from 'meta/geo/layer'
 
 import { RootState } from 'client/store/RootState'
 import { GeoActions } from 'client/store/ui/geo/slice'
@@ -18,7 +18,7 @@ export const setLayerSectionRecipe = createAsyncThunk<void, Params>(
   'geo/setLayerSectionRecipe',
   async ({ countryIso, recipe, recipeName, sectionKey }, { dispatch, getState }) => {
     dispatch(GeoActions.setLayerSectionRecipeName({ recipe: recipeName, sectionKey }))
-    if (recipeName === 'custom') return
+    if (recipeName === CUSTOM_RECIPE_KEY) return
     const state = getState()
     const sectionState = (state as RootState).geo.sections?.[sectionKey]
     const recipeLayersSet = new Set()

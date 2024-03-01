@@ -31,6 +31,8 @@ export interface Recipe {
   recipeLabel: string
 }
 
+export const CUSTOM_RECIPE_KEY = 'custom'
+
 export type LayerMetadata = {
   scale?: number
   palette?: Array<string>
