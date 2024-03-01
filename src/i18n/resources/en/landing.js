@@ -78,10 +78,6 @@ module.exports = {
   },
   links: {
     links: 'Links',
-    unfcccFocalPoints: 'UNFCCC focal points',
-    sdgFocalPoints: 'National SDG focal points',
-    reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO',
-    fraGeoSpatialTools: 'FRA Geospatial tools',
     repository: 'Repository',
     uploadFile: 'Upload a file',
     fileUploaded: 'File successfully uploaded',

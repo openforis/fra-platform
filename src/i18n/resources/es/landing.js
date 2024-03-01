@@ -78,10 +78,6 @@ module.exports = {
   },
   links: {
     links: 'Enlaces',
-    unfcccFocalPoints: 'Puntos de contacto de la CMNUCC',
-    sdgFocalPoints: 'Puntos de contacto nacionales para los ODS',
-    reddPortal: 'Sistemas satelitales de monitoreo terrestre habilitados por el Programa ONU-REDD y la FAO',
-    fraGeoSpatialTools: 'Herramientas geoespaciales del FRA',
     repository: 'Repositorio',
     uploadFile: 'Cargar un archivo',
     confirmDelete: '¿Borrar {{file}}? Esta acción no puede deshacerse.',

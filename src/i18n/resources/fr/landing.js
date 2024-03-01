@@ -81,10 +81,6 @@ module.exports = {
   },
   links: {
     links: 'Liens',
-    unfcccFocalPoints: 'Points focaux de la CCNUCC',
-    sdgFocalPoints: 'Points focaux nationaux pour les ODD',
-    reddPortal: "Systèmes de surveillance des terres par satellite (SSTS), habilité par l'ONU-REDD/FAO",
-    fraGeoSpatialTools: 'Outils géospatiaux de FRA',
     repository: 'Référentiel',
     uploadFile: 'Mettre en ligne un fichier',
     confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
