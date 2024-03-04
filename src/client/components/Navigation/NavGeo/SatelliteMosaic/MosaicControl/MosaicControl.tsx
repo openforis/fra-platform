@@ -38,6 +38,7 @@ const MosaicControl: React.FC = () => {
       <p>{t('common.year')}</p>
       <div className="geo-mosaic-control__year-selector-container">
         <Select
+          isClearable={false}
           onChange={(value) => dispatch(GeoActions.setMosaicYear(Number(value)))}
           options={yearOptions}
           value={uiMosaicOptions.year.toString()}
