@@ -114,11 +114,6 @@ export const ApiEndPoint = {
     bulkDownload: () => apiPath('file', 'bulk-download'),
     userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
     hidden: () => apiPath('file', 'hidden'),
-    Assessment: {
-      one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
-      many: () => apiPath('file', 'assessment'),
-      access: () => apiPath('file', 'assessment', 'access'),
-    },
   },
 
   MessageCenter: {

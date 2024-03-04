@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-import { Promises } from 'utils/promises'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
 import { CountryIso } from 'meta/area'
@@ -9,11 +8,9 @@ import { Authorizer, CollaboratorEditPropertyType, Users } from 'meta/user'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
-import { FileController } from 'server/controller/file'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
 import { tryCatch } from 'server/middleware/tryCatch'
-import { fileError } from 'server/middleware/util/fileError'
 import { Requests } from 'server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
@@ -190,53 +187,6 @@ const requireEditRepositoryItem = async (req: Request, _res: Response, next: Nex
   _next(Authorizer.canEditRepositoryItem({ country, cycle, user }), next)
 }
 
-const requireEditCountryFile = async (req: Request, res: Response, next: NextFunction) => {
-  const { assessmentName, cycleName, uuid } = {
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  } as CycleParams & { uuid: string }
-
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
-  const fileUsages = await FileController.getFileUsages({ assessment, cycle, uuid })
-  if (fileUsages.length) {
-    const message = await fileError({ req, fileUsages, assessmentName, cycleName })
-    return next({ statusCode: 400, message })
-  }
-
-  return requireEditRepositoryItem(req, res, next)
-}
-
-const requireEditAssessmentFileAccess = async (req: Request, res: Response, next: NextFunction) => {
-  const {
-    assessmentName,
-    cycleName,
-    UUIDs,
-    public: _public,
-  } = {
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  } as CycleParams & { UUIDs: Array<string>; public: boolean }
-
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
-  // When setting file access to private, check that file is not in use:
-  if (!_public) {
-    await Promises.each(UUIDs, async (uuid) => {
-      const fileUsages = await FileController.getFileUsages({ assessment, cycle, uuid })
-      if (fileUsages.length) {
-        const message = await fileError({ req, fileUsages, assessmentName, cycleName })
-        return next({ statusCode: 400, message })
-      }
-      return true
-    })
-  }
-
-  return requireEditRepositoryItem(req, res, next)
-}
-
 const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
   const user = Requests.getUser(req)
 
@@ -261,8 +211,6 @@ export const AuthMiddleware = {
   requireAdmin: tryCatch(requireAdmin),
   requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
   requireEditRepositoryItem: tryCatch(requireEditRepositoryItem),
-  requireEditAssessmentFileAccess: tryCatch(requireEditAssessmentFileAccess),
-  requireEditCountryFile: tryCatch(requireEditCountryFile),
   requireEditCountryProps: tryCatch(requireEditCountryProps),
   requireEditDescriptions: tryCatch(requireEditDescriptions),
   requireEditMessageTopic: tryCatch(requireEditMessageTopic),

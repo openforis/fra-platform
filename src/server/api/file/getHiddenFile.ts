@@ -2,21 +2,21 @@ import { Request, Response } from 'express'
 
 import { AssessmentName } from 'meta/assessment'
 
-import { AssessmentController } from 'server/controller/assessment'
-import { FileController } from 'server/controller/file'
 import { Requests } from 'server/utils'
-import { Responses } from 'server/utils/responses'
 
 type GetPrivateFileRequest = Request<never, never, never, { assessmentName: AssessmentName; fileName: string }>
 
-export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response) => {
+// export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response) => {
+// @ts-ignore
+export const getHiddenFile = async (_: GetPrivateFileRequest, res: Response) => {
   try {
-    const { assessmentName, fileName } = req.query
+    // const { assessmentName, fileName } = req.query
 
-    const assessment = await AssessmentController.getOne({ assessmentName })
-    const assessmentFile = await FileController.getHiddenAssessmentFile({ assessment, fileName })
-
-    Responses.sendAssessmentFile(res, assessmentFile)
+    // const assessment = await AssessmentController.getOne({ assessmentName })
+    // TODO
+    // const assessmentFile = await FileController.getHiddenAssessmentFile({ assessment, fileName })
+    // Responses.sendAssessmentFile(res, assessmentFile)
+    Requests.sendOk(res)
   } catch (err) {
     Requests.sendErr(res, err)
   }
