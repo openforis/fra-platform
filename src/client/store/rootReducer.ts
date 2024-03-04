@@ -9,7 +9,6 @@ import DataSlice from './data/slice'
 import LoginSlice from './login/slice'
 import MetadataSlice from './metadata/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
-import assessmentFilesSlice from './ui/assessmentFiles/slice'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
 import DataLockSlice from './ui/dataLock/slice'
@@ -34,7 +33,6 @@ export default {
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,
-    assessmentFiles: assessmentFilesSlice,
     [AssessmentSectionSlice.name]: AssessmentSectionSlice.reducer,
     dataExport: DataExportSlice,
     dataLock: DataLockSlice,
