@@ -1,5 +1,3 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-import { i18n as i18nType } from 'i18next'
 import * as pgPromise from 'pg-promise'
 import { Promises } from 'utils/promises'
 
@@ -14,6 +12,47 @@ import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
 // Don't use transaction when handling DDL
 const client: BaseProtocol = DB
+
+// Note: Translations removed from original translation files
+const translations: Record<string, Record<string, string>> = {
+  ar: {
+    fraGeoSpatialTools: ' ادوات الاستشعار عن بعد المخصصة لتقييم الموارد الحرجية',
+    reddPortal:
+      'منظومات السواتل المخصصة لرصد الأراضي المعززة من قبل مبادرة الأمم المتحدة لخفض الانبعاثات الناجمة عن إزالة الغابات/منظمة الأغذية والزراعة',
+    sdgFocalPoints: 'مسؤولو التواصل الوطنيون بخصوص أهداف التنمية المستدامة',
+    unfcccFocalPoints: 'مسؤولو التواصل بخصوص اتفاقية الأمم المتحدة الإطارية بشأن تغير المناخ',
+  },
+  en: {
+    fraGeoSpatialTools: 'FRA Geospatial tools',
+    reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO',
+    sdgFocalPoints: 'National SDG focal points',
+    unfcccFocalPoints: 'UNFCCC focal points',
+  },
+  es: {
+    fraGeoSpatialTools: 'Herramientas geoespaciales del FRA',
+    reddPortal: 'Sistemas satelitales de monitoreo terrestre habilitados por el Programa ONU-REDD y la FAO',
+    sdgFocalPoints: 'Puntos de contacto nacionales para los ODS',
+    unfcccFocalPoints: 'Puntos de contacto de la CMNUCC',
+  },
+  fr: {
+    fraGeoSpatialTools: 'Outils géospatiaux de FRA',
+    reddPortal: "Systèmes de surveillance des terres par satellite (SSTS), habilité par l'ONU-REDD/FAO",
+    sdgFocalPoints: 'Points focaux nationaux pour les ODD',
+    unfcccFocalPoints: 'Points focaux de la CCNUCC',
+  },
+  ru: {
+    fraGeoSpatialTools: 'Геопространственные инструменты ОЛР',
+    reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО',
+    sdgFocalPoints: 'Список национальных координаторов ЦУР',
+    unfcccFocalPoints: 'Список координаторов РКИКООН',
+  },
+  zh: {
+    fraGeoSpatialTools: 'FRA地理空间工具',
+    reddPortal: '卫星地面监测系统 (SLMS)，由UN-REDD/FAO授权',
+    sdgFocalPoints: '国家可持续发展目标联络点（人）',
+    unfcccFocalPoints: '《气候变化框架公约》联络点（人）',
+  },
+}
 
 const migrateStaticLinks = async () => {
   const order = ['unfcccFocalPoints', 'sdgFocalPoints', 'reddPortal', 'fraGeoSpatialTools']
@@ -33,7 +72,6 @@ const migrateStaticLinks = async () => {
     ]
     return links
   }
-  const i18nBase = 'landing.links'
 
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra' }, client)
 
@@ -55,12 +93,7 @@ const migrateStaticLinks = async () => {
           },
         } as RepositoryItem
 
-        const props = await Promise.all(
-          LanguageCodes.map(async (lang) => {
-            const i18n = (await createI18nPromise(lang)) as i18nType
-            return { [lang]: i18n.t(`${i18nBase}.${key}`) }
-          })
-        )
+        const props = LanguageCodes.map((lang) => ({ [lang]: translations[lang][key] }))
         repositoryItem.props.translation = props.reduce<Translation>(
           (acc, val) => Object.assign(acc, val),
           {} as Translation
