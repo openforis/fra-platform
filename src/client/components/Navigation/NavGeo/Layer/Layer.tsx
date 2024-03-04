@@ -7,8 +7,8 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import InputRange from 'client/components/Inputs/InputRange'
+import LayerToggleControl from 'client/components/Navigation/NavGeo/LayerToggleControl'
 
-import LayerToggleControl from '../LayerToggleControl'
 import { useLayerControl } from './hooks/useLayerControl'
 
 type Props = {
