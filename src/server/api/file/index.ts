@@ -26,7 +26,7 @@ export const FileApi = {
     express.get(ApiEndPoint.File.dataDownload(), AuthMiddleware.requireView, getDataDownloadFile)
     express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
     express.get(ApiEndPoint.File.userGuide(), getUserGuideFile)
-    express.get(ApiEndPoint.File.hidden(), AuthMiddleware.requireUser, getHiddenFile)
+    express.get(ApiEndPoint._Legacy.File.hidden(), AuthMiddleware.requireUser, getHiddenFile)
 
     // BiomassStock
     express.get(ApiEndPoint.File.biomassStock({}), AuthMiddleware.requireEditTableData, getBiomassStockFile)

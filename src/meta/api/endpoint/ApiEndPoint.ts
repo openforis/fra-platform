@@ -113,7 +113,6 @@ export const ApiEndPoint = {
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
     userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
-    hidden: () => apiPath('file', 'hidden'),
   },
 
   MessageCenter: {
@@ -163,5 +162,13 @@ export const ApiEndPoint = {
     metaCache: () => apiPath('metadata', 'metaCache'),
     sections: () => apiPath('metadata', 'sections'),
     sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
+  },
+
+  _Legacy: {
+    File: {
+      // Note: Some users might use this still
+      // Legacy API Endpoint to return hidden files, replaced with redirect to RepositoryAPI get file
+      hidden: () => apiPath('file', 'hidden'),
+    },
   },
 }
