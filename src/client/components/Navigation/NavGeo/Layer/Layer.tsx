@@ -2,12 +2,15 @@ import './Layer.scss'
 import React from 'react'
 
 import { Layer as LayerType, LayerSectionKey } from 'meta/geo'
+import { LayerControlType } from 'meta/geo/layer'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import InputRange from 'client/components/Inputs/InputRange'
+import CustomAssetControl from 'client/components/Navigation/NavGeo/CustomAssetControl'
 import LayerToggleControl from 'client/components/Navigation/NavGeo/LayerToggleControl'
+import TreeCoverPercentControl from 'client/components/Navigation/NavGeo/TreeCoverPercentControl'
 
 import { useLayerControl } from './hooks/useLayerControl'
 
@@ -21,7 +24,7 @@ const Layer: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
 
-  const { fetchOnSelect, layerControlType, opacity, selected, status, title } = useLayerControl({
+  const { fetchOnSelect, layerControlType, opacity, selected, shouldShowControl, status, title } = useLayerControl({
     layer,
     sectionKey,
   })
@@ -40,6 +43,18 @@ const Layer: React.FC<Props> = (props) => {
     }
   }
 
+  const renderControlComponent = (): React.ReactElement => {
+    switch (layerControlType) {
+      case LayerControlType.TreeCoverPercent:
+        return <TreeCoverPercentControl sectionKey={sectionKey} layerKey={layer.key} layer={layer} />
+      case LayerControlType.CustomAsset:
+        return <CustomAssetControl sectionKey={sectionKey} layerKey={layer.key} />
+      // To add: Year and Agreement components
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="geo-layer-control__container">
       <LayerToggleControl
@@ -50,10 +65,7 @@ const Layer: React.FC<Props> = (props) => {
         status={status}
       />
       <InputRange disabled={!selected} onChange={handleOpacityChange} unit="%" value={opacity * 100} />
-      {/* To add: Year and Tree cover percent components */}
-      {layerControlType !== null && selected && (
-        <div className="geo-layer-control__options-container">{layerControlType}</div>
-      )}
+      {shouldShowControl && <div className="geo-layer-control__options-container">{renderControlComponent()}</div>}
       <div className="geo-layer-control__row-border" />
     </div>
   )

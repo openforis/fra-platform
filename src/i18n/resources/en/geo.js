@@ -4,6 +4,8 @@ module.exports = {
       noMosaicAvailableForConfiguration: 'Error: No mosaic available for the selected configuration.',
     },
   },
+  geeAssetId: 'GEE Asset ID',
+  globalOpacity: 'Global Opacity',
   landsat: 'Landsat',
   maxCloudCoverage: 'Max Cloud Coverage',
   recipes: {
@@ -17,6 +19,7 @@ module.exports = {
     recipes: 'Recipes',
   },
   satelliteMosaic: 'Satellite Mosaic',
+  selectMinTreeCoverPercent: 'Select min. tree cover percentage:',
   sentinel: 'Sentinel',
   showSatelliteMosaic: 'Show Satellite Mosaic',
 }
