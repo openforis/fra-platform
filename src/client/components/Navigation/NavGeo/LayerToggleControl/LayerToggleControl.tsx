@@ -16,7 +16,10 @@ type Props = {
 const LayerToggleControl: React.FC<Props> = (props) => {
   const { backgroundColor, checked, label, onCheckboxClick, status } = props
 
-  const style = checked && status === LayerFetchStatus.Ready ? { backgroundColor } : {}
+  let style: React.CSSProperties = { backgroundColor }
+  if (!checked || status === LayerFetchStatus.Failed || status === LayerFetchStatus.Loading) {
+    style = {}
+  }
 
   return (
     <div className="geo-layer-toggle__container">

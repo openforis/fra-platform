@@ -16,8 +16,8 @@ const SatelliteMosaic: React.FC = () => {
   return (
     <div>
       <LayerToggleControl
-        label={t('geo.showSatelliteMosaic')}
         checked={selected ?? false}
+        label={t('geo.showSatelliteMosaic')}
         onCheckboxClick={() => dispatch(GeoActions.toggleMosaicLayer())}
         status={status ?? LayerFetchStatus.Unfetched}
       />

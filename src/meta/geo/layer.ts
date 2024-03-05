@@ -54,6 +54,13 @@ export type Layer = {
   metadata?: LayerMetadata
 }
 
+export enum LayerControlType {
+  TreeCoverPercent = 'TreeCoverPercent',
+  Year = 'Year',
+  CustomAsset = 'CustomAsset',
+  Agreement = 'Agreement',
+}
+
 export enum LayerSectionKey {
   Forest = 'Forest',
   ProtectedArea = 'ProtectedArea',

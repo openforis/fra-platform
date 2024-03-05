@@ -1,0 +1,31 @@
+@import 'src/client/style/partials';
+
+.geo-layer-control__container {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 150px 120px;
+  justify-content: space-between;
+
+  .geo-layer-toggle__checkbox {
+    > span {
+      font-size: $font-s;
+      font-weight: normal;
+    }
+  }
+
+  .input-range {
+    > input {
+      width: 70px;
+    }
+  }
+}
+
+.geo-layer-control__options-container {
+  grid-column: 1 / -1;
+}
+
+.geo-layer-control__row-border {
+  border-bottom: 1px solid $ui-border;
+  grid-column: 1 / -1;
+  margin: $spacing-xxxs 0 $spacing-xxxs 0;
+}
