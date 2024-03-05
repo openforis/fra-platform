@@ -1,6 +1,8 @@
 import './TablePaginated.scss'
 import React from 'react'
 
+import classNames from 'classnames'
+
 import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
 
@@ -33,7 +35,7 @@ const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>)
   }
 
   return (
-    <div className={className}>
+    <div className={classNames('table-paginated', className)}>
       <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
         {header && <Header columns={columns} path={path} />}
         <Body columns={columns} path={path} />
