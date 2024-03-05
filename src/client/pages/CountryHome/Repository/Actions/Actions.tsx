@@ -1,10 +1,10 @@
 import './Actions.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData'
 
-import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user'
-import ButtonEdit from 'client/components/Buttons/ButtonEdit'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
 type Props = {
@@ -13,19 +13,13 @@ type Props = {
 
 const Actions: React.FC<Props> = (props) => {
   const { repositoryItem } = props
+
+  const { t } = useTranslation()
   const openPanel = useOpenPanel({ repositoryItem })
-
-  const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem })
-  const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
-  const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
-
-  if (!isCountryRepositoryEditable || (isGlobalRepositoryItem && !isGlobalRepositoryEditable)) {
-    return null
-  }
 
   return (
     <div className="repository-actions">
-      <ButtonEdit onClick={openPanel} />
+      <Button iconName="pencil" inverse label={t('description.edit')} onClick={openPanel} size={ButtonSize.xs} />
     </div>
   )
 }

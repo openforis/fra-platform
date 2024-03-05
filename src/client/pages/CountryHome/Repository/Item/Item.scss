@@ -5,9 +5,18 @@ $color-public: darken($ui-status-accepted, 10%);
 
 .repository-item {
   display: grid;
-  grid-column-gap: $spacing-xxs;
+  grid-column-gap: $spacing-xs;
   grid-template-columns: repeat(2, auto);
   justify-content: start;
+  align-items: center;
+
+  &.withActions {
+    grid-template-columns: repeat(3, auto);
+
+    .repository-item__badge {
+      opacity: 0.5;
+    }
+  }
 }
 
 .repository-item__badge {
@@ -24,6 +33,7 @@ $color-public: darken($ui-status-accepted, 10%);
   line-height: 0;
   padding: 0 $spacing-xxs;
   text-transform: uppercase;
+  transition: all 0.2s;
 
   &.private {
     color: $color-private;
