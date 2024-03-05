@@ -36,7 +36,7 @@ const LayerToggleControl: React.FC<Props> = (props) => {
             'loading-spinner': status === LayerFetchStatus.Loading,
             'fra-checkbox': status !== LayerFetchStatus.Loading,
             failed: status === LayerFetchStatus.Failed,
-            checked,
+            checked: checked && (status === LayerFetchStatus.Unfetched || status === LayerFetchStatus.Ready),
           })}
           style={style}
         />
