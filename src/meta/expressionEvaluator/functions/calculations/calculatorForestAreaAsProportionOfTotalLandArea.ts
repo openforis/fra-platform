@@ -90,7 +90,7 @@ export const calculatorForestAreaAsProportionOfTotalLandArea: ExpressionFunction
 
       const proportion = proportionLeft + ((proportionRight - proportionLeft) * (year - left)) / (right - left)
 
-      return proportion ?? null
+      return proportion
     }
   },
 }
