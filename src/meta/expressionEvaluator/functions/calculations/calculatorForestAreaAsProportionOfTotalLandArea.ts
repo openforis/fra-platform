@@ -1,11 +1,12 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
+import { Objects } from 'utils/objects'
 
 import { Context } from 'meta/expressionEvaluator/context'
 
 type Year = number
 type Data = Record<Year, Record<'extentOfForest' | 'totalLandArea', number>>
 
-const baseYear = 2020
+const minYear = 2020
 const maxYear = 2025
 
 // ---------- Helper utility functions
@@ -14,35 +15,40 @@ const maxYear = 2025
 const _getData = (
   forestAreaData: Array<string> | undefined,
   totalLandAreaData: Array<string> | undefined
-): { data: Data; latestYear: Year } => {
-  const baseYear = 2020
-  let latestYear = null
-  const data = [0, 1, 2, 3].reduce<Data>((acc, i) => {
-    const key = baseYear + i + 1
+): { data: Data } => {
+  const data = [0, 1, 2, 3, 4, 5].reduce<Data>((acc, i) => {
+    const key = minYear + i
     // eslint-disable-next-line no-param-reassign
     acc[key] = {
       extentOfForest: parseFloat(forestAreaData[i]),
       totalLandArea: parseFloat(totalLandAreaData[i]),
     }
 
-    if (forestAreaData[i]) latestYear = key
-
     return acc
   }, {} as Data)
 
-  return { data, latestYear }
+  return { data }
 }
 
-const _getValueForYear = (data: Data, year: Year): Record<'extentOfForest' | 'totalLandArea', number> => {
-  return data[year]
+// Helper utility to get the range of years
+const _getRange = (data: Data, year: Year): { left: Year; right: Year } => {
+  const years = Object.keys(data).reduce<Array<Year>>((acc, y) => {
+    if (!Objects.isEmpty(data[Number(y)].extentOfForest)) acc.push(parseInt(y, 10))
+    return acc
+  }, [])
+
+  const left = [...years].reverse().find((y) => y < year) || minYear
+  const right = years.find((y) => y > year) || maxYear
+
+  return { left, right }
 }
 
 const _getProportion = (a: number, b: number): number => {
   return (a / b) * 100
 }
 
-const _getBaseProportion = (data: Data): number => {
-  const { extentOfForest, totalLandArea } = data[baseYear]
+const _getYearProportion = (data: Data, year: Year): number => {
+  const { extentOfForest, totalLandArea } = data[year]
   return _getProportion(extentOfForest, totalLandArea)
 }
 
@@ -69,25 +75,22 @@ export const calculatorForestAreaAsProportionOfTotalLandArea: ExpressionFunction
     ): number => {
       if (!year || !forestAreaData?.length || !totalLandAreaData?.length) return null
 
-      const { data, latestYear } = _getData(forestAreaData, totalLandAreaData)
+      const { data } = _getData(forestAreaData, totalLandAreaData)
 
-      const baseProportion = _getBaseProportion(data)
-
-      if (latestYear && latestYear <= year) {
-        const { extentOfForest: forestAreaX, totalLandArea: totalForestAreaX } = _getValueForYear(data, latestYear)
-        const proportionX = _getProportion(forestAreaX, totalForestAreaX)
-
-        return baseProportion + ((proportionX - baseProportion) / (latestYear - baseYear)) * (year - baseYear)
+      // if we have value for current year
+      if (data[year].extentOfForest && data[year].totalLandArea) {
+        const { extentOfForest, totalLandArea } = data[year]
+        return _getProportion(extentOfForest, totalLandArea)
       }
 
-      const { extentOfForest: forestArea2025, totalLandArea: totalLandArea2025 } = _getValueForYear(data, maxYear)
-      const proportion2025 = _getProportion(forestArea2025, totalLandArea2025)
+      const { left, right } = _getRange(data, year)
 
-      if (baseProportion > 0 && proportion2025 > 0) {
-        return baseProportion + ((proportion2025 - baseProportion) / (maxYear - baseYear)) * (year - baseYear)
-      }
+      const proportionLeft = _getYearProportion(data, left)
+      const proportionRight = _getYearProportion(data, right)
 
-      return null
+      const proportion = proportionLeft + ((proportionRight - proportionLeft) * (year - left)) / (right - left)
+
+      return proportion ?? null
     }
   },
 }
