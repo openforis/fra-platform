@@ -1,5 +1,10 @@
 @import 'src/client/style/partials';
 
+.table-paginated {
+  display: grid;
+  grid-row-gap: $spacing-xs;
+}
+
 .table-paginated-datagrid {
   .data-grid-column {
     border: none;
@@ -8,7 +13,7 @@
     word-break: break-word;
 
     &.withBorder {
-      border-top: 1px solid $ui-border;
+      border-top: 1px solid $ui-border-light;
     }
   }
 

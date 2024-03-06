@@ -1,9 +1,7 @@
 @import 'src/client/style/partials';
 
 .table-paginated-counts {
-  border-top: 1px solid $ui-border;
-  padding: $spacing-xxs;
-  padding-top: $spacing-xs;
+  padding: $spacing-xs $spacing-xxs $spacing-xxs;
 
   .table-paginated-count-item {
     color: $text-mute;
