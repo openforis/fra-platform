@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+.geo-custom-assest-control__container {
+  align-items: center;
+  display: flex;
+  gap: $spacing-s;
+  height: $spacing-m;
+  justify-content: space-between;
+  margin: $spacing-xs;
+  > input {
+    background-color: white;
+  }
+}

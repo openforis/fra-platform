@@ -23,6 +23,7 @@ module.exports = {
   issues: 'Issues',
   language: 'Language',
   lastEdit: 'Last edit',
+  load: 'Load',
   login: 'Reserved area',
   name: 'Name',
   other: 'Other',

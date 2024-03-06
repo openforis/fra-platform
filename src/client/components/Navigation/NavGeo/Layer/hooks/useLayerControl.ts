@@ -15,6 +15,7 @@ type Returned = {
   layerControlType: LayerControlType | null
   opacity: number
   selected: boolean
+  shouldShowControl: boolean
   status: LayerFetchStatus
   title: string
 }
@@ -44,11 +45,17 @@ export const useLayerControl = (props: Props): Returned => {
     const status = layerState?.status ?? LayerFetchStatus.Unfetched
     const title = layer.metadata?.title ?? layer.key
 
+    // Show Custom Asset control when the layer fetch is loading
+    const isCustomAssetLoading =
+      layerControlType === LayerControlType.CustomAsset && status === LayerFetchStatus.Loading
+    const shouldShowControl = layerControlType !== null && (selected || isCustomAssetLoading)
+
     return {
       fetchOnSelect,
       layerControlType,
       opacity,
       selected,
+      shouldShowControl,
       status,
       title,
     }
