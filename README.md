@@ -4,7 +4,7 @@
 
 First, [install Yarn](https://yarnpkg.com/en/docs/install) (modern npm replacement).
 
-Then, install [NodeJs](https://nodejs.org/en/download/) (currently the LTS version we are using is 18.12.1).
+Then, install [NodeJs](https://nodejs.org/en/download/) (currently the LTS version we are using is 20.11.1).
 
 ## The .env file
 

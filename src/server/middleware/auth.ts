@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-import { Promises } from 'utils/promises'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
 import { CountryIso } from 'meta/area'
@@ -8,11 +7,10 @@ import { Authorizer, CollaboratorEditPropertyType, Users } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { FileController } from 'server/controller/file'
+import { CycleDataController } from 'server/controller/cycleData'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
 import { tryCatch } from 'server/middleware/tryCatch'
-import { fileError } from 'server/middleware/util/fileError'
 import { Requests } from 'server/utils'
 
 const _next = (allowed: boolean, next: NextFunction): void => {
@@ -175,7 +173,7 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
   _next((print === 'true' && cycle.published) || Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
-const requireEditAssessmentFile = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEditRepositoryItem = async (req: Request, _res: Response, next: NextFunction) => {
   const { assessmentName, countryIso, cycleName } = {
     ...req.params,
     ...req.query,
@@ -186,54 +184,7 @@ const requireEditAssessmentFile = async (req: Request, _res: Response, next: Nex
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const country = await AreaController.getCountry({ countryIso, assessment, cycle })
 
-  _next(Authorizer.canEditAssessmentFile({ country, cycle, user }), next)
-}
-
-const requireEditCountryFile = async (req: Request, res: Response, next: NextFunction) => {
-  const { assessmentName, cycleName, uuid } = {
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  } as CycleParams & { uuid: string }
-
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
-  const fileUsages = await FileController.getFileUsages({ assessment, cycle, uuid })
-  if (fileUsages.length) {
-    const message = await fileError({ req, fileUsages, assessmentName, cycleName })
-    return next({ statusCode: 400, message })
-  }
-
-  return requireEditAssessmentFile(req, res, next)
-}
-
-const requireEditAssessmentFileAccess = async (req: Request, res: Response, next: NextFunction) => {
-  const {
-    assessmentName,
-    cycleName,
-    UUIDs,
-    public: _public,
-  } = {
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  } as CycleParams & { UUIDs: Array<string>; public: boolean }
-
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-
-  // When setting file access to private, check that file is not in use:
-  if (!_public) {
-    await Promises.each(UUIDs, async (uuid) => {
-      const fileUsages = await FileController.getFileUsages({ assessment, cycle, uuid })
-      if (fileUsages.length) {
-        const message = await fileError({ req, fileUsages, assessmentName, cycleName })
-        return next({ statusCode: 400, message })
-      }
-      return true
-    })
-  }
-
-  return requireEditAssessmentFile(req, res, next)
+  _next(Authorizer.canEditRepositoryItem({ country, cycle, user }), next)
 }
 
 const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
@@ -242,21 +193,34 @@ const requireUser = async (req: Request, _res: Response, next: NextFunction) => 
   _next(Boolean(user), next)
 }
 
+const requireViewRepositoryFile = async (req: Request, _res: Response, next: NextFunction) => {
+  const { assessmentName, cycleName, countryIso, uuid } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams & { uuid: string }
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, uuid })
+  const user = Requests.getUser(req)
+
+  _next(Authorizer.canViewRepositoryItem({ assessment, cycle, countryIso, user, repositoryItem }), next)
+}
+
 export const AuthMiddleware = {
-  requireEditCountryProps: tryCatch(requireEditCountryProps),
-  requireEditDescriptions: tryCatch(requireEditDescriptions),
-  requireEditTableData: tryCatch(requireEditTableData),
-  requireView: tryCatch(requireView),
   requireAdmin: tryCatch(requireAdmin),
   requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
-  requireResolveTopic: tryCatch(requireResolveTopic),
+  requireEditRepositoryItem: tryCatch(requireEditRepositoryItem),
+  requireEditCountryProps: tryCatch(requireEditCountryProps),
+  requireEditDescriptions: tryCatch(requireEditDescriptions),
   requireEditMessageTopic: tryCatch(requireEditMessageTopic),
+  requireEditTableData: tryCatch(requireEditTableData),
   requireEditUser: tryCatch(requireEditUser),
   requireInviteUser: tryCatch(requireInviteUser),
+  requireResolveTopic: tryCatch(requireResolveTopic),
+  requireUser: tryCatch(requireUser),
+  requireView: tryCatch(requireView),
+  requireViewRepositoryFile: tryCatch(requireViewRepositoryFile),
   requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),
-  requireEditAssessmentFile: tryCatch(requireEditAssessmentFile),
-  requireEditCountryFile: tryCatch(requireEditCountryFile),
-  requireEditAssessmentFileAccess: tryCatch(requireEditAssessmentFileAccess),
-  requireUser: tryCatch(requireUser),
 }

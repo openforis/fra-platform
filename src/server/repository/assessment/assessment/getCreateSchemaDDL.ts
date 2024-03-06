@@ -53,18 +53,6 @@ create table ${schemaName}.col
     PRIMARY KEY (id),
     unique(uuid)
 );
-
-create table ${schemaName}.file
-(
-    id               bigserial NOT NULL,
-    uuid             uuid default uuid_generate_v4() NOT NULL,
-    country_iso      varchar(3) references public.country on update cascade on delete cascade,
-    file_name        varchar(250) NOT NULL,
-    file             bytea NOT NULL,
-    private          boolean,
-    PRIMARY KEY (id),
-    unique(uuid)
-);
 `
   return query
 }
@@ -271,6 +259,18 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           created_at  timestamp with time zone default now() not null,        
           method      varchar(255)                    not null,
           variables   jsonb                           not null,
+          unique (uuid)
+      );
+      
+      create table if not exists ${assessmentCycleSchemaName}.repository
+      (
+          id          bigserial     not null,
+          uuid        uuid          not null default uuid_generate_v4(),
+          country_iso varchar(3)    references public.country (country_iso) on update cascade on delete cascade,
+          file_uuid   uuid          references public.file (uuid) on update cascade on delete cascade,
+          link        varchar(2048),
+          props       jsonb         not null,
+          primary key (id),
           unique (uuid)
       );
   `

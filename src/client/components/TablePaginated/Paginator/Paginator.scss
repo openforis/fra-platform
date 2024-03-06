@@ -3,11 +3,17 @@
 .table-paginated-paginator {
   display: flex;
   list-style: none;
-  justify-content: center;
-  margin-bottom: $font-l;
+  justify-items: center;
+  justify-self: center;
+  padding: 6px 5px;
+  border: 1px solid $ui-border-light;
+  margin: 0;
 
   li {
-    border: 1px solid $ui-border;
+    margin: 0 1px;
+    border-radius: 2px;
+    font-size: $font-xs;
+    transition: all 0.2s;
 
     &.disabled {
       &:hover {
@@ -31,12 +37,22 @@
 
     &.selected {
       background-color: $ui-accent-light;
+
+      a {
+        color: $ui-accent;
+      }
     }
 
     a {
       cursor: pointer;
-      display: block;
-      padding: 0.5rem 0.75rem;
+      height: 32px;
+      width: 36px;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: $text-disabled;
     }
   }
 }

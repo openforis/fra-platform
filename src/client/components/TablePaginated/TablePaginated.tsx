@@ -1,6 +1,8 @@
 import './TablePaginated.scss'
 import React from 'react'
 
+import classNames from 'classnames'
+
 import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
 
@@ -15,12 +17,13 @@ type TablePaginatedProps<Datum extends object> = Props<Datum> & {
   EmptyListComponent?: React.FC
   className?: string
   header?: boolean
+  counter?: boolean
 }
 
 const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>) => {
-  const { className, columns, header, path, limit, EmptyListComponent } = props
+  const { className, columns, header, counter, path, limit, EmptyListComponent } = props
 
-  useFetchData({ path, limit })
+  useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
 
   if (count?.total === 0) {
@@ -32,7 +35,7 @@ const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>)
   }
 
   return (
-    <div className={className}>
+    <div className={classNames('table-paginated', className)}>
       <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
         {header && <Header columns={columns} path={path} />}
         <Body columns={columns} path={path} />
@@ -40,7 +43,7 @@ const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>)
 
       <Paginator path={path} />
 
-      <Count path={path} />
+      {counter && <Count path={path} />}
     </div>
   )
 }
@@ -49,6 +52,7 @@ TablePaginated.defaultProps = {
   EmptyListComponent: () => <div />,
   className: '',
   header: true,
+  counter: true,
 }
 
 export default TablePaginated
