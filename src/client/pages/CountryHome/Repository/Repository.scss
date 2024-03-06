@@ -1,0 +1,21 @@
+@import 'src/client/style/partials';
+
+.repository {
+  .data-grid-column {
+    align-items: center;
+    display: grid;
+    height: $spacing-xl;
+  }
+}
+
+.repository__header {
+  align-items: center;
+  display: flex;
+  height: $spacing-s;
+  justify-content: center;
+  margin-top: $spacing-s;
+
+  button {
+    margin-left: $spacing-xxs;
+  }
+}

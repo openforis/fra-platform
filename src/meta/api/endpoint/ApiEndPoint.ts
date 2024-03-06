@@ -70,10 +70,19 @@ export const ApiEndPoint = {
       // Table Data (1a, 1b)
       reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
     },
+
+    Repository: {
+      file: (uuid = ':uuid') => apiPath('cycle-data', 'repository', 'file', uuid),
+      many: () => apiPath('cycle-data', 'repository', 'items'),
+      one: () => apiPath('cycle-data', 'repository', 'items', 'item'),
+      fileMeta: () => apiPath('cycle-data', 'repository', 'items', 'item', 'file-meta'),
+    },
+
     Review: {
       status: () => apiPath('cycle-data', 'review', 'status'),
       summary: () => apiPath('cycle-data', 'review', 'summary'),
     },
+
     Table: {
       estimate: () => apiPath('cycle-data', 'table', 'estimate'),
       nodes: () => apiPath('cycle-data', 'table', 'nodes'),
@@ -90,6 +99,7 @@ export const ApiEndPoint = {
   },
 
   File: {
+    many: () => apiPath('files'),
     biomassStock: ({
       assessmentName = ':assessmentName',
       cycleName = ':cycleName',
@@ -103,13 +113,6 @@ export const ApiEndPoint = {
     dataDownload: () => apiPath('file', 'data-download'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
     userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
-    sdgFocalPoints: () => apiPath('file', 'sdg-focal-points'),
-    hidden: () => apiPath('file', 'hidden'),
-    Assessment: {
-      one: (uuid = ':uuid') => apiPath('file', 'assessment', uuid),
-      many: () => apiPath('file', 'assessment'),
-      access: () => apiPath('file', 'assessment', 'access'),
-    },
   },
 
   MessageCenter: {
@@ -159,5 +162,13 @@ export const ApiEndPoint = {
     metaCache: () => apiPath('metadata', 'metaCache'),
     sections: () => apiPath('metadata', 'sections'),
     sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
+  },
+
+  _Legacy: {
+    File: {
+      // Note: Some users might use this still
+      // Legacy API Endpoint to return hidden files, replaced with redirect to RepositoryAPI get file
+      hidden: () => apiPath('file', 'hidden'),
+    },
   },
 }

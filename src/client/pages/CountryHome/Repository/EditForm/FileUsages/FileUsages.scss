@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+.repository-form__usages {
+  grid-column: 1 / -1;
+  margin-top: $spacing-m;
+}
+
+.repository-form__usage {
+  &::before {
+    content: '•';
+    margin: 0 $spacing-xxs 0 $spacing-xs;
+  }
+}

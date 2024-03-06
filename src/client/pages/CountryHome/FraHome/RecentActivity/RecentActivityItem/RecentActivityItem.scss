@@ -1,11 +1,13 @@
 @import 'src/client/style/partials';
 
 .landing__activity-item {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  word-break: break-word;
+  display: flex;
+  justify-content: start;
+  padding: 6px;
+  position: relative;
   width: 100%;
+  word-break: break-word;
 
   .link.disabled {
     color: $text-body;
@@ -52,10 +54,14 @@
 }
 
 .landing__activity-time {
-  color: $text-mute;
-  font-size: $font-s;
-  margin-left: auto;
+  color: $text-disabled;
   white-space: nowrap;
+  position: absolute;
+  top: -5px;
+  left: 44px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
 }
 
 .landing__activity-empty {

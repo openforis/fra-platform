@@ -3,28 +3,36 @@ import 'react-sliding-side-panel/lib/index.css'
 import React from 'react'
 import SlidingPanelComponent from 'react-sliding-side-panel'
 
+import ButtonClose from 'client/components/Buttons/ButtonClose'
+
 type Props = {
-  openPanel: boolean
-  setOpenPanel: (isOpen: boolean) => void
+  closePanel: () => void
+  opened: boolean
+  size?: number
 }
 
 const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
-  const { children, openPanel, setOpenPanel } = props
+  const { children, closePanel, opened, size } = props
   const panelType = 'right'
-  const panelSize = 30
 
   return (
     <SlidingPanelComponent
-      type={panelType}
-      isOpen={openPanel}
-      backdropClicked={() => setOpenPanel(false)}
-      size={panelSize}
+      backdropClicked={closePanel}
+      isOpen={opened}
       panelClassName="sliding-panel"
-      panelContainerClassName=""
+      size={size}
+      type={panelType}
     >
-      <div className="panel-container">{children}</div>
+      <>
+        <ButtonClose className="sliding-panel__close" onClick={closePanel} />
+        <div className="panel-container">{children}</div>
+      </>
     </SlidingPanelComponent>
   )
+}
+
+SlidingPanel.defaultProps = {
+  size: 30,
 }
 
 export default SlidingPanel

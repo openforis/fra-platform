@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 
+import { FileUploadSlice } from 'client/store/ui/fileUpload'
+import { RepositorySlice } from 'client/store/ui/repository'
+
 import AreaSlice from './area/slice'
 import AssessmentSlice from './assessment/slice'
 import DataSlice from './data/slice'
 import LoginSlice from './login/slice'
 import MetadataSlice from './metadata/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
-import assessmentFilesSlice from './ui/assessmentFiles/slice'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
 import DataLockSlice from './ui/dataLock/slice'
@@ -31,15 +33,16 @@ export default {
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,
-    assessmentFiles: assessmentFilesSlice,
     [AssessmentSectionSlice.name]: AssessmentSectionSlice.reducer,
     dataExport: DataExportSlice,
     dataLock: DataLockSlice,
+    [FileUploadSlice.name]: FileUploadSlice.reducer,
     home: HomeSlice,
     messageCenter: MessageCenterSlice,
     navigation: NavigationSlice,
     notification: NotificationSlice,
     originalDataPoint: OriginalDataPointSlice,
+    [RepositorySlice.name]: RepositorySlice.reducer,
     review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),

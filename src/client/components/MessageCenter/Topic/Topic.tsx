@@ -182,7 +182,7 @@ const Topic: React.FC<TopicProps> = (props) => {
                 onClick={postMessage}
                 type="submit"
               >
-                {i18n.t<string>('review.add')}
+                {i18n.t<string>('common.add')}
               </button>
             </DataCell>
           </DataGrid>

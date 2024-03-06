@@ -3,6 +3,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
+import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
 
 import LinkLanding from './LinkLanding'
@@ -20,11 +21,11 @@ const Header: React.FC<Props> = (props) => {
       <LinkLanding />
 
       <div className="nav-header__sep-container">
-        <div className="hr" />
+        <Hr />
         <button
-          type="button"
           className={classNames('btn-xs', 'btn-secondary', 'btn-transparent', 'btn-toggle')}
           onClick={() => setShowSections(!showSections)}
+          type="button"
         >
           <Icon name="unfold" />
         </button>

@@ -10,7 +10,7 @@ enum CountryHomeSectionNames {
   // contentCheck = 'contentCheck',
   userManagement = 'userManagement',
   recentActivity = 'recentActivity',
-  links = 'links',
+  repository = 'repository',
 }
 
 export const SectionNames = {

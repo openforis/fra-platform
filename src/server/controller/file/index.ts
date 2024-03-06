@@ -1,16 +1,5 @@
-import { AssessmentFileRepository } from 'server/repository/assessment/file'
-
-import { createAssessmentFile } from './createAssessmentFile'
-import { getAssessmentFile } from './getAssessmentFile'
-import { removeAssessmentFile } from './removeAssessmentFile'
-import { updateManyAssessmentFileAccess } from './updateManyAssessmentFileAccess'
+import { createMany } from 'server/controller/file/createMany'
 
 export const FileController = {
-  createAssessmentFile,
-  getAssessmentFile,
-  getAssessmentFiles: AssessmentFileRepository.getMany,
-  removeAssessmentFile,
-  getFileUsages: AssessmentFileRepository.getFileUsages,
-  getHiddenAssessmentFile: AssessmentFileRepository.getOne,
-  updateManyAssessmentFileAccess,
+  createMany,
 }

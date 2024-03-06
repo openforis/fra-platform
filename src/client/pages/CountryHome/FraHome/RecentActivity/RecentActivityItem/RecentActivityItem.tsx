@@ -28,9 +28,9 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
   return (
     <div className={classNames('landing__activity-item', { firstRow: rowIndex === 0 })}>
       <img
+        alt={Users.getFullName(user)}
         className="landing__activity-avatar"
         src={ApiEndPoint.User.profilePicture(String(user.id))}
-        alt={Users.getFullName(user)}
       />
       <div className="landing__activity-name">
         <strong>{Users.getFullName(user)}</strong>
