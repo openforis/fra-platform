@@ -44,7 +44,7 @@ module.exports = {
   noActiveAccount: 'الحساب غير نشط. تأكد من قبولك لأي دعوة معلقة',
   googleOnlyAccount: 'الحساب مرتبط بمصادقة جوجل',
   alreadyAcceptedInvitation: 'تم قبول هذه الدعوة بالفعل',
-  invitationMessage: 'لقد تمت دعوتك إلى {{assessment}} {{cycle}} كـ {{role}} في {{country}}',
+  invitationMessage: '{{country}}في  {{role}} كـ  {{ cycle }} {{ assessment }} لقد تمت دعوتك إلى',
   invitationProvidersRegistered: 'لديك بالفعل حساب مسجل باسم {{authProviderNames}}',
   acceptInvitation: 'قبول دعوة',
   acceptInvitationWithFra: 'قبول الدعوة باستخدام حساب فرا',
