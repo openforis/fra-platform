@@ -1,7 +1,6 @@
 import { Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 import { Dates } from 'utils/dates'
-import { Promises } from 'utils/promises'
 
 import { Areas, AssessmentStatus } from 'meta/area'
 
@@ -25,27 +24,33 @@ export const initRemindReviewers = (connection: IORedis): Worker => {
       await client.tx(async (tx) => {
         const assessments = await AssessmentController.getAll({}, tx)
 
-        await Promises.each(assessments, async (assessment) => {
-          await Promises.each(assessment.cycles, async (cycle) => {
-            const countries = await AreaController.getCountries({ assessment, cycle }, tx)
-            const inReview = countries.filter((country) => {
-              const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
-              return (
-                country.props.status === AssessmentStatus.review &&
-                diffInDays % 7 === 0 &&
-                !Areas.isAtlantis(country.countryIso)
-              )
-            })
+        await Promise.all(
+          assessments.map(async (assessment) => {
+            return Promise.all(
+              assessment.cycles.map(async (cycle) => {
+                const countries = await AreaController.getCountries({ assessment, cycle }, tx)
+                const inReview = countries.filter((country) => {
+                  const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
+                  return (
+                    country.props.status === AssessmentStatus.review &&
+                    diffInDays % 7 === 0 &&
+                    !Areas.isAtlantis(country.countryIso)
+                  )
+                })
 
-            await Promises.each(inReview, async (country) => {
-              await MailService.remindReviewers({
-                assessment,
-                cycle,
-                country,
+                return Promise.all(
+                  inReview.map(async (country) => {
+                    return MailService.remindReviewers({
+                      assessment,
+                      cycle,
+                      country,
+                    })
+                  })
+                )
               })
-            })
+            )
           })
-        })
+        )
       })
     },
     { concurrency: 1, connection, lockDuration: 10_000, maxStalledCount: 0 }
