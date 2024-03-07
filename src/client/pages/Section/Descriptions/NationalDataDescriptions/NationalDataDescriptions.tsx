@@ -1,55 +1,64 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
-import CommentableDescription from '../CommentableDescription'
+import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
+import DataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSources'
 
 type Props = {
-  sectionName: string
-  disabled: boolean
-  showAlertEmptyContent?: boolean
-  showDashEmptyContent?: boolean
   nationalData: NationalDataDescription
+  showDashEmptyContent?: boolean
+}
+
+type DataSourcesProps = {
+  withTable: boolean
+  withText: boolean
 }
 
 const NationalDataDescriptions: React.FC<Props> = (props) => {
-  const { sectionName, disabled, nationalData, showAlertEmptyContent, showDashEmptyContent } = props
+  const { nationalData, showDashEmptyContent } = props
 
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
+
+  const dataSourcesProps = useMemo<DataSourcesProps>(() => {
+    const withTable = Boolean(nationalData.dataSources?.table)
+    const withText = Boolean(nationalData.dataSources?.text)
+    return { withTable, withText }
+  }, [nationalData.dataSources?.table, nationalData.dataSources?.text])
 
   return (
-    <div className="fra-description__container">
-      <h2 className="headline fra-description__group-header">{i18n.t<string>('description.nationalData')}</h2>
+    <div className="descriptions__group">
+      <h2 className="headline">{t('description.nationalData')}</h2>
+
       {nationalData.dataSources && (
-        <CommentableDescription
-          title={i18n.t<string>('description.dataSourcesPlus')}
-          disabled={disabled}
-          sectionName={sectionName}
-          name={CommentableDescriptionName.dataSources}
-          showAlertEmptyContent={showAlertEmptyContent}
-          showDashEmptyContent={showDashEmptyContent}
-        />
+        <>
+          {dataSourcesProps.withTable && <DataSources nationalData={nationalData} />}
+
+          {!dataSourcesProps.withTable && (
+            <CommentableDescription
+              name={CommentableDescriptionName.dataSources}
+              showDashEmptyContent={showDashEmptyContent}
+              title={t('description.dataSourcesPlus')}
+            />
+          )}
+        </>
       )}
+
       {nationalData.nationalClassification && (
         <CommentableDescription
-          title={i18n.t<string>('description.nationalClassificationAndDefinitions')}
-          disabled={disabled}
-          sectionName={sectionName}
           name={CommentableDescriptionName.nationalClassificationAndDefinitions}
-          showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
+          title={t('description.nationalClassificationAndDefinitions')}
         />
       )}
+
       {nationalData.originalData && (
         <CommentableDescription
-          title={i18n.t<string>('description.originalData')}
-          disabled={disabled}
-          sectionName={sectionName}
           name={CommentableDescriptionName.originalData}
-          showAlertEmptyContent={showAlertEmptyContent}
           showDashEmptyContent={showDashEmptyContent}
+          title={t('description.originalData')}
         />
       )}
     </div>
@@ -57,7 +66,6 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
 }
 
 NationalDataDescriptions.defaultProps = {
-  showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
 

@@ -5,9 +5,11 @@ const common = require('./zh/common')
 const contentCheck = require('./zh/contentCheck')
 const dataDownload = require('./zh/dataDownload')
 const dataSource = require('./zh/dataSource')
+const email = require('./zh/email')
 const fra = require('./zh/fra')
 const generalValidation = require('./zh/generalValidation')
 const login = require('./zh/login')
+const landing = require('./zh/landing')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const uc = require('./zh/uc')
 
@@ -18,8 +20,10 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
+  landing,
   login,
   statisticalFactsheets,
   uc,
@@ -189,125 +193,6 @@ FRA工作组 fra@fao.org
     treesUrbanSettings: '城市树木…',
   },
 
-  landing: {
-    home: '主页',
-    sections: {
-      overview: '概览',
-      messageBoard: '留言板',
-      about: '关于FRA',
-      recentActivity: '近期活动',
-      userManagement: '合作管理',
-      externalData: '外部数据',
-      links: '链接和存储库',
-      contentCheck: '内容/检查',
-      versioning: '版本更新',
-    },
-    overview: {
-      loadingMap: '加载网站地图…',
-      withFinancialSupportOf: '赞助方为 ',
-    },
-    milestones: {
-      milestones: '里程碑',
-      milestone1: '国家通讯员全球会议',
-      milestone2: '区域和分区域研讨会',
-      milestone3: '提交国家报告截止日期',
-      milestone4: '审核国家报告最终稿',
-      milestone5: 'FRA 2020初步发现',
-      milestone6: 'FRA 2020主报告',
-      milestone7: '数据分析和报告起草',
-      milestone8: '启动分析和宣传平台',
-      date1: '3月',
-      date2: '4–9月',
-      date3: '10月',
-      date4: '1–2月',
-      date5: '3月',
-      date6: '7月',
-      date7: '3-12月',
-      date8: '8月',
-    },
-    users: {
-      users: '联系方式',
-      message: '留言',
-    },
-    about: {
-      contact: '联系人',
-      seniorForestryOfficer: '高级林业官员',
-      faoForestryDepartment: '粮农组织林业部',
-      email: '电子邮箱',
-      fraProcess:
-        '自1946年以来，粮农组织每隔5至10年对世界森林进行一次评估。全球森林资源评估（FRA）报告现在每五年编制一次，目的是提供一种连贯一致的方法来描述世界森林及其变化情况。该评估基于两个主要数据来源：国家通讯员编写的国家报告，以及粮农组织与国家联络点和区域伙伴一起进行的遥感监测。自1948年发表第一份评估报告以来，FRA报告的范围经常发生变化。这些评估构成了全球森林资源利益方面的一段有趣历史，不仅具备实质性的内容，而且涵盖的范围不断变化。',
-      linkFraProcess: '了解FRA进程的更多信息',
-      or: '或',
-      selectArea: '选择下述某一领域，获取FRA数据',
-    },
-    recentActivity: {
-      noRecentActivityTitle: '似乎没有近期活动',
-      noRecentActivityBody: '平台上所做的更改将在此处显示，以便您快速了解您离开时所发生的事情。',
-      getStarted: '开始',
-      actions: {
-        added: '已添加',
-        addedFile: '已添加 {{file}}',
-        commented: '已评论',
-        deleted: '已删除',
-        deletedFile: '已删除 {{file}}',
-        edited: '已编辑',
-        resolved: '已解决的问题为',
-        status: '更改状态为',
-        addUser: '已添加 {{user}} 为 {{role}}',
-        updateUser: '已编辑 {{user}}',
-        removeUser: '已移除 {{user}}',
-        acceptInvitation: '以 {{role}}加入',
-        addInvitation: '邀请 {{user}} 成为 {{role}}',
-        removeInvitation: '删除有关请 {{user}} 成为 {{role}}的邀请',
-        updateInvitation: '更新关于请{{user}} 成为{{role}}的邀请',
-        updateAssessmentStatus: '将{{assessment}} 的状态变更为 {{status}}',
-      },
-      fraProcess:
-        '自1946年以来，粮农组织每隔5至10年对世界森林进行一次监测。全球森林资源评估（FRA）报告现在每五年编制一次，目的是提供一种连贯一致的方法来描述世界森林及其变化情况。该评估基于两个主要数据来源：国家通讯员编写的国家报告，以及粮农组织与国家联络点和区域伙伴一起进行的遥感监测。自1948年发表第一份评估报告以来，FRA报告的范围经常发生变化。这些评估构成了全球森林资源利益方面的一段有趣历史，不仅具备实质性的内容，而且涵盖的范围不断变化。',
-      linkFraProcess: '了解有关FRA进程的更多信息',
-    },
-    links: {
-      links: '链接',
-      unfcccFocalPoints: '《气候变化框架公约》联络点（人）',
-      sdgFocalPoints: '国家可持续发展目标联络点（人）',
-      reddPortal: '卫星地面监测系统 (SLMS)，由UN-REDD/FAO授权',
-      fraGeoSpatialTools: 'FRA地理空间工具',
-      repository: '资源库',
-      uploadFile: '上传文件',
-      confirmDelete: '删除 {{file}}? 此操作无法撤销。',
-      fileUploaded: '文件成功上传',
-      fileDeleted: '文件成功删除',
-      fileOperationFailed: `该操作无法进行，因为此文件已被用于:\n{{sectionNames}}`,
-    },
-    dataExport: {
-      downloadData: '下载数据',
-    },
-    versioning: {
-      status: {
-        pending: '等待中',
-        running: '正在运行',
-        completed: '已完成',
-        failed: '失败',
-      },
-      form: {
-        newVersion: '新版本',
-        versionNumber: '版本',
-        date: '日期',
-        cancel: '取消',
-        error: '表格内有错误。请修改后再次提交。',
-      },
-      table: {
-        noVersions: '尚无版本',
-        databaseVersions: '数据库版本',
-        versionNumber: '版本编号',
-        publishedAt: '预定时间',
-        createdBy: '创建人为',
-        status: '状态',
-        delete: '删除',
-        scheduledAt: '预定于',
-      },
-    },
-  },
   userChat: {
     chatHeader: '与 {{user}}的消息',
     noMessages: '无消息',
@@ -401,6 +286,7 @@ FRA工作组
     cancel: '取消',
     changeStatusTextPlaceholder: '添加可选消息',
     doNotNotifyUsers: '不通知用户',
+    notifySelf: '将副本发送给自己',
   },
 
   header: {
@@ -435,7 +321,6 @@ FRA工作组
     delete: '删除',
     writeComment: '写评论…',
     commentingClosed: '评论关闭',
-    add: '添加',
     cancel: '取消',
     loading: '正在加载',
   },
@@ -483,7 +368,6 @@ FRA工作组
     fraClasses: 'FRA界定的类别',
     area: '面积(1000公顷)',
     total: '总计',
-    delete: '删除',
     modifiedExplanation: '修正后的国家数据点',
     confirmDelete: '确定删除这一数据点吗？此操作不可撤销。',
     discardChanges: '放弃修改',
@@ -717,6 +601,7 @@ FRA工作组 fra@fao.org
     native: '本地',
     introduced: '引进',
     growingStockComposition: '立木蓄积量组成',
+    forestGrowingStockComposition: '森林立木蓄积量组成',
     categoryHeader: 'FRA类别',
     nativeTreeSpecies: '本地树种',
     introducedTreeSpecies: '引进树种',
@@ -1200,7 +1085,8 @@ FRA工作组
 
     // table 1.2c
     growingStockComposition: {
-      growingStockComposition: '立木的组成',
+      growingStockComposition: '立木蓄积量组成',
+      forestGrowingStockComposition: '森林立木蓄积量组成',
       speciesName: '树种名称',
       growingStockInForestMillionM3OB: '森林立木蓄积量[百万立方米（带皮）]',
       rank: '排名',

@@ -1,25 +1,24 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area'
+
 import { useAppDispatch } from 'client/store'
 import { AreaActions, useAssessmentCountry, useIsUpdatingCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useHasOriginalDataPointData } from 'client/store/data'
-import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
+import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { useSectionContext } from 'client/pages/Section/context'
 
-import { Props } from '../props'
-
-const ForestCharacteristics: React.FC<Props> = (props) => {
-  const { disabled } = props
-
+const ForestCharacteristics: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
-  const countryIso = useCountryIso()
   const country = useAssessmentCountry()
-  const assessment = useAssessment()
-  const cycle = useCycle()
+  const { sectionName } = useSectionContext()
+  const editEnabled = useIsEditTableDataEnabled(sectionName)
   const hasOriginalDataPointData = useHasOriginalDataPointData()
   const updatingCountry = useIsUpdatingCountry()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
@@ -28,32 +27,29 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     return null
   }
 
+  const countryProp = {
+    forestCharacteristics: {
+      useOriginalDataPoint: !country.props.forestCharacteristics.useOriginalDataPoint,
+    },
+  }
+
   return (
     <>
-      <button
-        type="button"
-        className={`btn btn-${useOriginalDataPoint ? 'secondary' : 'primary'} no-print`}
-        onClick={() =>
-          dispatch(
-            AreaActions.updateCountryProp({
-              assessmentName: assessment.props.name,
-              countryIso,
-              cycleName: cycle.name,
-              sectionName: 'forestCharacteristics',
-              countryProp: {
-                forestCharacteristics: {
-                  useOriginalDataPoint: !country.props.forestCharacteristics.useOriginalDataPoint,
-                },
-              },
-            })
-          )
-        }
-        disabled={disabled || updatingCountry}
-      >
-        {useOriginalDataPoint
-          ? t('forestCharacteristics.dontUseOriginalDataPoints')
-          : t('forestCharacteristics.useOriginalDataPoints')}
-      </button>
+      <div className="justify_start">
+        <Button
+          disabled={!editEnabled || updatingCountry}
+          inverse={useOriginalDataPoint}
+          label={
+            useOriginalDataPoint
+              ? t('forestCharacteristics.dontUseOriginalDataPoints')
+              : t('forestCharacteristics.useOriginalDataPoints')
+          }
+          size={ButtonSize.m}
+          onClick={() =>
+            dispatch(AreaActions.updateCountryProp({ assessmentName, cycleName, countryIso, sectionName, countryProp }))
+          }
+        />
+      </div>
 
       <hr className="no-print" />
     </>

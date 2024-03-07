@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+// TODO: fra prefix is left with old mode consistency. refactor later on
+.fra-table__scroll-wrapper {
+  align-content: start;
+  display: grid;
+  justify-items: start;
+}
+
+.fra-table__editor {
+  display: flex;
+  justify-self: start;
+
+  .button:not(:first-child) {
+    margin-left: 1px;
+  }
+}

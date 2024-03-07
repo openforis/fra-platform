@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { Lang } from 'meta/lang'
-import { RoleName, User, UserRole } from 'meta/user'
+import { CollaboratorPermissions, RoleName, User, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -15,14 +15,16 @@ export const invite = async (
     countryIso: CountryIso
     cycle: Cycle
     email: string
-    name?: string
-    roleName: RoleName
-    user: User
     lang: Lang
+    name?: string
+    permissions?: CollaboratorPermissions
+    roleName: RoleName
+    surname?: string
+    user: User
   },
   client: BaseProtocol = DB
 ): Promise<{ userRole: UserRole<RoleName>; user: User }> => {
-  const { user, assessment, countryIso, email, name, roleName, cycle, lang } = props
+  const { assessment, cycle, countryIso, email, lang, name, permissions, roleName, surname, user } = props
 
   return client.tx(async (t) => {
     // Get user with primary email
@@ -31,16 +33,21 @@ export const invite = async (
     if (!userToInvite) userToInvite = await UserRepository.getOne({ emailGoogle: email }, t)
     // If neither of above, create new user
     if (!userToInvite)
-      userToInvite = await UserRepository.create({ user: { email, props: { name: name ?? '', lang } } }, client)
+      userToInvite = await UserRepository.create(
+        { user: { email, props: { name: name ?? '', surname: surname ?? '', lang } } },
+        client
+      )
 
     const userRole = await UserRoleRepository.create(
       {
-        user: userToInvite,
         assessment,
         country: countryIso,
-        role: roleName,
         cycle,
-        props: { primaryEmail: email, address: { countryIso } },
+        invitedByUserUuid: user.uuid,
+        permissions,
+        props: { address: { countryIso }, primaryEmail: email },
+        role: roleName,
+        user: userToInvite,
       },
       t
     )

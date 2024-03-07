@@ -1,5 +1,6 @@
 import { count } from './count'
 import { create } from './create'
+import { getAdmins } from './getAdmins'
 import { getContacts } from './getContacts'
 import { getMany } from './getMany'
 import { getOne } from './getOne'
@@ -12,6 +13,7 @@ export const UserRepository = {
   count,
   create,
   update,
+  getAdmins,
   getContacts,
   getMany,
   getOne,

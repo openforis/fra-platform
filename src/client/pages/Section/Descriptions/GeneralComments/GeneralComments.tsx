@@ -3,29 +3,21 @@ import { useTranslation } from 'react-i18next'
 
 import { AssessmentNames, CommentableDescriptionName } from 'meta/assessment'
 
-import CommentableDescription from '../CommentableDescription'
+import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
+import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
-type Props = {
-  assessmentName: string
-  sectionName: string
-  disabled: boolean
-}
+const GeneralComments: React.FC = () => {
+  const { assessmentName } = useAssessmentRouteParams()
 
-const GeneralComments: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, disabled } = props
   const isPanEuropean = assessmentName === AssessmentNames.panEuropean
 
   const { t } = useTranslation()
 
   return (
-    <div className="fra-description__container">
-      <CommentableDescription
-        sectionName={sectionName}
-        title={t(isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle')}
-        name={CommentableDescriptionName.generalComments}
-        disabled={disabled}
-      />
-    </div>
+    <CommentableDescription
+      name={CommentableDescriptionName.generalComments}
+      title={t(isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle')}
+    />
   )
 }
 

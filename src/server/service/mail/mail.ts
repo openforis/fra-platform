@@ -1,5 +1,6 @@
 import * as nodemailer from 'nodemailer'
 
+import { remindReviewers } from 'server/service/mail/remindReviewers'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 import { NodeEnv } from 'server/utils/processEnv'
@@ -8,6 +9,7 @@ import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 import { oneToOneMessage } from './oneToOneMessage'
 import { resetPassword } from './resetPassword'
 import { userInvite } from './userInvite'
+import { userNotifyAcceptedInvitation } from './userNotifyAcceptedInvitation'
 
 const mailTransport = nodemailer.createTransport({
   pool: true,
@@ -66,7 +68,9 @@ export const sendMail = async (email: MailServiceEmail) => {
 export const MailService = {
   assessmentNotifyUsers,
   oneToOneMessage,
+  remindReviewers,
   resetPassword,
   sendMail,
   userInvite,
+  userNotifyAcceptedInvitation,
 }

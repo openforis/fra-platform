@@ -1,4 +1,5 @@
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
+import { Repository } from 'server/controller/cycleData/repository'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
@@ -20,6 +21,7 @@ import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
+import { removeDataSource } from './removeDataSource'
 import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
@@ -62,6 +64,7 @@ export const CycleDataController = {
   getDataSources: DescriptionRepository.getDataSources,
   getDescriptionValues: DescriptionRepository.getValues,
   upsertDescription,
+  removeDataSource,
 
   // ==== activities
   getActivities: CountryActivityLogRepository.getMany,
@@ -73,4 +76,7 @@ export const CycleDataController = {
   // ====== node ext
   // -- contact
   Contacts,
+
+  // ====== repository
+  Repository,
 }

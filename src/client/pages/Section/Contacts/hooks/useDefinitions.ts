@@ -4,10 +4,10 @@ import { ContactField, contactFields } from 'meta/cycleData'
 import { NodeExtCellType } from 'meta/nodeExt'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useOptionsAppellation } from 'client/hooks/useOptionsAppellation'
 import { NodeExtCell, NodeExtCellSelect } from 'client/components/TableNodeExt/types'
 import { Columns, Fields } from 'client/pages/Section/Contacts/types'
 
-import { useOptionsAppellation } from './useOptionsAppellation'
 import { useOptionsContributions } from './useOptionsContributions'
 import { useOptionsRole } from './useOptionsRole'
 
@@ -33,9 +33,9 @@ export const useColumns = (): Columns => {
       props: { header: { label: { key: 'editUser.role' } }, options: optionsRole },
       type: NodeExtCellType.select,
     }
-    const institution: NodeExtCell<NodeExtCellType.text> = {
+    const institution: NodeExtCell<NodeExtCellType.link> = {
       props: { header: { label: { key: 'editUser.organization' } } },
-      type: NodeExtCellType.text,
+      type: NodeExtCellType.link,
     }
     const contributions: NodeExtCellSelect = {
       props: { header: { label: { key: 'editUser.contributions' } }, options: optionsContributions },

@@ -18,7 +18,7 @@ type Props = {
   limit: number
 }
 
-type Returned = Array<any>
+type Returned = Array<never>
 
 export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/get', async (props) => {
   const { assessmentName, cycleName, countryIso, orderBy, page, path, limit: _limit } = props

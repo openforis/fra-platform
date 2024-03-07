@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
+import { AssessmentStatus } from 'meta/area/status'
 import { AssessmentName } from 'meta/assessment'
 import { Users } from 'meta/user'
 
@@ -13,9 +14,9 @@ import { AreaActions, useAssessmentCountry } from 'client/store/area'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
-import { useRecipients } from 'client/components/PageLayout/Toolbar/Status/useRecipients'
 import UserList from 'client/components/UserList'
 
+import { useRecipients } from './hooks/useRecipients'
 import { StatusTransition } from './types'
 
 type Props = {
@@ -33,11 +34,13 @@ const StatusConfirm: React.FC<Props> = (props) => {
   const country = useAssessmentCountry()
 
   const [notifyUsers, setNotifyUsers] = useState<boolean>(true)
+  const [notifySelf, setNotifySelf] = useState<boolean>(true)
 
   const [textareaValue, setTextareaValue] = useState<string>('')
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
 
   const recipients = useRecipients({ status })
+  const hasRecipients = recipients.length > 0
 
   return (
     <Modal isOpen>
@@ -56,7 +59,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           />
         </div>
 
-        {Users.isAdministrator(user) && (
+        {status.status !== AssessmentStatus.approval && Users.isAdministrator(user) && hasRecipients && (
           <div
             className="nav-assessment-status-confirm__notify-users"
             onClick={() => setNotifyUsers(!notifyUsers)}
@@ -68,7 +71,17 @@ const StatusConfirm: React.FC<Props> = (props) => {
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
-        {notifyUsers && <UserList readOnly users={recipients} />}
+        {notifyUsers && hasRecipients && <UserList readOnly users={recipients} />}
+        <div
+          className="nav-assessment-status-confirm__notify-self"
+          onClick={() => setNotifySelf(!notifySelf)}
+          onKeyDown={() => setNotifySelf(!notifySelf)}
+          role="button"
+          tabIndex={0}
+        >
+          <div className={classNames('fra-checkbox', { checked: notifySelf })} />
+          {i18n.t('navigation.notifySelf')}
+        </div>
       </ModalBody>
 
       <ModalFooter>
@@ -81,6 +94,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             dispatch(
               AreaActions.updateCountry({
                 notifyUsers,
+                notifySelf,
                 country: {
                   ...country,
                   props: {

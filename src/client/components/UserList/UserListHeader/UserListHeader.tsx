@@ -37,8 +37,10 @@ const UserListHeader: React.FC<Props> = (props) => {
           ))}
         {!readOnly && (
           <th className="user-list__header-cell user-list__edit-column">
-            <UserListButtonExport isAdmin={isAdminRoute} />
-            <InviteUserLink />
+            <div className="user-list__edit-column-buttons-container">
+              <UserListButtonExport isAdmin={isAdminRoute} />
+              {!isAdminRoute && <InviteUserLink />}
+            </div>
           </th>
         )}
       </tr>

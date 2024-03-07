@@ -14,6 +14,7 @@ import { removeContact } from './contacts/remove'
 import { updateContact } from './contacts/update'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
+import { removeDataSource } from './descriptions/removeDataSource'
 import { upsertDescription } from './descriptions/upsertDescription'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
@@ -28,6 +29,12 @@ import { updateOriginalDataPointDescription } from './originalDataPoint/updateOr
 import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
+import { createRepositoryItem } from './repository/createRepositoryItem'
+import { getManyRepository } from './repository/getManyRepository'
+import { getRepositoryFile } from './repository/getRepositoryFile'
+import { getRepositoryFileMeta } from './repository/getRepositoryFileMeta'
+import { removeRepositoryItem } from './repository/removeRepositoryItem'
+import { updateRepositoryItem } from './repository/updateRepositoryItem'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { clearTable } from './table/clearTable'
@@ -55,9 +62,14 @@ export const CycleDataApi = {
     express.post(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
 
     // Descriptions
-    express.get(ApiEndPoint.CycleData.descriptionsDataSources(), AuthMiddleware.requireView, getDataSources)
-    express.get(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireView, getDescription)
-    express.put(ApiEndPoint.CycleData.descriptions(), AuthMiddleware.requireEditDescriptions, upsertDescription)
+    express.get(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireView, getDescription)
+    express.put(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireEditDescriptions, upsertDescription)
+    express.get(ApiEndPoint.CycleData.Descriptions.DataSources.many(), AuthMiddleware.requireView, getDataSources)
+    express.delete(
+      ApiEndPoint.CycleData.Descriptions.DataSources.one(),
+      AuthMiddleware.requireEditDescriptions,
+      removeDataSource
+    )
 
     // OriginalDataPoints
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(), AuthMiddleware.requireView, getReservedYears)
@@ -134,5 +146,25 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
     express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
     express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
+
+    // repository
+    express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)
+    express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewRepositoryFile, getRepositoryFile)
+    express.get(
+      ApiEndPoint.CycleData.Repository.fileMeta(),
+      AuthMiddleware.requireEditRepositoryItem,
+      getRepositoryFileMeta
+    )
+    express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
+    express.patch(
+      ApiEndPoint.CycleData.Repository.one(),
+      AuthMiddleware.requireEditRepositoryItem,
+      updateRepositoryItem
+    )
+    express.delete(
+      ApiEndPoint.CycleData.Repository.one(),
+      AuthMiddleware.requireEditRepositoryItem,
+      removeRepositoryItem
+    )
   },
 }

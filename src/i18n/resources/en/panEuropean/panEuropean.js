@@ -118,6 +118,7 @@ module.exports = {
     growingStockNumber: 'I. Growing stock',
     growingStockByForestTypeNumber: 'II. Growing stock by forest type',
     growingStockCompositionNumber: 'III. Growing stock composition',
+    forestGrowingStockCompositionNumber: 'III. Forest growing stock composition',
     growingStock: 'Growing stock',
     categoryYear: 'Category - Year',
     growingStockMillionM3OB: 'Growing stock (million m³ over bark)',
@@ -481,6 +482,7 @@ module.exports = {
 
   // table 4.2a
   totalForestAreaByExpansionAndRegenerationType: {
+    forestAreaByExpansionAndRegenerationSubcategories: 'Forest area by expansion and regeneration subcategories',
     totalForestAreaByExpansionAndRegenerationType: 'Total forest area by expansion and regeneration type',
     totalForestAreaByExpansionAndRegenerationTypeNumber: 'I. Total forest area by expansion and regeneration type',
     annualForestExpansionAndRegenerationNumber: 'II. Annual forest expansion and regeneration',

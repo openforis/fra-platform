@@ -2,6 +2,7 @@
 
 $font-family-1: 'Open Sans', sans-serif;
 
+$font-xxxxs: 9px;
 $font-xxxs: 10px;
 $font-xxs: 11px;
 $font-xs: 12px;
@@ -30,7 +31,7 @@ $ui-accent-light-extra: #dbf1f5;
 $ui-destructive: #d0021b;
 $ui-alert: #f58020;
 
-$ui-input-focus: #f6f6f6;
+$ui-input-focus: rgba(219, 241, 245, 0.25); //$ui-accent-light-extra 0.2
 $ui-edit-border-color: #939393;
 $ui-edit-background-error: lighten($ui-destructive, 50%);
 

@@ -6,8 +6,10 @@ const contentCheck = require('./es/contentCheck')
 const dataDownload = require('./es/dataDownload')
 const dataSource = require('./es/dataSource')
 const editUser = require('./es/editUser')
+const email = require('./es/email')
 const fra = require('./es/fra')
 const generalValidation = require('./es/generalValidations')
+const landing = require('./es/landing')
 const login = require('./es/login')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 const uc = require('./es/uc')
@@ -19,8 +21,10 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
+  landing,
   login,
   statisticalFactsheets,
   uc,
@@ -159,102 +163,6 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     treesUrbanSettings: '…de las cuales árboles en espacios urbanos',
   },
 
-  landing: {
-    home: 'Inicio',
-    sections: {
-      overview: 'Visión general',
-      messageBoard: 'Tablero de mensajes',
-      about: 'Acerca de FRA',
-      recentActivity: 'Actividad reciente',
-      userManagement: 'Gestionar colaboradores',
-      externalData: 'Datos externos',
-      links: 'Enlaces y Repositorio',
-      contentCheck: 'Contenido / Comprobar',
-      versioning: 'Versionando',
-    },
-    overview: {
-      loadingMap: 'Cargando mapa…',
-      withFinancialSupportOf: 'Con el apoyo financiero de',
-    },
-    milestones: {
-      milestones: 'Logros',
-      milestone1: 'Reunión mundial de Corresponsales Nacionales',
-      milestone2: 'Talleres regionales y subregionales',
-      milestone3: 'Plazo de presentación de los informes nacionales',
-      milestone4: 'Validación de los informes nacionales finales',
-      milestone5: 'Resultados preliminares de FRA 2020',
-      milestone6: 'Informe principal de FRA 2020',
-      milestone7: 'Análisis de datos y redacción de informes',
-      milestone8: 'Lanzamiento de la plataforma de análisis y difusión',
-      date1: 'Marzo',
-      date2: 'Abril – Septiembre',
-      date3: 'Octubre',
-      date4: 'Enero – Febrero',
-      date5: 'Marzo',
-      date6: 'Julio',
-      date7: 'Marzo – Diciembre',
-      date8: 'Agosto',
-    },
-    users: {
-      users: 'Contactos',
-      message: 'Mensaje',
-    },
-    about: {
-      contact: 'Contacto',
-      seniorForestryOfficer: 'Oficial Forestal Superior',
-      faoForestryDepartment: 'Departamento Forestal de la FAO',
-      email: 'Correo electrónico',
-      fraProcess:
-        'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo ahora cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
-      linkFraProcess: 'Más información sobre el proceso de FRA',
-      or: 'O',
-      selectArea: 'Seleccione un área a continuación para acceder a los datos de FRA',
-    },
-    recentActivity: {
-      noRecentActivityTitle: 'Parece que no hay ninguna actividad reciente',
-      noRecentActivityBody:
-        'Los cambios realizados en la plataforma aparecerán aquí, para que se pueda poner al día sobre lo que ha estado ocurriendo mientras estaba ausente.',
-      getStarted: 'Para empezar',
-      actions: {
-        added: 'ha añadido',
-        addedFile: 'ha añadido {{file}}',
-        commented: 'ha comentado',
-        deleted: 'ha borrado',
-        deletedFile: 'ha borrado {{file}}',
-        edited: 'ha editado',
-        resolved: 'ha resuelto el asunto',
-        status: 'ha cambiado el estado a',
-        addUser: 'ha añadido a {{user}} como {{role}}',
-        updateUser: 'ha editado a {{user}}',
-        removeUser: 'ha eliminado a {{user}}',
-        acceptInvitation: 'ha sido incorporado/a como {{role}}',
-        addInvitation: 'ha invitado a {{user}} como {{role}}',
-        removeInvitation: 'ha eliminado la invitación de {{user}} como {{role}}',
-        updateInvitation: 'ha actualizado la invitación de {{user}} como {{role}}',
-        updateAssessmentStatus: 'ha cambiado el estado de {{assessment}} a {{status}}',
-      },
-      fraProcess:
-        'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
-      linkFraProcess: 'Más información sobre el proceso de FRA',
-    },
-    links: {
-      links: 'Enlaces',
-      unfcccFocalPoints: 'Puntos de contacto de la CMNUCC',
-      sdgFocalPoints: 'Puntos de contacto nacionales para los ODS',
-      reddPortal: 'Sistemas satelitales de monitoreo terrestre habilitados por el Programa ONU-REDD y la FAO',
-      fraGeoSpatialTools: 'Herramientas geoespaciales del FRA',
-      repository: 'Repositorio',
-      uploadFile: 'Cargar un archivo',
-      confirmDelete: '¿Borrar {{file}}? Esta acción no puede deshacerse.',
-      fileUploaded: 'Archivo cargado correctamente',
-      fileDeleted: 'Archivo eliminado correctamente',
-      fileOperationFailed: `La operación no se puede realizar porque el archivo se utiliza en:\n{{sectionNames}}`,
-    },
-    dataExport: {
-      downloadData: 'Descargar datos',
-    },
-  },
-
   userChat: {
     chatHeader: 'Mensajes con {{user}}',
     noMessages: 'Ningún mensaje',
@@ -355,6 +263,7 @@ El equipo de FRA
     cancel: 'Cancelar',
     changeStatusTextPlaceholder: 'Añadir un mensaje opcional',
     doNotNotifyUsers: 'No notificar a los usuarios',
+    notifySelf: 'Enviar copia a uno mismo',
   },
 
   header: {
@@ -389,7 +298,6 @@ El equipo de FRA
     delete: 'Borrar',
     writeComment: 'Escriba un comentario…',
     commentingClosed: 'Se han desactivado los comentarios',
-    add: 'Añadir',
     cancel: 'Cancelar',
     loading: 'Cargando',
   },
@@ -437,7 +345,6 @@ El equipo de FRA
     fraClasses: 'Clases de FRA',
     area: 'Área (1000 ha)',
     total: 'Total',
-    delete: 'Borrar',
     modifiedExplanation: 'Punto de datos nacionales con modificaciones',
     confirmDelete: '¿Borrar este punto de datos? Esta acción no puede deshacerse.',
     discardChanges: 'Cancelar cambios',
@@ -680,6 +587,7 @@ El equipo de FRA
     native: 'Nativa',
     introduced: 'Introducida',
     growingStockComposition: 'Composición de las existencias en formación',
+    forestGrowingStockComposition: 'Composición de las existencias forestales en formación',
     categoryHeader: 'Categorías de FRA',
     nativeTreeSpecies: 'Especies de árboles nativos',
     introducedTreeSpecies: 'Especies introducidas',

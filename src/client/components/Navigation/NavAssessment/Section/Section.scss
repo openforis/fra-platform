@@ -5,6 +5,10 @@
   font-weight: 700;
   cursor: pointer;
 
+  svg {
+    color: $text-body;
+  }
+
   &:focus {
     outline: none;
   }
@@ -18,7 +22,6 @@
 }
 
 .nav-section__label {
-  margin-right: 4px;
   font-size: $font-s;
 }
 

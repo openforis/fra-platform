@@ -23,7 +23,7 @@ export const getLinkedDataSources = createAsyncThunk<Returned, Params>(
   async ({ countryIso, assessmentName, cycleName, sectionName, linkedVariables }) => {
     const responses = await Promise.all(
       linkedVariables.map((linkedVariable) =>
-        axios.get<Array<DataSourceLinked> | null>(ApiEndPoint.CycleData.descriptionsDataSources(), {
+        axios.get<Array<DataSourceLinked> | null>(ApiEndPoint.CycleData.Descriptions.DataSources.many(), {
           params: { countryIso, assessmentName, cycleName, linkedVariable: JSON.stringify(linkedVariable) },
         })
       )

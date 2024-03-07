@@ -1,15 +1,14 @@
 import { useMemo } from 'react'
 
-import { useAssessmentCountryFiles } from 'client/store/ui/assessmentFiles'
-
 import { useIsChecked } from './useIsChecked'
+import { useRepositoryItems } from './useRepositoryItems'
 
 export const useAllSelected = (): boolean => {
-  const countryFiles = useAssessmentCountryFiles()
+  const repositoryItems = useRepositoryItems()
   const isChecked = useIsChecked()
 
   return useMemo(
-    () => countryFiles.every((assessmentFile) => isChecked(assessmentFile.uuid)),
-    [countryFiles, isChecked]
+    () => repositoryItems.every((repositoryItem) => isChecked(repositoryItem.uuid)),
+    [repositoryItems, isChecked]
   )
 }

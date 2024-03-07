@@ -1,13 +1,18 @@
 @import 'src/client/style/partials';
 
 .nav-header__status {
-  display: inline-block;
+  align-items: center;
   border-radius: 2px;
-  font-size: $font-s;
   color: white;
-  padding: 4px 10px;
-  transition: $ease-out;
+  display: flex;
+  font-size: $font-s;
+  font-weight: 600;
+  height: $spacing-m;
   justify-self: start;
+  letter-spacing: 0.25px;
+  padding: 0 12px;
+  text-transform: uppercase;
+  transition: $ease-out;
 
   &.actionable-true {
     cursor: pointer;
@@ -34,6 +39,7 @@
 
   &.status-review {
     background-color: $ui-status-review;
+    border: 1px solid darken($ui-status-review, 5%);
   }
 
   &.status-accepted {

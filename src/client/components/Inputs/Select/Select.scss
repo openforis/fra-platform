@@ -7,6 +7,7 @@ div.select__container {
 }
 
 div.select__control {
+  align-items: start;
   background-color: transparent;
   border-radius: unset;
   border: unset;
@@ -33,6 +34,7 @@ div.select__valueContainer {
 div.select__singleValue {
   color: $text-body;
   margin: unset;
+  white-space: normal;
 }
 
 div.select__input {
@@ -45,7 +47,7 @@ div.select__input {
 }
 
 div.select__multiValue {
-  background-color: $ui-input-focus;
+  background-color: $ui-bg;
   border: 1px dashed $ui-edit-border-color;
   margin: 0 1px 1px 0;
   padding: $spacing-xxxxs;

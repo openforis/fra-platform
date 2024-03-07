@@ -1,0 +1,5 @@
+@mixin print {
+  .print__container {
+    @content;
+  }
+}

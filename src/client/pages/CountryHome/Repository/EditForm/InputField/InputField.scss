@@ -1,0 +1,23 @@
+@import 'src/client/style/partials';
+
+.repository-form__label {
+  font-weight: 700;
+  justify-self: right;
+}
+.repository-form__field {
+  position: relative;
+}
+
+.repository-form__error-label {
+  color: $ui-destructive;
+  font-size: $font-xxxs;
+  font-weight: 600;
+  position: absolute;
+  text-transform: uppercase;
+}
+
+.error {
+  .file-drop {
+    border-color: $ui-destructive;
+  }
+}

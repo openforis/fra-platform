@@ -5,8 +5,9 @@ import { Label } from './label'
 export type SectionName = string
 
 export enum SectionNames {
-  'contacts' = 'contacts',
   'contactPersons' = 'contactPersons',
+  'contacts' = 'contacts',
+  'originalDataPoints' = 'originalDataPoints',
 }
 
 export interface SectionProps {
@@ -15,12 +16,19 @@ export interface SectionProps {
   labels: Record<CycleUuid, Label>
 }
 
+export type SubSectionHints = {
+  definitions?: boolean
+  faqs?: boolean
+  notes?: boolean
+}
+
 export interface SubSectionProps extends SectionProps {
+  dataExport?: boolean
   descriptions: Descriptions
+  hidden?: boolean
+  hints?: Record<CycleUuid, SubSectionHints>
   name: SectionName
   showTitle: boolean
-  dataExport?: boolean
-  hidden?: boolean
 }
 
 export interface Section extends CycledPropsObject<SectionProps> {

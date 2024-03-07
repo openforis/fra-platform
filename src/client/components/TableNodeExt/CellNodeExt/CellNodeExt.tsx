@@ -3,12 +3,13 @@ import React from 'react'
 import { NodeExtCellType } from 'meta/nodeExt'
 
 import { DataCell } from 'client/components/DataGrid'
+import CellLink from 'client/components/TableNodeExt/CellNodeExt/CellLink'
+import CellMultiselect from 'client/components/TableNodeExt/CellNodeExt/CellMultiselect'
+import CellSelect from 'client/components/TableNodeExt/CellNodeExt/CellSelect'
+import CellText from 'client/components/TableNodeExt/CellNodeExt/CellText'
 
 import { NodeExtCell } from '../types'
-import CellMultiselect from './CellMultiselect'
 import { CellProps } from './CellProps'
-import CellSelect from './CellSelect'
-import CellText from './CellText'
 
 type CellNodeExtFC = React.FC<CellProps<NodeExtCell<NodeExtCellType>>>
 
@@ -16,6 +17,7 @@ const components: Record<string, CellNodeExtFC> = {
   multiselect: CellMultiselect,
   select: CellSelect,
   text: CellText,
+  link: CellLink,
 }
 
 const CellNodeExt: CellNodeExtFC = (props) => {

@@ -5,6 +5,8 @@ import * as range from 'lodash.range'
 // @ts-ignore
 import * as reverse from 'lodash.reverse'
 // @ts-ignore
+import * as uniqueBy from 'lodash.uniqby'
+// @ts-ignore
 import * as uniqWith from 'lodash.uniqwith'
 
 import { Objects } from './objects'
@@ -25,4 +27,5 @@ export const Arrays = {
   range,
   reverse,
   unique,
+  uniqueBy,
 }

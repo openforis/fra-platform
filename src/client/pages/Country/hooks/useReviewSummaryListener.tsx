@@ -20,20 +20,19 @@ export const useReviewSummaryListener = (): void => {
   useEffect(() => {
     const eventName = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })
 
-    const updateReviewSummaryEventHandler = () => {
+    const getReviewSummary = () => {
       dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
     }
 
     if (hasRoleInCountry) {
-      // fetch review summary
-      dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
-      SocketClient.on(eventName, updateReviewSummaryEventHandler)
+      getReviewSummary()
+      SocketClient.on(eventName, getReviewSummary)
     }
 
     return () => {
       dispatch(ReviewActions.reset())
       if (hasRoleInCountry) {
-        SocketClient.off(eventName, updateReviewSummaryEventHandler)
+        SocketClient.off(eventName, getReviewSummary)
       }
     }
   }, [assessmentName, countryIso, cycleName, dispatch, hasRoleInCountry])

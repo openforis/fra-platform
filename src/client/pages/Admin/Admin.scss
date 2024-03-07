@@ -1,11 +1,7 @@
 @import 'src/client/style/partials';
 
-.app-view__content {
-  grid-area: content;
-  height: 100%;
-  padding: 28px 32px 48px 32px;
-  overflow-x: auto;
-  overflow-y: hidden;
+.admin-view {
+  padding: $spacing-s;
 }
 
 .admin__page-header {
@@ -25,10 +21,13 @@
 }
 
 .admin__page-menu {
-  display: flex;
-  padding-top: $spacing-xxs;
   align-items: start;
+  background-color: white;
+  display: flex;
   overflow-x: auto;
+  padding-top: $spacing-xxs;
+  position: sticky;
+  top: 0;
 
   .admin__page-menu-button {
     border-radius: unset;
@@ -57,4 +56,9 @@
 
 .admin__page-content {
   padding: $spacing-xs 0;
+
+  .table-paginated-datagrid .data-grid-column.head {
+    position: sticky;
+    top: 42px;
+  }
 }

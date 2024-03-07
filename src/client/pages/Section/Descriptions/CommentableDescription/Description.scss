@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.description {
+  grid-row-gap: $spacing-xxxs;
+}
+
+.description__editor-container:not(.editable) {
+  div.jodit-wysiwyg {
+    padding: unset;
+  }
+}

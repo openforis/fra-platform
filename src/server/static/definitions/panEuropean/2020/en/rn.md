@@ -1,6 +1,6 @@
-# Criterion I
+# Criterion I <!-- section:CriterionI -->
 
-# 1.1 Indicator 1.1
+# 1.1 Indicator 1.1 <!-- section:1.1 -->
 
 **Reporting notes:**
 
@@ -16,7 +16,7 @@
 
 6. The country approach to the calculation / specification of “Forest available for wood supply” (FAWS), as well as the list of national categories included into the FAWS calculation, should be noted in “Country comments”.
 
-# 1.2 Indicator 1.2
+# 1.2 Indicator 1.2 <!-- section:1.2 -->
 
 **Reporting notes:**
 
@@ -28,7 +28,7 @@
 
 4. Data sources: please specify sources separately for forest, other wooded land and total FOWL if sources differ.
 
-# 1.3a Indicator 1.3a
+# 1.3a Indicator 1.3a <!-- section:1.3a -->
 
 **Reporting notes:**
 
@@ -46,7 +46,7 @@
 
 7. National Correspondents are invited to provide additional information on the distribution by species of different rotation lengths in a separate note or under “Country comments”.
 
-# 1.3b Indicator 1.3b
+# 1.3b Indicator 1.3b <!-- section:1.3b -->
 
 **Reporting notes:**
 
@@ -64,7 +64,7 @@
 
 7. The upper limits of classes are inclusive, i.e. in the diameter class ≤20 - the 20 cm diameter is included, in the diameter class 21-40cm – the 40 cm diameter is included in this class, etc.
 
-# 1.4 Indicator 1.4
+# 1.4 Indicator 1.4 <!-- section:1.4 -->
 
 **Reporting notes:**
 
@@ -86,21 +86,21 @@
 
 9. A National Correspondent might wish to provide additional data (in “Country comments” or a supplementary table) which would show an “annual average increment of carbon” and explain any inconsistency with the data in table 1.4.
 
-# Criterion II
+# Criterion II <!-- section:CriterionII -->
 
-# 2.1 Indicator 2.1
-
-> No reporting notes.
-
-# 2.2 Indicator 2.2
+# 2.1 Indicator 2.1 <!-- section:2.1 -->
 
 > No reporting notes.
 
-# 2.3 Indicator 2.3
+# 2.2 Indicator 2.2 <!-- section:2.2 -->
 
 > No reporting notes.
 
-# 2.4 Indicator 2.4
+# 2.3 Indicator 2.3 <!-- section:2.3 -->
+
+> No reporting notes.
+
+# 2.4 Indicator 2.4 <!-- section:2.4 -->
 
 **Reporting notes:**
 
@@ -131,7 +131,7 @@
 
 13. Total area damaged should be the sum of damage by individual sub-classes, excluding "damaged by fire", which should be reported as a seperate variable.
 
-# 2.5 Indicator 2.5
+# 2.5 Indicator 2.5 <!-- section:2.5 -->
 
 **Reporting notes:**
 
@@ -151,9 +151,9 @@
 
 7. Total area degraded should be the sum of degradation by individual sub-classes.
 
-# Criterion III
+# Criterion III <!-- section:CriterionIII -->
 
-# 3.1 Indicator 3.1
+# 3.1 Indicator 3.1 <!-- section:3.1 -->
 
 **Reporting notes:**
 
@@ -213,7 +213,7 @@ Default values of natural losses percentage of gross increment (PM0) and volume 
 | Up to 50% (10-47)                                                                | 23 (13 – 42)                                       | 5 (2 – 25)                                                  |
 | 51% and more (34-106)                                                            | 14 (4 – 37)                                        | 10 (3 – 27)                                                 |
 
-# 3.2 Indicator 3.2
+# 3.2 Indicator 3.2 <!-- section:3.2 -->
 
 **Reporting notes:**
 
@@ -231,7 +231,7 @@ Default values of natural losses percentage of gross increment (PM0) and volume 
 
 7. The value reported should be the market value at the site of removal. If possible, felled (roadside) values should be reported. If a different basis is used (e.g. standing sales value), values should be converted to felled (roadside). In case where values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be discounted. Values and conversion factors used in the calculation should be provided in the comments.
 
-# 3.3 Indicator 3.3
+# 3.3 Indicator 3.3 <!-- section:3.3 -->
 
 **Reporting notes:**
 
@@ -265,7 +265,7 @@ Default values of natural losses percentage of gross increment (PM0) and volume 
 
 13. “Wild meat” (in tonnes) and “Living animals” (in 1000 pieces) “from forest and other wooded land” is to be understood to include game whose habitat is forest-related or –dependent. Please use expert judgment in classifications and provide information on game classes included under “country comments”. Meat and harvest from game farms are to be excluded. Note that marketed game only is to be included. Licenses for hunting are to be reported as “Marketed Service” under “Reporting Form 3.4: Services”. Only those marketed living animals that were caught in their natural habitat, should be reported under category “Living animals”.
 
-# 3.4 Indicator 3.4
+# 3.4 Indicator 3.4 <!-- section:3.4 -->
 
 **Reporting notes:**
 
@@ -303,9 +303,9 @@ Default values of natural losses percentage of gross increment (PM0) and volume 
 
 13. The reference area for reporting is “Total FOWL”, not further divided into sub-classes “Forest” and “Other wooded land”. If data is available for some forest areas, e.g. for state forests or sub-class “Forest”, please give an expert judgment on the likely value for ”Total forest and other wooded land”. Please report on actually available data on which expert judgment is based under “Country comments”.
 
-# Criteria IV-V
+# Criteria IV-V <!-- section:CriteriaIV-V -->
 
-# 4.1 Indicator 4.1
+# 4.1 Indicator 4.1 <!-- section:4.1 -->
 
 **Reporting notes:**
 
@@ -321,7 +321,7 @@ Default values of natural losses percentage of gross increment (PM0) and volume 
 
 6.  Whenever possible, the reference area for the assessment should be the forest stand.
 
-# 4.2 Indicator 4.2
+# 4.2 Indicator 4.2 <!-- section:4.2 -->
 
 **Reporting notes:**
 
@@ -350,7 +350,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 10. In case of those forms of regeneration, where assessment of regenerated area is unfeasible (some partial or selective final fellings) please report the area that corresponds to the share (volume, basal area or crown cover) of felled trees in the regenerated stand. Please explain in comments.
 
-# 4.3 indicator 4.3
+# 4.3 indicator 4.3 <!-- section:4.3 -->
 
 **Reporting notes:**
 
@@ -363,7 +363,7 @@ Table 4.2b: Annual forest expansion and regeneration
 4. Data sources: please specify sources separately for forest, other wooded land and total FOWL if sources differ.
 5. Please ensure that the areas of introduced species included in the category “plantations” for this indicator are consistent with the areas reported as “dominated by introduced tree species” in Reporting Form 4.4.
 
-# 4.4 Indicator 4.4
+# 4.4 Indicator 4.4 <!-- section:4.4 -->
 
 **Reporting notes:**
 
@@ -383,7 +383,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 8. Please provide under “Country comments” a general information on other invasive plant or animal species (not covered by the Tables 4.4a and 4.4c) that are considered as threatening for forests in your country. If available provide information on species, scale, trends and type of impact they have on forest ecosystems or their elements.
 
-# 4.5 Indicator 4.5
+# 4.5 Indicator 4.5 <!-- section:4.5 -->
 
 **Reporting notes:**
 
@@ -403,15 +403,15 @@ Table 4.2b: Annual forest expansion and regeneration
 
 8. Please provide under “Country comments” a general information on other invasive plant or animal species (not covered by the Tables 4.4a and 4.4c) that are considered as threatening for forests in your country. If available provide information on species, scale, trends and type of impact they have on forest ecosystems or their elements.
 
-# 4.6 Indicator 4.6
+# 4.6 Indicator 4.6 <!-- section:4.6 -->
 
 > No reporting notes.
 
-# 4.7 Indicator 4.7
+# 4.7 Indicator 4.7 <!-- section:4.7 -->
 
 > No reporting notes.
 
-# 4.8 Indicator 4.8
+# 4.8 Indicator 4.8 <!-- section:4.8 -->
 
 **Reporting notes:**
 
@@ -425,7 +425,7 @@ Table 4.2b: Annual forest expansion and regeneration
 
 5. Detailed national Red Lists should be used whenever possible.
 
-# 4.9 Indicator 4.9
+# 4.9 Indicator 4.9 <!-- section:4.9 -->
 
 Reporting notes:
 
@@ -439,13 +439,13 @@ Reporting notes:
 
 5. MCPFE classes: see “Terms and Definitions”, and MCPFE Assessment Guidelines (https://unece.org/fileadmin/DAM/timber/publications/2002-guidelines-protected-forest.pdf) as well as the relevant Explanatory Note (https://unece.org/fileadmin/DAM/timber/publications/soef2011-protected-forest.pdf).
 
-# 4.10 Indicator 4.10
+# 4.10 Indicator 4.10 <!-- section:4.10 -->
 
 > No reporting notes.
 
-# Criterion V
+# Criterion V <!-- section:CriterionV -->
 
-# 5.1 Indicator 5.1
+# 5.1 Indicator 5.1 <!-- section:5.1 -->
 
 **Reporting notes:**
 
@@ -461,9 +461,9 @@ Reporting notes:
 
 6. The intention of the sub-class “Infrastructure and managed natural resources” is to identify those forests where protection of infrastructure and managed natural resources is the primary management objective. “Infrastructure” includes roads, railways, settlements, buildings, etc. “Natural resources” includes e.g. agricultural land, vineyards, orchards. This class also includes protective forests with the primary management objective being the protection of humans (e.g. from noise or visibility protection).
 
-# Criterion VI
+# Criterion VI <!-- section:CriterionVI -->
 
-# 6.1 Indicator 6.1
+# 6.1 Indicator 6.1 <!-- section:6.1 -->
 
 **Reporting notes:**
 
@@ -477,7 +477,7 @@ Reporting notes:
 
 5. Unknown is a category where ownership is unknown, includes areas where ownership is unclear or disputed.
 
-# 6.2 Indicator 6.2
+# 6.2 Indicator 6.2 <!-- section:6.2 -->
 
 **Reporting notes:**
 
@@ -523,7 +523,7 @@ Reporting notes:
 
     3.  For all countries (in case statistics cannot be found in Eurostat & UNIDO), statistics available from national Statistics Offices should be checked; main links to the list of sources by country are listed in the publication available at: http://www.fao.org/docrep/011/k4588e/k4588e00.htm (see pages 61 to 65).
 
-# 6.3 Indicator 6.3
+# 6.3 Indicator 6.3 <!-- section:6.3 -->
 
 **Reporting notes:**
 
@@ -543,7 +543,7 @@ Reporting notes:
 
 8.  Source of definitions: Manual on the economic accounts for Agriculture and Forestry EAA/EAF 97 (Rev. 1.1.) http://epp.eurostat.ec.europa.eu/cache/ITY_OFFPUB/KS-27-00-782/EN/KS-27-00-782-EN.PDF and the European System of Accounts (ESA 2010).
 
-# 6.4 Indicator 6.4
+# 6.4 Indicator 6.4 <!-- section:6.4 -->
 
 **Reporting notes:**
 
@@ -571,7 +571,7 @@ Reporting notes:
 
 12. “Capital transfers” include all receivable capital transfers, i.e. investment grants and other capital transfers. Investments grants are capital transfers, in cash or kind, effected by general government or the rest of the world to other resident or non-resident institutional units with the aim of financing, in part or in full, the cost of acquiring fixed capital goods. Investments grants from the rest of the world comprise those granted directly by the institutions of the European Union. Interest subsidies are not included under investments grants, even if they are intended to facilitate investments transactions. Other capital transfers cover transfers which redistribute saving or wealth among the different sectors of the economy. Other capital transfers may take the form of compensation to owners of capital goods that had been destroyed by acts of war or natural disasters, such as floods, etc. Other capital transfers also include compensation for exceptional losses of fixed capital goods used in the production of forestry goods and grants to compensate for reduction in the value of assets or to reduce debts. Investments grants and other capital transfers should be recorded when payment is due.
 
-# 6.5 Indicator 6.5
+# 6.5 Indicator 6.5 <!-- section:6.5 -->
 
 **Reporting notes:**
 
@@ -603,7 +603,7 @@ Reporting notes:
 
 8. The category ‘self-employed’ should also include unpaid family workers.
 
-# 6.6 Indicator 6.6
+# 6.6 Indicator 6.6 <!-- section:6.6 -->
 
 **Reporting notes:**
 
@@ -631,15 +631,15 @@ Reporting notes:
 
 12. If data are not available please indicate to what extent fatal and non-fatal occupational accidents in forestry are an issue in your country.
 
-# 6.7 Indicator 6.7
+# 6.7 Indicator 6.7 <!-- section:6.7 -->
 
 > No reporting notes.
 
-# 6.8 Indicator 6.8
+# 6.8 Indicator 6.8 <!-- section:6.8 -->
 
 > No reporting notes.
 
-# 6.9 Indicator 6.9
+# 6.9 Indicator 6.9 <!-- section:6.9 -->
 
 **Reporting notes:**
 
@@ -657,7 +657,7 @@ Reporting notes:
 
 7.  Reporting on bioenergy is also requested by the European Union - National Renewable Energy Action Plan (NREAP). Countries are encouraged to consult NREAP data. (http://ec.europa.eu/energy/renewables/action_plan_en.htm ), if applicable.
 
-# 6.10 Indicator 6.10
+# 6.10 Indicator 6.10 <!-- section:6.10 -->
 
 **Reporting notes:**
 

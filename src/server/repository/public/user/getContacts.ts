@@ -69,11 +69,11 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
            group by 1, 2, 3, 4, 5, 6)
       select u.uuid
            , u.country_iso
-           , jsonb_build_object('readOnly', true) as props
+           , jsonb_build_object('readOnly', true, 'userId', u.id) as props
            , null                                 as parent_uuid
            , 'contact'                            as type
            , null                                 as value
-           , ${_getField(ContactField.appellation, `lower(u.props ->> 'title')`)}
+           , ${_getField(ContactField.appellation, `u.props ->> 'title'`)}
            , ${_getField(ContactField.contributions, `u.contributions`)}
            , ${_getField(ContactField.institution, `u.props_role ->> 'organization'`)}
            , ${_getField(ContactField.name, `u.props ->> 'name'`)}

@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Layer } from 'meta/geo'
+import { LayerConfig } from 'meta/geo'
 
 import { AssetsController } from 'server/controller/geo/assets'
 
@@ -7,7 +7,7 @@ type Props = {
   countryIso: CountryIso
 }
 
-export const getBoundariesLayer = async (props: Props): Promise<Layer> => {
+export const getBoundariesLayer = async (props: Props): Promise<LayerConfig> => {
   const { countryIso } = props
 
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)

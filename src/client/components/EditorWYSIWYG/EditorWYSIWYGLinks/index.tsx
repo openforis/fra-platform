@@ -5,10 +5,10 @@ import EditorWYSIWYGLinks from './EditorWYSIWYGLinks'
 import type { Props } from './props'
 
 const WrappedEditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
-  const { disabled, onChange, value } = props
+  const { disabled, onChange, value, repository } = props
   return (
     <SelectedFilesProvider>
-      <EditorWYSIWYGLinks disabled={disabled} onChange={onChange} value={value} />
+      <EditorWYSIWYGLinks disabled={disabled} onChange={onChange} repository={repository} value={value} />
     </SelectedFilesProvider>
   )
 }

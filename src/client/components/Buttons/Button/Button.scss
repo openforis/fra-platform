@@ -1,0 +1,123 @@
+@import 'src/client/style/partials';
+
+.button {
+  align-items: center;
+  border-radius: 2px;
+  border: 1px solid;
+  cursor: pointer;
+  display: grid;
+  font-weight: 600;
+  line-height: 0;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s;
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    svg {
+      transform: scale(1.1);
+    }
+
+    svg.icon_hit-down {
+      transform: rotate(180deg) scale(1.1);
+    }
+  }
+}
+
+// === with icon
+.button.withIcon {
+  grid-template-columns: auto 1fr;
+}
+
+// === size styles
+.button__size-xs {
+  font-size: $font-xxxs;
+  height: 20px;
+  padding: 0 6px;
+  grid-column-gap: 3px;
+
+  svg {
+    height: 9px;
+    width: 9px;
+  }
+}
+
+.button__size-s {
+  font-size: $font-xxs;
+  height: $spacing-s;
+  padding: 0 $spacing-xxs;
+  grid-column-gap: $spacing-xxxs;
+
+  svg {
+    height: 12px;
+    width: 12px;
+  }
+}
+
+.button__size-m {
+  font-size: $font-s;
+  height: 28px;
+  padding: 0 10px;
+  grid-column-gap: $spacing-xxxs;
+
+  svg {
+    height: 15px;
+    width: 15px;
+  }
+}
+
+// === type styles
+@mixin withTheme($colorPrimary, $hoverInverseLighten) {
+  $colorSecondary: white;
+  $hoverPercent: 4%;
+
+  background-color: $colorPrimary;
+  border-color: $colorPrimary;
+  color: $colorSecondary;
+
+  &:hover {
+    background-color: lighten($colorPrimary, $hoverPercent);
+    color: darken(white, $hoverPercent);
+
+    svg {
+      color: darken(white, $hoverPercent);
+    }
+  }
+
+  &.inverse {
+    background-color: $colorSecondary;
+    color: $colorPrimary;
+
+    svg {
+      color: $colorPrimary;
+    }
+
+    &:hover {
+      background-color: lighten($colorPrimary, $hoverInverseLighten);
+      color: darken($colorPrimary, $hoverPercent);
+
+      svg {
+        color: darken($colorPrimary, $hoverPercent);
+      }
+    }
+  }
+}
+
+.button__type-primary {
+  @include withTheme($ui-accent, 62%);
+}
+
+.button__type-danger {
+  @include withTheme($ui-destructive, 58%);
+}

@@ -51,8 +51,9 @@ export interface RowProps {
   linkToSection?: Record<CycleUuid, string>
   readonly?: boolean
   type: RowType
-  variableName?: VariableName
   validateFns?: Record<CycleUuid, Array<string>>
+  variableName?: VariableName
+  withReview?: Record<CycleUuid, boolean>
 }
 
 export interface Row extends CycledPropsObject<RowProps> {

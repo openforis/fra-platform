@@ -61,12 +61,13 @@
 .app-view__content {
   grid-area: content;
   height: 100%;
-  padding: $spacing-xs;
   overflow-x: auto;
   overflow-y: hidden;
+  padding: $spacing-xs;
 
   @include min-width($laptop) {
-    padding: $spacing-s $spacing-m $spacing-xl $spacing-m;
+    min-height: calc(100dvh - 64px - 50px - 108px); // document height - header - toolbar - footer
+    padding: $spacing-s;
   }
 }
 

@@ -77,7 +77,7 @@ const ButtonBar: React.FC<Props> = (props) => {
       <div className="odp-v-divider" />
 
       <button type="button" className="btn btn-destructive" disabled={disabled} onClick={handleDelete}>
-        {t('nationalDataPoint.delete')}
+        {t('common.delete')}
       </button>
     </>
   )

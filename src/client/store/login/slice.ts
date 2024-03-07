@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import {
   acceptInvitation,
@@ -8,7 +8,7 @@ import {
   initLogin,
   localLogin,
 } from './actions'
-import { LoginState } from './stateType'
+import { AcceptInvitationErrors, AcceptInvitationFormFields, LoginState } from './stateType'
 
 const initialState: LoginState = {
   login: {},
@@ -22,9 +22,30 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {
     resetLogin: () => initialState,
+    resetAcceptInvitationForm: (state) => {
+      state.invitation.acceptForm = {}
+    },
+    updateAcceptInvitationForm: (state, action: PayloadAction<AcceptInvitationFormFields>) => {
+      state.invitation.acceptForm ??= {}
+      state.invitation.acceptForm = { ...state.invitation.acceptForm, ...action.payload }
+    },
+    updateAcceptInvitationFormErrors: (state, action: PayloadAction<AcceptInvitationErrors>) => {
+      state.invitation.acceptForm ??= {}
+      state.invitation.acceptForm.errors = { ...state.invitation.acceptForm.errors, ...action.payload }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(localLogin.fulfilled, () => initialState)
+
+    builder.addCase(localLogin.pending, (state) => {
+      state.login ??= {}
+      state.login.isLoading = true
+    })
+
+    builder.addCase(localLogin.rejected, (state) => {
+      state.login ??= {}
+      state.login.isLoading = false
+    })
 
     builder.addCase(acceptInvitation.fulfilled, () => initialState)
 

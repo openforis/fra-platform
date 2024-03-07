@@ -2,43 +2,37 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import classNames from 'classnames'
-
+import { CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
+import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { useSectionContext } from 'client/pages/Section/context'
 
-import { Props } from '../props'
-
-const ExtentOfForest: React.FC<Props> = (props) => {
-  const { disabled } = props
-
+const ExtentOfForest: React.FC = () => {
   const { t } = useTranslation()
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { sectionName } = useSectionContext()
+  const editEnabled = useIsEditTableDataEnabled(sectionName)
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
+  const disabled = !editEnabled
+  const className = useButtonClassName({ disabled, iconName: 'small-add', size: ButtonSize.m })
 
   if (!user) return null
 
   return (
     <>
-      <Link
-        className={classNames('btn btn-primary no-print', { disabled })}
-        to={Routes.OriginalDataPoint.generatePath({
-          countryIso,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          year: '-1',
-          sectionName: 'extentOfForest',
-        })}
-      >
-        <Icon className="icon-sub icon-white" name="small-add" />
-        {t('nationalDataPoint.addNationalDataPoint')}
-      </Link>
+      <div className="justify_start">
+        <Link
+          className={className}
+          to={Routes.OriginalDataPoint.generatePath({ assessmentName, cycleName, countryIso, sectionName, year: '-1' })}
+        >
+          <Icon className="icon-sub icon-white" name="small-add" />
+          {t('nationalDataPoint.addNationalDataPoint')}
+        </Link>
+      </div>
       <hr className="no-print" />
     </>
   )

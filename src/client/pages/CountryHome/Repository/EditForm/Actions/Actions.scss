@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+$btn-width: 128px;
+
+.repository-form__actions {
+  display: grid;
+  grid-column-gap: $spacing-xs;
+  grid-column: 1/3;
+  grid-template-columns: repeat(2, $btn-width);
+  justify-content: center;
+
+  .button-delete {
+    position: absolute;
+    right: 0;
+  }
+}

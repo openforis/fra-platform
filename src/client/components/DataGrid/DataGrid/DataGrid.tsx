@@ -1,30 +1,30 @@
 import './DataGrid.scss'
-import React, { CSSProperties, HTMLAttributes, PropsWithChildren, useMemo } from 'react'
+import React, { CSSProperties, forwardRef, HTMLAttributes, PropsWithChildren, useMemo } from 'react'
 
 import classNames from 'classnames'
 
 type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className'>> &
-  Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridTemplateColumns'> & {
-    withReview?: boolean
+  Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridTemplateColumns'> & {
+    withActions?: boolean
   }
 
-const DataGrid: React.FC<Props> = (props) => {
-  const { children, className, gridTemplateColumns, withReview } = props
+const DataGrid = forwardRef<HTMLDivElement, Props>((props, outerRef) => {
+  const { children, className, gridColumn, gridTemplateColumns = '1fr', withActions } = props
 
   const style = useMemo<CSSProperties>(() => {
-    if (withReview) return { gridTemplateColumns: `${gridTemplateColumns} 32px` }
-    return { gridTemplateColumns }
-  }, [gridTemplateColumns, withReview])
+    const _gridTemplateColumns = withActions ? `${gridTemplateColumns} auto` : gridTemplateColumns
+    return { gridColumn, gridTemplateColumns: _gridTemplateColumns }
+  }, [gridColumn, gridTemplateColumns, withActions])
 
   return (
-    <div className={classNames('data-grid', className)} style={style}>
+    <div ref={outerRef} className={classNames('data-grid', className)} style={style}>
       {React.Children.toArray(children)}
     </div>
   )
-}
+})
 
 DataGrid.defaultProps = {
-  withReview: false,
+  withActions: false,
 }
 
 export default DataGrid

@@ -1,4 +1,3 @@
-import './ButtonCopyValues.scss'
 import React, { MutableRefObject, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,6 +5,7 @@ import { Table, TableNames } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
+import Button from 'client/components/Buttons/Button'
 import { getData } from 'client/components/ButtonTableExport/utils'
 
 type CopyValuesProps = {
@@ -77,15 +77,7 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
   // Hide button if incorrect table or user is not logged in
   if (!user || !showButton) return null
 
-  return (
-    <button
-      type="button"
-      onClick={_onClick}
-      className="fra-table__btn-export btn-xs btn-primary no-print btn-copy-values"
-    >
-      {t('tableWithOdp.copyToClipboard')}
-    </button>
-  )
+  return <Button iconName="content_copy" label={t('tableWithOdp.copyToClipboard')} onClick={_onClick} />
 }
 
 export default ButtonCopyValues

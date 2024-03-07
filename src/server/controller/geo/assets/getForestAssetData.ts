@@ -1,13 +1,13 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestSource, LayerSource, sourcesMetadata } from 'meta/geo'
+import { ForestKey, forestLayersMetadata, LayerSource } from 'meta/geo'
 
 export const getForestAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
   let asset = {} as { year?: number; img: Image; metadata: any }
 
   switch (layer.key) {
-    case ForestSource.JAXA: {
+    case ForestKey.JAXA: {
       const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF')
         .filterDate('2017-01-01', '2017-12-31')
         .mosaic()
@@ -16,21 +16,21 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2017,
         img: imgForestJAXA,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
-    case ForestSource.TandemX: {
+    case ForestKey.TandemX: {
       const imgForestTANDEMX = ImageCollection('users/debcysjec/fao_fra/tandem_x_fnf50').mosaic().eq(1)
 
       asset = {
         year: 2019,
         img: imgForestTANDEMX,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
-    case ForestSource.ESAGlobCover: {
+    case ForestKey.ESAGlobCover: {
       const imgLandCoverESA = Image('ESA/GLOBCOVER_L4_200901_200912_V2_3').select('landcover')
       const imgForestLCESA = imgLandCoverESA
         .gte(39)
@@ -40,54 +40,54 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2009,
         img: imgForestLCESA,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
-    case ForestSource.GlobeLand: {
+    case ForestKey.GlobeLand: {
       const imgForestGlobeLand = ImageCollection('users/eraviolo/GlobeLand30m_2020').mosaic().eq(20)
 
       asset = {
         year: 2020,
         img: imgForestGlobeLand,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
 
-    case ForestSource.Copernicus: {
+    case ForestKey.Copernicus: {
       const imgForestCopernicus = Image('users/eraviolo/WORLD/Copernicus_forest_2019_100m').eq(1)
 
       asset = {
         year: 2019,
         img: imgForestCopernicus,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
-    case ForestSource.ESRI: {
+    case ForestKey.ESRI: {
       const imgForestESRIy2020 = Image('users/cesarnon/World/esri_lulc10_UNCCDcat_World').eq(1)
 
       asset = {
         year: 2020,
         img: imgForestESRIy2020,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
-    case ForestSource.ESAWorldCover: {
+    case ForestKey.ESAWorldCover: {
       const imgESAy2020 = ImageCollection('ESA/WorldCover/v100').first()
       const imgForestESAy2020 = imgESAy2020.eq(10).or(imgESAy2020.eq(95))
 
       asset = {
         year: 2020,
         img: imgForestESAy2020,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
 
-    case ForestSource.Hansen: {
+    case ForestKey.Hansen: {
       const imcHansen = Image('UMD/hansen/global_forest_change_2021_v1_9')
       const hforest2000 = imcHansen.select('treecover2000')
       const lossyear = imcHansen.select('lossyear')
@@ -101,21 +101,21 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       asset = {
         year: 2020,
         img: imgForestHansen,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
-    case ForestSource.CustomFnF: {
+    case ForestKey.CustomFnF: {
       const imgCustom = Image(layer.options.assetId).select(0).eq(1)
 
       asset = {
         img: imgCustom,
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }
 
-    case ForestSource.Agreement: {
+    case ForestKey.Agreement: {
       let imgAddition = Image(0)
 
       layer.options.agreement.layers.forEach(function (source) {
@@ -125,7 +125,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
 
       asset = {
         img: imgAddition.mask(imgAddition.gte(layer.options.agreement.gteAgreementLevel)),
-        metadata: sourcesMetadata[layer.key],
+        metadata: forestLayersMetadata[layer.key],
       }
       break
     }

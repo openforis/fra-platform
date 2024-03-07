@@ -1,7 +1,8 @@
 export {
   useCanEdit,
-  useIsEditDescriptionsEnabled,
+  useIsCountryRepositoryEditable,
   useIsEditTableDataEnabled,
+  useIsGlobalRepositoryEditable,
   useUser,
   useUserCountries,
   useUserCycles,

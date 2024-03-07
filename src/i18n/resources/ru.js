@@ -5,8 +5,10 @@ const common = require('./ru/common')
 const contentCheck = require('./ru/contentCheck')
 const dataDownload = require('./ru/dataDownload')
 const dataSource = require('./ru/dataSource')
+const email = require('./ru/email')
 const fra = require('./ru/fra')
 const generalValidation = require('./ru/generalValidation')
+const landing = require('./ru/landing')
 const login = require('./ru/login')
 const statisticalFactsheets = require('./ru/statisticalFactsheets')
 const uc = require('./ru/uc')
@@ -18,9 +20,11 @@ module.exports.translation = {
   contentCheck,
   dataDownload,
   dataSource,
+  email,
   fra,
   generalValidation,
   login,
+  landing,
   statisticalFactsheets,
   uc,
 
@@ -179,102 +183,6 @@ module.exports.translation = {
     treesUrbanSettings: '…в том числе деревья в городской среде',
   },
 
-  landing: {
-    home: 'Главная',
-    sections: {
-      overview: 'Обзор',
-      messageBoard: 'Доска сообщений',
-      about: 'Информация об ОЛР',
-      recentActivity: 'Недавняя активность',
-      userManagement: 'Координировать сотрудников',
-      externalData: 'Внешние данные',
-      links: 'Ссылки и хранилище данных',
-      contentCheck: 'Содержание / проверка',
-      versioning: 'Версии',
-    },
-    overview: {
-      loadingMap: 'Загрузка карты…',
-      withFinancialSupportOf: 'При финансовой поддержке ',
-    },
-    milestones: {
-      milestones: 'Этапы работ',
-      milestone1: 'Глобальное совещание национальных корреспондентов',
-      milestone2: 'Региональные и субрегиональные семинары',
-      milestone3: 'Крайний срок представления страновых докладов',
-      milestone4: 'Утверждение заключительных страновых докладов',
-      milestone5: 'Предварительные результаты ОЛР–2020',
-      milestone6: 'Основной доклад ОЛР–2020',
-      milestone7: 'Анализ данных и подготовка доклада',
-      milestone8: 'Запуск платформы для анализа и распространения данных',
-      date1: 'Март',
-      date2: 'Апрель – Сентябрь',
-      date3: 'Октябрь',
-      date4: 'Январь – Февраль',
-      date5: 'Март',
-      date6: 'Июль',
-      date7: 'Март - Декабрь',
-      date8: 'Август',
-    },
-    users: {
-      users: 'Контакты',
-      message: 'Сообщение',
-    },
-    about: {
-      contact: 'Контакт',
-      seniorForestryOfficer: 'Старший специалист по лесному хозяйству',
-      faoForestryDepartment: 'Департамент лесного хозяйства ФАО',
-      email: 'Электронная почта',
-      fraProcess:
-        'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
-      linkFraProcess: 'Более подробная информация о процессе ОЛР',
-      or: 'Или',
-      selectArea: 'Выберите область ниже для доступа к данным ОЛР',
-    },
-    recentActivity: {
-      noRecentActivityTitle: 'Нет недавней активности',
-      noRecentActivityBody:
-        'Здесь отразятся изменения, сделанные на платформе, чтобы Вы могли быстрее разобраться, что происходило во время Вашего отсутствия.',
-      getStarted: 'Начать',
-      actions: {
-        added: 'добавил',
-        addedFile: 'добавил {{file}}',
-        commented: 'оставил комментарий к',
-        deleted: 'удалил',
-        deletedFile: 'удалил {{file}}',
-        edited: 'отредактировал',
-        resolved: 'разрешил проблему в',
-        status: 'изменил статус на',
-        addUser: 'добавил {{user}} как {{role}}', // Legacy, no longer created
-        updateUser: 'отредактировал {{user}}',
-        removeUser: 'удалил {{user}}',
-        acceptInvitation: 'присоединился как {{role}}',
-        addInvitation: 'пригласил {{user}} как {{role}}',
-        removeInvitation: 'удалил приглашение от {{user}} как {{role}}',
-        updateInvitation: 'приглашение обновлено для {{user}} как {{role}}',
-        updateAssessmentStatus: 'изменил статус с {{assessment}} на {{status}}',
-      },
-      fraProcess:
-        'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
-      linkFraProcess: 'Более подробная информация о процессе ОЛР',
-    },
-    links: {
-      links: 'Ссылки',
-      unfcccFocalPoints: 'Список координаторов РКИКООН',
-      sdgFocalPoints: 'Список национальных координаторов ЦУР',
-      reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО',
-      fraGeoSpatialTools: 'Геопространственные инструменты ОЛР',
-      repository: 'Хранилище данных',
-      uploadFile: 'Загрузить файл',
-      confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',
-      fileUploaded: 'Файл успешно загружен',
-      fileDeleted: 'Файл успешно удален',
-      fileOperationFailed: `Операция не может быть выполнена, так как файл используется в:\n{{sectionNames}}`,
-    },
-    dataExport: {
-      downloadData: 'Загрузить данные',
-    },
-  },
-
   userChat: {
     chatHeader: 'Сообщения от {{user}}',
     noMessages: 'Нет сообщений',
@@ -371,6 +279,7 @@ module.exports.translation = {
     cancel: 'Отмена',
     changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
     doNotNotifyUsers: 'Не уведомлять пользователей',
+    notifySelf: 'Отправить копию самому себе',
   },
 
   header: {
@@ -414,7 +323,6 @@ module.exports.translation = {
     delete: 'Удалить',
     writeComment: 'Написать комментарий…',
     commentingClosed: 'Комментирование закрыто',
-    add: 'Добавить',
     cancel: 'Отмена',
     loading: 'Загрузка',
   },
@@ -462,7 +370,6 @@ module.exports.translation = {
     fraClasses: 'Классы ОЛР',
     area: 'Площадь (1000 га)',
     total: 'Итого',
-    delete: 'Удалить',
     modifiedExplanation: 'Национальный отчетный год с изменениями',
     confirmDelete: 'Удалить этот отчетный год? Его невозможно будет восстановить.',
     discardChanges: 'Отменить изменения',

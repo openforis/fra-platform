@@ -7,10 +7,11 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 type Props = {
   path: string
   limit?: number
+  counter?: boolean
 }
 
 export const useFetchData = (props: Props): void => {
-  const { path, limit } = props
+  const { path, limit, counter } = props
 
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
@@ -18,8 +19,9 @@ export const useFetchData = (props: Props): void => {
   const orderBy = useTablePaginatedOrderBy(path)
 
   useEffect(() => {
+    if (!counter) return
     dispatch(TablePaginatedActions.getCount({ assessmentName, cycleName, countryIso, path }))
-  }, [assessmentName, countryIso, cycleName, dispatch, path])
+  }, [assessmentName, counter, countryIso, cycleName, dispatch, path])
 
   useEffect(() => {
     const params = { assessmentName, cycleName, countryIso, orderBy, page, path, limit }
