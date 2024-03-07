@@ -1,7 +1,7 @@
 import { ExtraEstimation, ForestEstimations, LayerSectionKey } from 'meta/geo'
 
 export type ExtraEstimationState = {
-  error: null | string
+  errorKey: string | null
   isLoading: boolean
 }
 

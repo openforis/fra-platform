@@ -71,7 +71,7 @@ const getExtraEstimationState = (
 ): ExtraEstimationState => {
   state.geoStatistics.extraEstimations[sectionKey] ??= {} as ExtraEstimationSectionState
   state.geoStatistics.extraEstimations[sectionKey][extraEstimation] ??= {
-    error: null,
+    errorKey: null,
     isLoading: false,
   }
 
@@ -411,14 +411,14 @@ export const geoSlice = createSlice({
       .addCase(postExtraEstimation.fulfilled, (state, { payload: [extraEstimation, sectionKey, _scale] }) => {
         getExtraEstimationState(state, sectionKey, extraEstimation)
         state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
-          error: null,
+          errorKey: null,
           isLoading: false,
         }
       })
       .addCase(postExtraEstimation.pending, (state, { meta }) => {
         getExtraEstimationState(state, meta.arg.sectionKey, meta.arg.extraEstimation)
         state.geoStatistics.extraEstimations[meta.arg.sectionKey][meta.arg.extraEstimation] = {
-          error: null,
+          errorKey: null,
           isLoading: true,
         }
       })
@@ -426,7 +426,7 @@ export const geoSlice = createSlice({
         const { sectionKey, extraEstimation } = action.meta.arg
         getExtraEstimationState(state, sectionKey, extraEstimation)
         state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
-          error: action.payload as string,
+          errorKey: action.payload as string,
           isLoading: false,
         }
       })
