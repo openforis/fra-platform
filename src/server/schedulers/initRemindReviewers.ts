@@ -28,12 +28,14 @@ export const initRemindReviewers = (connection: IORedis): Worker => {
         await Promises.each(assessments, async (assessment) => {
           await Promises.each(assessment.cycles, async (cycle) => {
             const countries = await AreaController.getCountries({ assessment, cycle }, tx)
-            const inReview = countries.filter(
-              (country) =>
+            const inReview = countries.filter((country) => {
+              const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
+              return (
                 country.props.status === AssessmentStatus.review &&
-                Dates.isBefore(Dates.addDays(new Date(country.lastInReview), 7), new Date()) &&
+                diffInDays % 7 === 0 &&
                 !Areas.isAtlantis(country.countryIso)
-            )
+              )
+            })
 
             await Promises.each(inReview, async (country) => {
               await MailService.remindReviewers({
