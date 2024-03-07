@@ -29,16 +29,14 @@ const AgreementLevelControl: React.FC<Props> = (props) => {
   }
 
   return (
-    <>
-      <div className="geo-agreement-level-control__container">
-        <p>
-          <small>{`${t('geo.chooseAgreementLevel')} `}</small>
-          <small>{t('geo.agreementLevelExplanation')}</small>
-        </p>
-        <AgreementLevelSelector layer={layer} onChange={handleAgreementLevelChange} sectionKey={sectionKey} />
-      </div>
+    <div className="geo-agreement-level-control__container">
+      <p>
+        <small>{`${t('geo.chooseAgreementLevel')} `}</small>
+        <small>{t('geo.agreementLevelExplanation')}</small>
+      </p>
+      <AgreementLevelSelector layer={layer} onChange={handleAgreementLevelChange} sectionKey={sectionKey} />
       <ReducerScaleSelector layer={layer} sectionKey={sectionKey} />
-    </>
+    </div>
   )
 }
 
