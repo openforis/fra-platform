@@ -244,7 +244,7 @@ export const forestLayers: LayerSection = {
       key: ForestKey.Agreement,
       options: {
         agreementLayer: {
-          agreementLevels: Arrays.range(1, Object.keys(ForestKey).length, 1),
+          agreementLevels: Arrays.range(1, Object.keys(ForestKey).length - 1, 1),
           reducerScales: [10, 20, 30],
         },
       },

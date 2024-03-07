@@ -1,0 +1,7 @@
+@import 'src/client/style/partials';
+
+.geo-agreement-level-control__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 $spacing-xs;
+}
