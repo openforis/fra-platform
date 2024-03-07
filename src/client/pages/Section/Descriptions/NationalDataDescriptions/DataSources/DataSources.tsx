@@ -2,13 +2,14 @@ import './DataSources.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionName, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { useSectionContext } from 'client/pages/Section/context'
 import { useDescriptionErrorState } from 'client/pages/Section/Descriptions/CommentableDescription/hooks/useDescriptionErrorState'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 import ButtonCopy from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopy'
@@ -19,16 +20,16 @@ import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 
 type Props = {
   nationalData: NationalDataDescription
-  sectionName: SectionName
 }
 
 const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
 
 export const DataSources: React.FC<Props> = (props: Props) => {
-  const { nationalData, sectionName } = props
+  const { nationalData } = props
 
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
+  const { sectionName } = useSectionContext()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
   const canEdit = useCanEditDescription({ sectionName })

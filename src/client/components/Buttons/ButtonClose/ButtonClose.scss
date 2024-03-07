@@ -1,0 +1,26 @@
+@import 'src/client/style/partials';
+
+button.btn-close {
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  height: $spacing-s;
+  justify-content: center;
+  left: $spacing-xxs;
+  padding: 0;
+  position: absolute;
+  top: $spacing-xxs;
+  width: $spacing-s;
+
+  svg.icon {
+    margin: unset;
+  }
+
+  &:hover {
+    svg {
+      color: darken($ui-destructive, 7%);
+      transform: scale(1.1);
+    }
+  }
+}

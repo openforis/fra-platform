@@ -5,12 +5,13 @@ import { CommentableDescriptionName, Cycle, SectionName } from 'meta/assessment'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
 import { useAppSelector } from 'client/store'
-import { useAssessmentCountry, useCountries } from 'client/store/area'
+import { useAssessmentCountry, useCountries, useCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useSection } from 'client/store/metadata'
 import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
@@ -69,4 +70,21 @@ export const useIsDescriptionEditable = (props: {
   const editEnabled = useIsDescriptionEditEnabled({ sectionName, name })
 
   return useMemo<boolean>(() => canEdit && editEnabled, [canEdit, editEnabled])
+}
+
+export const useIsCountryRepositoryEditable = (): boolean => {
+  const { countryIso } = useCountryRouteParams<CountryIso>()
+  const user = useUser()
+  const cycle = useCycle()
+  const country = useCountry(countryIso)
+  const canEditRepositoryItem = Authorizer.canEditRepositoryItem({ country, cycle, user })
+  const locked = useIsDataLocked()
+  return !locked && canEditRepositoryItem
+}
+
+export const useIsGlobalRepositoryEditable = (): boolean => {
+  const user = useUser()
+  const isAdmin = Users.isAdministrator(user)
+  const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
+  return isCountryRepositoryEditable && isAdmin
 }

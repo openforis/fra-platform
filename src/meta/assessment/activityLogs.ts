@@ -75,9 +75,6 @@ const getLabelSectionKey = (activity: ActivityLog<any>) => {
   if (section.indexOf('odp') !== -1) {
     return 'nationalDataPoint.nationalDataPoint'
   }
-  if (section === 'fileRepository') {
-    return 'landing.sections.links'
-  }
 
   if (section === SectionNames.contacts) {
     return 'landing.users.users'

@@ -1,8 +1,12 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+import { Objects } from 'utils/objects'
+
 import { DataSource, DataSourceType, SectionName } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { TooltipId } from 'meta/tooltip'
 
 import { DataCell } from 'client/components/DataGrid'
 import Select from 'client/components/Inputs/Select'
@@ -47,10 +51,22 @@ const SelectInput: React.FC<Props> = (props) => {
 const TypeOfDataSource: React.FC<Props & { meta: DataSourceDescription; lastRow: boolean }> = (props) => {
   const { dataSource, disabled, meta, lastRow, sectionName } = props
 
+  const { t } = useTranslation()
+
+  const validationError = useMemo(() => {
+    return !dataSource.placeholder && Objects.isEmpty(dataSource.type)
+  }, [dataSource.placeholder, dataSource.type])
+
   const Component = meta?.table?.typeOfDataSourceText ? TextInput : SelectInput
 
   return (
-    <DataCell editable={!disabled} lastRow={lastRow}>
+    <DataCell
+      className={classNames({ 'validation-error': validationError })}
+      data-tooltip-content={validationError ? t('generalValidation.notEmpty') : ''}
+      data-tooltip-id={TooltipId.error}
+      editable={!disabled}
+      lastRow={lastRow}
+    >
       <Component dataSource={dataSource} disabled={disabled} sectionName={sectionName} />
     </DataCell>
   )

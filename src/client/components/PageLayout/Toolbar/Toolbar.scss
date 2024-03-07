@@ -1,16 +1,15 @@
 @import 'src/client/style/partials';
 
 .toolbar {
-  position: sticky;
-  top: 0;
-  z-index: $z-index-area-selector;
-  display: flex;
   align-items: center;
   background-color: var(--ui-bg);
+  border-bottom: 1px solid $ui-border;
+  display: flex;
   height: 50px;
-  -webkit-box-shadow: 0 1px 3px 1px $ui-border;
-  box-shadow: 0 1px 3px 1px $ui-border;
+  position: sticky;
+  top: 0;
   width: 100%;
+  z-index: $z-index-area-selector;
 }
 
 .toolbar__nav-options {
@@ -31,8 +30,7 @@
 .toolbar__separator {
   width: 1px;
   height: 60%;
-  background: radial-gradient($ui-border, lighten($ui-border, 12%));
-  margin: 0 $spacing-xxs;
+  background: radial-gradient(darken($ui-bg, 25%), $ui-bg);
 }
 
 .toolbar__utils-container {

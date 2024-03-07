@@ -9,14 +9,15 @@ type Props = {
   className?: string
   checked: boolean
   suffix?: string
+  disabled?: boolean
 }
 
 const ButtonCheckBox: React.FC<Props> = (props) => {
-  const { onClick, checked, className, suffix } = props
+  const { checked, className, disabled, onClick, suffix } = props
   const { label } = props
 
   return (
-    <button type="button" className={`btn-s btn-checkbox ${className}`} onClick={onClick}>
+    <button className={`btn-s btn-checkbox ${className}`} disabled={disabled} onClick={onClick} type="button">
       <div className={classNames('fra-checkbox', { checked })} />
       <div>{label}</div>
       {suffix && <span className="suffix">{suffix}</span>}
@@ -27,6 +28,7 @@ const ButtonCheckBox: React.FC<Props> = (props) => {
 ButtonCheckBox.defaultProps = {
   className: '',
   suffix: null,
+  disabled: false,
 }
 
 export default ButtonCheckBox

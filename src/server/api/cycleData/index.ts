@@ -29,6 +29,12 @@ import { updateOriginalDataPointDescription } from './originalDataPoint/updateOr
 import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
+import { createRepositoryItem } from './repository/createRepositoryItem'
+import { getManyRepository } from './repository/getManyRepository'
+import { getRepositoryFile } from './repository/getRepositoryFile'
+import { getRepositoryFileMeta } from './repository/getRepositoryFileMeta'
+import { removeRepositoryItem } from './repository/removeRepositoryItem'
+import { updateRepositoryItem } from './repository/updateRepositoryItem'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
 import { clearTable } from './table/clearTable'
@@ -140,5 +146,25 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
     express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
     express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
+
+    // repository
+    express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)
+    express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewRepositoryFile, getRepositoryFile)
+    express.get(
+      ApiEndPoint.CycleData.Repository.fileMeta(),
+      AuthMiddleware.requireEditRepositoryItem,
+      getRepositoryFileMeta
+    )
+    express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
+    express.patch(
+      ApiEndPoint.CycleData.Repository.one(),
+      AuthMiddleware.requireEditRepositoryItem,
+      updateRepositoryItem
+    )
+    express.delete(
+      ApiEndPoint.CycleData.Repository.one(),
+      AuthMiddleware.requireEditRepositoryItem,
+      removeRepositoryItem
+    )
   },
 }

@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.12.1]
+        node-version: [20.11.1]
         redis-version: [6]
 
     services:
@@ -28,10 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node.js 18.12.1
+      - name: Use Node.js 20.11.1
         uses: actions/setup-node@v2
         with:
-          node-version: '18.12.1'
+          node-version: '20.11.1'
           always-auth: true
           auth-token: ${{secrets.ACCESS_TOKEN}}
           registry-url: 'https://npm.pkg.github.com'
