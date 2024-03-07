@@ -1,4 +1,5 @@
 import {
+  addDays,
   addMonths,
   differenceInDays,
   differenceInHours,
@@ -25,7 +26,9 @@ export const getRelativeDate = (rawDate: any, i18n: any) => {
 }
 
 export const Dates = {
+  addDays,
   addMonths,
+  differenceInDays,
   isAfter,
   isBefore,
   format,

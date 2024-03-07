@@ -1,5 +1,6 @@
 import * as nodemailer from 'nodemailer'
 
+import { remindReviewers } from 'server/service/mail/remindReviewers'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 import { NodeEnv } from 'server/utils/processEnv'
@@ -67,6 +68,7 @@ export const sendMail = async (email: MailServiceEmail) => {
 export const MailService = {
   assessmentNotifyUsers,
   oneToOneMessage,
+  remindReviewers,
   resetPassword,
   sendMail,
   userInvite,
