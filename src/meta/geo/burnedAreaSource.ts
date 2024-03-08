@@ -10,13 +10,13 @@ export const burnedAreaLayersMetadata: Record<BurnedAreaKey, LayerMetadata> = {
   [BurnedAreaKey.MODIS_FIRE]: {
     palette: ['#FF0000'],
     scale: 500,
-    title: 'MODIS',
+    titleKey: 'geo.sections.burnedArea.layerTitles.modis',
   },
 }
 
 export const burnedAreaLayers: LayerSection = {
   key: LayerSectionKey.BurnedArea,
-  title: 'Burned Area Layers',
+  titleKey: 'geo.sections.burnedArea.title',
   layers: [
     {
       key: BurnedAreaKey.MODIS_FIRE,

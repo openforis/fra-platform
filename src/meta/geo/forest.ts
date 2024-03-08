@@ -36,75 +36,75 @@ export const agreementPalette = [
 
 export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.JAXA]: {
-    title: 'JAXA (2017)',
+    titleKey: 'geo.sections.forest.layerTitles.jaxa2017',
     scale: 24.7376,
     palette: ['#800080'], // purple
     citation: 'https://doi.org/10.1016/j.rse.2014.04.014', // from gee asset
     forestAreaDataProperty: 'faJaxa',
   },
   [ForestKey.TandemX]: {
-    title: 'TanDEM-X (2019)',
+    titleKey: 'geo.sections.forest.layerTitles.tanDemX2019',
     scale: 55.6597,
     palette: ['#008000'], // green
     citation: 'https://geoservice.dlr.de/web/dataguide/fnf50/',
     forestAreaDataProperty: 'faTandemx',
   },
   [ForestKey.ESAGlobCover]: {
-    title: 'ESA GlobCover (2009)',
+    titleKey: 'geo.sections.forest.layerTitles.esaGlobCover2009',
     scale: 309.2208,
     palette: ['#FF0000'], // red
     citation: 'http://due.esrin.esa.int/page_globcover.php', // from gee asset
     forestAreaDataProperty: 'faEsa2009',
   },
   [ForestKey.GlobeLand]: {
-    title: 'GlobeLand (2020)',
+    titleKey: 'geo.sections.forest.layerTitles.globeLand2020',
     scale: 30,
     palette: ['#0000FF'], // blue
     citation: 'http://www.globallandcover.com/home_en.html', // official web site
     forestAreaDataProperty: 'faGlobeland',
   },
   [ForestKey.Copernicus]: {
-    title: 'Copernicus (2019)',
+    titleKey: 'geo.sections.forest.layerTitles.copernicus2019',
     scale: 100,
     palette: ['#FFFF00'], // yellow
     citation: ' https://doi.org/10.3390/rs12061044', // from gee asset
     forestAreaDataProperty: 'faCopernicus',
   },
   [ForestKey.ESRI]: {
-    title: 'ESRI (2020)',
+    titleKey: 'geo.sections.forest.layerTitles.esri2020',
     scale: 10,
     palette: ['#FF7F50'], // coral
     citation: ' https://www.arcgis.com/home/item.html?id=d6642f8a4f6d4685a24ae2dc0c73d4ac',
     forestAreaDataProperty: 'faEsri',
   },
   [ForestKey.ESAWorldCover]: {
-    title: 'ESA (2020)',
+    titleKey: 'geo.sections.forest.layerTitles.esa2020',
     scale: 10,
     palette: ['#00ffff'], // cyan
     citation: 'https://esa-worldcover.org/en', // on gee citation 'A publication is under preparation'
     forestAreaDataProperty: 'faEsa2020',
   },
   [ForestKey.Hansen]: {
-    title: 'Hansen GFC (2020)',
+    titleKey: 'geo.sections.forest.layerTitles.hansenGfc2020',
     scale: 30.92,
     palette: ['#00ff00'], // lime
     citation: 'https://doi.org/10.1126/science.1244693', // from gee asset
     forestAreaDataProperty: 'faHansen',
   },
   [ForestKey.MODIS]: {
-    title: 'MODIS',
+    titleKey: 'geo.sections.forest.layerTitles.modis',
     scale: 231.6563,
     palette: ['#FFD700'], // gold
     citation: 'https://lpdaac.usgs.gov/products/mod44bv006/',
   },
   [ForestKey.CustomFnF]: {
-    title: 'Custom FnF',
+    titleKey: 'geo.sections.forest.layerTitles.customFnf',
     palette: ['#A52A2A'],
     citation: '',
     scale: 0,
   },
   [ForestKey.Agreement]: {
-    title: 'Agreement layer',
+    titleKey: 'geo.sections.forest.layerTitles.agreement',
     palette: agreementPalette,
     citation: '',
     scale: 0,
@@ -193,7 +193,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
 
 export const forestLayers: LayerSection = {
   key: LayerSectionKey.Forest,
-  title: 'Forest Layers',
+  titleKey: 'geo.sections.forest.title',
   recipes: forestAgreementRecipes,
   layers: [
     {
