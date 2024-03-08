@@ -1,6 +1,7 @@
 import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 
 import { Context } from '../context'
+import { calculatorForestAreaAsProportionOfTotalLandArea } from './calculations/calculatorForestAreaAsProportionOfTotalLandArea'
 import { validatorSumSubCategoriesNotEqualToParent } from './subcategories/validatorSumSubCategoriesNotEqualToParent'
 import { validatorSumSubCategoriesNotGreaterThanParent } from './subcategories/validatorSumSubCategoriesNotGreaterThanParent'
 import { equalsWithTolerance } from './equalsWithTolerance'
@@ -42,6 +43,8 @@ import { validatorSumNotGreaterThanForest } from './validatorSumNotGreaterThanFo
 import { validatorTotalForest } from './validatorTotalForest'
 
 export const functions: Array<ExpressionFunction<Context>> = [
+  calculatorForestAreaAsProportionOfTotalLandArea,
+
   NWFPProductHasCategory,
   equalsWithTolerance,
   maxForestArea,
