@@ -24,7 +24,7 @@ const Item: React.FC<Props> = (props) => {
   const openPanel = useOpenPanel({ repositoryItem })
 
   const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem })
-  const withActions = (isGlobalRepositoryItem && isGlobalRepositoryEditable) || isCountryRepositoryEditable
+  const withActions = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
   const level = repositoryItem.props.public ? 'public' : 'private'
 
   return (
