@@ -52,7 +52,7 @@ const Layer: React.FC<Props> = (props) => {
   const renderControlComponent = (): React.ReactElement => {
     switch (layerControlType) {
       case LayerControlType.TreeCoverPercent:
-        return <TreeCoverPercentControl layer={layer} layerKey={layerKey} sectionKey={sectionKey} />
+        return <TreeCoverPercentControl layer={layer} sectionKey={sectionKey} />
       case LayerControlType.CustomAsset:
         return <CustomAssetControl layerKey={layerKey} sectionKey={sectionKey} />
       case LayerControlType.Agreement:
