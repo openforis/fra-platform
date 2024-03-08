@@ -18,7 +18,7 @@ const ExtentOfForest: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
   const disabled = !editEnabled
-  const className = useButtonClassName({ disabled, iconName: 'small-add', size: ButtonSize.m })
+  const className = useButtonClassName({ disabled, iconName: 'small-add', label: 'L', size: ButtonSize.m })
 
   if (!user) return null
 
