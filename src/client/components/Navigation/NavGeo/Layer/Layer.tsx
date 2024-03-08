@@ -12,6 +12,7 @@ import AgreementLevelControl from 'client/components/Navigation/NavGeo/Agreement
 import CustomAssetControl from 'client/components/Navigation/NavGeo/CustomAssetControl'
 import LayerToggleControl from 'client/components/Navigation/NavGeo/LayerToggleControl'
 import TreeCoverPercentControl from 'client/components/Navigation/NavGeo/TreeCoverPercentControl'
+import YearControl from 'client/components/Navigation/NavGeo/YearControl'
 import { useCountSectionSelectedLayers } from 'client/pages/Geo/GeoMap/hooks/useCountSectionSelectedLayers'
 
 import { useLayerControl } from './hooks/useLayerControl'
@@ -56,7 +57,8 @@ const Layer: React.FC<Props> = (props) => {
         return <CustomAssetControl layerKey={layerKey} sectionKey={sectionKey} />
       case LayerControlType.Agreement:
         return <AgreementLevelControl layer={layer} sectionKey={sectionKey} />
-      // To add: Year component
+      case LayerControlType.Year:
+        return <YearControl layer={layer} sectionKey={sectionKey} />
       default:
         return null
     }
