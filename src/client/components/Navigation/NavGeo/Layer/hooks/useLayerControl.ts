@@ -11,6 +11,7 @@ type Props = {
 }
 
 type Returned = {
+  backgroundColor: string | undefined
   fetchOnSelect: boolean
   layerControlType: LayerControlType | null
   opacity: number
@@ -50,7 +51,16 @@ export const useLayerControl = (props: Props): Returned => {
       layerControlType === LayerControlType.CustomAsset && status === LayerFetchStatus.Loading
     const shouldShowControl = layerControlType !== null && (selected || isCustomAssetLoading)
 
+    const palette = layer.metadata?.palette
+    let backgroundColor = palette?.at(0)
+
+    if (layerControlType === LayerControlType.Agreement) {
+      const agreementLevel = layerState?.options?.agreementLayer?.level ?? 1
+      backgroundColor = palette?.at(agreementLevel - 1)
+    }
+
     return {
+      backgroundColor,
       fetchOnSelect,
       layerControlType,
       opacity,

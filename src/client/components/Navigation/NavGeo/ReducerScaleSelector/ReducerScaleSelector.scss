@@ -1,0 +1,24 @@
+@import 'src/client/style/partials';
+
+.geo-reducer-scale__container {
+  display: flex;
+  flex-direction: column;
+  font-size: $font-s;
+  gap: $spacing-xxs;
+  justify-content: space-between;
+  padding: $spacing-xs 0;
+  width: 100%;
+}
+
+.geo-reducer-scale__error-message {
+  color: $ui-destructive;
+  margin: 0;
+}
+
+.geo-reducer-scale__selector {
+  background-color: $ui-bg-hover;
+}
+
+.geo-reducer-scale__submit-button {
+  margin-left: auto;
+}

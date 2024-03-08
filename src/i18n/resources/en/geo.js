@@ -1,9 +1,18 @@
 module.exports = {
+  agreementLevelExplanation:
+    'Agreement level N means that at least N of the selected data sources need to agree that a certain pixel is forest area.',
+  chooseAgreementLevel: 'Choose the min. agreement level between selected layers.',
   error: {
+    extraEstimation: {
+      failedToRetrieve: 'There was a problem retrieving the estimation.',
+      unexpectedDuringProcessing: 'Unexpected error during processing.',
+    },
     mosaic: {
       noMosaicAvailableForConfiguration: 'Error: No mosaic available for the selected configuration.',
     },
   },
+  estimateCustomAgreementArea: 'Estimate Custom Agreement Area',
+  metersReducerScale: '{{meters}}m Reducer Scale',
   geeAssetId: 'GEE Asset ID',
   globalOpacity: 'Global Opacity',
   landsat: 'Landsat',

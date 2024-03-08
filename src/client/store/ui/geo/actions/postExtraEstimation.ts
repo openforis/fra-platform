@@ -44,9 +44,9 @@ export const postExtraEstimation = createAsyncThunk<[ExtraEstimation, LayerSecti
       dispatch(GeoActions.insertTabularEstimationEntry([-1, entry]))
       return [extraEstimation, sectionKey, scale]
     } catch (error) {
-      if (axios.isAxiosError(error)) return rejectWithValue('An error occurred while getting the estimation')
+      if (axios.isAxiosError(error)) return rejectWithValue('geo.error.extraEstimation.failedToRetrieve')
 
-      return rejectWithValue('An unexpected error occurred')
+      return rejectWithValue('geo.error.extraEstimation.unexpectedDuringProcessing')
     }
   }
 )

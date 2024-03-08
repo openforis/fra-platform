@@ -1,34 +1,39 @@
 import './Layer.scss'
 import React from 'react'
 
-import { Layer as LayerType, LayerSectionKey } from 'meta/geo'
-import { LayerControlType } from 'meta/geo/layer'
+import { Layer as LayerType } from 'meta/geo'
+import { LayerControlType, LayerSection } from 'meta/geo/layer'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import InputRange from 'client/components/Inputs/InputRange'
+import AgreementLevelControl from 'client/components/Navigation/NavGeo/AgreementLevelControl'
 import CustomAssetControl from 'client/components/Navigation/NavGeo/CustomAssetControl'
 import LayerToggleControl from 'client/components/Navigation/NavGeo/LayerToggleControl'
 import TreeCoverPercentControl from 'client/components/Navigation/NavGeo/TreeCoverPercentControl'
+import { useCountSectionSelectedLayers } from 'client/pages/Geo/GeoMap/hooks/useCountSectionSelectedLayers'
 
 import { useLayerControl } from './hooks/useLayerControl'
 
 type Props = {
   layer: LayerType
-  sectionKey: LayerSectionKey
+  section: LayerSection
 }
 
 const Layer: React.FC<Props> = (props) => {
-  const { layer, sectionKey } = props
+  const { layer, section } = props
+  const layerKey = layer.key
+  const sectionKey = section.key
+
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
 
-  const { fetchOnSelect, layerControlType, opacity, selected, shouldShowControl, status, title } = useLayerControl({
-    layer,
-    sectionKey,
-  })
-  const layerKey = layer.key
+  const { backgroundColor, fetchOnSelect, layerControlType, opacity, selected, shouldShowControl, status, title } =
+    useLayerControl({
+      layer,
+      sectionKey,
+    })
 
   const handleOpacityChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newOpacity = Math.round(Number(event.currentTarget.value) / 10) / 10
@@ -46,19 +51,25 @@ const Layer: React.FC<Props> = (props) => {
   const renderControlComponent = (): React.ReactElement => {
     switch (layerControlType) {
       case LayerControlType.TreeCoverPercent:
-        return <TreeCoverPercentControl sectionKey={sectionKey} layerKey={layer.key} layer={layer} />
+        return <TreeCoverPercentControl layer={layer} layerKey={layerKey} sectionKey={sectionKey} />
       case LayerControlType.CustomAsset:
-        return <CustomAssetControl sectionKey={sectionKey} layerKey={layer.key} />
-      // To add: Year and Agreement components
+        return <CustomAssetControl layerKey={layerKey} sectionKey={sectionKey} />
+      case LayerControlType.Agreement:
+        return <AgreementLevelControl layer={layer} sectionKey={sectionKey} />
+      // To add: Year component
       default:
         return null
     }
   }
 
+  const countLayersSelected = useCountSectionSelectedLayers({ ignoreAgreementLayer: true, sectionKey })
+
+  if (layerControlType === LayerControlType.Agreement && countLayersSelected < 2 && !selected) return null
+
   return (
     <div className="geo-layer-control__container">
       <LayerToggleControl
-        backgroundColor={layer.metadata?.palette?.[0]}
+        backgroundColor={backgroundColor}
         checked={selected}
         label={title}
         onCheckboxClick={handleToggleLayer}

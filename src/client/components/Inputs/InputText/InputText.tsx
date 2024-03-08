@@ -6,6 +6,7 @@ type Props = Pick<
   'disabled' | 'id' | 'onChange' | 'onPaste' | 'placeholder' | 'value'
 >
 
+const InputText = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
   const { disabled, id, onChange, onPaste, placeholder, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -17,12 +18,12 @@ type Props = Pick<
 
   return (
     <input
+      ref={inputRef}
       className="input-text"
       id={id}
       onChange={onChange}
       onPaste={onPaste}
       placeholder={placeholder}
-      ref={inputRef}
       type="text"
       value={value}
     />
