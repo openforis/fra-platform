@@ -49,7 +49,7 @@ module.exports = {
   googleOnlyAccount: 'Учетная запись связана с аутентификацией Google',
   alreadyAcceptedInvitation: 'Это приглашение уже принято',
   invitationMessage: 'Вас пригласили {{assessment}} {{cycle}} как {{role}} для {{country}}',
-  invitationProvidersRegistered: 'У вас уже есть учетная запись, зарегистрированная в {{authprovidernames}}',
+  invitationProvidersRegistered: 'У вас уже есть учетная запись, зарегистрированная в {{authProviderNames}}',
   acceptInvitation: 'Принять приглашение',
   acceptInvitationWithFra: 'Принять приглашение с ОЛР',
   acceptInvitationWithGoogle: 'Принять приглашение с Google',
