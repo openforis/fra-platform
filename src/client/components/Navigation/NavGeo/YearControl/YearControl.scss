@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+.geo-year-control__container {
+  align-items: center;
+  display: flex;
+  font-size: $font-s;
+  gap: $spacing-xs;
+  justify-content: end;
+  padding: $spacing-xs;
+  width: 100%;
+}
+
+.geo-year-control__selector {
+  background-color: $ui-bg-hover;
+  min-width: $spacing-xxxl;
+}
