@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Layer, LayerControlType, LayerSectionKey } from 'meta/geo/layer'
 
@@ -23,6 +24,9 @@ type Returned = {
 
 export const useLayerControl = (props: Props): Returned => {
   const { layer, sectionKey } = props
+
+  const { t } = useTranslation()
+
   const layerState = useGeoLayer(sectionKey, layer.key)
 
   return useMemo<Returned>(() => {
@@ -44,7 +48,9 @@ export const useLayerControl = (props: Props): Returned => {
     const opacity = layerState?.opacity ?? 1
     const selected = layerState?.selected ?? false
     const status = layerState?.status ?? LayerFetchStatus.Unfetched
-    const title = layer.metadata?.title ?? layer.key
+
+    const titleKey = layer.metadata?.titleKey
+    const title = titleKey !== undefined ? t(titleKey) : layer.key
 
     // Show Custom Asset control when the layer fetch is loading
     const isCustomAssetLoading =
@@ -69,5 +75,5 @@ export const useLayerControl = (props: Props): Returned => {
       status,
       title,
     }
-  }, [layer, layerState])
+  }, [layer, layerState, t])
 }

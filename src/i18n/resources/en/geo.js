@@ -28,6 +28,38 @@ module.exports = {
     recipes: 'Recipes',
   },
   satelliteMosaic: 'Satellite Mosaic',
+  sections: {
+    burnedArea: {
+      layerTitles: {
+        modis: 'MODIS',
+      },
+      title: 'Burned Area Layers',
+    },
+    forest: {
+      layerTitles: {
+        agreement: 'Agreement layer',
+        copernicus2019: 'Copernicus (2019)',
+        customFnf: 'Custom FnF',
+        esa2020: 'ESA (2020)',
+        esaGlobCover2009: 'ESA GlobCover (2009)',
+        esri2020: 'ESRI (2020)',
+        globeLand2020: 'GlobeLand (2020)',
+        hansenGfc2020: 'Hansen GFC (2020)',
+        jaxa2017: 'JAXA (2017)',
+        modis: 'MODIS',
+        tanDemX2019: 'TanDEM-X (2019)',
+      },
+      title: 'Forest Layers',
+    },
+    protectedArea: {
+      layerTitles: {
+        customProtectedArea: 'Custom Protected Area',
+        filteredWdpa: 'Filtered WDPA',
+        wdpa: 'WDPA',
+      },
+      title: 'Protected Area Layers',
+    },
+  },
   selectMinTreeCoverPercent: 'Select min. tree cover percentage:',
   sentinel: 'Sentinel',
   showSatelliteMosaic: 'Show Satellite Mosaic',

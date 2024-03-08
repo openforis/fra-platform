@@ -38,7 +38,7 @@ export type LayerMetadata = {
   palette?: Array<string>
   citation?: string
   forestAreaDataProperty?: string
-  title?: string
+  titleKey: string
 }
 
 export type LayerOptions = {
@@ -69,7 +69,7 @@ export enum LayerSectionKey {
 
 export type LayerSection = {
   key: LayerSectionKey
-  title: string
+  titleKey: string
   layers: Array<Layer>
   recipes?: Array<Recipe>
 }
