@@ -1,11 +1,13 @@
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
 import { Col } from 'meta/assessment'
+import { NodeUpdate } from 'meta/data'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
-import { updateCalculatedVariable } from 'test/migrations/steps/utils/updateCalculatedVariable'
+import { updateDependencies } from 'test/migrations/steps/utils/updateDependencies'
 
 const _years = [2020, 2021, 2022, 2023, 2024, 2025]
 const _getCalcFormula = (year: string) => {
@@ -63,14 +65,38 @@ export default async (client: BaseProtocol) => {
   const query = `${pgp.helpers.update(nodeMetadata, cs)} WHERE v.id = t.id;`
   await client.query(query)
 
-  // Update cache
+  // **** update metacache
   await AssessmentController.generateMetaCache(client)
+
+  // **** update metadata cache
   await AssessmentController.generateMetadataCache({ assessment }, client)
 
-  // Update calculated variables
-  const sectionName = 'sustainableDevelopment'
-  const tableName = 'sustainableDevelopment15_1_1'
-  const variableName = 'forestAreaProportionLandArea2015'
-  const updateCalculatedVariableProps = { assessment, cycle, sectionName, tableName, variableName }
-  await updateCalculatedVariable(updateCalculatedVariableProps, client)
+  const update = await AssessmentController.getOneWithCycle(
+    { assessmentName: 'fra', cycleName: '2025', metaCache: true },
+    client
+  )
+
+  // **** update calculated cols
+  const nodes = await client.map<NodeUpdate>(
+    `select s.props ->> 'name'         as section_name
+          , t.props ->> 'name'         as table_name
+          , r.props ->> 'variableName' as variable_name
+          , c.props ->> 'colName'      as col_name
+     from ${schemaName}.col c
+              left join ${schemaName}.row r on r.id = c.row_id
+              left join ${schemaName}."table" t on t.id = r.table_id
+              left join ${schemaName}.table_section ts on ts.id = t.table_section_id
+              left join ${schemaName}.section s on s.id = ts.section_id
+     where s.props ->> 'name' = 'sustainableDevelopment'
+       and t.props ->> 'name' = 'sustainableDevelopment15_1_1'
+       and r.props ->> 'variableName' = 'forestAreaProportionLandArea2015'
+       and c.props ->> 'colName' in ('2020', '2021', '2022', '2023', '2024')`,
+    [],
+    (res) => Objects.camelize(res)
+  )
+
+  await updateDependencies(
+    { assessment: update.assessment, cycle: update.cycle, nodes, includeSourceNodes: true },
+    client
+  )
 }
