@@ -150,8 +150,12 @@ export const CycleDataApi = {
 
     // repository
     express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)
-    express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewRepositoryFile, getRepositoryFile)
-    express.get(ApiEndPoint.CycleData.Repository.files(), AuthMiddleware.requireView, getManyRepositoryFiles)
+    express.get(
+      ApiEndPoint.CycleData.Repository.File.one(),
+      AuthMiddleware.requireViewRepositoryFile,
+      getRepositoryFile
+    )
+    express.get(ApiEndPoint.CycleData.Repository.File.many(), AuthMiddleware.requireView, getManyRepositoryFiles)
     express.get(
       ApiEndPoint.CycleData.Repository.fileMeta(),
       AuthMiddleware.requireEditRepositoryItem,
