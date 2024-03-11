@@ -1,6 +1,7 @@
 module.exports = {
   accepted: 'Accepted',
   add: 'Add',
+  all: 'All',
   apply: 'Apply',
   areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   areYouSureYouWantToDelete: 'Are you sure you want to delete this item? This operation cannot be undone.',

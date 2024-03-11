@@ -32,7 +32,7 @@ const FileDownload: React.FC<Props> = (props: Props) => {
     )
   }
 
-  const href = `${ApiEndPoint.CycleData.Repository.file(fileSummary.repositoryItemUuid)}?${queryParams.toString()}`
+  const href = `${ApiEndPoint.CycleData.Repository.File.one(fileSummary.repositoryItemUuid)}?${queryParams.toString()}`
   return (
     <a className="repository-link" href={href} rel="noreferrer" target="_blank">
       {fileSummary.name} ({size})

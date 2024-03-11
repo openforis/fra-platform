@@ -465,7 +465,6 @@ FRA工作组 fra@fao.org
     institution: '机构/地址',
     email: '电子邮箱',
     tables: '表格',
-    all: '所有',
     none: '无',
   },
 
