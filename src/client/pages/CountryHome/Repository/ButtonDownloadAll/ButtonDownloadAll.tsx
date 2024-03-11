@@ -6,7 +6,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { useButtonClassName } from 'client/components/Buttons/Button'
+import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
 type Props = {
@@ -19,7 +19,7 @@ const ButtonDownloadAll: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
 
   const label = t('common.all')
-  const className = useButtonClassName({ iconName: 'hit-down', label })
+  const className = useButtonClassName({ iconName: 'hit-down', label, size: ButtonSize.s })
 
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso, global: String(isGlobal) })
 
