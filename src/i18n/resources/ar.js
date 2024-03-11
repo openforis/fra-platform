@@ -495,7 +495,6 @@ The FRA team
     institution: 'المؤسسة/العنوان',
     email: 'البريد الإلكتروني',
     tables: 'جداول',
-    all: 'الكل',
     none: 'ولا واحد',
   },
 

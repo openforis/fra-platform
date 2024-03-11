@@ -440,7 +440,6 @@ L'équipe de FRA fra@fao.org
     institution: 'Institution/adresse',
     email: 'Email',
     tables: 'Tableaux',
-    all: 'Toutes',
     none: 'Aucune',
   },
 
