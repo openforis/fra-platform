@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.geo-layer-section-panel__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.geo-layer-section-panel__layer-container {
+  margin-top: $spacing-xxs;
+}

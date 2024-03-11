@@ -2,7 +2,7 @@ import './TreeCoverPercentControl.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Layer, LayerKey, LayerSectionKey } from 'meta/geo'
+import { Layer, LayerSectionKey } from 'meta/geo'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
@@ -11,12 +11,12 @@ import { useFetchNewLayerOption } from 'client/pages/Geo/GeoMap/hooks'
 
 type Props = {
   layer: Layer
-  layerKey: LayerKey
   sectionKey: LayerSectionKey
 }
 
 const TreeCoverPercentControl: React.FC<Props> = (props) => {
-  const { layer, layerKey, sectionKey } = props
+  const { layer, sectionKey } = props
+  const layerKey = layer.key
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -35,14 +35,14 @@ const TreeCoverPercentControl: React.FC<Props> = (props) => {
         {layer.options?.gteTreeCoverPercent.map((percentage) => {
           const id = `${sectionKey}-${layerKey}-${percentage}`
           return (
-            <div className="geo-tree-cover-percentage__radio-button" key={id}>
+            <div key={id} className="geo-tree-cover-percentage__radio-button">
               <InputRadio
                 checked={layerState?.options?.gteTreeCoverPercent === percentage}
                 id={id}
                 onChange={() => handlePercentageChange(percentage)}
                 value={percentage}
               />
-              <label htmlFor={id} key={id}>
+              <label key={id} htmlFor={id}>
                 {`${percentage} %`}
               </label>
             </div>
