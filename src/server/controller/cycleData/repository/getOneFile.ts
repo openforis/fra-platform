@@ -17,7 +17,7 @@ type Returned = {
   repositoryItem: RepositoryItem
 }
 
-export const getFile = async (props: Props): Promise<Returned> => {
+export const getOneFile = async (props: Props): Promise<Returned> => {
   const { assessment, cycle, uuid } = props
 
   const getRepositoryItemProps = { assessment, cycle, uuid }
