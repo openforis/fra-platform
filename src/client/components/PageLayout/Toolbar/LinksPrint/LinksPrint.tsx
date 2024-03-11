@@ -13,21 +13,21 @@ const LinksPrint: React.FC = () => {
 
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>
-      <Link
-        className="btn btn-secondary"
-        to={Routes.PrintTables.generatePath({ countryIso, assessmentName, cycleName })}
-        target="_blank"
-      >
-        <Icon name="small-print" className="icon-margin-left icon-sub" />
-        <Icon name="icon-table2" className="icon-no-margin icon-sub" />
-      </Link>
+      {/* <Link */}
+      {/*  className="btn btn-secondary" */}
+      {/*  to={Routes.PrintTables.generatePath({ countryIso, assessmentName, cycleName })} */}
+      {/*  target="_blank" */}
+      {/* > */}
+      {/*  <Icon name="small-print" className="icon-margin-left icon-sub" /> */}
+      {/*  <Icon name="icon-table2" className="icon-no-margin icon-sub" /> */}
+      {/* </Link> */}
 
       <Link
         className="btn btn-secondary"
-        to={Routes.Print.generatePath({ countryIso, assessmentName, cycleName })}
         target="_blank"
+        to={Routes.Print.generatePath({ countryIso, assessmentName, cycleName })}
       >
-        <Icon name="small-print" className="icon-no-margin icon-sub" />
+        <Icon className="icon-no-margin icon-sub" name="small-print" />
       </Link>
     </MediaQuery>
   )

@@ -15,6 +15,7 @@ export type ButtonProps = Pick<InputHTMLAttributes<HTMLButtonElement>, 'classNam
   iconName?: string
   inverse?: boolean
   label?: React.ReactNode
+  noPrint?: boolean
   size?: ButtonSize
   type?: ButtonType
 }

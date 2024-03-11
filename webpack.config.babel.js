@@ -80,11 +80,11 @@ const appConfig = {
       {
         // Proxy all server-served routes:
         context: ['/auth', '/img', '/css', '/video', '/api', '/definitions'],
-        target: process.env.APP_URI,
+        target: process.env.APP_URI ?? `http://localhost:9001`,
       },
       {
         context: ['/socket.io'],
-        target: process.env.APP_URI, // .replace('http','ws'),
+        target: process.env.APP_URI ?? `http://localhost:9001`, // .replace('http','ws'),
         ws: true,
       },
     ],
