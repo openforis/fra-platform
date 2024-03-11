@@ -1,13 +1,8 @@
 import './geoMap.scss'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
-import { useAppDispatch } from 'client/store'
-import { GeoActions } from 'client/store/ui/geo'
-import { useCountryIso } from 'client/hooks'
-import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
-import { mapController } from 'client/utils'
-
-import { useMapLayersHandler } from './hooks'
+import { useGeoMap } from './hooks/useGeoMap'
+import { useMapLayersHandler } from './hooks/useMapLayersHandler'
 
 type Props = {
   viewport?: google.maps.LatLngBoundsLiteral
@@ -15,62 +10,11 @@ type Props = {
 }
 
 const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
-  const dispatch = useAppDispatch()
   const { viewport, children, zoom } = props
-  const ref = useRef<HTMLDivElement>(null)
-  const [map, setMap] = useState<google.maps.Map>()
-  const countryIso = useCountryIso()
-  useEffect(() => {
-    if (ref.current && !map) {
-      const mapSetUp = new window.google.maps.Map(ref.current, {
-        controlSize: 30,
-        center: { lat: 0, lng: 0 }, // There needs to be a default center, otherwise the map does not render
-        disableDefaultUI: true,
-        fullscreenControl: true,
-        fullscreenControlOptions: {
-          position: google.maps.ControlPosition.TOP_CENTER,
-        },
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          position: google.maps.ControlPosition.TOP_CENTER,
-          mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
-        },
-        mapTypeId: google.maps.MapTypeId.HYBRID,
-        rotateControl: true,
-        zoom: zoom || 4,
-        zoomControl: true,
-        zoomControlOptions: {
-          position: google.maps.ControlPosition.TOP_CENTER,
-        },
-      })
-      if (!zoom && viewport) mapSetUp.fitBounds(viewport)
-      mapController.setMap(mapSetUp)
-      setMap(mapSetUp)
-      dispatch(GeoActions.setMapAvailability(true))
-      // Center and focus on the current country
-      getCountryBounds(countryIso).then((response) => {
-        if (response?.data) {
-          mapSetUp.panTo(response.data.centroid)
-          mapSetUp.fitBounds(response.data.bounds)
-        }
-      })
-    }
-  }, [ref, map, zoom, viewport, countryIso, dispatch])
 
-  // Add layers handler
+  const { map, ref } = useGeoMap({ viewport, zoom })
+
   useMapLayersHandler()
-
-  // Move and center the map to the new country location.
-  useEffect(() => {
-    if (!map) return
-    getCountryBounds(countryIso).then((response) => {
-      if (response?.data) {
-        map.panTo(response.data.centroid)
-        map.fitBounds(response.data.bounds)
-      }
-    })
-  }, [countryIso, map])
 
   return (
     <>
@@ -82,7 +26,7 @@ const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
 
 GeoMap.defaultProps = {
   viewport: null,
-  zoom: null,
+  zoom: 4,
 }
 
 export default GeoMap
