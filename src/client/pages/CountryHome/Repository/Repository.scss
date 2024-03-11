@@ -12,10 +12,11 @@
   align-items: center;
   display: flex;
   height: $spacing-s;
-  justify-content: center;
-  margin-top: $spacing-s;
+  justify-content: flex-start;
+  margin: $spacing-m 0 $spacing-xs;
 
-  button {
+  button,
+  a {
     margin-left: $spacing-xxs;
   }
 }
