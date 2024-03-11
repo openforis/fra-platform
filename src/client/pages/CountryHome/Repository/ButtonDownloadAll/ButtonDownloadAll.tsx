@@ -19,7 +19,7 @@ const ButtonDownloadAll: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
 
   const label = t('common.all')
-  const className = useButtonClassName({ iconName: 'hit-down', label, size: ButtonSize.s })
+  const className = useButtonClassName({ iconName: 'hit-down', label, size: ButtonSize.xs })
 
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso, global: String(isGlobal) })
 

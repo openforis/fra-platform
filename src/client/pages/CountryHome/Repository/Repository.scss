@@ -1,10 +1,17 @@
 @import 'src/client/style/partials';
 
 .repository {
+  padding-top: $spacing-s;
+
   .data-grid-column {
     align-items: center;
     display: grid;
     height: $spacing-xl;
+  }
+
+  .hr {
+    margin: $spacing-s auto;
+    width: 50%;
   }
 }
 
@@ -12,8 +19,7 @@
   align-items: center;
   display: flex;
   height: $spacing-s;
-  justify-content: flex-start;
-  margin: $spacing-s 0;
+  justify-content: center;
 
   button,
   a {
