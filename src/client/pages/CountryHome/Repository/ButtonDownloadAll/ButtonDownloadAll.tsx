@@ -24,7 +24,7 @@ const ButtonDownloadAll: React.FC<Props> = (props: Props) => {
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso, global: String(isGlobal) })
 
   return (
-    <Link className={className} target="_blank" to={`${ApiEndPoint.CycleData.Repository.files()}?${queryParams}`}>
+    <Link className={className} target="_blank" to={`${ApiEndPoint.CycleData.Repository.File.many()}?${queryParams}`}>
       <Icon className="icon-sub icon-white" name="hit-down" />
       {label}
     </Link>

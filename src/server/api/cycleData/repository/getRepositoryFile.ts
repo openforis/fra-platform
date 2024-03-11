@@ -19,7 +19,7 @@ export const getRepositoryFile = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { assessment, cycle, uuid }
-    const { file, repositoryItem } = await CycleDataController.Repository.getFile(props)
+    const { file, repositoryItem } = await CycleDataController.Repository.getOneFile(props)
 
     // Append the original file extension to the file name
     const label = Translations.getLabel({ translation: repositoryItem.props.translation, language: Lang.en })
