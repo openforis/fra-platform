@@ -23,18 +23,25 @@ const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
   useEffect(() => {
     if (ref.current && !map) {
       const mapSetUp = new window.google.maps.Map(ref.current, {
-        zoom: zoom || 4,
+        controlSize: 30,
         center: { lat: 0, lng: 0 }, // There needs to be a default center, otherwise the map does not render
         disableDefaultUI: true,
-        zoomControl: true,
-        rotateControl: true,
         fullscreenControl: true,
-        mapTypeId: google.maps.MapTypeId.HYBRID,
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+        },
         mapTypeControl: true,
         mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          position: google.maps.ControlPosition.RIGHT_TOP,
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+          position: google.maps.ControlPosition.TOP_CENTER,
           mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
+        },
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        rotateControl: true,
+        zoom: zoom || 4,
+        zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
         },
       })
       if (!zoom && viewport) mapSetUp.fitBounds(viewport)
