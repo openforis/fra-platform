@@ -31,6 +31,7 @@ import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateO
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { createRepositoryItem } from './repository/createRepositoryItem'
 import { getManyRepository } from './repository/getManyRepository'
+import { getManyRepositoryFiles } from './repository/getManyRepositoryFiles'
 import { getRepositoryFile } from './repository/getRepositoryFile'
 import { getRepositoryFileMeta } from './repository/getRepositoryFileMeta'
 import { removeRepositoryItem } from './repository/removeRepositoryItem'
@@ -149,7 +150,12 @@ export const CycleDataApi = {
 
     // repository
     express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)
-    express.get(ApiEndPoint.CycleData.Repository.file(), AuthMiddleware.requireViewRepositoryFile, getRepositoryFile)
+    express.get(
+      ApiEndPoint.CycleData.Repository.File.one(),
+      AuthMiddleware.requireViewRepositoryFile,
+      getRepositoryFile
+    )
+    express.get(ApiEndPoint.CycleData.Repository.File.many(), AuthMiddleware.requireView, getManyRepositoryFiles)
     express.get(
       ApiEndPoint.CycleData.Repository.fileMeta(),
       AuthMiddleware.requireEditRepositoryItem,

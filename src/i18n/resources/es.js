@@ -449,7 +449,6 @@ El equipo de FRA
     institution: 'Institución/dirección',
     email: 'Correo electrónico',
     tables: 'Tablas',
-    all: 'Todas',
     none: 'Ninguna',
   },
 

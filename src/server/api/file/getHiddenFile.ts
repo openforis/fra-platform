@@ -25,7 +25,9 @@ export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response) =
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, fileName })
     const urlParams = new URLSearchParams({ assessmentName, cycleName })
-    res.status(301).redirect(`${ApiEndPoint.CycleData.Repository.file(repositoryItem.uuid)}?${urlParams.toString()}`)
+    res
+      .status(301)
+      .redirect(`${ApiEndPoint.CycleData.Repository.File.one(repositoryItem.uuid)}?${urlParams.toString()}`)
   } catch (err) {
     Requests.sendErr(res, err)
   }
