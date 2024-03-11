@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { useRepositoryItemChangeListener } from 'client/store/ui/repository'
+import Hr from 'client/components/Hr'
 import TablePaginated from 'client/components/TablePaginated'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
@@ -30,6 +31,8 @@ const Repository: React.FC = () => {
         header={false}
         path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
       />
+
+      <Hr />
 
       <div className="repository__header">
         <h3>{t('landing.links.repository')}</h3>
