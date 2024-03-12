@@ -1,8 +1,11 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 
+import { CountryIso } from 'meta/area'
+
 import { useAppDispatch } from 'client/store'
 import { GeoActions } from 'client/store/ui/geo'
-import { useCountryIso, usePrevious } from 'client/hooks'
+import { usePrevious } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 import { mapController } from 'client/utils'
 
@@ -24,7 +27,7 @@ export const useGeoMap = (props: Props): Returned => {
   const ref = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
 
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const previousCountryIso = usePrevious(countryIso, countryIso)
 
   useEffect(() => {
