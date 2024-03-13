@@ -103,6 +103,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           data_source_references          text,
           description                     text,
           national_classes                jsonb,
+          values                          jsonb,
           id_legacy                       bigint
       );
 

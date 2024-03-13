@@ -6,20 +6,20 @@ import { ODPNationalClass } from './odpNationalClass' // import { ODPValidation 
 
 export interface OriginalDataPointValues {
   // Extent of forest
-  forestArea?: number
-  otherWoodedLand?: number
-  // otherLand?: number
-  // totalLandArea?: number
+  forestArea?: string
+  otherWoodedLand?: string
+  // otherLand?: string
+  // totalLandArea?: string
 
   // Forest area change
-  naturalForestArea?: number
-  otherPlantedForestArea?: number
-  plantationForestArea?: number
-  plantationForestIntroducedArea?: number
-  // plantedForest?: number
-  primaryForest?: number
-  primaryForestPercent?: number
-  // totalForestArea?: number
+  naturalForestArea?: string
+  otherPlantedForestArea?: string
+  plantationForestArea?: string
+  plantationForestIntroducedArea?: string
+  // plantedForest?: string
+  primaryForest?: string
+  primaryForestPercent?: string
+  // totalForestArea?: string
 }
 
 export interface OriginalDataPoint {

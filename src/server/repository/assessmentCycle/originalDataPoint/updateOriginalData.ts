@@ -11,7 +11,7 @@ export const updateOriginalData = async (
   const {
     assessment,
     cycle,
-    originalDataPoint: { id, countryIso, year, nationalClasses },
+    originalDataPoint: { id, countryIso, year, nationalClasses, values },
   } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
@@ -19,11 +19,12 @@ export const updateOriginalData = async (
   await client.one<OriginalDataPoint>(
     `
         update ${schemaName}.original_data_point set
-          national_classes = $2::jsonb
+          national_classes = $2::jsonb,
+          values = $3::jsonb
         where id = $1
         returning *
     `,
-    [id, JSON.stringify(nationalClasses)]
+    [id, JSON.stringify(nationalClasses), values]
   )
 
   return getOne({ assessment, cycle, countryIso, year: String(year) }, client)

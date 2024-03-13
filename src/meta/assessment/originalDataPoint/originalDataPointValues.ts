@@ -46,7 +46,7 @@ const calculateValues = (originalDataPoint: OriginalDataPoint) => {
     })
   )
 
-  const primaryForestPercent = toString(ODPs.calcPrimaryForestPercent({ originalDataPoint }))
+  const primaryForestPercent = ODPs.calcPrimaryForestPercent({ originalDataPoint })
 
   return {
     ...originalDataPoint,
