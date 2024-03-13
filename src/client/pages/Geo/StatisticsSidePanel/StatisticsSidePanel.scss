@@ -1,0 +1,46 @@
+@import 'src/client/style/partials';
+
+$side-panel-notch-height: $spacing-xxl;
+$side-panel-notch-width: $spacing-s;
+$side-panel-y-margin: $spacing-l;
+
+.geo-statistics-side-panel {
+  background-color: $ui-bg;
+  border: $ui-thin-border;
+  height: calc(100% - (2 * #{$side-panel-y-margin}));
+  margin-top: $side-panel-y-margin;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  width: 45%;
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.geo-statistics-side-panel__content-container {
+  margin-top: -$side-panel-notch-height;
+  padding: $spacing-xs;
+}
+
+.geo-statistics-side-panel__notch-button {
+  all: unset;
+  background-color: $ui-bg;
+  border-bottom: $ui-thin-border;
+  border-left: $ui-thin-border;
+  border-radius: $spacing-xxs 0 0 $spacing-xxs;
+  border-top: $ui-thin-border;
+  height: $side-panel-notch-height;
+  margin-top: -1px; // Matches the notch border with the panel border.
+  position: relative;
+  right: $side-panel-notch-width;
+  transition: transform 0.3s ease-in-out;
+  width: $side-panel-notch-width;
+
+  &:hover {
+    background-color: $ui-bg-hover;
+  }
+}

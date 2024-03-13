@@ -4,8 +4,8 @@ import React from 'react'
 import { Status, Wrapper } from '@googlemaps/react-wrapper'
 
 import Loading from 'client/components/Loading'
-
-import GeoMap from '../GeoMap'
+import GeoMap from 'client/pages/Geo/GeoMap'
+import StatisticsSidePanel from 'client/pages/Geo/StatisticsSidePanel'
 
 // @ts-ignore
 // from webpack DefinePlugin
@@ -20,7 +20,11 @@ const GeoMapWrapper: React.FC = () => {
         // TODO: improve error handling
         return <p>Error</p>
       case Status.SUCCESS:
-        return <GeoMap />
+        return (
+          <GeoMap>
+            <StatisticsSidePanel />
+          </GeoMap>
+        )
       // this should never happen
       default:
         return null
