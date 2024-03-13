@@ -2,12 +2,13 @@
 
 $side-panel-notch-height: $spacing-xxl;
 $side-panel-notch-width: $spacing-s;
+$side-panel-y-margin: $spacing-l;
 
 .geo-statistics-side-panel {
   background-color: $ui-bg;
   border: $ui-thin-border;
-  height: calc(100% - (2 * #{$spacing-m}));
-  margin-top: $spacing-m;
+  height: calc(100% - (2 * #{$side-panel-y-margin}));
+  margin-top: $side-panel-y-margin;
   position: absolute;
   right: 0;
   top: 0;

@@ -32,27 +32,23 @@ export const useGeoMap = (props: Props): Returned => {
     if (!ref.current || map) return
 
     const mapSetup = new window.google.maps.Map(ref.current, {
-      controlSize: 30,
+      controlSize: 24,
       // There needs to be a default center, otherwise the map does not render
       center: { lat: 0, lng: 0 },
       disableDefaultUI: true,
       fullscreenControl: true,
       fullscreenControlOptions: {
-        position: google.maps.ControlPosition.TOP_CENTER,
+        position: google.maps.ControlPosition.TOP_RIGHT,
       },
       mapTypeControl: true,
       mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
-        position: google.maps.ControlPosition.TOP_CENTER,
-        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+        position: google.maps.ControlPosition.TOP_RIGHT,
+        style: google.maps.MapTypeControlStyle.DEFAULT,
       },
       mapTypeId: google.maps.MapTypeId.HYBRID,
       rotateControl: true,
       zoom,
-      zoomControl: true,
-      zoomControlOptions: {
-        position: google.maps.ControlPosition.TOP_CENTER,
-      },
     })
 
     if (viewport) mapSetup.fitBounds(viewport)
