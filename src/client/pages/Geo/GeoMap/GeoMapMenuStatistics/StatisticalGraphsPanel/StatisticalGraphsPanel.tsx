@@ -1,5 +1,6 @@
 import './StatisticalGraphsPanel.scss'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ChartOptions, Plugin } from 'chart.js'
 import { Numbers } from 'utils/numbers'
@@ -17,12 +18,16 @@ type Props = {
 
 const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
   const { data, countryIso, year } = props
-  const chartTitle = `Extent of forest per source and reported on ${year} (1a)`
+  const { t } = useTranslation()
+
   const [chartDataState, setChartDataState] = useState(null)
   const [chartOptionsState, setChartOptionsState] = useState(null)
   const [chartPluginsState, setChartPluginsState] = useState(null)
 
   useEffect(() => {
+    const chartTitle = t('geo.statistics.forestArea.extentOfForestPerSource', { year })
+    const unitLabel = t('unit.haMillion')
+
     const labels = data.map((row) => {
       // Extract the labels from the first column of the data.
       return row[0]
@@ -58,7 +63,7 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
       plugins: {
         tooltip: {
           callbacks: {
-            label: (value: any) => `${Numbers.format(value?.parsed?.y, 0)} ha`,
+            label: (value: any) => `${Numbers.format(value?.parsed?.y, 0)} ${t('unit.ha')}`,
           },
         },
         title: {
@@ -77,7 +82,7 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
           suggestedMax: maximumArea * (1 + 0.2), // Add 20 % buffer area to the top of the bars
           ticks: {
             callback(value: number) {
-              return `${value / 1000000} Million`
+              return `${value / 1000000} ${unitLabel}`
             },
           },
         },
@@ -102,7 +107,7 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
     }
     setChartDataState(chartData)
     setChartOptionsState(options)
-  }, [data, countryIso, year, chartTitle])
+  }, [countryIso, data, year, t])
 
   return (
     <div className="statistical-graph-panel-container">
@@ -110,7 +115,7 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
         <div className="chart">
           {/* <canvas ref={canvasRef} /> */}
           {chartDataState && chartOptionsState && chartPluginsState && (
-            <Chart type="bar" options={chartOptionsState} data={chartDataState} plugins={chartPluginsState} />
+            <Chart data={chartDataState} options={chartOptionsState} plugins={chartPluginsState} type="bar" />
           )}
         </div>
       </div>
