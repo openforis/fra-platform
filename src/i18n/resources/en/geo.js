@@ -71,7 +71,6 @@ module.exports = {
   selectMinTreeCoverPercent: 'Select min. tree cover percentage:',
   sentinel: 'Sentinel',
   showSatelliteMosaic: 'Show Satellite Mosaic',
-  statistics: 'Statistics',
   statistics: {
     burnedArea: {
       burnedAreaByYear: 'Burned area by year',
@@ -90,5 +89,6 @@ module.exports = {
       allGfc30: 'All (GFC Hansen >=30%)',
       protectedAreaByYear: 'Protected area by year',
     },
+    title: 'Statistics',
   },
 }
