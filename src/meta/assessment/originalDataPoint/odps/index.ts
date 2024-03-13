@@ -6,6 +6,7 @@ import {
   calcTotalLandArea,
   calcTotalSubFieldArea,
   calcTotalSubSubFieldArea,
+  calculateValues,
 } from './calc'
 import { canCopyPreviousValues } from './canCopyPreviousValues'
 import { deleteNationalClass } from './deleteNationalClass'
@@ -21,6 +22,7 @@ export const ODPs = {
   calcTotalLandArea,
   calcTotalSubFieldArea,
   calcTotalSubSubFieldArea,
+  calculateValues,
   canCopyPreviousValues,
   deleteNationalClass,
   removeNationalClassPlaceHolder,

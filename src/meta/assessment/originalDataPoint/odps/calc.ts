@@ -104,3 +104,65 @@ export const calcTotalLandArea = (props: { originalDataPoint: OriginalDataPoint 
   const otherWoodedArea = calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' })
   return Numbers.sub(totalArea, Numbers.add(forestArea, otherWoodedArea))?.toNumber()
 }
+
+export const calculateValues = (originalDataPoint: OriginalDataPoint) => {
+  const { toString } = Numbers
+
+  // eslint-disable-next-line no-param-reassign
+  if (!originalDataPoint.values) originalDataPoint = { ...originalDataPoint, values: {} }
+
+  const forestArea = toString(calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
+  const otherWoodedLand = toString(calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' }))
+
+  const naturalForestArea = toString(
+    calcTotalSubFieldArea({ originalDataPoint, field: 'forestPercent', subField: 'forestNaturalPercent' })
+  )
+
+  const primaryForest = toString(
+    calcTotalSubSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'forestNaturalPercent',
+      subSubField: 'forestNaturalForestOfWhichPrimaryForestPercent',
+    })
+  )
+  const plantationForestArea = toString(
+    calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'forestPlantationPercent',
+    })
+  )
+  const plantationForestIntroducedArea = toString(
+    calcTotalSubSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'forestPlantationPercent',
+      subSubField: 'forestPlantationIntroducedPercent',
+    })
+  )
+  const otherPlantedForestArea = toString(
+    calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'otherPlantedForestPercent',
+    })
+  )
+
+  const primaryForestPercent = calcPrimaryForestPercent({ originalDataPoint })
+
+  return {
+    ...originalDataPoint,
+    values: {
+      forestArea,
+      otherWoodedLand,
+
+      naturalForestArea,
+      primaryForest,
+      primaryForestPercent,
+      plantationForestArea,
+      plantationForestIntroducedArea,
+      otherPlantedForestArea,
+    },
+  }
+}

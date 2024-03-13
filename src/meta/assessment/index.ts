@@ -51,7 +51,7 @@ export type {
 } from './nodeValueValidation'
 export { NodeValueValidations } from './nodeValueValidations'
 export type { ODPNationalClass, ODPReservedYear } from './originalDataPoint'
-export { ODPNationalClassFactory, ODPs, OriginalDataPointValues } from './originalDataPoint'
+export { ODPNationalClassFactory, ODPs } from './originalDataPoint'
 export type { OriginalDataPoint } from './originalDataPoint/originalDataPoint'
 export type { ReviewStatus, ReviewSummary } from './review'
 export type { Row, RowProps, VariableName } from './row'

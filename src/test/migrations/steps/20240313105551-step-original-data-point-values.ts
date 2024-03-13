@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { Assessment, Cycle, OriginalDataPointValues } from 'meta/assessment'
+import { Assessment, Cycle, ODPs } from 'meta/assessment'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
@@ -28,7 +28,7 @@ export default async () => {
         const { countryIso } = country
         const getODPsProps = { assessment, cycle, countryIso }
         const originalDataPoints = await CycleDataController.getOriginalDataPoints(getODPsProps, tx)
-        const withValues = originalDataPoints.map(OriginalDataPointValues.calculateValues)
+        const withValues = originalDataPoints.map(ODPs.calculateValues)
         await Promises.each(withValues, async (odp) => {
           const updateODProps = { assessment, cycle, originalDataPoint: odp }
           await OriginalDataPointRepository.updateOriginalData(updateODProps, tx)
