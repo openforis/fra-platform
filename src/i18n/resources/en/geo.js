@@ -1,6 +1,7 @@
 module.exports = {
   agreementLevelExplanation:
     'Agreement level N means that at least N of the selected data sources need to agree that a certain pixel is forest area.',
+  burnedArea: 'Burned Area',
   chooseAgreementLevel: 'Choose the min. agreement level between selected layers.',
   error: {
     extraEstimation: {
@@ -10,13 +11,20 @@ module.exports = {
     mosaic: {
       noMosaicAvailableForConfiguration: 'Error: No mosaic available for the selected configuration.',
     },
+    statistics: {
+      dataUnavailable: 'Data unavailable.',
+      failedToFetch: 'An error has occured while fetching the statistics: {{error}}',
+      foundNoData: 'Found no data.',
+    },
   },
   estimateCustomAgreementArea: 'Estimate Custom Agreement Area',
-  metersReducerScale: '{{meters}}m Reducer Scale',
+  forestArea: 'Forest area',
   geeAssetId: 'GEE Asset ID',
   globalOpacity: 'Global Opacity',
   landsat: 'Landsat',
   maxCloudCoverage: 'Max Cloud Coverage',
+  metersReducerScale: '{{meters}}m Reducer Scale',
+  protectedArea: 'Protected Area',
   recipes: {
     forest: {
       allGfc10: 'All (GFC Hansen >=10%)',
@@ -64,4 +72,23 @@ module.exports = {
   sentinel: 'Sentinel',
   showSatelliteMosaic: 'Show Satellite Mosaic',
   statistics: 'Statistics',
+  statistics: {
+    burnedArea: {
+      burnedAreaByYear: 'Burned area by year',
+    },
+    forestArea: {
+      extentOfForestPerSource: 'Extent of forest per source and reported on {{year}} (1a)',
+      extentOfForestTreeCover: 'Extent of forest/tree cover by source',
+      forestAreaHa: 'Forest area, ha',
+      forestAreaPercentOfLandArea: 'Forest area % of land area',
+      landArea: 'Land area',
+    },
+    graphs: 'Statistical Graphs',
+    protectedArea: {
+      allGfc10: 'All (GFC Hansen >=10%)',
+      allGfc20: 'All (GFC Hansen >=20%)',
+      allGfc30: 'All (GFC Hansen >=30%)',
+      protectedAreaByYear: 'Protected area by year',
+    },
+  },
 }

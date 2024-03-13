@@ -1,18 +1,23 @@
+import { createI18nPromise } from 'i18n/i18nFactory'
+
 import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestKey, forestLayersMetadata } from 'meta/geo'
 import { hansenPercentages } from 'meta/geo/forest'
+import { Lang } from 'meta/lang'
 
 /**
  * Turns the Forest Estimations object into a table, and adds the area reported
  * to FRA and the recipe layer estimation as rows.
  *
  * @param {ForestEstimations} fetchedForestEstimations Forest Estimations object.
- * @param {string} recipeLayerName The property name of the recipe.
+ * @param {Lang} language
  * @public
  */
-export const builForestEstimationsDataTable = (
-  fetchedForestEstimations: ForestEstimations
-): [string, number, number, string][] => {
-  if (!fetchedForestEstimations) throw Error('Data unavailable.')
+export const builForestEstimationsDataTable = async (
+  fetchedForestEstimations: ForestEstimations,
+  language: Lang
+): Promise<[string, number, number, string][]> => {
+  const i18n = await createI18nPromise(language)
+  if (!fetchedForestEstimations) throw Error(i18n.t('geo.statistics.dataUnavailable'))
 
   const estimationsData: [string, number, number, string][] = []
   const fra1ALandArea = fetchedForestEstimations.data.fra1aLandArea
@@ -24,7 +29,8 @@ export const builForestEstimationsDataTable = (
     if (!('forestAreaDataProperty' in metadata)) return
 
     if (key !== ForestKey.Hansen) {
-      const label = metadata.title ?? key
+      const labelKey = metadata.titleKey ?? key
+      const label = i18n.t(labelKey)
       const area = fetchedForestEstimations.data[
         metadata.forestAreaDataProperty as keyof ForestEstimationsData
       ] as number
@@ -35,7 +41,8 @@ export const builForestEstimationsDataTable = (
       estimationsData.push([label, Number(area.toFixed(2)), Number(percentage.toFixed(2)), key])
     } else {
       hansenPercentages.forEach((number: number) => {
-        const label = `${metadata.title ?? key} ${number} %`
+        const labelKey = metadata.titleKey ?? key
+        const label = `${i18n.t(labelKey)} ${number} %`
         const area = fetchedForestEstimations.data[
           (metadata.forestAreaDataProperty + number) as keyof ForestEstimationsData
         ] as number
