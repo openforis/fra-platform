@@ -84,14 +84,14 @@ export const calcTotalSubSubFieldArea = (props: {
   return Numbers.sum(values)
 }
 
-export const calcPrimaryForestPercent = (props: { originalDataPoint: OriginalDataPoint }): string => {
+export const calcPrimaryForestPercent = (props: { originalDataPoint: OriginalDataPoint }): string | undefined => {
   const { originalDataPoint } = props
   const primaryForestPercentages = originalDataPoint.nationalClasses.map(
     (nationalClass) => nationalClass.forestNaturalForestOfWhichPrimaryForestPercent
   )
 
-  if (primaryForestPercentages.every(Objects.isNil)) {
-    return originalDataPoint.values.primaryForestPercent ?? null
+  if (primaryForestPercentages.every(Objects.isEmpty)) {
+    return originalDataPoint.values.primaryForestPercent ?? undefined
   }
 
   return Numbers.toString(Numbers.sum(primaryForestPercentages))

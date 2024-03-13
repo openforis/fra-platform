@@ -14,7 +14,7 @@ const _updateDDL = async ({ assessment, cycle }: { assessment: Assessment; cycle
   const schemaName = Schemas.getNameCycle(assessment, cycle)
   await client.none(`
     alter table ${schemaName}.original_data_point
-    add column if not exists values jsonb;
+    add column if not exists values jsonb default '{}'::jsonb;
   `)
 }
 export default async () => {
