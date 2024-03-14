@@ -1,6 +1,5 @@
 import { addNationalClassPlaceHolder } from './addNationalClassPlaceHolder'
 import {
-  calcPrimaryForestPercent,
   calcTotalArea,
   calcTotalFieldArea,
   calcTotalLandArea,
@@ -16,7 +15,6 @@ import { validateNationalClass, validateYear } from './validateODP'
 
 export const ODPs = {
   addNationalClassPlaceHolder,
-  calcPrimaryForestPercent,
   calcTotalArea,
   calcTotalFieldArea,
   calcTotalLandArea,

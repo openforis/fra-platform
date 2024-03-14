@@ -84,17 +84,46 @@ export const calcTotalSubSubFieldArea = (props: {
   return Numbers.sum(values)
 }
 
-export const calcPrimaryForestPercent = (props: { originalDataPoint: OriginalDataPoint }): string | undefined => {
+const shouldUseTotal = (props: { originalDataPoint: OriginalDataPoint }): boolean => {
   const { originalDataPoint } = props
   const primaryForestPercentages = originalDataPoint.nationalClasses.map(
     (nationalClass) => nationalClass.forestNaturalForestOfWhichPrimaryForestPercent
   )
 
-  if (primaryForestPercentages.every(Objects.isEmpty)) {
-    return originalDataPoint.values.primaryForestPercent ?? undefined
-  }
+  return (
+    primaryForestPercentages.every(Objects.isEmpty) && !Objects.isEmpty(originalDataPoint.values.primaryForestPercent)
+  )
+}
+const calculatePrimaryForest = (props: { originalDataPoint: OriginalDataPoint }): number | null => {
+  const { originalDataPoint } = props
 
-  return Numbers.toString(Numbers.sum(primaryForestPercentages))
+  const useTotal = shouldUseTotal({ originalDataPoint })
+  if (useTotal)
+    return (
+      (calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }) *
+        Number(originalDataPoint.values.primaryForestPercent)) /
+      100
+    )
+
+  return calcTotalSubSubFieldArea({
+    originalDataPoint,
+    field: 'forestPercent',
+    subField: 'forestNaturalPercent',
+    subSubField: 'forestNaturalForestOfWhichPrimaryForestPercent',
+  })
+}
+
+export const calcPrimaryForestTotalPercent = (props: { originalDataPoint: OriginalDataPoint }): number | undefined => {
+  const { originalDataPoint } = props
+
+  const useTotal = shouldUseTotal({ originalDataPoint })
+  if (useTotal) return Number(originalDataPoint.values.primaryForestPercent) ?? undefined
+
+  return (
+    (calculatePrimaryForest({ originalDataPoint }) /
+      calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' })) *
+    100
+  )
 }
 
 export const calcTotalLandArea = (props: { originalDataPoint: OriginalDataPoint }): number => {
@@ -118,14 +147,7 @@ export const calculateValues = (originalDataPoint: OriginalDataPoint) => {
     calcTotalSubFieldArea({ originalDataPoint, field: 'forestPercent', subField: 'forestNaturalPercent' })
   )
 
-  const primaryForest = toString(
-    calcTotalSubSubFieldArea({
-      originalDataPoint,
-      field: 'forestPercent',
-      subField: 'forestNaturalPercent',
-      subSubField: 'forestNaturalForestOfWhichPrimaryForestPercent',
-    })
-  )
+  const primaryForest = toString(calculatePrimaryForest({ originalDataPoint }))
   const plantationForestArea = toString(
     calcTotalSubFieldArea({
       originalDataPoint,
@@ -149,7 +171,7 @@ export const calculateValues = (originalDataPoint: OriginalDataPoint) => {
     })
   )
 
-  const primaryForestPercent = calcPrimaryForestPercent({ originalDataPoint })
+  const primaryForestPercent = toString(calcPrimaryForestTotalPercent({ originalDataPoint }))
 
   return {
     ...originalDataPoint,
