@@ -28,7 +28,7 @@ const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <h3 className="table-title">{title}</h3>
+      <h4 className="geo-statistics-side-panel-table-title">{title}</h4>
       <StatisticsTable
         columns={columns}
         countryIso={countryIso}
