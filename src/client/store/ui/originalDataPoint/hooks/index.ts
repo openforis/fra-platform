@@ -16,6 +16,7 @@ export const useOriginalDataPoint = (): OriginalDataPoint => {
     dataSourceReferences: '',
     description: '',
     nationalClasses: [],
+    values: {},
   } as OriginalDataPoint
   return originalDataPoint ?? originalDataPointTemplate
 }

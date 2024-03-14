@@ -3,6 +3,7 @@ import { Objects } from 'utils/objects'
 
 import { ODPNationalClass, ODPNationalClassFactory } from '../odpNationalClass'
 import { OriginalDataPoint } from '../originalDataPoint'
+import { calculateValues as calculateODPValues } from './calc'
 
 // Helper utility to calculate correct value for Classifications and definitions.
 // - [1] If we have sum to 100%, we display empty cells in row as 0% [0]
@@ -114,5 +115,5 @@ export const updateNationalClass = (props: {
     odp.nationalClasses.push(ODPNationalClassFactory.newNationalClassPlaceholder())
   }
 
-  return odp
+  return calculateODPValues(odp)
 }

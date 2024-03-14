@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { OriginalDataPoint } from 'meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
@@ -15,7 +15,7 @@ export const useUpdateOriginalData = (): ((originalDataPoint: OriginalDataPoint)
     (originalDataPoint: OriginalDataPoint) => {
       dispatch(
         OriginalDataPointActions.updateOriginalDataPointOriginalData({
-          originalDataPoint,
+          originalDataPoint: ODPs.calculateValues(originalDataPoint),
           assessmentName,
           cycleName,
           countryIso: countryIso as CountryIso,
