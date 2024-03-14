@@ -7,19 +7,6 @@ import { CycleRequest } from 'meta/api/request'
 import Requests from 'server/utils/requests'
 
 type Request = CycleRequest<{ onlyTables?: string }>
-//
-// const styleContent = `
-// @page {
-//   size: A4;
-// }
-//
-// html,
-// body {
-//   width: 210mm;
-//   height: 297mm;
-//   line-height: inherit;
-// }
-// `
 
 const margin = '5mm'
 const pdfOptions: PDFOptions = {
@@ -32,12 +19,13 @@ const pdfOptions: PDFOptions = {
 }
 
 const getPdf = async (req: Request): Promise<Buffer> => {
-  const { assessmentName, cycleName, countryIso } = req.query
+  const { assessmentName, cycleName, countryIso, onlyTables } = req.query
 
   const browser = await puppeteer.launch({ headless: true })
   const page = await browser.newPage()
-  // await page.addStyleTag({ content: styleContent })
-  const url = `${Requests.serverUrl(req)}/assessments/${assessmentName}/${cycleName}/${countryIso}/print/`
+
+  const tables = onlyTables === 'true' ? 'tables' : ''
+  const url = `${Requests.serverUrl(req)}/assessments/${assessmentName}/${cycleName}/${countryIso}/print/${tables}`
 
   await Promises.each(Object.entries(req.cookies), ([name, value]: [string, string]) => {
     return page.setCookie({ name, value, url })
@@ -59,12 +47,9 @@ export const report = async (req: Request, res: Response) => {
     res.set({
       'Content-Type': 'application/pdf',
       'Content-Length': pdf.length,
-      title: 'fdsa',
       'Content-Disposition': `attachment; filename="${assessmentName}_${cycleName}_${countryIso}.pdf"`,
     })
-    res.setHeader('title', 'fdsafsa')
-    res.send(pdf)
-    res.end()
+    res.send(pdf).end()
   } catch (e) {
     Requests.sendErr(res, e)
   }
