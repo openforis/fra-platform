@@ -3,10 +3,6 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import classNames from 'classnames'
-
-// @ts-ignore
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentStatus, CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
@@ -31,7 +27,7 @@ const Header: React.FC = () => {
   const downloadClassName = useButtonClassName({ iconName, label, noPrint, size })
   const onlyTablesClassName = useButtonClassName({ iconName, inverse: !onlyTables, label, noPrint, size })
 
-  const params = new URLSearchParams({ assessmentName, cycleName, countryIso })
+  const params = new URLSearchParams({ assessmentName, cycleName, countryIso, onlyTables: String(onlyTables) })
   const downloadHref = `${ApiEndPoint.CycleData.Print.Report.one()}?${params.toString()}`
   const PrintRoute = onlyTables ? Routes.Print : Routes.PrintTables
 
@@ -47,22 +43,24 @@ const Header: React.FC = () => {
 
   return (
     <div className="print-header">
-      <div className={classNames('print-header__toolbar', { withDownload })}>
+      <div className="print-header__toolbar">
         {withDownload && (
           <a className={downloadClassName} href={downloadHref} rel="noreferrer" target="_blank">
             <Icon className="icon-white icon-sub" name="hit-down" />
-            <Icon className="icon-white icon-sub" name="document-file-pdf" />
+            <Icon className="icon-white icon-sub" name="icon-files" />
           </a>
         )}
 
-        <Link
-          className={onlyTablesClassName}
-          target="_blank"
-          to={PrintRoute.generatePath({ assessmentName, cycleName, countryIso })}
-        >
-          <Icon className="icon-white icon-sub" name="small-print" />
-          <Icon className="icon-white icon-sub" name="icon-table2" />
-        </Link>
+        {!onlyTables && (
+          <Link
+            className={onlyTablesClassName}
+            target="_blank"
+            to={PrintRoute.generatePath({ assessmentName, cycleName, countryIso })}
+          >
+            <Icon className="icon-white icon-sub" name="small-print" />
+            <Icon className="icon-white icon-sub" name="icon-table2" />
+          </Link>
+        )}
       </div>
 
       <h1>{t(`area.${countryIso}.listName`)}</h1>

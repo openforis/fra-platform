@@ -13,8 +13,8 @@ $toolbarHeight: $spacing-l;
   align-items: center;
   background-color: $ui-bg;
   border-bottom: 1px solid $ui-border;
-  display: grid;
-  grid-column-gap: $spacing-xs;
+  display: flex;
+  gap: $spacing-xs;
   height: $toolbarHeight;
   justify-content: end;
   left: 0;
@@ -23,10 +23,6 @@ $toolbarHeight: $spacing-l;
   top: 0;
   width: 100dvw;
   z-index: 1;
-
-  &.withDownload {
-    grid-template-columns: repeat(2, auto);
-  }
 }
 
 @media print {

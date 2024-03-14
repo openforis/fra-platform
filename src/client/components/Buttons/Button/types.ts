@@ -4,9 +4,11 @@ export enum ButtonSize {
   xs = 'xs',
   s = 's',
   m = 'm',
+  l = 'l',
 }
 
 export enum ButtonType {
+  anonymous = 'anonymous',
   danger = 'danger',
   primary = 'primary',
 }
