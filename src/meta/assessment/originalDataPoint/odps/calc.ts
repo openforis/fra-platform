@@ -117,7 +117,10 @@ export const calcPrimaryForestTotalPercent = (props: { originalDataPoint: Origin
   const { originalDataPoint } = props
 
   const useTotal = shouldUseTotal({ originalDataPoint })
-  if (useTotal) return Number(originalDataPoint.values.primaryForestPercent) ?? undefined
+  if (useTotal)
+    return Objects.isEmpty(originalDataPoint.values.primaryForestPercent)
+      ? Number(originalDataPoint.values.primaryForestPercent)
+      : undefined
 
   return (
     (calculatePrimaryForest({ originalDataPoint }) /
