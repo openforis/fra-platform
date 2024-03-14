@@ -6,6 +6,7 @@ import {
   calcTotalSubFieldArea,
   calcTotalSubSubFieldArea,
   calculateValues,
+  shouldUseTotalPrimaryForestPercentage,
 } from './calc'
 import { canCopyPreviousValues } from './canCopyPreviousValues'
 import { deleteNationalClass } from './deleteNationalClass'
@@ -24,6 +25,7 @@ export const ODPs = {
   canCopyPreviousValues,
   deleteNationalClass,
   removeNationalClassPlaceHolder,
+  shouldUseTotalPrimaryForestPercentage,
   updateNationalClass,
   // Validate
   validateYear,
