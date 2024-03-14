@@ -35,7 +35,7 @@ const Header: React.FC = () => {
 
   const title = useMemo<string>(() => {
     if (onlyTables) return t(`${assessmentName}.print.titleTables`, { cycleName })
-    if (!onlyTables && deskStudy) return `${t(`assessment.${assessmentName}`)} ${t('assessment.deskStudy')}`
+    if (deskStudy) return `${t(`assessment.${assessmentName}`)} ${t('assessment.deskStudy')}`
     return t(`${assessmentName}.print.title`, { cycleName })
   }, [assessmentName, cycleName, deskStudy, onlyTables, t])
 
