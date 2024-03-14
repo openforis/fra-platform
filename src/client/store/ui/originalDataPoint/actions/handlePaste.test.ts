@@ -8,7 +8,7 @@ const pick = (o: Record<string, string>, props: Array<string>) =>
 
 const countryIso = 'ATL' as CountryIso
 
-const emptyOdp = { id: 1, countryIso, nationalClasses: [{ placeHolder: true }] } as OriginalDataPoint
+const emptyOdp = { id: 1, countryIso, nationalClasses: [{ placeHolder: true }], values: {} } as OriginalDataPoint
 
 const odpWithExistingClasses = {
   id: 1,
@@ -18,6 +18,7 @@ const odpWithExistingClasses = {
     { name: 'Coconut plantations', definition: 'Areas under coconut ...' },
     { name: '', placeHolder: true },
   ],
+  values: {},
 } as OriginalDataPoint
 
 const ncColumns = [
@@ -82,6 +83,7 @@ describe('OriginalDataPoint paste test:', () => {
         { name: 'Coconut plantations', otherPlantedForestPercent: '25' },
         { name: '', placeHolder: true },
       ],
+      values: {},
     } as OriginalDataPoint
     const expected = [
       { name: 'Closed forest' },
