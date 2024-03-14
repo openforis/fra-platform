@@ -1,22 +1,25 @@
 import './StatisticsTable.scss'
 import React, { useRef } from 'react'
 
-import ButtonTableExport from 'client/components/ButtonTableExport'
-import { CSVData } from 'client/components/ButtonTableExport/types'
+import { Objects } from 'utils/objects'
+
+import { ButtonGridExport, DataCell, DataGrid } from 'client/components/DataGrid'
+import ButtonCSVExport from 'client/pages/Geo/ButtonCSVExport'
+import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
 
 type Props = {
   columns: string[]
   csvData?: CSVData
-  units: string[]
+  fileName: string
   loaded: boolean
   tableData: (string | number)[][]
-  countryIso: string
-  year?: number
+  units: string[]
 }
 
 const StatisticsTable = (props: Props) => {
-  const { columns, countryIso, csvData, loaded, tableData, units, year } = props
-  const tableRef = useRef(null)
+  const { columns, csvData, fileName, loaded, tableData, units } = props
+
+  const gridRef = useRef<HTMLDivElement>(null)
 
   if (!loaded) {
     return null
@@ -24,36 +27,37 @@ const StatisticsTable = (props: Props) => {
 
   return (
     <div className="geo-statistics-table__container">
-      <table ref={tableRef} cellSpacing="0" className="geo-statistics-table">
-        <thead>
-          <tr>
-            {columns.map((columnName) => (
-              <th key={`${columnName}`} className="geo-statistics-table__header-cell">
-                {columnName}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.map((row, rowIdx) => {
-            return (
-              <tr key={`${[rowIdx]}`}>
-                {row.map((value, columnIdx: number) => (
-                  <td key={`${value}-${columns[columnIdx]}`} className="geo-statistics-table__cell">
-                    {`${value} ${units[columnIdx]}`}
-                  </td>
-                ))}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+      <DataGrid ref={gridRef} gridTemplateColumns={`repeat(${columns.length}, 1fr)`}>
+        {columns.map((columnTitle, i) => {
+          return (
+            <DataCell key={`${columnTitle}-${String(i)}-header`} header lastCol={i === columns.length - 1}>
+              {columnTitle}
+            </DataCell>
+          )
+        })}
+
+        {tableData.map((row, i) => {
+          return (
+            <React.Fragment key={`row_${String(i)}`}>
+              {row.map((value, j) => {
+                return (
+                  <DataCell
+                    key={`${value}-${String(i)}-${String(j)}`}
+                    className="geo-statistics-table__cell"
+                    lastCol={j === columns.length - 1}
+                    lastRow={i === tableData.length - 1}
+                  >
+                    {`${value} ${units[j]}`}
+                  </DataCell>
+                )
+              })}
+            </React.Fragment>
+          )
+        })}
+      </DataGrid>
       <div className="geo-statistics-export-button__container">
-        <ButtonTableExport
-          csvData={csvData}
-          filename={`forest-estimations-${countryIso}-${year}`}
-          tableRef={tableRef}
-        />
+        {!Objects.isEmpty(csvData) && <ButtonCSVExport csvData={csvData} filename={fileName} />}
+        {Objects.isEmpty(csvData) && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
       </div>
     </div>
   )
@@ -61,7 +65,6 @@ const StatisticsTable = (props: Props) => {
 
 StatisticsTable.defaultProps = {
   csvData: undefined,
-  year: undefined,
 }
 
 export default StatisticsTable

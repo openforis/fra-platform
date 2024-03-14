@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from 'utils/numbers'
 
 import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/ui/geo/hooks'
-import { CSVData } from 'client/components/ButtonTableExport/types'
+import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
 
 type Returned = {
   columns: Array<string>

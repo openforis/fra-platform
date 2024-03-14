@@ -31,11 +31,10 @@ const ProtectedAreaPanel: React.FC<Props> = (props: Props) => {
       <h4 className="geo-statistics-side-panel-table-title">{title}</h4>
       <StatisticsTable
         columns={columns}
-        countryIso={countryIso}
+        fileName={`forest-estimations-${countryIso}-${year}`}
         loaded={!isLoading}
         tableData={tableData}
         units={units}
-        year={year}
       />
     </>
   )
