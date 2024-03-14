@@ -1,4 +1,4 @@
-import './statisticsTable.scss'
+import './StatisticsTable.scss'
 import React, { useRef } from 'react'
 
 import ButtonTableExport from 'client/components/ButtonTableExport'
