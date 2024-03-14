@@ -36,9 +36,9 @@ export const useOptionsContributions = (): Returned => {
 
     return [
       {
-        label: `${t('contactPersons.all')}/${t('contactPersons.none')}`,
+        label: `${t('common.all')}/${t('contactPersons.none')}`,
         options: [
-          { label: t('contactPersons.all'), value: 'all' },
+          { label: t('common.all'), value: 'all' },
           { label: t('contactPersons.none'), value: 'none' },
         ],
       },

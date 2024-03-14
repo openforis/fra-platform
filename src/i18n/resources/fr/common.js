@@ -1,6 +1,7 @@
 module.exports = {
   accepted: 'Accepté',
   add: 'Ajouter',
+  all: 'Toutes',
   apply: 'Appliquer',
   areYouSureYouWantToDelete: 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette opération ne peut être annulée.',
   cancel: 'Effacer',

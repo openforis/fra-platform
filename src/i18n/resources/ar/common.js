@@ -1,6 +1,7 @@
 module.exports = {
   accepted: 'تم قبوله',
   add: 'إضافة',
+  all: 'الكل',
   apply: 'نفذ',
   areYouSureYouWantToDelete: 'هل ترغب في حذف هذا الملف؟ عند حذف هذا الملف لا يمكن استرجاعة مره اخري.',
   cancel: 'إلغاء',

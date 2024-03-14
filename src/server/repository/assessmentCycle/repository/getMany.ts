@@ -9,7 +9,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: AreaCode
+  countryIso?: AreaCode
   global: boolean
 }
 

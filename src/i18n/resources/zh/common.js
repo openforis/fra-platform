@@ -1,6 +1,7 @@
 module.exports = {
   accepted: '已接受',
   add: '添加',
+  all: '所有',
   apply: '应用',
   areYouSureYouWantToDelete: '你确定要删除这个项目吗？ 此操作无法撤销。',
   cancel: '取消',
