@@ -18,7 +18,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const { columns, customCsvData, error, isLoading, tableData, units } = useTreeCoverAreaData()
+  const { columns, csvData, error, isLoading, tableData, units } = useTreeCoverAreaData()
 
   if (!isLoading && tableData.length === 0 && !error) return <p>{t('geo.error.statistics.foundNoData')}</p>
 
@@ -30,7 +30,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
     <StatisticsTable
       columns={columns}
       countryIso={countryIso}
-      customCsvDownload={customCsvData}
+      csvData={csvData}
       loaded={!isLoading}
       tableData={tableData}
       units={units}

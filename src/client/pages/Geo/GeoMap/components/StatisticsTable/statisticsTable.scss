@@ -3,37 +3,49 @@
 
 $border-radius: 10px;
 
-.statistics-table__container {
-  padding: 0 $spacing-s 0 $spacing-s;
+.geo-statistics-export-button__container {
+  margin: 0 $spacing-xxxs 0 auto;
+  width: fit-content;
+}
+
+.geo-statistics-table__container {
+  padding: 0;
   margin: auto;
 }
-.statistics-table {
+
+.geo-statistics-table {
   margin: auto;
   width: calc(100% - $spacing-xxs);
   border-collapse: separate;
   border-spacing: 0 $spacing-xxs;
   margin-top: -10px;
 }
-.statistics-table td {
-  font-size: $font-m;
-  border: solid 1px $ui-border;
+
+.geo-statistics-table td {
+  border: $ui-thin-border;
   border-style: solid none;
-  padding: $spacing-xs;
-}
-.statistics-table td:first-child {
-  border-left-style: solid;
-  border-top-left-radius: $border-radius;
-  border-bottom-left-radius: $border-radius;
+  font-size: $font-m;
+  padding: $spacing-xxs;
 }
 
-.statistics-table td:last-child {
-  border-right-style: solid;
+.geo-statistics-table td:first-child {
+  border-bottom-left-radius: $border-radius;
+  border-left-style: solid;
+  border-top-left-radius: $border-radius;
+}
+
+.geo-statistics-table td:last-child {
   border-bottom-right-radius: $border-radius;
+  border-right-style: solid;
   border-top-right-radius: $border-radius;
 }
 
-.statistics-table__header-cell {
-  font-size: $font-l;
-  text-align: left;
+.geo-statistics-table__cell {
+  font-size: $font-s;
+}
+
+.geo-statistics-table__header-cell {
+  font-size: $font-m;
   padding-left: $spacing-xxs;
+  text-align: left;
 }
