@@ -60,7 +60,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
                   )}
               </th>
               <td className="fra-table__calculated-cell">
-                {originalDataPoint.values.primaryForest &&
+                {originalDataPoint?.values.primaryForest &&
                   Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))}
               </td>
             </tr>
