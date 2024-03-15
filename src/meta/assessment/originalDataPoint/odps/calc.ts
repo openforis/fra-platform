@@ -181,6 +181,41 @@ export const calculateValues = (originalDataPoint: OriginalDataPoint) => {
     })
   )
 
+  let plantedForest = null
+  if (!Objects.isEmpty(plantationForestArea) && !Objects.isEmpty(otherPlantedForestArea)) {
+    plantedForest = Numbers.toString(Numbers.add(plantationForestArea ?? '0', otherPlantedForestArea ?? '0'))
+  }
+
+  let total = null
+  if (
+    !Objects.isEmpty(naturalForestArea) ||
+    !Objects.isEmpty(plantationForestArea) ||
+    !Objects.isEmpty(otherPlantedForestArea)
+  ) {
+    total = Numbers.toString(
+      Numbers.sum([naturalForestArea ?? '0', plantationForestArea ?? '0', otherPlantedForestArea ?? '0'])
+    )
+  }
+
+  let totalForestArea = null
+  if (!Objects.isEmpty(plantedForest) || !Objects.isEmpty(naturalForestArea)) {
+    totalForestArea = Numbers.toString(Numbers.sum([plantedForest ?? '0', naturalForestArea ?? '0']))
+  }
+
+  const { totalLandArea } = originalDataPoint.values
+  let otherLand = null
+  if (!Objects.isEmpty(forestArea) || !Objects.isEmpty(otherWoodedLand)) {
+    otherLand = Numbers.toString(
+      Numbers.sub(
+        totalLandArea ??
+          calcTotalLandArea({
+            originalDataPoint,
+          }),
+        Numbers.sum([forestArea ?? '0', otherWoodedLand ?? '0'])
+      )
+    )
+  }
+
   return {
     ...originalDataPoint,
     values: {
@@ -188,11 +223,16 @@ export const calculateValues = (originalDataPoint: OriginalDataPoint) => {
       otherWoodedLand,
 
       naturalForestArea,
-      primaryForest,
-      primaryForestPercent,
+      otherLand,
+      otherPlantedForestArea,
       plantationForestArea,
       plantationForestIntroducedArea,
-      otherPlantedForestArea,
+      plantedForest,
+      primaryForest,
+      primaryForestPercent,
+      total,
+      totalForestArea,
+      totalLandArea,
     },
   }
 }
