@@ -7,9 +7,7 @@ import { ODPNationalClass } from './odpNationalClass' // import { ODPValidation 
 export interface OriginalDataPointValues {
   // Extent of forest
   forestArea?: string
-  otherLand?: string
   otherWoodedLand?: string
-  totalLandArea: string
 
   // Forest area change
   naturalForestArea?: string

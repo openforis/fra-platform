@@ -280,23 +280,46 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
 export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSchemaName: string): string => {
   return `
       create or replace view ${assessmentCycleSchemaName}.original_data_point_data as
-      select
-        odp.country_iso,
-        odp.year,
-        (odp.values ->> 'forestArea')::numeric as forest_area,
-            (odp.values ->> 'otherWoodedLand')::numeric as other_wooded_land,
-            (odp.values ->> 'naturalForestArea')::numeric as natural_forest_area,
-            (odp.values ->> 'plantationForestArea')::numeric as plantation_forest_area,
-            (odp.values ->> 'plantationForestIntroducedArea')::numeric as plantation_forest_introduced_area,
-            (odp.values ->> 'otherPlantedForestArea')::numeric as other_planted_forest_area,
-            (odp.values ->> 'plantedForest')::numeric as planted_forest,
-            (odp.values ->> 'total')::numeric as total,
-            odp.values ->> 'totalLandArea' as total_land_area,
-            (odp.values ->> 'otherLand')::double precision as other_land,
-            (odp.values ->> 'totalForestArea')::numeric as total_forest_area,
-            (odp.values ->> 'primaryForest')::numeric as primary_forest,
-        odp.id
-      from ${assessmentCycleSchemaName}.original_data_point odp
-      order by odp.country_iso, odp.year;
+      with total_land_area as (select country_iso,
+                                      r.props ->> 'variableName' as variable_name,
+                                      r.props ->> 'tableName'    as table_name,
+                                      r.props ->> 'colName'      as col_name,
+                                      r.value ->> 'raw'          as value
+                               from ${assessmentCycleSchemaName}.node_ext r
+                               where type = 'node'
+                                 and r.props ->> 'variableName' = 'totalLandArea'
+                                 and r.props ->> 'tableName' = 'extentOfForest'),
+           other_land as (select odp.country_iso,
+                                 odp.year,
+                                 case
+                                     when (odp.values ->> 'forestArea')::numeric is not null or
+                                          (odp.values ->> 'otherWoodedLand')::numeric is not null then
+                                         (tla.value)::double precision -
+                                         coalesce((odp.values ->> 'forestArea')::numeric, 0)::double precision -
+                                         coalesce((odp.values ->> 'otherWoodedLand')::numeric, 0)::double precision
+                                     else null
+                                     end as other_land
+                          from ${assessmentCycleSchemaName}.original_data_point odp
+                                   left join total_land_area tla
+                                             on odp.country_iso = tla.country_iso and odp.year::text = tla.col_name)
+          select odp.country_iso,
+                 odp.year,
+                 (odp.values ->> 'forestArea')::numeric                     as forest_area,
+                 (odp.values ->> 'otherWoodedLand')::numeric                as other_wooded_land,
+                 (odp.values ->> 'naturalForestArea')::numeric              as natural_forest_area,
+                 (odp.values ->> 'plantationForestArea')::numeric           as plantation_forest_area,
+                 (odp.values ->> 'plantationForestIntroducedArea')::numeric as plantation_forest_introduced_area,
+                 (odp.values ->> 'otherPlantedForestArea')::numeric         as other_planted_forest_area,
+                 (odp.values ->> 'plantedForest')::numeric                  as planted_forest,
+                 (odp.values ->> 'total')::numeric                          as total,
+                 tla.value                                                  as total_land_area,
+                 ol.other_land,
+                 (odp.values ->> 'totalForestArea')::numeric                as total_forest_area,
+                 (odp.values ->> 'primaryForest')::numeric                  as primary_forest,
+                 odp.id
+          from ${assessmentCycleSchemaName}.original_data_point odp
+                   left join total_land_area tla on odp.country_iso = tla.country_iso and odp.year::text = tla.col_name
+                   left join other_land ol on odp.country_iso = ol.country_iso and odp.year = ol.year
+          order by odp.country_iso, odp.year
   `
 }
