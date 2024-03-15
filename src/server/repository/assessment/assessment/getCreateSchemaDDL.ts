@@ -356,40 +356,13 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
         from ${assessmentCycleSchemaName}.node_ext r
         where type = 'node' and r.props ->> 'variableName' = 'totalLandArea' and r.props ->> 'tableName' = 'extentOfForest'
       ),
-       primary_forest AS (SELECT c.id,
-                               c.country_iso,
-                               c.year,
-                               case
-                                   -- case 1: when all national classes forestNaturalPercent is 0 then return 0 as primary forest
-                                   when
-                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalPercent')) =
-                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalPercent') filter
-                                               (where (c.class ->> 'forestNaturalPercent')::numeric = 0::numeric))
-                                       then 0::numeric
-                                   -- case 2: when at least one forestNaturalPercent is > 0 and at least value for forestNaturalForestOfWhichPrimaryForestPercent then sum
-                                   when
-                                           jsonb_array_length(jsonb_agg(c.class) filter
-                                               (where (c.class ->> 'forestNaturalPercent')::numeric > 0::numeric
-                                                   and
-                                                      ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent')::numeric >=
-                                                       0::numeric)
-                                               )) > 0
-                                       then
-                                       sum(((c.class ->> 'area'::text)::numeric) *
-                                           ((c.class ->> 'forestPercent'::text)::numeric) /
-                                           100::numeric * ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
-                                           100::numeric *
-                                           ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
-                                           100::numeric)
-                                   -- case 3: when all forestNaturalForestOfWhichPrimaryForestPercent are empty, return null
-                                   else null
-                                   end as primary_forest
-                        FROM classes c
-                        WHERE c.class ->> 'forestNaturalPercent' IS NOT NULL
-                          AND (c.class ->> 'forestNaturalPercent')::numeric >= 0
-                          AND (c.class ->> 'forestPercent')::numeric > 0
-                        GROUP BY c.id, c.country_iso, c.year
-                        ORDER BY c.id, c.country_iso, c.year),
+      primary_forest AS (SELECT odp.id,
+                         odp.country_iso,
+                         odp.year,
+                         (odp.values ->> 'primaryForest')::numeric as primary_forest
+                        FROM assessment_fra_2025.original_data_point odp
+                        GROUP BY odp.id, odp.country_iso, odp.year
+                        ORDER BY odp.id, odp.country_iso, odp.year),
      introduced_area AS (SELECT c.id,
                                 c.country_iso,
                                 c.year,
@@ -452,6 +425,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
          LEFT JOIN primary_forest pf
                    ON pf.country_iso::text = rv.country_iso::text AND pf.year::text = rv.year::text
          LEFT JOIN introduced_area ia
-                   ON ia.country_iso::text = rv.country_iso::text AND ia.year::text = rv.year::text;
+                   ON ia.country_iso::text = rv.country_iso::text AND ia.year::text = rv.year::text
+      order by rv.country_iso, rv.year;
   `
 }
