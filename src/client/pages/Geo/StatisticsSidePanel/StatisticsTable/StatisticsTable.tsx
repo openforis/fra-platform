@@ -27,6 +27,11 @@ const StatisticsTable = (props: Props) => {
 
   return (
     <div className="geo-statistics-table__container">
+      <div className="geo-statistics-export-button__container">
+        {!Objects.isEmpty(csvData) && <ButtonCSVExport csvData={csvData} filename={fileName} />}
+        {Objects.isEmpty(csvData) && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
+      </div>
+
       <DataGrid ref={gridRef} gridTemplateColumns={`repeat(${columns.length}, 1fr)`}>
         {columns.map((columnTitle, i) => {
           return (
@@ -55,10 +60,6 @@ const StatisticsTable = (props: Props) => {
           )
         })}
       </DataGrid>
-      <div className="geo-statistics-export-button__container">
-        {!Objects.isEmpty(csvData) && <ButtonCSVExport csvData={csvData} filename={fileName} />}
-        {Objects.isEmpty(csvData) && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
-      </div>
     </div>
   )
 }
