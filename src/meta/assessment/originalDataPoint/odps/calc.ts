@@ -220,11 +220,10 @@ export const calculateValues = (originalDataPoint: OriginalDataPoint) => {
     ...originalDataPoint,
     values: {
       forestArea,
-      otherWoodedLand,
-
       naturalForestArea,
       otherLand,
       otherPlantedForestArea,
+      otherWoodedLand,
       plantationForestArea,
       plantationForestIntroducedArea,
       plantedForest,
