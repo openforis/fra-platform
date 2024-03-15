@@ -7,7 +7,7 @@ import { BaseProtocol, Schemas } from 'server/db'
 import { getCreateSchemaCycleOriginalDataPointViewDDL } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 
 export default async (client: BaseProtocol) => {
-  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.panEuropean }, client)
+  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
 
   await Promises.each(assessment.cycles, async (cycle) => {
     const schemaCycle = Schemas.getNameCycle(assessment, cycle)

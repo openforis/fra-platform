@@ -360,7 +360,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                          odp.country_iso,
                          odp.year,
                          (odp.values ->> 'primaryForest')::numeric as primary_forest
-                        FROM assessment_fra_2025.original_data_point odp
+                        FROM ${assessmentCycleSchemaName}.original_data_point odp
                         GROUP BY odp.id, odp.country_iso, odp.year
                         ORDER BY odp.id, odp.country_iso, odp.year),
      introduced_area AS (SELECT c.id,
