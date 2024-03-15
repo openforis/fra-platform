@@ -5,6 +5,7 @@ import { Promises } from 'utils/promises'
 import { CycleRequest } from 'meta/api/request'
 
 import Requests from 'server/utils/requests'
+import { Responses } from 'server/utils/responses'
 
 type Request = CycleRequest<{ onlyTables?: string }>
 
@@ -43,13 +44,9 @@ export const report = async (req: Request, res: Response) => {
     const { assessmentName, cycleName, countryIso } = req.query
 
     const pdf = await getPdf(req)
+    const fileName = `${assessmentName}_${cycleName}_${countryIso}.pdf`
 
-    res.set({
-      'Content-Type': 'application/pdf',
-      'Content-Length': pdf.length,
-      'Content-Disposition': `attachment; filename="${assessmentName}_${cycleName}_${countryIso}.pdf"`,
-    })
-    res.send(pdf).end()
+    Responses.sendFile(res, fileName, pdf)
   } catch (e) {
     Requests.sendErr(res, e)
   }
