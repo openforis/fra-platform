@@ -12,7 +12,7 @@ import StatisticalGraphsPanel from 'client/pages/Geo/StatisticsSidePanel/Statist
 import TreeCoverAreaPanel from 'client/pages/Geo/StatisticsSidePanel/TreeCoverAreaPanel'
 
 const StatisticsSidePanel: React.FC = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   const { t } = useTranslation()
 
