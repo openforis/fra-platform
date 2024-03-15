@@ -6,6 +6,7 @@
   border: 1px solid;
   cursor: pointer;
   display: grid;
+  font-family: $font-family-1;
   font-weight: 600;
   line-height: 0;
   justify-content: center;
@@ -77,9 +78,20 @@
   }
 }
 
+.button__size-l {
+  font-size: $font-m;
+  height: $spacing-m;
+  padding: 0 11px;
+  grid-column-gap: $spacing-xxs;
+
+  svg {
+    height: 17px;
+    width: 17px;
+  }
+}
+
 // === type styles
-@mixin withTheme($colorPrimary, $hoverInverseLighten) {
-  $colorSecondary: white;
+@mixin withTheme($colorPrimary, $hoverInverseLighten, $colorSecondary: white) {
   $hoverPercent: 4%;
 
   background-color: $colorPrimary;
@@ -116,6 +128,22 @@
 
 .button__type-primary {
   @include withTheme($ui-accent, 62%);
+}
+
+.button__type-anonymous {
+  @include withTheme($ui-border, 10%, transparent);
+
+  &.inverse {
+    svg {
+      color: $text-link;
+    }
+
+    &:hover {
+      svg {
+        color: darken($text-link, 5%);
+      }
+    }
+  }
 }
 
 .button__type-danger {

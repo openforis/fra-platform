@@ -8,10 +8,6 @@
     margin-top: 0;
   }
 
-  .app-view__content {
-    padding: 0 !important;
-  }
-
   .no-print {
     display: none !important;
   }
@@ -83,16 +79,5 @@
     .page-break {
       page-break-after: always;
     }
-  }
-}
-
-.print__header {
-  display: grid;
-  align-items: center;
-  grid-row-gap: 10px;
-
-  > * {
-    display: flex;
-    align-items: center;
   }
 }

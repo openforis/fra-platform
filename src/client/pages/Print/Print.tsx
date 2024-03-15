@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment'
 
-import { useCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Loading from 'client/components/Loading'
+import Header from 'client/pages/Print/Header'
 import TableOfContent from 'client/pages/Print/TableOfContent'
 import Section from 'client/pages/Section'
 
@@ -20,9 +20,8 @@ import { useGetTableSections } from './hooks/useGetTableSections'
 
 const Print: React.FC = () => {
   const { t } = useTranslation()
-  const { assessmentName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
-  const country = useCountry(countryIso)
   const sections = useSections()
   const { onlyTables } = useIsPrintRoute()
   useGetTableSections()
@@ -34,30 +33,22 @@ const Print: React.FC = () => {
     document.body.style.height = 'unset'
   }, [])
 
-  const deskStudy = country?.props?.deskStudy
-
   if (!sections || !assessmentName) {
     return <Loading />
   }
 
-  let title = ''
-  if (onlyTables) title = t(`${assessmentName}.print.titleTables`, { cycleName: cycle.name })
-  if (!onlyTables && deskStudy) title = `${t(`assessment.${assessmentName}`)} ${t('assessment.deskStudy')}`
-  if (!onlyTables && !deskStudy) title = t(`${assessmentName}.print.title`, { cycleName: cycle.name })
-
   return (
     <div className="print__container">
-      <div className="print__header">
-        <h1>{t(`area.${countryIso}.listName`)}</h1>
-        <h1>{title}</h1>
-      </div>
+      <Header />
 
       <hr />
 
-      {!onlyTables && <TableOfContent deskStudy={deskStudy} />}
+      {!onlyTables && <TableOfContent />}
 
-      {Object.values(sections).map((section) => {
+      {sections.map((section, sectionIdx) => {
+        const { subSections } = section
         const sectionIndex = section.props.index
+
         return (
           <div key={section.uuid} id={`section${sectionIndex}`}>
             {!onlyTables && (
@@ -67,8 +58,14 @@ const Print: React.FC = () => {
               </h1>
             )}
 
-            {Object.values(section.subSections).map((sectionItem) => {
-              return <Section key={sectionItem.uuid} section={sectionItem.props.name} />
+            {subSections.map((subSection, subSectionIdx) => {
+              const lastSection = sectionIdx === sections.length - 1 && subSectionIdx === subSections.length - 1
+              return (
+                <React.Fragment key={subSection.uuid}>
+                  <Section section={subSection.props.name} />
+                  {!lastSection && <div className="page-break" />}
+                </React.Fragment>
+              )
             })}
           </div>
         )
