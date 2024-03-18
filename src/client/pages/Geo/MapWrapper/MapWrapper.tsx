@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Status, Wrapper } from '@googlemaps/react-wrapper'
 
 import Loading from 'client/components/Loading'
-import GeoMap from 'client/pages/Geo/GeoMap'
+import Map from 'client/pages/Geo/Map'
 import StatisticsSidePanel from 'client/pages/Geo/StatisticsSidePanel'
 
 // @ts-ignore
@@ -28,9 +28,9 @@ const MapWrapper: React.FC = () => {
         )
       case Status.SUCCESS:
         return (
-          <GeoMap>
+          <Map>
             <StatisticsSidePanel />
-          </GeoMap>
+          </Map>
         )
       // this should never happen
       default:

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { useGeoStatisticsHandler } from 'client/pages/Geo/GeoMap/hooks'
+import { useGeoStatisticsHandler } from 'client/pages/Geo/Map/hooks'
 import StatisticsSection from 'client/pages/Geo/StatisticsSection'
 import BurnedAreaPanel from 'client/pages/Geo/StatisticsSidePanel/BurnedAreaPanel'
 import ProtectedAreaPanel from 'client/pages/Geo/StatisticsSidePanel/ProtectedAreaPanel'

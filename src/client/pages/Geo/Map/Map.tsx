@@ -1,4 +1,4 @@
-import './geoMap.scss'
+import './Map.scss'
 import React from 'react'
 
 import { useGeoMap } from './hooks/useGeoMap'
@@ -9,7 +9,7 @@ type Props = {
   zoom?: number
 }
 
-const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
+const Map: React.FC<React.PropsWithChildren<Props>> = (props) => {
   const { viewport, children, zoom } = props
 
   const { map, ref } = useGeoMap({ viewport, zoom })
@@ -24,9 +24,9 @@ const GeoMap: React.FC<React.PropsWithChildren<Props>> = (props) => {
   )
 }
 
-GeoMap.defaultProps = {
+Map.defaultProps = {
   viewport: null,
   zoom: 4,
 }
 
-export default GeoMap
+export default Map

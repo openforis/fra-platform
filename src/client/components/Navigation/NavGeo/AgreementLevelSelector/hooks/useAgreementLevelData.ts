@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { Layer, LayerSectionKey } from 'meta/geo'
 
 import { useGeoLayer } from 'client/store/ui/geo'
-import { useCountSectionSelectedLayers } from 'client/pages/Geo/GeoMap/hooks/useCountSectionSelectedLayers'
+import { useCountSectionSelectedLayers } from 'client/pages/Geo/Map/hooks/useCountSectionSelectedLayers'
 
 type Props = {
   layer: Layer
