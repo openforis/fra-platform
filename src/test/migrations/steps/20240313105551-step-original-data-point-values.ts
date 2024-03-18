@@ -7,11 +7,13 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB
 
 const _updateDDL = async ({ assessment, cycle }: { assessment: Assessment; cycle: Cycle }) => {
   const schemaName = Schemas.getNameCycle(assessment, cycle)
+  Logger.debug('Updating original data point values column for schema', schemaName)
   await client.none(`
     alter table ${schemaName}.original_data_point
     add column if not exists values jsonb default '{}'::jsonb;
@@ -31,6 +33,8 @@ export default async () => {
         const withValues = originalDataPoints.map(ODPs.calculateValues)
         await Promises.each(withValues, async (odp) => {
           const updateODProps = { assessment, cycle, originalDataPoint: odp }
+          const debugProps = `${assessment.props.name}-${cycle.name}-${odp.countryIso}-${odp.year}`
+          Logger.debug(`Updating original data point${debugProps}`)
           await OriginalDataPointRepository.updateOriginalData(updateODProps, tx)
         })
       })
