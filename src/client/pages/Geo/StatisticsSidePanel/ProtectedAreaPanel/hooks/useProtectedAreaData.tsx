@@ -12,7 +12,6 @@ type Returned = {
   error?: string
   isLoading: boolean
   tableData: (string | number)[][]
-  title: string
   units: Array<string>
 }
 
@@ -50,7 +49,6 @@ export const useProtectedAreaData = (): Returned => {
     }
 
     const columns = [t('common.source'), t('geo.protectedArea')]
-    const title = t('geo.statistics.protectedArea.protectedAreaByYear')
     const units = ['', t('unit.ha')]
 
     const formattedTableData: (string | number)[][] = []
@@ -65,7 +63,6 @@ export const useProtectedAreaData = (): Returned => {
       error,
       isLoading,
       tableData: formattedTableData,
-      title,
       units,
     }
   }, [error, geoProtectedAreas, isLoading, t])

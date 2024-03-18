@@ -31,7 +31,7 @@ const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
       <h4 className="geo-statistics-side-panel-table-title">{title}</h4>
       <StatisticsTable
         columns={columns}
-        fileName={`forest-estimations-${countryIso}-${year}`}
+        fileName={`burned-area-estimations-${countryIso}-${year}`}
         loaded={!isLoading}
         tableData={tableData}
         units={units}
