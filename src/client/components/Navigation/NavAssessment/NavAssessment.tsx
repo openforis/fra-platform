@@ -17,20 +17,17 @@ import Header from 'client/components/Navigation/NavAssessment/Header'
 import NavigationSection from 'client/components/Navigation/NavAssessment/Section'
 import { Breakpoints } from 'client/utils'
 
-import { useMaxHeight } from './hooks/useMaxHeight'
-
 const NavAssessment: React.FC = () => {
   const { t } = useTranslation()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const sections = useSections()
 
-  const maxHeight = useMaxHeight()
   const [showSections, setShowSections] = useState<boolean>(false)
 
   if (Objects.isEmpty(sections)) return null
 
   return (
-    <div className="nav-assessment" style={{ maxHeight }}>
+    <>
       <Header setShowSections={setShowSections} showSections={showSections} />
 
       {sections.map((section) => (
@@ -53,7 +50,7 @@ const NavAssessment: React.FC = () => {
           </Link>
         </MediaQuery>
       )}
-    </div>
+    </>
   )
 }
 
