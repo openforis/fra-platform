@@ -25,9 +25,11 @@ const NavigationMobile: React.FC = () => {
         onClick={() => dispatch(NavigationActions.updateNavigationVisible(false))}
         type="button"
       >
-        <Icon name="remove" className="icon-close icon-24" />
+        <Icon className="icon-close icon-24" name="remove" />
       </button>
-      <NavAssessment />
+      <div className="nav-mobile__assessment-container">
+        <NavAssessment />
+      </div>
     </div>
   )
 }
