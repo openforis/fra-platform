@@ -1,4 +1,3 @@
-import './NavGeo.scss'
 import React from 'react'
 
 import { sections } from 'meta/geo'
@@ -9,7 +8,7 @@ import SatelliteMosaic from 'client/components/Navigation/NavGeo/SatelliteMosaic
 
 const NavGeo: React.FC = () => {
   return (
-    <div className="nav-geo">
+    <>
       <GeoSection key="geo-nav-section-satelliteMosaic" labelKey="geo.satelliteMosaic">
         <SatelliteMosaic />
       </GeoSection>
@@ -20,7 +19,7 @@ const NavGeo: React.FC = () => {
           </GeoSection>
         )
       })}
-    </div>
+    </>
   )
 }
 

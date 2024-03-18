@@ -1,3 +1,4 @@
+import './NavigationDesktop.scss'
 import React, { useEffect } from 'react'
 
 import { useAppDispatch } from 'client/store'
@@ -6,17 +7,21 @@ import { useIsGeoRoute } from 'client/hooks'
 import NavAssessment from 'client/components/Navigation/NavAssessment'
 import NavGeo from 'client/components/Navigation/NavGeo'
 
+import { useMaxHeight } from './hooks/useMaxHeight'
+
 const NavigationDesktop: React.FC = () => {
   const dispatch = useAppDispatch()
   const geoRoute = useIsGeoRoute()
 
-  // Show navigation on first mount (ex. returing from Mobile view)
+  const maxHeight = useMaxHeight()
+
+  // Show navigation on first mount (ex. returning from Mobile view)
   useEffect(() => {
     dispatch(NavigationActions.updateNavigationVisible(true))
   }, [dispatch])
 
   return (
-    <div className="nav no-print">
+    <div className="nav nav-desktop no-print" style={{ maxHeight }}>
       {geoRoute && <NavGeo />}
       {!geoRoute && <NavAssessment />}
     </div>
