@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-import { cookie } from './cookie'
+import { cookies } from './cookie'
 
-export const API = axios.create({ headers: { cookie } })
+export const API = axios.create({ headers: { cookie: cookies.prod } })
