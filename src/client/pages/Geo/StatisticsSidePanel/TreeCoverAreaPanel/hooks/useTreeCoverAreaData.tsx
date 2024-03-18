@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from 'utils/numbers'
 
 import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/ui/geo/hooks'
-import { CustomCsvDownload } from 'client/pages/Geo/GeoMap/components/ButtonStatisticsTableExport/types'
+import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
 
 type Returned = {
   columns: Array<string>
-  customCsvData?: CustomCsvDownload
+  csvData?: CSVData
   error?: string
   isLoading: boolean
   tableData: (string | number)[][]
@@ -73,7 +73,7 @@ export const useTreeCoverAreaData = (): Returned => {
 
     return {
       columns,
-      customCsvData,
+      csvData: customCsvData,
       error,
       isLoading,
       tableData: formattedTableData,

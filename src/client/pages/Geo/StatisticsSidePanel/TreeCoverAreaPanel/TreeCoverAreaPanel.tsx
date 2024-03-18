@@ -4,21 +4,21 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import StatisticsTable from 'client/pages/Geo/GeoMap/components/StatisticsTable'
+import StatisticsTable from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable'
 
-import { useBurnedAreaData } from './hooks/useBurnedAreaData'
+import { useTreeCoverAreaData } from './hooks/useTreeCoverAreaData'
 
 type Props = {
   year: number
 }
 
-const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
+const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
   const { year } = props
 
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const { columns, error, isLoading, tableData, title, units } = useBurnedAreaData()
+  const { columns, csvData, error, isLoading, tableData, units } = useTreeCoverAreaData()
 
   if (!isLoading && tableData.length === 0 && !error) return <p>{t('geo.error.statistics.foundNoData')}</p>
 
@@ -27,18 +27,15 @@ const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
   if (isLoading) return <p>{t('common.loading')}</p>
 
   return (
-    <>
-      <h3 className="table-title">{title}</h3>
-      <StatisticsTable
-        columns={columns}
-        countryIso={countryIso}
-        loaded={!isLoading}
-        tableData={tableData}
-        units={units}
-        year={year}
-      />
-    </>
+    <StatisticsTable
+      columns={columns}
+      csvData={csvData}
+      fileName={`forest-estimations-${countryIso}-${year}`}
+      loaded={!isLoading}
+      tableData={tableData}
+      units={units}
+    />
   )
 }
 
-export default BurnedAreaPanel
+export default TreeCoverAreaPanel

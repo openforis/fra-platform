@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+.geo-statistics-export-button__container {
+  margin: $spacing-xxxs auto 0 0;
+  width: fit-content;
+}
+
+.geo-statistics-table__cell {
+  font-size: $font-s;
+  padding: $spacing-xxs;
+}

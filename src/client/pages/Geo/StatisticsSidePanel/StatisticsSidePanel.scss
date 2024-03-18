@@ -22,8 +22,9 @@ $side-panel-y-margin: $spacing-l;
 }
 
 .geo-statistics-side-panel__content-container {
-  margin-top: -$side-panel-notch-height;
-  padding: $spacing-xs;
+  height: 100%;
+  margin-top: -1 * ($side-panel-notch-height + $spacing-xxxs);
+  overflow-y: scroll;
 }
 
 .geo-statistics-side-panel__notch-button {
@@ -43,4 +44,8 @@ $side-panel-y-margin: $spacing-l;
   &:hover {
     background-color: $ui-bg-hover;
   }
+}
+
+.geo-statistics-side-panel-table-title {
+  margin: 0 0 $spacing-xxs $spacing-xxxs;
 }

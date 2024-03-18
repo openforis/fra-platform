@@ -4,21 +4,21 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import StatisticsTable from 'client/pages/Geo/GeoMap/components/StatisticsTable'
+import StatisticsTable from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable'
 
-import { useTreeCoverAreaData } from './hooks/useTreeCoverAreaData'
+import { useProtectedAreaData } from './hooks/useProtectedAreaData'
 
 type Props = {
   year: number
 }
 
-const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
+const ProtectedAreaPanel: React.FC<Props> = (props: Props) => {
   const { year } = props
 
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const { columns, customCsvData, error, isLoading, tableData, units } = useTreeCoverAreaData()
+  const { columns, error, isLoading, tableData, title, units } = useProtectedAreaData()
 
   if (!isLoading && tableData.length === 0 && !error) return <p>{t('geo.error.statistics.foundNoData')}</p>
 
@@ -27,16 +27,17 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
   if (isLoading) return <p>{t('common.loading')}</p>
 
   return (
-    <StatisticsTable
-      columns={columns}
-      countryIso={countryIso}
-      customCsvDownload={customCsvData}
-      loaded={!isLoading}
-      tableData={tableData}
-      units={units}
-      year={year}
-    />
+    <>
+      <h4 className="geo-statistics-side-panel-table-title">{title}</h4>
+      <StatisticsTable
+        columns={columns}
+        fileName={`forest-estimations-${countryIso}-${year}`}
+        loaded={!isLoading}
+        tableData={tableData}
+        units={units}
+      />
+    </>
   )
 }
 
-export default TreeCoverAreaPanel
+export default ProtectedAreaPanel
