@@ -10,7 +10,7 @@ import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import Loading from 'client/components/Loading'
 
-const GeoMapWrapper = React.lazy(() => import('./GeoMapWrapper'))
+const MapWrapper = React.lazy(() => import('./MapWrapper'))
 
 const Geo: React.FC = () => {
   const user = useUser()
@@ -22,13 +22,13 @@ const Geo: React.FC = () => {
   const isAdmin = Users.isAdministrator(user)
 
   if (!isReviewer && !isAdmin) {
-    return <Navigate to={Routes.Cycle.path.relative} replace />
+    return <Navigate replace to={Routes.Cycle.path.relative} />
   }
 
   return (
     <div className="geo-container">
       <Suspense fallback={<Loading />}>
-        <GeoMapWrapper />
+        <MapWrapper />
       </Suspense>
     </div>
   )

@@ -1,4 +1,4 @@
-import './geoMapWrapper.scss'
+import './MapWrapper.scss'
 import React from 'react'
 
 import { Status, Wrapper } from '@googlemaps/react-wrapper'
