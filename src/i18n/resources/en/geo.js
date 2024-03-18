@@ -8,6 +8,9 @@ module.exports = {
       failedToRetrieve: 'There was a problem retrieving the estimation.',
       unexpectedDuringProcessing: 'Unexpected error during processing.',
     },
+    map: {
+      failedToLoad: 'There was a problem while loading the map.',
+    },
     mosaic: {
       noMosaicAvailableForConfiguration: 'Error: No mosaic available for the selected configuration.',
     },
