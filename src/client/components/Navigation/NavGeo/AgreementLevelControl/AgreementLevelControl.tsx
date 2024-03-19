@@ -8,7 +8,7 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions } from 'client/store/ui/geo'
 import AgreementLevelSelector from 'client/components/Navigation/NavGeo/AgreementLevelSelector'
 import ReducerScaleSelector from 'client/components/Navigation/NavGeo/ReducerScaleSelector'
-import { useFetchAgreementLevelLayer } from 'client/pages/Geo/GeoMap/hooks'
+import { useFetchAgreementLevelLayer } from 'client/pages/Geo/Map/hooks'
 
 type Props = {
   layer: Layer

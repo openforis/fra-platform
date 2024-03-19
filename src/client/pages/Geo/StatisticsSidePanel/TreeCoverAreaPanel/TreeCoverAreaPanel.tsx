@@ -30,7 +30,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
     <StatisticsTable
       columns={columns}
       csvData={csvData}
-      fileName={`forest-estimations-${countryIso}-${year}`}
+      fileName={`tree-cover-area-estimations-${countryIso}-${year}`}
       loaded={!isLoading}
       tableData={tableData}
       units={units}

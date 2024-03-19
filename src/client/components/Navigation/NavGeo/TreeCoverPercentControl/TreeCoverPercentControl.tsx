@@ -7,7 +7,7 @@ import { Layer, LayerSectionKey } from 'meta/geo'
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import InputRadio from 'client/components/Inputs/InputRadio'
-import { useFetchNewLayerOption } from 'client/pages/Geo/GeoMap/hooks'
+import { useFetchNewLayerOption } from 'client/pages/Geo/Map/hooks'
 
 type Props = {
   layer: Layer

@@ -13,7 +13,7 @@ import CustomAssetControl from 'client/components/Navigation/NavGeo/CustomAssetC
 import LayerToggleControl from 'client/components/Navigation/NavGeo/LayerToggleControl'
 import TreeCoverPercentControl from 'client/components/Navigation/NavGeo/TreeCoverPercentControl'
 import YearControl from 'client/components/Navigation/NavGeo/YearControl'
-import { useCountSectionSelectedLayers } from 'client/pages/Geo/GeoMap/hooks/useCountSectionSelectedLayers'
+import { useCountSectionSelectedLayers } from 'client/pages/Geo/Map/hooks/useCountSectionSelectedLayers'
 
 import { useLayerControl } from './hooks/useLayerControl'
 

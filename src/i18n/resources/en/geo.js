@@ -8,6 +8,9 @@ module.exports = {
       failedToRetrieve: 'There was a problem retrieving the estimation.',
       unexpectedDuringProcessing: 'Unexpected error during processing.',
     },
+    map: {
+      failedToLoad: 'There was a problem while loading the map.',
+    },
     mosaic: {
       noMosaicAvailableForConfiguration: 'Error: No mosaic available for the selected configuration.',
     },
@@ -18,13 +21,13 @@ module.exports = {
     },
   },
   estimateCustomAgreementArea: 'Estimate Custom Agreement Area',
-  forestArea: 'Forest area',
+  forestArea: 'Tree cover area',
   geeAssetId: 'GEE Asset ID',
   globalOpacity: 'Global Opacity',
   landsat: 'Landsat',
   maxCloudCoverage: 'Max Cloud Coverage',
   metersReducerScale: '{{meters}}m Reducer Scale',
-  protectedArea: 'Protected Area',
+  protectedArea: 'Tree cover within protected areas',
   recipes: {
     forest: {
       allGfc10: 'All (GFC Hansen >=10%)',
@@ -57,7 +60,7 @@ module.exports = {
         modis: 'MODIS',
         tanDemX2019: 'TanDEM-X (2019)',
       },
-      title: 'Forest Layers',
+      title: 'Tree Cover Layers',
     },
     protectedArea: {
       layerTitles: {
@@ -76,10 +79,10 @@ module.exports = {
       burnedAreaByYear: 'Burned area by year',
     },
     forestArea: {
-      extentOfForestPerSource: 'Extent of forest per source and reported on {{year}} (1a)',
-      extentOfForestTreeCover: 'Extent of forest/tree cover by source',
-      forestAreaHa: 'Forest area, ha',
-      forestAreaPercentOfLandArea: 'Forest area % of land area',
+      extentOfForestPerSource: 'Extent of tree cover per source and as reported to FRA {{year}}',
+      extentOfForestTreeCover: 'Extent of tree cover by source',
+      forestAreaHa: 'Tree cover area, ha',
+      forestAreaPercentOfLandArea: 'Tree cover area % of land area',
       landArea: 'Land area',
     },
     graphs: 'Statistical Graphs',
@@ -87,7 +90,6 @@ module.exports = {
       allGfc10: 'All (GFC Hansen >=10%)',
       allGfc20: 'All (GFC Hansen >=20%)',
       allGfc30: 'All (GFC Hansen >=30%)',
-      protectedAreaByYear: 'Protected area by year',
     },
     title: 'Statistics',
   },

@@ -9,7 +9,7 @@ import { Layer, LayerSectionKey } from 'meta/geo'
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import Select from 'client/components/Inputs/Select'
-import { useFetchNewLayerOption } from 'client/pages/Geo/GeoMap/hooks'
+import { useFetchNewLayerOption } from 'client/pages/Geo/Map/hooks'
 
 import { useYearOptions } from './hooks/useYearOptions'
 
