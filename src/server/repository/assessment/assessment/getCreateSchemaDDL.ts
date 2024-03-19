@@ -280,178 +280,46 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
 export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSchemaName: string): string => {
   return `
       create or replace view ${assessmentCycleSchemaName}.original_data_point_data as
-      with classes as (
-          select o.id,
-                 o.country_iso,
-                 o.year,
-                 jsonb_array_elements(
-                   case when jsonb_array_length( o.national_classes ) = 0 then '[{}]' else o.national_classes end
-                 ) as class          from ${assessmentCycleSchemaName}.original_data_point o
-      ),
-            country_years as (
-               select c.country_iso,
-                      jsonb_object_keys(c.config -> 'faoStat') as year
-               from country c
-               order by c.country_iso
-           ),
-           extentofforest as (
-              select c.country_iso,
-                    cy.year                   as col_name,
-                    jsonb_build_object('totalLandArea',
-                                       jsonb_build_object(
-                                               'raw', jsonb_extract_path(
-                                               c.config, 'faoStat', cy.year, 'area'
-                                           )::varchar
-                                           )) as data
-             from country c
-                  left join country_years cy on c.country_iso = cy.country_iso
-           ),
-           raw_values as (
-               select c.id,
-                      c.country_iso,
-                      c.year,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric)                                                                as forest_area,
-                      sum(((c.class ->> 'area'::text)::numeric) *
-                          ((c.class ->> 'otherWoodedLandPercent'::text)::numeric) /
-                          100::numeric)                                                                as other_wooded_land,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
-                          ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
-                          100::numeric)                                                                as natural_forest_area,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
-                          ((c.class ->> 'forestPlantationPercent'::text)::numeric) /
-                          100::numeric)                                                                as plantation_forest_area,
-                      sum(((c.class ->> 'area'::text)::numeric) * ((c.class ->> 'forestPercent'::text)::numeric) /
-                          100::numeric *
-                          ((c.class ->> 'otherPlantedForestPercent'::text)::numeric) /
-                          100::numeric)                                                                as other_planted_forest_area
-               from classes c
-               group by c.id, c.country_iso, c.year
-               order by c.id, c.country_iso, c.year),
-            raw_values_2 as
-            (select rv.*,
-                 case
-                     when rv.plantation_forest_area is not null or rv.other_planted_forest_area is not null
-                         then coalesce(rv.plantation_forest_area, 0) +
-                              coalesce(rv.other_planted_forest_area, 0)
-                     else null
-                     end as planted_forest,
-                 case
-                     when rv.natural_forest_area is not null or rv.plantation_forest_area is not null or
-                          rv.other_planted_forest_area is not null
-                         then coalesce(rv.natural_forest_area, 0) + coalesce(rv.plantation_forest_area, 0) +
-                              coalesce(rv.other_planted_forest_area)
-                     else null
-                     end as total
-          from raw_values rv),
-      total_land_area as (
-        select
-            country_iso,
-            r.props ->> 'variableName' as variable_name,
-            r.props ->> 'tableName' as table_name,
-            r.props ->> 'colName' as col_name,
-            r.value as value
-        from ${assessmentCycleSchemaName}.node_ext r
-        where type = 'node' and r.props ->> 'variableName' = 'totalLandArea' and r.props ->> 'tableName' = 'extentOfForest'
-      ),
-       primary_forest AS (SELECT c.id,
-                               c.country_iso,
-                               c.year,
-                               case
-                                   -- case 1: when all national classes forestNaturalPercent is 0 then return 0 as primary forest
-                                   when
-                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalPercent')) =
-                                           jsonb_array_length(jsonb_agg(c.class ->> 'forestNaturalPercent') filter
-                                               (where (c.class ->> 'forestNaturalPercent')::numeric = 0::numeric))
-                                       then 0::numeric
-                                   -- case 2: when at least one forestNaturalPercent is > 0 and at least value for forestNaturalForestOfWhichPrimaryForestPercent then sum
-                                   when
-                                           jsonb_array_length(jsonb_agg(c.class) filter
-                                               (where (c.class ->> 'forestNaturalPercent')::numeric > 0::numeric
-                                                   and
-                                                      ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent')::numeric >=
-                                                       0::numeric)
-                                               )) > 0
-                                       then
-                                       sum(((c.class ->> 'area'::text)::numeric) *
-                                           ((c.class ->> 'forestPercent'::text)::numeric) /
-                                           100::numeric * ((c.class ->> 'forestNaturalPercent'::text)::numeric) /
-                                           100::numeric *
-                                           ((c.class ->> 'forestNaturalForestOfWhichPrimaryForestPercent'::text)::numeric) /
-                                           100::numeric)
-                                   -- case 3: when all forestNaturalForestOfWhichPrimaryForestPercent are empty, return null
-                                   else null
-                                   end as primary_forest
-                        FROM classes c
-                        WHERE c.class ->> 'forestNaturalPercent' IS NOT NULL
-                          AND (c.class ->> 'forestNaturalPercent')::numeric >= 0
-                          AND (c.class ->> 'forestPercent')::numeric > 0
-                        GROUP BY c.id, c.country_iso, c.year
-                        ORDER BY c.id, c.country_iso, c.year),
-     introduced_area AS (SELECT c.id,
-                                c.country_iso,
-                                c.year,
-                                case
-                                    -- case 1: when all national classes forestPlantationPercent is 0 then return 0 as plantation forest introduced area
-                                    when
-                                            jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationPercent')) =
-                                            jsonb_array_length(jsonb_agg(c.class ->> 'forestPlantationPercent') filter
-                                                (where (c.class ->> 'forestPlantationPercent')::numeric = 0::numeric))
-                                        then 0::numeric
-                                    -- case 2: when at least one forestNaturalPercent is > 0 and at least value for forestPlantationIntroducedPercent then sum
-                                    when
-                                            jsonb_array_length(jsonb_agg(c.class) filter
-                                                (where (c.class ->> 'forestPlantationPercent')::numeric > 0::numeric
-                                                    and ((c.class ->> 'forestPlantationIntroducedPercent')::numeric >=
-                                                         0::numeric)
-                                                )) > 0
-                                        then
-                                        sum(((c.class ->> 'area'::text)::numeric) *
-                                            ((c.class ->> 'forestPercent'::text)::numeric) / 100::numeric *
-                                            ((c.class ->> 'forestPlantationPercent'::text)::numeric) / 100::numeric *
-                                            ((c.class ->> 'forestPlantationIntroducedPercent'::text)::numeric) /
-                                            100::numeric)
-                                    -- case 3: when all forestPlantationIntroducedPercent are empty, return null
-                                    else null
-                                    end as plantation_forest_introduced_area
-                         FROM classes c
-                         WHERE (c.class ->> 'forestPlantationPercent'::text) IS NOT NULL
-                           AND ((c.class ->> 'forestPercent'::text)::numeric) > 0::numeric
-                         GROUP BY c.id, c.country_iso, c.year
-                         ORDER BY c.id, c.country_iso, c.year)
-      select rv.country_iso,
-             rv.year,
-             rv.forest_area,
-             rv.other_wooded_land,
-             rv.natural_forest_area,
-             rv.plantation_forest_area,
-             ia.plantation_forest_introduced_area,
-             rv.other_planted_forest_area,
-             rv.planted_forest,
-             rv.total,
-             tla.value ->> 'raw' as total_land_area,
-             case
-                 when rv.forest_area is not null or rv.other_wooded_land is not null then
-                         (tla.value ->> 'raw')::double precision - coalesce(rv.forest_area, 0)::double precision -
-                         coalesce(rv.other_wooded_land, 0)::double precision
-                 else null
-                 end                                                               as other_land,
-             case
-                 when rv.planted_forest is not null or rv.natural_forest_area is not null then
-                         coalesce(rv.planted_forest, 0) + coalesce(rv.natural_forest_area, 0)
-                 else null
-                 end                                                               as total_forest_area,
-             pf.primary_forest,
-             rv.id
-      from raw_values_2 rv
-               left join total_land_area tla
-                         on tla.country_iso = rv.country_iso
-                             and tla.col_name = rv.year::text
-         LEFT JOIN primary_forest pf
-                   ON pf.country_iso::text = rv.country_iso::text AND pf.year::text = rv.year::text
-         LEFT JOIN introduced_area ia
-                   ON ia.country_iso::text = rv.country_iso::text AND ia.year::text = rv.year::text;
+      with total_land_area as (select country_iso,
+                                      r.props ->> 'variableName' as variable_name,
+                                      r.props ->> 'tableName'    as table_name,
+                                      r.props ->> 'colName'      as col_name,
+                                      r.value ->> 'raw'          as value
+                               from ${assessmentCycleSchemaName}.node_ext r
+                               where type = 'node'
+                                 and r.props ->> 'variableName' = 'totalLandArea'
+                                 and r.props ->> 'tableName' = 'extentOfForest'),
+           other_land as (select odp.country_iso,
+                                 odp.year,
+                                 case
+                                     when (odp.values ->> 'forestArea')::numeric is not null or
+                                          (odp.values ->> 'otherWoodedLand')::numeric is not null then
+                                         (tla.value)::double precision -
+                                         coalesce((odp.values ->> 'forestArea')::numeric, 0)::double precision -
+                                         coalesce((odp.values ->> 'otherWoodedLand')::numeric, 0)::double precision
+                                     else null
+                                     end as other_land
+                          from ${assessmentCycleSchemaName}.original_data_point odp
+                                   left join total_land_area tla
+                                             on odp.country_iso = tla.country_iso and odp.year::text = tla.col_name)
+          select odp.country_iso,
+                 odp.year,
+                 (odp.values ->> 'forestArea')::numeric                     as forest_area,
+                 (odp.values ->> 'otherWoodedLand')::numeric                as other_wooded_land,
+                 (odp.values ->> 'naturalForestArea')::numeric              as natural_forest_area,
+                 (odp.values ->> 'plantationForestArea')::numeric           as plantation_forest_area,
+                 (odp.values ->> 'plantationForestIntroducedArea')::numeric as plantation_forest_introduced_area,
+                 (odp.values ->> 'otherPlantedForestArea')::numeric         as other_planted_forest_area,
+                 (odp.values ->> 'plantedForest')::numeric                  as planted_forest,
+                 (odp.values ->> 'total')::numeric                          as total,
+                 tla.value                                                  as total_land_area,
+                 ol.other_land,
+                 (odp.values ->> 'totalForestArea')::numeric                as total_forest_area,
+                 (odp.values ->> 'primaryForest')::numeric                  as primary_forest,
+                 odp.id
+          from ${assessmentCycleSchemaName}.original_data_point odp
+                   left join total_land_area tla on odp.country_iso = tla.country_iso and odp.year::text = tla.col_name
+                   left join other_land ol on odp.country_iso = ol.country_iso and odp.year = ol.year
+          order by odp.country_iso, odp.year
   `
 }
