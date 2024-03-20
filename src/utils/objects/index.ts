@@ -8,6 +8,8 @@ import * as isFunction from 'lodash.isfunction'
 import * as isNil from 'lodash.isnil'
 // @ts-ignore
 import * as pick from 'lodash.pick'
+// @ts-ignore
+import * as unset from 'lodash.unset'
 
 import { camelize } from './camelize'
 import { isEmpty } from './isEmpty'
@@ -24,4 +26,5 @@ export const Objects = {
   pick,
   propertyOf,
   setInPath,
+  unset,
 }

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
-import { AreaActions, useAssessmentCountry, useIsUpdatingCountry } from 'client/store/area'
+import { AreaActions, useCountry, useIsUpdatingCountry } from 'client/store/area'
 import { useHasOriginalDataPointData } from 'client/store/data'
 import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -16,7 +16,7 @@ const ForestCharacteristics: React.FC = () => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
-  const country = useAssessmentCountry()
+  const country = useCountry(countryIso)
   const { sectionName } = useSectionContext()
   const editEnabled = useIsEditTableDataEnabled(sectionName)
   const hasOriginalDataPointData = useHasOriginalDataPointData()
@@ -44,10 +44,10 @@ const ForestCharacteristics: React.FC = () => {
               ? t('forestCharacteristics.dontUseOriginalDataPoints')
               : t('forestCharacteristics.useOriginalDataPoints')
           }
-          size={ButtonSize.m}
           onClick={() =>
             dispatch(AreaActions.updateCountryProp({ assessmentName, cycleName, countryIso, sectionName, countryProp }))
           }
+          size={ButtonSize.m}
         />
       </div>
 
