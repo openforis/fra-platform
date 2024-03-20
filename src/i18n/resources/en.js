@@ -495,7 +495,6 @@ The FRA team fra@fao.org
     institution: 'Institution/address',
     email: 'Email',
     tables: 'Tables',
-    all: 'All',
     none: 'None',
   },
 

@@ -476,7 +476,6 @@ module.exports.translation = {
     institution: 'Учреждение/адрес',
     email: 'Электронная почта',
     tables: 'Таблицы',
-    all: 'Все',
     none: 'Ни одна',
   },
 
