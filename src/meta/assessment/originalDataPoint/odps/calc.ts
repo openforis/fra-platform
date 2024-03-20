@@ -1,6 +1,8 @@
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
+import { hasNaturallyRegenerating } from 'meta/assessment/originalDataPoint/odps/nationalClassUtils'
+
 import { ODPNationalClass } from '../odpNationalClass'
 import { OriginalDataPoint } from '../originalDataPoint'
 
@@ -87,9 +89,9 @@ export const calcTotalSubSubFieldArea = (props: {
 // Returns true if we should calculate using the total primary forest percentage: values.primaryForestPercent
 export const shouldUseTotalPrimaryForestPercentage = (props: { originalDataPoint: OriginalDataPoint }): boolean => {
   const { originalDataPoint } = props
-  const primaryForestPercentages = originalDataPoint.nationalClasses.map(
-    (nationalClass) => nationalClass.forestNaturalForestOfWhichPrimaryForestPercent
-  )
+  const primaryForestPercentages = originalDataPoint.nationalClasses
+    .filter(hasNaturallyRegenerating)
+    .map((nationalClass) => nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)
 
   return primaryForestPercentages.every(Objects.isEmpty)
 }
