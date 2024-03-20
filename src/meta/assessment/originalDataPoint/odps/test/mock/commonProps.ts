@@ -7,4 +7,5 @@ export const commonProps = {
   dataSourceReferences: '',
   description: '',
   idLegacy: null as unknown,
+  values: {},
 }

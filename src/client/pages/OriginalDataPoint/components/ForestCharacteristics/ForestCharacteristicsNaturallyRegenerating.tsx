@@ -8,6 +8,7 @@ import { ODPs } from 'meta/assessment'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 
 import ForestCharacteristicsNaturallyRegeneratingRow from './ForestCharacteristicsNaturallyRegeneratingRow'
+import PrimaryForestPercent from './PrimaryForestPercent'
 
 type Props = {
   canEditData: boolean
@@ -45,6 +46,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
           </tbody>
 
           <tfoot>
+            <PrimaryForestPercent canEditData={canEditData} />
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
@@ -58,15 +60,8 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
                   )}
               </th>
               <td className="fra-table__calculated-cell">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestNaturalPercent',
-                      subSubField: 'forestNaturalForestOfWhichPrimaryForestPercent',
-                    })
-                  )}
+                {originalDataPoint?.values.primaryForest &&
+                  Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))}
               </td>
             </tr>
           </tfoot>

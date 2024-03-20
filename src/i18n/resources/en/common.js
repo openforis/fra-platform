@@ -59,6 +59,7 @@ module.exports = {
   tier: 'Tier',
   tiers: { high: 'High', low: 'Low', medium: 'Medium', notSelected: '' },
   total: 'Total',
+  totalPercentage: 'Total percentage',
   trend: 'Trend',
   unknown: 'None/unknown',
   unselectAll: 'Unselect all',
