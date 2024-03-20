@@ -53,7 +53,7 @@ const _fixReference = async (reference: string, schemaName: string, client: Base
   const regex = /<a href="([^"]+)"/g
 
   const anchors = reference.match(regex).filter((a) => a.includes(oldUrl))
-  if (!anchors) return reference
+  if (anchors.length === 0) return reference
   const fixedAnchors = await Promise.all(anchors.map((a) => _fixAnchors(a, schemaName, client)))
 
   const fixedReference = fixedAnchors.reduce((acc, curr) => {
