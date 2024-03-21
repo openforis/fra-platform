@@ -27,23 +27,23 @@ const RowData: React.FC<Props> = (props) => {
   const withReview = !table.props.secondary || row.props.withReview?.[cycle.uuid]
 
   const id = `${row.props.type}_${row.id}_${row.props.variableName ?? ''}`
-  const className = classNames({ 'fra-row-comments__open': openTopics.includes(row.uuid) })
+  const className = classNames({ 'fra-row-comments__open': openTopics.includes(Topics.getDataReviewTopicKey(row)) })
 
   return (
-    <tr id={id} className={className}>
+    <tr className={className} id={id}>
       {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} row={row} />}
 
       {colsData.map((col) => (
         <Cell
           key={col.uuid}
-          data={data}
           assessmentName={assessmentName}
+          col={col}
+          data={data}
+          disabled={disabled}
+          row={row}
+          rowIndex={Number(row.props.index)}
           sectionName={sectionName}
           table={table}
-          disabled={disabled}
-          rowIndex={Number(row.props.index)}
-          col={col}
-          row={row}
         />
       ))}
 
