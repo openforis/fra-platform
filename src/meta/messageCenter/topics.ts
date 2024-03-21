@@ -1,9 +1,12 @@
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CommentableDescriptionName, CycleName, Row, SectionName } from 'meta/assessment'
+import { AssessmentName, CommentableDescriptionName, CycleName, DataSource, Row, SectionName } from 'meta/assessment'
 import { Contact } from 'meta/cycleData'
 import { User } from 'meta/user'
 
 import { MessageTopic, MessageTopicType } from './messageTopic'
+
+// data source
+const getDataSourceReviewTopicKey = (dataSource: DataSource): string => `dataSource_${dataSource.uuid}`
 
 // table data
 const getDataReviewTopicKey = (row: Row): string => row.uuid
@@ -53,6 +56,7 @@ export const Topics = {
   getCommentableDescriptionKey,
   getContactKey,
   getDataReviewTopicKey,
+  getDataSourceReviewTopicKey,
   getMessageBoardChatKey,
   getMessageBoardCountryKey,
   getOdpClassReviewTopicKey,
