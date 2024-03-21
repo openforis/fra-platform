@@ -42,7 +42,7 @@ export const getReviewSummary = async (
                      and mt.country_iso = $3),
              summaries as (select m.sub_section_id,
                                   m.parent_id,
-                                  m.row_uuid                                     as key,
+                                 'dataRow_' || m.row_uuid                                        as key,
                                   mt.status,
                                   m.last_message_created_time,
                                   u.last_open_time,
