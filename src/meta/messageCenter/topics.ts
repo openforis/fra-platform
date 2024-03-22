@@ -9,7 +9,7 @@ import { MessageTopic, MessageTopicType } from './messageTopic'
 const getDataSourceReviewTopicKey = (dataSource: DataSource): string => `dataSource_${dataSource.uuid}`
 
 // table data
-const getDataReviewTopicKey = (row: Row): string => row.uuid
+const getDataReviewTopicKey = (row: Row): string => `dataRow_${row.uuid}`
 
 // odp
 const getOdpReviewTopicKeyPrefix = (odpId: number | string) => `odp-${odpId}-`
