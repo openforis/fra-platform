@@ -25,8 +25,7 @@ export default async (client: BaseProtocol) => {
           
           delete from ${schemaCycle}.message_topic mt
           -- message topic is orphan if data source uuid is found in activity log but not anymore in data sources
-          where key ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'
-            and key in (select data_source_uuid from activity_log_data_source_uuids)
+          where key in (select data_source_uuid from activity_log_data_source_uuids)
             and key not in (select uuid from data_sources);
 
       `)
