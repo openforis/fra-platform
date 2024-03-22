@@ -1,7 +1,7 @@
 @import 'src/client/style/partials';
 
 .nav-geo-section__header {
-  @include mixin-nav-secondary-base(8px, true);
+  @include mixin-nav-secondary-base(12px, true);
   appearance: none;
   background: none;
   border: none;
@@ -16,8 +16,9 @@
 }
 
 .nav-geo-section__items {
-  @include mixin-nav-secondary-base(0px, true);
-  padding: $spacing-xxs $spacing-m $spacing-xxs $spacing-m;
+  @include mixin-nav-secondary-base(0px, false);
+  display: grid;
+  padding: 0 $spacing-xs $spacing-xs;
 }
 
 .nav-geo-section__items-hidden {
@@ -32,5 +33,6 @@
 
 .nav-geo-section__label {
   padding-left: $spacing-xs;
-  font-size: $font-s;
+  font-size: $font-m;
+  text-transform: uppercase;
 }
