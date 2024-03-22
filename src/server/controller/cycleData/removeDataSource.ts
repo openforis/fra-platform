@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, CommentableDescriptionName, Cycle } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -32,9 +33,10 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
     }
 
     const index = value.dataSources.findIndex((d) => d.uuid === uuid)
-    value.dataSources.splice(index, 1)
+    const [dataSource] = value.dataSources.splice(index, 1)
 
     await upsertDescription({ assessment, cycle, countryIso, sectionName, name, value, user }, t)
-    await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix: uuid }, t)
+    const keyPrefix = Topics.getDataSourceReviewTopicKey(dataSource)
+    await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
   })
 }

@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
+import { Topics } from 'meta/messageCenter'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
@@ -37,22 +38,9 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
     }
 
     const title = `${dataSource.variables?.join(', ')} | ${dataSource.year}`
-    const topicKey = dataSource.uuid
+    const topicKey = Topics.getDataSourceReviewTopicKey(dataSource)
     actions.push({ type: DataRowActionType.Review, title, topicKey })
 
     return actions
-  }, [
-    assessmentName,
-    canEdit,
-    countryIso,
-    cycleName,
-    dataSource.placeholder,
-    dataSource.uuid,
-    dataSource.variables,
-    dataSource.year,
-    dispatch,
-    editable,
-    readOnly,
-    sectionName,
-  ])
+  }, [assessmentName, canEdit, countryIso, cycleName, dataSource, dispatch, editable, readOnly, sectionName])
 }
