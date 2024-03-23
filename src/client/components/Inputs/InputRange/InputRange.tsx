@@ -1,12 +1,20 @@
 import './InputRange.scss'
 import React, { forwardRef, InputHTMLAttributes, useEffect, useImperativeHandle, useRef } from 'react'
 
+import classNames from 'classnames'
+
+export enum InputRangeSize {
+  xs = 'xs',
+  s = 's',
+}
+
 type Props = Pick<InputHTMLAttributes<HTMLInputElement>, 'disabled' | 'max' | 'min' | 'onChange' | 'step' | 'value'> & {
+  size?: InputRangeSize
   unit?: string | null
 }
 
 const InputRange = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
-  const { disabled, max, min, onChange, step, unit, value } = props
+  const { disabled, max, min, onChange, size, step, unit, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
@@ -16,7 +24,7 @@ const InputRange = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
   }, [value])
 
   return (
-    <div className="input-range">
+    <div className={classNames('input-range', `size-${size}`, { disabled })}>
       <input
         ref={inputRef}
         disabled={disabled}
@@ -33,6 +41,7 @@ const InputRange = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
 })
 
 InputRange.defaultProps = {
+  size: InputRangeSize.s,
   unit: null,
 }
 
