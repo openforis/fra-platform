@@ -3,7 +3,7 @@
 .geo-container {
   display: flex;
   flex: 1;
-  min-height: calc(100vh - ($ui-app-header-height + $ui-app-area-select-height));
+  min-height: calc(100dvh - ($ui-app-header-height + $ui-app-area-select-height));
   overflow: hidden;
   position: relative;
   width: 100%;
