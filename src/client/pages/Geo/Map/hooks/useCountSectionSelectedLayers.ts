@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { LayerKey, LayerSectionKey } from 'meta/geo'
+import { ForestKey, LayerKey, LayerSectionKey } from 'meta/geo'
 
 import { useGeoLayerSection } from 'client/store/ui/geo'
 
@@ -18,7 +18,7 @@ export const useCountSectionSelectedLayers = (props: Props) => {
     let count = 0
 
     Object.keys(sectionState).forEach((layerKey) => {
-      if (ignoreAgreementLayer && layerKey === 'Agreement') return
+      if (ignoreAgreementLayer && layerKey === ForestKey.Agreement) return
 
       if (sectionState[layerKey as LayerKey].selected) {
         count += 1

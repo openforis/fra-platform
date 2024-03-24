@@ -69,7 +69,9 @@ const ReducerScaleSelector: React.FC<Props> = (props) => {
         size={ButtonSize.s}
       />
 
-      {errorKey && <div className="geo-options-grid__one-col geo-options-grid__error">{t(errorKey)}</div>}
+      {errorKey && (
+        <OptionLabel className="geo-options-grid__one-col geo-options-grid__error">{t(errorKey)}</OptionLabel>
+      )}
     </>
   )
 }
