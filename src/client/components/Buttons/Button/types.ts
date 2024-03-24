@@ -7,6 +7,7 @@ export enum ButtonSize {
 }
 
 export enum ButtonType {
+  blackMap = 'blackMap',
   danger = 'danger',
   primary = 'primary',
 }

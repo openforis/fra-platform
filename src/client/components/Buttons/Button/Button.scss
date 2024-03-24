@@ -121,3 +121,7 @@
 .button__type-danger {
   @include withTheme($ui-destructive, 58%);
 }
+
+.button__type-blackMap {
+  @include withTheme($ui-black-map, 80%);
+}
