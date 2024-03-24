@@ -52,7 +52,7 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.ESAGlobCover]: {
     titleKey: 'geo.sections.forest.layerTitles.esaGlobCover2009',
     scale: 309.2208,
-    palette: ['#f3671c'], // red
+    palette: ['#c53703'], // red
     citation: 'http://due.esrin.esa.int/page_globcover.php', // from gee asset
     forestAreaDataProperty: 'faEsa2009',
   },
