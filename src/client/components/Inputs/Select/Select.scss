@@ -7,12 +7,12 @@ div.select__container {
 }
 
 div.select__control {
-  align-items: start;
   background-color: transparent;
   border-radius: unset;
   border: unset;
   color: $text-body;
   cursor: pointer;
+  gap: $spacing-xxxs;
   height: 100%;
   padding: $spacing-xxs;
 

@@ -6,27 +6,18 @@ $btnHeight: $spacing-s;
 div.select-primary__container {
   background-color: $ui-accent;
   border: 1px solid $ui-accent;
-  height: $btnHeight;
 
   div.select__control {
-    min-height: unset;
+    min-height: $btnHeight;
     padding: 0 $spacing-xxs;
   }
 
   div.select__valueContainer {
-    align-items: center;
-    display: grid;
     font-size: $font-xs;
-    font-weight: 600;
-    height: 100%;
   }
 
   div.select__singleValue {
     color: white;
-  }
-
-  div.select__indicatorsContainer {
-    height: $btnHeight;
   }
 
   div.select__dropdownIndicator {
@@ -56,7 +47,6 @@ div.select-primary__container {
 
     &.isFocused {
       background-color: rgba($ui-accent, 0.1);
-      cursor: pointer;
     }
 
     &.isSelected {
