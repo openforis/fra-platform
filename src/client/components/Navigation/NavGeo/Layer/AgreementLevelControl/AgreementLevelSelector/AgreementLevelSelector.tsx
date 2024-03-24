@@ -1,9 +1,11 @@
-import './AgreementLevelSelector.scss'
+import 'client/components/Navigation/NavGeo/Layer/AgreementLevelControl/AgreementLevelSelector/AgreementLevelSelector.scss'
 import React from 'react'
 
 import classNames from 'classnames'
 
 import { Layer, LayerSectionKey } from 'meta/geo/layer'
+
+import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 
 import { useAgreementLevelSelectorData } from './hooks/useAgreementLevelData'
 import { getLevelStyle } from './utils'
@@ -23,7 +25,7 @@ const AgreementLevelSelector: React.FC<Props> = (props) => {
   })
 
   return (
-    <div className="geo-agreement-level-selector__container">
+    <div className="geo-options-grid__one-col geo-agreement-level-selector__container">
       {(layer.options?.agreementLayer?.agreementLevels ?? []).map((level) => {
         const id = `${sectionKey}-agreement-${level}`
         const disabled = level > selectedLayersCount
@@ -39,7 +41,9 @@ const AgreementLevelSelector: React.FC<Props> = (props) => {
               style={style}
               type="checkbox"
             />
-            <label htmlFor={id}>{level}</label>
+            <label htmlFor={id}>
+              <OptionLabel>{level}</OptionLabel>
+            </label>
           </div>
         )
       })}

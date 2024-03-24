@@ -1,4 +1,3 @@
-import './TreeCoverPercentControl.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,7 +5,8 @@ import { Layer, LayerSectionKey } from 'meta/geo'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
-import InputRadio from 'client/components/Inputs/InputRadio'
+import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
+import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 import { useFetchNewLayerOption } from 'client/pages/Geo/Map/hooks'
 
 type Props = {
@@ -29,27 +29,23 @@ const TreeCoverPercentControl: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="geo-tree-cover-percentage__container">
-      <p>{t('geo.selectMinTreeCoverPercent')}</p>
-      <div className="geo-tree-cover-percentage__radio-buttons-container">
+    <>
+      <div className="geo-options-grid__one-col centered">
+        <OptionLabel>{t('geo.selectMinTreeCoverPercent')}</OptionLabel>
+      </div>
+      <div className="geo-options-grid__one-col centered geo-options-grid__flex">
         {layer.options?.gteTreeCoverPercent.map((percentage) => {
-          const id = `${sectionKey}-${layerKey}-${percentage}`
           return (
-            <div key={id} className="geo-tree-cover-percentage__radio-button">
-              <InputRadio
-                checked={layerState?.options?.gteTreeCoverPercent === percentage}
-                id={id}
-                onChange={() => handlePercentageChange(percentage)}
-                value={percentage}
-              />
-              <label key={id} htmlFor={id}>
-                {`${percentage} %`}
-              </label>
-            </div>
+            <ButtonCheckbox
+              key={`${sectionKey}-${layerKey}-${percentage}`}
+              checked={layerState?.options?.gteTreeCoverPercent === percentage}
+              label={`${percentage} %`}
+              onClick={() => handlePercentageChange(percentage)}
+            />
           )
         })}
       </div>
-    </div>
+    </>
   )
 }
 

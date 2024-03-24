@@ -1,0 +1,113 @@
+@import 'src/client/style/partials';
+
+@mixin with-theme($color) {
+  display: grid;
+
+  button.button-checkbox {
+    border-color: $color;
+    color: darken($color, 15%);
+
+    &.inverse {
+      svg {
+        border-color: $color;
+      }
+
+      &:hover {
+        svg {
+          color: $color;
+        }
+      }
+
+      &:hover {
+        color: darken($color, 5%);
+      }
+    }
+  }
+
+  &.checked {
+    button.button-checkbox {
+      background-color: $color;
+      color: white;
+    }
+  }
+}
+
+.geo-layer-toggle_f3afbb {
+  @include with-theme(#f3afbb);
+}
+
+.geo-layer-toggle_FF0000 {
+  @include with-theme(#ff0000);
+}
+
+.geo-layer-toggle_FF8000 {
+  @include with-theme(#ff8000);
+}
+
+.geo-layer-toggle_919134 {
+  @include with-theme(#919134);
+}
+
+.geo-layer-toggle_01def9 {
+  @include with-theme(#01def9);
+}
+
+.geo-layer-toggle_0040FF {
+  @include with-theme(#0040ff);
+}
+
+.geo-layer-toggle_01DF01 {
+  @include with-theme(#01df01);
+}
+
+.geo-layer-toggle_0B3B0B {
+  @include with-theme(#0b3b0b);
+}
+
+.geo-layer-toggle_808080 {
+  @include with-theme(#808080);
+}
+
+.geo-layer-toggle_800080 {
+  @include with-theme(#800080);
+}
+
+.geo-layer-toggle_000000 {
+  @include with-theme(#000000);
+}
+
+.geo-layer-toggle_008000 {
+  @include with-theme(#008000);
+}
+
+.geo-layer-toggle_0000FF {
+  @include with-theme(#0000ff);
+}
+
+.geo-layer-toggle_FF7F50 {
+  @include with-theme(#ff7f50);
+}
+
+.geo-layer-toggle_69afaf {
+  @include with-theme(#69afaf);
+}
+
+.geo-layer-toggle_61bd61 {
+  @include with-theme(#61bd61);
+}
+
+.geo-layer-toggle_FFD700 {
+  @include with-theme(#ffd700);
+}
+
+.geo-layer-toggle_A52A2A {
+  @include with-theme(#a52a2a);
+}
+
+.geo-layer-toggle_0f9ba6 {
+  @include with-theme(#0f9ba6);
+}
+
+.geo-layer-toggle_d5c266 {
+  @include with-theme(#d5c266);
+}

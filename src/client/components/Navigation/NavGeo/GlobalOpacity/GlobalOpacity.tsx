@@ -8,6 +8,8 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import InputRange from 'client/components/Inputs/InputRange'
+import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
+import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'
 
 type Props = {
   sectionKey: LayerSectionKey
@@ -29,10 +31,10 @@ const GlobalOpacity: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="geo-global-opacity__container">
-      <span>{t('geo.globalOpacity')}</span>
+    <OptionsGrid className="nav-geo-global-opacity">
+      <OptionLabel>{t('geo.globalOpacity')}</OptionLabel>
       <InputRange onChange={handleGlobalOpacityChange} unit="%" value={globalOpacity * 100} />
-    </div>
+    </OptionsGrid>
   )
 }
 

@@ -1,4 +1,3 @@
-import './RecipeSelector.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -8,7 +7,9 @@ import { CUSTOM_RECIPE_KEY, Recipe } from 'meta/geo/layer'
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayerSectionRecipeName } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
-import Select from 'client/components/Inputs/Select'
+import SelectPrimary from 'client/components/Inputs/SelectPrimary'
+import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
+import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'
 
 import { useRecipeOptions } from './hooks/useRecipeOptions'
 
@@ -40,17 +41,15 @@ const RecipeSelector: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="geo-recipe-selector__container">
-      <span className="geo-recipe-selector__label">{t('geo.recipes.recipes')}</span>
-      <div className="geo-recipe-selector">
-        <Select
-          isClearable={false}
-          onChange={handleRecipeChange}
-          options={options}
-          value={selectedRecipe ?? CUSTOM_RECIPE_KEY}
-        />
-      </div>
-    </div>
+    <OptionsGrid>
+      <OptionLabel>{t('geo.recipes.recipes')}</OptionLabel>
+      <SelectPrimary
+        isClearable={false}
+        onChange={handleRecipeChange}
+        options={options}
+        value={selectedRecipe ?? CUSTOM_RECIPE_KEY}
+      />
+    </OptionsGrid>
   )
 }
 

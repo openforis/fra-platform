@@ -1,34 +1,38 @@
 @import 'src/client/style/partials';
 
-.nav-geo-section__header {
-  @include mixin-nav-secondary-base(12px, true);
-  appearance: none;
-  background: none;
-  border: none;
-  font: inherit;
-  font-weight: 700;
-  outline: none;
-  width: 100%;
+.nav-geo-section {
+  display: grid;
+  padding: $spacing-xs 0;
+  transition: all 0.1s ease;
 
-  &:focus {
-    outline: none;
+  &.expanded {
+    background-color: rgba($ui-bg, 0.9);
+    border-radius: $spacing-xxxxs;
   }
 }
 
-.nav-geo-section__items {
-  @include mixin-nav-secondary-base(0px, false);
+.nav-geo-section__header {
   display: grid;
-  padding: 0 $spacing-xs $spacing-xs;
+  justify-items: center;
+
+  button.button {
+    height: 36px;
+  }
 }
 
-.nav-geo-section__items-hidden {
-  padding: 0 0 0 $spacing-m;
-  max-height: 0;
-  transition: max-height 0.15s ease-out;
-}
+.nav-geo-section__content {
+  display: grid;
+  grid-row-gap: $spacing-xxs;
 
-.nav-geo-section__items-visible {
-  transition: max-height 0.25s ease-out;
+  &.hidden {
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+  }
+
+  &.visible {
+    padding: $spacing-xs $spacing-xs 0;
+    transition: max-height 0.25s ease-out;
+  }
 }
 
 .nav-geo-section__label {

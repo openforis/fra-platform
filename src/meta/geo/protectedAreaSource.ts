@@ -18,7 +18,7 @@ export const protectedAreaLayersMetadata: Record<ProtectedAreaKey, LayerMetadata
     titleKey: 'geo.sections.protectedArea.layerTitles.wdpa',
   },
   [ProtectedAreaKey.CustomPA]: {
-    palette: ['#f6e594'],
+    palette: ['#d5c266'],
     scale: 0,
     titleKey: 'geo.sections.protectedArea.layerTitles.customProtectedArea',
   },

@@ -2,29 +2,28 @@ import './CustomAssetControl.scss'
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
-
-import { LayerKey, LayerSectionKey } from 'meta/geo'
+import { Layer, LayerSectionKey } from 'meta/geo'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { DataCell, DataGrid } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 
 type Props = {
-  layerKey: LayerKey
+  layer: Layer
   sectionKey: LayerSectionKey
 }
 
 const CustomAssetControl: React.FC<Props> = (props) => {
-  const { layerKey, sectionKey } = props
+  const { layer, sectionKey } = props
+  const { key: layerKey } = layer
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const countryIso = useCountryIso()
-
   const layerState = useGeoLayer(sectionKey, layerKey)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -51,17 +50,21 @@ const CustomAssetControl: React.FC<Props> = (props) => {
   }
 
   return (
-    <div
-      className={classNames('geo-custom-assest-control__container', {
-        error:
+    <DataGrid className="geo-custom-assest-control" gridTemplateColumns="200px auto">
+      <DataCell
+        editable
+        error={
           inputError ||
           layerState?.status === LayerFetchStatus.Failed ||
-          (layerState?.options?.assetId ?? '').length === 0,
-      })}
-    >
-      <InputText onChange={handleInputChange} placeholder={t('geo.geeAssetId')} ref={inputRef} value={inputValue} />
-      <Button size={ButtonSize.s} onClick={handleSubmit} label={t('common.load')} />
-    </div>
+          (layerState?.options?.assetId ?? '').length === 0
+        }
+        lastCol
+        lastRow
+      >
+        <InputText ref={inputRef} onChange={handleInputChange} placeholder={t('geo.geeAssetId')} value={inputValue} />
+      </DataCell>
+      <Button label={t('common.load')} onClick={handleSubmit} size={ButtonSize.s} />
+    </DataGrid>
   )
 }
 

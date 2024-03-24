@@ -21,10 +21,10 @@ export enum ForestKey {
 }
 
 export const agreementPalette = [
-  '#FFC0CB', // pink
+  '#f3afbb', // pink
   '#FF0000', // red
   '#FF8000', // shade of brown
-  '#FFFF00', // yellow
+  '#919134', // yellow
   '#01def9', // shade of cyan
   '#0040FF', // shade of blue
   '#01DF01', // shade of green
@@ -66,7 +66,7 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.Copernicus]: {
     titleKey: 'geo.sections.forest.layerTitles.copernicus2019',
     scale: 100,
-    palette: ['#FFFF00'], // yellow
+    palette: ['#919134'], // yellow
     citation: ' https://doi.org/10.3390/rs12061044', // from gee asset
     forestAreaDataProperty: 'faCopernicus',
   },
@@ -80,14 +80,14 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.ESAWorldCover]: {
     titleKey: 'geo.sections.forest.layerTitles.esa2020',
     scale: 10,
-    palette: ['#00ffff'], // cyan
+    palette: ['#69afaf'], // cyan
     citation: 'https://esa-worldcover.org/en', // on gee citation 'A publication is under preparation'
     forestAreaDataProperty: 'faEsa2020',
   },
   [ForestKey.Hansen]: {
     titleKey: 'geo.sections.forest.layerTitles.hansenGfc2020',
     scale: 30.92,
-    palette: ['#00ff00'], // lime
+    palette: ['#61bd61'], // lime
     citation: 'https://doi.org/10.1126/science.1244693', // from gee asset
     forestAreaDataProperty: 'faHansen',
   },

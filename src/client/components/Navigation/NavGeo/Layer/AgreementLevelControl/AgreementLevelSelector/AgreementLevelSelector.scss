@@ -1,10 +1,16 @@
 @import 'src/client/style/partials';
 
+.geo-agreement-level-selector__container {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-xxxxs;
+}
+
 .geo-agreement-level-selector__checkbox-container {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: $spacing-xxs;
+  gap: $spacing-xxxxs;
 
   &.disabled {
     color: $text-disabled;
@@ -34,9 +40,4 @@
     box-shadow: 0 0 10px 2px #efeeee inset;
     cursor: default;
   }
-}
-
-.geo-agreement-level-selector__container {
-  display: flex;
-  justify-content: space-between;
 }

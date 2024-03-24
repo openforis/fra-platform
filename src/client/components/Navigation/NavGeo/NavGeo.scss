@@ -2,5 +2,15 @@
 
 .nav-geo {
   display: grid;
-  grid-row-gap: $spacing-xxs;
+
+  .hr {
+    display: none;
+    width: calc(100% - $spacing-xxxs);
+    justify-self: center;
+    opacity: 0.9;
+  }
+
+  .hr:has(+ .nav-geo-section.expanded) {
+    display: block;
+  }
 }

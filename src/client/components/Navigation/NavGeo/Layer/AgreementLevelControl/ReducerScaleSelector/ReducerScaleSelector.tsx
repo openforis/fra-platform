@@ -1,4 +1,3 @@
-import './ReducerScaleSelector.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,7 +8,8 @@ import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoExtaEstimation } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
-import Select from 'client/components/Inputs/Select'
+import SelectPrimary from 'client/components/Inputs/SelectPrimary'
+import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 
 import { useScaleOptions } from './hooks/useScaleOptions'
 
@@ -53,23 +53,24 @@ const ReducerScaleSelector: React.FC<Props> = (props) => {
   if (scales.length === 0) return null
 
   return (
-    <div className="geo-reducer-scale__container">
-      <span>{t('geo.estimateCustomAgreementArea')}</span>
-
-      <div className="geo-reducer-scale__selector">
-        <Select isClearable={false} onChange={handleScaleChange} options={scaleOptions} value={selectedScale} />
+    <>
+      <div className="geo-options-grid__one-col">
+        <OptionLabel>{t('geo.estimateCustomAgreementArea')}</OptionLabel>
+      </div>
+      <div className="geo-options-grid__one-col">
+        <SelectPrimary isClearable={false} onChange={handleScaleChange} options={scaleOptions} value={selectedScale} />
       </div>
 
       <Button
-        className="geo-reducer-scale__submit-button"
+        className="geo-options-grid__one-col centered"
         disabled={isLoading || false}
         label={t('common.calculate')}
         onClick={handleSubmit}
         size={ButtonSize.s}
       />
 
-      {errorKey && <p className="geo-reducer-scale__error-message">{t(errorKey)}</p>}
-    </div>
+      {errorKey && <div className="geo-options-grid__one-col geo-options-grid__error">{t(errorKey)}</div>}
+    </>
   )
 }
 

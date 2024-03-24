@@ -2,6 +2,11 @@ import './GeoSection.scss'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import Hr from 'client/components/Hr'
+
 type Props = {
   children: ReactElement
   labelKey: string
@@ -16,21 +21,22 @@ const GeoSection: React.FC<Props> = (props) => {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div>
-      <button
-        aria-label={label}
-        className="nav-geo-section__header"
-        onClick={() => setExpanded(!expanded)}
-        onKeyDown={() => setExpanded(!expanded)}
-        tabIndex={0}
-        type="button"
-      >
-        <span className="nav-geo-section__label">{label}</span>
-      </button>
-      <div className={`nav-geo-section__items nav-geo-section__items-${expanded ? 'visible' : 'hidden'}`}>
-        {expanded && children}
+    <>
+      <div className={classNames('nav-geo-section', { expanded })}>
+        <div className="nav-geo-section__header">
+          <Button inverse={!expanded} label={label} onClick={() => setExpanded(!expanded)} size={ButtonSize.m} />
+        </div>
+        <div
+          className={classNames(`nav-geo-section__content`, {
+            hidden: !expanded,
+            visible: expanded,
+          })}
+        >
+          {expanded && children}
+        </div>
       </div>
-    </div>
+      {expanded && <Hr />}
+    </>
   )
 }
 

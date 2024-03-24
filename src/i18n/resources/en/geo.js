@@ -44,7 +44,7 @@ module.exports = {
       layerTitles: {
         modis: 'MODIS',
       },
-      title: 'Burned Area Layers',
+      title: 'Burned Area',
     },
     forest: {
       layerTitles: {
@@ -60,7 +60,7 @@ module.exports = {
         modis: 'MODIS',
         tanDemX2019: 'TanDEM-X (2019)',
       },
-      title: 'Tree Cover Layers',
+      title: 'Tree Cover',
     },
     protectedArea: {
       layerTitles: {
@@ -68,7 +68,7 @@ module.exports = {
         filteredWdpa: 'Filtered WDPA',
         wdpa: 'WDPA',
       },
-      title: 'Protected Area Layers',
+      title: 'Protected Area',
     },
   },
   selectMinTreeCoverPercent: 'Select min. tree cover percentage:',

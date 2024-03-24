@@ -5,4 +5,18 @@
   padding: $spacing-xxs 0;
   position: sticky;
   top: 50px;
+  transition: all 0.2s ease;
+
+  &.geoRoute {
+    background-color: rgba($ui-bg, 0.4);
+    border-radius: $spacing-xxxxs;
+    box-shadow: 0 0 1px 1px rgba($ui-bg, 0.4);
+    height: auto;
+    margin: $spacing-xs;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: calc(#{$ui-app-navigation-width} - #{$spacing-m});
+    z-index: $z-index-geo-menu-layers;
+  }
 }

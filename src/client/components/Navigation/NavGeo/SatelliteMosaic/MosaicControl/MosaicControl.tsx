@@ -1,14 +1,15 @@
-import './MosaicControl.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useMosaicStatus, useUiMosaicOptions } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
-import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 import InputRange from 'client/components/Inputs/InputRange'
-import Select from 'client/components/Inputs/Select'
+import SelectPrimary from 'client/components/Inputs/SelectPrimary'
+import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
+import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'
 
 import useMosaicOptionsData from './hooks/useMosaicOptionsData'
 
@@ -21,50 +22,48 @@ const MosaicControl: React.FC = () => {
   const { optionsHaveChanged, sources, yearOptions } = useMosaicOptionsData()
 
   return (
-    <div className="geo-mosaic-control">
-      <p>{t('common.sources')}</p>
-      <div>
+    <OptionsGrid>
+      <OptionLabel>{t('common.sources')}</OptionLabel>
+      <div className="geo-options-grid__flex">
         {sources.map(({ key, label }) => (
-          <ButtonCheckBox
+          <ButtonCheckbox
             key={key}
             checked={uiMosaicOptions.sources.includes(key)}
-            className="geo-mosaic-control__source"
             label={label}
             onClick={() => dispatch(GeoActions.toggleMosaicSource(key))}
           />
         ))}
       </div>
 
-      <p>{t('common.year')}</p>
-      <div className="geo-mosaic-control__year-selector-container">
-        <Select
-          isClearable={false}
-          onChange={(value) => dispatch(GeoActions.setMosaicYear(Number(value)))}
-          options={yearOptions}
-          value={uiMosaicOptions.year.toString()}
-        />
-      </div>
+      <OptionLabel>{t('common.year')}</OptionLabel>
+      <SelectPrimary
+        isClearable={false}
+        onChange={(value) => dispatch(GeoActions.setMosaicYear(Number(value)))}
+        options={yearOptions}
+        value={uiMosaicOptions.year.toString()}
+      />
 
-      <p>{t('geo.maxCloudCoverage')}</p>
-      <div className="geo-mosaic-control__max-cloud-coverage">
-        <InputRange
-          onChange={(e) => dispatch(GeoActions.setMosaicMaxCloudCoverage(Number(e.target.value)))}
-          unit="%"
-          value={uiMosaicOptions.maxCloudCoverage}
-        />
-      </div>
+      <OptionLabel>{t('geo.maxCloudCoverage')}</OptionLabel>
+      <InputRange
+        onChange={(e) => dispatch(GeoActions.setMosaicMaxCloudCoverage(Number(e.target.value)))}
+        unit="%"
+        value={uiMosaicOptions.maxCloudCoverage}
+      />
 
       <Button
+        className="geo-options-grid__one-col centered"
         disabled={!optionsHaveChanged}
         label={t('common.apply')}
         onClick={() => dispatch(GeoActions.applyMosaicOptions())}
-        size={ButtonSize.m}
+        size={ButtonSize.s}
       />
 
       {status === LayerFetchStatus.Failed && (
-        <p className="geo-mosaic-control__error-message">{t('geo.error.mosaic.noMosaicAvailableForConfiguration')}</p>
+        <div className="geo-options-grid__one-col centered geo-options-grid__error">
+          {t('geo.error.mosaic.noMosaicAvailableForConfiguration')}
+        </div>
       )}
-    </div>
+    </OptionsGrid>
   )
 }
 
