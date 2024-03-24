@@ -21,17 +21,17 @@ export enum ForestKey {
 }
 
 export const agreementPalette = [
-  '#d7adb5', // pink
-  '#bb969d', // red
-  '#a18187', // shade of brown
-  '#866c71', // yellow
-  '#755f63', // shade of cyan
-  '#645054', // shade of blue
-  '#4d3d40', // shade of green
-  '#382c2e', // very dark shade of green
-  '#2a2122', // gray
-  '#1e1717', // purple
-  '#070505', // black
+  '#d7adb5',
+  '#bb969d',
+  '#a18187',
+  '#866c71',
+  '#755f63',
+  '#796b85',
+  '#847591',
+  '#9382a2',
+  '#9c8aad',
+  '#a793b9',
+  '#af9ac2',
 ]
 
 export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {

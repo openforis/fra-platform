@@ -13,11 +13,14 @@
   gap: $spacing-xxxxs;
 
   &.disabled {
-    color: $text-disabled;
+    label {
+      opacity: 0.3;
+    }
   }
 
   > label {
     font-size: $font-s;
+    transition: all 0.2s ease;
   }
 }
 
