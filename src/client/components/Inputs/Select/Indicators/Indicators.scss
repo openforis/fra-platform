@@ -17,15 +17,18 @@ div.select__indicatorsContainer {
 }
 
 div.select__clearIndicator {
-  padding: unset;
+  padding: 1px;
+  height: 18px;
+  width: 18px;
 
   svg.icon {
-    color: lighten($text-disabled, 10%);
+    color: darken($ui-destructive, 7%);
   }
 
   &:hover {
+    background-color: rgba(lighten($ui-destructive, 30%), 0.1);
     svg.icon {
-      color: $text-body;
+      color: $ui-destructive;
     }
   }
 }

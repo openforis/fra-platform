@@ -54,7 +54,7 @@ div.select__multiValue {
 
   &.isDisabled {
     background-color: transparent;
-    border-color: transparent;
+    border: unset;
     flex: 0 0 100%;
     padding: 0 0 $spacing-xxxxs 0;
   }
@@ -72,10 +72,21 @@ div.select__multiValueLabel {
 }
 
 div.select__multiValueRemove {
-  padding: 0 $spacing-xxxxs;
+  border: unset;
+  padding: 1px;
+  width: $spacing-xs;
+  height: $spacing-xs;
+
+  svg {
+    color: darken($ui-destructive, 7%);
+  }
 
   &:hover {
-    background-color: $ui-edit-background-error;
+    background-color: rgba(lighten($ui-destructive, 30%), 0.1);
+
+    svg {
+      color: $ui-destructive;
+    }
   }
 
   &.isDisabled {

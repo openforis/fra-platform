@@ -37,7 +37,7 @@ export const ClearIndicator: React.FC<ClearIndicatorProps> = (props) => {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <components.ClearIndicator {...rest} className={classNames(className, 'select__clearIndicator')}>
-      <Icon name="remove" />
+      <Icon className="icon-sub" name="remove" />
     </components.ClearIndicator>
   )
 }
