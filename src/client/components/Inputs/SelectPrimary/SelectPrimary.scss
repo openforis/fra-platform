@@ -14,8 +14,11 @@ div.select-primary__container {
   }
 
   div.select__valueContainer {
+    align-items: center;
+    display: grid;
     font-size: $font-xs;
     font-weight: 600;
+    height: 100%;
   }
 
   div.select__singleValue {
@@ -27,8 +30,11 @@ div.select-primary__container {
   }
 
   div.select__dropdownIndicator {
-    height: 12px;
-    width: 6px;
+    svg {
+      color: white;
+      height: 12px;
+      width: 12px;
+    }
   }
 
   // menu and options
@@ -64,6 +70,12 @@ div.select-primary__container {
 
     div.select__singleValue {
       color: $ui-accent;
+    }
+
+    div.select__dropdownIndicator {
+      svg {
+        color: $ui-accent;
+      }
     }
   }
 }
