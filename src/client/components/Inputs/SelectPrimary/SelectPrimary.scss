@@ -68,6 +68,10 @@ div.select-primary__container {
   &.inverse {
     background-color: white;
 
+    div.select__placeholder {
+      color: rgba(darken($ui-accent, 10%), 0.5);
+    }
+
     div.select__singleValue {
       color: $ui-accent;
     }

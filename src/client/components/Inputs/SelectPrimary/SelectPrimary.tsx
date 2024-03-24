@@ -7,7 +7,7 @@ import Select from 'client/components/Inputs/Select'
 import { SelectProps } from 'client/components/Inputs/Select/types'
 
 const SelectPrimary: React.FC<SelectProps> = (props) => {
-  const { disabled, isClearable, isMulti, onChange, options, value } = props
+  const { disabled, isClearable, isMulti, onChange, options, placeholder, value } = props
 
   return (
     <Select
@@ -17,6 +17,7 @@ const SelectPrimary: React.FC<SelectProps> = (props) => {
       isMulti={isMulti}
       onChange={onChange}
       options={options}
+      placeholder={placeholder}
       value={value}
     />
   )

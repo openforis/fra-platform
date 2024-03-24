@@ -31,7 +31,7 @@ export interface Recipe {
   labelKey: string
 }
 
-export const CUSTOM_RECIPE_KEY = 'custom'
+export const CUSTOM_RECIPE_KEY = ''
 
 export type LayerMetadata = {
   scale?: number

@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { LayerSectionKey } from 'meta/geo'
-import { CUSTOM_RECIPE_KEY, Recipe } from 'meta/geo/layer'
+import { Recipe } from 'meta/geo/layer'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoLayerSectionRecipeName } from 'client/store/ui/geo'
@@ -47,7 +47,8 @@ const RecipeSelector: React.FC<Props> = (props) => {
         isClearable={false}
         onChange={handleRecipeChange}
         options={options}
-        value={selectedRecipe ?? CUSTOM_RECIPE_KEY}
+        placeholder={t('common.custom')}
+        value={selectedRecipe}
       />
     </OptionsGrid>
   )

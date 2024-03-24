@@ -3,9 +3,9 @@ import React from 'react'
 
 import { LayerSection } from 'meta/geo'
 
-import GlobalOpacity from 'client/components/Navigation/NavGeo/GlobalOpacity'
 import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'
 import Layer from 'client/components/Navigation/NavGeo/Layer/Layer'
+import GlobalOpacity from 'client/components/Navigation/NavGeo/LayersSection/GlobalOpacity'
 import RecipeSelector from 'client/components/Navigation/NavGeo/LayersSection/RecipeSelector'
 
 type Props = {
