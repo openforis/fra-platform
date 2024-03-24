@@ -29,7 +29,8 @@ export const useAgreementLevelSelectorData = (props: Props): Returned => {
   return useMemo<Returned>(() => {
     let eligiblePalette: Array<string> = []
     if (agreementPalette && currentSelectedLevel !== undefined) {
-      eligiblePalette = agreementPalette.slice(currentSelectedLevel - 1, selectedLayersCount)
+      // eligiblePalette = agreementPalette.slice(currentSelectedLevel - 1, selectedLayersCount)
+      eligiblePalette = agreementPalette
     }
 
     return { currentSelectedLevel, eligiblePalette, selectedLayersCount }

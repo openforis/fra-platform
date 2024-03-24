@@ -29,18 +29,21 @@ const AgreementLevelSelector: React.FC<Props> = (props) => {
       {(layer.options?.agreementLayer?.agreementLevels ?? []).map((level) => {
         const id = `${sectionKey}-agreement-${level}`
         const disabled = level > selectedLayersCount
-        const style = getLevelStyle(level, eligiblePalette, currentSelectedLevel, selectedLayersCount)
+        const style = getLevelStyle(level, eligiblePalette, currentSelectedLevel)
+        const checked = level <= currentSelectedLevel
         return (
           <div key={id} className={classNames('geo-agreement-level-selector__checkbox-container', { disabled })}>
-            <input
-              checked={level <= currentSelectedLevel}
-              className="geo-agreement-level-selector__checkbox"
-              disabled={disabled}
-              id={id}
-              onChange={() => onChange(level)}
-              style={style}
-              type="checkbox"
-            />
+            <div className={classNames('geo-agreement-level_input-container', { checked })}>
+              <input
+                checked={checked}
+                className="geo-agreement-level-selector__checkbox"
+                disabled={disabled}
+                id={id}
+                onChange={() => onChange(level)}
+                style={style}
+                type="checkbox"
+              />
+            </div>
             <label htmlFor={id}>
               <OptionLabel>{level}</OptionLabel>
             </label>

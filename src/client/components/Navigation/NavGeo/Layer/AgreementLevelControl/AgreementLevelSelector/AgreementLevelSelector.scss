@@ -3,7 +3,7 @@
 .geo-agreement-level-selector__container {
   display: flex;
   justify-content: center;
-  gap: $spacing-xxxxs;
+  gap: $spacing-xxxs;
 }
 
 .geo-agreement-level-selector__checkbox-container {
@@ -21,23 +21,33 @@
   }
 }
 
-.geo-agreement-level-selector__checkbox {
-  appearance: none;
-  border-radius: 3px;
-  border: 1px solid #949495;
-  cursor: pointer;
+.geo-agreement-level_input-container {
+  align-items: center;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  display: grid;
   height: $spacing-s;
+  justify-items: center;
+  padding: $spacing-xxxxs;
+  transition: all 0.2s ease;
   width: $spacing-s;
 
-  &:checked {
-    background-color: #262627;
-    border-color: #5f5f5f;
-    box-shadow: none;
+  &.checked {
+    background-color: rgba($ui-accent, 0.1);
+    border-color: $ui-accent;
   }
+}
+
+.geo-agreement-level-selector__checkbox {
+  appearance: none;
+  border-radius: 100%;
+  cursor: pointer;
+  height: 100%;
+  transition: all 0.2s ease;
+  width: 100%;
 
   &:disabled {
-    border-color: #dedfdf;
-    box-shadow: 0 0 10px 2px #efeeee inset;
+    box-shadow: 0 0 6px 2px $ui-bg inset;
     cursor: default;
   }
 }
