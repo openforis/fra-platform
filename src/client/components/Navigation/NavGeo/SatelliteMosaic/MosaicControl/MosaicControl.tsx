@@ -59,9 +59,9 @@ const MosaicControl: React.FC = () => {
       />
 
       {status === LayerFetchStatus.Failed && (
-        <div className="geo-options-grid__one-col centered geo-options-grid__error">
+        <OptionLabel className="geo-options-grid__one-col centered geo-options-grid__error">
           {t('geo.error.mosaic.noMosaicAvailableForConfiguration')}
-        </div>
+        </OptionLabel>
       )}
     </OptionsGrid>
   )

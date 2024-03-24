@@ -14,24 +14,20 @@
 .nav-geo-section__header {
   display: grid;
   justify-items: center;
-
-  button.button {
-    height: 36px;
-  }
 }
 
 .nav-geo-section__content {
   display: grid;
   grid-row-gap: $spacing-xxs;
 
-  &.hidden {
-    max-height: 0;
-    transition: max-height 0.15s ease-out;
-  }
-
-  &.visible {
+  &.expanded {
     padding: $spacing-xs $spacing-xs 0;
     transition: max-height 0.25s ease-out;
+  }
+
+  &:not(.expanded) {
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
   }
 }
 

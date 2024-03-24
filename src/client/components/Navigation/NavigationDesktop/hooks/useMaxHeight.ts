@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 
-import { useIsGeoRoute } from 'client/hooks'
 import { Breakpoints } from 'client/utils'
 
 // document height - toolbar
@@ -14,7 +13,6 @@ type Returned = {
 
 export const useMaxHeight = (): Returned => {
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
-  const geoRoute = useIsGeoRoute()
   const [maxHeight, setMaxHeight] = useState<Returned>({
     maxHeight: laptop ? 'unset' : `calc(${baseHeight})`,
     top: '0',
@@ -39,7 +37,7 @@ export const useMaxHeight = (): Returned => {
             .join(' - ')
 
           setMaxHeight({
-            maxHeight: `calc(100dvh - 50px - ${heightsCalc}${geoRoute ? ` - 32px` : ''})`,
+            maxHeight: `calc(100dvh - 50px - ${heightsCalc})`,
             top: `${topRep.current}px`,
           })
         },
@@ -57,7 +55,7 @@ export const useMaxHeight = (): Returned => {
     setMaxHeight({ maxHeight: 'unset', top: '0' })
 
     return undefined
-  }, [geoRoute, laptop])
+  }, [laptop])
 
   return maxHeight
 }

@@ -1,10 +1,14 @@
 import './OptionLabel.scss'
-import React, { PropsWithChildren } from 'react'
+import React, { HTMLAttributes, PropsWithChildren } from 'react'
 
-const OptionLabel: React.FC<PropsWithChildren> = (props) => {
-  const { children } = props
+import classNames from 'classnames'
 
-  return <div className="geo-grid-option-label">{React.Children.toArray(children)}</div>
+type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className'>>
+
+const OptionLabel: React.FC<Props> = (props) => {
+  const { children, className } = props
+
+  return <div className={classNames('geo-grid-option-label', className)}>{React.Children.toArray(children)}</div>
 }
 
 export default OptionLabel
