@@ -50,7 +50,7 @@ export const useGeoMap = (props: Props): Returned => {
       },
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       minZoom: 3,
-      maxZoom: 7,
+      maxZoom: 15,
       rotateControl: true,
       styles,
       zoom,
