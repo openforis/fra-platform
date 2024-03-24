@@ -21,24 +21,24 @@ export enum ForestKey {
 }
 
 export const agreementPalette = [
-  '#f3afbb', // pink
-  '#FF0000', // red
-  '#FF8000', // shade of brown
-  '#919134', // yellow
-  '#01def9', // shade of cyan
-  '#0040FF', // shade of blue
-  '#01DF01', // shade of green
-  '#0B3B0B', // very dark shade of green
-  '#808080', // gray
-  '#800080', // purple
-  '#000000', // black
+  '#d7adb5', // pink
+  '#bb969d', // red
+  '#a18187', // shade of brown
+  '#866c71', // yellow
+  '#755f63', // shade of cyan
+  '#645054', // shade of blue
+  '#4d3d40', // shade of green
+  '#382c2e', // very dark shade of green
+  '#2a2122', // gray
+  '#1e1717', // purple
+  '#070505', // black
 ]
 
 export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.JAXA]: {
     titleKey: 'geo.sections.forest.layerTitles.jaxa2017',
     scale: 24.7376,
-    palette: ['#800080'], // purple
+    palette: ['#940194'], // purple
     citation: 'https://doi.org/10.1016/j.rse.2014.04.014', // from gee asset
     forestAreaDataProperty: 'faJaxa',
   },
@@ -52,7 +52,7 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.ESAGlobCover]: {
     titleKey: 'geo.sections.forest.layerTitles.esaGlobCover2009',
     scale: 309.2208,
-    palette: ['#FF0000'], // red
+    palette: ['#f3671c'], // red
     citation: 'http://due.esrin.esa.int/page_globcover.php', // from gee asset
     forestAreaDataProperty: 'faEsa2009',
   },
@@ -73,14 +73,14 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.ESRI]: {
     titleKey: 'geo.sections.forest.layerTitles.esri2020',
     scale: 10,
-    palette: ['#FF7F50'], // coral
+    palette: ['#f16b33'], // coral
     citation: ' https://www.arcgis.com/home/item.html?id=d6642f8a4f6d4685a24ae2dc0c73d4ac',
     forestAreaDataProperty: 'faEsri',
   },
   [ForestKey.ESAWorldCover]: {
     titleKey: 'geo.sections.forest.layerTitles.esa2020',
     scale: 10,
-    palette: ['#69afaf'], // cyan
+    palette: ['#13bebe'], // cyan
     citation: 'https://esa-worldcover.org/en', // on gee citation 'A publication is under preparation'
     forestAreaDataProperty: 'faEsa2020',
   },

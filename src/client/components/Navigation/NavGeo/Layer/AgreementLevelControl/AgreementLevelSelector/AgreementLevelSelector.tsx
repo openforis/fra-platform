@@ -1,4 +1,4 @@
-import 'client/components/Navigation/NavGeo/Layer/AgreementLevelControl/AgreementLevelSelector/AgreementLevelSelector.scss'
+import './AgreementLevelSelector.scss'
 import React from 'react'
 
 import classNames from 'classnames'
