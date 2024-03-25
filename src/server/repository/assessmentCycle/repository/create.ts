@@ -10,7 +10,7 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso: AreaCode
-  repositoryItem: RepositoryItem
+  repositoryItem: Omit<RepositoryItem, 'id' | 'uuid'>
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
