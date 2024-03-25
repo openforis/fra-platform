@@ -7,7 +7,6 @@ import { CycleRequest } from 'meta/api/request'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
-import { PdfRepository } from 'server/controller/cycleData/pdfRepository'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
@@ -49,13 +48,13 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
   const [cachedPdfInfo, countryCycleLastUpdate] = await Promise.all([
-    PdfRepository.getOne({ assessment, countryIso, cycle, fileName }),
+    CycleDataController.Report.getOne({ assessment, countryIso, cycle, fileName }),
     CycleDataController.getLastUpdate({ assessment, countryIso, cycle }),
   ])
 
   if (Objects.isEmpty(cachedPdfInfo)) {
     const pdfBuffer = await buildPdf(req)
-    await PdfRepository.create({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
+    await CycleDataController.Report.create({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
 
     return pdfBuffer
   }
@@ -67,7 +66,7 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
 
   if (shouldRefreshCache) {
     const pdfBuffer = await buildPdf(req)
-    await PdfRepository.updateFile({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
+    await CycleDataController.Report.updateFile({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
 
     return pdfBuffer
   }
