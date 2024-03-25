@@ -1,13 +1,17 @@
 import { Response } from 'express'
 import puppeteer, { PDFOptions } from 'puppeteer'
+import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { CycleRequest } from 'meta/api/request'
 
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
+import { PdfRepository } from 'server/controller/cycleData/pdfRepository'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
-type Request = CycleRequest<{ onlyTables?: string }>
+type Request = CycleRequest<{ forceRefresh?: string; onlyTables?: string }>
 
 const margin = '5mm'
 const pdfOptions: PDFOptions = {
@@ -19,7 +23,7 @@ const pdfOptions: PDFOptions = {
   scale: 0.7,
 }
 
-const getPdf = async (req: Request): Promise<Buffer> => {
+const buildPdf = async (req: Request): Promise<Buffer> => {
   const { assessmentName, cycleName, countryIso, onlyTables } = req.query
 
   const browser = await puppeteer.launch({ headless: true })
@@ -39,12 +43,45 @@ const getPdf = async (req: Request): Promise<Buffer> => {
   return pdf
 }
 
+const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
+  const { assessmentName, countryIso, cycleName, forceRefresh } = req.query
+
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+  const [cachedPdfInfo, countryCycleLastUpdate] = await Promise.all([
+    PdfRepository.getOne({ assessment, countryIso, cycle, fileName }),
+    CycleDataController.getLastUpdate({ assessment, countryIso, cycle }),
+  ])
+
+  if (Objects.isEmpty(cachedPdfInfo)) {
+    const pdfBuffer = await buildPdf(req)
+    await PdfRepository.create({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
+
+    return pdfBuffer
+  }
+
+  const shouldRefreshCache =
+    countryCycleLastUpdate.time === undefined ||
+    Date.parse(cachedPdfInfo.file.createdAt) < Date.parse(countryCycleLastUpdate.time) ||
+    forceRefresh === 'true'
+
+  if (shouldRefreshCache) {
+    const pdfBuffer = await buildPdf(req)
+    await PdfRepository.updateFile({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
+
+    return pdfBuffer
+  }
+
+  return cachedPdfInfo.file.file
+}
+
 export const report = async (req: Request, res: Response) => {
   try {
     const { assessmentName, cycleName, countryIso } = req.query
 
-    const pdf = await getPdf(req)
     const fileName = `${assessmentName}_${cycleName}_${countryIso}.pdf`
+
+    const pdf = await getPdf(req, fileName)
 
     Responses.sendFile(res, fileName, pdf)
   } catch (e) {
