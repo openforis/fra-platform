@@ -5,7 +5,8 @@ div.editorWYSIWYG {
   word-break: break-word;
 
   p,
-  table {
+  table,
+  ul {
     margin: unset;
   }
 

@@ -8,6 +8,8 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 import { mapController } from 'client/utils'
 
+import { styles } from './styles'
+
 type Props = {
   viewport: google.maps.LatLngBoundsLiteral | null
   zoom: number
@@ -46,8 +48,11 @@ export const useGeoMap = (props: Props): Returned => {
         position: google.maps.ControlPosition.TOP_RIGHT,
         style: google.maps.MapTypeControlStyle.DEFAULT,
       },
-      mapTypeId: google.maps.MapTypeId.HYBRID,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      minZoom: 3,
+      maxZoom: 15,
       rotateControl: true,
+      styles,
       zoom,
     })
 

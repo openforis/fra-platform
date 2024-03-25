@@ -14,9 +14,14 @@ export type OptionsOrGroups = readonly (Option | OptionsGroup)[]
 
 export type ValueInput = string | Array<string> | null
 
-export type SelectProps = Pick<ReactSelectProps, 'isClearable' | 'isMulti'> & {
-  disabled?: boolean
-  onChange: (value: string | Array<string> | null) => void
-  options: OptionsOrGroups
-  value?: ValueInput
+type SelectBaseProps = Pick<ReactSelectProps, 'isClearable' | 'isMulti' | 'placeholder'>
+type SelectClassNamesProps = {
+  classNames?: { container?: string }
 }
+export type SelectProps = SelectBaseProps &
+  SelectClassNamesProps & {
+    disabled?: boolean
+    onChange: (value: string | Array<string> | null) => void
+    options: OptionsOrGroups
+    value?: ValueInput
+  }

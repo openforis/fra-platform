@@ -2,12 +2,99 @@
 
 .input-range {
   align-items: center;
-  display: flex;
+  display: grid;
   justify-content: space-between;
+  grid-template-columns: 1fr 28px;
 
-  .input-range-value {
-    font-weight: bold;
-    margin-left: $spacing-xxs;
-    white-space: nowrap;
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+
+    &:disabled {
+      pointer-events: none;
+    }
   }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  @mixin with-theme($gap, $track-height, $thumb-height, $thumb-border-width) {
+    gap: $gap;
+
+    /***** Track Styles *****/
+    /***** Chrome, Safari, Opera, and Edge Chromium *****/
+    input[type='range']::-webkit-slider-runnable-track {
+      background-image: linear-gradient(90deg, $ui-accent var(--percentage), white var(--percentage));
+      border-radius: 2px;
+      height: $track-height;
+    }
+    /******** Firefox ********/
+    input[type='range']::-moz-range-track {
+      background-image: linear-gradient(90deg, $ui-accent var(--percentage), white var(--percentage));
+      border-radius: 2px;
+      height: $track-height;
+    }
+
+    /***** Thumb Styles *****/
+    /***** Chrome, Safari, Opera, and Edge Chromium *****/
+    input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+      appearance: none;
+      background-color: white;
+      border-radius: 2px;
+      border: $thumb-border-width solid $ui-accent;
+      height: $thumb-height;
+      margin-top: ($track-height/2)- ($thumb-height/2);
+      width: $thumb-height;
+    }
+    /***** Firefox *****/
+    input[type='range']::-moz-range-thumb {
+      background-color: white;
+      border-radius: 2px;
+      border: $thumb-border-width solid $ui-accent;
+      height: $thumb-height;
+      width: $thumb-height;
+    }
+
+    /***** Focus Styles *****/
+    /* Removes default focus */
+    input[type='range']:focus {
+      outline: none;
+    }
+
+    /***** Chrome, Safari, Opera, and Edge Chromium *****/
+    input[type='range']:focus::-webkit-slider-thumb {
+      border: $thumb-border-width solid lighten($ui-accent, 8%);
+      outline-offset: 2px;
+      outline: 1px dashed $ui-accent;
+    }
+
+    /******** Firefox ********/
+    input[type='range']:focus::-moz-range-thumb {
+      border: $thumb-border-width solid lighten($ui-accent, 8%);
+      outline-offset: 2px;
+      outline: 1px dashed $ui-accent;
+    }
+  }
+
+  &.size-xs {
+    @include with-theme(2px, 4px, 12px, 4px);
+  }
+
+  &.size-s {
+    @include with-theme($spacing-xxs, 6px, 16px, 5px);
+  }
+}
+
+.input-range-value {
+  color: $text-mute;
+  font-size: $font-xxs;
+  font-weight: 600;
+  justify-self: end;
+  text-transform: uppercase;
+  white-space: nowrap;
 }

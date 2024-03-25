@@ -8,7 +8,7 @@ export enum BurnedAreaKey {
 
 export const burnedAreaLayersMetadata: Record<BurnedAreaKey, LayerMetadata> = {
   [BurnedAreaKey.MODIS_FIRE]: {
-    palette: ['#FF0000'],
+    palette: ['#980101'],
     scale: 500,
     titleKey: 'geo.sections.burnedArea.layerTitles.modis',
   },

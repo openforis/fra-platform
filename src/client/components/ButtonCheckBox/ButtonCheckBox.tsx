@@ -12,6 +12,10 @@ type Props = {
   disabled?: boolean
 }
 
+/**
+ * @deprecated
+ * use 'client/components/Buttons/ButtonCheckbox'
+ */
 const ButtonCheckBox: React.FC<Props> = (props) => {
   const { checked, className, disabled, onClick, suffix } = props
   const { label } = props

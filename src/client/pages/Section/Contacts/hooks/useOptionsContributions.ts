@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from 'utils/objects'
+
 import { Labels, SubSections } from 'meta/assessment'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -23,7 +25,7 @@ export const useOptionsContributions = (): Returned => {
           SubSections.getAnchor({ cycle, subSection })
         )
         const _label = Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })
-        const label = t(`${anchor} ${_label}`)
+        const label = t(`${Objects.isEmpty(anchor) ? '' : `${anchor} `}${_label}`)
         const value = subSection.uuid
 
         return { label, value }

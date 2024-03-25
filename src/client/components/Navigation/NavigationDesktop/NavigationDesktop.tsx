@@ -1,5 +1,7 @@
 import './NavigationDesktop.scss'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
+
+import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store'
 import { NavigationActions } from 'client/store/ui/navigation'
@@ -13,16 +15,25 @@ const NavigationDesktop: React.FC = () => {
   const dispatch = useAppDispatch()
   const geoRoute = useIsGeoRoute()
 
-  const maxHeight = useMaxHeight()
+  const { maxHeight, top } = useMaxHeight()
+  const elementRef = useRef<HTMLDivElement>()
 
   // Show navigation on first mount (ex. returning from Mobile view)
   useEffect(() => {
     dispatch(NavigationActions.updateNavigationVisible(true))
   }, [dispatch])
 
+  const toggleExpanded = useCallback(() => {
+    elementRef.current?.classList.toggle('expanded')
+  }, [])
+
   return (
-    <div className="nav nav-desktop no-print" style={{ maxHeight }}>
-      {geoRoute && <NavGeo />}
+    <div
+      ref={elementRef}
+      className={classNames('nav', 'nav-desktop', 'no-print', { geoRoute })}
+      style={{ maxHeight, top: geoRoute ? top : undefined }}
+    >
+      {geoRoute && <NavGeo toggleExpanded={toggleExpanded} />}
       {!geoRoute && <NavAssessment />}
     </div>
   )

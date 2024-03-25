@@ -21,24 +21,24 @@ export enum ForestKey {
 }
 
 export const agreementPalette = [
-  '#FFC0CB', // pink
-  '#FF0000', // red
-  '#FF8000', // shade of brown
-  '#FFFF00', // yellow
-  '#01def9', // shade of cyan
-  '#0040FF', // shade of blue
-  '#01DF01', // shade of green
-  '#0B3B0B', // very dark shade of green
-  '#808080', // gray
-  '#800080', // purple
-  '#000000', // black
+  '#d7adb5',
+  '#bb969d',
+  '#a18187',
+  '#866c71',
+  '#755f63',
+  '#796b85',
+  '#847591',
+  '#9382a2',
+  '#9c8aad',
+  '#a793b9',
+  '#af9ac2',
 ]
 
 export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.JAXA]: {
     titleKey: 'geo.sections.forest.layerTitles.jaxa2017',
     scale: 24.7376,
-    palette: ['#800080'], // purple
+    palette: ['#940194'], // purple
     citation: 'https://doi.org/10.1016/j.rse.2014.04.014', // from gee asset
     forestAreaDataProperty: 'faJaxa',
   },
@@ -52,7 +52,7 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.ESAGlobCover]: {
     titleKey: 'geo.sections.forest.layerTitles.esaGlobCover2009',
     scale: 309.2208,
-    palette: ['#FF0000'], // red
+    palette: ['#c53703'], // red
     citation: 'http://due.esrin.esa.int/page_globcover.php', // from gee asset
     forestAreaDataProperty: 'faEsa2009',
   },
@@ -66,28 +66,28 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.Copernicus]: {
     titleKey: 'geo.sections.forest.layerTitles.copernicus2019',
     scale: 100,
-    palette: ['#FFFF00'], // yellow
+    palette: ['#919134'], // yellow
     citation: ' https://doi.org/10.3390/rs12061044', // from gee asset
     forestAreaDataProperty: 'faCopernicus',
   },
   [ForestKey.ESRI]: {
     titleKey: 'geo.sections.forest.layerTitles.esri2020',
     scale: 10,
-    palette: ['#FF7F50'], // coral
+    palette: ['#f16b33'], // coral
     citation: ' https://www.arcgis.com/home/item.html?id=d6642f8a4f6d4685a24ae2dc0c73d4ac',
     forestAreaDataProperty: 'faEsri',
   },
   [ForestKey.ESAWorldCover]: {
     titleKey: 'geo.sections.forest.layerTitles.esa2020',
     scale: 10,
-    palette: ['#00ffff'], // cyan
+    palette: ['#13bebe'], // cyan
     citation: 'https://esa-worldcover.org/en', // on gee citation 'A publication is under preparation'
     forestAreaDataProperty: 'faEsa2020',
   },
   [ForestKey.Hansen]: {
     titleKey: 'geo.sections.forest.layerTitles.hansenGfc2020',
     scale: 30.92,
-    palette: ['#00ff00'], // lime
+    palette: ['#61bd61'], // lime
     citation: 'https://doi.org/10.1126/science.1244693', // from gee asset
     forestAreaDataProperty: 'faHansen',
   },

@@ -1,0 +1,56 @@
+@import 'src/client/style/partials';
+
+.geo-agreement-level-selector__container {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-xxxs;
+}
+
+.geo-agreement-level-selector__checkbox-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxxxs;
+
+  &.disabled {
+    label {
+      opacity: 0.3;
+    }
+  }
+
+  > label {
+    font-size: $font-s;
+    transition: all 0.2s ease;
+  }
+}
+
+.geo-agreement-level_input-container {
+  align-items: center;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  display: grid;
+  height: $spacing-s;
+  justify-items: center;
+  padding: $spacing-xxxxs;
+  transition: all 0.2s ease;
+  width: $spacing-s;
+
+  &.checked {
+    background-color: rgba($ui-accent, 0.1);
+    border-color: $ui-accent;
+  }
+}
+
+.geo-agreement-level-selector__checkbox {
+  appearance: none;
+  border-radius: 100%;
+  cursor: pointer;
+  height: 100%;
+  transition: all 0.2s ease;
+  width: 100%;
+
+  &:disabled {
+    box-shadow: 0 0 6px 2px $ui-bg inset;
+    cursor: default;
+  }
+}

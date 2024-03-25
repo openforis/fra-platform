@@ -29,6 +29,10 @@
       transform: scale(1.1);
     }
 
+    svg {
+      transition: all 0.2s ease;
+    }
+
     svg.icon_hit-down {
       transform: rotate(180deg) scale(1.1);
     }
@@ -120,4 +124,8 @@
 
 .button__type-danger {
   @include withTheme($ui-destructive, 58%);
+}
+
+.button__type-blackMap {
+  @include withTheme($ui-black-map, 80%);
 }

@@ -1,6 +1,6 @@
 import { ForestAgreementAreaEstimationRequestBody } from 'meta/api/request/geo/layer'
 import { CountryIso } from 'meta/area'
-import { LayerKey, LayerSource } from 'meta/geo'
+import { ForestKey, LayerKey, LayerSource } from 'meta/geo'
 
 import { LayersSectionState } from '../stateType'
 import { buildLayerData } from './_getLayerRequestBody'
@@ -14,7 +14,7 @@ export const _getExtraEstimationRequestBody = (
   let agreementLevel = 1 // Default agreement level
   Object.keys(sectionState).forEach((layerKey) => {
     const layerState = sectionState[layerKey as LayerKey]
-    if (layerKey === 'Agreement') {
+    if (layerKey === ForestKey.Agreement) {
       agreementLevel = layerState.options?.agreementLayer?.level ?? agreementLevel
       return
     }
