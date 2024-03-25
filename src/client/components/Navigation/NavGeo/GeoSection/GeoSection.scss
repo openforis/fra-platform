@@ -17,6 +17,14 @@
 .nav-geo-section__header {
   display: grid;
   justify-items: center;
+
+  button.button.inverse {
+    background-color: rgba(white, 0.85);
+
+    &:hover {
+      background-color: white;
+    }
+  }
 }
 
 .nav-geo-section__content {
@@ -32,10 +40,4 @@
     max-height: 0;
     transition: max-height 0.15s ease-out;
   }
-}
-
-.nav-geo-section__label {
-  padding-left: $spacing-xs;
-  font-size: $font-m;
-  text-transform: uppercase;
 }
