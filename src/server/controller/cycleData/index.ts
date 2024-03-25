@@ -44,6 +44,7 @@ export const CycleDataController = {
   removeOriginalDataPoint,
   // data
   getLastEditOdpData: CountrySummaryRepository.getLastEditOdpData,
+  getLastUpdate: CountrySummaryRepository.getLastUpdate,
   updateOriginalDataPointOriginalData,
   // data sources
   updateOriginalDataPointDataSources,
