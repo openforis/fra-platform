@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { useRepositoryItemChangeListener } from 'client/store/ui/repository'
+import { useIsPanEuropeanRoute } from 'client/hooks'
 import Hr from 'client/components/Hr'
 import TablePaginated from 'client/components/TablePaginated'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
@@ -16,23 +17,29 @@ import { useColumns } from './hooks/useColumns'
 const Repository: React.FC = () => {
   const { t } = useTranslation()
   const columns = useColumns()
+  const isPanEuropean = useIsPanEuropeanRoute()
+
   useRepositoryItemChangeListener()
 
   return (
     <div className="repository">
-      <div className="repository__header">
-        <h3>{t('landing.links.links')}</h3>
-        <ButtonDownloadAll isGlobal />
-        <ButtonAdd isGlobal />
-      </div>
-      <TablePaginated
-        columns={columns}
-        counter={false}
-        header={false}
-        path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
-      />
+      {!isPanEuropean && (
+        <>
+          <div className="repository__header">
+            <h3>{t('landing.links.links')}</h3>
+            <ButtonDownloadAll isGlobal />
+            <ButtonAdd isGlobal />
+          </div>
+          <TablePaginated
+            columns={columns}
+            counter={false}
+            header={false}
+            path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
+          />
 
-      <Hr />
+          <Hr />
+        </>
+      )}
 
       <div className="repository__header">
         <h3>{t('landing.links.repository')}</h3>
