@@ -2,8 +2,9 @@
 
 .input-range {
   align-items: center;
-  display: flex;
+  display: grid;
   justify-content: space-between;
+  grid-template-columns: 1fr 28px;
 
   input[type='range'] {
     -webkit-appearance: none;
@@ -93,6 +94,7 @@
   color: $text-mute;
   font-size: $font-xxs;
   font-weight: 600;
+  justify-self: end;
   text-transform: uppercase;
   white-space: nowrap;
 }
