@@ -3,11 +3,14 @@
 .nav-geo-section {
   display: grid;
   padding: $spacing-xs 0;
+  position: sticky;
+  top: 0;
   transition: all 0.1s ease;
 
   &.expanded {
-    background-color: rgba($ui-bg, 0.9);
+    background-color: rgba($ui-bg, 0.95);
     border-radius: $spacing-xxxxs;
+    box-shadow: 0 0 1px 1px rgba($ui-black-map, 0.5);
   }
 }
 

@@ -14,8 +14,8 @@
     height: auto;
     left: 0;
     padding: $spacing-xs;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: $ui-app-header-height + $ui-app-area-select-height;
     white-space: nowrap;
     width: auto;
     z-index: $z-index-geo-menu-layers;

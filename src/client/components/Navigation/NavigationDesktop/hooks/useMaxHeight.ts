@@ -3,8 +3,8 @@ import { useMediaQuery } from 'react-responsive'
 
 import { Breakpoints } from 'client/utils'
 
-// document height - toolbar
-const baseHeight = `100dvh - 50px`
+// document height - toolbar - header
+const baseHeight = `100dvh - 50px - 64px`
 
 type Returned = {
   maxHeight: string
@@ -25,10 +25,12 @@ export const useMaxHeight = (): Returned => {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            const { boundingClientRect, intersectionRect, target } = entry
+            const { intersectionRect, target } = entry
             heightsRef.current[target.tagName] = intersectionRect.height
+
             if (target.tagName === 'HEADER') {
-              topRep.current = Math.max(boundingClientRect.height - intersectionRect.height - 16, 0)
+              // toolbar height + current header visible height
+              topRep.current = 50 + intersectionRect.height
             }
           })
 
