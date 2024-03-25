@@ -23,10 +23,12 @@ export const create = async (
       dataSourceReferences,
       description,
       nationalClasses,
+      values,
     },
   } = params
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
+
   return client.one<OriginalDataPoint>(
     `
         insert into ${schemaName}.original_data_point (
@@ -36,8 +38,9 @@ export const create = async (
           data_source_methods,
           data_source_references,
           description,
-          national_classes
-        ) values ($1, $2, $3, $4::jsonb, $5, $6, $7::jsonb) returning *;`,
+          national_classes,
+          values
+        ) values ($1, $2, $3, $4::jsonb, $5, $6, $7::jsonb, $8::jsonb) returning *;`,
     [
       countryIso,
       year,
@@ -46,6 +49,7 @@ export const create = async (
       dataSourceReferences || '',
       description || '',
       nationalClasses ? JSON.stringify(nationalClasses) : '[]',
+      values ? JSON.stringify(values) : '{}',
     ],
     Objects.camelize
   )
