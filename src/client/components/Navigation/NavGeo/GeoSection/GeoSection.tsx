@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
-import Hr from 'client/components/Hr'
 
 type Props = {
   children: ReactElement
@@ -21,21 +20,18 @@ const GeoSection: React.FC<Props> = (props) => {
   const label = t(labelKey)
 
   return (
-    <>
-      <div className={classNames('nav-geo-section', { expanded })}>
-        <div className="nav-geo-section__header">
-          <Button
-            inverse={!expanded}
-            label={label}
-            onClick={() => setExpanded(!expanded)}
-            size={ButtonSize.m}
-            type={ButtonType.blackMap}
-          />
-        </div>
-        <div className={classNames(`nav-geo-section__content`, { expanded })}>{expanded && children}</div>
+    <div className={classNames('nav-geo-section', { expanded })}>
+      <div className="nav-geo-section__header">
+        <Button
+          inverse={!expanded}
+          label={label}
+          onClick={() => setExpanded(!expanded)}
+          size={ButtonSize.m}
+          type={ButtonType.blackMap}
+        />
       </div>
-      {expanded && <Hr />}
-    </>
+      <div className={classNames(`nav-geo-section__content`, { expanded })}>{expanded && children}</div>
+    </div>
   )
 }
 
