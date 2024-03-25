@@ -18,7 +18,7 @@ const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const { columns, error, isLoading, tableData, title, units } = useBurnedAreaData()
+  const { columns, error, isLoading, tableData, units } = useBurnedAreaData()
 
   if (!isLoading && tableData.length === 0 && !error) return <p>{t('geo.error.statistics.foundNoData')}</p>
 
@@ -27,16 +27,13 @@ const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
   if (isLoading) return <p>{t('common.loading')}</p>
 
   return (
-    <>
-      <h4 className="geo-statistics-side-panel-table-title">{title}</h4>
-      <StatisticsTable
-        columns={columns}
-        fileName={`burned-area-estimations-${countryIso}-${year}`}
-        loaded={!isLoading}
-        tableData={tableData}
-        units={units}
-      />
-    </>
+    <StatisticsTable
+      columns={columns}
+      fileName={`burned-area-estimations-${countryIso}-${year}`}
+      loaded={!isLoading}
+      tableData={tableData}
+      units={units}
+    />
   )
 }
 

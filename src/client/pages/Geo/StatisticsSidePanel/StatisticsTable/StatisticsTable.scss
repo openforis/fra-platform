@@ -1,10 +1,23 @@
 @import 'src/client/style/partials';
-.geo-statistics-export-button__container {
-  margin: $spacing-xxxs auto 0 0;
-  width: fit-content;
+
+.geo-statistics-table__container {
+  color: $text-body;
+  display: grid;
+  font-size: $font-xxs;
+
+  div.data-cell.header {
+    background-color: darken($ui-bg, 4%);
+    font-weight: 700;
+    padding: $spacing-xxxs;
+    text-transform: uppercase;
+  }
+
+  div.data-cell:not(.header) {
+    font-weight: 400;
+    padding: $spacing-xxxxs $spacing-xxxs;
+  }
 }
 
-.geo-statistics-table__cell {
-  font-size: $font-s;
-  padding: $spacing-xxs;
+.geo-statistics-export-button__container {
+  justify-self: start;
 }

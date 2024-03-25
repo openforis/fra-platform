@@ -3,26 +3,26 @@ import { CSVLink } from 'react-csv'
 
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useButtonClassName } from 'client/components/Buttons/Button'
+import { ButtonProps, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
 import * as Utils from './utils'
 
-type Props = {
+type Props = Pick<ButtonProps, 'size'> & {
   disabled?: boolean
   filename?: string
   gridRef: MutableRefObject<HTMLDivElement>
 }
 
 const ButtonGridExport: React.FC<Props> = (props) => {
-  const { disabled, filename, gridRef } = props
+  const { disabled, filename, gridRef, size } = props
 
   const [data, setData] = useState<Array<object>>([])
 
   const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()
 
-  const className = useButtonClassName({ disabled: !isLocked || disabled, iconName: 'hit-down', label: 'CSV' })
+  const className = useButtonClassName({ disabled: !isLocked || disabled, iconName: 'hit-down', label: 'CSV', size })
 
   if (print) return null
 

@@ -25,7 +25,7 @@ const NavGeo: React.FC<Props> = (props) => {
 
   const [sectionsExpanded, setSectionsExpanded] = useState<SectionsExpanded>(initialStateSectionsExpanded)
 
-  const hasExpanded: boolean = useMemo(() => Object.values(sectionsExpanded).some((value) => value), [sectionsExpanded])
+  const hasExpanded = useMemo<boolean>(() => Object.values(sectionsExpanded).some((value) => value), [sectionsExpanded])
 
   const makeSetExpanded = useCallback((titleKey: string) => {
     return (expanded: boolean) => {

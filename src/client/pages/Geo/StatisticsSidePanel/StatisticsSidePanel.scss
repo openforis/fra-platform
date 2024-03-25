@@ -5,47 +5,19 @@ $side-panel-notch-width: $spacing-s;
 $side-panel-y-margin: $spacing-l;
 
 .geo-statistics-side-panel {
-  background-color: $ui-bg;
-  border: $ui-thin-border;
-  height: calc(100% - (2 * #{$side-panel-y-margin}));
-  margin-top: $side-panel-y-margin;
+  background-color: rgba($ui-bg, 0.1);
+  border-top-left-radius: $spacing-xxxxs;
+  bottom: 0;
+  box-shadow: 0 0 1px 1px rgba($ui-black-map, 0.1);
+  display: grid;
+  max-height: calc(100dvh - #{$ui-app-area-select-height} - #{$ui-app-header-height});
+  overflow-y: auto;
+  padding: $spacing-xs;
   position: absolute;
   right: 0;
-  top: 0;
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-  width: 45%;
+  transition: all 0.2s ease;
 
-  &.open {
-    transform: translateX(0);
+  &.expanded {
+    grid-template-columns: minmax($ui-app-navigation-width, 35vw);
   }
-}
-
-.geo-statistics-side-panel__content-container {
-  height: 100%;
-  margin-top: -1 * ($side-panel-notch-height + $spacing-xxxs);
-  overflow-y: scroll;
-}
-
-.geo-statistics-side-panel__notch-button {
-  all: unset;
-  background-color: $ui-bg;
-  border-bottom: $ui-thin-border;
-  border-left: $ui-thin-border;
-  border-radius: $spacing-xxs 0 0 $spacing-xxs;
-  border-top: $ui-thin-border;
-  height: $side-panel-notch-height;
-  margin-top: -1px; // Matches the notch border with the panel border.
-  position: relative;
-  right: $side-panel-notch-width;
-  transition: transform 0.3s ease-in-out;
-  width: $side-panel-notch-width;
-
-  &:hover {
-    background-color: $ui-bg-hover;
-  }
-}
-
-.geo-statistics-side-panel-table-title {
-  margin: 0 0 $spacing-xxs $spacing-xxxs;
 }

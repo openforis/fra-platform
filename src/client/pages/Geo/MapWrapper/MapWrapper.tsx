@@ -7,6 +7,7 @@ import { TFunction } from 'i18next'
 
 import Loading from 'client/components/Loading'
 import Map from 'client/pages/Geo/Map'
+import StatisticsSidePanel from 'client/pages/Geo/StatisticsSidePanel'
 // import StatisticsSidePanel from 'client/pages/Geo/StatisticsSidePanel'
 
 // @ts-ignore
@@ -17,11 +18,15 @@ const Components: Record<Status, React.FC<{ t: TFunction }>> = {
   [Status.LOADING]: () => <Loading />,
   [Status.FAILURE]: ({ t }) => (
     <>
-      {/* <StatisticsSidePanel /> */}
+      <StatisticsSidePanel />
       <div className="geo-map-error-message">{t<string>('geo.error.map.failedToLoad')}</div>
     </>
   ),
-  [Status.SUCCESS]: () => <Map>{/* <StatisticsSidePanel /> */}</Map>,
+  [Status.SUCCESS]: () => (
+    <Map>
+      <StatisticsSidePanel />
+    </Map>
+  ),
 }
 
 const MapWrapper: React.FC = () => {
