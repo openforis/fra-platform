@@ -9,12 +9,13 @@ import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button
 type Props = {
   children: ReactElement
   expanded: boolean
+  icon?: React.ReactNode
   labelKey: string
   setExpanded: (expanded: boolean) => void
 }
 
 const GeoSection: React.FC<Props> = (props) => {
-  const { children, expanded, labelKey, setExpanded } = props
+  const { children, expanded, icon, labelKey, setExpanded } = props
 
   const { t } = useTranslation()
   const label = t(labelKey)
@@ -23,6 +24,7 @@ const GeoSection: React.FC<Props> = (props) => {
     <div className={classNames('nav-geo-section', { expanded })}>
       <div className="nav-geo-section__header">
         <Button
+          icon={icon}
           inverse={!expanded}
           label={label}
           onClick={() => setExpanded(!expanded)}
@@ -33,6 +35,10 @@ const GeoSection: React.FC<Props> = (props) => {
       <div className={classNames(`nav-geo-section__content`, { expanded })}>{expanded && children}</div>
     </div>
   )
+}
+
+GeoSection.defaultProps = {
+  icon: undefined,
 }
 
 export default GeoSection

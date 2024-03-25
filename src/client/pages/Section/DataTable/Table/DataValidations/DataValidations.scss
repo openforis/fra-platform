@@ -1,20 +1,25 @@
 @import 'src/client/style/partials';
 
+$colorError: darken($ui-destructive, 5%);
+
 .data-validations {
   margin-top: $spacing-xs;
-  color: $ui-destructive;
+  color: $colorError;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-column-gap: $spacing-xxxs;
-  font-size: $font-s;
+  font-size: $font-xs;
   align-items: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.4px;
 
   .msg {
     grid-column: 2;
   }
 
   svg.icon {
-    color: $ui-destructive;
+    color: $colorError;
     width: 12px;
     height: 12px;
   }

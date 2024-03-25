@@ -3,8 +3,6 @@ export const styles = [
     elementType: 'geometry',
     stylers: [
       {
-        // color: '#161e23',
-        // color: '#0b0e10',
         color: '#111111',
       },
     ],
@@ -234,8 +232,6 @@ export const styles = [
     elementType: 'geometry',
     stylers: [
       {
-        // color: '#0b0e10',
-        // color: '#0e101a',
         color: '#20292f',
       },
     ],

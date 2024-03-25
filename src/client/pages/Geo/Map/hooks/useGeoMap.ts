@@ -38,16 +38,18 @@ export const useGeoMap = (props: Props): Returned => {
       // There needs to be a default center, otherwise the map does not render
       center: { lat: 0, lng: 0 },
       disableDefaultUI: true,
-      fullscreenControl: true,
-      fullscreenControlOptions: {
-        position: google.maps.ControlPosition.TOP_RIGHT,
-      },
-      mapTypeControl: true,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
-        position: google.maps.ControlPosition.TOP_RIGHT,
-        style: google.maps.MapTypeControlStyle.DEFAULT,
-      },
+      fullscreenControl: false,
+      // full screen and map type hidden from map.
+      // fullscreenControlOptions: {
+      //   position: google.maps.ControlPosition.TOP_RIGHT,
+      // },
+      // TODO Add later custom map type buttons
+      mapTypeControl: false,
+      // mapTypeControlOptions: {
+      //   mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
+      //   position: google.maps.ControlPosition.BOTTOM_RIGHT,
+      //   style: google.maps.MapTypeControlStyle.DEFAULT,
+      // },
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       minZoom: 3,
       maxZoom: 15,
@@ -66,7 +68,8 @@ export const useGeoMap = (props: Props): Returned => {
   // Move and center the map to the new country location.
   useEffect(() => {
     if (!map || !countryIso) return
-
+    // map.setMapTypeId(google.maps.MapTypeId.ROADMAP|google.maps.MapTypeId.SATELLITE)
+    // map.addListener('zoom')
     getCountryBounds(countryIso).then((response) => {
       if (response?.data) {
         map.panTo(response.data.centroid)

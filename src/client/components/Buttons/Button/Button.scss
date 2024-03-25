@@ -5,10 +5,10 @@
   border-radius: 2px;
   border: 1px solid;
   cursor: pointer;
-  display: grid;
+  display: flex;
   font-weight: 600;
   line-height: 0;
-  justify-content: center;
+  justify-content: start;
   letter-spacing: 0.25px;
   text-decoration: none;
   text-transform: uppercase;
@@ -39,17 +39,12 @@
   }
 }
 
-// === with icon
-.button.withIcon {
-  grid-template-columns: auto 1fr;
-}
-
 // === size styles
 .button__size-xs {
   font-size: $font-xxxs;
   height: 20px;
   padding: 0 6px;
-  grid-column-gap: 3px;
+  gap: 3px;
 
   svg {
     height: 9px;
@@ -61,7 +56,7 @@
   font-size: $font-xxs;
   height: $spacing-s;
   padding: 0 $spacing-xxs;
-  grid-column-gap: $spacing-xxxs;
+  gap: $spacing-xxxs;
 
   svg {
     height: 12px;
@@ -73,7 +68,7 @@
   font-size: $font-s;
   height: 28px;
   padding: 0 10px;
-  grid-column-gap: $spacing-xxxs;
+  gap: $spacing-xxxs;
 
   svg {
     height: 15px;
@@ -89,6 +84,10 @@
   background-color: $colorPrimary;
   border-color: $colorPrimary;
   color: $colorSecondary;
+
+  svg {
+    color: $colorSecondary;
+  }
 
   &:hover {
     background-color: lighten($colorPrimary, $hoverPercent);

@@ -1,4 +1,4 @@
-import 'client/components/Navigation/NavGeo/Layer/AgreementLevelControl/AgreementLevelControl.scss'
+import './AgreementLevelControl.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
