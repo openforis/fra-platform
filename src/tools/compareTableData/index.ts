@@ -2,6 +2,7 @@ import 'tsconfig-paths/register'
 import 'dotenv/config'
 
 import * as fs from 'fs'
+import { setTimeout } from 'node:timers/promises'
 import { Page } from 'puppeteer'
 import { Cluster } from 'puppeteer-cluster'
 import { APIUtil } from 'tools/utils/API'
@@ -64,7 +65,7 @@ const _takeScreenshots = async (
 
 const extractTableData = async (page: Page, url: string): Promise<ExtractedData> => {
   await page.goto(url, { waitUntil: 'networkidle0' })
-  await page.waitForTimeout(2000)
+  await setTimeout(2000)
 
   const selector = '.fra-table.data-table'
   const tables = await page.$$(selector)
