@@ -47,10 +47,11 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  const [cachedPdfInfo, countryCycleLastUpdate] = await Promise.all([
+  const [cachedPdfInfo, countrySummary] = await Promise.all([
     CycleDataController.Report.getOne({ assessment, cycle, fileName }),
-    CycleDataController.getLastUpdate({ assessment, countryIso, cycle }),
+    CycleDataController.getCountrySummary({ assessment, countryIso, cycle }),
   ])
+  const countryCycleLastUpdate = countrySummary?.lastUpdate
 
   if (Objects.isEmpty(cachedPdfInfo)) {
     const pdfBuffer = await buildPdf(req)
@@ -60,8 +61,8 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
   }
 
   const shouldRefreshCache =
-    countryCycleLastUpdate.time === undefined ||
-    Date.parse(cachedPdfInfo.file.createdAt) < Date.parse(countryCycleLastUpdate.time) ||
+    countryCycleLastUpdate === undefined ||
+    Date.parse(cachedPdfInfo.file.createdAt) < Date.parse(countryCycleLastUpdate) ||
     forceRefresh === 'true'
 
   if (shouldRefreshCache) {
