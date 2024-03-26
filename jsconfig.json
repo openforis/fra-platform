@@ -2,15 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2019",
-    "baseUrl": "./",
-    "paths": {
-      "i18n/*": ["./src/i18n/*"],
-      "client/*": ["./src/client/*"],
-      "meta/*": ["./src/meta/*"],
-      "server/*": ["./src/server/*"],
-      "test/*": ["./src/test/*"],
-      "utils/*": ["./src/utils/*"]
-    }
+    "baseUrl": "./src"
   },
   "include": ["src"]
 }

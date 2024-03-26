@@ -65,6 +65,7 @@ const appConfig = {
       meta: path.resolve(__dirname, 'src/meta/'),
       server: path.resolve(__dirname, 'src/server/'),
       test: path.resolve(__dirname, 'src/test/'),
+      tools: path.resolve(__dirname, 'src/tools/'),
       utils: path.resolve(__dirname, 'src/utils/'),
     },
   },
