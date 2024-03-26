@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass } from 'meta/assessment'
+import { ODPs } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
@@ -19,10 +19,6 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useNationalClassNameComments } from '../../hooks'
 
 const columns: Columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
-
-const allowedClass = (nc: ODPNationalClass) => {
-  return nc.forestNaturalPercent !== null && Number(nc.forestNaturalPercent) > 0 && Number(nc.forestPercent) > 0
-}
 
 type Props = {
   canEditData: boolean
@@ -58,7 +54,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
-  if (!allowedClass(nationalClass)) {
+  if (!ODPs.hasNaturallyRegenerating(nationalClass)) {
     return null
   }
 
@@ -73,8 +69,8 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         className={classNames(`fra-table__cell`, {
           error: Boolean(validationErrorMessage),
         })}
-        data-tooltip-id={TooltipId.error}
         data-tooltip-content={validationErrorMessage}
+        data-tooltip-id={TooltipId.error}
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPrimaryForest}
@@ -94,8 +90,8 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
       {shouldRenderReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
-            title={name}
             subtitle={i18n.t('nationalDataPoint.naturallyRegeneratingForest')}
+            title={name}
             topicKey={Topics.getOdpClassReviewTopicKey(
               originalDataPoint.id,
               uuid,
