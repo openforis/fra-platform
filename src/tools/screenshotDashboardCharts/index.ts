@@ -1,35 +1,36 @@
-const axios = require('axios')
-const { Cluster } = require('puppeteer-cluster')
-const fs = require('fs')
-const path = require('path')
+import 'tsconfig-paths/register'
+import 'dotenv/config'
+
+import * as fs from 'fs'
+import * as path from 'path'
+import { Page } from 'puppeteer'
+import { Cluster } from 'puppeteer-cluster'
+import { APIUtil } from 'tools/utils/API'
+
+import { CountryIso } from 'meta/area'
+import { Lang } from 'meta/lang'
 
 const HOST = 'https://fra-data.fao.org'
 const ASSESSMENT_NAME = 'fra'
 const CYCLE_NAME = '2020'
-const API = `${HOST}/api`
 const BASE_URL = `${HOST}/assessments/${ASSESSMENT_NAME}/${CYCLE_NAME}`
 const DIR = path.join(__dirname, 'ss')
 
-const languages = ['ar', 'en', 'es', 'fr', 'ru', 'zh']
+const languages = Object.values(Lang)
 
-const _getCountryISOs = async () => {
-  const {
-    data: { countries },
-  } = await axios.get(`${API}/area/areas?assessmentName=${ASSESSMENT_NAME}&cycleName=${CYCLE_NAME}`)
-  return countries.map((country) => country.countryIso)
-}
 const _mkDir = () => {
-  if (!fs.existsSync(DIR)) {
-    fs.mkdirSync(DIR)
-  }
+  if (!fs.existsSync(DIR)) fs.mkdirSync(DIR)
 }
-const _takeScreenshots = async (countryISOs) => {
+
+type TaskProps = { page: Page; data: { countryIso: CountryIso; lang: Lang } }
+
+const _takeScreenshots = async (countryISOs: Array<CountryIso>) => {
   const cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_CONTEXT,
     maxConcurrency: 5,
   })
 
-  await cluster.task(async ({ page, data: { countryIso, lang } }) => {
+  await cluster.task(async ({ page, data: { countryIso, lang } }: TaskProps) => {
     // select page we want to screenshot
     const url = `${BASE_URL}/${countryIso}/home/overview/?lang=${lang}`
     await page.goto(url, { waitUntil: 'networkidle2' })
@@ -53,16 +54,19 @@ const _takeScreenshots = async (countryISOs) => {
       'naturally_regenerating_forest_area_1990_2020',
     ]
 
-    for (let i = 0; i < childElements.length; i++) {
+    for (let i = 0; i < childElements.length; i += 1) {
       const child = childElements[i]
       const title = titles[i]
 
       const fileName = `screenshot_${ASSESSMENT_NAME}_${CYCLE_NAME}_${countryIso}_${lang}_${title}.png`
+      // eslint-disable-next-line no-await-in-loop
       await child.screenshot({ path: path.join(DIR, fileName), type: 'jpeg', quality: 100 })
     }
   })
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const lang of languages) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const countryIso of countryISOs) {
       cluster.queue({ countryIso, lang })
     }
@@ -74,7 +78,11 @@ const _takeScreenshots = async (countryISOs) => {
 
 const exec = async () => {
   _mkDir()
-  const countryISOs = await _getCountryISOs()
+  const countryISOs =
+    (['FIN'] as Array<CountryIso>) ??
+    (await APIUtil.getCountries({ source: HOST, assessmentName: ASSESSMENT_NAME, cycleName: CYCLE_NAME })).map(
+      (country) => country.countryIso
+    )
   await _takeScreenshots(countryISOs)
 }
 
