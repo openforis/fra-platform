@@ -1,6 +1,5 @@
 import { errors as pgErrors } from 'pg-promise'
 
-import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { RepositoryItem } from 'meta/cycleData'
 import { File } from 'meta/file'
@@ -10,7 +9,6 @@ import { FileRepository } from 'server/repository/public/file'
 
 type Props = {
   assessment: Assessment
-  countryIso: CountryIso
   cycle: Cycle
   fileName: string
 }

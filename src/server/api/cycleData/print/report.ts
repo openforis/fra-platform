@@ -48,7 +48,7 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
   const [cachedPdfInfo, countryCycleLastUpdate] = await Promise.all([
-    CycleDataController.Report.getOne({ assessment, countryIso, cycle, fileName }),
+    CycleDataController.Report.getOne({ assessment, cycle, fileName }),
     CycleDataController.getLastUpdate({ assessment, countryIso, cycle }),
   ])
 
