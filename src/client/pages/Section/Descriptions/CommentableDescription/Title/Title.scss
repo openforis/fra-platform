@@ -7,7 +7,7 @@ div.description-title {
 
   &.editable {
     grid-column-gap: $spacing-xxxs;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
 }
 

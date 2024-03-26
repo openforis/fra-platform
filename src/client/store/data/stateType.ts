@@ -11,7 +11,7 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
-import { Contact } from 'meta/cycleData'
+import { Contact, HistoryItemSectionKey } from 'meta/cycleData'
 import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
@@ -43,10 +43,24 @@ export type RecordTableDataStatus = Record<
 
 export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
 
+// ==============================
+// History state types
+// ==============================
+
+type HistoryItemState = {
+  sectionLabelKey: string // example: title.headers.dataSource
+  sectionKey: HistoryItemSectionKey // example: nationalData-dataSources
+}
+
+export type HistoryState = {
+  items?: Record<HistoryItemSectionKey, HistoryItemState>
+}
+
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
   contacts: RecordContacts
   descriptions: Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
+  history: HistoryState
   nodeValueValidations: RecordAssessmentValidationsState
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>
   odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState

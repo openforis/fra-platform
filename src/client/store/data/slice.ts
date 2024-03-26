@@ -24,11 +24,13 @@ import { updateNodeValues } from './actions/updateNodeValues'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
 import { setNodeValueValidations } from './reducers/setNodeValueValidations'
+import { toggleHistory } from './reducers/toggleHistory'
 import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
   contacts: {},
   descriptions: {},
+  history: {},
   nodeValueValidations: {},
   nodeValuesEstimations: {},
   odpLastUpdatedTimestamp: {},
@@ -42,6 +44,7 @@ export const dataSlice = createSlice({
   reducers: {
     setNodeValueValidations,
     deleteOriginalDataPoint,
+    toggleHistory,
   },
 
   extraReducers: (builder) => {

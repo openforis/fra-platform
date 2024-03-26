@@ -22,6 +22,7 @@ module.exports = {
   filterCountries: 'Filter countries',
   fraPlatform: 'Fra platform',
   globalFRA: 'Global Forest Resources Assessment',
+  history: 'History',
   invitations: 'Invitations',
   invited: 'Invited',
   issues: 'Issues',
