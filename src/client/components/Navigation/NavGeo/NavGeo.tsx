@@ -4,6 +4,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { sections } from 'meta/geo'
 
 import { useOnUpdate } from 'client/hooks'
+import Icon from 'client/components/Icon'
 import GeoSection from 'client/components/Navigation/NavGeo/GeoSection'
 import LayersSection from 'client/components/Navigation/NavGeo/LayersSection'
 import SatelliteMosaic from 'client/components/Navigation/NavGeo/SatelliteMosaic'
@@ -40,6 +41,7 @@ const NavGeo: React.FC<Props> = (props) => {
       <GeoSection
         key={satelliteMosaicKey}
         expanded={sectionsExpanded[satelliteMosaicKey]}
+        icon={<Icon name="radar" />}
         labelKey="geo.satelliteMosaic"
         setExpanded={makeSetExpanded(satelliteMosaicKey)}
       >
@@ -52,6 +54,7 @@ const NavGeo: React.FC<Props> = (props) => {
           <React.Fragment key={`geo-nav-section-${key}`}>
             <GeoSection
               expanded={sectionsExpanded[titleKey]}
+              icon={<Icon name="layers" />}
               labelKey={titleKey}
               setExpanded={makeSetExpanded(titleKey)}
             >
