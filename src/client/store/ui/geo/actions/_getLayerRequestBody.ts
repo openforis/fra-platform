@@ -2,7 +2,7 @@ import { LayerRequestBody } from 'meta/api/request/geo/layer'
 import { CountryIso } from 'meta/area'
 import { ForestKey, LayerKey, LayerSource } from 'meta/geo'
 
-import { LayersSectionState, LayerState } from '../stateType'
+import { LayerFetchStatus, LayersSectionState, LayerState } from '../stateType'
 
 export const buildLayerData = (layerKey: LayerKey, layerState: LayerState): LayerSource => {
   return {
@@ -21,7 +21,11 @@ const _buildAgreementLayerData = (
   Object.keys(sectionState).forEach((layerKey) => {
     if (layerKey === ForestKey.Agreement) return
     const layerState = sectionState[layerKey as LayerKey]
-    if (layerState.selected) {
+    if (
+      layerState.selected &&
+      (layerKey !== ForestKey.CustomFnF ||
+        (layerState.options?.assetId && layerState.status === LayerFetchStatus.Ready))
+    ) {
       layers.push(buildLayerData(layerKey as LayerKey, layerState))
     }
   })

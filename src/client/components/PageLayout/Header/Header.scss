@@ -63,13 +63,10 @@
 }
 
 .app-header__menu {
-  justify-self: right;
-  display: none;
   align-items: center;
-
-  > * {
-    margin: 0 4px;
-  }
+  display: none;
+  gap: $spacing-xxxs;
+  justify-self: right;
 
   .popover-control__menu {
     top: 50px;

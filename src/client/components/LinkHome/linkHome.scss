@@ -5,15 +5,19 @@
   right: $spacing-xs;
   color: $text-link;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    color: $text-link;
+    height: 28px;
+    width: 28px;
+  }
 
   @include min-width($laptop) {
     position: unset;
-    margin-top: $spacing-xxs / 2;
     right: unset;
-  }
-
-  svg {
-    height: 22px;
   }
 
   &:hover {
@@ -23,5 +27,9 @@
   &.active {
     color: $ui-accent;
     pointer-events: none;
+
+    svg {
+      color: $ui-accent;
+    }
   }
 }
