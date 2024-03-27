@@ -20,22 +20,20 @@ const ButtonHistory: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const canEdit = useCanEditDescription({ sectionName })
-  const disabled = useIsDescriptionEditable({ sectionName, name })
+  const descriptionEditable = useIsDescriptionEditable({ sectionName, name })
+  const loading = false // TODO: useLoading..()
+  const disabled = loading || descriptionEditable
+
   const historyActive = useHistoryActive()
   const onClick = useToggleHistory({ name, sectionName })
 
   const isDataSources = name === CommentableDescriptionName.dataSources
 
   const history = useHistory()
+  // Show toggle button when browsing history for current section
   const currentSectionEnabled = !Objects.isEmpty(history.items?.[Histories.getHistoryItemSectionKey(sectionName, name)])
 
-  // Don't show button if
-  // ... history is active in another section
-  if (historyActive && !currentSectionEnabled) return null
-  // ... user can't edit and history is not active
-  if (!canEdit && !historyActive) return null
-  // ... if description is anything but data sources
-  if (!isDataSources) return null
+  if ((!canEdit || !isDataSources) && !currentSectionEnabled) return null
 
   return (
     <Button
