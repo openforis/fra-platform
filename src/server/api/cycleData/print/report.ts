@@ -1,6 +1,5 @@
 import { Response } from 'express'
-import { chromium } from 'playwright-chromium'
-import { PDFOptions } from 'puppeteer'
+import puppeteer, { CookieParam, PDFOptions } from 'puppeteer'
 import { Objects } from 'utils/objects'
 
 import { CycleRequest } from 'meta/api/request'
@@ -28,12 +27,15 @@ const buildPdf = async (req: Request): Promise<Buffer> => {
   const { assessmentName, countryIso, cycleName, lang, onlyTables } = req.query
 
   const url = Requests.serverUrl(req)
-  const browser = await chromium.launch({ chromiumSandbox: false })
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'], headless: true })
+  // const browser = await chromium.launch({ chromiumSandbox: false })
   // const browser = await chromium.launch({ args: ['--no-sandbox'], headless: true })
   const page = await browser.newPage()
 
-  const cookies = Object.entries(req.cookies).map(([name, value]: [string, string]) => ({ name, value, url }))
-  await page.context().addCookies(cookies)
+  const cookieEntries = Object.entries(req.cookies) as unknown as [string, string]
+  const cookies = cookieEntries.map<CookieParam>(([name, value]) => ({ name, value, url }))
+  // await page.context().addCookies(cookies)
+  await page.setCookie(...cookies)
 
   const tables = onlyTables === 'true' ? 'tables' : ''
   const params = new URLSearchParams({ lang })
@@ -44,7 +46,7 @@ const buildPdf = async (req: Request): Promise<Buffer> => {
   Logger.info(`=============== PDF URL DOWNLOAD: ${urlReportPage}`)
   Logger.info('')
   Logger.info('')
-  await page.goto(urlReportPage, { waitUntil: 'networkidle' })
+  await page.goto(urlReportPage, { waitUntil: 'networkidle0' })
   const pdf = await page.pdf(pdfOptions)
   await browser.close()
 
