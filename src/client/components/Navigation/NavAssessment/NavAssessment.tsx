@@ -9,11 +9,13 @@ import { Objects } from 'utils/objects'
 import { Areas, CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
+import { useHistoryActive } from 'client/store/data'
 import { useSections } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
 import Header from 'client/components/Navigation/NavAssessment/Header'
+import Placeholder from 'client/components/Navigation/NavAssessment/Placeholder'
 import NavigationSection from 'client/components/Navigation/NavAssessment/Section'
 import { Breakpoints } from 'client/utils'
 
@@ -26,8 +28,14 @@ const NavAssessment: React.FC = () => {
 
   const maxHeight = useMaxHeight()
   const [showSections, setShowSections] = useState<boolean>(false)
-
+  const historyActive = useHistoryActive()
   if (Objects.isEmpty(sections)) return null
+
+  // TODO: Switch between navigation and history
+  // Placeholder
+  if (historyActive) {
+    return <Placeholder />
+  }
 
   return (
     <div className="nav-assessment" style={{ maxHeight }}>

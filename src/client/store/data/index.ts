@@ -2,6 +2,7 @@ export { useCommentableDescriptionValue } from './hooks/useCommentableDescriptio
 export { useContacts } from './hooks/useContacts'
 export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
 export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
+export { useHistoryActive } from './hooks/useHistoryActive'
 export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
 export { useIsSomeTableDataFetching } from './hooks/useIsSomeTableDataFetching'
