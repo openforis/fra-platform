@@ -48,8 +48,8 @@ export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<Cou
 // ==============================
 
 type HistoryItemState = {
-  sectionLabelKey: string // example: title.headers.dataSource
-  sectionKey: HistoryItemSectionKey // example: nationalData-dataSources
+  sectionLabelKey: string
+  sectionKey: HistoryItemSectionKey
 }
 
 export type HistoryState = {
