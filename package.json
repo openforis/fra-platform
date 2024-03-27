@@ -6,7 +6,7 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "build": "run-s build:prod:client build:prod:server build:prod:server:resources && __heroku-postbuild",
+    "build": "run-s build:prod:client build:prod:server build:prod:server:resources && postbuild",
     "build:prod:client": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
     "build:prod:server": "yarn tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
     "build:prod:server:resources": "shx cp -Rf src/server/db/migration/* dist/server/db/migration/. && shx cp -Rf web-resources dist/ && shx cp -Rf src/server/static dist/server/",
@@ -14,7 +14,7 @@
     "clean": "shx rm -rf dist/",
     "heroku-prebuild": "echo \"//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}\" >> .npmrc",
     "heroku-cleanup": "cd node_modules/bcrypt && node-pre-gyp install --fallback-to-build",
-    "__heroku-postbuild": "mkdir ./.cache && mv /app/.cache/puppeteer ./.cache",
+    "postbuild": "mkdir ./.cache && mv /app/.cache/puppeteer ./.cache",
     "migrations:create": "./src/server/db/migration/create-migration.sh",
     "migrations:run": "./src/server/db/migration/run-migrations.sh",
     "migration-steps:run": "ts-node src/test/migrations/",
