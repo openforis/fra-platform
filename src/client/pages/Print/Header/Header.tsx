@@ -9,6 +9,7 @@ import { Routes } from 'meta/routes'
 
 import { useCountry } from 'client/store/area'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
@@ -23,11 +24,12 @@ const Header: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
   const { onlyTables } = useIsPrintRoute()
+  const lang = useLanguage()
 
   const downloadClassName = useButtonClassName({ iconName, label, noPrint, size })
   const onlyTablesClassName = useButtonClassName({ iconName, inverse: !onlyTables, label, noPrint, size })
 
-  const params = new URLSearchParams({ assessmentName, cycleName, countryIso, onlyTables: String(onlyTables) })
+  const params = new URLSearchParams({ assessmentName, countryIso, cycleName, lang, onlyTables: String(onlyTables) })
   const downloadHref = `${ApiEndPoint.CycleData.Print.Report.one()}?${params.toString()}`
   const PrintRoute = onlyTables ? Routes.Print : Routes.PrintTables
 
