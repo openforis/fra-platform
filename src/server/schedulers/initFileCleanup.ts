@@ -44,8 +44,7 @@ export const initFileCleanup = (connection: IORedis): Worker => {
   )
 
   queue.add(`${name}-scheduler`, undefined, {
-    // repeat: { pattern: '0 0 * * 0' },
-    repeat: { pattern: '*/3 * * * *' },
+    repeat: { pattern: '0 0 * * 0' },
     removeOnComplete: true,
     removeOnFail: false,
   })
