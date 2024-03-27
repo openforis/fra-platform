@@ -11,7 +11,7 @@ import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
-type Request = CycleRequest<{ forceRefresh?: string; lang: Lang; onlyTables?: string }>
+type Request = CycleRequest<{ force?: string; lang: Lang; onlyTables?: string }>
 
 const margin = '5mm'
 const pdfOptions: PDFOptions = {
@@ -30,11 +30,9 @@ const buildPdf = async (req: Request): Promise<Buffer> => {
   const page = await browser.newPage()
 
   const tables = onlyTables === 'true' ? 'tables' : ''
-
   const params = new URLSearchParams({ lang })
-  const url = `${Requests.serverUrl(
-    req
-  )}/assessments/${assessmentName}/${cycleName}/${countryIso}/print/${tables}?${params.toString()}`
+  const path = `/assessments/${assessmentName}/${cycleName}/${countryIso}/print/${tables}`
+  const url = `${Requests.serverUrl(req)}${path}?${params.toString()}`
 
   await Promises.each(Object.entries(req.cookies), ([name, value]: [string, string]) => {
     return page.setCookie({ name, value, url })
@@ -48,7 +46,7 @@ const buildPdf = async (req: Request): Promise<Buffer> => {
 }
 
 const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
-  const { assessmentName, countryIso, cycleName, forceRefresh } = req.query
+  const { assessmentName, countryIso, cycleName, force } = req.query
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -68,7 +66,7 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
   const shouldRefreshCache =
     countryCycleLastUpdate === undefined ||
     Date.parse(cachedPdfInfo.file.createdAt) < Date.parse(countryCycleLastUpdate) ||
-    forceRefresh === 'true'
+    force === 'true'
 
   if (shouldRefreshCache) {
     const pdfBuffer = await buildPdf(req)
