@@ -4,6 +4,7 @@ import { Promises } from 'utils/promises'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import {
+  Assessment,
   AssessmentNames,
   CommentableDescription,
   CommentableDescriptionValue,
@@ -91,8 +92,8 @@ const _fixDescription = async (description: CommentableDescription, schemaName: 
 }
 
 // Fix all data sources with old file api link
-export default async (client: BaseProtocol) => {
-  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+export default async (client: BaseProtocol, _assessment?: Assessment) => {
+  const assessment = _assessment ?? (await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client))
 
   await Promises.each(assessment.cycles, async (cycle: Cycle) => {
     const schemaName = Schemas.getNameCycle(assessment, cycle)
