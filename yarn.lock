@@ -10656,10 +10656,22 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
+playwright-chromium@^1.42.1:
+  version "1.42.1"
+  resolved "https://registry.yarnpkg.com/playwright-chromium/-/playwright-chromium-1.42.1.tgz#fd29e7f441889e3abdb79b55286c118ea06182b3"
+  integrity sha512-VelpmKJ+3G3QlAFfA9JIuEYyU8b8vQrlIPY3tIaGv+adn7mem56SP04e+zMudcxisfOT3suQOSTD1qs6YErdDg==
+  dependencies:
+    playwright-core "1.42.1"
+
 playwright-core@1.27.1:
   version "1.27.1"
   resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.27.1.tgz#840ef662e55a3ed759d8b5d3d00a5f885a7184f4"
   integrity sha512-9EmeXDncC2Pmp/z+teoVYlvmPWUC6ejSSYZUln7YaP89Z6lpAaiaAnqroUt/BoLo8tn7WYShcfaCh+xofZa44Q==
+
+playwright-core@1.42.1:
+  version "1.42.1"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.42.1.tgz#13c150b93c940a3280ab1d3fbc945bc855c9459e"
+  integrity sha512-mxz6zclokgrke9p1vtdy/COWBH+eOZgYUVVU34C73M+4j4HLlQJHtfcqiqqxpP0o8HhMkflvfbquLX5dg6wlfA==
 
 plimit-lit@^1.2.6:
   version "1.5.0"
