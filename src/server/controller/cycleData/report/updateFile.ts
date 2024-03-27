@@ -28,19 +28,13 @@ export const updateFile = async (props: Props): Promise<Returned> => {
   return DB.tx(async (t: BaseProtocol) => {
     const getRepositoryItemProps = { assessment, countryIso, cycle, fileName }
     const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps, t)
-    const fileToRemoveUuid = repositoryItem.fileUuid
 
     const pdfMulterFile = bufferToPdfMulterFile({ buffer, fileName })
     const newFile = await FileRepository.create({ file: pdfMulterFile }, t)
 
-    const updateRepositoryItemProps: RepositoryItem = {
-      ...repositoryItem,
-      fileUuid: newFile.uuid,
-    }
+    const updateRepositoryItemProps: RepositoryItem = { ...repositoryItem, fileUuid: newFile.uuid }
     const updateRepositoryProps = { assessment, cycle, repositoryItem: updateRepositoryItemProps }
     const target = await RepositoryRepository.update(updateRepositoryProps, t)
-
-    await FileRepository.removeOne({ uuid: fileToRemoveUuid }, t)
 
     return {
       fileSummary: newFile,
