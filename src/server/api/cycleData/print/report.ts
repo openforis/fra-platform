@@ -8,6 +8,7 @@ import { Lang } from 'meta/lang'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
+import { Logger } from 'server/utils/logger'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
@@ -38,7 +39,11 @@ const buildPdf = async (req: Request): Promise<Buffer> => {
   const params = new URLSearchParams({ lang })
   const path = `/assessments/${assessmentName}/${cycleName}/${countryIso}/print/${tables}`
   const urlReportPage = `${url}${path}?${params.toString()}`
-
+  Logger.info('')
+  Logger.info('')
+  Logger.info(`=============== PDF URL DOWNLOAD: ${urlReportPage}`)
+  Logger.info('')
+  Logger.info('')
   await page.goto(urlReportPage, { waitUntil: 'networkidle' })
   const pdf = await page.pdf(pdfOptions)
   await browser.close()
