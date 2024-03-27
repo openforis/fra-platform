@@ -71,6 +71,14 @@
   }
 }
 
+@include print {
+  .app-view__content {
+    height: unset;
+    min-height: unset;
+    padding: unset;
+  }
+}
+
 .app-view__page-header {
   display: flex;
   flex-flow: row wrap;

@@ -6,6 +6,7 @@
   border: 1px solid;
   cursor: pointer;
   display: flex;
+  font-family: $font-family-1;
   font-weight: 600;
   line-height: 0;
   justify-content: start;
@@ -13,6 +14,10 @@
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.2s;
+
+  svg {
+    transition: all 0.2s ease;
+  }
 
   &:disabled,
   &.disabled {
@@ -27,10 +32,6 @@
   &:hover {
     svg {
       transform: scale(1.1);
-    }
-
-    svg {
-      transition: all 0.2s ease;
     }
 
     svg.icon_hit-down {
@@ -76,9 +77,20 @@
   }
 }
 
+.button__size-l {
+  font-size: $font-m;
+  height: $spacing-m;
+  padding: 0 11px;
+  grid-column-gap: $spacing-xxs;
+
+  svg {
+    height: 17px;
+    width: 17px;
+  }
+}
+
 // === type styles
-@mixin withTheme($colorPrimary, $hoverInverseLighten) {
-  $colorSecondary: white;
+@mixin withTheme($colorPrimary, $hoverInverseLighten, $colorSecondary: white) {
   $hoverPercent: 4%;
 
   background-color: $colorPrimary;
@@ -117,14 +129,30 @@
   }
 }
 
-.button__type-primary {
-  @include withTheme($ui-accent, 62%);
+.button__type-anonymous {
+  @include withTheme($ui-border, 10%, transparent);
+
+  &.inverse {
+    svg {
+      color: $text-link;
+    }
+
+    &:hover {
+      svg {
+        color: darken($text-link, 5%);
+      }
+    }
+  }
+}
+
+.button__type-blackMap {
+  @include withTheme($ui-black-map, 80%);
 }
 
 .button__type-danger {
   @include withTheme($ui-destructive, 58%);
 }
 
-.button__type-blackMap {
-  @include withTheme($ui-black-map, 80%);
+.button__type-primary {
+  @include withTheme($ui-accent, 62%);
 }

@@ -13,6 +13,7 @@ export type CountrySummary = {
   /* last timestamp strings */
   lastAccepted: string
   lastEdit: string
+  lastEditOdpData: string
   lastForApproval: string
   lastInReview: string
   lastUpdate: string

@@ -65,6 +65,7 @@ const appConfig = {
       meta: path.resolve(__dirname, 'src/meta/'),
       server: path.resolve(__dirname, 'src/server/'),
       test: path.resolve(__dirname, 'src/test/'),
+      tools: path.resolve(__dirname, 'src/tools/'),
       utils: path.resolve(__dirname, 'src/utils/'),
     },
   },
@@ -80,11 +81,11 @@ const appConfig = {
       {
         // Proxy all server-served routes:
         context: ['/auth', '/img', '/css', '/video', '/api', '/definitions'],
-        target: process.env.APP_URI,
+        target: process.env.APP_URI ?? `http://localhost:9001`,
       },
       {
         context: ['/socket.io'],
-        target: process.env.APP_URI, // .replace('http','ws'),
+        target: process.env.APP_URI ?? `http://localhost:9001`, // .replace('http','ws'),
         ws: true,
       },
     ],
