@@ -49,7 +49,7 @@ const Placeholder: React.FC = () => {
       </div>
       <div>
         {data?.map((d, i) => (
-          <div className="nav-section__item">
+          <div key={d.time} className="nav-section__item">
             <RecentActivityItem datum={d} rowIndex={i} />
           </div>
         ))}
