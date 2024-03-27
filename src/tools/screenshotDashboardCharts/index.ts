@@ -3,6 +3,7 @@ import 'dotenv/config'
 
 import * as fs from 'fs'
 import * as path from 'path'
+import { setTimeout } from 'node:timers/promises'
 import { Page } from 'puppeteer'
 import { Cluster } from 'puppeteer-cluster'
 import { APIUtil } from 'tools/utils/API'
@@ -35,7 +36,7 @@ const _takeScreenshots = async (countryISOs: Array<CountryIso>) => {
     const url = `${BASE_URL}/${countryIso}/home/overview/?lang=${lang}`
     await page.goto(url, { waitUntil: 'networkidle2' })
 
-    await page.waitForTimeout(2000)
+    await setTimeout(2000)
 
     // select parent element
     const parentElement = await page.$('.app-view__content .statistical-factsheets')

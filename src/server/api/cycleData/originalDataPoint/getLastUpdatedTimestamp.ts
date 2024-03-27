@@ -12,7 +12,8 @@ export const getLastUpdatedTimestamp = async (req: CycleRequest, res: Response) 
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const timestamp = await CycleDataController.getLastEditOdpData({ assessment, cycle, countryIso })
+    const countrySummary = await CycleDataController.getCountrySummary({ assessment, countryIso, cycle })
+    const timestamp = { time: countrySummary?.lastEditOdpData }
 
     Requests.send(res, timestamp)
   } catch (e) {
