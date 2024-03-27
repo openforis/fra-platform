@@ -294,11 +294,20 @@
     <symbol id="icon-select-arrows" viewBox="0 0 20 20">
         <path d="M10 1l-5 7h10l-5-7zM10 19l5-7h-10l5 7z"></path>
     </symbol>
-    <symbol id="home" viewBox="0 0 24 24">
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-        <g id="SVGRepo_iconCarrier">
-            <path d="M4.441,8.1,12,3l7.559,5.1A1,1,0,0,1,20,8.931V20a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V8.931A1,1,0,0,1,4.441,8.1Z"></path>
+    <symbol id="home" viewBox="0 0 64 64">
+        <g>
+            <g id="Layer_1">
+                <polyline fill="none" stroke="currentColor" stroke-width="1.7008" stroke-linecap="round"
+                          stroke-linejoin="round" points="32.665,7
+				53.592,27.63 53.592,55.032 38.769,55.032 38.769,40.169 32.665,40.169 32.665,40.172 25.823,40.169 25.823,55.032 11,55.032
+				11,27.63 32.665,7.105 			"/>
+            </g>
+            <g id="Layer_2" display="none">
+                <g display="inline">
+                    <line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="79.5" y1="-6.5" x2="0" y2="64"/>
+                    <line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="0" y1="-6.5" x2="79.5" y2="64"/>
+                </g>
+            </g>
         </g>
     </symbol>
     <symbol id="radar" viewBox="0 0 100.00 100.00">
