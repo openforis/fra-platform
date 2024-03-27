@@ -26,7 +26,7 @@ const pdfOptions: PDFOptions = {
 const buildPdf = async (req: Request): Promise<Buffer> => {
   const { assessmentName, countryIso, cycleName, lang, onlyTables } = req.query
 
-  const browser = await puppeteer.launch({ headless: true })
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'], headless: true })
   const page = await browser.newPage()
 
   const tables = onlyTables === 'true' ? 'tables' : ''
