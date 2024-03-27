@@ -24,7 +24,7 @@ export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Conte
 
       const valid =
         Objects.isEmpty(parentValue) ||
-        categoryValues.some((value) => Objects.isEmpty(value)) ||
+        categoryValues.every((value) => Objects.isEmpty(value)) ||
         Numbers.eqWithTolerance(parentValue, categoriesSum)
 
       if (valid) {
