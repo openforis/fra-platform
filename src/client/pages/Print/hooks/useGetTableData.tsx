@@ -10,7 +10,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetTableData = () => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const tableSections = useTableSectionsCycle()
 
   const tableNames = useMemo<Array<TableName>>(
@@ -29,7 +29,7 @@ export const useGetTableData = () => {
 
   useEffect(() => {
     if (tableNames.length > 0) {
-      const propsFetch = { assessmentName, cycleName, countryIso: countryIso as CountryIso, tableNames }
+      const propsFetch = { assessmentName, cycleName, countryIso, tableNames }
       dispatch(DataActions.getTableData(propsFetch))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, tableNames])

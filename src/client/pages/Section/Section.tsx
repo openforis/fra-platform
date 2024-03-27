@@ -47,7 +47,7 @@ const Section: React.FC<Props> = (props: Props) => {
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)
 
   if (!subSection) {
-    return <Navigate to={Routes.Country.generatePath({ assessmentName, cycleName, countryIso })} replace />
+    return <Navigate replace to={Routes.Country.generatePath({ assessmentName, cycleName, countryIso })} />
   }
 
   if (onlyTables && isSectionDataEmpty) {
@@ -88,10 +88,10 @@ const Section: React.FC<Props> = (props: Props) => {
                 <React.Fragment key={table.props.name}>
                   <DataTable
                     assessmentName={assessmentName}
-                    sectionName={sectionName}
-                    sectionAnchor={anchor}
-                    table={table}
                     disabled={!canEditTableData}
+                    sectionAnchor={anchor}
+                    sectionName={sectionName}
+                    table={table}
                   />
                   {table.props.print?.pageBreakAfter && <div className="page-break" />}
                 </React.Fragment>
@@ -103,8 +103,6 @@ const Section: React.FC<Props> = (props: Props) => {
         {renderIntroductoryText && <Introduction />}
 
         {renderGeneralComments && <GeneralComments />}
-
-        <div className="page-break" />
       </div>
     </SectionContext.Provider>
   )

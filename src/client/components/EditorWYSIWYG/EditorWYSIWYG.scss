@@ -49,3 +49,9 @@ div.editorWYSIWYG {
     }
   }
 }
+
+@include print {
+  div.editorWYSIWYG {
+    height: unset;
+  }
+}

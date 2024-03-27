@@ -1,0 +1,36 @@
+@import 'src/client/style/partials';
+
+$toolbarHeight: $spacing-l;
+
+.print-header {
+  display: grid;
+  align-items: center;
+  grid-row-gap: $spacing-xxs;
+  padding-top: $toolbarHeight;
+}
+
+.print-header__toolbar {
+  align-items: center;
+  background-color: $ui-bg;
+  border-bottom: 1px solid $ui-border;
+  display: flex;
+  gap: $spacing-xs;
+  height: $toolbarHeight;
+  justify-content: end;
+  left: 0;
+  padding: 0 $spacing-s;
+  position: fixed;
+  top: 0;
+  width: 100dvw;
+  z-index: 1;
+}
+
+@media print {
+  .print-header {
+    padding-top: 0;
+  }
+
+  .print-header__toolbar {
+    display: none;
+  }
+}
