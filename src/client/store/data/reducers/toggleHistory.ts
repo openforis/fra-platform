@@ -11,16 +11,17 @@ type Payload = {
 }
 
 export const toggleHistory = (state: Draft<DataState>, action: PayloadAction<Payload>) => {
-  if (state.history.items) {
-    Objects.unset(state.history, ['items'])
-    return state
-  }
-
-  state.history.items = {
-    [action.payload.sectionKey]: {
-      sectionLabelKey: action.payload.sectionLabelKey,
-      sectionKey: action.payload.sectionKey,
-    },
+  if (state.history?.items?.[action.payload.sectionKey]) {
+    Objects.unset(state.history.items, [action.payload.sectionKey])
+  } else {
+    Objects.setInPath({
+      obj: state,
+      path: ['history', 'items', action.payload.sectionKey],
+      value: {
+        sectionLabelKey: action.payload.sectionLabelKey,
+        sectionKey: action.payload.sectionKey,
+      },
+    })
   }
   return state
 }

@@ -7,7 +7,7 @@ const getHistory = createSelector(
   (history) => history
 )
 
-const getHistoryItems = createSelector(getHistory, (items) => items)
+const getHistoryItems = createSelector(getHistory, (history) => history.items)
 
 export const DataSelector = {
   History: {
