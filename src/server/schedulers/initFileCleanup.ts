@@ -30,11 +30,13 @@ export const initFileCleanup = (connection: IORedis): Worker => {
         `
       const uuids = await client.map(query, [], (row) => row.uuid)
 
-      const files = await FileRepository.removeMany({ uuids })
+      if (uuids.length > 0) {
+        const files = await FileRepository.removeMany({ uuids })
 
-      files.forEach((file) => {
-        Logger.info(`[${name}] removed file ${file.name} (${file.uuid})`)
-      })
+        files.forEach((file) => {
+          Logger.info(`[${name}] removed file ${file.name} (${file.uuid})`)
+        })
+      }
 
       Logger.info(`[${name}] ** terminated`)
     },
@@ -42,7 +44,8 @@ export const initFileCleanup = (connection: IORedis): Worker => {
   )
 
   queue.add(`${name}-scheduler`, undefined, {
-    repeat: { pattern: '0 0 * * 0' },
+    // repeat: { pattern: '0 0 * * 0' },
+    repeat: { pattern: '*/3 * * * *' },
     removeOnComplete: true,
     removeOnFail: false,
   })
