@@ -15,7 +15,7 @@ export const useReviewSummaryListener = (): void => {
   const dispatch = useAppDispatch()
   const cycle = useCycle()
   const user = useUser()
-  const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
+  const editor = Users.hasEditorRole({ countryIso, cycle, user })
 
   useEffect(() => {
     const eventName = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })
@@ -24,16 +24,16 @@ export const useReviewSummaryListener = (): void => {
       dispatch(ReviewActions.getReviewSummary({ countryIso, assessmentName, cycleName }))
     }
 
-    if (hasRoleInCountry) {
+    if (editor) {
       getReviewSummary()
       SocketClient.on(eventName, getReviewSummary)
     }
 
     return () => {
       dispatch(ReviewActions.reset())
-      if (hasRoleInCountry) {
+      if (editor) {
         SocketClient.off(eventName, getReviewSummary)
       }
     }
-  }, [assessmentName, countryIso, cycleName, dispatch, hasRoleInCountry])
+  }, [assessmentName, countryIso, cycleName, dispatch, editor])
 }
