@@ -33,6 +33,7 @@ export const initRemindReviewers = (connection: IORedis): Worker => {
                   const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
                   return (
                     country.props.status === AssessmentStatus.review &&
+                    diffInDays > 6 &&
                     diffInDays % 7 === 0 &&
                     !Areas.isAtlantis(country.countryIso)
                   )
