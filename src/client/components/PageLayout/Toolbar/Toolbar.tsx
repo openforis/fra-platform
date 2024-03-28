@@ -16,7 +16,7 @@ import LinkHome from 'client/components/LinkHome'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
 import { Breakpoints } from 'client/utils'
 
-import LinksPrint from './LinksPrint'
+import Links from './Links'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const Toolbar: React.FC = () => {
@@ -26,7 +26,7 @@ const Toolbar: React.FC = () => {
   const country = useCountry(countryIso as CountryIso)
   const { print } = useIsPrintRoute()
   const user = useUser()
-  const isInGeoPage = useIsGeoRoute()
+  const geoRoute = useIsGeoRoute()
   const isAReviewer = useMemo<boolean>(() => Users.isAReviewer(user, cycle), [user, cycle])
 
   if (print) return null
@@ -54,7 +54,7 @@ const Toolbar: React.FC = () => {
         />
       </div>
 
-      {isInGeoPage && (
+      {geoRoute && (
         <MediaQuery minWidth={Breakpoints.tabletPortrait}>
           <div className="toolbar__geo-beta-message">FRA GEO - Beta version</div>
         </MediaQuery>
@@ -68,7 +68,7 @@ const Toolbar: React.FC = () => {
           </MediaQuery>
 
           <div className="toolbar__utils-container">
-            <LinksPrint />
+            <Links />
           </div>
         </>
       )}

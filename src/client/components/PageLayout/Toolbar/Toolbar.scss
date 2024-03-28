@@ -46,9 +46,15 @@
 }
 
 .toolbar__geo-beta-message {
-  font-size: $font-l;
-  text-align: center;
+  background-color: $ui-black-map;
+  border-radius: $spacing-xxxxs;
+  color: white;
+  font-size: $font-s;
+  left: 50%;
+  opacity: 0.6;
+  padding: $spacing-xxxxs $spacing-xs;
   position: absolute;
-  right: 40%;
-  transform: translateX(40%);
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateX(50%);
 }
