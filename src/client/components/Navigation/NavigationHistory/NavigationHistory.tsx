@@ -41,18 +41,20 @@ const NavigationHistory: React.FC = () => {
   const data = useData()
 
   return (
-    <div className="nav-assessment" style={{ maxHeight }}>
-      <div className="nav-section__header" role="button" tabIndex={0}>
-        {Object.values(history?.items).map((h) => {
-          return <div key={h.sectionKey}> {t(h.sectionLabelKey)} </div>
-        })}
-      </div>
-      <div>
-        {data?.map((d, i) => (
-          <div key={d.time} className="nav-section__item">
-            <RecentActivityItem datum={d} rowIndex={i} />
-          </div>
-        ))}
+    <div className="nav no-print">
+      <div className="nav-assessment" style={{ maxHeight }}>
+        <div className="nav-section__header" role="button" tabIndex={0}>
+          {Object.values(history?.items).map((h) => {
+            return <div key={h.sectionKey}> {t(h.sectionLabelKey)} </div>
+          })}
+        </div>
+        <div>
+          {data?.map((d, i) => (
+            <div key={d.time} className="nav-section__item">
+              <RecentActivityItem datum={d} rowIndex={i} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
