@@ -1,5 +1,5 @@
-// NOTE: This file is a placeholder and will be removed in next PR.
-// Purpose of this file is to show some content in UI for discussion.
+// Placeholder component moved to NavigationHistory.tsx
+// This is still a placeholder component.
 
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -31,7 +31,7 @@ const useData = () => {
   return data?.filter((d) => d.message === ActivityLogMessage.descriptionUpdate && d.section === sectionName)
 }
 
-const Placeholder: React.FC = () => {
+const NavigationHistory: React.FC = () => {
   const { t } = useTranslation()
   const maxHeight = useMaxHeight()
 
@@ -58,4 +58,4 @@ const Placeholder: React.FC = () => {
   )
 }
 
-export default Placeholder
+export default NavigationHistory
