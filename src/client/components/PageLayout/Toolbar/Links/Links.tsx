@@ -26,7 +26,7 @@ const Links: React.FC = () => {
   const classNamePrint = useButtonClassName({ iconName, inverse, size, type: ButtonType.anonymous })
   const classNameGeo = useButtonClassName({ iconName, inverse, size, type: ButtonType.anonymous })
 
-  const withGeo = Users.isReviewer(user, countryIso, cycle)
+  const withGeo = Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)
   const pathPrint = Routes.Print.generatePath({ assessmentName, cycleName, countryIso })
   const pathGeo = Routes.Geo.generatePath({ assessmentName, cycleName, countryIso })
 
