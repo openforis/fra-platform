@@ -1,5 +1,5 @@
-// NOTE: This file is a placeholder and will be removed in next PR.
-// Purpose of this file is to show some content in UI for discussion.
+// Placeholder component moved to NavigationHistory.tsx
+// This is still a placeholder component.
 
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -31,7 +31,7 @@ const useData = () => {
   return data?.filter((d) => d.message === ActivityLogMessage.descriptionUpdate && d.section === sectionName)
 }
 
-const Placeholder: React.FC = () => {
+const NavigationHistory: React.FC = () => {
   const { t } = useTranslation()
   const maxHeight = useMaxHeight()
 
@@ -41,21 +41,23 @@ const Placeholder: React.FC = () => {
   const data = useData()
 
   return (
-    <div className="nav-assessment" style={{ maxHeight }}>
-      <div className="nav-section__header" role="button" tabIndex={0}>
-        {Object.values(history?.items).map((h) => {
-          return <div key={h.sectionKey}> {t(h.sectionLabelKey)} </div>
-        })}
-      </div>
-      <div>
-        {data?.map((d, i) => (
-          <div key={d.time} className="nav-section__item">
-            <RecentActivityItem datum={d} rowIndex={i} />
-          </div>
-        ))}
+    <div className="nav no-print">
+      <div className="nav-assessment" style={{ maxHeight }}>
+        <div className="nav-section__header" role="button" tabIndex={0}>
+          {Object.values(history?.items).map((h) => {
+            return <div key={h.sectionKey}> {t(h.sectionLabelKey)} </div>
+          })}
+        </div>
+        <div>
+          {data?.map((d, i) => (
+            <div key={d.time} className="nav-section__item">
+              <RecentActivityItem datum={d} rowIndex={i} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
 }
 
-export default Placeholder
+export default NavigationHistory
