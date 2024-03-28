@@ -1,0 +1,23 @@
+@import 'src/client/style/partials';
+
+$side-panel-notch-height: $spacing-xxl;
+$side-panel-notch-width: $spacing-s;
+$side-panel-y-margin: $spacing-l;
+
+.geo-statistics-side-panel {
+  background-color: rgba($ui-bg, 0.1);
+  border-top-left-radius: $spacing-xxxxs;
+  bottom: 0;
+  box-shadow: 0 0 1px 1px rgba($ui-black-map, 0.1);
+  display: grid;
+  max-height: calc(100dvh - #{$ui-app-area-select-height} - #{$ui-app-header-height});
+  overflow-y: auto;
+  padding: $spacing-xs;
+  position: absolute;
+  right: 0;
+  transition: all 0.2s ease;
+
+  &.expanded {
+    grid-template-columns: minmax($ui-app-navigation-width, 35vw);
+  }
+}

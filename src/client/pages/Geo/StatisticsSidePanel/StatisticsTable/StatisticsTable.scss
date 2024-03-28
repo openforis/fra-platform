@@ -1,0 +1,23 @@
+@import 'src/client/style/partials';
+
+.geo-statistics-table__container {
+  color: $text-body;
+  display: grid;
+  font-size: $font-xxs;
+
+  div.data-cell.header {
+    background-color: darken($ui-bg, 4%);
+    font-weight: 700;
+    padding: $spacing-xxxs;
+    text-transform: uppercase;
+  }
+
+  div.data-cell:not(.header) {
+    font-weight: 400;
+    padding: $spacing-xxxxs $spacing-xxxs;
+  }
+}
+
+.geo-statistics-export-button__container {
+  justify-self: start;
+}

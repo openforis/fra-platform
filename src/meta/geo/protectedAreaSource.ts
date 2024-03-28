@@ -10,23 +10,23 @@ export const protectedAreaLayersMetadata: Record<ProtectedAreaKey, LayerMetadata
   [ProtectedAreaKey.FilteredWDPA]: {
     palette: ['#0f9ba6'],
     scale: 30,
-    title: 'Filtered WDPA',
+    titleKey: 'geo.sections.protectedArea.layerTitles.filteredWdpa',
   },
   [ProtectedAreaKey.WDPA]: {
     palette: ['#2ed033'],
     scale: 0,
-    title: 'WDPA',
+    titleKey: 'geo.sections.protectedArea.layerTitles.wdpa',
   },
   [ProtectedAreaKey.CustomPA]: {
-    palette: ['#f6e594'],
+    palette: ['#d5c266'],
     scale: 0,
-    title: 'Custom Protected Area',
+    titleKey: 'geo.sections.protectedArea.layerTitles.customProtectedArea',
   },
 }
 
 export const protectedAreaLayers: LayerSection = {
   key: LayerSectionKey.ProtectedArea,
-  title: 'Protected Area Layers',
+  titleKey: 'geo.sections.protectedArea.title',
   layers: [
     {
       key: ProtectedAreaKey.FilteredWDPA,

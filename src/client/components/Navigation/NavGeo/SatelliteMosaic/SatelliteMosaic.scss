@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.geo-satellite-mosaic {
+  display: grid;
+  grid-row-gap: $spacing-xs;
+
+  .button-checkbox {
+    justify-self: start;
+  }
+}

@@ -24,7 +24,11 @@ export const IndicatorsContainer: React.FC<IndicatorsContainerProps> = (props) =
 export const DropdownIndicator: React.FC<DropdownIndicatorProps> = (props) => {
   const { isDisabled } = props
 
-  return <div className={classNames('select__dropdownIndicator', { isDisabled })} />
+  return (
+    <div className={classNames('select__dropdownIndicator', { isDisabled })}>
+      <Icon className="icon-sub" name="icon-select-arrows" />
+    </div>
+  )
 }
 
 export const ClearIndicator: React.FC<ClearIndicatorProps> = (props) => {
@@ -33,7 +37,7 @@ export const ClearIndicator: React.FC<ClearIndicatorProps> = (props) => {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <components.ClearIndicator {...rest} className={classNames(className, 'select__clearIndicator')}>
-      <Icon name="remove" />
+      <Icon className="icon-sub" name="remove" />
     </components.ClearIndicator>
   )
 }

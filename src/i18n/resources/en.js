@@ -8,6 +8,7 @@ const dataSource = require('./en/dataSource')
 const email = require('./en/email')
 const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
+const geo = require('./en/geo')
 const landing = require('./en/landing')
 const login = require('./en/login')
 const panEuropean = require('./en/panEuropean/panEuropean')
@@ -25,6 +26,7 @@ module.exports.translation = {
   email,
   fra,
   generalValidation,
+  geo,
   landing,
   login,
   panEuropean,

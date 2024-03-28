@@ -5,3 +5,5 @@ export interface MosaicOptions {
 }
 
 export type MosaicSource = 'sentinel' | 'landsat'
+
+export type MosaicLayerKey = 'mosaic'

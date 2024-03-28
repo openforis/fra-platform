@@ -1,0 +1,26 @@
+@import 'src/client/style/partials';
+
+.geo-options-grid {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  grid-column-gap: $spacing-xxs;
+  grid-row-gap: $spacing-xxs;
+}
+
+.geo-options-grid__flex {
+  display: flex;
+  gap: $spacing-xxs;
+}
+
+.geo-options-grid__one-col {
+  grid-column: 1/-1;
+
+  &.centered {
+    justify-self: center;
+  }
+}
+
+.geo-options-grid__error {
+  color: $ui-destructive;
+}

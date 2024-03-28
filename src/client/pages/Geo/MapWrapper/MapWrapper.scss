@@ -1,0 +1,8 @@
+@import 'src/client/style/partials';
+
+.geo-map-error-message {
+  align-self: center;
+  color: $ui-destructive;
+  font-size: $font-l;
+  margin: 0 auto;
+}

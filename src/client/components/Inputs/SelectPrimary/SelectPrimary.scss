@@ -1,0 +1,75 @@
+@import 'src/client/style/partials';
+
+// only size s for now (for size proportion see ButtonSize)
+$btnHeight: $spacing-s;
+
+div.select-primary__container {
+  background-color: $ui-accent;
+  border: 1px solid $ui-accent;
+
+  div.select__control {
+    min-height: $btnHeight;
+    padding: 0 $spacing-xxs;
+  }
+
+  div.select__valueContainer {
+    font-size: $font-xs;
+  }
+
+  div.select__singleValue {
+    color: white;
+  }
+
+  div.select__dropdownIndicator {
+    svg {
+      color: white;
+      height: 12px;
+      width: 12px;
+    }
+  }
+
+  // menu and options
+  div.select__menu {
+    border-color: $ui-accent;
+    font-size: $font-xs;
+
+    &.bottom {
+      margin-top: 1px;
+    }
+
+    &.top {
+      margin-bottom: 1px;
+    }
+  }
+
+  div.select__option {
+    padding: $spacing-xxxs 6px;
+
+    &.isFocused {
+      background-color: rgba($ui-accent, 0.1);
+    }
+
+    &.isSelected {
+      color: $ui-accent;
+    }
+  }
+
+  // inverse style , value is empty
+  &.inverse {
+    background-color: white;
+
+    div.select__placeholder {
+      color: rgba(darken($ui-accent, 10%), 0.5);
+    }
+
+    div.select__singleValue {
+      color: $ui-accent;
+    }
+
+    div.select__dropdownIndicator {
+      svg {
+        color: $ui-accent;
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.geo-custom-assest-control {
+  align-items: center;
+  grid-column-gap: $spacing-xxxs;
+
+  input {
+    padding: 3px;
+  }
+}

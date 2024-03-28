@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
 import { LayerSectionKey } from 'meta/geo'
-import { LayerKey, LayerSource } from 'meta/geo/layer'
+import { CUSTOM_RECIPE_KEY, LayerKey, LayerSource } from 'meta/geo/layer'
 
 import { RootState } from 'client/store/RootState'
 import { GeoActions } from 'client/store/ui/geo/slice'
@@ -24,7 +24,7 @@ export const toggleLayer = createAsyncThunk<void, Params>(
 
     const currentLayerSelected = layerState?.selected ?? false
     dispatch(GeoActions.setLayerSelected({ sectionKey, layerKey, selected: !currentLayerSelected }))
-    dispatch(GeoActions.setLayerSectionRecipeName({ recipe: 'custom', sectionKey }))
+    dispatch(GeoActions.setLayerSectionRecipeName({ recipe: CUSTOM_RECIPE_KEY, sectionKey }))
 
     // If the layer is now selected, doesn't have a mapId cached and is visible, fetch it
     const currentMapId = layerState?.mapId

@@ -9,11 +9,13 @@ export enum ButtonSize {
 
 export enum ButtonType {
   anonymous = 'anonymous',
+  blackMap = 'blackMap',
   danger = 'danger',
   primary = 'primary',
 }
 
 export type ButtonProps = Pick<InputHTMLAttributes<HTMLButtonElement>, 'className' | 'disabled' | 'onClick'> & {
+  icon?: React.ReactNode
   iconName?: string
   inverse?: boolean
   label?: React.ReactNode

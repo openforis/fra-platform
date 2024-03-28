@@ -1,0 +1,43 @@
+@import 'src/client/style/partials';
+
+.nav-geo-section {
+  display: grid;
+  padding: $spacing-xs 0;
+  transition: all 0.1s ease;
+
+  &.expanded {
+    position: sticky;
+    top: 0;
+    background-color: rgba($ui-bg, 0.98);
+    border-radius: $spacing-xxxxs;
+    box-shadow: 0 0 1px 1px rgba($ui-black-map, 0.5);
+  }
+}
+
+.nav-geo-section__header {
+  display: grid;
+  justify-items: center;
+
+  button.button.inverse {
+    background-color: rgba(white, 0.85);
+
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+.nav-geo-section__content {
+  display: grid;
+  grid-row-gap: $spacing-xxs;
+
+  &.expanded {
+    padding: $spacing-xs $spacing-xs 0;
+    transition: max-height 0.25s ease-out;
+  }
+
+  &:not(.expanded) {
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+  }
+}

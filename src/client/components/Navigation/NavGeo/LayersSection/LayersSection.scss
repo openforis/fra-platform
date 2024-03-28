@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+div.geo-layers-section {
+  grid-column-gap: $spacing-xxxs;
+  grid-row-gap: $spacing-xxxs;
+  grid-template-columns: 200px 1fr;
+
+  button.button {
+    justify-items: start;
+  }
+}

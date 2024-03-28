@@ -30,10 +30,10 @@ $ui-accent-light: #c4e7eb;
 $ui-accent-light-extra: #dbf1f5;
 $ui-destructive: #d0021b;
 $ui-alert: #f58020;
+$ui-black-map: #161e23;
 
 $ui-input-focus: rgba(219, 241, 245, 0.25); //$ui-accent-light-extra 0.2
 $ui-edit-border-color: #939393;
-$ui-edit-background-error: lighten($ui-destructive, 50%);
 
 //Theme 2
 $ui-accent-2: #d46e33;
@@ -45,12 +45,13 @@ $ui-status-review: #ffbb33;
 $ui-thin-border: 1px solid $ui-border;
 $ui-app-review-width: 288px;
 $ui-app-header-height: 64px;
-$ui-app-area-select-height: 45px;
+$ui-app-area-select-height: 50px;
 $ui-app-navigation-width: 340px;
 
 $ui-geo-menu-button-width: 200px;
 $ui-geo-menu-button-spacing: $spacing-m;
 
+$z-index-geo-menu-layers: 9;
 $z-index-area-selector: 10;
 $z-index-panel-review: 15;
 $z-index-popover: 20;

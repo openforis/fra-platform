@@ -11,7 +11,7 @@ import { useValue } from './hooks/useValue'
 import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
-  const { disabled, isMulti, options } = props
+  const { classNames: classes, disabled, isClearable, isMulti, options, placeholder } = props
 
   const value = useValue(props)
   const onChange = useOnChange(props)
@@ -19,7 +19,7 @@ const Select: React.FC<SelectProps> = (props) => {
   return (
     <ReactSelect
       classNames={{
-        container: () => classNames('select__container'),
+        container: () => classNames('select__container', classes?.container),
         control: ({ isDisabled, isFocused }) => classNames('select__control', { isDisabled, isFocused }),
         group: () => 'select__group',
         groupHeading: () => 'select__groupHeading',
@@ -30,12 +30,13 @@ const Select: React.FC<SelectProps> = (props) => {
         multiValueLabel: ({ isDisabled }) => classNames('select__multiValueLabel', { isDisabled }),
         multiValueRemove: ({ isDisabled }) => classNames('select__multiValueRemove', { isDisabled }),
         option: ({ isFocused, isSelected }) => classNames('select__option', { isFocused, isSelected }),
+        placeholder: () => `select__placeholder`,
         singleValue: () => 'select__singleValue',
         valueContainer: () => 'select__valueContainer',
       }}
       closeMenuOnSelect={!isMulti}
       components={{ ClearIndicator, DropdownIndicator, IndicatorsContainer, IndicatorSeparator: null }}
-      isClearable
+      isClearable={isClearable}
       isDisabled={disabled}
       isMulti={isMulti}
       isSearchable
@@ -43,10 +44,15 @@ const Select: React.FC<SelectProps> = (props) => {
       menuPosition="fixed"
       onChange={onChange}
       options={options}
-      placeholder=""
+      placeholder={placeholder ?? ''}
       value={value}
     />
   )
+}
+
+Select.defaultProps = {
+  // eslint-disable-next-line react/default-props-match-prop-types
+  isClearable: true,
 }
 
 export default Select

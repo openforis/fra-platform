@@ -15,7 +15,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas: 'content';
-
+  position: relative;
   //&.navigation-on {
   //  grid-template-columns: $ui-app-navigation-width 1fr;
   //}
