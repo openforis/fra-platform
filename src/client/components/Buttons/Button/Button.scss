@@ -133,6 +133,8 @@
   @include withTheme($ui-border, 10%, transparent);
 
   &.inverse {
+    border-color: transparent;
+
     svg {
       color: $text-link;
     }

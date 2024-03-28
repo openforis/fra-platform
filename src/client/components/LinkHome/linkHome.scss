@@ -10,7 +10,7 @@
   justify-content: center;
 
   svg {
-    color: $text-link;
+    color: darken($text-link, 10%);
     height: 28px;
     width: 28px;
   }
