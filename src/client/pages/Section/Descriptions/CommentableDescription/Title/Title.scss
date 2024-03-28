@@ -2,12 +2,11 @@
 
 div.description-title {
   align-items: center;
-  display: grid;
-  justify-self: start;
+  display: flex;
+  justify-content: flex-start;
 
   &.editable {
-    grid-column-gap: $spacing-xxxs;
-    grid-template-columns: 1fr auto;
+    gap: $spacing-xxxs;
   }
 }
 

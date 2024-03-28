@@ -26,7 +26,6 @@ const NavAssessment: React.FC = () => {
 
   const maxHeight = useMaxHeight()
   const [showSections, setShowSections] = useState<boolean>(false)
-
   if (Objects.isEmpty(sections)) return null
 
   return (
