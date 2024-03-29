@@ -4,7 +4,6 @@ import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
-import { useOnUpdate } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 import { mapController } from 'client/utils'
@@ -65,10 +64,6 @@ export const useGeoMap = (props: Props): Returned => {
     setMap(mapSetup)
     dispatch(GeoActions.setMapAvailability(true))
   }, [countryIso, dispatch, map, mapTypeId, maxZoom, minZoom, ref, viewport, zoom])
-
-  useOnUpdate(() => {
-    mapController.getMap().setMapTypeId(mapTypeId)
-  }, [mapTypeId])
 
   // Move and center the map to the new country location.
   useEffect(() => {

@@ -17,3 +17,10 @@
     }
   }
 }
+
+.toolbar-options__group {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  height: 100%;
+}
