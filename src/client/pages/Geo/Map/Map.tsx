@@ -6,13 +6,12 @@ import { useMapLayersHandler } from './hooks/useMapLayersHandler'
 
 type Props = {
   viewport?: google.maps.LatLngBoundsLiteral
-  zoom?: number
 }
 
 const Map: React.FC<React.PropsWithChildren<Props>> = (props) => {
-  const { viewport, children, zoom } = props
+  const { viewport, children } = props
 
-  const { map, ref } = useGeoMap({ viewport, zoom })
+  const { map, ref } = useGeoMap({ viewport })
 
   useMapLayersHandler()
 
@@ -26,7 +25,6 @@ const Map: React.FC<React.PropsWithChildren<Props>> = (props) => {
 
 Map.defaultProps = {
   viewport: null,
-  zoom: 4,
 }
 
 export default Map

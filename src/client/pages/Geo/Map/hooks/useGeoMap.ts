@@ -13,7 +13,6 @@ import { styles } from './styles'
 
 type Props = {
   viewport: google.maps.LatLngBoundsLiteral | null
-  zoom: number
 }
 
 type Returned = {
@@ -22,10 +21,10 @@ type Returned = {
 }
 
 export const useGeoMap = (props: Props): Returned => {
-  const { viewport, zoom } = props
+  const { viewport } = props
 
   const dispatch = useAppDispatch()
-  const { mapTypeId } = useGeoMapOptions()
+  const { mapTypeId, maxZoom, minZoom, zoom } = useGeoMapOptions()
 
   const ref = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
@@ -53,8 +52,8 @@ export const useGeoMap = (props: Props): Returned => {
       //   style: google.maps.MapTypeControlStyle.DEFAULT,
       // },
       mapTypeId,
-      minZoom: 3,
-      maxZoom: 15,
+      minZoom,
+      maxZoom,
       rotateControl: true,
       styles,
       zoom,
@@ -65,7 +64,7 @@ export const useGeoMap = (props: Props): Returned => {
     mapController.setMap(mapSetup)
     setMap(mapSetup)
     dispatch(GeoActions.setMapAvailability(true))
-  }, [countryIso, dispatch, map, mapTypeId, ref, viewport, zoom])
+  }, [countryIso, dispatch, map, mapTypeId, maxZoom, minZoom, ref, viewport, zoom])
 
   useOnUpdate(() => {
     mapController.getMap().setMapTypeId(mapTypeId)

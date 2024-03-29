@@ -1,3 +1,4 @@
+import './GeoOptions.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useNavigationType } from 'react-router-dom'
@@ -38,21 +39,55 @@ const GeoOptions: React.FC = () => {
   if (geoRoute) {
     return (
       <>
-        <Button
-          inverse={mapTypeId === 'satellite'}
-          label={t('geo.map')}
-          onClick={() => setMapTypeId(google.maps.MapTypeId.ROADMAP)}
-          size={ButtonSize.m}
-          type={ButtonType.blackMap}
-        />
+        <div className="geo-route-options__group">
+          <Button
+            iconName="gps-not-fixed"
+            inverse
+            onClick={() => {
+              // TODO
+            }}
+            size={ButtonSize.m}
+            type={ButtonType.blackMap}
+          />
+        </div>
         <div className="toolbar__separator" />
-        <Button
-          inverse={mapTypeId === 'roadmap'}
-          label={t('geo.satellite')}
-          onClick={() => setMapTypeId(google.maps.MapTypeId.SATELLITE)}
-          size={ButtonSize.m}
-          type={ButtonType.blackMap}
-        />
+        <div className="geo-route-options__group">
+          <Button
+            iconName="plus-dashed"
+            inverse
+            onClick={() => {
+              // TODO
+            }}
+            size={ButtonSize.m}
+            type={ButtonType.blackMap}
+          />
+          <Button
+            iconName="minus-dashed"
+            inverse
+            onClick={() => {
+              // TODO
+            }}
+            size={ButtonSize.m}
+            type={ButtonType.blackMap}
+          />
+        </div>
+        <div className="toolbar__separator" />
+        <div className="geo-route-options__group">
+          <Button
+            inverse={mapTypeId === 'satellite'}
+            label={t('geo.map')}
+            onClick={() => setMapTypeId(google.maps.MapTypeId.ROADMAP)}
+            size={ButtonSize.m}
+            type={ButtonType.blackMap}
+          />
+          <Button
+            inverse={mapTypeId === 'roadmap'}
+            label={t('geo.satellite')}
+            onClick={() => setMapTypeId(google.maps.MapTypeId.SATELLITE)}
+            size={ButtonSize.m}
+            type={ButtonType.blackMap}
+          />
+        </div>
         <div className="toolbar__separator" />
         <Button
           iconName="earth"

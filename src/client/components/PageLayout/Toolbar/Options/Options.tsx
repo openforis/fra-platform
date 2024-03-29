@@ -1,6 +1,8 @@
 import './Options.scss'
 import React from 'react'
 
+import classNames from 'classnames'
+
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
@@ -19,7 +21,7 @@ const Options: React.FC = () => {
   const withGeo = Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)
 
   return (
-    <div className="toolbar-options">
+    <div className={classNames('toolbar-options', { geoRoute })}>
       {!geoRoute && <LinkPrint />}
 
       {withGeo && <GeoOptions />}
