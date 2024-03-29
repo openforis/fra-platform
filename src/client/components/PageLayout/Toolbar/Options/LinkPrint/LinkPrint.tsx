@@ -1,8 +1,5 @@
-import './LinkPrint.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-import classNames from 'classnames'
 
 import { Routes } from 'meta/routes'
 
@@ -21,7 +18,7 @@ const LinkPrint: React.FC = () => {
   const path = Routes.Print.generatePath({ assessmentName, cycleName, countryIso })
 
   return (
-    <Link className={classNames(classNamePrint, 'link-print')} target="_blank" to={path}>
+    <Link className={classNamePrint} target="_blank" to={path}>
       <Icon className="icon-no-margin icon-sub" name="small-print" />
     </Link>
   )
