@@ -1,21 +1,17 @@
 import { useEffect } from 'react'
 
 import { Sockets } from 'meta/socket'
-import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
-import { useCycle } from 'client/store/assessment'
 import { ReviewActions } from 'client/store/ui/review'
-import { useUser } from 'client/store/user'
+import { useCanEditCycleData } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useReviewSummaryListener = (): void => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const dispatch = useAppDispatch()
-  const cycle = useCycle()
-  const user = useUser()
-  const editor = Users.hasEditorRole({ countryIso, cycle, user })
+  const editor = useCanEditCycleData()
 
   useEffect(() => {
     const eventName = Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName })

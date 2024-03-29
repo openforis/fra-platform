@@ -37,6 +37,14 @@ export const useUserCycles = (): Array<Cycle> => {
 }
 
 // TODO: move below auth hook under useAuth (future task)
+export const useCanEditCycleData = (): boolean => {
+  const user = useUser()
+  const country = useAssessmentCountry()
+  const cycle = useCycle()
+
+  return Authorizer.canEditCycleData({ cycle, country, user })
+}
+
 export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
   const user = useUser()
   const section = useSection(sectionName)
@@ -46,7 +54,8 @@ export const useCanEdit = (sectionName: string, permission = CollaboratorEditPro
   return Authorizer.canEditData({ country, cycle, permission, section, user })
 }
 
-const useCanEditSection = (sectionName: string, permission: CollaboratorEditPropertyType) => {
+// edit enabled
+const useIsEditSectionEnabled = (sectionName: string, permission: CollaboratorEditPropertyType) => {
   const isDataLocked = useIsDataLocked()
   const { print } = useIsPrintRoute()
   const canEdit = useCanEdit(sectionName, permission)
@@ -55,10 +64,10 @@ const useCanEditSection = (sectionName: string, permission: CollaboratorEditProp
 }
 
 export const useIsEditTableDataEnabled = (sectionName: string) =>
-  useCanEditSection(sectionName, CollaboratorEditPropertyType.tableData)
+  useIsEditSectionEnabled(sectionName, CollaboratorEditPropertyType.tableData)
 
 export const useCanEditDescription = (props: { sectionName: SectionName }): boolean =>
-  useCanEditSection(props.sectionName, CollaboratorEditPropertyType.descriptions)
+  useIsEditSectionEnabled(props.sectionName, CollaboratorEditPropertyType.descriptions)
 
 export const useIsDescriptionEditable = (props: {
   sectionName: SectionName
