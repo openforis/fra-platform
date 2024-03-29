@@ -5,6 +5,8 @@ import { CommentableDescriptionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { setValue } from 'client/store/data/reducers/setValue'
+
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { createContact } from './actions/createContact'
@@ -45,6 +47,7 @@ export const dataSlice = createSlice({
     setNodeValueValidations,
     deleteOriginalDataPoint,
     toggleHistory,
+    setValue,
   },
 
   extraReducers: (builder) => {
