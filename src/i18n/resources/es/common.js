@@ -48,6 +48,7 @@ module.exports = {
   submittedToReview: 'Enviado para revisión',
   tier: 'Nivel',
   tiers: { notSelected: '', high: 'Alto', medium: 'Medio', low: 'Bajo' },
+  totalPercentage: 'Porcentaje total',
   trend: 'Tendencia',
   unknown: 'Ninguno/desconocido',
   unselectAll: 'Deseleccionar todo',
