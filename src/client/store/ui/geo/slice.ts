@@ -56,7 +56,7 @@ const initialState: GeoState = {
     mapTypeId: 'roadmap',
     maxZoom: 15,
     minZoom: 3,
-    zoom: 4,
+    zoom: 6,
   },
   mosaicOptions: {
     applied: { ...initialMosaicOptions },
