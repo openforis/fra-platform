@@ -19,13 +19,14 @@ type Props = {
 const EditorWYSIWYG: React.FC<Props> = (props: Props) => {
   const { disabled, onChange, options, value } = props
 
-  const { config, configReadOnly } = useConfigs({ options })
-  const onBlur = useOnBlur({ onChange })
+  const { configs, jodit } = useConfigs({ options })
+
+  const onBlur = useOnBlur({ jodit, onChange, value })
 
   return (
     <div className={classNames('editorWYSIWYG', { disabled })}>
-      {disabled && <JoditEditor config={configReadOnly} value={value} />}
-      {!disabled && <JoditEditor config={config} onBlur={onBlur} value={value} />}
+      {disabled && <JoditEditor config={configs.configReadOnly} value={value} />}
+      {!disabled && <JoditEditor config={configs.config} onBlur={onBlur} value={value} />}
     </div>
   )
 }
