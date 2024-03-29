@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useNavigationType } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
@@ -18,6 +18,7 @@ const size = ButtonSize.l
 const GeoOptions: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const navigationType = useNavigationType()
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const geoRoute = useIsGeoRoute()
@@ -32,6 +33,7 @@ const GeoOptions: React.FC = () => {
   )
 
   const pathGeo = Routes.Geo.generatePath({ assessmentName, cycleName, countryIso })
+  const pathCountryHome = Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })
 
   if (geoRoute) {
     return (
@@ -52,7 +54,15 @@ const GeoOptions: React.FC = () => {
           type={ButtonType.blackMap}
         />
         <div className="toolbar__separator" />
-        <Button iconName="earth" onClick={() => navigate(-1)} size={size} type={ButtonType.blackMap} />
+        <Button
+          iconName="earth"
+          onClick={() => {
+            if (navigationType === 'POP') navigate(-1)
+            else navigate(pathCountryHome)
+          }}
+          size={size}
+          type={ButtonType.blackMap}
+        />
       </>
     )
   }
