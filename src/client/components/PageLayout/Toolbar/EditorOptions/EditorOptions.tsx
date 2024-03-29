@@ -30,8 +30,8 @@ const EditorOptions: React.FC = () => {
           <a
             className="toolbar-editor__github"
             href="https://github.com/openforis/fra-platform/issues"
-            target="_blank"
             rel="noreferrer"
+            target="_blank"
           >
             <Icon name="github" />
             {t('common.issues')}
