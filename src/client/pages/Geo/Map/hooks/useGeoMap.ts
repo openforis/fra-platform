@@ -3,7 +3,8 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
-import { GeoActions } from 'client/store/ui/geo'
+import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
+import { useOnUpdate } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 import { mapController } from 'client/utils'
@@ -24,6 +25,7 @@ export const useGeoMap = (props: Props): Returned => {
   const { viewport, zoom } = props
 
   const dispatch = useAppDispatch()
+  const { mapTypeId } = useGeoMapOptions()
 
   const ref = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
@@ -50,7 +52,7 @@ export const useGeoMap = (props: Props): Returned => {
       //   position: google.maps.ControlPosition.BOTTOM_RIGHT,
       //   style: google.maps.MapTypeControlStyle.DEFAULT,
       // },
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeId,
       minZoom: 3,
       maxZoom: 15,
       rotateControl: true,
@@ -63,7 +65,11 @@ export const useGeoMap = (props: Props): Returned => {
     mapController.setMap(mapSetup)
     setMap(mapSetup)
     dispatch(GeoActions.setMapAvailability(true))
-  }, [countryIso, dispatch, map, ref, viewport, zoom])
+  }, [countryIso, dispatch, map, mapTypeId, ref, viewport, zoom])
+
+  useOnUpdate(() => {
+    mapController.getMap().setMapTypeId(mapTypeId)
+  }, [mapTypeId])
 
   // Move and center the map to the new country location.
   useEffect(() => {

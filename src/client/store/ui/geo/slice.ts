@@ -31,6 +31,7 @@ import { mapController } from 'client/utils'
 
 import {
   AgreementLevelState,
+  GeoMapOptions,
   GeoState,
   LayerFetchStatus,
   LayersSectionState,
@@ -50,6 +51,10 @@ const initialState: GeoState = {
   recipes: {} as Record<LayerSectionKey, string>,
   isMapAvailable: false,
   selectedPanel: null,
+  mapOptions: {
+    // @ts-ignore
+    mapTypeId: 'roadmap',
+  },
   mosaicOptions: {
     applied: { ...initialMosaicOptions },
     ui: { ...initialMosaicOptions },
@@ -179,6 +184,10 @@ export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
+    setMapOptions: (state, action: PayloadAction<Partial<GeoMapOptions>>) => {
+      const options = action.payload
+      state.mapOptions = { ...state.mapOptions, ...options }
+    },
     setMapAvailability: (state, { payload }: PayloadAction<boolean>) => {
       state.isMapAvailable = payload
     },

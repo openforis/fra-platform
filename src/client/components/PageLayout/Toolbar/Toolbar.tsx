@@ -14,9 +14,9 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
+import Options from 'client/components/PageLayout/Toolbar/Options'
 import { Breakpoints } from 'client/utils'
 
-import Links from './Links'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const Toolbar: React.FC = () => {
@@ -61,17 +61,13 @@ const Toolbar: React.FC = () => {
       )}
 
       {isCountry && (
-        <>
-          <MediaQuery minWidth={Breakpoints.laptop}>
-            {editor && <EditorOptions />}
-            {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
-          </MediaQuery>
-
-          <div className="toolbar__utils-container">
-            <Links />
-          </div>
-        </>
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          {editor && <EditorOptions />}
+          {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
+          <Options />
+        </MediaQuery>
       )}
+
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />
       </MediaQuery>

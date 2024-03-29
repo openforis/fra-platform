@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.toolbar-options {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  height: 100%;
+  margin-left: auto;
+  margin-right: 12px;
+}

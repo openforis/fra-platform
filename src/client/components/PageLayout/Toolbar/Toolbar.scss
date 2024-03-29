@@ -33,18 +33,6 @@
   background: radial-gradient(darken($ui-bg, 25%), $ui-bg);
 }
 
-.toolbar__utils-container {
-  margin-left: auto;
-  margin-right: 12px;
-  display: flex;
-  align-items: center;
-  height: 100%;
-
-  .btn {
-    border: none !important;
-  }
-}
-
 .toolbar__geo-beta-message {
   background-color: $ui-black-map;
   border-radius: $spacing-xxxxs;
@@ -56,5 +44,5 @@
   position: absolute;
   text-align: center;
   text-transform: uppercase;
-  transform: translateX(50%);
+  transform: translateX(-50%);
 }

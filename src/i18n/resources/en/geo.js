@@ -25,6 +25,7 @@ module.exports = {
   geeAssetId: 'GEE Asset ID',
   globalOpacity: 'Global Opacity',
   landsat: 'Landsat',
+  map: 'Map',
   maxCloudCoverage: 'Max Cloud Coverage',
   metersReducerScale: '{{meters}}m Reducer Scale',
   protectedArea: 'Tree cover within protected areas',
@@ -38,6 +39,7 @@ module.exports = {
     },
     recipes: 'Recipes',
   },
+  satellite: 'Satellite',
   satelliteMosaic: 'Satellite Mosaic',
   sections: {
     burnedArea: {
