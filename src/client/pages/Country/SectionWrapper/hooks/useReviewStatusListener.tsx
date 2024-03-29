@@ -2,8 +2,10 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 import { Sockets } from 'meta/socket'
+import { Users } from 'meta/user/users'
 
 import { useAppDispatch } from 'client/store'
+import { useCycle } from 'client/store/assessment'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { ReviewActions } from 'client/store/ui/review'
 import { useUser } from 'client/store/user'
@@ -13,7 +15,10 @@ import { SocketClient } from 'client/service/socket'
 export const useReviewStatusListener = (): void => {
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
+  const cycle = useCycle()
   const user = useUser()
+  const editor = Users.hasEditorRole({ user, countryIso, cycle })
+
   const originalDataPoint = useOriginalDataPoint()
 
   const odpId = originalDataPoint?.id
@@ -27,7 +32,7 @@ export const useReviewStatusListener = (): void => {
       dispatch(ReviewActions.getReviewStatus({ ...eventProps, odpId }))
     }
 
-    if (user) {
+    if (editor) {
       getReviewStatus()
       SocketClient.on(reviewStatusEvent, getReviewStatus)
     }
@@ -37,5 +42,5 @@ export const useReviewStatusListener = (): void => {
         SocketClient.off(reviewStatusEvent, getReviewStatus)
       }
     }
-  }, [countryIso, assessmentName, cycleName, sectionName, user, dispatch, odpId])
+  }, [assessmentName, countryIso, cycleName, dispatch, editor, odpId, sectionName, user])
 }

@@ -1,12 +1,17 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
+
+import { Jodit } from 'jodit-react'
 
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
 
 type Props = { options?: EditorConfig }
 
 type Returned = {
-  config: EditorConfig
-  configReadOnly: EditorConfig
+  configs: {
+    config: EditorConfig
+    configReadOnly: EditorConfig
+  }
+  jodit: Jodit
 }
 
 const buttons = [
@@ -40,12 +45,19 @@ const buttons = [
 export const useConfigs = (props: Props): Returned => {
   const { options } = props
 
-  return useMemo<Returned>(() => {
+  const [jodit, setJodit] = useState<Jodit>()
+
+  const configs = useMemo<Returned['configs']>(() => {
     const config: EditorConfig = {
       // @ts-ignore
       addNewLine: false,
       buttons,
       enter: 'div',
+      events: {
+        afterInit: (args: Jodit) => {
+          setJodit(args)
+        },
+      },
       inline: true,
       placeholder: '',
       readonly: false,
@@ -65,4 +77,6 @@ export const useConfigs = (props: Props): Returned => {
 
     return { config, configReadOnly }
   }, [options])
+
+  return { configs, jodit }
 }
