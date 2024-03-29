@@ -33,7 +33,12 @@ export type LayerState = {
 
 export type LayersSectionState = Record<LayerKey, LayerState>
 
+export type GeoMapOptions = {
+  mapTypeId: google.maps.MapTypeId
+}
+
 export type GeoState = {
+  mapOptions: GeoMapOptions
   sections: Record<LayerSectionKey, LayersSectionState>
   recipes: Record<LayerSectionKey, string>
   isMapAvailable: boolean
