@@ -131,10 +131,9 @@
 
 .button__type-anonymous {
   @include withTheme($ui-border, 10%, transparent);
+  border-color: transparent;
 
   &.inverse {
-    border-color: transparent;
-
     svg {
       color: $text-link;
     }

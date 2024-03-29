@@ -3,8 +3,24 @@
 .toolbar-options {
   align-items: center;
   display: flex;
-  gap: $spacing-xxs;
+  gap: $spacing-xs;
   height: 100%;
   margin-left: auto;
-  margin-right: 12px;
+  padding: 0 $spacing-xs;
+
+  &.geoRoute {
+    background-color: $ui-black-map;
+    outline: 1px solid $ui-black-map;
+
+    .button:not(.inverse) {
+      border-color: $ui-border;
+    }
+  }
+}
+
+.toolbar-options__group {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  height: 100%;
 }

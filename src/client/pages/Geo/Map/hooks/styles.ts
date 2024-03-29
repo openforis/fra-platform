@@ -3,7 +3,7 @@ export const styles = [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#111111',
+        color: '#07090a',
       },
     ],
   },

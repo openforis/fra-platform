@@ -52,8 +52,11 @@ const initialState: GeoState = {
   isMapAvailable: false,
   selectedPanel: null,
   mapOptions: {
-    // @ts-ignore
+    // @ts-expect-error
     mapTypeId: 'roadmap',
+    maxZoom: 15,
+    minZoom: 3,
+    zoom: 6,
   },
   mosaicOptions: {
     applied: { ...initialMosaicOptions },

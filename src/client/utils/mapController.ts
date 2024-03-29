@@ -1,7 +1,10 @@
 // @ts-ignore
 import ee from '@google/earthengine'
 
+import { CountryIso } from 'meta/area'
 import { MapLayerKey } from 'meta/geo'
+
+import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 
 export class MapController {
   #map: google.maps.Map
@@ -24,6 +27,15 @@ export class MapController {
 
   isMapUnavailable(): boolean {
     return this.#map === null
+  }
+
+  panToCountry(countryIso: CountryIso): void {
+    getCountryBounds(countryIso).then((response) => {
+      if (response?.data) {
+        this.#map.panTo(response.data.centroid)
+        this.#map.fitBounds(response.data.bounds)
+      }
+    })
   }
 
   addEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, overwrite = false): void {

@@ -4,16 +4,13 @@ import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
-import { useOnUpdate } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 import { mapController } from 'client/utils'
 
 import { styles } from './styles'
 
 type Props = {
   viewport: google.maps.LatLngBoundsLiteral | null
-  zoom: number
 }
 
 type Returned = {
@@ -21,11 +18,20 @@ type Returned = {
   map: google.maps.Map
 }
 
+const baseMapOptions = {
+  center: { lat: 0, lng: 0 },
+  disableDefaultUI: true,
+  fullscreenControl: false,
+  mapTypeControl: false,
+  rotateControl: false,
+  styles,
+}
+
 export const useGeoMap = (props: Props): Returned => {
-  const { viewport, zoom } = props
+  const { viewport } = props
 
   const dispatch = useAppDispatch()
-  const { mapTypeId } = useGeoMapOptions()
+  const { mapTypeId, maxZoom, minZoom, zoom } = useGeoMapOptions()
 
   const ref = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
@@ -35,53 +41,19 @@ export const useGeoMap = (props: Props): Returned => {
   useEffect(() => {
     if (!ref.current || map) return
 
-    const mapSetup = new window.google.maps.Map(ref.current, {
-      controlSize: 24,
-      // There needs to be a default center, otherwise the map does not render
-      center: { lat: 0, lng: 0 },
-      disableDefaultUI: true,
-      fullscreenControl: false,
-      // full screen and map type hidden from map.
-      // fullscreenControlOptions: {
-      //   position: google.maps.ControlPosition.TOP_RIGHT,
-      // },
-      // TODO Add later custom map type buttons
-      mapTypeControl: false,
-      // mapTypeControlOptions: {
-      //   mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
-      //   position: google.maps.ControlPosition.BOTTOM_RIGHT,
-      //   style: google.maps.MapTypeControlStyle.DEFAULT,
-      // },
-      mapTypeId,
-      minZoom: 3,
-      maxZoom: 15,
-      rotateControl: true,
-      styles,
-      zoom,
-    })
+    const mapSetup = new window.google.maps.Map(ref.current, { ...baseMapOptions, mapTypeId, minZoom, maxZoom, zoom })
 
     if (viewport) mapSetup.fitBounds(viewport)
 
     mapController.setMap(mapSetup)
     setMap(mapSetup)
     dispatch(GeoActions.setMapAvailability(true))
-  }, [countryIso, dispatch, map, mapTypeId, ref, viewport, zoom])
-
-  useOnUpdate(() => {
-    mapController.getMap().setMapTypeId(mapTypeId)
-  }, [mapTypeId])
+  }, [countryIso, dispatch, map, mapTypeId, maxZoom, minZoom, ref, viewport, zoom])
 
   // Move and center the map to the new country location.
   useEffect(() => {
     if (!map || !countryIso) return
-    // map.setMapTypeId(google.maps.MapTypeId.ROADMAP|google.maps.MapTypeId.SATELLITE)
-    // map.addListener('zoom')
-    getCountryBounds(countryIso).then((response) => {
-      if (response?.data) {
-        map.panTo(response.data.centroid)
-        map.fitBounds(response.data.bounds)
-      }
-    })
+    mapController.panToCountry(countryIso)
   }, [countryIso, map])
 
   return { map, ref }
