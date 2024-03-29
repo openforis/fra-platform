@@ -52,6 +52,7 @@ module.exports = {
   submittedToReview: 'Направлено на рассмотрение',
   tier: 'Уровень',
   tiers: { high: 'Высокий', low: 'Низкий', notSelected: '' },
+  totalPercentage: 'Общий процент.',
   trend: 'Тренд',
   unknown: 'Отсутствует/неизвестна',
   unselectAll: 'Снять выделение',
