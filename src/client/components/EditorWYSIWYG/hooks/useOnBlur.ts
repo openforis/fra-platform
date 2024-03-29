@@ -1,5 +1,6 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
+import { Jodit } from 'jodit-react'
 import rehypeParse from 'rehype-parse'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
@@ -22,11 +23,44 @@ const processor = unified()
 
 type OnChange = (value?: string) => void
 
-export const useOnBlur = (props: { onChange: OnChange }): OnChange => {
-  const { onChange } = props
+type Props = {
+  jodit: Jodit
+  onChange: OnChange
+  value?: string
+}
+
+export const useOnBlur = (props: Props): OnChange => {
+  const { onChange, value, jodit } = props
+
+  const valueRef = useRef<string>(value)
+  const pastedHtmlRef = useRef<boolean>(false)
+
+  useEffect(() => {
+    valueRef.current = value
+  }, [value])
+
+  useEffect(() => {
+    if (Objects.isEmpty(jodit)) return () => undefined
+
+    const onProcessHTML = () => {
+      pastedHtmlRef.current = true
+    }
+    jodit.events?.on('processHTML', onProcessHTML)
+
+    return () => {
+      jodit.events?.off('processHTML', onProcessHTML)
+    }
+  }, [jodit])
 
   return useCallback<OnChange>(
     async (newValue: string) => {
+      if (pastedHtmlRef.current) {
+        pastedHtmlRef.current = false
+        return
+      }
+
+      if (newValue === valueRef.current) return
+
       // Sanitize user input before saving
       let sanitizedValue = (await processor.process(newValue)).toString()
 
@@ -35,7 +69,7 @@ export const useOnBlur = (props: { onChange: OnChange }): OnChange => {
       if (Objects.isEmpty(parsedValue)) {
         sanitizedValue = ''
       }
-
+      valueRef.current = sanitizedValue
       onChange(sanitizedValue)
     },
     [onChange]
