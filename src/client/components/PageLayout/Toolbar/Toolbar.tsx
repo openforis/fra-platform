@@ -62,7 +62,7 @@ const Toolbar: React.FC = () => {
 
       {isCountry && (
         <MediaQuery minWidth={Breakpoints.laptop}>
-          {editor && <EditorOptions />}
+          {editor && !geoRoute && <EditorOptions />}
           {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
           <Options />
         </MediaQuery>
