@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 
 import { Histories } from 'meta/cycleData'
 
-import { useHistoryActive } from 'client/store/data'
+import { useIsHistoryActive } from 'client/store/data'
 import { useHistory } from 'client/store/data/hooks/useHistory'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useToggleHistory } from 'client/components/Buttons/ButtonHistory/hooks/useToggleHistory'
@@ -24,7 +24,7 @@ const ButtonHistory: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
 
-  const historyActive = useHistoryActive()
+  const historyActive = useIsHistoryActive()
   const onClick = useToggleHistory({ name, sectionLabelKey, sectionName, subSection })
 
   const history = useHistory()

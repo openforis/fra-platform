@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive'
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store'
-import { useHistoryActive } from 'client/store/data'
+import { useIsHistoryActive } from 'client/store/data'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
 import Icon from 'client/components/Icon'
@@ -17,7 +17,7 @@ const Lock: React.FC = () => {
   const locked = useIsDataLocked()
   const showOdps = useShowOriginalDatapoints()
   const [disabled, setDisabled] = useState<boolean>(false)
-  const historyActive = useHistoryActive()
+  const historyActive = useIsHistoryActive()
   const [over, setOver] = useState<boolean>(false)
   const lockRef = useRef<boolean>(showOdps)
 

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import MediaQuery from 'react-responsive'
 
 import { useAppDispatch } from 'client/store'
-import { useHistoryActive } from 'client/store/data'
+import { useIsHistoryActive } from 'client/store/data'
 import { NavigationActions } from 'client/store/ui/navigation'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -17,7 +17,7 @@ const Navigation: React.FC = () => {
   const countryIso = useCountryIso()
   const dispatch = useAppDispatch()
   const { print } = useIsPrintRoute()
-  const historyActive = useHistoryActive()
+  const historyActive = useIsHistoryActive()
 
   useEffect(() => {
     if (print) dispatch(NavigationActions.updateNavigationVisible(false))
