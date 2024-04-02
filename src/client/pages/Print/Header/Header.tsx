@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentStatus, CountryIso } from 'meta/area'
+// import { AssessmentStatus, CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
 import { useCountry } from 'client/store/area'
@@ -33,7 +34,8 @@ const Header: React.FC = () => {
   const downloadHref = `${ApiEndPoint.CycleData.Print.Report.one()}?${params.toString()}`
   const PrintRoute = onlyTables ? Routes.Print : Routes.PrintTables
 
-  const { deskStudy, status } = country?.props ?? {}
+  // const { deskStudy, status } = country?.props ?? {}
+  const { deskStudy } = country?.props ?? {}
 
   const title = useMemo<string>(() => {
     if (onlyTables) return t(`${assessmentName}.print.titleTables`, { cycleName })
@@ -41,7 +43,8 @@ const Header: React.FC = () => {
     return t(`${assessmentName}.print.title`, { cycleName })
   }, [assessmentName, cycleName, deskStudy, onlyTables, t])
 
-  const withDownload = ![AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
+  // const withDownload = ![AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
+  const withDownload = false
 
   return (
     <div className="print-header">
