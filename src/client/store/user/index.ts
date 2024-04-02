@@ -1,5 +1,6 @@
 export {
   useCanEdit,
+  useCanEditCycleData,
   useIsCountryRepositoryEditable,
   useIsEditTableDataEnabled,
   useIsGlobalRepositoryEditable,
