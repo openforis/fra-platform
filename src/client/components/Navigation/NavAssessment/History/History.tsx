@@ -2,9 +2,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useHistory } from 'client/store/data/hooks/useHistory'
-import { useData } from 'client/components/Navigation/NavAssessment/History/hooks/useData'
-import { useGetData } from 'client/components/Navigation/NavAssessment/History/hooks/useGetData'
 import Items from 'client/components/Navigation/NavAssessment/History/Items'
+
+import { useData } from './hooks/useData'
+import { useGetData } from './hooks/useGetData'
 
 const History: React.FC = () => {
   const { t } = useTranslation()
