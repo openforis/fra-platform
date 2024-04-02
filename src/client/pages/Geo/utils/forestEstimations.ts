@@ -2,6 +2,7 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 
 import { ExtraEstimation, ForestEstimations, ForestEstimationsData, ForestKey, forestLayersMetadata } from 'meta/geo'
 import { hansenPercentages } from 'meta/geo/forest'
+import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 import { Lang } from 'meta/lang'
 
 /**
@@ -15,11 +16,11 @@ import { Lang } from 'meta/lang'
 export const builForestEstimationsDataTable = async (
   fetchedForestEstimations: ForestEstimations,
   language: Lang
-): Promise<[string, number, number, string][]> => {
+): Promise<Array<ForestEstimationEntry>> => {
   const i18n = await createI18nPromise(language)
   if (!fetchedForestEstimations) throw Error(i18n.t('geo.statistics.dataUnavailable'))
 
-  const estimationsData: [string, number, number, string][] = []
+  const estimationsData: Array<ForestEstimationEntry> = []
   const fra1ALandArea = fetchedForestEstimations.data.fra1aLandArea
   const reportedFra1aForestArea = fetchedForestEstimations.data.fra1aForestArea
 
@@ -29,8 +30,8 @@ export const builForestEstimationsDataTable = async (
     if (!('forestAreaDataProperty' in metadata)) return
 
     if (key !== ForestKey.Hansen) {
-      const labelKey = metadata.titleKey ?? key
-      const label = i18n.t(labelKey)
+      const sourceNameKey = metadata.titleKey ?? key
+      const sourceName = i18n.t(sourceNameKey)
       const area = fetchedForestEstimations.data[
         metadata.forestAreaDataProperty as keyof ForestEstimationsData
       ] as number
@@ -38,11 +39,16 @@ export const builForestEstimationsDataTable = async (
       if (typeof area === 'undefined') return
 
       const percentage = (area * 100) / (fra1ALandArea * 1000)
-      estimationsData.push([label, Number(area.toFixed(2)), Number(percentage.toFixed(2)), key])
+      estimationsData.push({
+        area: Number(area.toFixed(2)),
+        fra1ALandAreaPercentage: Number(percentage.toFixed(2)),
+        sourceKey: key,
+        sourceName,
+      })
     } else {
       hansenPercentages.forEach((number: number) => {
-        const labelKey = metadata.titleKey ?? key
-        const label = `${i18n.t(labelKey)} ${number} %`
+        const sourceNameKey = metadata.titleKey ?? key
+        const sourceName = `${i18n.t(sourceNameKey)} ${number} %`
         const area = fetchedForestEstimations.data[
           (metadata.forestAreaDataProperty + number) as keyof ForestEstimationsData
         ] as number
@@ -50,7 +56,12 @@ export const builForestEstimationsDataTable = async (
         if (typeof area === 'undefined') return
 
         const percentage = (area * 100) / (fra1ALandArea * 1000)
-        estimationsData.push([label, Number(area.toFixed(2)), Number(percentage.toFixed(2)), key])
+        estimationsData.push({
+          area: Number(area.toFixed(2)),
+          fra1ALandAreaPercentage: Number(percentage.toFixed(2)),
+          sourceKey: key,
+          sourceName,
+        })
       })
     }
   })
@@ -59,12 +70,12 @@ export const builForestEstimationsDataTable = async (
   const reportedToFraLabel = ExtraEstimation.ReportedToFRA
   const reportedFra1aForestAreaHa = reportedFra1aForestArea * 1000 // Normalize to Ha. Instead of Thousands of Ha.
   const fra1aForestAreaPercentage = (reportedFra1aForestAreaHa * 100) / (fra1ALandArea * 1000)
-  estimationsData.push([
-    reportedToFraLabel,
-    reportedFra1aForestAreaHa,
-    Number(fra1aForestAreaPercentage.toFixed(2)),
-    ExtraEstimation.ReportedToFRA,
-  ])
+  estimationsData.push({
+    area: reportedFra1aForestAreaHa,
+    fra1ALandAreaPercentage: Number(fra1aForestAreaPercentage.toFixed(2)),
+    sourceKey: ExtraEstimation.ReportedToFRA,
+    sourceName: reportedToFraLabel,
+  })
 
   return estimationsData
 }
