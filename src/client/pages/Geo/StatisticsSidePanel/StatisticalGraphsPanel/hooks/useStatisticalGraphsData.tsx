@@ -7,7 +7,7 @@ import { Numbers } from 'utils/numbers'
 import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 
 import { useGeoStatistics } from 'client/store/ui/geo/hooks'
-import { displayPercentagesPlugin, GeoChartOptions, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
+import { GeoChartOptions, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
 
 type Props = {
   year: number
@@ -30,14 +30,14 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
 
   return useMemo<Returned>(() => {
     const chartTitle = t('geo.statistics.forestArea.extentOfForestPerSource', { year })
-    const unitLabel = t('unit.haMillion')
+    const unitLabel = t('unit.haThousand')
 
     const labels: Array<string> = []
     const areas: Array<number> = []
     const percentages: Array<number> = []
 
     tabularForestEstimations.forEach((entry) => {
-      areas.push(entry.area)
+      areas.push(entry.area / 1000)
       labels.push(entry.sourceName)
       percentages.push(entry.fra1ALandAreaPercentage)
     })
@@ -65,14 +65,14 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
         title: {
           display: true,
           padding: {
-            bottom: 25,
+            bottom: 15,
             top: 15,
           },
           text: chartTitle,
         },
         tooltip: {
           callbacks: {
-            label: (value: any) => `${Numbers.format(value?.parsed?.y, 0)} ${t('unit.ha')}`,
+            label: (value: any) => `${Numbers.format(value?.parsed?.y, 0)} (${t('unit.haThousand')})`,
           },
         },
       },
@@ -80,10 +80,10 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
         Areas: {
           display: true,
           position: 'left',
-          suggestedMax: maximumArea * (1 + 0.2), // Add 20 % buffer area to the top of the bars
+          suggestedMax: maximumArea * (1 + 0.1), // Add 10 % buffer area to the top of the bars
           ticks: {
             callback(value: number) {
-              return `${value / 1000000}`
+              return `${Numbers.format(value, 0)}`
             },
           },
           title: {
@@ -102,7 +102,6 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
 
     const plugins: Plugin[] = [
       whiteBackgroundplugin(), // Pluging to get a white background color when downloading
-      displayPercentagesPlugin(), // Plugin to display the percentage on top of the bars.
     ]
 
     const data = {
