@@ -7,6 +7,7 @@ import { ButtonSize } from 'client/components/Buttons/Button'
 import { ButtonGridExport, DataCell, DataGrid } from 'client/components/DataGrid'
 import ButtonCSVExport from 'client/pages/Geo/ButtonCSVExport'
 import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
+import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Props = {
   columns: string[]
@@ -14,7 +15,7 @@ type Props = {
   fileName: string
   gridTemplateColumns?: string
   loaded: boolean
-  tableData: (string | number)[][]
+  tableData: StatisticsTableData
   units: string[]
 }
 
@@ -46,14 +47,15 @@ const StatisticsTable = (props: Props) => {
         {tableData.map((row, i) => {
           return (
             <React.Fragment key={`row_${String(i)}`}>
-              {row.map((value, j) => {
+              {row.map((entry, j) => {
                 return (
                   <DataCell
-                    key={`${value}-${String(i)}-${String(j)}`}
+                    key={`${entry.value}-${String(i)}-${String(j)}`}
+                    className={entry.className}
                     lastCol={j === columns.length - 1}
                     lastRow={i === tableData.length - 1}
                   >
-                    {`${value} ${units[j]}`}
+                    {`${entry.value} ${units[j]}`}
                   </DataCell>
                 )
               })}

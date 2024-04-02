@@ -30,6 +30,16 @@
       color: white;
     }
   }
+
+  &.legend {
+    background-color: $color;
+    color: white;
+    font-weight: 600;
+  }
+}
+
+.geo-layer-toggle_FF00FF {
+  @include with-theme(#ff00ff);
 }
 
 .geo-layer-toggle_d7adb5 {
