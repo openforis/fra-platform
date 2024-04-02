@@ -7,7 +7,7 @@ import { useHistoryActive } from 'client/store/data'
 import { NavigationActions } from 'client/store/ui/navigation'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import NavigationHistory from 'client/components/Navigation/NavigationHistory'
+import History from 'client/components/Navigation/History'
 import { Breakpoints } from 'client/utils'
 
 import NavigationDesktop from './NavigationDesktop'
@@ -24,7 +24,7 @@ const Navigation: React.FC = () => {
   }, [print, dispatch])
 
   if (!countryIso || print) return <div />
-  if (historyActive) return <NavigationHistory />
+  if (historyActive) return <History />
 
   return (
     <>

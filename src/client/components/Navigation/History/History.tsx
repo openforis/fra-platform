@@ -1,4 +1,4 @@
-// Placeholder component moved to NavigationHistory.tsx
+// Placeholder component moved to History.tsx
 // This is still a placeholder component.
 
 import React, { useEffect } from 'react'
@@ -31,7 +31,7 @@ const useData = () => {
   return data?.filter((d) => d.message === ActivityLogMessage.descriptionUpdate && d.section === sectionName)
 }
 
-const NavigationHistory: React.FC = () => {
+const History: React.FC = () => {
   const { t } = useTranslation()
   const maxHeight = useMaxHeight()
 
@@ -60,4 +60,4 @@ const NavigationHistory: React.FC = () => {
   )
 }
 
-export default NavigationHistory
+export default History
