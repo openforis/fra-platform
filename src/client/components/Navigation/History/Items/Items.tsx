@@ -9,18 +9,17 @@ import { useMaxHeight } from 'client/components/Navigation/NavAssessment/hooks/u
 type Props = {
   sectionItemKey: HistoryItemSectionKey
   values: Array<ActivityLog<never>>
-  onClick: (sectionItemKey: HistoryItemSectionKey, activityLog: ActivityLog<never>) => void
 }
 const Items: React.FC<Props> = (props: Props) => {
-  const { onClick, sectionItemKey, values } = props
+  const { sectionItemKey, values } = props
   const maxHeight = useMaxHeight()
 
   return (
     <div className="nav-assessment" style={{ maxHeight }}>
       <div>
-        {values.map((d) => (
+        {values?.map((d) => (
           <div key={d.time} className="nav-section__item">
-            <Item datum={d} onClick={(activityLog) => onClick(sectionItemKey, activityLog)} />
+            <Item datum={d} sectionItemKey={sectionItemKey} />
           </div>
         ))}
       </div>
