@@ -7,7 +7,7 @@ import { Numbers } from 'utils/numbers'
 import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 
 import { useGeoStatistics } from 'client/store/ui/geo/hooks'
-import { displayPercentagesPlugin, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
+import { displayPercentagesPlugin, GeoChartOptions, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
 
 type Props = {
   year: number
@@ -26,7 +26,7 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
 
   const { t } = useTranslation()
 
-  const { tabularEstimationData, isLoading, error } = useGeoStatistics()
+  const { error, isLoading, tabularForestEstimations } = useGeoStatistics()
 
   return useMemo<Returned>(() => {
     const chartTitle = t('geo.statistics.forestArea.extentOfForestPerSource', { year })
@@ -36,16 +36,16 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
     const areas: Array<number> = []
     const percentages: Array<number> = []
 
-    tabularEstimationData.forEach((row) => {
-      labels.push(row[0])
-      areas.push(row[1])
-      percentages.push(row[2])
+    tabularForestEstimations.forEach((entry) => {
+      areas.push(entry.area)
+      labels.push(entry.sourceName)
+      percentages.push(entry.fra1ALandAreaPercentage)
     })
 
     const maximumArea = Math.max(...areas)
 
-    const backgroundColors = tabularEstimationData.map((row) => {
-      const sourceKey = row[3] as ForestKey | ExtraEstimation
+    const backgroundColors = tabularForestEstimations.map((entry) => {
+      const { sourceKey } = entry
       if (Object.values(ExtraEstimation).includes(sourceKey as ExtraEstimation)) {
         return extraEstimationsMetadata[sourceKey as ExtraEstimation].palette[0]
       }
@@ -55,37 +55,50 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
       return forestLayersMetadata.Hansen.palette[0]
     })
 
-    const options = {
-      percentages,
+    const options: GeoChartOptions = {
       backgroundColors,
+      percentages,
       plugins: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: true,
+          padding: {
+            bottom: 25,
+            top: 15,
+          },
+          text: chartTitle,
+        },
         tooltip: {
           callbacks: {
             label: (value: any) => `${Numbers.format(value?.parsed?.y, 0)} ${t('unit.ha')}`,
           },
         },
-        title: {
-          display: true,
-          text: chartTitle,
-        },
-        legend: {
-          display: false,
-        },
       },
       scales: {
         Areas: {
-          type: 'linear',
           display: true,
           position: 'left',
           suggestedMax: maximumArea * (1 + 0.2), // Add 20 % buffer area to the top of the bars
           ticks: {
             callback(value: number) {
-              return `${value / 1000000} ${unitLabel}`
+              return `${value / 1000000}`
             },
+          },
+          title: {
+            display: true,
+            text: unitLabel,
+          },
+          type: 'linear',
+        },
+        x: {
+          ticks: {
+            display: false,
           },
         },
       },
-    } as unknown as ChartOptions<'bar'>
+    }
 
     const plugins: Plugin[] = [
       whiteBackgroundplugin(), // Pluging to get a white background color when downloading
@@ -93,15 +106,15 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
     ]
 
     const data = {
-      labels,
       datasets: [
         {
-          label: 'Area',
           backgroundColor: backgroundColors,
           data: areas,
+          label: 'Area',
           yAxisID: 'Areas',
         },
       ],
+      labels,
     }
 
     return {
@@ -111,5 +124,5 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
       options,
       plugins,
     }
-  }, [error, isLoading, t, tabularEstimationData, year])
+  }, [error, isLoading, t, tabularForestEstimations, year])
 }
