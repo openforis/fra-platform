@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName } from 'meta/assessment'
 import { Histories } from 'meta/cycleData'
 
-import { useHistoryActive } from 'client/store/data'
+import { useIsHistoryActive } from 'client/store/data'
 import { useHistory } from 'client/store/data/hooks/useHistory'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
@@ -24,7 +24,7 @@ const ButtonHistory: React.FC<Props> = (props) => {
   const loading = false // TODO: useLoading..()
   const disabled = loading || descriptionEditable
 
-  const historyActive = useHistoryActive()
+  const historyActive = useIsHistoryActive()
   const onClick = useToggleHistory({ name, sectionName })
 
   const isDataSources = name === CommentableDescriptionName.dataSources
