@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 
+import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
+
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoStatistics } from 'client/store/ui/geo'
 import { getForestEstimationData } from 'client/store/ui/geo/actions'
@@ -25,12 +27,12 @@ export const useGeoStatisticsHandler = (props: Props) => {
 
   useEffect(() => {
     if (!geoStatistics.forestEstimations) return
-    let data: [string, number, number, string][] = []
+    let data: Array<ForestEstimationEntry> = []
 
     const buildDataTable = async () => {
       try {
         data = await builForestEstimationsDataTable(geoStatistics.forestEstimations, language)
-        dispatch(GeoActions.setTabularEstimationData(data))
+        dispatch(GeoActions.setTabularForestEstimations(data))
       } catch (error) {
         dispatch(GeoActions.setEstimationsError(error.message))
       }

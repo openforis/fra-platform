@@ -19,7 +19,7 @@ export const useTreeCoverAreaData = (): Returned => {
   const { t } = useTranslation()
 
   const fra1aLandArea = useGeoFra1aLandArea()
-  const { tabularEstimationData: data, isLoading, error } = useGeoStatistics()
+  const { tabularForestEstimations: data, isLoading, error } = useGeoStatistics()
 
   return useMemo<Returned>(() => {
     if (isLoading) {
@@ -49,20 +49,16 @@ export const useTreeCoverAreaData = (): Returned => {
     const units = ['', t('unit.ha'), '%']
 
     const formattedTableData: (string | number)[][] = []
-    Object.entries(data).forEach((value) => {
-      const rowData = value[1]
-      const sourceNameKey = rowData[0]
-      const sourceName = t(sourceNameKey)
-      const area = rowData[1]
-      const percentage = rowData[2]
+    data.forEach((entry) => {
+      const { area, fra1ALandAreaPercentage, sourceName } = entry
       const formatedArea = Numbers.format(area, 0)
-      formattedTableData.push([sourceName, formatedArea, percentage])
+      formattedTableData.push([sourceName, formatedArea, fra1ALandAreaPercentage])
 
       csvData.push({
-        source: sourceName,
-        landArea: fra1aLandArea.toString(),
         forestAreaHa: formatedArea,
-        forestAreaPercentage: `${percentage} %`,
+        forestAreaPercentage: `${fra1ALandAreaPercentage} %`,
+        landArea: fra1aLandArea.toString(),
+        source: sourceName,
       })
     })
 

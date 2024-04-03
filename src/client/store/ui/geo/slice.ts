@@ -14,6 +14,7 @@ import {
 import {
   ExtraEstimationSectionState,
   ExtraEstimationState,
+  ForestEstimationEntry,
   GeoStatisticsExtraEstimations,
 } from 'meta/geo/geoStatistics'
 
@@ -65,7 +66,7 @@ const initialState: GeoState = {
   },
   geoStatistics: {
     forestEstimations: null,
-    tabularEstimationData: [],
+    tabularForestEstimations: [],
     isLoading: false,
     error: null,
     extraEstimations: {} as GeoStatisticsExtraEstimations,
@@ -226,8 +227,8 @@ export const geoSlice = createSlice({
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
     },
-    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number, string][]>) => {
-      state.geoStatistics.tabularEstimationData = payload
+    setTabularForestEstimations: (state, { payload }: PayloadAction<Array<ForestEstimationEntry>>) => {
+      state.geoStatistics.tabularForestEstimations = payload
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
     },
@@ -240,19 +241,15 @@ export const geoSlice = createSlice({
     },
     insertTabularEstimationEntry: (
       state,
-      { payload: [index, entry] }: PayloadAction<[number, [string, number, number, string]]>
+      { payload: [index, entry] }: PayloadAction<[number, ForestEstimationEntry]>
     ) => {
-      let replaced = false
-      state.geoStatistics.tabularEstimationData = state.geoStatistics.tabularEstimationData.map((row) => {
-        let newRow: [string, number, number, string] = [...row]
-        if (newRow[0] === entry[0]) {
-          newRow = entry
-          replaced = true
-        }
-        return newRow
-      })
-      if (!replaced) {
-        state.geoStatistics.tabularEstimationData.splice(index, 0, entry)
+      const existingIndex = state.geoStatistics.tabularForestEstimations.findIndex(
+        (row) => row.sourceKey === entry.sourceKey
+      )
+      if (existingIndex !== -1) {
+        state.geoStatistics.tabularForestEstimations[existingIndex] = entry
+      } else {
+        state.geoStatistics.tabularForestEstimations.splice(index, 0, entry)
       }
     },
     setLayerSelected: (

@@ -1,4 +1,9 @@
-import { Plugin } from 'chart.js'
+import { ChartOptions, Plugin } from 'chart.js'
+
+export type GeoChartOptions = Partial<ChartOptions<'bar'>> & {
+  backgroundColors: string[]
+  percentages: number[]
+}
 
 export const whiteBackgroundplugin = (): Plugin => {
   return {
@@ -17,19 +22,23 @@ export const whiteBackgroundplugin = (): Plugin => {
 export const displayPercentagesPlugin = (): Plugin => {
   return {
     id: 'displayPercentages',
-    afterDraw: (chart) => {
+    beforeDraw: (chart) => {
       const {
         ctx,
         data: { datasets },
       } = chart
       const _metasets = chart.getDatasetMeta(0)
-      datasets[0].data.forEach((dp, i) => {
-        const barValue = `${chart.config.options.percentages[i]}%`
+      const chartOptions = chart.config?.options as GeoChartOptions
+
+      datasets[0].data.forEach((_, i) => {
+        const barValue = `${chartOptions?.percentages?.[i]}%`
         const lineHeight = ctx.measureText('M').width
-        ctx.fillStyle = chart.config.options.backgroundColors[i]
-        ctx.textAlign = 'center'
-        // console.log(barValue, i )
-        ctx.fillText(barValue, _metasets.data[i].x, _metasets.data[i].y - lineHeight * 1.5)
+        ctx.save()
+        ctx.translate(_metasets.data[i].x + lineHeight / 3, _metasets.data[i].y - 5)
+        ctx.rotate(-Math.PI / 2)
+        ctx.fillStyle = chartOptions?.backgroundColors[i]
+        ctx.fillText(barValue, 0, 0)
+        ctx.restore()
       })
     },
   }
