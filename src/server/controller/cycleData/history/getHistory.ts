@@ -8,15 +8,20 @@ type Props = {
   cycle: Cycle
   countryIso: AreaCode
   sectionName: SectionName
-  message: ActivityLogMessage
-  targetName: string
+  target: string
 }
 
 type Returned = Array<ActivityLog<never>>
 
-export const getHistory = async (props: Props): Promise<Returned> => {
-  const { assessment, cycle, countryIso, sectionName, message, targetName } = props
+const messages: Record<string, ActivityLogMessage> = {
+  dataSources: ActivityLogMessage.descriptionUpdate,
+}
 
-  const getHistoryProps = { assessment, cycle, countryIso, sectionName, message, targetName }
+export const getHistory = async (props: Props): Promise<Returned> => {
+  const { assessment, cycle, countryIso, sectionName, target } = props
+
+  const message = messages[target]
+
+  const getHistoryProps = { assessment, cycle, countryIso, sectionName, message, target }
   return ActivityLogRepository.getMany(getHistoryProps)
 }
