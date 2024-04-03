@@ -5,7 +5,6 @@ import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
 
 const path = ApiEndPoint.CycleData.activities()
 
-export const useData = () => {
-  const data = useTablePaginatedData<ActivityLog<never>>(path)
-  return data
+export const useData = (): Array<ActivityLog<never>> => {
+  return useTablePaginatedData<ActivityLog<never>>(path)
 }
