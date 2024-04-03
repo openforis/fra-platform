@@ -17,6 +17,11 @@ export type TablePaginatedDataRequestParams = BaseParams & {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
-export type TablePaginatedDataRequest = Request<never, never, never, TablePaginatedDataRequestParams>
+export type TablePaginatedDataRequest<OptionalParams extends Record<string, unknown> = never> = Request<
+  never,
+  never,
+  never,
+  TablePaginatedDataRequestParams & OptionalParams
+>
 
 export type TablePaginatedCountRequest = Request<never, never, never, BaseParams>

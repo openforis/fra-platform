@@ -5,6 +5,14 @@ const getHistoryItemSectionKey = (sectionName: string, name: CommentableDescript
   return `${sectionName}-${name}` as HistoryItemSectionKey
 }
 
+const getHistoryItemKeyParts = (
+  sectionKey: HistoryItemSectionKey
+): { sectionName: string; name: CommentableDescriptionName } => {
+  const [sectionName, name] = sectionKey.split('-')
+  return { sectionName, name: name as CommentableDescriptionName }
+}
+
 export const Histories = {
   getHistoryItemSectionKey,
+  getHistoryItemKeyParts,
 }

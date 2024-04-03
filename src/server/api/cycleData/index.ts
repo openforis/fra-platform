@@ -4,6 +4,7 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { getHistory } from 'server/api/cycleData/history/getHistory'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
@@ -140,6 +141,9 @@ export const CycleDataApi = {
     // Activities
     express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)
     express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireView, getActivitiesCount)
+
+    // History
+    express.get(ApiEndPoint.CycleData.history(), AuthMiddleware.requireEditTableData, getHistory)
 
     // ext node
     // -- Contacts
