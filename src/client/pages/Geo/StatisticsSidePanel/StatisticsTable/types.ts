@@ -1,6 +1,6 @@
 export type StatisticsTableData = Array<
   Array<{
-    className?: string
+    color?: string
     value: string | number
   }>
 >

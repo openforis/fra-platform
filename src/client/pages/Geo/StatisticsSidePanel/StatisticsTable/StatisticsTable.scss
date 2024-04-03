@@ -13,11 +13,18 @@
   }
 
   div.data-cell:not(.header) {
+    display: flex;
     font-weight: 400;
-    padding: $spacing-xxxxs $spacing-xxs;
+    gap: $spacing-xxxs;
+    padding: $spacing-xxxxs $spacing-xxxs;
   }
 }
 
 .geo-statistics-export-button__container {
   justify-self: start;
+}
+
+.geo-table__layer-legend {
+  height: 100%;
+  width: $spacing-xxs;
 }

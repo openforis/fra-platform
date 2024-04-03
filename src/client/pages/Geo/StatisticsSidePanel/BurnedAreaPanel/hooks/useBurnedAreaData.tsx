@@ -34,8 +34,8 @@ export const useBurnedAreaData = (): Returned => {
     }
 
     const title = t('geo.statistics.burnedArea.burnedAreaByYear')
-    const columns = [t('common.source'), t('common.year'), t('geo.burnedArea')]
-    const units = ['', '', t('unit.ha')]
+    const columns = [t('common.source'), t('common.year'), t('geo.burnedAreaWithUnit', { unit: t('unit.ha') })]
+    const units = ['', '', '']
 
     const formattedTableData: StatisticsTableData = []
     geoBurnedAreaMODIS.forEach(({ ba: area, year }) => {

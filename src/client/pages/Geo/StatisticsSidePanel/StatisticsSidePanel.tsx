@@ -24,7 +24,7 @@ const Stats: Record<StatKey, { Component: React.FC<{ year: number }>; icon?: Rea
   [StatKey.protectedArea]: {
     Component: ProtectedAreaPanel,
     icon: <Icon name="icon-table2" />,
-    titleKey: 'geo.protectedArea',
+    titleKey: 'geo.treeCoverProtectedAreas',
   },
   [StatKey.treeCover]: {
     Component: TreeCoverAreaPanel,

@@ -2,6 +2,7 @@ module.exports = {
   agreementLevelExplanation:
     'Agreement level N means that at least N of the selected data sources need to agree that a certain pixel is tree cover area.',
   burnedArea: 'Burned Area',
+  burnedAreaWithUnit: '$t(geo.burnedArea) ({{unit}})',
   chooseAgreementLevel: 'Choose the min. agreement level between selected layers.',
   error: {
     extraEstimation: {
@@ -21,14 +22,15 @@ module.exports = {
     },
   },
   estimateCustomAgreementArea: 'Estimate Custom Agreement Area',
-  forestArea: 'Tree cover area',
+  forestArea: 'Tree cover area ({{unit}})',
   geeAssetId: 'GEE Asset ID',
   globalOpacity: 'Global Opacity',
   landsat: 'Landsat',
   map: 'Map',
   maxCloudCoverage: 'Max Cloud Coverage',
   metersReducerScale: '{{meters}}m Reducer Scale',
-  protectedArea: 'Tree cover within protected areas',
+  treeCoverProtectedAreas: 'Tree cover within protected areas',
+  treeCoverProtectedAreasWithUnit: '$t(geo.treeCoverProtectedAreas) ({{unit}})',
   recipes: {
     forest: {
       allGfc10: 'All (GFC Hansen >=10%)',

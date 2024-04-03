@@ -49,12 +49,12 @@ export const useProtectedAreaData = (): Returned => {
       }
     }
 
-    const columns = [t('common.source'), t('geo.protectedArea')]
-    const units = ['', t('unit.ha')]
+    const columns = [t('common.source'), t('geo.treeCoverProtectedAreasWithUnit', { unit: t('unit.haThousand') })]
+    const units = ['', '']
 
     const formattedTableData: StatisticsTableData = []
     Object.entries(geoProtectedAreas).forEach(([source, value]) => {
-      const formatedArea = Numbers.format(value, 0)
+      const formatedArea = Numbers.format(value / 1000, 0)
       const label = t(sourceNameKey[source])
       formattedTableData.push([{ value: label }, { value: formatedArea }])
     })

@@ -35,7 +35,7 @@ const StatisticsTable = (props: Props) => {
         {Objects.isEmpty(csvData) && <ButtonGridExport filename={fileName} gridRef={gridRef} size={ButtonSize.xs} />}
       </div>
 
-      <DataGrid ref={gridRef} gridTemplateColumns={gridTemplateColumns ?? `repeat(${columns.length}, auto)`}>
+      <DataGrid ref={gridRef} gridTemplateColumns={gridTemplateColumns ?? `repeat(${columns.length}, 1fr)`}>
         {columns.map((columnTitle, i) => {
           return (
             <DataCell key={`${columnTitle}-${String(i)}-header`} header lastCol={i === columns.length - 1}>
@@ -51,10 +51,12 @@ const StatisticsTable = (props: Props) => {
                 return (
                   <DataCell
                     key={`${entry.value}-${String(i)}-${String(j)}`}
-                    className={entry.className}
                     lastCol={j === columns.length - 1}
                     lastRow={i === tableData.length - 1}
                   >
+                    {entry.color && (
+                      <div className="geo-table__layer-legend" style={{ backgroundColor: entry.color }} />
+                    )}
                     {`${entry.value} ${units[j]}`}
                   </DataCell>
                 )

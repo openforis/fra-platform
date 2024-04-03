@@ -37,33 +37,31 @@ export const useTreeCoverAreaData = (): Returned => {
 
     const columns = [
       t('common.source'),
-      t('geo.forestArea'),
+      t('geo.forestArea', { unit: t('unit.haThousand') }),
       t('geo.statistics.forestArea.forestAreaPercentOfLandArea'),
     ]
 
     const csvHeaders = [
       { label: t('common.source'), key: 'source' },
       { label: t('geo.statistics.forestArea.landArea'), key: 'landArea' },
-      { label: t('geo.statistics.forestArea.forestAreaHa'), key: 'forestAreaHa' },
+      { label: t('geo.forestArea', { unit: t('unit.haThousand') }), key: 'forestAreaHa' },
       { label: t('geo.statistics.forestArea.forestAreaPercentOfLandArea'), key: 'forestAreaPercentage' },
     ]
     const csvData: { source: string; landArea: string; forestAreaHa: string; forestAreaPercentage: string }[] = []
 
-    const units = ['', t('unit.ha'), '%']
+    const units = ['', '', '%']
 
     const formattedTableData: StatisticsTableData = []
     data.forEach((entry) => {
       const { area, fra1ALandAreaPercentage, sourceName, sourceKey } = entry
-      const formatedArea = Numbers.format(area, 0)
+      const formatedArea = Numbers.format(area / 1000, 0)
       const sourceBackgroundColor =
         forestLayersMetadata[sourceKey as ForestKey]?.palette?.[0] ??
         extraEstimationsMetadata[sourceKey as ExtraEstimation]?.palette?.[0]
 
-      const sourceClassName = `geo-layer-toggle_${sourceBackgroundColor?.replaceAll('#', '')} legend`
-
       formattedTableData.push([
         {
-          className: sourceClassName,
+          color: sourceBackgroundColor,
           value: sourceName,
         },
         { value: formatedArea },
