@@ -33,8 +33,8 @@ const Toolbar: React.FC = () => {
 
   const isCountry = Areas.isISOCountry(countryIso)
   const isAdmin = Users.isAdministrator(user)
-  const includeGlobals = isAdmin || cycle.published || isAReviewer
-  const includeRegions = isAdmin || cycle.published
+  const includeGlobals = !geoRoute && (isAdmin || cycle.published || isAReviewer)
+  const includeRegions = !geoRoute && (isAdmin || cycle.published)
   const editor = Users.hasEditorRole({ user, countryIso, cycle })
 
   return (
