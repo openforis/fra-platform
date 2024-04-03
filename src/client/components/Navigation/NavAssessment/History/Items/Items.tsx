@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ActivityLog } from 'meta/assessment'
 
-import RecentActivityItem from 'client/pages/CountryHome/FraHome/RecentActivity/RecentActivityItem'
+import Item from './Item'
 
 type Props = {
   values: Array<ActivityLog<never>>
@@ -12,10 +12,10 @@ const Items: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="nav-section__items-visible">
-      {values?.map((d, i) => (
-        <div key={d.time} className="nav-section__item">
-          <RecentActivityItem datum={d} rowIndex={i} />
-        </div>
+      {values?.map((d) => (
+        <React.Fragment key={d.time}>
+          <Item datum={d} />
+        </React.Fragment>
       ))}
     </div>
   )
