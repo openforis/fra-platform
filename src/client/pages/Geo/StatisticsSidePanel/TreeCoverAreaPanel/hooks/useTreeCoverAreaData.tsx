@@ -3,9 +3,16 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
+import {
+  agreementPalette,
+  ExtraEstimation,
+  extraEstimationsMetadata,
+  ForestKey,
+  forestLayersMetadata,
+  LayerSectionKey,
+} from 'meta/geo'
 
-import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoFra1aLandArea, useGeoLayer, useGeoStatistics } from 'client/store/ui/geo/hooks'
 import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
 import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
@@ -23,6 +30,9 @@ export const useTreeCoverAreaData = (): Returned => {
 
   const fra1aLandArea = useGeoFra1aLandArea()
   const { tabularForestEstimations: data, isLoading, error } = useGeoStatistics()
+  const agreementLayer = useGeoLayer(LayerSectionKey.Forest, ForestKey.Agreement)
+  const agreementLevel = agreementLayer?.options?.agreementLayer?.level ?? 0
+  const agreementColor = agreementPalette.at(agreementLevel - 1)
 
   return useMemo<Returned>(() => {
     if (isLoading) {
@@ -55,9 +65,11 @@ export const useTreeCoverAreaData = (): Returned => {
     data.forEach((entry) => {
       const { area, fra1ALandAreaPercentage, sourceName, sourceKey } = entry
       const formatedArea = Numbers.format(area / 1000, 0)
-      const sourceBackgroundColor =
+      let sourceBackgroundColor =
         forestLayersMetadata[sourceKey as ForestKey]?.palette?.[0] ??
         extraEstimationsMetadata[sourceKey as ExtraEstimation]?.palette?.[0]
+
+      if (sourceKey === ExtraEstimation.CustomRecipe) sourceBackgroundColor = agreementColor
 
       formattedTableData.push([
         {
@@ -89,5 +101,5 @@ export const useTreeCoverAreaData = (): Returned => {
       tableData: formattedTableData,
       units,
     }
-  }, [data, error, fra1aLandArea, isLoading, t])
+  }, [agreementColor, data, error, fra1aLandArea, isLoading, t])
 }

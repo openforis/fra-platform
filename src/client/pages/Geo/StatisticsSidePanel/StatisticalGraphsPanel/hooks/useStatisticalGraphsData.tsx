@@ -4,9 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { ChartData, ChartOptions, Plugin } from 'chart.js'
 import { Numbers } from 'utils/numbers'
 
-import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
+import {
+  agreementPalette,
+  ExtraEstimation,
+  extraEstimationsMetadata,
+  ForestKey,
+  forestLayersMetadata,
+  LayerSectionKey,
+} from 'meta/geo'
 
-import { useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoLayer, useGeoStatistics } from 'client/store/ui/geo/hooks'
 import { GeoChartOptions, whiteBackgroundplugin } from 'client/pages/Geo/utils/chartPlugins'
 
 type Props = {
@@ -28,6 +35,10 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
 
   const { error, isLoading, tabularForestEstimations } = useGeoStatistics()
 
+  const agreementLayer = useGeoLayer(LayerSectionKey.Forest, ForestKey.Agreement)
+  const agreementLevel = agreementLayer?.options?.agreementLayer?.level ?? 0
+  const agreementColor = agreementPalette.at(agreementLevel - 1)
+
   return useMemo<Returned>(() => {
     const chartTitle = t('geo.statistics.forestArea.extentOfForestPerSource', { year })
     const unitLabel = t('unit.haThousand')
@@ -47,6 +58,7 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
     const backgroundColors = tabularForestEstimations.map((entry) => {
       const { sourceKey } = entry
       if (Object.values(ExtraEstimation).includes(sourceKey as ExtraEstimation)) {
+        if (sourceKey === ExtraEstimation.CustomRecipe) return agreementColor
         return extraEstimationsMetadata[sourceKey as ExtraEstimation].palette[0]
       }
       if (sourceKey.toUpperCase().indexOf(ForestKey.Hansen.toUpperCase()) === -1) {
@@ -123,5 +135,5 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
       options,
       plugins,
     }
-  }, [error, isLoading, t, tabularForestEstimations, year])
+  }, [agreementColor, error, isLoading, t, tabularForestEstimations, year])
 }
