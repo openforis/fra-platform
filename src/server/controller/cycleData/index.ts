@@ -1,3 +1,4 @@
+import { History } from 'server/controller/cycleData/history'
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { Repository } from 'server/controller/cycleData/repository'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
@@ -69,6 +70,9 @@ export const CycleDataController = {
   // ==== activities
   getActivities: CountryActivityLogRepository.getMany,
   getActivitiesCount: CountryActivityLogRepository.getCount,
+
+  // ====== history
+  History,
 
   // bulk download
   getBulkDownload,

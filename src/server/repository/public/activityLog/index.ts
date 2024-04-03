@@ -1,7 +1,9 @@
+import { getMany } from './getMany'
 import { insertActivityLog } from './insertActivityLog'
 import { massiveInsert } from './massiveInsert'
 
 export const ActivityLogRepository = {
+  getMany,
   insertActivityLog,
   massiveInsert,
 }
