@@ -47,7 +47,7 @@ export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<Cou
 // History state types
 // ==============================
 
-type HistoryItemState = {
+export type HistoryItemState = {
   sectionLabelKey: string
   sectionKey: HistoryItemSectionKey
 }

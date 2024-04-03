@@ -11,7 +11,7 @@ const Items: React.FC<Props> = (props: Props) => {
   const { values } = props
 
   return (
-    <div>
+    <div className="nav-section__items-visible">
       {values?.map((d, i) => (
         <div key={d.time} className="nav-section__item">
           <RecentActivityItem datum={d} rowIndex={i} />
