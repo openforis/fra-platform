@@ -1,6 +1,6 @@
 module.exports = {
   agreementLevelExplanation:
-    'Agreement level N means that at least N of the selected data sources need to agree that a certain pixel is forest area.',
+    'Agreement level N means that at least N of the selected data sources need to agree that a certain pixel is tree cover area.',
   burnedArea: 'Burned Area',
   chooseAgreementLevel: 'Choose the min. agreement level between selected layers.',
   error: {
