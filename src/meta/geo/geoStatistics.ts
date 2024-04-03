@@ -1,4 +1,4 @@
-import { ExtraEstimation, ForestEstimations, LayerSectionKey } from 'meta/geo'
+import { ExtraEstimation, ForestEstimations, ForestKey, LayerSectionKey } from 'meta/geo'
 
 export type ExtraEstimationState = {
   errorKey: string | null
@@ -9,10 +9,17 @@ export type ExtraEstimationSectionState = Record<ExtraEstimation, ExtraEstimatio
 
 export type GeoStatisticsExtraEstimations = Record<LayerSectionKey, ExtraEstimationSectionState>
 
+export type ForestEstimationEntry = {
+  area: number
+  fra1ALandAreaPercentage: number
+  sourceName: string
+  sourceKey: ForestKey | ExtraEstimation
+}
+
 export interface GeoStatisticsState {
-  forestEstimations: ForestEstimations | null
-  tabularEstimationData: [string, number, number, string][]
-  isLoading: boolean
   error: string | null
   extraEstimations: GeoStatisticsExtraEstimations
+  forestEstimations: ForestEstimations | null
+  isLoading: boolean
+  tabularForestEstimations: Array<ForestEstimationEntry>
 }
