@@ -3,15 +3,18 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
+import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
+
 import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/ui/geo/hooks'
 import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
+import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Returned = {
   columns: Array<string>
   csvData?: CSVData
   error?: string
   isLoading: boolean
-  tableData: (string | number)[][]
+  tableData: StatisticsTableData
   units: Array<string>
 }
 
@@ -48,11 +51,24 @@ export const useTreeCoverAreaData = (): Returned => {
 
     const units = ['', t('unit.ha'), '%']
 
-    const formattedTableData: (string | number)[][] = []
+    const formattedTableData: StatisticsTableData = []
     data.forEach((entry) => {
-      const { area, fra1ALandAreaPercentage, sourceName } = entry
+      const { area, fra1ALandAreaPercentage, sourceName, sourceKey } = entry
       const formatedArea = Numbers.format(area, 0)
-      formattedTableData.push([sourceName, formatedArea, fra1ALandAreaPercentage])
+      const sourceBackgroundColor =
+        forestLayersMetadata[sourceKey as ForestKey]?.palette?.[0] ??
+        extraEstimationsMetadata[sourceKey as ExtraEstimation]?.palette?.[0]
+
+      const sourceClassName = `geo-layer-toggle_${sourceBackgroundColor?.replaceAll('#', '')} legend`
+
+      formattedTableData.push([
+        {
+          className: sourceClassName,
+          value: sourceName,
+        },
+        { value: formatedArea },
+        { value: fra1ALandAreaPercentage },
+      ])
 
       csvData.push({
         forestAreaHa: formatedArea,
