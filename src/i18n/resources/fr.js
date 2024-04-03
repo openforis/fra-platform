@@ -390,7 +390,7 @@ L'équipe de FRA
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
 
-Vous avez été invité à accéder {{assessmentName}} {{cycleName}} comme {{role}} pour le/la {{country}}.
+Vous avez été invité à accéder {{assessmentName}} {{cycleName}} comme {{role}} pour le/la {{- country}}.
 
 Acceptez cette invitation et accédez à cette plateforme à l'adresse suivante:
 {{- link}}
@@ -824,10 +824,10 @@ L'équipe de FRA fra@fao.org
     fra: 'FRA',
     deskStudy: 'Étude de bureau',
     statusChangeNotification: {
-      subject: 'Le statut de {{country}} a été changé à {{status}} dans la plateforme de FRA',
+      subject: 'Le statut de {{- country}} a été changé à {{status}} dans la plateforme de FRA',
       textMessage: `Cher {{recipientName}},
 
-{{changer}} a changé le statut de {{assessment}} à "{{status}}" pour {{country}} dans la plateforme de FRA.
+{{changer}} a changé le statut de {{assessment}} à "{{status}}" pour {{- country}} dans la plateforme de FRA.
 
 {{message}}
 

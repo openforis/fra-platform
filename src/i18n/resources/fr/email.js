@@ -3,7 +3,7 @@ module.exports = {
     subject: 'L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation',
     textMessage: `Cher/Chère {{recipientName}} {{recipientSurname}},
 
-L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la {{country}}
+L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la {{- country}}
 {{- manageCollaboratorsUrl}}
 
 L’équipe FRA`,
