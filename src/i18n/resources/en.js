@@ -873,10 +873,10 @@ The FRA team fra@fao.org
     panEuropean: 'pan-European',
     deskStudy: 'Desk study',
     statusChangeNotification: {
-      subject: '{{country}} status changed to {{status}} on FRA Platform',
+      subject: '{{- country}} status changed to {{status}} on FRA Platform',
       textMessage: `Dear {{recipientName}},
 
-{{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
+{{changer}} changed the status of {{assessment}} to "{{status}}" for {{- country}} on FRA Platform.
 
 {{message}}
 
@@ -886,7 +886,7 @@ The FRA team
 {{- serverUrl}}`,
       htmlMessage: `Dear {{recipientName}},
 <br/><br/>
-{{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
+{{changer}} changed the status of {{assessment}} to "{{status}}" for {{- country}} on FRA Platform.
 <br/><br/>
 {{message}}
 <br/><br/>
