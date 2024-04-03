@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from 'utils/numbers'
 
 import { useGeoBurnedAreaMODIS, useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Returned = {
   columns: Array<string>
   error?: string
   isLoading: boolean
-  tableData: (string | number)[][]
+  tableData: StatisticsTableData
   title: string
   units: Array<string>
 }
@@ -33,14 +34,14 @@ export const useBurnedAreaData = (): Returned => {
     }
 
     const title = t('geo.statistics.burnedArea.burnedAreaByYear')
-    const columns = [t('common.source'), t('common.year'), t('geo.burnedArea')]
-    const units = ['', '', t('unit.ha')]
+    const columns = [t('common.source'), t('common.year'), t('geo.burnedAreaWithUnit', { unit: t('unit.ha') })]
+    const units = ['', '', '']
 
-    const formattedTableData: (string | number)[][] = []
+    const formattedTableData: StatisticsTableData = []
     geoBurnedAreaMODIS.forEach(({ ba: area, year }) => {
       const sourceName = t('geo.sections.burnedArea.layerTitles.modis')
       const formatedArea = Numbers.format(area, 0)
-      formattedTableData.push([sourceName, year, formatedArea])
+      formattedTableData.push([{ value: sourceName }, { value: year }, { value: formatedArea }])
     })
 
     return {

@@ -7,6 +7,7 @@ import { ButtonSize } from 'client/components/Buttons/Button'
 import { ButtonGridExport, DataCell, DataGrid } from 'client/components/DataGrid'
 import ButtonCSVExport from 'client/pages/Geo/ButtonCSVExport'
 import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
+import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Props = {
   columns: string[]
@@ -14,7 +15,7 @@ type Props = {
   fileName: string
   gridTemplateColumns?: string
   loaded: boolean
-  tableData: (string | number)[][]
+  tableData: StatisticsTableData
   units: string[]
 }
 
@@ -34,7 +35,7 @@ const StatisticsTable = (props: Props) => {
         {Objects.isEmpty(csvData) && <ButtonGridExport filename={fileName} gridRef={gridRef} size={ButtonSize.xs} />}
       </div>
 
-      <DataGrid ref={gridRef} gridTemplateColumns={gridTemplateColumns ?? `repeat(${columns.length}, auto)`}>
+      <DataGrid ref={gridRef} gridTemplateColumns={gridTemplateColumns ?? `repeat(${columns.length}, 1fr)`}>
         {columns.map((columnTitle, i) => {
           return (
             <DataCell key={`${columnTitle}-${String(i)}-header`} header lastCol={i === columns.length - 1}>
@@ -46,14 +47,17 @@ const StatisticsTable = (props: Props) => {
         {tableData.map((row, i) => {
           return (
             <React.Fragment key={`row_${String(i)}`}>
-              {row.map((value, j) => {
+              {row.map((entry, j) => {
                 return (
                   <DataCell
-                    key={`${value}-${String(i)}-${String(j)}`}
+                    key={`${entry.value}-${String(i)}-${String(j)}`}
                     lastCol={j === columns.length - 1}
                     lastRow={i === tableData.length - 1}
                   >
-                    {`${value} ${units[j]}`}
+                    {entry.color && (
+                      <div className="geo-table__layer-legend" style={{ backgroundColor: entry.color }} />
+                    )}
+                    {`${entry.value} ${units[j]}`}
                   </DataCell>
                 )
               })}

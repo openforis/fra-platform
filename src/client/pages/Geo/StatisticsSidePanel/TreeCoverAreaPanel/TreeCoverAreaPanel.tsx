@@ -34,7 +34,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
         columns={columns}
         csvData={csvData}
         fileName={`tree-cover-area-estimations-${countryIso}-${year}`}
-        gridTemplateColumns="1fr 1fr 0.8fr"
+        gridTemplateColumns="1fr 0.7fr 0.7fr"
         loaded={!isLoading}
         tableData={tableData}
         units={units}

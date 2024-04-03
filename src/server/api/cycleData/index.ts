@@ -4,7 +4,7 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { PrintApi } from 'server/api/cycleData/print'
+// import { PrintApi } from 'server/api/cycleData/print'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
@@ -135,7 +135,7 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)
 
     // Print
-    PrintApi.init(express)
+    // PrintApi.init(express)
 
     // Review
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
