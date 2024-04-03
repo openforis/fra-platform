@@ -7,7 +7,7 @@ import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 const path = ApiEndPoint.CycleData.activities()
-export const useGetData = () => {
+export const useGetData = (): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
 

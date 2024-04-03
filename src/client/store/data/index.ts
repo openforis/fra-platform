@@ -13,6 +13,7 @@ export { useRecordAssessmentData, useRecordAssessmentDataWithOdp } from './hooks
 export { DataActions } from './slice'
 export type {
   DataState,
+  HistoryItemState,
   RecordAssessmentValidationsState,
   RecordCountryValidationsState,
   RecordCycleValidationsState,

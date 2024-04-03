@@ -1,29 +1,29 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { useHistory } from 'client/store/data/hooks/useHistory'
 import Items from 'client/components/Navigation/NavAssessment/History/Items'
+import Title from 'client/components/Navigation/NavAssessment/History/Title'
 
 import { useData } from './hooks/useData'
 import { useGetData } from './hooks/useGetData'
 
 const History: React.FC = () => {
-  const { t } = useTranslation()
+  useGetData()
 
+  const data = useData()
   const history = useHistory()
 
-  useGetData()
-  const data = useData()
-
   return (
-    <>
-      <div className="nav-section__header" role="button" tabIndex={0}>
-        {Object.values(history?.items).map((h) => {
-          return <div key={h.sectionKey}> {t(h.sectionLabelKey)} </div>
-        })}
-      </div>
-      <Items values={data} />
-    </>
+    <div className="nav-section">
+      {Object.entries(history.items).map(([key, value]) => {
+        return (
+          <React.Fragment key={key}>
+            <Title value={value} />
+            <Items values={data} />
+          </React.Fragment>
+        )
+      })}
+    </div>
   )
 }
 
