@@ -7,7 +7,7 @@ type Props = Pick<
 >
 
 const InputText = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
-  const { disabled, id, onChange, onPaste, value } = props
+  const { disabled, id, onChange, onPaste, placeholder, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
@@ -18,11 +18,12 @@ const InputText = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
 
   return (
     <input
+      ref={inputRef}
       className="input-text"
       id={id}
       onChange={onChange}
       onPaste={onPaste}
-      ref={inputRef}
+      placeholder={placeholder}
       type="text"
       value={value}
     />

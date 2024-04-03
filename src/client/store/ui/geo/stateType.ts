@@ -33,20 +33,25 @@ export type LayerState = {
 
 export type LayersSectionState = Record<LayerKey, LayerState>
 
+export type GeoMapOptions = {
+  mapTypeId: google.maps.MapTypeId
+  maxZoom: number
+  minZoom: number
+  zoom: number
+}
+
 export type GeoState = {
+  mapOptions: GeoMapOptions
   sections: Record<LayerSectionKey, LayersSectionState>
   recipes: Record<LayerSectionKey, string>
   isMapAvailable: boolean
   selectedPanel: MapPanel
   mosaicOptions: {
-    ui: MosaicOptions
     applied: MosaicOptions
-    mosaicSelected: boolean
-    mosaicPending: boolean
-    mosaicFailed: boolean
-    mosaicUrl: {
-      [key in CountryIso]?: string
-    }
+    selected?: boolean
+    status?: LayerFetchStatus
+    ui: MosaicOptions
+    url: Partial<Record<CountryIso, string>>
   }
   geoStatistics: GeoStatisticsState
 }

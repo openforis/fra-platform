@@ -1,0 +1,76 @@
+@import 'src/client/style/partials';
+
+.button-checkbox {
+  $colorPrimary: $ui-accent;
+  $colorSecondary: white;
+
+  svg {
+    color: $colorSecondary;
+    border: 1px solid $colorSecondary;
+  }
+
+  &.inverse {
+    svg {
+      color: $colorSecondary;
+      border-color: $colorPrimary;
+    }
+
+    &:hover {
+      svg {
+        color: $colorPrimary;
+      }
+    }
+  }
+}
+
+$lds-size: 12px;
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: $lds-size;
+  height: $lds-size;
+}
+
+.lds-ripple div {
+  position: absolute;
+  border: 2px solid white;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: #{$lds-size * 0.45}; // 0.45
+    left: #{$lds-size * 0.45};
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: #{$lds-size * 0.45};
+    left: #{$lds-size * 0.45};
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: #{$lds-size * 0.45};
+    left: #{$lds-size * 0.45};
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: #{$lds-size * 0.84}; // 0.84
+    height: #{$lds-size * 0.84};
+    opacity: 0;
+  }
+}

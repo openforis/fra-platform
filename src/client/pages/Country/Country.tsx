@@ -12,6 +12,7 @@ import { useCountries, useCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useNavigationVisible } from 'client/store/ui/navigation'
 import { useUser } from 'client/store/user'
+import { useIsGeoRoute } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Navigation from 'client/components/Navigation'
 
@@ -30,6 +31,7 @@ const Country: React.FC = () => {
   const navigationVisible = useNavigationVisible()
   const countries = useCountries()
   const country = useCountry(countryIso as CountryIso) // TODO: revisit useCountry Hook
+  const geoRoute = useIsGeoRoute()
   // const isDataExportView = useIsDataExportView()
   useInitSections()
   useInitMetaCache()
@@ -45,7 +47,7 @@ const Country: React.FC = () => {
     window.location.href = Routes.Cycle.generatePath({ assessmentName, cycleName })
 
   return (
-    <div className={classNames('app-view', { 'navigation-on': navigationVisible })}>
+    <div className={classNames('app-view', { 'navigation-on': navigationVisible && !geoRoute })}>
       <Navigation />
       <Outlet />
     </div>

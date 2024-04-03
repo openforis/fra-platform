@@ -14,6 +14,7 @@ import {
 import {
   ExtraEstimationSectionState,
   ExtraEstimationState,
+  ForestEstimationEntry,
   GeoStatisticsExtraEstimations,
 } from 'meta/geo/geoStatistics'
 
@@ -31,6 +32,7 @@ import { mapController } from 'client/utils'
 
 import {
   AgreementLevelState,
+  GeoMapOptions,
   GeoState,
   LayerFetchStatus,
   LayersSectionState,
@@ -50,17 +52,21 @@ const initialState: GeoState = {
   recipes: {} as Record<LayerSectionKey, string>,
   isMapAvailable: false,
   selectedPanel: null,
+  mapOptions: {
+    // @ts-expect-error
+    mapTypeId: 'roadmap',
+    maxZoom: 15,
+    minZoom: 3,
+    zoom: 6,
+  },
   mosaicOptions: {
-    ui: { ...initialMosaicOptions },
     applied: { ...initialMosaicOptions },
-    mosaicSelected: false,
-    mosaicPending: false,
-    mosaicFailed: false,
-    mosaicUrl: {},
+    ui: { ...initialMosaicOptions },
+    url: {},
   },
   geoStatistics: {
     forestEstimations: null,
-    tabularEstimationData: [],
+    tabularForestEstimations: [],
     isLoading: false,
     error: null,
     extraEstimations: {} as GeoStatisticsExtraEstimations,
@@ -74,7 +80,7 @@ const getExtraEstimationState = (
 ): ExtraEstimationState => {
   state.geoStatistics.extraEstimations[sectionKey] ??= {} as ExtraEstimationSectionState
   state.geoStatistics.extraEstimations[sectionKey][extraEstimation] ??= {
-    error: null,
+    errorKey: null,
     isLoading: false,
   }
 
@@ -182,18 +188,22 @@ export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
+    setMapOptions: (state, action: PayloadAction<Partial<GeoMapOptions>>) => {
+      const options = action.payload
+      state.mapOptions = { ...state.mapOptions, ...options }
+    },
     setMapAvailability: (state, { payload }: PayloadAction<boolean>) => {
       state.isMapAvailable = payload
     },
     applyMosaicOptions: (state) => {
-      state.mosaicOptions.mosaicUrl = {}
-      state.mosaicOptions.mosaicFailed = false
-      state.mosaicOptions.mosaicPending = false
+      state.mosaicOptions.url = {}
+      state.mosaicOptions.status = LayerFetchStatus.Unfetched
       state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
     },
     toggleMosaicLayer: (state) => {
-      if (!state.mosaicOptions.mosaicSelected) state.mosaicOptions.mosaicFailed = false // The user is retrying
-      state.mosaicOptions.mosaicSelected = !state.mosaicOptions.mosaicSelected
+      const currentSelected = state.mosaicOptions.selected ?? false
+      state.mosaicOptions.selected = !currentSelected
+      if (currentSelected) mapController.removeLayer('mosaic')
     },
     toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
       const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
@@ -217,8 +227,8 @@ export const geoSlice = createSlice({
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
     },
-    setTabularEstimationData: (state, { payload }: PayloadAction<[string, number, number, string][]>) => {
-      state.geoStatistics.tabularEstimationData = payload
+    setTabularForestEstimations: (state, { payload }: PayloadAction<Array<ForestEstimationEntry>>) => {
+      state.geoStatistics.tabularForestEstimations = payload
       state.geoStatistics.isLoading = false
       state.geoStatistics.error = null
     },
@@ -231,19 +241,15 @@ export const geoSlice = createSlice({
     },
     insertTabularEstimationEntry: (
       state,
-      { payload: [index, entry] }: PayloadAction<[number, [string, number, number, string]]>
+      { payload: [index, entry] }: PayloadAction<[number, ForestEstimationEntry]>
     ) => {
-      let replaced = false
-      state.geoStatistics.tabularEstimationData = state.geoStatistics.tabularEstimationData.map((row) => {
-        let newRow: [string, number, number, string] = [...row]
-        if (newRow[0] === entry[0]) {
-          newRow = entry
-          replaced = true
-        }
-        return newRow
-      })
-      if (!replaced) {
-        state.geoStatistics.tabularEstimationData.splice(index, 0, entry)
+      const existingIndex = state.geoStatistics.tabularForestEstimations.findIndex(
+        (row) => row.sourceKey === entry.sourceKey
+      )
+      if (existingIndex !== -1) {
+        state.geoStatistics.tabularForestEstimations[existingIndex] = entry
+      } else {
+        state.geoStatistics.tabularForestEstimations.splice(index, 0, entry)
       }
     },
     setLayerSelected: (
@@ -376,20 +382,18 @@ export const geoSlice = createSlice({
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
         const { urlTemplate, countryIso } = payload
-        state.mosaicOptions.mosaicUrl[countryIso] = urlTemplate
-        state.mosaicOptions.mosaicFailed = false
-        state.mosaicOptions.mosaicPending = false
+        state.mosaicOptions.url[countryIso] = urlTemplate
+        state.mosaicOptions.status = LayerFetchStatus.Ready
       })
       .addCase(postMosaicOptions.pending, (state) => {
-        state.mosaicOptions.mosaicPending = true
-        state.mosaicOptions.mosaicFailed = false
-        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
+        state.mosaicOptions.url = initialState.mosaicOptions.url
+        state.mosaicOptions.status = LayerFetchStatus.Loading
+        mapController.removeLayer('mosaic')
       })
       .addCase(postMosaicOptions.rejected, (state) => {
-        state.mosaicOptions.mosaicFailed = true
-        state.mosaicOptions.mosaicPending = false
-        state.mosaicOptions.mosaicSelected = false
-        state.mosaicOptions.mosaicUrl = initialState.mosaicOptions.mosaicUrl
+        state.mosaicOptions.url = initialState.mosaicOptions.url
+        state.mosaicOptions.status = LayerFetchStatus.Failed
+        mapController.removeLayer('mosaic')
       })
       .addCase(getForestEstimationData.fulfilled, (state, { payload: forestEstimations }) => {
         state.geoStatistics.forestEstimations = forestEstimations
@@ -416,14 +420,14 @@ export const geoSlice = createSlice({
       .addCase(postExtraEstimation.fulfilled, (state, { payload: [extraEstimation, sectionKey, _scale] }) => {
         getExtraEstimationState(state, sectionKey, extraEstimation)
         state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
-          error: null,
+          errorKey: null,
           isLoading: false,
         }
       })
       .addCase(postExtraEstimation.pending, (state, { meta }) => {
         getExtraEstimationState(state, meta.arg.sectionKey, meta.arg.extraEstimation)
         state.geoStatistics.extraEstimations[meta.arg.sectionKey][meta.arg.extraEstimation] = {
-          error: null,
+          errorKey: null,
           isLoading: true,
         }
       })
@@ -431,7 +435,7 @@ export const geoSlice = createSlice({
         const { sectionKey, extraEstimation } = action.meta.arg
         getExtraEstimationState(state, sectionKey, extraEstimation)
         state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
-          error: action.payload as string,
+          errorKey: action.payload as string,
           isLoading: false,
         }
       })
