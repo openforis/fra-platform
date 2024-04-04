@@ -220,10 +220,10 @@ The FRA team fra@fao.org
     send: 'Send',
     cancel: 'Cancel',
     notificationEmail: {
-      subject: '{{sender}} sent you a message on {{country}}',
+      subject: '{{sender}} sent you a message on {{- country}}',
       textMessage: `Dear {{recipient}},
 
-{{sender}} sent you a message on {{country}}.
+{{sender}} sent you a message on {{- country}}.
 
 Access the platform at the following URL to see and respond:
 {{- link}}
@@ -450,7 +450,7 @@ The FRA team
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},
 
-You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
+You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for {{- country}}.
 
 Accept this invitation and access the platform at the following URL:
 {{- link}}
@@ -886,7 +886,7 @@ The FRA team
 {{- serverUrl}}`,
       htmlMessage: `Dear {{recipientName}},
 <br/><br/>
-{{changer}} changed the status of {{assessment}} to "{{status}}" for {{- country}} on FRA Platform.
+{{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
 <br/><br/>
 {{message}}
 <br/><br/>
