@@ -24,6 +24,7 @@ import { updateNodeValues } from './actions/updateNodeValues'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
 import { setNodeValueValidations } from './reducers/setNodeValueValidations'
+import { setValue } from './reducers/setValue'
 import { toggleHistory } from './reducers/toggleHistory'
 import { DataState, TableDataStatus } from './stateType'
 
@@ -42,8 +43,9 @@ export const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    setNodeValueValidations,
     deleteOriginalDataPoint,
+    setNodeValueValidations,
+    setValue,
     toggleHistory,
   },
 
