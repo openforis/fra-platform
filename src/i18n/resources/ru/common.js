@@ -51,7 +51,7 @@ module.exports = {
   submittedForApproval: 'Направлено на утверждение',
   submittedToReview: 'Направлено на рассмотрение',
   tier: 'Уровень',
-  tiers: { high: 'Высокий', low: 'Низкий', medium: 'низкий', notSelected: '' },
+  tiers: { high: 'Высокий', low: 'Низкий', medium: 'Средний', notSelected: '' },
   totalPercentage: 'Общий процент.',
   trend: 'Тренд',
   unknown: 'Отсутствует/неизвестна',
