@@ -1,4 +1,4 @@
-export type { ActivityLog } from './activityLog'
+export type { ActivityLog, ActivityLogDescription } from './activityLog'
 export { ActivityLogMessage } from './activityLog'
 export { ActivityLogs } from './activityLogs'
 export type { Assessment, AssessmentProps, RecordAssessments } from './assessment'

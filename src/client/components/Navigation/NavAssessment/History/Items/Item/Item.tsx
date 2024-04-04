@@ -5,12 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ActivityLog, ActivityLogs } from 'meta/assessment'
+import { ActivityLogs } from 'meta/assessment'
 import { Users } from 'meta/user'
 
-type Props = {
-  datum: ActivityLog<never>
-}
+import { useOnClick } from './hooks/useOnClick'
+import { Props } from './props'
 
 const formatDate = (date?: string): string => (date ? Dates.format(Dates.parseISO(date), 'dd MMMM yyyy HH:mm') : '')
 
@@ -19,8 +18,7 @@ const Item: React.FC<Props> = (props) => {
   const { datum: activity } = props
   const { user } = activity
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const onClick = () => {}
+  const onClick = useOnClick(props)
 
   return (
     <button className="nav-section__item history-item" onClick={onClick} type="button">

@@ -18,7 +18,7 @@ const Items: React.FC<Props> = (props: Props) => {
     <div className="nav-section__items-visible">
       {data?.map((d) => (
         <React.Fragment key={d.time}>
-          <Item datum={d} />
+          <Item datum={d} sectionKey={sectionKey} />
         </React.Fragment>
       ))}
     </div>
