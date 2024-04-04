@@ -18,7 +18,6 @@ const Item: React.FC<Props> = (props) => {
   const { datum: activity } = props
   const { user } = activity
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onClick = useOnClick(props)
 
   return (
