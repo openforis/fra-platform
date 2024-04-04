@@ -3,7 +3,7 @@ module.exports = {
     subject: 'User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation',
     textMessage: `Dear {{recipientName}} {{recipientSurname}},
 
-User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for {{country}}:
+User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for {{- country}}:
 {{- manageCollaboratorsUrl}}
 
 The FRA team`,
@@ -15,9 +15,9 @@ The FRA team`,
   },
 
   remindReviewer: {
-    subject: 'Reminder: Pending review for {{assessmentName}} {{cycleName}} {{country}}',
+    subject: 'Reminder: Pending review for {{assessmentName}} {{cycleName}} {{- country}}',
     textMessage: `Dear {{recipientName}},
-    The {{assessmentName}} country report of {{country}} has been “In review” since {{lastInReview}}.
+    The {{assessmentName}} country report of {{- country}} has been “In review” since {{lastInReview}}.
     Please provide your comments and send the report back to “Editing”, or proceed with approval if there are no further issues.
 
     {{- countryUrl}}
