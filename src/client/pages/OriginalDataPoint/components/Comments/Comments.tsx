@@ -5,6 +5,7 @@ import classNames from 'classnames'
 
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 
@@ -33,12 +34,16 @@ const Comments: React.FC<Props> = (props) => {
 
   return (
     <DataGrid className="odp__section description" gridTemplateColumns={`1fr${canEditData ? ' 32px' : ''}`}>
-      <DataCell className="description-title" noBorder>
+      <DataCell className="description-title" editable noBorder>
         <h3 className="subhead description-title__label">{t('review.comments')}</h3>
+
         {canEditData && (
-          <button className="btn-s description-title__btn-edit no-print" onClick={() => setOpen(!open)} type="button">
-            {open ? t('description.done') : t('description.edit')}
-          </button>
+          <Button
+            inverse={!open}
+            label={open ? t('description.done') : t('description.edit')}
+            onClick={() => setOpen(!open)}
+            size={ButtonSize.xs}
+          />
         )}
       </DataCell>
       {canEditData && <div />}
