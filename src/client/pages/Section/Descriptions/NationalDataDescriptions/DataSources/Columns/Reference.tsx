@@ -1,8 +1,6 @@
-import React, { useCallback, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { useCallback } from 'react'
 
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { DataSource, SectionName } from 'meta/assessment'
 import { TooltipId } from 'meta/tooltip'
@@ -11,6 +9,7 @@ import { DataCell } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 
 import { useOnChange } from './hook/useOnChange'
+import { useValidationError } from './hook/useValidationError'
 
 type Props = {
   dataSource: DataSource
@@ -22,7 +21,6 @@ type Props = {
 const Reference: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, lastRow, sectionName } = props
 
-  const { t } = useTranslation()
   const onChange = useOnChange({ sectionName, dataSource })
 
   const _onChange = useCallback(
@@ -32,14 +30,12 @@ const Reference: React.FC<Props> = (props: Props) => {
     [onChange]
   )
 
-  const validationError = useMemo(() => {
-    return !dataSource.placeholder && Objects.isEmpty(dataSource.reference)
-  }, [dataSource.placeholder, dataSource.reference])
+  const validationError = useValidationError({ dataSource })
 
   return (
     <DataCell
       className={classNames('data-source__column-reference', { 'validation-error': validationError })}
-      data-tooltip-content={validationError ? t('generalValidation.notEmpty') : ''}
+      data-tooltip-content={validationError}
       data-tooltip-id={TooltipId.error}
       editable={!disabled}
       lastRow={lastRow}
