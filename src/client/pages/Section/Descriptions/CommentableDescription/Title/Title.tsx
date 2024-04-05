@@ -27,8 +27,8 @@ const Title: React.FC<Props> = (props) => {
           <span>{title}</span>
         </h3>
 
-        <ButtonEdit name={name} sectionName={sectionName} />
         <ButtonHistory name={name} sectionName={sectionName} />
+        <ButtonEdit name={name} sectionName={sectionName} />
       </DataCell>
     </DataRow>
   )

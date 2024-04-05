@@ -163,11 +163,38 @@ const canViewRepositoryItem = (props: {
   return Users.hasRoleInCountry({ user, countryIso, cycle })
 }
 
+/**
+ * canViewHistory
+ * Viewer or non loggedin user: never
+ * Administrator: always
+ * NationalCorrespondant and AlternateNationalCorrespondant: never
+ * Collaborator: never
+ * Reviewer: if role
+ * @param props
+ * @param props.country
+ * @param props.cycle
+ * @param props.section
+ * @param props.user
+ * @returns boolean
+ */
+const canViewHistory = (props: {
+  country: Country
+  cycle: Cycle
+  section: Section | SubSection
+  user: User
+}): boolean => {
+  const { user, cycle, country } = props
+  if (Users.isAdministrator(user)) return true
+
+  return canEditData(props) && Users.isReviewer(user, country.countryIso, cycle)
+}
+
 export const Authorizer = {
   canEditCountryProps,
   canEditData,
   canEditRepositoryItem,
   canView,
+  canViewHistory,
   canViewRepositoryItem,
   canViewUsers,
 }

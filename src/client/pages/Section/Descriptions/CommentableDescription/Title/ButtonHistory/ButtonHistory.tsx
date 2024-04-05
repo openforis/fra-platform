@@ -8,7 +8,7 @@ import { Histories } from 'meta/cycleData'
 
 import { useIsHistoryActive } from 'client/store/data'
 import { useHistory } from 'client/store/data/hooks/useHistory'
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 
 import { useToggleHistory } from './hooks/useToggleHistory'
@@ -19,7 +19,7 @@ const ButtonHistory: React.FC<Props> = (props) => {
   const { sectionName, name } = props
 
   const { t } = useTranslation()
-  const canEdit = useCanEditDescription({ sectionName })
+  const canViewHistory = useCanViewHistory()
   const descriptionEditable = useIsDescriptionEditable({ sectionName, name })
   const loading = false // TODO: useLoading..()
   const disabled = loading || descriptionEditable
@@ -33,13 +33,13 @@ const ButtonHistory: React.FC<Props> = (props) => {
   // Show toggle button when browsing history for current section
   const currentSectionEnabled = !Objects.isEmpty(history.items?.[Histories.getHistoryItemSectionKey(sectionName, name)])
 
-  if ((!canEdit || !isDataSources) && !currentSectionEnabled) return null
+  if ((!canViewHistory || !isDataSources) && !currentSectionEnabled) return null
 
   return (
     <Button
       disabled={disabled}
       inverse={!historyActive}
-      label={historyActive ? t('description.done') : t('common.history')}
+      label={t('common.history')}
       onClick={onClick}
       size={ButtonSize.xs}
     />
