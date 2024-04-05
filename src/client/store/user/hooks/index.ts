@@ -88,3 +88,12 @@ export const useIsGlobalRepositoryEditable = (): boolean => {
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   return isCountryRepositoryEditable && isAdmin
 }
+
+export const useCanViewHistory = () => {
+  const user = useUser()
+  const section = useSection()
+  const country = useAssessmentCountry()
+  const cycle = useCycle()
+
+  return Authorizer.canViewHistory({ country, cycle, section, user })
+}

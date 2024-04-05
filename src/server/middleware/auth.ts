@@ -207,6 +207,22 @@ const requireViewRepositoryFile = async (req: Request, _res: Response, next: Nex
   _next(Authorizer.canViewRepositoryItem({ assessment, cycle, countryIso, user, repositoryItem }), next)
 }
 
+const requireViewHistory = async (req: Request, _res: Response, next: NextFunction) => {
+  const { countryIso, assessmentName, cycleName, sectionName } = {
+    ...req.params,
+    ...req.query,
+    ...req.body,
+  } as CycleParams & { sectionName: string }
+  const user = Requests.getUser(req)
+
+  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
+
+  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+
+  _next(Authorizer.canViewHistory({ country, cycle, section, user }), next)
+}
+
 export const AuthMiddleware = {
   requireAdmin: tryCatch(requireAdmin),
   requireDeleteTopicMessage: tryCatch(requireDeleteTopicMessage),
@@ -220,6 +236,7 @@ export const AuthMiddleware = {
   requireResolveTopic: tryCatch(requireResolveTopic),
   requireUser: tryCatch(requireUser),
   requireView: tryCatch(requireView),
+  requireViewHistory: tryCatch(requireViewHistory),
   requireViewRepositoryFile: tryCatch(requireViewRepositoryFile),
   requireViewUser: tryCatch(requireViewUser),
   requireViewUsers: tryCatch(requireViewUsers),

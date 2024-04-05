@@ -143,7 +143,7 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireView, getActivitiesCount)
 
     // History
-    express.get(ApiEndPoint.CycleData.history(), AuthMiddleware.requireEditTableData, getHistory)
+    express.get(ApiEndPoint.CycleData.history(), AuthMiddleware.requireViewHistory, getHistory)
 
     // ext node
     // -- Contacts
