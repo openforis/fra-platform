@@ -5,7 +5,8 @@ div.editorWYSIWYG {
   word-break: break-word;
 
   p,
-  table {
+  table,
+  ul {
     margin: unset;
   }
 
@@ -47,5 +48,11 @@ div.editorWYSIWYG {
       display: none;
       border: unset;
     }
+  }
+}
+
+@include print {
+  div.editorWYSIWYG {
+    height: unset;
   }
 }

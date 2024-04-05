@@ -7,16 +7,15 @@ import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
 import { RootState, useAppSelector } from 'client/store'
 
-import { LayersSectionState, LayerState } from '../stateType'
+import { GeoMapOptions, LayerFetchStatus, LayersSectionState, LayerState } from '../stateType'
 
-export const useMosaicUrl = (countryIso: CountryIso): string =>
-  useAppSelector((state) => state.geo?.mosaicOptions.mosaicUrl[countryIso])
+export const useMosaicUrl = (countryIso: CountryIso): string | undefined =>
+  useAppSelector((state) => state.geo?.mosaicOptions.url[countryIso])
 
-export const useMosaicSelected = (): boolean => useAppSelector((state) => state.geo?.mosaicOptions.mosaicSelected)
+export const useMosaicSelected = (): boolean | undefined => useAppSelector((state) => state.geo?.mosaicOptions.selected)
 
-export const useMosaicPending = (): boolean => useAppSelector((state) => state.geo?.mosaicOptions.mosaicPending)
-
-export const useMosaicFailed = (): boolean => useAppSelector((state) => state.geo?.mosaicOptions.mosaicFailed)
+export const useMosaicStatus = (): LayerFetchStatus | undefined =>
+  useAppSelector((state) => state.geo?.mosaicOptions.status)
 
 export const useUiMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.ui)
 
@@ -72,3 +71,5 @@ export const useGeoExtaEstimation = (
 
 export const useGeoFra1aLandArea = (): number | undefined =>
   useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea)
+
+export const useGeoMapOptions = (): GeoMapOptions => useAppSelector((state) => state.geo.mapOptions)

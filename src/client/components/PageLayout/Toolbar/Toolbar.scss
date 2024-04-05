@@ -33,22 +33,16 @@
   background: radial-gradient(darken($ui-bg, 25%), $ui-bg);
 }
 
-.toolbar__utils-container {
-  margin-left: auto;
-  margin-right: 12px;
-  display: flex;
-  align-items: center;
-  height: 100%;
-
-  .btn {
-    border: none !important;
-  }
-}
-
 .toolbar__geo-beta-message {
-  font-size: $font-l;
-  text-align: center;
-  position: absolute;
+  background-color: $ui-black-map;
+  border-radius: $spacing-xxxxs;
+  color: white;
+  font-size: $font-s;
   left: 50%;
+  opacity: 0.6;
+  padding: $spacing-xxxxs $spacing-xs;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
   transform: translateX(-50%);
 }

@@ -44,6 +44,32 @@ const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User 
   return Users.hasRoleInCountry({ user, countryIso, cycle })
 }
 
+const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User }): boolean => {
+  const { cycle, country, user } = props
+  const { countryIso } = country ?? {}
+  const { status } = country?.props ?? {}
+
+  if (!user) return false
+  if (Users.isViewer(user, countryIso, cycle)) return false
+  if (Users.isAdministrator(user)) return true
+
+  const nationalCorrespondent = Users.isNationalCorrespondent(user, countryIso, cycle)
+  const alternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
+  const collaborator = Users.isCollaborator(user, countryIso, cycle)
+  const reviewer = Users.isReviewer(user, countryIso, cycle)
+
+  if (nationalCorrespondent || alternateNationalCorrespondent || collaborator) {
+    const collaboratorCanEdit = !collaborator || (user as unknown as Collaborator).permissions?.sections !== 'none'
+    return status === AssessmentStatus.editing && collaboratorCanEdit
+  }
+
+  if (reviewer) {
+    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+  }
+
+  return false
+}
+
 /**
  * CanEditData
  * Viewer or non loggedin user: never
@@ -77,18 +103,8 @@ const canEditData = (props: {
   const { countryIso } = country
   const { status } = country.props
 
-  if (!user) return false
-  if (Users.isViewer(user, countryIso, cycle)) return false
-  if (Users.isAdministrator(user)) return true
-
-  if (
-    Users.isNationalCorrespondent(user, countryIso, cycle) ||
-    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
-  )
-    return status === AssessmentStatus.editing
-
-  if (Users.isReviewer(user, countryIso, cycle)) {
-    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+  if (canEditCycleData({ cycle, country, user })) {
+    return true
   }
 
   if (Users.isCollaborator(user, countryIso, cycle) && status === AssessmentStatus.editing) {
@@ -191,6 +207,7 @@ const canViewHistory = (props: {
 
 export const Authorizer = {
   canEditCountryProps,
+  canEditCycleData,
   canEditData,
   canEditRepositoryItem,
   canView,

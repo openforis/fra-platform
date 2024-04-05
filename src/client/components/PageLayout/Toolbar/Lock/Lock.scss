@@ -38,4 +38,13 @@ button.btn-lock {
       background-color: lighten($ui-destructive, 51%);
     }
   }
+
+  &:disabled {
+    pointer-events: none;
+    border-color: darken($ui-destructive, 10%);
+
+    svg {
+      color: darken($ui-destructive, 10%);
+    }
+  }
 }

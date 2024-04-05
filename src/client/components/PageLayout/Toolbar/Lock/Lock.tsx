@@ -8,37 +8,42 @@ import { useAppDispatch } from 'client/store'
 import { useIsHistoryActive } from 'client/store/data'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
+import { useCanEditCycleData } from 'client/store/user'
 import Icon from 'client/components/Icon'
 import { Breakpoints } from 'client/utils'
 
 const Lock: React.FC = () => {
   const dispatch = useAppDispatch()
 
+  const canEditCycleData = useCanEditCycleData()
   const locked = useIsDataLocked()
   const showOdps = useShowOriginalDatapoints()
-  const [disabled, setDisabled] = useState<boolean>(false)
   const historyActive = useIsHistoryActive()
+
+  const [disabled, setDisabled] = useState<boolean>(false)
   const [over, setOver] = useState<boolean>(false)
   const lockRef = useRef<boolean>(showOdps)
-
+  
   const toggleLock = useCallback(() => dispatch(DataLockActions.toggleDataLock()), [dispatch])
-
+  
   useEffect(() => {
-    if (historyActive || !showOdps) {
-      setDisabled(true)
-      if (!locked) {
-        lockRef.current = locked
-        toggleLock()
+    if(canEditCycleData){
+      if (historyActive || !showOdps) {
+        setDisabled(true)
+        if (!locked) {
+          lockRef.current = locked
+          toggleLock()
+        }
+      }
+      if (!historyActive && showOdps) {
+        setDisabled(false)
+        if (!lockRef.current) {
+          lockRef.current = true
+          toggleLock()
+        }
       }
     }
-    if (!historyActive && showOdps) {
-      setDisabled(false)
-      if (!lockRef.current) {
-        lockRef.current = true
-        toggleLock()
-      }
-    }
-  }, [historyActive, locked, showOdps, toggleLock])
+  }, [canEditCycleData, historyActive, locked, showOdps, toggleLock])
 
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>

@@ -8,6 +8,7 @@ const dataSource = require('./en/dataSource')
 const email = require('./en/email')
 const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
+const geo = require('./en/geo')
 const landing = require('./en/landing')
 const login = require('./en/login')
 const panEuropean = require('./en/panEuropean/panEuropean')
@@ -25,6 +26,7 @@ module.exports.translation = {
   email,
   fra,
   generalValidation,
+  geo,
   landing,
   login,
   panEuropean,
@@ -218,10 +220,10 @@ The FRA team fra@fao.org
     send: 'Send',
     cancel: 'Cancel',
     notificationEmail: {
-      subject: '{{sender}} sent you a message on {{country}}',
+      subject: '{{sender}} sent you a message on {{- country}}',
       textMessage: `Dear {{recipient}},
 
-{{sender}} sent you a message on {{country}}.
+{{sender}} sent you a message on {{- country}}.
 
 Access the platform at the following URL to see and respond:
 {{- link}}
@@ -448,7 +450,7 @@ The FRA team
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},
 
-You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for {{country}}.
+You have been invited to access {{assessmentName}} {{cycleName}} as {{role}} for {{- country}}.
 
 Accept this invitation and access the platform at the following URL:
 {{- link}}
@@ -871,10 +873,10 @@ The FRA team fra@fao.org
     panEuropean: 'pan-European',
     deskStudy: 'Desk study',
     statusChangeNotification: {
-      subject: '{{country}} status changed to {{status}} on FRA Platform',
+      subject: '{{- country}} status changed to {{status}} on FRA Platform',
       textMessage: `Dear {{recipientName}},
 
-{{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
+{{changer}} changed the status of {{assessment}} to "{{status}}" for {{- country}} on FRA Platform.
 
 {{message}}
 

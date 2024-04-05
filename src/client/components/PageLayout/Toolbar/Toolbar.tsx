@@ -14,9 +14,9 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
+import Options from 'client/components/PageLayout/Toolbar/Options'
 import { Breakpoints } from 'client/utils'
 
-import LinksPrint from './LinksPrint'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const Toolbar: React.FC = () => {
@@ -26,15 +26,15 @@ const Toolbar: React.FC = () => {
   const country = useCountry(countryIso as CountryIso)
   const { print } = useIsPrintRoute()
   const user = useUser()
-  const isInGeoPage = useIsGeoRoute()
+  const geoRoute = useIsGeoRoute()
   const isAReviewer = useMemo<boolean>(() => Users.isAReviewer(user, cycle), [user, cycle])
 
   if (print) return null
 
   const isCountry = Areas.isISOCountry(countryIso)
   const isAdmin = Users.isAdministrator(user)
-  const includeGlobals = isAdmin || cycle.published || isAReviewer
-  const includeRegions = isAdmin || cycle.published
+  const includeGlobals = !geoRoute && (isAdmin || cycle.published || isAReviewer)
+  const includeRegions = !geoRoute && (isAdmin || cycle.published)
   const editor = Users.hasEditorRole({ user, countryIso, cycle })
 
   return (
@@ -54,24 +54,20 @@ const Toolbar: React.FC = () => {
         />
       </div>
 
-      {isInGeoPage && (
+      {geoRoute && (
         <MediaQuery minWidth={Breakpoints.tabletPortrait}>
           <div className="toolbar__geo-beta-message">FRA GEO - Beta version</div>
         </MediaQuery>
       )}
 
       {isCountry && (
-        <>
-          <MediaQuery minWidth={Breakpoints.laptop}>
-            {editor && <EditorOptions />}
-            {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
-          </MediaQuery>
-
-          <div className="toolbar__utils-container">
-            <LinksPrint />
-          </div>
-        </>
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          {editor && !geoRoute && <EditorOptions />}
+          {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
+          <Options />
+        </MediaQuery>
       )}
+
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <LinkHome />
       </MediaQuery>

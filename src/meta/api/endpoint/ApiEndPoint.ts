@@ -73,6 +73,12 @@ export const ApiEndPoint = {
       reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
     },
 
+    Print: {
+      Report: {
+        one: () => apiPath('cycle-data', 'print', 'report'),
+      },
+    },
+
     Repository: {
       File: {
         one: (uuid = ':uuid') => apiPath('cycle-data', 'repository', 'file', uuid),

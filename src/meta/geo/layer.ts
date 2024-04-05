@@ -28,15 +28,17 @@ export interface LayerSource {
 export interface Recipe {
   layers: Array<LayerSource>
   forestAreaDataProperty: string
-  recipeLabel: string
+  labelKey: string
 }
+
+export const CUSTOM_RECIPE_KEY = ''
 
 export type LayerMetadata = {
   scale?: number
   palette?: Array<string>
   citation?: string
   forestAreaDataProperty?: string
-  title?: string
+  titleKey: string
 }
 
 export type LayerOptions = {
@@ -52,6 +54,13 @@ export type Layer = {
   metadata?: LayerMetadata
 }
 
+export enum LayerControlType {
+  TreeCoverPercent = 'TreeCoverPercent',
+  Year = 'Year',
+  CustomAsset = 'CustomAsset',
+  Agreement = 'Agreement',
+}
+
 export enum LayerSectionKey {
   Forest = 'Forest',
   ProtectedArea = 'ProtectedArea',
@@ -60,7 +69,7 @@ export enum LayerSectionKey {
 
 export type LayerSection = {
   key: LayerSectionKey
-  title: string
+  titleKey: string
   layers: Array<Layer>
   recipes?: Array<Recipe>
 }

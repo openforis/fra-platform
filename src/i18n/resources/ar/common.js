@@ -48,6 +48,7 @@ module.exports = {
   submittedToReview: 'تم التقديم للمراجعة',
   tier: 'المستوى',
   tiers: { notSelected: '', high: 'مرتفع', medium: 'متوسط', low: 'منخفض' },
+  totalPercentage: 'النسبة المئوية الإجمالية',
   trend: 'اتجاه',
   unknown: 'ولا واحدة/مجهولة',
   unselectAll: 'إلغاء اختيار الكل',

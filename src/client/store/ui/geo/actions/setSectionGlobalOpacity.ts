@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
-import { LayerSectionKey } from 'meta/geo'
+import { ForestKey, LayerSectionKey } from 'meta/geo'
 import { LayerKey } from 'meta/geo/layer'
 
 import { RootState } from 'client/store/RootState'
@@ -23,7 +23,7 @@ export const setSectionGlobalOpacity = createAsyncThunk<void, Params>(
     Object.keys(sectionState ?? {}).forEach((layerKey: LayerKey) => {
       const layerState = sectionState?.[layerKey]
 
-      if (layerKey === 'Agreement') return
+      if (layerKey === ForestKey.Agreement) return
 
       const layerSelectState = layerState?.selected
       if (layerSelectState === undefined || !layerSelectState) return // Ignore non-selected layers

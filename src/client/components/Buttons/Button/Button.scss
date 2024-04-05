@@ -5,14 +5,19 @@
   border-radius: 2px;
   border: 1px solid;
   cursor: pointer;
-  display: grid;
+  display: flex;
+  font-family: $font-family-1;
   font-weight: 600;
   line-height: 0;
-  justify-content: center;
+  justify-content: start;
   letter-spacing: 0.25px;
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.2s;
+
+  svg {
+    transition: all 0.2s ease;
+  }
 
   &:disabled,
   &.disabled {
@@ -35,17 +40,12 @@
   }
 }
 
-// === with icon
-.button.withIcon {
-  grid-template-columns: auto 1fr;
-}
-
 // === size styles
 .button__size-xs {
   font-size: $font-xxxs;
   height: 20px;
   padding: 0 6px;
-  grid-column-gap: 3px;
+  gap: 3px;
 
   svg {
     height: 9px;
@@ -57,7 +57,7 @@
   font-size: $font-xxs;
   height: $spacing-s;
   padding: 0 $spacing-xxs;
-  grid-column-gap: $spacing-xxxs;
+  gap: $spacing-xxxs;
 
   svg {
     height: 12px;
@@ -69,7 +69,7 @@
   font-size: $font-s;
   height: 28px;
   padding: 0 10px;
-  grid-column-gap: $spacing-xxxs;
+  gap: $spacing-xxxs;
 
   svg {
     height: 15px;
@@ -77,14 +77,29 @@
   }
 }
 
+.button__size-l {
+  font-size: $font-m;
+  height: $spacing-m;
+  padding: 0 11px;
+  grid-column-gap: $spacing-xxs;
+
+  svg {
+    height: 17px;
+    width: 17px;
+  }
+}
+
 // === type styles
-@mixin withTheme($colorPrimary, $hoverInverseLighten) {
-  $colorSecondary: white;
+@mixin withTheme($colorPrimary, $hoverInverseLighten, $colorSecondary: white) {
   $hoverPercent: 4%;
 
   background-color: $colorPrimary;
   border-color: $colorPrimary;
   color: $colorSecondary;
+
+  svg {
+    color: $colorSecondary;
+  }
 
   &:hover {
     background-color: lighten($colorPrimary, $hoverPercent);
@@ -114,10 +129,31 @@
   }
 }
 
-.button__type-primary {
-  @include withTheme($ui-accent, 62%);
+.button__type-anonymous {
+  @include withTheme($ui-border, 10%, transparent);
+  border-color: transparent;
+
+  &.inverse {
+    svg {
+      color: $text-link;
+    }
+
+    &:hover {
+      svg {
+        color: darken($text-link, 5%);
+      }
+    }
+  }
+}
+
+.button__type-blackMap {
+  @include withTheme($ui-black-map, 80%);
 }
 
 .button__type-danger {
   @include withTheme($ui-destructive, 58%);
+}
+
+.button__type-primary {
+  @include withTheme($ui-accent, 62%);
 }

@@ -48,6 +48,7 @@ module.exports = {
   submittedToReview: '提交以供审核',
   tier: '等级',
   tiers: { notSelected: '', high: '高', medium: '中', low: '低' },
+  totalPercentage: '总百分比',
   trend: '趋势',
   unknown: '无/未知',
   unselectAll: '取消所有选项',

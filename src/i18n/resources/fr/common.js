@@ -47,6 +47,7 @@ module.exports = {
   submittedToReview: 'Soumis pour examen',
   tier: 'Niveau',
   tiers: { notSelected: '', high: 'Elevé', medium: 'Moyen', low: 'Faible' },
+  totalPercentage: 'Pourcentage total',
   trend: 'Tendances',
   unknown: 'Aucune fonction/Fonction inconnue',
   unselectAll: 'Tout déselectionner',

@@ -1,72 +1,141 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
+import { TFunction } from 'i18next'
 import { Dates } from 'utils/dates'
 
-import { AssessmentStatus, Country, CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { AreaCode, Areas, AssessmentStatus, Country } from 'meta/area'
+import { Assessment, AssessmentName, Cycle, CycleName } from 'meta/assessment'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
+import { AreaController } from 'server/controller/area'
 import { UserRepository } from 'server/repository/public/user'
 import { sendMail } from 'server/service/mail/mail'
 import { ProcessEnv } from 'server/utils'
-import { Logger } from 'server/utils/logger'
 
-type CreateMailProps = {
-  assessment: Assessment
-  cycle: Cycle
-  country: Country
-  recipient: User
+type RecipientAssessmentCycleCountries = {
+  user: User
+  assessments: Array<{
+    assessment: Assessment
+    cycle: Cycle
+    countries: Array<Country>
+  }>
 }
 
-const createMail = async (props: CreateMailProps) => {
-  const { recipient, assessment, cycle, country } = props
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
-  const { countryIso } = country
+type RecordRecipientAssessmentCycleCountries = Record<string, RecipientAssessmentCycleCountries>
 
-  const { t } = await createI18nPromise(Lang.en)
-
+const _getCountryUrl = (countryIso: AreaCode, assessmentName: AssessmentName, cycleName: CycleName) => {
   const routeParams = { assessmentName, cycleName, countryIso }
-  const countryUrl = `${ProcessEnv.appUri}${Routes.CountryHome.generatePath(routeParams)}`
+  return `    ${ProcessEnv.appUri}${Routes.CountryHome.generatePath(routeParams)}`
+}
 
-  const lastInReview = Dates.format(new Date(country.lastInReview), 'dd MMMM yyyy')
+const _getLastInReview = (country: Country) => {
+  return Dates.format(new Date(country.lastInReview), 'dd MMMM yyyy')
+}
 
-  const values = {
-    assessmentName: t(`assessment.${assessmentName}`),
-    cycleName,
-    country: t(`area.${countryIso}.listName`),
+const _getCountryName = (country: Country, t: TFunction) => {
+  return t(`area.${country.countryIso}.listName`)
+}
 
-    countryUrl,
-    recipientName: Users.getFullName(recipient),
-    lastInReview,
-  }
+const _getCountryLink = (assessment: Assessment, cycle: Cycle, country: Country, t: TFunction) => {
+  return `<a href="${_getCountryUrl(country.countryIso, assessment.props.name, cycle.name)}">${_getCountryName(
+    country,
+    t
+  )} (${_getLastInReview(country)})</a>`
+}
 
-  const to = recipient.email
-
-  const subject = t('email.remindReviewer.subject', values)
-  const text = t('email.remindReviewer.textMessage', values)
+const createMail = async (recipient: RecipientAssessmentCycleCountries) => {
+  const { user, assessments } = recipient
+  const { t } = await createI18nPromise(Lang.en)
+  const to = recipient.user.email
   const htmlStyle = `style="white-space: pre-line; max-width: 100%"`
-  const html = `<p ${htmlStyle} >${t('email.remindReviewer.htmlMessage', values)}</p>`
-  return { to, subject, text, html }
+  const subject = t('email.remindReviewer.subject')
+
+  const messageHeader = t('email.remindReviewer.messageHeader', { recipientName: Users.getFullName(user) })
+  const messageFooter = t('email.remindReviewer.messageFooter')
+
+  let messageBodyHTML = ''
+  let messageBodyText = ''
+
+  assessments.forEach((entry) => {
+    const { assessment, cycle, countries } = entry
+
+    const { name: assessmentName } = assessment.props
+    const { name: cycleName } = cycle
+
+    const values = {
+      assessmentName: t(`assessment.${assessmentName}`),
+      cycleName,
+      countries: countries.map((country) => _getCountryName(country, t)).join(', '),
+      countryUrls: countries.map((country) => _getCountryUrl(country.countryIso, assessmentName, cycleName)).join('\n'),
+      countryLinks: countries.map((country) => _getCountryLink(assessment, cycle, country, t)).join('<br>'),
+    }
+
+    messageBodyHTML += t('email.remindReviewer.messageBodyHTML', values)
+    messageBodyText += t('email.remindReviewer.messageBodyText', values)
+  })
+
+  const text = `${messageHeader}\n\n${messageBodyText}\n\n${messageFooter}`
+  const html = `<p ${htmlStyle} >${messageHeader}${messageBodyHTML}${messageFooter}</p>`
+
+  const mail = { to, subject, text, html }
+
+  return mail
 }
 
-const getRecipients = async (props: { cycle: Cycle; countryIso: CountryIso }) => {
-  const { countryIso, cycle } = props
-  const roles = UserRoles.getRecipientRoles({ status: AssessmentStatus.review })
+const getReviewerRecipients = async (props: {
+  assessments: Array<Assessment>
+}): Promise<RecordRecipientAssessmentCycleCountries> => {
+  const { assessments } = props
+  const assessmentsByReviewer: RecordRecipientAssessmentCycleCountries = {}
 
-  return UserRepository.readCountryUsersByRole({ countryISOs: [countryIso], cycle, roles })
+  await Promise.all(
+    assessments.map(async (assessment) => {
+      return Promise.all(
+        assessment.cycles.map(async (cycle) => {
+          const countries = await AreaController.getCountries({ assessment, cycle })
+          const inReview = countries.filter((country) => {
+            const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
+            return (
+              country.props.status === AssessmentStatus.review &&
+              diffInDays > 6 &&
+              diffInDays % 7 === 0 &&
+              !Areas.isAtlantis(country.countryIso)
+            )
+          })
+
+          if (!inReview.length) return
+
+          const users = await UserRepository.readCountryUsersByRole({
+            countryISOs: inReview.map((c) => c.countryIso),
+            cycle,
+            roles: UserRoles.getRecipientRoles({ status: AssessmentStatus.review }),
+          })
+
+          users.forEach((user) => {
+            if (!assessmentsByReviewer[user.email]) {
+              assessmentsByReviewer[user.email] = {
+                user,
+                assessments: [],
+              }
+            }
+
+            assessmentsByReviewer[user.email].assessments.push({ assessment, cycle, countries: inReview })
+          })
+        })
+      )
+    })
+  )
+
+  return assessmentsByReviewer
 }
 
-export const remindReviewers = async (props: { assessment: Assessment; cycle: Cycle; country: Country }) => {
-  const { assessment, cycle, country } = props
+export const remindReviewers = async (props: { assessments: Array<Assessment> }) => {
+  const { assessments } = props
+  const recipients = await getReviewerRecipients({ assessments })
 
-  const recipients = await getRecipients({ cycle, countryIso: country.countryIso })
-  const vars = `${assessment.props.name} ${cycle.name}  ${country.countryIso}`
-  Logger.debug(`[remindReviewers] ${vars} reminding ${recipients.length} reviewers`)
+  const emails = await Promise.all(Object.values(recipients).map(createMail))
 
-  const callbackFn = async (recipient: User) => createMail({ recipient, assessment, cycle, country })
-  const emails = await Promise.all(recipients.map(callbackFn))
   await Promise.all(emails.map((email) => sendMail(email)))
 }

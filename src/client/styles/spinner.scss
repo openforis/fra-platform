@@ -1,9 +1,11 @@
 // Free to use from: https://loading.io/css/ (adapted)
+$spinner-margin: 0 10px 0 5px;
+
 .loading-spinner {
   display: inline-block;
   width: 14px;
   height: 100%;
-  margin: 0 10px 0 5px;
+  margin: $spinner-margin;
 }
 .loading-spinner:after {
   content: ' ';

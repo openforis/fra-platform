@@ -611,6 +611,7 @@ module.exports.translation = {
     native: 'Местные',
     introduced: 'Интродуцированные',
     growingStockComposition: 'Состав древостоя',
+    forestGrowingStockComposition: '$t(growingStockComposition.growingStockComposition)',
     categoryHeader: 'Категории ОЛР',
     nativeTreeSpecies: 'Местные древесные породы',
     introducedTreeSpecies: 'Интродуцированные древесные породы',
