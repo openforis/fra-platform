@@ -1,10 +1,6 @@
 import { Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
-import { Dates } from 'utils/dates'
 
-import { Areas, AssessmentStatus } from 'meta/area'
-
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db'
 import { MailService } from 'server/service'
@@ -23,35 +19,7 @@ export const initRemindReviewers = (connection: IORedis): Worker => {
 
       await client.tx(async (tx) => {
         const assessments = await AssessmentController.getAll({}, tx)
-
-        await Promise.all(
-          assessments.map(async (assessment) => {
-            return Promise.all(
-              assessment.cycles.map(async (cycle) => {
-                const countries = await AreaController.getCountries({ assessment, cycle }, tx)
-                const inReview = countries.filter((country) => {
-                  const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
-                  return (
-                    country.props.status === AssessmentStatus.review &&
-                    diffInDays > 6 &&
-                    diffInDays % 7 === 0 &&
-                    !Areas.isAtlantis(country.countryIso)
-                  )
-                })
-
-                return Promise.all(
-                  inReview.map(async (country) => {
-                    return MailService.remindReviewers({
-                      assessment,
-                      cycle,
-                      country,
-                    })
-                  })
-                )
-              })
-            )
-          })
-        )
+        await MailService.remindReviewers({ assessments })
       })
     },
     { concurrency: 1, connection, lockDuration: 10_000, maxStalledCount: 0 }
