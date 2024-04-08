@@ -41,7 +41,7 @@ const _fixODP = (originalDataPoint: OriginalDataPoint): OriginalDataPoint => {
 
   return {
     ...originalDataPoint,
-    ...(updatedValues ?? {}),
+    ...updatedValues,
   }
 }
 
