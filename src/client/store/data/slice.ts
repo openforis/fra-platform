@@ -23,6 +23,7 @@ import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
+import { resetHistory } from './reducers/resetHistory'
 import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { setValue } from './reducers/setValue'
 import { toggleHistory } from './reducers/toggleHistory'
@@ -46,6 +47,8 @@ export const dataSlice = createSlice({
     deleteOriginalDataPoint,
     setNodeValueValidations,
     setValue,
+    // -- history
+    resetHistory,
     toggleHistory,
   },
 
