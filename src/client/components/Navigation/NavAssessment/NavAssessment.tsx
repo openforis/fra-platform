@@ -26,15 +26,15 @@ const NavAssessment: React.FC = () => {
   const historyActive = useIsHistoryActive()
 
   const [showSections, setShowSections] = useState<boolean>(false)
-  
+
   if (Objects.isEmpty(sections)) {
     return null
   }
 
-  if (historyActive){
+  if (historyActive) {
     return <History />
   }
-  
+
   return (
     <>
       <Header setShowSections={setShowSections} showSections={showSections} />

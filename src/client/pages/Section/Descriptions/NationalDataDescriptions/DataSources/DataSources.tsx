@@ -41,7 +41,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   return (
     <DataGrid className="description" withActions={canEdit}>
-      <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
+      <Title name={name} title={t('description.dataSourcesPlus')} />
 
       {renderGrid && (
         <>
@@ -78,8 +78,8 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             {dataSources.map((dataSourceValue, i) => {
               return (
                 <DataSourceRow
-                  dataSource={dataSourceValue}
                   key={String(`dataSource_${dataSourceValue.uuid}`)}
+                  dataSource={dataSourceValue}
                   lastRow={i === dataSources.length - 1}
                   meta={nationalData.dataSources}
                   sectionName={sectionName}

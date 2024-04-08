@@ -9,20 +9,24 @@ import { Histories } from 'meta/cycleData'
 import { useIsHistoryActive } from 'client/store/data'
 import { useHistory } from 'client/store/data/hooks/useHistory'
 import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks'
-import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { useSectionContext } from 'client/pages/Section/context'
 
 import { useToggleHistory } from './hooks/useToggleHistory'
 
-type Props = { sectionName: string; name: CommentableDescriptionName }
+type Props = {
+  name: CommentableDescriptionName
+}
 
 const ButtonHistory: React.FC<Props> = (props) => {
-  const { sectionName, name } = props
+  const { name } = props
 
   const { t } = useTranslation()
   const canViewHistory = useCanViewHistory()
-  const descriptionEditable = useIsDescriptionEditable({ sectionName, name })
+  const { sectionName } = useSectionContext()
+  const editable = useIsDescriptionEditable({ sectionName, name })
   const loading = false // TODO: useLoading..()
-  const disabled = loading || descriptionEditable
+  const disabled = loading || editable
 
   const historyActive = useIsHistoryActive()
   const onClick = useToggleHistory({ name, sectionName })
@@ -38,10 +42,12 @@ const ButtonHistory: React.FC<Props> = (props) => {
   return (
     <Button
       disabled={disabled}
+      iconName="history"
       inverse={!historyActive}
       label={t('common.history')}
       onClick={onClick}
       size={ButtonSize.xs}
+      type={ButtonType.blackMap}
     />
   )
 }
