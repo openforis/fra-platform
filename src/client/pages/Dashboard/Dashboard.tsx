@@ -19,6 +19,9 @@ import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 import PrimaryForest from './PrimaryForest'
 
+/**
+ * @deprecated
+ */
 const Dashboard: React.FC = () => {
   const i18n = useTranslation()
   const countryIso = useCountryIso()
