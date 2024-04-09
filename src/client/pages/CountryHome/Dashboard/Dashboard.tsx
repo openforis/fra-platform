@@ -1,7 +1,12 @@
 import React from 'react'
 
+import DashboardComponent from 'client/components/Dashboard'
+import { useItems } from 'client/pages/CountryHome/Dashboard/hooks'
+
 const Dashboard: React.FC = () => {
-  return <div>Dashboard</div>
+  const items = useItems()
+
+  return <DashboardComponent items={items} />
 }
 
 export default Dashboard
