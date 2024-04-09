@@ -16,17 +16,17 @@ const Components: Record<string, React.FC<{ item: DashboardItem<unknown> }>> = {
 const Dashboard: React.FC<Props> = (props: Props) => {
   const { items } = props
   return (
-    <>
+    <div>
       {items.map((item) => {
         const Component = Components[item.type]
         return (
-          <div key={item.title.key}>
+          <React.Fragment key={item.title.key}>
             <Title item={item} />
             <Component item={item} />
-          </div>
+          </React.Fragment>
         )
       })}
-    </>
+    </div>
   )
 }
 
