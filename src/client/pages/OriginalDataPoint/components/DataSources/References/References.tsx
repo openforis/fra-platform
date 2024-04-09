@@ -1,13 +1,16 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
+import { TooltipId } from 'meta/tooltip'
 
+import { useCanEditCycleData } from 'client/store/user'
 import { DataCell } from 'client/components/DataGrid'
-import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
+import { EditorValidators, EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -38,10 +41,23 @@ const References: React.FC<Props> = (props: Props) => {
     [originalDataPoint, updateOriginalDataPoint]
   )
 
+  const editor = useCanEditCycleData()
+
+  const validationError = useMemo<string>(() => {
+    if (editor && !EditorValidators.links(originalDataPoint.dataSourceReferences ?? ''))
+      return t('generalValidation.invalidLink')
+    return ''
+  }, [editor, originalDataPoint.dataSourceReferences, t])
+
   return (
     <>
       <DataCell header>{t('nationalDataPoint.references')}</DataCell>
-      <DataCell lastCol>
+      <DataCell
+        className={classNames({ 'validation-error': validationError.length > 0 })}
+        data-tooltip-content={validationError}
+        data-tooltip-id={TooltipId.error}
+        lastCol
+      >
         <EditorWYSIWYGLinks
           disabled={disabled}
           onChange={onChange}
