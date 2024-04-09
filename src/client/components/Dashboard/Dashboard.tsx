@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DashboardItem, DashboardItemType } from 'meta/dashboard/dashboard'
+import { DashboardItem, DashboardItemType } from 'meta/dashboard'
 
 import Table from 'client/components/Dashboard/Table'
 import Title from 'client/components/Dashboard/Title/Title'

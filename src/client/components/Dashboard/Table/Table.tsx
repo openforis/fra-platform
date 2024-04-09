@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DashboardTable } from 'meta/dashboard/dashboard'
+import { DashboardTable } from 'meta/dashboard'
 
 type Props = {
   item: DashboardTable

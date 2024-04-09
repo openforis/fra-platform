@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { AssessmentName, AssessmentNames, CycleName } from 'meta/assessment'
-import { DashboardItem } from 'meta/dashboard/dashboard'
+import { DashboardItem } from 'meta/dashboard'
 
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 // import { DashboardMeta } from 'client/pages/CountryHome/Dashboard/meta/dashboardMeta'
