@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { DataSource } from 'meta/assessment'
 
 import { useCanEditCycleData } from 'client/store/user'
-import { validateLinks } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/utils'
+import { EditorValidators } from 'client/components/EditorWYSIWYG'
 
 type Returned = string
 
@@ -22,7 +22,7 @@ export const useValidationError = (props: Props): Returned => {
   const validationError = useMemo<Returned>(() => {
     if (!dataSource.placeholder && Objects.isEmpty(dataSource.reference)) return t('generalValidation.notEmpty')
 
-    if (editor && !validateLinks(dataSource.reference)) return t('generalValidation.invalidLink')
+    if (editor && !EditorValidators.links(dataSource.reference)) return t('generalValidation.invalidLink')
 
     return ''
   }, [dataSource.placeholder, dataSource.reference, editor, t])

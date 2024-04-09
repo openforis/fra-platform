@@ -34,7 +34,7 @@ const Reference: React.FC<Props> = (props: Props) => {
 
   return (
     <DataCell
-      className={classNames('data-source__column-reference', { 'validation-error': validationError })}
+      className={classNames('data-source__column-reference', { 'validation-error': validationError.length > 0 })}
       data-tooltip-content={validationError}
       data-tooltip-id={TooltipId.error}
       editable={!disabled}

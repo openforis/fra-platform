@@ -1,4 +1,4 @@
-export const validateLinks = (content: string) => {
+export const links = (content: string): boolean => {
   const parser = new DOMParser()
   const doc = parser.parseFromString(content, 'text/html')
 
