@@ -120,8 +120,8 @@ const getReviewerRecipients = async (props: {
                 assessments: [],
               }
             }
-
-            assessmentsByReviewer[user.email].assessments.push({ assessment, cycle, countries: inReview })
+            const userCountries = inReview.filter((country) => Users.isReviewer(user, country.countryIso, cycle))
+            assessmentsByReviewer[user.email].assessments.push({ assessment, cycle, countries: userCountries })
           })
         })
       )
