@@ -20,10 +20,10 @@ const Dashboard: React.FC<Props> = (props: Props) => {
       {items.map((item) => {
         const Component = Components[item.type]
         return (
-          <React.Fragment key={item.title.key}>
+          <div key={item.title.key}>
             <Title item={item} />
             <Component item={item} />
-          </React.Fragment>
+          </div>
         )
       })}
     </>
