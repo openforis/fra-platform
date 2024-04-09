@@ -1,0 +1,23 @@
+@import 'src/client/style/partials';
+
+.history-items {
+  display: grid;
+}
+
+.history-items__title {
+  background-color: $ui-bg;
+  font-weight: 600;
+  margin-top: -$spacing-xxs;
+  padding: $spacing-xs;
+  position: sticky;
+  top: -$spacing-xxs;
+  z-index: 1;
+}
+
+.history-items__activities {
+  align-items: center;
+  display: grid;
+  grid-column-gap: $spacing-xs;
+  grid-template-columns: minmax(100px, auto) 1px 1fr;
+  padding: 0 $spacing-xs;
+}

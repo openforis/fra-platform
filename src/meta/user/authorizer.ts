@@ -172,6 +172,7 @@ const canViewRepositoryItem = (props: {
   repositoryItem: RepositoryItem
 }): boolean => {
   const { assessment, countryIso, user, cycle, repositoryItem } = props
+
   if (repositoryItem?.props?.public) {
     return canView({ assessment, user, countryIso, cycle })
   }
@@ -185,7 +186,7 @@ const canViewRepositoryItem = (props: {
  * Administrator: always
  * NationalCorrespondant and AlternateNationalCorrespondant: never
  * Collaborator: never
- * Reviewer: if role
+ * Reviewer: if country status <= review
  * @param props
  * @param props.country
  * @param props.cycle
@@ -200,9 +201,10 @@ const canViewHistory = (props: {
   user: User
 }): boolean => {
   const { user, cycle, country } = props
+
   if (Users.isAdministrator(user)) return true
 
-  return canEditData(props) && Users.isReviewer(user, country.countryIso, cycle)
+  return Users.isReviewer(user, country.countryIso, cycle) && canEditCycleData(props)
 }
 
 export const Authorizer = {

@@ -1,27 +1,56 @@
+@use 'sass:math';
 @import 'src/client/style/partials';
 
-.history-item {
-  align-items: center;
-  background: none;
-  border: none;
-  color: $text-body;
-  cursor: pointer;
-  display: flex;
-  padding: 0;
-  transition: color 0.2s;
-  width: 100%;
+$color: darken($ui-bg, 20%);
+
+.history-item__timestamp {
+  color: darken($text-disabled, 5%);
+  font-size: $font-xxs;
 }
 
-.history-item {
-  span,
-  strong {
-    margin-right: $spacing-xxs;
+.history-item__separator {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: $color;
+
+  .marker {
+    $size: 10px;
+
+    background-color: $ui-bg;
+    border-radius: 100%;
+    height: $size;
+    left: 50%;
+    padding: 2px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: $size;
+
+    > div {
+      background-color: $color;
+      border-radius: 100%;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.history-item__content {
+  padding: $spacing-xs 0;
+
+  button.button {
+    flex-wrap: wrap;
+    height: unset;
+    justify-content: center;
+    padding-bottom: $spacing-xxxs;
+    padding-top: $spacing-xxxs;
+    width: 100%;
   }
 }
 
 .history-item__avatar {
   border-radius: 100%;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-  height: 28px;
-  width: 28px;
+  height: $spacing-xs;
+  width: $spacing-xs;
 }
