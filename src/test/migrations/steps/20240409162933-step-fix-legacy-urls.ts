@@ -136,7 +136,9 @@ export default async (client: BaseProtocol) => {
 
       fixedDescriptions.forEach((d) => {
         const url = process.env.APP_URI.replace('9001', '9000')
-        Logger.debug(`fixed: ${url}/assessments/fra/2025/${d.countryIso}/sections/${d.sectionName}`)
+        Logger.debug(
+          `fixed: ${url}/assessments/${assessment.props.name}/${cycle.name}/${d.countryIso}/sections/${d.sectionName}`
+        )
       })
     })
   })
