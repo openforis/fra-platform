@@ -109,7 +109,9 @@ export default async (client: BaseProtocol) => {
       }
       Logger.debug(`Fixing ${descriptions.length} descriptions for: ${assessment.props.name} ${cycle.name}`)
 
-      const fixedDescriptions = await Promises.each(descriptions, (d) => _fixDescription(d, assessment, cycle, client))
+      const fixedDescriptions = await Promise.all(
+        descriptions.map((d) => _fixDescription(d, assessment, cycle, client))
+      )
 
       const pgp = pgPromise()
       const cs = new pgp.helpers.ColumnSet<CommentableDescription>(
@@ -134,7 +136,7 @@ export default async (client: BaseProtocol) => {
 
       fixedDescriptions.forEach((d) => {
         const url = process.env.APP_URI.replace('9001', '9000')
-        Logger.debug(`${url}/assessments/fra/2025/${d.countryIso}/sections/${d.sectionName}`)
+        Logger.debug(`fixed: ${url}/assessments/fra/2025/${d.countryIso}/sections/${d.sectionName}`)
       })
     })
   })
