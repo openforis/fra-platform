@@ -8,14 +8,25 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-} & ({ uuid: string } | { fileName: string })
+} & ({ uuid: string } | { fileName: string } | { fileUuid: string })
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
   const { assessment, cycle } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  const values = 'uuid' in props ? [props.uuid] : [props.fileName]
-  const where = 'uuid' in props ? 'uuid = $1' : "props -> 'translation' ->> 'en' = $1"
+  let values: string[]
+  let where: string
+
+  if ('uuid' in props) {
+    values = [props.uuid]
+    where = 'uuid = $1'
+  } else if ('fileName' in props) {
+    values = [props.fileName]
+    where = "props -> 'translation' ->> 'en' = $1"
+  } else {
+    values = [props.fileUuid]
+    where = 'file_uuid = $1'
+  }
 
   return client.one<RepositoryItem>(
     `
