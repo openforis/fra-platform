@@ -57,8 +57,16 @@ export const useConfigs = (props: Props): Returned => {
         afterInit: (args: Jodit) => {
           setJodit(args)
         },
+        applyLink: (_: Jodit, link: HTMLAnchorElement) => {
+          link.setAttribute('rel', 'nofollow')
+          link.setAttribute('target', '_blank')
+        },
       },
       inline: true,
+      link: {
+        noFollowCheckbox: false,
+        openInNewTabCheckbox: false,
+      },
       placeholder: '',
       readonly: false,
       statusbar: false,

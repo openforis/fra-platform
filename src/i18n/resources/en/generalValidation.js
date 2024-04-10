@@ -8,6 +8,7 @@ module.exports = {
   forestAreaExceedsExtentOfForest: `Exceeds Forest area (1a) ({{value}})`,
   forestAreaReportedIsDifferentFromPreviousCycle: `Reported area ({{forestArea2025}}) differs from previously reported ({{forestArea2020}}). Please provide a comment explaining why it is different.`,
   forestSumAreaExceedsExtentOfForest: `The sum of the reported FRA categories exceeds the forest area reported in table 1a`,
+  invalidLink: 'Invalid link',
   landAreaExceedsTotalLandArea: `Land area exceeds total land area (1a) ({{value}})`,
   mustBeEqualToForestArea: `Sum of Naturally regenerating forest and Planted forest not equal to the total forest`,
   mustBeEqualToForestExpansion: `Subcategories sum should be equal to Forest Expansion`,
