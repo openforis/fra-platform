@@ -18,7 +18,7 @@ const Center: React.FC = () => {
           mapController.panToCountry(countryIso)
         }}
         size={ButtonSize.m}
-        type={ButtonType.blackMap}
+        type={ButtonType.black}
       />
     </div>
   )

@@ -46,7 +46,7 @@ const ButtonHistory: React.FC<Props> = (props) => {
       label={t('common.history')}
       onClick={onClick}
       size={ButtonSize.xs}
-      type={ButtonType.blackMap}
+      type={ButtonType.black}
     />
   )
 }
