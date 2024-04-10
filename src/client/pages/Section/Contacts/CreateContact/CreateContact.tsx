@@ -11,7 +11,7 @@ const CreateContact: React.FC = () => {
 
   return (
     <div>
-      <Button disabled={loading} iconName="small-add" label={t('review.add')} onClick={onClick} size={ButtonSize.m} />
+      <Button disabled={loading} iconName="small-add" label={t('common.add')} onClick={onClick} size={ButtonSize.m} />
     </div>
   )
 }
