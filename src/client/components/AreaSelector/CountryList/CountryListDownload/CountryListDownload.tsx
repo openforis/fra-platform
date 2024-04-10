@@ -40,10 +40,10 @@ const CountryListDownload: React.FC = () => {
   const headers = [
     { label: t('common.country'), key: 'name' },
     { label: t('common.status'), key: 'status' },
-    { label: t('common.lastEdit'), key: 'lastEdit' },
-    { label: t('common.lastInReview'), key: 'lastInReview' },
-    { label: t('common.lastForApproval'), key: 'lastForApproval' },
-    { label: t('common.lastAccepted'), key: 'lastAccepted' },
+    { label: t('audit.edited'), key: 'lastEdit' },
+    { label: t('common.submittedToReview'), key: 'lastInReview' },
+    { label: t('common.submittedForApproval'), key: 'lastForApproval' },
+    { label: t('common.accepted'), key: 'lastAccepted' },
     { label: t('assessment.deskStudy'), key: 'deskStudy' },
   ]
 
