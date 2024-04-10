@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { CommentableDescriptionName } from 'meta/assessment'
-import { Histories } from 'meta/cycleData'
 
 import { useIsHistoryActive } from 'client/store/data'
 import { useHistory } from 'client/store/data/hooks/useHistory'
@@ -15,27 +14,27 @@ import { useSectionContext } from 'client/pages/Section/context'
 import { useToggleHistory } from './hooks/useToggleHistory'
 
 type Props = {
-  name: CommentableDescriptionName
+  target: CommentableDescriptionName
 }
 
 const ButtonHistory: React.FC<Props> = (props) => {
-  const { name } = props
+  const { target } = props
 
   const { t } = useTranslation()
   const canViewHistory = useCanViewHistory()
   const { sectionName } = useSectionContext()
-  const editable = useIsDescriptionEditable({ sectionName, name })
+  const editable = useIsDescriptionEditable({ sectionName, name: target })
   const loading = false // TODO: useLoading..()
   const disabled = loading || editable
 
   const historyActive = useIsHistoryActive()
-  const onClick = useToggleHistory({ name, sectionName })
+  const onClick = useToggleHistory({ target })
 
-  const isDataSources = name === CommentableDescriptionName.dataSources
+  const isDataSources = target === CommentableDescriptionName.dataSources
 
   const history = useHistory()
   // Show toggle button when browsing history for current section
-  const currentSectionEnabled = !Objects.isEmpty(history.items?.[Histories.getHistoryItemSectionKey(sectionName, name)])
+  const currentSectionEnabled = !Objects.isEmpty(history.items?.[target])
 
   if ((!canViewHistory || !isDataSources) && !currentSectionEnabled) return null
 

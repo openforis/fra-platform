@@ -1,1 +1,1 @@
-export type HistoryItemSectionKey = string
+export type HistoryTarget = string

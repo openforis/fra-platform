@@ -15,21 +15,21 @@ type Props = {
 
 const Items: React.FC<Props> = (props: Props) => {
   const { items } = props
-  const { sectionKey, sectionLabelKey } = items
+  const { labelKey, target } = items
 
   const { t } = useTranslation()
-  useGetData(sectionKey)
-  const data = useData(sectionKey)
+  useGetData(target)
+  const data = useData(target)
 
-  useResetState(sectionKey)
+  useResetState(target)
 
   return (
     <div className="history-items">
-      <div className="history-items__title">{t(sectionLabelKey)}</div>
+      <div className="history-items__title">{t(labelKey)}</div>
 
       <div className="history-items__activities">
         {data?.map((datum, index) => (
-          <Item key={`${datum.time}-${String(index)}`} datum={datum} sectionKey={sectionKey} />
+          <Item key={`${datum.time}-${String(index)}`} datum={datum} target={target} />
         ))}
       </div>
     </div>

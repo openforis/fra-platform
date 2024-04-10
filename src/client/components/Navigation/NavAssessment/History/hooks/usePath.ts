@@ -1,10 +1,8 @@
 import { useMemo } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Histories, HistoryItemSectionKey } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData'
 
-export const usePath = (sectionKey: HistoryItemSectionKey): string => {
-  const { sectionName, name } = Histories.getHistoryItemKeyParts(sectionKey)
-
-  return useMemo<string>(() => ApiEndPoint.CycleData.history(sectionName, name), [name, sectionName])
+export const usePath = (target: HistoryTarget): string => {
+  return useMemo<string>(() => ApiEndPoint.CycleData.history(target), [target])
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Histories, HistoryItemSectionKey } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
@@ -11,19 +11,18 @@ import { getTargetValue } from 'client/components/Navigation/NavAssessment/Histo
 
 // Reset the state to its original state
 
-export const useResetState = (sectionKey: HistoryItemSectionKey): void => {
+export const useResetState = (target: HistoryTarget): void => {
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
   const dispatch = useAppDispatch()
-  const data = useData(sectionKey)
+  const data = useData(target)
 
   useEffect(() => {
     return () => {
       if (data) {
-        const { name } = Histories.getHistoryItemKeyParts(sectionKey)
-        const value = getTargetValue[name](data?.at(0))
-        const path = getStatePath[name]([assessmentName, cycleName, countryIso, sectionName])
+        const value = getTargetValue[target](data?.at(0))
+        const path = getStatePath[target]([assessmentName, cycleName, countryIso, sectionName])
         dispatch(DataActions.setValue({ value, path }))
       }
     }
-  }, [assessmentName, countryIso, cycleName, data, dispatch, sectionKey, sectionName])
+  }, [assessmentName, countryIso, cycleName, data, dispatch, target, sectionName])
 }

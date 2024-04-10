@@ -1,11 +1,13 @@
 import './Title.scss'
 import React from 'react'
+import MediaQuery from 'react-responsive'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import ButtonEdit from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonEdit'
 import ButtonHistory from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonHistory'
+import { Breakpoints } from 'client/utils'
 
 import { useDescriptionActions } from './hooks/useDescriptionActions'
 
@@ -26,8 +28,10 @@ const Title: React.FC<Props> = (props) => {
           <span>{title}</span>
         </h3>
 
-        <ButtonHistory name={name} />
-        <ButtonEdit name={name} />
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <ButtonHistory target={name} />
+          <ButtonEdit name={name} />
+        </MediaQuery>
       </DataCell>
     </DataRow>
   )
