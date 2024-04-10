@@ -6,10 +6,12 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getHistory = async (req: TablePaginatedDataRequest, res: Response) => {
+type Request = TablePaginatedDataRequest
+
+export const getHistory = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
-    const { sectionName, target } = req.params
+    const { assessmentName, cycleName, countryIso, sectionName } = req.query
+    const { target } = req.params
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { assessment, cycle, countryIso, sectionName, target }

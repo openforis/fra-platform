@@ -1,2 +1,1 @@
-export { Histories } from './histories'
-export type { HistoryItemSectionKey } from './history'
+export type { HistoryTarget } from './history'

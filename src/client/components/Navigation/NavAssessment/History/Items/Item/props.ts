@@ -1,7 +1,7 @@
 import { ActivityLog } from 'meta/assessment'
-import { HistoryItemSectionKey } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData'
 
 export type Props = {
   datum: ActivityLog<never>
-  sectionKey: HistoryItemSectionKey
+  target: HistoryTarget
 }

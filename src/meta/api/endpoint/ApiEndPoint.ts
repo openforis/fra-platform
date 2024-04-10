@@ -33,8 +33,7 @@ export const ApiEndPoint = {
   CycleData: {
     activities: () => apiPath('cycle-data', 'activities'),
     activitiesCount: () => apiPath('cycle-data', 'activities', 'count'),
-    history: (sectionName = ':sectionName', target = ':target') =>
-      apiPath('cycle-data', 'history', sectionName, target),
+    history: (target = ':target') => apiPath('cycle-data', 'history', target),
 
     Descriptions: {
       many: () => apiPath('cycle-data', 'descriptions'),

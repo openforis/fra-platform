@@ -1,8 +1,10 @@
-import { ActivityLogDescription, CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
+import { ActivityLogDescription, CommentableDescriptionValue } from 'meta/assessment'
+import { HistoryTarget } from 'meta/cycleData'
 
-export const getTargetValue: {
-  [key in CommentableDescriptionName]?: (activityLog: ActivityLogDescription) => CommentableDescriptionValue
-} = {
+export const getTargetValue: Record<
+  HistoryTarget,
+  (activityLog: ActivityLogDescription) => CommentableDescriptionValue
+> = {
   dataSources: (activityLog: ActivityLogDescription) => {
     return activityLog?.target.description.value
   },

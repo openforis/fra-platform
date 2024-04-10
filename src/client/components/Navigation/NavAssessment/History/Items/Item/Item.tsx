@@ -47,7 +47,7 @@ const Item: React.FC<Props> = (props) => {
           label={label}
           onClick={onClick}
           size={ButtonSize.xs}
-          type={ButtonType.blackMap}
+          type={ButtonType.black}
         />
       </div>
     </>

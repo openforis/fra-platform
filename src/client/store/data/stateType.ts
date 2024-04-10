@@ -11,7 +11,7 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
-import { Contact, HistoryItemSectionKey } from 'meta/cycleData'
+import { Contact, HistoryTarget } from 'meta/cycleData'
 import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
@@ -48,12 +48,12 @@ export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<Cou
 // ==============================
 
 export type HistoryItemState = {
-  sectionLabelKey: string
-  sectionKey: HistoryItemSectionKey
+  labelKey: string
+  target: HistoryTarget
 }
 
 export type HistoryState = {
-  items?: Record<HistoryItemSectionKey, HistoryItemState>
+  items?: Record<HistoryTarget, HistoryItemState>
 }
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
