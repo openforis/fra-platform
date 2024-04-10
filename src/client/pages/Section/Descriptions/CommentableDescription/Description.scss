@@ -3,6 +3,7 @@
 .description {
   grid-row-gap: $spacing-xxxs;
 }
+
 .description__editor-container:not(.editable) {
   div.editorWYSIWYG:not(.validation-error) {
     div.jodit-wysiwyg {
