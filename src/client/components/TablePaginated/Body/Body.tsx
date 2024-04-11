@@ -40,7 +40,7 @@ const Body = <Datum extends object>(props: Props<Datum>) => {
               )
             }
 
-            return <Component datum={datum} rowIndex={rowIndex} />
+            return <Component key={key} datum={datum} rowIndex={rowIndex} />
           })}
         </React.Fragment>
       ))}
