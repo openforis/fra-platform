@@ -4,7 +4,7 @@ import { AssessmentName, AssessmentNames, CycleName } from 'meta/assessment'
 import { DashboardItem } from 'meta/dashboard'
 
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-// import { DashboardMeta } from 'client/pages/CountryHome/Dashboard/meta/dashboardMeta'
+// import { DashboardMeta } from 'client/pages/CountryHome/Overview/meta/dashboardMeta'
 
 type Dashboard = Record<AssessmentName, Record<CycleName, Array<DashboardItem>>>
 const DashboardMeta: Dashboard = { [AssessmentNames.fra]: { '2025': [] } }

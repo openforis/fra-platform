@@ -2,19 +2,29 @@ import React from 'react'
 
 import { DashboardTable } from 'meta/dashboard'
 
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import TableComponent from 'client/pages/Section/DataTable/Table'
+
 type Props = {
   item: DashboardTable
 }
 const Table: React.FC<Props> = (props: Props) => {
+  const { assessmentName, sectionName } = useSectionRouteParams()
   const {
     item: { table },
   } = props
 
+  const data = {}
+  const disabled = true
+
   return (
-    <>
-      <div>Table placeholder</div>
-      <pre>{JSON.stringify(table, null, 2)}</pre>
-    </>
+    <TableComponent
+      assessmentName={assessmentName}
+      data={data}
+      disabled={disabled}
+      sectionName={sectionName}
+      table={table}
+    />
   )
 }
 

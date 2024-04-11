@@ -24,7 +24,7 @@ import DataValidations from './DataValidations'
 type Props = {
   assessmentName: AssessmentName
   sectionName: string
-  sectionAnchor: string
+  sectionAnchor?: string
   table: TableType
   data: RecordAssessmentData
   disabled: boolean
@@ -52,20 +52,20 @@ const Table: React.FC<Props> = (props) => {
     <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
       <div className="fra-table__scroll-wrapper">
         <div className="fra-table__editor">
-          {!print && <ButtonTableExport tableRef={tableRef} filename={`${sectionAnchor} ${name}`} />}
-          <ButtonCopyValues tableRef={tableRef} table={table} />
-          {canClearData && <ButtonTableClear table={table} disabled={disabled} sectionName={sectionName} />}
+          {!print && <ButtonTableExport filename={`${sectionAnchor} ${name}`} tableRef={tableRef} />}
+          <ButtonCopyValues table={table} tableRef={tableRef} />
+          {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
-        <table id={table.props.name} ref={tableRef} className="fra-table data-table">
-          <TableHead data={data} headers={headers} table={table} assessmentName={assessmentName} />
+        <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
+          <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
 
           <TableBody
+            assessmentName={assessmentName}
             data={data}
+            disabled={disabled}
             sectionName={sectionName}
             table={table}
-            assessmentName={assessmentName}
-            disabled={disabled}
           />
         </table>
 
@@ -73,6 +73,10 @@ const Table: React.FC<Props> = (props) => {
       </div>
     </div>
   )
+}
+
+Table.defaultProps = {
+  sectionAnchor: '',
 }
 
 export default Table
