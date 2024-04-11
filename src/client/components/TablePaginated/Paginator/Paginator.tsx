@@ -3,15 +3,17 @@ import React, { useCallback } from 'react'
 
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedCount, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
-import { limit } from 'client/store/ui/tablePaginated/constants'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import PaginatorComponent from 'client/components/Paginator'
 import { DOMs } from 'client/utils/dom'
 
-type Props = { path: string }
+type Props = {
+  limit: number
+  path: string
+}
 
 const Paginator = (props: Props) => {
-  const { path } = props
+  const { limit, path } = props
 
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName } = useCycleRouteParams()
@@ -34,8 +36,8 @@ const Paginator = (props: Props) => {
       className="table-paginated-paginator"
       forcePage={page}
       onPageChange={onPageChange}
-      pageRangeDisplayed={5}
       pageCount={Math.ceil(counts.total / limit)}
+      pageRangeDisplayed={5}
     />
   )
 }
