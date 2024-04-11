@@ -15,9 +15,9 @@
 }
 
 .history-items__activities {
-  align-items: center;
-  display: grid;
-  grid-column-gap: $spacing-xs;
-  grid-template-columns: minmax(100px, auto) 1px 1fr;
-  padding: 0 $spacing-xs;
+  .table-paginated-datagrid {
+    align-items: center;
+    grid-column-gap: $spacing-xs;
+    padding: 0 $spacing-xs;
+  }
 }

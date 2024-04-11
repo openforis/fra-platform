@@ -1,5 +1,5 @@
 import './TablePaginated.scss'
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 
 import classNames from 'classnames'
 
@@ -11,17 +11,19 @@ import Body from './Body'
 import Count from './Count'
 import Header from './Header'
 import Paginator from './Paginator'
-import { Props } from './types'
+import { Props as BaseProps } from './types'
 
-type TablePaginatedProps<Datum extends object> = Props<Datum> & {
-  EmptyListComponent?: React.FC
-  className?: string
-  header?: boolean
-  counter?: boolean
-}
+type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'className'> &
+  Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridTemplateColumns'> &
+  BaseProps<Datum> & {
+    EmptyListComponent?: React.FC
+    header?: boolean
+    counter?: boolean
+    wrapCells?: boolean
+  }
 
-const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>) => {
-  const { className, columns, header, counter, path, limit, EmptyListComponent } = props
+const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
+  const { className, gridTemplateColumns, columns, header, counter, path, limit, wrapCells, EmptyListComponent } = props
 
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
@@ -36,12 +38,15 @@ const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>)
 
   return (
     <div className={classNames('table-paginated', className)}>
-      <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
+      <DataGrid
+        className="table-paginated-datagrid"
+        style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
+      >
         {header && <Header columns={columns} path={path} />}
-        <Body columns={columns} path={path} />
+        <Body columns={columns} limit={limit} path={path} wrapCells={wrapCells} />
       </DataGrid>
 
-      <Paginator path={path} />
+      <Paginator limit={limit} path={path} />
 
       {counter && <Count path={path} />}
     </div>
@@ -50,9 +55,11 @@ const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>)
 
 TablePaginated.defaultProps = {
   EmptyListComponent: () => <div />,
-  className: '',
   header: true,
+  // eslint-disable-next-line react/default-props-match-prop-types
+  limit: 30,
   counter: true,
+  wrapCells: true,
 }
 
 export default TablePaginated

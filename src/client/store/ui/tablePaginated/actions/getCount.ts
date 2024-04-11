@@ -2,12 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { AreaCode } from 'meta/area'
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 
 type Props = {
   assessmentName: AssessmentName
   cycleName: CycleName
   countryIso?: AreaCode
+  sectionName?: SectionName
   path: string
 }
 
@@ -16,9 +17,9 @@ type Returned = {
 }
 
 export const getCount = createAsyncThunk<Returned, Props>('tablePaginated/count/get', async (props) => {
-  const { assessmentName, cycleName, countryIso, path } = props
+  const { assessmentName, cycleName, countryIso, sectionName, path } = props
 
-  const params: Record<string, string> = { assessmentName, cycleName, countryIso }
+  const params: Record<string, string> = { assessmentName, cycleName, countryIso, sectionName }
 
   const { data } = await axios.get<Returned>(`${path}/count`, { params })
 

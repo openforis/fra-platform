@@ -3,12 +3,16 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { useTablePaginatedCount, useTablePaginatedData } from 'client/store/ui/tablePaginated'
-import { limit } from 'client/store/ui/tablePaginated/constants'
 import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import { Props } from 'client/components/TablePaginated/types'
+import { Props as BaseProps } from 'client/components/TablePaginated/types'
+
+type Props<Datum extends object> = BaseProps<Datum> & {
+  limit: number
+  wrapCells: boolean
+}
 
 const Body = <Datum extends object>(props: Props<Datum>) => {
-  const { columns, path } = props
+  const { columns, limit, path, wrapCells } = props
 
   const data = useTablePaginatedData<Datum>(path)
   const count = useTablePaginatedCount(path)
@@ -28,11 +32,15 @@ const Body = <Datum extends object>(props: Props<Datum>) => {
           {columns.map((column) => {
             const { component: Component, key } = column
 
-            return (
-              <DataColumn key={key} className={classNames({ withBorder: rowIndex !== 0 })}>
-                <Component datum={datum} rowIndex={rowIndex} />
-              </DataColumn>
-            )
+            if (wrapCells) {
+              return (
+                <DataColumn key={key} className={classNames({ withBorder: rowIndex !== 0 })}>
+                  <Component datum={datum} rowIndex={rowIndex} />
+                </DataColumn>
+              )
+            }
+
+            return <Component key={key} datum={datum} rowIndex={rowIndex} />
           })}
         </React.Fragment>
       ))}

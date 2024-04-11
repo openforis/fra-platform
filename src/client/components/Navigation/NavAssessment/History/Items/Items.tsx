@@ -2,12 +2,13 @@ import './Items.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { HistoryItemState } from 'client/store/data'
+import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { useData } from '../hooks/useData'
-import { useGetData } from '../hooks/useGetData'
+import { HistoryItemState } from 'client/store/data'
+import TablePaginated from 'client/components/TablePaginated'
+
+import { useColumns } from './hooks/useColumns'
 import { useResetState } from './hooks/useResetState'
-import Item from './Item'
 
 type Props = {
   items: HistoryItemState
@@ -18,20 +19,23 @@ const Items: React.FC<Props> = (props: Props) => {
   const { labelKey, target } = items
 
   const { t } = useTranslation()
-  useGetData(target)
-  const data = useData(target)
-
+  const columns = useColumns({ target })
   useResetState(target)
 
   return (
     <div className="history-items">
       <div className="history-items__title">{t(labelKey)}</div>
 
-      <div className="history-items__activities">
-        {data?.map((datum, index) => (
-          <Item key={`${datum.time}-${String(index)}`} datum={datum} target={target} />
-        ))}
-      </div>
+      <TablePaginated
+        className="history-items__activities"
+        columns={columns}
+        counter
+        gridTemplateColumns="minmax(100px, auto) 1px 1fr"
+        header={false}
+        limit={12}
+        path={ApiEndPoint.CycleData.history(target)}
+        wrapCells={false}
+      />
     </div>
   )
 }

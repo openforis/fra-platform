@@ -18,7 +18,7 @@ export enum NodeEnv {
 
 export const ProcessEnv = {
   // app
-  appUri: process.env.APP_URI ?? '',
+  appUri: process.env.APP_URI ?? 'http://localhost:9001',
   port: process.env.PORT ? Number(process.env.PORT) : 80,
 
   // dev

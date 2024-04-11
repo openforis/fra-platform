@@ -6,8 +6,6 @@ import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 import { TablePaginatedOrderBy } from 'meta/tablePaginated'
 
-import { limit as defaultLimit } from 'client/store/ui/tablePaginated/constants'
-
 type Props = {
   assessmentName: AssessmentName
   cycleName: CycleName
@@ -22,9 +20,7 @@ type Props = {
 type Returned = Array<never>
 
 export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/get', async (props) => {
-  const { assessmentName, cycleName, countryIso, sectionName, orderBy, page, path, limit: _limit } = props
-
-  const limit = _limit ?? defaultLimit
+  const { assessmentName, cycleName, countryIso, sectionName, orderBy, page, path, limit } = props
 
   const params: TablePaginatedDataRequestParams = {
     assessmentName,

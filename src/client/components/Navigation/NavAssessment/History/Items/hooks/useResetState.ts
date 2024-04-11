@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { ActivityLog } from 'meta/assessment'
 import { HistoryTarget } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
-import { useData } from 'client/components/Navigation/NavAssessment/History/hooks/useData'
 import { getStatePath } from 'client/components/Navigation/NavAssessment/History/Items/utils/getStatePath'
 import { getTargetValue } from 'client/components/Navigation/NavAssessment/History/Items/utils/getTargetValue'
 
@@ -14,7 +16,7 @@ import { getTargetValue } from 'client/components/Navigation/NavAssessment/Histo
 export const useResetState = (target: HistoryTarget): void => {
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
   const dispatch = useAppDispatch()
-  const data = useData(target)
+  const data = useTablePaginatedData<ActivityLog<never>>(ApiEndPoint.CycleData.history(target))
 
   useEffect(() => {
     return () => {
