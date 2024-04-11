@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from '@openforis/arena-core'
 import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 
@@ -49,16 +50,16 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <div
+      aria-hidden="true"
       className={classNames('country-selection-list__row', role, { expanded, selected })}
       onClick={(e) => {
         e.preventDefault()
         onElementSelect(countryIso)
       }}
-      aria-hidden="true"
     >
       <div ref={countryNameRef}>{i18n.t<string>(Areas.getTranslationKey(countryIso))}</div>
 
-      {hasRole && (
+      {hasRole && !Objects.isEmpty(country) && (
         <>
           <div>
             <CountryStatusIndicator status={status} />
