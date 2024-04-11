@@ -6,10 +6,10 @@ import { Users } from 'meta/user'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import Dashboard from 'client/pages/CountryHome/Dashboard'
 import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
 import CountryMessageBoard from 'client/pages/CountryHome/FraHome/CountryMessageBoard'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
+import Overview from 'client/pages/CountryHome/Overview'
 import Repository from 'client/pages/CountryHome/Repository'
 
 type Section = {
@@ -27,7 +27,7 @@ export const useSections = (): Array<Section> => {
 
     if (!cycle) return null
 
-    sections.push({ name: SectionNames.Country.Home.overview, component: Dashboard })
+    sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
 
     if (user) {
       sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
