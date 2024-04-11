@@ -1,6 +1,7 @@
 import * as pgPromise from 'pg-promise'
 
 import { BaseProtocol } from 'server/db'
+import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 // Convert activity log dataSources reference from old object format {text?:string, link?:string} to text only:
@@ -80,7 +81,7 @@ export default async (client: BaseProtocol) => {
   const query = `${pgp.helpers.update(fixedActivityLogs, cs)} WHERE v.id = t.id`
 
   fixedActivityLogs.forEach((al) => {
-    const url = process.env.APP_URI.replace('9001', '9000')
+    const url = ProcessEnv.appUri.replace('9001', '9000')
     Logger.debug(`fixed: ${url}/assessments/fra/2025/${al.country_iso}/sections/${al.section}`)
   })
 
