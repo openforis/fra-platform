@@ -10,6 +10,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/repository/public/file'
+import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 // Example of legacyUrl url: https://fra-platform.herokuapp.com/api/fileRepository/RWA/file/681
@@ -135,7 +136,7 @@ export default async (client: BaseProtocol) => {
       await client.query(query)
 
       fixedDescriptions.forEach((d) => {
-        const url = process.env.APP_URI.replace('9001', '9000')
+        const url = ProcessEnv.appUri.replace('9001', '9000')
         Logger.debug(
           `fixed: ${url}/assessments/${assessment.props.name}/${cycle.name}/${d.countryIso}/sections/${d.sectionName}`
         )
