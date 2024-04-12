@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
-import { Table as TableType, TableName, VariableCache } from 'meta/assessment'
+import { Table, TableName, VariableCache } from 'meta/assessment'
 
-export const useDependencies = (table: TableType): Set<TableName> => {
+export const useDependencies = (table: Table): Set<TableName> => {
   return useMemo<Set<TableName>>(() => {
     const tableNames: Set<TableName> = new Set<TableName>()
 

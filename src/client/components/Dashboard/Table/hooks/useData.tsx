@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { NodeCalculations, RowCache, Table as TableType } from 'meta/assessment'
+import { NodeCalculations, RowCache, Table } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useAppSelector } from 'client/store'
@@ -10,7 +10,7 @@ import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
 import { useRowsData } from 'client/pages/Section/DataTable/hooks/useRowsData'
 
-export const useData = (table: TableType) => {
+export const useData = (table: Table) => {
   const tableName = table.props.name
   const assessment = useAssessment()
   const cycle = useCycle()
