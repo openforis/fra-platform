@@ -1,9 +1,9 @@
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from '@openforis/arena-core'
 import classNames from 'classnames'
 import { Dates } from 'utils/dates'
+import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
