@@ -4,6 +4,7 @@ import { User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { UserRoleAdapter } from 'server/repository/adapter'
+import { ProcessEnv } from 'server/utils'
 
 import { fields } from './fields'
 
@@ -11,11 +12,12 @@ const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 type Props = ({ id: number } | { uuid: string } | { email: string } | { emailGoogle: string }) & {
   allowDisabled?: boolean
+  allowedCountriesOnly?: boolean
   cycleUuid?: string
 }
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
-  const { allowDisabled } = props
+  const { allowDisabled, allowedCountriesOnly = true } = props
   const where = []
   let join = ''
   const values = []
@@ -51,12 +53,39 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
     where.push(`and u.status in (${allowed.map((status) => `'${status}'`).join(',')})`)
   }
 
+  let usersRoleSubquery = ''
+
+  if (allowedCountriesOnly) {
+    const allowedAtlantisCycles: Array<string> = []
+    ProcessEnv.fraAtlantisAllowed.forEach(
+      ({ assessmentName, cycleName }: { assessmentName: string; cycleName: string }) =>
+        allowedAtlantisCycles.push(`(c.name = '${cycleName}' AND a.props->>'name' = '${assessmentName}')`)
+    )
+    if (allowedAtlantisCycles.length > 0) {
+      usersRoleSubquery = `
+      (
+        select ur_sub.*
+        from users_role ur_sub
+        left join public.assessment_cycle c on ur_sub.cycle_uuid = c.uuid
+        left join public.assessment a on a.id = ur_sub.assessment_id
+        where (
+          (c.name is null or a.props->>'name' is null or 
+           ${allowedAtlantisCycles.join(' or ')}
+          )
+          or ur_sub.country_iso not like 'X%'
+        )
+      ) AS `
+    }
+  }
+
   return client
     .oneOrNone<User>(
       `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
-        left join users_role ur on u.id = ur.user_id and (ur.accepted_at is not null or ur.invited_at is null or ur.role = 'ADMINISTRATOR') ${join}
+        left join ${
+          usersRoleSubquery.length > 0 ? usersRoleSubquery : 'users_role'
+        } ur on u.id = ur.user_id and (ur.accepted_at is not null or ur.invited_at is null or ur.role = 'ADMINISTRATOR') ${join}
         where ${where.join(' ')}
         group by ${selectFields}
     `,
