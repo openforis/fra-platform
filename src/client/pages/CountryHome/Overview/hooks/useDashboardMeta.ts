@@ -4,12 +4,10 @@ import { AssessmentName, AssessmentNames, Cycle, CycleName } from 'meta/assessme
 import { DashboardItem } from 'meta/dashboard'
 
 import { useCycle } from 'client/store/assessment'
+import { forestGrowingStockAndCarbonDashboard } from 'client/pages/CountryHome/Overview/meta/forestGrowingStockAndCarbon'
 
-import { forestGrowingStockAndCarbonDashboard2020 } from '../meta/forestGrowingStockAndCarbon/forestGrowingStockAndCarbonDashboard2020'
-import { forestGrowingStockAndCarbonDashboard2025 } from '../meta/forestGrowingStockAndCarbon/forestGrowingStockAndCarbonDashboard2025'
-
-const fra2020Dashboard = (cycle: Cycle): Array<DashboardItem> => [forestGrowingStockAndCarbonDashboard2020(cycle)]
-const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [forestGrowingStockAndCarbonDashboard2025(cycle)]
+const fra2020Dashboard = (cycle: Cycle): Array<DashboardItem> => [forestGrowingStockAndCarbonDashboard(cycle)]
+const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [forestGrowingStockAndCarbonDashboard(cycle)]
 
 export type Dashboard = Record<AssessmentName, Record<CycleName, Array<DashboardItem>>>
 
