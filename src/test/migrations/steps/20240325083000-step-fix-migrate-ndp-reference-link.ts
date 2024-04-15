@@ -94,13 +94,6 @@ export default async (client: BaseProtocol) => {
       { table: { table: 'original_data_point', schema: schemaName } }
     )
 
-    fixed.forEach((odp) => {
-      Logger.debug(`Fixed data source for:\t${odp.countryIso}\t${odp.year}`)
-      // log env url, replace port 9001 with 9000 for localhost
-      const url = process.env.APP_URI.replace('9001', '9000')
-      Logger.debug(`${url}/assessments/fra/2025/${odp.countryIso}/originalDataPoints/${odp.year}/extentOfForest`)
-    })
-
     const query = `${pgp.helpers.update(fixed, cs)} where v.id = t.id;`
     await client.query(query)
 
