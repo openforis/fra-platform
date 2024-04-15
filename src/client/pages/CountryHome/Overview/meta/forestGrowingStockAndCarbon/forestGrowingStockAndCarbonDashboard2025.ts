@@ -235,7 +235,7 @@ const _getTable = (cycle: Cycle): Table => {
       cycles: [cycle.uuid],
       dataExport: true,
       columnNames: {
-        [cycle.uuid]: ['1990', '2000', '2010', '2015', '2020', '2025'],
+        [cycle.uuid]: cols,
       },
     },
     rows,
