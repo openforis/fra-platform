@@ -1,7 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { DataState } from 'client/store/data/stateType'
+import { DataState } from 'client/store/data/state'
 
 type Payload = {
   path: Array<string>

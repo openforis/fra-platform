@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
 import {
+  ActivityLog,
   AssessmentName,
   ColName,
   CycleName,
@@ -54,6 +55,7 @@ export type HistoryItemState = {
 
 export type HistoryState = {
   items?: Record<HistoryTarget, HistoryItemState>
+  compareItem?: Record<HistoryTarget, ActivityLog<never>>
 }
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)

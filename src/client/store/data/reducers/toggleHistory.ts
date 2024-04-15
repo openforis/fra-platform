@@ -1,7 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { DataState, HistoryItemState } from 'client/store/data/stateType'
+import { DataState, HistoryItemState } from 'client/store/data/state'
 
 export const toggleHistory = (state: Draft<DataState>, action: PayloadAction<HistoryItemState>) => {
   const { labelKey, target } = action.payload

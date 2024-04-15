@@ -3,7 +3,7 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
-import { DataState } from 'client/store/data/stateType'
+import { DataState } from 'client/store/data/state'
 
 export const setNodeValuesReducer = (builder: ActionReducerMapBuilder<DataState>) =>
   builder.addCase(setNodeValues, (state, action) => {

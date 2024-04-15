@@ -3,8 +3,13 @@
 
 $color: darken($ui-bg, 20%);
 
+@mixin history-item__cell {
+  padding: 6px;
+}
+
 .history-item__timestamp {
-  color: darken($text-disabled, 5%);
+  @include history-item__cell;
+  color: darken($text-disabled, 10%);
   font-size: $font-xxs;
 }
 
@@ -37,15 +42,24 @@ $color: darken($ui-bg, 20%);
 }
 
 .history-item__content {
-  padding: $spacing-xs 0;
+  @include history-item__cell;
+  align-items: center;
+  border: 1px solid $color;
+  display: grid;
+  grid-column-gap: $spacing-xxxs;
+  grid-row-gap: $spacing-xxxs;
+  grid-template-columns: auto 1fr;
+  margin: $spacing-xxxs 0;
+  transition: all 0.2s ease;
 
   button.button {
-    flex-wrap: wrap;
-    height: unset;
-    justify-content: center;
-    padding-bottom: $spacing-xxxs;
-    padding-top: $spacing-xxxs;
-    width: 100%;
+    grid-column: 1/-1;
+    justify-self: end;
+  }
+
+  &.diffActive {
+    background-color: lighten($ui-accent-light, 10%);
+    border-color: $ui-black-map;
   }
 }
 

@@ -8,7 +8,6 @@ import { HistoryItemState } from 'client/store/data'
 import TablePaginated from 'client/components/TablePaginated'
 
 import { useColumns } from './hooks/useColumns'
-import { useResetState } from './hooks/useResetState'
 
 type Props = {
   items: HistoryItemState
@@ -20,7 +19,6 @@ const Items: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   const columns = useColumns({ target })
-  useResetState(target)
 
   return (
     <div className="history-items">
@@ -30,7 +28,7 @@ const Items: React.FC<Props> = (props: Props) => {
         className="history-items__activities"
         columns={columns}
         counter
-        gridTemplateColumns="minmax(100px, auto) 1px 1fr"
+        gridTemplateColumns="auto 1px 1fr"
         header={false}
         limit={12}
         path={ApiEndPoint.CycleData.history(target)}

@@ -30,6 +30,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
        and section = $4
        and message = $5
        and target ->> 'name' = $6
+     order by al.time desc
      limit $7 offset $8`,
     [assessment.uuid, cycle.uuid, countryIso, sectionName, message, target, limit, offset],
     (row) => Objects.camelize(row)
