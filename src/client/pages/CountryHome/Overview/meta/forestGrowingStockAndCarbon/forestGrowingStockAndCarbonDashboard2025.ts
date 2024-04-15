@@ -191,40 +191,33 @@ const _getTable = (cycle: Cycle): Table => {
         {
           tableName: TableNames.carbonStockAvg,
           variableName: 'carbon_forest_above_ground',
-          cycleName: '2025',
         },
 
         {
           tableName: TableNames.carbonStockAvg,
           variableName: 'carbon_forest_below_ground',
-          cycleName: '2025',
         },
       ],
       carbonStockTotal: [
         {
           tableName: TableNames.carbonStockAvg,
           variableName: 'carbon_forest_above_ground',
-          cycleName: '2025',
         },
         {
           tableName: TableNames.carbonStockAvg,
           variableName: 'carbon_forest_below_ground',
-          cycleName: '2025',
         },
         {
           tableName: TableNames.carbonStockAvg,
           variableName: 'carbon_forest_deadwood',
-          cycleName: '2025',
         },
         {
           tableName: TableNames.carbonStockAvg,
           variableName: 'carbon_forest_litter',
-          cycleName: '2025',
         },
         {
           tableName: TableNames.carbonStockAvg,
           variableName: 'carbon_forest_soil',
-          cycleName: '2025',
         },
       ],
     },
