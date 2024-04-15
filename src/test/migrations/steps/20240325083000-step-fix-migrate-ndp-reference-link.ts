@@ -8,7 +8,6 @@ import { RepositoryItem } from 'meta/cycleData'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
-import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 const oldUrl = '/api/file/assessment/'
@@ -94,13 +93,6 @@ export default async (client: BaseProtocol) => {
       ],
       { table: { table: 'original_data_point', schema: schemaName } }
     )
-
-    fixed.forEach((odp) => {
-      Logger.debug(`Fixed data source for:\t${odp.countryIso}\t${odp.year}`)
-      // log env url, replace port 9001 with 9000 for localhost
-      const url = ProcessEnv.appUri.replace('9001', '9000')
-      Logger.debug(`${url}/assessments/fra/2025/${odp.countryIso}/originalDataPoints/${odp.year}/extentOfForest`)
-    })
 
     const query = `${pgp.helpers.update(fixed, cs)} where v.id = t.id;`
     await client.query(query)

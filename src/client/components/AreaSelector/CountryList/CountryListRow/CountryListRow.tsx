@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 import { Dates } from 'utils/dates'
+import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
@@ -49,16 +50,16 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   return (
     <div
+      aria-hidden="true"
       className={classNames('country-selection-list__row', role, { expanded, selected })}
       onClick={(e) => {
         e.preventDefault()
         onElementSelect(countryIso)
       }}
-      aria-hidden="true"
     >
       <div ref={countryNameRef}>{i18n.t<string>(Areas.getTranslationKey(countryIso))}</div>
 
-      {hasRole && (
+      {hasRole && !Objects.isEmpty(country) && (
         <>
           <div>
             <CountryStatusIndicator status={status} />

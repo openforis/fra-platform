@@ -10,7 +10,6 @@ import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/repository/public/file'
-import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 // Example of legacyUrl url: https://fra-platform.herokuapp.com/api/fileRepository/RWA/file/681
@@ -35,6 +34,11 @@ const _fixImgTags = async (
     const src = anchor.getAttribute('src') // eg: http://fra-platform.herokuapp.com/api/fileRepository/MAR/file/430
 
     const id = src.split('/').pop()
+    // check id is in the correct format
+    if (/^\d+$/.test(id) === false) {
+      // eslint-disable-next-line no-continue
+      continue
+    }
     const countryIso = src.split('/').at(-3)
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
@@ -45,14 +49,7 @@ const _fixImgTags = async (
       [id]
     )
 
-    if (!file) {
-      Logger.error('----------')
-      const prefix = `[${assessmentName} ${cycleName} ${countryIso}]`
-      Logger.error(
-        `${prefix} File with id ${id} not found. File has been most likely deleted after migrations or replaced with a new one.`
-      )
-      Logger.error(`${prefix} Image src: ${src}`)
-    } else {
+    if (file) {
       // eslint-disable-next-line no-await-in-loop
       const { uuid } = await FileRepository.getOne({ fileName: file.name }, client)
       // eslint-disable-next-line no-await-in-loop
@@ -134,13 +131,6 @@ export default async (client: BaseProtocol) => {
 
       const query = `${pgp.helpers.update(fixedDescriptions, cs)} where v.id = t.id;`
       await client.query(query)
-
-      fixedDescriptions.forEach((d) => {
-        const url = ProcessEnv.appUri.replace('9001', '9000')
-        Logger.debug(
-          `fixed: ${url}/assessments/${assessment.props.name}/${cycle.name}/${d.countryIso}/sections/${d.sectionName}`
-        )
-      })
     })
   })
 }
