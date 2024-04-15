@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { AssessmentName, CycleName, TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { DataState } from 'client/store/data/stateType'
+import { DataState } from 'client/store/data/state'
 
 type Payload = {
   assessmentName: AssessmentName

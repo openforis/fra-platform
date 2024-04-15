@@ -51,6 +51,7 @@ export enum ActivityLogMessage {
 
 export interface ActivityLog<Target> {
   countryIso?: string
+  id?: number
   message: ActivityLogMessage
   section: string
   target: Target

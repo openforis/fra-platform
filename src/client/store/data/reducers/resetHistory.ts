@@ -1,10 +1,9 @@
 import { Draft } from '@reduxjs/toolkit'
-import { Objects } from 'utils/objects'
 
-import { DataState } from 'client/store/data/stateType'
+import { DataState } from 'client/store/data/state'
 
 export const resetHistory = (state: Draft<DataState>) => {
-  Objects.unset(state.history, ['items'])
+  state.history = {}
 
   return state
 }

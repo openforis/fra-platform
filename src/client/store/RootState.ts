@@ -1,6 +1,6 @@
 import { AreaState } from './area/state'
 import { AssessmentState } from './assessment/state'
-import { DataState } from './data/stateType'
+import { DataState } from './data/state'
 import { LoginState } from './login/stateType'
 import { AreaSelectorSlice, AreaSelectorState } from './ui/areaSelector'
 import { AssessmentSectionSlice, AssessmentSectionState } from './ui/assessmentSection'

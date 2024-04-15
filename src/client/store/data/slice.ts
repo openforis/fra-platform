@@ -5,6 +5,8 @@ import { CommentableDescriptionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { DataState, TableDataStatus } from 'client/store/data/state'
+
 import { clearTableData } from './actions/clearTableData'
 import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { createContact } from './actions/createContact'
@@ -26,8 +28,8 @@ import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
 import { resetHistory } from './reducers/resetHistory'
 import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { setValue } from './reducers/setValue'
+import { toggleCompareHistoryItem } from './reducers/toggleCompareHistoryItem'
 import { toggleHistory } from './reducers/toggleHistory'
-import { DataState, TableDataStatus } from './stateType'
 
 const initialState: DataState = {
   contacts: {},
@@ -48,6 +50,7 @@ export const dataSlice = createSlice({
     setNodeValueValidations,
     setValue,
     // -- history
+    toggleCompareHistoryItem,
     resetHistory,
     toggleHistory,
   },
