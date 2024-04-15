@@ -1,6 +1,6 @@
 import { Col, ColStyle, ColType, Cycle, CycleUuid, Row, RowType, Table, VariableCache } from 'meta/assessment'
 
-import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
+import { RowMetadata, RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
 
 const getStyle = (cycle: Cycle): Record<CycleUuid, ColStyle> => {
   return {
@@ -65,7 +65,7 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
   const { cycle, cols, tableId, rowMetadata } = props
   const headerRow: Row = getHeaderRow(cycle, cols, tableId)
 
-  const _getRow = (row: any): Row => {
+  const _getRow = (row: RowMetadata): Row => {
     return {
       cols: [
         {
