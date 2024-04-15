@@ -1,5 +1,3 @@
-import { UUIDs } from 'utils/uuids'
-
 import { Col, ColStyle, ColType, Cycle, CycleUuid } from 'meta/assessment'
 
 export const getStyle = (cycle: Cycle): Record<CycleUuid, ColStyle> => {
@@ -12,13 +10,10 @@ export const getStyle = (cycle: Cycle): Record<CycleUuid, ColStyle> => {
 }
 
 export const getCols = (cycle: Cycle, cols: Array<string>): Array<Col> => {
-  return cols.map((col, index) => {
+  return cols.map((col) => {
     return {
-      id: -1 - index,
-      uuid: UUIDs.v4(),
       rowId: 96,
       props: {
-        index,
         cycles: [cycle.uuid],
         colName: col,
         colType: ColType.decimal,
