@@ -46,3 +46,18 @@ div.select__clearIndicator {
     display: none;
   }
 }
+
+.select__toggleAllOption-checkbox {
+  accent-color: $ui-accent;
+  margin-right: $spacing-xxs;
+  vertical-align: middle;
+
+  &:checked {
+    background-color: $ui-accent;
+    border: none;
+  }
+}
+
+.select__toggleAllOption-label {
+  vertical-align: middle;
+}

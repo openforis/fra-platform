@@ -1,1 +1,1 @@
-export { ClearIndicator, DropdownIndicator, IndicatorsContainer } from './Indicators'
+export { ClearIndicator, DropdownIndicator, IndicatorsContainer, MultiSelectOption } from './Indicators'

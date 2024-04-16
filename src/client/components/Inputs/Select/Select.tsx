@@ -4,17 +4,22 @@ import ReactSelect from 'react-select'
 
 import classNames from 'classnames'
 
-import { ClearIndicator, DropdownIndicator, IndicatorsContainer } from 'client/components/Inputs/Select/Indicators'
-
 import { useOnChange } from './hooks/useOnChange'
+import { useToggleAllConfig } from './hooks/useToggleAllConfig'
 import { useValue } from './hooks/useValue'
 import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
-  const { classNames: classes, disabled, isClearable, isMulti, options, placeholder } = props
+  const { classNames: classes, disabled, isClearable, isMulti, options, placeholder, toggleAll } = props
 
   const value = useValue(props)
   const onChange = useOnChange(props)
+
+  const {
+    components,
+    hideSelectedOptions,
+    options: augmentedOptions,
+  } = useToggleAllConfig({ isMulti, options, toggleAll, value })
 
   return (
     <ReactSelect
@@ -29,13 +34,14 @@ const Select: React.FC<SelectProps> = (props) => {
         multiValue: ({ isDisabled }) => classNames('select__multiValue', { isDisabled }),
         multiValueLabel: ({ isDisabled }) => classNames('select__multiValueLabel', { isDisabled }),
         multiValueRemove: ({ isDisabled }) => classNames('select__multiValueRemove', { isDisabled }),
-        option: ({ isFocused, isSelected }) => classNames('select__option', { isFocused, isSelected }),
+        option: ({ isFocused, isSelected }) => classNames('select__option', { isFocused, isSelected, toggleAll }),
         placeholder: () => `select__placeholder`,
         singleValue: () => 'select__singleValue',
         valueContainer: () => 'select__valueContainer',
       }}
       closeMenuOnSelect={!isMulti}
-      components={{ ClearIndicator, DropdownIndicator, IndicatorsContainer, IndicatorSeparator: null }}
+      components={components}
+      hideSelectedOptions={hideSelectedOptions}
       isClearable={isClearable}
       isDisabled={disabled}
       isMulti={isMulti}
@@ -43,7 +49,7 @@ const Select: React.FC<SelectProps> = (props) => {
       menuPlacement="auto"
       menuPosition="fixed"
       onChange={onChange}
-      options={options}
+      options={augmentedOptions}
       placeholder={placeholder ?? ''}
       value={value}
     />

@@ -23,5 +23,8 @@ export type SelectProps = SelectBaseProps &
     disabled?: boolean
     onChange: (value: string | Array<string> | null) => void
     options: OptionsOrGroups
+    toggleAll?: boolean
     value?: ValueInput
   }
+
+export const selectAllOptionValue = '*'
