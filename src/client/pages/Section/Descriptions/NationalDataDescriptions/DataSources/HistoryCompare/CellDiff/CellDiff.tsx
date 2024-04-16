@@ -20,20 +20,18 @@ const CellDiff: React.FC<Props> = (props) => {
       {changes?.map((change, i) => {
         const { added, removed, value } = change
 
+        const key = `${value}_${String(i)}`
         return (
-          <>
+          <React.Fragment key={key}>
             {value.split('\n\r').map((text, j) => {
-              const key = `${value}_${String(i)}`
               return (
-                <React.Fragment key={key}>
-                  <span key={`${key}_${String(j)}`} className={classNames({ added, removed })}>
-                    {text}
-                  </span>
+                <React.Fragment key={`${key}_${String(j)}`}>
+                  <span className={classNames({ added, removed })}>{text}</span>
                   {j !== 0 && <br />}
                 </React.Fragment>
               )
             })}
-          </>
+          </React.Fragment>
         )
       })}
     </DataCell>
