@@ -10,12 +10,6 @@ const cols: Record<string, Array<string>> = {
   '2025': ['1990', '2000', '2010', '2020', '2025'],
 }
 
-// Production (1000 ha)	-	-	-	-
-// Multiple use (1000 ha)	-	-	-	-
-// Conservation of biodiversity (1000 ha)	1 235.20	2 223.11	3 001.51	2 830.66
-// Protection of soil and water (1000 ha)	-	-	-	-
-// Social Services (1000 ha)	400.09	605.99	599.51	529.76
-// Other (1000 ha)
 const variables = [
   'production',
   'multiple_use',
