@@ -19,8 +19,8 @@ const CellDiff: React.FC<Props> = (props) => {
     <DataCell className="history-compare__cell-diff" lastCol={lastCol} lastRow={lastRow}>
       {changes?.map((change, i) => {
         const { added, removed, value } = change
-
         const key = `${value}_${String(i)}`
+
         return (
           <React.Fragment key={key}>
             {value.split('\n\r').map((text, j) => {
