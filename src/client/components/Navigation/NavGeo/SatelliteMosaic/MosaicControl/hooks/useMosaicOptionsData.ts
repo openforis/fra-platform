@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { MosaicOptions, MosaicSource } from 'meta/geo'
+import { mosaicYearRange } from 'meta/geo/mosaic'
 
 import { useAppliedMosaicOptions, useUiMosaicOptions } from 'client/store/ui/geo'
 import { Option } from 'client/components/Inputs/Select'
@@ -24,8 +25,7 @@ const useMosaicOptionsData = (): Returned => {
   const appliedMosaicOptions = useAppliedMosaicOptions()
 
   const yearOptions = useMemo<Array<Option>>(() => {
-    const startYear = 2000
-    const endYear = 2022
+    const { endYear, startYear } = mosaicYearRange
 
     const years = Array(endYear - startYear + 1)
       .fill(startYear)
