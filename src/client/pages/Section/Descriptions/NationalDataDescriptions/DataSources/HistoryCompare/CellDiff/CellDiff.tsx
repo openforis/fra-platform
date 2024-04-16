@@ -27,7 +27,7 @@ const CellDiff: React.FC<Props> = (props) => {
               return (
                 <React.Fragment key={`${key}_${String(j)}`}>
                   <span className={classNames({ added, removed })}>{text}</span>
-                  {j !== 0 && <br />}
+                  <br />
                 </React.Fragment>
               )
             })}

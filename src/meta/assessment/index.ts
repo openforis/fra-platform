@@ -36,6 +36,7 @@ export type {
   Descriptions,
 } from './description'
 export { DataSourceType } from './description'
+export { DataSources } from './description/dataSources'
 export type { Label } from './label'
 export { Labels } from './labels'
 export type { Node, NodeValue } from './node'

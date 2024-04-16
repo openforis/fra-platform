@@ -28,7 +28,7 @@ const Items: React.FC<Props> = (props: Props) => {
         className="history-items__activities"
         columns={columns}
         counter
-        gridTemplateColumns="auto 1px 1fr"
+        gridTemplateColumns="1px 1fr"
         header={false}
         limit={12}
         marginPagesDisplayed={1}

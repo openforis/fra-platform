@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import * as Diff from 'diff'
 import { Change } from 'diff'
 
-import { DataSourceDescription, Labels } from 'meta/assessment'
+import { DataSourceDescription, DataSources } from 'meta/assessment'
 
 import { DataSourceHistoryCompare } from '../../hooks/useDataSourcesHistory'
 
@@ -39,7 +39,7 @@ export const useChanges = (props: Props): Returned => {
     const _getVariablesText = (values: Array<string>): string =>
       variablesMeta
         .filter(({ variableName }) => values.includes(variableName))
-        .map(({ label }) => Labels.getLabel({ label, t }))
+        .map((variable) => DataSources.getVariableLabel({ variable, t }))
         .join('\n\r')
 
     // comments
