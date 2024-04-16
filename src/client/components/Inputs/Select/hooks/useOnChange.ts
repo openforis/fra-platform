@@ -18,10 +18,10 @@ export const useOnChange = (props: SelectProps): Returned => {
         if (!includesSelectAll) return onChange(selectedValues)
 
         // If "(Un) Select All" is toggled while some items are selected, deselect all
-        if (includesSelectAll && selectedValues.length > 1) return onChange([])
+        if (selectedValues.length > 1) return onChange([])
 
         // If "Select All" is toggled with no selection, select all original options
-        if (includesSelectAll && selectedValues.length === 1) {
+        if (selectedValues.length === 1) {
           const allValues = selectOptions.flatMap((optionOrGroup) => {
             if (Object.hasOwn(optionOrGroup, 'options')) {
               return (optionOrGroup as OptionsGroup).options.map(({ value }) => value)
