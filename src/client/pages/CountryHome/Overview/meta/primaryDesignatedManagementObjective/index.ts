@@ -1,4 +1,3 @@
-// Forest growing stock and carbon
 import { Cycle } from 'meta/assessment'
 import { DashboardItemType, DashboardTable } from 'meta/dashboard'
 
