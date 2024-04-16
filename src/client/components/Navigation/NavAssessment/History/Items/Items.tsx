@@ -31,6 +31,8 @@ const Items: React.FC<Props> = (props: Props) => {
         gridTemplateColumns="auto 1px 1fr"
         header={false}
         limit={12}
+        marginPagesDisplayed={1}
+        pageRangeDisplayed={1}
         path={ApiEndPoint.CycleData.history(target)}
         wrapCells={false}
       />

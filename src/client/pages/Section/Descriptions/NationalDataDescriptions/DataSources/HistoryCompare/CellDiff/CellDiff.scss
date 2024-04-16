@@ -1,0 +1,19 @@
+@import 'src/client/style/partials';
+
+.history-compare__cell-diff {
+  padding: $spacing-xxs;
+
+  .added,
+  .removed {
+    font-weight: 600;
+  }
+
+  .added {
+    color: darken($ui-status-accepted, 10%);
+  }
+
+  .removed {
+    color: $ui-destructive;
+    text-decoration: line-through;
+  }
+}
