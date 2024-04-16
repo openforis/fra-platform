@@ -1,0 +1,15 @@
+@import 'src/client/style/partials';
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: $spacing-m;
+}
+
+.dashboard-item {
+  margin-top: $spacing-m;
+}
+
+.dashboard-item .header {
+  margin-bottom: $spacing-xs;
+}

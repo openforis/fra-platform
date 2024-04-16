@@ -5,9 +5,16 @@ import { DashboardItem } from 'meta/dashboard'
 
 import { useCycle } from 'client/store/assessment'
 import { forestGrowingStockAndCarbonDashboard } from 'client/pages/CountryHome/Overview/meta/forestGrowingStockAndCarbon'
+import { primaryDesignatedManagementObjectiveDashboard } from 'client/pages/CountryHome/Overview/meta/primaryDesignatedManagementObjective'
 
-const fra2020Dashboard = (cycle: Cycle): Array<DashboardItem> => [forestGrowingStockAndCarbonDashboard(cycle)]
-const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [forestGrowingStockAndCarbonDashboard(cycle)]
+const fra2020Dashboard = (cycle: Cycle): Array<DashboardItem> => [
+  forestGrowingStockAndCarbonDashboard(cycle),
+  primaryDesignatedManagementObjectiveDashboard(cycle),
+]
+const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [
+  forestGrowingStockAndCarbonDashboard(cycle),
+  primaryDesignatedManagementObjectiveDashboard(cycle),
+]
 
 export type Dashboard = Record<AssessmentName, Record<CycleName, Array<DashboardItem>>>
 
