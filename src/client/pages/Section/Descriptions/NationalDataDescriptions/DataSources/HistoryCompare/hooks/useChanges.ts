@@ -43,8 +43,8 @@ export const useChanges = (props: Props): Returned => {
         .join('\n\r')
 
     // comments
-    const commentsData = _getHtmlTextContent(dataItem?.comments)
-    const commentsHistory = _getHtmlTextContent(historyItem?.comments)
+    const commentsData = dataItem?.comments ?? ''
+    const commentsHistory = historyItem?.comments ?? ''
     const comments = Diff.diffChars(commentsHistory, commentsData)
 
     // reference
