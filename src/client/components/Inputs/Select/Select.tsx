@@ -1,8 +1,15 @@
 import './Select.scss'
 import React from 'react'
-import ReactSelect from 'react-select'
+import ReactSelect, { GroupBase, SelectComponentsConfig } from 'react-select'
 
 import classNames from 'classnames'
+
+import {
+  ClearIndicator,
+  DropdownIndicator,
+  IndicatorsContainer,
+  MultiSelectOption,
+} from 'client/components/Inputs/Select/Indicators'
 
 import { useOnChange } from './hooks/useOnChange'
 import { useToggleAllConfig } from './hooks/useToggleAllConfig'
@@ -15,11 +22,18 @@ const Select: React.FC<SelectProps> = (props) => {
   const value = useValue(props)
   const onChange = useOnChange(props)
 
-  const {
-    components,
-    hideSelectedOptions,
-    options: augmentedOptions,
-  } = useToggleAllConfig({ isMulti, options, toggleAll, value })
+  const components: Partial<SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>> = {
+    ClearIndicator,
+    DropdownIndicator,
+    IndicatorsContainer,
+    IndicatorSeparator: null,
+  }
+
+  const { optionComponent, options: augmentedOptions } = useToggleAllConfig({ isMulti, options, toggleAll, value })
+
+  if (optionComponent) {
+    components.Option = MultiSelectOption
+  }
 
   return (
     <ReactSelect
@@ -34,14 +48,15 @@ const Select: React.FC<SelectProps> = (props) => {
         multiValue: ({ isDisabled }) => classNames('select__multiValue', { isDisabled }),
         multiValueLabel: ({ isDisabled }) => classNames('select__multiValueLabel', { isDisabled }),
         multiValueRemove: ({ isDisabled }) => classNames('select__multiValueRemove', { isDisabled }),
-        option: ({ isFocused, isSelected }) => classNames('select__option', { isFocused, isSelected, toggleAll }),
+        option: ({ isFocused, isMulti, isSelected }) =>
+          classNames('select__option', { isFocused, isMulti, isSelected }),
         placeholder: () => `select__placeholder`,
         singleValue: () => 'select__singleValue',
         valueContainer: () => 'select__valueContainer',
       }}
       closeMenuOnSelect={!isMulti}
       components={components}
-      hideSelectedOptions={hideSelectedOptions}
+      hideSelectedOptions={false}
       isClearable={isClearable}
       isDisabled={disabled}
       isMulti={isMulti}

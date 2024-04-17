@@ -1,13 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { GroupBase, SelectComponentsConfig } from 'react-select'
 
-import {
-  ClearIndicator,
-  DropdownIndicator,
-  IndicatorsContainer,
-  MultiSelectOption,
-} from 'client/components/Inputs/Select/Indicators'
+import { MultiSelectOption } from 'client/components/Inputs/Select/Indicators'
 import { OptionsOrGroups, selectAllOptionValue } from 'client/components/Inputs/Select/types'
 
 import { ValueSelect } from './useValue'
@@ -20,8 +14,7 @@ type Props = {
 }
 
 type Returned = {
-  components: Partial<SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>>
-  hideSelectedOptions: boolean | undefined
+  optionComponent: React.FC | undefined
   options: OptionsOrGroups
 }
 
@@ -30,22 +23,16 @@ export const useToggleAllConfig = (props: Props): Returned => {
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
-    const components: Returned['components'] = {
-      ClearIndicator,
-      DropdownIndicator,
-      IndicatorsContainer,
-      IndicatorSeparator: null,
-    }
+    if (!isMulti) return { optionComponent: undefined, options }
 
-    if (isMulti && toggleAll) {
-      components.Option = MultiSelectOption
-      const selectAllOption = {
-        value: selectAllOptionValue,
-        label: Array.isArray(value) && value.length === 0 ? t('common.selectAll') : t('common.unselectAll'),
-      }
-      return { components, hideSelectedOptions: false, options: [selectAllOption, ...options] }
-    }
+    const optionComponent = MultiSelectOption
 
-    return { components, hideSelectedOptions: undefined, options }
+    if (!toggleAll) return { optionComponent, options }
+
+    const selectAllOption = {
+      value: selectAllOptionValue,
+      label: Array.isArray(value) && value.length === 0 ? t('common.selectAll') : t('common.unselectAll'),
+    }
+    return { optionComponent, options: [selectAllOption, ...options] }
   }, [isMulti, options, t, toggleAll, value])
 }

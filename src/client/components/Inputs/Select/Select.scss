@@ -136,7 +136,7 @@ div.select__option {
   white-space: break-spaces;
 
   &.isFocused,
-  &.toggleAll.isFocused {
+  &.isMulti.isFocused {
     background-color: lighten($ui-accent-light-extra, 3%);
     cursor: pointer;
   }
@@ -146,7 +146,7 @@ div.select__option {
     color: $text-body;
     font-weight: 600;
 
-    &:not(.toggleAll) {
+    &:not(.isMulti) {
       cursor: unset;
     }
   }
