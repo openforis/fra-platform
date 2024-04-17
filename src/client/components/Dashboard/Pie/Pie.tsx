@@ -11,7 +11,7 @@ type Props = {
   item: DashboardPieChart
 }
 
-const PieChart: React.FC<Props> = (props: Props) => {
+const Pie: React.FC<Props> = (props: Props) => {
   const {
     item: { table, chart },
   } = props
@@ -22,4 +22,4 @@ const PieChart: React.FC<Props> = (props: Props) => {
   return <ChartPie chart={chart} data={data} />
 }
 
-export default PieChart
+export default Pie
