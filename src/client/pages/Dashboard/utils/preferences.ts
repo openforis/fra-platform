@@ -1,5 +1,8 @@
 import { Numbers } from 'utils/numbers'
 
+/**
+ * @deprecated
+ */
 export enum ChartColors {
   // Greens
   green = 'rgb(0,141,156)',
@@ -24,7 +27,9 @@ export enum ChartColors {
 const commonPreferences = {
   borderWidth: 0,
 }
-
+/**
+ * @deprecated
+ */
 export const preferences = {
   green: {
     ...commonPreferences,

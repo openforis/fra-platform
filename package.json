@@ -247,6 +247,7 @@
     "react-select": "^5.8.0",
     "react-sliding-side-panel": "^2.0.3",
     "react-tooltip": "^5.13.1",
+    "recharts": "^2.12.5",
     "redis": "^4.6.11",
     "redux": "^4.1.1",
     "redux-debounced": "^0.5.0",

@@ -10,7 +10,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
-import Chart from 'client/components/Chart'
+import Chart from 'client/components/ChartDeprecated'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { commonOptions, preferences, scaleLabel } from '../utils/preferences'
@@ -83,7 +83,7 @@ const NaturallyRegeneratingForest = () => {
   return (
     <div className="row-l">
       <h3 className="header">{t(`statisticalFactsheets.${section}.title`)}</h3>
-      {loaded && <Chart type="bar" data={data} options={options} />}
+      {loaded && <Chart data={data} options={options} type="bar" />}
     </div>
   )
 }

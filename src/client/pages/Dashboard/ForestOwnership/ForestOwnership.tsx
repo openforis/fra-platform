@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import { ChartOptions } from 'chart.js'
+import { Numbers } from 'utils/numbers'
 
 import { Areas } from 'meta/area'
 import { TableNames } from 'meta/assessment'
@@ -10,8 +10,8 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
-import Chart from 'client/components/Chart'
-import { ChartDataType } from 'client/components/Chart/Chart'
+import Chart from 'client/components/ChartDeprecated'
+import { ChartDataType } from 'client/components/ChartDeprecated/Chart'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { formatValue } from '../utils/numberUtils'
@@ -97,7 +97,7 @@ const ForestOwnership = () => {
     <div className="row-s">
       <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {privateOwnership || publicOwnership || otherOrUnknown ? (
-        <Chart type="pie" data={data as ChartDataType} options={options} />
+        <Chart data={data as ChartDataType} options={options} type="pie" />
       ) : (
         <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>
       )}

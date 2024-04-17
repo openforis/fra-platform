@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import { ChartOptions } from 'chart.js'
+import { Numbers } from 'utils/numbers'
 
 import { Areas } from 'meta/area'
 import { TableNames } from 'meta/assessment'
@@ -10,7 +10,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
-import Chart from 'client/components/Chart'
+import Chart from 'client/components/ChartDeprecated'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { ChartColors, commonOptions } from '../utils/preferences'
@@ -89,7 +89,7 @@ const ForestAreaWithinProtectedAreas = () => {
     <div className="row-s">
       <h3 className="header">{i18n.t<string>(`statisticalFactsheets.${section}.title`)}</h3>
       {forestAreaWithinProtectedAreas && forestArea ? (
-        <Chart type="pie" data={data} options={options} />
+        <Chart data={data} options={options} type="pie" />
       ) : (
         <h6 className="header">{i18n.t<string>('statisticalFactsheets.noData')}</h6>
       )}

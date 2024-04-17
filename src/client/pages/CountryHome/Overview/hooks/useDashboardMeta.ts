@@ -4,15 +4,18 @@ import { AssessmentName, AssessmentNames, Cycle, CycleName } from 'meta/assessme
 import { DashboardItem } from 'meta/dashboard'
 
 import { useCycle } from 'client/store/assessment'
+import { forestAreaPercentOfLandArea } from 'client/pages/CountryHome/Overview/meta/forestAreaPercentOfLandArea'
 import { forestGrowingStockAndCarbonDashboard } from 'client/pages/CountryHome/Overview/meta/forestGrowingStockAndCarbon'
 import { primaryDesignatedManagementObjectiveDashboard } from 'client/pages/CountryHome/Overview/meta/primaryDesignatedManagementObjective'
 
 const fra2020Dashboard = (cycle: Cycle): Array<DashboardItem> => [
   forestGrowingStockAndCarbonDashboard(cycle),
+  forestAreaPercentOfLandArea(cycle),
   primaryDesignatedManagementObjectiveDashboard(cycle),
 ]
 const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [
   forestGrowingStockAndCarbonDashboard(cycle),
+  forestAreaPercentOfLandArea(cycle),
   primaryDesignatedManagementObjectiveDashboard(cycle),
 ]
 
@@ -20,6 +23,7 @@ export type Dashboard = Record<AssessmentName, Record<CycleName, Array<Dashboard
 
 export const useDashboardMeta = (): Dashboard => {
   const cycle = useCycle()
+
   return useMemo<Dashboard>(() => {
     return {
       [AssessmentNames.fra]: {
