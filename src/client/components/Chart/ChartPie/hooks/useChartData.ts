@@ -1,20 +1,17 @@
 import { CountryIso } from 'meta/area'
-import { Table } from 'meta/assessment'
 import { PieChart, PieChartData } from 'meta/chart'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { useData } from 'client/components/Dashboard/hooks/useData'
 
-export const useChartData = (table: Table, chart: PieChart): Array<PieChartData> => {
+export const useChartData = (data: RecordAssessmentData, chart: PieChart): Array<PieChartData> => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  const data = useData(table)
 
   const tableData = RecordAssessmentDatas.getTableData({
     assessmentName,
     cycleName,
     countryIso,
-    tableName: table.props.name,
+    tableName: chart.name,
     data,
   })
 

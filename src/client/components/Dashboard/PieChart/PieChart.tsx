@@ -3,23 +3,22 @@ import React from 'react'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
 import ChartPie from 'client/components/Chart/ChartPie'
-
-import { useChartData } from '../hooks/useChartData'
-import { useGetTableData } from '../hooks/useGetTableData'
+import { useData } from 'client/components/Dashboard/hooks/useData'
+import { useGetTableData } from 'client/components/Dashboard/hooks/useGetTableData'
 
 type Props = {
   item: DashboardPieChart
 }
 
-const Pie: React.FC<Props> = (props: Props) => {
+const PieChart: React.FC<Props> = (props: Props) => {
   const {
     item: { table, chart },
   } = props
 
-  const data = useChartData(table, chart)
+  const data = useData(table)
   useGetTableData(table)
 
   return <ChartPie chart={chart} data={data} />
 }
 
-export default Pie
+export default PieChart

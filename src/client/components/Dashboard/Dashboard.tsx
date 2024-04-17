@@ -3,7 +3,7 @@ import React from 'react'
 
 import { DashboardItem, DashboardItemType } from 'meta/dashboard'
 
-import Pie from 'client/components/Dashboard/Pie'
+import PieChart from 'client/components/Dashboard/PieChart'
 import Table from 'client/components/Dashboard/Table'
 import Title from 'client/components/Dashboard/Title/Title'
 
@@ -13,7 +13,7 @@ type Props = {
 
 const Components: Record<string, React.FC<{ item: DashboardItem<unknown> }>> = {
   [DashboardItemType.table]: Table,
-  [DashboardItemType.pieChart]: Pie,
+  [DashboardItemType.pieChart]: PieChart,
 }
 
 const Dashboard: React.FC<Props> = (props: Props) => {

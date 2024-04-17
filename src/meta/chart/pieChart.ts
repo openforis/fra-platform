@@ -11,6 +11,7 @@ export type PieChartData = {
 type PieCell = { key: string; color: ChartColor }
 
 export type PieChart = {
+  name: string
   dataKey: string
   cells: Array<PieCell>
   label: PieLabel
