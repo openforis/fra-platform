@@ -4,12 +4,7 @@ import ReactSelect, { GroupBase, SelectComponentsConfig } from 'react-select'
 
 import classNames from 'classnames'
 
-import {
-  ClearIndicator,
-  DropdownIndicator,
-  IndicatorsContainer,
-  MultiSelectOption,
-} from 'client/components/Inputs/Select/Indicators'
+import { ClearIndicator, DropdownIndicator, IndicatorsContainer } from 'client/components/Inputs/Select/Indicators'
 
 import { useOnChange } from './hooks/useOnChange'
 import { useToggleAllConfig } from './hooks/useToggleAllConfig'
@@ -32,7 +27,7 @@ const Select: React.FC<SelectProps> = (props) => {
   const { optionComponent, options: augmentedOptions } = useToggleAllConfig({ isMulti, options, toggleAll, value })
 
   if (optionComponent) {
-    components.Option = MultiSelectOption
+    components.Option = optionComponent
   }
 
   return (
