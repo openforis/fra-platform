@@ -3,9 +3,10 @@ import React from 'react'
 import { DashboardTable } from 'meta/dashboard'
 
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
-import { useData } from 'client/components/Dashboard/Table/hooks/useData'
-import { useGetTableData } from 'client/components/Dashboard/Table/hooks/useGetTableData'
 import TableComponent from 'client/pages/Section/DataTable/Table'
+
+import { useData } from '../hooks/useData'
+import { useGetTableData } from '../hooks/useGetTableData'
 
 type Props = {
   item: DashboardTable
