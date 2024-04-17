@@ -20,6 +20,12 @@ export const TablePaginatedSlice = createSlice({
       const { path, page } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
     },
+    resetPaths: (state, action: PayloadAction<{ paths: Array<string> }>) => {
+      const { paths } = action.payload
+      paths.forEach((path) => {
+        Objects.unset(state, [path])
+      })
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCount.fulfilled, (state, action) => {

@@ -9,7 +9,6 @@ module.exports = {
   cancel: 'Cancel',
   clearTable: 'Clear table',
   column: 'Column',
-  compare: 'Compare',
   continue: 'Continue',
   copyToClipboard: 'Copy to clipboard',
   countries: 'Countries',

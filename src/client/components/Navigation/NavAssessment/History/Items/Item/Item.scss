@@ -3,21 +3,11 @@
 
 $color: darken($ui-bg, 20%);
 
-@mixin history-item__cell {
-  padding: 6px;
-}
-
-.history-item__timestamp {
-  @include history-item__cell;
-  color: darken($text-disabled, 10%);
-  font-size: $font-xxs;
-}
-
 .history-item__separator {
-  height: 100%;
-  width: 100%;
-  position: relative;
   background-color: $color;
+  height: 100%;
+  position: relative;
+  width: 100%;
 
   .marker {
     $size: 10px;
@@ -42,24 +32,39 @@ $color: darken($ui-bg, 20%);
 }
 
 .history-item__content {
-  @include history-item__cell;
   align-items: center;
+  background-color: transparent;
   border: 1px solid $color;
   display: grid;
-  grid-column-gap: $spacing-xxxs;
-  grid-row-gap: $spacing-xxxs;
-  grid-template-columns: auto 1fr;
+  font-family: $font-family-1;
+  font-size: $font-s;
+  grid-column-gap: $spacing-xxs;
+  grid-template-columns: auto 1fr auto;
+  justify-items: start;
   margin: $spacing-xxxs 0;
+  padding: $spacing-xxs 12px;
   transition: all 0.2s ease;
 
-  button.button {
-    grid-column: 1/-1;
-    justify-self: end;
+  svg {
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    background-color: lighten($ui-accent-light, 11%);
+
+    svg {
+      color: $ui-black-map;
+      transform: scale(1.1);
+    }
   }
 
   &.diffActive {
     background-color: lighten($ui-accent-light, 10%);
     border-color: $ui-black-map;
+
+    svg {
+      color: $ui-black-map;
+    }
   }
 }
 
@@ -67,4 +72,17 @@ $color: darken($ui-bg, 20%);
   border-radius: 100%;
   height: $spacing-xs;
   width: $spacing-xs;
+}
+
+.history-item__content-text {
+  justify-items: start;
+  display: grid;
+}
+
+.history-item__timestamp {
+  color: darken($text-disabled, 5%);
+  font-size: $font-xxxs;
+  font-weight: 600;
+  margin-bottom: -$spacing-xxxxs;
+  text-transform: uppercase;
 }
