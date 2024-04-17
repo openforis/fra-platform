@@ -6,6 +6,9 @@ import Chart, { ChartTypeRegistry } from 'chart.js/auto'
 
 import { useOnUpdate } from 'client/hooks'
 
+/**
+ * @deprecated
+ */
 export type ChartDataType = ChartData<keyof ChartTypeRegistry, DefaultDataPoint<keyof ChartTypeRegistry>, unknown>
 
 type Props = {
@@ -15,6 +18,9 @@ type Props = {
   plugins?: Plugin[]
 }
 
+/**
+ * @deprecated
+ */
 const ChartComponent = (props: Props) => {
   const { data, options, type, plugins } = props
   const canvasRef = useRef(null)

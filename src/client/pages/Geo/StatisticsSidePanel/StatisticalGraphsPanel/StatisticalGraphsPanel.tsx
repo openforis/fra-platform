@@ -2,7 +2,7 @@ import './StatisticalGraphsPanel.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Chart from 'client/components/Chart'
+import Chart from 'client/components/ChartDeprecated'
 
 import { useStatisticalGraphsData } from './hooks/useStatisticalGraphsData'
 

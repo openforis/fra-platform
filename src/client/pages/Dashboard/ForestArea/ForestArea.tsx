@@ -9,7 +9,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
-import Chart from 'client/components/Chart'
+import Chart from 'client/components/ChartDeprecated'
 
 import useDashboardData from '../hooks/useDashboardData'
 import { commonOptions, preferences, scaleLabel } from '../utils/preferences'
@@ -81,7 +81,7 @@ const ForestArea = () => {
   return (
     <div className="row-m">
       <h3 className="header">{t(`statisticalFactsheets.${section}.title`)}</h3>
-      {data && <Chart type="bar" options={options} data={data} />}
+      {data && <Chart data={data} options={options} type="bar" />}
     </div>
   )
 }
