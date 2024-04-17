@@ -10,6 +10,7 @@ import { primaryDesignatedManagementObjectiveDashboard } from 'client/pages/Coun
 
 const fra2020Dashboard = (cycle: Cycle): Array<DashboardItem> => [
   forestGrowingStockAndCarbonDashboard(cycle),
+  forestAreaPercentOfLandArea(cycle),
   primaryDesignatedManagementObjectiveDashboard(cycle),
 ]
 const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [
@@ -22,6 +23,7 @@ export type Dashboard = Record<AssessmentName, Record<CycleName, Array<Dashboard
 
 export const useDashboardMeta = (): Dashboard => {
   const cycle = useCycle()
+
   return useMemo<Dashboard>(() => {
     return {
       [AssessmentNames.fra]: {

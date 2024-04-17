@@ -18,6 +18,7 @@ const Components: Record<string, React.FC<{ item: DashboardItem<unknown> }>> = {
 
 const Dashboard: React.FC<Props> = (props: Props) => {
   const { items } = props
+
   return (
     <div className="dashboard">
       {items.map((item) => {

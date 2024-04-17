@@ -42,12 +42,10 @@ export const forestAreaPercentOfLandArea = (cycle: Cycle): DashboardPieChart => 
   title: { key: 'statisticalFactsheets.forestArea.title' },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
   chart: {
-    name: tableName + cycle.name,
-    dataKey: 'value',
-    label: ({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`,
+    label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,
     cells: [
-      { key: 'forestArea', color: ChartColor.green },
-      { key: 'otherLand', color: ChartColor.gray },
+      { variableName: 'forestArea', color: ChartColor.green },
+      { variableName: 'otherLand', color: ChartColor.gray },
     ],
   },
 })
