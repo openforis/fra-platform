@@ -8,6 +8,7 @@ module.exports = {
   forestAreaExceedsExtentOfForest: `超过森林面积(1a)`,
   forestAreaReportedIsDifferentFromPreviousCycle: `报告的面积 ({{forestArea2025}}) 与先前报告的面积 ({{forestArea2020}}) 不同。请提供评论，解释为什么不同。`,
   forestSumAreaExceedsExtentOfForest: `报告的FRA类别总和超过了表格1a中报告的森林面积`,
+  invalidLink: `无效链接`,
   landAreaExceedsTotalLandArea: `土地面积超过总土地面积 (1a) ({{value}})`,
   mustBeEqualToForestArea: `自然再生林和人工林的总和与总森林面积不相等`,
   mustBeEqualToForestExpansion: `子类别的总和应该等于森林扩张`,
