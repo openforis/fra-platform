@@ -1,17 +1,17 @@
 import React from 'react'
 
-import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts'
+import { Cell, Legend, Pie as PieComponent, PieChart, Tooltip } from 'recharts'
 
 import { PieChart as PieChartType } from 'meta/chart'
 import { RecordAssessmentData } from 'meta/data'
 
-import { useChartData } from 'client/components/Chart/ChartPie/hooks/useChartData'
+import { useChartData } from 'client/components/Chart/Pie/hooks/useChartData'
 
 type Props = {
   data: RecordAssessmentData
   chart: PieChartType
 }
-const ChartPie = (props: Props) => {
+const Pie = (props: Props) => {
   const { data: dataProp, chart } = props
   const { dataKey, label } = chart
 
@@ -19,15 +19,15 @@ const ChartPie = (props: Props) => {
 
   return (
     <PieChart height={400} width={400}>
-      <Pie data={data} dataKey={dataKey} label={label} labelLine={false} outerRadius={80}>
+      <PieComponent data={data} dataKey={dataKey} label={label} labelLine={false} outerRadius={80}>
         {data.map((entry) => (
           <Cell key={`cell-${entry.name}`} fill={entry.color} />
         ))}
-      </Pie>
+      </PieComponent>
       <Tooltip />
       <Legend />
     </PieChart>
   )
 }
 
-export default ChartPie
+export default Pie
