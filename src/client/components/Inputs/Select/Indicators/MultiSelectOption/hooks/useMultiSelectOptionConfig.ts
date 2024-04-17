@@ -8,6 +8,7 @@ type Props = OptionProps<Option>
 type Returned = {
   checked: boolean
   isInputIndeterminate: boolean
+  isSelectAllOption: boolean
 }
 
 export const useMultiSelectOptionConfig = (props: Props): Returned => {
@@ -32,6 +33,6 @@ export const useMultiSelectOptionConfig = (props: Props): Returned => {
 
     const isInputIndeterminate = isSelectAllOption && !allSelected && selectedValuesLength > 0
 
-    return { checked, isInputIndeterminate }
+    return { checked, isInputIndeterminate, isSelectAllOption }
   }, [allOptionsCount, isSelectAllOption, isSelected, selectProps.value])
 }
