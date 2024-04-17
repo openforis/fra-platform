@@ -8,6 +8,7 @@ module.exports = {
   forestAreaExceedsExtentOfForest: `Превышает "Площадь лесов" (1a)`,
   forestAreaReportedIsDifferentFromPreviousCycle: `Представленная площадь ({{forestarea2025}}) отличается от ранее представленной ({{forestarea2020}}). Пожалуйста, оставьте комментарий, объясняющий, почему она отличается.`,
   forestSumAreaExceedsExtentOfForest: `Сумма представленных категорий FRA превышает лесной площади, о которой сообщается в таблице 1а`,
+  invalidLink: `Недействительная ссылка`,
   landAreaExceedsTotalLandArea: `Площадь земель превышает общую площадь земель (1a) ({{value}})`,
   mustBeEqualToForestArea: `Сумма естественно возобновляемых лесов и лесных культур не равна общей площади лесов`,
   mustBeEqualToForestExpansion: `Сумма подкатегорий должна быть равна расширению лесов`,

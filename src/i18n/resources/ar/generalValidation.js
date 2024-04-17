@@ -8,6 +8,7 @@ module.exports = {
   forestAreaExceedsExtentOfForest: `تتجاوز مساحة الغابة (اأ)`,
   forestAreaReportedIsDifferentFromPreviousCycle: `المساحة المُبلَّغ عنها ({{forestArea2025}}) تختلف عن المُبلَّغ عنها سابقًا ({{forestArea2020}}). يرجى تقديم تعليق يشرح فيه سبب الاختلاف.`,
   forestSumAreaExceedsExtentOfForest: `مجموع فئات الفرا المُبلَّغ عنها تتجاوز مساحة الغابات المُبلَّغ عنها في الجدول 1أ.`,
+  invalidLink: `رابط غير متوفر`,
   landAreaExceedsTotalLandArea: `مساحة الأرض تتجاوز مجموع مساحة الأراضي الكلية (1أ) ({{value}}).`,
   mustBeEqualToForestArea: `جموع الغابات المتجدد الطبيعيا والغابات المزروعة غير مساوٍ لإجمالي مساحة الغابات.`,
   mustBeEqualToForestExpansion: `يجب أن يكون مجموع الفئات الفرعية مساويًا لمساحة الغابات المتوسعة.`,

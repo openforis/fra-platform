@@ -8,6 +8,7 @@ module.exports = {
   forestAreaExceedsExtentOfForest: `Ne correspond pas à la Superficie de forêt (1a)`,
   forestAreaReportedIsDifferentFromPreviousCycle: `La superficie indiquée ({{forestArea2025}}) diffère de celle précédemment déclarée ({{forestArea2020}}). Veuillez fournir un commentaire expliquant les raisons de cette différence`,
   forestSumAreaExceedsExtentOfForest: `La somme des valeurs des catégories de FRA renseignées dépasse la valeur de la superficie de forêt totale indiquée dans le tableau 1a`,
+  invalidLink: `Lien non valide`,
   landAreaExceedsTotalLandArea: `La superficie des terres dépasse la superficie totale des terres (1a) ({{value}})`,
   mustBeEqualToForestArea: `La somme des valeurs de la Forêt naturellement régénérée et de la Forêt Plantée n'est pas égale à la valeur totale de la Forêt`,
   mustBeEqualToForestExpansion: `La somme des valeurs des sous-catégories doit être égale à la valeur de l'Expansion de la forêt`,
