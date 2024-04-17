@@ -8,6 +8,7 @@ module.exports = {
   forestAreaExceedsExtentOfForest: `Superior al área de bosque (1a)`,
   forestAreaReportedIsDifferentFromPreviousCycle: `El valor de área introducido ({{forestArea2025}}) difiere de la introducida anteriormente ({{forestArea2020}}). Por favor explique las razones de esa diferencia `,
   forestSumAreaExceedsExtentOfForest: `La suma de las categorías de FRA reportadas supera el valor de área total de bosque introducida en la tabla 1a`,
+  invalidLink: `Enlace inválido`,
   landAreaExceedsTotalLandArea: `La superficie terrestre supera la superficie terrestre total (1a) ({{value}})`,
   mustBeEqualToForestArea: `La suma de los valores de área de Bosque con procesos de regenración natural y Bosque plantado no es igual al valor de área total de Bosque`,
   mustBeEqualToForestExpansion: `El total de subcategorías debe ser igual al valor de Expansión forestal`,

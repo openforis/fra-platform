@@ -42,13 +42,13 @@ export const useOnBlur = (props: Props): OnChange => {
   useEffect(() => {
     if (Objects.isEmpty(jodit)) return () => undefined
 
-    const onProcessHTML = () => {
+    const onBeforeOpenPasteDialog = () => {
       pastedHtmlRef.current = true
     }
-    jodit.events?.on('processHTML', onProcessHTML)
+    jodit.events?.on('beforeOpenPasteDialog', onBeforeOpenPasteDialog)
 
     return () => {
-      jodit.events?.off('processHTML', onProcessHTML)
+      jodit.events?.off('beforeOpenPasteDialog', onBeforeOpenPasteDialog)
     }
   }, [jodit])
 

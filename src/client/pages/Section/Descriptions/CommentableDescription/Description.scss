@@ -5,7 +5,9 @@
 }
 
 .description__editor-container:not(.editable) {
-  div.jodit-wysiwyg {
-    padding: unset;
+  div.editorWYSIWYG:not(.validation-error) {
+    div.jodit-wysiwyg {
+      padding: unset;
+    }
   }
 }
