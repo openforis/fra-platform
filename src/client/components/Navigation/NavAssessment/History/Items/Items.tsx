@@ -5,12 +5,21 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { HistoryItemState } from 'client/store/data'
-import TablePaginated from 'client/components/TablePaginated'
+import { ItemSkeleton } from 'client/components/Navigation/NavAssessment/History/Items/Item'
+import TablePaginated, { TablePaginatedCounterComponent } from 'client/components/TablePaginated'
 
 import { useColumns } from './hooks/useColumns'
 
 type Props = {
   items: HistoryItemState
+}
+
+const Counter: TablePaginatedCounterComponent = (props) => {
+  const { count } = props
+
+  const { t } = useTranslation()
+
+  return <div className="history-items__counter">{t('common.change', { count: count.total })}</div>
 }
 
 const Items: React.FC<Props> = (props: Props) => {
@@ -27,13 +36,14 @@ const Items: React.FC<Props> = (props: Props) => {
       <TablePaginated
         className="history-items__activities"
         columns={columns}
-        counter
+        counter={{ show: true, Component: Counter }}
         gridTemplateColumns="1px 1fr"
         header={false}
         limit={12}
         marginPagesDisplayed={1}
         pageRangeDisplayed={1}
         path={ApiEndPoint.CycleData.history(target)}
+        skeleton={{ baseColor: 'var(--ui-bg-hover)', highlightColor: '#c2c2c2', Component: ItemSkeleton }}
         wrapCells={false}
       />
     </div>

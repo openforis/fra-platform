@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import * as Diff from 'diff'
 import { Change } from 'diff'
 
-import { DataSourceDescription, DataSources } from 'meta/assessment'
+import { DataSource, DataSourceDescription, DataSources } from 'meta/assessment'
 
 import { DataSourceHistoryCompare } from '../../hooks/useDataSourcesHistory'
 
@@ -36,11 +36,17 @@ export const useChanges = (props: Props): Returned => {
     const _getHtmlTextContent = (string?: string): string =>
       new DOMParser().parseFromString(string ?? '', 'text/html')?.documentElement.textContent
 
-    const _getVariablesText = (values: Array<string>): string =>
+    const _getVariablesText = (values?: Array<string>): string =>
       variablesMeta
-        .filter(({ variableName }) => values.includes(variableName))
+        .filter(({ variableName }) => values && values.includes(variableName))
         .map((variable) => DataSources.getVariableLabel({ variable, t }))
         .join('\n\r')
+
+    const _getType = (dataSource: DataSource) => {
+      if (typeOfDataSourceText) return dataSource?.type
+      if (dataSource?.type) return t(`dataSource.${dataSource.type}`)
+      return ''
+    }
 
     // comments
     const commentsData = dataItem?.comments ?? ''
@@ -53,16 +59,13 @@ export const useChanges = (props: Props): Returned => {
     const reference = Diff.diffChars(referenceHistory, referenceData)
 
     // type
-
-    const typeData = typeOfDataSourceText ? dataItem?.type : t(`dataSource.${dataItem?.type}`)
-    const typeHistory = typeOfDataSourceText ? historyItem?.type : t(`dataSource.${historyItem?.type}`)
+    const typeData = _getType(dataItem)
+    const typeHistory = _getType(historyItem)
     const type = typeOfDataSourceText ? Diff.diffChars(typeHistory, typeData) : Diff.diffLines(typeHistory, typeData)
 
     // variables
-    const variablesData = variablesSelect ? _getVariablesText(dataItem?.variables ?? []) : dataItem?.variables?.at(0)
-    const variablesHistory = variablesSelect
-      ? _getVariablesText(historyItem?.variables ?? [])
-      : historyItem?.variables?.at(0)
+    const variablesData = variablesSelect ? _getVariablesText(dataItem?.variables) : dataItem?.variables?.at(0)
+    const variablesHistory = variablesSelect ? _getVariablesText(historyItem?.variables) : historyItem?.variables?.at(0)
     const variables = variablesSelect
       ? Diff.diffLines(variablesHistory ?? '', variablesData ?? '')
       : Diff.diffChars(variablesHistory ?? '', variablesData ?? '')

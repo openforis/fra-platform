@@ -42,6 +42,7 @@ $color: darken($ui-bg, 20%);
   grid-template-columns: auto 1fr auto;
   justify-items: start;
   margin: $spacing-xxxs 0;
+  min-height: 48px;
   padding: $spacing-xxs 12px;
   transition: all 0.2s ease;
 
@@ -66,6 +67,14 @@ $color: darken($ui-bg, 20%);
       color: $ui-black-map;
     }
   }
+
+  &.skeleton {
+    pointer-events: none;
+
+    .react-loading-skeleton {
+      display: block;
+    }
+  }
 }
 
 .history-item__avatar {
@@ -77,6 +86,10 @@ $color: darken($ui-bg, 20%);
 .history-item__content-text {
   justify-items: start;
   display: grid;
+}
+
+.history-item__content-text-skeleton {
+  padding: 1px 0;
 }
 
 .history-item__timestamp {

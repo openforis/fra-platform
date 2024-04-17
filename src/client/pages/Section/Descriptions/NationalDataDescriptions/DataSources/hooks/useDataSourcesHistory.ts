@@ -43,7 +43,7 @@ export const useDataSourcesHistory = (props: Props): Returned => {
         historyItem = history
         historyIndex += 1
       } else {
-        const onlyData = !dataSourcesHistory.some((d) => d.uuid === data?.uuid)
+        const onlyData = Boolean(data?.uuid) && !dataSourcesHistory.some((d) => d.uuid === data.uuid)
 
         if (onlyData) {
           dataItem = data

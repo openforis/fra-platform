@@ -11,7 +11,8 @@ import { TooltipId } from 'meta/tooltip'
 import { DataCell } from 'client/components/DataGrid'
 import Select, { Option } from 'client/components/Inputs/Select'
 import TextArea from 'client/components/Inputs/TextArea'
-import { useOnChange } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/hook/useOnChange'
+
+import { useOnChange } from './hook/useOnChange'
 
 type Props = {
   dataSource: DataSource
