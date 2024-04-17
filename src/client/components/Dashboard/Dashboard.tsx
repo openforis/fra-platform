@@ -1,3 +1,4 @@
+import './Dashboard.scss'
 import React from 'react'
 
 import { DashboardItem, DashboardItemType } from 'meta/dashboard'
@@ -16,14 +17,14 @@ const Components: Record<string, React.FC<{ item: DashboardItem<unknown> }>> = {
 const Dashboard: React.FC<Props> = (props: Props) => {
   const { items } = props
   return (
-    <div>
+    <div className="dashboard">
       {items.map((item) => {
         const Component = Components[item.type]
         return (
-          <React.Fragment key={item.title.key}>
+          <div key={item.title.key} className="dashboard-item">
             <Title item={item} />
             <Component item={item} />
-          </React.Fragment>
+          </div>
         )
       })}
     </div>
