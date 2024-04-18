@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+.select__toggleAllOption-checkbox {
+  accent-color: $ui-accent;
+  margin-right: $spacing-xxs;
+  vertical-align: middle;
+
+  &:checked {
+    background-color: $ui-accent;
+    border: none;
+  }
+}
+
+.select__toggleAllOption-label {
+  vertical-align: middle;
+}
