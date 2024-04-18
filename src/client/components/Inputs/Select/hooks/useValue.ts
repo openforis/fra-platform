@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Option, OptionsGroup, SelectProps } from 'client/components/Inputs/Select/types'
 
-type ValueSelect = Option | Array<Option> | null
+export type ValueSelect = Option | Array<Option> | null
 
 export const useValue = (props: SelectProps): ValueSelect => {
   const { isMulti, options, value: valueInput } = props

@@ -50,7 +50,9 @@ const VariablesSelect: React.FC<Props> = (props) => {
     onChange('variables', value)
   }
 
-  return <Select disabled={disabled} isMulti onChange={_onChange} options={options} value={dataSource.variables} />
+  return (
+    <Select disabled={disabled} isMulti onChange={_onChange} options={options} toggleAll value={dataSource.variables} />
+  )
 }
 
 const Variables: React.FC<Props & { lastRow: boolean }> = (props) => {
