@@ -135,7 +135,8 @@ div.select__option {
   padding: $spacing-xxs;
   white-space: break-spaces;
 
-  &.isFocused {
+  &.isFocused,
+  &.isMulti.isFocused {
     background-color: lighten($ui-accent-light-extra, 3%);
     cursor: pointer;
   }
@@ -143,7 +144,10 @@ div.select__option {
   &.isSelected {
     background-color: transparent;
     color: $text-body;
-    cursor: unset;
     font-weight: 600;
+
+    &:not(.isMulti) {
+      cursor: unset;
+    }
   }
 }
