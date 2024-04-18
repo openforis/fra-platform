@@ -43,7 +43,7 @@ const Item: React.FC<Props> = (props) => {
         <div className="history-item__content-text">
           <div className="history-item__timestamp">{Dates.getRelativeDate(activity.time, i18n)}</div>
           <div>
-            {user.props.name.at(0)}. {user.props.surname} {ActivityLogs.getLabelAction({ activity, t })}{' '}
+            {user.props.name.at(0)}. {user.props.surname} {ActivityLogs.getLabelAction({ activity, t })}
           </div>
         </div>
 

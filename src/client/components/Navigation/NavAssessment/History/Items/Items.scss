@@ -15,9 +15,18 @@
 }
 
 .history-items__activities {
+  grid-row-gap: $spacing-xxs;
+  padding: 0 $spacing-xs;
+
   .table-paginated-datagrid {
     align-items: center;
     grid-column-gap: $spacing-xxs;
-    padding: 0 $spacing-xs;
   }
+}
+
+.history-items__counter {
+  color: $text-mute;
+  font-size: $font-xxs;
+  font-weight: 600;
+  text-transform: uppercase;
 }

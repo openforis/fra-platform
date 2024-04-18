@@ -7,6 +7,8 @@ module.exports = {
   areYouSureYouWantToDeleteAllTableData: 'Are you sure you want to delete all data from the table?',
   calculate: 'Calculate',
   cancel: 'Cancel',
+  change_one: '{{count}} change',
+  change_other: '{{count}} changes',
   clearTable: 'Clear table',
   column: 'Column',
   continue: 'Continue',

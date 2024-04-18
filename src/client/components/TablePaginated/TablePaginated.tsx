@@ -1,5 +1,6 @@
 import './TablePaginated.scss'
 import React, { HTMLAttributes } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
 
@@ -12,15 +13,16 @@ import Body from './Body'
 import Count from './Count'
 import Header from './Header'
 import Paginator from './Paginator'
-import { Props as BaseProps } from './types'
+import { Props as BaseProps, TablePaginatedCounter, TablePaginatedSkeleton } from './types'
 
 type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'className'> &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridTemplateColumns'> &
   Pick<PaginatorProps, 'marginPagesDisplayed' | 'pageRangeDisplayed'> &
   BaseProps<Datum> & {
     EmptyListComponent?: React.FC
+    counter?: TablePaginatedCounter
     header?: boolean
-    counter?: boolean
+    skeleton?: TablePaginatedSkeleton
     wrapCells?: boolean
   }
 
@@ -28,7 +30,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { className, gridTemplateColumns } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
   const { columns, path, limit } = props // Base Props
-  const { EmptyListComponent, counter, header, wrapCells } = props // Component Props
+  const { EmptyListComponent, counter, header, skeleton, wrapCells } = props // Component Props
 
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
@@ -48,7 +50,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
         style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
       >
         {header && <Header columns={columns} path={path} />}
-        <Body columns={columns} limit={limit} path={path} wrapCells={wrapCells} />
+        <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
       </DataGrid>
 
       <Paginator
@@ -58,17 +60,22 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
         path={path}
       />
 
-      {counter && <Count path={path} />}
+      {counter.show && <Count counter={counter} path={path} />}
     </div>
   )
 }
 
 TablePaginated.defaultProps = {
   EmptyListComponent: () => <div />,
+  counter: { show: true },
   header: true,
   // eslint-disable-next-line react/default-props-match-prop-types
   limit: 30,
-  counter: true,
+  skeleton: {
+    baseColor: 'white',
+    highlightColor: 'var(--ui-bg)',
+    Component: () => <Skeleton borderRadius="2px" height="20px" width="100%" />,
+  },
   wrapCells: true,
 }
 

@@ -1,29 +1,40 @@
 import React from 'react'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 import classNames from 'classnames'
 
-import { useTablePaginatedCount, useTablePaginatedData } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
 import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import { Props as BaseProps } from 'client/components/TablePaginated/types'
+import { Props as BaseProps, TablePaginatedSkeleton } from 'client/components/TablePaginated/types'
 
 type Props<Datum extends object> = BaseProps<Datum> & {
   limit: number
   wrapCells: boolean
+  skeleton: TablePaginatedSkeleton
 }
 
 const Body = <Datum extends object>(props: Props<Datum>) => {
-  const { columns, limit, path, wrapCells } = props
+  const { columns, limit, path, wrapCells, skeleton } = props
 
   const data = useTablePaginatedData<Datum>(path)
-  const count = useTablePaginatedCount(path)
 
-  // TODO: add skeleton
-  if (count?.total && !data) {
-    // 38 is the height of each row
-    return <div style={{ height: `${38 * limit}px` }} />
+  if (!data) {
+    const { baseColor, highlightColor, Component } = skeleton
+
+    return (
+      <SkeletonTheme baseColor={baseColor} highlightColor={highlightColor} inline>
+        {Array.from(Array(limit).keys()).map((i) => {
+          return (
+            <React.Fragment key={`row-skeleton-${String(i)}`}>
+              {columns.map((column) => (
+                <Component key={column.key} />
+              ))}
+            </React.Fragment>
+          )
+        })}
+      </SkeletonTheme>
+    )
   }
-
-  if (!data) return null
 
   return (
     <>

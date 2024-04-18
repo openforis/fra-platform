@@ -3,11 +3,12 @@ import { useEffect } from 'react'
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { TablePaginatedCounter } from 'client/components/TablePaginated/types'
 
 type Props = {
-  path: string
+  counter: TablePaginatedCounter
   limit: number
-  counter?: boolean
+  path: string
 }
 
 export const useFetchData = (props: Props): void => {
@@ -19,7 +20,7 @@ export const useFetchData = (props: Props): void => {
   const orderBy = useTablePaginatedOrderBy(path)
 
   useEffect(() => {
-    if (!counter) return
+    if (!counter.show) return
     dispatch(TablePaginatedActions.getCount({ assessmentName, cycleName, countryIso, sectionName, path }))
   }, [assessmentName, counter, countryIso, cycleName, dispatch, path, sectionName])
 
