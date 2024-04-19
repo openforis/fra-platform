@@ -7,6 +7,7 @@ import { useCycle } from 'client/store/assessment'
 import { forestAreaPercentOfLandArea } from 'client/pages/CountryHome/Overview/meta/forestAreaPercentOfLandArea'
 import { forestAreaWithinProtectedAreas } from 'client/pages/CountryHome/Overview/meta/forestAreaWithinProtectedAreas'
 import { forestGrowingStockAndCarbonDashboard } from 'client/pages/CountryHome/Overview/meta/forestGrowingStockAndCarbon'
+import { forestOwnership } from 'client/pages/CountryHome/Overview/meta/forestOwnership'
 import { primaryDesignatedManagementObjectiveDashboard } from 'client/pages/CountryHome/Overview/meta/primaryDesignatedManagementObjective'
 import { primaryForestPercentOfForestArea } from 'client/pages/CountryHome/Overview/meta/primaryForestPercentOfForestArea'
 
@@ -15,6 +16,7 @@ const fra2020Dashboard = (cycle: Cycle): Array<DashboardItem> => [
   forestAreaPercentOfLandArea(cycle),
   primaryForestPercentOfForestArea(cycle),
   forestAreaWithinProtectedAreas(cycle),
+  forestOwnership(cycle),
   primaryDesignatedManagementObjectiveDashboard(cycle),
 ]
 const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [
@@ -22,6 +24,7 @@ const fra2025Dashboard = (cycle: Cycle): Array<DashboardItem> => [
   forestAreaPercentOfLandArea(cycle),
   primaryForestPercentOfForestArea(cycle),
   forestAreaWithinProtectedAreas(cycle),
+  forestOwnership(cycle),
   primaryDesignatedManagementObjectiveDashboard(cycle),
 ]
 
