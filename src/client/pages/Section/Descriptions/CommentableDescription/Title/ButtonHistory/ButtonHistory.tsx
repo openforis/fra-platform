@@ -43,7 +43,7 @@ const ButtonHistory: React.FC<Props> = (props) => {
       disabled={disabled}
       iconName="history"
       inverse={!historyActive}
-      label={t('common.history')}
+      label={t('history.history')}
       onClick={onClick}
       size={ButtonSize.xs}
       type={ButtonType.black}
