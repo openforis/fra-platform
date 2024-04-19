@@ -78,6 +78,7 @@ module.exports = {
   selectMinTreeCoverPercent: 'Select min. tree cover percentage:',
   sentinel: 'Sentinel',
   showSatelliteMosaic: 'Show Satellite Mosaic',
+  snowMasking: 'Snow masking',
   statistics: {
     burnedArea: {
       burnedAreaByYear: 'Burned area by year',
