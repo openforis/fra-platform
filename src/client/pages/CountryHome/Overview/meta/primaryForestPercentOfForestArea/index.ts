@@ -23,6 +23,7 @@ const variableNames: Record<string, string> = {
 }
 
 export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChart => {
+  const columnName = cols[cycle.name][0]
   const tableName = tableNames[cycle.name]
   const variableName = variableNames[cycle.name]
 
@@ -83,8 +84,8 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChar
     chart: {
       label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,
       cells: [
-        { variableName, color: ChartColor.green },
-        { variableName: 'otherLand', color: ChartColor.lightGreen },
+        { variableName, color: ChartColor.green, columnName },
+        { variableName: 'otherLand', color: ChartColor.lightGreen, columnName },
       ],
     },
   }

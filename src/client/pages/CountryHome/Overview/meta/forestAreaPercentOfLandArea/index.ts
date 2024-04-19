@@ -44,8 +44,8 @@ export const forestAreaPercentOfLandArea = (cycle: Cycle): DashboardPieChart => 
   chart: {
     label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,
     cells: [
-      { variableName: 'forestArea', color: ChartColor.green },
-      { variableName: 'otherLand', color: ChartColor.gray },
+      { variableName: 'forestArea', color: ChartColor.green, columnName: cols[cycle.name][0] },
+      { variableName: 'otherLand', color: ChartColor.gray, columnName: cols[cycle.name][0] },
     ],
   },
 })

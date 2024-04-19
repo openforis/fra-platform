@@ -3,10 +3,10 @@
 .dashboard {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: $spacing-m;
 
   @include min-width($laptop) {
     grid-template-columns: 1fr 1fr;
+    grid-gap: $spacing-m;
   }
 }
 
