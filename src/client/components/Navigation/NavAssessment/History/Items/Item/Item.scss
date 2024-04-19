@@ -1,0 +1,101 @@
+@use 'sass:math';
+@import 'src/client/style/partials';
+
+$color: darken($ui-bg, 20%);
+
+.history-item__separator {
+  background-color: $color;
+  height: 100%;
+  position: relative;
+  width: 100%;
+
+  .marker {
+    $size: 10px;
+
+    background-color: $ui-bg;
+    border-radius: 100%;
+    height: $size;
+    left: 50%;
+    padding: 2px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: $size;
+
+    > div {
+      background-color: $color;
+      border-radius: 100%;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.history-item__content {
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid $color;
+  display: grid;
+  font-family: $font-family-1;
+  font-size: $font-s;
+  grid-column-gap: $spacing-xxs;
+  grid-template-columns: auto 1fr auto;
+  justify-items: start;
+  margin: $spacing-xxxs 0;
+  min-height: 48px;
+  padding: $spacing-xxs 12px;
+  transition: all 0.2s ease;
+
+  svg {
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    background-color: lighten($ui-accent-light, 11%);
+
+    svg {
+      color: $ui-black-map;
+      transform: scale(1.1);
+    }
+  }
+
+  &.diffActive {
+    background-color: lighten($ui-accent-light, 10%);
+    border-color: $ui-black-map;
+
+    svg {
+      color: $ui-black-map;
+    }
+  }
+
+  &.skeleton {
+    pointer-events: none;
+
+    .react-loading-skeleton {
+      display: block;
+    }
+  }
+}
+
+.history-item__avatar {
+  border-radius: 100%;
+  height: $spacing-xs;
+  width: $spacing-xs;
+}
+
+.history-item__content-text {
+  justify-items: start;
+  display: grid;
+}
+
+.history-item__content-text-skeleton {
+  padding: 1px 0;
+}
+
+.history-item__timestamp {
+  color: darken($text-disabled, 5%);
+  font-size: $font-xxxs;
+  font-weight: 600;
+  margin-bottom: -$spacing-xxxxs;
+  text-transform: uppercase;
+}

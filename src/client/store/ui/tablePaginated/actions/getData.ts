@@ -3,15 +3,14 @@ import axios from 'axios'
 
 import { TablePaginatedDataRequestParams } from 'meta/api/request/tablePaginated'
 import { AreaCode } from 'meta/area'
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 import { TablePaginatedOrderBy } from 'meta/tablePaginated'
-
-import { limit as defaultLimit } from 'client/store/ui/tablePaginated/constants'
 
 type Props = {
   assessmentName: AssessmentName
   cycleName: CycleName
   countryIso?: AreaCode
+  sectionName?: SectionName
   orderBy?: TablePaginatedOrderBy
   page: number
   path: string
@@ -21,14 +20,13 @@ type Props = {
 type Returned = Array<never>
 
 export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/get', async (props) => {
-  const { assessmentName, cycleName, countryIso, orderBy, page, path, limit: _limit } = props
-
-  const limit = _limit ?? defaultLimit
+  const { assessmentName, cycleName, countryIso, sectionName, orderBy, page, path, limit } = props
 
   const params: TablePaginatedDataRequestParams = {
     assessmentName,
     cycleName,
     countryIso,
+    sectionName,
     limit: String(limit),
     offset: String(page * limit),
   }

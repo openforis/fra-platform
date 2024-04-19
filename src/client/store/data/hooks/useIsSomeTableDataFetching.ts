@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { TableName } from 'meta/assessment'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { TableDataStatus } from 'client/store/data/stateType'
+import { TableDataStatus } from 'client/store/data/state'
 import { RootState } from 'client/store/RootState'
 import { useAppSelector } from 'client/store/store'
 import { useCountryIso } from 'client/hooks'

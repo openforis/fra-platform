@@ -4,14 +4,15 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { DataSource, Labels, SectionName } from 'meta/assessment'
+import { DataSource, DataSources, SectionName } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 import { TooltipId } from 'meta/tooltip'
 
 import { DataCell } from 'client/components/DataGrid'
-import Select from 'client/components/Inputs/Select'
+import Select, { Option } from 'client/components/Inputs/Select'
 import TextArea from 'client/components/Inputs/TextArea'
-import { useOnChange } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/hook/useOnChange'
+
+import { useOnChange } from './hook/useOnChange'
 
 type Props = {
   dataSource: DataSource
@@ -40,18 +41,9 @@ const VariablesSelect: React.FC<Props> = (props) => {
 
   const onChange = useOnChange({ sectionName, dataSource })
 
-  const options = meta.table.variables.map(({ variableName, label: _label, prefixLabel }) => {
-    let label = ''
-    if (prefixLabel) {
-      label = Labels.getLabel({ label: prefixLabel, t })
-      label += ' '
-    }
-    label += Labels.getLabel({ label: _label, t })
-
-    return {
-      label,
-      value: variableName,
-    }
+  const options = meta.table.variables.map<Option>((variable) => {
+    const { variableName } = variable
+    return { label: DataSources.getVariableLabel({ variable, t }), value: variableName }
   })
 
   const _onChange = (value: string[]) => {
