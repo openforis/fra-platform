@@ -48,8 +48,10 @@ const SelectInput: React.FC<Props> = (props) => {
   return <Select disabled={disabled} onChange={_onChange} options={options} value={dataSource.type} />
 }
 
-const TypeOfDataSource: React.FC<Props & { meta: DataSourceDescription; lastRow: boolean }> = (props) => {
-  const { dataSource, disabled, meta, lastRow, sectionName } = props
+const TypeOfDataSource: React.FC<Props & { highlighted?: boolean; meta: DataSourceDescription; lastRow: boolean }> = (
+  props
+) => {
+  const { dataSource, disabled, highlighted, lastRow, meta, sectionName } = props
 
   const { t } = useTranslation()
 
@@ -65,11 +67,16 @@ const TypeOfDataSource: React.FC<Props & { meta: DataSourceDescription; lastRow:
       data-tooltip-content={validationError ? t('generalValidation.notEmpty') : ''}
       data-tooltip-id={TooltipId.error}
       editable={!disabled}
+      highlighted={highlighted}
       lastRow={lastRow}
     >
       <Component dataSource={dataSource} disabled={disabled} sectionName={sectionName} />
     </DataCell>
   )
+}
+
+TypeOfDataSource.defaultProps = {
+  highlighted: false,
 }
 
 export default TypeOfDataSource

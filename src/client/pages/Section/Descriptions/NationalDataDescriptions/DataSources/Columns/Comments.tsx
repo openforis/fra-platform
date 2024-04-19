@@ -10,20 +10,26 @@ import { useOnChange } from './hook/useOnChange'
 type Props = {
   dataSource: DataSource
   disabled: boolean
+  highlighted?: boolean
   lastRow: boolean
   sectionName: SectionName
 }
 
 const Comments: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, lastRow, sectionName } = props
+  const { dataSource, disabled, highlighted, lastRow, sectionName } = props
 
   const onChange = useOnChange({ sectionName, dataSource })
   const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('comments', event.target.value)
 
   return (
-    <DataCell editable={!disabled} lastCol lastRow={lastRow}>
+    <DataCell editable={!disabled} highlighted={highlighted} lastCol lastRow={lastRow}>
       <TextArea disabled={disabled} onChange={_onChange} value={dataSource.comments} />
     </DataCell>
   )
 }
+
+Comments.defaultProps = {
+  highlighted: false,
+}
+
 export default Comments

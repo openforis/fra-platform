@@ -15,12 +15,14 @@ import { useOnChange } from './hook/useOnChange'
 type Props = {
   dataSource: DataSource
   disabled: boolean
+  firstCol?: boolean
+  highlighted?: boolean
   lastRow: boolean
   sectionName: SectionName
 }
 
 const Reference: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, lastRow, sectionName } = props
+  const { dataSource, disabled, firstCol, highlighted, lastRow, sectionName } = props
 
   const { t } = useTranslation()
   const onChange = useOnChange({ sectionName, dataSource })
@@ -42,11 +44,18 @@ const Reference: React.FC<Props> = (props: Props) => {
       data-tooltip-content={validationError ? t('generalValidation.notEmpty') : ''}
       data-tooltip-id={TooltipId.error}
       editable={!disabled}
+      firstCol={firstCol}
+      highlighted={highlighted}
       lastRow={lastRow}
     >
       <EditorWYSIWYGLinks disabled={disabled} onChange={_onChange} repository value={dataSource.reference ?? ''} />
     </DataCell>
   )
+}
+
+Reference.defaultProps = {
+  firstCol: false,
+  highlighted: false,
 }
 
 export default Reference

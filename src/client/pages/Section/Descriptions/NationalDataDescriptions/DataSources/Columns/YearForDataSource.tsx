@@ -15,12 +15,13 @@ import { useOnChange } from './hook/useOnChange'
 type Props = {
   dataSource: DataSource
   disabled: boolean
+  highlighted?: boolean
   lastRow: boolean
   sectionName: SectionName
 }
 
 const YearForDataSource: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, lastRow, sectionName } = props
+  const { dataSource, disabled, highlighted, lastRow, sectionName } = props
 
   const { t } = useTranslation()
   const onChange = useOnChange({ sectionName, dataSource })
@@ -37,10 +38,16 @@ const YearForDataSource: React.FC<Props> = (props: Props) => {
       data-tooltip-content={validationError ? t('generalValidation.notEmpty') : ''}
       data-tooltip-id={TooltipId.error}
       editable={!disabled}
+      highlighted={highlighted}
       lastRow={lastRow}
     >
       <TextArea disabled={disabled} onChange={_onChange} value={dataSource.year} />
     </DataCell>
   )
 }
+
+YearForDataSource.defaultProps = {
+  highlighted: false,
+}
+
 export default YearForDataSource
