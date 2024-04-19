@@ -15,12 +15,14 @@ export const useComponents = (props: SelectProps): Returned => {
   const { isMulti } = props
 
   return useMemo<Returned>(() => {
-    return {
+    const components: Returned = {
       ClearIndicator,
       DropdownIndicator,
       IndicatorsContainer,
       IndicatorSeparator: null,
-      Option: isMulti ? MultiSelectOption : null,
     }
+    if (isMulti) components.Option = MultiSelectOption
+
+    return components
   }, [isMulti])
 }
