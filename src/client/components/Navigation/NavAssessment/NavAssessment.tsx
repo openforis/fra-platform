@@ -9,11 +9,13 @@ import { Objects } from 'utils/objects'
 import { Areas, CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
+import { useIsHistoryActive } from 'client/store/data'
 import { useSections } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
 import Header from 'client/components/Navigation/NavAssessment/Header'
+import History from 'client/components/Navigation/NavAssessment/History'
 import NavigationSection from 'client/components/Navigation/NavAssessment/Section'
 import { Breakpoints } from 'client/utils'
 
@@ -21,10 +23,17 @@ const NavAssessment: React.FC = () => {
   const { t } = useTranslation()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const sections = useSections()
+  const historyActive = useIsHistoryActive()
 
   const [showSections, setShowSections] = useState<boolean>(false)
 
-  if (Objects.isEmpty(sections)) return null
+  if (Objects.isEmpty(sections)) {
+    return null
+  }
+
+  if (historyActive) {
+    return <History />
+  }
 
   return (
     <>

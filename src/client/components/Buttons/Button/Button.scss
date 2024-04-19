@@ -146,8 +146,8 @@
   }
 }
 
-.button__type-blackMap {
-  @include withTheme($ui-black-map, 80%);
+.button__type-black {
+  @include withTheme($ui-black-map, 90%);
 }
 
 .button__type-danger {
@@ -155,5 +155,5 @@
 }
 
 .button__type-primary {
-  @include withTheme($ui-accent, 62%);
+  @include withTheme($ui-accent, 60%);
 }

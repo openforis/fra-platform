@@ -31,7 +31,7 @@ const GeoToggle: React.FC = () => {
           else navigate(pathCountryHome)
         }}
         size={size}
-        type={ButtonType.blackMap}
+        type={ButtonType.black}
       />
     )
   }

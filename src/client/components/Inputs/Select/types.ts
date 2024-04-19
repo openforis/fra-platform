@@ -26,5 +26,3 @@ export type SelectProps = SelectBaseProps &
     toggleAll?: boolean
     value?: ValueInput
   }
-
-export const selectAllOptionValue = '*'

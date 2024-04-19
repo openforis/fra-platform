@@ -29,7 +29,7 @@ const GeoSection: React.FC<Props> = (props) => {
           label={label}
           onClick={() => setExpanded(!expanded)}
           size={ButtonSize.m}
-          type={ButtonType.blackMap}
+          type={ButtonType.black}
         />
       </div>
       <div className={classNames(`nav-geo-section__content`, { expanded })}>{expanded && children}</div>

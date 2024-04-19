@@ -32,7 +32,7 @@ const Repository: React.FC = () => {
           </div>
           <TablePaginated
             columns={columns}
-            counter={false}
+            counter={{ show: false }}
             header={false}
             path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
           />
@@ -46,7 +46,12 @@ const Repository: React.FC = () => {
         <ButtonDownloadAll />
         <ButtonAdd />
       </div>
-      <TablePaginated columns={columns} counter={false} header={false} path={ApiEndPoint.CycleData.Repository.many()} />
+      <TablePaginated
+        columns={columns}
+        counter={{ show: false }}
+        header={false}
+        path={ApiEndPoint.CycleData.Repository.many()}
+      />
 
       <EditForm />
     </div>

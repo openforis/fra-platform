@@ -3,7 +3,7 @@ import { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { CountryIso } from 'meta/area'
 import { AssessmentName, CycleName } from 'meta/assessment'
 
-import { DataState, RecordTableValidationsState } from 'client/store/data/stateType'
+import { DataState, RecordTableValidationsState } from 'client/store/data/state'
 
 type Payload = {
   assessmentName: AssessmentName

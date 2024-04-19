@@ -14,8 +14,10 @@ import { useDescriptionErrorState } from 'client/pages/Section/Descriptions/Comm
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 import ButtonCopy from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/ButtonCopy'
 import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSourceRow'
+import HistoryCompare from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/HistoryCompare'
 
 import { useDataSourcesData } from './hooks/useDataSourcesData'
+import { useDataSourcesHistory } from './hooks/useDataSourcesHistory'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 
 type Props = {
@@ -32,6 +34,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName } = useSectionContext()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
+  const historyCompares = useDataSourcesHistory({ dataSources })
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
@@ -41,7 +44,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
   return (
     <DataGrid className="description" withActions={canEdit}>
-      <Title name={name} sectionName={sectionName} title={t('description.dataSourcesPlus')} />
+      <Title name={name} title={t('description.dataSourcesPlus')} />
 
       {renderGrid && (
         <>
@@ -75,17 +78,28 @@ export const DataSources: React.FC<Props> = (props: Props) => {
                 </React.Fragment>
               ))}
 
-            {dataSources.map((dataSourceValue, i) => {
-              return (
-                <DataSourceRow
-                  dataSource={dataSourceValue}
-                  key={String(`dataSource_${dataSourceValue.uuid}`)}
-                  lastRow={i === dataSources.length - 1}
+            {historyCompares &&
+              historyCompares.map((historyCompare, i) => (
+                <HistoryCompare
+                  key={historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}
+                  historyCompare={historyCompare}
+                  lastRow={i === historyCompares.length - 1}
                   meta={nationalData.dataSources}
-                  sectionName={sectionName}
                 />
-              )
-            })}
+              ))}
+
+            {!historyCompares &&
+              dataSources.map((dataSourceValue, i) => {
+                return (
+                  <DataSourceRow
+                    key={String(`dataSource_${dataSourceValue.uuid}`)}
+                    dataSource={dataSourceValue}
+                    lastRow={i === dataSources.length - 1}
+                    meta={nationalData.dataSources}
+                    sectionName={sectionName}
+                  />
+                )
+              })}
           </DataGrid>
 
           {nationalData.dataSources?.text?.readOnly && !empty && editable && (

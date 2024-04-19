@@ -1,34 +1,31 @@
 import React from 'react'
-import ReactPaginate from 'react-paginate'
+import ReactPaginate, { ReactPaginateProps } from 'react-paginate'
 
-type Props = {
+export type PaginatorProps = Pick<
+  ReactPaginateProps,
+  'forcePage' | 'marginPagesDisplayed' | 'pageCount' | 'pageRangeDisplayed'
+> & {
   className: string
-  forcePage?: number
   onPageChange(pageNumber: number): void
-  pageCount: number
-  pageRangeDisplayed: number
 }
 
-const Paginator: React.FC<Props> = (props: Props) => {
-  const { className, forcePage, onPageChange, pageCount, pageRangeDisplayed } = props
+const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
+  const { className, forcePage, marginPagesDisplayed, onPageChange, pageCount, pageRangeDisplayed } = props
 
   return (
     <ReactPaginate
-      className={className}
       breakLabel="..."
+      className={className}
+      forcePage={forcePage}
+      marginPagesDisplayed={marginPagesDisplayed}
       nextLabel=">"
       onPageChange={({ selected: pageNumber }) => onPageChange(pageNumber)}
-      pageRangeDisplayed={pageRangeDisplayed}
       pageCount={pageCount}
+      pageRangeDisplayed={pageRangeDisplayed}
       previousLabel="<"
       renderOnZeroPageCount={null}
-      forcePage={forcePage}
     />
   )
-}
-
-Paginator.defaultProps = {
-  forcePage: undefined,
 }
 
 export default Paginator
