@@ -2,6 +2,8 @@ export { useCommentableDescriptionValue } from './hooks/useCommentableDescriptio
 export { useContacts } from './hooks/useContacts'
 export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
 export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
+export { useHistoryCompareItem } from './hooks/useHistoryCompareItem'
+export { useIsHistoryActive } from './hooks/useIsHistoryActive'
 export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
 export { useIsSomeTableDataFetching } from './hooks/useIsSomeTableDataFetching'
@@ -13,10 +15,11 @@ export { useRecordAssessmentData, useRecordAssessmentDataWithOdp } from './hooks
 export { DataActions } from './slice'
 export type {
   DataState,
+  HistoryItemState,
   RecordAssessmentValidationsState,
   RecordCountryValidationsState,
   RecordCycleValidationsState,
   RecordTableDataStatus,
   RecordTableValidationsState,
-} from './stateType'
-export { TableDataStatus } from './stateType'
+} from './state'
+export { TableDataStatus } from './state'

@@ -9,6 +9,7 @@ const editUser = require('./es/editUser')
 const email = require('./es/email')
 const fra = require('./es/fra')
 const generalValidation = require('./es/generalValidations')
+const history = require('./es/history')
 const landing = require('./es/landing')
 const login = require('./es/login')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
@@ -24,6 +25,7 @@ module.exports.translation = {
   email,
   fra,
   generalValidation,
+  history,
   landing,
   login,
   statisticalFactsheets,

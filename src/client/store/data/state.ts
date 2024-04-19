@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
 import {
+  ActivityLog,
   AssessmentName,
   ColName,
   CycleName,
@@ -11,7 +12,7 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
-import { Contact } from 'meta/cycleData'
+import { Contact, HistoryTarget } from 'meta/cycleData'
 import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
@@ -43,10 +44,25 @@ export type RecordTableDataStatus = Record<
 
 export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
 
+// ==============================
+// History state types
+// ==============================
+
+export type HistoryItemState = {
+  labelKey: string
+  target: HistoryTarget
+}
+
+export type HistoryState = {
+  items?: Record<HistoryTarget, HistoryItemState>
+  compareItem?: Record<HistoryTarget, ActivityLog<never>>
+}
+
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
   contacts: RecordContacts
   descriptions: Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
+  history: HistoryState
   nodeValueValidations: RecordAssessmentValidationsState
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>
   odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState

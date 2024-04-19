@@ -24,14 +24,14 @@ const MapType: React.FC = () => {
         label={t('geo.map')}
         onClick={() => setMapTypeId(google.maps.MapTypeId.ROADMAP)}
         size={ButtonSize.m}
-        type={ButtonType.blackMap}
+        type={ButtonType.black}
       />
       <Button
         inverse={mapTypeId === 'roadmap'}
         label={t('geo.satellite')}
         onClick={() => setMapTypeId(google.maps.MapTypeId.SATELLITE)}
         size={ButtonSize.m}
-        type={ButtonType.blackMap}
+        type={ButtonType.black}
       />
     </div>
   )

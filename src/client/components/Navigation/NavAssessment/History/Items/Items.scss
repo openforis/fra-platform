@@ -1,0 +1,32 @@
+@import 'src/client/style/partials';
+
+.history-items {
+  display: grid;
+}
+
+.history-items__title {
+  background-color: $ui-bg;
+  font-weight: 600;
+  margin-top: -$spacing-xxs;
+  padding: $spacing-xs;
+  position: sticky;
+  top: -$spacing-xxs;
+  z-index: 1;
+}
+
+.history-items__activities {
+  grid-row-gap: $spacing-xxs;
+  padding: 0 $spacing-xs;
+
+  .table-paginated-datagrid {
+    align-items: center;
+    grid-column-gap: $spacing-xxs;
+  }
+}
+
+.history-items__counter {
+  color: $text-mute;
+  font-size: $font-xxs;
+  font-weight: 600;
+  text-transform: uppercase;
+}
