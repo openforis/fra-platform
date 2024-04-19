@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { CountryIso } from 'meta/area'
 import { Table } from 'meta/assessment'
 import { PieChart, PieChartData } from 'meta/chart'
@@ -20,11 +22,14 @@ export const useChartData = (table: Table, chart: PieChart): Array<PieChartData>
     data,
   })
 
-  if (!tableData?.[cycleName]) return []
+  if (Objects.isEmpty(tableData)) return []
 
-  return chart.cells.map((cell) => ({
-    variableName: cell.variableName,
-    value: parseFloat(tableData[cycleName][cell.variableName].raw),
-    color: cell.color,
-  }))
+  return chart.cells.map((cell) => {
+    return {
+      variableName: cell.variableName,
+      value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
+      columnName: cell.columnName,
+      color: cell.color,
+    }
+  })
 }
