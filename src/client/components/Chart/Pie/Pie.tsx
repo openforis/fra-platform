@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Cell, Legend, Pie as PieComponent, PieChart, Tooltip } from 'recharts'
+import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
 import { PieChart as PieChartType, PieChartData } from 'meta/chart'
 
@@ -13,15 +13,25 @@ const Pie = (props: Props) => {
   const { label } = chart
 
   return (
-    <PieChart height={400} width={400}>
-      <PieComponent data={data} dataKey="value" label={label} labelLine={false} nameKey="variableName" outerRadius={80}>
-        {data.map((entry) => (
-          <Cell key={`cell-${entry.variableName}`} fill={entry.color} />
-        ))}
-      </PieComponent>
-      <Tooltip />
-      <Legend />
-    </PieChart>
+    <ResponsiveContainer height={300} width="100%">
+      <PieChart>
+        <PieComponent
+          data={data}
+          dataKey="value"
+          label={label}
+          labelLine={false}
+          nameKey="variableName"
+          outerRadius={80}
+          paddingAngle={1}
+        >
+          {data.map((entry) => (
+            <Cell key={`cell-${entry.variableName}`} fill={entry.color} />
+          ))}
+        </PieComponent>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+    </ResponsiveContainer>
   )
 }
 
