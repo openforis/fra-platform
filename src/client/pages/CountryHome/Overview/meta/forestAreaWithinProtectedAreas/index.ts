@@ -16,6 +16,7 @@ const tableName = 'forestAreaWithinProtectedAreas'
 const variableName = 'forest_area_within_protected_areas'
 
 export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart => {
+  const columnName = cols[cycle.name][0]
   const rowMetadata: RowsMetadata = [
     {
       id: 1,
@@ -49,10 +50,12 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart 
         {
           variableName: 'forestArea',
           color: ChartColor.green,
+          columnName,
         },
         {
           variableName,
           color: ChartColor.lightGreen,
+          columnName,
         },
       ],
     },
