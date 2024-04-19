@@ -2,7 +2,7 @@
 
 .nav-base {
   background-color: var(--ui-bg);
-  box-shadow: 0px -1px 4px 1px $ui-border;
+  border-right: 1px solid $ui-border;
 }
 
 .nav {
