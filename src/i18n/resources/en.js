@@ -9,6 +9,7 @@ const email = require('./en/email')
 const fra = require('./en/fra')
 const generalValidation = require('./en/generalValidation')
 const geo = require('./en/geo')
+const history = require('./en/history')
 const landing = require('./en/landing')
 const login = require('./en/login')
 const panEuropean = require('./en/panEuropean/panEuropean')
@@ -27,6 +28,7 @@ module.exports.translation = {
   fra,
   generalValidation,
   geo,
+  history,
   landing,
   login,
   panEuropean,

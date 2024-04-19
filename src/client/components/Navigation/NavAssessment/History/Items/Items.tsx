@@ -19,7 +19,7 @@ const Counter: TablePaginatedCounterComponent = (props) => {
 
   const { t } = useTranslation()
 
-  return <div className="history-items__counter">{t('common.change', { count: count.total })}</div>
+  return <div className="history-items__counter">{t('history.change', { count: count.total })}</div>
 }
 
 const Items: React.FC<Props> = (props: Props) => {
