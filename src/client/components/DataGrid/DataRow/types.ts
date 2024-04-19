@@ -14,7 +14,7 @@ type Delete = {
   type: DataRowActionType.Delete
 }
 
-type Review = {
+export type Review = {
   subtitle?: string
   title?: string
   topicKey?: string

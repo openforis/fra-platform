@@ -38,6 +38,28 @@ $border: 1px solid $ui-border;
   &.lastRow {
     border-bottom: $border;
   }
+
+  &.highlighted {
+    &:not(.noBorder) {
+      $outline-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
+      $border-shadow: 0 0 4px rgba($ui-accent, 50%);
+
+      box-shadow: $outline-top-bottom, $border-shadow;
+      clip-path: inset(-4px 0px -4px 0px); // Adds shadow to top, bottom
+
+      &.firstCol {
+        $outline-left: inset 1px 0 $ui-accent;
+        box-shadow: $outline-top-bottom, $outline-left, $border-shadow;
+        clip-path: inset(-4px 0px -4px -4px); // Adds shadow to top, bottom, left
+      }
+
+      &.lastCol {
+        $outline-right: inset -1px 0 $ui-accent;
+        box-shadow: $outline-top-bottom, $outline-right, $border-shadow;
+        clip-path: inset(-4px -4px -4px 0px); // Adds shadow to top, bottom, right
+      }
+    }
+  }
 }
 
 .data-cell.editable {
