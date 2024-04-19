@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 import { OptionProps } from 'react-select'
 
-import { Option, OptionsGroup, selectAllOptionValue } from 'client/components/Inputs/Select/types'
+import { ToggleAllOptions } from 'client/components/Inputs/Select/toggleAllOptions'
+import { Option, OptionsGroup } from 'client/components/Inputs/Select/types'
 
 type Props = OptionProps<Option>
 
@@ -14,7 +15,7 @@ type Returned = {
 export const useMultiSelectOptionConfig = (props: Props): Returned => {
   const { data, isSelected, options, selectProps } = props
 
-  const isSelectAllOption = data.value === selectAllOptionValue
+  const isSelectAllOption = data.value === ToggleAllOptions.VALUE
   const allOptionsCount = useMemo<number>(() => {
     if (!isSelectAllOption) return 0
     return options.reduce((acc, optionOrGroup) => {

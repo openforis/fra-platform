@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 
-import { Option, OptionsGroup, selectAllOptionValue, SelectProps } from 'client/components/Inputs/Select/types'
+import { ToggleAllOptions } from 'client/components/Inputs/Select/toggleAllOptions'
+import { Option, OptionsGroup, SelectProps } from 'client/components/Inputs/Select/types'
 
 type Returned = (option?: Option | Array<Option>) => void
 
@@ -13,7 +14,7 @@ export const useOnChange = (props: SelectProps): Returned => {
         const selectedValues = option.map(({ value }) => value)
         if (!toggleAll) return onChange(selectedValues)
 
-        const includesSelectAll = selectedValues.includes(selectAllOptionValue)
+        const includesSelectAll = selectedValues.includes(ToggleAllOptions.VALUE)
         // Update with only selected values (excluding "Select All")
         if (!includesSelectAll) return onChange(selectedValues)
 
