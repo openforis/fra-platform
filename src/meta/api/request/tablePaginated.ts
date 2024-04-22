@@ -1,13 +1,14 @@
 import { Request } from 'express'
 
 import { AreaCode } from 'meta/area'
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 type BaseParams = {
   assessmentName: AssessmentName
   cycleName: CycleName
   countryIso?: AreaCode
+  sectionName?: SectionName
 }
 
 export type TablePaginatedDataRequestParams = BaseParams & {
@@ -17,6 +18,11 @@ export type TablePaginatedDataRequestParams = BaseParams & {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
-export type TablePaginatedDataRequest = Request<never, never, never, TablePaginatedDataRequestParams>
+export type TablePaginatedDataRequest<OptionalParams extends Record<string, unknown> = never> = Request<
+  never,
+  never,
+  never,
+  TablePaginatedDataRequestParams & OptionalParams
+>
 
 export type TablePaginatedCountRequest = Request<never, never, never, BaseParams>

@@ -1,27 +1,36 @@
 import './TablePaginated.scss'
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
 
 import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
+import { PaginatorProps } from 'client/components/Paginator'
 
 import { useFetchData } from './hooks/useFetchData'
 import Body from './Body'
 import Count from './Count'
 import Header from './Header'
 import Paginator from './Paginator'
-import { Props } from './types'
+import { Props as BaseProps, TablePaginatedCounter, TablePaginatedSkeleton } from './types'
 
-type TablePaginatedProps<Datum extends object> = Props<Datum> & {
-  EmptyListComponent?: React.FC
-  className?: string
-  header?: boolean
-  counter?: boolean
-}
+type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'className'> &
+  Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridTemplateColumns'> &
+  Pick<PaginatorProps, 'marginPagesDisplayed' | 'pageRangeDisplayed'> &
+  BaseProps<Datum> & {
+    EmptyListComponent?: React.FC
+    counter?: TablePaginatedCounter
+    header?: boolean
+    skeleton?: TablePaginatedSkeleton
+    wrapCells?: boolean
+  }
 
-const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>) => {
-  const { className, columns, header, counter, path, limit, EmptyListComponent } = props
+const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
+  const { className, gridTemplateColumns } = props // HTMLDivElement Props
+  const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
+  const { columns, path, limit } = props // Base Props
+  const { EmptyListComponent, counter, header, skeleton, wrapCells } = props // Component Props
 
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
@@ -36,23 +45,38 @@ const TablePaginated = <Datum extends object>(props: TablePaginatedProps<Datum>)
 
   return (
     <div className={classNames('table-paginated', className)}>
-      <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns: `repeat(${columns.length}, auto)` }}>
+      <DataGrid
+        className="table-paginated-datagrid"
+        style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
+      >
         {header && <Header columns={columns} path={path} />}
-        <Body columns={columns} path={path} />
+        <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
       </DataGrid>
 
-      <Paginator path={path} />
+      <Paginator
+        limit={limit}
+        marginPagesDisplayed={marginPagesDisplayed}
+        pageRangeDisplayed={pageRangeDisplayed}
+        path={path}
+      />
 
-      {counter && <Count path={path} />}
+      {counter.show && <Count counter={counter} path={path} />}
     </div>
   )
 }
 
 TablePaginated.defaultProps = {
   EmptyListComponent: () => <div />,
-  className: '',
+  counter: { show: true },
   header: true,
-  counter: true,
+  // eslint-disable-next-line react/default-props-match-prop-types
+  limit: 30,
+  skeleton: {
+    baseColor: 'white',
+    highlightColor: 'var(--ui-bg)',
+    Component: () => <Skeleton borderRadius="2px" height="20px" width="100%" />,
+  },
+  wrapCells: true,
 }
 
 export default TablePaginated

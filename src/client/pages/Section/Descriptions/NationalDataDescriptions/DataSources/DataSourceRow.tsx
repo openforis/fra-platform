@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
-import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { CommentableDescriptionName, DataSource, DataSourceDescription, SectionName } from 'meta/assessment'
 
 import { useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataRow } from 'client/components/DataGrid'
@@ -10,7 +9,8 @@ import Reference from 'client/pages/Section/Descriptions/NationalDataDescription
 import TypeOfDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/TypeOfDataSource'
 import Variables from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Variables'
 import YearForDataSource from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/YearForDataSource'
-import { useDataSourceActions } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/hooks/useDataSourceActions'
+
+import { useDataSourceActions } from './hooks/useDataSourceActions'
 
 type Props = {
   dataSource: DataSource

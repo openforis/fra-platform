@@ -27,7 +27,7 @@ const Zoom: React.FC = () => {
           setZoom(mapController.getMap().getZoom() + 1)
         }}
         size={ButtonSize.m}
-        type={ButtonType.blackMap}
+        type={ButtonType.black}
       />
       <Button
         iconName="minus-dashed"
@@ -36,7 +36,7 @@ const Zoom: React.FC = () => {
           setZoom(mapController.getMap().getZoom() - 1)
         }}
         size={ButtonSize.m}
-        type={ButtonType.blackMap}
+        type={ButtonType.black}
       />
     </div>
   )

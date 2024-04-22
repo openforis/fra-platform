@@ -1,30 +1,25 @@
 import './Title.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import MediaQuery from 'react-responsive'
 
-import { CommentableDescriptionName, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment'
 
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
-import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataRow } from 'client/components/DataGrid'
+import ButtonEdit from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonEdit'
+import ButtonHistory from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonHistory'
+import { Breakpoints } from 'client/utils'
 
 import { useDescriptionActions } from './hooks/useDescriptionActions'
-import { useToggleEdit } from './hooks/useToggleEdit'
 
 type Props = {
   name: CommentableDescriptionName
-  sectionName: SectionName
   title: string
 }
 
 const Title: React.FC<Props> = (props) => {
-  const { name, sectionName, title } = props
+  const { name, title } = props
 
-  const { t } = useTranslation()
-  const canEdit = useCanEditDescription({ sectionName })
-  const editable = useIsDescriptionEditable({ sectionName, name })
-  const toggleEdit = useToggleEdit({ name, sectionName })
-  const actions = useDescriptionActions({ sectionName, name, title })
+  const actions = useDescriptionActions({ name, title })
 
   return (
     <DataRow actions={actions}>
@@ -33,14 +28,10 @@ const Title: React.FC<Props> = (props) => {
           <span>{title}</span>
         </h3>
 
-        {canEdit && (
-          <Button
-            inverse={!editable}
-            label={editable ? t('description.done') : t('description.edit')}
-            onClick={toggleEdit}
-            size={ButtonSize.xs}
-          />
-        )}
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <ButtonHistory target={name} />
+          <ButtonEdit name={name} />
+        </MediaQuery>
       </DataCell>
     </DataRow>
   )
