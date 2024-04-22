@@ -1,6 +1,6 @@
 import type { PieLabel } from 'recharts/types/polar/Pie'
 
-import { ChartColor } from 'meta/chart/chart'
+import { ChartColor } from 'meta/chart'
 
 type PieCell = { variableName: string; color: ChartColor; columnName: string }
 

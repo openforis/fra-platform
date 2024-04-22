@@ -1,5 +1,5 @@
 import { Label, Table } from 'meta/assessment'
-import { PieChart } from 'meta/chart'
+import { BarChart, PieChart } from 'meta/chart'
 
 export enum DashboardItemType {
   table = 'table',
@@ -15,4 +15,4 @@ export type DashboardItem<Type = DashboardItemType> = {
 export type DashboardTable = DashboardItem<DashboardItemType.table> & { table: Table }
 
 export type DashboardPieChart = DashboardItem<DashboardItemType.pieChart> & { table: Table; chart: PieChart }
-// export type DashboardBarChart = DashboardItem<DashboardItemType.barChart> & { chart: BarChart }
+export type DashboardBarChart = DashboardItem<DashboardItemType.barChart> & { table: Table; chart: BarChart }
