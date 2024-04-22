@@ -17,9 +17,12 @@ const DataRow: React.FC<DataRowProps> = (props) => {
 
   return (
     <>
-      {React.Children.map(children, (child, idx) =>
-        child ? React.cloneElement(child, { firstCol: idx === 0, highlighted }) : null
-      )}
+      {React.Children.map(children, (child, idx) => {
+        if (!child) return null
+        const firstCol = idx === 0
+        const lastCol = idx === React.Children.count(children) - 1
+        return React.cloneElement(child, { firstCol, highlighted, lastCol })
+      })}
       <Actions actions={actions} />
     </>
   )
