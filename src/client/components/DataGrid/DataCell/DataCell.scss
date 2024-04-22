@@ -45,20 +45,32 @@ $border: 1px solid $ui-border;
     $outline-right: inset -1px 0 $ui-accent;
     $outline-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
 
-    box-shadow: $outline-top-bottom, $border-shadow;
-    clip-path: inset(-4px 0px -4px 0px); // Adds shadow to top, bottom
+    &::before {
+      bottom: 0;
+      box-shadow: $outline-top-bottom, $border-shadow;
+      clip-path: inset(-4px 0px -4px 0px); // Adds shadow to top, bottom
+      content: '';
+      height: 100%;
+      left: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+    }
 
-    &.firstCol {
+    &.firstCol::before {
       box-shadow: $outline-top-bottom, $outline-left, $border-shadow;
       clip-path: inset(-4px 0px -4px -4px); // Adds shadow to top, bottom, left
     }
 
-    &.lastCol {
+    &.lastCol::before {
       box-shadow: $outline-top-bottom, $outline-right, $border-shadow;
       clip-path: inset(-4px -4px -4px 0px); // Adds shadow to top, bottom, right
     }
 
-    &.firstCol.lastCol {
+    &.firstCol.lastCol::before {
       box-shadow: $outline-top-bottom, $outline-left, $outline-right, $border-shadow;
       clip-path: inset(-4px -4px -4px -4px); // Adds shadow to top, bottom, left, right
     }
