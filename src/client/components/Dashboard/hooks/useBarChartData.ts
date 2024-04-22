@@ -24,12 +24,13 @@ export const useBarChartData = (table: Table, chart: BarChart): BarChartData => 
 
   if (Objects.isEmpty(tableData)) return []
 
-  return chart.columns.flatMap((columnName) => {
-    return chart.cells.map((cell) => {
+  return chart.columns.map((columnName) => {
+    return chart.cells.reduce((acc, cell) => {
       return {
+        ...acc,
         columnName,
         [cell.variableName]: parseFloat(tableData[columnName][cell.variableName].raw),
       }
-    })
+    }, {})
   })
 }
