@@ -20,7 +20,7 @@ const Bar = (props: Props) => {
         <Tooltip />
         <Legend />
         {chart.cells.map((cell) => {
-          return <BarComponent dataKey={cell.variableName} fill={cell.color} />
+          return <BarComponent key={`bar_${cell.variableName}`} dataKey={cell.variableName} fill={cell.color} />
         })}
       </BarChart>
     </ResponsiveContainer>
