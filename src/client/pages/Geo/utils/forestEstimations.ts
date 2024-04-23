@@ -1,5 +1,3 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-
 import {
   ExtraEstimation,
   extraEstimationsMetadata,
@@ -10,23 +8,17 @@ import {
 } from 'meta/geo'
 import { hansenPercentages } from 'meta/geo/forest'
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
-import { Lang } from 'meta/lang'
 
 /**
  * Turns the Forest Estimations object into a table, and adds the area reported
  * to FRA and the recipe layer estimation as rows.
  *
  * @param {ForestEstimations} fetchedForestEstimations Forest Estimations object.
- * @param {Lang} language
  * @public
  */
-export const builForestEstimationsDataTable = async (
-  fetchedForestEstimations: ForestEstimations,
-  language: Lang
-): Promise<Array<ForestEstimationEntry>> => {
-  const i18n = await createI18nPromise(language)
-  if (!fetchedForestEstimations) throw Error(i18n.t('geo.statistics.dataUnavailable'))
-
+export const buildForestEstimationsDataTable = (
+  fetchedForestEstimations: ForestEstimations
+): Array<ForestEstimationEntry> => {
   const estimationsData: Array<ForestEstimationEntry> = []
   const fra1ALandArea = fetchedForestEstimations.data.fra1aLandArea
   const reportedFra1aForestArea = fetchedForestEstimations.data.fra1aForestArea
