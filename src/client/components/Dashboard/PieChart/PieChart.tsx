@@ -3,6 +3,7 @@ import React from 'react'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
 import Pie from 'client/components/Chart/Pie'
+import NoData from 'client/components/Dashboard/NoData'
 
 import { useGetTableData } from '../hooks/useGetTableData'
 import { usePieChartData } from '../hooks/usePieChartData'
@@ -16,8 +17,12 @@ const PieChart: React.FC<Props> = (props: Props) => {
     item: { table, chart },
   } = props
 
-  const data = usePieChartData(table, chart)
+  const { data, hasData } = usePieChartData(table, chart)
   useGetTableData(table)
+
+  if (!hasData) {
+    return <NoData />
+  }
 
   return <Pie chart={chart} data={data} />
 }

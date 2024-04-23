@@ -9,22 +9,25 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useData } from './useData'
 
-export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartData> => {
+export const usePieChartData = (table: Table, chart: PieChart): { data: Array<PieChartData>; hasData: boolean } => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
-  const data = useData(table)
+  const _data = useData(table)
 
   const tableData = RecordAssessmentDatas.getTableData({
     assessmentName,
     cycleName,
     countryIso,
     tableName: table.props.name,
-    data,
+    data: _data,
   })
 
-  if (Objects.isEmpty(tableData)) return []
+  if (Objects.isEmpty(tableData)) return { data: [], hasData: false }
 
-  return chart.cells.map((cell) => {
+  let hasData = false
+
+  const data = chart.cells.map((cell) => {
+    if (!Objects.isEmpty(tableData[cell.columnName][cell.variableName].raw)) hasData = true
     return {
       variableName: cell.variableName,
       value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
@@ -32,4 +35,5 @@ export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartDa
       color: cell.color,
     }
   })
+  return { data, hasData }
 }

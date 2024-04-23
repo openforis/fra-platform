@@ -3,6 +3,7 @@ import React from 'react'
 import { DashboardBarChart } from 'meta/dashboard/dashboard'
 
 import Bar from 'client/components/Chart/Bar'
+import NoData from 'client/components/Dashboard/NoData'
 
 import { useBarChartData } from '../hooks/useBarChartData'
 import { useGetTableData } from '../hooks/useGetTableData'
@@ -16,8 +17,12 @@ const BarChart: React.FC<Props> = (props: Props) => {
     item: { table, chart },
   } = props
 
-  const data = useBarChartData(table, chart)
+  const { data, hasData } = useBarChartData(table, chart)
   useGetTableData(table)
+
+  if (!hasData) {
+    return <NoData />
+  }
 
   return <Bar chart={chart} data={data} />
 }

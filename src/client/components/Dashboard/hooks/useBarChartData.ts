@@ -9,23 +9,26 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useData } from './useData'
 
-export const useBarChartData = (table: Table, chart: BarChart): BarChartData => {
+export const useBarChartData = (table: Table, chart: BarChart): { data: BarChartData; hasData: boolean } => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
-  const data = useData(table)
+  const _data = useData(table)
 
   const tableData = RecordAssessmentDatas.getTableData({
     assessmentName,
     cycleName,
     countryIso,
     tableName: table.props.name,
-    data,
+    data: _data,
   })
 
-  if (Objects.isEmpty(tableData)) return []
+  if (Objects.isEmpty(tableData)) return { data: [], hasData: false }
 
-  return chart.columns.map((columnName) => {
+  let hasData = false
+
+  const data = chart.columns.map((columnName) => {
     return chart.cells.reduce((acc, cell) => {
+      if (!Objects.isEmpty(tableData[columnName][cell.variableName].raw)) hasData = true
       return {
         ...acc,
         columnName,
@@ -33,4 +36,6 @@ export const useBarChartData = (table: Table, chart: BarChart): BarChartData => 
       }
     }, {})
   })
+
+  return { data, hasData }
 }
