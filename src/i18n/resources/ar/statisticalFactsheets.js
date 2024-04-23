@@ -14,31 +14,31 @@ module.exports = {
     otherOrUnknown: 'أخرى أو مجهولة',
   },
   forestArea: {
-    title: 'مساحة الغابات (1990-2020)',
+    title: 'مساحة الغابات ({{startYear}} - {{endYear}})',
   },
   carbonAndGrowingStock: {
-    title: 'مخزون وكربون الأشجار الحية في الغابات (1990-2020)',
+    title: 'مخزون وكربون الأشجار الحية في الغابات ({{startYear}} - {{endYear}})',
     rowName: '',
     carbon_stock_biomass_total: 'مخزون الكربون في الكتلة الحيوية',
     carbon_stock_total: 'إجمالي مخزون الكربون',
     growing_stock_total: '$t(growingStock.growingStock)',
   },
   forestAreaPercent: {
-    title: 'النسبة المئوية لمساحة الغابة إلى إجمالي مساحة الأرض (2020)',
+    title: 'النسبة المئوية لمساحة الغابة إلى إجمالي مساحة الأرض ({{year}})',
   },
   primaryForest: {
-    title: 'النسبة المئوية للغابة البكر إلى مساحة الغابات (2020) ',
+    title: 'النسبة المئوية للغابة البكر إلى مساحة الغابات ({{year}}) ',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) (2015)',
+    title: '$t(forestOwnership.forestOwnership) ({{year}})',
     public: 'عامة',
     private: 'خاصة',
   },
   forestAreaWithinProtectedAreas: {
-    title: 'مساحة الغابة ضمن المناطق المحمية 2020 (% من مساحة الغابة)',
+    title: 'مساحة الغابة ضمن المناطق المحمية {{year}} (% من مساحة الغابة)',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990-2020)',
+    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -48,6 +48,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'مساحة الغابة المتجددة طبيعياً (1990-2020)',
+    title: 'مساحة الغابة المتجددة طبيعياً ({{startYear}} - {{endYear}})',
   },
 }

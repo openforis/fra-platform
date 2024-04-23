@@ -41,7 +41,7 @@ export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
 
   return {
     type: DashboardItemType.pieChart,
-    title: { key: 'statisticalFactsheets.forestOwnership.title' },
+    title: { key: 'statisticalFactsheets.forestOwnership.title', params: { year: columnName } },
     table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
     chart: {
       label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,

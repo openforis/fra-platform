@@ -6,10 +6,10 @@ import { DashboardBarChart } from 'meta/dashboard/dashboard'
 import { getTable } from 'client/pages/CountryHome/Overview/meta/utils'
 import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
 
-const commonColumns = ['1990', '2000', '2010']
+const commonColumns = ['1990', '2000', '2010', '2020']
 
 const cols: Record<string, Array<string>> = {
-  '2020': [...commonColumns, '2020'],
+  '2020': commonColumns,
   '2025': [...commonColumns, '2025'],
 }
 
@@ -28,7 +28,10 @@ const rowMetadata: RowsMetadata = [
 
 export const forestArea = (cycle: Cycle): DashboardBarChart => ({
   type: DashboardItemType.barChart,
-  title: { key: 'statisticalFactsheets.forestArea.title' },
+  title: {
+    key: 'statisticalFactsheets.forestArea.title',
+    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
+  },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
   chart: {
     columns: cols[cycle.name],
