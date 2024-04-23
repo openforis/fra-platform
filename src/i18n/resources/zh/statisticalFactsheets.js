@@ -14,31 +14,31 @@ module.exports = {
     otherOrUnknown: '其他或未知',
   },
   forestArea: {
-    title: '森林面积 (1990 — 2020)',
+    title: '森林面积 ({{startYear}} - {{endYear}})',
   },
   carbonAndGrowingStock: {
-    title: '森林立木蓄积量和碳储量 (1990 — 2020)',
+    title: '森林立木蓄积量和碳储量 ({{startYear}} - {{endYear}})',
     rowName: '',
     carbon_stock_biomass_total: '生物质碳储量',
     carbon_stock_total: '碳储量合计',
     growing_stock_total: '$t(growingStock.growingStock)',
   },
   forestAreaPercent: {
-    title: '森林占陆地面积百分比 (2020)',
+    title: '森林占陆地面积百分比 ({{year}})',
   },
   primaryForest: {
-    title: '原始林占森林面积百分比 (2020)',
+    title: '原始林占森林面积百分比 ({{year}})',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) (2015)',
+    title: '$t(forestOwnership.forestOwnership) ({{year}})',
     public: '公有',
     private: '私有',
   },
   forestAreaWithinProtectedAreas: {
-    title: '2020保护区内森林面积 (占森林面积百分比)',
+    title: '{{year}}保护区内森林面积 (占森林面积百分比)',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 — 2020)',
+    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -48,6 +48,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: '天然再生林面积 (1990 — 2020)',
+    title: '天然再生林面积 ({{startYear}} - {{endYear}})',
   },
 }

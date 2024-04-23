@@ -39,7 +39,7 @@ const rowMetadata: RowsMetadata = [
 
 export const forestAreaPercentOfLandArea = (cycle: Cycle): DashboardPieChart => ({
   type: DashboardItemType.pieChart,
-  title: { key: 'statisticalFactsheets.forestAreaPercent.title' },
+  title: { key: 'statisticalFactsheets.forestAreaPercent.title', params: { year: cols[cycle.name].at(0) } },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
   chart: {
     label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,
