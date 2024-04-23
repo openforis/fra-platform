@@ -1,3 +1,5 @@
+import { UUIDs } from 'utils/uuids'
+
 import { Col, ColStyle, ColType, Cycle, CycleUuid, Row, RowType, Table, VariableCache } from 'meta/assessment'
 
 import { RowMetadata, RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
@@ -21,13 +23,13 @@ const getCols = (cycle: Cycle, cols: Array<string>, rowId: number): Array<Col> =
         colType: ColType.decimal,
         style: getStyle(cycle),
       },
+      uuid: UUIDs.v4(),
     }
   })
 }
 
 const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row => {
   return {
-    id: 1,
     cols: [
       {
         rowId: 1,
@@ -51,12 +53,14 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
         }
       }),
     ],
-    tableId,
+    id: 1,
     props: {
       type: RowType.header,
       index: 'header_1',
       cycles: [cycle.uuid],
     },
+    tableId,
+    uuid: UUIDs.v4(),
   }
 }
 
@@ -71,9 +75,9 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
         {
           rowId: row.id,
           props: {
-            index: 'header_0',
-            cycles: [cycle.uuid],
             colType: ColType.header,
+            cycles: [cycle.uuid],
+            index: 'header_0',
             labels: {
               [cycle.uuid]: {
                 key: row.label,
@@ -81,11 +85,11 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
             },
             style: getStyle(cycle),
           },
+          uuid: UUIDs.v4(),
         },
         ...getCols(cycle, cols, row.id),
       ],
       id: row.id,
-      tableId,
       props: {
         type: RowType.data,
         index: row.id,
@@ -96,6 +100,8 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
           [cycle.uuid]: row.calculateFn,
         },
       },
+      tableId,
+      uuid: UUIDs.v4(),
     }
   }
 
@@ -133,6 +139,7 @@ export const getTable = (props: GetTableProps): Table => {
       },
     },
     rows: getRows({ cycle, cols, tableId, rowMetadata }),
+    uuid: UUIDs.v4(),
   }
 
   return table
