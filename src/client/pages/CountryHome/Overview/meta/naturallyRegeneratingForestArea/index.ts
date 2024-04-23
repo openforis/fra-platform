@@ -39,5 +39,7 @@ export const naturallyRegeneratingForestArea = (cycle: Cycle): DashboardBarChart
     columns: cols[cycle.name],
     label: ({ variableName, percent }: any) => `${variableName} ${(percent * 100).toFixed(0)}%`,
     cells,
+    xAxisLabel: { key: 'common.year' },
+    yAxisLabel: { key: 'unit.haThousand' },
   },
 })
