@@ -14,7 +14,7 @@ const cols: Record<string, Array<string>> = {
 }
 
 const tableName = 'extentOfForest'
-const tableId = 2
+const tableId = 1
 
 const rowMetadata: RowsMetadata = [
   {

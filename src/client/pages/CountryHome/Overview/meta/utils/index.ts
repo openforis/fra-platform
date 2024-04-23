@@ -39,6 +39,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
           index: 0,
           style: getStyle(cycle),
         },
+        uuid: UUIDs.v4(),
       },
       ...cols.map((colName, index) => {
         return {
@@ -50,6 +51,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
             colType: ColType.header,
             style: getStyle(cycle),
           },
+          uuid: UUIDs.v4(),
         }
       }),
     ],
