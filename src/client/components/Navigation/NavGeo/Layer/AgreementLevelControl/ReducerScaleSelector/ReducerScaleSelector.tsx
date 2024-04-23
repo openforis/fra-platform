@@ -5,7 +5,7 @@ import { ExtraEstimation } from 'meta/geo'
 import { Layer, LayerSectionKey } from 'meta/geo/layer'
 
 import { useAppDispatch } from 'client/store'
-import { GeoActions, useGeoExtaEstimation } from 'client/store/ui/geo'
+import { GeoActions, useGeoExtraEstimation } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import SelectPrimary from 'client/components/Inputs/SelectPrimary'
@@ -31,7 +31,7 @@ const ReducerScaleSelector: React.FC<Props> = (props) => {
   const [selectedScale, setSelectedScale] = useState<string>(scales.at(0)?.toString() ?? '')
 
   const extraEstimation = ExtraEstimation.CustomRecipe
-  const extraEstimationState = useGeoExtaEstimation(sectionKey, extraEstimation)
+  const extraEstimationState = useGeoExtraEstimation(sectionKey, extraEstimation)
   const { errorKey, isLoading } = extraEstimationState ?? {}
 
   const handleScaleChange = (value: string) => {
@@ -43,9 +43,9 @@ const ReducerScaleSelector: React.FC<Props> = (props) => {
     dispatch(
       GeoActions.postExtraEstimation({
         countryIso,
-        sectionKey,
-        scale,
         extraEstimation,
+        scale,
+        sectionKey,
       })
     )
   }

@@ -63,7 +63,7 @@ export const useGeoLayerSectionRecipeName = (sectionKey: LayerSectionKey): strin
 export const useGeoLayerSections = (): Record<LayerSectionKey, LayersSectionState> | undefined =>
   useAppSelector((state) => state.geo?.sections)
 
-export const useGeoExtaEstimation = (
+export const useGeoExtraEstimation = (
   sectionKey: LayerSectionKey,
   extraEstimation: ExtraEstimation
 ): ExtraEstimationState | undefined =>
