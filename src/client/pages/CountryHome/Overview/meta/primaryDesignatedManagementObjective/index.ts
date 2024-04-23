@@ -19,7 +19,7 @@ const variables = [
 ]
 
 const tableName = 'primaryDesignatedManagementObjective'
-const tableId = 2
+const tableId = 7
 
 const rowMetadata: RowsMetadata = variables.map((variableName, i) => ({
   id: i + 1,

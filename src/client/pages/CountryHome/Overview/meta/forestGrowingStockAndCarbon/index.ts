@@ -10,7 +10,7 @@ const cols: Record<string, Array<string>> = {
 }
 
 const tableName = 'forestGrowingStockAndCarbonDashboard'
-const tableId = 1
+const tableId = 2
 
 const rowMetadata: Record<string, RowsMetadata> = {
   '2020': [
