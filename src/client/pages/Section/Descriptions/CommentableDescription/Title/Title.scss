@@ -4,6 +4,7 @@ div.description-title {
   align-items: center;
   display: flex;
   justify-content: flex-start;
+  padding: $spacing-xxxxs 0px;
 
   &.editable {
     gap: $spacing-xxxs;

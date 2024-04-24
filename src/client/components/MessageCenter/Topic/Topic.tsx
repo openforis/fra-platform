@@ -12,6 +12,7 @@ import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
@@ -37,6 +38,7 @@ const Topic: React.FC<TopicProps> = (props) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
+  const dataLocked = useIsDataLocked()
 
   let sectionName = useParams<{ sectionName: string }>()?.sectionName
   if (topic.type !== MessageTopicType.review) sectionName = topic.type
@@ -121,14 +123,18 @@ const Topic: React.FC<TopicProps> = (props) => {
     window.dispatchEvent(new Event('resize'))
   }, [])
 
+  if (dataLocked && topic.type === MessageTopicType.review) {
+    closeTopic()
+  }
+
   return (
     <Resizable
+      className="topic"
       defaultSize={{ width: 300, height: '100%' }}
+      maxHeight="100%"
+      maxWidth={800}
       minHeight={300}
       minWidth={300}
-      maxWidth={800}
-      maxHeight="100%"
-      className="topic"
       onResize={handleTopicResize}
     >
       <div className="topic-header">
@@ -146,9 +152,9 @@ const Topic: React.FC<TopicProps> = (props) => {
           topic.messages.map((message) => (
             <Message
               key={message.id}
-              message={message}
-              isMine={Number(message.userId) === Number(user.id)}
               deleteFunc={deleteMessage}
+              isMine={Number(message.userId) === Number(user.id)}
+              message={message}
             />
           ))}
         {!topic.loading && Objects.isEmpty(topic.messages) && (
