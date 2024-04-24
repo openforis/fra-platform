@@ -1,4 +1,4 @@
-import { Cycle } from 'meta/assessment'
+import { Cycle, Unit } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType } from 'meta/dashboard'
 import { DashboardBarChart } from 'meta/dashboard/dashboard'
@@ -36,7 +36,14 @@ export const forestArea = (cycle: Cycle): DashboardBarChart => ({
   chart: {
     columns: cols[cycle.name],
     label: ({ variableName, percent }: any) => `${variableName} ${(percent * 100).toFixed(0)}%`,
-    cells: [{ variableName: 'forestArea', color: ChartColor.green }],
+    cells: [
+      {
+        variableName: 'forestArea',
+        color: ChartColor.green,
+        label: { key: 'statisticalFactsheets.rowName.forestArea' },
+        unit: `unit.${Unit.haThousand}`,
+      },
+    ],
     xAxis: { label: { key: 'common.year' } },
     yAxis: { label: { key: 'unit.haThousand' } },
   },
