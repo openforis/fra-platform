@@ -39,8 +39,11 @@ const Pie = (props: Props) => {
         </PieComponent>
         <Tooltip
           formatter={(value, _, { payload }) => {
-            const { label } = payload
-            return [Numbers.format(value as number), Labels.getLabel({ label, t })]
+            const { label, unit } = payload
+            const _label = Labels.getLabel({ label, t })
+            let _value = Numbers.format(value as number)
+            if (unit) _value += ` (${t(unit)})`
+            return [_value, _label]
           }}
         />
         <Legend />

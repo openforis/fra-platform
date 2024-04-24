@@ -1,4 +1,4 @@
-import { Cycle, CycleName } from 'meta/assessment'
+import { Cycle, CycleName, Unit } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType } from 'meta/dashboard'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
@@ -49,6 +49,7 @@ export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
         color,
         columnName,
         label: { key: `statisticalFactsheets.rowName.${variableName}` },
+        unit: `unit.${Unit.haThousand}`,
       })),
     },
   }
