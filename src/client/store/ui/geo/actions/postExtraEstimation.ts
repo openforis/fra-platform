@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { CountryIso } from 'meta/area'
 import { LayerSectionKey } from 'meta/geo'
-import { ExtraEstimation, extraEstimationsApiEndpoint } from 'meta/geo/forestEstimations'
+import { ExtraEstimation, extraEstimationsApiEndpoint, extraEstimationsMetadata } from 'meta/geo/forestEstimations'
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 
 import { RootState } from 'client/store/RootState'
@@ -34,11 +34,12 @@ export const postExtraEstimation = createAsyncThunk<[ExtraEstimation, LayerSecti
 
       const fra1ALandArea = (state as RootState).geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea ?? null
       const percentage = fra1ALandArea != null ? (area * 100) / (fra1ALandArea * 1000) : 0
+      const sourceLabelKey = extraEstimationsMetadata[extraEstimation].titleKey
       const entry: ForestEstimationEntry = {
         area: Number(area.toFixed(2)),
         fra1ALandAreaPercentage: Number(percentage.toFixed(2)),
         sourceKey: extraEstimation,
-        sourceName: extraEstimation,
+        sourceLabelKey,
       }
 
       dispatch(GeoActions.insertTabularEstimationEntry([-1, entry]))

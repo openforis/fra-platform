@@ -48,9 +48,10 @@ export const useStatisticalGraphsData = (props: Props): Returned => {
     const percentages: Array<number> = []
 
     tabularForestEstimations.forEach((entry) => {
-      areas.push(entry.area / 1000)
-      labels.push(entry.sourceName)
-      percentages.push(entry.fra1ALandAreaPercentage)
+      const { area, fra1ALandAreaPercentage, hansenPercent, sourceLabelKey } = entry
+      areas.push(area / 1000)
+      labels.push(t(sourceLabelKey, { hansenPercent }))
+      percentages.push(fra1ALandAreaPercentage)
     })
 
     const maximumArea = Math.max(...areas)
