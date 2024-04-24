@@ -82,10 +82,19 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChar
     title: { key: 'statisticalFactsheets.primaryForest.title', params: { year: cols[cycle.name].at(0) } },
     table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata[cycle.name], tableName }),
     chart: {
-      label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,
       cells: [
-        { variableName, color: ChartColor.green, columnName },
-        { variableName: 'otherLand', color: ChartColor.lightGreen, columnName },
+        {
+          variableName,
+          color: ChartColor.green,
+          columnName,
+          label: { key: 'statisticalFactsheets.rowName.primaryForest' },
+        },
+        {
+          variableName: 'otherLand',
+          color: ChartColor.lightGreen,
+          columnName,
+          label: { key: 'statisticalFactsheets.rowName.otherArea' },
+        },
       ],
     },
   }

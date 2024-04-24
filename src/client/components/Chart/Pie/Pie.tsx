@@ -1,16 +1,19 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
+import { Numbers } from 'utils/numbers'
 
-import { PieChart as PieChartType, PieChartData } from 'meta/chart'
+import { Labels } from 'meta/assessment'
+import { PieChartData } from 'meta/chart'
 
 type Props = {
   data: Array<PieChartData>
-  chart: PieChartType
 }
+
 const Pie = (props: Props) => {
-  const { data, chart } = props
-  const { label } = chart
+  const { data } = props
+  const { t } = useTranslation()
 
   return (
     <ResponsiveContainer height={300} width="100%">
@@ -18,17 +21,28 @@ const Pie = (props: Props) => {
         <PieComponent
           data={data}
           dataKey="value"
-          label={label}
+          label={({ percent, label }) => {
+            return `${Labels.getLabel({ label, t })} (${(percent * 100).toFixed(0)}%)`
+          }}
           labelLine={false}
           nameKey="variableName"
           outerRadius={80}
           paddingAngle={1}
         >
-          {data.map((entry) => (
-            <Cell key={`cell-${entry.variableName}`} fill={entry.color} />
+          {data.map((cell) => (
+            <Cell
+              key={`cell-${cell.variableName}`}
+              fill={cell.color}
+              name={Labels.getLabel({ label: cell.label, t })}
+            />
           ))}
         </PieComponent>
-        <Tooltip />
+        <Tooltip
+          formatter={(value, _, { payload }) => {
+            const { label } = payload
+            return [Numbers.format(value as number), Labels.getLabel({ label, t })]
+          }}
+        />
         <Legend />
       </PieChart>
     </ResponsiveContainer>

@@ -26,10 +26,8 @@ export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartDa
 
   return chart.cells.map((cell) => {
     return {
-      variableName: cell.variableName,
+      ...cell,
       value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
-      columnName: cell.columnName,
-      color: cell.color,
     }
   })
 }
