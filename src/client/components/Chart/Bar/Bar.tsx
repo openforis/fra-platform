@@ -20,9 +20,11 @@ const Bar = (props: Props) => {
       <BarChart data={data}>
         <XAxis
           dataKey="columnName"
-          label={{ value: Labels.getLabel({ label: chart.xAxisLabel, t }), position: 'insideBottom' }}
+          label={{ value: Labels.getLabel({ label: chart.xAxis?.label, t }), position: 'insideBottom' }}
         />
-        <YAxis label={{ value: Labels.getLabel({ label: chart.yAxisLabel, t }), angle: -90, position: 'insideLeft' }} />
+        <YAxis
+          label={{ value: Labels.getLabel({ label: chart.yAxis?.label, t }), angle: -90, position: 'insideLeft' }}
+        />
         <Tooltip />
         <Legend />
         {chart.cells.map((cell) => {

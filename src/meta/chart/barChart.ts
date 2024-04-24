@@ -11,6 +11,10 @@ export type BarChart = {
   columns: Array<string>
   cells: Array<BarCell>
   label: PieLabel
-  xAxisLabel?: Label
-  yAxisLabel?: Label
+  xAxis?: {
+    label?: Label
+  }
+  yAxis?: {
+    label?: Label
+  }
 }
