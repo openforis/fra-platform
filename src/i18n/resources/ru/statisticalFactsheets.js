@@ -14,31 +14,31 @@ module.exports = {
     otherOrUnknown: 'Другое или неизвестно',
   },
   forestArea: {
-    title: 'Площадь лесов (1990 — 2020)',
+    title: 'Площадь лесов ({{startYear}} - {{endYear}})',
   },
   carbonAndGrowingStock: {
-    title: 'Запасы древостоя и углерода в лесах (1990 — 2020)',
+    title: 'Запасы древостоя и углерода в лесах ({{startYear}} - {{endYear}})',
     rowName: '',
     carbon_stock_biomass_total: 'Запас углерода в биомассе',
     carbon_stock_total: 'Общий запас углерода',
     growing_stock_total: '$t(growingStock.growingStock)',
   },
   forestAreaPercent: {
-    title: 'Площадь лесов % от площади суши (2020)',
+    title: 'Площадь лесов % от площади суши ({{year}})',
   },
   primaryForest: {
-    title: 'Девственные леса % от площади лесов (2020)',
+    title: 'Девственные леса % от площади лесов ({{year}})',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) (2015)',
+    title: '$t(forestOwnership.forestOwnership) ({{year}})',
     public: 'Государственная',
     private: 'Частная',
   },
   forestAreaWithinProtectedAreas: {
-    title: '$t(forestAreaWithinProtectedAreas.header) (1990 — 2020)',
+    title: '$t(forestAreaWithinProtectedAreas.header) ({{year}})',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 — 2020)',
+    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -48,6 +48,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Площадь естественно возобновляемых лесов (1990 — 2020)',
+    title: 'Площадь естественно возобновляемых лесов ({{startYear}} - {{endYear}})',
   },
 }
