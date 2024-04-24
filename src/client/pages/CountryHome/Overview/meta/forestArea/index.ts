@@ -37,5 +37,7 @@ export const forestArea = (cycle: Cycle): DashboardBarChart => ({
     columns: cols[cycle.name],
     label: ({ variableName, percent }: any) => `${variableName} ${(percent * 100).toFixed(0)}%`,
     cells: [{ variableName: 'forestArea', color: ChartColor.green }],
+    xAxis: { label: { key: 'common.year' } },
+    yAxis: { label: { key: 'unit.haThousand' } },
   },
 })
