@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { ODPDataSourceMethod, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter'
 
-import { DataCell } from 'client/components/DataGrid'
+import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import MultiSelect from 'client/components/MultiSelect'
 import { Option } from 'client/components/MultiSelect/option'
-import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -44,28 +43,30 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
     [originalDataPoint, updateOriginalDataPoint]
   )
 
+  const actions = useMemo<Array<DataRowAction>>(() => {
+    if (!reviewIndicator) return []
+    return [
+      {
+        subtitle: t('nationalDataPoint.dataSources'),
+        title: t('nationalDataPoint.methodsUsed'),
+        topicKey: Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceMethods'),
+        type: DataRowActionType.Review,
+      },
+    ]
+  }, [reviewIndicator, originalDataPoint, t])
+
   return (
-    <>
+    <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.methodsUsed')}</DataCell>
       <DataCell lastCol>
         <MultiSelect
           disabled={disabled}
-          values={originalDataPoint.dataSourceMethods ?? []}
-          options={options}
           onChange={onChange}
+          options={options}
+          values={originalDataPoint.dataSourceMethods ?? []}
         />
       </DataCell>
-
-      {reviewIndicator && (
-        <DataCell actions>
-          <ReviewIndicator
-            title={t('nationalDataPoint.methodsUsed')}
-            subtitle={t('nationalDataPoint.dataSources')}
-            topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceMethods')}
-          />
-        </DataCell>
-      )}
-    </>
+    </DataRow>
   )
 }
 

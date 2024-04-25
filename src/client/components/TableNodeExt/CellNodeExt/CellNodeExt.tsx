@@ -2,7 +2,6 @@ import React from 'react'
 
 import { NodeExtCellType } from 'meta/nodeExt'
 
-import { DataCell } from 'client/components/DataGrid'
 import CellLink from 'client/components/TableNodeExt/CellNodeExt/CellLink'
 import CellMultiselect from 'client/components/TableNodeExt/CellNodeExt/CellMultiselect'
 import CellSelect from 'client/components/TableNodeExt/CellNodeExt/CellSelect'
@@ -21,22 +20,11 @@ const components: Record<string, CellNodeExtFC> = {
 }
 
 const CellNodeExt: CellNodeExtFC = (props) => {
-  const { column, disabled, lastCol, lastRow, nodeExt, onChange } = props
+  const { column, disabled, nodeExt, onChange } = props
 
   const Component = components[column.type]
 
-  return (
-    <DataCell editable={!disabled} lastCol={lastCol} lastRow={lastRow}>
-      <Component
-        column={column}
-        disabled={disabled}
-        lastCol={lastCol}
-        lastRow={lastRow}
-        nodeExt={nodeExt}
-        onChange={onChange}
-      />
-    </DataCell>
-  )
+  return <Component column={column} disabled={disabled} nodeExt={nodeExt} onChange={onChange} />
 }
 
 export default CellNodeExt
