@@ -1,5 +1,5 @@
 module.exports = {
-  noData: 'No data',
+  noData: 'No data available',
   rowName: {
     forestArea: 'Forest area',
     naturalForestArea: 'Natural regenerating forest',
