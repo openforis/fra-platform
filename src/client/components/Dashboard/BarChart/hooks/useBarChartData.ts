@@ -6,10 +6,9 @@ import { BarChart, BarChartData } from 'meta/chart'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useData } from 'client/components/Dashboard/hooks/useData'
 
-import { useData } from './useData'
-
-export const useBarChartData = (table: Table, chart: BarChart): { data: BarChartData; hasData: boolean } => {
+export const useBarChartData = (table: Table, chart: BarChart): BarChartData => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
   const _data = useData(table)
@@ -22,13 +21,10 @@ export const useBarChartData = (table: Table, chart: BarChart): { data: BarChart
     data: _data,
   })
 
-  if (Objects.isEmpty(tableData)) return { data: [], hasData: false }
-
-  let hasData = false
+  if (Objects.isEmpty(tableData)) return []
 
   const data = chart.columns.map((columnName) => {
     return chart.cells.reduce((acc, cell) => {
-      if (!Objects.isEmpty(tableData[columnName][cell.variableName].raw)) hasData = true
       return {
         ...acc,
         columnName,
@@ -37,5 +33,5 @@ export const useBarChartData = (table: Table, chart: BarChart): { data: BarChart
     }, {})
   })
 
-  return { data, hasData }
+  return data
 }

@@ -1,6 +1,10 @@
+@import 'src/client/style/partials';
+
 .dashboard__no-data {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  border: 1px solid $ui-border-light;
+  display: flex;
   height: 100%;
+  justify-content: center;
+  min-height: 240px;
 }
