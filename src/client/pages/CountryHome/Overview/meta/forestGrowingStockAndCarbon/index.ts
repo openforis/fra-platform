@@ -81,6 +81,9 @@ const rowMetadata: Record<string, RowsMetadata> = {
 
 export const forestGrowingStockAndCarbonDashboard = (cycle: Cycle): DashboardTable => ({
   type: DashboardItemType.table,
-  title: { key: 'statisticalFactsheets.carbonAndGrowingStock.title' },
+  title: {
+    key: 'statisticalFactsheets.carbonAndGrowingStock.title',
+    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
+  },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata[cycle.name], tableName }),
 })

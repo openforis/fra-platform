@@ -1,4 +1,4 @@
-import { Cycle, CycleName } from 'meta/assessment'
+import { Cycle, CycleName, Unit } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType } from 'meta/dashboard'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
@@ -41,14 +41,15 @@ export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
 
   return {
     type: DashboardItemType.pieChart,
-    title: { key: 'statisticalFactsheets.forestOwnership.title' },
+    title: { key: 'statisticalFactsheets.forestOwnership.title', params: { year: columnName } },
     table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
     chart: {
-      label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,
       cells: variables.map(({ variableName, color }) => ({
         variableName,
         color,
         columnName,
+        label: { key: `statisticalFactsheets.rowName.${variableName}` },
+        unit: `unit.${Unit.haThousand}`,
       })),
     },
   }

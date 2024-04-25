@@ -31,6 +31,9 @@ const rowMetadata: RowsMetadata = variables.map((variableName, i) => ({
 
 export const primaryDesignatedManagementObjectiveDashboard = (cycle: Cycle): DashboardTable => ({
   type: DashboardItemType.table,
-  title: { key: 'statisticalFactsheets.primaryDesignatedManagementObjective.title' },
+  title: {
+    key: 'statisticalFactsheets.primaryDesignatedManagementObjective.title',
+    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
+  },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
 })

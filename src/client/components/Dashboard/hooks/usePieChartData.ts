@@ -29,10 +29,8 @@ export const usePieChartData = (table: Table, chart: PieChart): { data: Array<Pi
   const data = chart.cells.map((cell) => {
     if (!Objects.isEmpty(tableData[cell.columnName][cell.variableName].raw)) hasData = true
     return {
-      variableName: cell.variableName,
+      ...cell,
       value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
-      columnName: cell.columnName,
-      color: cell.color,
     }
   })
   return { data, hasData }

@@ -24,7 +24,7 @@ const PieChart: React.FC<Props> = (props: Props) => {
     return <NoData />
   }
 
-  return <Pie chart={chart} data={data} />
+  return <Pie data={data} />
 }
 
 export default PieChart

@@ -7,38 +7,40 @@ module.exports = {
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'Land area',
     primaryForest: '$t(specificForestCategories.primaryForest)',
-    privateOwnership: '$t(forestOwnership.privateOwnership)',
-    publicOwnership: '$t(forestOwnership.publicOwnership)',
     otherArea: 'Other area',
     otherForest: 'Other forest',
-    otherOrUnknown: 'Other or unknown',
+    private_ownership: '$t(forestOwnership.privateOwnership)',
+    public_ownership: '$t(forestOwnership.publicOwnership)',
+    other: '$t(common.other)',
+    unknown: '$t(fra.forestOwnership.unknown2025)',
+    other_or_unknown: 'Other or unknown',
   },
   forestArea: {
-    title: 'Forest Area (1990 — 2020)',
+    title: 'Forest Area ({{startYear}} - {{endYear}})',
   },
   carbonAndGrowingStock: {
-    title: 'Forest growing stock and carbon (1990 — 2020)',
+    title: 'Forest growing stock and carbon ({{startYear}} - {{endYear}})',
     rowName: '',
     carbon_stock_biomass_total: 'Carbon stock in biomass',
     carbon_stock_total: 'Total carbon stock',
     growing_stock_total: '$t(growingStock.growingStock)',
   },
   forestAreaPercent: {
-    title: 'Forest area % of land area (2020)',
+    title: 'Forest area % of land area ({{year}})',
   },
   primaryForest: {
-    title: 'Primary forest % of forest area (2020)',
+    title: 'Primary forest % of forest area ({{year}})',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) (2015)',
+    title: '$t(forestOwnership.forestOwnership) ({{year}})',
     public: 'Public',
     private: 'Private',
   },
   forestAreaWithinProtectedAreas: {
-    title: 'Forest area within protected areas 2020 (% of forest area)',
+    title: 'Forest area within protected areas {{year}} (% of forest area)',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 — 2020)',
+    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -48,6 +50,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Naturally regenerating forest area (1990 — 2020)',
+    title: 'Naturally regenerating forest area ({{startYear}} - {{endYear}})',
   },
 }
