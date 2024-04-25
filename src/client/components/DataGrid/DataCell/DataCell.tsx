@@ -19,9 +19,9 @@ type Props = PropsWithChildren<
   }
 
 const DataCell: React.FC<Props> = (props) => {
-  const { highlighted, children, gridColumn, gridRow } = props
+  const { children, gridColumn, gridRow } = props
   // style props
-  const { actions, className, editable, error, firstCol, header, lastCol, lastRow, noBorder } = props
+  const { actions, className, editable, error, firstCol, header, highlighted, lastCol, lastRow, noBorder } = props
   // tooltip props
   const { 'data-tooltip-content': dataTooltipContent, 'data-tooltip-id': dataTooltipId } = props
 
