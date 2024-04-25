@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
@@ -11,14 +13,24 @@ export const useHasData = (table: Table): boolean => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const _data = useData(table)
 
-  // tableData not fetched
-  if (Objects.isEmpty(_data)) return true
+  return useMemo(() => {
+    const tableData = RecordAssessmentDatas.getTableData({
+      assessmentName,
+      cycleName,
+      countryIso,
+      tableName: table.props.name,
+      data: _data,
+    })
 
-  return !RecordAssessmentDatas.isTableDataEmpty({
-    assessmentName,
-    cycleName,
-    countryIso,
-    tableName: table.props.name,
-    data: _data,
-  })
+    // tableData not fetched
+    if (Objects.isEmpty(tableData)) return true
+
+    return !RecordAssessmentDatas.isTableDataEmpty({
+      assessmentName,
+      cycleName,
+      countryIso,
+      tableName: table.props.name,
+      data: _data,
+    })
+  }, [_data, assessmentName, cycleName, countryIso, table.props.name])
 }
