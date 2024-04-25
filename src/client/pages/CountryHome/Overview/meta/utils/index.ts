@@ -133,6 +133,7 @@ export const getTable = (props: GetTableProps): Table => {
     calculationDependencies: getCalculationDependencies(rowMetadata),
     props: {
       odp: false,
+      readonly: true,
       name: tableName + cycle.name,
       cycles: [cycle.uuid],
       dataExport: true,
