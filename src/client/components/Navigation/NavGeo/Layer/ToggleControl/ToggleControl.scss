@@ -6,6 +6,14 @@
   button.button-checkbox {
     border-color: $color;
     color: darken($color, 15%);
+    height: unset;
+    line-height: 1.4;
+    min-height: 24px;
+    white-space: normal;
+
+    svg {
+      flex-shrink: 0;
+    }
 
     &.inverse {
       svg {
