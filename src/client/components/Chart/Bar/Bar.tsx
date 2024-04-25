@@ -12,19 +12,26 @@ type Props = {
   chart: BarChartType
 }
 
+const LEFT = 24
+
 const Bar = (props: Props) => {
   const { t } = useTranslation()
   const { data, chart } = props
 
   return (
     <ResponsiveContainer height={300} width="100%">
-      <BarChart data={data}>
+      <BarChart data={data} margin={{ top: 10, right: 24, left: LEFT, bottom: 10 }}>
         <XAxis
           dataKey="columnName"
-          label={{ value: Labels.getLabel({ label: chart.xAxis?.label, t }), position: 'insideBottom' }}
+          label={{ value: Labels.getLabel({ label: chart.xAxis?.label, t }), position: 'insideBottom', offset: -10 }}
         />
         <YAxis
-          label={{ value: Labels.getLabel({ label: chart.yAxis?.label, t }), angle: -90, position: 'insideLeft' }}
+          label={{
+            value: Labels.getLabel({ label: chart.yAxis?.label, t }),
+            angle: -90,
+            position: 'insideLeft',
+            offset: -10,
+          }}
           tickFormatter={(value) => {
             return value.toLocaleString()
           }}
@@ -34,7 +41,7 @@ const Bar = (props: Props) => {
             return Numbers.format(value as number)
           }}
         />
-        <Legend />
+        <Legend wrapperStyle={{ left: LEFT * 2, position: 'relative' }} />
         {chart.cells.map((cell) => {
           return (
             <BarComponent
