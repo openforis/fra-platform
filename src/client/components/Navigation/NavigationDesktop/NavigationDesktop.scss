@@ -26,3 +26,12 @@
     }
   }
 }
+
+@include rtl {
+  .nav-desktop {
+    &.geoRoute {
+      left: unset;
+      right: 0;
+    }
+  }
+}
