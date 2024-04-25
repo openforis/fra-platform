@@ -19,7 +19,7 @@ const PieChart: React.FC<Props> = (props: Props) => {
   const data = usePieChartData(table, chart)
   useGetTableData(table)
 
-  return <Pie chart={chart} data={data} />
+  return <Pie data={data} />
 }
 
 export default PieChart

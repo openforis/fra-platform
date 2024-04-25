@@ -3,7 +3,12 @@ import type { PieLabel } from 'recharts/types/polar/Pie'
 import { Label } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 
-type BarCell = { variableName: string; color: ChartColor }
+type BarCell = {
+  color: ChartColor
+  label: Label
+  unit?: string
+  variableName: string
+}
 
 export type BarChartData = Array<Record<string, string | number>>
 

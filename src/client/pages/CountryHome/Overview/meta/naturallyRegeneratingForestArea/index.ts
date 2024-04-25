@@ -14,8 +14,18 @@ const cols: Record<string, Array<string>> = {
 }
 
 const cells = [
-  { variableName: 'naturalForestArea', color: ChartColor.green },
-  { variableName: 'plantedForest', color: ChartColor.orange },
+  {
+    variableName: 'naturalForestArea',
+    color: ChartColor.green,
+    unit: 'unit.haThousand',
+    label: { key: 'statisticalFactsheets.rowName.naturalForestArea' },
+  },
+  {
+    variableName: 'plantedForest',
+    color: ChartColor.orange,
+    unit: 'unit.haThousand',
+    label: { key: 'statisticalFactsheets.rowName.plantedForest' },
+  },
 ]
 
 const tableName = TableNames.forestCharacteristics

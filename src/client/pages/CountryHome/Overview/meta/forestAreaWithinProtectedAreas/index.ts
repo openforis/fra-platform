@@ -45,17 +45,18 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart 
     title: { key: 'statisticalFactsheets.forestAreaWithinProtectedAreas.title', params: { year: columnName } },
     table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
     chart: {
-      label: ({ variableName, percent }) => `${variableName} ${(percent * 100).toFixed(0)}%`,
       cells: [
         {
           variableName: 'forestArea',
           color: ChartColor.green,
           columnName,
+          label: { key: 'statisticalFactsheets.rowName.forestArea' },
         },
         {
           variableName,
           color: ChartColor.lightGreen,
           columnName,
+          label: { key: 'statisticalFactsheets.rowName.forestAreaWithinProtectedAreas' },
         },
       ],
     },
