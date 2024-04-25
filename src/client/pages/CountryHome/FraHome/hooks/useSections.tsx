@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react'
 
+import { AssessmentStatus, CountryIso } from 'meta/area'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
+import { useCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -19,7 +21,9 @@ type Section = {
 
 export const useSections = (): Array<Section> => {
   const user = useUser()
-  const { countryIso } = useCountryRouteParams()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
+  const country = useCountry(countryIso)
+
   const cycle = useCycle()
 
   return useMemo(() => {
@@ -27,7 +31,8 @@ export const useSections = (): Array<Section> => {
 
     if (!cycle) return null
 
-    sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
+    if (cycle.published || country.props.status === AssessmentStatus.accepted)
+      sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
 
     if (user) {
       sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
@@ -44,5 +49,5 @@ export const useSections = (): Array<Section> => {
     // }
 
     return sections
-  }, [cycle, user, countryIso])
+  }, [cycle, country.props.status, user, countryIso])
 }
