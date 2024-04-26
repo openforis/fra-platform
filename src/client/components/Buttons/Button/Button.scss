@@ -8,14 +8,15 @@
   display: flex;
   font-family: $font-family-1;
   font-weight: 600;
-  line-height: 0;
   justify-content: start;
   letter-spacing: 0.25px;
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.2s;
+  white-space: normal;
 
   svg {
+    flex-shrink: 0;
     transition: all 0.2s ease;
   }
 
@@ -43,9 +44,9 @@
 // === size styles
 .button__size-xs {
   font-size: $font-xxxs;
-  height: 20px;
-  padding: 0 6px;
   gap: 3px;
+  min-height: 20px;
+  padding: 0 6px;
 
   svg {
     height: 9px;
@@ -55,9 +56,9 @@
 
 .button__size-s {
   font-size: $font-xxs;
-  height: $spacing-s;
-  padding: 0 $spacing-xxs;
   gap: $spacing-xxxs;
+  min-height: $spacing-s;
+  padding: 0 $spacing-xxs;
 
   svg {
     height: 12px;
@@ -67,9 +68,9 @@
 
 .button__size-m {
   font-size: $font-s;
-  height: 28px;
-  padding: 0 10px;
   gap: $spacing-xxxs;
+  min-height: 28px;
+  padding: 0 10px;
 
   svg {
     height: 15px;
@@ -79,9 +80,9 @@
 
 .button__size-l {
   font-size: $font-m;
-  height: $spacing-m;
-  padding: 0 11px;
   grid-column-gap: $spacing-xxs;
+  min-height: $spacing-m;
+  padding: 0 11px;
 
   svg {
     height: 17px;
