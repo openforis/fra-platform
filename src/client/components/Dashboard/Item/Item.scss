@@ -1,10 +1,10 @@
 @import 'src/client/style/partials';
 
-.dashboard__no-data {
+.dashboard__item {
   align-items: center;
   border: 1px solid $ui-border-light;
   display: flex;
-  height: 100%;
+  flex-direction: column;
   justify-content: center;
-  min-height: 240px;
+  min-height: 340px;
 }

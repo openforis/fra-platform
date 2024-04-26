@@ -1,3 +1,4 @@
+import './Item.scss'
 import React from 'react'
 
 import { DashboardItem, DashboardItemType, DashboardTable } from 'meta/dashboard'
@@ -25,7 +26,11 @@ const Component: React.FC<Props> = (props: Props) => {
   const hasData = useHasData(table)
   const Component = hasData ? Components[item.type] : NoData
 
-  return <Component item={item} />
+  return (
+    <div className="dashboard__item">
+      <Component item={item} />
+    </div>
+  )
 }
 
 export default Component
