@@ -93,7 +93,7 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChar
           variableName: 'otherLand',
           color: ChartColor.lightGreen,
           columnName,
-          label: { key: 'statisticalFactsheets.rowName.otherArea' },
+          label: { key: 'statisticalFactsheets.rowName.otherForest' },
         },
       ],
     },
