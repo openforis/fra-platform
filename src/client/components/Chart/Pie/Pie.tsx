@@ -22,6 +22,7 @@ const Pie = (props: Props) => {
           data={data}
           dataKey="value"
           label={({ percent, label }) => {
+            if (percent < 0.05) return null
             return `${Labels.getLabel({ label, t })} (${(percent * 100).toFixed(0)}%)`
           }}
           labelLine={false}
