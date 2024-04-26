@@ -3,6 +3,7 @@
 .button-checkbox {
   $colorPrimary: $ui-accent;
   $colorSecondary: white;
+  text-align: left;
 
   svg {
     color: $colorSecondary;
@@ -72,5 +73,11 @@ $lds-size: 12px;
     width: #{$lds-size * 0.84}; // 0.84
     height: #{$lds-size * 0.84};
     opacity: 0;
+  }
+}
+
+@include rtl {
+  .button-checkbox {
+    text-align: right;
   }
 }
