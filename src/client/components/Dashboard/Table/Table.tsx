@@ -2,6 +2,7 @@ import React from 'react'
 
 import { DashboardTable } from 'meta/dashboard'
 
+import { useIsSomeTableDataFetching } from 'client/store/data'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import TableComponent from 'client/pages/Section/DataTable/Table'
 
@@ -17,11 +18,13 @@ const Table: React.FC<Props> = (props: Props) => {
   const {
     item: { table },
   } = props
-
+  const dataFetching = useIsSomeTableDataFetching()
   const data = useData(table)
   const disabled = true
 
   useGetTableData(table)
+
+  if (dataFetching) return null
 
   return (
     <TableComponent
