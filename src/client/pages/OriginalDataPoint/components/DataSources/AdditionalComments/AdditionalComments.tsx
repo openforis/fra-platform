@@ -1,12 +1,11 @@
-import React, { ChangeEventHandler, useCallback } from 'react'
+import React, { ChangeEventHandler, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
-import { DataCell } from 'client/components/DataGrid'
+import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
-import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -41,8 +40,20 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
     [originalDataPoint, updateOriginalDataPoint]
   )
 
+  const actions = useMemo<Array<DataRowAction>>(() => {
+    if (!reviewIndicator) return []
+    return [
+      {
+        subtitle: t('nationalDataPoint.dataSources'),
+        type: DataRowActionType.Review,
+        title: t('nationalDataPoint.additionalComments'),
+        topicKey: Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceAdditionalComments'),
+      },
+    ]
+  }, [originalDataPoint, reviewIndicator, t])
+
   return (
-    <>
+    <DataRow actions={actions}>
       <DataCell header lastRow>
         {t('nationalDataPoint.additionalComments')}
       </DataCell>
@@ -53,17 +64,7 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
           value={originalDataPoint.dataSourceAdditionalComments ?? ''}
         />
       </DataCell>
-
-      {reviewIndicator && (
-        <DataCell actions>
-          <ReviewIndicator
-            title={t('nationalDataPoint.additionalComments')}
-            subtitle={t('nationalDataPoint.dataSources')}
-            topicKey={Topics.getOdpReviewTopicKey(originalDataPoint.id, 'dataSourceAdditionalComments')}
-          />
-        </DataCell>
-      )}
-    </>
+    </DataRow>
   )
 }
 

@@ -33,28 +33,27 @@ const Comments: React.FC<Props> = (props) => {
   }, [isDataLocked, open])
 
   return (
-    <DataGrid className="odp__section description" gridTemplateColumns={`1fr${canEditData ? ' 32px' : ''}`}>
-      <DataCell className="description-title" editable noBorder>
-        <h3 className="subhead description-title__label">{t('review.comments')}</h3>
-
-        {canEditData && (
-          <Button
-            inverse={!open}
-            label={open ? t('description.done') : t('description.edit')}
-            onClick={() => setOpen(!open)}
-            size={ButtonSize.xs}
-          />
-        )}
-      </DataCell>
-      {canEditData && <div />}
-
+    <DataGrid className="odp__section description" withActions={canEditData}>
       <DataRow actions={actions}>
-        <DataCell editable={open} lastCol lastRow noBorder={!open}>
-          <div className={classNames('description__editor-container', { editable: open })}>
-            <EditorWYSIWYG disabled={!open} onChange={updateDescription} value={originalDataPoint.description} />
-          </div>
+        <DataCell className="description-title" editable noBorder>
+          <h3 className="subhead description-title__label">{t('review.comments')}</h3>
+
+          {canEditData && (
+            <Button
+              inverse={!open}
+              label={open ? t('description.done') : t('description.edit')}
+              onClick={() => setOpen(!open)}
+              size={ButtonSize.xs}
+            />
+          )}
         </DataCell>
       </DataRow>
+
+      <DataCell editable={open} gridColumn={canEditData ? `1/-1` : undefined} lastCol lastRow noBorder={!open}>
+        <div className={classNames('description__editor-container', { editable: open })}>
+          <EditorWYSIWYG disabled={!open} onChange={updateDescription} value={originalDataPoint.description} />
+        </div>
+      </DataCell>
     </DataGrid>
   )
 }

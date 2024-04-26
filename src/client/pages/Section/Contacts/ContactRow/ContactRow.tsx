@@ -3,7 +3,7 @@ import React from 'react'
 import { Contact } from 'meta/cycleData'
 
 import { useIsEditTableDataEnabled } from 'client/store/user'
-import { DataRow } from 'client/components/DataGrid'
+import { DataCell, DataRow } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 import { Columns, Fields } from 'client/pages/Section/Contacts/types'
 import { useSectionContext } from 'client/pages/Section/context'
@@ -32,24 +32,23 @@ const ContactRow: React.FC<Props> = (props) => {
   return (
     <>
       <DataRow actions={actions}>
-        {fields.map(({ field, hidden }, j) => {
+        {fields.map(({ field, hidden }) => {
           const column = columns[field]
           const nodeExt = contact[field]
 
           if (hidden) return null
 
           return (
-            <CellNodeExt
-              column={column}
-              disabled={disabled}
-              key={`${contact.uuid}_${field}`}
-              lastCol={j === fields.length - 1}
-              lastRow={lastRow}
-              onChange={(raw) => {
-                onChange({ contact, field, raw })
-              }}
-              nodeExt={nodeExt}
-            />
+            <DataCell key={`${contact.uuid}_${field}`} editable={!disabled} lastRow={lastRow}>
+              <CellNodeExt
+                column={column}
+                disabled={disabled}
+                nodeExt={nodeExt}
+                onChange={(raw) => {
+                  onChange({ contact, field, raw })
+                }}
+              />
+            </DataCell>
           )
         })}
       </DataRow>
