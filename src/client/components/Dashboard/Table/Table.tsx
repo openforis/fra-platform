@@ -18,13 +18,13 @@ const Table: React.FC<Props> = (props: Props) => {
   const {
     item: { table },
   } = props
-  const dataFetching = useIsSomeTableDataFetching()
   const data = useData(table)
   const disabled = true
+  const isFetching = useIsSomeTableDataFetching()
 
   useGetTableData(table)
 
-  if (dataFetching) return null
+  if (isFetching) return null
 
   return (
     <TableComponent
