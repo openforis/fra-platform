@@ -11,7 +11,7 @@ import { useData } from 'client/components/Dashboard/hooks/useData'
 
 export const useHasData = (table: Table): boolean => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  const _data = useData(table)
+  const data = useData(table)
 
   return useMemo(() => {
     const tableData = RecordAssessmentDatas.getTableData({
@@ -19,7 +19,7 @@ export const useHasData = (table: Table): boolean => {
       cycleName,
       countryIso,
       tableName: table.props.name,
-      data: _data,
+      data,
     })
 
     // tableData not fetched
@@ -30,7 +30,7 @@ export const useHasData = (table: Table): boolean => {
       cycleName,
       countryIso,
       tableName: table.props.name,
-      data: _data,
+      data,
     })
-  }, [_data, assessmentName, cycleName, countryIso, table.props.name])
+  }, [data, assessmentName, cycleName, countryIso, table.props.name])
 }
