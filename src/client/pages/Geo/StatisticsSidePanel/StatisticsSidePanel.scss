@@ -21,3 +21,10 @@ $side-panel-y-margin: $spacing-l;
     grid-template-columns: minmax($ui-app-navigation-width, 35vw);
   }
 }
+
+@include rtl {
+  .geo-statistics-side-panel {
+    left: 0;
+    right: unset;
+  }
+}

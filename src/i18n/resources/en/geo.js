@@ -4,6 +4,7 @@ module.exports = {
   burnedArea: 'Burned Area',
   burnedAreaWithUnit: '$t(geo.burnedArea) ({{unit}})',
   chooseAgreementLevel: 'Choose the min. agreement level between selected layers.',
+  customAgreementArea: 'Custom agreement area',
   error: {
     extraEstimation: {
       failedToRetrieve: 'There was a problem retrieving the estimation.',
@@ -29,8 +30,6 @@ module.exports = {
   map: 'Map',
   maxCloudCoverage: 'Max Cloud Coverage',
   metersReducerScale: '{{meters}}m Reducer Scale',
-  treeCoverProtectedAreas: 'Tree cover within protected areas',
-  treeCoverProtectedAreasWithUnit: '$t(geo.treeCoverProtectedAreas) ({{unit}})',
   recipes: {
     forest: {
       allGfc10: 'All (GFC Hansen >=10%)',
@@ -41,6 +40,7 @@ module.exports = {
     },
     recipes: 'Recipes',
   },
+  reportedToFra2020: 'Reported to FRA 2020',
   satellite: 'Satellite',
   satelliteMosaic: 'Satellite Mosaic',
   sections: {
@@ -60,6 +60,7 @@ module.exports = {
         esri2020: 'ESRI (2020)',
         globeLand2020: 'GlobeLand (2020)',
         hansenGfc2020: 'Hansen GFC (2020)',
+        hansenGfc2020WithPercent: '$t(geo.sections.forest.layerTitles.hansenGfc2020) {{hansenPercent}} %',
         jaxa2017: 'JAXA (2017)',
         modis: 'MODIS',
         tanDemX2019: 'TanDEM-X (2019)',
@@ -98,4 +99,7 @@ module.exports = {
     },
     title: 'Statistics',
   },
+  treeCoverAgreementSelected: 'Tree cover agreement selected',
+  treeCoverProtectedAreas: 'Tree cover within protected areas',
+  treeCoverProtectedAreasWithUnit: '$t(geo.treeCoverProtectedAreas) ({{unit}})',
 }

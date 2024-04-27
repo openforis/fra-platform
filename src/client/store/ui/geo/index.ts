@@ -1,6 +1,6 @@
 export {
   useAppliedMosaicOptions,
-  useGeoExtaEstimation,
+  useGeoExtraEstimation,
   useGeoLayer,
   useGeoLayerSection,
   useGeoLayerSectionRecipeName,
