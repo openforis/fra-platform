@@ -2,6 +2,10 @@
 
 $border-editable: 1px dashed $ui-edit-border-color;
 $border: 1px solid $ui-border;
+$highlight-border-shadow: 0 0 4px rgba($ui-accent, 50%);
+$highlight-left: inset 1px 0 $ui-accent;
+$highlight-right: inset -1px 0 $ui-accent;
+$highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
 
 .data-cell {
   border-left: $border;
@@ -40,14 +44,9 @@ $border: 1px solid $ui-border;
   }
 
   &.highlighted {
-    $border-shadow: 0 0 4px rgba($ui-accent, 50%);
-    $outline-left: inset 1px 0 $ui-accent;
-    $outline-right: inset -1px 0 $ui-accent;
-    $outline-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
-
     &::before {
       bottom: 0;
-      box-shadow: $outline-top-bottom, $border-shadow;
+      box-shadow: $highlight-top-bottom, $highlight-border-shadow;
       clip-path: inset(-4px 0px -4px 0px); // Adds shadow to top, bottom
       content: '';
       height: 100%;
@@ -60,17 +59,17 @@ $border: 1px solid $ui-border;
     }
 
     &.firstCol::before {
-      box-shadow: $outline-top-bottom, $outline-left, $border-shadow;
+      box-shadow: $highlight-top-bottom, $highlight-left, $highlight-border-shadow;
       clip-path: inset(-4px 0px -4px -4px); // Adds shadow to top, bottom, left
     }
 
     &.lastCol::before {
-      box-shadow: $outline-top-bottom, $outline-right, $border-shadow;
+      box-shadow: $highlight-top-bottom, $highlight-right, $highlight-border-shadow;
       clip-path: inset(-4px -4px -4px 0px); // Adds shadow to top, bottom, right
     }
 
     &.firstCol.lastCol::before {
-      box-shadow: $outline-top-bottom, $outline-left, $outline-right, $border-shadow;
+      box-shadow: $highlight-top-bottom, $highlight-left, $highlight-right, $highlight-border-shadow;
       clip-path: inset(-4px -4px -4px -4px); // Adds shadow to top, bottom, left, right
     }
   }
@@ -134,9 +133,27 @@ $border: 1px solid $ui-border;
     &.lastCol {
       border-left: $border;
     }
+
+    &.highlighted {
+      &.firstCol::before {
+        box-shadow: $highlight-top-bottom, $highlight-right, $highlight-border-shadow;
+        clip-path: inset(-4px -4px -4px 0px); // Adds shadow to top, bottom, right
+      }
+
+      &.lastCol::before {
+        box-shadow: $highlight-top-bottom, $highlight-left, $highlight-border-shadow;
+        clip-path: inset(-4px 0px -4px -4px); // Adds shadow to top, bottom, left
+      }
+
+      &.firstCol.lastCol::before {
+        box-shadow: $highlight-top-bottom, $highlight-left, $highlight-right, $highlight-border-shadow;
+        clip-path: inset(-4px -4px -4px -4px); // Adds shadow to top, bottom, left, right
+      }
+    }
   }
 
-  .data-cell.editable {
+  .data-cell.editable:not(.noBorder) {
+    border-left: unset;
     border-right: $border-editable;
 
     &.lastCol {
