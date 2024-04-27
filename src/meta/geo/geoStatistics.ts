@@ -12,8 +12,9 @@ export type GeoStatisticsExtraEstimations = Record<LayerSectionKey, ExtraEstimat
 export type ForestEstimationEntry = {
   area: number
   fra1ALandAreaPercentage: number
-  sourceName: string
+  hansenPercent?: number
   sourceKey: ForestKey | ExtraEstimation
+  sourceLabelKey: string
 }
 
 export interface GeoStatisticsState {

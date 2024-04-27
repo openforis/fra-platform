@@ -8,9 +8,10 @@ const dataSource = require('./zh/dataSource')
 const email = require('./zh/email')
 const fra = require('./zh/fra')
 const generalValidation = require('./zh/generalValidation')
+const geo = require('./zh/geo')
 const history = require('./zh/history')
-const login = require('./zh/login')
 const landing = require('./zh/landing')
+const login = require('./zh/login')
 const statisticalFactsheets = require('./zh/statisticalFactsheets')
 const uc = require('./zh/uc')
 
@@ -24,6 +25,7 @@ module.exports.translation = {
   email,
   fra,
   generalValidation,
+  geo,
   history,
   landing,
   login,

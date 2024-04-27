@@ -63,8 +63,10 @@ export const useTreeCoverAreaData = (): Returned => {
 
     const formattedTableData: StatisticsTableData = []
     data.forEach((entry) => {
-      const { area, fra1ALandAreaPercentage, sourceName, sourceKey } = entry
+      const { area, fra1ALandAreaPercentage, hansenPercent, sourceKey, sourceLabelKey } = entry
       const formatedArea = Numbers.format(area / 1000, 0)
+      const sourceName = t(sourceLabelKey, { hansenPercent })
+
       let sourceBackgroundColor =
         forestLayersMetadata[sourceKey as ForestKey]?.palette?.[0] ??
         extraEstimationsMetadata[sourceKey as ExtraEstimation]?.palette?.[0]
