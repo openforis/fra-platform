@@ -26,7 +26,7 @@ const TableNodeExt = (props: Props) => {
       {columns.map((column, i) => {
         const { header } = column.props
         return (
-          <DataCell lastCol={i === columns.length - 1} header key={`${String(i)}_header`}>
+          <DataCell key={`${String(i)}_header`} header lastCol={i === columns.length - 1}>
             {Labels.getLabel({ label: header.label, t })}
           </DataCell>
         )
@@ -38,15 +38,14 @@ const TableNodeExt = (props: Props) => {
           <React.Fragment key={key}>
             {columns.map((column, j) => {
               return (
-                <CellNodeExt
-                  column={column}
-                  disabled={disabled}
+                <DataCell
                   key={key}
+                  editable={!disabled}
                   lastCol={j === columns.length - 1}
                   lastRow={i === data.length - 1}
-                  nodeExt={nodeExt}
-                  onChange={onChange}
-                />
+                >
+                  <CellNodeExt column={column} disabled={disabled} nodeExt={nodeExt} onChange={onChange} />
+                </DataCell>
               )
             })}
           </React.Fragment>

@@ -10,6 +10,7 @@
 
 .geo-options-grid__flex {
   display: flex;
+  flex-wrap: wrap;
   gap: $spacing-xxs;
 }
 
