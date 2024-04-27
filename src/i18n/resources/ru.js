@@ -8,6 +8,7 @@ const dataSource = require('./ru/dataSource')
 const email = require('./ru/email')
 const fra = require('./ru/fra')
 const generalValidation = require('./ru/generalValidation')
+const geo = require('./ru/geo')
 const history = require('./ru/history')
 const landing = require('./ru/landing')
 const login = require('./ru/login')
@@ -24,9 +25,10 @@ module.exports.translation = {
   email,
   fra,
   generalValidation,
+  geo,
   history,
-  login,
   landing,
+  login,
   statisticalFactsheets,
   uc,
 

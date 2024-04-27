@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ExtraEstimation, ForestKey, forestLayersMetadata } from 'meta/geo'
+import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 
 import { useGeoProtectedAreas, useGeoStatistics } from 'client/store/ui/geo/hooks'
 import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
@@ -28,7 +28,7 @@ const sourceNameKey: Record<string, string> = {
   faHansen30Protected: 'geo.statistics.protectedArea.allGfc30',
   faJaxaProtected: forestLayersMetadata[ForestKey.JAXA].titleKey,
   faTandemxProtected: forestLayersMetadata[ForestKey.TandemX].titleKey,
-  fra3bProtected: ExtraEstimation.ReportedToFRA,
+  fra3bProtected: extraEstimationsMetadata[ExtraEstimation.ReportedToFRA2020].titleKey,
 }
 
 export const useProtectedAreaData = (): Returned => {

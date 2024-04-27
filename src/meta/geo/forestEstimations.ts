@@ -66,20 +66,28 @@ export interface ForestEstimations {
 }
 
 export enum ExtraEstimation {
-  ReportedToFRA = 'Reported to FRA 2020',
-  PrecalculatedRecipe = 'Forest agreement selected',
   CustomRecipe = 'Custom agreement area',
+  PrecalculatedRecipe = 'Forest agreement selected',
+  ReportedToFRA2020 = 'Reported to FRA 2020',
 }
 
-export const extraEstimationsMetadata = {
-  [ExtraEstimation.ReportedToFRA]: {
-    palette: ['#000000'], // black
+export type ExtraEstimationMetadata = {
+  palette?: Array<string>
+  titleKey: string
+}
+
+export const extraEstimationsMetadata: Record<ExtraEstimation, ExtraEstimationMetadata> = {
+  [ExtraEstimation.CustomRecipe]: {
+    palette: ['#FF00FF'], // fuchsia
+    titleKey: 'geo.customAgreementArea',
   },
   [ExtraEstimation.PrecalculatedRecipe]: {
     palette: ['#FF00FF'], // fuchsia
+    titleKey: 'geo.treeCoverAgreementSelected',
   },
-  [ExtraEstimation.CustomRecipe]: {
-    palette: ['#FF00FF'], // fuchsia
+  [ExtraEstimation.ReportedToFRA2020]: {
+    palette: ['#000000'], // black
+    titleKey: 'geo.reportedToFra2020',
   },
 }
 
