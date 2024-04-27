@@ -10,7 +10,9 @@ type Props = PropsWithChildren<
     actions?: boolean
     editable?: boolean
     error?: boolean
+    firstCol?: boolean
     header?: boolean
+    highlighted?: boolean
     lastCol?: boolean
     lastRow?: boolean
     noBorder?: boolean
@@ -19,13 +21,17 @@ type Props = PropsWithChildren<
 const DataCell: React.FC<Props> = (props) => {
   const { children, gridColumn, gridRow } = props
   // style props
-  const { actions, className, editable, error, header, lastCol, lastRow, noBorder } = props
+  const { actions, className, editable, error, firstCol, header, highlighted, lastCol, lastRow, noBorder } = props
   // tooltip props
   const { 'data-tooltip-content': dataTooltipContent, 'data-tooltip-id': dataTooltipId } = props
 
   return (
     <div
-      className={classNames('data-cell', { editable, error, header, lastCol, lastRow, noBorder, actions }, className)}
+      className={classNames(
+        'data-cell',
+        { actions, editable, error, firstCol, header, highlighted, lastCol, lastRow, noBorder },
+        className
+      )}
       data-tooltip-content={dataTooltipContent}
       data-tooltip-id={dataTooltipId}
       style={{ gridColumn, gridRow }}
@@ -39,7 +45,9 @@ DataCell.defaultProps = {
   actions: false,
   editable: false,
   error: false,
+  firstCol: false,
   header: false,
+  highlighted: false,
   lastCol: false,
   lastRow: false,
   noBorder: false,

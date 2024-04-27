@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store'
 import { GeoActions, useGeoStatistics } from 'client/store/ui/geo'
 import { getForestEstimationData } from 'client/store/ui/geo/actions'
 import { useCountryIso } from 'client/hooks'
-import { useLanguage } from 'client/hooks/useLanguage'
-import { builForestEstimationsDataTable } from 'client/pages/Geo/utils/forestEstimations'
+import { buildForestEstimationsDataTable } from 'client/pages/Geo/utils/forestEstimations'
 
 type Props = {
   year: number
@@ -17,27 +17,23 @@ export const useGeoStatisticsHandler = (props: Props) => {
   const { year } = props
 
   const dispatch = useAppDispatch()
-  const geoStatistics = useGeoStatistics()
+  const { forestEstimations, isLoading } = useGeoStatistics()
   const countryIso = useCountryIso()
-  const language = useLanguage()
+  const { t } = useTranslation()
 
   useEffect(() => {
     dispatch(getForestEstimationData({ countryIso, year }))
   }, [countryIso, dispatch, year])
 
   useEffect(() => {
-    if (!geoStatistics.forestEstimations) return
-    let data: Array<ForestEstimationEntry> = []
+    if (isLoading) return
 
-    const buildDataTable = async () => {
-      try {
-        data = await builForestEstimationsDataTable(geoStatistics.forestEstimations, language)
-        dispatch(GeoActions.setTabularForestEstimations(data))
-      } catch (error) {
-        dispatch(GeoActions.setEstimationsError(error.message))
-      }
+    if (Objects.isEmpty(forestEstimations)) {
+      dispatch(GeoActions.setEstimationsError(t('geo.error.statistics.dataUnavailable')))
+      return
     }
-    buildDataTable()
-  }, [dispatch, geoStatistics.forestEstimations, language])
+    const data = buildForestEstimationsDataTable(forestEstimations)
+    dispatch(GeoActions.setTabularForestEstimations(data))
+  }, [dispatch, forestEstimations, isLoading, t])
 }
 export default useGeoStatisticsHandler
