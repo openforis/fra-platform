@@ -1,4 +1,3 @@
-import './Item.scss'
 import React from 'react'
 
 import { DashboardItem, DashboardItemType, DashboardTable } from 'meta/dashboard'
