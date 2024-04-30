@@ -1,0 +1,42 @@
+@import 'src/client/style/partials';
+
+.chart-tooltip__container {
+  align-items: center;
+  background-color: $ui-black-map;
+  border-radius: 2px;
+  border: 1px solid $ui-accent-light;
+  color: $ui-bg;
+  display: grid;
+  font-weight: 600;
+  grid-column-gap: $spacing-xxs;
+  grid-row-gap: $spacing-xxxs;
+  grid-template-columns: auto 1fr;
+  padding: $spacing-xs;
+  text-transform: uppercase;
+
+  div.hr {
+    background: radial-gradient($ui-accent-light, $ui-black-map);
+    grid-column: 1/-1;
+    justify-self: center;
+    margin: $spacing-xxxs;
+    width: 75%;
+  }
+}
+
+.chart-tooltip__legend-box {
+  border-radius: 2px;
+  border: 1px solid $ui-accent-light;
+  height: 20px;
+  padding: 3px;
+  width: 20px;
+
+  div {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.chart-tooltip__value {
+  grid-column: 1/-1;
+  justify-self: center;
+}

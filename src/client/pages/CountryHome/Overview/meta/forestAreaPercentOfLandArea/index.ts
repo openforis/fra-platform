@@ -51,7 +51,7 @@ export const forestAreaPercentOfLandArea = (cycle: Cycle): DashboardPieChart => 
       },
       {
         variableName: 'otherLand',
-        color: ChartColor.gray,
+        color: ChartColor.otherLand,
         columnName: cols[cycle.name][0],
         label: { key: 'statisticalFactsheets.rowName.otherArea' },
       },
