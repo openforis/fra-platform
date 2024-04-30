@@ -1,6 +1,16 @@
+// TODO: Cleanup later
 export enum ChartColor {
   // Greens
-  green = 'rgb(0,141,156)',
+  green = '#4f7c4f',
+  forestLight = '#3e9b3e',
+  forestDark = '#305230',
+  otherLand = '#93823f',
+  private = '#796b85',
+  public = '#d7adb5',
+  // other = '',
+  unknown = '#af9ac2',
+
+  // green = 'rgb(0,141,156)',
   darkGreen = 'rgb(0,107,118)',
   lightGreen = '#53C5D0',
   greenHover = 'rgba(0,141,156, .7)',
