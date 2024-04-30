@@ -1,5 +1,5 @@
 module.exports = {
-  noData: 'لاتوجد بيانات',
+  noData: 'لا توجد بيانات متاحة',
   rowName: {
     forestArea: 'مساحة الغابة',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
