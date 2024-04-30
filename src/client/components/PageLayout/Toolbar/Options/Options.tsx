@@ -3,7 +3,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { Users } from 'meta/user'
+import { Authorizer } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
@@ -18,7 +18,7 @@ const Options: React.FC = () => {
   const user = useUser()
   const cycle = useCycle()
 
-  const withGeo = Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)
+  const withGeo = Authorizer.canViewGeo({ cycle, countryIso, user })
 
   return (
     <div className={classNames('toolbar-options', { geoRoute })}>

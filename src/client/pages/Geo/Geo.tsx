@@ -3,7 +3,7 @@ import React, { Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
-import { Users } from 'meta/user'
+import { Authorizer } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
@@ -17,9 +17,7 @@ const Geo: React.FC = () => {
   const cycle = useCycle()
   const user = useUser()
 
-  const hasRoleInCountry = Users.hasRoleInCountry({ cycle, countryIso, user })
-
-  if (!hasRoleInCountry) {
+  if (!Authorizer.canViewGeo({ cycle, countryIso, user })) {
     return <Navigate replace to={Routes.Cycle.path.relative} />
   }
 
