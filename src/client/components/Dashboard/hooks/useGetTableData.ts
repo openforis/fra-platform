@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { Table } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { Props } from 'client/components/Dashboard/props'
 
 import { useDependencies } from './useDependencies'
 
-export const useGetTableData = (table: Table) => {
+export const useGetTableData = (props: Props): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
-  const dependencies = useDependencies(table)
+  const dependencies = useDependencies(props)
 
   useEffect(() => {
     if (dependencies.size > 0) {
