@@ -13,6 +13,7 @@ type Props = {
 
 const Pie = (props: Props) => {
   const { data } = props
+
   const { t } = useTranslation()
 
   return (
@@ -22,7 +23,7 @@ const Pie = (props: Props) => {
           data={data}
           dataKey="value"
           label={({ percent, label }) => {
-            if (percent < 0.05) return null
+            if (percent < 0) return null
             return `${Labels.getLabel({ label, t })} (${(percent * 100).toFixed(0)}%)`
           }}
           labelLine={false}
@@ -47,7 +48,7 @@ const Pie = (props: Props) => {
             return [_value, _label]
           }}
         />
-        <Legend />
+        <Legend align="center" layout="horizontal" verticalAlign="top" wrapperStyle={{ paddingBottom: '16px' }} />
       </PieChart>
     </ResponsiveContainer>
   )

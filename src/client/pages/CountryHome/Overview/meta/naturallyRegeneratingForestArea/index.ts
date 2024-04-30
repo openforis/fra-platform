@@ -22,7 +22,7 @@ const cells = [
   },
   {
     variableName: 'plantedForest',
-    color: ChartColor.orange,
+    color: ChartColor.forestDark,
     unit: 'unit.haThousand',
     label: { key: 'statisticalFactsheets.rowName.plantedForest' },
   },

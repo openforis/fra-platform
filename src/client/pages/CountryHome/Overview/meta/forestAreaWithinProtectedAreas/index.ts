@@ -54,7 +54,7 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart 
         },
         {
           variableName,
-          color: ChartColor.lightGreen,
+          color: ChartColor.forestLight,
           columnName,
           label: { key: 'statisticalFactsheets.rowName.forestAreaWithinProtectedAreas' },
         },

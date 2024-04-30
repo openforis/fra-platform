@@ -1,0 +1,12 @@
+@import 'src/client/style/partials';
+
+.recharts-label,
+.recharts-cartesian-axis-tick-value {
+  font-family: $font-family-1;
+  font-size: $font-xxxs;
+}
+
+.recharts-legend-item-text {
+  font-family: $font-family-1;
+  font-size: $font-s;
+}

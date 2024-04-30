@@ -10,11 +10,11 @@ const tableId = 6
 const tableName = 'forestOwnership'
 
 const variableNames: Array<{ variableName: string; color: ChartColor; cycleName?: CycleName }> = [
-  { variableName: 'private_ownership', color: ChartColor.orange },
-  { variableName: 'public_ownership', color: ChartColor.purple },
-  { variableName: 'other', color: ChartColor.gray, cycleName: '2025' },
-  { variableName: 'unknown', color: ChartColor.darkGray, cycleName: '2025' },
-  { variableName: 'other_or_unknown', color: ChartColor.gray, cycleName: '2020' },
+  { variableName: 'private_ownership', color: ChartColor.private },
+  { variableName: 'public_ownership', color: ChartColor.public },
+  { variableName: 'other', color: ChartColor.otherLand, cycleName: '2025' },
+  { variableName: 'unknown', color: ChartColor.unknown, cycleName: '2025' },
+  { variableName: 'other_or_unknown', color: ChartColor.otherLand, cycleName: '2020' },
 ]
 
 const cols: Record<CycleName, Array<string>> = {
@@ -31,12 +31,7 @@ export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
     variableName,
     label: `statisticalFactsheets.rowName.${variableName}`,
     calculateFn: `${tableName}.${variableName}`,
-    calculationDependencies: [
-      {
-        tableName,
-        variableName,
-      },
-    ],
+    calculationDependencies: [{ tableName, variableName }],
   }))
 
   return {
