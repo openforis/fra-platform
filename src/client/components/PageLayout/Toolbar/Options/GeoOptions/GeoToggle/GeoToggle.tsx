@@ -39,7 +39,7 @@ const GeoToggle: React.FC = () => {
 
   return (
     <Link className={classNameLinkGeo} to={pathGeo}>
-      <Icon className="icon-no-margin icon-sub" name="earth" />
+      <Icon className="icon-no-margin icon-sub" name={iconName} />
     </Link>
   )
 }
