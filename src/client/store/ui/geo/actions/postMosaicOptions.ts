@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area'
 import { MosaicOptions } from 'meta/geo'
 
 const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
-  const { sources, year, maxCloudCoverage } = mosaicOptions
+  const { maxCloudCoverage, snowMasking, sources, year } = mosaicOptions
   const body = {
     recipe: {
       id: '390c7c3f-1540-0e1f-52a0-5609b46122a8',
@@ -35,7 +35,7 @@ const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
           cloudDetection: ['QA', 'CLOUD_SCORE'],
           cloudMasking: 'MODERATE',
           cloudBuffering: 0,
-          snowMasking: 'ON',
+          snowMasking: snowMasking ? 'ON' : 'OFF',
           compose: 'MEDIAN',
         },
         scenes: {},
