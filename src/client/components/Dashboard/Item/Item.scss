@@ -1,10 +1,5 @@
 @import 'src/client/style/partials';
 
 .dashboard__item {
-  align-items: center;
-  border: 1px solid $ui-border-light;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   min-height: 340px;
 }
