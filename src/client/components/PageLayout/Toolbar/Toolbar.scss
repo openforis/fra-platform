@@ -46,19 +46,3 @@
   text-transform: uppercase;
   transform: translateX(-50%);
 }
-
-@include rtl {
-  @include min-width($laptop) {
-    .toolbar__geo-beta-message {
-      left: 25%;
-      transform: translateX(-25%);
-    }
-  }
-
-  @include min-width($desktop) {
-    .toolbar__geo-beta-message {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-}
