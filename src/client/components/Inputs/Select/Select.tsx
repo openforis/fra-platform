@@ -10,7 +10,7 @@ import { useValue } from './hooks/useValue'
 import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
-  const { disabled, isClearable, isMulti, placeholder } = props
+  const { disabled, isClearable, isMulti, maxMenuHeight, placeholder } = props
 
   const classNames = useClassNames(props)
   const components = useComponents(props)
@@ -28,6 +28,7 @@ const Select: React.FC<SelectProps> = (props) => {
       isDisabled={disabled}
       isMulti={isMulti}
       isSearchable
+      maxMenuHeight={maxMenuHeight}
       menuPlacement="auto"
       menuPosition="fixed"
       onChange={onChange}
