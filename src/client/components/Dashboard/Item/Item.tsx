@@ -31,7 +31,7 @@ const Component: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="dashboard__item">
-      {!hasData || isFetching ? <NoData /> : <div />}
+      {!hasData && !isFetching && <NoData />}
       {hasData && !isFetching && <Component item={item} />}
     </div>
   )

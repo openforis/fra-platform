@@ -1,9 +1,9 @@
 import './Dashboard.scss'
 import React from 'react'
 
-import Item from 'client/components/Dashboard/Item/Item'
+import Item from 'client/components/Dashboard/Item'
 import { Props } from 'client/components/Dashboard/props'
-import Title from 'client/components/Dashboard/Title/Title'
+import Title from 'client/components/Dashboard/Title'
 
 import { useGetTableData } from './hooks/useGetTableData'
 
