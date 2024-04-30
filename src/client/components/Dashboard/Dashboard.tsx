@@ -1,34 +1,23 @@
 import './Dashboard.scss'
 import React from 'react'
 
-import { DashboardItem, DashboardItemType } from 'meta/dashboard'
+import Item from 'client/components/Dashboard/Item'
+import { Props } from 'client/components/Dashboard/props'
+import Title from 'client/components/Dashboard/Title'
 
-import BarChart from 'client/components/Dashboard/BarChart'
-import PieChart from 'client/components/Dashboard/PieChart'
-import Table from 'client/components/Dashboard/Table'
-import Title from 'client/components/Dashboard/Title/Title'
-
-type Props = {
-  items: Array<DashboardItem>
-}
-
-const Components: Record<string, React.FC<{ item: DashboardItem<unknown> }>> = {
-  [DashboardItemType.table]: Table,
-  [DashboardItemType.pieChart]: PieChart,
-  [DashboardItemType.barChart]: BarChart,
-}
+import { useGetTableData } from './hooks/useGetTableData'
 
 const Dashboard: React.FC<Props> = (props: Props) => {
   const { items } = props
+  useGetTableData(props)
 
   return (
     <div className="dashboard">
       {items.map((item) => {
-        const Component = Components[item.type]
         return (
           <div key={item.title.key} className="dashboard-item">
             <Title item={item} />
-            <Component item={item} />
+            <Item item={item} />
           </div>
         )
       })}

@@ -6,7 +6,6 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import TableComponent from 'client/pages/Section/DataTable/Table'
 
 import { useData } from '../hooks/useData'
-import { useGetTableData } from '../hooks/useGetTableData'
 
 type Props = {
   item: DashboardTable
@@ -17,11 +16,8 @@ const Table: React.FC<Props> = (props: Props) => {
   const {
     item: { table },
   } = props
-
   const data = useData(table)
   const disabled = true
-
-  useGetTableData(table)
 
   return (
     <TableComponent

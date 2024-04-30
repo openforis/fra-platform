@@ -4,8 +4,7 @@ import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
 import Pie from 'client/components/Chart/Pie'
 
-import { useGetTableData } from '../hooks/useGetTableData'
-import { usePieChartData } from '../hooks/usePieChartData'
+import { usePieChartData } from './hooks/usePieChartData'
 
 type Props = {
   item: DashboardPieChart
@@ -17,7 +16,6 @@ const PieChart: React.FC<Props> = (props: Props) => {
   } = props
 
   const data = usePieChartData(table, chart)
-  useGetTableData(table)
 
   return <Pie data={data} />
 }

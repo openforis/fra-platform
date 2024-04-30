@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
@@ -6,8 +8,7 @@ import { BarChart, BarChartData } from 'meta/chart'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-
-import { useData } from './useData'
+import { useData } from 'client/components/Dashboard/hooks/useData'
 
 export const useBarChartData = (table: Table, chart: BarChart): BarChartData => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
@@ -22,15 +23,17 @@ export const useBarChartData = (table: Table, chart: BarChart): BarChartData => 
     data,
   })
 
-  if (Objects.isEmpty(tableData)) return []
+  return useMemo<BarChartData>(() => {
+    if (Objects.isEmpty(tableData)) return []
 
-  return chart.columns.map((columnName) => {
-    return chart.cells.reduce((acc, cell) => {
-      return {
-        ...acc,
-        columnName,
-        [cell.variableName]: parseFloat(tableData[columnName][cell.variableName].raw),
-      }
-    }, {})
-  })
+    return chart.columns.map((columnName) => {
+      return chart.cells.reduce((acc, cell) => {
+        return {
+          ...acc,
+          columnName,
+          [cell.variableName]: parseFloat(tableData[columnName][cell.variableName].raw),
+        }
+      }, {})
+    })
+  }, [chart.columns, chart.cells, tableData])
 }

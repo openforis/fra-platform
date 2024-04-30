@@ -4,8 +4,7 @@ import { DashboardBarChart } from 'meta/dashboard/dashboard'
 
 import Bar from 'client/components/Chart/Bar'
 
-import { useBarChartData } from '../hooks/useBarChartData'
-import { useGetTableData } from '../hooks/useGetTableData'
+import { useBarChartData } from './hooks/useBarChartData'
 
 type Props = {
   item: DashboardBarChart
@@ -17,7 +16,6 @@ const BarChart: React.FC<Props> = (props: Props) => {
   } = props
 
   const data = useBarChartData(table, chart)
-  useGetTableData(table)
 
   return <Bar chart={chart} data={data} />
 }

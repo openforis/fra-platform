@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
@@ -6,8 +8,7 @@ import { PieChart, PieChartData } from 'meta/chart'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-
-import { useData } from './useData'
+import { useData } from 'client/components/Dashboard/hooks/useData'
 
 export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartData> => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
@@ -22,12 +23,15 @@ export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartDa
     data,
   })
 
-  if (Objects.isEmpty(tableData)) return []
+  return useMemo<Array<PieChartData>>(() => {
+    if (Objects.isEmpty(tableData)) return []
 
-  return chart.cells.map((cell) => {
-    return {
-      ...cell,
-      value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
-    }
-  })
+    if (Objects.isEmpty(tableData)) return []
+    return chart.cells.map((cell) => {
+      return {
+        ...cell,
+        value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
+      }
+    })
+  }, [chart.cells, tableData])
 }

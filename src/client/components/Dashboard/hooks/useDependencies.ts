@@ -1,8 +1,12 @@
 import { useMemo } from 'react'
 
-import { Table, TableName, VariableCache } from 'meta/assessment'
+import { TableName, VariableCache } from 'meta/assessment'
 
-export const useDependencies = (table: Table): Set<TableName> => {
+import { Props } from 'client/components/Dashboard/props'
+
+export const useDependencies = (props: Props): Set<TableName> => {
+  const { items } = props
+
   return useMemo<Set<TableName>>(() => {
     const tableNames: Set<TableName> = new Set<TableName>()
 
@@ -12,12 +16,15 @@ export const useDependencies = (table: Table): Set<TableName> => {
       })
     }
 
-    // throw error if calculationDependencies is undefined
-    if (!table.calculationDependencies) {
-      throw new Error('calculationDependencies is not defined')
-    }
+    items.forEach(({ table }) => {
+      // throw error if calculationDependencies is undefined
+      if (!table.calculationDependencies) {
+        throw new Error(`calculationDependencies is not defined for table ${table.props.name}`)
+      }
 
-    addDependencies(Object.values(table.calculationDependencies))
+      addDependencies(Object.values(table.calculationDependencies))
+    })
+
     return tableNames
-  }, [table.calculationDependencies])
+  }, [items])
 }
