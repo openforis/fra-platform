@@ -50,6 +50,12 @@ const MosaicControl: React.FC = () => {
         value={uiMosaicOptions.maxCloudCoverage}
       />
 
+      <ButtonCheckbox
+        checked={uiMosaicOptions.snowMasking}
+        label={t('geo.snowMasking')}
+        onClick={() => dispatch(GeoActions.setMosaicSnowMasking(!uiMosaicOptions.snowMasking))}
+      />
+
       <Button
         className="geo-options-grid__one-col centered"
         disabled={!optionsHaveChanged}
