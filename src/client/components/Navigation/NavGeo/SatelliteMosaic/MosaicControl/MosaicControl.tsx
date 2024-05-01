@@ -53,6 +53,7 @@ const MosaicControl: React.FC = () => {
 
       <ButtonCheckbox
         checked={uiMosaicOptions.snowMasking}
+        className="geo-options-grid__one-col"
         label={t('geo.snowMasking')}
         onClick={() => dispatch(GeoActions.setMosaicSnowMasking(!uiMosaicOptions.snowMasking))}
       />
