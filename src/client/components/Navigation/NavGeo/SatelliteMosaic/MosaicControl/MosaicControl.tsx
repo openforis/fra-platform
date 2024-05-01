@@ -38,6 +38,7 @@ const MosaicControl: React.FC = () => {
       <OptionLabel>{t('common.year')}</OptionLabel>
       <SelectPrimary
         isClearable={false}
+        maxMenuHeight={126} // 4 options with 28px height each, plus half of another option
         onChange={(value) => dispatch(GeoActions.setMosaicYear(Number(value)))}
         options={yearOptions}
         value={uiMosaicOptions.year.toString()}
@@ -48,6 +49,13 @@ const MosaicControl: React.FC = () => {
         onChange={(e) => dispatch(GeoActions.setMosaicMaxCloudCoverage(Number(e.target.value)))}
         unit="%"
         value={uiMosaicOptions.maxCloudCoverage}
+      />
+
+      <ButtonCheckbox
+        checked={uiMosaicOptions.snowMasking}
+        className="geo-options-grid__one-col"
+        label={t('geo.snowMasking')}
+        onClick={() => dispatch(GeoActions.setMosaicSnowMasking(!uiMosaicOptions.snowMasking))}
       />
 
       <Button

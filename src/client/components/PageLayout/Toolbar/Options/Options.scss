@@ -24,3 +24,10 @@
   gap: $spacing-xxs;
   height: 100%;
 }
+
+@include rtl {
+  .toolbar-options {
+    margin-left: unset;
+    margin-right: auto;
+  }
+}

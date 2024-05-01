@@ -42,9 +42,10 @@ import {
 import { getAgreementLayerCacheKey } from './utils'
 
 const initialMosaicOptions: MosaicOptions = {
+  maxCloudCoverage: 30,
+  snowMasking: false,
   sources: ['landsat'],
   year: 2020,
-  maxCloudCoverage: 30,
 }
 
 const initialState: GeoState = {
@@ -218,6 +219,9 @@ export const geoSlice = createSlice({
     },
     setMosaicMaxCloudCoverage: (state, { payload }: PayloadAction<number>) => {
       state.mosaicOptions.ui.maxCloudCoverage = payload
+    },
+    setMosaicSnowMasking: (state, { payload }: PayloadAction<boolean>) => {
+      state.mosaicOptions.ui.snowMasking = payload
     },
     updateSelectedPanel: (state, { payload }) => {
       state.selectedPanel = payload

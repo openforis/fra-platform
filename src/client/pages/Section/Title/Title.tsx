@@ -17,7 +17,7 @@ type Hint = {
   labelKey: string
 }
 
-const hints: Array<Hint> = [
+const HINTS: Array<Hint> = [
   { document: 'tad', key: 'definitions', labelKey: 'definition.definitionLabel' },
   { document: 'faq', key: 'faqs', labelKey: 'definition.faqLabel' },
   { document: 'rn', key: 'notes', labelKey: 'definition.seeReportingNotes' },
@@ -25,34 +25,35 @@ const hints: Array<Hint> = [
 
 const Title: React.FC<Props> = (props) => {
   const { subSection } = props
+  const { hints: sectionHints, name: sectionName } = subSection.props
 
   const { i18n, t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
   const cycle = useCycle()
 
-  const sectionName = subSection.props.name
   const anchor = SubSections.getAnchor({ cycle, subSection })
+  const hints = sectionHints?.[cycle.uuid] ?? {}
   const Component = Components[assessmentName]?.[sectionName] ?? TitleDefault
 
   return (
     <div className="section__title">
       {React.createElement(Component, { subSection })}
 
-      {Object.keys(subSection.props?.hints?.[cycle.uuid]).length && (
+      {Object.keys(hints).length > 0 && (
         <div>
-          {hints.map((hint) => {
+          {HINTS.map((hint) => {
             const { document, key, labelKey } = hint
-            const show = Boolean(subSection.props?.hints?.[cycle.uuid]?.[key])
+            const show = Boolean(hints?.[key])
 
             if (show) {
               return (
                 <DefinitionLink
+                  key={key}
                   anchor={anchor}
                   assessmentName={assessmentName}
                   className="title-hint__link"
                   cycleName={cycleName}
                   document={document}
-                  key={key}
                   lang={i18n.resolvedLanguage}
                   title={t(labelKey)}
                 />

@@ -207,12 +207,16 @@ const canViewHistory = (props: {
   return Users.isReviewer(user, country.countryIso, cycle) && canEditCycleData(props)
 }
 
+export const canViewGeo = (props: { cycle: Cycle; countryIso: AreaCode; user: User }): boolean =>
+  Users.hasRoleInCountry(props)
+
 export const Authorizer = {
   canEditCountryProps,
   canEditCycleData,
   canEditData,
   canEditRepositoryItem,
   canView,
+  canViewGeo,
   canViewHistory,
   canViewRepositoryItem,
   canViewUsers,
