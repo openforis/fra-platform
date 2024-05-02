@@ -16,7 +16,8 @@ export const createOrReplaceTableDataView = async (props: Props, client: BasePro
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const tableName = table.props.name
 
-  return client.query(`
+  return client.query(
+    `
     create or replace view ${schemaCycle}.${tableName} as
     (
       select n.country_iso,
@@ -36,11 +37,14 @@ export const createOrReplaceTableDataView = async (props: Props, client: BasePro
              n.value
       from ${schemaCycle}.node_ext n
                left join ${schemaAssessment}.row r on r.props ->> 'variableName' = n.props ->> 'variableName'
-               left join ${schemaAssessment}.col c on c.props ->> 'colName' = n.props ->> 'colName'
+               left join ${schemaAssessment}.col c on c.row_id = r.id and c.props ->> 'colName' = n.props ->> 'colName'
                left join ${schemaAssessment}."table" t on t.props ->> 'name' = n.props ->> 'tableName'
       where t.props ->> 'name' = '${tableName}'
             and r.props ->> 'type' in ('data', 'calculated')
-      order by 1, 2, 3
+            and c.props ->> 'colName' is not null
+            and c.props -> 'cycles' ? $1
     )
-  `)
+  `,
+    [cycle.uuid]
+  )
 }
