@@ -40,7 +40,9 @@ export const createOrReplaceTableDataView = async (props: Props, client: BasePro
                left join ${schemaAssessment}.col c on c.row_id = r.id and c.props ->> 'colName' = n.props ->> 'colName'
                left join ${schemaAssessment}."table" t on t.props ->> 'name' = n.props ->> 'tableName'
       where t.props ->> 'name' = '${tableName}'
+            and t.props ->> 'cycles' ? $1
             and r.props ->> 'type' in ('data', 'calculated')
+            and r.props -> 'cycles' ? $1
             and c.props ->> 'colName' is not null
             and c.props -> 'cycles' ? $1
     )
