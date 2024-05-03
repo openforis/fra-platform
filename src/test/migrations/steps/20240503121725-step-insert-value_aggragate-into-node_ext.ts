@@ -18,6 +18,7 @@ export default async (client: BaseProtocol) => {
       const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
       const q = `
+          insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
           select va.country_iso
                , 'node' as type
                , jsonb_build_object(
