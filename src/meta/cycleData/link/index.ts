@@ -1,2 +1,2 @@
-export type { Link, LinkLocation, LinkProps } from './link'
+export type { Link, LinkLocation, LinkProps, LinkVisit } from './link'
 export { LinkValidationStatusCode } from './link'

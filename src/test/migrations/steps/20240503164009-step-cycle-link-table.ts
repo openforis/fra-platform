@@ -21,7 +21,7 @@ export default async () => {
           link        varchar(2048) not null,
           location    jsonb         not null,
           props       jsonb         not null,
-          target      varchar(8)    not null,
+          visits      jsonb         not null,
           primary key (id),
           unique (uuid)
       );
