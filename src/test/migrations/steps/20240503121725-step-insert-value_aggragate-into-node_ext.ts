@@ -36,7 +36,7 @@ export default async (client: BaseProtocol) => {
           where t.props ->> 'name' is not null ${where}
             and not exists (
               select 1
-                from assessment_fra_2025.node_ext ne
+                from ${schemaCycle}.node_ext ne
                   where ne.props ->> 'variableName' = va.variable_name
                 and ne.country_iso = va.country_iso
                 and ne.props ->> 'colName' = va.col_name
