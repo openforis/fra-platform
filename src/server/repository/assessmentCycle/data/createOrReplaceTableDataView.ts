@@ -58,14 +58,15 @@ export const createOrReplaceTableDataView = async (props: Props, client: BasePro
            region_values as (select cr.region_code as country_iso,
                                     cv.variable_name,
                                     cv.col_name,
-                                    jsonb_build_object('raw', coalesce(sum((cv.value ->> 'raw')::numeric), 0)) as value
+                                    jsonb_build_object('raw', coalesce(sum((cv.value ->> 'raw')::numeric), 0), 'faoEstimate', true)
+                                    as value
                              from ${schemaCycle}.country_region cr
                                       left join country_values cv using (country_iso)
                              group by cr.region_code, cv.variable_name, cv.col_name)
-      select country_iso, variable_name, col_name, value
+      select country_iso::varchar(3), variable_name, col_name, value
       from region_values rv
       union all
-      select country_iso, variable_name, col_name, value
+      select country_iso::varchar(3), variable_name, col_name, value
       from country_values
       order by country_iso, variable_name, col_name
     )
