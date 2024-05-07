@@ -29,7 +29,7 @@ export default async (client: BaseProtocol) => {
                   'tableName', t.props ->> 'name',
                   'variableName', va.variable_name
                  )      as props
-               , va.value
+               , va.value || case when va.variable_name = 'totalLandArea' then '{}'::jsonb else '{"faoEstimate": true}'::jsonb end
           from ${schemaCycle}.value_aggregate va
                    left join ${schemaName}.row on va.variable_name = row.props ->> 'variableName'
               left join ${schemaName}.table t on row.table_id = t.id
