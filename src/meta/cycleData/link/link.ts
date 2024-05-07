@@ -1,10 +1,6 @@
 import { CountryIso } from 'meta/area'
 
-export type LinkLocation = {
-  colName: string
-  id: number
-  tableName: string
-} & Record<string, string | number>
+export type LinkLocation = Record<string, string | number>
 
 export enum LinkValidationStatusCode {
   empty = 'empty',
