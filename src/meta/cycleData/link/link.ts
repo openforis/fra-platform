@@ -24,7 +24,7 @@ export type Link = {
   readonly uuid: string
   countryIso: CountryIso
   link: string
-  location: LinkLocation
+  locations: Array<LinkLocation>
   props: LinkProps
   visits: Array<LinkVisit>
 }
