@@ -1,3 +1,4 @@
+import { Data } from 'server/controller/cycleData/data'
 import { History } from 'server/controller/cycleData/history'
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { Report } from 'server/controller/cycleData/report'
@@ -81,6 +82,9 @@ export const CycleDataController = {
   // ====== node ext
   // -- contact
   Contacts,
+
+  // -- Data
+  Data,
 
   // ====== report
   Report,
