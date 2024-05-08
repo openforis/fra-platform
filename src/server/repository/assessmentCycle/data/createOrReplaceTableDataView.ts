@@ -61,13 +61,13 @@ export const createOrReplaceTableDataView = async (props: Props, client: BasePro
                                     jsonb_build_object('raw', text(coalesce(sum((cv.value ->> 'raw')::numeric), 0)), 'faoEstimate', true)
                                     as value
                              from ${schemaCycle}.country_region cr
-                                      left join country_values cv using (country_iso)
+                                      left join country_node_exts cv using (country_iso)
                              group by cr.region_code, cv.variable_name, cv.col_name),
            global_values as (select 'WO' as country_iso,
                                     variable_name, col_name,
                                     jsonb_build_object('raw', text(coalesce(sum((value ->> 'raw')::numeric), 0)), 'faoEstimate', true)
                                     as value
-                      from country_values
+                      from country_node_exts
                       group by variable_name, col_name)
       select country_iso::varchar(3), variable_name, col_name, value
       from global_values gv
