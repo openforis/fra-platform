@@ -3,10 +3,10 @@ import { Sanitizer } from 'client/utils/sanitizer'
 
 const parseValue = (raw: any, type: any) => {
   if (type === 'integer') {
-    return Sanitizer.acceptNextInteger(raw, null)
+    return Sanitizer.acceptNextInteger({ value: raw, valuePrev: null })
   }
   if (type === 'decimal') {
-    return Sanitizer.acceptNextDecimal(raw, null)
+    return Sanitizer.acceptNextDecimal({ value: raw, valuePrev: null })
   }
   return raw
 }

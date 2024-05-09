@@ -6,7 +6,12 @@ import { acceptNextSelectOption } from './select'
 
 const sanitizerFnByType: Record<
   string,
-  (value: string | number, valuePrev: string | number, options?: Array<ColSelectOption>) => string
+  (props: {
+    value: string | number
+    valuePrev: string | number
+    precision?: number
+    options?: Array<ColSelectOption>
+  }) => string
 > = {
   [ColType.decimal]: acceptNextDecimal,
   [ColType.integer]: acceptNextInteger,
@@ -36,7 +41,7 @@ export const sanitize = (props: {
   const { type, value, valuePrev, options } = props
   const sanitizerFn = sanitizerFnByType[type]
   if (sanitizerFn) {
-    return sanitizerFn(value, valuePrev, options)
+    return sanitizerFn({ value, valuePrev, options })
   }
   return value
 }

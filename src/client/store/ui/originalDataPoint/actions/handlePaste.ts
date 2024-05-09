@@ -15,7 +15,7 @@ const handlePaste = (
   colIndex: number
 ): { updatedOdp: OriginalDataPoint; firstPastedCellData: string } => {
   const sanitizerFor = (type: string) => {
-    let sanitizer = (newValue: string, _oldValue: string) => newValue
+    let sanitizer = (props: { value: string; valuePrev: string }) => props.value
     if (type === 'decimal') sanitizer = Sanitizer.acceptNextDecimal
     if (type === 'integer') sanitizer = Sanitizer.acceptNextInteger
     return sanitizer
@@ -23,7 +23,7 @@ const handlePaste = (
 
   const updateOdp = (odp: OriginalDataPoint, rowNo: number, colNo: number, rawValue: string): OriginalDataPoint => {
     if (Objects.isNil(columns[colNo])) return odp
-    const value = sanitizerFor(columns[colNo].type)(rawValue, null)
+    const value = sanitizerFor(columns[colNo].type)({ value: rawValue, valuePrev: null })
     const fieldName = columns[colNo].name as keyof ODPNationalClass
     return ODPs.updateNationalClass({ odp, index: rowNo, field: fieldName, value })
   }

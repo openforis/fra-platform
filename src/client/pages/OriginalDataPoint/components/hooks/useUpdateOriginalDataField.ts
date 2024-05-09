@@ -31,7 +31,7 @@ export const useUpdateOriginalDataField = (): ((props: Props) => void) => {
             odp: originalDataPoint,
             index,
             field,
-            value: Sanitizer.acceptNextDecimal(value, prevValue),
+            value: Sanitizer.acceptNextDecimal({ value, valuePrev: prevValue }),
           }),
           assessmentName,
           cycleName,

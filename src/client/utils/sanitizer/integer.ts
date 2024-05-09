@@ -9,11 +9,12 @@ export const acceptableAsInteger = (newValue: string) => {
   return !Number.isNaN(number) && newValueTrimmed.indexOf('.') === -1 && Number.isFinite(number)
 }
 
-export const acceptNextInteger = (newValue: string, currentValue: string) => {
-  if (Objects.isEmpty(newValue)) return null
-  const newValueTrimmed = newValue.trim()
+export const acceptNextInteger = (props: { value: string; valuePrev: string }) => {
+  const { value, valuePrev } = props
+  if (Objects.isEmpty(value)) return null
+  const newValueTrimmed = value.trim()
   if (newValueTrimmed === '') return null
-  if (!acceptableAsInteger(newValue)) return currentValue
-  if (newValueTrimmed.length > 20) return currentValue
+  if (!acceptableAsInteger(value)) return valuePrev
+  if (newValueTrimmed.length > 20) return valuePrev
   return Numbers.toFixed(Math.round(Number(newValueTrimmed)), 0)
 }

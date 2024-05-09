@@ -11,11 +11,12 @@ export const acceptableAsDecimal = (newValue: string) => {
   return !Number.isNaN(number) && Number.isFinite(number)
 }
 
-export const acceptNextDecimal = (newValue: string, currentValue: string) => {
-  if (Objects.isEmpty(newValue)) return null
-  const newValueTrimmed = newValue.trim()
+export const acceptNextDecimal = (props: { precision?: number; value: string; valuePrev: string }) => {
+  const { value, valuePrev, precision = 2 } = props
+  if (Objects.isEmpty(value)) return null
+  const newValueTrimmed = value.trim()
   if (newValueTrimmed === '') return null
-  if (!acceptableAsDecimal(newValue)) return currentValue
-  if (newValueTrimmed.length > 20) return currentValue
-  return Numbers.toFixed(Number(newValueTrimmed))
+  if (!acceptableAsDecimal(value)) return valuePrev
+  if (newValueTrimmed.length > 20) return valuePrev
+  return Numbers.toFixed(Number(newValueTrimmed), precision)
 }
