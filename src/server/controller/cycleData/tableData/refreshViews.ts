@@ -9,7 +9,7 @@ type Props = {
   cycle: Cycle
 }
 
-export const refreshTableDataViews = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+export const refreshViews = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle } = props
   const tables = await TableRepository.getMany({ assessment, cycle })
 

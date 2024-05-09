@@ -1,8 +1,8 @@
-import { Data } from 'server/controller/cycleData/data'
 import { History } from 'server/controller/cycleData/history'
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { Report } from 'server/controller/cycleData/report'
 import { Repository } from 'server/controller/cycleData/repository'
+import { TableData } from 'server/controller/cycleData/tableData'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
@@ -84,7 +84,7 @@ export const CycleDataController = {
   Contacts,
 
   // -- Data
-  Data,
+  TableData,
 
   // ====== report
   Report,
