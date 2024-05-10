@@ -3,6 +3,7 @@ import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { RegionRepository } from 'server/repository/assessmentCycle/region'
 import { DataRedisRepository } from 'server/repository/redis/data'
 import { Logger } from 'server/utils/logger'
 
@@ -33,7 +34,8 @@ export const generateDataCache = async (props: Props, client: BaseProtocol = DB)
   }
 
   const countries = await CountryRepository.getMany({ assessment, cycle }, client)
-  const countryISOs = countries.map((c) => c.countryIso)
+  const regionCodes = await RegionRepository.getMany({ assessment, cycle }, client)
+  const countryISOs = [...countries.map((c) => c.countryIso), ...regionCodes]
 
   const data = await DataRedisRepository.getCountriesData({ assessment, cycle, countryISOs, tables, force }, client)
   Logger.info(`${assessmentName}-${cycleName}: "${Object.keys(data).length} data" generated`)
