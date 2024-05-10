@@ -2,18 +2,12 @@ import { Objects } from 'utils/objects'
 
 import { ColSelectOption } from 'meta/assessment'
 
-export const acceptNextSelectOption = (props: {
-  options?: Array<ColSelectOption>
-  value: string
-  valuePrev: string
-}) => {
-  const { options, value, valuePrev } = props
-
-  const valid = Objects.isNil(value) || Boolean(options.find((option) => option.name === value))
+export const acceptNextSelectOption = (newValue: string, currentValue: string, options?: Array<ColSelectOption>) => {
+  const valid = Objects.isNil(newValue) || Boolean(options.find((option) => option.name === newValue))
 
   if (valid) {
-    return value
+    return newValue
   }
 
-  return valuePrev
+  return currentValue
 }
