@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { Assessment, Cycle, TableName, TableNames } from 'meta/assessment'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -9,7 +9,7 @@ import { RedisData } from 'server/repository/redis/redisData'
 type PropsCache = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
+  countryIso: AreaCode
   tableName: TableName
   force?: boolean
 }
@@ -22,7 +22,14 @@ export const cacheCountryTable = async (props: PropsCache, client: BaseProtocol 
 
   const exist = await redis.hexists(key, tableName)
   if (!exist || force) {
-    const propsData = { assessment, cycle, countryISOs: [countryIso], tables: { [tableName]: {} } }
+    const faoEstimates = true
+    const propsData = {
+      assessment,
+      cycle,
+      countryISOs: [countryIso],
+      tables: { [tableName]: {} },
+      faoEstimates,
+    }
     const data =
       tableName === TableNames.originalDataPointValue
         ? await DataRepository.getOriginalDataPointData(propsData, client)

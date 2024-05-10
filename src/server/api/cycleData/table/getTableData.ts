@@ -13,7 +13,7 @@ type GetTableDataRequest = CycleDataRequest<{
   variables: Array<string>
   columns: Array<string>
   mergeOdp: string
-  aggregate: string
+  faoEstimates: string
 }>
 
 export const getTableData = async (req: GetTableDataRequest, res: Response) => {
@@ -26,11 +26,11 @@ export const getTableData = async (req: GetTableDataRequest, res: Response) => {
       variables,
       columns,
       mergeOdp: mergeOdpReq,
-      aggregate: aggregateReq,
+      faoEstimates: faoEstimatesReq,
     } = req.query
     // if mergeOdp is not passed, then by default result data includes odp for table 1a and 1b if available
     const mergeOdp = !mergeOdpReq || mergeOdpReq === 'true'
-    const aggregate = aggregateReq === 'true'
+    const faoEstimates = faoEstimatesReq === 'true'
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
@@ -42,7 +42,7 @@ export const getTableData = async (req: GetTableDataRequest, res: Response) => {
       variables,
       columns,
       mergeOdp,
-      aggregate,
+      faoEstimates,
     })
 
     Requests.send(res, table)

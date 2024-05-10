@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 // ===== Keys
@@ -32,7 +32,7 @@ type PropsCycle = PropsAssessment & {
   cycle: Cycle
 }
 type PropsCountry = PropsCycle & {
-  countryIso: CountryIso
+  countryIso: AreaCode
 }
 
 export const getKeyAssessment = (props: PropsAssessment): string => {

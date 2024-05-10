@@ -6,7 +6,6 @@ import { RecordAssessmentData, RecordCountryData, TablesCondition } from 'meta/d
 
 import { BaseProtocol, DB } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
-import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
 type Props = {
@@ -17,7 +16,7 @@ type Props = {
   variables?: Array<string>
   columns?: Array<string>
   mergeOdp?: boolean
-  aggregate?: boolean
+  faoEstimates?: boolean
   /**
    * @deprecated
    * Merge dependencies to tables condition
@@ -61,23 +60,23 @@ const _mergeODPTable = (props: {
 }
 
 export const getTableData = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
-  const { tableNames, aggregate, assessment, cycle, countryISOs, variables, columns, mergeOdp } = props
+  const { tableNames, assessment, cycle, countryISOs, variables, columns, mergeOdp, faoEstimates } = props
 
   const tables = _getTablesCondition({ tableNames, columns, variables, mergeOdp })
 
-  // TODO: Cache aggregated Table data
-  if (aggregate) {
-    return {
-      [assessment.props.name]: {
-        [cycle.name]: await DataRepository.getAggregatedTableData(
-          { assessment, cycle, countryISOs, variables, columns },
-          client
-        ),
-      },
-    }
-  }
+  // // TODO: Cache aggregated Table data
+  // if (aggregate) {
+  //   return {
+  //     [assessment.props.name]: {
+  //       [cycle.name]: await DataRepository.getAggregatedTableData(
+  //         { assessment, cycle, countryISOs, variables, columns },
+  //         client
+  //       ),
+  //     },
+  //   }
+  // }
 
-  const tableData = await DataRedisRepository.getCountriesData({ assessment, cycle, tables, countryISOs })
+  const tableData = await DataRedisRepository.getCountriesData({ assessment, cycle, tables, countryISOs, faoEstimates })
 
   if (mergeOdp) {
     // TODO: add country cache and add AreaRedisRepository.getCountriesMap()

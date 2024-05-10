@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
@@ -8,7 +8,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
-  countryISOs: Array<CountryIso>
+  countryISOs: Array<AreaCode>
   cycle: Cycle
 }
 

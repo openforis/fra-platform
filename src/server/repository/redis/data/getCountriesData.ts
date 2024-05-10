@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { RecordColumnData, RecordCountryData, TablesCondition } from 'meta/data'
 
@@ -12,13 +12,14 @@ import { RedisData } from 'server/repository/redis/redisData'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryISOs: Array<CountryIso>
+  countryISOs: Array<AreaCode>
   tables: TablesCondition
   force?: boolean
+  faoEstimates?: boolean
 }
 
 export const getCountriesData = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, cycle, countryISOs, tables, force } = props
+  const { assessment, cycle, countryISOs, tables, force, faoEstimates } = props
 
   const redis = RedisData.getInstance()
   const data: RecordCountryData = {}
@@ -36,12 +37,24 @@ export const getCountriesData = async (props: Props, client: BaseProtocol = DB):
           if (tableCondition.columns) {
             tableData = Objects.pick(tableData, tableCondition.columns)
           }
+
           if (tableCondition.variables) {
             Object.keys(tableData).forEach((column) => {
               Objects.setInPath({
                 obj: tableData,
                 path: [column],
                 value: Objects.pick(tableData[column], tableCondition.variables),
+              })
+            })
+          }
+
+          // remove all nodeValues with faoEstimate
+          if (!faoEstimates) {
+            Object.keys(tableData).forEach((column) => {
+              Objects.setInPath({
+                obj: tableData,
+                path: [column],
+                value: Objects.pickBy(tableData[column], (value) => !value.faoEstimate),
               })
             })
           }

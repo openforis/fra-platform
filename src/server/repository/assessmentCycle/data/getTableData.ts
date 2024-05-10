@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { Assessment, Cycle, VariableCache } from 'meta/assessment'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
@@ -6,7 +6,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
-  countryISOs: Array<CountryIso>
+  countryISOs: Array<AreaCode>
   cycle: Cycle
   /**
    * Pass undefined variables or columns to fetch all
@@ -18,6 +18,7 @@ type Props = {
    * Merge dependencies to tables condition
    */
   dependencies?: Array<VariableCache>
+  faoEstimates?: boolean
 }
 
 const asQueryStringArray = (arr: any[]) => `(${arr.map((v) => `'${v}'`).join(',')})`
@@ -43,7 +44,7 @@ const mergeDependencies = (props: Props): TablesCondition => {
 }
 
 export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, cycle, countryISOs } = props
+  const { assessment, cycle, countryISOs, faoEstimates } = props
   const tables = mergeDependencies(props)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -69,8 +70,13 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<R
                   : ''
               }
               and e.col_name is not null
-              -- exclude fao estimated values
-              and e.value ->> 'faoEstimate' is null
+              ${
+                faoEstimates
+                  ? ''
+                  : `
+               -- exclude fao estimated values
+              and e.value ->> 'faoEstimate' is null`
+              }
           group by 1, 2, 3
             )`
           }).join(`
