@@ -6,7 +6,7 @@ import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
 import { Sanitizer } from 'client/utils/sanitizer'
 
 const handlePaste = (
-  columns: Array<{ name: string; type: string }>,
+  columns: Array<{ name: string; type: string; precision?: number }>,
   allowedClass: (nationalClass: ODPNationalClass) => boolean,
   odp: OriginalDataPoint,
   allowGrow: boolean,
@@ -15,7 +15,7 @@ const handlePaste = (
   colIndex: number
 ): { updatedOdp: OriginalDataPoint; firstPastedCellData: string } => {
   const sanitizerFor = (type: string) => {
-    let sanitizer = (newValue: string, _oldValue: string) => newValue
+    let sanitizer = (newValue: string, _oldValue: string, _precision?: number) => newValue
     if (type === 'decimal') sanitizer = Sanitizer.acceptNextDecimal
     if (type === 'integer') sanitizer = Sanitizer.acceptNextInteger
     return sanitizer
@@ -23,7 +23,8 @@ const handlePaste = (
 
   const updateOdp = (odp: OriginalDataPoint, rowNo: number, colNo: number, rawValue: string): OriginalDataPoint => {
     if (Objects.isNil(columns[colNo])) return odp
-    const value = sanitizerFor(columns[colNo].type)(rawValue, null)
+    const { precision } = columns[colNo]
+    const value = sanitizerFor(columns[colNo].type)(rawValue, null, precision)
     const fieldName = columns[colNo].name as keyof ODPNationalClass
     return ODPs.updateNationalClass({ odp, index: rowNo, field: fieldName, value })
   }

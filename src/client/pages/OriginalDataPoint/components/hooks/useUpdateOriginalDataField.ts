@@ -10,8 +10,9 @@ import { Sanitizer } from 'client/utils/sanitizer'
 
 type Props = {
   field: keyof ODPNationalClass
-  value: string
   index: number
+  precision?: number
+  value: string
 }
 
 export const useUpdateOriginalDataField = (): ((props: Props) => void) => {
@@ -21,7 +22,7 @@ export const useUpdateOriginalDataField = (): ((props: Props) => void) => {
 
   return useCallback(
     (props: Props) => {
-      const { field, value, index } = props
+      const { field, index, precision, value } = props
       const nationalClass = originalDataPoint.nationalClasses[index]
       const prevValue = nationalClass[field] as string
 
@@ -31,7 +32,7 @@ export const useUpdateOriginalDataField = (): ((props: Props) => void) => {
             odp: originalDataPoint,
             index,
             field,
-            value: Sanitizer.acceptNextDecimal(value, prevValue),
+            value: Sanitizer.acceptNextDecimal(value, prevValue, precision),
           }),
           assessmentName,
           cycleName,
