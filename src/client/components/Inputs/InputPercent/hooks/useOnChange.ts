@@ -7,8 +7,6 @@ import {
   useState,
 } from 'react'
 
-import * as R from 'ramda'
-
 import { Sanitizer } from 'client/utils/sanitizer'
 
 type OnChange = ChangeEventHandler<HTMLInputElement>
@@ -36,7 +34,7 @@ export const useOnChange = (props: Props): OnChange => {
 
       if (!Sanitizer.acceptableAsDecimal(value)) return
       setLocalValue(value)
-      if (R.pipe(R.defaultTo(''), R.endsWith('.'))(value)) return
+      if ((value ?? '').endsWith('.')) return
 
       if (onChange) {
         onChange(value)
