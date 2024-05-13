@@ -3,6 +3,7 @@ import { TableRepository } from 'server/repository/assessment/table'
 import { TableSectionRepository } from 'server/repository/assessment/tableSection'
 import { SectionRedisRepository } from 'server/repository/redis/section'
 
+import { addColumn } from './addColumn'
 import { createSection } from './createSection'
 import { createSubSection } from './createSubSection'
 import { createTable } from './createTable'
@@ -36,4 +37,6 @@ export const MetadataController = {
   createTable,
   updateTable,
   removeTable,
+
+  addColumn,
 }
