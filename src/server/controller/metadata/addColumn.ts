@@ -15,7 +15,7 @@ export const addColumn = async (props: Props, client: BaseProtocol = DB): Promis
   const { assessment, cycles, table, colProps } = props
 
   // split rows
-  const rows = table.rows?.reduce<[Array<Row>, Array<Row>]>(
+  const rows = table.rows.reduce<[Array<Row>, Array<Row>]>(
     (acc, row) => {
       if (row.cols?.length === 2) acc[0].push(row) // header
       if (row.cols?.length > 2) acc[1].push(row) // data
