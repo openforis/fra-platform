@@ -33,7 +33,7 @@ const DataCell: React.FC<Props> = (props) => {
         className
       )}
       data-tooltip-content={dataTooltipContent}
-      data-tooltip-id={dataTooltipId}
+      data-tooltip-id={dataTooltipContent ? dataTooltipId : null}
       style={{ gridColumn, gridRow }}
     >
       {React.Children.toArray(children)}
