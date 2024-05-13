@@ -35,18 +35,11 @@ const DataDownload: React.FC = () => {
       </div>
 
       <div className="data-download">
-        {cycle.published && (
-          <>
-            <div>{t('dataDownload.bulkDownload')}</div>
-            <a
-              className="btn-s btn-primary nav__bulk-download"
-              href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}
-            >
-              <Icon className="icon-sub icon-white" name="hit-down" />
-              ZIP
-            </a>
-          </>
-        )}
+        <div>{t('dataDownload.bulkDownload')}</div>
+        <a className="btn-s btn-primary nav__bulk-download" href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}>
+          <Icon className="icon-sub icon-white" name="hit-down" />
+          ZIP
+        </a>
 
         {resources.map((resource) => (
           <React.Fragment key={String(resource.labelKey)}>

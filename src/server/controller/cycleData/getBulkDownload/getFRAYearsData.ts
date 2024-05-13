@@ -17,7 +17,7 @@ export const getFraYearsData = async (props: Props) => {
     cycleName: cycle.name,
     data: _climaticData,
   })
-  const tableNames = entries.map(({ tableName }) => tableName)
+  const tableNames = entries(cycle).map(({ tableName }) => tableName)
   const tableData = await getData({
     assessment,
     cycle,
@@ -51,7 +51,7 @@ export const getFraYearsData = async (props: Props) => {
         subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
       }
 
-      entries.forEach(({ variables, tableName }) => {
+      entries(cycle).forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
           if (tableName === 'carbonstocksoildepth')
             base[csvColumn] = RecordAssessmentDatas.getDatum({
