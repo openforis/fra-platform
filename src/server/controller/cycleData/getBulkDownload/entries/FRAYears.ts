@@ -68,7 +68,7 @@ export const entries = (
     tableName: cycle.name === '2020' ? 'degradedforest' : 'degradedForestMonitoring2025',
     variables: [
       {
-        variableName: 'does_country_monitor',
+        variableName: cycle.name === '2020' ? 'does_country_monitor' : 'doesYourCountryMonitor',
         csvColumn: '5c_y_n',
       },
     ],
@@ -208,6 +208,61 @@ export const entries = (
       },
     ],
   }
+  const otherLandWithTreeCover =
+    cycle.name === '2020'
+      ? [
+          {
+            tableName: 'otherlandwithtreecover',
+            variables: [
+              {
+                variableName: 'palms',
+                csvColumn: '1f_palms',
+              },
+              {
+                variableName: 'tree_orchards',
+                csvColumn: '1f_treeOrchards',
+              },
+              {
+                variableName: 'agroforestry',
+                csvColumn: '1f_agroforestry',
+              },
+              {
+                variableName: 'other',
+                csvColumn: '1f_other',
+              },
+              {
+                variableName: 'trees_in_urban_settings',
+                csvColumn: '1f_treesUrbanSettings',
+              },
+            ],
+          },
+        ]
+      : []
+
+  const specificForestCategoriesVariables =
+    cycle.name === '2020'
+      ? [
+          {
+            variableName: 'primary_forest',
+            csvColumn: '1c_primary',
+          },
+          {
+            variableName: 'temporarily_unstocked',
+            csvColumn: '1c_tempUnstocked',
+          },
+        ]
+      : []
+
+  const forestCharacteristicsVariables =
+    cycle.name === '2020'
+      ? []
+      : [
+          {
+            variableName: 'primaryForest',
+            csvColumn: '1b_primary',
+          },
+        ]
+
   const arr = [
     {
       tableName: TableNames.extentOfForest,
@@ -233,6 +288,7 @@ export const entries = (
           variableName: 'naturalForestArea',
           csvColumn: '1b_naturallyRegeneratingForest',
         },
+        ...forestCharacteristicsVariables,
         {
           variableName: 'plantedForest',
           csvColumn: '1b_plantedForest',
@@ -254,14 +310,7 @@ export const entries = (
     {
       tableName: 'specificforestcategories',
       variables: [
-        {
-          variableName: 'primary_forest',
-          csvColumn: '1c_primary',
-        },
-        {
-          variableName: 'temporarily_unstocked',
-          csvColumn: '1c_tempUnstocked',
-        },
+        ...specificForestCategoriesVariables,
         {
           variableName: 'bamboo',
           csvColumn: '1c_bamboos',
@@ -276,31 +325,7 @@ export const entries = (
         },
       ],
     },
-    {
-      tableName: 'otherlandwithtreecover',
-      variables: [
-        {
-          variableName: 'palms',
-          csvColumn: '1f_palms',
-        },
-        {
-          variableName: 'tree_orchards',
-          csvColumn: '1f_treeOrchards',
-        },
-        {
-          variableName: 'agroforestry',
-          csvColumn: '1f_agroforestry',
-        },
-        {
-          variableName: 'other',
-          csvColumn: '1f_other',
-        },
-        {
-          variableName: 'trees_in_urban_settings',
-          csvColumn: '1f_treesUrbanSettings',
-        },
-      ],
-    },
+    ...otherLandWithTreeCover,
     {
       tableName: 'growingstockavg',
       variables: [
