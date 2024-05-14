@@ -36,7 +36,9 @@ export const getFraYearsData = async (props: Props) => {
     data,
     countries,
     tableNames,
-  }).filter((x) => Number.isInteger(+x))
+  })
+    .filter((x) => Number.isInteger(+x))
+    .sort()
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
@@ -76,6 +78,28 @@ export const getFraYearsData = async (props: Props) => {
                   colName: `${year}_${gender.variable}`,
                 }) ?? null
             })
+          } else if (tableName === 'degradedForestMonitoring2025') {
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName,
+                colName: 'doesYourCountryMonitor',
+              }) ?? null
+          } else if (tableName === 'degradedForest') {
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName,
+                colName: 'answer',
+              }) ?? null
           } else {
             base[csvColumn] =
               RecordAssessmentDatas.getDatum({
