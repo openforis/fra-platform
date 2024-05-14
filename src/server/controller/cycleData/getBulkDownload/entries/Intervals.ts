@@ -27,7 +27,7 @@ export const entries = (cycle: Cycle) => {
 
   if (cycle.name === '2020') {
     arr.push({
-      tableName: 'reforestation',
+      tableName: 'annualreforestation',
       variables: [
         {
           csvColumn: '1d_reforestation',
