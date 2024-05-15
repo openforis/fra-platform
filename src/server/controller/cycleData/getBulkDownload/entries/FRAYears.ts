@@ -211,6 +211,44 @@ export const entries = (
           },
         ]
 
+  const primaryDesignatedManagementObjectiveVariables =
+    cycle.name === '2020'
+      ? [
+          {
+            variableName: 'no_unknown',
+            csvColumn: '3a_prim_no_unknown',
+          },
+        ]
+      : [
+          {
+            variableName: 'no_designation',
+            csvColumn: '3a_prim_no',
+          },
+          {
+            variableName: 'unknown',
+            csvColumn: '3a_prim_unknown',
+          },
+        ]
+
+  const forestOwnershipVariables =
+    cycle.name === '2020'
+      ? [
+          {
+            variableName: 'other_or_unknown',
+            csvColumn: '4a_fo_unknown',
+          },
+        ]
+      : [
+          {
+            variableName: 'other',
+            csvColumn: '4a_fo_other',
+          },
+          {
+            variableName: 'unknown',
+            csvColumn: '4a_fo_unknown',
+          },
+        ]
+
   const arr = [
     {
       tableName: TableNames.extentOfForest,
@@ -371,10 +409,7 @@ export const entries = (
           variableName: 'other',
           csvColumn: '3a_prim_other',
         },
-        {
-          variableName: 'no_unknown',
-          csvColumn: '3a_prim_no_unknown',
-        },
+        ...primaryDesignatedManagementObjectiveVariables,
       ],
     },
     {
@@ -442,10 +477,7 @@ export const entries = (
           variableName: 'public_ownership',
           csvColumn: '4a_pub_own',
         },
-        {
-          variableName: 'other_or_unknown',
-          csvColumn: '4a_fo_unknown',
-        },
+        ...forestOwnershipVariables,
       ],
     },
     {
