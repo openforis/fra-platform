@@ -274,6 +274,20 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           primary key (id),
           unique (uuid)
       );
+
+      create table if not exists ${assessmentCycleSchemaName}.link
+      (
+          id          bigserial     not null,
+          uuid        uuid          not null default uuid_generate_v4(),
+          country_iso varchar(3)    references public.country (country_iso) on update cascade on delete cascade,
+          link        varchar(2048) not null,
+          locations   jsonb,
+          props       jsonb         not null,
+          visits      jsonb         not null,
+          primary key (id),
+          unique (uuid),
+          constraint unique_country_link unique (country_iso, link)
+      );
   `
 }
 
