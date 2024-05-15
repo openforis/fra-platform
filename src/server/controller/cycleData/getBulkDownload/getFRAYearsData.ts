@@ -55,7 +55,33 @@ export const getFraYearsData = async (props: Props) => {
 
       entries(cycle).forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
-          if (tableName === 'carbonstocksoildepth')
+          if (tableName === 'growingStockComposition2025') {
+            const _year =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName: 'mostRecentYear',
+                colName: 'mostRecentYear',
+              }) ?? years.at(-1)
+
+            if (year === _year) {
+              base[csvColumn] =
+                RecordAssessmentDatas.getDatum({
+                  assessmentName: assessment.props.name,
+                  cycleName: cycle.name,
+                  data: tableData,
+                  countryIso,
+                  tableName,
+                  variableName,
+                  colName: 'growingStockMillionCubicMeter',
+                }) ?? null
+            } else {
+              base[csvColumn] = null
+            }
+          } else if (tableName === 'carbonstocksoildepth')
             base[csvColumn] = RecordAssessmentDatas.getDatum({
               assessmentName: assessment.props.name,
               cycleName: cycle.name,

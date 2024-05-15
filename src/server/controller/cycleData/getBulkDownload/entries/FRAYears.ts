@@ -126,76 +126,24 @@ export const entries = (
   const growingStockComposition = {
     tableName: cycle.name === '2020' ? 'growingstockcomposition' : 'growingStockComposition2025',
     variables: [
+      ...Array.from({ length: 10 }, (_, i) => ({
+        variableName: `native${cycle.name === '2020' ? '_r' : 'R'}ank${i + 1}`,
+        csvColumn: `2b_native_#${i + 1}`,
+      })),
       {
-        variableName: 'native_rank1',
-        csvColumn: '2b_native_#1',
-      },
-      {
-        variableName: 'native_rank2',
-        csvColumn: '2b_native_#2',
-      },
-      {
-        variableName: 'native_rank3',
-        csvColumn: '2b_native_#3',
-      },
-      {
-        variableName: 'native_rank4',
-        csvColumn: '2b_native_#4',
-      },
-      {
-        variableName: 'native_rank5',
-        csvColumn: '2b_native_#5',
-      },
-      {
-        variableName: 'native_rank6',
-        csvColumn: '2b_native_#6',
-      },
-      {
-        variableName: 'native_rank7',
-        csvColumn: '2b_native_#7',
-      },
-      {
-        variableName: 'native_rank8',
-        csvColumn: '2b_native_#8',
-      },
-      {
-        variableName: 'native_rank9',
-        csvColumn: '2b_native_#9',
-      },
-      {
-        variableName: 'native_rank10',
-        csvColumn: '2b_native_#10',
-      },
-      {
-        variableName: 'remaining_native',
+        variableName: cycle.name === '2020' ? 'remaining_native' : 'remainingNative',
         csvColumn: '2b_native_remaining',
       },
       {
-        variableName: 'total_native_placeholder',
+        variableName: cycle.name === '2020' ? 'total_native_placeholder' : 'totalNative',
         csvColumn: '2b_native_total',
       },
+      ...Array.from({ length: 5 }, (_, i) => ({
+        variableName: `introduced${cycle.name === '2020' ? '_r' : 'R'}ank${i + 1}`,
+        csvColumn: `2b_introduced_#${i + 1}`,
+      })),
       {
-        variableName: 'introduced_rank1',
-        csvColumn: '2b_introduced_#1',
-      },
-      {
-        variableName: 'introduced_rank2',
-        csvColumn: '2b_introduced_#2',
-      },
-      {
-        variableName: 'introduced_rank3',
-        csvColumn: '2b_introduced_#3',
-      },
-      {
-        variableName: 'introduced_rank4',
-        csvColumn: '2b_introduced_#4',
-      },
-      {
-        variableName: 'introduced_rank5',
-        csvColumn: '2b_introduced_#5',
-      },
-      {
-        variableName: 'remaining_introduced_placeholder',
+        variableName: cycle.name === '2020' ? 'remaining_introduced_placeholder' : 'remainingIntroduced',
         csvColumn: '2b_introduced_remaining',
       },
       {
