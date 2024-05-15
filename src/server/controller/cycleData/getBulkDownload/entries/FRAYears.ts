@@ -494,10 +494,16 @@ export const entries = (
           variableName: 'public_administration',
           csvColumn: '4b_pub_admin',
         },
-        {
-          variableName: 'individuals',
-          csvColumn: '4b_individuals',
-        },
+        ...[
+          ...(cycle.name === '2020'
+            ? [
+                {
+                  variableName: 'individuals',
+                  csvColumn: '4b_individuals',
+                },
+              ]
+            : []),
+        ],
         {
           variableName: 'private_businesses',
           csvColumn: '4b_bus_inst_mr',
