@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area'
 
-export type LinkLocation = Record<string, string | number>
+export type LinkLocation = Record<string, Array<string> | number | string>
 
 export enum LinkValidationStatusCode {
   empty = 'empty',
@@ -27,4 +27,11 @@ export type Link = {
   locations: Array<LinkLocation>
   props: LinkProps
   visits: Array<LinkVisit>
+}
+
+export type LinkToVisit = {
+  countryIso: CountryIso
+  link: string
+  locations: Array<LinkLocation>
+  name: string
 }
