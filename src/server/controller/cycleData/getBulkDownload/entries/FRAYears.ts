@@ -507,7 +507,7 @@ export const entries = (
           csvColumn: '4b_indigenous_mr',
         },
         {
-          variableName: 'other',
+          variableName: cycle.name === '2020 ' ? 'other' : 'unknown',
           csvColumn: '4b_unknown',
         },
       ],
