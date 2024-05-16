@@ -40,9 +40,6 @@ export const getBulkDownload = async (req: CycleRequest, res: Response) => {
   try {
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    if (!cycle.published) {
-      Requests.sendErr(res)
-    }
 
     const files = await CycleDataController.getBulkDownload({
       assessment,
@@ -52,6 +49,7 @@ export const getBulkDownload = async (req: CycleRequest, res: Response) => {
     const zip = new JSZip()
     zip.file('README.txt', _README(cycle.name))
     files.forEach(({ fileName, content }) => zip.file(fileName, content))
+    res.setHeader('Content-Disposition', `attachment; filename=bulk-download_${assessmentName}_${cycleName}.zip`)
     zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', res.end)
   } catch (err) {
     Requests.sendErr(res, err)
