@@ -126,6 +126,20 @@ export const getFraYearsData = async (props: Props) => {
                 variableName,
                 colName: 'answer',
               }) ?? null
+          } else if (tableName === 'forestpolicy') {
+            const _variableName = `${variableName.replace(/(sub_)?national_/, '')}`
+            const _colName = variableName.includes('sub_national') ? 'sub_national_yes_no' : 'national_yes_no'
+
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName: _variableName,
+                colName: _colName,
+              }) ?? null
           } else {
             base[csvColumn] =
               RecordAssessmentDatas.getDatum({
