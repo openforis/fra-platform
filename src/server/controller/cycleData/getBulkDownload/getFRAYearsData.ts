@@ -140,6 +140,17 @@ export const getFraYearsData = async (props: Props) => {
                 variableName: _variableName,
                 colName: _colName,
               }) ?? null
+          } else if (tableName === 'areaofpermanentforestestate' && variableName === 'applicable') {
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName: 'area_of_permanent_forest_estate',
+                colName: 'applicable',
+              }) ?? null
           } else {
             base[csvColumn] =
               RecordAssessmentDatas.getDatum({
