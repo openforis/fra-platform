@@ -2,6 +2,8 @@ import 'tsconfig-paths/register'
 import 'dotenv/config'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/link/visitCycleLinks/queueFactory'
+import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/link/visitCycleLinks/workerFactory'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
 import { DB } from 'server/db'
@@ -22,6 +24,8 @@ const close = async () => {
   // TODO: find a better strategy to handle Redis connections
   UpdateDependenciesQueueFactory.connection.quit()
   WorkerFactory.connection.quit()
+  VisitCycleLinksQueueFactory.connection.quit()
+  VisitLinksWorkerFactory.connection.quit()
   await DB.$pool.end()
 }
 
