@@ -43,17 +43,27 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
 
 const handleContent = async (content: Array<Record<string, string>>) => {
   const i18n = (await createI18nPromise('en')) as i18nType
+  // sort content by country iso and then by year
+  content.sort((a, b) => {
+    if (a.iso3 < b.iso3) return -1
+    if (a.iso3 > b.iso3) return 1
+    if (a.year < b.year) return -1
+    if (a.year > b.year) return 1
+    return 0
+  })
   const res = content.map((c) => handleResult(c, i18n))
   return _convertToCSV(res)
 }
 
 export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
   const { assessment, cycle } = props
-  const countries = await CountryRepository.getMany({ assessment, cycle })
+  const countries = (await CountryRepository.getMany({ assessment, cycle })).filter(
+    (c) => !c.countryIso.startsWith('X')
+  )
   const params = { assessment, cycle, countries }
   const [annual, intervals, fraYears] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
-    getContent({ ...params, entries: intervalEntries }),
+    getContent({ ...params, entries: intervalEntries(cycle) }),
     getFraYearsData(params),
   ])
 
