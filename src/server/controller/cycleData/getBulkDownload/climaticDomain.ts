@@ -12,6 +12,5 @@ export const climaticDomain = (props: Props) => {
     countryISOs: countries.map(({ countryIso }) => countryIso),
     tableNames: [TableNames.climaticDomain],
     mergeOdp: true,
-    aggregate: false,
   })
 }
