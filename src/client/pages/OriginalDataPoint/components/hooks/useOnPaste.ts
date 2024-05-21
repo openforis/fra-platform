@@ -6,7 +6,7 @@ import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import handlePaste from 'client/store/ui/originalDataPoint/actions/handlePaste'
 import { readPasteClipboard } from 'client/utils/copyPasteUtil'
 
-export type Columns = Array<{ name: keyof ODPNationalClass; type: string }>
+export type Columns = Array<{ name: keyof ODPNationalClass; type: string; precision?: number }>
 
 type Props = {
   allowGrow?: boolean

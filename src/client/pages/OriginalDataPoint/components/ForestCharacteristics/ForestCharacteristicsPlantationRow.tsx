@@ -21,7 +21,7 @@ import { useNationalClassNameComments } from '../../hooks'
 const allowedClass = (nc: ODPNationalClass) =>
   nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) > 0 && Number(nc.forestPercent) > 0
 
-const columns: Columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal' }]
+const columns: Columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal', precision: 3 }]
 
 type Props = {
   canEditData: boolean
@@ -71,15 +71,15 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         className={classNames('fra-table__cell', {
           error: Boolean(validationErrorMessage),
         })}
-        data-tooltip-id={TooltipId.error}
         data-tooltip-content={validationErrorMessage}
+        data-tooltip-id={TooltipId.error}
       >
         <PercentInput
           disabled={!canEditData || isZeroOrNullPlantationIntroduced}
           numberValue={forestPlantationIntroducedPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target
-            const updateProps = { field: columns[0].name, value, index }
+            const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
             updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
@@ -92,8 +92,8 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
       {originalDataPoint.id && canEditData && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
-            title={name}
             subtitle={i18n.t('nationalDataPoint.plantationForest')}
+            title={name}
             topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'plantationForestIntroduced')}
           />
         </td>
