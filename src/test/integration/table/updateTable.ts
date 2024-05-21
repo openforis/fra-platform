@@ -26,12 +26,9 @@ export default () =>
     const tableUpdated = await MetadataController.updateTable({
       assessment,
       user,
-      table: {
-        ...table,
-        props: {
-          ...table.props,
-          name: 'updated name',
-        },
+      table,
+      tableProps: {
+        name: 'updated name',
       },
     })
 
