@@ -33,7 +33,7 @@ export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<
         ${limit}
         ${offset}
      `,
-    [approved, limit, offset],
+    [approved, limitProp, offsetProp],
     (row) => Objects.camelize(row)
   )
 }
