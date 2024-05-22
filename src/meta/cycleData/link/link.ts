@@ -35,3 +35,5 @@ export type LinkToVisit = {
   locations: Array<LinkLocation>
   name: string
 }
+
+export type VisitedLink = LinkToVisit & LinkVisit
