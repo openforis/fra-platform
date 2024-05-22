@@ -4,10 +4,15 @@ import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 
+type DeprecatedUser = User & {
+  profilePictureFile: Buffer
+  profilePictureFilename: string
+}
+
 const client: BaseProtocol = DB
 
 // a. Get users that have a profile picture
-const _getUsersToUpdate = (): Promise<Array<User>> => {
+const _getUsersToUpdate = (): Promise<Array<DeprecatedUser>> => {
   return client.map(`select * from users where profile_picture_filename is not null`, [], (row) => {
     const { profile_picture_file: profilePictureFile, ...rest } = row
     return {
@@ -18,7 +23,7 @@ const _getUsersToUpdate = (): Promise<Array<User>> => {
 }
 
 // b. For each user, create a new file and update the user with the new file UUID
-const _fixUser = async (user: User) => {
+const _fixUser = async (user: DeprecatedUser) => {
   const { profilePictureFile, profilePictureFilename } = user
 
   const { uuid: fileUuid } = await client.one(`insert into file (name, file) values ($1, $2) returning uuid`, [

@@ -1,17 +1,12 @@
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
-import { FileRepository } from 'server/repository/public/file'
 
 import { getOne } from './getOne'
 
-export const update = async (
-  props: { user: User; profilePicture?: Express.Multer.File | null },
-  client: BaseProtocol = DB
-): Promise<User> => {
+export const update = async (props: { user: User }, client: BaseProtocol = DB): Promise<User> => {
   const {
-    profilePicture,
-    user: { id, email, props: userProperties, status },
+    user: { id, email, props: userProperties, status, profilePictureFileUuid },
   } = props
 
   await client.one<User>(
@@ -19,25 +14,13 @@ export const update = async (
         update users set
                       email = $1,
                       props = $2,
-                      status = $3
-        where id = $4
+                      status = $3,
+                      profile_picture_file_uuid = $4
+        where id = $5
         returning *
     `,
-    [email, userProperties, status, id]
+    [email, userProperties, status, profilePictureFileUuid, id]
   )
-
-  if (profilePicture) {
-    const createdFile = await FileRepository.create({ file: profilePicture }, client)
-
-    await client.query(
-      `
-        update users set
-                     profile_picture_file_uuid = $1
-        where id = $2
-    `,
-      [createdFile.uuid, id]
-    )
-  }
 
   return getOne({ email, allowDisabled: true }, client)
 }
