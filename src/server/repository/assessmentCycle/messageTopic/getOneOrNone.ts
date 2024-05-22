@@ -29,7 +29,7 @@ export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Pro
         includeMessages
           ? `, jsonb_agg(
                    to_jsonb(m.*) ||
-                   jsonb_build_object('user', to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename')
+                   jsonb_build_object('user', to_jsonb(u.*))
                    order by m.created_time) as messages`
           : ''
       }

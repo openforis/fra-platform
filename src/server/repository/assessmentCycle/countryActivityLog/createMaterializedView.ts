@@ -27,7 +27,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                  a.target,
                  md5(a.target::text) as target_md5,
                  a.time,
-                 to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename' as user
+                 to_jsonb(u.*) as user
           from (select user_id,
                        message,
                        section,
