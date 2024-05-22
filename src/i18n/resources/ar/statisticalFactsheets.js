@@ -48,6 +48,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'مساحة الغابة المتجددة طبيعياً (1990-2020)',
+    title: 'مساحة الغابات المتجددة طبيعياً والمزروعة (1990-2020)',
   },
 }
