@@ -1,4 +1,5 @@
 import { UserProfilePicture } from 'meta/user/userProfilePicture'
+
 import { BaseProtocol, DB } from 'server/db'
 
 export const getProfilePicture = async (
@@ -23,8 +24,9 @@ export const getProfilePicture = async (
 
   return client.oneOrNone<UserProfilePicture | undefined>(
     `
-        select profile_picture_file as data, profile_picture_filename as name
+        select f.file as data, f.name
         from public.users u
+            left join file f on u.profile_picture_file_uuid = f.uuid
         ${where}
     `,
     [value]

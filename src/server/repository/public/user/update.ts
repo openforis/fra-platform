@@ -1,6 +1,7 @@
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
+import { FileRepository } from 'server/repository/public/file'
 
 import { getOne } from './getOne'
 
@@ -26,18 +27,15 @@ export const update = async (
   )
 
   if (profilePicture) {
-    const {
-      profilePicture: { originalname, buffer },
-    } = props
+    const createdFile = await FileRepository.create({ file: profilePicture }, client)
 
     await client.query(
       `
         update users set
-            profile_picture_filename = $1,
-            profile_picture_file = $2
-        where id = $3
+                     profile_picture_file_uuid = $1
+        where id = $2
     `,
-      [originalname, buffer, id]
+      [createdFile.uuid, id]
     )
   }
 

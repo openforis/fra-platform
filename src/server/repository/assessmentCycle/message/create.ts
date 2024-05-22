@@ -25,7 +25,7 @@ export const create = async (
   return client.one<Message>(
     `
         select m.*,
-               to_jsonb(u.*) - 'profile_picture_file' - 'profile_picture_filename' as user
+               to_jsonb(u.*) as user
         from ${schemaCycle}.message m
                  left join public.users u
                            on m.user_id = u.id
