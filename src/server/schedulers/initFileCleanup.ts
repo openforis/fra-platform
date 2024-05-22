@@ -21,9 +21,13 @@ export const initFileCleanup = (connection: IORedis): Worker => {
       const schemaNames = assessments.flatMap((assessment) =>
         assessment.cycles.map((cycle) => Schemas.getNameCycle(assessment, cycle))
       )
-      const where = schemaNames
+      let where = schemaNames
         .map((schemaName) => `not exists (select 1 from ${schemaName}.repository where file_uuid = public.file.uuid)`)
         .join(' and ')
+
+      // Don't remove files that are still in use by users (profile picture)
+      where += ' and not exists (select 1 from public.users where profile_picture_file_uuid = public.file.uuid)'
+
       const query = `
         select uuid from public.file
         where ${where}
