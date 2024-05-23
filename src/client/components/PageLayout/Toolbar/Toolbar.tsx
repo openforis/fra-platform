@@ -6,7 +6,7 @@ import MediaQuery from 'react-responsive'
 import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useCountry } from 'client/store/area'
+import { useCountry, useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -28,13 +28,24 @@ const Toolbar: React.FC = () => {
   const user = useUser()
   const geoRoute = useIsGeoRoute()
   const isAReviewer = useMemo<boolean>(() => Users.isAReviewer(user, cycle), [user, cycle])
+  const regionGroups = useRegionGroups()
 
   if (print) return null
 
   const isCountry = Areas.isISOCountry(countryIso)
   const isAdmin = Users.isAdministrator(user)
-  const includeGlobals = !geoRoute && (isAdmin || cycle.published || isAReviewer)
-  const includeRegions = !geoRoute && (isAdmin || cycle.published)
+  const showRegions = !geoRoute && (isAdmin || cycle.published)
+
+  let includeRegions
+
+  if (showRegions) {
+    includeRegions = Object.entries(regionGroups).map(([regionGroup]) => regionGroup)
+
+    if (isAReviewer) {
+      includeRegions.push('WO')
+    }
+  }
+
   const editor = Users.hasEditorRole({ user, countryIso, cycle })
 
   return (
@@ -45,8 +56,7 @@ const Toolbar: React.FC = () => {
         <AreaSelector
           enableDownload
           includeCountries
-          includeGlobals={includeGlobals}
-          includeRegions={includeRegions}
+          includeRegions={includeRegions ? [] : undefined}
           placeholder="common.selectArea"
           selectedValue={countryIso}
           showCountryFlag

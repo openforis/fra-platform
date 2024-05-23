@@ -19,8 +19,7 @@ import CountryList from './CountryList'
 type Props = {
   enableDownload?: boolean
   includeCountries?: boolean
-  includeGlobals?: boolean
-  includeRegions?: boolean
+  includeRegions?: Array<string>
   onElementSelect?: (countryIso: CountryIso | Global | RegionCode) => void
   placeholder?: string
   selectedValue?: CountryIso | Global | RegionCode
@@ -33,7 +32,6 @@ const AreaSelector: React.FC<Props> = (props) => {
   const {
     enableDownload,
     includeCountries,
-    includeGlobals,
     includeRegions,
     onElementSelect,
     placeholder,
@@ -98,21 +96,21 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   return (
     <button
-      type="button"
-      className="btn-country-select no-print"
       ref={buttonRef}
-      onClick={() => setOpen((prevState) => !prevState)}
+      className="btn-country-select no-print"
       disabled={disabled}
+      onClick={() => setOpen((prevState) => !prevState)}
+      type="button"
     >
       <div>
         {open && (
           <input
-            type="text"
-            className="text-input"
             ref={inputRef}
+            className="text-input"
             onChange={handleChange}
             onClick={handleClick}
             placeholder={t('emoji.picker.search')}
+            type="text"
           />
         )}
 
@@ -151,12 +149,11 @@ const AreaSelector: React.FC<Props> = (props) => {
         <CountryList
           enableDownload={enableDownload}
           includeCountries={includeCountries}
-          includeGlobals={includeGlobals}
           includeRegions={includeRegions}
           onElementSelect={handleElementSelect}
+          query={query}
           selectedValue={selectedValue}
           showCountryRole={showCountryRole}
-          query={query}
         />
       )}
     </button>
@@ -165,8 +162,7 @@ const AreaSelector: React.FC<Props> = (props) => {
 
 AreaSelector.defaultProps = {
   enableDownload: false,
-  includeGlobals: false,
-  includeRegions: false,
+  includeRegions: undefined,
   includeCountries: false,
   onElementSelect: null,
   placeholder: null,

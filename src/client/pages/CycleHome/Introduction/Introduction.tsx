@@ -17,7 +17,7 @@ const Introduction: React.FC = () => {
 
   return (
     <div className="home-introduction">
-      <video className="home-introduction__video" autoPlay playsInline muted loop src="/video/FRA2020_Web.mp4" />
+      <video autoPlay className="home-introduction__video" loop muted playsInline src="/video/FRA2020_Web.mp4" />
 
       <div className="home-introduction__about-fra">
         <div className="header">{t('common.globalFRA')}</div>
@@ -25,8 +25,8 @@ const Introduction: React.FC = () => {
         <a
           className="home-link link-fra-process"
           href={`http://www.fao.org/forest-resources-assessment/${language}/`}
-          target="_blank"
           rel="noreferrer"
+          target="_blank"
         >
           &gt; {t('landing.about.linkFraProcess')}
         </a>
@@ -50,7 +50,7 @@ const Introduction: React.FC = () => {
             <div className="home-area-selector__group">
               <img alt="" src="/img/iconRegions.svg" />
               <div>{t('common.regions')}</div>
-              <AreaSelector includeRegions placeholder="common.select" />
+              <AreaSelector includeRegions={['fra2020', 'secondary']} placeholder="common.select" />
             </div>
 
             <div className="home-area-selector__group">
