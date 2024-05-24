@@ -2,7 +2,7 @@ import { ActivityLogMessage } from 'meta/assessment'
 import { SectionNames } from 'meta/routes'
 
 import { CycleDataController } from 'server/controller/cycleData'
-import { LinkRepository } from 'server/repository/assessmentCycle/link'
+import { LinkRepository } from 'server/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
 
