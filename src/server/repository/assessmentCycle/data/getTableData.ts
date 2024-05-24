@@ -69,6 +69,8 @@ export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<R
                   : ''
               }
               and e.col_name is not null
+              -- exclude fao estimated values
+              and e.value ->> 'faoEstimate' is null
           group by 1, 2, 3
             )`
           }).join(`

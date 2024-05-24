@@ -8,8 +8,10 @@ type Props = {
   table: Table
 }
 
+const client: BaseProtocol = DB
+
 // create or replace Table
-export const createOrReplaceTableDataView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+export const createOrReplaceTableDataView = async (props: Props): Promise<void> => {
   const { assessment, cycle, table } = props
 
   const schemaAssessment = Schemas.getName(assessment)
