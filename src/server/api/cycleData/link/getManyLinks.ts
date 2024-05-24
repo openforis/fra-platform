@@ -22,7 +22,7 @@ export const getManyLinks = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { approved, assessment, cycle, limit, offset, orderBy, orderByDirection }
-    const links = await CycleDataController.Link.getMany(props)
+    const links = await CycleDataController.Links.getMany(props)
 
     Requests.send(res, links)
   } catch (e) {

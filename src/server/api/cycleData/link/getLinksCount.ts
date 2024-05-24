@@ -11,7 +11,7 @@ export const getLinksCount = async (req: TablePaginatedCountRequest, res: Respon
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const linksCount = await CycleDataController.Link.getCount({ assessment, cycle })
+    const linksCount = await CycleDataController.Links.getCount({ assessment, cycle })
 
     Requests.sendOk(res, linksCount)
   } catch (e) {

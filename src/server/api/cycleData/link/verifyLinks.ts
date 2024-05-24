@@ -15,7 +15,7 @@ export const verifyLinks = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const user = Requests.getUser(req)
 
-    await CycleDataController.Link.visitCycleLinks({ assessment, cycle, user })
+    await CycleDataController.Links.verify({ assessment, cycle, user })
 
     Requests.send(res)
   } catch (e) {

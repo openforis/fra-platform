@@ -187,9 +187,9 @@ export const CycleDataApi = {
     )
 
     // link
-    express.patch(ApiEndPoint.CycleData.Link.one(), AuthMiddleware.requireAdmin, updateLink)
-    express.get(ApiEndPoint.CycleData.Link.many(), AuthMiddleware.requireAdmin, getManyLinks)
-    express.get(ApiEndPoint.CycleData.Link.linksCount(), AuthMiddleware.requireAdmin, getLinksCount)
-    express.post(ApiEndPoint.CycleData.Link.verifyLinks(), AuthMiddleware.requireAdmin, verifyLinks)
+    express.patch(ApiEndPoint.CycleData.Links.one(), AuthMiddleware.requireAdmin, updateLink)
+    express.get(ApiEndPoint.CycleData.Links.many(), AuthMiddleware.requireAdmin, getManyLinks)
+    express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireAdmin, getLinksCount)
+    express.post(ApiEndPoint.CycleData.Links.verify(), AuthMiddleware.requireAdmin, verifyLinks)
   },
 }

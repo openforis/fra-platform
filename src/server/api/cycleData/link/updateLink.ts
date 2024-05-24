@@ -22,7 +22,7 @@ export const updateLink = async (req: Request, res: Response) => {
     const user = Requests.getUser(req)
 
     const props = { assessment, cycle, link, user }
-    const updatedLink = await CycleDataController.Link.update(props)
+    const updatedLink = await CycleDataController.Links.update(props)
 
     Requests.send(res, updatedLink)
   } catch (e) {

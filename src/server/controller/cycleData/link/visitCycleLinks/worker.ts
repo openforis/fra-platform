@@ -34,7 +34,7 @@ export default async (job: VisitCycleLinksJob): Promise<void> => {
     Logger.info(`${logKey} started.`)
 
     const [linksToVisit, approvedLinks] = await Promise.all([
-      CycleDataController.Link.getAllLinksToVisit({ assessment, cycle }),
+      CycleDataController.Links.getAllLinksToVisit({ assessment, cycle }),
       LinkRepository.getMany({ assessment, cycle, approved: true }),
     ])
 

@@ -54,11 +54,11 @@ export const ApiEndPoint = {
       one: () => apiPath('cycle-data', 'contacts', 'contact'),
     },
 
-    Link: {
-      linksCount: () => apiPath('cycle-data', 'links', 'count'),
+    Links: {
+      count: () => apiPath('cycle-data', 'links', 'count'),
       many: () => apiPath('cycle-data', 'links'),
       one: () => apiPath('cycle-data', 'links', 'link'),
-      verifyLinks: () => apiPath('cycle-data', 'links', 'verify'),
+      verify: () => apiPath('cycle-data', 'links', 'verify'),
     },
 
     OriginalDataPoint: {
