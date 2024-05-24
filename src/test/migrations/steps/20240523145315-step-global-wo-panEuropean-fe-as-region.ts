@@ -25,5 +25,11 @@ export default async (client: BaseProtocol) => {
         insert into ${cycleSchema}.region (region_code, region_group_id)
         select 'WO', id from ${cycleSchema}.region_group where name = 'global'
       `)
+
+    // 4. Add all countries to the new region
+    await client.query(`
+        insert into ${cycleSchema}.country_region (region_code, country_iso)
+        select 'WO', country_iso from  ${cycleSchema}.country
+      `)
   })
 }
