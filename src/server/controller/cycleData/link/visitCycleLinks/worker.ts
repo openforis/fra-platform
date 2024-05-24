@@ -1,5 +1,9 @@
+import { ActivityLogMessage } from 'meta/assessment'
+import { SectionNames } from 'meta/routes'
+
 import { CycleDataController } from 'server/controller/cycleData'
 import { LinkRepository } from 'server/repository/assessmentCycle/link'
+import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
 
 import { mergeAndFilterLinks } from './utils/mergeAndFilterLinks'
@@ -17,7 +21,15 @@ const _getLogKey = (job: VisitCycleLinksJob): string => {
 export default async (job: VisitCycleLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
   try {
-    const { assessment, cycle } = job.data
+    const { assessment, cycle, user } = job.data
+
+    const target = { jobStatus: 'started' }
+    const message = ActivityLogMessage.linksCheckStarted
+    const section = SectionNames.Admin.links
+    const activityLog = { message, section, target, user }
+    const activityLogParams = { activityLog, assessment, cycle }
+    await ActivityLogRepository.insertActivityLog(activityLogParams)
+
     const time = new Date().getTime()
     Logger.info(`${logKey} started.`)
 
@@ -35,8 +47,6 @@ export default async (job: VisitCycleLinksJob): Promise<void> => {
       cycle,
       linkVisits,
     })
-
-    // TODO: insert in activity log
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
