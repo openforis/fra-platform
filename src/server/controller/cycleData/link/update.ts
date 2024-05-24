@@ -1,10 +1,10 @@
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
-import { Link } from 'meta/cycleData/link'
+import { Link } from 'meta/cycleData'
 import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
-import { LinkRepository } from 'server/repository/assessmentCycle/link'
+import { LinkRepository } from 'server/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 type Props = {
