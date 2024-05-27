@@ -100,7 +100,9 @@ const canEditData = (props: {
   permission?: CollaboratorEditPropertyType
 }): boolean => {
   const { country, cycle, permission = CollaboratorEditPropertyType.tableData, section, user } = props
+  if (!country) return false
   const { countryIso } = country
+  if (!Areas.isISOCountry(countryIso)) return false
   const { status } = country.props
 
   if (canEditCycleData({ cycle, country, user })) {
