@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Country, CountryIso } from 'meta/area'
+import { Areas, Country, CountryIso } from 'meta/area'
 import { Assessment, Cycle, TableName, TableNames, VariableCache } from 'meta/assessment'
 import { RecordAssessmentData, RecordCountryData, TablesCondition } from 'meta/data'
 
@@ -61,18 +61,30 @@ const _mergeODPTable = (props: {
 }
 
 export const getTableData = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
-  const { tableNames, aggregate, assessment, cycle, countryISOs, variables, columns, mergeOdp } = props
+  const {
+    aggregate: aggregateProp,
+    assessment,
+    columns,
+    countryISOs,
+    cycle,
+    mergeOdp: mergeOdpProp,
+    tableNames,
+    variables,
+  } = props
+
+  const isRegion = !Areas.isISOCountry(countryISOs[0])
+  // Ignore mergeOdp if request is for region
+  const mergeOdp = mergeOdpProp && !isRegion
 
   const tables = _getTablesCondition({ tableNames, columns, variables, mergeOdp })
+
+  const aggregate = aggregateProp ?? isRegion
 
   // TODO: Cache aggregated Table data
   if (aggregate) {
     return {
       [assessment.props.name]: {
-        [cycle.name]: await DataRepository.getAggregatedTableData(
-          { assessment, cycle, countryISOs, variables, columns },
-          client
-        ),
+        [cycle.name]: await DataRepository.getAggregatedTableData({ assessment, cycle, countryISOs, tables }, client),
       },
     }
   }
