@@ -8,7 +8,7 @@ type Props = {
   table: Table
 }
 
-export const refreshMaterializedView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+export const refreshMaterilizedFaoEstimateView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle, table } = props
 
   const tableName = table.props.name
