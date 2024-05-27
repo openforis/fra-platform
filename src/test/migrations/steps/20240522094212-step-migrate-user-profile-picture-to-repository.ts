@@ -35,6 +35,16 @@ const _fixUser = async (user: DeprecatedUser) => {
 }
 
 export default async () => {
+  // 0. Do nothing if the columns already exist
+  const columns = await client.map(
+    `select column_name from information_schema.columns where table_name = 'users'`,
+    [],
+    (row) => row.column_name
+  )
+  if (columns.includes('profile_picture_file_uuid')) {
+    return
+  }
+
   // 1. Create a new column to store the file UUID
   await client.query(`
       alter table public.users
