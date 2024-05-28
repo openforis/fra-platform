@@ -33,7 +33,7 @@ const newInstance = (props: { key: string }) => {
     const { assessment, cycle, user } = job.data
 
     const target = { jobStatus: 'completed' }
-    const message = ActivityLogMessage.linksCheckCompleted
+    const message = ActivityLogMessage.linksCheckComplete
     const section = SectionNames.Admin.links
     const activityLog = { message, section, target, user }
     const activityLogParams = { activityLog, assessment, cycle }
@@ -46,7 +46,7 @@ const newInstance = (props: { key: string }) => {
     const { assessment, cycle, user } = job.data
 
     const target = { error, jobStatus: 'failed' }
-    const message = ActivityLogMessage.linksCheckFailed
+    const message = ActivityLogMessage.linksCheckFail
     const section = SectionNames.Admin.links
     const activityLog = { message, section, target, user }
     const activityLogParams = { activityLog, assessment, cycle }

@@ -24,7 +24,7 @@ export default async (job: VisitCycleLinksJob): Promise<void> => {
     const { assessment, cycle, user } = job.data
 
     const target = { jobStatus: 'started' }
-    const message = ActivityLogMessage.linksCheckStarted
+    const message = ActivityLogMessage.linksCheckStart
     const section = SectionNames.Admin.links
     const activityLog = { message, section, target, user }
     const activityLogParams = { activityLog, assessment, cycle }
