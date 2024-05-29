@@ -18,6 +18,10 @@ import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
 import { removeDataSource } from './descriptions/removeDataSource'
 import { upsertDescription } from './descriptions/upsertDescription'
+import { getLinksCount } from './links/getLinksCount'
+import { getManyLinks } from './links/getManyLinks'
+import { updateLink } from './links/updateLink'
+import { verifyLinks } from './links/verifyLinks'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
@@ -181,5 +185,11 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditRepositoryItem,
       removeRepositoryItem
     )
+
+    // link
+    express.patch(ApiEndPoint.CycleData.Links.one(), AuthMiddleware.requireAdmin, updateLink)
+    express.get(ApiEndPoint.CycleData.Links.many(), AuthMiddleware.requireAdmin, getManyLinks)
+    express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireAdmin, getLinksCount)
+    express.post(ApiEndPoint.CycleData.Links.verify(), AuthMiddleware.requireAdmin, verifyLinks)
   },
 }

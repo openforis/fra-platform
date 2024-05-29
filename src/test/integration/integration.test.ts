@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
-import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/link/visitCycleLinks/queueFactory'
-import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/link/visitCycleLinks/workerFactory'
+import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
+import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
 import { DB } from 'server/db'

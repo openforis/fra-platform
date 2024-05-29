@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
-import { LinkToVisit } from 'meta/cycleData/link'
+import { LinkToVisit } from 'meta/cycleData'
 
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'

@@ -1,5 +1,5 @@
 import { History } from 'server/controller/cycleData/history'
-import { Link } from 'server/controller/cycleData/link'
+import { Links } from 'server/controller/cycleData/links'
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { Report } from 'server/controller/cycleData/report'
 import { Repository } from 'server/controller/cycleData/repository'
@@ -89,6 +89,6 @@ export const CycleDataController = {
   // ====== repository
   Repository,
 
-  // ====== link
-  Link,
+  // ====== links
+  Links,
 }
