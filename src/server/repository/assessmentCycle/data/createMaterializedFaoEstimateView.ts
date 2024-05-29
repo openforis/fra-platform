@@ -1,6 +1,7 @@
 import { Assessment, Cycle, Table } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { getFaoEstimateViewName } from 'server/repository/assessmentCycle/data/getFaoEstimateViewName'
 
 type Props = {
   assessment: Assessment
@@ -18,7 +19,7 @@ export const createMaterializedFaoEstimateView = async (props: Props): Promise<v
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const tableName = table.props.name
 
-  const viewName = `${schemaCycle}."${tableName}_faoEstimate"`
+  const viewName = getFaoEstimateViewName(schemaCycle, tableName)
 
   return client.query(
     `

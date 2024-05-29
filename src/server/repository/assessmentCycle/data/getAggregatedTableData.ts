@@ -3,6 +3,7 @@ import { Assessment, Cycle } from 'meta/assessment'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { getFaoEstimateViewName } from 'server/repository/assessmentCycle/data/getFaoEstimateViewName'
 
 const asQueryStringArray = (arr: any[]) => `(${arr.map((v) => `'${v}'`).join(',')})`
 
@@ -26,7 +27,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
                  '${tableName}' as table_name,
                  e.col_name,
                  jsonb_object_agg(e.variable_name, e.value) as data
-          from ${schemaCycle}."${tableName}_faoEstimate" e
+          from ${getFaoEstimateViewName(schemaCycle, tableName)}" e
           where e.country_iso in ($1:csv)
               ${
                 tableProps?.columns && tableProps?.columns?.length
