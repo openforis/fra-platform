@@ -16,11 +16,19 @@ const LinkPrint: React.FC = () => {
   const classNamePrint = useButtonClassName({ iconName, inverse, size, type: ButtonType.anonymous })
 
   const path = Routes.Print.generatePath({ assessmentName, cycleName, countryIso })
+  const pathTables = Routes.PrintTables.generatePath({ assessmentName, cycleName, countryIso })
 
   return (
-    <Link className={classNamePrint} target="_blank" to={path}>
-      <Icon className="icon-no-margin icon-sub" name="small-print" />
-    </Link>
+    <>
+      <Link className={classNamePrint} target="_blank" to={path}>
+        <Icon className="icon-no-margin icon-sub" name="small-print" />
+      </Link>
+      <div className="toolbar__separator" />
+      <Link className={classNamePrint} target="_blank" to={pathTables}>
+        <Icon className="icon-white icon-sub" name="small-print" />
+        <Icon className="icon-white icon-sub" name="icon-table2" />
+      </Link>
+    </>
   )
 }
 
