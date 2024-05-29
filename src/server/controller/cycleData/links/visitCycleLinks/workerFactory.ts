@@ -3,8 +3,10 @@ import IORedis from 'ioredis'
 
 import { ActivityLogMessage } from 'meta/assessment'
 import { SectionNames } from 'meta/routes/sectionNames'
+import { Sockets } from 'meta/socket'
 
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
@@ -32,6 +34,12 @@ const newInstance = (props: { key: string }) => {
   worker.on('completed', async (job) => {
     const { assessment, cycle, user } = job.data
 
+    const linksVerificationEvent = Sockets.getLinksVerificationEvent({
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+    })
+    SocketServer.emit(linksVerificationEvent, { event: 'completed' })
+
     const target = { jobStatus: 'completed' }
     const message = ActivityLogMessage.linksCheckComplete
     const section = SectionNames.Admin.links
@@ -44,6 +52,12 @@ const newInstance = (props: { key: string }) => {
 
   worker.on('failed', async (job, error) => {
     const { assessment, cycle, user } = job.data
+
+    const linksVerificationEvent = Sockets.getLinksVerificationEvent({
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+    })
+    SocketServer.emit(linksVerificationEvent, { event: 'failed' })
 
     const target = { error, jobStatus: 'failed' }
     const message = ActivityLogMessage.linksCheckFail
