@@ -1,4 +1,4 @@
-import { Queue, QueueOptions, Worker } from 'bullmq'
+import { Job, Queue, QueueOptions, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { Assessment, Cycle } from 'meta/assessment'
@@ -40,6 +40,12 @@ const getInstance = (props: Props): Queue<VisitCycleLinksProps> => {
   return queue
 }
 
+const getActiveJobs = async (props: Props): Promise<Array<Job<VisitCycleLinksProps>>> => {
+  const queue = getInstance(props)
+  const activeJobs: Array<Job<VisitCycleLinksProps>> = await queue.getActive()
+  return activeJobs
+}
+
 process.on('SIGTERM', async () => {
   await Promise.all(Object.values(workers).map((worker) => worker.close()))
   Logger.debug('[visitCycleLinks] all workers closed')
@@ -47,5 +53,6 @@ process.on('SIGTERM', async () => {
 
 export const VisitCycleLinksQueueFactory = {
   connection,
+  getActiveJobs,
   getInstance,
 }
