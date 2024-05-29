@@ -1,12 +1,10 @@
 import './Header.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 // import { AssessmentStatus, CountryIso } from 'meta/area'
 import { CountryIso } from 'meta/area'
-import { Routes } from 'meta/routes'
 
 import { useCountry } from 'client/store/area'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -28,11 +26,9 @@ const Header: React.FC = () => {
   const lang = useLanguage()
 
   const downloadClassName = useButtonClassName({ iconName, label, noPrint, size })
-  const onlyTablesClassName = useButtonClassName({ iconName, inverse: !onlyTables, label, noPrint, size })
 
   const params = new URLSearchParams({ assessmentName, countryIso, cycleName, lang, onlyTables: String(onlyTables) })
   const downloadHref = `${ApiEndPoint.CycleData.Print.Report.one()}?${params.toString()}`
-  const PrintRoute = onlyTables ? Routes.Print : Routes.PrintTables
 
   // const { deskStudy, status } = country?.props ?? {}
   const { deskStudy } = country?.props ?? {}
@@ -54,17 +50,6 @@ const Header: React.FC = () => {
             <Icon className="icon-white icon-sub" name="hit-down" />
             <Icon className="icon-white icon-sub" name="icon-files" />
           </a>
-        )}
-
-        {!onlyTables && (
-          <Link
-            className={onlyTablesClassName}
-            target="_blank"
-            to={PrintRoute.generatePath({ assessmentName, cycleName, countryIso })}
-          >
-            <Icon className="icon-white icon-sub" name="small-print" />
-            <Icon className="icon-white icon-sub" name="icon-table2" />
-          </Link>
         )}
       </div>
 
