@@ -27,7 +27,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
                  '${tableName}' as table_name,
                  e.col_name,
                  jsonb_object_agg(e.variable_name, e.value) as data
-          from ${getFaoEstimateViewName(schemaCycle, tableName)}" e
+          from ${getFaoEstimateViewName(schemaCycle, tableName)} e
           where e.country_iso in ($1:csv)
               ${
                 tableProps?.columns && tableProps?.columns?.length
