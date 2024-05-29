@@ -1,7 +1,7 @@
-import { Worker, WorkerOptions } from 'bullmq'
+import { Worker, WorkerListener, WorkerOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { SectionNames } from 'meta/routes/sectionNames'
 import { Sockets } from 'meta/socket'
 
@@ -22,6 +22,21 @@ const workerOptions: WorkerOptions = {
   maxStalledCount: 0,
 }
 
+type EmitEventProps = {
+  assessment: Assessment
+  cycle: Cycle
+  event: keyof WorkerListener
+}
+
+const _emitEvent = (props: EmitEventProps) => {
+  const { assessment, cycle, event } = props
+  const linksVerificationEvent = Sockets.getLinksVerificationEvent({
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+  })
+  SocketServer.emit(linksVerificationEvent, { event })
+}
+
 const newInstance = (props: { key: string }) => {
   const { key } = props
 
@@ -31,14 +46,15 @@ const newInstance = (props: { key: string }) => {
     Logger.error(`[visitCycleLinks-worker] job error ${error}`)
   })
 
+  worker.on('active', async (job) => {
+    const { assessment, cycle } = job.data
+    _emitEvent({ assessment, cycle, event: 'active' })
+  })
+
   worker.on('completed', async (job) => {
     const { assessment, cycle, user } = job.data
 
-    const linksVerificationEvent = Sockets.getLinksVerificationEvent({
-      assessmentName: assessment.props.name,
-      cycleName: cycle.name,
-    })
-    SocketServer.emit(linksVerificationEvent, { event: 'completed' })
+    _emitEvent({ assessment, cycle, event: 'completed' })
 
     const target = { jobStatus: 'completed' }
     const message = ActivityLogMessage.linksCheckComplete
@@ -53,11 +69,7 @@ const newInstance = (props: { key: string }) => {
   worker.on('failed', async (job, error) => {
     const { assessment, cycle, user } = job.data
 
-    const linksVerificationEvent = Sockets.getLinksVerificationEvent({
-      assessmentName: assessment.props.name,
-      cycleName: cycle.name,
-    })
-    SocketServer.emit(linksVerificationEvent, { event: 'failed' })
+    _emitEvent({ assessment, cycle, event: 'failed' })
 
     const target = { error, jobStatus: 'failed' }
     const message = ActivityLogMessage.linksCheckFail
