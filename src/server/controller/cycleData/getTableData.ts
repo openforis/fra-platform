@@ -17,7 +17,6 @@ type Props = {
   variables?: Array<string>
   columns?: Array<string>
   mergeOdp?: boolean
-  aggregate?: boolean
   /**
    * @deprecated
    * Merge dependencies to tables condition
@@ -61,16 +60,7 @@ const _mergeODPTable = (props: {
 }
 
 export const getTableData = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
-  const {
-    aggregate: aggregateProp,
-    assessment,
-    columns,
-    countryISOs,
-    cycle,
-    mergeOdp: mergeOdpProp,
-    tableNames,
-    variables,
-  } = props
+  const { assessment, columns, countryISOs, cycle, mergeOdp: mergeOdpProp, tableNames, variables } = props
 
   const isRegion = !Areas.isISOCountry(countryISOs[0])
   // Ignore mergeOdp if request is for region
@@ -78,7 +68,7 @@ export const getTableData = async (props: Props, client: BaseProtocol = DB): Pro
 
   const tables = _getTablesCondition({ tableNames, columns, variables, mergeOdp })
 
-  const aggregate = aggregateProp ?? isRegion
+  const aggregate = isRegion
 
   // TODO: Cache aggregated Table data
   if (aggregate) {
