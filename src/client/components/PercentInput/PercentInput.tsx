@@ -12,16 +12,21 @@ type Props = {
   numberValue: any
   onChange: any
   onPaste: any
+  precision?: number
 }
 
 export class PercentInput extends React.Component<Props, State> {
+  static defaultProps = {
+    precision: 3,
+  }
+
   constructor(props: Props) {
     super(props)
     this.state = { hasFocus: false, inputValue: (props as any).numberValue }
   }
 
   render() {
-    const { numberValue, onChange, onPaste, disabled } = this.props
+    const { disabled, numberValue, onChange, onPaste, precision } = this.props
     const value = this.state.inputValue || numberValue
     return (
       <div className="percent-input__container validation-error-sensitive-field" ref="wrapper">
@@ -29,7 +34,7 @@ export class PercentInput extends React.Component<Props, State> {
           className="percent-input__readonly-view"
           style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}
         >
-          {Numbers.format(numberValue)}
+          {Numbers.format(numberValue, precision)}
         </div>
         <input
           disabled={disabled}

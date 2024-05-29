@@ -46,7 +46,7 @@ const PrimaryForestPercent: React.FC<Props> = (props) => {
           />
         </td>
       ) : (
-        <td className="fra-table__calculated-cell">{Numbers.toFixed(originalDataPoint.values[field])} %</td>
+        <td className="fra-table__calculated-cell">{Numbers.toFixed(originalDataPoint.values[field], 3)} %</td>
       )}
     </tr>
   )

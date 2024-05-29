@@ -17,7 +17,7 @@ export const getFraYearsData = async (props: Props) => {
     cycleName: cycle.name,
     data: _climaticData,
   })
-  const tableNames = entries.map(({ tableName }) => tableName)
+  const tableNames = entries(cycle).map(({ tableName }) => tableName)
   const tableData = await getData({
     assessment,
     cycle,
@@ -36,7 +36,9 @@ export const getFraYearsData = async (props: Props) => {
     data,
     countries,
     tableNames,
-  }).filter((x) => Number.isInteger(+x))
+  })
+    .filter((x) => Number.isInteger(+x))
+    .sort()
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
@@ -51,9 +53,35 @@ export const getFraYearsData = async (props: Props) => {
         subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
       }
 
-      entries.forEach(({ variables, tableName }) => {
+      entries(cycle).forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
-          if (tableName === 'carbonstocksoildepth')
+          if (tableName === 'growingStockComposition2025') {
+            const _year =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName: 'mostRecentYear',
+                colName: 'mostRecentYear',
+              }) ?? years.at(-1)
+
+            if (year === _year) {
+              base[csvColumn] =
+                RecordAssessmentDatas.getDatum({
+                  assessmentName: assessment.props.name,
+                  cycleName: cycle.name,
+                  data: tableData,
+                  countryIso,
+                  tableName,
+                  variableName,
+                  colName: 'growingStockMillionCubicMeter',
+                }) ?? null
+            } else {
+              base[csvColumn] = null
+            }
+          } else if (tableName === 'carbonstocksoildepth')
             base[csvColumn] = RecordAssessmentDatas.getDatum({
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
@@ -76,6 +104,53 @@ export const getFraYearsData = async (props: Props) => {
                   colName: `${year}_${gender.variable}`,
                 }) ?? null
             })
+          } else if (tableName === 'degradedForestMonitoring2025') {
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName,
+                colName: 'doesYourCountryMonitor',
+              }) ?? null
+          } else if (tableName === 'degradedForest') {
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName,
+                colName: 'answer',
+              }) ?? null
+          } else if (tableName === 'forestpolicy') {
+            const _variableName = `${variableName.replace(/(sub_)?national_/, '')}`
+            const _colName = variableName.includes('sub_national') ? 'sub_national_yes_no' : 'national_yes_no'
+
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName: _variableName,
+                colName: _colName,
+              }) ?? null
+          } else if (tableName === 'areaofpermanentforestestate' && variableName === 'applicable') {
+            base[csvColumn] =
+              RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName: 'area_of_permanent_forest_estate',
+                colName: 'applicable',
+              }) ?? null
           } else {
             base[csvColumn] =
               RecordAssessmentDatas.getDatum({

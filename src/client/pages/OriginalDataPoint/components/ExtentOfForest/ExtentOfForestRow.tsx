@@ -30,9 +30,9 @@ type Props = {
 
 const columns: Columns = [
   { name: 'area', type: 'decimal' },
-  { name: 'forestPercent', type: 'decimal' },
-  { name: 'otherWoodedLandPercent', type: 'decimal' },
-  { name: 'otherLandPercent' as keyof ODPNationalClass, type: 'decimal' },
+  { name: 'forestPercent', type: 'decimal', precision: 3 },
+  { name: 'otherWoodedLandPercent', type: 'decimal', precision: 3 },
+  { name: 'otherLandPercent' as keyof ODPNationalClass, type: 'decimal', precision: 3 },
 ]
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
@@ -55,7 +55,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   })
 
   if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
-    otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)))
+    otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)), 3)
   }
   const _onPaste = useOnPaste({
     columns,
@@ -92,15 +92,15 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         className={classNames('fra-table__cell', {
           error: Boolean(validationErrorMessage),
         })}
-        data-tooltip-id={TooltipId.error}
         data-tooltip-content={validationErrorMessage}
+        data-tooltip-id={TooltipId.error}
       >
         <PercentInput
           disabled={!canEditData}
           numberValue={forestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target
-            const updateProps = { field: columns[1].name, value, index }
+            const updateProps = { field: columns[1].name, index, precision: columns[1].precision, value }
             updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
@@ -114,15 +114,15 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         className={classNames('fra-table__cell', {
           error: Boolean(validationErrorMessage),
         })}
-        data-tooltip-id={TooltipId.error}
         data-tooltip-content={validationErrorMessage}
+        data-tooltip-id={TooltipId.error}
       >
         <PercentInput
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target
-            const updateProps = { field: columns[2].name, value, index }
+            const updateProps = { field: columns[2].name, index, precision: columns[2].precision, value }
             updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
@@ -140,8 +140,8 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       {shouldRenderReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
-            title={name}
             subtitle={t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
+            title={name}
             topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'extentOfForest')}
           />
         </td>

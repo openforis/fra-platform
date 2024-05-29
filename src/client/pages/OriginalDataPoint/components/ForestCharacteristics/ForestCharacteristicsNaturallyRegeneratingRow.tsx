@@ -18,7 +18,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 
 import { useNationalClassNameComments } from '../../hooks'
 
-const columns: Columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal' }]
+const columns: Columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal', precision: 3 }]
 
 type Props = {
   canEditData: boolean
@@ -77,7 +77,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
           numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target
-            const updateProps = { field: columns[0].name, value, index }
+            const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
             updateOriginalDataField(updateProps)
           }}
           onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {

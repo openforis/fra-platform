@@ -50,6 +50,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Bosque regenerado de forma natural ({{startYear}} - {{endYear}})',
+    title: 'Área de bosque con procesos de regeneración natural y bosque plantado ({{startYear}} - {{endYear}})',
   },
 }

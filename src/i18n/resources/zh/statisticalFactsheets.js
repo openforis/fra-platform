@@ -50,6 +50,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: '天然再生林面积 ({{startYear}} - {{endYear}})',
+    title: '自然再生林和人工林面积 ({{startYear}} - {{endYear}})',
   },
 }
