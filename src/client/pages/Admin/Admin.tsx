@@ -30,10 +30,6 @@ const sections: Array<Section> = [
     name: SectionNames.Admin.userManagement,
     labelKey: 'landing.sections.userManagement',
   },
-  {
-    name: SectionNames.Admin.links,
-    labelKey: 'landing.links.links',
-  },
   // { name: 'dataExport', labelKey: 'common.dataExport' },
 ]
 
@@ -42,7 +38,7 @@ const Admin: React.FC = () => {
   const countries = useCountries()
   const user = useUser()
 
-  if (!Users.isAdministrator(user)) return <Navigate replace to={Routes.Root.path.absolute} />
+  if (!Users.isAdministrator(user)) return <Navigate to={Routes.Root.path.absolute} replace />
 
   if (Objects.isEmpty(countries)) return null
 
@@ -56,12 +52,12 @@ const Admin: React.FC = () => {
         {sections.map(({ name, labelKey }) => (
           <NavLink
             key={name}
+            to={name}
             className={(navData) =>
               classNames('btn admin__page-menu-button', {
                 disabled: navData.isActive,
               })
             }
-            to={name}
           >
             {t(labelKey)}
           </NavLink>
