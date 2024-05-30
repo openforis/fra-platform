@@ -9,6 +9,7 @@ import { DataLockState } from './ui/dataLock'
 import { FileUploadSlice, FileUploadState } from './ui/fileUpload'
 import { GeoState } from './ui/geo/stateType'
 import { HomeState } from './ui/home/stateType'
+import { LinksSlice, LinksState } from './ui/links'
 import { MessageCenterState } from './ui/messageCenter/stateType'
 import { NavigationState } from './ui/navigation/stateType'
 import { NotificationState } from './ui/notification/stateType'
@@ -36,6 +37,7 @@ export type RootState = {
     dataLock: DataLockState
     [FileUploadSlice.name]: FileUploadState
     home: HomeState
+    [LinksSlice.name]: LinksState
     messageCenter: MessageCenterState
     navigation: NavigationState
     notification: NotificationState
