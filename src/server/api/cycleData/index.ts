@@ -20,6 +20,7 @@ import { removeDataSource } from './descriptions/removeDataSource'
 import { upsertDescription } from './descriptions/upsertDescription'
 import { getLinksCount } from './links/getLinksCount'
 import { getManyLinks } from './links/getManyLinks'
+import { isVerificationInProgress } from './links/isVerificationInProgress'
 import { updateLink } from './links/updateLink'
 import { verifyLinks } from './links/verifyLinks'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
@@ -191,5 +192,6 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.Links.many(), AuthMiddleware.requireAdmin, getManyLinks)
     express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireAdmin, getLinksCount)
     express.post(ApiEndPoint.CycleData.Links.verify(), AuthMiddleware.requireAdmin, verifyLinks)
+    express.get(ApiEndPoint.CycleData.Links.verifyStatus(), AuthMiddleware.requireAdmin, isVerificationInProgress)
   },
 }
