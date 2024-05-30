@@ -20,7 +20,7 @@ const _getOrderClause = (
   orderBy: string | undefined,
   orderByDirection: TablePaginatedOrderByDirection | undefined
 ): string => {
-  if (Objects.isEmpty(orderBy)) return ''
+  if (Objects.isEmpty(orderBy)) return 'order by id asc'
 
   const direction = orderByDirection ?? TablePaginatedOrderByDirection.asc
   if (orderBy === 'code') {
