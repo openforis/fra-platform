@@ -42,11 +42,15 @@ export default async (job: VisitCycleLinksJob): Promise<void> => {
 
     const linkVisits = await visitLinks(mergedLinksToVisit)
 
-    await LinkRepository.upsertMany({
+    const updatedLinks = await LinkRepository.upsertMany({
       assessment,
       cycle,
       linkVisits,
     })
+
+    const excludedIds = updatedLinks.map((link) => link.id)
+
+    await LinkRepository.deleteMany({ assessment, cycle, excludeApproved: true, excludedIds })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)

@@ -1,7 +1,8 @@
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
 import { Assessment, Cycle } from 'meta/assessment'
-import { LinkProps, VisitedLink } from 'meta/cycleData'
+import { Link, LinkProps, VisitedLink } from 'meta/cycleData'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -11,10 +12,10 @@ type Props = {
   linkVisits: Array<VisitedLink>
 }
 
-export const upsertMany = (props: Props, client: BaseProtocol = DB): Promise<void> => {
+export const upsertMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Link>> => {
   const { assessment, cycle, linkVisits } = props
   if (linkVisits.length === 0) {
-    return
+    return []
   }
 
   const values = linkVisits.map((visit) => {
@@ -52,7 +53,7 @@ export const upsertMany = (props: Props, client: BaseProtocol = DB): Promise<voi
     set visits = link.visits || excluded.visits,
     locations = excluded.locations,
     props = link.props || excluded.props
-    `
+    returning *`
 
-  client.query(query, [])
+  return client.map<Link>(query, [], (row) => Objects.camelize(row))
 }
