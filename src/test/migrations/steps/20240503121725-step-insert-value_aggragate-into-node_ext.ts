@@ -12,6 +12,8 @@ import { BaseProtocol, Schemas } from 'server/db'
  * Note: We don't migrate values that are already in node_ext
  */
 
+// TODO: Don't migrate existing values in schemaCycle.node to node_ext
+
 export default async (client: BaseProtocol) => {
   const assessment = await AssessmentController.getOne({ assessmentName: 'fra' }, client)
   await Promises.each(assessment.cycles, async (cycle) => {
@@ -33,14 +35,16 @@ export default async (client: BaseProtocol) => {
           from ${schemaCycle}.value_aggregate va
                    left join ${schemaName}.row on va.variable_name = row.props ->> 'variableName'
               left join ${schemaName}.table t on row.table_id = t.id
-          where t.props ->> 'name' is not null ${where}
+          where
+              t.props ->> 'name' is not null
+              and va.value is not null
+              ${where}
             and not exists (
               select 1
                 from ${schemaCycle}.node_ext ne
                   where ne.props ->> 'variableName' = va.variable_name
                 and ne.country_iso = va.country_iso
                 and ne.props ->> 'colName' = va.col_name
-                and ne.value = va.value
               )
       `
     await client.query(q)
