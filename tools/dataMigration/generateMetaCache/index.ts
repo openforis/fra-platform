@@ -3,7 +3,6 @@ import { Assessment } from '../../../src/meta/assessment/assessment'
 import { AssessmentMetaCache, VariablesCache } from '../../../src/meta/assessment/assessmentMetaCache'
 import { Col } from '../../../src/meta/assessment/col'
 import { Row } from '../../../src/meta/assessment/row'
-import { TableNames } from '../../../src/meta/assessment/table'
 import { BaseProtocol } from '../../../src/server/db'
 import { Objects } from '../../../src/utils/objects'
 import { DBNames } from '../_DBNames'
@@ -41,15 +40,15 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
     ({ cache }) => cache
   )
 
-  const { data } = await client.one(`
-      with v as (
-          select distinct v.variable_name,
-                          jsonb_build_object('tableName', 'value_aggregate', 'variableName', v.variable_name) as var
-          from ${DBNames.getCycleSchema(assessment.props.name, cycle.name)}.value_aggregate v
-      )
-      select jsonb_object_agg(v.variable_name, v.var order by v.variable_name) as data
-      from v
-  `)
+  // const { data } = await client.one(`
+  //     with v as (
+  //         select distinct v.variable_name,
+  //                         jsonb_build_object('tableName', 'value_aggregate', 'variableName', v.variable_name) as var
+  //         from ${DBNames.getCycleSchema(assessment.props.name, cycle.name)}.value_aggregate v
+  //     )
+  //     select jsonb_object_agg(v.variable_name, v.var order by v.variable_name) as data
+  //     from v
+  // `)
 
   const assessmentMetaCache: AssessmentMetaCache = {
     calculations: {
@@ -62,7 +61,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
     },
     variablesByTable: {
       ...variablesByTable,
-      [TableNames.valueAggregate]: data,
+      // [TableNames.valueAggregate]: data,
     },
   }
 
