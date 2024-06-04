@@ -8,17 +8,24 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  excludeDeleted?: boolean
 }
 
 export const getCount = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
-  const { assessment, cycle } = props
+  const { assessment, cycle, excludeDeleted } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+
+  let where = ''
+  if (excludeDeleted) {
+    where = "where (props->>'deleted')::boolean is distinct from true"
+  }
 
   return client.one(
     `
         select count(l.id) as total
         from ${schemaCycle}.link l
+        ${where}
     `,
     [],
     (res) => Objects.camelize(res)
