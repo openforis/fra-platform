@@ -24,7 +24,9 @@ export enum TableNames {
   totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
   // Used to append ODP data to tableData
   originalDataPointValue = 'originalDataPointValue',
-  // Used for dashboard
+  /**
+   * @deprecated
+   */
   valueAggregate = 'value_aggregate',
 }
 

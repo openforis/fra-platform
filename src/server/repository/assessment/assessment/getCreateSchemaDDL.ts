@@ -200,17 +200,6 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           last_open_time timestamptz default now() not null
       );
 
-      create table ${assessmentCycleSchemaName}.value_aggregate
-      (
-          country_iso   varchar(3)                            not null
-              constraint message_topic_country_country_iso_fk
-                  references country
-                  on update cascade on delete cascade,
-          variable_name           varchar(256)                not null,
-          col_name                varchar(256)                not null,
-          value                   jsonb default '{}'::jsonb
-      );
-      
       create table ${assessmentCycleSchemaName}.descriptions
       (
           id           bigserial       constraint descriptions_pk   primary key,

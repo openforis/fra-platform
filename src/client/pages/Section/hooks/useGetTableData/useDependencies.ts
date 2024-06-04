@@ -13,7 +13,7 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { Props } from './props'
 
 const staticDependencies: Record<string, Array<string>> = {
-  [TableNames.extentOfForest]: [TableNames.valueAggregate],
+  // [TableNames.extentOfForest]: [TableNames.valueAggregate],
 }
 
 // different assessment / cycle

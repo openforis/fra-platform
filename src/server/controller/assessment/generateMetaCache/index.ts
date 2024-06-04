@@ -6,7 +6,6 @@ import { AssessmentMetaCache, AssessmentName, RowCache } from 'meta/assessment'
 import { BaseProtocol, DB } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { RowRepository } from 'server/repository/assessment/row'
-import { ValueAggregateRepository } from 'server/repository/assessmentCycle/valueAggregate'
 
 import { DependencyEvaluator } from './dependencyEvaluator'
 
@@ -26,14 +25,15 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
 
     // init cycle meta cache
     await Promises.each(assessment.cycles, async (cycle) => {
-      const [variables, valueAggregate] = await Promise.all([
+      const [variables] = await Promise.all([
         RowRepository.getVariablesCache({ assessment, cycle }, client),
-        ValueAggregateRepository.getVariablesCache({ assessment, cycle }, client),
+        // TODO: Check if we need same for nodeExt
+        // ValueAggregateRepository.getVariablesCache({ assessment, cycle }, client),
       ])
       const metaCache: AssessmentMetaCache = {
         calculations: { dependants: {}, dependencies: {} },
         validations: { dependants: {}, dependencies: {} },
-        variablesByTable: { ...variables, ...valueAggregate },
+        variablesByTable: { ...variables },
       }
       Objects.setInPath({ obj: assessment, path: ['metaCache', cycle.uuid], value: metaCache })
     })
