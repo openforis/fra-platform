@@ -8,7 +8,7 @@ import { Objects } from 'utils/objects'
 import { Link as LinkType } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store'
-import { LinksActions } from 'client/store/ui/links'
+import { LinksActions, useIsVerificationInProgress } from 'client/store/ui/links'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
@@ -22,6 +22,8 @@ const Link: React.FC<Props> = (props) => {
   const { assessmentName, cycleName } = useSectionRouteParams()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
+
+  const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
 
   const approved = linkInfo.props?.approved
   const withApprovalBadge = approved ?? false
@@ -41,6 +43,7 @@ const Link: React.FC<Props> = (props) => {
       <div className="link-cell__badge-button-container">
         {withApprovalBadge && <div className="link-cell__badge">{t('common.approved')}</div>}
         <Button
+          disabled={verifyLinksInProgress ?? true}
           inverse
           label={withApprovalBadge ? t('common.disapprove') : t('common.approve')}
           onClick={handleUpdateLink}

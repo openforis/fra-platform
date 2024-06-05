@@ -38,7 +38,7 @@ const AdminLinks: React.FC = () => {
       </div>
       <TablePaginated
         columns={columns}
-        gridTemplateColumns="auto min-content min-content min-content"
+        gridTemplateColumns="auto min-content min-content"
         path={ApiEndPoint.CycleData.Links.many()}
       />
     </>

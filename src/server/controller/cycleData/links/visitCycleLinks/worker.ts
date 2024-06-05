@@ -6,7 +6,8 @@ import { LinkRepository } from 'server/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
 
-import { mergeAndFilterLinks } from './utils/mergeAndFilterLinks'
+import { filterLinks } from './utils/filterLinks'
+import { mergeLinks } from './utils/mergeLinks'
 import { visitLinks } from './utils/visitLinks'
 import { VisitCycleLinksJob } from './props'
 
@@ -38,9 +39,18 @@ export default async (job: VisitCycleLinksJob): Promise<void> => {
       LinkRepository.getMany({ assessment, cycle, approved: true }),
     ])
 
-    const mergedLinksToVisit = mergeAndFilterLinks({ approvedLinks, linksToVisit })
+    const mergedLinks = mergeLinks({ linksToVisit })
 
-    const linkVisits = await visitLinks(mergedLinksToVisit)
+    await LinkRepository.markDeletedMany({
+      assessment,
+      cycle,
+      excludedLinks: mergedLinks.map((link) => ({
+        countryIso: link.countryIso,
+        link: link.link,
+      })),
+    })
+
+    const linkVisits = await visitLinks(filterLinks({ approvedLinks, linksToVisit: mergedLinks }))
 
     await LinkRepository.upsertMany({
       assessment,

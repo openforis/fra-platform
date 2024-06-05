@@ -11,6 +11,7 @@ export enum LinkValidationStatusCode {
 
 export type LinkProps = {
   approved?: boolean
+  deleted?: boolean
   name: string
 }
 

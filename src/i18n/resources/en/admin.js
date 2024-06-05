@@ -10,5 +10,4 @@ module.exports = {
   urlParsingError: 'URL parsing error',
   usersCount: 'Nº of Users',
   verifyLinks: 'Verify links',
-  visitsCount: 'Nº of Visits',
 }

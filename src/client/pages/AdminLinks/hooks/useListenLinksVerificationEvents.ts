@@ -34,6 +34,7 @@ export const useListenLinksVerificationEvents = (): void => {
         )
         const getDataProps = { assessmentName, cycleName, limit: 30, orderBy, page, path }
         dispatch(TablePaginatedActions.getData(getDataProps))
+        dispatch(TablePaginatedActions.getCount(getDataProps))
       }
     }
 
