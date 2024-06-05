@@ -35,7 +35,7 @@ export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<
     approved,
     assessment,
     cycle,
-    excludeDeleted,
+    excludeDeleted = true,
     limit: limitProp,
     offset: offsetProp,
     orderBy,

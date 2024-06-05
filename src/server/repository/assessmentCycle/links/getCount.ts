@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const getCount = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
-  const { assessment, cycle, excludeDeleted } = props
+  const { assessment, cycle, excludeDeleted = true } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
