@@ -15,12 +15,11 @@ export const getAggregatedTableData = async (
 ): Promise<RecordAssessmentData> => {
   const { assessment, cycle, countryISOs, tableNames, columns, variables, mergeOdp } = props
   const tables = getTablesCondition({ tableNames, columns, variables, mergeOdp })
-
-  const aggregatedData = await DataRepository.getAggregatedTableData({ assessment, cycle, countryISOs, tables }, client)
-
   const regionCode = countryISOs[0] as RegionCode
-  const countries = await CountryRegionRepository.getManyRegionCountries({ assessment, cycle, regionCode }, client)
 
+  const aggregatedData = await DataRepository.getAggregatedTableData({ assessment, cycle, regionCode, tables }, client)
+
+  const countries = await CountryRegionRepository.getManyRegionCountries({ assessment, cycle, regionCode }, client)
   const tableData = await getTableData({ ...props, countryISOs: countries }, client)
 
   const mergedData = RecordAssessmentDatas.mergeRecordTableData(

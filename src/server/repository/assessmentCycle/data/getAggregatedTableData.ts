@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { RegionCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
@@ -6,14 +6,14 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
-  countryISOs: Array<CountryIso>
+  regionCode: RegionCode
   cycle: Cycle
   tables: TablesCondition
 }
 
 // Only for regions
 export const getAggregatedTableData = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, countryISOs, cycle, tables } = props
+  const { assessment, regionCode, cycle, tables } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   return client.one<RecordCountryData>(
@@ -39,7 +39,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
         select jsonb_object_agg(a.country_iso, a.data) as data
         from agg3 a;
     `,
-    [countryISOs[0], Object.keys(tables)],
+    [regionCode, Object.keys(tables)],
     ({ data }) => data
   )
 }
