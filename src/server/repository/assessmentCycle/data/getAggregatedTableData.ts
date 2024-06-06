@@ -23,7 +23,7 @@ export const getAggregatedTableData = async (props: Props, client: BaseProtocol 
              , ne.props ->> 'tableName'    as table_name
              , ne.props ->> 'variableName' as variable_name
              , ne.props ->> 'colName'      as col_name
-             , jsonb_build_object('raw', text(coalesce(sum((ne.value ->> 'raw')::numeric), 0))) as value
+             , jsonb_build_object('raw', text(coalesce(sum((ne.value ->> 'raw')::numeric), 0)), 'type', 'node_ext') as value
           from ${schemaCycle}.node_ext ne
           where ne.type = 'node'
             and ne.props ->> 'tableName' in ($2:list)
