@@ -22,10 +22,10 @@ export const getAggregatedTableData = async (
   const countries = await CountryRegionRepository.getManyRegionCountries({ assessment, cycle, regionCode }, client)
   const tableData = await getTableData({ ...props, countryISOs: countries }, client)
 
-  const mergedData = RecordAssessmentDatas.mergeRecordTableData(
-    RecordAssessmentDatas.sumCountryValues(tableData),
-    aggregatedData[regionCode]
-  )
+  const countryDataSum = RecordAssessmentDatas.sumCountryValues(tableData)
+  const currentRegionData = aggregatedData[regionCode]
+
+  const mergedData = RecordAssessmentDatas.mergeRecordTableData(currentRegionData, countryDataSum)
 
   return {
     [assessment.props.name]: {
