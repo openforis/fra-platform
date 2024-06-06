@@ -1,8 +1,10 @@
+import { RegionCode } from 'meta/area'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { getTablesCondition } from 'server/controller/cycleData/tableData/getTablesCondition'
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
+import { CountryRegionRepository } from 'server/repository/assessmentCycle/countryRegion'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 
 import { Props } from './props'
@@ -16,19 +18,8 @@ export const getAggregatedTableData = async (
 
   const aggregatedData = await DataRepository.getAggregatedTableData({ assessment, cycle, countryISOs, tables }, client)
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
-  // AreaRepository.getManyByRegion
-  const regionCode = countryISOs[0]
-  const countries = await client.map(
-    `
-      select country_iso
-      from ${schemaCycle}.country_region
-      where region_code = $1 and country_iso not ilike 'X%'
-  `,
-    [regionCode],
-    (row) => row.country_iso
-  )
+  const regionCode = countryISOs[0] as RegionCode
+  const countries = await CountryRegionRepository.getManyRegionCountries({ assessment, cycle, regionCode }, client)
 
   const tableData = await getTableData({ ...props, countryISOs: countries }, client)
 
