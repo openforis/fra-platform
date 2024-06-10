@@ -10,9 +10,11 @@ import { BaseProtocol, Schemas } from 'server/db'
  * Note: We don't migrate values that are not associated with a table,
  *       eg. precalculated ratios or sums or totals
  * Note: We don't migrate values that are already in node_ext
+ * Note: We don't migrate forestArea, even when not found in node as we have 100% data for countries for forestArea in either node or ODP tables
  */
 
 const _migrateTotalLandArea = (schemaCycle: string) => `
+    insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
     select va.country_iso
          , 'node' as type
          , jsonb_build_object(
@@ -107,11 +109,9 @@ const _migrateRest = (schemaCycle: string, schemaAssessment: string) => `
             'colName', va.col_name,
             'variableName', va.variable_name,
             'tableName',
-            case when n.table_name is null then
-                     case
-                         when va.variable_name ilike '%ownership%' then 'forestOwnership'
-                         when va.variable_name = 'forestArea' then 'extentOfForest'
-                         end
+            case
+                when n.table_name is null and va.variable_name ilike '%ownership%'
+                        then 'forestOwnership'
                  else n.table_name end
            )      as props
          , va.value || '{"faoEstimate": "true"}' as value
@@ -121,7 +121,7 @@ const _migrateRest = (schemaCycle: string, schemaAssessment: string) => `
       and va.variable_name not in (
         'conservation_of_biodiversity', 'multiple_use', 'no_unknown', 'other', 'production',
         'protection_of_soil_and_water', 'social_services', 'totalForestArea',
-        'carbon_stock_biomass_total', 'carbon_stock_total', 'growing_stock_total', 'primary_forest_ratio', 'forest_area_percent', 'naturalForestArea', 'plantedForest')
+        'carbon_stock_biomass_total', 'carbon_stock_total', 'growing_stock_total', 'primary_forest_ratio', 'forest_area_percent', 'naturalForestArea', 'plantedForest', 'forestArea')
       and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
     order by 1, 2, 3, 4;
 `
