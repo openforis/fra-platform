@@ -1,6 +1,9 @@
+import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
 import { RecordTableData } from 'meta/data/RecordAssessmentData'
+
+// TODO This will change
 
 export const mergeRecordTableData = (data: RecordTableData, newData: RecordTableData): RecordTableData => {
   return Object.keys(newData).reduce<RecordTableData>((acc, tableName) => {
@@ -13,9 +16,16 @@ export const mergeRecordTableData = (data: RecordTableData, newData: RecordTable
         if (!exists) {
           const path = [tableName, colName, variableName]
           Objects.setInPath({ obj: acc, path, value: col[variableName] })
+        } else {
+          const path = [tableName, colName, variableName, 'raw']
+          const value = Numbers.add(
+            acc[tableName]?.[colName]?.[variableName].raw,
+            newData[tableName]?.[colName]?.[variableName].raw
+          )
+          Objects.setInPath({ obj: acc, path, value })
         }
       })
     })
-    return data as RecordTableData
-  }, {})
+    return acc as RecordTableData
+  }, data)
 }
