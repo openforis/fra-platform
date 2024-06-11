@@ -3,14 +3,14 @@ import { Objects } from 'utils/objects'
 
 import { RecordTableData } from 'meta/data/RecordAssessmentData'
 
-// TODO This will change
-
 export const mergeRecordTableData = (data: RecordTableData, newData: RecordTableData): RecordTableData => {
   return Object.keys(newData).reduce<RecordTableData>((acc, tableName) => {
     const table = newData[tableName]
     Object.keys(table).forEach((colName) => {
       const col = table[colName]
       Object.keys(col).forEach((variableName) => {
+        if (variableName === 'totalLandArea') return
+
         const exists = !Objects.isEmpty(acc[tableName]?.[colName]?.[variableName])
 
         if (!exists) {
@@ -21,7 +21,7 @@ export const mergeRecordTableData = (data: RecordTableData, newData: RecordTable
           const value = Numbers.add(
             acc[tableName]?.[colName]?.[variableName].raw,
             newData[tableName]?.[colName]?.[variableName].raw
-          )
+          ).toString()
           Objects.setInPath({ obj: acc, path, value })
         }
       })
