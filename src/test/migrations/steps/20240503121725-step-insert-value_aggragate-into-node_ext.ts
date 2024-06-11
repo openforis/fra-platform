@@ -85,7 +85,7 @@ const _migrateForestCharacteristics = (schemaCycle: string, schemaAssessment: st
    from ${schemaCycle}.value_aggregate va
        left join country_nodes n using (country_iso, variable_name, col_name)
    where va.value ->> 'raw' is not null
-     and va.variable_name in ('naturalForestArea', 'plantedForest')
+     and va.variable_name in ('plantedForest')
      and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
    order by 1, 2, 3, 4;
 
