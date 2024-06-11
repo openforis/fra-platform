@@ -22,7 +22,7 @@ export const sumCountryValues = (a: RecordAssessmentData): RecordTableData => {
             Object.keys(col).forEach((variableName) => {
               const variable = col[variableName]
               if (variable.raw && !_SKIP.includes(tableName)) {
-                if (!acc?.[tableName]?.[colName]?.[variableName]) {
+                if (!acc[tableName]?.[colName]?.[variableName]) {
                   const path = [tableName, colName, variableName]
                   Objects.setInPath({ obj: acc, path, value: _BASE })
                 }
