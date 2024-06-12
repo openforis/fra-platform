@@ -40,16 +40,6 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
     ({ cache }) => cache
   )
 
-  // const { data } = await client.one(`
-  //     with v as (
-  //         select distinct v.variable_name,
-  //                         jsonb_build_object('tableName', 'value_aggregate', 'variableName', v.variable_name) as var
-  //         from ${DBNames.getCycleSchema(assessment.props.name, cycle.name)}.value_aggregate v
-  //     )
-  //     select jsonb_object_agg(v.variable_name, v.var order by v.variable_name) as data
-  //     from v
-  // `)
-
   const assessmentMetaCache: AssessmentMetaCache = {
     calculations: {
       dependants: {},
@@ -61,7 +51,6 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol): Pro
     },
     variablesByTable: {
       ...variablesByTable,
-      // [TableNames.valueAggregate]: data,
     },
   }
 
