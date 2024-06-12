@@ -128,9 +128,9 @@ module.exports = {
     ifYes: 'Si « Oui »',
   },
   growingStock: {
-    totalForest: 'Total Forêt (a+b)',
-    naturallyRegeneratingForest2025: 'Forêt naturellement régénérée (a)',
-    plantedForest2025: 'Forêts plantées (b)',
+    totalForest: 'Total Forêt',
+    naturallyRegeneratingForest2025: 'Forêt naturellement régénérée',
+    plantedForest2025: 'Forêts plantées',
     otherPlantedForest2025: '...dont autres forêts plantées',
   },
   growingStockComposition: {

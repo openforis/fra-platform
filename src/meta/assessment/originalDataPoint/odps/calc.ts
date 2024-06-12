@@ -112,7 +112,7 @@ const calculatePrimaryForest = (props: { originalDataPoint: OriginalDataPoint })
     })
     const primaryForestPercent = Numbers.toBigNumber(originalDataPoint.values.primaryForestPercent)
 
-    return Numbers.mul(naturalForest, Numbers.div(primaryForestPercent, 100)).toNumber()
+    return Numbers.mul(naturalForest, Numbers.div(primaryForestPercent, 100))?.toNumber()
   }
 
   return calcTotalSubSubFieldArea({

@@ -1,26 +1,26 @@
-import { Objects } from 'utils/objects'
-
-import { Assessment, Table } from 'meta/assessment'
+import { Assessment, Table, TableProps } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { TableAdapter } from 'server/repository/adapter'
 
-// Update table in database
-export const update = async (
-  params: {
-    table: Table
-    assessment: Assessment
-  },
-  client: BaseProtocol = DB
-): Promise<Table> => {
-  const { table, assessment } = params
+type Props = {
+  assessment: Assessment
+  tableId: number
+  tableProps: Partial<TableProps>
+}
+
+export const update = async (params: Props, client: BaseProtocol = DB): Promise<Table> => {
+  const { assessment, tableId, tableProps } = params
+
   const schemaName = Schemas.getName(assessment)
 
   return client.one<Table>(
     `
             update ${schemaName}.table
-            set props = $1::jsonb, table_section_id = $2
-            where id = $3 returning *;`,
-    [JSON.stringify(table.props), +table.tableSectionId, +table.id],
-    Objects.camelize
+            set props = props || $1::jsonb
+            where id = $2 
+            returning *;`,
+    [JSON.stringify(tableProps), +tableId],
+    TableAdapter
   )
 }

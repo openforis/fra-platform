@@ -26,8 +26,7 @@ export interface User {
   readonly id: number
   readonly uuid: string
   email: string
-  profilePictureFile?: string
-  profilePictureFilename?: string
+  profilePictureFileUuid?: string
   props: UserProps
   roles: Array<UserRole<RoleName>>
   status: UserStatus
