@@ -1,6 +1,8 @@
 import { create } from './create'
 import { deleteNationalClass } from './deleteNationalClass'
 import { getMany } from './getMany'
+import { getManyWithDescriptionLinks } from './getManyWithDescriptionLinks'
+import { getManyWithReferenceLinks } from './getManyWithReferenceLinks'
 import { getOne } from './getOne'
 import { getReservedYears } from './getReservedYears'
 import { remove } from './remove'
@@ -12,12 +14,14 @@ import { updateYear } from './updateYear'
 
 export const OriginalDataPointRepository = {
   create,
-  getOne,
+  deleteNationalClass,
   getMany,
+  getManyWithDescriptionLinks,
+  getManyWithReferenceLinks,
+  getOne,
   getReservedYears,
   remove,
   updateDataSources,
-  deleteNationalClass,
   updateDescription,
   updateNationalClasses,
   updateOriginalData,
