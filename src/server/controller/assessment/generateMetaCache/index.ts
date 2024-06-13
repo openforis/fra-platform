@@ -25,11 +25,7 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
 
     // init cycle meta cache
     await Promises.each(assessment.cycles, async (cycle) => {
-      const [variables] = await Promise.all([
-        RowRepository.getVariablesCache({ assessment, cycle }, client),
-        // TODO: Check if we need same for nodeExt
-        // ValueAggregateRepository.getVariablesCache({ assessment, cycle }, client),
-      ])
+      const variables = await RowRepository.getVariablesCache({ assessment, cycle }, client)
       const metaCache: AssessmentMetaCache = {
         calculations: { dependants: {}, dependencies: {} },
         validations: { dependants: {}, dependencies: {} },
