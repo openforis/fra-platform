@@ -5,10 +5,12 @@ import { BaseProtocol, DB } from 'server/db'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
+type Returned = { assessment: Assessment; cycle: Cycle }
+
 export const createCycle = async (
   props: { user: User; assessment: Assessment; name: string },
   client: BaseProtocol = DB
-): Promise<{ assessment: Assessment; cycle: Cycle }> => {
+): Promise<Returned> => {
   const { user, assessment, name } = props
   return client.tx(async (t) => {
     const { assessment: updatedAssessment, cycle } = await CycleRepository.create({ assessment, name }, t)
