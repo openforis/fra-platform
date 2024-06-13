@@ -1,3 +1,5 @@
+import { ColRepository } from 'server/repository/assessment/col'
+import { RowRepository } from 'server/repository/assessment/row'
 import { SectionRepository } from 'server/repository/assessment/section'
 import { TableRepository } from 'server/repository/assessment/table'
 import { TableSectionRepository } from 'server/repository/assessment/tableSection'
@@ -17,6 +19,7 @@ import { updateTable } from './updateTable'
 import { updateTableSection } from './updateTableSection'
 
 export const MetadataController = {
+  // section
   getSection: SectionRepository.getOne,
   getSections: SectionRedisRepository.getMany,
   getSectionsMetadata: SectionRedisRepository.getManyMetadata,
@@ -25,18 +28,26 @@ export const MetadataController = {
   createSection,
   updateSection,
 
+  // subsection
   createSubSection,
   updateSubSection,
 
+  // tableSection
   getTableSection: TableSectionRepository.getOne,
   createTableSection,
   updateTableSection,
   removeTableSection,
 
+  // table
   getTable: TableRepository.getOne,
   createTable,
   updateTable,
   removeTable,
 
+  // row
+  createRow: RowRepository.create,
+
+  // col
   addColumn,
+  createCol: ColRepository.create,
 }

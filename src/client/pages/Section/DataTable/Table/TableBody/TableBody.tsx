@@ -15,7 +15,7 @@ type Props = {
 
 const TableBody: React.FC<Props> = (props) => {
   const { disabled, table, assessmentName, sectionName, data } = props
-  const rowsData = table.rows.filter((row) => row.props.type !== RowType.header)
+  const rowsData = table.rows.filter((row) => !row.props.hidden && row.props.type !== RowType.header)
 
   return (
     <tbody>
@@ -24,11 +24,11 @@ const TableBody: React.FC<Props> = (props) => {
           <Row
             key={row.uuid}
             assessmentName={assessmentName}
+            data={data}
+            disabled={disabled}
+            row={row}
             sectionName={sectionName}
             table={table}
-            data={data}
-            row={row}
-            disabled={disabled}
           />
         )
       })}
