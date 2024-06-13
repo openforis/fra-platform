@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
+import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
 
 import AreaSlice from './area/slice'
@@ -38,6 +39,7 @@ export default {
     dataLock: DataLockSlice,
     [FileUploadSlice.name]: FileUploadSlice.reducer,
     home: HomeSlice,
+    [LinksSlice.name]: LinksSlice.reducer,
     messageCenter: MessageCenterSlice,
     navigation: NavigationSlice,
     notification: NotificationSlice,

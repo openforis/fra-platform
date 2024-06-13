@@ -2,6 +2,8 @@ import './Flags.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from 'utils/objects'
+
 import { Col, NodeValue, Row } from 'meta/assessment'
 import { Authorizer } from 'meta/user'
 
@@ -33,7 +35,7 @@ const Flags: React.FC<Props> = (props) => {
 
   const canEditData = Authorizer.canEditData({ country, cycle, section, user })
   const linkedNode = col.props.linkedNodes?.[cycle.uuid]
-  const withEstimation = canEditData && nodeValue?.estimationUuid && !linkedNode
+  const withEstimation = canEditData && nodeValue?.estimationUuid && !Objects.isEmpty(nodeValue?.raw) && !linkedNode
 
   if (!withEstimation && !linkedNode) {
     return null
