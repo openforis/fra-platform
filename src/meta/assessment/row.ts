@@ -46,6 +46,7 @@ export interface RowProps {
   format?: {
     integer?: boolean
   }
+  hidden?: boolean
   index: number | string
   label?: RowLabel // TODO: remove? (check if used - probably not)
   linkToSection?: Record<CycleUuid, string>
