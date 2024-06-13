@@ -12,10 +12,6 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 import { Props } from './props'
 
-const staticDependencies: Record<string, Array<string>> = {
-  // [TableNames.extentOfForest]: [TableNames.valueAggregate],
-}
-
 // different assessment / cycle
 type ExternalDependencies = Record<AssessmentName, Record<CycleName, Set<TableName>>>
 
@@ -70,7 +66,6 @@ export const useDependencies = (props: Props): Returned => {
           (tableName === TableNames.forestCharacteristics && forestCharacteristicsUseOdp)
 
         internal.tableNames.add(tableName)
-        staticDependencies[tableName]?.forEach((t) => internal.tableNames.add(t))
         if (withOdp) {
           internal.tableNames.add(TableNames.originalDataPointValue)
           internal.tableWithOdp = tableName
