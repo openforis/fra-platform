@@ -38,9 +38,10 @@ export const useGetTableData = (props: Props) => {
       }
 
       // fetch external dependencies
+      const auth = { assessmentName, cycleName }
       Object.entries(external).forEach(([assessmentName, cycleDependencies]) => {
         Object.entries(cycleDependencies).forEach(([cycleName, tableNames]) => {
-          const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true }
+          const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true, auth }
           dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
           dispatch(AssessmentActions.getMetaCache({ assessmentName, cycleName }))

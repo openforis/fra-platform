@@ -5,6 +5,7 @@ import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 
 // base params
 export type CycleParams = {
+  authContext?: string // authContext is a string created as encodeURIComponent(JSON.stringify({assessmentName, cycleName}))
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycleName: CycleName
