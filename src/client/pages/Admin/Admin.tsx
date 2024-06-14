@@ -30,10 +30,10 @@ const sections: Array<Section> = [
     name: SectionNames.Admin.userManagement,
     labelKey: 'landing.sections.userManagement',
   },
-  {
-    name: SectionNames.Admin.links,
-    labelKey: 'landing.links.links',
-  },
+  // {
+  //   name: SectionNames.Admin.links,
+  //   labelKey: 'landing.links.links',
+  // },
   // { name: 'dataExport', labelKey: 'common.dataExport' },
 ]
 
