@@ -91,6 +91,35 @@ const _migrateForestCharacteristics = (schemaCycle: string, schemaAssessment: st
 
 `
 
+const _migrateCarbonStock = (schemaCycle: string, schemaAssessment: string) => `
+   insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
+   with country_nodes as (select n.country_iso
+                               , r.props ->> 'variableName'    as variable_name
+      , t.props ->> 'name'    as table_name
+      , c.props ->> 'colName'         as col_name
+      , n.value                       as value
+   from ${schemaCycle}.node n
+       left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
+       left join ${schemaAssessment}.row r on r.id = c.row_id
+       left join ${schemaAssessment}."table" t on t.id = r.table_id
+   where t.props ->> 'name' = 'carbonStock')
+   select va.country_iso
+        , 'node' as type
+        , jsonb_build_object(
+           'colName', va.col_name,
+           'variableName', va.variable_name,
+           'tableName', 'carbonStock'
+          )      as props
+        , va.value || '{"faoEstimate": "true"}' as value
+   from ${schemaCycle}.value_aggregate va
+       left join country_nodes n using (country_iso, variable_name, col_name)
+   where va.value ->> 'raw' is not null
+     and va.variable_name in ('carbon_stock_biomass_total', 'carbon_stock_total')
+     and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
+   order by 1, 2, 3, 4;
+
+`
+
 const _migrateRest = (schemaCycle: string, schemaAssessment: string) => `
     insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
     with country_nodes as (select n.country_iso
@@ -139,6 +168,7 @@ export default async (client: BaseProtocol) => {
     if (cycleName === '2020') {
       await client.query(_migratePrimaryDesignatedManagementObjective(schemaCycle, schemaName))
       await client.query(_migrateForestCharacteristics(schemaCycle, schemaName))
+      await client.query(_migrateCarbonStock(schemaCycle, schemaName))
       await client.query(_migrateRest(schemaCycle, schemaName))
     }
   })
