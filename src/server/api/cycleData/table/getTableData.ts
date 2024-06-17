@@ -34,16 +34,8 @@ export const getTableData = async (req: GetTableDataRequest, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const table = await CycleDataController.getTableData({
-      assessment,
-      cycle,
-      countryISOs,
-      tableNames,
-      variables,
-      columns,
-      mergeOdp,
-      aggregate,
-    })
+    const props = { assessment, cycle, countryISOs, tableNames, variables, columns, mergeOdp, aggregate }
+    const table = await CycleDataController.getTableData(props)
 
     Requests.send(res, table)
   } catch (e) {
