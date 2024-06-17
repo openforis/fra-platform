@@ -9,6 +9,5 @@ export const getData = async (props: Props & { tableNames: Array<string> }) => {
     countryISOs: countries.map(({ countryIso }) => countryIso),
     tableNames,
     mergeOdp: true,
-    aggregate: false,
   })
 }
