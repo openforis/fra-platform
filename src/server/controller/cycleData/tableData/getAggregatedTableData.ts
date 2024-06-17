@@ -13,24 +13,24 @@ export const getAggregatedTableData = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
-  const { assessment, cycle, countryISOs, tableNames, columns, variables, mergeOdp } = props
+  const { assessment, cycle, countryISOs: countryISOsProp, tableNames, columns, variables, mergeOdp } = props
   const tables = getTablesCondition({ tableNames, columns, variables, mergeOdp })
-  const regionCode = countryISOs[0] as RegionCode
 
-  const aggregatedData = await DataRepository.getAggregatedTableData({ assessment, cycle, regionCode, tables }, client)
+  const regionCode = countryISOsProp[0] as RegionCode
+  const countryISOs = await CountryRegionRepository.getManyRegionCountries({ assessment, cycle, regionCode }, client)
 
-  const countries = await CountryRegionRepository.getManyRegionCountries({ assessment, cycle, regionCode }, client)
-  const tableData = await getTableData({ ...props, countryISOs: countries }, client)
+  const faoEstimates = await DataRepository.getFaoEstimateData({ assessment, cycle, countryISOs, tables }, client)
+  const data = await getTableData({ ...props, countryISOs }, client)
+  const getDataProps = { data, cycleName: cycle.name, assessmentName: assessment.props.name }
+  const tableData = RecordAssessmentDatas.getCycleData(getDataProps)
 
-  const countryDataSum = RecordAssessmentDatas.sumCountryValues(tableData)
-  const currentRegionData = aggregatedData[regionCode]
-
-  const mergedData = RecordAssessmentDatas.mergeRecordTableData(currentRegionData, countryDataSum)
+  const mergedData = RecordAssessmentDatas.mergeRecordTableData(faoEstimates, tableData)
+  const countryDataSum = RecordAssessmentDatas.sumCountryValues(mergedData)
 
   return {
     [assessment.props.name]: {
       [cycle.name]: {
-        [regionCode]: mergedData,
+        [regionCode]: countryDataSum,
       },
     },
   }
