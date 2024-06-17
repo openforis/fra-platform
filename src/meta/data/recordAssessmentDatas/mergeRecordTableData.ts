@@ -9,8 +9,6 @@ export const mergeRecordTableData = (data: RecordTableData, newData: RecordTable
     Object.keys(table).forEach((colName) => {
       const col = table[colName]
       Object.keys(col).forEach((variableName) => {
-        if (variableName === 'totalLandArea') return
-
         const exists = !Objects.isEmpty(acc[tableName]?.[colName]?.[variableName])
 
         if (!exists) {
