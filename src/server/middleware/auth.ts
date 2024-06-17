@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
-import { CountryIso } from 'meta/area'
+import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
+import { Assessment, Cycle } from 'meta/assessment'
 import { MessageTopicStatus } from 'meta/messageCenter'
-import { Authorizer, CollaboratorEditPropertyType, Users } from 'meta/user'
+import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
@@ -17,6 +18,28 @@ const _next = (allowed: boolean, next: NextFunction): void => {
   if (allowed) return next()
   return next(new Error(`userNotAuthorized`))
 }
+
+// TODO (future task): refactor auth with subfiles and use _getAuthCycleProps where needed
+type AuthCycleProps = { assessment: Assessment; cycle: Cycle; country?: Country; countryIso: AreaCode; user: User }
+
+const _getAuthCycleProps = async (req: Request, next: NextFunction): Promise<AuthCycleProps> => {
+  const params = { ...req.params, ...req.query, ...req.body } as CycleParams & { authContext?: string }
+  const { authContext, countryIso } = params
+  const { assessmentName, cycleName } = authContext ? JSON.parse(decodeURIComponent(authContext)) : params
+
+  if (!countryIso || !assessmentName || !cycleName) {
+    next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
+  }
+
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const country = Areas.isISOCountry(countryIso)
+    ? await AreaController.getCountry({ assessment, cycle, countryIso })
+    : undefined
+  const user = Requests.getUser(req)
+
+  return { assessment, cycle, country, countryIso, user }
+}
+
 const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction) => {
   const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
@@ -55,13 +78,7 @@ const requireEditTableData = async (req: Request, _res: Response, next: NextFunc
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName } = { ...req.params, ...req.query } as CycleParams
-  if (!countryIso || !assessmentName || !cycleName) {
-    next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
-  }
-  const user = Requests.getUser(req)
-
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle, countryIso, user } = await _getAuthCycleProps(req, next)
 
   _next(Authorizer.canView({ assessment, user, countryIso, cycle }), next)
 }
