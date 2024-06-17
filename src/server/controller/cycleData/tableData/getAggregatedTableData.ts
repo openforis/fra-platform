@@ -4,7 +4,7 @@ import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { getTablesCondition } from 'server/controller/cycleData/tableData/getTablesCondition'
 import { BaseProtocol, DB } from 'server/db'
-import { CountryRegionRepository } from 'server/repository/assessmentCycle/countryRegion'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 
 import { Props } from './props'
@@ -17,7 +17,7 @@ export const getAggregatedTableData = async (
   const tables = getTablesCondition({ tableNames, columns, variables, mergeOdp })
 
   const regionCode = countryISOsProp[0] as RegionCode
-  const countryISOs = await CountryRegionRepository.getManyRegionCountries({ assessment, cycle, regionCode }, client)
+  const countryISOs = await CountryRepository.getCountryIsos({ assessment, cycle, regionCode }, client)
 
   const faoEstimates = await DataRepository.getFaoEstimateData({ assessment, cycle, countryISOs, tables }, client)
   const data = await getTableData({ ...props, countryISOs }, client)
