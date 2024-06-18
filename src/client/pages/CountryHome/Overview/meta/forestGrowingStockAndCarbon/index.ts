@@ -25,7 +25,7 @@ const rowMetadata: Record<string, RowsMetadata> = {
       id: 2,
       variableName: 'carbonStockBiomassTotal',
       label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total',
-      calculateFn: `${TableNames.carbonStock}.carbon_forest_above_ground + ${TableNames.carbonStock}.carbon_forest_below_ground `,
+      calculateFn: `${TableNames.carbonStock}.carbon_stock_biomass_total`,
       calculationDependencies: [
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_above_ground' },
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_below_ground' },
@@ -35,7 +35,7 @@ const rowMetadata: Record<string, RowsMetadata> = {
       id: 3,
       variableName: 'carbonStockTotal',
       label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total',
-      calculateFn: `${TableNames.carbonStock}.carbon_forest_above_ground + ${TableNames.carbonStock}.carbon_forest_below_ground + ${TableNames.carbonStock}.carbon_forest_deadwood + ${TableNames.carbonStock}.carbon_forest_litter + ${TableNames.carbonStock}.carbon_forest_soil`,
+      calculateFn: `${TableNames.carbonStock}.carbon_stock_total`,
       calculationDependencies: [
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_above_ground' },
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_below_ground' },
