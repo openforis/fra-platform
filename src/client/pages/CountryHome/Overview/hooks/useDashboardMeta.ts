@@ -22,7 +22,7 @@ const fra2020Dashboard = (cycle: Cycle, region: boolean): Array<DashboardItem> =
   primaryForestPercentOfForestArea(cycle),
   forestAreaWithinProtectedAreas(cycle),
   forestOwnership(cycle),
-  primaryDesignatedManagementObjectiveDashboard(cycle),
+  primaryDesignatedManagementObjectiveDashboard(cycle, region),
   naturallyRegeneratingForestArea(cycle),
 ]
 const fra2025Dashboard = (cycle: Cycle, region: boolean): Array<DashboardItem> => [
@@ -32,7 +32,7 @@ const fra2025Dashboard = (cycle: Cycle, region: boolean): Array<DashboardItem> =
   primaryForestPercentOfForestArea(cycle),
   forestAreaWithinProtectedAreas(cycle),
   forestOwnership(cycle),
-  primaryDesignatedManagementObjectiveDashboard(cycle),
+  primaryDesignatedManagementObjectiveDashboard(cycle, region),
   naturallyRegeneratingForestArea(cycle),
 ]
 
