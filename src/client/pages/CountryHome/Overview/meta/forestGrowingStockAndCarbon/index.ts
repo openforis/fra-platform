@@ -12,20 +12,22 @@ const cols: Record<string, Array<string>> = {
 const tableName = 'forestGrowingStockAndCarbonDashboard'
 const tableId = 2
 
-const rowMetadata: Record<string, RowsMetadata> = {
-  '2020': [
+const rowMetadata: Record<string, (region: boolean) => RowsMetadata> = {
+  '2020': (region) => [
     {
       id: 1,
       variableName: 'forest',
       label: 'statisticalFactsheets.carbonAndGrowingStock.growing_stock_total',
-      calculateFn: 'growingStockTotal.forest',
+      calculateFn: `growingStockTotal.forest ${region ? '/ 1000' : ''}`,
       calculationDependencies: [{ tableName: 'growingStockTotal', variableName: 'forest' }],
     },
     {
       id: 2,
       variableName: 'carbonStockBiomassTotal',
       label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total',
-      calculateFn: `${TableNames.carbonStock}.carbon_stock_biomass_total`,
+      calculateFn: region
+        ? `${TableNames.carbonStock}.carbon_stock_biomass_total / 1000000`
+        : `${TableNames.carbonStock}.carbon_forest_below_ground + ${TableNames.carbonStock}.carbon_forest_above_ground`,
       calculationDependencies: [
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_above_ground' },
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_below_ground' },
@@ -35,7 +37,15 @@ const rowMetadata: Record<string, RowsMetadata> = {
       id: 3,
       variableName: 'carbonStockTotal',
       label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total',
-      calculateFn: `${TableNames.carbonStock}.carbon_stock_total`,
+      calculateFn: region
+        ? `${TableNames.carbonStock}.carbon_stock_total / 1000000`
+        : `
+${TableNames.carbonStock}.carbon_forest_above_ground + 
+${TableNames.carbonStock}.carbon_forest_below_ground + 
+${TableNames.carbonStock}.carbon_forest_deadwood + 
+${TableNames.carbonStock}.carbon_forest_litter + 
+${TableNames.carbonStock}.carbon_forest_soil
+      `,
       calculationDependencies: [
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_above_ground' },
         { tableName: TableNames.carbonStock, variableName: 'carbon_forest_below_ground' },
@@ -45,7 +55,7 @@ const rowMetadata: Record<string, RowsMetadata> = {
       ],
     },
   ],
-  '2025': [
+  '2025': () => [
     {
       id: 1,
       variableName: 'forest',
@@ -79,11 +89,11 @@ const rowMetadata: Record<string, RowsMetadata> = {
   ],
 }
 
-export const forestGrowingStockAndCarbonDashboard = (cycle: Cycle): DashboardTable => ({
+export const forestGrowingStockAndCarbonDashboard = (cycle: Cycle, region: boolean): DashboardTable => ({
   type: DashboardItemType.table,
   title: {
     key: 'statisticalFactsheets.carbonAndGrowingStock.title',
     params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
   },
-  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata[cycle.name], tableName }),
+  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata[cycle.name](region), tableName }),
 })

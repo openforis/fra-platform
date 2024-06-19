@@ -21,19 +21,20 @@ const variables = [
 const tableName = 'primaryDesignatedManagementObjective'
 const tableId = 7
 
-const rowMetadata: RowsMetadata = variables.map((variableName, i) => ({
-  id: i + 1,
-  variableName,
-  label: `statisticalFactsheets.primaryDesignatedManagementObjective.${variableName}`,
-  calculateFn: `${tableName}.${variableName}`,
-  calculationDependencies: [{ tableName, variableName }],
-}))
+const rowMetadata = (region: boolean): RowsMetadata =>
+  variables.map((variableName, i) => ({
+    id: i + 1,
+    variableName,
+    label: `statisticalFactsheets.primaryDesignatedManagementObjective.${variableName}`,
+    calculateFn: `${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
+    calculationDependencies: [{ tableName, variableName }],
+  }))
 
-export const primaryDesignatedManagementObjectiveDashboard = (cycle: Cycle): DashboardTable => ({
+export const primaryDesignatedManagementObjectiveDashboard = (cycle: Cycle, region: boolean): DashboardTable => ({
   type: DashboardItemType.table,
   title: {
     key: 'statisticalFactsheets.primaryDesignatedManagementObjective.title',
     params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
   },
-  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
+  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
 })
