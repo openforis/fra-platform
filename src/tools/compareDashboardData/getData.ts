@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { tables } from 'tools/compareDashboardData/tables'
 
 import { AreaCode, Areas } from 'meta/area'
 import { RecordAssessmentDatas } from 'meta/data'
@@ -14,60 +15,16 @@ const commonParams = {
   cycleName,
 }
 
-type Tables = Record<string, { variables: Array<string>; columns: Array<string> }>
-const tables: Tables = {
-  extentOfForest: {
-    variables: ['forestArea', 'totalLandArea'],
-    columns: ['1990', '2000', '2010', '2020'],
-  },
-
-  growingStockTotal: {
-    variables: ['growing_stock_total'],
-    columns: ['1990', '2000', '2010', '2020'],
-  },
-
-  carbonStock: {
-    variables: ['carbon_stock_biomass_total', 'carbon_stock_total'],
-    columns: ['1990', '2000', '2010', '2020'],
-  },
-
-  forestAreaWithinProtectedAreas: {
-    variables: ['forest_area_within_protected_areas', 'forestArea'],
-    columns: ['2020'],
-  },
-
-  forestOwnership: {
-    variables: ['other_or_unknown', 'private_ownership', 'public_ownership'],
-    columns: ['2015'],
-  },
-
-  primaryDesignatedManagementObjective: {
-    variables: [
-      'production',
-      'multiple_use',
-      'conservation_of_biodiversity',
-      'protection_of_soil_and_water',
-      'social_services',
-      'other',
-    ],
-    columns: ['1990', '2000', '2010', '2020'],
-  },
-
-  specificForestCategories: {
-    variables: ['primary_forest'],
-    columns: ['2020'],
-  },
-}
-
 const getProdData = async (countryIso: AreaCode) => {
   const allDatas = await Promise.all(
     Object.keys(tables).map(async (tableName) => {
+      const isoCountry = Areas.isISOCountry(countryIso)
       const params = {
         ...commonParams,
         countryIso,
         countryISOs: [countryIso],
-        tableNames: Areas.isISOCountry(countryIso) ? [tableName] : ['value_aggregate'],
-        aggregate: true,
+        tableNames: isoCountry ? [tableName] : ['value_aggregate'],
+        aggregate: !isoCountry,
         ...tables[tableName],
       }
       const url = `${target}${api}`
