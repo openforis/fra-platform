@@ -79,9 +79,12 @@ const _takeScreenshots = async (countryISOs: Array<CountryIso>) => {
 
 const exec = async () => {
   _mkDir()
-  const countryISOs = (
-    await APIUtil.getCountries({ source: HOST, assessmentName: ASSESSMENT_NAME, cycleName: CYCLE_NAME })
-  ).map((country) => country.countryIso)
+  const { countries } = await APIUtil.getCountries({
+    source: HOST,
+    assessmentName: ASSESSMENT_NAME,
+    cycleName: CYCLE_NAME,
+  })
+  const countryISOs = countries.map((country) => country.countryIso)
   await _takeScreenshots(countryISOs)
 }
 
