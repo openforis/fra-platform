@@ -145,7 +145,7 @@ const exec = async () => {
     maxConcurrency: 5,
   })
 
-  const countries = await APIUtil.getCountries({
+  const { countries } = await APIUtil.getCountries({
     source: target,
     assessmentName,
     cycleName,
