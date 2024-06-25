@@ -18,7 +18,7 @@ const rowMetadata: RowsMetadata = [
   {
     id: 1,
     variableName: 'forestArea',
-    label: `statisticalFactsheets.rowName.forestArea`,
+    label: { key: `statisticalFactsheets.rowName.forestArea` },
     calculateFn: `${tableName}.forestArea`,
     // calculateFn: `100 * (${tableName}.forestArea / ${tableName}.totalLandArea)`,
     calculationDependencies: [
@@ -29,7 +29,7 @@ const rowMetadata: RowsMetadata = [
   {
     id: 2,
     variableName: 'otherLand',
-    label: `statisticalFactsheets.rowName.otherArea`,
+    label: { key: `statisticalFactsheets.rowName.otherArea` },
     calculateFn: `${tableName}.totalLandArea - ${tableName}.forestArea`,
     // calculateFn: `100 - (100 * (${tableName}.forestArea / ${tableName}.totalLandArea))`,
     calculationDependencies: [

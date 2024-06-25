@@ -21,7 +21,7 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart 
     {
       id: 1,
       variableName,
-      label: `statisticalFactsheets.rowName.forestAreaWithinProtectedAreas`,
+      label: { key: `statisticalFactsheets.rowName.forestAreaWithinProtectedAreas` },
       calculateFn: `${tableName}.${variableName}`,
       // calculateFn: `100 * ${tableName}.${variableName} / ${TableNames.extentOfForest}.forestArea`,
       calculationDependencies: [
@@ -32,7 +32,7 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart 
     {
       id: 2,
       variableName: 'forestArea',
-      label: `statisticalFactsheets.rowName.forestArea`,
+      label: { key: `statisticalFactsheets.rowName.forestArea` },
       calculateFn: `${TableNames.extentOfForest}.forestArea - ${tableName}.${variableName}`,
       // calculateFn: `100 - 100 * ${tableName}.${variableName} / ${TableNames.extentOfForest}.forestArea`,
       calculationDependencies: [

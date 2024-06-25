@@ -29,7 +29,7 @@ export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
   const rowMetadata: RowsMetadata = variables.map(({ variableName }) => ({
     id: 1,
     variableName,
-    label: `statisticalFactsheets.rowName.${variableName}`,
+    label: { key: `statisticalFactsheets.rowName.${variableName}` },
     calculateFn: `${tableName}.${variableName}`,
     calculationDependencies: [{ tableName, variableName }],
   }))

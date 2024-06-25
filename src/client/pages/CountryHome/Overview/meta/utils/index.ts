@@ -81,9 +81,7 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
             cycles: [cycle.uuid],
             index: 'header_0',
             labels: {
-              [cycle.uuid]: {
-                key: row.label,
-              },
+              [cycle.uuid]: row.label,
             },
             style: getStyle(cycle),
           },

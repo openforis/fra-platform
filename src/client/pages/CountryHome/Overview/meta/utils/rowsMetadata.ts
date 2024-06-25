@@ -1,8 +1,8 @@
-import { VariableCache } from 'meta/assessment'
+import { Label, VariableCache } from 'meta/assessment'
 
 export type RowMetadata = {
   id: number
-  label: string
+  label: Label
   variableName: string
   calculateFn: string
   calculationDependencies: Array<VariableCache>

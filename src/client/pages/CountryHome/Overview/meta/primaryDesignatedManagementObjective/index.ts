@@ -25,7 +25,12 @@ const rowMetadata = (region: boolean): RowsMetadata =>
   variables.map((variableName, i) => ({
     id: i + 1,
     variableName,
-    label: `statisticalFactsheets.primaryDesignatedManagementObjective.${variableName}`,
+    label: {
+      key: `statisticalFactsheets.primaryDesignatedManagementObjective.${variableName}`,
+      params: {
+        unit: region ? 'unit.haMillion' : 'unit.haThousand',
+      },
+    },
     calculateFn: `${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
     calculationDependencies: [{ tableName, variableName }],
   }))
