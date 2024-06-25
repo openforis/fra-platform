@@ -21,9 +21,9 @@ module.exports = {
   carbonAndGrowingStock: {
     title: 'Volume de bois sur pied et Carbone dans les forêts ({{startYear}} - {{endYear}})',
     rowName: '',
-    carbon_stock_biomass_total: 'Stock de carbone dans la biomasse',
-    carbon_stock_total: 'Stock de carbone total',
-    growing_stock_total: '$t(growingStock.growingStock)',
+    carbon_stock_biomass_total: 'Stock de carbone dans la biomasse ($t({{unit}}))',
+    carbon_stock_total: 'Stock de carbone total ($t({{unit}}))',
+    growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
     title: 'Superficie de forêt en % de la superficie des terres ({{year}})',
@@ -42,12 +42,12 @@ module.exports = {
   primaryDesignatedManagementObjective: {
     title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
     rowName: '',
-    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
-    multiple_use: '$t(designatedManagementObjective.multipleUse)',
-    other: '$t(common.other)',
-    production: '$t(designatedManagementObjective.production)',
-    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
-    social_services: '$t(designatedManagementObjective.socialServices)',
+    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation) ($t({{unit}}))',
+    multiple_use: '$t(designatedManagementObjective.multipleUse) ($t({{unit}}))',
+    other: '$t(common.other) ($t({{unit}}))',
+    production: '$t(designatedManagementObjective.production) ($t({{unit}}))',
+    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection) ($t({{unit}}))',
+    social_services: '$t(designatedManagementObjective.socialServices) ($t({{unit}}))',
   },
   naturallyRegeneratingForest: {
     title: 'Superficie de forêt naturellement régénérée et plantée ({{startYear}} - {{endYear}})',
