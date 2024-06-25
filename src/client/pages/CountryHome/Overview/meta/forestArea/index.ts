@@ -20,7 +20,7 @@ const rowMetadata: RowsMetadata = [
   {
     id: 1,
     variableName: 'forestArea',
-    label: `statisticalFactsheets.rowName.forestArea`,
+    label: { key: `statisticalFactsheets.rowName.forestArea` },
     calculateFn: `${tableName}.forestArea`,
     calculationDependencies: [{ tableName, variableName: 'forestArea' }],
   },

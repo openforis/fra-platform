@@ -21,9 +21,9 @@ module.exports = {
   carbonAndGrowingStock: {
     title: 'Forest growing stock and carbon ({{startYear}} - {{endYear}})',
     rowName: '',
-    carbon_stock_biomass_total: 'Carbon stock in biomass',
-    carbon_stock_total: 'Total carbon stock',
-    growing_stock_total: '$t(growingStock.growingStock)',
+    carbon_stock_biomass_total: 'Carbon stock in biomass ($t({{unit}}))',
+    carbon_stock_total: 'Total carbon stock ($t({{unit}}))',
+    growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
     title: 'Forest area % of land area ({{year}})',

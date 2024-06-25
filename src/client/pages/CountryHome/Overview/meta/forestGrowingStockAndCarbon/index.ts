@@ -17,14 +17,20 @@ const rowMetadata: Record<string, (region: boolean) => RowsMetadata> = {
     {
       id: 1,
       variableName: 'forest',
-      label: 'statisticalFactsheets.carbonAndGrowingStock.growing_stock_total',
+      label: {
+        key: 'statisticalFactsheets.carbonAndGrowingStock.growing_stock_total',
+        params: { unit: region ? 'unit.billionCubicMeter' : 'unit.millionsCubicMeterOverBark' },
+      },
       calculateFn: `growingStockTotal.forest ${region ? '/ 1000' : ''}`,
       calculationDependencies: [{ tableName: 'growingStockTotal', variableName: 'forest' }],
     },
     {
       id: 2,
       variableName: 'carbonStockBiomassTotal',
-      label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total',
+      label: {
+        key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total',
+        params: { unit: region ? 'unit.gt' : 'unit.tonnesPerHa' },
+      },
       calculateFn: region
         ? `${TableNames.carbonStock}.carbon_stock_biomass_total / 1000000`
         : `${TableNames.carbonStock}.carbon_forest_below_ground + ${TableNames.carbonStock}.carbon_forest_above_ground`,
@@ -36,7 +42,10 @@ const rowMetadata: Record<string, (region: boolean) => RowsMetadata> = {
     {
       id: 3,
       variableName: 'carbonStockTotal',
-      label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total',
+      label: {
+        key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total',
+        params: { unit: region ? 'unit.gt' : 'unit.tonnesPerHa' },
+      },
       calculateFn: region
         ? `${TableNames.carbonStock}.carbon_stock_total / 1000000`
         : `
@@ -59,14 +68,14 @@ ${TableNames.carbonStock}.carbon_forest_soil
     {
       id: 1,
       variableName: 'forest',
-      label: 'statisticalFactsheets.carbonAndGrowingStock.growing_stock_total',
+      label: { key: 'statisticalFactsheets.carbonAndGrowingStock.growing_stock_total' },
       calculateFn: 'growingStockTotal.forest',
       calculationDependencies: [{ tableName: 'growingStockTotal', variableName: 'forest' }],
     },
     {
       id: 2,
       variableName: 'carbonStockBiomassTotal',
-      label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total',
+      label: { key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total' },
       calculateFn: `${TableNames.carbonStockAvg}.carbon_forest_above_ground + ${TableNames.carbonStockAvg}.carbon_forest_below_ground `,
       calculationDependencies: [
         { tableName: TableNames.carbonStockAvg, variableName: 'carbon_forest_above_ground' },
@@ -76,7 +85,7 @@ ${TableNames.carbonStock}.carbon_forest_soil
     {
       id: 3,
       variableName: 'carbonStockTotal',
-      label: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total',
+      label: { key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total' },
       calculateFn: `${TableNames.carbonStockAvg}.carbon_forest_above_ground + ${TableNames.carbonStockAvg}.carbon_forest_below_ground + ${TableNames.carbonStockAvg}.carbon_forest_deadwood + ${TableNames.carbonStockAvg}.carbon_forest_litter + ${TableNames.carbonStockAvg}.carbon_forest_soil`,
       calculationDependencies: [
         { tableName: TableNames.carbonStockAvg, variableName: 'carbon_forest_above_ground' },

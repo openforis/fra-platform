@@ -35,7 +35,7 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChar
       {
         id: 1,
         variableName,
-        label: `statisticalFactsheets.rowName.primaryForest`,
+        label: { key: `statisticalFactsheets.rowName.primaryForest` },
         calculateFn: `${tableName}.${variableName}`,
         calculationDependencies: [
           { tableName, variableName },
@@ -45,7 +45,7 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChar
       {
         id: 2,
         variableName: 'otherLand',
-        label: `statisticalFactsheets.rowName.otherArea`,
+        label: { key: `statisticalFactsheets.rowName.otherArea` },
         calculateFn: `${TableNames.extentOfForest}.forestArea - ${tableName}.${variableName}`,
         calculationDependencies: [
           { tableName, variableName },
@@ -57,7 +57,7 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChar
       {
         id: 1,
         variableName: 'primaryForest',
-        label: `statisticalFactsheets.rowName.primaryForest`,
+        label: { key: `statisticalFactsheets.rowName.primaryForest` },
         calculateFn: `${tableName}.${variableName}`,
         calculationDependencies: [
           { tableName, variableName },
@@ -67,7 +67,7 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle): DashboardPieChar
       {
         id: 2,
         variableName: 'otherLand',
-        label: `statisticalFactsheets.rowName.otherArea`,
+        label: { key: `statisticalFactsheets.rowName.otherArea` },
         calculateFn: `${TableNames.extentOfForest}.forestArea - ${tableName}.${variableName}`,
         calculationDependencies: [
           { tableName, variableName },

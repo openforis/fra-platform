@@ -35,7 +35,7 @@ const rowMetadata: RowsMetadata = [
   ...cells.map(({ variableName }, i) => ({
     id: i + 1,
     variableName,
-    label: `statisticalFactsheets.rowName.${variableName}`,
+    label: { key: `statisticalFactsheets.rowName.${variableName}` },
     calculateFn: `${tableName}.${variableName}`,
     calculationDependencies: [{ tableName, variableName }],
   })),
