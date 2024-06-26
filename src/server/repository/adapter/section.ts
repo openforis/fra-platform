@@ -19,7 +19,7 @@ interface SubSectionDB {
 export const SubSectionAdapter = (subSection: SubSectionDB): SubSection => {
   // eslint-disable-next-line camelcase
   const { parent_id, props, ...restSubSection } = subSection
-  const { anchors, descriptions, hints, labels, ...restProps } = props
+  const { anchors, descriptions, hidden, hints, labels, ...restProps } = props
 
   return {
     ...restSubSection,
@@ -29,6 +29,7 @@ export const SubSectionAdapter = (subSection: SubSectionDB): SubSection => {
       ...Objects.camelize(restProps),
       anchors,
       descriptions,
+      hidden,
       hints,
       labels,
     },

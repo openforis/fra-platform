@@ -55,7 +55,9 @@ export const getManyMetadata = async (
                          and t.props -> 'cycles' ? $2
                          and r.props -> 'cycles' ? $2
                          and c.props -> 'cycles' ? $2
-                         and ($3 = true or (coalesce(s.props ->> 'hidden', 'false')::boolean = false and $3 = false))
+                         and ($3 = true or (coalesce(s.props -> 'hidden' ->> '${
+                           cycle.uuid
+                         }', 'false')::boolean = false and $3 = false))
                            ${sectionNames?.length ? `and s.props ->> 'name' in ($1:list)` : ''}
                        group by s.props ->> 'name',
                                 to_jsonb(ts.*),
