@@ -25,7 +25,7 @@ export type SubSectionHints = {
 export interface SubSectionProps extends SectionProps {
   dataExport?: boolean
   descriptions: Descriptions
-  hidden?: boolean
+  hidden?: Record<CycleUuid, boolean>
   hints?: Record<CycleUuid, SubSectionHints>
   name: SectionName
   showTitle: boolean
