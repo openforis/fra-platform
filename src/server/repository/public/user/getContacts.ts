@@ -70,11 +70,17 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
       select u.uuid
            , u.country_iso
            , jsonb_build_object('readOnly', true, 'userId', u.id) as props
-           , null                                 as parent_uuid
-           , 'contact'                            as type
-           , null                                 as value
+           , null                                                 as parent_uuid
+           , 'contact'                                            as type
+           , null                                                 as value
            , ${_getField(ContactField.appellation, `u.props ->> 'title'`)}
-           , ${_getField(ContactField.contributions, `u.contributions`)}
+           , ${_getField(
+             ContactField.contributions,
+             `case
+                    when u.contributions ? 'none' then jsonb_build_array('')
+                    else u.contributions
+                    end`
+           )}
            , ${_getField(ContactField.institution, `u.props_role ->> 'organization'`)}
            , ${_getField(ContactField.name, `u.props ->> 'name'`)}
            , ${_getField(ContactField.role, `u.role`)}
@@ -83,7 +89,7 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
                  when u.role = '${RoleName.NATIONAL_CORRESPONDENT}' then 1
                  when u.role = '${RoleName.ALTERNATE_NATIONAL_CORRESPONDENT}' then 2
                  else 3
-          end                                     as role_order
+          end                                                     as role_order
       from users u
       order by role_order, u.props ->> 'surname', u.props ->> 'name'
   `
