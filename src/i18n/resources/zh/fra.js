@@ -177,6 +177,9 @@ module.exports = {
     annualForestAreaChangeRate: '年森林面积变化率',
     sdgIndicator1_2025: '可持续发展目标指标 15.1.1 森林面积占土地总面积的比例',
     forestAreaProportionLandArea: '森林面积占土地总面积的比例',
+    dataProvidedBy: `该可持续发展目标次级指标的数据由FSC和PEFC（森林认证机构）提供。`,
+    'Metadata-15-01-01': `可持续发展目标指标15.1.1元数据`,
+    'Metadata-15-02-01': `可持续发展目标指标15.2.1元数据`,
   },
   navigation: {
     sectionHeaders: {
