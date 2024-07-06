@@ -260,6 +260,9 @@ module.exports = {
     proportionForestAreaLongTermForestManagement2025:
       '$t(sustainableDevelopment.proportionForestAreaLongTermForestManagement)',
     forestAreaVerifiedForestManagement2025: '$t(sustainableDevelopment.forestAreaVerifiedForestManagement)',
+    dataProvidedBy: `Data for this SDG sub-indicator are provided by FSC and PEFC (forest certification organizations).`,
+    'Metadata-15-01-01': `SDG Indicator 15.1.1 Metadata`,
+    'Metadata-15-02-01': `SDG Indicator 15.2.1 Metadata`,
   },
 
   navigation: {

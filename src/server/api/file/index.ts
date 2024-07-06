@@ -10,6 +10,7 @@ import { getBiomassStockFile } from './getBiomassStockFile'
 import { getBulkDownload } from './getBulkDownload'
 import { getDataDownloadFile } from './getDataDownloadFile'
 import { getHiddenFile } from './getHiddenFile'
+import { getSdgMetadata } from './getSdgMetadata'
 import { getUserGuideFile } from './getUserGuide'
 import multer = require('multer')
 
@@ -30,7 +31,6 @@ export const FileApi = {
 
     // BiomassStock
     express.get(ApiEndPoint.File.biomassStock({}), AuthMiddleware.requireEditTableData, getBiomassStockFile)
-
     // Files
     express.post(
       ApiEndPoint.File.many(),
@@ -38,5 +38,8 @@ export const FileApi = {
       AuthMiddleware.requireEditRepositoryItem,
       createManyFiles
     )
+
+    // SDG Metadata
+    express.get(ApiEndPoint.File.sdgMetadata(), AuthMiddleware.requireView, getSdgMetadata)
   },
 }
