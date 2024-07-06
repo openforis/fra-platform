@@ -106,11 +106,10 @@
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <style type="text/css">.st0{fill:#000000;}</style>
             <g>
                 <polygon class="st0"
-                         points="47.916,340.624 166.242,340.624 166.242,512 345.774,512 345.774,340.624 464.1,340.624 256.015,88.146 "></polygon>
-                <rect x="23.574" class="st0" width="464.851" height="72.132"></rect>
+                         points="47.916,340.624 166.242,340.624 166.242,512 345.774,512 345.774,340.624 464.1,340.624 256.015,88.146 " fill="currentColor"></polygon>
+                <rect x="23.574" class="st0" width="464.851" height="72.132" fill="currentColor"></rect>
             </g>
         </g>
     </symbol>
