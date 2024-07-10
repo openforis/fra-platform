@@ -18,8 +18,6 @@ export const count = async (
 ): Promise<{ totals: number }> => {
   const { assessment, cycle, countries, fullName, roles } = props
 
-  // const selectedCountries = countries.map((countryIso) => `'${countryIso}'`).join(',')
-  // const selectedRoles = roles.map((roleName) => `'${roleName}'`).join(',')
   const conditions: Array<string> = []
   if (!Objects.isEmpty(countries))
     conditions.push(`ur.country_iso in (${countries.map((countryIso) => `'${countryIso}'`).join(',')})`)
