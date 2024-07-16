@@ -1,11 +1,12 @@
 import { useCallback } from 'react'
 
-import { useSelectedFileContext } from '../../context/selectedFilesContext'
+import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
+
 import { useIsChecked } from './useIsChecked'
 import { useRepositoryItems } from './useRepositoryItems'
 
 export const useOnClick = (): ((uuid: string) => void) => {
-  const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
+  const { selectedFiles, setSelectedFiles } = useRepositoryLinkContext()
 
   const repositoryItems = useRepositoryItems()
   const isChecked = useIsChecked()

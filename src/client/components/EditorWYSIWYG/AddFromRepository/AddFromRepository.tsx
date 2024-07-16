@@ -2,62 +2,58 @@ import './AddFromRepository.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
 
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import FileUpload from 'client/components/FileUpload'
 import Icon from 'client/components/Icon'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
-import { useSelectedFileContext } from '../context/selectedFilesContext'
 import { useGetRepositoryItems } from './hooks/useGetRepositoryItems'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
+import { useOnClose } from './hooks/useOnClose'
 import { useOnSuccess } from './hooks/useOnSuccess'
 import { useRepositoryItems } from './hooks/useRepositoryItems'
 
-type Props = {
-  isOpen: boolean
-  onClose: (selectedFiles: Array<RepositoryItem>) => void
-}
-
-const AddFromRepository: React.FC<Props> = (props: Props) => {
-  const { isOpen, onClose } = props
+const AddFromRepository: React.FC = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
   const { t } = useTranslation()
   const language = useLanguage()
-  const { selectedFiles, setSelectedFiles } = useSelectedFileContext()
+  const { repositoryOpened, setSelectedFiles } = useRepositoryLinkContext()
 
   useGetRepositoryItems()
+  const isChecked = useIsChecked()
+  const onClick = useOnClick()
+  const onClose = useOnClose()
+  const onSuccess = useOnSuccess()
   const repositoryItems = useRepositoryItems()
 
-  const isChecked = useIsChecked()
-  // const allSelected = useAllSelected()
-
-  // const onClickAll = useOnClickAll()
-  const onClick = useOnClick()
-
-  const onSuccess = useOnSuccess()
-
   useEffect(() => {
-    if (isOpen) setSelectedFiles([])
-  }, [isOpen, setSelectedFiles])
+    if (repositoryOpened) setSelectedFiles([])
+  }, [repositoryOpened, setSelectedFiles])
 
-  if (!isOpen) {
+  if (!repositoryOpened) {
     return null
   }
 
   return (
-    <Modal className="repository-modal" isOpen={isOpen}>
+    <Modal className="repository-modal" isOpen={repositoryOpened}>
       <ModalHeader>
         <div>
           <h3 className="subhead">{t('common.selectFiles')}</h3>
           <span>{t('nationalDataPoint.fileAddedWillBecomePublic')}</span>
         </div>
-        <ModalClose onClose={() => onClose([])} />
+        <ModalClose
+          onClose={() => {
+            setSelectedFiles([])
+            onClose()
+          }}
+        />
       </ModalHeader>
 
       <ModalBody>
@@ -90,11 +86,12 @@ const AddFromRepository: React.FC<Props> = (props: Props) => {
       </ModalBody>
 
       <ModalFooter>
-        <button className="btn btn-primary" onClick={() => onClose(selectedFiles)} type="button">
+        <button className="btn btn-primary" onClick={onClose} type="button">
           {t('common.apply')}
         </button>
       </ModalFooter>
     </Modal>
   )
 }
+
 export default AddFromRepository

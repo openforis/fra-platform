@@ -7,7 +7,8 @@ import { File } from 'meta/file'
 import { useAppDispatch } from 'client/store'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { useGetRepositoryItems } from 'client/components/EditorWYSIWYG/EditorWYSIWYGLinks/AddFromRepository/hooks/useGetRepositoryItems'
+
+import { useGetRepositoryItems } from './useGetRepositoryItems'
 
 export const useOnSuccess = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()

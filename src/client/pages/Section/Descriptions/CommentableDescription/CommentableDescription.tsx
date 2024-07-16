@@ -15,13 +15,14 @@ import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
   name: CommentableDescriptionName
+  repository?: boolean
   showDashEmptyContent?: boolean
   template?: CommentableDescriptionValue
   title: string
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { name, showDashEmptyContent, template, title } = props
+  const { name, showDashEmptyContent, repository, template, title } = props
 
   const { sectionName } = useSectionContext()
   const value = useCommentableDescriptionValue({ name, sectionName, template })
@@ -47,6 +48,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
           <EditorWYSIWYG
             disabled={!editable}
             onChange={(content) => onChange({ ...value, text: content })}
+            repository={repository}
             value={!editable && empty && showDashEmptyContent ? '-' : value.text}
           />
         </DataCell>
@@ -56,6 +58,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
 }
 
 CommentableDescription.defaultProps = {
+  repository: false,
   showDashEmptyContent: false,
   template: { text: '' },
 }
