@@ -489,6 +489,7 @@ The FRA team
   },
 
   contactPersons: {
+    all: '$t(common.all)',
     reportPreparationAndContactPersons: 'إعداد التقارير ومسؤولي التواصل',
     contactPersons: 'مدخل',
     contactPersonsSupport: 'أعد التقرير الحالي من قبل الأشخاص التالية أسماؤهم',

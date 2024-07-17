@@ -489,6 +489,7 @@ The FRA team fra@fao.org
   // Object name and title should have always the same name
 
   contactPersons: {
+    all: '$t(common.all)',
     reportPreparationAndContactPersons: 'Report preparation and contact persons',
     contactPersons: 'Introduction',
     contactPersonsSupport: 'The present report was prepared by the following person(s)',
