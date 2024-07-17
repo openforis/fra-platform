@@ -12,6 +12,18 @@
       margin: 0 $spacing-xs;
     }
   }
+
+  &.editorLink {
+    height: unset;
+
+    .edit-user__form-field {
+      justify-content: unset;
+    }
+
+    .editorWYSIWYG {
+      width: 100%;
+    }
+  }
 }
 
 .edit-user__form-label {
