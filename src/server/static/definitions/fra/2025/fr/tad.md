@@ -28,16 +28,16 @@ Pour plus de détails sur le Programme de FRA, voir: http://www.fao.org/forest-r
 
 Note(s) explicative(s)
 
-1.	La forêt est déterminée tant par la présence d’arbres que par l’absence d’autres utilisations prédominantes des terres. Les arbres doivent être capables d’atteindre une hauteur minimale de 5 mètres in situ. 
-2.	Inclut les zones couvertes d’arbres jeunes qui n’ont pas encore atteint, mais devraient atteindre, un couvert arboré d'au moins 10 pour cent et une hauteur de 5 mètres. Sont incluses également les zones temporairement non boisées à la suite de coupes rases dans le cadre de pratiques de gestion forestière ou pour des causes naturelles, et dont la régénération est prévue dans les 5 ans. Les conditions locales peuvent, dans des cas exceptionnels, justifier un délai plus long.
-3.	Inclut les chemins forestiers, les coupe-feux et autres petites clairières; les forêts dans les parcs nationaux, les réserves naturelles et les autres aires protégées présentant un intérêt environnemental, scientifique, historique, culturel ou spirituel.
-4.	Inclut les brise-vents, les rideaux-abris et les corridors d’arbres occupant une superficie de plus de 0,5 hectares et une largeur de plus de 20 mètres.
-5.	Inclut les terres à culture itinérante abandonnées avec des arbres régénérés qui atteignent, ou sont capables d'atteindre, un couvert arboré d'au moins 10 pour cent et une hauteur d'au moins 5 mètres.
-6.	Inclut les zones intertidales couvertes de mangroves, qu’elles soient ou ne soient pas classifiées comme terres.
-7.	Inclut les plantations d’hévéas, de chênes-lièges et de sapins de Noël.
-8.	Inclut les zones couvertes de bambouseraies et de palmeraies à condition que l’utilisation de la terre, la hauteur et le couvert arboré soient conformes aux critères établis.
-9.	Inclut les zones en-dehors des terres forestières légalement désignées répondant à la définition de "forêt".
-10.	**Exclut** les peuplements d'arbres dans les systèmes de production agricole, tels que les plantations d’arbres fruitiers, les plantations de palmiers à huile, les oliveraies et les systèmes agroforestiers dont les cultures se déroulent sous couvert arboré. Note: Les systèmes agroforestiers tels que le système «Taungya», où les cultures s’effectuent seulement pendant les premières années de rotation forestière, entrent dans la catégorie «forêt».
+1. La forêt est déterminée tant par la présence d’arbres que par l’absence d’autres utilisations prédominantes des terres. Les arbres doivent être capables d’atteindre une hauteur minimale de 5 mètres in situ. 
+2. Inclut les zones couvertes d’arbres jeunes qui n’ont pas encore atteint, mais devraient atteindre, un couvert arboré d'au moins 10 pour cent et une hauteur de 5 mètres. Sont incluses également les zones temporairement non boisées à la suite de coupes rases dans le cadre de pratiques de gestion forestière ou pour des causes naturelles, et dont la régénération est prévue dans les 5 ans. Les conditions locales peuvent, dans des cas exceptionnels, justifier un délai plus long.
+3. Inclut les chemins forestiers, les coupe-feux et autres petites clairières; les forêts dans les parcs nationaux, les réserves naturelles et les autres aires protégées présentant un intérêt environnemental, scientifique, historique, culturel ou spirituel.
+4. Inclut les brise-vents, les rideaux-abris et les corridors d’arbres occupant une superficie de plus de 0,5 hectares et une largeur de plus de 20 mètres.
+5. Inclut les terres à culture itinérante abandonnées avec des arbres régénérés qui atteignent, ou sont capables d'atteindre, un couvert arboré d'au moins 10 pour cent et une hauteur d'au moins 5 mètres.
+6. Inclut les zones intertidales couvertes de mangroves, qu’elles soient ou ne soient pas classifiées comme terres.
+7. Inclut les plantations d’hévéas, de chênes-lièges et de sapins de Noël.
+8. Inclut les zones couvertes de bambouseraies et de palmeraies à condition que l’utilisation de la terre, la hauteur et le couvert arboré soient conformes aux critères établis.
+9. Inclut les zones en-dehors des terres forestières légalement désignées répondant à la définition de "forêt".
+10. **Exclut** les peuplements d'arbres dans les systèmes de production agricole, tels que les plantations d’arbres fruitiers, les plantations de palmiers à huile, les oliveraies et les systèmes agroforestiers dont les cultures se déroulent sous couvert arboré. Note: Les systèmes agroforestiers tels que le système «Taungya», où les cultures s’effectuent seulement pendant les premières années de rotation forestière, entrent dans la catégorie «forêt».
 
 ### AUTRES TERRES BOISÉES
 
