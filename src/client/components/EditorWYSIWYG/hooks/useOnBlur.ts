@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
 
-import { Jodit } from 'jodit-react'
 import rehypeParse from 'rehype-parse'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
@@ -8,6 +7,7 @@ import rehypeStringify from 'rehype-stringify'
 import { unified } from 'unified'
 import { Objects } from 'utils/objects'
 
+import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import { DOMs } from 'client/utils/dom'
 
 const schema = {
@@ -24,14 +24,14 @@ const processor = unified()
 type OnChange = (value?: string) => void
 
 type Props = {
-  jodit: Jodit
   onChange: OnChange
   value?: string
 }
 
 export const useOnBlur = (props: Props): OnChange => {
-  const { onChange, value, jodit } = props
+  const { onChange, value } = props
 
+  const { jodit } = useRepositoryLinkContext()
   const valueRef = useRef<string>(value)
   const pastedHtmlRef = useRef<boolean>(false)
 

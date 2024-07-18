@@ -51,7 +51,12 @@ const Comments: React.FC<Props> = (props) => {
 
       <DataCell editable={open} gridColumn={canEditData ? `1/-1` : undefined} lastCol lastRow noBorder={!open}>
         <div className={classNames('description__editor-container', { editable: open })}>
-          <EditorWYSIWYG disabled={!open} onChange={updateDescription} value={originalDataPoint.description} />
+          <EditorWYSIWYG
+            disabled={!open}
+            onChange={updateDescription}
+            repository
+            value={originalDataPoint.description}
+          />
         </div>
       </DataCell>
     </DataGrid>

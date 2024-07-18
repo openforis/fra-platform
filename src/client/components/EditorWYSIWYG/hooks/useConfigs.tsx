@@ -1,20 +1,24 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { Jodit } from 'jodit-react'
 
+import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
 
-type Props = { options?: EditorConfig }
+type Props = {
+  onlyLinks?: boolean
+  options?: EditorConfig
+  repository?: boolean
+}
 
 type Returned = {
   configs: {
     config: EditorConfig
     configReadOnly: EditorConfig
   }
-  jodit: Jodit
 }
 
-const buttons = [
+const Buttons = [
   'bold',
   'italic',
   'underline',
@@ -42,12 +46,22 @@ const buttons = [
   'spellcheck',
 ]
 
-export const useConfigs = (props: Props): Returned => {
-  const { options } = props
+const ButtonsOnlyLinks = ['link']
 
-  const [jodit, setJodit] = useState<Jodit>()
+export const useConfigs = (props: Props): Returned => {
+  const { onlyLinks, options, repository } = props
+
+  // const [jodit, setJodit] = useState<Jodit>()
+  const { repositoryButton, setJodit } = useRepositoryLinkContext()
 
   const configs = useMemo<Returned['configs']>(() => {
+    const buttons = [...(onlyLinks ? ButtonsOnlyLinks : Buttons)]
+    if (repository) {
+      const index = buttons.findIndex((b) => b === 'link')
+      // @ts-ignore
+      buttons.splice(index + 1, 0, repositoryButton)
+    }
+
     const config: EditorConfig = {
       // @ts-ignore
       addNewLine: false,
@@ -84,7 +98,7 @@ export const useConfigs = (props: Props): Returned => {
     }
 
     return { config, configReadOnly }
-  }, [options])
+  }, [onlyLinks, options, repository, repositoryButton, setJodit])
 
-  return { configs, jodit }
+  return { configs }
 }
