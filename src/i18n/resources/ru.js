@@ -470,6 +470,7 @@ module.exports.translation = {
   // Object name and title should have always the same name
 
   contactPersons: {
+    all: '$t(common.all)',
     reportPreparationAndContactPersons: 'Подготавливающие доклад и контактные лица',
     contactPersons: 'Введение',
     contactPersonsSupport: 'Настоящий доклад был подготовлен следующим(и) лицом(-ами)',

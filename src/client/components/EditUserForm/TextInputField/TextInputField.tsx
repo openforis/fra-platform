@@ -4,17 +4,20 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
+
 type Props = {
-  name: string
-  value: string
-  onChange: (name: string, value: string) => void
-  validator?: (value: string) => boolean
+  editorLink?: boolean
   enabled?: boolean
   mandatory?: boolean
+  name: string
+  onChange: (name: string, value: string) => void
+  validator?: (value: string) => boolean
+  value: string
 }
 
 const TextInputField: React.FC<Props> = (props) => {
-  const { name, value, onChange, validator, enabled, mandatory } = props
+  const { editorLink, name, value, onChange, validator, enabled, mandatory } = props
 
   const { t } = useTranslation()
 
@@ -29,7 +32,7 @@ const TextInputField: React.FC<Props> = (props) => {
   }, [mandatory, name, validator, value])
 
   return (
-    <div className="edit-user__form-item" key={name}>
+    <div key={name} className={classNames('edit-user__form-item', { editorLink })}>
       <div className="edit-user__form-label">
         {t(`editUser.${name}`)}
         {mandatory && '*'}
@@ -40,21 +43,26 @@ const TextInputField: React.FC<Props> = (props) => {
           error: !valid,
         })}
       >
-        <input
-          type="text"
-          defaultValue={value}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(name, e.target.value.trim())}
-          disabled={!enabled}
-        />
+        {editorLink && <EditorWYSIWYGLinks onChange={(_value) => onChange(name, _value)} value={value} />}
+
+        {!editorLink && (
+          <input
+            defaultValue={value}
+            disabled={!enabled}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(name, e.target.value.trim())}
+            type="text"
+          />
+        )}
       </div>
     </div>
   )
 }
 
 TextInputField.defaultProps = {
-  validator: undefined,
+  editorLink: false,
   enabled: false,
   mandatory: false,
+  validator: undefined,
 }
 
 export default TextInputField
