@@ -1,29 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Jodit } from 'jodit-react'
+import EditorWYSIWYGWithRepositoryContext from 'client/components/EditorWYSIWYG/EditorWYSIWYGWithRepositoryContext'
 
-import EditorWYSIWYG from 'client/components/EditorWYSIWYG/EditorWYSIWYG'
-import AddFromRepository from 'client/components/EditorWYSIWYG/EditorWYSIWYGLinks/AddFromRepository'
-
-import { useEditorOptions } from './hooks/useEditorOptions'
-import { useOnClose } from './hooks/useOnClose'
-import type { Props } from './props'
-
+type Props = {
+  disabled?: boolean
+  onChange: (value?: string) => void
+  repository?: boolean
+  value: string
+}
 const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
   const { onChange, value, disabled, repository } = props
 
-  const [editor, setEditor] = useState<Jodit>(null)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
-  const onClose = useOnClose({ setIsOpen, setEditor, editor })
-  const editorOptions = useEditorOptions({ setIsOpen, setEditor, repository })
-
   return (
-    <>
-      <EditorWYSIWYG disabled={disabled} onChange={onChange} options={editorOptions} value={value} />
-      <AddFromRepository isOpen={isOpen} onClose={onClose} />
-    </>
+    <EditorWYSIWYGWithRepositoryContext
+      disabled={disabled}
+      onChange={onChange}
+      onlyLinks
+      repository={repository}
+      value={value}
+    />
   )
+}
+
+EditorWYSIWYGLinks.defaultProps = {
+  disabled: false,
+  repository: false,
 }
 
 export default EditorWYSIWYGLinks
