@@ -43,7 +43,6 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
         {withToggleODPs && (
           <Button
-            className="btn-toggle-odp"
             inverse={showOdps}
             label={t(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
             onClick={onClick}
