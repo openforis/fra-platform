@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 import { Labels } from 'meta/assessment'
+import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useIsEditTableDataEnabled } from 'client/store/user'
+import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -24,6 +25,7 @@ const Contacts: React.FC = () => {
   const { t } = useTranslation()
 
   useGetContacts()
+  const user = useUser()
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
   const { print } = useIsPrintRoute()
@@ -36,7 +38,7 @@ const Contacts: React.FC = () => {
 
   const { hideContactsTable } = country.props
 
-  if (print && hideContactsTable) return null
+  if ((print || !Users.isAdministrator(user)) && hideContactsTable) return null
 
   return (
     <div className="contacts">
