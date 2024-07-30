@@ -23,7 +23,7 @@ const MessageBoard: React.FC = () => {
           <div className="landing__user-header">
             <img
               alt=""
-              className="landing__user-avatar"
+              className="landing__user-avatar country"
               style={{ backgroundImage: Areas.getCountryBackgroundImg(countryIso), backgroundSize: 'cover' }}
             />
             <div className="landing__user-info">
