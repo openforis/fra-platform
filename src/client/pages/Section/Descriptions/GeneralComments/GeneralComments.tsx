@@ -16,6 +16,7 @@ const GeneralComments: React.FC = () => {
   return (
     <CommentableDescription
       name={CommentableDescriptionName.generalComments}
+      repository
       title={t(isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle')}
     />
   )

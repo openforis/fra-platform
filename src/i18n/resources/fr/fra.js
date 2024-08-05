@@ -206,6 +206,9 @@ module.exports = {
       'Proportion de la superficie forestière faisant l’objet d’un plan de gestion forestière à long terme',
     forestAreaVerifiedForestManagement2025:
       'Superficie forestière dont la gestion est certifiée par des systèmes de vérification indépendants',
+    dataProvidedBy: `Les données pour ce sous-indicateur des ODD sont fournies par le Forest Stewardship Council (FSC) et le Programme de reconnaissance des certifications forestières (PEFC).`,
+    'Metadata-15-01-01': `Métadonnées de l’indicateur des ODD 15.1.1`,
+    'Metadata-15-02-01': `Métadonnées de l’indicateur des ODD 15.2.1`,
   },
   navigation: {
     sectionHeaders: {

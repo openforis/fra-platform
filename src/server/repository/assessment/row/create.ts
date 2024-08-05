@@ -13,7 +13,7 @@ type Props = {
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<Row> => {
   const { assessment, cycles, table } = props
 
-  const colProps = { ...props.rowProps, cycles: cycles.map(({ uuid }) => uuid) }
+  const rolProps = { ...props.rowProps, cycles: cycles.map(({ uuid }) => uuid) }
 
   const schemaName = Schemas.getName(assessment)
 
@@ -22,7 +22,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<R
         insert into ${schemaName}.row (props, table_id)
         values ($1::jsonb, $2)
         returning *`,
-    [JSON.stringify(colProps), +table.id],
+    [JSON.stringify(rolProps), +table.id],
     RowAdapter
   )
 }

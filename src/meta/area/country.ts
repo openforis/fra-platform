@@ -7,6 +7,7 @@ export type CountryProps = {
   deskStudy: boolean
   domain: string // ex: tropical
   forestCharacteristics: { useOriginalDataPoint: boolean }
+  hideContactsTable?: boolean
   status: AssessmentStatus
 }
 

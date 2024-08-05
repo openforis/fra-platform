@@ -117,12 +117,7 @@ const AreaSelector: React.FC<Props> = (props) => {
         {selectedValue && !open && (
           <div className={classNames('toolbar__country', { with_flag: showCountryFlag && isCountry })}>
             {showCountryFlag && isCountry && (
-              <div
-                className="flag"
-                style={{
-                  backgroundImage: `url('/img/flags/1x1/${selectedValue}.svg')`,
-                }}
-              />
+              <div className="flag" style={{ backgroundImage: Areas.getCountryBackgroundImg(selectedValue) }} />
             )}
             <div className="name-container">
               <div className="name">{t(Areas.getTranslationKey(selectedValue))}</div>

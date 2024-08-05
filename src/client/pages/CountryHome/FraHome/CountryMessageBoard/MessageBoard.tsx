@@ -23,11 +23,8 @@ const MessageBoard: React.FC = () => {
           <div className="landing__user-header">
             <img
               alt=""
-              className="landing__user-avatar"
-              style={{
-                backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
-                backgroundSize: 'cover',
-              }}
+              className="landing__user-avatar country"
+              style={{ backgroundImage: Areas.getCountryBackgroundImg(countryIso), backgroundSize: 'cover' }}
             />
             <div className="landing__user-info">
               <div className="landing__user-role">{i18n.t<string>('countryMessageBoard.messageBoardDesc')}</div>

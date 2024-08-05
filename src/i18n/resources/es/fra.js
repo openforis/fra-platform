@@ -185,6 +185,9 @@ module.exports = {
     annualForestAreaChangeRate: 'Tasa de cambio anual del área de bosque',
     sdgIndicator1_2025: 'Indicador ODS 15.1.1: Área de bosque en proporción a la superficie terrestre total',
     forestAreaProportionLandArea: 'Área de bosque en proporción a la superficie terrestre total',
+    dataProvidedBy: `Los datos para este subindicador ODS son proporcionados por FSC y PEFC (organizaciones de certificación forestal).`,
+    'Metadata-15-01-01': `Metadatos del Indicador ODS 15.1.1`,
+    'Metadata-15-02-01': `Metadatos del Indicador ODS 15.2.1`,
   },
   navigation: {
     sectionHeaders: {

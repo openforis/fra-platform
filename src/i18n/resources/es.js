@@ -441,6 +441,7 @@ El equipo de FRA
   // Object name and title should have always the same name
 
   contactPersons: {
+    all: '$t(common.all)',
     reportPreparationAndContactPersons: 'Elaboración de informes y personas de contacto',
     contactPersons: 'Introducción',
     contactPersonsSupport: 'El presente informe fue preparado por la/s siguiente/s persona/s',

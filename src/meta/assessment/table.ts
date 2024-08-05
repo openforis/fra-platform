@@ -21,6 +21,7 @@ export enum TableNames {
   growingStockTotal = 'growingStockTotal',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   specificForestCategories = 'specificForestCategories',
+  sustainableDevelopment15_2_1_5 = 'sustainableDevelopment15_2_1_5',
   totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
   // Used to append ODP data to tableData
   originalDataPointValue = 'originalDataPointValue',
