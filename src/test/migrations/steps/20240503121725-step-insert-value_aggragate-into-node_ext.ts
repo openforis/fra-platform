@@ -1,7 +1,11 @@
 import { Promises } from 'utils/promises'
 
+import { Assessment, AssessmentNames } from 'meta/assessment'
+
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
+
+const client: BaseProtocol = DB
 
 /**
  * 1a. Insert value_aggregate into node_ext for fra 2020 where values don't exist in `node`
@@ -189,11 +193,29 @@ const _migrateRest = (schemaCycle: string, schemaAssessment: string) => `
     order by 1, 2, 3, 4;
 `
 
-export default async (client: BaseProtocol) => {
-  const assessment = await AssessmentController.getOne({ assessmentName: 'fra' }, client)
-  await Promises.each(assessment.cycles, async (cycle) => {
-    const schemaName = Schemas.getName(assessment)
-    const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+const _deprecateValueAggregate = async (assessments: Array<Assessment>): Promise<void> => {
+  await Promises.each(assessments, async (assessment) => {
+    await Promises.each(assessment.cycles, async (cycle) => {
+      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      const exists = await client.query(`select 1 from ${schemaCycle}.value_aggregate`)
+      if (exists.length === 0) {
+        // Drop if the table is empty
+        await client.query(`drop table ${schemaCycle}.value_aggregate`)
+      } else {
+        // Move to legacy schema
+        await client.query(`create schema if not exists _legacy_${schemaCycle}`)
+        await client.query(`alter table ${schemaCycle}.value_aggregate set schema _legacy_${schemaCycle}`)
+      }
+    })
+  })
+}
+
+export default async () => {
+  const assessments = await AssessmentController.getAll({}, client)
+  const assessmentFra = assessments.find((a) => a.props.name === AssessmentNames.fra)
+  await Promises.each(assessmentFra.cycles, async (cycle) => {
+    const schemaName = Schemas.getName(assessmentFra)
+    const schemaCycle = Schemas.getNameCycle(assessmentFra, cycle)
 
     await client.query(_migrateTotalLandArea(schemaCycle))
 
@@ -207,4 +229,6 @@ export default async (client: BaseProtocol) => {
       await client.query(_migrateRest(schemaCycle, schemaName))
     }
   })
+
+  await _deprecateValueAggregate(assessments)
 }
