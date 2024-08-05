@@ -98,33 +98,28 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   return (
     <button
-      type="button"
-      className="btn-country-select no-print"
       ref={buttonRef}
-      onClick={() => setOpen((prevState) => !prevState)}
+      className="btn-country-select no-print"
       disabled={disabled}
+      onClick={() => setOpen((prevState) => !prevState)}
+      type="button"
     >
       <div>
         {open && (
           <input
-            type="text"
-            className="text-input"
             ref={inputRef}
+            className="text-input"
             onChange={handleChange}
             onClick={handleClick}
             placeholder={t('emoji.picker.search')}
+            type="text"
           />
         )}
 
         {selectedValue && !open && (
           <div className={classNames('toolbar__country', { with_flag: showCountryFlag && isCountry })}>
             {showCountryFlag && isCountry && (
-              <div
-                className="flag"
-                style={{
-                  backgroundImage: `url('/img/flags/1x1/${selectedValue}.svg')`,
-                }}
-              />
+              <div className="flag" style={{ backgroundImage: Areas.getCountryBackgroundImg(selectedValue) }} />
             )}
             <div className="name-container">
               <div className="name">{t(Areas.getTranslationKey(selectedValue))}</div>
@@ -154,9 +149,9 @@ const AreaSelector: React.FC<Props> = (props) => {
           includeGlobals={includeGlobals}
           includeRegions={includeRegions}
           onElementSelect={handleElementSelect}
+          query={query}
           selectedValue={selectedValue}
           showCountryRole={showCountryRole}
-          query={query}
         />
       )}
     </button>

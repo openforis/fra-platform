@@ -1,8 +1,13 @@
-import { Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
 import { fraRegionCodes } from 'meta/area/regionCode'
 import { AssessmentStatus } from 'meta/area/status'
 
-const getTranslationKey = (isoCode: CountryIso | RegionCode | Global): string => `area.${isoCode}.listName`
+const getCountryBackgroundImg = (isoCode: AreaCode): string =>
+  isoCode.startsWith('X')
+    ? `url('/img/flags/ATL.svg')`
+    : `url('https://www.fao.org/images/corporatelibraries/flags/${isoCode.toLowerCase()}.svg')`
+
+const getTranslationKey = (isoCode: AreaCode): string => `area.${isoCode}.listName`
 
 const isAtlantis = (countryIso: CountryIso): boolean => countryIso.startsWith('X')
 const isGlobal = (isoCode: CountryIso | RegionCode | Global) => Global.WO === isoCode
@@ -17,12 +22,13 @@ const getStatus = (country: Country): AssessmentStatus => {
 }
 
 export const Areas = {
+  getCountryBackgroundImg,
+  getStatus,
   getTranslationKey,
   isAtlantis,
+  isFRARegion,
   isGlobal,
   isISOCountry,
-  isRegion,
-  isFRARegion,
-  getStatus,
   isISOGlobal,
+  isRegion,
 }
