@@ -1,0 +1,7 @@
+@import 'src/client/style/partials';
+
+.title-hints {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}

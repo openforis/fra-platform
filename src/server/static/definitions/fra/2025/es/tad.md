@@ -28,16 +28,16 @@ Para más detalles sobre el Programa de FRA, sírvase consultar: http://www.fao.
 
 Notas explicativas
 
-1.	Los bosques se caracterizan tanto por la presencia de árboles como por la ausencia de otros usos predominantes de la tierra. Los árboles deberían poder alcanzar una altura mínima de 5 metros *in situ*. 
-2.	Incluye las áreas cubiertas de árboles jóvenes que aún no han alcanzado, pero pueden alcanzar, una cobertura de dosel de al menos el 10 por ciento y una altura de 5 metros. Incluye también las áreas temporáneamente desprovistas de árboles debido a talas realizadas como parte de prácticas de gestión forestal o por causas naturales, las cuales se espera se regeneren dentro de 5 años. Condiciones locales pueden, en casos excepcionales, justificar un plazo más largo.
-3.	Incluye caminos y pistas forestales, cortafuegos y otras pequeñas áreas abiertas; bosques dentro de los parques nacionales, reservas naturales y otras áreas protegidas tales como las que revisten interés medioambiental, científico, histórico, cultural o espiritual.
-4.	Incluye cortinas rompevientos, barreras protectoras y corredores de árboles con un área superior a 0,5 ha y más de 20 metros de ancho. 
-5.	Incluye áreas de agricultura migratoria abandonadas con una regeneración de árboles que alcanzan, o son capaces de alcanzar, una cobertura de dosel del 10 por ciento y una altura de 5 metros.
-6.	Incluye áreas de manglares en zonas de marea, independientemente de si estas áreas se consideran áreas terrestres o no. 
-7.	Incluye plantaciones de caucho, alcornoque y árboles de Navidad. 
-8.	Incluye áreas de bambú y palmeras, siempre y cuando cumplan los criterios de altura, uso del suelo y cobertura de dosel.
-9.	Incluye áreas situadas fuera de las áreas de bosque legalmente designadas, que cumplan con la definición de “bosque”.
-10.	**Excluye** formaciones de árboles en sistemas de producción agrícola, tales como plantaciones de frutales, plantaciones de palmas aceiteras, olivares y sistemas agroforestales con cultivos bajo una cubierta de árboles. **Nota:** Los sistemas agroforestales como el sistema "Taungya", en el que se siembran cultivos solamente durante los primeros años de la rotación forestal, deben clasificarse como bosque.
+1. Los bosques se caracterizan tanto por la presencia de árboles como por la ausencia de otros usos predominantes de la tierra. Los árboles deberían poder alcanzar una altura mínima de 5 metros *in situ*. 
+2. Incluye las áreas cubiertas de árboles jóvenes que aún no han alcanzado, pero pueden alcanzar, una cobertura de dosel de al menos el 10 por ciento y una altura de 5 metros. Incluye también las áreas temporáneamente desprovistas de árboles debido a talas realizadas como parte de prácticas de gestión forestal o por causas naturales, las cuales se espera se regeneren dentro de 5 años. Condiciones locales pueden, en casos excepcionales, justificar un plazo más largo.
+3. Incluye caminos y pistas forestales, cortafuegos y otras pequeñas áreas abiertas; bosques dentro de los parques nacionales, reservas naturales y otras áreas protegidas tales como las que revisten interés medioambiental, científico, histórico, cultural o espiritual.
+4. Incluye cortinas rompevientos, barreras protectoras y corredores de árboles con un área superior a 0,5 ha y más de 20 metros de ancho. 
+5. Incluye áreas de agricultura migratoria abandonadas con una regeneración de árboles que alcanzan, o son capaces de alcanzar, una cobertura de dosel del 10 por ciento y una altura de 5 metros.
+6. Incluye áreas de manglares en zonas de marea, independientemente de si estas áreas se consideran áreas terrestres o no. 
+7. Incluye plantaciones de caucho, alcornoque y árboles de Navidad. 
+8. Incluye áreas de bambú y palmeras, siempre y cuando cumplan los criterios de altura, uso del suelo y cobertura de dosel.
+9. Incluye áreas situadas fuera de las áreas de bosque legalmente designadas, que cumplan con la definición de “bosque”.
+10. **Excluye** formaciones de árboles en sistemas de producción agrícola, tales como plantaciones de frutales, plantaciones de palmas aceiteras, olivares y sistemas agroforestales con cultivos bajo una cubierta de árboles. **Nota:** Los sistemas agroforestales como el sistema "Taungya", en el que se siembran cultivos solamente durante los primeros años de la rotación forestal, deben clasificarse como bosque.
 
 ### OTRAS TIERRAS BOSCOSAS
 

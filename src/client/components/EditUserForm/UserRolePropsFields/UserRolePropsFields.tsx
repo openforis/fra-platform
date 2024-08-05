@@ -28,25 +28,26 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
   return (
     <>
       <TextInputField
+        enabled={enabled}
         name="professionalTitle"
+        onChange={onChange}
         value={roleProps.professionalTitle}
-        onChange={onChange}
-        enabled={enabled}
       />
 
       <TextInputField
+        enabled={enabled}
         name="organizationalUnit"
-        value={roleProps.organizationalUnit}
         onChange={onChange}
-        enabled={enabled}
+        value={roleProps.organizationalUnit}
       />
 
       <TextInputField
-        name="organization"
-        value={roleProps.organization}
-        onChange={onChange}
+        editorLink
         enabled={enabled}
         mandatory
+        name="organization"
+        onChange={onChange}
+        value={roleProps.organization}
       />
 
       {[RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(
@@ -54,67 +55,67 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
       ) && (
         <>
           <TextInputField
+            enabled={enabled}
+            mandatory
             name="street"
+            onChange={changeAddress}
             value={roleProps.address?.street}
-            onChange={changeAddress}
-            enabled={enabled}
-            mandatory
           />
 
           <TextInputField
+            enabled={enabled}
+            mandatory
             name="zipCode"
-            value={roleProps.address?.zipCode}
             onChange={changeAddress}
-            enabled={enabled}
-            mandatory
+            value={roleProps.address?.zipCode}
           />
 
-          <TextInputField name="poBox" value={roleProps.address?.poBox} onChange={changeAddress} enabled={enabled} />
+          <TextInputField enabled={enabled} name="poBox" onChange={changeAddress} value={roleProps.address?.poBox} />
 
           <TextInputField
-            name="city"
-            value={roleProps.address?.city}
-            onChange={changeAddress}
             enabled={enabled}
             mandatory
+            name="city"
+            onChange={changeAddress}
+            value={roleProps.address?.city}
           />
 
           <CountrySelectField
-            name="countryIso"
-            value={roleProps.address?.countryIso}
-            onChange={changeAddress}
             enabled={enabled}
+            name="countryIso"
+            onChange={changeAddress}
+            value={roleProps.address?.countryIso}
           />
 
           <TextInputField
-            name="secondaryEmail"
-            value={roleProps.secondaryEmail}
-            onChange={onChange}
             enabled={enabled}
+            name="secondaryEmail"
+            onChange={onChange}
+            value={roleProps.secondaryEmail}
           />
 
           <PhoneField
-            name="primaryPhoneNumber"
-            value={roleProps.primaryPhoneNumber}
-            onChange={onChange}
             enabled={enabled}
             mandatory
+            name="primaryPhoneNumber"
+            onChange={onChange}
+            value={roleProps.primaryPhoneNumber}
           />
 
           <PhoneField
-            name="secondaryPhoneNumber"
-            value={roleProps.secondaryPhoneNumber}
-            onChange={onChange}
             enabled={enabled}
+            name="secondaryPhoneNumber"
+            onChange={onChange}
+            value={roleProps.secondaryPhoneNumber}
           />
 
-          <TextInputField name="skype" value={roleProps.skype} onChange={onChange} enabled={enabled} />
+          <TextInputField enabled={enabled} name="skype" onChange={onChange} value={roleProps.skype} />
 
           <ContactMethodField
-            name="contactPreference"
-            value={roleProps.contactPreference}
-            onChange={changeContactPreference}
             enabled={enabled}
+            name="contactPreference"
+            onChange={changeContactPreference}
+            value={roleProps.contactPreference}
           />
         </>
       )}

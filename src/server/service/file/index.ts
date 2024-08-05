@@ -38,6 +38,12 @@ export const fileTypes = {
     downloadName: `BiomassCalculator_${domain}`,
     fileType: 'xlsx',
   }),
+  sdgMetadata: (key: string) => ({
+    key,
+    folder: `sdgMetadata`,
+    downloadName: key,
+    fileType: 'pdf',
+  }),
 }
 
 const _getRepositoryPath = (): string => path.resolve(__dirname, '..', '..', 'static', 'fileRepository')

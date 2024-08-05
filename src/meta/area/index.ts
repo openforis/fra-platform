@@ -1,6 +1,6 @@
 export type { AreaCode } from './area'
 export { Areas } from './areas'
-export type { Country } from './country'
+export type { Country, CountryProps } from './country'
 export type { CountryIso } from './countryIso'
 export type { CountrySummary } from './countrySummary'
 export { Global } from './global'

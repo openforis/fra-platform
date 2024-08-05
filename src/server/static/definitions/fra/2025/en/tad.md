@@ -28,16 +28,16 @@ For more details on FRA Programme, please see: http://www.fao.org/forest-resourc
 
 Explanatory notes
 
-1.	Forest is determined both by the presence of trees and the absence of other predominant land uses. The trees should be able to reach a minimum height of 5 meters *in situ*. 
-2.	Includes areas with young trees that have not yet reached but which are expected to reach a canopy cover of 10 percent and tree height of 5 meters. It also includes areas that are temporarily unstocked due to clear-cutting as part of a forest management practice or natural disasters, and which are expected to be regenerated within 5 years. Local conditions may, in exceptional cases, justify that a longer time frame is used.
-3.	Includes forest roads, firebreaks and other small open areas; forest in national parks, nature reserves and other protected areas such as those of specific environmental, scientific, historical, cultural or spiritual interest.
-4.	Includes windbreaks, shelterbelts and corridors of trees with an area of more than 0.5 hectares and width of more than 20 meters.
-5.	Includes abandoned shifting cultivation land with a regeneration of trees that have, or are expected to reach, a canopy cover of 10 percent and tree height of 5 meters.
-6.	Includes areas with mangroves in tidal zones, regardless whether this area is classified as land area or not.
-7.	Includes rubber-wood, cork oak and Christmas tree plantations. 
-8.	Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
-9.	Includes areas outside the legally designated forest land which meet the definition of “forest”.
-10.	**Excludes** tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations, olive orchards and agroforestry systems when crops are grown under tree cover.  Note: Some agroforestry systems such as the “Taungya” system where crops are grown only during the first years of the forest rotation should be classified as forest.
+1. Forest is determined both by the presence of trees and the absence of other predominant land uses. The trees should be able to reach a minimum height of 5 meters *in situ*.
+2. Includes areas with young trees that have not yet reached but which are expected to reach a canopy cover of 10 percent and tree height of 5 meters. It also includes areas that are temporarily unstocked due to clear-cutting as part of a forest management practice or natural disasters, and which are expected to be regenerated within 5 years. Local conditions may, in exceptional cases, justify that a longer time frame is used.
+3. Includes forest roads, firebreaks and other small open areas; forest in national parks, nature reserves and other protected areas such as those of specific environmental, scientific, historical, cultural or spiritual interest.
+4. Includes windbreaks, shelterbelts and corridors of trees with an area of more than 0.5 hectares and width of more than 20 meters.
+5. Includes abandoned shifting cultivation land with a regeneration of trees that have, or are expected to reach, a canopy cover of 10 percent and tree height of 5 meters.
+6. Includes areas with mangroves in tidal zones, regardless whether this area is classified as land area or not.
+7. Includes rubber-wood, cork oak and Christmas tree plantations. 
+8. Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
+9. Includes areas outside the legally designated forest land which meet the definition of “forest”.
+10. **Excludes** tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations, olive orchards and agroforestry systems when crops are grown under tree cover.  Note: Some agroforestry systems such as the “Taungya” system where crops are grown only during the first years of the forest rotation should be classified as forest.
 
 ### OTHER WOODED LAND
 

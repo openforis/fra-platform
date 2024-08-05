@@ -129,9 +129,10 @@ export const ApiEndPoint = {
       selectedDomain = ':selectedDomain',
     }) =>
       apiPath('file', 'biomass-stock', assessmentName, cycleName, countryIso, sectionName, selectedDomain, language),
+    bulkDownload: () => apiPath('file', 'bulk-download'),
     dashboard: () => apiPath('file', 'dashboard'),
     dataDownload: () => apiPath('file', 'data-download'),
-    bulkDownload: () => apiPath('file', 'bulk-download'),
+    sdgMetadata: () => apiPath('file', 'sdg-metadata'),
     userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
   },
 
