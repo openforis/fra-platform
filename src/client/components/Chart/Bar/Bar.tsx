@@ -42,6 +42,7 @@ const Bar = (props: Props) => {
         <YAxis
           label={{
             angle: -90,
+            dx: -SPACING,
             position: 'insideLeft',
             value: Labels.getLabel({ label: chart.yAxis?.label, t }),
           }}
