@@ -64,18 +64,24 @@ ${TableNames.carbonStock}.carbon_forest_soil
       ],
     },
   ],
-  '2025': () => [
+  '2025': (region: boolean) => [
     {
       id: 1,
       variableName: 'forest',
-      label: { key: 'statisticalFactsheets.carbonAndGrowingStock.growing_stock_total' },
+      label: {
+        key: 'statisticalFactsheets.carbonAndGrowingStock.growing_stock_total',
+        params: { unit: region ? 'unit.billionCubicMeter' : 'unit.millionsCubicMeterOverBark' },
+      },
       calculateFn: 'growingStockTotal.forest',
       calculationDependencies: [{ tableName: 'growingStockTotal', variableName: 'forest' }],
     },
     {
       id: 2,
       variableName: 'carbonStockBiomassTotal',
-      label: { key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total' },
+      label: {
+        key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_biomass_total',
+        params: { unit: region ? 'unit.gt' : 'unit.tonnesPerHa' },
+      },
       calculateFn: `${TableNames.carbonStockAvg}.carbon_forest_above_ground + ${TableNames.carbonStockAvg}.carbon_forest_below_ground `,
       calculationDependencies: [
         { tableName: TableNames.carbonStockAvg, variableName: 'carbon_forest_above_ground' },
@@ -85,7 +91,10 @@ ${TableNames.carbonStock}.carbon_forest_soil
     {
       id: 3,
       variableName: 'carbonStockTotal',
-      label: { key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total' },
+      label: {
+        key: 'statisticalFactsheets.carbonAndGrowingStock.carbon_stock_total',
+        params: { unit: region ? 'unit.gt' : 'unit.tonnesPerHa' },
+      },
       calculateFn: `${TableNames.carbonStockAvg}.carbon_forest_above_ground + ${TableNames.carbonStockAvg}.carbon_forest_below_ground + ${TableNames.carbonStockAvg}.carbon_forest_deadwood + ${TableNames.carbonStockAvg}.carbon_forest_litter + ${TableNames.carbonStockAvg}.carbon_forest_soil`,
       calculationDependencies: [
         { tableName: TableNames.carbonStockAvg, variableName: 'carbon_forest_above_ground' },
