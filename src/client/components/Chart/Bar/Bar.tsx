@@ -21,17 +21,18 @@ import TooltipContent from 'client/components/Chart/TooltipContent'
 type Props = {
   data: BarChartData
   chart: BarChartType
+  showLegend?: boolean
 }
 
-const LEFT = 24
+const SPACING = 24
 
 const Bar = (props: Props) => {
   const { t } = useTranslation()
-  const { data, chart } = props
+  const { data, chart, showLegend } = props
 
   return (
     <ResponsiveContainer height={300} width="100%">
-      <BarChart data={data} margin={{ top: 10, right: 24, left: LEFT, bottom: 10 }}>
+      <BarChart barCategoryGap={5} data={data} margin={{ left: SPACING, right: SPACING, top: SPACING, bottom: 10 }}>
         <CartesianGrid stroke="#dadada" strokeDasharray="1" />
         <XAxis
           dataKey="columnName"
@@ -49,9 +50,16 @@ const Bar = (props: Props) => {
             return value.toLocaleString()
           }}
         />
-        <Tooltip content={TooltipContent} cursor={{ fill: '#f3fdff', stroke: '#9eb9bd', strokeWidth: 1 }} />
 
-        <Legend align="center" layout="horizontal" verticalAlign="top" wrapperStyle={{ paddingBottom: '16px' }} />
+        <Tooltip
+          content={TooltipContent}
+          cursor={{ fill: '#f3fdff', stroke: '#9eb9bd', strokeWidth: 1 }}
+          shared={false}
+        />
+
+        {showLegend && (
+          <Legend align="center" layout="horizontal" verticalAlign="top" wrapperStyle={{ paddingBottom: '16px' }} />
+        )}
 
         {chart.cells.map((cell) => {
           return (
@@ -68,6 +76,10 @@ const Bar = (props: Props) => {
       </BarChart>
     </ResponsiveContainer>
   )
+}
+
+Bar.defaultProps = {
+  showLegend: true,
 }
 
 export default Bar
