@@ -13,9 +13,9 @@ type BarCell = {
 export type BarChartData = Array<Record<string, string | number>>
 
 export type BarChart = {
-  columns: Array<string>
+  columns?: Array<string>
   cells: Array<BarCell>
-  label: PieLabel
+  label?: PieLabel
   xAxis?: {
     label?: Label
   }
