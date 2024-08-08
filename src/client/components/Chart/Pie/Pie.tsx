@@ -45,13 +45,13 @@ const Pie = (props: Props) => {
           }}
         />
         <Legend
-          align="right"
+          align="center"
           // @ts-ignore
           formatter={(value, entry: { payload: { percent: number } }) => {
             return `${value} (${Numbers.format(entry.payload.percent * 100, 0)}%)`
           }}
-          layout="vertical"
-          verticalAlign="middle"
+          layout="horizontal"
+          verticalAlign="top"
         />
       </PieChart>
     </ResponsiveContainer>
