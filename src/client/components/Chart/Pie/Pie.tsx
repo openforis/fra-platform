@@ -22,10 +22,6 @@ const Pie = (props: Props) => {
         <PieComponent
           data={data}
           dataKey="value"
-          label={({ percent, label }) => {
-            if (percent < 0) return null
-            return `${Labels.getLabel({ label, t })} (${(percent * 100).toFixed(0)}%)`
-          }}
           labelLine={false}
           nameKey="variableName"
           outerRadius={80}
@@ -48,7 +44,15 @@ const Pie = (props: Props) => {
             return [_value, _label]
           }}
         />
-        <Legend align="center" layout="horizontal" verticalAlign="top" wrapperStyle={{ paddingBottom: '16px' }} />
+        <Legend
+          align="right"
+          // @ts-ignore
+          formatter={(value, entry: { payload: { percent: number } }) => {
+            return `${value} (${Numbers.format(entry.payload.percent * 100, 0)}%)`
+          }}
+          layout="vertical"
+          verticalAlign="middle"
+        />
       </PieChart>
     </ResponsiveContainer>
   )
