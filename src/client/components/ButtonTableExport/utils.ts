@@ -2,10 +2,13 @@
 //
 import { Objects } from 'utils/objects'
 
+import { DOMs } from 'client/utils/dom'
+
 const normalizeString = (string = '') => string.trim().replace(/\s/g, ' ')
 
 const _getElementText = (element: HTMLElement): string => {
   const { children, innerText } = element
+  const childrenArray = Array.from(children)
 
   if (element.classList.contains('no-csv')) return ''
 
@@ -15,12 +18,17 @@ const _getElementText = (element: HTMLElement): string => {
   }
 
   if (element.classList.contains('autocomplete-input__wrapper')) {
-    const input = Array.from(children).find((x) => x.nodeName === 'INPUT') as HTMLInputElement
+    const input = childrenArray.find((x) => x.nodeName === 'INPUT') as HTMLInputElement
     return normalizeString(input.value)
   }
 
+  const textarea = DOMs.findElementByName<HTMLTextAreaElement>(element, 'TEXTAREA')
+  if (!Objects.isNil(textarea)) {
+    return textarea.value
+  }
+
   if (children.length > 0) {
-    return Array.from(children).reduce(
+    return childrenArray.reduce(
       (text, child) => normalizeString(`${text} ${_getElementText(child as HTMLElement)}`),
       ''
     )
