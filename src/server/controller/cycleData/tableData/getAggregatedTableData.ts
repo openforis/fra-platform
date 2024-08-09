@@ -1,7 +1,6 @@
 import { RegionCode } from 'meta/area'
-import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data'
 
-import { getTableData } from 'server/controller/cycleData/getTableData'
 import { getTablesCondition } from 'server/controller/cycleData/tableData/getTablesCondition'
 import { BaseProtocol, DB } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
@@ -19,19 +18,14 @@ export const getAggregatedTableData = async (
   const regionCode = countryISOsProp[0] as RegionCode
   const countryISOs = await CountryRepository.getCountryIsos({ assessment, cycle, regionCode }, client)
 
-  const faoEstimates = await DataRepository.getFaoEstimateData({ assessment, cycle, countryISOs, tables }, client)
-  const data = await getTableData({ ...props, countryISOs }, client)
-  const getDataProps = { data, cycleName: cycle.name, assessmentName: assessment.props.name }
-  const tableData = RecordAssessmentDatas.getCycleData(getDataProps)
-
-  const mergedData = RecordAssessmentDatas.mergeRecordTableData(faoEstimates, tableData)
-  const countryDataSum = RecordAssessmentDatas.sumCountryValues(mergedData)
+  const faoEstimates = await DataRepository.getFaoEstimateData(
+    { assessment, cycle, countryISOs, regionCode, tables },
+    client
+  )
 
   return {
     [assessment.props.name]: {
-      [cycle.name]: {
-        [regionCode]: countryDataSum,
-      },
+      [cycle.name]: faoEstimates,
     },
   }
 }
