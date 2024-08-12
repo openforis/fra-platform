@@ -99,7 +99,11 @@ const exec = async () => {
   // Enable this line to hide values without diff
   // .filter((d) => !Numbers.eq(d.diff, '0'))
 
-  await CSV.write(arr, 'compareDashboardData')
+  if (arr.length === 0) {
+    Logger.debug('No differences found')
+  } else {
+    await CSV.write(arr, 'compareDashboardData')
+  }
 }
 
 const start = new Date().getTime()

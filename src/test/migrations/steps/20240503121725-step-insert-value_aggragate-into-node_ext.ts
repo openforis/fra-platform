@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { Assessment, AssessmentNames } from 'meta/assessment'
+import { Assessment, AssessmentNames, Cycle } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -8,7 +8,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 const client: BaseProtocol = DB
 
 /**
- * 1a. Insert value_aggregate into node_ext for fra 2020 where values don't exist in `node`
+ * 1a. Insert value_aggregate into node_ext for fra 2020
  * 1b. Insert value_aggregate.totalLandArea into node_ext for fra 2025 and 2020
  * 2. Drop value_aggregate
  * Note: We don't migrate values that are not associated with a table,
@@ -17,181 +17,58 @@ const client: BaseProtocol = DB
  * Note: We don't migrate forestArea, even when not found in node as we have 100% data for countries for forestArea in either node or ODP tables
  */
 
-const _migrateTotalLandArea = (schemaCycle: string) => `
-    insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
-    select va.country_iso
-         , 'node' as type
-         , jsonb_build_object(
-            'colName', va.col_name,
-            'tableName', 'extentOfForest',
-            'variableName', va.variable_name
-           )      as props
-         , va.value
-    from ${schemaCycle}.value_aggregate va
-    where va.variable_name = 'totalLandArea'
-      and not exists (select 1
-                      from ${schemaCycle}.node_ext ne
-                      where ne.props ->> 'variableName' = va.variable_name
-                    and ne.country_iso = va.country_iso
-                    and ne.props ->> 'colName' = va.col_name)
-    order by 1, 2, 3, 4;
-`
+const _case = (variable: string, table: string) => `when variable_name = '${variable}' then '${table}'`
+const _cases = (variables: Array<string>, table: string) => {
+  return variables.map((v) => _case(v, table)).join('\n')
+}
 
-const _migratePrimaryDesignatedManagementObjective = (schemaCycle: string, schemaAssessment: string) => `
-    insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
-    with country_nodes as (select n.country_iso
-                                , r.props ->> 'variableName'    as variable_name
-                                , t.props ->> 'name'    as table_name
-                                , c.props ->> 'colName'         as col_name
-                                , n.value
-                           from ${schemaCycle}.node n
-                                    left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
-                                    left join ${schemaAssessment}.row r on r.id = c.row_id
-                                    left join ${schemaAssessment}."table" t on t.id = r.table_id
-                           where t.props ->> 'name' = 'primaryDesignatedManagementObjective')
-    select va.country_iso
-         , 'node' as type
-         , jsonb_build_object(
-            'colName', va.col_name,
-            'variableName', va.variable_name,
-            'tableName', n.table_name
-           )      as props
-         , va.value || '{"faoEstimate": "true"}' as value
-    from ${schemaCycle}.value_aggregate va
-             left join country_nodes n using (country_iso, variable_name, col_name)
-    where va.value ->> 'raw' is not null
-      and va.variable_name in ('conservation_of_biodiversity', 'multiple_use', 'no_unknown', 'other', 'production',
-                               'protection_of_soil_and_water', 'social_services', 'totalForestArea')
-      and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
-    order by 1, 2, 3, 4;
-`
+const _migrateValueAggregate = async (assessment: Assessment, cycle: Cycle) => {
+  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const where = `variable_name not in ('forest_area_percent', 'primary_forest_ratio', 'totalLandArea')`
+  const notExist = `select 1 from ${schemaCycle}.node_ext ne where ne.country_iso = value_aggregate.country_iso and ne.props ->> 'variableName' = value_aggregate.variable_name and ne.props ->> 'colName' = value_aggregate.col_name`
+  await client.query(`
+      insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
 
-const _migrateForestCharacteristics = (schemaCycle: string, schemaAssessment: string) => `
-   insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
-   with country_nodes as (select n.country_iso
-                               , r.props ->> 'variableName'    as variable_name
-      , t.props ->> 'name'    as table_name
-      , c.props ->> 'colName'         as col_name
-      , n.value                       as value
-   from ${schemaCycle}.node n
-       left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
-       left join ${schemaAssessment}.row r on r.id = c.row_id
-       left join ${schemaAssessment}."table" t on t.id = r.table_id
-   where t.props ->> 'name' = 'forestCharacteristics')
-   select va.country_iso
-        , 'node' as type
-        , jsonb_build_object(
-           'colName', va.col_name,
-           'variableName', va.variable_name,
-           'tableName', 'forestCharacteristics'
-          )      as props
-        , va.value || '{"faoEstimate": "true"}' as value
-   from ${schemaCycle}.value_aggregate va
-       left join country_nodes n using (country_iso, variable_name, col_name)
-   where va.value ->> 'raw' is not null
-     and va.variable_name in ('plantedForest')
-     and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
-   order by 1, 2, 3, 4;
-
-`
-
-const _migrateCarbonStock = (schemaCycle: string, schemaAssessment: string) => `
-   insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
-   with country_nodes as (select n.country_iso
-                               , r.props ->> 'variableName'    as variable_name
-      , t.props ->> 'name'    as table_name
-      , c.props ->> 'colName'         as col_name
-      , n.value                       as value
-   from ${schemaCycle}.node n
-       left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
-       left join ${schemaAssessment}.row r on r.id = c.row_id
-       left join ${schemaAssessment}."table" t on t.id = r.table_id
-   where t.props ->> 'name' = 'carbonStock')
-   select va.country_iso
-        , 'node' as type
-        , jsonb_build_object(
-           'colName', va.col_name,
-           'variableName', va.variable_name,
-           'tableName', 'carbonStock'
-          )      as props
-        , va.value || '{"faoEstimate": "true"}' as value
-   from ${schemaCycle}.value_aggregate va
-       left join country_nodes n using (country_iso, variable_name, col_name)
-   where va.value ->> 'raw' is not null
-     and va.variable_name in ('carbon_stock_biomass_total', 'carbon_stock_total')
-     and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
-   order by 1, 2, 3, 4;
-
-`
-
-// Note: value_aggregate variable total_growing_stock corresponds growingStockTotal.forest
-const _migrateGrowingStock = (schemaCycle: string, schemaAssessment: string) => `
-   insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
-  with country_nodes as (select n.country_iso
-                              , r.props ->> 'variableName'    as variable_name
-                              , t.props ->> 'name'    as table_name
-                              , c.props ->> 'colName'         as col_name
-                              , n.value                       as value
-                         from ${schemaCycle}.node n
-                                  left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
-                                  left join ${schemaAssessment}.row r on r.id = c.row_id
-                                  left join ${schemaAssessment}."table" t on t.id = r.table_id
-                         where t.props ->> 'name' = 'growingStockTotal'),
-      agg as (
-          select country_iso, value, col_name, 'forest' as variable_name, 'growingStockTotal' as table_name
-          from ${schemaCycle}.value_aggregate
-          where variable_name = 'growing_stock_total'
-      )
-  select va.country_iso
-       , 'node' as type
-       , jsonb_build_object(
-          'colName', va.col_name,
-          'variableName', 'forest',
-          'tableName', 'growingStockTotal'
-         )      as props
-       , va.value || '{"faoEstimate": "true"}' as value
-  from agg va left join country_nodes n using (country_iso, variable_name, col_name)
-  where va.value ->> 'raw' is not null
-    and va.variable_name in ('forest')
-    and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
-  order by 1, 2, 3, 4;
-
-`
-
-const _migrateRest = (schemaCycle: string, schemaAssessment: string) => `
-    insert into ${schemaCycle}.node_ext (country_iso, type, props, value)
-    with country_nodes as (select n.country_iso
-                                , r.props ->> 'variableName'    as variable_name
-       , t.props ->> 'name'    as table_name
-       , c.props ->> 'colName'         as col_name
-       , n.value || '{"type": "node"}' as value
-    from ${schemaCycle}.node n
-        left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
-        left join ${schemaAssessment}.row r on r.id = c.row_id
-        left join ${schemaAssessment}."table" t on t.id = r.table_id
-    where t.props ->> 'name' not in ('primaryDesignatedManagementObjective', 'forestCharacteristics'))
-    select va.country_iso
-         , 'node' as type
-         , jsonb_build_object(
-            'colName', va.col_name,
-            'variableName', va.variable_name,
-            'tableName',
+      with value_aggregate as (
+      select 
+            country_iso,
+            case when variable_name = 'growing_stock_total' then 'forest' else variable_name end as variable_name,
             case
-                when n.table_name is null and va.variable_name ilike '%ownership%'
-                        then 'forestOwnership'
-                 else n.table_name end
-           )      as props
-         , va.value || '{"faoEstimate": "true"}' as value
-    from ${schemaCycle}.value_aggregate va
-        left join country_nodes n using (country_iso, variable_name, col_name)
-    where va.value ->> 'raw' is not null
-      and va.variable_name not in (
-        'conservation_of_biodiversity', 'multiple_use', 'no_unknown', 'other', 'production',
-        'protection_of_soil_and_water', 'social_services', 'totalForestArea',
-        'carbon_stock_biomass_total', 'carbon_stock_total', 'growing_stock_total', 'primary_forest_ratio', 'forest_area_percent', 'naturalForestArea', 'plantedForest', 'forestArea')
-      and (n.value is null or (n.value ->> 'raw' is null and va.value ->> 'raw' is not null))
-    order by 1, 2, 3, 4;
-`
+              ${_case('forestArea', 'extentOfForest')}
+              ${_case('forest_area_within_protected_areas', 'forestAreaWithinProtectedAreas')}
+              ${_case('growing_stock_total', 'growingStockTotal')}
+              ${_case('primary_forest', 'specificForestCategories')}
+              ${_cases(['carbon_stock_biomass_total', 'carbon_stock_total'], 'carbonStock')}
+              ${_cases(
+                [
+                  'conservation_of_biodiversity',
+                  'multiple_use',
+                  'other',
+                  'production',
+                  'protection_of_soil_and_water',
+                  'social_services',
+                ],
+                'primaryDesignatedManagementObjective'
+              )}
+              ${_cases(['other_or_unknown', 'private_ownership', 'public_ownership'], 'forestOwnership')}
+              ${_cases(['plantedForest', 'naturalForestArea'], 'forestCharacteristics')}
+                else 'ERROR'
+            end as table_name,
+            col_name,
+            value || '{"faoEstimate":true}'::jsonb as value
+      from ${schemaCycle}.value_aggregate
+      where ${where} and not exists (${notExist}))
+      select va.country_iso
+           , 'node' as type
+           , jsonb_build_object(
+              'colName', va.col_name,
+              'variableName', va.variable_name,
+              'tableName', va.table_name
+             )      as props
+           , va.value
+      from value_aggregate va
+            `)
+}
 
 const _deprecateValueAggregate = async (assessments: Array<Assessment>): Promise<void> => {
   await Promises.each(assessments, async (assessment) => {
@@ -213,22 +90,8 @@ const _deprecateValueAggregate = async (assessments: Array<Assessment>): Promise
 export default async () => {
   const assessments = await AssessmentController.getAll({}, client)
   const assessmentFra = assessments.find((a) => a.props.name === AssessmentNames.fra)
-  await Promises.each(assessmentFra.cycles, async (cycle) => {
-    const schemaName = Schemas.getName(assessmentFra)
-    const schemaCycle = Schemas.getNameCycle(assessmentFra, cycle)
+  const cycle2020 = assessmentFra.cycles.find((c) => c.name === '2020')
 
-    await client.query(_migrateTotalLandArea(schemaCycle))
-
-    const cycleName = cycle.name
-
-    if (cycleName === '2020') {
-      await client.query(_migratePrimaryDesignatedManagementObjective(schemaCycle, schemaName))
-      await client.query(_migrateForestCharacteristics(schemaCycle, schemaName))
-      await client.query(_migrateGrowingStock(schemaCycle, schemaName))
-      await client.query(_migrateCarbonStock(schemaCycle, schemaName))
-      await client.query(_migrateRest(schemaCycle, schemaName))
-    }
-  })
-
+  await _migrateValueAggregate(assessmentFra, cycle2020)
   await _deprecateValueAggregate(assessments)
 }
