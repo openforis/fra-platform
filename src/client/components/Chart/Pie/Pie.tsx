@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
@@ -15,6 +15,7 @@ const Pie = (props: Props) => {
   const { data } = props
 
   const { t } = useTranslation()
+  const totalValue = useMemo(() => data.reduce((sum, entry) => sum + entry.value, 0), [data])
 
   return (
     <ResponsiveContainer height={300} width="100%">
@@ -41,7 +42,9 @@ const Pie = (props: Props) => {
             const _label = Labels.getLabel({ label, t })
             let _value = Numbers.format(value as number)
             if (unit) _value += ` (${t(unit)})`
-            return [_value, _label]
+            const percent = ((value as number) / totalValue) * 100
+            const _percent = ` (${Numbers.format(percent, 0)}%)`
+            return [_value + _percent, _label]
           }}
         />
         <Legend
