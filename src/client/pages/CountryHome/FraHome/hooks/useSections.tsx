@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 
+import { Areas } from 'meta/area'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
@@ -27,7 +28,11 @@ export const useSections = (): Array<Section> => {
 
     if (!cycle) return null
 
-    sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
+    const showOverview = cycle.published || Areas.isISOCountry(countryIso)
+
+    if (showOverview) {
+      sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
+    }
 
     if (user) {
       sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
