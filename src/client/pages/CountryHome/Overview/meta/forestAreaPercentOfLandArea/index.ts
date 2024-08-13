@@ -5,6 +5,7 @@ import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
 import { getTable } from 'client/pages/CountryHome/Overview/meta/utils'
 import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
+import { unit } from 'client/pages/CountryHome/Overview/meta/utils/unit'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['2020'],
@@ -14,12 +15,12 @@ const cols: Record<string, Array<string>> = {
 const tableName = 'extentOfForest'
 const tableId = 3
 
-const rowMetadata: RowsMetadata = [
+const rowMetadata = (region: boolean): RowsMetadata => [
   {
     id: 1,
     variableName: 'forestArea',
     label: { key: `statisticalFactsheets.rowName.forestArea` },
-    calculateFn: `${tableName}.forestArea`,
+    calculateFn: `${tableName}.forestArea ${region ? '/ 1000' : ''}`,
     // calculateFn: `100 * (${tableName}.forestArea / ${tableName}.totalLandArea)`,
     calculationDependencies: [
       { tableName, variableName: 'forestArea' },
@@ -30,7 +31,9 @@ const rowMetadata: RowsMetadata = [
     id: 2,
     variableName: 'otherLand',
     label: { key: `statisticalFactsheets.rowName.otherArea` },
-    calculateFn: `${tableName}.totalLandArea - ${tableName}.forestArea`,
+    calculateFn: `${tableName}.totalLandArea ${region ? '/ 1000' : ''} - ${tableName}.forestArea ${
+      region ? '/ 1000' : ''
+    }`,
     // calculateFn: `100 - (100 * (${tableName}.forestArea / ${tableName}.totalLandArea))`,
     calculationDependencies: [
       { tableName, variableName: 'forestArea' },
@@ -39,10 +42,10 @@ const rowMetadata: RowsMetadata = [
   },
 ]
 
-export const forestAreaPercentOfLandArea = (cycle: Cycle): DashboardPieChart => ({
+export const forestAreaPercentOfLandArea = (cycle: Cycle, region: boolean): DashboardPieChart => ({
   type: DashboardItemType.pieChart,
   title: { key: 'statisticalFactsheets.forestAreaPercent.title', params: { year: cols[cycle.name].at(0) } },
-  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
+  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
   chart: {
     cells: [
       {
@@ -50,14 +53,14 @@ export const forestAreaPercentOfLandArea = (cycle: Cycle): DashboardPieChart => 
         color: ChartColor.green,
         columnName: cols[cycle.name][0],
         label: { key: 'statisticalFactsheets.rowName.forestArea' },
-        unit: 'unit.haThousand',
+        unit: unit(region),
       },
       {
         variableName: 'otherLand',
         color: ChartColor.otherLand,
         columnName: cols[cycle.name][0],
         label: { key: 'statisticalFactsheets.rowName.otherArea' },
-        unit: 'unit.haThousand',
+        unit: unit(region),
       },
     ],
   },
