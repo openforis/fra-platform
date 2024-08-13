@@ -16,24 +16,24 @@ import { primaryDesignatedManagementObjectiveDashboard } from 'client/pages/Coun
 import { primaryForestPercentOfForestArea } from 'client/pages/CountryHome/Overview/meta/primaryForestPercentOfForestArea'
 
 const fra2020Dashboard = (cycle: Cycle, region: boolean): Array<DashboardItem> => [
-  forestArea(cycle),
+  forestArea(cycle, region),
   forestGrowingStockAndCarbonDashboard(cycle, region),
-  forestAreaPercentOfLandArea(cycle),
-  primaryForestPercentOfForestArea(cycle),
-  forestAreaWithinProtectedAreas(cycle),
-  forestOwnership(cycle),
+  forestAreaPercentOfLandArea(cycle, region),
+  primaryForestPercentOfForestArea(cycle, region),
+  forestAreaWithinProtectedAreas(cycle, region),
+  forestOwnership(cycle, region),
   primaryDesignatedManagementObjectiveDashboard(cycle, region),
-  naturallyRegeneratingForestArea(cycle),
+  naturallyRegeneratingForestArea(cycle, region),
 ]
 const fra2025Dashboard = (cycle: Cycle, region: boolean): Array<DashboardItem> => [
-  forestArea(cycle),
+  forestArea(cycle, region),
   forestGrowingStockAndCarbonDashboard(cycle, region),
-  forestAreaPercentOfLandArea(cycle),
-  primaryForestPercentOfForestArea(cycle),
-  forestAreaWithinProtectedAreas(cycle),
-  forestOwnership(cycle),
+  forestAreaPercentOfLandArea(cycle, region),
+  primaryForestPercentOfForestArea(cycle, region),
+  forestAreaWithinProtectedAreas(cycle, region),
+  forestOwnership(cycle, region),
   primaryDesignatedManagementObjectiveDashboard(cycle, region),
-  naturallyRegeneratingForestArea(cycle),
+  naturallyRegeneratingForestArea(cycle, region),
 ]
 
 export type Dashboard = Record<AssessmentName, Record<CycleName, Array<DashboardItem>>>

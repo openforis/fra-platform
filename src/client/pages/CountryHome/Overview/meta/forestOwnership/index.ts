@@ -1,10 +1,11 @@
-import { Cycle, CycleName, Unit } from 'meta/assessment'
+import { Cycle, CycleName } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType } from 'meta/dashboard'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
 import { getTable } from 'client/pages/CountryHome/Overview/meta/utils'
 import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
+import { unit } from 'client/pages/CountryHome/Overview/meta/utils/unit'
 
 const tableId = 6
 const tableName = 'forestOwnership'
@@ -22,7 +23,7 @@ const cols: Record<CycleName, Array<string>> = {
   '2025': ['2020'],
 }
 
-export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
+export const forestOwnership = (cycle: Cycle, region: boolean): DashboardPieChart => {
   const columnName = cols[cycle.name][0]
   const variables = variableNames.filter(({ cycleName }) => !cycleName || cycleName === cycle.name)
 
@@ -30,7 +31,7 @@ export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
     id: 1,
     variableName,
     label: { key: `statisticalFactsheets.rowName.${variableName}` },
-    calculateFn: `${tableName}.${variableName}`,
+    calculateFn: `${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
     calculationDependencies: [{ tableName, variableName }],
   }))
 
@@ -44,7 +45,7 @@ export const forestOwnership = (cycle: Cycle): DashboardPieChart => {
         color,
         columnName,
         label: { key: `statisticalFactsheets.rowName.${variableName}` },
-        unit: `unit.${Unit.haThousand}`,
+        unit: unit(region),
       })),
     },
   }

@@ -5,6 +5,7 @@ import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
 import { getTable } from 'client/pages/CountryHome/Overview/meta/utils'
 import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
+import { unit } from 'client/pages/CountryHome/Overview/meta/utils/unit'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['2020'],
@@ -15,14 +16,14 @@ const tableId = 5
 const tableName = 'forestAreaWithinProtectedAreas'
 const variableName = 'forest_area_within_protected_areas'
 
-export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart => {
+export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): DashboardPieChart => {
   const columnName = cols[cycle.name][0]
   const rowMetadata: RowsMetadata = [
     {
       id: 1,
       variableName,
       label: { key: `statisticalFactsheets.rowName.forestAreaWithinProtectedAreas` },
-      calculateFn: `${tableName}.${variableName}`,
+      calculateFn: `${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
       // calculateFn: `100 * ${tableName}.${variableName} / ${TableNames.extentOfForest}.forestArea`,
       calculationDependencies: [
         { tableName, variableName },
@@ -33,7 +34,9 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart 
       id: 2,
       variableName: 'forestArea',
       label: { key: `statisticalFactsheets.rowName.forestArea` },
-      calculateFn: `${TableNames.extentOfForest}.forestArea - ${tableName}.${variableName}`,
+      calculateFn: `${TableNames.extentOfForest}.forestArea ${region ? '/ 1000' : ''} - ${tableName}.${variableName} ${
+        region ? '/ 1000' : ''
+      }`,
       // calculateFn: `100 - 100 * ${tableName}.${variableName} / ${TableNames.extentOfForest}.forestArea`,
       calculationDependencies: [
         { tableName, variableName },
@@ -53,14 +56,14 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle): DashboardPieChart 
           color: ChartColor.green,
           columnName,
           label: { key: 'statisticalFactsheets.rowName.forestArea' },
-          unit: 'unit.haThousand',
+          unit: unit(region),
         },
         {
           variableName,
           color: ChartColor.forestLight,
           columnName,
           label: { key: 'statisticalFactsheets.rowName.forestAreaWithinProtectedAreas' },
-          unit: 'unit.haThousand',
+          unit: unit(region),
         },
       ],
     },
