@@ -25,10 +25,6 @@ export enum TableNames {
   totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
   // Used to append ODP data to tableData
   originalDataPointValue = 'originalDataPointValue',
-  /**
-   * @deprecated
-   */
-  valueAggregate = 'value_aggregate',
 }
 
 // array of column names indexed by cycle uuid

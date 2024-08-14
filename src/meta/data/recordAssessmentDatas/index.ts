@@ -11,7 +11,6 @@ import { updateDatum } from 'meta/data/recordAssessmentDatas/updateDatum'
 import { updateDatumValidation } from 'meta/data/recordAssessmentDatas/updateDatumValidation'
 
 import { mergeRecordTableData } from './mergeRecordTableData'
-import { sumCountryValues } from './sumCountryValues'
 
 export const RecordAssessmentDatas = {
   getAssessmentData,
@@ -24,7 +23,6 @@ export const RecordAssessmentDatas = {
   isTableDataEmpty,
   mergeData,
   mergeRecordTableData,
-  sumCountryValues,
 
   updateDatum,
   updateDatumValidation,
