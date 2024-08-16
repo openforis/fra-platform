@@ -9,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
   Tooltip,
+  TooltipProps,
   XAxis,
   YAxis,
 } from 'recharts'
@@ -17,11 +18,30 @@ import { Labels } from 'meta/assessment'
 import { BarChart as BarChartType, BarChartData } from 'meta/chart'
 
 import TooltipContent from 'client/components/Chart/TooltipContent'
+import { cursor } from 'client/components/Chart/utils/cursor'
 
 type Props = {
   data: BarChartData
   chart: BarChartType
   showLegend?: boolean
+}
+
+const CustomTooltip: React.FC<TooltipProps<never, never>> = (props) => {
+  const { payload } = props
+
+  if (!(payload.length > 0)) {
+    return null
+  }
+
+  const content = payload.map((item) => ({
+    color: item.color,
+    label: item.name,
+    name: item.name,
+    unit: item.unit,
+    value: item.value as number,
+  }))
+
+  return <TooltipContent content={content} />
 }
 
 const SPACING = 24
@@ -52,11 +72,7 @@ const Bar = (props: Props) => {
           }}
         />
 
-        <Tooltip
-          content={TooltipContent}
-          cursor={{ fill: '#f3fdff', stroke: '#9eb9bd', strokeWidth: 1 }}
-          shared={false}
-        />
+        <Tooltip content={CustomTooltip} cursor={cursor} shared={false} />
 
         {showLegend && (
           <Legend align="center" layout="horizontal" verticalAlign="top" wrapperStyle={{ paddingBottom: '16px' }} />
@@ -70,7 +86,7 @@ const Bar = (props: Props) => {
               fill={cell.color}
               maxBarSize={70}
               name={Labels.getLabel({ label: cell.label, t })}
-              unit={`${cell.unit ? ` (${t(cell.unit)})` : ''}`}
+              unit={`${cell.unit ? `${t(cell.unit)}` : ''}`}
             />
           )
         })}

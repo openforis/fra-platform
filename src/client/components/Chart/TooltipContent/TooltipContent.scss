@@ -2,10 +2,10 @@
 
 .chart-tooltip__container {
   align-items: center;
-  background-color: $ui-black-map;
+  background-color: $ui-bg;
   border-radius: 2px;
   border: 1px solid $ui-accent-light;
-  color: $ui-bg;
+  color: $text-body;
   display: grid;
   font-weight: 600;
   grid-column-gap: $spacing-xxs;
@@ -15,7 +15,7 @@
   text-transform: uppercase;
 
   div.hr {
-    background: radial-gradient($ui-accent-light, $ui-black-map);
+    background: radial-gradient($ui-accent-light, $ui-accent-light-extra);
     grid-column: 1/-1;
     justify-self: center;
     margin: $spacing-xxxs;
