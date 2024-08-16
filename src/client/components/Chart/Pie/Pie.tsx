@@ -1,37 +1,17 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip, TooltipProps } from 'recharts'
+import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip as TooltipRecharts } from 'recharts'
 import { Numbers } from 'utils/numbers'
 
 import { Labels } from 'meta/assessment'
 import { PieChartData } from 'meta/chart'
 
-import TooltipContent from 'client/components/Chart/TooltipContent'
+import Tooltip from 'client/components/Chart/Pie/Tooltip'
 import { cursor } from 'client/components/Chart/utils/cursor'
 
 type Props = {
   data: Array<PieChartData>
-}
-
-const CustomTooltip: React.FC<TooltipProps<never, never> & { totalValue: number }> = (props) => {
-  const { payload, totalValue } = props
-  const { t } = useTranslation()
-
-  if (!(payload.length > 0)) {
-    return null
-  }
-
-  const content = payload.map((item) => ({
-    color: item.payload.color,
-    label: Labels.getLabel({ label: item.payload.label, t }),
-    name: item.payload.name,
-    percent: ((item.value as number) / totalValue) * 100,
-    unit: t(item.payload.unit),
-    value: item.value as number,
-  }))
-
-  return <TooltipContent content={content} />
 }
 
 const Pie = (props: Props) => {
@@ -59,7 +39,7 @@ const Pie = (props: Props) => {
             />
           ))}
         </PieComponent>
-        <Tooltip content={<CustomTooltip totalValue={totalValue} />} cursor={cursor} />
+        <TooltipRecharts content={<Tooltip totalValue={totalValue} />} cursor={cursor} />
         <Legend
           align="center"
           // @ts-ignore

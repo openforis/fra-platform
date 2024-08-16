@@ -8,8 +8,7 @@ import {
   CartesianGrid,
   Legend,
   ResponsiveContainer,
-  Tooltip,
-  TooltipProps,
+  Tooltip as TooltipRecharts,
   XAxis,
   YAxis,
 } from 'recharts'
@@ -17,31 +16,13 @@ import {
 import { Labels } from 'meta/assessment'
 import { BarChart as BarChartType, BarChartData } from 'meta/chart'
 
-import TooltipContent from 'client/components/Chart/TooltipContent'
+import Tooltip from 'client/components/Chart/Bar/Tooltip/Tooltip'
 import { cursor } from 'client/components/Chart/utils/cursor'
 
 type Props = {
   data: BarChartData
   chart: BarChartType
   showLegend?: boolean
-}
-
-const CustomTooltip: React.FC<TooltipProps<never, never>> = (props) => {
-  const { payload } = props
-
-  if (!(payload.length > 0)) {
-    return null
-  }
-
-  const content = payload.map((item) => ({
-    color: item.color,
-    label: item.name,
-    name: item.name,
-    unit: item.unit,
-    value: item.value as number,
-  }))
-
-  return <TooltipContent content={content} />
 }
 
 const SPACING = 24
@@ -72,7 +53,7 @@ const Bar = (props: Props) => {
           }}
         />
 
-        <Tooltip content={CustomTooltip} cursor={cursor} shared={false} />
+        <TooltipRecharts content={Tooltip} cursor={cursor} shared={false} />
 
         {showLegend && (
           <Legend align="center" layout="horizontal" verticalAlign="top" wrapperStyle={{ paddingBottom: '16px' }} />
