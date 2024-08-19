@@ -16,8 +16,8 @@ import {
 import { Labels } from 'meta/assessment'
 import { BarChart as BarChartType, BarChartData } from 'meta/chart'
 
-import Tooltip from 'client/components/Chart/Bar/Tooltip/Tooltip'
-import { cursor } from 'client/components/Chart/utils/cursor'
+import { cursor } from '../utils/cursor'
+import Tooltip from './Tooltip'
 
 type Props = {
   data: BarChartData

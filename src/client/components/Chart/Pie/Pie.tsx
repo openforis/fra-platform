@@ -7,8 +7,8 @@ import { Numbers } from 'utils/numbers'
 import { Labels } from 'meta/assessment'
 import { PieChartData } from 'meta/chart'
 
-import Tooltip from 'client/components/Chart/Pie/Tooltip'
-import { cursor } from 'client/components/Chart/utils/cursor'
+import { cursor } from '../utils/cursor'
+import Tooltip from './Tooltip'
 
 type Props = {
   data: Array<PieChartData>
