@@ -26,9 +26,9 @@ export const fileTypes = {
     downloadName: `Statistical Factsheets (${levelIso})`,
     fileType: 'ods',
   }),
-  dataDownload: (key: string, fileType: string) => ({
+  dataDownload: (assessmentName: string, cycleName: string, key: string, fileType: string) => ({
     key,
-    folder: 'dataDownload',
+    folder: `${assessmentName}/${cycleName}/dataDownload`,
     downloadName: key.replace(/_/g, ' '),
     fileType,
   }),
