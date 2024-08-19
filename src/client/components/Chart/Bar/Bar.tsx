@@ -24,7 +24,7 @@ type Props = {
   showLegend?: boolean
 }
 
-const SPACING = 24
+const SPACING = 8
 
 const Bar = (props: Props) => {
   const { t } = useTranslation()
@@ -32,7 +32,7 @@ const Bar = (props: Props) => {
 
   return (
     <ResponsiveContainer height={300} width="100%">
-      <BarChart barCategoryGap={5} data={data} margin={{ left: SPACING, right: SPACING, top: SPACING, bottom: 10 }}>
+      <BarChart barCategoryGap={5} data={data} margin={{ left: SPACING / 2, right: SPACING, top: SPACING, bottom: 10 }}>
         <CartesianGrid stroke="#dadada" strokeDasharray="1" />
         <XAxis
           dataKey="columnName"
@@ -42,7 +42,7 @@ const Bar = (props: Props) => {
         <YAxis
           label={{
             angle: -90,
-            dx: -SPACING,
+            dx: -SPACING / 2,
             position: 'insideLeft',
             value: Labels.getLabel({ label: chart.yAxis?.label, t }),
           }}
