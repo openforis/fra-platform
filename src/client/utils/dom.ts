@@ -27,8 +27,23 @@ const scrollTo = (options: ScrollToOptions = { top: 0, left: 0, behavior: 'smoot
 const parseDOMValue = (value: string): string =>
   new DOMParser().parseFromString(value, 'text/html').documentElement.innerText.replaceAll('\n', '')
 
+const findElementByName = <Returned extends Element>(element: Element, name: string): Returned | undefined => {
+  const queue: Array<Element> = [element]
+
+  while (queue.length) {
+    const item = queue.shift()
+    if (item.nodeName === name) {
+      return item as Returned
+    }
+    queue.push(...Array.from(item.children))
+  }
+
+  return undefined
+}
+
 export const DOMs = {
   elementOffset,
+  findElementByName,
   scrollTo,
   parseDOMValue,
 }
