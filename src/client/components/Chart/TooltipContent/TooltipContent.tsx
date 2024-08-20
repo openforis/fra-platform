@@ -1,19 +1,31 @@
 import 'client/components/Chart/TooltipContent/TooltipContent.scss'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
-import { TooltipProps } from 'recharts'
 import { Numbers } from 'utils/numbers'
 
-const TooltipContent: React.FC<TooltipProps<never, never>> = (props) => {
-  const { label, payload } = props
+type Content = {
+  color: string
+  label: string
+  name: string
+  percent?: number
+  unit?: string | ReactNode
+  value: number
+}
 
-  if (!(payload.length > 0)) {
+type Props = {
+  content: Array<Content>
+}
+
+const TooltipContent: React.FC<Props> = (props) => {
+  const { content } = props
+
+  if (content.length === 0) {
     return null
   }
 
   return (
     <div className="chart-tooltip__container">
-      {payload.map((item, index) => (
+      {content.map((item, index) => (
         <React.Fragment key={item.name}>
           {index !== 0 && <div className="hr" />}
 
@@ -22,11 +34,11 @@ const TooltipContent: React.FC<TooltipProps<never, never>> = (props) => {
           </div>
 
           <div>
-            {item.name} {label}
+            {item.name} {item.label}
           </div>
 
           <div className="chart-tooltip__value">
-            {Numbers.format(item.value as number)} {item.unit}
+            {Numbers.format(item.value)} ({item.unit}) {item.percent && `(${Numbers.format(item.percent)}%)`}
           </div>
         </React.Fragment>
       ))}

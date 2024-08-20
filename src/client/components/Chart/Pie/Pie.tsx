@@ -1,11 +1,14 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
+import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip as TooltipRecharts } from 'recharts'
 import { Numbers } from 'utils/numbers'
 
 import { Labels } from 'meta/assessment'
 import { PieChartData } from 'meta/chart'
+
+import { cursor } from '../utils/cursor'
+import Tooltip from './Tooltip'
 
 type Props = {
   data: Array<PieChartData>
@@ -36,17 +39,7 @@ const Pie = (props: Props) => {
             />
           ))}
         </PieComponent>
-        <Tooltip
-          formatter={(value, _, { payload }) => {
-            const { label, unit } = payload
-            const _label = Labels.getLabel({ label, t })
-            let _value = Numbers.format(value as number)
-            if (unit) _value += ` (${t(unit)})`
-            const percent = ((value as number) / totalValue) * 100
-            const _percent = ` (${Numbers.format(percent, 0)}%)`
-            return [_value + _percent, _label]
-          }}
-        />
+        <TooltipRecharts content={<Tooltip totalValue={totalValue} />} cursor={cursor} />
         <Legend
           align="center"
           // @ts-ignore

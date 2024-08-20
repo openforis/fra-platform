@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   Legend,
   ResponsiveContainer,
-  Tooltip,
+  Tooltip as TooltipRecharts,
   XAxis,
   YAxis,
 } from 'recharts'
@@ -16,7 +16,8 @@ import {
 import { Labels } from 'meta/assessment'
 import { BarChart as BarChartType, BarChartData } from 'meta/chart'
 
-import TooltipContent from 'client/components/Chart/TooltipContent'
+import { cursor } from '../utils/cursor'
+import Tooltip from './Tooltip'
 
 type Props = {
   data: BarChartData
@@ -52,11 +53,7 @@ const Bar = (props: Props) => {
           }}
         />
 
-        <Tooltip
-          content={TooltipContent}
-          cursor={{ fill: '#f3fdff', stroke: '#9eb9bd', strokeWidth: 1 }}
-          shared={false}
-        />
+        <TooltipRecharts content={Tooltip} cursor={cursor} shared={false} />
 
         {showLegend && (
           <Legend align="center" layout="horizontal" verticalAlign="top" wrapperStyle={{ paddingBottom: '16px' }} />
@@ -70,7 +67,7 @@ const Bar = (props: Props) => {
               fill={cell.color}
               maxBarSize={70}
               name={Labels.getLabel({ label: cell.label, t })}
-              unit={`${cell.unit ? ` (${t(cell.unit)})` : ''}`}
+              unit={`${cell.unit ? `${t(cell.unit)}` : ''}`}
             />
           )
         })}
