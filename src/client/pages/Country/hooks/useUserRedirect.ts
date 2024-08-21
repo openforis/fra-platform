@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Areas } from 'meta/area'
 import { AssessmentNames } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
@@ -28,5 +29,10 @@ export const useUserRedirect = (): void => {
       const state = { userLastRole: userRole, personalInfoRequired, routeParams }
       navigate(Routes.CountryUser.generatePath(params), { state })
     }
-  }, [assessmentName, countryIso, cycleName, navigate, user, userRole])
+
+    // Redirect non admin users to the cycle page if the cycle is not published when accessing regions
+    if (!cycle.published && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
+      navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
+    }
+  }, [assessmentName, countryIso, cycle.published, cycleName, navigate, user, userRole])
 }
