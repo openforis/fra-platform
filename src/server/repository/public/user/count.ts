@@ -33,7 +33,7 @@ export const count = async (
             from public.users u
                      join public.users_role ur on u.id = ur.user_id
             where (ur.assessment_id is null or (ur.assessment_id = $1 and ur.cycle_uuid = $2))
-              and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
+              -- and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
                 ${conditions.join(` 
               and 
               `)} ${groupByRole ? `group by ur.role` : ''}`
