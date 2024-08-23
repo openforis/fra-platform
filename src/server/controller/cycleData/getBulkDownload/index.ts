@@ -5,14 +5,21 @@ import { Areas, CountryIso, RegionCode } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
+import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
 import { entries as annualEntries } from './entries/AnnualData'
+import { entries as FRAEntries } from './entries/FRAYears'
 import { entries as intervalEntries } from './entries/Intervals'
 
-const _convertToCSV = (arr: Array<Record<string, string>>): string =>
-  [Object.keys(arr[0]), ...arr].map((it) => Object.values(it).toString()).join('\n')
+const _convertToCSV = (arr: Array<Record<string, string>>): string => {
+  if (arr.length === 0) return ''
+  const headers = Object.keys(arr[0]).filter((key) => !/^\d/.test(key))
+  const header = [...headers, ...Object.keys(arr[0]).filter((key) => !headers.includes(key))]
+  const csvContent = [header, ...arr.map((it) => header.map((header) => it[header] ?? ''))]
+  return csvContent.map((row) => row.join(',')).join('\n')
+}
 
 // Get csv file name with timestamp
 const _getFileName = (name: string): string => {
@@ -32,13 +39,24 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
     return `"${regions.split(';').map(_translate).join(', ')}"`
   }
 
-  return {
+  const fixed: Record<string, string> = {
     regions: _handleRegions(regions),
     iso3: `"${iso3}"`,
     name: `"${_translate(name)}"`,
-    year: `"${year.replace('_', '-')}"`,
     ...row,
   }
+
+  if (year) {
+    fixed.year = `"${year.replace('_', '-')}"`
+  }
+
+  Object.keys(row).forEach((key) => {
+    if (row[key]) {
+      fixed[key] = row[key].replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
+    }
+  })
+
+  return fixed
 }
 
 const handleContent = async (content: Array<Record<string, string>>) => {
@@ -61,6 +79,20 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     (c) => !c.countryIso.startsWith('X')
   )
   const params = { assessment, cycle, countries }
+
+  const annualVariableEntries = await getContentVariables({ ...params, fileName: 'Annual', entries: annualEntries })
+  const intervalVariableEntries = await getContentVariables({
+    ...params,
+    fileName: 'Intervals',
+    entries: intervalEntries(cycle),
+  })
+
+  const fraYearsVariableEntries = await getContentVariables({
+    ...params,
+    fileName: 'FRA_Years',
+    entries: FRAEntries(cycle),
+  })
+
   const [annual, intervals, fraYears] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
     getContent({ ...params, entries: intervalEntries(cycle) }),
@@ -68,6 +100,25 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
   ])
 
   return Promise.all([
+    ...annualVariableEntries.map(async (entry) => {
+      return {
+        fileName: _getFileName(entry.fileName),
+        content: handleContent(entry.content),
+      }
+    }),
+    ...intervalVariableEntries.map(async (entry) => {
+      return {
+        fileName: _getFileName(entry.fileName),
+        content: handleContent(entry.content),
+      }
+    }),
+    ...fraYearsVariableEntries.map(async (entry) => {
+      return {
+        fileName: _getFileName(entry.fileName),
+        content: handleContent(entry.content),
+      }
+    }),
+
     {
       fileName: _getFileName('Annual'),
       content: handleContent(annual),

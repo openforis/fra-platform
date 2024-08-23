@@ -50,6 +50,7 @@ export const getBulkDownload = async (req: CycleRequest, res: Response) => {
     zip.file('README.txt', _README(cycle.name))
     files.forEach(({ fileName, content }) => zip.file(fileName, content))
     res.setHeader('Content-Disposition', `attachment; filename=bulk-download_${assessmentName}_${cycleName}.zip`)
+    res.setHeader('Content-Type', 'application/zip; charset=utf-8')
     zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', res.end)
   } catch (err) {
     Requests.sendErr(res, err)
