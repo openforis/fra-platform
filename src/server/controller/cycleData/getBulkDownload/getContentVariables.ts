@@ -35,7 +35,11 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
   entries.forEach((entry) => {
     const { tableName, variables } = entry
     const tableMetadata = tablesMetadata.find((table) => table.props.name === tableName)
-    const cols = tableMetadata?.props.columnNames[cycle.uuid]
+    let cols = tableMetadata?.props.columnNames[cycle.uuid]
+
+    if (tableName === 'growingStockComposition2025') {
+      cols = ['growingStockPercent', 'growingStockMillionCubicMeter']
+    }
 
     variables.forEach((variable) => {
       const { csvColumn, variableName } = variable
