@@ -3,7 +3,7 @@ import { Cycle } from 'meta/assessment'
 export const entries = (cycle: Cycle) => {
   const arr = [
     {
-      tableName: 'forestareachange',
+      tableName: 'forestAreaChange',
       variables: [
         {
           csvColumn: '1d_expansion',
@@ -27,7 +27,7 @@ export const entries = (cycle: Cycle) => {
 
   if (cycle.name === '2020') {
     arr.push({
-      tableName: 'annualreforestation',
+      tableName: 'annualReforestation',
       variables: [
         {
           csvColumn: '1d_reforestation',
