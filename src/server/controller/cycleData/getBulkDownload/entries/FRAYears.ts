@@ -7,7 +7,7 @@ export const entries = (
     cycle.name === '2020'
       ? [
           {
-            tableName: 'graduationofstudents',
+            tableName: 'graduationOfStudents',
             variables: [
               {
                 variableName: 'doctoral_degree',
@@ -39,7 +39,7 @@ export const entries = (
       : []
 
   const carbonStock = {
-    tableName: cycle.name === '2020' ? 'carbonstock' : 'carbonStockAvg',
+    tableName: cycle.name === '2020' ? 'carbonStock' : 'carbonStockAvg',
     variables: [
       {
         variableName: 'carbon_forest_above_ground',
@@ -65,7 +65,7 @@ export const entries = (
   }
 
   const degradedForest = {
-    tableName: cycle.name === '2020' ? 'degradedforest' : 'degradedForestMonitoring2025',
+    tableName: cycle.name === '2020' ? 'degradedForest' : 'degradedForestMonitoring2025',
     variables: [
       {
         variableName: cycle.name === '2020' ? 'does_country_monitor' : 'doesYourCountryMonitor',
@@ -106,7 +106,7 @@ export const entries = (
       : []
 
   const biomassStock = {
-    tableName: cycle.name === '2020' ? 'biomassstock' : 'biomassStockAvg',
+    tableName: cycle.name === '2020' ? 'biomassStock' : 'biomassStockAvg',
     variables: [
       {
         variableName: 'forest_above_ground',
@@ -124,7 +124,7 @@ export const entries = (
   }
 
   const growingStockComposition = {
-    tableName: cycle.name === '2020' ? 'growingstockcomposition' : 'growingStockComposition2025',
+    tableName: cycle.name === '2020' ? 'growingStockComposition' : 'growingStockComposition2025',
     variables: [
       ...Array.from({ length: 10 }, (_, i) => ({
         variableName: `native${cycle.name === '2020' ? '_r' : 'R'}ank${i + 1}`,
@@ -160,7 +160,7 @@ export const entries = (
     cycle.name === '2020'
       ? [
           {
-            tableName: 'otherlandwithtreecover',
+            tableName: 'otherLandWithTreeCover',
             variables: [
               {
                 variableName: 'palms',
@@ -294,7 +294,7 @@ export const entries = (
       ],
     },
     {
-      tableName: 'specificforestcategories',
+      tableName: 'specificForestCategories',
       variables: [
         ...specificForestCategoriesVariables,
         {
@@ -313,7 +313,7 @@ export const entries = (
     },
     ...otherLandWithTreeCover,
     {
-      tableName: 'growingstockavg',
+      tableName: 'growingStockAvg',
       variables: [
         {
           variableName: 'naturallyRegeneratingForest',
@@ -342,7 +342,7 @@ export const entries = (
       ],
     },
     {
-      tableName: 'growingstocktotal',
+      tableName: 'growingStockTotal',
       variables: [
         {
           variableName: 'naturallyRegeneratingForest',
@@ -374,7 +374,7 @@ export const entries = (
     biomassStock,
     carbonStock,
     {
-      tableName: 'carbonstocksoildepth',
+      tableName: 'carbonStockSoilDepth',
       variables: [
         {
           variableName: 'soil_depth',
@@ -383,7 +383,7 @@ export const entries = (
       ],
     },
     {
-      tableName: 'primarydesignatedmanagementobjective',
+      tableName: 'primaryDesignatedManagementObjective',
       variables: [
         {
           variableName: 'production',
@@ -413,7 +413,7 @@ export const entries = (
       ],
     },
     {
-      tableName: 'totalareawithdesignatedmanagementobjective',
+      tableName: 'totalAreaWithDesignatedManagementObjective',
       variables: [
         {
           variableName: 'production',
@@ -488,7 +488,7 @@ export const entries = (
       ],
     },
     {
-      tableName: 'holderofmanagementrights',
+      tableName: 'holderOfManagementRights',
       variables: [
         {
           variableName: 'public_administration',
@@ -520,7 +520,7 @@ export const entries = (
     },
     degradedForest,
     {
-      tableName: 'forestpolicy',
+      tableName: 'forestPolicy',
       variables: [
         {
           variableName: 'national_policies_supporting_SFM',
@@ -557,7 +557,7 @@ export const entries = (
       ],
     },
     {
-      tableName: 'areaofpermanentforestestate',
+      tableName: 'areaOfPermanentForestEstate',
       variables: [
         {
           variableName: 'applicable',
