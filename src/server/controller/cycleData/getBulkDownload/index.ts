@@ -1,7 +1,7 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 
-import { Areas, CountryIso, RegionCode } from 'meta/area'
+import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
@@ -76,12 +76,12 @@ const handleContent = async (content: Array<Record<string, string>>) => {
 
 const _getCountries = async (assessment: Assessment, cycle: Cycle) => {
   const regionGroups = await RegionRepository.getRegionGroups({ assessment, cycle })
-  const fraRegions = Object.values(regionGroups).find((rg) => rg.name === 'fra2020')
+  const fraRegions = Object.values(regionGroups).find((rg) => rg.name === RegionGroupName.fra2020)
   const allowedRegions = fraRegions?.regions.map((r) => r.regionCode)
   const allCountries = await CountryRepository.getMany({ assessment, cycle })
 
   return allCountries.reduce((acc, country) => {
-    if (!country.countryIso.startsWith('X')) {
+    if (!Areas.isAtlantis(country.countryIso)) {
       const regionCodes = country.regionCodes.filter((r) => allowedRegions.includes(r))
       acc.push({ ...country, regionCodes })
     }
