@@ -80,18 +80,11 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
   )
   const params = { assessment, cycle, countries }
 
-  const annualVariableEntries = await getContentVariables({ ...params, fileName: 'Annual', entries: annualEntries })
-  const intervalVariableEntries = await getContentVariables({
-    ...params,
-    fileName: 'Intervals',
-    entries: intervalEntries(cycle),
-  })
-
-  const fraYearsVariableEntries = await getContentVariables({
-    ...params,
-    fileName: 'FRA_Years',
-    entries: FRAEntries(cycle),
-  })
+  const [annualVariableEntries, intervalVariableEntries, fraYearsVariableEntries] = await Promise.all([
+    getContentVariables({ ...params, fileName: 'Annual', entries: annualEntries }),
+    getContentVariables({ ...params, fileName: 'Intervals', entries: intervalEntries(cycle) }),
+    getContentVariables({ ...params, fileName: 'FRA_Years', entries: FRAEntries(cycle) }),
+  ])
 
   const [annual, intervals, fraYears] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
