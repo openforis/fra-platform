@@ -8,6 +8,7 @@ import { getContent } from 'server/controller/cycleData/getBulkDownload/getConte
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { RegionRepository } from 'server/repository/assessmentCycle/region'
 
 import { entries as annualEntries } from './entries/AnnualData'
 import { entries as FRAEntries } from './entries/FRAYears'
@@ -73,11 +74,25 @@ const handleContent = async (content: Array<Record<string, string>>) => {
   return _convertToCSV(res)
 }
 
+const _getCountries = async (assessment: Assessment, cycle: Cycle) => {
+  const regionGroups = await RegionRepository.getRegionGroups({ assessment, cycle })
+  const fraRegions = Object.values(regionGroups).find((rg) => rg.name === 'fra2020')
+  const allowedRegions = fraRegions?.regions.map((r) => r.regionCode)
+  const allCountries = await CountryRepository.getMany({ assessment, cycle })
+
+  return allCountries.reduce((acc, country) => {
+    if (!country.countryIso.startsWith('X')) {
+      const regionCodes = country.regionCodes.filter((r) => allowedRegions.includes(r))
+      acc.push({ ...country, regionCodes })
+    }
+    return acc
+  }, [])
+}
+
 export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
   const { assessment, cycle } = props
-  const countries = (await CountryRepository.getMany({ assessment, cycle })).filter(
-    (c) => !c.countryIso.startsWith('X')
-  )
+  const countries = await _getCountries(assessment, cycle)
+
   const params = { assessment, cycle, countries }
 
   const annualVariableEntries = await getContentVariables({ ...params, fileName: 'Annual', entries: annualEntries })
