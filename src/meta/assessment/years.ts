@@ -8,7 +8,7 @@ const fraYears = (cycle: Cycle) => {
   return years
 }
 
-const intervals = (cycle: { name: string }) => {
+const intervals = (cycle: Cycle) => {
   const years = ['1990-2000', '2000-2010', '2010-2015', '2015-2020']
   if (cycle.name === '2025') {
     years.push('2020-2025')
