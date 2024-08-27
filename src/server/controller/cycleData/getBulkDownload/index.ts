@@ -1,13 +1,14 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 
-import { Areas, CountryIso, RegionCode } from 'meta/area'
+import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { RegionRepository } from 'server/repository/assessmentCycle/region'
 
 import { entries as annualEntries } from './entries/AnnualData'
 import { entries as FRAEntries } from './entries/FRAYears'
@@ -73,11 +74,25 @@ const handleContent = async (content: Array<Record<string, string>>) => {
   return _convertToCSV(res)
 }
 
+const _getCountries = async (assessment: Assessment, cycle: Cycle) => {
+  const regionGroups = await RegionRepository.getRegionGroups({ assessment, cycle })
+  const fraRegions = Object.values(regionGroups).find((rg) => rg.name === RegionGroupName.fra2020)
+  const allowedRegions = fraRegions?.regions.map((r) => r.regionCode)
+  const allCountries = await CountryRepository.getMany({ assessment, cycle })
+
+  return allCountries.reduce((acc, country) => {
+    if (!Areas.isAtlantis(country.countryIso)) {
+      const regionCodes = country.regionCodes.filter((r) => allowedRegions.includes(r))
+      acc.push({ ...country, regionCodes })
+    }
+    return acc
+  }, [])
+}
+
 export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
   const { assessment, cycle } = props
-  const countries = (await CountryRepository.getMany({ assessment, cycle })).filter(
-    (c) => !c.countryIso.startsWith('X')
-  )
+  const countries = await _getCountries(assessment, cycle)
+
   const params = { assessment, cycle, countries }
 
   const [annualVariableEntries, intervalVariableEntries, fraYearsVariableEntries] = await Promise.all([
