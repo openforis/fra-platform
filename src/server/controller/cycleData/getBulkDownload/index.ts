@@ -15,9 +15,23 @@ import { entries as FRAEntries } from './entries/FRAYears'
 import { entries as intervalEntries } from './entries/Intervals'
 
 const _convertToCSV = (arr: Array<Record<string, string>>): string => {
-  if (arr.length === 0) return ''
-  const headers = Object.keys(arr[0]).filter((key) => !/^\d/.test(key))
-  const header = [...headers, ...Object.keys(arr[0]).filter((key) => !headers.includes(key))]
+  if (!arr.length) return ''
+  // Ensure headers are in the correct order
+  const h = Object.keys(arr[0])
+  const fixedHeaders = [
+    'regions',
+    'iso3',
+    'name',
+    'year',
+    'forest area 2020',
+    'forest area 2025',
+    'boreal',
+    'temperate',
+    'tropical',
+    'subtropical',
+  ].filter((key) => h.includes(key))
+  const headers = h.filter((key) => !fixedHeaders.includes(key))
+  const header = [...fixedHeaders, ...headers]
   const csvContent = [header, ...arr.map((it) => header.map((header) => it[header] ?? ''))]
   return csvContent.map((row) => row.join(',')).join('\n')
 }
@@ -103,7 +117,7 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
 
   const [annual, intervals, fraYears] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
-    getContent({ ...params, entries: intervalEntries(cycle) }),
+    getContent({ ...params, entries: intervalEntries(cycle), intervals: true }),
     getFraYearsData(params),
   ])
 
