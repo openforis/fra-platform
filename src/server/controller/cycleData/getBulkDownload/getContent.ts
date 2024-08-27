@@ -30,7 +30,7 @@ export const getContent = async (
     return entries.flatMap((entry) => {
       const { tableName, variables } = entry
       const tableMetadata = tablesMetadata.find((table) => table.props.name === tableName)
-      const cols = tableMetadata?.props.columnNames[cycle.uuid]
+      const cols = tableMetadata?.props.columnNames[cycle.uuid] ?? []
 
       return cols.flatMap<Record<string, string>>((colName: string) => {
         const base: Record<string, string> = {
