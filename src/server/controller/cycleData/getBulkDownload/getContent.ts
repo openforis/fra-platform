@@ -1,3 +1,4 @@
+import { Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
@@ -27,13 +28,7 @@ export const getContent = async (
     tableNames,
   })
 
-  const years = intervals
-    ? ['1990-2000', '2000-2010', '2010-2015', '2015-2020']
-    : Array.from({ length: 18 }, (_, i) => String(2000 + i))
-
-  if (cycle.name === '2025') {
-    years.push(...(intervals ? ['2020-2025'] : Array.from({ length: 7 }, (_, i) => String(2017 + i))))
-  }
+  const years = intervals ? Years.intervals(cycle) : Years.fraYears(cycle)
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {

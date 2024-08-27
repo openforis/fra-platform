@@ -1,3 +1,4 @@
+import { Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { entries } from 'server/controller/cycleData/getBulkDownload/entries/FRAYears'
@@ -24,8 +25,7 @@ export const getFraYearsData = async (props: Props) => {
     tableNames,
   })
 
-  const years = ['1990', '2000', '2010', '2015', '2020']
-  if (cycle.name === '2025') years.push('2025')
+  const years = Years.fraYears(cycle)
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
