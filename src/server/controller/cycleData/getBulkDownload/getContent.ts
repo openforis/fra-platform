@@ -1,15 +1,18 @@
+import { Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
-import { getYears } from 'server/controller/cycleData/getBulkDownload/getYears'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 
 export const getContent = async (
-  props: Props & { entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[] }
+  props: Props & {
+    entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[]
+    intervals?: boolean
+  }
 ) => {
-  const { assessment, cycle, countries, entries } = props
+  const { assessment, cycle, countries, entries, intervals } = props
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,
@@ -17,6 +20,7 @@ export const getContent = async (
     data: _climaticData,
   })
   const tableNames = entries.map(({ tableName }) => tableName)
+
   const data = await getData({
     assessment,
     cycle,
@@ -24,11 +28,7 @@ export const getContent = async (
     tableNames,
   })
 
-  const years = getYears({
-    data: data[assessment.props.name][cycle.name],
-    countries,
-    tableNames,
-  })
+  const years = intervals ? Years.intervals(cycle) : Years.fraYears(cycle)
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {

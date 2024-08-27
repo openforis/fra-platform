@@ -1,10 +1,10 @@
+import { Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { entries } from 'server/controller/cycleData/getBulkDownload/entries/FRAYears'
 import { genders } from 'server/controller/cycleData/getBulkDownload/genders'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
-import { getYears } from 'server/controller/cycleData/getBulkDownload/getYears'
 
 import { climaticDomain } from './climaticDomain'
 import { Props } from './props'
@@ -25,20 +25,7 @@ export const getFraYearsData = async (props: Props) => {
     tableNames,
   })
 
-  const data = RecordAssessmentDatas.getCycleData({
-    assessmentName: assessment.props.name,
-    cycleName: cycle.name,
-    data: tableData,
-  })
-
-  // Unique years
-  const years = getYears({
-    data,
-    countries,
-    tableNames,
-  })
-    .filter((x) => Number.isInteger(+x))
-    .sort()
+  const years = Years.fraYears(cycle)
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
@@ -81,7 +68,7 @@ export const getFraYearsData = async (props: Props) => {
             } else {
               base[csvColumn] = null
             }
-          } else if (tableName === 'carbonstocksoildepth')
+          } else if (tableName === 'carbonStockSoilDepth')
             base[csvColumn] = RecordAssessmentDatas.getDatum({
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
@@ -91,7 +78,7 @@ export const getFraYearsData = async (props: Props) => {
               variableName,
               colName: variableName,
             })
-          else if (tableName === 'graduationofstudents' || tableName === 'employment') {
+          else if (tableName === 'graduationOfStudents' || tableName === 'employment') {
             genders.forEach((gender) => {
               base[`${csvColumn}_${gender.csv}`] =
                 RecordAssessmentDatas.getDatum({
@@ -126,7 +113,7 @@ export const getFraYearsData = async (props: Props) => {
                 variableName,
                 colName: 'answer',
               }) ?? null
-          } else if (tableName === 'forestpolicy') {
+          } else if (tableName === 'forestPolicy') {
             const _variableName = `${variableName.replace(/(sub_)?national_/, '')}`
             const _colName = variableName.includes('sub_national') ? 'sub_national_yes_no' : 'national_yes_no'
 
@@ -140,7 +127,7 @@ export const getFraYearsData = async (props: Props) => {
                 variableName: _variableName,
                 colName: _colName,
               }) ?? null
-          } else if (tableName === 'areaofpermanentforestestate' && variableName === 'applicable') {
+          } else if (tableName === 'areaOfPermanentForestEstate' && variableName === 'applicable') {
             base[csvColumn] =
               RecordAssessmentDatas.getDatum({
                 assessmentName: assessment.props.name,
