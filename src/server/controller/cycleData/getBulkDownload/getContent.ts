@@ -11,7 +11,7 @@ export const getContent = async (
     entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[]
     intervals?: boolean
   }
-) => {
+): Promise<Array<Record<string, string>>> => {
   const { assessment, cycle, countries, entries, intervals } = props
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
@@ -28,7 +28,7 @@ export const getContent = async (
     tableNames,
   })
 
-  const years = intervals ? Years.intervals(cycle) : Years.fraYears(cycle)
+  const years = intervals ? Years.intervals(cycle) : Years.annual(cycle)
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
