@@ -1,18 +1,40 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 
-import { Areas, CountryIso, RegionCode } from 'meta/area'
+import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
+import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { RegionRepository } from 'server/repository/assessmentCycle/region'
 
 import { entries as annualEntries } from './entries/AnnualData'
+import { entries as FRAEntries } from './entries/FRAYears'
 import { entries as intervalEntries } from './entries/Intervals'
 
-const _convertToCSV = (arr: Array<Record<string, string>>): string =>
-  [Object.keys(arr[0]), ...arr].map((it) => Object.values(it).toString()).join('\n')
+const _convertToCSV = (arr: Array<Record<string, string>>): string => {
+  if (!arr.length) return ''
+  // Ensure headers are in the correct order
+  const h = Object.keys(arr[0])
+  const fixedHeaders = [
+    'regions',
+    'iso3',
+    'name',
+    'year',
+    'forest area 2020',
+    'forest area 2025',
+    'boreal',
+    'temperate',
+    'tropical',
+    'subtropical',
+  ].filter((key) => h.includes(key))
+  const headers = h.filter((key) => !fixedHeaders.includes(key))
+  const header = [...fixedHeaders, ...headers]
+  const csvContent = [header, ...arr.map((it) => header.map((header) => it[header] ?? ''))]
+  return csvContent.map((row) => row.join(',')).join('\n')
+}
 
 // Get csv file name with timestamp
 const _getFileName = (name: string): string => {
@@ -32,13 +54,24 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
     return `"${regions.split(';').map(_translate).join(', ')}"`
   }
 
-  return {
+  const fixed: Record<string, string> = {
     regions: _handleRegions(regions),
     iso3: `"${iso3}"`,
     name: `"${_translate(name)}"`,
-    year: `"${year.replace('_', '-')}"`,
     ...row,
   }
+
+  if (year) {
+    fixed.year = `"${year.replace('_', '-')}"`
+  }
+
+  Object.keys(row).forEach((key) => {
+    if (row[key]) {
+      fixed[key] = row[key].replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
+    }
+  })
+
+  return fixed
 }
 
 const handleContent = async (content: Array<Record<string, string>>) => {
@@ -55,19 +88,59 @@ const handleContent = async (content: Array<Record<string, string>>) => {
   return _convertToCSV(res)
 }
 
+const _getCountries = async (assessment: Assessment, cycle: Cycle) => {
+  const regionGroups = await RegionRepository.getRegionGroups({ assessment, cycle })
+  const fraRegions = Object.values(regionGroups).find((rg) => rg.name === RegionGroupName.fra2020)
+  const allowedRegions = fraRegions?.regions.map((r) => r.regionCode)
+  const allCountries = await CountryRepository.getMany({ assessment, cycle })
+
+  return allCountries.reduce((acc, country) => {
+    if (!Areas.isAtlantis(country.countryIso)) {
+      const regionCodes = country.regionCodes.filter((r) => allowedRegions.includes(r))
+      acc.push({ ...country, regionCodes })
+    }
+    return acc
+  }, [])
+}
+
 export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
   const { assessment, cycle } = props
-  const countries = (await CountryRepository.getMany({ assessment, cycle })).filter(
-    (c) => !c.countryIso.startsWith('X')
-  )
+  const countries = await _getCountries(assessment, cycle)
+
   const params = { assessment, cycle, countries }
+
+  const [annualVariableEntries, intervalVariableEntries, fraYearsVariableEntries] = await Promise.all([
+    getContentVariables({ ...params, fileName: 'Annual', entries: annualEntries }),
+    getContentVariables({ ...params, fileName: 'Intervals', entries: intervalEntries(cycle) }),
+    getContentVariables({ ...params, fileName: 'FRA_Years', entries: FRAEntries(cycle) }),
+  ])
+
   const [annual, intervals, fraYears] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
-    getContent({ ...params, entries: intervalEntries(cycle) }),
+    getContent({ ...params, entries: intervalEntries(cycle), intervals: true }),
     getFraYearsData(params),
   ])
 
   return Promise.all([
+    ...annualVariableEntries.map(async (entry) => {
+      return {
+        fileName: _getFileName(entry.fileName),
+        content: handleContent(entry.content),
+      }
+    }),
+    ...intervalVariableEntries.map(async (entry) => {
+      return {
+        fileName: _getFileName(entry.fileName),
+        content: handleContent(entry.content),
+      }
+    }),
+    ...fraYearsVariableEntries.map(async (entry) => {
+      return {
+        fileName: _getFileName(entry.fileName),
+        content: handleContent(entry.content),
+      }
+    }),
+
     {
       fileName: _getFileName('Annual'),
       content: handleContent(annual),

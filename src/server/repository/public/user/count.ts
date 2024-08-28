@@ -6,21 +6,20 @@ import { RoleName } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 
-export const count = async (
-  props: {
-    assessment: Assessment
-    cycle: Cycle
-    countries?: Array<CountryIso>
-    fullName?: string
-    roles?: Array<RoleName>
-  },
-  client: BaseProtocol = DB
-): Promise<{ totals: number }> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  countries?: Array<CountryIso>
+  fullName?: string
+  roles?: Array<RoleName>
+}
+
+export const count = async (props: Props, client: BaseProtocol = DB): Promise<{ totals: number }> => {
   const { assessment, cycle, countries, fullName, roles } = props
 
   const conditions: Array<string> = []
-  if (!Objects.isEmpty(countries))
-    conditions.push(`ur.country_iso in (${countries.map((countryIso) => `'${countryIso}'`).join(',')})`)
+  if (Objects.isEmpty(countries)) conditions.push(`(ur.country_iso is null or ur.country_iso not like 'X%')`)
+  else conditions.push(`ur.country_iso in (${countries.map((countryIso) => `'${countryIso}'`).join(',')})`)
 
   if (!Objects.isEmpty(roles)) conditions.push(`ur.role in (${roles.map((roleName) => `'${roleName}'`).join(',')})`)
 
@@ -33,8 +32,8 @@ export const count = async (
             from public.users u
                      join public.users_role ur on u.id = ur.user_id
             where (ur.assessment_id is null or (ur.assessment_id = $1 and ur.cycle_uuid = $2))
-              and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
-                ${conditions.join(` 
+              -- and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
+                and ${conditions.join(` 
               and 
               `)} ${groupByRole ? `group by ur.role` : ''}`
   }

@@ -1,10 +1,11 @@
+import { Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { entries } from 'server/controller/cycleData/getBulkDownload/entries/FRAYears'
+import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatDatum'
 import { genders } from 'server/controller/cycleData/getBulkDownload/genders'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
-import { getYears } from 'server/controller/cycleData/getBulkDownload/getYears'
 
 import { climaticDomain } from './climaticDomain'
 import { Props } from './props'
@@ -25,20 +26,7 @@ export const getFraYearsData = async (props: Props) => {
     tableNames,
   })
 
-  const data = RecordAssessmentDatas.getCycleData({
-    assessmentName: assessment.props.name,
-    cycleName: cycle.name,
-    data: tableData,
-  })
-
-  // Unique years
-  const years = getYears({
-    data,
-    countries,
-    tableNames,
-  })
-    .filter((x) => Number.isInteger(+x))
-    .sort()
+  const years = Years.fraYears(cycle)
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
@@ -55,6 +43,8 @@ export const getFraYearsData = async (props: Props) => {
 
       entries(cycle).forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
+          let datum: string | null = null
+
           if (tableName === 'growingStockComposition2025') {
             const _year =
               RecordAssessmentDatas.getDatum({
@@ -68,21 +58,18 @@ export const getFraYearsData = async (props: Props) => {
               }) ?? years.at(-1)
 
             if (year === _year) {
-              base[csvColumn] =
-                RecordAssessmentDatas.getDatum({
-                  assessmentName: assessment.props.name,
-                  cycleName: cycle.name,
-                  data: tableData,
-                  countryIso,
-                  tableName,
-                  variableName,
-                  colName: 'growingStockMillionCubicMeter',
-                }) ?? null
-            } else {
-              base[csvColumn] = null
+              datum = RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName,
+                colName: 'growingStockMillionCubicMeter',
+              })
             }
-          } else if (tableName === 'carbonstocksoildepth')
-            base[csvColumn] = RecordAssessmentDatas.getDatum({
+          } else if (tableName === 'carbonStockSoilDepth') {
+            datum = RecordAssessmentDatas.getDatum({
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
               data: tableData,
@@ -91,77 +78,76 @@ export const getFraYearsData = async (props: Props) => {
               variableName,
               colName: variableName,
             })
-          else if (tableName === 'graduationofstudents' || tableName === 'employment') {
+          } else if (tableName === 'graduationOfStudents' || tableName === 'employment') {
             genders.forEach((gender) => {
-              base[`${csvColumn}_${gender.csv}`] =
-                RecordAssessmentDatas.getDatum({
-                  assessmentName: assessment.props.name,
-                  cycleName: cycle.name,
-                  data: tableData,
-                  countryIso,
-                  tableName,
-                  variableName,
-                  colName: `${year}_${gender.variable}`,
-                }) ?? null
+              const genderDatum = RecordAssessmentDatas.getDatum({
+                assessmentName: assessment.props.name,
+                cycleName: cycle.name,
+                data: tableData,
+                countryIso,
+                tableName,
+                variableName,
+                colName: `${year}_${gender.variable}`,
+              })
+              base[`${csvColumn}_${gender.csv}`] = formatDatum(genderDatum)
             })
           } else if (tableName === 'degradedForestMonitoring2025') {
-            base[csvColumn] =
-              RecordAssessmentDatas.getDatum({
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-                data: tableData,
-                countryIso,
-                tableName,
-                variableName,
-                colName: 'doesYourCountryMonitor',
-              }) ?? null
+            datum = RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data: tableData,
+              countryIso,
+              tableName,
+              variableName,
+              colName: 'doesYourCountryMonitor',
+            })
           } else if (tableName === 'degradedForest') {
-            base[csvColumn] =
-              RecordAssessmentDatas.getDatum({
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-                data: tableData,
-                countryIso,
-                tableName,
-                variableName,
-                colName: 'answer',
-              }) ?? null
-          } else if (tableName === 'forestpolicy') {
+            datum = RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data: tableData,
+              countryIso,
+              tableName,
+              variableName,
+              colName: 'answer',
+            })
+          } else if (tableName === 'forestPolicy') {
             const _variableName = `${variableName.replace(/(sub_)?national_/, '')}`
             const _colName = variableName.includes('sub_national') ? 'sub_national_yes_no' : 'national_yes_no'
 
-            base[csvColumn] =
-              RecordAssessmentDatas.getDatum({
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-                data: tableData,
-                countryIso,
-                tableName,
-                variableName: _variableName,
-                colName: _colName,
-              }) ?? null
-          } else if (tableName === 'areaofpermanentforestestate' && variableName === 'applicable') {
-            base[csvColumn] =
-              RecordAssessmentDatas.getDatum({
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-                data: tableData,
-                countryIso,
-                tableName,
-                variableName: 'area_of_permanent_forest_estate',
-                colName: 'applicable',
-              }) ?? null
+            datum = RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data: tableData,
+              countryIso,
+              tableName,
+              variableName: _variableName,
+              colName: _colName,
+            })
+          } else if (tableName === 'areaOfPermanentForestEstate' && variableName === 'applicable') {
+            datum = RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data: tableData,
+              countryIso,
+              tableName,
+              variableName: 'area_of_permanent_forest_estate',
+              colName: 'applicable',
+            })
           } else {
-            base[csvColumn] =
-              RecordAssessmentDatas.getDatum({
-                assessmentName: assessment.props.name,
-                cycleName: cycle.name,
-                data: tableData,
-                countryIso,
-                tableName,
-                variableName,
-                colName: year,
-              }) ?? null
+            datum = RecordAssessmentDatas.getDatum({
+              assessmentName: assessment.props.name,
+              cycleName: cycle.name,
+              data: tableData,
+              countryIso,
+              tableName,
+              variableName,
+              colName: year,
+            })
+          }
+
+          if (tableName !== 'graduationOfStudents' && tableName !== 'employment') {
+            base[csvColumn] = formatDatum(datum)
           }
         })
       })

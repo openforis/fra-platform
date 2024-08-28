@@ -1,15 +1,19 @@
+import { Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
+import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatDatum'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
-import { getYears } from 'server/controller/cycleData/getBulkDownload/getYears'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 
 export const getContent = async (
-  props: Props & { entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[] }
-) => {
-  const { assessment, cycle, countries, entries } = props
+  props: Props & {
+    entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[]
+    intervals?: boolean
+  }
+): Promise<Array<Record<string, string>>> => {
+  const { assessment, cycle, countries, entries, intervals } = props
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,
@@ -17,6 +21,7 @@ export const getContent = async (
     data: _climaticData,
   })
   const tableNames = entries.map(({ tableName }) => tableName)
+
   const data = await getData({
     assessment,
     cycle,
@@ -24,11 +29,7 @@ export const getContent = async (
     tableNames,
   })
 
-  const years = getYears({
-    data: data[assessment.props.name][cycle.name],
-    countries,
-    tableNames,
-  })
+  const years = intervals ? Years.intervals(cycle) : Years.annual(cycle)
 
   return countries.flatMap(({ countryIso, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
@@ -45,16 +46,17 @@ export const getContent = async (
 
       entries.forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
-          base[csvColumn] =
-            RecordAssessmentDatas.getDatum({
-              assessmentName: assessment.props.name,
-              cycleName: cycle.name,
-              data,
-              countryIso,
-              tableName,
-              variableName,
-              colName: year,
-            }) ?? null
+          const datum = RecordAssessmentDatas.getDatum({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+            data,
+            countryIso,
+            tableName,
+            variableName,
+            colName: year,
+          })
+
+          base[csvColumn] = formatDatum(datum)
         })
       })
 
