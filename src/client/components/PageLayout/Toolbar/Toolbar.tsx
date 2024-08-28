@@ -1,5 +1,5 @@
 import './Toolbar.scss'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
@@ -27,14 +27,13 @@ const Toolbar: React.FC = () => {
   const { print } = useIsPrintRoute()
   const user = useUser()
   const geoRoute = useIsGeoRoute()
-  const isAReviewer = useMemo<boolean>(() => Users.isAReviewer(user, cycle), [user, cycle])
 
   if (print) return null
 
   const isCountry = Areas.isISOCountry(countryIso)
   const isAdmin = Users.isAdministrator(user)
-  const includeGlobals = !geoRoute && (isAdmin || cycle.published || isAReviewer)
-  const includeRegions = !geoRoute && (isAdmin || cycle.published)
+  const showRegions = !geoRoute && (isAdmin || cycle.published)
+
   const editor = Users.hasEditorRole({ user, countryIso, cycle })
 
   return (
@@ -45,8 +44,7 @@ const Toolbar: React.FC = () => {
         <AreaSelector
           enableDownload
           includeCountries
-          includeGlobals={includeGlobals}
-          includeRegions={includeRegions}
+          includeRegions={showRegions ? [] : undefined}
           placeholder="common.selectArea"
           selectedValue={countryIso}
           showCountryFlag

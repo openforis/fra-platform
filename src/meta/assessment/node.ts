@@ -8,6 +8,7 @@ export interface NodeValue {
    */
   estimated?: boolean
   estimationUuid?: string
+  faoEstimate?: boolean
   /**
    * @deprecated Use odpId instead.
    */

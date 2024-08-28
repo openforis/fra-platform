@@ -2,4 +2,9 @@
 
 .geo-statistical-graphs-panel__container {
   width: 100%;
+
+  > .title {
+    text-align: center;
+    font-size: $font-s;
+  }
 }

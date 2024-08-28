@@ -35,7 +35,7 @@ const TableHead: React.FC<Props> = (props) => {
   return (
     <thead>
       {rowsHeader.map((row: TypeRow, rowIndex: number) => (
-        <tr id={`${row.props.type}_${String(row.id)}`} key={row.uuid}>
+        <tr key={row.uuid} id={`${row.props.type}_${String(row.id)}`}>
           {row.cols.map((col: TypeCol, colIndex: number) => {
             const { index } = col.props
 
@@ -63,9 +63,9 @@ const TableHead: React.FC<Props> = (props) => {
                 key={col.uuid}
                 className={className}
                 colSpan={colSpan}
-                rowSpan={rowSpan}
                 odpId={odpHeader.id}
                 odpYear={odpHeader.year}
+                rowSpan={rowSpan}
                 sectionName={table.props.name}
               />
             ) : (

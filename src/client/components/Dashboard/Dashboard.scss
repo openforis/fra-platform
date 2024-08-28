@@ -1,0 +1,41 @@
+@import 'src/client/style/partials';
+
+.dashboard {
+  display: grid;
+  grid-column-gap: $spacing-xs;
+  grid-row-gap: $spacing-xs;
+  grid-template-columns: 1fr;
+
+  @include min-width($laptop) {
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: $spacing-s;
+  }
+}
+
+.dashboard-item {
+  align-content: start;
+  align-items: start;
+  display: grid;
+
+  .header {
+    border-radius: 2px;
+    border: 1px solid $ui-border;
+    padding: 6px;
+
+    h3 {
+      background-color: $ui-bg;
+      border-radius: 2px;
+      font-size: $font-m;
+      padding: 6px $spacing-xxs;
+      text-transform: uppercase;
+    }
+  }
+
+  > :nth-child(2) {
+    padding: 0 $spacing-xs;
+  }
+
+  @include min-width($laptop) {
+    grid-row-gap: $spacing-xs;
+  }
+}

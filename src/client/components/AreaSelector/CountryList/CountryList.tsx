@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { i18n } from 'i18next'
 
-import { Areas, CountryIso, Global, Region, RegionCode } from 'meta/area'
+import { Areas, CountryIso, Global, Region, RegionCode, RegionGroup } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries, useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
-import { useIsPanEuropeanRoute } from 'client/hooks'
 import { checkMatch } from 'client/utils'
 
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
@@ -22,45 +21,44 @@ import CountryListRow from './CountryListRow'
 type Props = {
   enableDownload: boolean
   includeCountries: boolean
-  includeGlobals: boolean
-  includeRegions: boolean
+  includeRegions: Array<string>
   onElementSelect: (countryIso: CountryIso | Global | RegionCode) => void
   selectedValue: CountryIso | Global | RegionCode
   showCountryRole: boolean
   query: string
 }
 
-const filterRegions = (props: { regions: Array<Region>; query: string; i18n: i18n }): Array<Region> => {
-  const { i18n, query, regions } = props
+const filterRegions = (props: {
+  i18n: i18n
+  includeRegions: Array<string>
+  query: string
+  regionGroup: RegionGroup
+}): Array<Region> => {
+  const { i18n, includeRegions, query, regionGroup } = props
 
-  return regions.filter(({ regionCode }) => {
+  // If includeRegions is empty array, include all regions
+  if (includeRegions && includeRegions.length > 0 && !includeRegions.includes(regionGroup.name)) return []
+
+  return regionGroup.regions.filter(({ regionCode }) => {
     const regionLabel = i18n.t(Areas.getTranslationKey(regionCode))
     const matchQuery = checkMatch(regionLabel, query)
-    return regionCode !== RegionCode.FE && matchQuery
+    return matchQuery
   })
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
-  const {
-    enableDownload,
-    includeCountries,
-    includeGlobals,
-    includeRegions,
-    selectedValue,
-    showCountryRole,
-    onElementSelect,
-    query,
-  } = props
+  const { enableDownload, includeCountries, includeRegions, selectedValue, showCountryRole, onElementSelect, query } =
+    props
 
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
   const allCountries = useCountries()
-  const isPanEuropean = useIsPanEuropeanRoute()
   const cycle = useCycle()
   const expanded = useIsAreaSelectorExpanded()
 
-  const global = isPanEuropean ? RegionCode.FE : Global.WO
+  const showCountriesWithRoles = includeCountries && showCountryRole
+  const showCountriesWithoutRoles = includeCountries && !showCountryRole
 
   return (
     <div className={classNames('country-selection-list', { expanded })}>
@@ -68,21 +66,9 @@ const CountryList: React.FC<Props> = (props: Props) => {
 
       <div className="country-selection-list__content">
         <div className="country-selection-list__global">
-          {includeGlobals && checkMatch(i18n.t(Areas.getTranslationKey(global)), query) && (
-            <>
-              <CountryListRow
-                country={{ countryIso: global }}
-                onElementSelect={onElementSelect}
-                role={UserRoles.noRole.role}
-                selectedValue={selectedValue}
-              />
-              <hr />
-            </>
-          )}
-
           {includeRegions &&
             Object.entries(regionGroups).map(([order, regionGroup]) => {
-              const regions = filterRegions({ regions: regionGroup.regions, query, i18n })
+              const regions = filterRegions({ regionGroup, query, i18n, includeRegions })
               return (
                 <div key={order}>
                   {regions.map(({ regionCode }) => (
@@ -100,32 +86,36 @@ const CountryList: React.FC<Props> = (props: Props) => {
             })}
         </div>
 
-        {includeCountries && showCountryRole
-          ? Object.entries(countryMap).map(([role, cycleCountries]) => (
-              <CountryListRoleSection
-                key={role}
-                countryISOs={cycleCountries[cycle.uuid]}
+        {showCountriesWithRoles &&
+          Object.entries(countryMap).map(([role, cycleCountries]) => (
+            <CountryListRoleSection
+              key={role}
+              countryISOs={cycleCountries[cycle.uuid]}
+              onElementSelect={onElementSelect}
+              query={query}
+              role={role}
+              selectedValue={selectedValue}
+            />
+          ))}
+
+        {showCountriesWithoutRoles &&
+          allCountries.map(({ countryIso }) => {
+            const countryLabel = i18n.t(Areas.getTranslationKey(countryIso))
+
+            const matchCountry = checkMatch(countryLabel, query)
+
+            if (!matchCountry) return null
+
+            return (
+              <CountryListRow
+                key={countryIso}
+                country={{ countryIso }}
                 onElementSelect={onElementSelect}
-                role={role}
+                role={UserRoles.noRole.role}
                 selectedValue={selectedValue}
-                query={query}
               />
-            ))
-          : allCountries.map(({ countryIso }) => {
-              const countryLabel = i18n.t(Areas.getTranslationKey(countryIso))
-
-              const matchCountry = checkMatch(countryLabel, query)
-
-              return matchCountry ? (
-                <CountryListRow
-                  key={countryIso}
-                  country={{ countryIso }}
-                  onElementSelect={onElementSelect}
-                  role={UserRoles.noRole.role}
-                  selectedValue={selectedValue}
-                />
-              ) : null
-            })}
+            )
+          })}
       </div>
     </div>
   )

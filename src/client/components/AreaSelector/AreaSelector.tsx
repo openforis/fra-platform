@@ -19,8 +19,7 @@ import CountryList from './CountryList'
 type Props = {
   enableDownload?: boolean
   includeCountries?: boolean
-  includeGlobals?: boolean
-  includeRegions?: boolean
+  includeRegions?: Array<string>
   onElementSelect?: (countryIso: CountryIso | Global | RegionCode) => void
   placeholder?: string
   selectedValue?: CountryIso | Global | RegionCode
@@ -33,7 +32,6 @@ const AreaSelector: React.FC<Props> = (props) => {
   const {
     enableDownload,
     includeCountries,
-    includeGlobals,
     includeRegions,
     onElementSelect,
     placeholder,
@@ -146,7 +144,6 @@ const AreaSelector: React.FC<Props> = (props) => {
         <CountryList
           enableDownload={enableDownload}
           includeCountries={includeCountries}
-          includeGlobals={includeGlobals}
           includeRegions={includeRegions}
           onElementSelect={handleElementSelect}
           query={query}
@@ -160,8 +157,7 @@ const AreaSelector: React.FC<Props> = (props) => {
 
 AreaSelector.defaultProps = {
   enableDownload: false,
-  includeGlobals: false,
-  includeRegions: false,
+  includeRegions: undefined,
   includeCountries: false,
   onElementSelect: null,
   placeholder: null,

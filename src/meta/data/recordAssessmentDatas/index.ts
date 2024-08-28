@@ -10,16 +10,19 @@ import { mergeData } from 'meta/data/recordAssessmentDatas/mergeData'
 import { updateDatum } from 'meta/data/recordAssessmentDatas/updateDatum'
 import { updateDatumValidation } from 'meta/data/recordAssessmentDatas/updateDatumValidation'
 
+import { mergeRecordTableData } from './mergeRecordTableData'
+
 export const RecordAssessmentDatas = {
+  getAssessmentData,
+  getCountryData,
+  getCycleData,
   getDatum,
   getNodeValue,
-  getAssessmentData,
-  getCycleData,
-  getCountryData,
   getTableData,
   hasErrors,
   isTableDataEmpty,
   mergeData,
+  mergeRecordTableData,
 
   updateDatum,
   updateDatumValidation,

@@ -1,16 +1,18 @@
 import React, { useMemo } from 'react'
 
+import { Areas } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
 import CountryMessageBoard from 'client/pages/CountryHome/FraHome/CountryMessageBoard'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
+import Overview from 'client/pages/CountryHome/Overview'
 import Repository from 'client/pages/CountryHome/Repository'
-import Dashboard from 'client/pages/Dashboard'
 
 type Section = {
   name: string
@@ -20,6 +22,7 @@ type Section = {
 export const useSections = (): Array<Section> => {
   const user = useUser()
   const { countryIso } = useCountryRouteParams()
+  const assessment = useAssessment()
   const cycle = useCycle()
 
   return useMemo(() => {
@@ -27,9 +30,11 @@ export const useSections = (): Array<Section> => {
 
     if (!cycle) return null
 
-    // TODO: Remove this when dashboard updated for 2025
-    if (cycle.name === '2020') {
-      sections.push({ name: SectionNames.Country.Home.overview, component: Dashboard })
+    const isFra2025 = assessment.props.name === AssessmentNames.fra && cycle.name === '2025'
+    const showOverview = !isFra2025 || Areas.isISOCountry(countryIso)
+
+    if (showOverview) {
+      sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
     }
 
     if (user) {
@@ -47,5 +52,5 @@ export const useSections = (): Array<Section> => {
     // }
 
     return sections
-  }, [cycle, user, countryIso])
+  }, [assessment.props.name, cycle, user, countryIso])
 }

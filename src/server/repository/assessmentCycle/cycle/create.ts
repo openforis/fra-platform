@@ -1,5 +1,6 @@
 import { Assessment, AssessmentMetaCache, AssessmentNames, Cycle } from 'meta/assessment'
 
+import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
@@ -15,7 +16,7 @@ export const create = async (
     name: string
   },
   client: BaseProtocol = DB
-): Promise<Assessment> => {
+): Promise<{ assessment: Assessment; cycle: Cycle }> => {
   const { assessment, name } = params
 
   const schemaAssessment = Schemas.getName(assessment)
@@ -46,8 +47,5 @@ export const create = async (
     [JSON.stringify(defaultMetaCache), assessment.id]
   )
 
-  return {
-    ...assessment,
-    cycles: [...(assessment.cycles ?? []), cycle],
-  }
+  return getOneWithCycle({ assessmentName: assessment.props.name, cycleName: cycle.name }, client)
 }

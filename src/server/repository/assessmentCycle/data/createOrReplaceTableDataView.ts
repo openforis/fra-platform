@@ -1,6 +1,7 @@
 import { Assessment, Cycle, Table } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { CustomDataView } from 'server/repository/assessmentCycle/data/ddl/customDataView'
 
 type Props = {
   assessment: Assessment
@@ -8,13 +9,22 @@ type Props = {
   table: Table
 }
 
+const client: BaseProtocol = DB
+
 // create or replace Table
-export const createOrReplaceTableDataView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+export const createOrReplaceTableDataView = async (props: Props): Promise<void> => {
   const { assessment, cycle, table } = props
 
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const tableName = table.props.name
+
+  const customDataView = CustomDataView[tableName]
+
+  if (customDataView) {
+    const q = customDataView(schemaCycle, schemaAssessment, tableName)
+    return client.query(q)
+  }
 
   return client.query(
     `
