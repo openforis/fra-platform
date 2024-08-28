@@ -1,3 +1,5 @@
+import { Numbers } from 'utils/numbers'
+
 import { TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
@@ -58,7 +60,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
         }
         const forestArea = RecordAssessmentDatas.getDatum(forestAreaProps)
 
-        let base: Record<string, string> = {
+        const base: Record<string, string> = {
           regions: regionCodes.join(';'),
           iso3: countryIso,
           name: countryIso,
@@ -70,18 +72,19 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
         }
 
         cols.forEach((colName) => {
-          const datum =
-            RecordAssessmentDatas.getDatum({
-              assessmentName: assessment.props.name,
-              cycleName: cycle.name,
-              data,
-              countryIso,
-              tableName,
-              variableName,
-              colName,
-            }) ?? null
+          const datum = RecordAssessmentDatas.getDatum({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+            data,
+            countryIso,
+            tableName,
+            variableName,
+            colName,
+          })
 
-          base = { ...base, [colName]: datum }
+          const value = datum ? Numbers.toFixed(datum) : null
+
+          base[colName] = value
         })
 
         return base
