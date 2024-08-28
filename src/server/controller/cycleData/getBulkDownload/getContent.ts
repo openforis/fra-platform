@@ -2,6 +2,7 @@ import { Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
+import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatDatum'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
@@ -45,16 +46,17 @@ export const getContent = async (
 
       entries.forEach(({ variables, tableName }) => {
         variables.forEach(({ variableName, csvColumn }) => {
-          base[csvColumn] =
-            RecordAssessmentDatas.getDatum({
-              assessmentName: assessment.props.name,
-              cycleName: cycle.name,
-              data,
-              countryIso,
-              tableName,
-              variableName,
-              colName: year,
-            }) ?? null
+          const datum = RecordAssessmentDatas.getDatum({
+            assessmentName: assessment.props.name,
+            cycleName: cycle.name,
+            data,
+            countryIso,
+            tableName,
+            variableName,
+            colName: year,
+          })
+
+          base[csvColumn] = formatDatum(datum)
         })
       })
 

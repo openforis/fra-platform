@@ -1,9 +1,8 @@
-import { Numbers } from 'utils/numbers'
-
 import { TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
+import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatDatum'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
@@ -82,9 +81,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
             colName,
           })
 
-          const value = datum ? Numbers.toFixed(datum) : null
-
-          base[colName] = value
+          base[colName] = formatDatum(datum)
         })
 
         return base
