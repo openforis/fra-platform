@@ -5,7 +5,7 @@ import { Numbers } from 'utils/numbers'
 
 type Content = {
   color: string
-  label: string
+  label?: string
   name: string
   percent?: number
   unit?: string | ReactNode
