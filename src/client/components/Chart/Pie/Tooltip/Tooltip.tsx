@@ -17,8 +17,7 @@ const Tooltip: React.FC<TooltipProps<never, never> & { totalValue: number }> = (
 
   const content = payload.map((item) => ({
     color: item.payload.color,
-    label: Labels.getLabel({ label: item.payload.label, t }),
-    name: item.payload.name,
+    name: Labels.getLabel({ label: item.payload.label, t }),
     percent: ((item.value as number) / totalValue) * 100,
     unit: t(item.payload.unit),
     value: item.value as number,

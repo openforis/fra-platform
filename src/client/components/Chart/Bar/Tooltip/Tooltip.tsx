@@ -13,7 +13,7 @@ const Tooltip: React.FC<TooltipProps<never, never>> = (props) => {
 
   const content = payload.map((item) => ({
     color: item.color,
-    label: item.name,
+    label: item.payload.columnName,
     name: item.name,
     unit: item.unit,
     value: item.value as number,
