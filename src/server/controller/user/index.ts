@@ -8,6 +8,7 @@ import { create } from './create'
 import { createResetPassword } from './createResetPassword'
 import { findByInvitation } from './findByInvitation'
 import { findByResetPassword } from './findByResetPassword'
+import { getProfilePicture } from './getProfilePicture'
 import { invite } from './invite'
 import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
@@ -24,7 +25,7 @@ export const UserController = {
   getManyInvitations: UserInvitationRepository.getMany,
   getCountInvitations: UserInvitationRepository.getCount,
   getOne: UserRepository.getOne,
-  getProfilePicture: UserRepository.getProfilePicture,
+  getProfilePicture,
   remove,
   invite,
   acceptInvitation,
