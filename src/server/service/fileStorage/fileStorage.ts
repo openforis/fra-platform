@@ -1,5 +1,5 @@
 import { Readable } from 'stream'
-import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
 import { ProcessEnv } from 'server/utils'
 
@@ -39,7 +39,19 @@ const uploadFile = async (props: {
   await s3Client.send(command)
 }
 
+const getFileSize = async (props: { key: string; bucket?: string; path?: string }): Promise<number> => {
+  const { key, bucket = ProcessEnv.s3BucketName, path = 'public' } = props
+  const command = new HeadObjectCommand({
+    Bucket: bucket,
+    Key: `${path}/${key}`,
+  })
+
+  const response = await s3Client.send(command)
+  return response.ContentLength || 0
+}
+
 export const FileStorage = {
   getFile,
   uploadFile,
+  getFileSize,
 }

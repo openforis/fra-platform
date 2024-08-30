@@ -6,7 +6,7 @@ export type FileSummary = {
   readonly createdAt: string
   readonly id: number
   readonly name: string
-  readonly size: number
+  size: number
   readonly uuid: string
   readonly repositoryItemUuid: string
 }
