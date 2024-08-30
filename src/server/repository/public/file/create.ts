@@ -6,18 +6,18 @@ import { FileAdapter } from 'server/repository/adapter'
 import { fieldsFileSummary } from './fields'
 
 type Props = {
-  file: Express.Multer.File
+  fileName: string
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<FileSummary> => {
-  const { file } = props
+  const { fileName } = props
 
   return client.one(
     `
-        insert into public.file (name, file)
-        values ($1, $2)
+        insert into public.file (name)
+        values ($1)
         returning ${fieldsFileSummary.join(', ')}`,
-    [file.originalname, file.buffer],
+    [fileName],
     FileAdapter
   )
 }

@@ -2,7 +2,7 @@ import type { File } from 'meta/file'
 
 import { BaseProtocol, DB } from 'server/db'
 import { FileAdapter } from 'server/repository/adapter'
-import { fieldsFile } from 'server/repository/public/file/fields'
+import { fieldsFileSummary } from 'server/repository/public/file/fields'
 
 type Props =
   | {
@@ -16,7 +16,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<F
 
   return client.one(
     `
-        select ${fieldsFile.join(', ')}
+        select ${fieldsFileSummary.join(', ')}
         from public.file
         where ${where}`,
     values,

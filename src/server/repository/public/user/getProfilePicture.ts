@@ -24,7 +24,7 @@ export const getProfilePicture = async (
 
   return client.oneOrNone<UserProfilePicture | undefined>(
     `
-        select f.file as data, f.name
+        select f.uuid, f.name
         from public.users u
             left join file f on u.profile_picture_file_uuid = f.uuid
         ${where}

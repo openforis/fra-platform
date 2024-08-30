@@ -1,3 +1,5 @@
+import { Readable } from 'stream'
+
 import { Label } from 'meta/assessment'
 
 export type FileSummary = {
@@ -10,7 +12,7 @@ export type FileSummary = {
 }
 
 export type File = FileSummary & {
-  readonly file: Buffer
+  file: Readable
 }
 
 export type FileUsage = {
