@@ -5,6 +5,7 @@ import { BaseProtocol, DB } from 'server/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { FileRepository } from 'server/repository/public/file'
 import { UserRepository } from 'server/repository/public/user'
+import { FileStorage } from 'server/service/fileStorage'
 
 export const update = async (
   props: {
@@ -18,7 +19,10 @@ export const update = async (
 
   return client.tx(async (t) => {
     if (profilePicture) {
-      const createdFile = await FileRepository.create({ file: profilePicture }, client)
+      const createdFile = await FileRepository.create({ fileName: profilePicture.originalname }, client)
+      const { uuid: key } = createdFile
+
+      await FileStorage.uploadFile({ key, body: profilePicture.buffer })
       userToUpdate.profilePictureFileUuid = createdFile.uuid
     }
 
