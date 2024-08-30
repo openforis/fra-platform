@@ -6,6 +6,7 @@ import { FileSummary } from 'meta/file'
 import { BaseProtocol, DB } from 'server/db'
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/repository/public/file'
+import { FileStorage } from 'server/service/fileStorage'
 
 import { bufferToPdfMulterFile } from './utils'
 
@@ -30,7 +31,10 @@ export const updateFile = async (props: Props): Promise<Returned> => {
     const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps, t)
 
     const pdfMulterFile = bufferToPdfMulterFile({ buffer, fileName })
-    const newFile = await FileRepository.create({ file: pdfMulterFile }, t)
+    const newFile = await FileRepository.create({ fileName: pdfMulterFile.originalname }, t)
+    const { uuid: key } = newFile
+    const body = pdfMulterFile.buffer
+    await FileStorage.uploadFile({ key, body })
 
     const updateRepositoryItemProps: RepositoryItem = { ...repositoryItem, fileUuid: newFile.uuid }
     const updateRepositoryProps = { assessment, cycle, repositoryItem: updateRepositoryItemProps }

@@ -6,6 +6,7 @@ import { File } from 'meta/file'
 
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/repository/public/file'
+import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {
   assessment: Assessment
@@ -25,7 +26,10 @@ export const getOne = async (props: Props): Promise<Returned> => {
     const repositoryItem = await RepositoryRepository.getOne(props)
 
     const fileRepositoryProps = { fileUuid: repositoryItem.fileUuid }
-    const file = await FileRepository.getOne(fileRepositoryProps)
+    const fileSummary = await FileRepository.getOne(fileRepositoryProps)
+    const { uuid: key } = fileSummary
+    const fileData = await FileStorage.getFile({ key })
+    const file = { ...fileSummary, file: fileData }
 
     return { file, repositoryItem }
   } catch (error) {

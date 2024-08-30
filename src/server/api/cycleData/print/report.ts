@@ -75,7 +75,14 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
     return pdfBuffer
   }
 
-  return cachedPdfInfo.file.file
+  // Convert Readable to Buffer
+  const chunks = []
+  // eslint-disable-next-line no-restricted-syntax
+  for await (const chunk of cachedPdfInfo.file.file) {
+    chunks.push(chunk)
+  }
+
+  return Buffer.concat(chunks)
 }
 
 export const report = async (req: Request, res: Response) => {
