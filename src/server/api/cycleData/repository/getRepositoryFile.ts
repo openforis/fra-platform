@@ -6,6 +6,7 @@ import { Translations } from 'meta/translation'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
+import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
@@ -26,7 +27,10 @@ export const getRepositoryFile = async (req: Request, res: Response) => {
     const extension = file.name.split('.').pop()
     const fileName = `${label}.${extension}`
 
-    Responses.sendFile(res, fileName, file.file)
+    const key = repositoryItem.fileUuid
+    const fileStream = await FileStorage.getFile({ key })
+
+    Responses.sendFileStream(res, fileName, fileStream, FileStorageUtils.getContentType(extension))
   } catch (e) {
     Requests.sendErr(res, e)
   }
