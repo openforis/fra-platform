@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { Promises } from 'utils/promises'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
 import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'
 import { Logger } from 'server/utils/logger'
 import { ProcessEnv } from 'server/utils/processEnv'
@@ -27,8 +27,29 @@ const allowedExtensions = [
   'bmp',
 ]
 
-export default async (client: BaseProtocol) => {
+const client: BaseProtocol = DB
+
+export default async () => {
   try {
+    // Check if _legacy.file table exists
+    const legacyTableExists = await client.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_schema = 'public' 
+        AND table_name = '_legacy.file'
+      );
+    `)
+
+    if (!legacyTableExists[0].exists) {
+      // Create a copy of the public.file table as _legacy.file
+      await client.query(`
+        CREATE TABLE _legacy.file AS
+        TABLE public.file;
+      `)
+    } else {
+      Logger.debug('_legacy.file table already exists, skipping creation.')
+    }
+
     // This should be changed to all files,
     // left for testing purpose (all files 5.7gb, this subset around 80mb)
     const files = await client.query(`
@@ -44,19 +65,36 @@ export default async (client: BaseProtocol) => {
 
       if (allowedExtensions.includes(fileExtension)) {
         const s3Key = `public/${uuid}`
-        await FileStorage.uploadFile({
-          key: s3Key,
-          body: Buffer.from(file),
-          bucket: ProcessEnv.s3BucketName,
-          contentType: FileStorageUtils.getContentType(fileExtension),
-        })
-        // Logger.debug(`File ${name} (ID: ${id}) migrated successfully.`)
+        const fileExists = await FileStorage.fileExists({ key: s3Key })
+
+        if (fileExists) {
+          Logger.debug(`File ${name} (ID: ${id}) already exists in S3, skipping upload.`)
+          return
+        }
+
+        if (!fileExists) {
+          await FileStorage.uploadFile({
+            key: s3Key,
+            body: Buffer.from(file),
+            bucket: ProcessEnv.s3BucketName,
+            contentType: FileStorageUtils.getContentType(fileExtension),
+          })
+          // Logger.debug(`File ${name} (ID: ${id}) migrated successfully.`)
+        } else {
+          Logger.debug(`File ${name} (ID: ${id}) already exists in S3, skipping upload.`)
+        }
       } else {
         Logger.debug(`File ${name} (ID: ${id}) skipped due to unsupported file type.`)
       }
     })
 
-    Logger.debug('File migration completed.')
+    // Remove the 'file' column from the 'public.file' table
+    await client.query(`
+      ALTER TABLE public.file
+      DROP COLUMN file;
+    `)
+
+    Logger.debug('File migration completed and file column removed.')
   } catch (err) {
     Logger.error('Error migrating files:', err)
   }
