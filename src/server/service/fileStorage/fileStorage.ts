@@ -27,11 +27,12 @@ const uploadFile = async (props: {
   body: Buffer | Readable
   bucket?: string
   contentType?: string
+  path?: string
 }): Promise<void> => {
-  const { key, body, bucket = ProcessEnv.s3BucketName, contentType } = props
+  const { key, body, bucket = ProcessEnv.s3BucketName, contentType, path = 'public' } = props
   const command = new PutObjectCommand({
     Bucket: bucket,
-    Key: key,
+    Key: `${path}/${key}`,
     Body: body,
     ContentType: contentType,
   })
