@@ -67,11 +67,6 @@ export default async () => {
         const s3Key = `public/${uuid}`
         const fileExists = await FileStorage.fileExists({ key: s3Key })
 
-        if (fileExists) {
-          Logger.debug(`File ${name} (ID: ${id}) already exists in S3, skipping upload.`)
-          return
-        }
-
         if (!fileExists) {
           await FileStorage.uploadFile({
             key: s3Key,
