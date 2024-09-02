@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 
+import { RegionCode } from 'meta/area'
 import { Routes } from 'meta/routes/routes'
 
 import PageLayout from 'client/components/PageLayout'
@@ -20,6 +21,7 @@ import Geo from 'client/pages/Geo'
 import Landing from 'client/pages/Landing'
 import Login, { LoginForm, LoginInvitation, LoginInvitationLocal, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
+import PanEuropeanRedirect from 'client/pages/PanEuropeanRedirect'
 import Print from 'client/pages/Print'
 import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
 import Tutorials from 'client/pages/Tutorials'
@@ -76,6 +78,7 @@ export const useRoutes = () => {
             </Route>
           </Route>
         </Route>
+        <Route element={<PanEuropeanRedirect />} path={`/${RegionCode.FE}/*`} />
         <Route element={<Navigate replace to={Routes.Root.path.relative} />} path="*" />
       </Route>
     )
