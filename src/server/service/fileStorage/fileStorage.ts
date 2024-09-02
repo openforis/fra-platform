@@ -51,8 +51,27 @@ const getFileSize = async (props: { key: string; bucket?: string; path?: string 
   return response.ContentLength || 0
 }
 
+const fileExists = async (props: { key: string; bucket?: string; path?: string }): Promise<boolean> => {
+  const { key, bucket = ProcessEnv.s3BucketName, path = 'public' } = props
+  const command = new HeadObjectCommand({
+    Bucket: bucket,
+    Key: `${path}/${key}`,
+  })
+
+  try {
+    await s3Client.send(command)
+    return true
+  } catch (error) {
+    if (error.name === 'NotFound') {
+      return false
+    }
+    throw error
+  }
+}
+
 export const FileStorage = {
   getFile,
   uploadFile,
   getFileSize,
+  fileExists,
 }
