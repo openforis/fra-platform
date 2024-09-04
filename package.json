@@ -17,6 +17,7 @@
     "migrations:create": "./src/server/db/migration/create-migration.sh",
     "migrations:run": "./src/server/db/migration/run-migrations.sh",
     "migration-steps:run": "ts-node src/test/migrations/",
+    "migration-public:create": "src/tools/migrations/public/create-migration-step.sh",
     "migration-steps:create": "src/test/migrations/create-migration-step.sh",
     "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/test/migrations/ src/test/migrations/ -- --watch",
     "run:dev": "run-p run:dev:client run:dev:server",
