@@ -37,19 +37,17 @@ const close = async () => {
 const exec = async () => {
   await init()
 
-  await client.tx(async (t) => {
-    // eslint-disable-next-line no-restricted-syntax
-    for await (const file of migrationSteps) {
-      try {
-        Logger.info(`Running migration ${file}`)
-        // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
-        await require(`./steps/${file}`).default(t)
-        executedMigrations.push(file)
-      } catch (e) {
-        Logger.error(e)
-      }
+  // eslint-disable-next-line no-restricted-syntax
+  for await (const file of migrationSteps) {
+    try {
+      Logger.info(`Running migration ${file}`)
+      // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
+      await require(`./steps/${file}`).default(client)
+      executedMigrations.push(file)
+    } catch (e) {
+      Logger.error(e)
     }
-  })
+  }
   if (!process.argv.includes('--watch')) {
     // eslint-disable-next-line no-restricted-syntax
     for (const file of executedMigrations) {
