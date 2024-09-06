@@ -45,7 +45,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.country (
       country_iso character varying(3) primary key not null,
-      config jsonb
+      config jsonb not null default '{}'::jsonb
     );
 
     create table if not exists ${schemaName}.file (
