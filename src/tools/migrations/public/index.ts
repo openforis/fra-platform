@@ -16,8 +16,8 @@ const executedMigrations: Array<string> = []
 // TODO: Move to migration step / schema initialisation
 const tableDDL = `
     create table if not exists public.migrations (
-      id integer not null default nextval('public.migrations_id_seq'::regclass),
-      name character varying(255) primary key not null,
+      id serial primary key,
+      name character varying(255) unique not null,
       run_on timestamp without time zone not null default now()
     );
 `
@@ -43,7 +43,7 @@ const exec = async () => {
     try {
       Logger.info(`Running migration ${file}`)
       // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
-      await require(`./steps/${file}`)
+      await require(`./steps/${file}`).default()
       executedMigrations.push(file)
     } catch (e) {
       Logger.error(e)
