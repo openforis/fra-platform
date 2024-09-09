@@ -25,7 +25,7 @@ const _getOrderClause = (
 
   const direction = orderByDirection ?? TablePaginatedOrderByDirection.asc
   if (orderBy === 'code') {
-    return `order by (visits -> jsonb_array_length(visits) - 1 ->> 'code') ${direction}`
+    return `order by (visits -> jsonb_array_length(visits) - 1 ->> 'code') ${direction}, id asc`
   }
   return `order by ${orderBy} ${direction}`
 }
