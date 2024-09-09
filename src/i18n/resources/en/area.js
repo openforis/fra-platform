@@ -12,7 +12,7 @@ module.exports = {
   ASEAN: { listName: 'ASEAN' },
   FE: { listName: 'Pan-European' }, // 'FOREST EUROPE' },
   EU27: { listName: 'EU-27' },
-  ECOMIFAC: { listName: 'Espace COMIFAC' },
+  ECOMIFAC: { listName: 'COMIFAC space' },
   MP: { listName: 'Montreal Process' },
   UNECE: { listName: 'UNECE' },
   ITTO: { listName: 'International Tropical Timber Organization' },
