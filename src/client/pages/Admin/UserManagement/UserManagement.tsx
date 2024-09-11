@@ -35,6 +35,7 @@ const UserManagement: React.FC = () => {
         cycleName: cycle.name,
         countries: filters.countries,
         fullName: filters.fullName,
+        includeRoleTotals: true,
         roles: filters.roles,
       })
     )
@@ -68,8 +69,8 @@ const UserManagement: React.FC = () => {
           setPageNumber(n)
           DOMs.scrollTo()
         }}
+        pageCount={Math.ceil(usersCount.total / 20)}
         pageRangeDisplayed={5}
-        pageCount={Math.ceil(usersCount.totals / 20)}
       />
 
       <UsersCount />

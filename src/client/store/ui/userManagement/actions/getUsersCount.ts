@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Functions } from 'utils/functions'
 import axios from 'axios'
 import { Dispatch } from 'redux'
+import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
@@ -15,6 +15,7 @@ type Params = {
   cycleName: string
   countries?: Array<CountryIso>
   fullName?: string
+  includeRoleTotals?: boolean
   roles?: Array<RoleName>
 }
 

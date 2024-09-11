@@ -11,11 +11,20 @@ type Props = {
   cycle: Cycle
   countries?: Array<CountryIso>
   fullName?: string
+  includeRoleTotals?: boolean
   roles?: Array<RoleName>
 }
 
-export const count = async (props: Props, client: BaseProtocol = DB): Promise<{ totals: number }> => {
-  const { assessment, cycle, countries, fullName, roles } = props
+type Returned =
+  | {
+      total: number
+    }
+  | ({
+      total: number
+    } & Record<RoleName, number>)
+
+export const count = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
+  const { assessment, cycle, countries, fullName, includeRoleTotals = false, roles } = props
 
   const conditions: Array<string> = []
   if (Objects.isEmpty(countries)) conditions.push(`(ur.country_iso is null or ur.country_iso not like 'X%')`)
@@ -39,16 +48,20 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<{ 
   }
 
   const queryTotals = getQuery()
-  const queryRoles = `with counts as (${getQuery(true)})
-                      select jsonb_object_agg(counts.role, counts.totals) as result
-                      from counts`
 
-  const totals = await client.one<number>(queryTotals, [assessment.id, cycle.uuid], ({ totals }) => totals)
-  const roleTotals = await client.one<Record<RoleName, number>>(
-    queryRoles,
-    [assessment.id, cycle.uuid],
-    ({ result }) => result
-  )
+  const total = await client.one<number>(queryTotals, [assessment.id, cycle.uuid], ({ totals }) => totals)
 
-  return { totals, ...roleTotals }
+  let roleTotals: Record<RoleName, number>
+  if (includeRoleTotals) {
+    const queryRoles = `with counts as (${getQuery(true)})
+    select jsonb_object_agg(counts.role, counts.totals) as result
+    from counts`
+    roleTotals = await client.one<Record<RoleName, number>>(
+      queryRoles,
+      [assessment.id, cycle.uuid],
+      ({ result }) => result
+    )
+  }
+
+  return { total, ...roleTotals }
 }
