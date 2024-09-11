@@ -1,1 +1,0 @@
-CREATE TABLE non_wood_forest_products_removals ("country_iso" varchar, "row_name" varchar, "product_name" text, "key_species" text, "quantity" numeric, "unit" text, "value" numeric, "category" text, PRIMARY KEY (country_iso, row_name));
