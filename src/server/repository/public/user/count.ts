@@ -24,7 +24,7 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<{ 
   if (!Objects.isEmpty(roles)) conditions.push(`ur.role in (${roles.map((roleName) => `'${roleName}'`).join(',')})`)
 
   if (!Objects.isEmpty(fullName))
-    conditions.push(`and concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
+    conditions.push(`concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
 
   const getQuery = (groupByRole?: boolean): string => {
     return `select count(distinct (u.id)) as totals
