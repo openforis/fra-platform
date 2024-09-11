@@ -1,4 +1,4 @@
-import { JSDOM } from 'jsdom'
+import { Parser } from 'htmlparser2'
 import { Objects } from 'utils/objects'
 
 type LinkInfo = {
@@ -11,20 +11,36 @@ type Returned = Array<LinkInfo>
 export const getLinksFromHtml = (html: string): Returned => {
   if (Objects.isEmpty(html)) return []
 
-  const dom = new JSDOM(html)
-  const doc = dom.window.document
-  const anchorTags = doc.querySelectorAll('a')
-
   const links: Returned = []
-  for (let i = 0; i < anchorTags.length; i += 1) {
-    const anchor = anchorTags[i]
-    const link = anchor.getAttribute('href')
-    const name = anchor.textContent
-    links.push({
-      link,
-      name,
-    })
-  }
+
+  let currentLink: LinkInfo | null = null
+  const parser = new Parser(
+    {
+      onopentag(name, attributes) {
+        if (name === 'a') {
+          currentLink = {
+            link: attributes.href ?? null,
+            name: '',
+          }
+        }
+      },
+      ontext(text) {
+        if (currentLink) {
+          currentLink.name += text
+        }
+      },
+      onclosetag(tagname) {
+        if (tagname === 'a' && currentLink) {
+          links.push(currentLink)
+          currentLink = null
+        }
+      },
+    },
+    { decodeEntities: true }
+  )
+
+  parser.write(html)
+  parser.end()
 
   return links
 }
