@@ -5,7 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { RoleName } from 'meta/user'
 
 import TablePaginated from 'client/components/TablePaginated'
-import CustomUsersCount from 'client/pages/Admin/UserManagement/CustomUsersCount'
+import UsersCount from 'client/pages/Admin/UserManagement/UsersCount'
 
 import { useColumns } from './hooks/useColumns'
 
@@ -16,7 +16,7 @@ const UserManagement: React.FC = () => {
   return (
     <TablePaginated
       columns={columns}
-      counter={{ show: true, Component: CustomUsersCount }}
+      counter={{ show: true, Component: UsersCount }}
       gridTemplateColumns={gridTemplateColumns}
       limit={20}
       path={ApiEndPoint.Admin.users()}

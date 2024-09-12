@@ -1,4 +1,4 @@
-import './CustomUsersCount.scss'
+import './UsersCount.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,7 +9,7 @@ import { UserManagementActions, useRoleNames, useUsersCount } from 'client/store
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { TablePaginatedCounterComponent } from 'client/components/TablePaginated'
 
-const CustomUsersCount: TablePaginatedCounterComponent = () => {
+const UsersCount: TablePaginatedCounterComponent = () => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
@@ -28,14 +28,14 @@ const CustomUsersCount: TablePaginatedCounterComponent = () => {
   }, [assessmentName, cycleName, dispatch])
 
   return (
-    <div className="custom-user-counts__container">
+    <div className="user-counts__container">
       {roleNames.map((roleName) => (
-        <div key={roleName} className="custom-user-counts__item">
+        <div key={roleName} className="user-counts__item">
           {`${t(Users.getI18nRoleLabelKey(roleName))} ${usersCount[roleName] || 0}`}
         </div>
       ))}
-      <div className="custom-user-counts__item">{`${t(`common.total`)} ${usersCount.total || 0}`}</div>
+      <div className="user-counts__item">{`${t(`common.total`)} ${usersCount.total || 0}`}</div>
     </div>
   )
 }
-export default CustomUsersCount
+export default UsersCount
