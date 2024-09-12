@@ -1,31 +1,19 @@
 import './UsersCount.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Users } from 'meta/user'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { RoleName, Users } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
-import { UserManagementActions, useRoleNames, useUsersCount } from 'client/store/ui/userManagement'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useRoleNames } from 'client/store/ui/userManagement'
 import { TablePaginatedCounterComponent } from 'client/components/TablePaginated'
 
 const UsersCount: TablePaginatedCounterComponent = () => {
-  const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
   const roleNames = useRoleNames()
-  const usersCount = useUsersCount()
-  const { assessmentName, cycleName } = useCycleRouteParams()
-
-  useEffect(() => {
-    dispatch(
-      UserManagementActions.getUsersCount({
-        assessmentName,
-        cycleName,
-        includeRoleTotals: true,
-      })
-    )
-  }, [assessmentName, cycleName, dispatch])
+  const usersCount = useTablePaginatedCount(ApiEndPoint.Admin.users()) as Record<RoleName | 'total', number>
 
   return (
     <div className="user-counts__container">
