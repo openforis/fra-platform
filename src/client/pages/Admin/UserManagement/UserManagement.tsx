@@ -1,80 +1,26 @@
 import './UserManagement.scss'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useFilters, UserManagementActions, useUsers, useUsersCount } from 'client/store/ui/userManagement'
-import Paginator from 'client/components/Paginator'
-import UserList from 'client/components/UserList'
-import UserListFilters from 'client/components/UserListFilters'
-import UsersCount from 'client/components/UsersCount/UsersCount'
-import { DOMs } from 'client/utils/dom'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { RoleName } from 'meta/user'
+
+import TablePaginated from 'client/components/TablePaginated'
+
+import { useColumns } from './hooks/useColumns'
+import CustomUsersCount from './CustomUsersCount'
 
 const UserManagement: React.FC = () => {
-  const dispatch = useAppDispatch()
-
-  const assessment = useAssessment()
-  const cycle = useCycle()
-
-  const filters = useFilters()
-  const users = useUsers()
-  const usersCount = useUsersCount()
-
-  const [pageNumber, setPageNumber] = useState(0)
-
-  useEffect(() => {
-    return () => {
-      dispatch(UserManagementActions.resetFilters())
-    }
-  }, [dispatch])
-
-  useEffect(() => {
-    dispatch(
-      UserManagementActions.getUsersCount({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countries: filters.countries,
-        fullName: filters.fullName,
-        includeRoleTotals: true,
-        roles: filters.roles,
-      })
-    )
-    setPageNumber(0)
-  }, [assessment.props.name, cycle.name, dispatch, filters])
-
-  useEffect(() => {
-    dispatch(
-      UserManagementActions.getUsers({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        limit: 20,
-        offset: pageNumber * 20,
-        countries: filters.countries,
-        fullName: filters.fullName,
-        roles: filters.roles,
-        administrators: true,
-      })
-    )
-  }, [assessment, cycle, dispatch, filters, pageNumber])
+  const columns = useColumns()
+  const gridTemplateColumns = `repeat(${Object.values(RoleName).length + 1}, 1fr)`
 
   return (
-    <>
-      <UserListFilters />
-
-      <UserList users={users} />
-
-      <Paginator
-        className="user-paginator"
-        onPageChange={(n) => {
-          setPageNumber(n)
-          DOMs.scrollTo()
-        }}
-        pageCount={Math.ceil(usersCount.total / 20)}
-        pageRangeDisplayed={5}
-      />
-
-      <UsersCount />
-    </>
+    <TablePaginated
+      columns={columns}
+      counter={{ show: true, Component: CustomUsersCount }}
+      gridTemplateColumns={gridTemplateColumns}
+      limit={20}
+      path={ApiEndPoint.Admin.users()}
+    />
   )
 }
 
