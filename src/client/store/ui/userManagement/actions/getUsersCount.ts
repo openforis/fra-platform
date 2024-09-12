@@ -15,7 +15,6 @@ type Params = {
   cycleName: string
   countries?: Array<CountryIso>
   fullName?: string
-  includeRoleTotals?: boolean
   roles?: Array<RoleName>
 }
 
