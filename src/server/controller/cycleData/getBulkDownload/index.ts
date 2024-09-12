@@ -7,6 +7,7 @@ import { Assessment, Cycle } from 'meta/assessment'
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
+import { getTierData } from 'server/controller/cycleData/getBulkDownload/getTierData'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { RegionRepository } from 'server/repository/assessmentCycle/region'
 
@@ -121,7 +122,7 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     getFraYearsData(params),
   ])
 
-  return Promise.all([
+  const promises = [
     ...annualVariableEntries.map(async (entry) => {
       return {
         fileName: _getFileName(entry.fileName),
@@ -153,5 +154,17 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
       fileName: _getFileName('FRA_Years'),
       content: handleContent(fraYears),
     },
-  ])
+  ]
+
+  // Tier data only available for 2025
+  if (cycle.name === '2025') {
+    const tiers = await getTierData(params)
+
+    promises.push({
+      fileName: _getFileName('Tiers'),
+      content: handleContent(tiers),
+    })
+  }
+
+  return Promise.all(promises)
 }
