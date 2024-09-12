@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { RoleName, User, Users } from 'meta/user'
 
 import { Column } from 'client/components/TablePaginated'
+import NameField from 'client/pages/Admin/UserManagement/NameField'
 import RoleField from 'client/pages/Admin/UserManagement/RoleField'
 
 export const useColumns = (): Array<Column<User>> => {
@@ -18,7 +19,7 @@ export const useColumns = (): Array<Column<User>> => {
 
     return [
       {
-        component: ({ datum }) => <span className="admin-user-management-cell">{datum.props.name}</span>,
+        component: ({ datum }) => <NameField user={datum} />,
         header: t('common.name'),
         key: 'name',
         orderByProperty: 'name',
