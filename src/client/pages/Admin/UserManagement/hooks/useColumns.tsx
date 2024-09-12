@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { RoleName, User, Users } from 'meta/user'
 
 import { Column } from 'client/components/TablePaginated'
-
-import RoleField from '../RoleField'
+import RoleField from 'client/pages/Admin/UserManagement/RoleField'
 
 export const useColumns = (): Array<Column<User>> => {
   const { t } = useTranslation()

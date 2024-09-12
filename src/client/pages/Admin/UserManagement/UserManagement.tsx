@@ -5,9 +5,9 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { RoleName } from 'meta/user'
 
 import TablePaginated from 'client/components/TablePaginated'
+import CustomUsersCount from 'client/pages/Admin/UserManagement/CustomUsersCount'
 
 import { useColumns } from './hooks/useColumns'
-import CustomUsersCount from './CustomUsersCount'
 
 const UserManagement: React.FC = () => {
   const columns = useColumns()
