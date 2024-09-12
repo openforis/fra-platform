@@ -25,7 +25,7 @@ export default (): void =>
     it('Invite new user as Collaborator', async () => {
       const { userRole, user: invitedUser } = await UserController.invite({
         assessment,
-        countryIso: 'ALB',
+        countryIso: 'X01',
         cycle,
         email: userMockUnknown.email,
         roleName: RoleName.COLLABORATOR,
@@ -40,16 +40,16 @@ export default (): void =>
       // User accepts invitation with his own email and password
       expect(userRole.acceptedAt).toBeNull()
 
-      // verify user status is active and he is collaborator of ALB
+      // verify user status is active and he is collaborator of X01
       await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
 
       expect(invitedUser.status).toBe(UserStatus.active)
     })
 
-    it('Invite the user as National Correspondant to a country', async () => {
+    it('Invite the user as National Correspondent to a country', async () => {
       const { user: invitedUser, userRole: invitedUserRole } = await UserController.invite({
         assessment,
-        countryIso: 'AFG',
+        countryIso: 'X02',
         cycle,
         email: userMockUnknown.email,
         roleName: RoleName.NATIONAL_CORRESPONDENT,
@@ -59,23 +59,23 @@ export default (): void =>
 
       userRole = invitedUserRole
 
-      // invite same userA as National Correspondant to AFG
-      // verify user status is active and he is only collaborator of ALB
+      // invite same userA as National Correspondent to X02
+      // verify user status is active, and he is only collaborator of X01
       expect(invitedUser.status).toBe(UserStatus.active)
 
       const filteredRoles = invitedUser.roles.filter(
-        (role) => role.countryIso === 'ALB' && role.role === RoleName.COLLABORATOR
+        (role) => role.countryIso === 'X01' && role.role === RoleName.COLLABORATOR
       )
       expect(filteredRoles.length).toBe(1)
     })
 
     it('Invite the user as Reviewer to the same country', async () => {
-      // invite same userA as Reviewer to AFG
-      // verify Controller throws exception since user has a pending invitation for AFG already
+      // invite same userA as Reviewer to X02
+      // verify Controller throws exception since user has a pending invitation for X02 already
       await expect(
         UserController.invite({
           assessment,
-          countryIso: 'AFG',
+          countryIso: 'X02',
           cycle,
           email: userMockUnknown.email,
           roleName: RoleName.REVIEWER,
@@ -88,16 +88,16 @@ export default (): void =>
     it('User accept invitation as National Correspondant', async () => {
       const { user } = await UserController.findByInvitation({ invitationUuid: userRole.invitationUuid })
 
-      // UserA accept invitation National Correspondant to AFG
-      // verify user status is active and he is collaborator of ALB and National Correspondant of AFG
+      // UserA accept invitation National Correspondant to X02
+      // verify user status is active and he is collaborator of X01 and National Correspondant of X02
       const invitedUser = await UserController.acceptInvitation({ assessment, cycle, user, userRole })
 
       expect(invitedUser.status).toBe(UserStatus.active)
 
       const filteredRoles = invitedUser.roles.filter(
         (role) =>
-          (role.countryIso === 'ALB' && role.role === RoleName.COLLABORATOR) ||
-          (role.countryIso === 'AFG' && role.role === RoleName.NATIONAL_CORRESPONDENT)
+          (role.countryIso === 'X01' && role.role === RoleName.COLLABORATOR) ||
+          (role.countryIso === 'X02' && role.role === RoleName.NATIONAL_CORRESPONDENT)
       )
       expect(filteredRoles.length).toBe(2)
     })
