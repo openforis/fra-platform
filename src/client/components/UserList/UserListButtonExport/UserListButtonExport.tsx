@@ -56,8 +56,4 @@ const UserListButtonExport = () => {
   )
 }
 
-UserListButtonExport.defaultProps = {
-  isAdmin: false,
-}
-
 export default UserListButtonExport

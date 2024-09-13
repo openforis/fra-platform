@@ -2,8 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import InviteUserLink from 'client/components/UserList/InviteUserLink'
-
-import UserListButtonExport from '../UserListButtonExport'
+import UserListButtonExport from 'client/components/UserList/UserListButtonExport'
 
 type Props = { readOnly: boolean }
 
