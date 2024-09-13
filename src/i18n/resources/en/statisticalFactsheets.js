@@ -43,14 +43,15 @@ module.exports = {
     title: 'Forest area within protected areas {{year}} (% of forest area)',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
+    title:
+      '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}}), $t({{unit}})',
     rowName: '',
-    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation) ($t({{unit}}))',
-    multiple_use: '$t(designatedManagementObjective.multipleUse) ($t({{unit}}))',
-    other: '$t(common.other) ($t({{unit}}))',
-    production: '$t(designatedManagementObjective.production) ($t({{unit}}))',
-    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection) ($t({{unit}}))',
-    social_services: '$t(designatedManagementObjective.socialServices) ($t({{unit}}))',
+    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
+    multiple_use: '$t(designatedManagementObjective.multipleUse)',
+    other: '$t(common.other)',
+    production: '$t(designatedManagementObjective.production)',
+    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
+    social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
     title: 'Naturally regenerated and planted forest area ({{startYear}} - {{endYear}})',
