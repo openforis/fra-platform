@@ -3,6 +3,7 @@ module.exports = {
   rowName: {
     area: 'Area',
     forest: 'Forest',
+    protected: 'Protected',
     forestArea: 'Forest area',
     naturalForestArea: 'Natural regenerating forest',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
