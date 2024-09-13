@@ -1,3 +1,4 @@
+import './RoleField.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -24,10 +25,10 @@ const RoleField: React.FC<Props> = (props: Props) => {
 
   const firstThreeRoles = roles.length > 3 ? `${roles.slice(0, 3).join(', ')}...` : roles.join(', ')
 
-  const otherRoles = roles.length > 3 ? roles.join(', ') : null
+  const allRoles = roles.length > 3 ? roles.join(', ') : null
 
   return (
-    <div className="admin-user-management-cell" data-tooltip-content={otherRoles} data-tooltip-id={TooltipId.info}>
+    <div className="admin-user-management__role-field" data-tooltip-content={allRoles} data-tooltip-id={TooltipId.info}>
       {firstThreeRoles}
     </div>
   )
