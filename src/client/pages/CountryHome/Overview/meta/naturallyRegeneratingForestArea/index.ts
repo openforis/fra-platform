@@ -47,7 +47,7 @@ export const naturallyRegeneratingForestArea = (cycle: Cycle, region: boolean): 
     type: DashboardItemType.barChart,
     title: {
       key: 'statisticalFactsheets.naturallyRegeneratingForest.title',
-      params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
+      params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: unit(region) },
     },
     table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
     chart: {

@@ -5,7 +5,7 @@ module.exports = {
     forest: 'Forest',
     protected: 'Protected',
     forestArea: 'Forest area',
-    naturalForestArea: 'Natural regenerating forest',
+    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'Land area',
@@ -54,6 +54,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Naturally regenerated and planted forest area ({{startYear}} - {{endYear}})',
+    title: 'Naturally regenerated and planted forest area ({{startYear}} - {{endYear}}), $t({{unit}})',
   },
 }
