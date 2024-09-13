@@ -12,8 +12,8 @@ module.exports = {
     primaryForest: '$t(specificForestCategories.primaryForest)',
     otherArea: 'Other area',
     otherForest: 'Other forest',
-    private_ownership: '$t(forestOwnership.privateOwnership)',
-    public_ownership: '$t(forestOwnership.publicOwnership)',
+    private_ownership: 'Private',
+    public_ownership: 'Public',
     other: '$t(common.other)',
     unknown: '$t(fra.forestOwnership.unknown2025)',
     other_or_unknown: 'Other or unknown',
@@ -32,10 +32,10 @@ module.exports = {
     title: 'Forest area as a % of total land area, {{year}}',
   },
   primaryForest: {
-    title: 'Primary forest % of forest area ({{year}})',
+    title: 'Primary forest % of forest area, {{year}}',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) ({{year}})',
+    title: '$t(forestOwnership.forestOwnership) %, {{year}}',
     public: 'Public',
     private: 'Private',
   },
