@@ -1,4 +1,3 @@
-import './UserManagement.scss'
 import React from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
