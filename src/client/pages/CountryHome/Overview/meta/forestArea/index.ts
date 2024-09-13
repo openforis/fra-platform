@@ -41,7 +41,7 @@ export const forestArea = (cycle: Cycle, region: boolean): DashboardBarChart => 
       {
         variableName: 'forestArea',
         color: ChartColor.green,
-        label: { key: 'statisticalFactsheets.forestArea.variableLabel' },
+        label: { key: 'statisticalFactsheets.rowName.area' },
         unit: unit(region),
       },
     ],

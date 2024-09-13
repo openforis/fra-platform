@@ -52,7 +52,7 @@ export const forestAreaPercentOfLandArea = (cycle: Cycle, region: boolean): Dash
         variableName: 'forestArea',
         color: ChartColor.green,
         columnName: cols[cycle.name][0],
-        label: { key: 'statisticalFactsheets.rowName.forestArea' },
+        label: { key: 'statisticalFactsheets.rowName.forest' },
         unit: unit(region),
       },
       {

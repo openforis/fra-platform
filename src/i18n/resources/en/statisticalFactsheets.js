@@ -1,6 +1,8 @@
 module.exports = {
   noData: 'No data available',
   rowName: {
+    area: 'Area',
+    forest: 'Forest',
     forestArea: 'Forest area',
     naturalForestArea: 'Natural regenerating forest',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
@@ -17,7 +19,6 @@ module.exports = {
   },
   forestArea: {
     title: 'Forest Area ({{startYear}} - {{endYear}}), $t({{unit}})',
-    variableLabel: 'Area',
   },
   carbonAndGrowingStock: {
     title: 'Forest growing stock and carbon ({{startYear}} - {{endYear}})',
@@ -27,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'Forest area % of land area ({{year}})',
+    title: 'Forest area as a % of total land area, {{year}}',
   },
   primaryForest: {
     title: 'Primary forest % of forest area ({{year}})',
