@@ -31,7 +31,7 @@ export const forestArea = (cycle: Cycle, region: boolean): DashboardBarChart => 
   type: DashboardItemType.barChart,
   title: {
     key: 'statisticalFactsheets.forestArea.title',
-    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
+    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: unit(region) },
   },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
   chart: {
@@ -41,7 +41,7 @@ export const forestArea = (cycle: Cycle, region: boolean): DashboardBarChart => 
       {
         variableName: 'forestArea',
         color: ChartColor.green,
-        label: { key: 'statisticalFactsheets.rowName.forestArea' },
+        label: { key: 'statisticalFactsheets.forestArea.variableLabel' },
         unit: unit(region),
       },
     ],

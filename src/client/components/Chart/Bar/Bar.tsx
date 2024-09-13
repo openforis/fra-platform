@@ -23,30 +23,36 @@ type Props = {
   data: BarChartData
   chart: BarChartType
   showLegend?: boolean
+  showLabels?: boolean
 }
 
 const SPACING = 8
 
 const Bar = (props: Props) => {
   const { t } = useTranslation()
-  const { data, chart, showLegend } = props
+  const { data, chart, showLegend, showLabels } = props
+
+  let yAxisLabel
+  let xAxisLabel
+
+  if (showLabels) {
+    yAxisLabel = {
+      angle: -90,
+      dx: -SPACING / 2,
+      position: 'insideLeft',
+      value: Labels.getLabel({ label: chart.yAxis?.label, t }),
+    }
+
+    xAxisLabel = { value: Labels.getLabel({ label: chart.xAxis?.label, t }), position: 'insideBottom', offset: -10 }
+  }
 
   return (
     <ResponsiveContainer height={300} width="100%">
       <BarChart barCategoryGap={5} data={data} margin={{ left: SPACING / 2, right: SPACING, top: SPACING, bottom: 10 }}>
         <CartesianGrid stroke="#dadada" strokeDasharray="1" />
-        <XAxis
-          dataKey="columnName"
-          label={{ value: Labels.getLabel({ label: chart.xAxis?.label, t }), position: 'insideBottom', offset: -10 }}
-          stroke="#7f7f7f"
-        />
+        <XAxis dataKey="columnName" label={xAxisLabel} stroke="#7f7f7f" />
         <YAxis
-          label={{
-            angle: -90,
-            dx: -SPACING / 2,
-            position: 'insideLeft',
-            value: Labels.getLabel({ label: chart.yAxis?.label, t }),
-          }}
+          label={yAxisLabel}
           stroke="#7f7f7f"
           tickFormatter={(value) => {
             return value.toLocaleString()
@@ -78,6 +84,7 @@ const Bar = (props: Props) => {
 
 Bar.defaultProps = {
   showLegend: true,
+  showLabels: true,
 }
 
 export default Bar

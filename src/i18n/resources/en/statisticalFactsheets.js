@@ -16,7 +16,8 @@ module.exports = {
     other_or_unknown: 'Other or unknown',
   },
   forestArea: {
-    title: 'Forest Area ({{startYear}} - {{endYear}})',
+    title: 'Forest Area ({{startYear}} - {{endYear}}), $t({{unit}})',
+    variableLabel: 'Area',
   },
   carbonAndGrowingStock: {
     title: 'Forest growing stock and carbon ({{startYear}} - {{endYear}})',
