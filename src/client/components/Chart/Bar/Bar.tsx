@@ -24,13 +24,14 @@ type Props = {
   chart: BarChartType
   showLegend?: boolean
   showLabels?: boolean
+  stacked?: boolean
 }
 
 const SPACING = 8
 
 const Bar = (props: Props) => {
   const { t } = useTranslation()
-  const { data, chart, showLegend, showLabels } = props
+  const { data, chart, showLegend, showLabels, stacked } = props
 
   let yAxisLabel
   let xAxisLabel
@@ -73,6 +74,7 @@ const Bar = (props: Props) => {
               fill={cell.color}
               maxBarSize={70}
               name={Labels.getLabel({ label: cell.label, t })}
+              stackId={stacked ? 'stacked' : undefined}
               unit={`${cell.unit ? `${t(cell.unit)}` : ''}`}
             />
           )
@@ -85,6 +87,7 @@ const Bar = (props: Props) => {
 Bar.defaultProps = {
   showLegend: true,
   showLabels: true,
+  stacked: false,
 }
 
 export default Bar

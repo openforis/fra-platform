@@ -17,7 +17,7 @@ const BarChart: React.FC<Props> = (props: Props) => {
 
   const data = useBarChartData(table, chart)
 
-  return <Bar chart={chart} data={data} showLabels={false} />
+  return <Bar chart={chart} data={data} showLabels={false} stacked />
 }
 
 export default BarChart
