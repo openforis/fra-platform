@@ -1,5 +1,7 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { RoleName, UserRole } from 'meta/user'
+
 import {
   getUsers,
   getUsersCount,
@@ -57,7 +59,7 @@ export const userManagementSlice = createSlice({
     })
 
     builder.addCase(updateSectionAuth.fulfilled, (state, { payload }) => {
-      state.user.roles[0] = payload
+      state.user.roles[0] = payload as UserRole<RoleName.COLLABORATOR>
     })
 
     builder.addCase(updateUser.fulfilled, (state, { meta }) => {
