@@ -19,11 +19,6 @@ const initialState: UserManagementState = {
   count: {
     totals: 0,
   },
-  filters: {
-    countries: [],
-    fullName: '',
-    roles: [],
-  },
   user: null,
   users: [],
 }
@@ -40,12 +35,6 @@ export const userManagementSlice = createSlice({
     },
     setUserToEdit: (state, { payload }) => {
       state.user = payload
-    },
-    updateFilters: (state, { payload }) => {
-      state.filters = { ...state.filters, ...payload }
-    },
-    resetFilters: (state) => {
-      state.filters = { countries: [], fullName: '', roles: [] }
     },
   },
   extraReducers: (builder) => {
