@@ -1,22 +1,24 @@
 module.exports = {
   noData: 'No hay datos disponibles',
   rowName: {
+    area: 'Área',
+    forest: 'Bosque',
     forestArea: 'Área forestal',
-    naturalForestArea: 'Bosque regenerado de forma natural',
+    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'Superficie de la terra',
     primaryForest: '$t(specificForestCategories.primaryForest)',
     otherArea: 'Otras tierras',
     otherForest: 'Otros bosques',
-    private_ownership: '$t(forestOwnership.privateOwnership)',
-    public_ownership: '$t(forestOwnership.publicOwnership)',
+    private_ownership: 'Privado',
+    public_ownership: 'Público',
     other: '$t(common.other)',
     unknown: '$t(fra.forestOwnership.unknown2025)',
     other_or_unknown: 'Desconocidas/otras',
   },
   forestArea: {
-    title: 'Área forestal ({{startYear}} - {{endYear}})',
+    title: 'Área forestal ({{startYear}} - {{endYear}}), $t({{unit}})s',
   },
   carbonAndGrowingStock: {
     title: 'Existencias en formación y carbono en los bosques ({{startYear}} - {{endYear}})',
@@ -26,13 +28,13 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'Superficie forestal % de la superficie total ({{year}})',
+    title: 'Área de bosque en % de la superficie terrestre total, {{year}}',
   },
   primaryForest: {
-    title: 'Bosque primario % de area forestal ({{year}})',
+    title: 'Bosque primario % de area forestal, {{year}}',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) ({{year}})',
+    title: '$t(forestOwnership.forestOwnership) %, {{year}}',
     public: 'Pública',
     private: 'Privada',
   },
@@ -40,16 +42,18 @@ module.exports = {
     title: '$t(forestAreaWithinProtectedAreas.header) ({{year}})',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
+    title:
+      '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}}), $t({{unit}})',
     rowName: '',
-    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation) ($t({{unit}}))',
-    multiple_use: '$t(designatedManagementObjective.multipleUse) ($t({{unit}}))',
-    other: '$t(common.other) ($t({{unit}}))',
-    production: '$t(designatedManagementObjective.production) ($t({{unit}}))',
-    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection) ($t({{unit}}))',
-    social_services: '$t(designatedManagementObjective.socialServices) ($t({{unit}}))',
+    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
+    multiple_use: '$t(designatedManagementObjective.multipleUse)',
+    other: '$t(common.other)',
+    production: '$t(designatedManagementObjective.production)',
+    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
+    social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Área de bosque con procesos de regeneración natural y bosque plantado ({{startYear}} - {{endYear}})',
+    title:
+      'Área de bosque con procesos de regeneración natural y bosque plantado ({{startYear}} - {{endYear}}), $t({{unit}})',
   },
 }
