@@ -34,8 +34,6 @@ module.exports = {
   },
   forestOwnership: {
     title: '$t(forestOwnership.forestOwnership) %, {{year}}',
-    public: '公有',
-    private: '私有',
   },
   forestAreaWithinProtectedAreas: {
     title: '{{year}}保护区内森林面积 (占森林面积百分比)',

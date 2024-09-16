@@ -34,8 +34,6 @@ module.exports = {
   },
   forestOwnership: {
     title: '$t(forestOwnership.forestOwnership) %, {{year}}',
-    public: 'Public',
-    private: 'Private',
   },
   forestAreaWithinProtectedAreas: {
     title: 'Forest area within protected areas, {{year}}, % of forest area',

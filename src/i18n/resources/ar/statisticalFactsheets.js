@@ -34,8 +34,6 @@ module.exports = {
   },
   forestOwnership: {
     title: '$t(forestOwnership.forestOwnership) %, {{year}}',
-    public: 'عامة',
-    private: 'خاصة',
   },
   forestAreaWithinProtectedAreas: {
     title: 'مساحة الغابة ضمن المناطق المحمية {{year}} (% من مساحة الغابة)',
