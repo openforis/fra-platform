@@ -2,7 +2,7 @@ module.exports = {
   noData: 'Данные отсутствуют',
   rowName: {
     area: 'Площадь',
-    forest: 'Леса',
+    forest: 'Площадь лесов',
     landArea: 'Площадь земель',
     naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     other: '$t(common.other)',
@@ -12,7 +12,7 @@ module.exports = {
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     primaryForest: '$t(specificForestCategories.primaryForest)',
     private_ownership: 'Частная собственность',
-    protected: 'Protected',
+    protected: 'Охраняемые',
     public_ownership: 'Государственная собственность',
     unknown: '$t(fra.forestOwnership.unknown2025)',
   },
