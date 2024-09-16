@@ -1,16 +1,32 @@
 import * as pgPromise from 'pg-promise'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
 
+// List of migrations that should be excluded from the existing instances
 const values = [
-  { name: '20240905123935-step-init-public-schema', run_on: new Date() },
-  { name: '20240906093649-step-init-admin-user', run_on: new Date() },
+  { name: '20240905123935-step-init-public-schema.ts' },
+  { name: '20240910115926-step-init-settings.ts' },
+  { name: '20240910120417-step-init-country.ts' },
 ]
 
-export default async (client: BaseProtocol) => {
-  const pgp = pgPromise()
+const client: BaseProtocol = DB
 
-  const cs = new pgp.helpers.ColumnSet(['name', 'run_on'], {
+export default async () => {
+  const pgp = pgPromise()
+  // DROP CONTENT
+  await client.query(`
+    truncate table public.migrations;
+  `)
+
+  // UPDATE DDL
+  await client.query(`
+    alter table migrations
+    alter column run_on set default now(),
+    alter column run_on type timestamp without time zone
+  `)
+
+  // INSERT
+  const cs = new pgp.helpers.ColumnSet(['name'], {
     table: { table: 'migrations', schema: 'public' },
   })
 

@@ -101,7 +101,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
     create table if not exists ${schemaName}.migrations (
       id serial primary key,
       name character varying(255) not null,
-      run_on timestamp without time zone not null
+      run_on timestamp without time zone not null default now()
     );
 
     create table if not exists ${schemaName}.region (
