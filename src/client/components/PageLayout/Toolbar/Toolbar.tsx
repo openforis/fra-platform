@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
 import { Areas, CountryIso } from 'meta/area'
+import { CycleStatus } from 'meta/assessment'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
@@ -32,7 +33,7 @@ const Toolbar: React.FC = () => {
 
   const isCountry = Areas.isISOCountry(countryIso)
   const isAdmin = Users.isAdministrator(user)
-  const showRegions = !geoRoute && (isAdmin || cycle.published)
+  const showRegions = !geoRoute && (isAdmin || cycle.props.status === CycleStatus.published)
 
   const editor = Users.hasEditorRole({ user, countryIso, cycle })
 

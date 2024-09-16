@@ -1,15 +1,16 @@
 import { Objects } from 'utils/objects'
 
 import { Areas, Country, RegionCode } from 'meta/area'
+import { CycleStatus } from 'meta/assessment'
+import { Users } from 'meta/user'
 
 import { useAppDispatch, useAppSelector } from 'client/store'
 import { useCountries } from 'client/store/area'
+import { useCycle } from 'client/store/assessment'
 import { DataExportActions, DataExportSelection } from 'client/store/ui/dataExport'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
-import { useCountryIso } from 'client/hooks'
-import { useCycle } from 'client/store/assessment'
 import { useUser, useUserCountries } from 'client/store/user'
-import { Users } from 'meta/user'
+import { useCountryIso } from 'client/hooks'
 
 export const useDataExportCountries = (): Array<Country> => {
   const dispatch = useAppDispatch()
@@ -30,7 +31,7 @@ export const useDataExportCountries = (): Array<Country> => {
   // initialize data export countries
   if (Objects.isEmpty(countries)) {
     let countriesDataExport = countriesAll
-    if (!cycle.published && !Users.isAdministrator(user)) {
+    if (cycle.props.status !== CycleStatus.published && !Users.isAdministrator(user)) {
       countriesDataExport = countriesDataExport.filter((country) => userCountries.includes(country.countryIso))
     }
     if (Areas.isRegion(countryIso)) {
