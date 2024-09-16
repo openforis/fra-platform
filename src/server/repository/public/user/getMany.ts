@@ -2,6 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 import { RoleName, User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -11,23 +12,40 @@ import { fields } from './fields'
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
-export const getMany = async (
-  props: {
-    assessment?: Assessment
-    cycle?: Cycle
-    countryIso?: CountryIso
+type Props = {
+  assessment?: Assessment
+  cycle?: Cycle
+  countryIso?: CountryIso
 
-    administrators?: boolean
-    countries?: Array<CountryIso>
-    fullName?: string
-    roles?: Array<RoleName>
-    statuses?: Array<UserStatus>
+  administrators?: boolean
+  countries?: Array<CountryIso>
+  fullName?: string
+  roles?: Array<RoleName>
+  statuses?: Array<UserStatus>
 
-    limit?: number
-    offset?: number
-  },
-  client: BaseProtocol = DB
-): Promise<Array<User>> => {
+  limit?: number
+  offset?: number
+
+  orderBy?: string
+  orderByDirection?: TablePaginatedOrderByDirection
+}
+
+const _getOrderClause = (
+  orderBy: string | undefined,
+  orderByDirection: TablePaginatedOrderByDirection | undefined
+): string => {
+  const orderByName = "order by concat(u.props->'name', ' ', u.props->'surname')"
+
+  if (Objects.isEmpty(orderBy)) return `${orderByName} ${TablePaginatedOrderByDirection.asc}`
+
+  const direction = orderByDirection ?? TablePaginatedOrderByDirection.asc
+  if (orderBy === 'name') {
+    return `${orderByName} ${direction}`
+  }
+  return `order by ${orderBy} ${direction}`
+}
+
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<User>> => {
   const {
     countryIso,
     assessment,
@@ -39,6 +57,8 @@ export const getMany = async (
     roles,
     administrators,
     statuses = [UserStatus.active, UserStatus.invitationPending],
+    orderBy,
+    orderByDirection,
   } = props
 
   const selectedCountries = !Objects.isEmpty(countries)
@@ -88,6 +108,8 @@ export const getMany = async (
     )`)
   }
 
+  const order = _getOrderClause(orderBy, orderByDirection)
+
   const query = `
       select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
       from public.users u
@@ -96,7 +118,7 @@ export const getMany = async (
       and
       `)}
       group by ${selectFields}
-      order by concat(u.props->'name', ' ', u.props->'surname')
+                   ${order}
                    ${limit ? `limit ${limit}` : ''}
                    ${offset ? `offset ${offset}` : ''}
   `

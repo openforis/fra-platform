@@ -1,9 +1,7 @@
 @import 'src/client/style/partials';
 
 .user-counts__container {
-  border-top: 1px solid $text-heading;
-  padding: $font-xs;
-  margin-top: -1px;
+  padding: $spacing-xs $spacing-xxs $spacing-xxs;
 }
 
 .user-counts__item {
