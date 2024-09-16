@@ -1,22 +1,24 @@
 module.exports = {
   noData: 'Данные отсутствуют',
   rowName: {
+    area: 'Площадь',
+    forest: 'Леса',
     forestArea: 'Площадь лесов',
-    naturalForestArea: 'Естественно возобновляемые леса',
+    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'Площадь земель',
     primaryForest: '$t(specificForestCategories.primaryForest)',
     otherArea: ' Прочие площади',
     otherForest: 'Прочие леса',
-    private_ownership: '$t(forestOwnership.privateOwnership)',
-    public_ownership: '$t(forestOwnership.publicOwnership)',
+    private_ownership: 'Частная собственность',
+    public_ownership: 'Государственная собственность',
     other: '$t(common.other)',
     unknown: '$t(fra.forestOwnership.unknown2025)',
     other_or_unknown: 'Другое или неизвестно',
   },
   forestArea: {
-    title: 'Площадь лесов ({{startYear}} - {{endYear}})',
+    title: 'Площадь лесов ({{startYear}} - {{endYear}}), $t({{unit}})',
   },
   carbonAndGrowingStock: {
     title: 'Запасы древостоя и углерода в лесах ({{startYear}} - {{endYear}})',
@@ -26,13 +28,13 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'Площадь лесов % от площади суши ({{year}})',
+    title: 'Площадь лесов в % от общей площади земель, {{year}}',
   },
   primaryForest: {
-    title: 'Девственные леса % от площади лесов ({{year}})',
+    title: 'Девственные леса % от площади лесов, {{year}}',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) ({{year}})',
+    title: '$t(forestOwnership.forestOwnership) %, {{year}}',
     public: 'Государственная',
     private: 'Частная',
   },
@@ -50,6 +52,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices) ($t({{unit}}))',
   },
   naturallyRegeneratingForest: {
-    title: 'Площадь естественно возобновляемых лесов и лесных культур ({{startYear}} - {{endYear}})',
+    title: 'Площадь естественно возобновляемых лесов и лесных культур ({{startYear}} - {{endYear}}), $t({{unit}})',
   },
 }
