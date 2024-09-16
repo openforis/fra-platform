@@ -22,7 +22,7 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): D
     {
       id: 1,
       variableName,
-      label: { key: `statisticalFactsheets.rowName.forestAreaWithinProtectedAreas` },
+      label: { key: `statisticalFactsheets.rowName.protected` },
       calculateFn: `${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
       // calculateFn: `100 * ${tableName}.${variableName} / ${TableNames.extentOfForest}.forestArea`,
       calculationDependencies: [
@@ -33,7 +33,7 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): D
     {
       id: 2,
       variableName: 'forestArea',
-      label: { key: `statisticalFactsheets.rowName.forestArea` },
+      label: { key: `statisticalFactsheets.rowName.other` },
       calculateFn: `${TableNames.extentOfForest}.forestArea ${region ? '/ 1000' : ''} - ${tableName}.${variableName} ${
         region ? '/ 1000' : ''
       }`,

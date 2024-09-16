@@ -19,7 +19,7 @@ const rowMetadata = (region: boolean): RowsMetadata => [
   {
     id: 1,
     variableName: 'forestArea',
-    label: { key: `statisticalFactsheets.rowName.forestArea` },
+    label: { key: `statisticalFactsheets.rowName.forest` },
     calculateFn: `${tableName}.forestArea ${region ? '/ 1000' : ''}`,
     // calculateFn: `100 * (${tableName}.forestArea / ${tableName}.totalLandArea)`,
     calculationDependencies: [

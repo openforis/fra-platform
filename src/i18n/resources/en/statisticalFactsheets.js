@@ -3,8 +3,6 @@ module.exports = {
   rowName: {
     area: 'Area',
     forest: 'Forest',
-    forestArea: 'Forest area',
-    forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'Land area',
     naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     other: '$t(common.other)',

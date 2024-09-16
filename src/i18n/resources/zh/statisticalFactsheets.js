@@ -3,8 +3,6 @@ module.exports = {
   rowName: {
     area: '面积',
     forest: '森林',
-    forestArea: '森林面积',
-    forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: '土地面积',
     naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     other: '$t(common.other)',

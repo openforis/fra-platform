@@ -21,7 +21,7 @@ const rowMetadata = (region: boolean): RowsMetadata => [
   {
     id: 1,
     variableName: 'forestArea',
-    label: { key: `statisticalFactsheets.rowName.forestArea` },
+    label: { key: `statisticalFactsheets.rowName.area` },
     calculateFn: `${tableName}.forestArea ${region ? '/ 1000' : ''}`,
     calculationDependencies: [{ tableName, variableName: 'forestArea' }],
   },
