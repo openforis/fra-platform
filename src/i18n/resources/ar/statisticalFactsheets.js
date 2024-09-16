@@ -1,7 +1,7 @@
 module.exports = {
   noData: 'لا توجد بيانات متاحة',
   rowName: {
-    Area: 'المساحة',
+    area: 'المساحة',
     forest: 'الغابة',
     forestArea: 'مساحة الغابة',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
@@ -14,14 +14,15 @@ module.exports = {
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     primaryForest: '$t(specificForestCategories.primaryForest)',
     private_ownership: 'الخاصة',
+    protected: 'المحمية',
     public_ownership: 'العامة',
     unknown: '$t(fra.forestOwnership.unknown2025)',
   },
   forestArea: {
-    title: 'مساحة الغابات ({{startYear}} - {{endYear}}), $t({{unit}})',
+    title: 'مساحة الغابات ,{{startYear}} - {{endYear}}, $t({{unit}})',
   },
   carbonAndGrowingStock: {
-    title: 'مخزون وكربون الأشجار الحية في الغابات ({{startYear}} - {{endYear}})',
+    title: 'مخزون وكربون الأشجار الحية في الغابات ,{{startYear}} - {{endYear}}',
     rowName: '',
     carbon_stock_biomass_total: 'مخزون الكربون في الكتلة الحيوية($t({{unit}}))',
     carbon_stock_total: 'إجمالي مخزون الكربون($t({{unit}})) ',
@@ -43,7 +44,7 @@ module.exports = {
   },
   primaryDesignatedManagementObjective: {
     title:
-      '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}}), $t({{unit}})',
+      '$t(designatedManagementObjective.primaryDesignatedManagementObjective), {{startYear}} - {{endYear}}, $t({{unit}})',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -53,6 +54,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'مساحة الغابات المتجددة طبيعياً والمزروعة ({{startYear}} - {{endYear}}), $t({{unit}})',
+    title: 'مساحة الغابات المتجددة طبيعياً والمزروعة ,{{startYear}} - {{endYear}}, $t({{unit}})',
   },
 }

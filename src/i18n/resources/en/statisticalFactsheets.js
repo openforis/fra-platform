@@ -3,26 +3,26 @@ module.exports = {
   rowName: {
     area: 'Area',
     forest: 'Forest',
-    protected: 'Protected',
     forestArea: 'Forest area',
-    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
-    plantedForest: '$t(forestCharacteristics.plantedForest)',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'Land area',
-    primaryForest: '$t(specificForestCategories.primaryForest)',
+    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
+    other: '$t(common.other)',
     otherArea: 'Other area',
     otherForest: 'Other forest',
-    private_ownership: 'Private',
-    public_ownership: 'Public',
-    other: '$t(common.other)',
-    unknown: '$t(fra.forestOwnership.unknown2025)',
     other_or_unknown: 'Other or unknown',
+    plantedForest: '$t(forestCharacteristics.plantedForest)',
+    primaryForest: '$t(specificForestCategories.primaryForest)',
+    private_ownership: 'Private',
+    protected: 'Protected',
+    public_ownership: 'Public',
+    unknown: '$t(fra.forestOwnership.unknown2025)',
   },
   forestArea: {
-    title: 'Forest Area ({{startYear}} - {{endYear}}), $t({{unit}})',
+    title: 'Forest Area, {{startYear}} - {{endYear}}, $t({{unit}})',
   },
   carbonAndGrowingStock: {
-    title: 'Forest growing stock and carbon ({{startYear}} - {{endYear}})',
+    title: 'Forest growing stock and carbon, {{startYear}} - {{endYear}}',
     rowName: '',
     carbon_stock_biomass_total: 'Carbon stock in biomass ($t({{unit}}))',
     carbon_stock_total: 'Total carbon stock ($t({{unit}}))',
@@ -40,11 +40,11 @@ module.exports = {
     private: 'Private',
   },
   forestAreaWithinProtectedAreas: {
-    title: 'Forest area within protected areas {{year}} (% of forest area)',
+    title: 'Forest area within protected areas, {{year}}, % of forest area',
   },
   primaryDesignatedManagementObjective: {
     title:
-      '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}}), $t({{unit}})',
+      '$t(designatedManagementObjective.primaryDesignatedManagementObjective), {{startYear}} - {{endYear}}, $t({{unit}})',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -54,6 +54,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Naturally regenerated and planted forest area ({{startYear}} - {{endYear}}), $t({{unit}})',
+    title: 'Naturally regenerated and planted forest area, {{startYear}} - {{endYear}}, $t({{unit}})',
   },
 }

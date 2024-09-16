@@ -4,24 +4,25 @@ module.exports = {
     area: 'Área',
     forest: 'Bosque',
     forestArea: 'Área forestal',
-    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
-    plantedForest: '$t(forestCharacteristics.plantedForest)',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'Superficie de la terra',
-    primaryForest: '$t(specificForestCategories.primaryForest)',
+    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
+    other: '$t(common.other)',
     otherArea: 'Otras tierras',
     otherForest: 'Otros bosques',
-    private_ownership: 'Privado',
-    public_ownership: 'Público',
-    other: '$t(common.other)',
-    unknown: '$t(fra.forestOwnership.unknown2025)',
     other_or_unknown: 'Desconocidas/otras',
+    plantedForest: '$t(forestCharacteristics.plantedForest)',
+    primaryForest: '$t(specificForestCategories.primaryForest)',
+    private_ownership: 'Privado',
+    protected: 'Protegida',
+    public_ownership: 'Público',
+    unknown: '$t(fra.forestOwnership.unknown2025)',
   },
   forestArea: {
-    title: 'Área forestal ({{startYear}} - {{endYear}}), $t({{unit}})s',
+    title: 'Área forestal, {{startYear}} - {{endYear}}, $t({{unit}})s',
   },
   carbonAndGrowingStock: {
-    title: 'Existencias en formación y carbono en los bosques ({{startYear}} - {{endYear}})',
+    title: 'Existencias en formación y carbono en los bosques, {{startYear}} - {{endYear}}',
     rowName: '',
     carbon_stock_biomass_total: 'Carbono en la biomasa ($t({{unit}}))',
     carbon_stock_total: 'Total de carbono ($t({{unit}}))',
@@ -39,11 +40,11 @@ module.exports = {
     private: 'Privada',
   },
   forestAreaWithinProtectedAreas: {
-    title: '$t(forestAreaWithinProtectedAreas.header) ({{year}})',
+    title: '$t(forestAreaWithinProtectedAreas.header), {{year}}',
   },
   primaryDesignatedManagementObjective: {
     title:
-      '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}}), $t({{unit}})',
+      '$t(designatedManagementObjective.primaryDesignatedManagementObjective), {{startYear}} - {{endYear}}, $t({{unit}})',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -54,6 +55,6 @@ module.exports = {
   },
   naturallyRegeneratingForest: {
     title:
-      'Área de bosque con procesos de regeneración natural y bosque plantado ({{startYear}} - {{endYear}}), $t({{unit}})',
+      'Área de bosque con procesos de regeneración natural y bosque plantado, {{startYear}} - {{endYear}}, $t({{unit}})',
   },
 }
