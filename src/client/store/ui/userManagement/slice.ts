@@ -1,8 +1,9 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
+import { RoleName, UserRole } from 'meta/user'
+
 import {
   getUsers,
-  getUsersCount,
   getUserToEdit,
   inviteUser,
   removeInvitation,
@@ -16,14 +17,6 @@ import {
 import { UserManagementState } from './stateType'
 
 const initialState: UserManagementState = {
-  count: {
-    totals: 0,
-  },
-  filters: {
-    countries: [],
-    fullName: '',
-    roles: [],
-  },
   user: null,
   users: [],
 }
@@ -35,17 +28,8 @@ export const userManagementSlice = createSlice({
     setUsers: (state, { payload }) => {
       state.users = payload
     },
-    setUsersCount: (state, { payload }) => {
-      state.count = payload
-    },
     setUserToEdit: (state, { payload }) => {
       state.user = payload
-    },
-    updateFilters: (state, { payload }) => {
-      state.filters = { ...state.filters, ...payload }
-    },
-    resetFilters: (state) => {
-      state.filters = { countries: [], fullName: '', roles: [] }
     },
   },
   extraReducers: (builder) => {
@@ -68,7 +52,7 @@ export const userManagementSlice = createSlice({
     })
 
     builder.addCase(updateSectionAuth.fulfilled, (state, { payload }) => {
-      state.user.roles[0] = payload
+      state.user.roles[0] = payload as UserRole<RoleName.COLLABORATOR>
     })
 
     builder.addCase(updateUser.fulfilled, (state, { meta }) => {
@@ -89,7 +73,6 @@ export const userManagementSlice = createSlice({
 export const UserManagementActions = {
   ...userManagementSlice.actions,
   getUsers,
-  getUsersCount,
   getUserToEdit,
   inviteUser,
   removeInvitation,
