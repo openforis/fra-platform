@@ -1,22 +1,24 @@
 module.exports = {
   noData: 'لا توجد بيانات متاحة',
   rowName: {
+    Area: 'المساحة',
+    forest: 'الغابة',
     forestArea: 'مساحة الغابة',
     forestAreaWithinProtectedAreas: '$t(forestAreaWithinProtectedAreas.header)',
     landArea: 'مساحة الأرض',
-    naturalForestArea: 'غابة متجددة طبيعياً',
+    naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     other: '$t(common.other)',
     otherArea: 'منطقة أخرى',
     otherForest: 'غابة أخرى',
     other_or_unknown: 'أخرى أو مجهولة',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     primaryForest: '$t(specificForestCategories.primaryForest)',
-    private_ownership: '$t(forestOwnership.privateOwnership)',
-    public_ownership: '$t(forestOwnership.publicOwnership)',
+    private_ownership: 'الخاصة',
+    public_ownership: 'العامة',
     unknown: '$t(fra.forestOwnership.unknown2025)',
   },
   forestArea: {
-    title: 'مساحة الغابات ({{startYear}} - {{endYear}})',
+    title: 'مساحة الغابات ({{startYear}} - {{endYear}}), $t({{unit}})',
   },
   carbonAndGrowingStock: {
     title: 'مخزون وكربون الأشجار الحية في الغابات ({{startYear}} - {{endYear}})',
@@ -26,13 +28,13 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'النسبة المئوية لمساحة الغابة إلى إجمالي مساحة الأرض ({{year}})',
+    title: 'مساحة الغابات كنسبة مئوية من إجمالي مساحة الأراضي، {{year}}',
   },
   primaryForest: {
-    title: 'النسبة المئوية للغابة البكر إلى مساحة الغابات ({{year}}) ',
+    title: 'النسبة المئوية للغابة البكر إلى مساحة الغابات , {{year}} ',
   },
   forestOwnership: {
-    title: '$t(forestOwnership.forestOwnership) ({{year}})',
+    title: '$t(forestOwnership.forestOwnership) %, {{year}}',
     public: 'عامة',
     private: 'خاصة',
   },
@@ -40,16 +42,17 @@ module.exports = {
     title: 'مساحة الغابة ضمن المناطق المحمية {{year}} (% من مساحة الغابة)',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}})',
+    title:
+      '$t(designatedManagementObjective.primaryDesignatedManagementObjective) ({{startYear}} - {{endYear}}), $t({{unit}})',
     rowName: '',
-    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation) ($t({{unit}}))',
-    multiple_use: '$t(designatedManagementObjective.multipleUse) ($t({{unit}}))',
-    other: '$t(common.other) ($t({{unit}}))',
-    production: '$t(designatedManagementObjective.production) ($t({{unit}}))',
-    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection) ($t({{unit}}))',
-    social_services: '$t(designatedManagementObjective.socialServices) ($t({{unit}}))',
+    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
+    multiple_use: '$t(designatedManagementObjective.multipleUse)',
+    other: '$t(common.other)',
+    production: '$t(designatedManagementObjective.production)',
+    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
+    social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'مساحة الغابات المتجددة طبيعياً والمزروعة ({{startYear}} - {{endYear}})',
+    title: 'مساحة الغابات المتجددة طبيعياً والمزروعة ({{startYear}} - {{endYear}}), $t({{unit}})',
   },
 }
