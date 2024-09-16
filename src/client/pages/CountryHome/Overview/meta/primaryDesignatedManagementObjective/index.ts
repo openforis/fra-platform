@@ -39,7 +39,11 @@ export const primaryDesignatedManagementObjectiveDashboard = (cycle: Cycle, regi
   type: DashboardItemType.table,
   title: {
     key: 'statisticalFactsheets.primaryDesignatedManagementObjective.title',
-    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
+    params: {
+      startYear: cols[cycle.name].at(0),
+      endYear: cols[cycle.name].at(-1),
+      unit: region ? 'unit.haMillion' : 'unit.haThousand',
+    },
   },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
 })

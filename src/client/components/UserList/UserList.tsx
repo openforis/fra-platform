@@ -3,9 +3,6 @@ import React from 'react'
 
 import { User } from 'meta/user'
 
-import { useIsAdminRoute } from 'client/hooks'
-
-import AdministrationListElement from './AdministrationListElement'
 import CollaboratorListElement from './CollaboratorListElement'
 import UserListEmpty from './UserListEmpty'
 import UserListHeader from './UserListHeader'
@@ -17,7 +14,6 @@ type Props = {
 
 const UserList: React.FC<Props> = (props) => {
   const { users, readOnly } = props
-  const isAdminRoute = useIsAdminRoute()
 
   if (!users.length) return <UserListEmpty />
 
@@ -25,13 +21,9 @@ const UserList: React.FC<Props> = (props) => {
     <table className="user-list__table">
       <UserListHeader readOnly={readOnly} />
       <tbody>
-        {users.map((user: User) =>
-          isAdminRoute ? (
-            <AdministrationListElement key={user.id} user={user} />
-          ) : (
-            <CollaboratorListElement readOnly={readOnly} key={user.id} user={user} />
-          )
-        )}
+        {users.map((user: User) => (
+          <CollaboratorListElement key={user.id} readOnly={readOnly} user={user} />
+        ))}
       </tbody>
     </table>
   )
