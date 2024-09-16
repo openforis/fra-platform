@@ -14,7 +14,10 @@ type Props = {
   roles?: Array<RoleName>
 }
 
-export const count = async (props: Props, client: BaseProtocol = DB): Promise<{ totals: number }> => {
+type Returned = {
+  total: number
+} & Record<RoleName, number>
+export const count = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { assessment, cycle, countries, fullName, roles } = props
 
   const conditions: Array<string> = []
@@ -24,7 +27,7 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<{ 
   if (!Objects.isEmpty(roles)) conditions.push(`ur.role in (${roles.map((roleName) => `'${roleName}'`).join(',')})`)
 
   if (!Objects.isEmpty(fullName))
-    conditions.push(`and concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
+    conditions.push(`concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
 
   const getQuery = (groupByRole?: boolean): string => {
     return `select count(distinct (u.id)) as totals
@@ -43,12 +46,12 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<{ 
                       select jsonb_object_agg(counts.role, counts.totals) as result
                       from counts`
 
-  const totals = await client.one<number>(queryTotals, [assessment.id, cycle.uuid], ({ totals }) => totals)
+  const total = await client.one<number>(queryTotals, [assessment.id, cycle.uuid], ({ totals }) => totals)
   const roleTotals = await client.one<Record<RoleName, number>>(
     queryRoles,
     [assessment.id, cycle.uuid],
     ({ result }) => result
   )
 
-  return { totals, ...roleTotals }
+  return { total, ...roleTotals }
 }
