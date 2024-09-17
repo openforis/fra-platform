@@ -8,6 +8,7 @@ module.exports = {
     other: '$t(common.other)',
     otherArea: '其他面积',
     otherForest: '其他森林',
+    otherLand: '$t(fraClass.otherLand)',
     other_or_unknown: '其他或未知',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     primaryForest: '$t(specificForestCategories.primaryForest)',
