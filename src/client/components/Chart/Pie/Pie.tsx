@@ -18,7 +18,7 @@ const Pie = (props: Props) => {
   const { data } = props
 
   const { t } = useTranslation()
-  const totalValue = useMemo(() => data.reduce((sum, entry) => sum + entry.value, 0), [data])
+  const totalValue = useMemo(() => data.reduce((sum, entry) => sum + entry.value || 0, 0), [data])
 
   return (
     <ResponsiveContainer height={300} width="100%">
