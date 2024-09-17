@@ -13,9 +13,10 @@ let migrationSteps: Array<string>
 let previousMigrations: Array<string> = []
 const executedMigrations: Array<string> = []
 
-// TODO: Move to migration step / schema initialisation
 const tableDDL = `
-    create table if not exists public.migrations (
+    create schema if not exists migrations;
+
+    create table if not exists migrations.public (
       id serial primary key,
       name character varying(255) unique not null,
       run_on timestamp without time zone not null default now()
@@ -24,7 +25,7 @@ const tableDDL = `
 
 const init = async () => {
   await client.query(tableDDL)
-  previousMigrations = await client.map('select * from migrations', [], (row) => row.name)
+  previousMigrations = await client.map('select * from migrations.public', [], (row) => row.name)
   migrationSteps = fs
     .readdirSync(path.join(__dirname, `steps`))
     .filter((file) => file !== 'template.ts' && file.endsWith('.ts') && !previousMigrations.includes(file))
@@ -52,7 +53,7 @@ const exec = async () => {
 
   if (!process.argv.includes('--watch')) {
     await Promises.each(executedMigrations, async (file) => {
-      await client.query('insert into migrations (name) values ($1)', [file])
+      await client.query('insert into migrations.public (name) values ($1)', [file])
     })
   }
 
