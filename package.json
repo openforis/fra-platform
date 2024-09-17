@@ -191,7 +191,7 @@
     "dotenv": "^16.0.0",
     "downshift": "^6.1.12",
     "emoji-mart-lite": "^0.6.1",
-    "express": "^4.17.3",
+    "express": "^4.20.0",
     "express-queue": "^0.0.13",
     "express-session": "^1.17.2",
     "express-validator": "^6.14.2",
