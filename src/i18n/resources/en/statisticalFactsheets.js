@@ -7,6 +7,7 @@ module.exports = {
     naturalForestArea: '$t(forestCharacteristics.naturalForestArea)',
     other: '$t(common.other)',
     otherArea: 'Other area',
+    otherLand: 'Other land',
     otherForest: 'Other forest',
     other_or_unknown: 'Other or unknown',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
@@ -27,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'Forest area as a % of total land area, {{year}}',
+    title: 'Forest area % of land area, {{year}}',
   },
   primaryForest: {
     title: 'Primary forest % of forest area, {{year}}',
