@@ -12,7 +12,7 @@ import { fields } from './fields'
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
-type Props = {
+export type UsersGetManyProps = {
   assessment?: Assessment
   cycle?: Cycle
   countryIso?: CountryIso
@@ -30,6 +30,8 @@ type Props = {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
+type BuildQueryReturned = { query: string; queryParams: Array<string | number> }
+
 const _getOrderClause = (
   orderBy: string | undefined,
   orderByDirection: TablePaginatedOrderByDirection | undefined
@@ -45,7 +47,7 @@ const _getOrderClause = (
   return `order by ${orderBy} ${direction}`
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<User>> => {
+export const usersBuildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned => {
   const {
     countryIso,
     assessment,
@@ -71,11 +73,11 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
 
   if (administrators) {
     whereConditions.push(`(
-    (ur.assessment_id = $1
-    and ur.cycle_uuid = $2
-    and ((accepted_at is not null and invited_at is not null) or invited_at is null)
-    )
-   or (ur.role = '${RoleName.ADMINISTRATOR}')
+      (ur.assessment_id = $1
+      and ur.cycle_uuid = $2
+      and ((accepted_at is not null and invited_at is not null) or invited_at is null)
+      )
+     or (ur.role = '${RoleName.ADMINISTRATOR}')
     )`)
   } else {
     whereConditions.push('ur.assessment_id = $1')
@@ -100,30 +102,36 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
 
   if (countryIso) {
     whereConditions.push(`u.id in (
-    select user_id
-    from public.users_role
-    where assessment_id = $1
-      and cycle_uuid = $2
-      and country_iso = $3
+      select user_id
+      from public.users_role
+      where assessment_id = $1
+        and cycle_uuid = $2
+        and country_iso = $3
     )`)
   }
 
   const order = _getOrderClause(orderBy, orderByDirection)
 
   const query = `
-      select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
-      from public.users u
-               join public.users_role ur on (u.id = ur.user_id)
-      where ${whereConditions.join(`
-      and
-      `)}
-      group by ${selectFields}
-                   ${order}
-                   ${limit ? `limit ${limit}` : ''}
-                   ${offset ? `offset ${offset}` : ''}
+    select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
+    from public.users u
+    join public.users_role ur on (u.id = ur.user_id)
+    where ${whereConditions.join(`
+    and
+    `)}
+    group by ${selectFields}
+    ${order}
+    ${limit ? `limit ${limit}` : ''}
+    ${offset ? `offset ${offset}` : ''}
   `
 
   const queryParams = countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
+
+  return { query, queryParams }
+}
+
+export const getMany = async (props: UsersGetManyProps, client: BaseProtocol = DB): Promise<Array<User>> => {
+  const { query, queryParams } = usersBuildGetManyQuery(props)
 
   return client.manyOrNone<User>(query, queryParams).then((data) =>
     data.map(({ roles, ...user }) => ({

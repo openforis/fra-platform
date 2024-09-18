@@ -2,49 +2,21 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
 import { Lang } from 'meta/lang'
 import { RoleName, User, Users } from 'meta/user'
 
 import { UserRoleAdapter } from 'server/repository/adapter'
+import { usersBuildGetManyQuery, UsersGetManyProps } from 'server/repository/public/user'
 import { ExportService } from 'server/service/export'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
+type Props = UsersGetManyProps & {
   lang: Lang
 }
 
 export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableStream> => {
-  const { assessment, cycle, lang } = props
+  const { lang } = props
 
-  const query = `
-    select u.id,
-           u.email,
-           u.props,
-           u.status,
-           u.uuid,
-           jsonb_agg(to_jsonb(ur.*) - 'props') as roles
-    from public.users u
-    join public.users_role ur on (u.id = ur.user_id)
-    where 
-    (
-      ( ur.assessment_id = $1
-        and ur.cycle_uuid = $2
-        and ((accepted_at is not null and invited_at is not null) or invited_at is null)
-       )
-      or (ur.role = '${RoleName.ADMINISTRATOR}')
-    )
-      and u.status in ('active','disabled','invitationPending')
-    group by u.id,
-             u.email,
-             u.props,
-             u.status,
-             u.uuid
-    order by concat(u.props->'name', ' ', u.props->'surname') asc
-  `
-
-  const queryValues = [assessment.id, cycle.uuid]
+  const { query, queryParams } = usersBuildGetManyQuery(props)
 
   const i18n = await createI18nPromise(lang)
   const nameHeader = i18n.t('common.name')
@@ -94,5 +66,5 @@ export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableSt
     return rowData
   }
 
-  return ExportService.queryToCsvStream({ query, queryValues, rowTransformer })
+  return ExportService.queryToCsvStream({ query, queryParams, rowTransformer })
 }

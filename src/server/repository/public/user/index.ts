@@ -2,7 +2,7 @@ import { count } from './count'
 import { create } from './create'
 import { getAdmins } from './getAdmins'
 import { getContacts } from './getContacts'
-import { getMany } from './getMany'
+import { getMany, usersBuildGetManyQuery, UsersGetManyProps } from './getMany'
 import { getOne } from './getOne'
 import { getProfilePicture } from './getProfilePicture'
 import { readCountryUsersByRole } from './readCountryUsersByRole'
@@ -21,3 +21,6 @@ export const UserRepository = {
   remove,
   readCountryUsersByRole,
 }
+
+export type { UsersGetManyProps }
+export { usersBuildGetManyQuery }
