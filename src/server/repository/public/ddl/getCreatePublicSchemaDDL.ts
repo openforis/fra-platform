@@ -91,19 +91,6 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
     create index if not exists idx_activity_log_cycle_message on ${schemaName}.activity_log using btree (cycle_uuid, message);
     create index if not exists idx_activity_log_filtering on ${schemaName}.activity_log using btree (assessment_uuid, cycle_uuid, country_iso, message, time);
 
-    create table if not exists ${schemaName}.migration_steps (
-      id serial primary key,
-      name character varying(255) not null unique,
-      run_on timestamp without time zone not null default now()
-    );
-
-    -- This table is created separately, but left here for consistency
-    create table if not exists ${schemaName}.migrations (
-      id serial primary key,
-      name character varying(255) not null,
-      run_on timestamp without time zone not null default now()
-    );
-
     create table if not exists ${schemaName}.region (
       region_code text primary key not null,
       name text

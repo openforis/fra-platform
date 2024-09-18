@@ -1,4 +1,5 @@
 import * as pgPromise from 'pg-promise'
+import { tableMigrationsPublicDDL } from 'tools/migrations/public/tableMigrationsPublicDDL'
 
 import { BaseProtocol, DB } from 'server/db'
 
@@ -15,19 +16,15 @@ export default async () => {
   const pgp = pgPromise()
   // DROP CONTENT
   await client.query(`
-    truncate table public.migrations;
+    drop table if exists public.migrations;
   `)
 
-  // UPDATE DDL
-  await client.query(`
-    alter table migrations
-    alter column run_on set default now(),
-    alter column run_on type timestamp without time zone
-  `)
+  // INIT TABLE
+  await client.query(tableMigrationsPublicDDL)
 
   // INSERT
   const cs = new pgp.helpers.ColumnSet(['name'], {
-    table: { table: 'migrations', schema: 'public' },
+    table: { table: 'public', schema: 'migrations' },
   })
 
   const query = `${pgp.helpers.insert(values, cs)}`

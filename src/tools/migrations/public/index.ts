@@ -3,6 +3,7 @@ import 'dotenv/config'
 
 import * as fs from 'fs'
 import * as path from 'path'
+import { tableMigrationsPublicDDL } from 'tools/migrations/public/tableMigrationsPublicDDL'
 import { Promises } from 'utils/promises'
 
 import { DB } from 'server/db'
@@ -13,18 +14,9 @@ let migrationSteps: Array<string>
 let previousMigrations: Array<string> = []
 const executedMigrations: Array<string> = []
 
-// TODO: Move to migration step / schema initialisation
-const tableDDL = `
-    create table if not exists public.migrations (
-      id serial primary key,
-      name character varying(255) unique not null,
-      run_on timestamp without time zone not null default now()
-    );
-`
-
 const init = async () => {
-  await client.query(tableDDL)
-  previousMigrations = await client.map('select * from migrations', [], (row) => row.name)
+  await client.query(tableMigrationsPublicDDL)
+  previousMigrations = await client.map('select * from migrations.public', [], (row) => row.name)
   migrationSteps = fs
     .readdirSync(path.join(__dirname, `steps`))
     .filter((file) => file !== 'template.ts' && file.endsWith('.ts') && !previousMigrations.includes(file))
@@ -52,7 +44,7 @@ const exec = async () => {
 
   if (!process.argv.includes('--watch')) {
     await Promises.each(executedMigrations, async (file) => {
-      await client.query('insert into migrations (name) values ($1)', [file])
+      await client.query('insert into migrations.public (name) values ($1)', [file])
     })
   }
 
