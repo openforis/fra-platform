@@ -28,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'Superficie de forêt en % de la superficie totale des terres, {{year}}',
+    title: 'Superficie de forêt  % de la superficie des terres, {{year}}',
   },
   primaryForest: {
     title: 'Forêt primaire en % de la superficie forestière, {{year}}',

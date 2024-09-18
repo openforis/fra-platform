@@ -28,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: '{{year}}年森林面积占土地总面积的百分比',
+    title: '{{year}}年森林占土地面积的百分比',
   },
   primaryForest: {
     title: '原始林占森林面积百分比, {{year}}',

@@ -28,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'مساحة الغابات كنسبة مئوية من إجمالي مساحة الأراضي، {{year}}',
+    title: ' نسبة مساحة الغابات من إجمالي مساحة الأرض، {{year}}',
   },
   primaryForest: {
     title: 'النسبة المئوية للغابة البكر إلى مساحة الغابات , {{year}} ',
