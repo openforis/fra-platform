@@ -5,7 +5,6 @@ import { UsersRequest } from 'meta/api/request'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
-import { Responses } from 'server/utils/responses'
 
 export const exportUsers = async (req: UsersRequest, res: Response) => {
   try {
@@ -16,9 +15,20 @@ export const exportUsers = async (req: UsersRequest, res: Response) => {
     const fileName = `users-${assessment.props.name}-${cycle.name}.csv`
     const user = Requests.getUser(req)
     const { lang } = user.props
-    const fileBuffer = await UserController.exportToCsv({ assessment, cycle, lang })
 
-    Responses.sendFile(res, fileName, fileBuffer)
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
+    res.setHeader('Content-Type', 'text/csv')
+
+    const csvStream = await UserController.exportToCsvStream({ assessment, cycle, lang })
+    csvStream
+      .on('error', (err) => {
+        Requests.sendErr(res, err)
+      })
+      .pipe(res)
+      .on('error', (err) => {
+        Requests.sendErr(res, err)
+      })
+      .on('finish', res.end)
   } catch (e) {
     Requests.sendErr(res, e)
   }

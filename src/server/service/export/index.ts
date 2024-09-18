@@ -1,5 +1,5 @@
-import { queryToCsv } from './queryToCsv'
+import { queryToCsvStream } from './queryToCsvStream'
 
 export const ExportService = {
-  queryToCsv,
+  queryToCsvStream,
 }

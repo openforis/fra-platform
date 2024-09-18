@@ -15,7 +15,7 @@ type Props = {
   lang: Lang
 }
 
-export const exportToCsv = async (props: Props): Promise<Buffer> => {
+export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableStream> => {
   const { assessment, cycle, lang } = props
 
   const query = `
@@ -94,5 +94,5 @@ export const exportToCsv = async (props: Props): Promise<Buffer> => {
     return rowData
   }
 
-  return ExportService.queryToCsv({ query, queryValues, rowTransformer })
+  return ExportService.queryToCsvStream({ query, queryValues, rowTransformer })
 }

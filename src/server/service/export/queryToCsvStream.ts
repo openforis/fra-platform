@@ -1,5 +1,5 @@
 import QueryStream = require('pg-query-stream')
-import { Transform } from 'stream'
+import { pipeline, Transform } from 'stream'
 import * as fastCsv from 'fast-csv'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -10,25 +10,13 @@ type Props = {
   rowTransformer?: (row: any) => Record<string, string>
 }
 
-export const queryToCsv = (props: Props, client: BaseProtocol = DB): Promise<Buffer> => {
+export const queryToCsvStream = (props: Props, client: BaseProtocol = DB): Promise<NodeJS.ReadableStream> => {
   const { query, queryValues, rowTransformer } = props
 
   return new Promise((resolve, reject) => {
     const queryStream = new QueryStream(query, queryValues)
 
-    const chunks: Buffer[] = []
-
-    const csvStream = fastCsv
-      .format({ headers: true })
-      .on('data', (chunk) => {
-        chunks.push(Buffer.from(chunk))
-      })
-      .on('end', () => {
-        resolve(Buffer.concat(chunks))
-      })
-      .on('error', (err) => {
-        reject(new Error(`Error during CSV streaming: ${err.message}`))
-      })
+    const csvStream = fastCsv.format({ headers: true })
 
     let transformStream: Transform | null = null
     if (rowTransformer) {
@@ -39,26 +27,21 @@ export const queryToCsv = (props: Props, client: BaseProtocol = DB): Promise<Buf
             const transformedRow = rowTransformer(row)
             callback(null, transformedRow)
           } catch (error) {
-            callback(error)
+            callback(new Error(`Error during row transformation: ${error.message}`))
           }
         },
-      })
-
-      transformStream.on('error', (error) => {
-        reject(new Error(`Error during row transformation: ${error.message}`))
       })
     }
 
     client
       .stream(queryStream, (stream) => {
-        stream.on('error', (error) => {
-          reject(new Error(`Error during query streaming: ${error.message}`))
-        })
-
+        // pipeline requires a cb function to be passed, even if it does nothing.
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        const pipelineCallBack = (_err: NodeJS.ErrnoException) => {}
         if (transformStream) {
-          stream.pipe(transformStream).pipe(csvStream)
+          resolve(pipeline(stream, transformStream, csvStream, pipelineCallBack))
         } else {
-          stream.pipe(csvStream)
+          resolve(pipeline(stream, csvStream, pipelineCallBack))
         }
       })
       .catch(reject)
