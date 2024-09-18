@@ -33,7 +33,7 @@ export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableSt
     [RoleName.VIEWER]: i18n.t(Users.getI18nRoleLabelKey(RoleName.VIEWER)),
   }
 
-  const rowTransformer = (rawUser: any): Record<string, string> => {
+  const rowTransformer = (rawUser: User): Record<string, string> => {
     const { roles, ...user } = rawUser
     const userRow: User = {
       ...Objects.camelize(user),
@@ -52,7 +52,7 @@ export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableSt
       return roleCountries
     }
 
-    const name = Users.getFullName(user)
+    const name = Users.getFullName(userRow)
     const { email } = user
 
     const rowData: Record<string, string> = {
@@ -66,5 +66,5 @@ export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableSt
     return rowData
   }
 
-  return ExportService.queryToCsvStream({ query, queryParams, rowTransformer })
+  return ExportService.queryToCsvStream<User>({ query, queryParams, rowTransformer })
 }
