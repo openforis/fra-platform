@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CycleStatus } from 'meta/assessment'
+import { Cycles } from 'meta/assessment'
 import { Users } from 'meta/user'
 
 import { useAssessments } from 'client/store/assessment'
@@ -29,7 +29,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
         assessment.cycles.forEach((cycle) => {
           const hasRoleInAssessment = Users.hasRoleInAssessment({ user, assessment })
           const hasRoleInCycle = Users.hasRoleInCycle({ user, cycle })
-          const canViewCycle = (hasRoleInAssessment && cycle.props.status === CycleStatus.published) || hasRoleInCycle
+          const canViewCycle = (hasRoleInAssessment && Cycles.isPublished(cycle)) || hasRoleInCycle
 
           const assessmentName = assessment.props.name
           const cycleName = cycle.name

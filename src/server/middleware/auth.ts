@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
 import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
-import { Assessment, Cycle, CycleStatus } from 'meta/assessment'
+import { Assessment, Cycle, Cycles } from 'meta/assessment'
 import { MessageTopicStatus } from 'meta/messageCenter'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
@@ -187,11 +187,7 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
   const user = Requests.getUser(req)
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(
-    (print === 'true' && cycle.props.status === CycleStatus.published) ||
-      Authorizer.canViewUsers({ user, countryIso, cycle }),
-    next
-  )
+  _next((print === 'true' && Cycles.isPublished(cycle)) || Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
 const requireEditRepositoryItem = async (req: Request, _res: Response, next: NextFunction) => {

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Areas, Country, RegionCode } from 'meta/area'
-import { CycleStatus } from 'meta/assessment'
+import { Cycles } from 'meta/assessment'
 import { Users } from 'meta/user'
 
 import { useAppDispatch, useAppSelector } from 'client/store'
@@ -31,7 +31,7 @@ export const useDataExportCountries = (): Array<Country> => {
   // initialize data export countries
   if (Objects.isEmpty(countries)) {
     let countriesDataExport = countriesAll
-    if (cycle.props.status !== CycleStatus.published && !Users.isAdministrator(user)) {
+    if (Cycles.isPublished(cycle) && !Users.isAdministrator(user)) {
       countriesDataExport = countriesDataExport.filter((country) => userCountries.includes(country.countryIso))
     }
     if (Areas.isRegion(countryIso)) {
