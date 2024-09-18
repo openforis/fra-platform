@@ -8,6 +8,7 @@ module.exports = {
     other: '$t(common.other)',
     otherArea: 'Autre superficie',
     otherForest: 'Autre forêt',
+    otherLand: '$t(fraClass.otherLand)',
     other_or_unknown: 'Autre ou inconnu',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     primaryForest: '$t(specificForestCategories.primaryForest)',
@@ -27,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'Superficie de forêt en % de la superficie totale des terres, {{year}}',
+    title: 'Superficie de forêt  % de la superficie des terres, {{year}}',
   },
   primaryForest: {
     title: 'Forêt primaire en % de la superficie forestière, {{year}}',
@@ -48,6 +49,8 @@ module.exports = {
     production: '$t(designatedManagementObjective.production)',
     protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
     social_services: '$t(designatedManagementObjective.socialServices)',
+    unknown: '$t(fra.designatedManagementObjective.unknown2025)',
+    no_designation: '$t(fra.designatedManagementObjective.noDesignation)',
   },
   naturallyRegeneratingForest: {
     title: 'Superficie de forêt naturellement régénérée et plantée, {{startYear}} - {{endYear}}, $t({{unit}})',

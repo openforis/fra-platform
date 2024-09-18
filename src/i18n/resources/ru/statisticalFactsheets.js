@@ -8,6 +8,7 @@ module.exports = {
     other: '$t(common.other)',
     otherArea: ' Прочие площади',
     otherForest: 'Прочие леса',
+    otherLand: '$t(fraClass.otherLand)',
     other_or_unknown: 'Другое или неизвестно',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     primaryForest: '$t(specificForestCategories.primaryForest)',
@@ -27,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: 'Площадь лесов в % от общей площади земель, {{year}}',
+    title: 'Площадь лесов в % от площади земель, {{year}}',
   },
   primaryForest: {
     title: 'Девственные леса % от площади лесов, {{year}}',
@@ -39,14 +40,17 @@ module.exports = {
     title: '$t(forestAreaWithinProtectedAreas.header), {{year}}',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective), {{startYear}} - {{endYear}}',
+    title:
+      '$t(designatedManagementObjective.primaryDesignatedManagementObjective), {{startYear}} - {{endYear}} $t({{unit}})',
     rowName: '',
-    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation) ($t({{unit}}))',
-    multiple_use: '$t(designatedManagementObjective.multipleUse) ($t({{unit}}))',
-    other: '$t(common.other) ($t({{unit}}))',
-    production: '$t(designatedManagementObjective.production) ($t({{unit}}))',
-    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection) ($t({{unit}}))',
-    social_services: '$t(designatedManagementObjective.socialServices) ($t({{unit}}))',
+    conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
+    multiple_use: '$t(designatedManagementObjective.multipleUse)',
+    other: '$t(common.other)',
+    production: '$t(designatedManagementObjective.production)',
+    protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
+    social_services: '$t(designatedManagementObjective.socialServices)',
+    unknown: '$t(fra.designatedManagementObjective.unknown2025)',
+    no_designation: '$t(fra.designatedManagementObjective.noDesignation)',
   },
   naturallyRegeneratingForest: {
     title: 'Площадь естественно возобновляемых лесов и лесных культур, {{startYear}} - {{endYear}}, $t({{unit}})',

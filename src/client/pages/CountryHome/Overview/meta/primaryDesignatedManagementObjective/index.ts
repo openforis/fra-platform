@@ -9,7 +9,7 @@ const cols: Record<string, Array<string>> = {
   '2025': ['1990', '2000', '2010', '2020', '2025'],
 }
 
-const variables = [
+const baseVariables = [
   'production',
   'multiple_use',
   'conservation_of_biodiversity',
@@ -18,11 +18,16 @@ const variables = [
   'other',
 ]
 
+const variables: Record<string, Array<string>> = {
+  '2020': baseVariables,
+  '2025': [...baseVariables, 'no_designation', 'unknown'],
+}
+
 const tableName = 'primaryDesignatedManagementObjective'
 const tableId = 7
 
-const rowMetadata = (region: boolean): RowsMetadata =>
-  variables.map((variableName, i) => ({
+const rowMetadata = (cycle: Cycle, region: boolean): RowsMetadata =>
+  variables[cycle.name].map((variableName, i) => ({
     id: i + 1,
     variableName,
     label: {
@@ -45,5 +50,5 @@ export const primaryDesignatedManagementObjectiveDashboard = (cycle: Cycle, regi
       unit: region ? 'unit.haMillion' : 'unit.haThousand',
     },
   },
-  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
+  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(cycle, region), tableName }),
 })

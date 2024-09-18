@@ -8,6 +8,7 @@ module.exports = {
     other: '$t(common.other)',
     otherArea: '其他面积',
     otherForest: '其他森林',
+    otherLand: '$t(fraClass.otherLand)',
     other_or_unknown: '其他或未知',
     plantedForest: '$t(forestCharacteristics.plantedForest)',
     primaryForest: '$t(specificForestCategories.primaryForest)',
@@ -27,7 +28,7 @@ module.exports = {
     growing_stock_total: '$t(growingStock.growingStock) ($t({{unit}}))',
   },
   forestAreaPercent: {
-    title: '{{year}}年森林面积占土地总面积的百分比',
+    title: '{{year}}年森林占土地面积的百分比',
   },
   primaryForest: {
     title: '原始林占森林面积百分比, {{year}}',
@@ -48,6 +49,8 @@ module.exports = {
     production: '$t(designatedManagementObjective.production)',
     protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
     social_services: '$t(designatedManagementObjective.socialServices)',
+    unknown: '$t(fra.designatedManagementObjective.unknown2025)',
+    no_designation: '$t(fra.designatedManagementObjective.noDesignation)',
   },
   naturallyRegeneratingForest: {
     title: '自然再生林和人工林面积, {{startYear}} - {{endYear}}, $t({{unit}})',
