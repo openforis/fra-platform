@@ -1,6 +1,6 @@
 import QueryStream = require('pg-query-stream')
 import { Transform } from 'stream'
-import csvWriter = require('csv-write-stream')
+import * as fastCsv from 'fast-csv'
 
 import { BaseProtocol, DB } from 'server/db'
 
@@ -15,20 +15,20 @@ export const queryToCsv = (props: Props, client: BaseProtocol = DB): Promise<Buf
 
   return new Promise((resolve, reject) => {
     const queryStream = new QueryStream(query, queryValues)
-    const csvWriterStream = csvWriter()
 
     const chunks: Buffer[] = []
-    csvWriterStream.on('data', (chunk) => {
-      chunks.push(Buffer.from(chunk))
-    })
 
-    csvWriterStream.on('error', (err) => {
-      reject(new Error(`Error during CSV streaming: ${err.message}`))
-    })
-
-    csvWriterStream.on('finish', () => {
-      resolve(Buffer.concat(chunks))
-    })
+    const csvStream = fastCsv
+      .format({ headers: true })
+      .on('data', (chunk) => {
+        chunks.push(Buffer.from(chunk))
+      })
+      .on('end', () => {
+        resolve(Buffer.concat(chunks))
+      })
+      .on('error', (err) => {
+        reject(new Error(`Error during CSV streaming: ${err.message}`))
+      })
 
     let transformStream: Transform | null = null
     if (rowTransformer) {
@@ -56,9 +56,9 @@ export const queryToCsv = (props: Props, client: BaseProtocol = DB): Promise<Buf
         })
 
         if (transformStream) {
-          stream.pipe(transformStream).pipe(csvWriterStream)
+          stream.pipe(transformStream).pipe(csvStream)
         } else {
-          stream.pipe(csvWriterStream)
+          stream.pipe(csvStream)
         }
       })
       .catch(reject)
