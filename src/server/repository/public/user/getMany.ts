@@ -47,7 +47,7 @@ const _getOrderClause = (
   return `order by ${orderBy} ${direction}`
 }
 
-export const usersBuildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned => {
+export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned => {
   const {
     countryIso,
     assessment,
@@ -131,7 +131,7 @@ export const usersBuildGetManyQuery = (props: UsersGetManyProps): BuildQueryRetu
 }
 
 export const getMany = async (props: UsersGetManyProps, client: BaseProtocol = DB): Promise<Array<User>> => {
-  const { query, queryParams } = usersBuildGetManyQuery(props)
+  const { query, queryParams } = buildGetManyQuery(props)
 
   return client.manyOrNone<User>(query, queryParams).then((data) =>
     data.map(({ roles, ...user }) => ({

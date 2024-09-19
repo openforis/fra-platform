@@ -6,7 +6,7 @@ import { Lang } from 'meta/lang'
 import { RoleName, User, Users } from 'meta/user'
 
 import { UserRoleAdapter } from 'server/repository/adapter'
-import { usersBuildGetManyQuery, UsersGetManyProps } from 'server/repository/public/user'
+import { UserRepository, UsersGetManyProps } from 'server/repository/public/user'
 import { ExportService } from 'server/service/export'
 
 type Props = UsersGetManyProps & {
@@ -16,7 +16,7 @@ type Props = UsersGetManyProps & {
 export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableStream> => {
   const { lang } = props
 
-  const { query, queryParams } = usersBuildGetManyQuery(props)
+  const { query, queryParams } = UserRepository.buildGetManyQuery(props)
 
   const i18n = await createI18nPromise(lang)
   const nameHeader = i18n.t('common.name')
