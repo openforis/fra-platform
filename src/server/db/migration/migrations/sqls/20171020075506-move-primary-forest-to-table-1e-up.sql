@@ -1,4 +1,0 @@
-ALTER TABLE odp_class
-DROP COLUMN forest_natural_primary_percent,
-DROP COLUMN forest_semi_natural_percent,
-DROP COLUMN forest_semi_natural_introduced_percent;

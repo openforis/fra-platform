@@ -55,7 +55,7 @@ jobs:
             NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - run: yarn migrations:run
+      - run: yarn migration-public:run
         env:
           PGHOST: localhost
           PGPORT: 5442
@@ -64,6 +64,7 @@ jobs:
           PGPASSWORD: frap
       - run: yarn build
         env:
+          CI: true
           PGHOST: localhost
           PGPORT: 5442
           PGDATABASE: frap-dev
