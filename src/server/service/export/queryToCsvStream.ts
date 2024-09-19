@@ -6,14 +6,14 @@ import { Client } from 'pg'
 
 import { BaseProtocol, DB } from 'server/db'
 
-type Props<QueryResultRow> = {
+export type QueryToCsvStreamProps<QueryResultRow> = {
   query: string
   queryParams?: Parameters<Client['query']>[1]
   rowTransformer?: (row: QueryResultRow) => ParserRow
 }
 
 export const queryToCsvStream = <QueryResultRow>(
-  props: Props<QueryResultRow>,
+  props: QueryToCsvStreamProps<QueryResultRow>,
   client: BaseProtocol = DB
 ): Promise<NodeJS.ReadableStream> => {
   const { query, queryParams, rowTransformer } = props

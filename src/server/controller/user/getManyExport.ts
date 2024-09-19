@@ -7,13 +7,18 @@ import { RoleName, User, Users } from 'meta/user'
 
 import { UserRoleAdapter } from 'server/repository/adapter'
 import { UserRepository, UsersGetManyProps } from 'server/repository/public/user'
-import { ExportService } from 'server/service/export'
 
 type Props = UsersGetManyProps & {
   lang: Lang
 }
 
-export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableStream> => {
+type Returned = {
+  query: string
+  queryParams: Array<string | number>
+  rowTransformer: (rawUser: User) => Record<string, string>
+}
+
+export const getManyExport = async (props: Props): Promise<Returned> => {
   const { lang } = props
 
   const { query, queryParams } = UserRepository.buildGetManyQuery(props)
@@ -66,5 +71,5 @@ export const exportToCsvStream = async (props: Props): Promise<NodeJS.ReadableSt
     return rowData
   }
 
-  return ExportService.queryToCsvStream<User>({ query, queryParams, rowTransformer })
+  return { query, queryParams, rowTransformer }
 }

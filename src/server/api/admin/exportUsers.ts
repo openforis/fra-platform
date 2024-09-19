@@ -1,10 +1,11 @@
 import { Response } from 'express'
 
 import { UsersRequest } from 'meta/api/request'
-import { UserStatus } from 'meta/user'
+import { User, UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
+import { ExportService } from 'server/service/export'
 import Requests from 'server/utils/requests'
 
 export const exportUsers = async (req: UsersRequest, res: Response) => {
@@ -28,10 +29,7 @@ export const exportUsers = async (req: UsersRequest, res: Response) => {
     const user = Requests.getUser(req)
     const { lang } = user.props
 
-    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
-    res.setHeader('Content-Type', 'text/csv')
-
-    const csvStream = await UserController.exportToCsvStream({
+    const { query, queryParams, rowTransformer } = await UserController.getManyExport({
       administrators,
       assessment,
       countries: countries || [],
@@ -46,15 +44,7 @@ export const exportUsers = async (req: UsersRequest, res: Response) => {
       statuses: [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending],
     })
 
-    csvStream
-      .on('error', (err) => {
-        Requests.sendErr(res, err)
-      })
-      .pipe(res)
-      .on('error', (err) => {
-        Requests.sendErr(res, err)
-      })
-      .on('finish', res.end)
+    await ExportService.queryToCsvResponseStream<User>({ fileName, query, queryParams, res, rowTransformer })
   } catch (e) {
     Requests.sendErr(res, e)
   }

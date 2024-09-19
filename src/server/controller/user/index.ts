@@ -6,9 +6,9 @@ import { acceptInvitation } from './acceptInvitation'
 import { changePassword } from './changePassword'
 import { create } from './create'
 import { createResetPassword } from './createResetPassword'
-import { exportToCsvStream } from './exportToCsvStream'
 import { findByInvitation } from './findByInvitation'
 import { findByResetPassword } from './findByResetPassword'
+import { getManyExport } from './getManyExport'
 import { invite } from './invite'
 import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
@@ -19,10 +19,10 @@ import { updateUserRoles } from './updateUserRoles'
 export const UserController = {
   create,
   count: UserRepository.count,
-  exportToCsvStream,
   update,
   getAdmins: UserRepository.getAdmins,
   getMany: UserRepository.getMany,
+  getManyExport,
   getManyInvitations: UserInvitationRepository.getMany,
   getCountInvitations: UserInvitationRepository.getCount,
   getOne: UserRepository.getOne,
