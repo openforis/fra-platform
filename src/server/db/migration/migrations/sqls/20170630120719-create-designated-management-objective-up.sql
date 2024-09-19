@@ -1,1 +1,0 @@
-CREATE TABLE primary_designated_management_objective ("country_iso" VARCHAR, "row_name" VARCHAR, "1990" NUMERIC, "2000" NUMERIC, "2010" NUMERIC, "2015" NUMERIC, "2020" NUMERIC, PRIMARY KEY (country_iso, row_name));
