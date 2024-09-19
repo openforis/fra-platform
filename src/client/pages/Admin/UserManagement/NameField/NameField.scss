@@ -1,0 +1,18 @@
+@import 'src/client/style/partials';
+
+.admin-user-management__user-link {
+  align-items: center;
+  color: $text-body;
+  display: grid;
+  grid-column-gap: $spacing-xxxs;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
+  justify-items: start;
+  text-decoration: none;
+
+  &:hover {
+    svg {
+      color: $ui-accent;
+    }
+  }
+}

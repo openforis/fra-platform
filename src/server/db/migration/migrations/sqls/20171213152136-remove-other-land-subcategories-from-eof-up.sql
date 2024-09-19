@@ -1,9 +1,0 @@
-ALTER TABLE eof_fra_values
-DROP COLUMN other_land_palms,
-DROP COLUMN other_land_palms_estimated,
-DROP COLUMN other_land_tree_orchards,
-DROP COLUMN other_land_tree_orchards_estimated,
-DROP COLUMN other_land_agroforestry,
-DROP COLUMN other_land_agroforestry_estimated,
-DROP COLUMN other_land_trees_urban_settings,
-DROP COLUMN other_land_trees_urban_settings_estimated;

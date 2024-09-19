@@ -1,0 +1,12 @@
+@import 'src/client/style/partials';
+
+.user-counts__container {
+  padding: $spacing-xs $spacing-xxs $spacing-xxs;
+}
+
+.user-counts__item {
+  color: $text-mute;
+  padding: 1px 0;
+  font-size: $font-xs;
+  font-weight: bold;
+}
