@@ -12,7 +12,7 @@ type Props = {
 }
 
 /**
- * This method clones rows.
+ * This method clones cols.
  *
  * @param props
  */
