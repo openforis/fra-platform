@@ -8,11 +8,13 @@ import { CountrySummaryRepository } from 'server/repository/assessmentCycle/coun
 export const generateMaterializedViews = async (props: CloneProps, client: BaseProtocol): Promise<void> => {
   const { assessment, cycleTarget } = props
 
-  const countries = await CountryRepository.getMany({ assessment, cycle: cycleTarget }, client)
-
   await Promise.all([
-    TableData.refreshViews({ assessment, cycle: cycleTarget }),
+    TableData.refreshViews({ assessment, cycle: cycleTarget }, client),
     CountrySummaryRepository.createMaterializedView({ assessment, cycle: cycleTarget }),
+  ])
+
+  const countries = await CountryRepository.getMany({ assessment, cycle: cycleTarget }, client)
+  await Promise.all([
     ...countries.map(({ countryIso }) =>
       CountryActivityLogRepository.createMaterializedView({ assessment, cycle: cycleTarget, countryIso })
     ),
