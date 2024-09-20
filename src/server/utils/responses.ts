@@ -13,8 +13,12 @@ const sendFile = (res: Response, fileName: string, file: Buffer): void => {
   }
 }
 
-const sendZip = async (res: Response, files: Array<{ fileName: string; file: Buffer }>): Promise<void> => {
-  res.setHeader('Content-Disposition', `attachment; filename="files.zip"`)
+const sendZip = async (
+  res: Response,
+  files: Array<{ fileName: string; file: Buffer }>,
+  fileName = 'files'
+): Promise<void> => {
+  res.setHeader('Content-Disposition', `attachment; filename="${fileName}.zip"`)
   res.setHeader('Content-Type', 'application/zip')
 
   const archive = archiver('zip', {
@@ -27,8 +31,8 @@ const sendZip = async (res: Response, files: Array<{ fileName: string; file: Buf
 
   archive.pipe(res)
 
-  files.forEach(({ fileName, file }) => {
-    archive.append(file, { name: fileName })
+  files.forEach(({ fileName: name, file }) => {
+    archive.append(file, { name })
   })
 
   await archive.finalize()

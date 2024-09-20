@@ -1,4 +1,3 @@
-import * as archiver from 'archiver'
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
@@ -6,6 +5,7 @@ import { CycleRequest } from 'meta/api/request'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
+import { Responses } from 'server/utils/responses'
 
 // Zip contents:
 // FRA_Years_2022_09_07.csv
@@ -46,25 +46,16 @@ export const getBulkDownload = async (req: CycleRequest, res: Response) => {
       cycle,
     })
 
-    res.setHeader('Content-Disposition', `attachment; filename=bulk-download_${assessmentName}_${cycleName}.zip`)
-    res.setHeader('Content-Type', 'application/zip; charset=utf-8')
-
-    const options = { zlib: { level: 9 } }
-    const archive = archiver('zip', options)
-
-    archive.on('error', (err) => {
-      throw err
-    })
-
-    archive.pipe(res)
-
     const BOM = '\uFEFF' // Byte Order Mark for UTF-8
-    archive.append(Buffer.from(BOM + _README(cycle.name), 'utf-8'), { name: 'README.txt' })
-    files.forEach(({ fileName, content }) => {
-      archive.append(Buffer.from(BOM + content, 'utf-8'), { name: fileName })
-    })
+    const readmeContent = Buffer.from(BOM + _README(cycle.name), 'utf-8')
+    const fileList = files.map(({ fileName, content }) => ({
+      fileName,
+      file: Buffer.from(BOM + content, 'utf-8'),
+    }))
+    fileList.push({ fileName: 'README.txt', file: readmeContent })
 
-    await archive.finalize()
+    const fileName = `bulk-download_${assessmentName}_${cycleName}`
+    await Responses.sendZip(res, fileList, fileName)
   } catch (err) {
     Requests.sendErr(res, err)
   }
