@@ -29,7 +29,7 @@ To constantly build it when something changes, run:
 
 ## Database
 
-### Create your own local datbase
+### Create your own local database
 
 If you have a Docker server configured locally, just run this command:
 
@@ -49,13 +49,13 @@ When you need e.g. a new table to the database (say "kuikka"), create a migratio
 template with:
 
 ```shell
-yarn run create-migration kuikka
+yarn migration-public:create kuikka
 ```
 
-Now you'll see new sql files in `db/migration/migrations/sql/<timestamp>-kuikka-<up/down>.sql`
+Now you'll see new sql files in `src/tools/migrations/public/steps/`.
 
-You should edit the `<timestamp-kuikka-up.sql` to contain your `create table` -statement. Maybe also
-add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever want to run migrations downwards.
+You should edit the `<timestamp-kuikka-up.ts` to contain your `create table` -statement.
+Make sure migrations can be ran twice without side effects.
 
 ## Redis
 

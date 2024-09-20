@@ -30,7 +30,7 @@ const rowMetadata = (region: boolean): RowsMetadata => [
   {
     id: 2,
     variableName: 'otherLand',
-    label: { key: `statisticalFactsheets.rowName.otherArea` },
+    label: { key: `statisticalFactsheets.rowName.otherLand` },
     calculateFn: `${tableName}.totalLandArea ${region ? '/ 1000' : ''} - ${tableName}.forestArea ${
       region ? '/ 1000' : ''
     }`,
@@ -59,7 +59,7 @@ export const forestAreaPercentOfLandArea = (cycle: Cycle, region: boolean): Dash
         variableName: 'otherLand',
         color: ChartColor.otherLand,
         columnName: cols[cycle.name][0],
-        label: { key: 'statisticalFactsheets.rowName.otherArea' },
+        label: { key: 'statisticalFactsheets.rowName.otherLand' },
         unit: unit(region),
       },
     ],

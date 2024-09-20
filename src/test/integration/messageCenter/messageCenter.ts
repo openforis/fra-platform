@@ -29,7 +29,7 @@ export default (): void =>
       const { message: createdMessage } = await MessageCenterController.addMessage({
         message: 'This is a test!',
         user,
-        countryIso: 'AFG' as CountryIso,
+        countryIso: 'X02' as CountryIso,
         assessment,
         cycle,
         key: 'TEST',
@@ -40,7 +40,7 @@ export default (): void =>
       await MessageCenterController.addMessage({
         message: 'This is another test!',
         user,
-        countryIso: 'AFG' as CountryIso,
+        countryIso: 'X02' as CountryIso,
         assessment,
         cycle,
         key: 'TEST',
@@ -49,7 +49,7 @@ export default (): void =>
       })
 
       const topic = await MessageCenterController.getTopic({
-        countryIso: 'AFG' as CountryIso,
+        countryIso: 'X02' as CountryIso,
         assessment,
         cycle,
         key: 'TEST',
