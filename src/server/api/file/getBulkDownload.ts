@@ -1,5 +1,5 @@
+import * as archiver from 'archiver'
 import { Response } from 'express'
-import * as JSZip from 'jszip'
 
 import { CycleRequest } from 'meta/api/request'
 
@@ -46,12 +46,25 @@ export const getBulkDownload = async (req: CycleRequest, res: Response) => {
       cycle,
     })
 
-    const zip = new JSZip()
-    zip.file('README.txt', _README(cycle.name))
-    files.forEach(({ fileName, content }) => zip.file(fileName, content))
     res.setHeader('Content-Disposition', `attachment; filename=bulk-download_${assessmentName}_${cycleName}.zip`)
     res.setHeader('Content-Type', 'application/zip; charset=utf-8')
-    zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', res.end)
+
+    const options = { zlib: { level: 9 } }
+    const archive = archiver('zip', options)
+
+    archive.on('error', (err) => {
+      throw err
+    })
+
+    archive.pipe(res)
+
+    const BOM = '\uFEFF' // Byte Order Mark for UTF-8
+    archive.append(Buffer.from(BOM + _README(cycle.name), 'utf-8'), { name: 'README.txt' })
+    files.forEach(({ fileName, content }) => {
+      archive.append(Buffer.from(BOM + content, 'utf-8'), { name: fileName })
+    })
+
+    await archive.finalize()
   } catch (err) {
     Requests.sendErr(res, err)
   }
