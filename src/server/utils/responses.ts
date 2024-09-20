@@ -1,5 +1,5 @@
+import * as archiver from 'archiver'
 import { Response } from 'express'
-import * as JSZip from 'jszip'
 
 import Requests from 'server/utils/requests'
 
@@ -14,18 +14,24 @@ const sendFile = (res: Response, fileName: string, file: Buffer): void => {
 }
 
 const sendZip = async (res: Response, files: Array<{ fileName: string; file: Buffer }>): Promise<void> => {
-  const zip = new JSZip()
-
-  files.forEach(({ fileName, file }) => {
-    zip.file(fileName, file)
-  })
-
-  const zipFile = await zip.generateAsync({ type: 'nodebuffer' })
-
   res.setHeader('Content-Disposition', `attachment; filename="files.zip"`)
   res.setHeader('Content-Type', 'application/zip')
 
-  res.end(zipFile)
+  const archive = archiver('zip', {
+    zlib: { level: 9 },
+  })
+
+  archive.on('error', (err) => {
+    throw err
+  })
+
+  archive.pipe(res)
+
+  files.forEach(({ fileName, file }) => {
+    archive.append(file, { name: fileName })
+  })
+
+  await archive.finalize()
 }
 
 export const Responses = {
