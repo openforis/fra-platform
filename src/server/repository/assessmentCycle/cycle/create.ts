@@ -13,7 +13,7 @@ const defaultMetaCache: AssessmentMetaCache = {
 const defaultProps: CycleProps = {
   status: CycleStatus.draft,
   dateCreated: new Date().toISOString(),
-  dateDraft: undefined,
+  dateDraft: new Date().toISOString(),
   dateEditing: undefined,
   datePublished: undefined,
 }
@@ -22,11 +22,10 @@ export const create = async (
   params: {
     assessment: Assessment
     name: string
-    props?: CycleProps
   },
   client: BaseProtocol = DB
 ): Promise<{ assessment: Assessment; cycle: Cycle }> => {
-  const { assessment, name, props = defaultProps } = params
+  const { assessment, name } = params
 
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, { name } as Cycle)
@@ -39,7 +38,7 @@ export const create = async (
     `insert into assessment_cycle (assessment_id, name, props)
      values ($1, $2, $3)
      returning *;`,
-    [assessment.id, name, props]
+    [assessment.id, name, defaultProps]
   )
 
   // Initialise meta_cache for assessment on cycle creation
