@@ -7,6 +7,7 @@ import { Assessment, Cycle } from 'meta/assessment'
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
+import { getNWFP } from 'server/controller/cycleData/getBulkDownload/getNWFP'
 import { getTierData } from 'server/controller/cycleData/getBulkDownload/getTierData'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { RegionRepository } from 'server/repository/assessmentCycle/region'
@@ -68,7 +69,7 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
 
   Object.keys(row).forEach((key) => {
     if (row[key]) {
-      fixed[key] = row[key].replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
+      fixed[key] = `"${row[key].replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')}"`
     }
   })
 
@@ -116,43 +117,48 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     getContentVariables({ ...params, fileName: 'FRA_Years', entries: FRAEntries(cycle) }),
   ])
 
-  const [annual, intervals, fraYears] = await Promise.all([
+  const [annual, intervals, fraYears, nwfp] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
     getContent({ ...params, entries: intervalEntries(cycle), intervals: true }),
     getFraYearsData(params),
+    getNWFP(params),
   ])
 
   const promises = [
     ...annualVariableEntries.map(async (entry) => {
       return {
         fileName: _getFileName(entry.fileName),
-        content: handleContent(entry.content),
+        content: await handleContent(entry.content),
       }
     }),
     ...intervalVariableEntries.map(async (entry) => {
       return {
         fileName: _getFileName(entry.fileName),
-        content: handleContent(entry.content),
+        content: await handleContent(entry.content),
       }
     }),
     ...fraYearsVariableEntries.map(async (entry) => {
       return {
         fileName: _getFileName(entry.fileName),
-        content: handleContent(entry.content),
+        content: await handleContent(entry.content),
       }
     }),
 
     {
       fileName: _getFileName('Annual'),
-      content: handleContent(annual),
+      content: await handleContent(annual),
     },
     {
       fileName: _getFileName('Intervals'),
-      content: handleContent(intervals),
+      content: await handleContent(intervals),
     },
     {
       fileName: _getFileName('FRA_Years'),
-      content: handleContent(fraYears),
+      content: await handleContent(fraYears),
+    },
+    {
+      fileName: _getFileName('NWFP'),
+      content: await handleContent(nwfp),
     },
   ]
 
@@ -162,7 +168,7 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
 
     promises.push({
       fileName: _getFileName('Tiers'),
-      content: handleContent(tiers),
+      content: await handleContent(tiers),
     })
   }
 
