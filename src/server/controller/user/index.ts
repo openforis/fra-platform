@@ -8,6 +8,7 @@ import { create } from './create'
 import { createResetPassword } from './createResetPassword'
 import { findByInvitation } from './findByInvitation'
 import { findByResetPassword } from './findByResetPassword'
+import { getManyExport } from './getManyExport'
 import { invite } from './invite'
 import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
@@ -21,6 +22,7 @@ export const UserController = {
   update,
   getAdmins: UserRepository.getAdmins,
   getMany: UserRepository.getMany,
+  getManyExport,
   getManyInvitations: UserInvitationRepository.getMany,
   getCountInvitations: UserInvitationRepository.getCount,
   getOne: UserRepository.getOne,

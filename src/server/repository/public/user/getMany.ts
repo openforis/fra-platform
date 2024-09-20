@@ -12,7 +12,7 @@ import { fields } from './fields'
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
-type Props = {
+export type UsersGetManyProps = {
   assessment?: Assessment
   cycle?: Cycle
   countryIso?: CountryIso
@@ -30,6 +30,8 @@ type Props = {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
+type BuildQueryReturned = { query: string; queryParams: Array<string | number> }
+
 const _getOrderClause = (
   orderBy: string | undefined,
   orderByDirection: TablePaginatedOrderByDirection | undefined
@@ -45,7 +47,7 @@ const _getOrderClause = (
   return `order by ${orderBy} ${direction}`
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<User>> => {
+export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned => {
   const {
     countryIso,
     assessment,
@@ -124,6 +126,12 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
   `
 
   const queryParams = countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
+
+  return { query, queryParams }
+}
+
+export const getMany = async (props: UsersGetManyProps, client: BaseProtocol = DB): Promise<Array<User>> => {
+  const { query, queryParams } = buildGetManyQuery(props)
 
   return client.manyOrNone<User>(query, queryParams).then((data) =>
     data.map(({ roles, ...user }) => ({
