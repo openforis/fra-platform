@@ -2,6 +2,7 @@ import { Express } from 'express'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { exportUsers } from 'server/api/admin/exportUsers'
 import { getCountrySummaries } from 'server/api/admin/getCountrySummaries'
 import { getCountrySummariesCount } from 'server/api/admin/getCountrySummariesCount'
 import { getInvitations } from 'server/api/admin/getInvitations'
@@ -20,5 +21,6 @@ export const AdminApi = {
 
     express.get(ApiEndPoint.Admin.users(), AuthMiddleware.requireAdmin, getUsers)
     express.get(ApiEndPoint.Admin.usersCount(), AuthMiddleware.requireAdmin, getUsersCount)
+    express.get(ApiEndPoint.Admin.usersExport(), AuthMiddleware.requireAdmin, exportUsers)
   },
 }
