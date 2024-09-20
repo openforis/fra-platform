@@ -1,4 +1,4 @@
-import { JSDOM } from 'jsdom'
+import { Parser } from 'htmlparser2'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, CommentableDescriptionName, Cycle, SectionName } from 'meta/assessment'
@@ -27,18 +27,25 @@ type Props = {
  * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum (https://www.lipsum.com/) dolor sit amet.
  */
 const _extractTextAndLinks = (html: string) => {
-  const dom = new JSDOM(html)
-  const doc = dom.window.document
-  const links = doc.querySelectorAll('a')
+  let extractedText = ''
+  const parser = new Parser(
+    {
+      onopentag(name, attributes) {
+        if (name === 'a') {
+          extractedText += ` (${attributes.href})`
+        }
+      },
+      ontext(text) {
+        extractedText += text
+      },
+    },
+    { decodeEntities: true }
+  )
 
-  Array.from(links).forEach((link) => {
-    const href = link.getAttribute('href')
-    const text = link.textContent
-    // eslint-disable-next-line no-param-reassign
-    link.textContent = `${text} (${href})`
-  })
+  parser.write(html)
+  parser.end()
 
-  return doc.body.textContent
+  return extractedText
 }
 
 export const getComments = async (props: Props): Promise<string> => {
