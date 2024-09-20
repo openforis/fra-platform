@@ -16,6 +16,7 @@ const UserManagement: React.FC = () => {
     <TablePaginated
       columns={columns}
       counter={{ show: true, Component: UsersCount }}
+      export
       gridTemplateColumns={gridTemplateColumns}
       limit={20}
       path={ApiEndPoint.Admin.users()}
