@@ -6,6 +6,7 @@ import { Assessment, Cycle } from 'meta/assessment'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
+import { getDegradedForest } from 'server/controller/cycleData/getBulkDownload/getDegradedForest'
 import { getForestPolicy } from 'server/controller/cycleData/getBulkDownload/getForestPolicy'
 import { getForestRestoration } from 'server/controller/cycleData/getBulkDownload/getForestRestoration'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
@@ -171,9 +172,17 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
 
   // Tier data only available for 2025
   if (cycle.name === '2025') {
-    const [tiers, forestRestoration] = await Promise.all([getTierData(params), getForestRestoration(params)])
+    const [tiers, forestRestoration, degradedForest] = await Promise.all([
+      getTierData(params),
+      getForestRestoration(params),
+      getDegradedForest(params),
+    ])
 
     promises.push(
+      {
+        fileName: _getFileName('DegradedForest'),
+        content: await handleContent(degradedForest),
+      },
       {
         fileName: _getFileName('ForestRestoration'),
         content: await handleContent(forestRestoration),
