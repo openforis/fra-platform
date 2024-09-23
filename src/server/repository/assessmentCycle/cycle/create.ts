@@ -10,10 +10,12 @@ const defaultMetaCache: AssessmentMetaCache = {
   variablesByTable: {},
 }
 
+const dateCreated = new Date().toISOString()
+
 const defaultProps: CycleProps = {
   status: CycleStatus.draft,
-  dateCreated: new Date().toISOString(),
-  dateDraft: new Date().toISOString(),
+  dateCreated,
+  dateDraft: dateCreated,
   dateEditing: undefined,
   datePublished: undefined,
 }
