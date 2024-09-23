@@ -1,13 +1,19 @@
 import { useEffect } from 'react'
 
 import { WorkerListener } from 'bullmq'
+import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store'
-import { LinksActions } from 'client/store/ui/links'
-import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
+import { LinksActions, useIsVerificationInProgress } from 'client/store/ui/links'
+import {
+  TablePaginatedActions,
+  useTablePaginatedData,
+  useTablePaginatedOrderBy,
+  useTablePaginatedPage,
+} from 'client/store/ui/tablePaginated'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 
@@ -20,6 +26,9 @@ export const useListenLinksVerificationEvents = (): void => {
   const path = ApiEndPoint.CycleData.Links.many()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
+
+  const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
+  const linksTableData = useTablePaginatedData(path)
 
   useEffect(() => {
     const listener = (args: [{ event: keyof WorkerListener }]): void => {
@@ -43,4 +52,10 @@ export const useListenLinksVerificationEvents = (): void => {
       SocketClient.off(linksVerificationEvent, listener)
     }
   }, [assessmentName, cycleName, dispatch, linksVerificationEvent, orderBy, page, path])
+
+  useEffect(() => {
+    if (verifyLinksInProgress && !Objects.isEmpty(linksTableData)) {
+      dispatch(TablePaginatedActions.resetPaths({ paths: [path] }))
+    }
+  }, [dispatch, linksTableData, path, verifyLinksInProgress])
 }
