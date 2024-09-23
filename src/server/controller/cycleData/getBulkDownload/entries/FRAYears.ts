@@ -185,7 +185,33 @@ export const entries = (
             ],
           },
         ]
-      : []
+      : [
+          {
+            tableName: 'otherLandWithTreeCover',
+            variables: [
+              {
+                variableName: 'palms',
+                csvColumn: '1e_palms',
+              },
+              {
+                variableName: 'tree_orchards',
+                csvColumn: '1e_treeOrchards',
+              },
+              {
+                variableName: 'agroforestry',
+                csvColumn: '1e_agroforestry',
+              },
+              {
+                variableName: 'trees_in_urban_settings',
+                csvColumn: '1e_treesUrbanSettings',
+              },
+              {
+                variableName: 'other',
+                csvColumn: '1e_other',
+              },
+            ],
+          },
+        ]
 
   const specificForestCategoriesVariables =
     cycle.name === '2020'
