@@ -6,6 +6,7 @@ import { Assessment, Cycle } from 'meta/assessment'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
+import { getForestPolicy } from 'server/controller/cycleData/getBulkDownload/getForestPolicy'
 import { getForestRestoration } from 'server/controller/cycleData/getBulkDownload/getForestRestoration'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
 import { getNWFP } from 'server/controller/cycleData/getBulkDownload/getNWFP'
@@ -118,11 +119,12 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     getContentVariables({ ...params, fileName: 'FRA_Years', entries: FRAEntries(cycle) }),
   ])
 
-  const [annual, intervals, fraYears, nwfp] = await Promise.all([
+  const [annual, intervals, fraYears, nwfp, forestPolicy] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
     getContent({ ...params, entries: intervalEntries(cycle), intervals: true }),
     getFraYearsData(params),
     getNWFP(params),
+    getForestPolicy(params),
   ])
 
   const promises = [
@@ -160,6 +162,10 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     {
       fileName: _getFileName('NWFP'),
       content: await handleContent(nwfp),
+    },
+    {
+      fileName: _getFileName('ForestPolicy'),
+      content: await handleContent(forestPolicy),
     },
   ]
 
