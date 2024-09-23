@@ -1,8 +1,10 @@
 import { Promises } from 'utils/promises'
 
+import { CommentableDescriptionName } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
+import { getComments } from 'server/controller/cycleData/getBulkDownload/utils/getComments'
 
 import { Props } from './props'
 
@@ -65,6 +67,13 @@ export const getDegradedForest = async (props: Props) => {
       })
     })
 
+    base.comments = await getComments({
+      assessment,
+      countryIso,
+      cycle,
+      name: CommentableDescriptionName.generalComments,
+      sectionName: 'degradedForest',
+    })
     arr.push(base)
   })
 
