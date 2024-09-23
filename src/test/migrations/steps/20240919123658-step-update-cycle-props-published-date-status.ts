@@ -1,8 +1,9 @@
 import { AssessmentNames, CycleProps, CycleStatus } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
+import { Logger } from 'server/utils/logger'
 
 // Given official dates are: published and editing
 // dateCreated: same year, first day of the year (1st January)
@@ -43,16 +44,34 @@ const cycleProps: Record<string, Record<string, CycleProps>> = {
   },
 }
 
-export default async (client: BaseProtocol) => {
+const client: BaseProtocol = DB
+
+export default async () => {
   const exists = await client.oneOrNone(`
     select 1 as exists
     from information_schema.columns
     where table_name='assessment_cycle' and column_name='published'
   `)
 
-  if (exists) {
-    throw new Error('Column public.assessment_cycle.published exists. Check that migration-public ran correctly')
+  if (!exists) {
+    Logger.info('Column published does not exist in assessment_cycle table')
+    return
   }
+
+  await client.query(`
+      do $$
+      begin
+        if exists (
+          select 1
+          from information_schema.columns
+          where table_name='assessment_cycle' and column_name='published'
+        ) then
+          alter table assessment_cycle
+          drop column published,
+          add column props jsonb default '{}'::jsonb not null;
+        end if;
+      end $$;
+      `)
 
   const assessments = await AssessmentController.getAll({})
 
