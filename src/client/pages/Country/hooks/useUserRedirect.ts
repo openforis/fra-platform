@@ -31,7 +31,7 @@ export const useUserRedirect = (): void => {
     }
 
     // Redirect non admin users to the cycle page if the cycle is not published when accessing regions
-    if (Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
+    if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
   }, [assessmentName, countryIso, cycle, cycleName, navigate, user, userRole])
