@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { AreaCode, Areas, CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
@@ -9,7 +9,6 @@ import Requests from 'server/utils/requests'
 
 type GetTableDataRequest = CycleDataRequest<{
   tableNames: Array<string>
-  countryIso: AreaCode
   countryISOs: Array<CountryIso>
   variables: Array<string>
   columns: Array<string>
