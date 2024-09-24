@@ -59,18 +59,12 @@ export default async () => {
   }
 
   await client.query(`
-      do $$
-      begin
-        if exists (
-          select 1
-          from information_schema.columns
-          where table_name='assessment_cycle' and column_name='published'
-        ) then
+        do $$
+        begin
           alter table assessment_cycle
           drop column published,
           add column props jsonb default '{}'::jsonb not null;
-        end if;
-      end $$;
+        end $$;
       `)
 
   const assessments = await AssessmentController.getAll({})
