@@ -31,7 +31,7 @@ export const useDataExportCountries = (): Array<Country> => {
   // initialize data export countries
   if (Objects.isEmpty(countries)) {
     let countriesDataExport = countriesAll
-    if (Cycles.isPublished(cycle) && !Users.isAdministrator(user)) {
+    if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user)) {
       countriesDataExport = countriesDataExport.filter((country) => userCountries.includes(country.countryIso))
     }
     if (Areas.isRegion(countryIso)) {
