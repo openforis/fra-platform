@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { AreaCode, Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
-import { Assessment, Cycle, Section, SubSection } from 'meta/assessment'
+import { Assessment, Cycle, Cycles, Section, SubSection } from 'meta/assessment'
 import { RepositoryItem } from 'meta/cycleData'
 import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
@@ -19,7 +19,7 @@ import { Users } from 'meta/user/users'
  */
 const canView = (props: { assessment: Assessment; countryIso: AreaCode; cycle: Cycle; user: User }): boolean => {
   const { assessment, countryIso, user, cycle } = props
-  if (cycle.published) return true
+  if (Cycles.isPublished(cycle)) return true
   if (Users.isAdministrator(user)) return true
   // if global or region, user must have at least one role in that assessment
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return Users.hasRoleInAssessment({ assessment, user })

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName, Cycle, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName, Cycle, Cycles, SectionName } from 'meta/assessment'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
 import { useAppSelector } from 'client/store'
@@ -32,7 +32,7 @@ export const useUserCycles = (): Array<Cycle> => {
   if (isAdministrator) return assessment.cycles
   // Return only current assessment cycles for user
   return assessment.cycles.filter(
-    (cycle) => cycle.published || user?.roles.some((role) => cycle.uuid === role.cycleUuid)
+    (cycle) => Cycles.isPublished(cycle) || user?.roles.some((role) => cycle.uuid === role.cycleUuid)
   )
 }
 

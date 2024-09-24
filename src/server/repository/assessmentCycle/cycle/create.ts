@@ -1,4 +1,4 @@
-import { Assessment, AssessmentMetaCache, AssessmentNames, Cycle } from 'meta/assessment'
+import { Assessment, AssessmentMetaCache, AssessmentNames, Cycle, CycleProps, CycleStatus } from 'meta/assessment'
 
 import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -8,6 +8,16 @@ const defaultMetaCache: AssessmentMetaCache = {
   calculations: { dependants: {}, dependencies: {} },
   validations: { dependants: {}, dependencies: {} },
   variablesByTable: {},
+}
+
+const dateCreated = new Date().toISOString()
+
+const defaultProps: CycleProps = {
+  status: CycleStatus.draft,
+  dateCreated,
+  dateDraft: dateCreated,
+  dateEditing: undefined,
+  datePublished: undefined,
 }
 
 export const create = async (
@@ -27,10 +37,10 @@ export const create = async (
   }
 
   const cycle = await client.one<Cycle>(
-    `insert into assessment_cycle (assessment_id, name)
-     values ($1, $2)
+    `insert into assessment_cycle (assessment_id, name, props)
+     values ($1, $2, $3)
      returning *;`,
-    [assessment.id, name]
+    [assessment.id, name, defaultProps]
   )
 
   // Initialise meta_cache for assessment on cycle creation
