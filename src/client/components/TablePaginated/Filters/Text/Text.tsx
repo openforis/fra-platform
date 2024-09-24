@@ -8,8 +8,7 @@ import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
 import InputText from 'client/components/Inputs/InputText'
-
-import { TablePaginatedFilter } from '../../types'
+import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 type Props = TablePaginatedFilter & {
   path: string
