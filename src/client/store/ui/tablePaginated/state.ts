@@ -1,8 +1,9 @@
-import { TablePaginatedOrderBy } from 'meta/tablePaginated'
+import { TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
 
 export type TablePaginatedStateItem<Datum = Record<string, never>, Counter = never> = {
   count: { total: number } & Counter
   data: Array<Datum>
+  filters: Record<string, TablePaginatedFilterValues>
   orderBy?: TablePaginatedOrderBy
   page: number
 }

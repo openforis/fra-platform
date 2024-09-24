@@ -11,3 +11,9 @@ export type TablePaginatedOrderBy = {
 export type TablePaginatedCount = {
   total: number
 }
+
+export enum TablePaginatedFilterType {
+  TEXT = 'text',
+}
+
+export type TablePaginatedFilterValues = boolean | string | Array<string>
