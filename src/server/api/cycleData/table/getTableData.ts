@@ -21,6 +21,7 @@ export const getTableData = async (req: GetTableDataRequest, res: Response) => {
       assessmentName,
       cycleName,
       tableNames = [],
+      countryIso,
       countryISOs,
       variables,
       columns,
@@ -31,12 +32,12 @@ export const getTableData = async (req: GetTableDataRequest, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const isRegion = !Areas.isISOCountry(countryISOs[0])
+    const isRegion = !Areas.isISOCountry(countryIso)
 
     // When fetching data for regions, use getAggregatedTableData
     const getData = isRegion ? CycleDataController.TableData.getAggregatedTableData : CycleDataController.getTableData
 
-    const props = { assessment, cycle, countryISOs, tableNames, variables, columns, mergeOdp }
+    const props = { assessment, cycle, countryIso, countryISOs, tableNames, variables, columns, mergeOdp }
     const table = await getData(props)
 
     Requests.send(res, table)
