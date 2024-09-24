@@ -1,9 +1,10 @@
-import { CountryIso } from 'meta/area'
+import { AreaCode, CountryIso } from 'meta/area'
 import { Assessment, Cycle, VariableCache } from 'meta/assessment'
 
 export type Props = {
   assessment: Assessment
   cycle: Cycle
+  countryIso: AreaCode
   countryISOs: Array<CountryIso>
   tableNames: Array<string> // TODO: refactor use TablesCondition instead
   variables?: Array<string>

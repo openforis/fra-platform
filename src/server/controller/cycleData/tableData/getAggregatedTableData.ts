@@ -12,11 +12,24 @@ export const getAggregatedTableData = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
-  const { assessment, cycle, countryISOs: countryISOsProp, tableNames, columns, variables, mergeOdp } = props
+  const {
+    assessment,
+    cycle,
+    countryIso,
+    countryISOs: countryISOsProp,
+    tableNames,
+    columns,
+    variables,
+    mergeOdp,
+  } = props
   const tables = getTablesCondition({ tableNames, columns, variables, mergeOdp })
 
-  const regionCode = countryISOsProp[0] as RegionCode
-  const countryISOs = await CountryRepository.getCountryIsos({ assessment, cycle, regionCode }, client)
+  const regionCode = countryIso as RegionCode
+  // If we have more than one countryIso, then we are given a subset of countries
+  const countryISOs =
+    countryISOsProp.length > 1
+      ? countryISOsProp
+      : await CountryRepository.getCountryIsos({ assessment, cycle, regionCode }, client)
 
   const faoEstimates = await DataRepository.getFaoEstimateData(
     { assessment, cycle, countryISOs, regionCode, tables },
