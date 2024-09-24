@@ -1,0 +1,8 @@
+@import 'src/client/style/partials';
+
+.table-paginated-filters__input-text-container {
+  input {
+    border: 1px solid $ui-border;
+    padding: $spacing-xxxs;
+  }
+}
