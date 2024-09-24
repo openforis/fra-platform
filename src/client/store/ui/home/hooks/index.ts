@@ -1,5 +1,5 @@
 import { useAppSelector } from 'client/store'
 
-import { selectHomeCountriesFilter } from '../selectors'
+import { HomeSelector } from '../selectors'
 
-export const useHomeCountriesFilter = () => useAppSelector(selectHomeCountriesFilter)
+export const useHomeCountriesFilter = () => useAppSelector(HomeSelector.getCountriesFilter)

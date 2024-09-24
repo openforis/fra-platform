@@ -6,7 +6,11 @@ import { RootState } from 'client/store'
 
 const _getState = (state: RootState) => state.ui.home
 
-export const selectHomeCountriesFilter = createSelector(
+export const getCountriesFilter = createSelector(
   [_getState],
   (homeState): Array<CountryIso> => homeState?.countriesFilter ?? []
 )
+
+export const HomeSelector = {
+  getCountriesFilter,
+}
