@@ -1,4 +1,4 @@
-import { RegionCode } from 'meta/area'
+import { AreaCode, RegionCode } from 'meta/area'
 import { RecordAssessmentData } from 'meta/data'
 
 import { getTablesCondition } from 'server/controller/cycleData/tableData/getTablesCondition'
@@ -9,7 +9,7 @@ import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { Props } from './props'
 
 export const getAggregatedTableData = async (
-  props: Props,
+  props: Props & { countryIso: AreaCode },
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
   const {
