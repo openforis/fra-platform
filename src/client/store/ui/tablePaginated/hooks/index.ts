@@ -12,8 +12,13 @@ export const useTablePaginatedData = <Datum>(path: string): Array<Datum> | undef
 export const useTablePaginatedFilters = (path: string): Record<string, TablePaginatedFilterValues> | undefined =>
   useAppSelector((state) => TablePaginatedSelectors.getFilters(state, path))
 
-export const useTablePaginatedFilterValue = (path: string, fieldName: string): TablePaginatedFilterValues | undefined =>
-  useAppSelector((state) => TablePaginatedSelectors.getFilterValue(state, path, fieldName))
+export const useTablePaginatedFilterValue = <FilterValueType extends TablePaginatedFilterValues>(
+  path: string,
+  fieldName: string
+): FilterValueType | undefined =>
+  useAppSelector(
+    (state) => TablePaginatedSelectors.getFilterValue(state, path, fieldName) as FilterValueType | undefined
+  )
 
 export const useTablePaginatedOrderBy = (path: string): TablePaginatedOrderBy | undefined =>
   useAppSelector((state) => TablePaginatedSelectors.getOrderBy(state, path))
