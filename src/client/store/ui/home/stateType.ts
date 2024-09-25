@@ -1,3 +1,5 @@
+import { CountryIso } from 'meta/area'
+
 export interface HomeState {
-  countriesFilter?: Array<string>
+  countriesFilter?: Array<CountryIso>
 }
