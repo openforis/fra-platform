@@ -3,7 +3,7 @@
   "name": "fra-platform",
   "engines": {
     "node": "^20.11.1",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "build": "run-s build:prod:client build:prod:server build:prod:server:resources",
@@ -269,6 +269,9 @@
     "uuid": "^8.3.2",
     "webpack-node-externals": "^3.0.0",
     "winston": "^3.8.2"
+  },
+  "overrides": {
+    "string-width": "4.2.3"
   },
   "browserslist": [
     "last 2 versions"
