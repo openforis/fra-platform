@@ -2,7 +2,7 @@
   "license": "UNLICENSED",
   "name": "fra-platform",
   "engines": {
-    "node": "^20.11.1",
+    "node": "20.11.1",
     "yarn": "^1.22.22"
   },
   "scripts": {
