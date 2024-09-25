@@ -10,6 +10,7 @@ import * as isNil from 'lodash.isnil'
 import * as pick from 'lodash.pick'
 // @ts-ignore
 import * as unset from 'lodash.unset'
+import { getInPath } from 'utils/objects/getInPath'
 
 import { camelize } from './camelize'
 import { isEmpty } from './isEmpty'
@@ -19,6 +20,7 @@ import { setInPath } from './setInPath'
 export const Objects = {
   camelize,
   cloneDeep,
+  getInPath,
   isEmpty,
   isEqual,
   isFunction,
