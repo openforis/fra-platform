@@ -16,10 +16,12 @@ const panEuropean = require('./en/panEuropean/panEuropean')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const uc = require('./en/uc')
 const validation = require('./en/validation')
+const bulkDownload = require('./en/bulkDownload')
 
 module.exports.translation = {
   admin,
   area,
+  bulkDownload,
   common,
   contentCheck,
   dataDownload,

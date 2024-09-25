@@ -1,3 +1,5 @@
+import { Promises } from 'utils/promises'
+
 import { TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
@@ -7,6 +9,8 @@ import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/ge
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 import { TableRepository } from 'server/repository/assessment/table'
+
+import { getMetadata } from './utils/getMetadata'
 
 type Entries = Array<{ tableName: string; variables: Array<{ csvColumn: string; variableName: string }> }>
 
@@ -33,7 +37,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
 
   const ret: Array<{ fileName: string; content: Array<Record<string, string>> }> = []
 
-  entries.forEach((entry) => {
+  await Promises.each(entries, async (entry) => {
     const { tableName, variables } = entry
     const tableMetadata = tablesMetadata.find((table) => table.props.name === tableName)
     let cols = tableMetadata?.props.columnNames[cycle.uuid]
@@ -42,7 +46,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
       cols = ['growingStockPercent', 'growingStockMillionCubicMeter']
     }
 
-    variables.forEach((variable) => {
+    await Promises.each(variables, async (variable) => {
       const { csvColumn, variableName } = variable
 
       const content = countries.map((country) => {
@@ -86,6 +90,11 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
 
         return base
       })
+
+      const { dateExported, unit } = await getMetadata({ assessment, cycle, tableName, csvColumn })
+
+      content[0][csvColumn] = dateExported
+      content[1][csvColumn] = unit
 
       ret.push({ fileName: `${fileName}_variables/${csvColumn}`, content })
     })
