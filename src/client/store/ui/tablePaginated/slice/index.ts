@@ -24,9 +24,9 @@ export const TablePaginatedSlice = createSlice({
       const { path, page } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
     },
-    resetFilters: (state, action: PayloadAction<{ path: string }>) => {
-      const { path } = action.payload
-      Objects.unset(state, [path, 'filters'])
+    resetFilter: (state, action: PayloadAction<{ fieldName: string; path: string }>) => {
+      const { fieldName, path } = action.payload
+      Objects.unset(state, [path, 'filters', fieldName])
     },
     resetPaths: (state, action: PayloadAction<{ paths: Array<string> }>) => {
       const { paths } = action.payload

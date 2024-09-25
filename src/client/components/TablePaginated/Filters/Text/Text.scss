@@ -1,8 +1,29 @@
 @import 'src/client/style/partials';
 
 .table-paginated-filters__input-text-container {
+  display: inline-block;
+  position: relative;
+
   input {
     border: 1px solid $ui-border;
-    padding: $spacing-xxxs;
+    padding: $spacing-xxxs $spacing-s $spacing-xxxs $spacing-xxxs;
+  }
+
+  button.clear-button {
+    background: none;
+    border: none;
+    height: $spacing-xs;
+    padding: 0;
+    position: absolute;
+    right: $spacing-xxs;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $spacing-xs;
+
+    &:hover {
+      svg {
+        color: $ui-destructive;
+      }
+    }
   }
 }

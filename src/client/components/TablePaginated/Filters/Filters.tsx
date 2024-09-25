@@ -3,9 +3,6 @@ import React from 'react'
 
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
-import { useAppDispatch } from 'client/store'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
-import ButtonClose from 'client/components/Buttons/ButtonClose'
 import Icon from 'client/components/Icon'
 import Text from 'client/components/TablePaginated/Filters/Text/Text'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
@@ -21,7 +18,6 @@ type Props = {
 
 const Filters: React.FC<Props> = (props: Props) => {
   const { filters, path } = props
-  const dispatch = useAppDispatch()
 
   return (
     <div className="table-paginated-filters-container">
@@ -37,13 +33,6 @@ const Filters: React.FC<Props> = (props: Props) => {
           />
         )
       })}
-
-      <ButtonClose
-        className="table-paginated-filters-reset-button"
-        onClick={() => {
-          dispatch(TablePaginatedActions.resetFilters({ path }))
-        }}
-      />
     </div>
   )
 }

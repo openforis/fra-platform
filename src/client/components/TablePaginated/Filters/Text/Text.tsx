@@ -1,12 +1,11 @@
 import './Text.scss'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 
 import { Functions } from 'utils/functions'
-import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
-import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
+import Icon from 'client/components/Icon'
 import InputText from 'client/components/Inputs/InputText'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
@@ -17,15 +16,8 @@ type Props = TablePaginatedFilter & {
 const Text = (props: Props) => {
   const { fieldName, label, path } = props
   const dispatch = useAppDispatch()
-  const storeValue = useTablePaginatedFilterValue(path, fieldName) as string
 
   const [localInputValue, setLocalInputValue] = useState('')
-  useEffect(() => {
-    // When filter is reset
-    if (Objects.isEmpty(storeValue)) {
-      setLocalInputValue('')
-    }
-  }, [storeValue])
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +39,11 @@ const Text = (props: Props) => {
     [handleChange]
   )
 
+  const handleClearInput = () => {
+    setLocalInputValue('')
+    dispatch(TablePaginatedActions.resetFilter({ fieldName, path }))
+  }
+
   return (
     <div className="table-paginated-filters__input-text-container">
       <InputText
@@ -57,6 +54,9 @@ const Text = (props: Props) => {
         placeholder={label}
         value={localInputValue}
       />
+      <button className="clear-button icon" onClick={handleClearInput} type="button">
+        <Icon className="icon-sub" name="remove" />
+      </button>
     </div>
   )
 }
