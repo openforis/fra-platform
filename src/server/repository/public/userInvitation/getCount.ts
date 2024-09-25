@@ -21,6 +21,7 @@ export const getCount = async (props: Props, client: BaseProtocol = DB): Promise
                  left join public.assessment_cycle ac on ur.cycle_uuid = ac.uuid and a.id = ac.assessment_id
         where a.id = $1
           and ac.id = $2
+          and ur.invitation_uuid is not null
     `,
     [assessment.id, cycle.id],
     (res) => Objects.camelize(res)
