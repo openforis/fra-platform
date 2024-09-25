@@ -46,6 +46,7 @@ export const MetadataController = {
 
   // row
   createRow: RowRepository.create,
+  getRows: RowRepository.getMany,
 
   // col
   addColumn,
