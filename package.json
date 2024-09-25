@@ -271,7 +271,8 @@
     "winston": "^3.8.2"
   },
   "overrides": {
-    "bcrypt": "5.0.1"
+    "bcrypt": "5.0.1",
+    "string-width": "4.2.3"
   },
   "browserslist": [
     "last 2 versions"
