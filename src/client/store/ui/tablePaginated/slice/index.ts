@@ -11,6 +11,10 @@ export const TablePaginatedSlice = createSlice({
   name: 'tablePaginated',
   initialState,
   reducers: {
+    setFilterValue: (state, action: PayloadAction<{ fieldName: string; path: string; value: string }>) => {
+      const { fieldName, path, value } = action.payload
+      Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value })
+    },
     setOrderBy: (state, action: PayloadAction<{ orderBy: TablePaginatedOrderBy; path: string }>) => {
       const { orderBy, path } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'orderBy'], value: orderBy })
@@ -19,6 +23,10 @@ export const TablePaginatedSlice = createSlice({
     setPage: (state, action) => {
       const { path, page } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
+    },
+    resetFilter: (state, action: PayloadAction<{ fieldName: string; path: string }>) => {
+      const { fieldName, path } = action.payload
+      Objects.unset(state, [path, 'filters', fieldName])
     },
     resetPaths: (state, action: PayloadAction<{ paths: Array<string> }>) => {
       const { paths } = action.payload

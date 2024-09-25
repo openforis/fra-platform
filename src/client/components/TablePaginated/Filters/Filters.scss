@@ -1,0 +1,8 @@
+@import 'src/client/style/partials';
+
+.table-paginated-filters-container {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  width: 100%;
+}
