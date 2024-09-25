@@ -44,6 +44,7 @@ export const exportUsers = async (req: UsersRequest, res: Response) => {
       statuses: [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending],
     })
 
+    // @ts-ignore
     await ExportService.queryToCsvResponseStream<User>({ fileName, query, queryParams, res, rowTransformer })
   } catch (e) {
     Requests.sendErr(res, e)

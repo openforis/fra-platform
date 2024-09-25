@@ -2,8 +2,8 @@
   "license": "UNLICENSED",
   "name": "fra-platform",
   "engines": {
-    "node": "^20.11.1",
-    "yarn": "^1.22.19"
+    "node": "20.11.1",
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "build": "run-s build:prod:client build:prod:server build:prod:server:resources",
@@ -13,7 +13,7 @@
     "build:prod:report": "cross-env NODE_ENV=production BUILD_REPORT=true webpack --display-error-details -p --config webpack.config.babel.js",
     "clean": "shx rm -rf dist/",
     "heroku-prebuild": "echo \"//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}\" >> .npmrc",
-    "---heroku-cleanup": "cd node_modules/bcrypt && node-pre-gyp install --fallback-to-build",
+    "heroku-cleanup": "cd node_modules/bcrypt && node-pre-gyp install --fallback-to-build",
     "migration-public:create": "src/tools/migrations/public/create-migration-step.sh",
     "migration-public:run": "ts-node src/tools/migrations/public",
     "migration-steps:create": "src/test/migrations/create-migration-step.sh",
@@ -166,7 +166,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "@socket.io/redis-streams-adapter": "^0.1.0",
     "@types/multer": "^1.4.7",
-    "archiver": "^7.0.1",
+    "archiver": "^6.0.2",
     "assert": "^2.0.0",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
@@ -269,6 +269,10 @@
     "uuid": "^8.3.2",
     "webpack-node-externals": "^3.0.0",
     "winston": "^3.8.2"
+  },
+  "overrides": {
+    "bcrypt": "5.0.1",
+    "string-width": "4.2.3"
   },
   "browserslist": [
     "last 2 versions"
