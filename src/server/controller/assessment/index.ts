@@ -1,5 +1,6 @@
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
+import { cloneCycle } from './cloneCycle'
 import { create } from './create'
 import { createCycle } from './createCycle'
 import { generateDataCache } from './generateDataCache'
@@ -10,13 +11,17 @@ import { remove } from './remove'
 import { updateDefaultCycle } from './update'
 
 export const AssessmentController = {
+  // assessment
   create,
-  createCycle,
   getAll: AssessmentRepository.getAll,
   getOne: AssessmentRepository.getOne,
   getOneWithCycle,
   remove,
   updateDefaultCycle,
+
+  // cycle
+  cloneCycle,
+  createCycle,
 
   // data cache
   generateDataCache,
