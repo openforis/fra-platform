@@ -4,6 +4,7 @@ import { User } from 'meta/user'
 import { cloneAreas } from 'server/controller/assessment/cloneCycle/_cloneAreas'
 import { cloneData } from 'server/controller/assessment/cloneCycle/_cloneData'
 import { cloneMetadata } from 'server/controller/assessment/cloneCycle/_cloneMetadata'
+import { cloneUserRoles } from 'server/controller/assessment/cloneCycle/_cloneUserRoles'
 import { generateMaterializedViews } from 'server/controller/assessment/cloneCycle/_generateMaterializedViews'
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { createCycle } from 'server/controller/assessment/createCycle'
@@ -34,6 +35,7 @@ export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promi
 
     await cloneMetadata(cloneProps, t)
     await cloneAreas(cloneProps, t)
+    await cloneUserRoles(cloneProps, t)
     await generateMaterializedViews(cloneProps, t)
     await cloneData(cloneProps, t)
 
