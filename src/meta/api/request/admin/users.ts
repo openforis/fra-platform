@@ -10,11 +10,17 @@ export type UsersRequest<QueryParams = any, Body = any> = Request<
   QueryParams & {
     assessmentName?: string
     cycleName?: string
+    filters?: string
     limit?: string
     offset?: string
-    countries?: Array<CountryIso>
-    fullName?: string
-    roles?: Array<RoleName>
-    administrators?: boolean
+    orderBy?: string
+    orderByDirection?: string
   }
 >
+
+export type DecodedUserFilters = {
+  administrators?: boolean
+  countries?: Array<CountryIso>
+  fullName?: string
+  roles?: Array<RoleName>
+}
