@@ -26,7 +26,9 @@ export type {
   DescriptionValues,
 } from './commentableDescription'
 export { CommentableDescriptionName } from './commentableDescription'
-export type { Cycle, CycledPropsObject, CycleName, CycleUuid } from './cycle'
+export type { Cycle, CycledPropsObject, CycleName, CycleProps, CycleUuid } from './cycle'
+export { CycleStatus } from './cycle'
+export { Cycles } from './cycles'
 export type {
   DataSourceDescription,
   DataSourceDescriptionTable,
@@ -60,12 +62,16 @@ export type { Row, RowProps, VariableName } from './row'
 export { RowType } from './row'
 export type { RecordRowCache, RowCache, RowCacheKey } from './rowCache'
 export { RowCaches } from './rowCache'
+export { Rows } from './rows'
 export type { Section, SectionName, SectionProps, SubSection, SubSectionHints, SubSectionProps } from './section'
 export { SectionNames } from './section'
+export { Sections } from './sections'
 export type { Settings } from './settings'
 export { SubSections } from './subSections'
 export type { Table, TableColumnNames, TableName, TableProps } from './table'
 export { TableNames } from './table'
+export { Tables } from './tables'
 export type { TableSection, TableSectionProps } from './tableSection'
+export { TableSections } from './tableSections'
 export { Unit } from './unit'
 export { Years } from './years'

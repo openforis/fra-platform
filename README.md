@@ -27,11 +27,11 @@ To constantly build it when something changes, run:
 
 ```yarn start```
 
-## Database
+## * Backend Storage Setup
 
-### Create your own local database
+## Postgres
 
-If you have a Docker server configured locally, just run this command:
+Create a new Postgres local instance via Docker. Run the command:
 
 ```shell
 sudo docker run -d --name fra-db -p 5442:5432 -e POSTGRES_DB=frap-dev -e POSTGRES_PASSWORD=frap -e POSTGRES_USER=frap postgres:15.4
@@ -39,7 +39,18 @@ sudo docker run -d --name fra-db -p 5442:5432 -e POSTGRES_DB=frap-dev -e POSTGRE
 
 Otherwise, check `.env` configurations for setting it up manually (note that the server port is not default!)
 
-### Migrations
+## Redis
+
+Install 2 instances of redis 6.2.6 (one for queues and one for data)
+
+```shell
+sudo docker run --name fra-queue-redis -p 6379:6379 -d redis:6.2.6
+```
+```shell
+sudo docker run --name fra-data-redis -p 6389:6379 -d redis:6.2.6
+```
+
+## Database Migrations
 
 Migrations are run automatically on startup of the server.
 
@@ -56,48 +67,3 @@ Now you'll see new sql files in `src/tools/migrations/public/steps/`.
 
 You should edit the `<timestamp-kuikka-up.ts` to contain your `create table` -statement.
 Make sure migrations can be ran twice without side effects.
-
-## Redis
-
-Install 2 instances of redis 6.2.6 (one for queues and one for data)
-
-```shell
-sudo docker run --name fra-queue-redis -p 6379:6379 -d redis:6.2.6
-```
-```shell
-sudo docker run --name fra-data-redis -p 6389:6379 -d redis:6.2.6
-```
-
-## Design decisions
-
-* all numeric values for areas are stored in hectares, and converted for UI for user unnits
-* Data points are stored in precision of year
-
-## Icons
-
-Download the desktop app  at https://nucleoapp.com
-
-### Add icon to set
-
-* Select the icon you like
-* Add to Project
-* Select `FRA Platform`
-
-### Export icon set
-
-* Go to Projects > FRA Platform
-* Select all
-* Export
-    * Settings: SVG, SVG <symbols>
-    * https://files.slack.com/files-tmb/T4FG1BM7G-F6Q547Y3G-a26d73a50d/artboard_480.png
-* Download & unzip
-* Move `icons.svg`, `demo.svg` to `/img`
-* Run `update-icons.sh`
-
-## Using the traditional table framework
-
-FRA Platform contains a simple framework for creating tables with
-fixed amount of rows and columns. These tables can store and retrieve
-their own data so it reduces the need to custom-code the logic for
-these simple cases. [The user guide is here](doc/traditional-table-guide.md).
-

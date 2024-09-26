@@ -27,7 +27,7 @@ export default async () => {
     table: { table: 'public', schema: 'migrations' },
   })
 
-  const query = `${pgp.helpers.insert(values, cs)}`
+  const query = `${pgp.helpers.insert(values, cs)} on conflict do nothing;`
 
   await client.none(query)
 }

@@ -37,7 +37,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       assessment_id bigint not null,
       uuid uuid default uuid_generate_v4(),
       name character varying default '',
-      published boolean not null default false,
+      props jsonb default '{}'::jsonb not null,
       foreign key (assessment_id) references ${schemaName}.assessment (id)
         on update cascade on delete cascade
     );
