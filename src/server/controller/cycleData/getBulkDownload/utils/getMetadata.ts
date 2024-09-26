@@ -22,7 +22,6 @@ type Props = {
  */
 const getUnitLabelPath = (tableName: string, cycle: Cycle): string[] => {
   const pathMap: Record<string, string[]> = {
-    growingStockTotal: ['0', 'cols', '0', 'props', 'labels', cycle.uuid],
     growingStockComposition2025: ['1', 'cols', '0', 'props', 'labels', cycle.uuid],
     carbonStockSoilDepth: ['0', 'cols', '0', 'props', 'labels', cycle.uuid],
   }
