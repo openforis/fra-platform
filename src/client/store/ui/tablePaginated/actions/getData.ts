@@ -4,31 +4,36 @@ import axios from 'axios'
 import { TablePaginatedDataRequestParams } from 'meta/api/request/tablePaginated'
 import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
-import { TablePaginatedOrderBy } from 'meta/tablePaginated'
+import { TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
+import { encodeFilters } from 'meta/tablePaginated/utils'
 
 type Props = {
   assessmentName: AssessmentName
-  cycleName: CycleName
   countryIso?: AreaCode
-  sectionName?: SectionName
+  cycleName: CycleName
+  filters?: Record<string, TablePaginatedFilterValues>
+  limit: number
   orderBy?: TablePaginatedOrderBy
   page: number
   path: string
-  limit: number
+  sectionName?: SectionName
 }
 
 type Returned = Array<never>
 
 export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/get', async (props) => {
-  const { assessmentName, cycleName, countryIso, sectionName, orderBy, page, path, limit } = props
+  const { assessmentName, countryIso, cycleName, filters, limit, orderBy, page, path, sectionName } = props
+
+  const encodedFilters = encodeFilters(filters)
 
   const params: TablePaginatedDataRequestParams = {
     assessmentName,
-    cycleName,
     countryIso,
-    sectionName,
+    cycleName,
+    filters: encodedFilters,
     limit: String(limit),
     offset: String(page * limit),
+    sectionName,
   }
 
   if (orderBy && orderBy.property && orderBy.direction) {

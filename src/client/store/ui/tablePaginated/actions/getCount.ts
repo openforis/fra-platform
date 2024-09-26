@@ -3,13 +3,16 @@ import axios from 'axios'
 
 import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
+import { TablePaginatedFilterValues } from 'meta/tablePaginated'
+import { encodeFilters } from 'meta/tablePaginated/utils'
 
 type Props = {
   assessmentName: AssessmentName
-  cycleName: CycleName
   countryIso?: AreaCode
-  sectionName?: SectionName
+  cycleName: CycleName
+  filters?: Record<string, TablePaginatedFilterValues>
   path: string
+  sectionName?: SectionName
 }
 
 type Returned = {
@@ -17,9 +20,11 @@ type Returned = {
 }
 
 export const getCount = createAsyncThunk<Returned, Props>('tablePaginated/count/get', async (props) => {
-  const { assessmentName, cycleName, countryIso, sectionName, path } = props
+  const { assessmentName, countryIso, cycleName, filters, path, sectionName } = props
 
-  const params: Record<string, string> = { assessmentName, cycleName, countryIso, sectionName }
+  const encodedFilters = encodeFilters(filters)
+
+  const params: Record<string, string> = { assessmentName, countryIso, cycleName, filters: encodedFilters, sectionName }
 
   const { data } = await axios.get<Returned>(`${path}/count`, { params })
 

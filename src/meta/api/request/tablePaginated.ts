@@ -12,6 +12,7 @@ type BaseParams = {
 }
 
 export type TablePaginatedDataRequestParams = BaseParams & {
+  filters?: string
   limit: string
   offset: string
   orderBy?: string

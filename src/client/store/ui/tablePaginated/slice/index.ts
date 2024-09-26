@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedOrderBy } from 'meta/tablePaginated'
+import { TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
 
 import { getCount } from 'client/store/ui/tablePaginated/actions/getCount'
 import { getData } from 'client/store/ui/tablePaginated/actions/getData'
@@ -11,9 +11,13 @@ export const TablePaginatedSlice = createSlice({
   name: 'tablePaginated',
   initialState,
   reducers: {
-    setFilterValue: (state, action: PayloadAction<{ fieldName: string; path: string; value: string }>) => {
+    setFilterValue: (
+      state,
+      action: PayloadAction<{ fieldName: string; path: string; value: TablePaginatedFilterValues }>
+    ) => {
       const { fieldName, path, value } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value })
+      Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
     },
     setOrderBy: (state, action: PayloadAction<{ orderBy: TablePaginatedOrderBy; path: string }>) => {
       const { orderBy, path } = action.payload
@@ -27,6 +31,7 @@ export const TablePaginatedSlice = createSlice({
     resetFilter: (state, action: PayloadAction<{ fieldName: string; path: string }>) => {
       const { fieldName, path } = action.payload
       Objects.unset(state, [path, 'filters', fieldName])
+      Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
     },
     resetPaths: (state, action: PayloadAction<{ paths: Array<string> }>) => {
       const { paths } = action.payload
