@@ -1,4 +1,4 @@
-import { AreaCode, RegionCode } from 'meta/area'
+import { RegionCode } from 'meta/area'
 import { RecordAssessmentData } from 'meta/data'
 
 import { getTablesCondition } from 'server/controller/cycleData/tableData/getTablesCondition'
@@ -9,22 +9,21 @@ import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { Props } from './props'
 
 export const getAggregatedTableData = async (
-  props: Props & { countryIso: AreaCode },
+  props: Props & { regionCode: RegionCode },
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
   const {
     assessment,
-    cycle,
-    countryIso,
-    countryISOs: countryISOsProp,
-    tableNames,
     columns,
-    variables,
+    countryISOs: countryISOsProp,
+    cycle,
     mergeOdp,
+    regionCode,
+    tableNames,
+    variables,
   } = props
   const tables = getTablesCondition({ tableNames, columns, variables, mergeOdp })
 
-  const regionCode = countryIso as RegionCode
   // If we have more than one countryIso, then we are given a subset of countries
   const countryISOs =
     countryISOsProp.length > 1
