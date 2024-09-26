@@ -15,6 +15,7 @@ export const getManyMetadata = async (
   const { cycle, sectionNames, assessment, showHidden = false } = props
   const schemaName = Schemas.getName(assessment)
 
+  // @ts-ignore
   return client.result<Record<string, Array<TableSection>>>(
     `
         with "row" as (select s.props ->> 'name' as section_name,
@@ -91,10 +92,13 @@ export const getManyMetadata = async (
 
     `,
     [sectionNames, cycle.uuid, showHidden],
+    // @ts-ignore
     (result) => {
       return result.rows.reduce((prev, current) => {
+        // @ts-ignore
         return {
           ...prev,
+          // @ts-ignore
           [current.section_name]: current.table_sections.map(TableSectionAdapter),
         }
       }, {})

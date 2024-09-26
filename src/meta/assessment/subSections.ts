@@ -1,7 +1,26 @@
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
+import { Sections } from 'meta/assessment/sections'
 
 import { Assessment } from './assessment'
+
+const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; subSection: SubSection }): SubSection['props'] => {
+  const { cycleSource, cycleTarget, subSection } = props
+
+  const { uuid: cycleSourceUuid } = cycleSource
+  const { uuid: cycleTargetUuid } = cycleTarget
+  const section = subSection as Section
+
+  const _props: SubSection['props'] = Sections.cloneProps({ cycleSource, cycleTarget, section }) as SubSection['props']
+  _props.cycles.push(cycleTargetUuid)
+
+  if (_props.descriptions?.[cycleSourceUuid])
+    _props.descriptions[cycleTargetUuid] = _props.descriptions[cycleSourceUuid]
+  if (_props.hidden?.[cycleSourceUuid]) _props.hidden[cycleTargetUuid] = _props.hidden[cycleSourceUuid]
+  if (_props.hints?.[cycleSourceUuid]) _props.hints[cycleTargetUuid] = _props.hints[cycleSourceUuid]
+
+  return _props
+}
 
 const getAnchor = (props: { cycle: Cycle; subSection: SubSection }): string => {
   const { cycle, subSection } = props
@@ -37,6 +56,7 @@ const getPrevious = (props: { subSection: SubSection; sections: Array<Section> }
 }
 
 export const SubSections = {
+  cloneProps,
   getAnchor,
   getAnchorLabel,
   getAnchorsByUuid,

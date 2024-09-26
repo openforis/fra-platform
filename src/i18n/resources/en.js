@@ -16,10 +16,12 @@ const panEuropean = require('./en/panEuropean/panEuropean')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const uc = require('./en/uc')
 const validation = require('./en/validation')
+const bulkDownload = require('./en/bulkDownload')
 
 module.exports.translation = {
   admin,
   area,
+  bulkDownload,
   common,
   contentCheck,
   dataDownload,
@@ -642,6 +644,7 @@ The FRA team fra@fao.org
     introducedTreeSpecies: 'Introduced tree species',
     areaUnitLabel: 'Growing stock in forest (million m³ over bark)',
     scientificName: 'Scientific name',
+    millionCubicMeter: '$t(fra.growingStockComposition.millionCubicMeter)',
     commonName: 'Common name',
     rank: '#{{idx}} Ranked in terms of volume',
     remainingNative: 'Remaining native tree species',
@@ -650,7 +653,7 @@ The FRA team fra@fao.org
     totalIntroduced: 'Total volume of introduced tree species',
     totalGrowingStock: 'Total growing stock',
     rankingYear: 'Ranking year 2015',
-    growingStockPercent: '$t(fra.growingStockComposition.growingStockPercent)',
+    growingStockPercent: '$t(unit.growingStockPercent)',
   },
 
   biomassStock: {

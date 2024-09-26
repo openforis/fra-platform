@@ -6,6 +6,7 @@ import { TableAdapter, TableDB } from 'server/repository/adapter/table'
 
 export interface TableSectionDB {
   id: number
+  // @ts-ignore
   section_id: number
   uuid: string
   props: TableSectionProps & { cycles: Array<string> }

@@ -42,6 +42,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
     return (
       <div className={className}>
         <EmptyListComponent />
+        {counter.show && <Count counter={counter} path={path} />}
       </div>
     )
   }

@@ -6,6 +6,26 @@ import { Labels } from 'meta/assessment/labels'
 import { Col, ColStyle, ColType } from './col'
 import { Row } from './row'
 
+const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col }): Col['props'] => {
+  const { cycleSource, cycleTarget, col } = props
+
+  const { uuid: cycleSourceUuid } = cycleSource
+  const { uuid: cycleTargetUuid } = cycleTarget
+
+  const _props: Col['props'] = { ...col.props }
+  _props.cycles.push(cycleTargetUuid)
+
+  if (_props.calculateFn?.[cycleSourceUuid]) _props.calculateFn[cycleTargetUuid] = _props.calculateFn[cycleSourceUuid]
+  if (_props.classNames?.[cycleSourceUuid]) _props.classNames[cycleTargetUuid] = _props.classNames[cycleSourceUuid]
+  if (_props.labels?.[cycleSourceUuid]) _props.labels[cycleTargetUuid] = _props.labels[cycleSourceUuid]
+  if (_props.linkedNodes?.[cycleSourceUuid]) _props.linkedNodes[cycleTargetUuid] = _props.linkedNodes[cycleSourceUuid]
+  if (_props.style?.[cycleSourceUuid]) _props.style[cycleTargetUuid] = _props.style[cycleSourceUuid]
+  if (_props.validateFns?.[cycleSourceUuid]) _props.validateFns[cycleTargetUuid] = _props.validateFns[cycleSourceUuid]
+  if (_props.variableNo?.[cycleSourceUuid]) _props.variableNo[cycleTargetUuid] = _props.variableNo[cycleSourceUuid]
+
+  return _props
+}
+
 const getColName = (props: { colIdx: number; cols: Array<Col> }): string => {
   const { colIdx, cols } = props
   const col = cols.find((c) => c.props.index === colIdx)
@@ -62,6 +82,7 @@ const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
 }
 
 export const Cols = {
+  cloneProps,
   getCalculateFn,
   getClassNames,
   getColName,

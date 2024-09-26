@@ -26,7 +26,7 @@ export const naturallyRegeneratingForestArea = (cycle: Cycle, region: boolean): 
     },
     {
       variableName: 'plantedForest',
-      color: ChartColor.forestDark,
+      color: ChartColor.forestPlanted,
       unit: unit(region),
       label: { key: 'statisticalFactsheets.rowName.plantedForest' },
     },
