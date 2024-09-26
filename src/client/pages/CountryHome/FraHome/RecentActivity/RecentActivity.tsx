@@ -14,7 +14,13 @@ const RecentActivity: React.FC = () => {
   const path = ApiEndPoint.CycleData.activities()
 
   return (
-    <TablePaginated columns={columns} EmptyListComponent={EmptyActivities} header={false} limit={limit} path={path} />
+    <TablePaginated
+      columns={columns}
+      emptyList={{ Component: EmptyActivities, showInTable: false }}
+      header={false}
+      limit={limit}
+      path={path}
+    />
   )
 }
 

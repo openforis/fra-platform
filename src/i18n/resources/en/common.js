@@ -40,6 +40,7 @@ module.exports = {
   loading: 'Loading...',
   login: 'Reserved area',
   name: 'Name',
+  noItemsToDisplay: 'No items to display',
   or: 'Or',
   other: 'Other',
   otherSpecifyInComments: 'Other (specify in comments)',

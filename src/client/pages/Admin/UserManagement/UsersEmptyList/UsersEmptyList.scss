@@ -1,0 +1,9 @@
+@import 'src/client/style/partials';
+
+.admin-user-management__empty-list {
+  color: $text-disabled;
+  font-weight: bold;
+  grid-column: 1 / -1;
+  padding: $spacing-xxl 0;
+  text-align: center;
+}
