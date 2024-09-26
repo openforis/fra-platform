@@ -2,7 +2,7 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle, Labels, RowType } from 'meta/assessment'
+import { Assessment, Cycle, Labels, Table } from 'meta/assessment'
 
 import { MetadataController } from 'server/controller/metadata'
 
@@ -33,17 +33,29 @@ const getUnitLabelPath = (tableName: string, cycle: Cycle): string[] => {
 }
 
 /**
- * Retrieves the row type for a given table name.
+ * Retrieves the table metadata for a given assessment, cycle, and table name.
  *
- * @param {string} tableName - The name of the table.
- * @returns {RowType} The row type for the given table.
+ * @param {Object} props - The properties object.
+ * @param {Assessment} props.assessment - Assessment
+ * @param {Cycle} props.cycle - Cycle
+ * @param {string} props.tableName - Table name
+ *
+ * @returns {Promise<Table|undefined>} A promise that resolves to the table metadata or undefined if not found.
  */
-const getRowType = (tableName: string): RowType => {
-  const rowTypeMap: Record<string, RowType> = {
-    carbonStockSoilDepth: RowType.data,
-  }
 
-  return rowTypeMap[tableName] || RowType.header
+const getTable = async (props: Props): Promise<Table | undefined> => {
+  const { assessment, cycle, tableName } = props
+  const sectionsMetadata = await MetadataController.getSectionsMetadata({ assessment, cycle })
+  const table = Object.keys(sectionsMetadata).reduce((acc, sectionName) => {
+    const section = sectionsMetadata[sectionName].find((section) =>
+      section.tables.find((table) => table.props.name === tableName)
+    )
+    if (section) {
+      return section.tables.find((table) => table.props.name === tableName)
+    }
+    return acc
+  }, undefined as Table)
+  return table
 }
 
 /**
@@ -62,16 +74,10 @@ export const getMetadata = async (
   dateExported: string
   unit: string
 }> => {
-  const { assessment, cycle, tableName } = props
+  const { cycle, tableName } = props
 
-  const table = await MetadataController.getTable({ assessment, cycle, tableName })
-  const rows = await MetadataController.getRows({
-    assessment,
-    tableName,
-    cycle,
-    includeCols: true,
-    rowType: getRowType(tableName), // Use the new getRowType function here
-  })
+  const table = await getTable(props)
+  const { rows } = table
 
   const i18n = (await createI18nPromise('en')) as i18nType
   const dateOfExport = `(${i18n.t('bulkDownload.dateOfExport')})`
