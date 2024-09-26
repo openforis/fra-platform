@@ -7,12 +7,16 @@ import Icon from 'client/components/Icon'
 import Text from 'client/components/TablePaginated/Filters/Text/Text'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
-const componentsByFilterType: Record<TablePaginatedFilterType, React.FC<TablePaginatedFilter & { path: string }>> = {
+const componentsByFilterType: Record<
+  TablePaginatedFilterType,
+  React.FC<TablePaginatedFilter<TablePaginatedFilterType> & { path: string }>
+> = {
   [TablePaginatedFilterType.TEXT]: Text,
+  [TablePaginatedFilterType.SWITCH]: () => null,
 }
 
 type Props = {
-  filters: Array<TablePaginatedFilter>
+  filters: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   path: string
 }
 
@@ -23,6 +27,7 @@ const Filters: React.FC<Props> = (props: Props) => {
     <div className="table-paginated-filters-container">
       <Icon name="filter" />
       {filters.map((filter) => {
+        if (filter.isHidden) return null
         const Component = componentsByFilterType[filter.type]
         return (
           <Component

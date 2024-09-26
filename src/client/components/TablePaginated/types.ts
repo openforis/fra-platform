@@ -16,7 +16,7 @@ export type Column<Datum> = {
 
 export type Props<Datum> = {
   columns: Array<Column<Datum>>
-  filters?: Array<TablePaginatedFilter>
+  filters?: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   limit?: number
   path: string
 }
@@ -35,10 +35,17 @@ export type TablePaginatedEmptyList = {
   Component?: React.FC
 }
 
-export type TablePaginatedFilter = {
+type TablePaginatedFilterTypeMap = {
+  [TablePaginatedFilterType.SWITCH]: boolean
+  [TablePaginatedFilterType.TEXT]: string
+}
+
+export type TablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
+  defaultValue?: TablePaginatedFilterTypeMap[FilterType]
   fieldName: string
+  isHidden?: boolean
   label: string
-  type: TablePaginatedFilterType
+  type: FilterType
 }
 
 export type TablePaginatedSkeleton = {

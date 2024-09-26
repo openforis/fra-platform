@@ -14,6 +14,7 @@ export type TablePaginatedCount = {
 
 export enum TablePaginatedFilterType {
   TEXT = 'text',
+  SWITCH = 'switch',
 }
 
 export type TablePaginatedFilterValues = boolean | string | Array<string>
