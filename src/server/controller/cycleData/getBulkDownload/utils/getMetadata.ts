@@ -2,9 +2,9 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle, Labels, Table } from 'meta/assessment'
+import { Assessment, Cycle, Labels } from 'meta/assessment'
 
-import { MetadataController } from 'server/controller/metadata'
+import { TableRedisRepository } from 'server/repository/redis/table'
 
 type Props = {
   assessment: Assessment
@@ -33,32 +33,6 @@ const getUnitLabelPath = (tableName: string, cycle: Cycle): string[] => {
 }
 
 /**
- * Retrieves the table metadata for a given assessment, cycle, and table name.
- *
- * @param {Object} props - The properties object.
- * @param {Assessment} props.assessment - Assessment
- * @param {Cycle} props.cycle - Cycle
- * @param {string} props.tableName - Table name
- *
- * @returns {Promise<Table|undefined>} A promise that resolves to the table metadata or undefined if not found.
- */
-
-const getTable = async (props: Props): Promise<Table | undefined> => {
-  const { assessment, cycle, tableName } = props
-  const sectionsMetadata = await MetadataController.getSectionsMetadata({ assessment, cycle })
-  const table = Object.keys(sectionsMetadata).reduce((acc, sectionName) => {
-    const section = sectionsMetadata[sectionName].find((section) =>
-      section.tables.find((table) => table.props.name === tableName)
-    )
-    if (section) {
-      return section.tables.find((table) => table.props.name === tableName)
-    }
-    return acc
-  }, undefined as Table)
-  return table
-}
-
-/**
  * Retrieves the metadata for a given table name and cycle.
  *
  * @param {Object} props - The properties object.
@@ -76,7 +50,7 @@ export const getMetadata = async (
 }> => {
   const { cycle, tableName } = props
 
-  const table = await getTable(props)
+  const table = await TableRedisRepository.getOne(props)
   const { rows } = table
 
   const i18n = (await createI18nPromise('en')) as i18nType
