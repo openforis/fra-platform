@@ -30,11 +30,6 @@ export type TablePaginatedCounter = {
 
 export type TablePaginatedEmptyListComponent = React.FC
 
-export type TablePaginatedEmptyList = {
-  showInTable: boolean
-  Component?: React.FC
-}
-
 type TablePaginatedFilterTypeMap = {
   [TablePaginatedFilterType.SWITCH]: boolean
   [TablePaginatedFilterType.TEXT]: string

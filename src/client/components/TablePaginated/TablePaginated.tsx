@@ -13,17 +13,17 @@ import ExportButton from './ExportButton/ExportButton'
 import { useFetchData } from './hooks/useFetchData'
 import Body from './Body'
 import Count from './Count'
-import EmptyList from './EmptyList'
+import DefaultEmptyList from './DefaultEmptyList'
 import Header from './Header'
 import Paginator from './Paginator'
-import { Props as BaseProps, TablePaginatedCounter, TablePaginatedEmptyList, TablePaginatedSkeleton } from './types'
+import { Props as BaseProps, TablePaginatedCounter, TablePaginatedSkeleton } from './types'
 
 type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'className'> &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridTemplateColumns'> &
   Pick<PaginatorProps, 'marginPagesDisplayed' | 'pageRangeDisplayed'> &
   BaseProps<Datum> & {
     counter?: TablePaginatedCounter
-    emptyList?: TablePaginatedEmptyList
+    EmptyListComponent?: React.FC
     export?: boolean
     header?: boolean
     skeleton?: TablePaginatedSkeleton
@@ -34,15 +34,15 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { className, gridTemplateColumns } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
   const { columns, filters, limit, path } = props // Base Props
-  const { counter, emptyList, export: exportTable, header, skeleton, wrapCells } = props // Component Props
+  const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells } = props // Component Props
 
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
 
-  if (count?.total === 0 && !emptyList.showInTable) {
+  if (count?.total === 0) {
     return (
       <div className={className}>
-        <EmptyList />
+        <EmptyListComponent />
         {counter.show && <Count counter={counter} path={path} />}
       </div>
     )
@@ -61,7 +61,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
           style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
         >
           {header && <Header columns={columns} path={path} />}
-          {count?.total === 0 && <EmptyList Component={emptyList.Component} />}
+          {count?.total === 0 && <EmptyListComponent />}
           {count?.total > 0 && (
             <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
           )}
@@ -82,9 +82,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
 
 TablePaginated.defaultProps = {
   counter: { show: true },
-  emptyList: {
-    showInTable: false,
-  },
+  EmptyListComponent: DefaultEmptyList,
   export: false,
   // eslint-disable-next-line react/default-props-match-prop-types
   filters: [],
