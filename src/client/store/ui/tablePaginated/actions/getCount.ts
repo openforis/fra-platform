@@ -3,8 +3,7 @@ import axios from 'axios'
 
 import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
-import { TablePaginatedFilterValues } from 'meta/tablePaginated'
-import { encodeFilters } from 'meta/tablePaginated/utils'
+import { TablePaginatedFilterValues, TablePaginateds } from 'meta/tablePaginated'
 
 type Props = {
   assessmentName: AssessmentName
@@ -22,7 +21,7 @@ type Returned = {
 export const getCount = createAsyncThunk<Returned, Props>('tablePaginated/count/get', async (props) => {
   const { assessmentName, countryIso, cycleName, filters, path, sectionName } = props
 
-  const encodedFilters = encodeFilters(filters)
+  const encodedFilters = TablePaginateds.encodeFilters(filters)
 
   const params: Record<string, string> = { assessmentName, countryIso, cycleName, filters: encodedFilters, sectionName }
 

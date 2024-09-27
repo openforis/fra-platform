@@ -4,8 +4,7 @@ import axios from 'axios'
 import { TablePaginatedDataRequestParams } from 'meta/api/request/tablePaginated'
 import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
-import { TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
-import { encodeFilters } from 'meta/tablePaginated/utils'
+import { TablePaginatedFilterValues, TablePaginatedOrderBy, TablePaginateds } from 'meta/tablePaginated'
 
 type Props = {
   assessmentName: AssessmentName
@@ -24,7 +23,7 @@ type Returned = Array<never>
 export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/get', async (props) => {
   const { assessmentName, countryIso, cycleName, filters, limit, orderBy, page, path, sectionName } = props
 
-  const encodedFilters = encodeFilters(filters)
+  const encodedFilters = TablePaginateds.encodeFilters(filters)
 
   const params: TablePaginatedDataRequestParams = {
     assessmentName,

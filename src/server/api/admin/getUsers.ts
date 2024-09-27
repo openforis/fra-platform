@@ -1,8 +1,7 @@
 import { Response } from 'express'
 
 import { UsersRequest } from 'meta/api/request'
-import { DecodedUserFilters } from 'meta/api/request/admin/users'
-import { decodeFilters } from 'meta/tablePaginated/utils'
+import { TablePaginateds, UserFilters } from 'meta/tablePaginated'
 import { UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -13,7 +12,7 @@ export const getUsers = async (req: UsersRequest, res: Response) => {
   try {
     const { assessmentName, cycleName, limit, offset, orderBy, orderByDirection, filters } = req.query
 
-    const decodedFilters = decodeFilters(filters) as DecodedUserFilters
+    const decodedFilters = TablePaginateds.decodeFilters(filters) as UserFilters
     const { administrators, countries, fullName, roles } = decodedFilters ?? {}
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
