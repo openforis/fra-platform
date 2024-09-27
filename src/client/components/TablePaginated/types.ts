@@ -38,7 +38,7 @@ type TablePaginatedFilterTypeMap = {
 export type TablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
   defaultValue?: TablePaginatedFilterTypeMap[FilterType]
   fieldName: string
-  isHidden?: boolean
+  hidden?: boolean
   label: string
   type: FilterType
 }

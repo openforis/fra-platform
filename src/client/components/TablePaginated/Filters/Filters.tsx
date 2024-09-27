@@ -27,7 +27,7 @@ const Filters: React.FC<Props> = (props: Props) => {
     <div className="table-paginated-filters-container">
       <Icon name="filter" />
       {filters.map((filter) => {
-        if (filter.isHidden) return null
+        if (filter.hidden) return null
         const Component = componentsByFilterType[filter.type]
         return (
           <Component

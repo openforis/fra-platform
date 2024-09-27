@@ -22,7 +22,7 @@ export const useFilters = (): Returned => {
       {
         defaultValue: true,
         fieldName: 'administrators',
-        isHidden: true,
+        hidden: true,
         label: '',
         type: TablePaginatedFilterType.SWITCH,
       },
