@@ -29,6 +29,7 @@ module.exports = {
   label: 'Ярлык',
   language: 'Язык',
   lastEdit: 'Последнее реадактирование',
+  latest: 'Последний',
   link: 'Ссылка',
   load: 'Загрузить',
   loading: 'Загрузка...',

@@ -31,6 +31,7 @@ module.exports = {
   label: 'التسمية',
   language: 'اللغة',
   lastEdit: 'آخر تعديل',
+  latest: 'الأحدث',
   link: 'الرابط',
   load: 'تحميل',
   loading: 'جاري التحميل...',

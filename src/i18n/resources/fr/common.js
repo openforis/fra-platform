@@ -28,6 +28,7 @@ module.exports = {
   label: 'Nom',
   language: 'Langue',
   lastEdit: 'Dernière modification',
+  latest: 'Dernier',
   link: 'Lien',
   login: 'Espace réservé',
   name: 'Nom',
