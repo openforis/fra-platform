@@ -1,8 +1,9 @@
 import { Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
 
 import { User, Users } from '../user'
+import { Assessment } from './assessment'
 import { AssessmentName } from './assessmentName'
-import { Cycle } from './cycle'
+import { Cycle, CycleStatus } from './cycle'
 
 export interface AssessmentStatusTransition {
   next?: AssessmentStatus
@@ -55,6 +56,49 @@ export const AssessmentStatusTransitions = {
 
 const getShortLabel = (assessmentName: AssessmentName) => `${assessmentName}.labels.short`
 
+/**
+ * Retrieves the most recently published cycle from an assessment.
+ *
+ * @param {Assessment} assessment - Assessment
+ * @returns {Cycle | undefined} The most recently published cycle, or undefined if no published cycles exist.
+ */
+const getLastPublishedCycle = (assessment: Assessment): Cycle | undefined => {
+  const publishedCycles = assessment.cycles.filter((cycle) => cycle.props.status === CycleStatus.published)
+
+  if (publishedCycles.length === 0) {
+    return undefined
+  }
+
+  return publishedCycles.reduce((last, current) => {
+    const lastDate = new Date(last.props.datePublished)
+    const currentDate = new Date(current.props.datePublished)
+    return lastDate > currentDate ? last : current
+  })
+}
+
+/**
+ * Retrieves the most recently created cycle from an assessment.
+ * Note: cycle.props.status can be draft, even when dateCreated is present.
+ *
+ * @param {Assessment} assessment - Assessment
+ * @returns {Cycle | undefined} The most recently created cycle, or undefined if no cycles exist.
+ */
+const getLastCreatedCycle = (assessment: Assessment): Cycle | undefined => {
+  const createdCycles = assessment.cycles.filter((cycle) => cycle.props.dateCreated)
+
+  if (createdCycles.length === 0) {
+    return undefined
+  }
+
+  return createdCycles.reduce((last, current) => {
+    const lastDate = new Date(last.props.dateCreated)
+    const currentDate = new Date(current.props.dateCreated)
+    return lastDate > currentDate ? last : current
+  })
+}
+
 export const Assessments = {
   getShortLabel,
+  getLastPublishedCycle,
+  getLastCreatedCycle,
 }
