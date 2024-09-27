@@ -39,15 +39,6 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
 
-  if (count?.total === 0) {
-    return (
-      <div className={className}>
-        <EmptyListComponent />
-        {counter.show && <Count counter={counter} path={path} />}
-      </div>
-    )
-  }
-
   return (
     <div className={classNames('table-paginated', className)}>
       <div>
