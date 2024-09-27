@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName, Cycle, Cycles, SectionName } from 'meta/assessment'
+import { Assessments, CommentableDescriptionName, Cycle, Cycles, SectionName } from 'meta/assessment'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
 import { useAppSelector } from 'client/store'
@@ -30,6 +30,10 @@ export const useUserCycles = (): Array<Cycle> => {
   const user = useUser()
   const isAdministrator = Users.isAdministrator(user)
   if (isAdministrator) return assessment.cycles
+
+  // Users who are not logged in can only access the most recently published cycle
+  if (!user) return [Assessments.getLastPublishedCycle(assessment)]
+
   // Return only current assessment cycles for user
   return assessment.cycles.filter(
     (cycle) => Cycles.isPublished(cycle) || user?.roles.some((role) => cycle.uuid === role.cycleUuid)
