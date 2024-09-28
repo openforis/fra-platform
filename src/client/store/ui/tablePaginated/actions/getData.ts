@@ -1,21 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { TablePaginatedDataRequestParams } from 'meta/api/request/tablePaginated'
-import { AreaCode } from 'meta/area'
-import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
+import { TablePaginatedBaseParams, TablePaginatedDataRequestParams } from 'meta/api/request/tablePaginated'
 import { TablePaginatedFilterValues, TablePaginatedOrderBy, TablePaginateds } from 'meta/tablePaginated'
 
-type Props = {
-  assessmentName: AssessmentName
-  countryIso?: AreaCode
-  cycleName: CycleName
+type Props = TablePaginatedBaseParams & {
   filters?: Record<string, TablePaginatedFilterValues>
   limit: number
   orderBy?: TablePaginatedOrderBy
   page: number
   path: string
-  sectionName?: SectionName
 }
 
 type Returned = Array<never>
