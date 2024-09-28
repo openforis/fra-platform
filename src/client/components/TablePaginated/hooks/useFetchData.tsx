@@ -1,8 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { Functions } from 'utils/functions'
-
-import { TablePaginatedFilterValues } from 'meta/tablePaginated'
 
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
@@ -25,48 +23,54 @@ export const useFetchData = (props: Props): void => {
   const orderBy = useTablePaginatedOrderBy(path)
   const page = useTablePaginatedPage(path)
 
-  const [filtersThrottled, setFiltersThrottled] = useState<Record<string, TablePaginatedFilterValues> | undefined>()
-
-  const updateThrottledFilters = useMemo(
+  const throttledGetCount = useMemo(
     () =>
       Functions.throttle(
-        (newFilters: Record<string, TablePaginatedFilterValues>) => setFiltersThrottled(newFilters),
+        (params) => {
+          dispatch(TablePaginatedActions.getCount(params))
+        },
         500,
         { trailing: true }
       ),
-    []
+    [dispatch]
+  )
+
+  const throttledGetData = useMemo(
+    () =>
+      Functions.throttle(
+        (params) => {
+          dispatch(TablePaginatedActions.getData(params))
+        },
+        500,
+        { trailing: true }
+      ),
+    [dispatch]
   )
 
   useEffect(() => {
-    updateThrottledFilters(filters)
-  }, [filters, updateThrottledFilters])
-
-  useEffect(() => {
     if (!counter.show) return
-    dispatch(
-      TablePaginatedActions.getCount({
-        assessmentName,
-        countryIso,
-        cycleName,
-        filters: filtersThrottled,
-        path,
-        sectionName,
-      })
-    )
-  }, [assessmentName, counter, countryIso, cycleName, dispatch, filtersThrottled, path, sectionName])
+    throttledGetCount({
+      assessmentName,
+      countryIso,
+      cycleName,
+      filters,
+      path,
+      sectionName,
+    })
+  }, [assessmentName, counter, countryIso, cycleName, filters, path, sectionName, throttledGetCount])
 
   useEffect(() => {
     const params = {
       assessmentName,
       countryIso,
       cycleName,
-      filters: filtersThrottled,
+      filters,
       limit,
       orderBy,
       page,
       path,
       sectionName,
     }
-    dispatch(TablePaginatedActions.getData(params))
-  }, [assessmentName, countryIso, cycleName, dispatch, filtersThrottled, limit, orderBy, page, path, sectionName])
+    throttledGetData(params)
+  }, [assessmentName, countryIso, cycleName, filters, limit, orderBy, page, path, sectionName, throttledGetData])
 }
