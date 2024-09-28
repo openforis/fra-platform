@@ -22,7 +22,7 @@ type Returned = {
   total: number
 } & Record<RoleName, number>
 export const count = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { administrators, assessment, countries, cycle, fullName, roles, statuses } = props
+  const { assessment, countries, cycle, fullName, roles } = props
 
   const conditions: Array<string> = []
   if (Objects.isEmpty(countries)) conditions.push(`(ur.country_iso is null or ur.country_iso not like 'X%')`)
@@ -49,15 +49,7 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<Re
   select jsonb_object_agg(counts.role, counts.totals) as result
   from counts`
 
-  const { query: subQueryTotals, queryParams: queryTotalsParams } = buildGetManyQuery({
-    administrators,
-    assessment,
-    countries,
-    cycle,
-    fullName,
-    roles,
-    statuses,
-  })
+  const { query: subQueryTotals, queryParams: queryTotalsParams } = buildGetManyQuery(props)
 
   const queryTotals = `
   select count(*) as total
