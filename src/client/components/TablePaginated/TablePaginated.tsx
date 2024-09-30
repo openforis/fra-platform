@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { useTablePaginatedCount, useTablePaginatedData } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount, useTablePaginatedData, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
 import { useOnUpdate } from 'client/hooks'
 import DataGrid from 'client/components/DataGridDeprecated'
 import { PaginatorProps } from 'client/components/Paginator'
@@ -41,16 +41,20 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
   const data = useTablePaginatedData(path)
+  const page = useTablePaginatedPage(path)
+
   const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
   const divRef = useRef<HTMLDivElement>()
 
-  // on data updated -> scroll on top
+  // on page update -> scroll on top
   useOnUpdate(() => {
     if (!Objects.isNil(data)) {
-      const opts: ScrollIntoViewOptions = { behavior: 'smooth', block: 'start', inline: 'nearest' }
-      divRef.current?.parentElement?.parentElement?.scrollIntoView(opts)
+      setTimeout(() => {
+        const opts: ScrollIntoViewOptions = { behavior: 'smooth', block: 'start', inline: 'nearest' }
+        divRef.current?.parentElement?.parentElement?.scrollIntoView(opts)
+      })
     }
-  }, [data])
+  }, [page])
 
   return (
     <div ref={divRef} className={classNames('table-paginated', className)}>
