@@ -1,10 +1,12 @@
 import './TablePaginated.scss'
-import React, { HTMLAttributes, useMemo } from 'react'
+import React, { HTMLAttributes, useMemo, useRef } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount, useTablePaginatedData } from 'client/store/ui/tablePaginated'
+import { useOnUpdate } from 'client/hooks'
 import DataGrid from 'client/components/DataGridDeprecated'
 import { PaginatorProps } from 'client/components/Paginator'
 import Filters from 'client/components/TablePaginated/Filters/Filters'
@@ -38,11 +40,20 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
 
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
-
+  const data = useTablePaginatedData(path)
   const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
+  const divRef = useRef<HTMLDivElement>()
+
+  // on data updated -> scroll on top
+  useOnUpdate(() => {
+    if (!Objects.isNil(data)) {
+      const opts: ScrollIntoViewOptions = { behavior: 'smooth', block: 'start', inline: 'nearest' }
+      divRef.current?.parentElement?.parentElement?.scrollIntoView(opts)
+    }
+  }, [data])
 
   return (
-    <div className={classNames('table-paginated', className)}>
+    <div ref={divRef} className={classNames('table-paginated', className)}>
       <div>
         {(exportTable || withFilters) && (
           <div className="table-paginated-actions">
