@@ -13,6 +13,7 @@ import ExportButton from './ExportButton/ExportButton'
 import { useFetchData } from './hooks/useFetchData'
 import Body from './Body'
 import Count from './Count'
+import DefaultEmptyList from './DefaultEmptyList'
 import Header from './Header'
 import Paginator from './Paginator'
 import { Props as BaseProps, TablePaginatedCounter, TablePaginatedSkeleton } from './types'
@@ -38,29 +39,23 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
 
-  if (count?.total === 0) {
-    return (
-      <div className={className}>
-        <EmptyListComponent />
-        {counter.show && <Count counter={counter} path={path} />}
-      </div>
-    )
-  }
-
   return (
     <div className={classNames('table-paginated', className)}>
       <div>
         <div className="table-paginated-action-buttons-container">
           {exportTable && <ExportButton path={path} />}
           {exportTable && filters.length > 0 && <div className="table-paginated-separator" />}
-          {filters.length > 0 && <Filters filters={filters} path={path} />}
+          {filters.filter((filter) => !filter.hidden).length > 0 && <Filters filters={filters} path={path} />}
         </div>
         <DataGrid
           className="table-paginated-datagrid"
           style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
         >
           {header && <Header columns={columns} path={path} />}
-          <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
+          {count?.total === 0 && <EmptyListComponent />}
+          {count?.total > 0 && (
+            <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
+          )}
         </DataGrid>
       </div>
 
@@ -77,8 +72,8 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
 }
 
 TablePaginated.defaultProps = {
-  EmptyListComponent: () => <div />,
   counter: { show: true },
+  EmptyListComponent: DefaultEmptyList,
   export: false,
   // eslint-disable-next-line react/default-props-match-prop-types
   filters: [],

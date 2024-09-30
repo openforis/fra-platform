@@ -1,6 +1,8 @@
 import './Text.scss'
 import React from 'react'
 
+import { TablePaginatedFilterType } from 'meta/tablePaginated'
+
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
@@ -8,7 +10,7 @@ import Icon from 'client/components/Icon'
 import InputText from 'client/components/Inputs/InputText'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
-type Props = TablePaginatedFilter & {
+type Props = TablePaginatedFilter<TablePaginatedFilterType.TEXT> & {
   path: string
 }
 

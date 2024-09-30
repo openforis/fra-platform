@@ -5,15 +5,26 @@ import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
-export const useFilters = (): Array<TablePaginatedFilter> => {
+type Returned = Array<
+  TablePaginatedFilter<TablePaginatedFilterType.TEXT> | TablePaginatedFilter<TablePaginatedFilterType.SWITCH>
+>
+
+export const useFilters = (): Returned => {
   const { t } = useTranslation()
 
-  return useMemo<Array<TablePaginatedFilter>>(() => {
+  return useMemo<Returned>(() => {
     return [
       {
-        type: TablePaginatedFilterType.TEXT,
         fieldName: 'fullName',
         label: t('common.name'),
+        type: TablePaginatedFilterType.TEXT,
+      },
+      {
+        defaultValue: true,
+        fieldName: 'administrators',
+        hidden: true,
+        label: '',
+        type: TablePaginatedFilterType.SWITCH,
       },
     ]
   }, [t])
