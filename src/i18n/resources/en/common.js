@@ -35,6 +35,7 @@ module.exports = {
   label: 'Label',
   language: 'Language',
   lastEdit: 'Last edit',
+  latest: 'Latest',
   link: 'Link',
   load: 'Load',
   loading: 'Loading...',

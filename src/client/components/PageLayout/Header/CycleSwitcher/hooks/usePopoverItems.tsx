@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cycles } from 'meta/assessment'
+import { Assessments, Cycles } from 'meta/assessment'
 import { Users } from 'meta/user'
 
 import { useAssessments } from 'client/store/assessment'
@@ -33,11 +33,14 @@ export const usePopoverItems = (): Array<PopoverItem> => {
 
           const assessmentName = assessment.props.name
           const cycleName = cycle.name
+          const isLatestCycle = Assessments.getLastCreatedCycle(assessment)?.name === cycleName
           const isCurrentRoute = assessmentName === routeParams.assessmentName && cycleName === routeParams.cycleName
+          const label = t(`${assessmentName}.labels.short`)
+          const content = `${label} ${isLatestCycle ? t('common.latest') : cycleName}`
 
           if (canViewCycle && !isCurrentRoute) {
             const item: PopoverItem = {
-              content: `${t(`${assessmentName}.labels.short`)} ${cycleName}`,
+              content,
               onClick: () => navigateTo({ assessment, cycle, user }),
             }
             items.push(item)

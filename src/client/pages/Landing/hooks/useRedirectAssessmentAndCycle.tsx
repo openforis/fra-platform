@@ -1,3 +1,4 @@
+import { Assessments } from 'meta/assessment'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -16,10 +17,7 @@ export const useRedirectAssessmentAndCycle = () => {
   )
 
   const isAdmin = Users.isAdministrator(user)
-
-  const cycle = isAdmin
-    ? [...assessment.cycles].sort((a, b) => (a.name > b.name ? -1 : 1)).at(0)
-    : assessment.cycles.find((cycle) => cycle.uuid === (userLastRole?.cycleUuid ?? assessment.props.defaultCycle))
+  const cycle = isAdmin ? Assessments.getLastCreatedCycle(assessment) : Assessments.getLastPublishedCycle(assessment)
 
   return { assessment, cycle }
 }
