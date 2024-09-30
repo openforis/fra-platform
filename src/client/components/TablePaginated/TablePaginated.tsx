@@ -1,10 +1,12 @@
 import './TablePaginated.scss'
-import React, { HTMLAttributes } from 'react'
+import React, { HTMLAttributes, useMemo, useRef } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount, useTablePaginatedData, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
+import { useOnUpdate } from 'client/hooks'
 import DataGrid from 'client/components/DataGridDeprecated'
 import { PaginatorProps } from 'client/components/Paginator'
 import Filters from 'client/components/TablePaginated/Filters/Filters'
@@ -38,15 +40,32 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
 
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
+  const data = useTablePaginatedData(path)
+  const page = useTablePaginatedPage(path)
+
+  const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
+  const divRef = useRef<HTMLDivElement>()
+
+  // on page update -> scroll on top
+  useOnUpdate(() => {
+    if (!Objects.isNil(data)) {
+      setTimeout(() => {
+        const opts: ScrollIntoViewOptions = { behavior: 'smooth', block: 'start', inline: 'nearest' }
+        divRef.current?.parentElement?.parentElement?.scrollIntoView(opts)
+      })
+    }
+  }, [page])
 
   return (
-    <div className={classNames('table-paginated', className)}>
+    <div ref={divRef} className={classNames('table-paginated', className)}>
       <div>
-        <div className="table-paginated-action-buttons-container">
-          {exportTable && <ExportButton path={path} />}
-          {exportTable && filters.length > 0 && <div className="table-paginated-separator" />}
-          {filters.filter((filter) => !filter.hidden).length > 0 && <Filters filters={filters} path={path} />}
-        </div>
+        {(exportTable || withFilters) && (
+          <div className="table-paginated-actions">
+            {exportTable && <ExportButton path={path} />}
+            {exportTable && withFilters && <div className="table-paginated-actions-sep" />}
+            {withFilters && <Filters filters={filters} path={path} />}
+          </div>
+        )}
         <DataGrid
           className="table-paginated-datagrid"
           style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}

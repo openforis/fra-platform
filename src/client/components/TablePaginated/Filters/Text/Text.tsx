@@ -1,6 +1,9 @@
 import './Text.scss'
 import React from 'react'
 
+import classNames from 'classnames'
+import { Objects } from 'utils/objects'
+
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
 import { useAppDispatch } from 'client/store'
@@ -36,9 +39,13 @@ const Text = (props: Props) => {
   }
 
   return (
-    <div className="table-paginated-filters__input-text-container">
+    <div className={classNames('table-paginated-filter-input', { active: !Objects.isEmpty(filterValue) })}>
       <InputText onChange={handleChange} placeholder={label} value={filterValue ?? ''} />
-      <button className="clear-button icon" onClick={handleClearInput} type="button">
+      <button
+        className={classNames('clear-button icon', { disabled: Objects.isEmpty(filterValue) })}
+        onClick={handleClearInput}
+        type="button"
+      >
         <Icon className="icon-sub" name="remove" />
       </button>
     </div>
