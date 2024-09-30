@@ -1,6 +1,10 @@
+import { Dates } from 'utils/dates'
+
 import { Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
+import { Cycles } from 'meta/assessment/cycles'
 
 import { User, Users } from '../user'
+import { Assessment } from './assessment'
 import { AssessmentName } from './assessmentName'
 import { Cycle } from './cycle'
 
@@ -55,6 +59,42 @@ export const AssessmentStatusTransitions = {
 
 const getShortLabel = (assessmentName: AssessmentName) => `${assessmentName}.labels.short`
 
+/**
+ * Retrieves the most recently published cycle from an assessment.
+ *
+ * @param {Assessment} assessment - Assessment
+ * @returns {Cycle | undefined} The most recently published cycle, or undefined if no published cycles exist.
+ */
+const getLastPublishedCycle = (assessment: Assessment): Cycle | undefined => {
+  const publishedCycles = assessment.cycles.filter((cycle) => Cycles.isPublished(cycle))
+
+  if (publishedCycles.length === 0) {
+    return undefined
+  }
+
+  return publishedCycles.reduce((last, current) => {
+    const lastDate = new Date(last.props.datePublished)
+    const currentDate = new Date(current.props.datePublished)
+    return Dates.isAfter(currentDate, lastDate) ? current : last
+  })
+}
+
+/**
+ * Retrieves the most recently created cycle from an assessment.
+ *
+ * @param {Assessment} assessment - Assessment
+ * @returns {Cycle | undefined} The most recently created cycle, or undefined if no cycles exist.
+ */
+const getLastCreatedCycle = (assessment: Assessment): Cycle | undefined => {
+  return assessment.cycles.reduce((last, current) => {
+    const lastDate = new Date(last.props.dateCreated)
+    const currentDate = new Date(current.props.dateCreated)
+    return Dates.isAfter(currentDate, lastDate) ? current : last
+  })
+}
+
 export const Assessments = {
   getShortLabel,
+  getLastPublishedCycle,
+  getLastCreatedCycle,
 }

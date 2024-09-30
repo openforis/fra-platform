@@ -25,6 +25,7 @@ module.exports = {
   label: 'Etiqueta',
   language: 'Idioma',
   lastEdit: 'Última edición',
+  latest: 'Último',
   link: 'Enlace',
   login: 'Área reservada',
   name: 'Nombre',

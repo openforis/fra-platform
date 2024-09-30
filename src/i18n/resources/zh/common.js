@@ -31,6 +31,7 @@ module.exports = {
   label: '标签',
   language: '语言',
   lastEdit: '最后编辑',
+  latest: '最新',
   link: '链接',
   load: '加载',
   loading: '加载中...',
