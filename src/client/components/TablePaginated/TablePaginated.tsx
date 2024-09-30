@@ -61,7 +61,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
       <div>
         {(exportTable || withFilters) && (
           <div className="table-paginated-actions">
-            {exportTable && <ExportButton path={path} />}
+            {exportTable && <ExportButton counterActive={counter.show} filters={filters} path={path} />}
             {exportTable && withFilters && <div className="table-paginated-actions-sep" />}
             {withFilters && <Filters filters={filters} path={path} />}
           </div>
