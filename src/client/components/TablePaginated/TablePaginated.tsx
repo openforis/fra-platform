@@ -72,7 +72,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
         >
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}
-          {count?.total > 0 && (
+          {(count?.total > 0 || !counter.show) && (
             <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
           )}
         </DataGrid>
