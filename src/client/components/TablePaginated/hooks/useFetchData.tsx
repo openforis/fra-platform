@@ -2,24 +2,28 @@ import { useEffect, useMemo } from 'react'
 
 import { Functions } from 'utils/functions'
 
+import { TablePaginatedFilterType } from 'meta/tablePaginated'
+
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
-import { useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
-import { TablePaginatedCounter } from 'client/components/TablePaginated/types'
+import { TablePaginatedCounter, TablePaginatedFilter } from 'client/components/TablePaginated/types'
+
+import { useFilterValues } from './useFilterValues'
 
 type Props = {
   counter: TablePaginatedCounter
+  filters: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   limit: number
   path: string
 }
 
 export const useFetchData = (props: Props): void => {
-  const { counter, limit, path } = props
+  const { counter, filters, limit, path } = props
 
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
-  const filters = useTablePaginatedFilters(path)
+  const filterValues = useFilterValues({ filters, path })
   const orderBy = useTablePaginatedOrderBy(path)
   const page = useTablePaginatedPage(path)
 
@@ -53,18 +57,18 @@ export const useFetchData = (props: Props): void => {
       assessmentName,
       countryIso,
       cycleName,
-      filters,
+      filters: filterValues,
       path,
       sectionName,
     })
-  }, [assessmentName, counter, countryIso, cycleName, filters, path, sectionName, throttledGetCount])
+  }, [assessmentName, counter, countryIso, cycleName, filterValues, path, sectionName, throttledGetCount])
 
   useEffect(() => {
     const params = {
       assessmentName,
       countryIso,
       cycleName,
-      filters,
+      filters: filterValues,
       limit,
       orderBy,
       page,
@@ -78,7 +82,7 @@ export const useFetchData = (props: Props): void => {
     countryIso,
     cycleName,
     dispatch,
-    filters,
+    filterValues,
     limit,
     orderBy,
     page,

@@ -38,7 +38,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { columns, filters, limit, path } = props // Base Props
   const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells } = props // Component Props
 
-  useFetchData({ path, limit, counter })
+  useFetchData({ counter, filters, limit, path })
   const count = useTablePaginatedCount(path)
   const data = useTablePaginatedData(path)
   const page = useTablePaginatedPage(path)
