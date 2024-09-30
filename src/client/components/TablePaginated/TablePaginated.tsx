@@ -1,5 +1,5 @@
 import './TablePaginated.scss'
-import React, { HTMLAttributes } from 'react'
+import React, { HTMLAttributes, useMemo } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
@@ -39,14 +39,18 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   useFetchData({ path, limit, counter })
   const count = useTablePaginatedCount(path)
 
+  const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
+
   return (
     <div className={classNames('table-paginated', className)}>
       <div>
-        <div className="table-paginated-actions">
-          {exportTable && <ExportButton path={path} />}
-          {exportTable && filters.length > 0 && <div className="table-paginated-actions-sep" />}
-          {filters.filter((filter) => !filter.hidden).length > 0 && <Filters filters={filters} path={path} />}
-        </div>
+        {(exportTable || withFilters) && (
+          <div className="table-paginated-actions">
+            {exportTable && <ExportButton path={path} />}
+            {exportTable && withFilters && <div className="table-paginated-actions-sep" />}
+            {withFilters && <Filters filters={filters} path={path} />}
+          </div>
+        )}
         <DataGrid
           className="table-paginated-datagrid"
           style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
