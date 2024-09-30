@@ -24,7 +24,7 @@ const Filters: React.FC<Props> = (props: Props) => {
   const { filters, path } = props
 
   return (
-    <div className="table-paginated-filters-container">
+    <div className="table-paginated-filters">
       <Icon name="filter" />
       {filters.map((filter) => {
         if (filter.hidden) return null

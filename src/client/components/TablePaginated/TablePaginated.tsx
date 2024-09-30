@@ -42,9 +42,9 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   return (
     <div className={classNames('table-paginated', className)}>
       <div>
-        <div className="table-paginated-action-buttons-container">
+        <div className="table-paginated-actions">
           {exportTable && <ExportButton path={path} />}
-          {exportTable && filters.length > 0 && <div className="table-paginated-separator" />}
+          {exportTable && filters.length > 0 && <div className="table-paginated-actions-sep" />}
           {filters.filter((filter) => !filter.hidden).length > 0 && <Filters filters={filters} path={path} />}
         </div>
         <DataGrid
