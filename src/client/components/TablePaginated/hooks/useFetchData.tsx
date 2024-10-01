@@ -6,10 +6,11 @@ import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { TablePaginatedCounter, TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
-import { useFilterValues } from './useFilterValues'
+import { useSetHiddenFilters } from './useSetHiddenFilters'
 
 type Props = {
   counter: TablePaginatedCounter
@@ -19,11 +20,14 @@ type Props = {
 }
 
 export const useFetchData = (props: Props): void => {
-  const { counter, filters, limit, path } = props
+  const { counter, filters: filtersConfig, limit, path } = props
 
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
-  const filterValues = useFilterValues({ filters, path })
+
+  const hiddenFiltersSet = useSetHiddenFilters({ filters: filtersConfig, path })
+
+  const filters = useTablePaginatedFilters(path)
   const orderBy = useTablePaginatedOrderBy(path)
   const page = useTablePaginatedPage(path)
 
@@ -52,23 +56,24 @@ export const useFetchData = (props: Props): void => {
   )
 
   useEffect(() => {
-    if (!counter.show) return
+    if (!hiddenFiltersSet || !counter.show) return
     throttledGetCount({
       assessmentName,
       countryIso,
       cycleName,
-      filters: filterValues,
+      filters,
       path,
       sectionName,
     })
-  }, [assessmentName, counter, countryIso, cycleName, filterValues, path, sectionName, throttledGetCount])
+  }, [assessmentName, counter, countryIso, cycleName, filters, hiddenFiltersSet, path, sectionName, throttledGetCount])
 
   useEffect(() => {
+    if (!hiddenFiltersSet) return
     const params = {
       assessmentName,
       countryIso,
       cycleName,
-      filters: filterValues,
+      filters,
       limit,
       orderBy,
       page,
@@ -82,7 +87,8 @@ export const useFetchData = (props: Props): void => {
     countryIso,
     cycleName,
     dispatch,
-    filterValues,
+    filters,
+    hiddenFiltersSet,
     limit,
     orderBy,
     page,

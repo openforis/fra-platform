@@ -1,26 +1,24 @@
 import { useMemo } from 'react'
 
-import { TablePaginatedFilterType, TablePaginateds } from 'meta/tablePaginated'
+import { TablePaginateds } from 'meta/tablePaginated'
 
 import { useTablePaginatedOrderBy } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
-import { useFilterValues } from 'client/components/TablePaginated/hooks/useFilterValues'
-import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 type Props = {
-  filters: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   path: string
 }
 
 export const useExportUrl = (props: Props): string => {
-  const { filters, path } = props
+  const { path } = props
 
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams()
   const orderBy = useTablePaginatedOrderBy(path)
-  const filterValues = useFilterValues({ filters, path })
+  const filters = useTablePaginatedFilters(path)
 
   return useMemo<string>(() => {
-    const encodedFilters = TablePaginateds.encodeFilters(filterValues)
+    const encodedFilters = TablePaginateds.encodeFilters(filters)
     const queryParams = new URLSearchParams(
       Object.entries({
         assessmentName,
@@ -33,5 +31,5 @@ export const useExportUrl = (props: Props): string => {
       }).filter(([, value]) => value !== undefined)
     )
     return `${path}/export?${queryParams.toString()}`
-  }, [assessmentName, countryIso, cycleName, filterValues, orderBy, path, sectionName])
+  }, [assessmentName, countryIso, cycleName, filters, orderBy, path, sectionName])
 }

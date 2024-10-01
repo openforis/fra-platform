@@ -19,6 +19,16 @@ export const TablePaginatedSlice = createSlice({
       Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value })
       Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
     },
+    setMultipleFilterValues: (
+      state,
+      action: PayloadAction<{ path: string; filters: Array<{ fieldName: string; value: TablePaginatedFilterValues }> }>
+    ) => {
+      const { filters, path } = action.payload
+      filters.forEach(({ fieldName, value }) => {
+        Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value })
+      })
+      Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
+    },
     setOrderBy: (state, action: PayloadAction<{ orderBy: TablePaginatedOrderBy; path: string }>) => {
       const { orderBy, path } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'orderBy'], value: orderBy })
