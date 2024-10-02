@@ -60,5 +60,7 @@ export const createMigrationStep = async (initialStepName: string): Promise<{ fi
   return { fileName, filePath }
 }
 
-const stepName = process.argv[2]
-createMigrationStep(stepName)
+if (require.main === module) {
+  const stepName = process.argv[2]
+  createMigrationStep(stepName)
+}
