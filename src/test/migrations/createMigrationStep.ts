@@ -26,8 +26,8 @@ const askStepName = (): Promise<string> => {
 }
 
 /**
- * Get the current date in the format YYYY-MM-DD-HH-MM-SS
- * @returns The current date in the format YYYY-MM-DD-HH-MM-SS
+ * Get the current date in the format YYYYMMDDHHMMSS
+ * @returns The current date in the format YYYYMMDDHHMMSS
  */
 const getDate = (): string => {
   const date = new Date()
