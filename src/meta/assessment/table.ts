@@ -27,12 +27,27 @@ export enum TableNames {
   originalDataPointValue = 'originalDataPointValue',
 }
 
+export enum TableCellNumberFormat {
+  decimal = 'decimal',
+  integer = 'integer',
+}
+
+export type TableCell = {
+  columnName: ColName
+  variableName: VariableName
+  format?: TableCellNumberFormat
+  unit?: Unit | null
+}
+
+export type TableCellNames = Record<CycleUuid, Array<TableCell>>
+
 // array of column names indexed by cycle uuid
 export type TableColumnNames = Record<CycleUuid, Array<ColName>>
 
 export type TableName = string
 
 export interface TableProps {
+  cellsExportAlways?: TableCellNames
   columnNames: TableColumnNames
   columnsExport?: TableColumnNames
   columnsExportAlways?: TableColumnNames
