@@ -24,7 +24,7 @@
     "run:dev:server": "yarn migration-public:run && ts-node-dev --exit-child src/server/start",
     "run:prod": "run-s build start",
     "run:prod:server": "node dist/server/start",
-    "start": "yarn run:prod:server",
+    "start": "run-s migration-public:run run:prod:server",
     "metacache:generate": "ts-node src/tools/generateMetaCache/",
     "//test": "mochapack --webpack-config webpack.config.babel.test.js",
     "test": "run-s test:integration",
