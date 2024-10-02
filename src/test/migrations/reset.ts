@@ -8,6 +8,9 @@ import * as readline from 'readline'
 import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
+import { createMigrationStep } from './createMigrationStep'
+import { getFilesToRemove, getMigrationFiles } from './utils'
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -21,27 +24,59 @@ const _confirmReset = (): Promise<boolean> => {
   })
 }
 
+const checkAllMigrationsRan = async () => {
+  const files = getMigrationFiles()
+
+  const dbMigrations = await DB.manyOrNone('select * from migrations.steps;')
+
+  const missingMigrations = files.filter((file) => !dbMigrations.some((dbMigration) => dbMigration.name === file))
+
+  if (missingMigrations.length > 0) {
+    Logger.warn('The following migrations have not been run:')
+    missingMigrations.forEach((file) => Logger.warn(`- ${file}`))
+    return false
+  }
+
+  return true
+}
+
+const deleteOldMigrationFiles = (latestResetStep: string) => {
+  const stepsDir = path.join(__dirname, 'steps')
+  const filesToRemove = getFilesToRemove(latestResetStep)
+
+  filesToRemove.forEach((file) => {
+    fs.unlinkSync(path.join(stepsDir, file))
+    Logger.info(`Removed migration file: ${file}`)
+  })
+}
+
 const resetMigrationSteps = async () => {
   try {
+    // === 1. Check if all migrations ran
+    const allMigrationsRan = await checkAllMigrationsRan()
+    if (!allMigrationsRan) {
+      Logger.error('Not all migrations have been run. Please run all migrations before resetting.')
+      return
+    }
+
+    // === 2. Confirm reset from user
     const confirmed = await _confirmReset()
     if (!confirmed) {
       Logger.info('Reset operation cancelled')
       return
     }
 
-    const stepsDir = path.join(__dirname, 'steps')
-    const files = fs.readdirSync(stepsDir)
-    files.forEach((file) => {
-      if (file !== 'template.ts' && file.endsWith('.ts')) {
-        fs.unlinkSync(path.join(stepsDir, file))
-        Logger.info(`Removed migration file: ${file}`)
-      }
-    })
+    // === 3. Create reset step
+    const { filePath, fileName } = await createMigrationStep('reset')
+    // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
+    const resetStep = require(filePath).default
 
-    // Truncate migration_steps table and reset the primary key
     await DB.tx(async (t) => {
-      await t.none('TRUNCATE TABLE migrations.steps RESTART IDENTITY')
-      Logger.info('Truncated migrations.steps table and reset primary key')
+      // === 4. Run reset step
+      await resetStep(t, fileName)
+
+      // === 5. Delete old migration files
+      deleteOldMigrationFiles(fileName)
     })
 
     Logger.info('Migration steps reset completed successfully')
