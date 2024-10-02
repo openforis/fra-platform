@@ -4,6 +4,7 @@ export type TablePaginatedStateItem<Datum = Record<string, never>, Counter = nev
   count: { total: number } & Counter
   data: Array<Datum>
   filters: Record<string, TablePaginatedFilterValues>
+  initialized: boolean
   orderBy?: TablePaginatedOrderBy
   page: number
 }

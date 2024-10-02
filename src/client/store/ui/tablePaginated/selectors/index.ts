@@ -27,6 +27,11 @@ const getOrderBy = createSelector([_getState, (_state, path: string) => path], (
 
 const getPage = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.page ?? 0)
 
+const isInitialized = createSelector(
+  [_getState, (_state, path: string) => path],
+  (state, path) => state?.[path]?.initialized ?? false
+)
+
 export const TablePaginatedSelectors = {
   getCount,
   getData,
@@ -34,4 +39,5 @@ export const TablePaginatedSelectors = {
   getFilterValue,
   getOrderBy,
   getPage,
+  isInitialized,
 }

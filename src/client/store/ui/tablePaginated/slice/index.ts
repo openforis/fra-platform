@@ -1,32 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
+import { TablePaginatedFilterType, TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
 
 import { getCount } from 'client/store/ui/tablePaginated/actions/getCount'
 import { getData } from 'client/store/ui/tablePaginated/actions/getData'
 import { initialState } from 'client/store/ui/tablePaginated/state'
+import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 export const TablePaginatedSlice = createSlice({
   name: 'tablePaginated',
   initialState,
   reducers: {
+    init: (
+      state,
+      action: PayloadAction<{ path: string; filters: Array<TablePaginatedFilter<TablePaginatedFilterType>> }>
+    ) => {
+      const { filters, path } = action.payload
+      filters.forEach((filter) => {
+        const { fieldName, defaultValue } = filter
+        if (defaultValue === undefined) return
+        Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value: defaultValue })
+      })
+      Objects.setInPath({ obj: state, path: [path, 'initialized'], value: true })
+      Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
+    },
     setFilterValue: (
       state,
       action: PayloadAction<{ fieldName: string; path: string; value: TablePaginatedFilterValues }>
     ) => {
       const { fieldName, path, value } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value })
-      Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
-    },
-    setMultipleFilterValues: (
-      state,
-      action: PayloadAction<{ path: string; filters: Array<{ fieldName: string; value: TablePaginatedFilterValues }> }>
-    ) => {
-      const { filters, path } = action.payload
-      filters.forEach(({ fieldName, value }) => {
-        Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value })
-      })
       Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
     },
     setOrderBy: (state, action: PayloadAction<{ orderBy: TablePaginatedOrderBy; path: string }>) => {
