@@ -275,6 +275,26 @@ export const entries = (
           },
         ]
 
+  const growingStockAvgVariables =
+    cycle.name === '2020'
+      ? []
+      : [
+          {
+            variableName: 'primaryForest',
+            csvColumn: '2a_gs_ha_primary',
+          },
+        ]
+
+  const growingStockTotalVariables =
+    cycle.name === '2020'
+      ? []
+      : [
+          {
+            variableName: 'primaryForest',
+            csvColumn: '2a_gs_total_primary',
+          },
+        ]
+
   const arr = [
     {
       tableName: TableNames.extentOfForest,
@@ -345,6 +365,7 @@ export const entries = (
           variableName: 'naturallyRegeneratingForest',
           csvColumn: '2a_gs_ha_nat_reg',
         },
+        ...growingStockAvgVariables,
         {
           variableName: 'forest',
           csvColumn: '2a_gs_ha_forest',
@@ -374,6 +395,7 @@ export const entries = (
           variableName: 'naturallyRegeneratingForest',
           csvColumn: '2a_gs_tot_nat_reg',
         },
+        ...growingStockTotalVariables,
         {
           variableName: 'plantedForest',
           csvColumn: '2a_gs_tot_planted',
