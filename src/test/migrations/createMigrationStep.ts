@@ -3,26 +3,17 @@ import 'dotenv/config'
 
 import * as fs from 'fs'
 import * as path from 'path'
-import * as readline from 'readline'
 
 import { Logger } from 'server/utils/logger'
+
+import { getUserInput } from './utils'
 
 /**
  * Ask the user for the name of the migration step
  * @returns Migration step name
  */
 const askStepName = (): Promise<string> => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  })
-
-  return new Promise((resolve) => {
-    rl.question('Please enter a name for the migration step: ', (answer) => {
-      rl.close()
-      resolve(answer.trim())
-    })
-  })
+  return getUserInput('Please enter a name for the migration step: ')
 }
 
 /**

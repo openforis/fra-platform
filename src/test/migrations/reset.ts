@@ -3,25 +3,16 @@ import 'dotenv/config'
 
 import * as fs from 'fs'
 import * as path from 'path'
-import * as readline from 'readline'
 
 import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
 import { createMigrationStep } from './createMigrationStep'
-import { getFilesToRemove, getMigrationFiles } from './utils'
+import { getFilesToRemove, getMigrationFiles, getUserInput } from './utils'
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
-
-const _confirmReset = (): Promise<boolean> => {
-  return new Promise((resolve) => {
-    rl.question('Type "reset" to proceed with migration-steps reset: ', (answer) => {
-      resolve(answer.toLowerCase() === 'reset')
-    })
-  })
+const _confirmReset = async (): Promise<boolean> => {
+  const answer = await getUserInput('Type "reset" to proceed with migration-steps reset: ')
+  return answer.toLowerCase() === 'reset'
 }
 
 const checkAllMigrationsRan = async () => {
@@ -84,7 +75,6 @@ const resetMigrationSteps = async () => {
     Logger.error('Error resetting migration steps:', error)
     throw error
   } finally {
-    rl.close()
     await DB.$pool.end()
   }
 }

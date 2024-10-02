@@ -1,5 +1,25 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import * as readline from 'readline'
+
+/**
+ * Get user input from the terminal
+ * @param question - The question to ask the user
+ * @returns The user input
+ */
+export const getUserInput = (question: string): Promise<string> => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  })
+
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close()
+      resolve(answer.trim())
+    })
+  })
+}
 
 /**
  * Get the migration files from the migration steps directory
