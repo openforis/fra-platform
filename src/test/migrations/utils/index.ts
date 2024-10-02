@@ -6,8 +6,8 @@ import * as path from 'path'
  * @param includeResetSteps - Whether to include reset steps in the list
  * @returns The migration files
  */
-export const getMigrationFiles = (includeResetSteps = false): string[] => {
-  const stepsDir = path.join(__dirname, 'steps')
+export const getMigrationFiles = (includeResetSteps = false): Array<string> => {
+  const stepsDir = path.join(__dirname, '..', 'steps')
   return fs.readdirSync(stepsDir).filter((file) => {
     const isResetStep = file.includes('step-reset')
     return (
@@ -24,7 +24,7 @@ export const getMigrationFiles = (includeResetSteps = false): string[] => {
  * @param latestResetStep - The name of the latest reset step
  * @returns The files to remove, excluding the latest reset step
  */
-export const getFilesToRemove = (latestResetStep: string): string[] => {
+export const getFilesToRemove = (latestResetStep: string): Array<string> => {
   const allFiles = getMigrationFiles(true)
   return allFiles.filter((file) => file !== latestResetStep)
 }
