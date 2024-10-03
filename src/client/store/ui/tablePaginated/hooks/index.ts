@@ -3,6 +3,9 @@ import { TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePag
 import { useAppSelector } from 'client/store/store'
 import { TablePaginatedSelectors } from 'client/store/ui/tablePaginated/selectors'
 
+export const useIsTablePaginatedInitialized = (path: string): boolean =>
+  useAppSelector((state) => TablePaginatedSelectors.isInitialized(state, path))
+
 export const useTablePaginatedCount = (path: string): { total: number } =>
   useAppSelector((state) => TablePaginatedSelectors.getCount(state, path))
 

@@ -13,6 +13,7 @@ import Filters from 'client/components/TablePaginated/Filters/Filters'
 
 import ExportButton from './ExportButton/ExportButton'
 import { useFetchData } from './hooks/useFetchData'
+import { useInitTablePaginated } from './hooks/useInitTablePaginated'
 import Body from './Body'
 import Count from './Count'
 import DefaultEmptyList from './DefaultEmptyList'
@@ -38,7 +39,8 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { columns, filters, limit, path } = props // Base Props
   const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells } = props // Component Props
 
-  useFetchData({ path, limit, counter })
+  useInitTablePaginated({ filters, path })
+  useFetchData({ counter, limit, path })
   const count = useTablePaginatedCount(path)
   const data = useTablePaginatedData(path)
   const page = useTablePaginatedPage(path)
@@ -72,9 +74,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
         >
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}
-          {count?.total > 0 && (
-            <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
-          )}
+          <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
         </DataGrid>
       </div>
 

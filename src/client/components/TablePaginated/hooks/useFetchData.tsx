@@ -4,7 +4,7 @@ import { Functions } from 'utils/functions'
 
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
-import { useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
+import { useIsTablePaginatedInitialized, useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { TablePaginatedCounter } from 'client/components/TablePaginated/types'
 
@@ -19,7 +19,9 @@ export const useFetchData = (props: Props): void => {
 
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
+
   const filters = useTablePaginatedFilters(path)
+  const isInitialized = useIsTablePaginatedInitialized(path)
   const orderBy = useTablePaginatedOrderBy(path)
   const page = useTablePaginatedPage(path)
 
@@ -48,7 +50,7 @@ export const useFetchData = (props: Props): void => {
   )
 
   useEffect(() => {
-    if (!counter.show) return
+    if (!isInitialized || !counter.show) return
     throttledGetCount({
       assessmentName,
       countryIso,
@@ -57,9 +59,10 @@ export const useFetchData = (props: Props): void => {
       path,
       sectionName,
     })
-  }, [assessmentName, counter, countryIso, cycleName, filters, path, sectionName, throttledGetCount])
+  }, [assessmentName, counter, countryIso, cycleName, filters, isInitialized, path, sectionName, throttledGetCount])
 
   useEffect(() => {
+    if (!isInitialized) return
     const params = {
       assessmentName,
       countryIso,
@@ -79,6 +82,7 @@ export const useFetchData = (props: Props): void => {
     cycleName,
     dispatch,
     filters,
+    isInitialized,
     limit,
     orderBy,
     page,
