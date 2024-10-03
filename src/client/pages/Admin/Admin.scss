@@ -61,4 +61,15 @@
     position: sticky;
     top: 42px;
   }
+
+  .table-paginated-actions {
+    background-color: #ffffff;
+    position: sticky;
+    top: 42px;
+
+    + .table-paginated-datagrid .data-grid-column.head {
+      position: sticky;
+      top: 82px;
+    }
+  }
 }

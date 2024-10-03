@@ -1,13 +1,8 @@
-export enum TablePaginatedOrderByDirection {
-  asc = 'asc',
-  desc = 'desc',
-}
-
-export type TablePaginatedOrderBy = {
-  direction?: TablePaginatedOrderByDirection
-  property?: string
-}
-
-export type TablePaginatedCount = {
-  total: number
-}
+export type {
+  TablePaginatedCount,
+  TablePaginatedFilterValues,
+  TablePaginatedOrderBy,
+  UserFilters,
+} from './tablePaginated'
+export { TablePaginatedFilterType, TablePaginatedOrderByDirection } from './tablePaginated'
+export { TablePaginateds } from './tablePaginateds'

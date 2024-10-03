@@ -1,0 +1,48 @@
+@import 'src/client/style/partials';
+
+.table-paginated-filter-input {
+  display: inline-block;
+  position: relative;
+
+  input {
+    border: 1px solid $ui-border;
+    border-radius: 2px;
+    font-size: $font-xxs;
+    padding: 6px;
+    transition: all 0.2s ease;
+  }
+
+  button.clear-button {
+    background-color: #ffffff;
+    border: none;
+    height: $spacing-xs;
+    padding: 0;
+    position: absolute;
+    right: $spacing-xxxs;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $spacing-xs;
+
+    svg {
+      height: 14px;
+      width: 14px;
+    }
+
+    &:hover {
+      svg {
+        color: $ui-destructive;
+      }
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+
+  &.active {
+    input {
+      border: 1px solid $ui-accent;
+    }
+  }
+}
