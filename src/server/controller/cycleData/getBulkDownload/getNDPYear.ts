@@ -29,12 +29,15 @@ const getValue = async (props: {
   const { base, assessment, cycle, countryIso, t } = props
   const years = await OriginalDataPointRepository.getReservedYears({ assessment, cycle, countryIso })
 
-  const yearKey = t('bulkDownload.NDPYear.year')
-  const year = years.length ? Math.max(...years.map(({ year }) => year)) : null
-  base[yearKey] = year ? String(year) : null
+  const latestYearKey = t('bulkDownload.NDPYear.latestYear')
+  const earliestYearKey = t('bulkDownload.NDPYear.earliestYear')
+  const latestYear = years.length ? Math.max(...years.map(({ year }) => year)) : null
+  const earliestYear = years.length ? Math.min(...years.map(({ year }) => year)) : null
+  base[earliestYearKey] = earliestYear ? String(earliestYear) : null
+  base[latestYearKey] = latestYear ? String(latestYear) : null
 
-  const originalDataPoint = year
-    ? await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year: String(year) })
+  const originalDataPoint = latestYear
+    ? await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year: String(latestYear) })
     : null
 
   METHODS.forEach((method) => {
