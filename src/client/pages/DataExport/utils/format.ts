@@ -57,16 +57,17 @@ export const formatValue = (props: FormatValueProps): Returned => {
     colName,
     variableName,
   })
+
+  if (format === TableCellNumberFormat.original) {
+    return { columnKey, value }
+  }
+
   // Convert value to string and check if it's a number
   if (value && !Number.isNaN(+value)) {
     const numericValue = Number(value)
-    if (format === TableCellNumberFormat.year) {
-      value = Numbers.toFixed(numericValue, 0)
-    } else {
-      let precision
-      if (format === TableCellNumberFormat.integer) precision = 0
-      value = Numbers.format(numericValue, precision)
-    }
+    let precision
+    if (format === TableCellNumberFormat.integer) precision = 0
+    value = Numbers.format(numericValue, precision)
   }
 
   if (value === 'NaN') value = ''

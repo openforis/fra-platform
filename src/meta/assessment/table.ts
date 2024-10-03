@@ -30,7 +30,7 @@ export enum TableNames {
 export enum TableCellNumberFormat {
   decimal = 'decimal',
   integer = 'integer',
-  year = 'year',
+  original = 'original',
 }
 
 export type TableCell = {
