@@ -13,6 +13,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; row: Row })
   if (_props.calculateFn?.[cycleSourceUuid]) _props.calculateFn[cycleTargetUuid] = _props.calculateFn[cycleSourceUuid]
   if (_props.calculateIf?.[cycleSourceUuid]) _props.calculateIf[cycleTargetUuid] = _props.calculateIf[cycleSourceUuid]
   if (_props.chart?.[cycleSourceUuid]) _props.chart[cycleTargetUuid] = _props.chart[cycleSourceUuid]
+  if (_props.excludeFromDataExport?.[cycleSourceUuid])
+    _props.excludeFromDataExport[cycleTargetUuid] = _props.excludeFromDataExport[cycleSourceUuid]
   if (_props.linkToSection?.[cycleSourceUuid])
     _props.linkToSection[cycleTargetUuid] = _props.linkToSection[cycleSourceUuid]
   if (_props.validateFns?.[cycleSourceUuid]) _props.validateFns[cycleTargetUuid] = _props.validateFns[cycleSourceUuid]

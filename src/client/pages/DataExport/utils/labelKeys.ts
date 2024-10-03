@@ -1,5 +1,4 @@
-import { AssessmentName, AssessmentNames } from 'meta/assessment'
-import { Unit } from 'meta/dataExport'
+import { AssessmentName, AssessmentNames, Unit } from 'meta/assessment'
 
 import { isYearWithWord } from './checks'
 
@@ -15,11 +14,12 @@ const unitLabelKeys: Record<string, string> = {
 
 const columnLabelKeys: Record<string, string> = {
   common_name: 'commonName',
-  scientific_name: 'scientificName',
-  national_yes_no: 'national',
-  sub_national_yes_no: 'subnational',
-  growingStockPercent: 'growingStockPercent',
   growingStockMillionCubicMeter: 'millionCubicMeter',
+  growingStockPercent: 'growingStockPercent',
+  mostRecentYear: 'mostRecentYear',
+  national_yes_no: 'national',
+  scientific_name: 'scientificName',
+  sub_national_yes_no: 'subnational',
 }
 
 export const getUnitLabelKey = (unit: string): string => (unitLabelKeys[unit] ? `unit.${unitLabelKeys[unit]}` : unit)
