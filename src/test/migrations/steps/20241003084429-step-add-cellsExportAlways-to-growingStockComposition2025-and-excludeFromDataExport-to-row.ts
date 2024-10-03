@@ -22,7 +22,7 @@ export default async (client: BaseProtocol) => {
                     "columnName": "mostRecentYear",
                     "variableName": "mostRecentYear",
                     "unit": null,
-                    "format": "integer"
+                    "format": "year"
                 }]'::jsonb
             )
       )
