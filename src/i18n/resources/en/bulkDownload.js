@@ -2,6 +2,7 @@ module.exports = {
   dateOfExport: 'Date of export',
 
   NDPYear: {
-    year: 'Latest NDP year',
+    latestYear: 'Latest NDP year',
+    earliestYear: 'Earliest NDP year',
   },
 }
