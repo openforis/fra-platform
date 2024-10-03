@@ -1,17 +1,22 @@
 import './TablePaginated.scss'
-import React, { HTMLAttributes } from 'react'
+import React, { HTMLAttributes, useMemo, useRef } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount, useTablePaginatedData, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
+import { useOnUpdate } from 'client/hooks'
 import DataGrid from 'client/components/DataGridDeprecated'
 import { PaginatorProps } from 'client/components/Paginator'
+import Filters from 'client/components/TablePaginated/Filters/Filters'
 
 import ExportButton from './ExportButton/ExportButton'
 import { useFetchData } from './hooks/useFetchData'
+import { useInitTablePaginated } from './hooks/useInitTablePaginated'
 import Body from './Body'
 import Count from './Count'
+import DefaultEmptyList from './DefaultEmptyList'
 import Header from './Header'
 import Paginator from './Paginator'
 import { Props as BaseProps, TablePaginatedCounter, TablePaginatedSkeleton } from './types'
@@ -31,30 +36,44 @@ type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'classNa
 const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { className, gridTemplateColumns } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
-  const { columns, path, limit } = props // Base Props
+  const { columns, filters, limit, path } = props // Base Props
   const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells } = props // Component Props
 
-  useFetchData({ path, limit, counter })
+  useInitTablePaginated({ filters, path })
+  useFetchData({ counter, limit, path })
   const count = useTablePaginatedCount(path)
+  const data = useTablePaginatedData(path)
+  const page = useTablePaginatedPage(path)
 
-  if (count?.total === 0) {
-    return (
-      <div className={className}>
-        <EmptyListComponent />
-        {counter.show && <Count counter={counter} path={path} />}
-      </div>
-    )
-  }
+  const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
+  const divRef = useRef<HTMLDivElement>()
+
+  // on page update -> scroll on top
+  useOnUpdate(() => {
+    if (!Objects.isNil(data)) {
+      setTimeout(() => {
+        const opts: ScrollIntoViewOptions = { behavior: 'smooth', block: 'start', inline: 'nearest' }
+        divRef.current?.parentElement?.parentElement?.scrollIntoView(opts)
+      })
+    }
+  }, [page])
 
   return (
-    <div className={classNames('table-paginated', className)}>
+    <div ref={divRef} className={classNames('table-paginated', className)}>
       <div>
-        {exportTable && <ExportButton path={path} />}
+        {(exportTable || withFilters) && (
+          <div className="table-paginated-actions">
+            {exportTable && <ExportButton path={path} />}
+            {exportTable && withFilters && <div className="table-paginated-actions-sep" />}
+            {withFilters && <Filters filters={filters} path={path} />}
+          </div>
+        )}
         <DataGrid
           className="table-paginated-datagrid"
           style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
         >
           {header && <Header columns={columns} path={path} />}
+          {count?.total === 0 && <EmptyListComponent />}
           <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
         </DataGrid>
       </div>
@@ -72,9 +91,11 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
 }
 
 TablePaginated.defaultProps = {
-  EmptyListComponent: () => <div />,
   counter: { show: true },
+  EmptyListComponent: DefaultEmptyList,
   export: false,
+  // eslint-disable-next-line react/default-props-match-prop-types
+  filters: [],
   header: true,
   // eslint-disable-next-line react/default-props-match-prop-types
   limit: 30,

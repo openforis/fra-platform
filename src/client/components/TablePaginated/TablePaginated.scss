@@ -5,6 +5,14 @@
   grid-row-gap: $spacing-xs;
 }
 
+.table-paginated-actions {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xs;
+  height: $spacing-l;
+  padding: $spacing-xxxs;
+}
+
 .table-paginated-datagrid {
   .data-grid-column {
     border: none;
@@ -48,4 +56,10 @@
       }
     }
   }
+}
+
+.table-paginated-actions-sep {
+  background: radial-gradient($ui-accent-dark, $ui-bg);
+  height: $spacing-s;
+  width: 1px;
 }
