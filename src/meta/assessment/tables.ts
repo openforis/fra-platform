@@ -10,6 +10,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Tabl
   const _props: Table['props'] = { ...table.props }
   _props.cycles.push(cycleTargetUuid)
 
+  if (_props.cellsExportAlways?.[cycleSourceUuid])
+    _props.cellsExportAlways[cycleTargetUuid] = _props.cellsExportAlways[cycleSourceUuid]
   if (_props.columnNames?.[cycleSourceUuid]) _props.columnNames[cycleTargetUuid] = _props.columnNames[cycleSourceUuid]
   if (_props.columnsExport?.[cycleSourceUuid])
     _props.columnsExport[cycleTargetUuid] = _props.columnsExport[cycleSourceUuid]
