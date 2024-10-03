@@ -18,6 +18,7 @@ import { RegionRepository } from 'server/repository/assessmentCycle/region'
 import { entries as annualEntries } from './entries/AnnualData'
 import { entries as FRAEntries } from './entries/FRAYears'
 import { entries as intervalEntries } from './entries/Intervals'
+import { getNDPYear } from './getNDPYear'
 
 const _convertToCSV = (arr: Array<Record<string, string>>): string => {
   if (!arr.length) return ''
@@ -120,12 +121,13 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     getContentVariables({ ...params, fileName: 'FRA_Years', entries: FRAEntries(cycle) }),
   ])
 
-  const [annual, intervals, fraYears, nwfp, forestPolicy] = await Promise.all([
+  const [annual, intervals, fraYears, nwfp, forestPolicy, ndpYear] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
     getContent({ ...params, entries: intervalEntries(cycle), intervals: true }),
     getFraYearsData(params),
     getNWFP(params),
     getForestPolicy(params),
+    getNDPYear(params),
   ])
 
   const promises = [
@@ -167,6 +169,10 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     {
       fileName: _getFileName('ForestPolicy'),
       content: await handleContent(forestPolicy),
+    },
+    {
+      fileName: _getFileName('NDPYear'),
+      content: await handleContent(ndpYear),
     },
   ]
 
