@@ -2,10 +2,11 @@ import * as fs from 'fs/promises'
 import * as path from 'path'
 import { config } from 'dotenv'
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 
-import { CountryIso } from '../../src/meta/area'
-import { DB } from '../../src/server/db'
-import { Objects } from '../../src/utils/objects'
+import { CountryIso } from 'meta/area'
+
+import { DB } from 'server/db'
 
 type Response = {
   features: Array<{
