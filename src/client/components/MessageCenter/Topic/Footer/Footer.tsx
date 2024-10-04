@@ -24,7 +24,7 @@ const Footer: React.FC<Props> = (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const { showResolve, showMessageInput } = useShowActions(topic)
+  const { canResolve, canPostMessage } = useShowActions(topic)
 
   const { sectionName } = useParams<{ sectionName: string }>()
 
@@ -56,7 +56,7 @@ const Footer: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="topic__footer">
-      {showMessageInput && (
+      {canPostMessage && (
         <DataGrid className="topic-form" gridTemplateColumns="1fr auto">
           <DataCell lastCol lastRow>
             <TextArea
@@ -79,7 +79,7 @@ const Footer: React.FC<Props> = (props: Props) => {
           </DataCell>
         </DataGrid>
       )}
-      {showResolve && (
+      {canResolve && (
         <div className="topic-review">
           <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
             {t('review.resolve')}

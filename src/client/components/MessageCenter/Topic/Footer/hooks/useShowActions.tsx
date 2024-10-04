@@ -23,9 +23,9 @@ export const useShowActions = (topic: MessageTopic) => {
   const isResolved = topic.status === MessageTopicStatus.resolved
   const hasMessages = topic.messages?.length > 0
 
-  const showResolve = isEditing && isReview && isOpened && hasMessages && (isAdmin || isReviewer)
+  const canResolve = isEditing && isReview && isOpened && hasMessages && (isAdmin || isReviewer)
 
-  const showMessageInput = isEditing && (isOpened || (isResolved && (isAdmin || isReviewer)))
+  const canPostMessage = isEditing && (isOpened || (isResolved && (isAdmin || isReviewer)))
 
-  return { showResolve, showMessageInput }
+  return { canResolve, canPostMessage }
 }
