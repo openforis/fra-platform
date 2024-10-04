@@ -1,14 +1,12 @@
 import './Topic.scss'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
-import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -16,12 +14,11 @@ import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
-import { DataCell, DataGrid } from 'client/components/DataGrid'
 import Icon from 'client/components/Icon'
-import TextArea from 'client/components/Inputs/TextArea'
 import Resizable from 'client/components/Resizable'
 import { SocketClient } from 'client/service/socket'
 
+import Footer from './Footer'
 import Message from './Message'
 
 type TopicProps = {
@@ -30,48 +27,19 @@ type TopicProps = {
 
 const Topic: React.FC<TopicProps> = (props) => {
   const { topic } = props
-  const [message, setMessage] = useState('')
 
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
+
   const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
   const dataLocked = useIsDataLocked()
 
-  let sectionName = useParams<{ sectionName: string }>()?.sectionName
-  if (topic.type !== MessageTopicType.review) sectionName = topic.type
-
   const closeTopic = useCallback(() => {
     dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
   }, [dispatch, topic])
-
-  const resolveTopic = useCallback(() => {
-    dispatch(
-      MessageCenterActions.resolveTopic({
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        key: topic.key,
-        sectionName,
-      })
-    )
-  }, [assessment.props.name, countryIso, cycle.name, dispatch, sectionName, topic.key])
-
-  const postMessage = useCallback(() => {
-    dispatch(
-      MessageCenterActions.postMessage({
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        key: topic.key,
-        message,
-        type: topic.type,
-        sectionName,
-      })
-    ).then(() => setMessage(''))
-  }, [countryIso, assessment, cycle, topic, message, dispatch, sectionName])
 
   const deleteMessage = useCallback(
     (id: number) =>
@@ -82,10 +50,10 @@ const Topic: React.FC<TopicProps> = (props) => {
           cycleName: cycle.name,
           topicKey: topic.key,
           messageId: id,
-          sectionName,
+          sectionName: topic.type !== MessageTopicType.review ? topic.type : undefined,
         })
       ),
-    [countryIso, assessment, cycle, topic, dispatch, sectionName]
+    [countryIso, assessment, cycle, topic, dispatch]
   )
 
   useEffect(() => {
@@ -167,43 +135,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         {topic.loading && <div className="topic__loading">{i18n.t<string>('review.loading')}...</div>}
       </div>
 
-      <div className="topic__footer">
-        {(topic.status === MessageTopicStatus.opened ||
-          (topic.status === MessageTopicStatus.resolved &&
-            (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)))) && (
-          <DataGrid className="topic-form" gridTemplateColumns="1fr auto">
-            <DataCell lastCol lastRow>
-              <TextArea
-                maxHeight={200}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder={i18n.t('review.writeComment')}
-                rows={2}
-                value={message}
-              />
-            </DataCell>
-            <DataCell noBorder>
-              <button
-                className="btn-s btn-primary"
-                disabled={Objects.isEmpty(message)}
-                onClick={postMessage}
-                type="submit"
-              >
-                {i18n.t<string>('common.add')}
-              </button>
-            </DataCell>
-          </DataGrid>
-        )}
-        {topic.type === MessageTopicType.review &&
-          topic.status === MessageTopicStatus.opened &&
-          topic.messages.length !== 0 &&
-          (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) && (
-            <div className="topic-review">
-              <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
-                {i18n.t<string>('review.resolve')}
-              </button>
-            </div>
-          )}
-      </div>
+      <Footer topic={topic} />
     </Resizable>
   )
 }
