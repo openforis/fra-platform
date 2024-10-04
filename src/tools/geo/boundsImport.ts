@@ -3,16 +3,17 @@ import * as path from 'path'
 import { config } from 'dotenv'
 import * as pgPromise from 'pg-promise'
 
-import { CountryIso } from '../../src/meta/area'
-import { DB } from '../../src/server/db'
+import { CountryIso } from 'meta/area'
+
+import { DB } from 'server/db'
 
 type Response = {
   features: Array<{
-    geometry: any
+    geometry: never
     properties: {
       iso3: CountryIso
-      bounds: any
-      centroid: any
+      bounds: never
+      centroid: never
     }
   }>
 }
