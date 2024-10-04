@@ -15,7 +15,9 @@ import TextArea from 'client/components/Inputs/TextArea'
 
 import { useShowActions } from './hooks/useShowActions'
 
-const Footer: React.FC<{ topic: MessageTopic }> = ({ topic }) => {
+type Props = { topic: MessageTopic }
+const Footer: React.FC<Props> = (props: Props) => {
+  const { topic } = props
   const { t } = useTranslation()
   const [message, setMessage] = useState('')
   const dispatch = useAppDispatch()
