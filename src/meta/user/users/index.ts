@@ -14,6 +14,7 @@ import {
   UserRoleExtendedProps,
 } from '../userRole'
 import { UserRoles } from '../userRoles'
+import { getUserRoles } from './getUserRoles'
 
 const isAdministrator = (user: User) => {
   return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)
@@ -193,31 +194,6 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
 }
 
 const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
-
-type UserRoles = {
-  isAdministrator: boolean
-  isAlternateNationalCorrespondent: boolean
-  isCollaborator: boolean
-  isNationalCorrespondent: boolean
-  isReviewer: boolean
-  isViewer: boolean
-}
-
-/**
- * Get the roles of a user for a specific country and cycle
- * @param {User} user - User
- * @param {CountryIso} countryIso - Country ISO code
- * @param {Cycle} cycle - Cycle
- * @returns {UserRoles} An object containing boolean flags for each possible role
- */
-const getUserRoles = (user: User, countryIso: CountryIso, cycle: Cycle): UserRoles => ({
-  isAdministrator: isAdministrator(user),
-  isAlternateNationalCorrespondent: isAlternateNationalCorrespondent(user, countryIso, cycle),
-  isCollaborator: isCollaborator(user, countryIso, cycle),
-  isNationalCorrespondent: isNationalCorrespondent(user, countryIso, cycle),
-  isReviewer: isReviewer(user, countryIso, cycle),
-  isViewer: isViewer(user, countryIso, cycle),
-})
 
 export const Users = {
   getFullName,
