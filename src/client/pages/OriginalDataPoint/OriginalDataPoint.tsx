@@ -42,10 +42,10 @@ const OriginalDataPoint: React.FC = () => {
         <ButtonBar canEditData={canEditData} />
       </div>
 
-      <YearSelection canEditData={isEditTableDataEnabled} />
+      <YearSelection />
       <DataSources originalDataPoint={originalDataPoint} />
-      <NationalClasses originalDataPoint={originalDataPoint} canEditData={canEditData} />
-      <OriginalData originalDataPoint={originalDataPoint} canEditData={canEditData} />
+      <NationalClasses canEditData={canEditData} originalDataPoint={originalDataPoint} />
+      <OriginalData canEditData={canEditData} originalDataPoint={originalDataPoint} />
       <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">

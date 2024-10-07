@@ -5,7 +5,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
-import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
+import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 import AdditionalComments from './AdditionalComments'
 import MethodsUsed from './MethodsUsed'
@@ -20,7 +20,7 @@ const DataSources: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
-  const canEdit = useCanEditData(originalDataPoint)
+  const canEdit = useIsEditODPEnabled()
 
   return (
     <div className="odp__section">
