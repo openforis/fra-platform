@@ -1,9 +1,6 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 
-import * as fs from 'fs'
-import * as path from 'path'
-
 import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
@@ -11,6 +8,8 @@ import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/wo
 import { DB } from 'server/db'
 import { RedisData } from 'server/repository/redis/redisData'
 import { Logger } from 'server/utils/logger'
+
+import { getMigrationFiles } from './utils'
 
 const client = DB
 let migrationSteps: Array<string>
@@ -38,9 +37,7 @@ const tableDDL = `
 const init = async () => {
   await client.query(tableDDL)
   previousMigrations = await client.map('select * from migrations.steps', [], (row) => row.name)
-  migrationSteps = fs
-    .readdirSync(path.join(__dirname, `steps`))
-    .filter((file) => file !== 'template.ts' && file.endsWith('.ts') && !previousMigrations.includes(file))
+  migrationSteps = getMigrationFiles(true).filter((file) => !previousMigrations.includes(file))
 }
 
 const close = async () => {
