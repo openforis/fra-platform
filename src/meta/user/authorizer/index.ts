@@ -7,6 +7,16 @@ import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
 import { Users } from 'meta/user/users'
 
+import { canViewReview } from './canViewReview'
+
+export type AuthProps = {
+  cycle: Cycle
+  country: Country // countryiso
+  user: User
+  section?: Section | SubSection
+  permission?: CollaboratorEditPropertyType
+}
+
 /**
  *  CanView
  *  if cycle is published, everyone can view
@@ -211,72 +221,6 @@ const canViewHistory = (props: {
 
 export const canViewGeo = (props: { cycle: Cycle; countryIso: AreaCode; user: User }): boolean =>
   Users.hasRoleInCountry(props)
-
-/**
- * canViewReview
- * 1. Viewer or non loggedin user: never
- * 2. Administrator: always
- * 3. Reviewer:
- *      if status is 'review' or 'editing'
- * 4. NationalCorrespondent, AlternateNationalCorrespondent:
- *      if status is 'editing'
- * 5. Collaborator:
- *      if status is editing and has permission to edit
- * @param props
- * @param props.country - Country
- * @param props.cycle - Cycle
- * @param props.section - Section
- * @param props.user - User
- * @returns boolean
- */
-
-const canViewReview = (props: {
-  country: Country
-  cycle: Cycle
-  section: Section | SubSection
-  user: User
-}): boolean => {
-  const { country, cycle, section, user } = props
-  if (!country || !section || !user || !Areas.isISOCountry(country.countryIso)) return false
-  const {
-    countryIso,
-    props: { status },
-  } = country
-
-  // 1. Viewer or non loggedin user: never
-  if (Users.isViewer(user, countryIso, cycle)) return false
-  // 2. Administrator: always
-  if (Users.isAdministrator(user)) return true
-
-  const isEditing = status === AssessmentStatus.editing
-  const isReview = status === AssessmentStatus.review
-
-  // 3. Reviewer: if status is 'review' or 'editing'
-  if (Users.isReviewer(user, countryIso, cycle)) {
-    return isEditing || isReview
-  }
-
-  // 4. NationalCorrespondent, AlternateNationalCorrespondent: if status is 'editing'
-  if (
-    Users.isNationalCorrespondent(user, countryIso, cycle) ||
-    Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
-  ) {
-    return isEditing
-  }
-
-  // 4. Collaborator: if status is editing and has permission to edit
-  if (Users.isCollaborator(user, countryIso, cycle) && isEditing) {
-    const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
-
-    const userSections = userRole.permissions?.sections ?? {}
-    if (Objects.isEmpty(userSections)) return true
-    if (userSections === 'none') return false
-    if (userSections === 'all') return true
-    return userSections[section.uuid]?.[CollaboratorEditPropertyType.tableData] === true
-  }
-
-  return false
-}
 
 export const Authorizer = {
   canEditCountryProps,
