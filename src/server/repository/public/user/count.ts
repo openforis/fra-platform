@@ -2,23 +2,27 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
-import { RoleName } from 'meta/user'
+import { RoleName, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 
+import { buildGetManyQuery } from './getMany'
+
 type Props = {
+  administrators?: boolean
   assessment: Assessment
-  cycle: Cycle
   countries?: Array<CountryIso>
+  cycle: Cycle
   fullName?: string
   roles?: Array<RoleName>
+  statuses?: Array<UserStatus>
 }
 
 type Returned = {
   total: number
 } & Record<RoleName, number>
 export const count = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { assessment, cycle, countries, fullName, roles } = props
+  const { assessment, countries, cycle, fullName, roles } = props
 
   const conditions: Array<string> = []
   if (Objects.isEmpty(countries)) conditions.push(`(ur.country_iso is null or ur.country_iso not like 'X%')`)
@@ -41,12 +45,20 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<Re
               `)} ${groupByRole ? `group by ur.role` : ''}`
   }
 
-  const queryTotals = getQuery()
   const queryRoles = `with counts as (${getQuery(true)})
-                      select jsonb_object_agg(counts.role, counts.totals) as result
-                      from counts`
+  select jsonb_object_agg(counts.role, counts.totals) as result
+  from counts`
 
-  const total = await client.one<number>(queryTotals, [assessment.id, cycle.uuid], ({ totals }) => totals)
+  const { query: subQueryTotals, queryParams: queryTotalsParams } = buildGetManyQuery(props)
+
+  const queryTotals = `
+  select count(*) as total
+  from (
+      ${subQueryTotals}
+  ) as users;
+  `
+
+  const total = await client.one<number>(queryTotals, queryTotalsParams, ({ total }) => total)
   const roleTotals = await client.one<Record<RoleName, number>>(
     queryRoles,
     [assessment.id, cycle.uuid],

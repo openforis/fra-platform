@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Unit } from 'meta/dataExport'
+import { Unit } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useTableSections } from 'client/store/metadata'
@@ -32,7 +32,9 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   const baseUnit = table?.props?.unit
   const columns = selection.sections[sectionName].columns ?? []
 
-  const columnsAlwaysExport = table?.props?.columnsExportAlways[cycle.uuid] ?? []
+  const cellsExportAlways = table?.props?.cellsExportAlways?.[cycle.uuid] ?? []
+  const columnsAlwaysExport = table?.props?.columnsExportAlways?.[cycle.uuid] ?? []
+
   const columnsResults = [...columnsAlwaysExport, ...columns]
   const { variables } = selection.sections[sectionName]
 
@@ -44,11 +46,12 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   })
   const [units, setUnits] = useState<Record<string, Unit>>(initialUnits)
   const { results, resultsLoading } = useFetchResults({
-    columnsAlwaysExport,
-    tableName,
-    sectionName,
     assessmentName,
+    cellsExportAlways,
+    columnsAlwaysExport,
     cycleName,
+    sectionName,
+    tableName,
   })
 
   const onUnitChange = (value: Unit, variable: string) => {
@@ -77,24 +80,43 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
     <div className="fra-table__container results-table">
       <div className="fra-table__scroll-wrapper">
         <ButtonTableExport
-          tableRef={tableRef}
-          filename={`${assessmentName}-${sectionName}`}
           disabled={exportDisabled}
+          filename={`${assessmentName}-${sectionName}`}
+          tableRef={tableRef}
         />
 
         <table ref={tableRef} className="fra-table data-table">
           <thead>
             <tr>
-              <th className="fra-table__header-cell-left" rowSpan={2}>
+              <th aria-hidden="true" className="fra-table__header-cell-left" rowSpan={2}>
                 &nbsp;
               </th>
+              {cellsExportAlways.map((cell) => {
+                const { columnName, unit, variableName } = cell
+                return (
+                  <th key={variableName} className="fra-table__header-cell" colSpan={1} rowSpan={2}>
+                    {unit !== null && (
+                      <Title
+                        baseUnit={unit ?? baseUnit}
+                        onUnitChange={onUnitChange}
+                        resultsLoading={resultsLoading}
+                        variable={variableName}
+                      />
+                    )}
+                    {unit === null &&
+                      getColumnLabelKeys(String(columnName), sectionName, assessmentName).map(
+                        (key) => `${i18n.t(key)} `
+                      )}
+                  </th>
+                )
+              })}
               {variables.map((variable) => (
                 <th key={variable} className="fra-table__header-cell" colSpan={columnsResults.length}>
                   <Title
                     baseUnit={baseUnit}
-                    variable={variable}
                     onUnitChange={onUnitChange}
                     resultsLoading={resultsLoading}
+                    variable={variable}
                   />
                 </th>
               ))}
@@ -121,17 +143,37 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                   <th className="fra-table__category-cell" colSpan={1}>
                     {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
                   </th>
+                  {cellsExportAlways.map((cell) => {
+                    const { columnName, format, unit, variableName } = cell
+                    const { columnKey, value } = formatValue({
+                      assessmentName,
+                      colName: String(columnName),
+                      countryIso: countryIso as CountryIso,
+                      cycleName,
+                      data: results,
+                      format,
+                      tableName,
+                      variableName,
+                    })
+                    return (
+                      <td key={`${countryIso}${columnKey || columnName}`} className="fra-table__cell">
+                        <div className="number-input__readonly-view">
+                          {convertValue(value, unit ?? baseUnit, units[variableName])}
+                        </div>
+                      </td>
+                    )
+                  })}
                   {variables.map((variable) =>
                     columnsResults.map((column) => {
-                      const { columnKey, value } = formatValue(
+                      const { columnKey, value } = formatValue({
                         assessmentName,
+                        colName: String(column),
+                        countryIso: countryIso as CountryIso,
                         cycleName,
-                        String(column),
-                        countryIso as CountryIso,
-                        results,
+                        data: results,
                         tableName,
-                        variable
-                      )
+                        variableName: variable,
+                      })
 
                       return (
                         <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">

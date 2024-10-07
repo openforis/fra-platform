@@ -654,6 +654,7 @@ The FRA team fra@fao.org
     totalGrowingStock: 'Total growing stock',
     rankingYear: 'Ranking year 2015',
     growingStockPercent: '$t(unit.growingStockPercent)',
+    mostRecentYear: '$t(fra.growingStockComposition.mostRecentYear)',
   },
 
   biomassStock: {
