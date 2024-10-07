@@ -4,7 +4,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode, Areas, CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
-import type { User, UserProps } from './user'
+import type { User, UserProps } from '../user'
 import {
   RoleName,
   UserContactPreference,
@@ -12,8 +12,8 @@ import {
   UserRole,
   UserRoleBaseProps,
   UserRoleExtendedProps,
-} from './userRole'
-import { UserRoles } from './userRoles'
+} from '../userRole'
+import { UserRoles } from '../userRoles'
 
 const isAdministrator = (user: User) => {
   return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)

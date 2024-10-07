@@ -1,9 +1,9 @@
 import { CountryIso } from 'meta/area'
 import { Cycle } from 'meta/assessment'
 
-import { User } from './user'
-import { RoleName } from './userRole'
-import { Users } from './users'
+import { User } from '../user'
+import { RoleName } from '../userRole'
+import { Users } from '.'
 
 const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'
