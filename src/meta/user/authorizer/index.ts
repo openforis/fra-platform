@@ -60,20 +60,25 @@ const canEditCycleData = (props: AuthProps): boolean => {
   const { status } = country?.props ?? {}
 
   if (!user) return false
-  if (Users.isViewer(user, countryIso, cycle)) return false
-  if (Users.isAdministrator(user)) return true
+  const userRoles = Users.getUserRoles(user, countryIso, cycle)
+  const {
+    isAdministrator,
+    isViewer,
+    isNationalCorrespondent,
+    isAlternateNationalCorrespondent,
+    isCollaborator,
+    isReviewer,
+  } = userRoles
 
-  const nationalCorrespondent = Users.isNationalCorrespondent(user, countryIso, cycle)
-  const alternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
-  const collaborator = Users.isCollaborator(user, countryIso, cycle)
-  const reviewer = Users.isReviewer(user, countryIso, cycle)
+  if (isViewer) return false
+  if (isAdministrator) return true
 
-  if (nationalCorrespondent || alternateNationalCorrespondent || collaborator) {
-    const collaboratorCanEdit = !collaborator || (user as unknown as Collaborator).permissions?.sections !== 'none'
+  if (isNationalCorrespondent || isAlternateNationalCorrespondent || isCollaborator) {
+    const collaboratorCanEdit = !isCollaborator || (user as unknown as Collaborator).permissions?.sections !== 'none'
     return status === AssessmentStatus.editing && collaboratorCanEdit
   }
 
-  if (reviewer) {
+  if (isReviewer) {
     return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
   }
 
@@ -147,17 +152,16 @@ const canEditCountryProps = (props: AuthProps & { allowCollaborator?: boolean })
 
   if (!user) return false
 
-  if (Users.isAdministrator(user)) return true
+  const userRoles = Users.getUserRoles(user, countryIso, cycle)
+  const { isAdministrator, isNationalCorrespondent, isAlternateNationalCorrespondent, isCollaborator, isReviewer } =
+    userRoles
 
-  if (
-    Users.isNationalCorrespondent(user, countryIso, cycle) ||
-    Users.isAlternateNationalCorrespondent(user, countryIso, cycle) ||
-    (allowCollaborator && Users.isCollaborator(user, countryIso, cycle))
-  )
+  if (isAdministrator) return true
+
+  if (isNationalCorrespondent || isAlternateNationalCorrespondent || (allowCollaborator && isCollaborator))
     return status === AssessmentStatus.editing
 
-  if (Users.isReviewer(user, countryIso, cycle))
-    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+  if (isReviewer) return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
 
   return false
 }
@@ -196,10 +200,11 @@ const canViewRepositoryItem = (props: {
  */
 const canViewHistory = (props: AuthProps): boolean => {
   const { user, cycle, country } = props
+  const { isAdministrator, isReviewer } = Users.getUserRoles(user, country.countryIso, cycle)
 
-  if (Users.isAdministrator(user)) return true
+  if (isAdministrator) return true
 
-  return Users.isReviewer(user, country.countryIso, cycle) && canEditCycleData(props)
+  return isReviewer && canEditCycleData(props)
 }
 
 export const canViewGeo = (props: { cycle: Cycle; countryIso: AreaCode; user: User }): boolean =>
