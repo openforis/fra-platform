@@ -1,10 +1,10 @@
 import { Objects } from 'utils/objects'
 
 import { Areas, AssessmentStatus } from 'meta/area'
+import { AuthProps } from 'meta/user/authorizer/types'
 
 import { Collaborator, CollaboratorSectionsPermission, RoleName } from '../userRole'
 import { Users } from '../users'
-import { AuthProps } from './index'
 
 const hasCollaboratorEditSectionPermission = (props: AuthProps) => {
   const { section, user, country, cycle, permission } = props

@@ -1,21 +1,14 @@
 import { Objects } from 'utils/objects'
 
-import { AreaCode, Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
-import { Assessment, Cycle, Cycles, Section, SubSection } from 'meta/assessment'
+import { AreaCode, Areas, AssessmentStatus, CountryIso } from 'meta/area'
+import { Assessment, Cycle, Cycles } from 'meta/assessment'
 import { RepositoryItem } from 'meta/cycleData'
 import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
 import { Users } from 'meta/user/users'
 
 import { canViewReview } from './canViewReview'
-
-export type AuthProps = {
-  cycle: Cycle
-  country: Country
-  user: User
-  section?: Section | SubSection
-  permission?: CollaboratorEditPropertyType
-}
+import { AuthProps } from './types'
 
 /**
  *  CanView
