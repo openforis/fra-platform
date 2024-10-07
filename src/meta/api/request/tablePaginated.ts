@@ -4,14 +4,15 @@ import { AreaCode } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
-type BaseParams = {
+export type TablePaginatedBaseParams = {
   assessmentName: AssessmentName
   cycleName: CycleName
   countryIso?: AreaCode
   sectionName?: SectionName
 }
 
-export type TablePaginatedDataRequestParams = BaseParams & {
+export type TablePaginatedDataRequestParams = TablePaginatedBaseParams & {
+  filters?: string
   limit: string
   offset: string
   orderBy?: string
@@ -25,4 +26,4 @@ export type TablePaginatedDataRequest<OptionalParams extends Record<string, unkn
   TablePaginatedDataRequestParams & OptionalParams
 >
 
-export type TablePaginatedCountRequest = Request<never, never, never, BaseParams>
+export type TablePaginatedCountRequest = Request<never, never, never, TablePaginatedBaseParams>

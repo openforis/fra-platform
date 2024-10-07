@@ -44,7 +44,7 @@ const DataExport: React.FC = () => {
   const table = tables?.find((table) => table.props.dataExport)
   if (table) {
     tableName = table.props.name
-    rows = table.rows.filter((row) => !!row.props.variableName)
+    rows = table.rows.filter((row) => !!row.props.variableName && !row.props.excludeFromDataExport?.[cycle.uuid])
     columns = table.props.columnsExport[cycle.uuid] ?? table.props.columnNames[cycle.uuid]
   }
 

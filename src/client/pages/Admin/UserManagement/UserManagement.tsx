@@ -7,9 +7,12 @@ import TablePaginated from 'client/components/TablePaginated'
 import UsersCount from 'client/pages/Admin/UserManagement/UsersCount'
 
 import { useColumns } from './hooks/useColumns'
+import { useFilters } from './hooks/useFilters'
 
 const UserManagement: React.FC = () => {
   const columns = useColumns()
+  const filters = useFilters()
+
   const gridTemplateColumns = `repeat(${Object.values(RoleName).length + 1}, 1fr)`
 
   return (
@@ -17,6 +20,7 @@ const UserManagement: React.FC = () => {
       columns={columns}
       counter={{ show: true, Component: UsersCount }}
       export
+      filters={filters}
       gridTemplateColumns={gridTemplateColumns}
       limit={20}
       path={ApiEndPoint.Admin.users()}

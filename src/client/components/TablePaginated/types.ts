@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TablePaginatedCount } from 'meta/tablePaginated'
+import { TablePaginatedCount, TablePaginatedFilterType } from 'meta/tablePaginated'
 
 export type ColumnComponentProps<Datum> = {
   datum: Datum
@@ -16,8 +16,9 @@ export type Column<Datum> = {
 
 export type Props<Datum> = {
   columns: Array<Column<Datum>>
-  path: string
+  filters?: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   limit?: number
+  path: string
 }
 
 export type TablePaginatedCounterComponent = React.FC<{ count: TablePaginatedCount }>
@@ -25,6 +26,21 @@ export type TablePaginatedCounterComponent = React.FC<{ count: TablePaginatedCou
 export type TablePaginatedCounter = {
   show: boolean
   Component?: TablePaginatedCounterComponent
+}
+
+export type TablePaginatedEmptyListComponent = React.FC
+
+type TablePaginatedFilterTypeMap = {
+  [TablePaginatedFilterType.SWITCH]: boolean
+  [TablePaginatedFilterType.TEXT]: string
+}
+
+export type TablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
+  defaultValue?: TablePaginatedFilterTypeMap[FilterType]
+  fieldName: string
+  hidden?: boolean
+  label: string
+  type: FilterType
 }
 
 export type TablePaginatedSkeleton = {

@@ -43,6 +43,7 @@ export interface RowProps {
    * even if forestCharacteristics.naturalForestArea is included in its calculation formula.
    */
   dependantsExclude?: Array<VariableCache>
+  excludeFromDataExport?: Record<CycleUuid, boolean>
   format?: {
     integer?: boolean
   }

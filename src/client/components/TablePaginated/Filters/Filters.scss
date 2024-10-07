@@ -1,0 +1,12 @@
+@import 'src/client/style/partials';
+
+.table-paginated-filters {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  width: 100%;
+
+  svg.icon_filter {
+    color: $ui-accent-dark;
+  }
+}
