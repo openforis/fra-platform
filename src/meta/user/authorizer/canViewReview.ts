@@ -30,7 +30,7 @@ const hasEditSectionPermission = (
   }
 ): boolean => {
   const { country, cycle, user, countryStatus } = props
-  const { countryIso } = country ?? {}
+  const { countryIso } = country
   const { status } = country.props
 
   const userRole = Users.getRole(user, countryIso, cycle)
