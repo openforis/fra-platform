@@ -11,7 +11,7 @@ import { canViewReview } from './canViewReview'
 
 export type AuthProps = {
   cycle: Cycle
-  country: Country // countryiso
+  country: Country
   user: User
   section?: Section | SubSection
   permission?: CollaboratorEditPropertyType
@@ -54,7 +54,7 @@ const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User 
   return Users.hasRoleInCountry({ user, countryIso, cycle })
 }
 
-const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User }): boolean => {
+const canEditCycleData = (props: AuthProps): boolean => {
   const { cycle, country, user } = props
   const { countryIso } = country ?? {}
   const { status } = country?.props ?? {}
@@ -102,20 +102,14 @@ const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User })
  * @param props.user
  * @returns boolean
  */
-const canEditData = (props: {
-  cycle: Cycle
-  section: Section | SubSection
-  country: Country
-  user: User
-  permission?: CollaboratorEditPropertyType
-}): boolean => {
+const canEditData = (props: AuthProps): boolean => {
   const { country, cycle, permission = CollaboratorEditPropertyType.tableData, section, user } = props
   if (!country) return false
   const { countryIso } = country
   if (!Areas.isISOCountry(countryIso)) return false
   const { status } = country.props
 
-  if (canEditCycleData({ cycle, country, user })) {
+  if (canEditCycleData(props)) {
     return true
   }
 
@@ -146,12 +140,7 @@ const canEditData = (props: {
  * @param props.user
  * @returns boolean
  */
-const canEditCountryProps = (props: {
-  allowCollaborator?: boolean
-  country: Country
-  cycle: Cycle
-  user: User
-}): boolean => {
+const canEditCountryProps = (props: AuthProps & { allowCollaborator?: boolean }): boolean => {
   const { allowCollaborator = false, country, cycle, user } = props
   const { countryIso } = country
   const { status } = country.props
@@ -173,8 +162,7 @@ const canEditCountryProps = (props: {
   return false
 }
 
-const canEditRepositoryItem = (props: { cycle: Cycle; country: Country; user: User }): boolean =>
-  canEditCountryProps({ ...props, allowCollaborator: true })
+const canEditRepositoryItem = (props: AuthProps): boolean => canEditCountryProps({ ...props, allowCollaborator: true })
 
 const canViewRepositoryItem = (props: {
   assessment: Assessment
@@ -206,12 +194,7 @@ const canViewRepositoryItem = (props: {
  * @param props.user
  * @returns boolean
  */
-const canViewHistory = (props: {
-  country: Country
-  cycle: Cycle
-  section: Section | SubSection
-  user: User
-}): boolean => {
+const canViewHistory = (props: AuthProps): boolean => {
   const { user, cycle, country } = props
 
   if (Users.isAdministrator(user)) return true
