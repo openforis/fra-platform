@@ -1,11 +1,9 @@
-import { OriginalDataPoint } from 'meta/assessment'
-
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
+import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
-export const useIsDisabled = (originalDataPoint: OriginalDataPoint) => {
+export const useIsDisabled = () => {
   const { print } = useIsPrintRoute()
 
-  const canEditData = useCanEditData(originalDataPoint)
-  return Boolean(print || !canEditData || !originalDataPoint.year)
+  const canEditData = useIsEditODPEnabled()
+  return Boolean(print || !canEditData)
 }
