@@ -39,7 +39,7 @@ const OriginalDataPoint: React.FC = () => {
     <div className="app-view__content">
       <div className="app-view__page-header">
         <h1 className="title align-left">{i18n.t<string>('nationalDataPoint.nationalDataPoint')}</h1>
-        <ButtonBar canEditData={canEditData} />
+        <ButtonBar />
       </div>
 
       <YearSelection />
@@ -49,7 +49,7 @@ const OriginalDataPoint: React.FC = () => {
       <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">
-        <ButtonBar canEditData={canEditData} />
+        <ButtonBar />
       </div>
     </div>
   )
