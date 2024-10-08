@@ -25,17 +25,12 @@ export const getRelativeDate = (rawDate: any, i18n: any) => {
   return i18n.t('time.aMomentAgo')
 }
 
-const getCurrentDateISOString = () => {
-  return new Date().toISOString().split('T')[0]
-}
-
 export const Dates = {
   addDays,
   addMonths,
   differenceInDays,
   format,
   getRelativeDate,
-  getCurrentDateISOString,
   isAfter,
   isBefore,
   parseISO,
