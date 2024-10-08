@@ -1,7 +1,15 @@
 import { CountryIso } from 'meta/area'
 import { Cycle } from 'meta/assessment'
 import type { User } from 'meta/user/user'
-import { Users } from 'meta/user/users/index'
+
+import {
+  isAdministrator,
+  isAlternateNationalCorrespondent,
+  isCollaborator,
+  isNationalCorrespondent,
+  isReviewer,
+  isViewer,
+} from './users'
 
 type UserRoles = {
   isAdministrator: boolean
@@ -20,10 +28,10 @@ type UserRoles = {
  * @returns {UserRoles} An object containing boolean flags for each possible role
  */
 export const getUserRoles = (user: User, countryIso: CountryIso, cycle: Cycle): UserRoles => ({
-  isAdministrator: Users.isAdministrator(user),
-  isAlternateNationalCorrespondent: Users.isAlternateNationalCorrespondent(user, countryIso, cycle),
-  isCollaborator: Users.isCollaborator(user, countryIso, cycle),
-  isNationalCorrespondent: Users.isNationalCorrespondent(user, countryIso, cycle),
-  isReviewer: Users.isReviewer(user, countryIso, cycle),
-  isViewer: Users.isViewer(user, countryIso, cycle),
+  isAdministrator: isAdministrator(user),
+  isAlternateNationalCorrespondent: isAlternateNationalCorrespondent(user, countryIso, cycle),
+  isCollaborator: isCollaborator(user, countryIso, cycle),
+  isNationalCorrespondent: isNationalCorrespondent(user, countryIso, cycle),
+  isReviewer: isReviewer(user, countryIso, cycle),
+  isViewer: isViewer(user, countryIso, cycle),
 })
