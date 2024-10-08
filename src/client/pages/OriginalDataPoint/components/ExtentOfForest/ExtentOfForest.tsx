@@ -36,27 +36,24 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
   const tableRef = useRef(null)
 
+  const fileName = `odp-${t(`nationalDataPoint.forestCategoriesLabel${cycleName === '2025' ? '2025' : ''}`)} ${
+    year ?? ''
+  }`
   return (
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
-          <ButtonTableExport
-            tableRef={tableRef}
-            filename={`FRA${cycleName} - ${t(
-              `nationalDataPoint.forestCategoriesLabel${cycleName === '2025' ? '2025' : ''}`
-            )} ${year ?? ''}`}
-            disabled={year === -1 || year === undefined}
-          />
+          <ButtonTableExport disabled={year === -1 || year === undefined} filename={fileName} tableRef={tableRef} />
           <h3 className="subhead">
             {t(`nationalDataPoint.forestCategoriesLabel${cycleName === '2025' ? '2025' : ''}`)}
           </h3>
           <DefinitionLink
+            anchor="1a"
             assessmentName={assessmentName}
             cycleName={cycleName}
             document="tad"
-            anchor="1a"
-            title={t('definition.definitionLabel')}
             lang={language}
+            title={t('definition.definitionLabel')}
           />
         </div>
       )}
@@ -91,11 +88,11 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
               {nationalClasses.map((nationalClass, index) => (
                 <ExtentOfForestRow
-                  originalDataPoint={originalDataPoint}
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
                   nationalClassValidation={nationalClassValidations[index]}
+                  originalDataPoint={originalDataPoint}
                 />
               ))}
 
