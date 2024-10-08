@@ -79,11 +79,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
   return (
     <div className="fra-table__container results-table">
       <div className="fra-table__scroll-wrapper">
-        <ButtonTableExport
-          disabled={exportDisabled}
-          filename={`${assessmentName}-${sectionName}`}
-          tableRef={tableRef}
-        />
+        <ButtonTableExport disabled={exportDisabled} filename={`dataExport-${sectionName}`} tableRef={tableRef} />
 
         <table ref={tableRef} className="fra-table data-table">
           <thead>

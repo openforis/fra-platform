@@ -48,11 +48,13 @@ const Table: React.FC<Props> = (props) => {
   const isDataLocked = useIsDataLocked()
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
+  const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
+
   return (
     <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
       <div className="fra-table__scroll-wrapper">
         <div className="fra-table__editor">
-          {!print && <ButtonTableExport filename={`${sectionAnchor} ${name}`} tableRef={tableRef} />}
+          {!print && <ButtonTableExport filename={fileName} tableRef={tableRef} />}
           <ButtonCopyValues table={table} tableRef={tableRef} />
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
