@@ -29,9 +29,9 @@ export const Dates = {
   addDays,
   addMonths,
   differenceInDays,
-  isAfter,
-  isBefore,
   format,
   getRelativeDate,
+  isAfter,
+  isBefore,
   parseISO,
 }
