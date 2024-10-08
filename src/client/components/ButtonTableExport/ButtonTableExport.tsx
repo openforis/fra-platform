@@ -4,7 +4,7 @@ import { CSVLink } from 'react-csv'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useButtonClassName } from 'client/components/Buttons/Button'
-import { useFileName } from 'client/components/ButtonTableExport/hooks/useFilename'
+import { useFilename } from 'client/components/ButtonTableExport/hooks/useFilename'
 import Icon from 'client/components/Icon'
 
 import * as Utils from './utils'
@@ -23,7 +23,7 @@ const ButtonTableExport: React.FC<Props> = (props: Props) => {
   const isLocked = useIsDataLocked()
 
   const className = useButtonClassName({ disabled: !isLocked && disabled, iconName: 'hit-down', label: 'CSV' })
-  const filename = useFileName(filenameProp)
+  const filename = useFilename(filenameProp)
 
   if (print) return null
 

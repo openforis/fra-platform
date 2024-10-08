@@ -4,7 +4,7 @@ import { Dates } from 'utils/dates'
 
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
-export const useFileName = (filename: string): string => {
+export const useFilename = (filename: string): string => {
   const { assessmentName, cycleName } = useCycleRouteParams()
   return useMemo(() => {
     const date = Dates.getCurrentDateISOString()
