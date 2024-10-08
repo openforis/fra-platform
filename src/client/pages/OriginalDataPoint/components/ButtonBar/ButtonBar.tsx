@@ -2,7 +2,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
@@ -11,7 +10,7 @@ import {
   useIsOriginalDataPointUpdating,
   useOriginalDataPoint,
 } from 'client/store/ui/originalDataPoint'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
@@ -20,7 +19,7 @@ const ButtonBar: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, cycleName, countryIso, sectionName } = useOriginalDataPointRouteParams()
   const originalDataPoint = useOriginalDataPoint()
   const isOriginalDataPointUpdating = useIsOriginalDataPointUpdating()
   const canEdit = useIsEditODPEnabled()
