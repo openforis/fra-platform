@@ -51,25 +51,22 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
   const tableRef = useRef(null)
 
+  const fileName = `odp-${t('nationalDataPoint.forestCharacteristics')} ${year ?? ''}`
   return (
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
-          <ButtonTableExport
-            tableRef={tableRef}
-            filename={`FRA${cycleName} - ${t('nationalDataPoint.forestCharacteristics')} ${year ?? ''}`}
-            disabled={year === -1 || year === undefined}
-          />
+          <ButtonTableExport disabled={year === -1 || year === undefined} filename={fileName} tableRef={tableRef} />
 
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
 
           <DefinitionLink
+            anchor="1b"
             assessmentName={assessmentName}
             cycleName={cycleName}
             document="tad"
-            anchor="1b"
-            title={t('definition.definitionLabel')}
             lang={language}
+            title={t('definition.definitionLabel')}
           />
         </div>
       )}
@@ -104,10 +101,10 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
               {nationalClasses.map((nationalClass, index) => (
                 <ForestCharacteristicsRow
-                  originalDataPoint={originalDataPoint}
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
+                  originalDataPoint={originalDataPoint}
                 />
               ))}
 
