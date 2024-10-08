@@ -4,9 +4,9 @@ import { CSVLink } from 'react-csv'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useButtonClassName } from 'client/components/Buttons/Button'
-import { useFilename } from 'client/components/ButtonTableExport/hooks/useFilename'
 import Icon from 'client/components/Icon'
 
+import { useFilename } from './hooks/useFilename'
 import * as Utils from './utils'
 
 type Props = {
