@@ -4,7 +4,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode, Areas, CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
-import type { User, UserProps } from '../user'
+import type { User, UserProps } from './user'
 import {
   RoleName,
   UserContactPreference,
@@ -12,14 +12,14 @@ import {
   UserRole,
   UserRoleBaseProps,
   UserRoleExtendedProps,
-} from '../userRole'
-import { UserRoles } from '../userRoles'
+} from './userRole'
+import { UserRoles } from './userRoles'
 
-export const isAdministrator = (user: User) => {
+const isAdministrator = (user: User) => {
   return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)
 }
 
-export const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRole<RoleName, any> => {
+const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRole<RoleName, any> => {
   if (isAdministrator(user)) return user.roles[0]
 
   return user?.roles?.find(
@@ -27,31 +27,30 @@ export const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRol
   )
 }
 
-export const isRole = (user: User, role: RoleName, countryIso: AreaCode, cycle: Cycle) =>
+const isRole = (user: User, role: RoleName, countryIso: AreaCode, cycle: Cycle) =>
   Boolean(getRole(user, countryIso, cycle)?.role === role)
 
-export const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
   isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
 
-export const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle) =>
+const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.REVIEWER, countryIso, cycle)
 
-export const isAReviewer = (user: User, cycle: Cycle): boolean => {
+const isAReviewer = (user: User, cycle: Cycle): boolean => {
   return user?.roles?.some(
     (userRole: UserRole<never>) => userRole?.role === RoleName.REVIEWER && userRole?.cycleUuid === cycle.uuid
   )
 }
 
-export const isNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
+const isNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso, cycle)
 
-export const isAlternateNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
+const isAlternateNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
   isRole(user, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, countryIso, cycle)
 
-export const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) =>
-  isRole(user, RoleName.VIEWER, countryIso, cycle)
+const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.VIEWER, countryIso, cycle)
 
-export const hasEditorRole = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): boolean => {
+const hasEditorRole = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): boolean => {
   const { countryIso, cycle, user } = props
 
   if (!user || !Areas.isISOCountry(countryIso)) return false
@@ -61,26 +60,26 @@ export const hasEditorRole = (props: { user: User; countryIso: AreaCode; cycle: 
   return role && role.role !== RoleName.VIEWER
 }
 
-export const hasRoleInAssessment = (props: { user: User; assessment: Assessment }): boolean => {
+const hasRoleInAssessment = (props: { user: User; assessment: Assessment }): boolean => {
   const { assessment, user } = props
   if (isAdministrator(user)) return true
   return user?.roles?.some((role) => Number(role.assessmentId) === Number(assessment.id))
 }
 
-export const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {
+const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {
   const { cycle, user } = props
   if (isAdministrator(user)) return true
   return user.roles.some((role) => role.cycleUuid === cycle.uuid)
 }
 
-export const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: AreaCode }): boolean => {
+const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: AreaCode }): boolean => {
   const { cycle, countryIso, user } = props
   if (!user) return false
   if (isAdministrator(user)) return true
   return user.roles.some((role) => role.cycleUuid === cycle.uuid && role.countryIso === countryIso)
 }
 
-export const getRolesAllowedToEdit = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
+const getRolesAllowedToEdit = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
   const { countryIso, cycle, user } = props
   if (isAdministrator(user)) {
     return [
@@ -97,7 +96,7 @@ export const getRolesAllowedToEdit = (props: { user: User; countryIso: AreaCode;
   return []
 }
 
-export const getRolesAllowedToView = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
+const getRolesAllowedToView = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
   const { countryIso, cycle, user } = props
 
   if (isReviewer(user, countryIso, cycle)) {
@@ -112,7 +111,7 @@ export const getRolesAllowedToView = (props: { user: User; countryIso: AreaCode;
   return getRolesAllowedToEdit(props)
 }
 
-export const getI18nRoleLabelKey = (role: RoleName | string): string =>
+const getI18nRoleLabelKey = (role: RoleName | string): string =>
   role ? `user.roles.${role}` : UserRoles.noRole.labelKey
 
 export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePicture(String(userId))
@@ -125,18 +124,18 @@ export const validName = (props: Partial<UserProps>) => !Objects.isEmpty(props.n
 export const validRole = (user: Partial<User>) => !Objects.isEmpty(user.roles)
 
 // const regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-export const regexEmail = /.+@.+/
+const regexEmail = /.+@.+/
 
-export const validEmail = (user: Partial<User>) => regexEmail.test(user.email)
+const validEmail = (user: Partial<User>) => regexEmail.test(user.email)
 
-export const validEmailField = (email: string) => regexEmail.test(email)
+const validEmailField = (email: string) => regexEmail.test(email)
 
-export const validateFields = (user: User) => ({
+const validateFields = (user: User) => ({
   email: validEmail(user),
   name: validName(user.props),
 })
 
-export const validate = (user: User) => {
+const validate = (user: User) => {
   const fields = validateFields(user)
   return {
     ...fields,
@@ -144,7 +143,7 @@ export const validate = (user: User) => {
   }
 }
 
-export const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
+const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
   // If no user or user is administrator, not required to fill information
   if (!user || isAdministrator(user) || !role) return false
 
@@ -193,4 +192,37 @@ export const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>
   return hasCorrectRole && (!validEmail(user) || missingUserProperties || missingRoleProperties)
 }
 
-export const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
+const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
+
+export const Users = {
+  getRole,
+  getFullName,
+
+  isAdministrator,
+  isAlternateNationalCorrespondent,
+  isCollaborator,
+  isNationalCorrespondent,
+  isPersonalInfoRequired,
+  isReviewer,
+  isAReviewer,
+  isViewer,
+
+  getRolesAllowedToEdit,
+  getRolesAllowedToView,
+  getI18nRoleLabelKey,
+  hasEditorRole,
+  hasRoleInAssessment,
+  hasRoleInCycle,
+  hasRoleInCountry,
+
+  profilePictureUri,
+  validProfilePicture,
+
+  // TODO: Move to UserValidator
+  validName,
+  validRole,
+  validEmail,
+  validateFields,
+  validate,
+  validEmailField,
+}
