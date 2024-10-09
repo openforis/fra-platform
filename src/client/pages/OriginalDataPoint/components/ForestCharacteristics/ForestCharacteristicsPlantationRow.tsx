@@ -15,6 +15,7 @@ import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/h
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -57,6 +58,8 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
+  const showReviewIndicator = useShowReviewIndicator(originalDataPoint, 'forestCharacteristics')
+
   if (!allowedClass(nationalClass)) {
     return null
   }
@@ -89,7 +92,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         />
       </td>
 
-      {originalDataPoint.id && canEditData && (
+      {showReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             subtitle={i18n.t('nationalDataPoint.plantationForest')}

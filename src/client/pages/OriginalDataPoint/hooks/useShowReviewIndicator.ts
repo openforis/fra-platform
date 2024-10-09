@@ -1,11 +1,11 @@
 import { OriginalDataPoint } from 'meta/assessment'
 
+import { useCanViewReview } from 'client/store/user/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
 
-export const useShowReviewIndicator = (originalDataPoint: OriginalDataPoint) => {
+export const useShowReviewIndicator = (originalDataPoint: OriginalDataPoint, sectionName = 'extentOfForest') => {
   const { print } = useIsPrintRoute()
 
-  const canEditData = useCanEditData(originalDataPoint)
-  return originalDataPoint.id && !print && canEditData
+  const canViewReview = useCanViewReview(sectionName)
+  return originalDataPoint.id && !print && canViewReview
 }
