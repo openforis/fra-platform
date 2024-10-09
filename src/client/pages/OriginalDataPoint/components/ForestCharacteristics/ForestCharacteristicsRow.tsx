@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
+import { ODPNationalClass, OriginalDataPoint, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
@@ -57,7 +57,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
     variable: 'validForestCharacteristicsPercentage',
   })
 
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint, 'forestCharacteristics')
+  const showReviewIndicator = useShowReviewIndicator(SectionNames.forestCharacteristics)
 
   if (!allowedClass(nationalClass)) {
     return null

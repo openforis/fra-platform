@@ -22,8 +22,8 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
   const { originalDataPoint } = props
 
   const { t } = useTranslation()
-  const reviewIndicator = useShowReviewIndicator(originalDataPoint)
-  const disabled = useIsDisabled(originalDataPoint)
+  const reviewIndicator = useShowReviewIndicator()
+  const disabled = useIsDisabled()
   const updateOriginalDataPoint = useUpdateDataSources()
 
   const options = useMemo<Array<Option>>(

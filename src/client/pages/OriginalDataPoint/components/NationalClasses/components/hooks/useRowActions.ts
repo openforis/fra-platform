@@ -24,7 +24,7 @@ export const useRowActions = (props: Props): Returned => {
   const deleteNationalClass = useDeleteNationalClass({ index, originalDataPoint })
   const { name, uuid } = originalDataPoint.nationalClasses[index]
   const odpId = originalDataPoint.id
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const showReviewIndicator = useShowReviewIndicator()
 
   return useMemo<Returned>(() => {
     const actions: Returned = []

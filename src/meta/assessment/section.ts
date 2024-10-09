@@ -5,9 +5,11 @@ import { Label } from './label'
 export type SectionName = string
 
 export enum SectionNames {
-  'contactPersons' = 'contactPersons',
-  'contacts' = 'contacts',
-  'originalDataPoints' = 'originalDataPoints',
+  contactPersons = 'contactPersons',
+  contacts = 'contacts',
+  extentOfForest = 'extentOfForest',
+  forestCharacteristics = 'forestCharacteristics',
+  originalDataPoints = 'originalDataPoints',
 }
 
 export interface SectionProps {

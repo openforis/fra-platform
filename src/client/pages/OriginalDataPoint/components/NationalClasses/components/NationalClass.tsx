@@ -8,7 +8,7 @@ import { DataCell, DataRow } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 import TextArea from 'client/components/Inputs/TextArea'
 // import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
-import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
+import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 import { useOnChangeNationalClass } from './hooks/onChangeNationalClass'
 import { useRowActions } from './hooks/useRowActions'
@@ -27,7 +27,7 @@ const NationalClass: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
-  const canEditData = useCanEditData(originalDataPoint)
+  const canEditData = useIsEditODPEnabled()
   const actions = useRowActions({ canEdit: canEditData && !placeHolder, index, originalDataPoint })
   const { onChangeDefinition, onChangeName, onPasteDefinition, onPasteName } = useOnChangeNationalClass({ index })
 

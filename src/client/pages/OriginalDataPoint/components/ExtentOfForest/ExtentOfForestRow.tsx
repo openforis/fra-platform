@@ -65,7 +65,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const showReviewIndicator = useShowReviewIndicator()
 
   return (
     <tr className={classNameRowComments}>
@@ -113,9 +113,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td
-        className={classNames('fra-table__cell', {
-          error: Boolean(validationErrorMessage),
-        })}
+        className={classNames('fra-table__cell', { error: Boolean(validationErrorMessage) })}
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
@@ -142,7 +140,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       {showReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
-            subtitle={t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
+            subtitle={t(`nationalDataPoint.forestCategoriesLabel${cycle.name !== '2020' ? '2025' : ''}`)}
             title={name}
             topicKey={Topics.getOdpClassReviewTopicKey(originalDataPoint.id, uuid, 'extentOfForest')}
           />
