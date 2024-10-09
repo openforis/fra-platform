@@ -12,6 +12,7 @@ const geo = require('./ar/geo')
 const history = require('./ar/history')
 const landing = require('./ar/landing')
 const login = require('./ar/login')
+const nationalDataPoint = require('./ar/nationalDataPoint')
 const statisticalFactsheets = require('./ar/statisticalFactsheets')
 const uc = require('./ar/uc')
 
@@ -29,6 +30,7 @@ module.exports.translation = {
   history,
   landing,
   login,
+  nationalDataPoint,
   statisticalFactsheets,
   uc,
 
@@ -374,60 +376,6 @@ The FRA team
     analysisAndProcessing: 'تحليل البيانات الوطنية ومعالجتها',
     estimationAndForecasting: 'التوقعات والتنبؤات',
     reclassification: 'إعادة التصنيف بما يتوافق وفئات تقييم الموارد الحرجية لعام {{cycleName}}',
-  },
-
-  nationalDataPoint: {
-    clickOnNDP: 'انقر على العام للدخول إلى البيانات الأصلية',
-    nationalDataPoint: 'نقطة البيانات الوطنية',
-    addNationalDataPoint: 'أضف نقطة بيانات وطنية',
-    noNationalDataAdded: 'لم تتم إضافة نقطة بيانات وطنية',
-    nationalData: 'بيانات وطنية',
-    reclassificationLabel: 'بيانات أصلية وإعادة التصنيف',
-    forestCategoriesLabel: 'غابة، أرض حرجية أخرى، أرض أخرى',
-    referenceYearData: 'العام المرجعي للبيانات',
-    referenceYear: 'العام المرجعي',
-    references: 'المراجع',
-    selectYear: 'اختر...',
-    methods: 'الأساليب',
-    methodsUsed: 'الأساليب المستخدمة',
-    dataSource: 'مصدر البيانات',
-    dataSources: 'مصادر البيانات',
-    additionalComments: 'تعليقات إضافية',
-    edit: 'تعديل',
-    copyPreviousValues: 'نسخ المراجع السابقة',
-    nationalClass: 'شريحة وطنية',
-    nationalClasses: 'شرائح وتعاريف',
-    fraClasses: 'شرائح تقييم الموارد الحرجية',
-    definition: 'تعريف',
-    class: 'شريحة',
-    area: 'المساحة (1000 هـ)',
-    total: 'الإجمالي',
-    modifiedExplanation: 'نقطة البيانات الوطنية مع التعديلات',
-    confirmDelete: 'هل تود حذف نقطة البيانات هذه؟ لايمكن الرجوع عن هذه الخطوة.',
-    discardChanges: 'إهمال التغييرات',
-    doneEditing: 'التعديلات تمت',
-    enterOrCopyPasteNationalClasses: 'إدخال أو نسخ ولصق الشرائح الوطنية',
-    forestCharacteristics: 'مواصفات الغابة',
-    otherLandCharacteristics: 'أرض أخرى ذات غطاء شجري',
-    plantationForest: 'الغابات الاصطناعية (مشجرة)',
-    remindDirtyOdp: 'تم تحديث نقطة البيانات الوطنية، تذكر تحديث القيم',
-    disabled: 'معطّل، يمكنك التفعيل في الجدول 1ب',
-    dataSourceMethodsOptions: {
-      nationalForestInventory: 'الجرد الوطني للغابات',
-      sampleBasedRemoteSensingAssessment: 'تقييم الاستشعار عن بعد استناداً إلى العينة',
-      fullCoverMaps: 'خرائط الغطاء الكلي للغابات/النباتات',
-      registersQuestionnaires: 'سجلات/استبيانات',
-      other: 'غير ذلك (حدده في التعليقات)',
-    },
-    appliesToVariablesOptions: {
-      forest: 'غابة',
-      otherWoodedLand: 'أرض حرجية أخرى',
-      otherLand: 'أرض أخرى',
-    },
-    forestCategoriesLabel2025: 'الغابات والأراضي الحرجية الأخرى والأراضي المتبقية',
-    nationalClassifications: 'التصنيفات الوطنية',
-    categories: 'فئات',
-    fileAddedWillBecomePublic: ' سيصبح الملف الذي تمت إضافته كمرجع , متاح للوصول إليها بشكل عام من جميع المستخدمين',
   },
 
   userManagement: {
