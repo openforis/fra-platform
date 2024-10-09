@@ -23,7 +23,7 @@ export const NationalClassesTable = (props: Props) => {
 
   const { print } = useIsPrintRoute()
   const canEdit = useIsEditODPEnabled()
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const showReviewIndicator = useShowReviewIndicator()
 
   return (
     <DataGrid

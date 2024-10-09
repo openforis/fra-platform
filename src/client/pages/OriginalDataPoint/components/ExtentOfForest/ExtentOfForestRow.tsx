@@ -65,7 +65,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const showReviewIndicator = useShowReviewIndicator()
 
   return (
     <tr className={classNameRowComments}>

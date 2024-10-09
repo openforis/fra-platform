@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
@@ -55,7 +55,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint, 'forestCharacteristics')
+  const showReviewIndicator = useShowReviewIndicator(SectionNames.forestCharacteristics)
 
   if (!ODPs.hasNaturallyRegenerating(nationalClass)) {
     return null

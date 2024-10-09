@@ -10,7 +10,7 @@ import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/use
 export const useCommentsActions = (): Array<DataRowAction> => {
   const { t } = useTranslation()
   const originalDataPoint = useOriginalDataPoint()
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const showReviewIndicator = useShowReviewIndicator()
 
   return useMemo<Array<DataRowAction>>(() => {
     if (!showReviewIndicator) return []

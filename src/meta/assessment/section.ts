@@ -8,6 +8,7 @@ export enum SectionNames {
   contactPersons = 'contactPersons',
   contacts = 'contacts',
   extentOfForest = 'extentOfForest',
+  forestCharacteristics = 'forestCharacteristics',
   originalDataPoints = 'originalDataPoints',
 }
 

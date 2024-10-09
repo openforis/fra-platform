@@ -22,7 +22,7 @@ const DataSources: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
   const canEdit = useIsEditODPEnabled()
-  const showReviewIndicator = useShowReviewIndicator(originalDataPoint)
+  const showReviewIndicator = useShowReviewIndicator()
 
   return (
     <div className="odp__section">
