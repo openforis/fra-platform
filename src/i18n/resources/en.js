@@ -1,6 +1,7 @@
 const admin = require('./en/admin')
 const area = require('./en/area')
 const assessmentSection = require('./en/assessmentSection')
+const bulkDownload = require('./en/bulkDownload')
 const common = require('./en/common')
 const contentCheck = require('./en/contentCheck')
 const dataDownload = require('./en/dataDownload')
@@ -12,11 +13,11 @@ const geo = require('./en/geo')
 const history = require('./en/history')
 const landing = require('./en/landing')
 const login = require('./en/login')
+const nationalDataPoint = require('./en/nationalDataPoint')
 const panEuropean = require('./en/panEuropean/panEuropean')
 const statisticalFactsheets = require('./en/statisticalFactsheets')
 const uc = require('./en/uc')
 const validation = require('./en/validation')
-const bulkDownload = require('./en/bulkDownload')
 
 module.exports.translation = {
   admin,
@@ -33,6 +34,7 @@ module.exports.translation = {
   history,
   landing,
   login,
+  nationalDataPoint,
   panEuropean,
   statisticalFactsheets,
   uc,
@@ -364,65 +366,6 @@ The FRA team
     analysisAndProcessing: 'Analysis and processing of national data',
     estimationAndForecasting: 'Estimation and forecasting',
     reclassification: 'Reclassification into FRA {{cycleName}} categories',
-  },
-
-  nationalDataPoint: {
-    clickOnNDP: 'Click on the year to access original data',
-    nationalDataPoint: 'National data point',
-    addNationalDataPoint: 'Add national data point',
-    noNationalDataAdded: 'No national data added',
-    nationalData: 'National data',
-    reclassificationLabel: 'Original data and reclassification',
-    forestCategoriesLabel: 'Forest, other wooded land and other land',
-    forestCategoriesLabel2025: 'Forest, other wooded land and remaining land',
-    referenceYearData: 'Reference year for the data',
-    referenceYear: 'Reference year',
-    references: 'References',
-    prefill: 'Prefill',
-    prefillWith: 'Prefill with',
-    selectYear: 'Select year',
-    methods: 'Methods',
-    methodsUsed: 'Methods used',
-    dataSource: 'Data source',
-    dataSources: 'Data sources',
-    dataSource2025ExplanatoryText:
-      'The data sources listed were reported in FRA 2020. Please copy and paste relevant data sources in table above.',
-    additionalComments: 'Additional comments',
-    edit: 'Edit',
-    confirmCopyPreviousValues: 'Do you want to override previous values? This operation cannot be undone.',
-    copyPreviousValues: 'Copy previous references',
-    nationalClassifications: 'National classifications',
-    nationalClass: 'National class',
-    nationalClasses: 'Classifications and definitions',
-    definition: 'Definition',
-    categories: 'Categories',
-    class: 'Class',
-    fraClasses: 'FRA classes',
-    area: 'Area (1000 ha)',
-    total: 'Total',
-    modifiedExplanation: 'National data point with modifications',
-    confirmDelete: 'Delete this data point? This cannot be undone.',
-    discardChanges: 'Discard changes',
-    doneEditing: 'Done editing',
-    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
-    forestCharacteristics: 'Forest characteristics',
-    otherLandCharacteristics: 'Other land with tree cover',
-    plantationForest: 'Plantation forest',
-    remindDirtyOdp: 'National data point has been updated, remember to regenerate values',
-    disabled: 'Disabled, enable in section 1b',
-    dataSourceMethodsOptions: {
-      nationalForestInventory: 'National Forest Inventory',
-      sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
-      fullCoverMaps: 'Full-cover forest/vegetation maps',
-      registersQuestionnaires: 'Registers/questionnaires',
-      other: '$t(common.otherSpecifyInComments)',
-    },
-    appliesToVariablesOptions: {
-      forest: 'Forest',
-      otherWoodedLand: 'Other wooded land',
-      otherLand: 'Other land',
-    },
-    fileAddedWillBecomePublic: 'A file added as reference will become publicly accessible',
   },
 
   userManagement: {
