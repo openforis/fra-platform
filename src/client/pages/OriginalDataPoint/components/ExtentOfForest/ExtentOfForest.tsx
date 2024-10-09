@@ -36,7 +36,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
   const tableRef = useRef(null)
 
-  const fileName = `odp-${t(`nationalDataPoint.forestCategoriesLabel${cycleName === '2025' ? '2025' : ''}`)} ${
+  const fileName = `odp-${t(`nationalDataPoint.forestCategoriesLabel${cycleName !== '2020' ? '2025' : ''}`)} ${
     year ?? ''
   }`
   return (
@@ -45,7 +45,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         <div className="odp__section-header">
           <ButtonTableExport disabled={year === -1 || year === undefined} filename={fileName} tableRef={tableRef} />
           <h3 className="subhead">
-            {t(`nationalDataPoint.forestCategoriesLabel${cycleName === '2025' ? '2025' : ''}`)}
+            {t(`nationalDataPoint.forestCategoriesLabel${cycleName !== '2020' ? '2025' : ''}`)}
           </h3>
           <DefinitionLink
             anchor="1a"
@@ -68,7 +68,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {t(`nationalDataPoint.${cycleName === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
+                  {t(`nationalDataPoint.${cycleName !== '2020' ? 'nationalClassifications' : 'nationalClasses'}`)}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
                   {t(`nationalDataPoint.fraClasses`)}
@@ -78,11 +78,9 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.class')}</th>
                 <th className="fra-table__header-cell fra-table__divider">{t('nationalDataPoint.area')}</th>
                 <th className="fra-table__header-cell">{t('fraClass.forest')}</th>
+                <th className="fra-table__header-cell">{t(`fra.extentOfForest.otherWoodedLand`)}</th>
                 <th className="fra-table__header-cell">
-                  {t(`${cycleName === '2025' ? 'fra.extentOfForest.otherWoodedLand' : 'fraClass.otherWoodedLand'}`)}
-                </th>
-                <th className="fra-table__header-cell">
-                  {t(`${cycleName === '2025' ? 'fra.extentOfForest.remainingLandArea' : 'fraClass.otherLand'}`)}
+                  {t(`${cycleName !== '2020' ? 'fra.extentOfForest.remainingLandArea' : 'fraClass.otherLand'}`)}
                 </th>
               </tr>
 
