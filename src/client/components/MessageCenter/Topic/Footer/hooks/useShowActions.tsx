@@ -25,7 +25,7 @@ export const useShowActions = (topic: MessageTopic) => {
 
   const canResolve = isEditing && isReview && isOpened && hasMessages && (isAdmin || isReviewer)
 
-  const canPostMessage = isEditing && (isOpened || (isResolved && (isAdmin || isReviewer)))
+  const canPostMessage = (!isReview || isEditing) && (isOpened || (isResolved && (isAdmin || isReviewer)))
 
   return { canResolve, canPostMessage }
 }
