@@ -6,9 +6,8 @@ export interface CycledPropsObject<Props = void> {
   id?: number
 }
 
-export type CycleUuid = string
-
 export type CycleName = string
+export type CycleUuid = string
 
 export enum CycleStatus {
   draft = 'draft',

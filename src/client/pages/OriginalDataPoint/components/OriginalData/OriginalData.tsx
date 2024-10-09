@@ -60,7 +60,7 @@ const OriginalData: React.FC<Props> = (props) => {
           })}
         >
           {`${extentOfForest.anchor} ${i18n.t(
-            `nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`
+            `nationalDataPoint.forestCategoriesLabel${cycle.name !== '2020' ? '2025' : ''}`
           )}`}
         </NavLink>
         <NavLink
@@ -83,10 +83,10 @@ const OriginalData: React.FC<Props> = (props) => {
       </div>
 
       {sectionName === extentOfForest.name && (
-        <ExtentOfForest originalDataPoint={originalDataPoint} canEditData={canEditData} />
+        <ExtentOfForest canEditData={canEditData} originalDataPoint={originalDataPoint} />
       )}
       {sectionName !== extentOfForest.name && (
-        <ForestCharacteristics originalDataPoint={originalDataPoint} canEditData={canEditData} />
+        <ForestCharacteristics canEditData={canEditData} originalDataPoint={originalDataPoint} />
       )}
     </div>
   )

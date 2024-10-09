@@ -38,7 +38,7 @@ export const NationalClassesTable = (props: Props) => {
       )}
 
       <DataCell header>
-        {t(`nationalDataPoint.${cycleName === '2025' ? 'nationalClassifications' : 'nationalClass'}`)}
+        {t(`nationalDataPoint.${cycleName !== '2020' ? 'nationalClassifications' : 'nationalClass'}`)}
       </DataCell>
       <DataCell header lastCol>
         {t('nationalDataPoint.definition')}
