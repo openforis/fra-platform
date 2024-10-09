@@ -7,6 +7,8 @@ import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
 import { Users } from 'meta/user/users'
 
+import { canViewReview } from './canViewReview'
+
 /**
  *  CanView
  *  if cycle is published, everyone can view
@@ -221,5 +223,6 @@ export const Authorizer = {
   canViewGeo,
   canViewHistory,
   canViewRepositoryItem,
+  canViewReview,
   canViewUsers,
 }

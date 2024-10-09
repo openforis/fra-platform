@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -23,7 +23,7 @@ const Comments: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
   const isDataLocked = useIsDataLocked()
   const updateDescription = useUpdateDescription()
-  const actions = useCommentsActions({ canEditData })
+  const actions = useCommentsActions()
   const [open, setOpen] = useState<boolean>(false)
 
   useEffect(() => {
@@ -32,8 +32,10 @@ const Comments: React.FC<Props> = (props) => {
     }
   }, [isDataLocked, open])
 
+  const withActions = useMemo(() => actions.length > 0, [actions])
+
   return (
-    <DataGrid className="odp__section description" withActions={canEditData}>
+    <DataGrid className="odp__section description" withActions={withActions}>
       <DataRow actions={actions}>
         <DataCell className="description-title" editable noBorder>
           <h3 className="subhead description-title__label">{t('review.comments')}</h3>

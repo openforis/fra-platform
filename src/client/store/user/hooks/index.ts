@@ -118,3 +118,15 @@ export const useCanViewGeo = (): boolean => {
 
   return Authorizer.canViewGeo({ cycle, countryIso, user })
 }
+
+export const useCanViewReview = (sectionName: string) => {
+  const isDataLocked = useIsDataLocked()
+  const { print } = useIsPrintRoute()
+  const user = useUser()
+  const section = useSection(sectionName)
+  const country = useAssessmentCountry()
+  const cycle = useCycle()
+
+  const canView = Authorizer.canViewReview({ country, cycle, section, user })
+  return !print && !isDataLocked && canView
+}

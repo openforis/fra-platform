@@ -18,6 +18,7 @@ import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/h
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -64,7 +65,8 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
-  const shouldRenderReviewIndicator = originalDataPoint.id && canEditData
+  const showReviewIndicator = useShowReviewIndicator(originalDataPoint)
+
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -135,7 +137,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 
-      {shouldRenderReviewIndicator && (
+      {showReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             subtitle={t(`nationalDataPoint.forestCategoriesLabel${cycle.name === '2025' ? '2025' : ''}`)}
