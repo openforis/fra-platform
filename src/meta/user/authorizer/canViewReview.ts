@@ -1,16 +1,25 @@
 import { Objects } from 'utils/objects'
 
-import { Areas, AssessmentStatus } from 'meta/area'
-import { AuthProps } from 'meta/user/authorizer/types'
+import { Areas, AssessmentStatus, Country } from 'meta/area'
+import { Cycle, Section, SubSection } from 'meta/assessment'
+import { User } from 'meta/user/user'
 
 import { Collaborator, CollaboratorEditPropertyType, CollaboratorSectionsPermission, RoleName } from '../userRole'
 import { Users } from '../users'
+
+export type AuthProps = {
+  cycle: Cycle
+  country: Country
+  user: User
+  section?: Section | SubSection
+  permission?: CollaboratorEditPropertyType
+}
 
 const hasCollaboratorEditSectionPermission = (props: AuthProps) => {
   const { section, user, country, cycle, permission = CollaboratorEditPropertyType.tableData } = props
   const { countryIso } = country ?? {}
 
-  const { isCollaborator } = Users.getUserRoles(user, countryIso, cycle)
+  const isCollaborator = Users.isCollaborator(user, countryIso, cycle)
 
   if (isCollaborator) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
