@@ -111,9 +111,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td
-        className={classNames('fra-table__cell', {
-          error: Boolean(validationErrorMessage),
-        })}
+        className={classNames('fra-table__cell', { error: Boolean(validationErrorMessage) })}
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
