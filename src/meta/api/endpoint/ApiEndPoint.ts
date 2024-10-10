@@ -113,6 +113,10 @@ export const ApiEndPoint = {
     },
   },
 
+  DataQuery: {
+    one: () => apiPath('data-query'),
+  },
+
   ExtData: {
     Taxa: {
       search: () => apiPath('ext-data', 'taxa', 'search'),

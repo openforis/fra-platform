@@ -1,5 +1,6 @@
 import { Express } from 'express'
 
+import { DataQueryApi } from 'server/api/dataQuery'
 import { ExtDataApi } from 'server/api/extData'
 
 import { AdminApi } from './admin'
@@ -27,6 +28,7 @@ export const Api = {
     AdminApi.init(express)
     AreaApi.init(express)
     CycleDataApi.init(express)
+    DataQueryApi.init(express)
     DefinitionApi.init(express)
     ExtDataApi.init(express)
     FileApi.init(express)
