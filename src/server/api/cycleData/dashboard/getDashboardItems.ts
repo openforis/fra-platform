@@ -6,9 +6,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { DashboardController } from 'server/controller/cycleData/dashboard'
 import Requests from 'server/utils/requests'
 
-type Query = { query: string; limit: string }
-
-export const getDashboardItems = async (req: CycleRequest<Query>, res: Response) => {
+export const getDashboardItems = async (req: CycleRequest, res: Response) => {
   try {
     const { assessmentName, cycleName } = req.query
 
