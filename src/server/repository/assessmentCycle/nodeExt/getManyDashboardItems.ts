@@ -6,7 +6,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = { assessment: Assessment; cycle: Cycle }
 
-export const getMany = async (
+export const getManyDashboardItems = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<Array<DashboardItem<DashboardItemType>>> => {
@@ -14,6 +14,6 @@ export const getMany = async (
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   return client.many<DashboardItem<DashboardItemType>>(`select value from ${schemaCycle}.node_ext where type = $1`, [
-    NodeExtType.dataQuery,
+    NodeExtType.dashboard,
   ])
 }

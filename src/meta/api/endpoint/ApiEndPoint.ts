@@ -37,6 +37,10 @@ export const ApiEndPoint = {
     history: (target = ':target') => apiPath('cycle-data', 'history', target),
     historyCount: (target = ':target') => apiPath('cycle-data', 'history', target, 'count'),
 
+    Dashboard: {
+      one: () => apiPath('cycle-data', 'dashboard'),
+    },
+
     Descriptions: {
       many: () => apiPath('cycle-data', 'descriptions'),
 
@@ -111,10 +115,6 @@ export const ApiEndPoint = {
       tableClear: () => apiPath('cycle-data', 'table', 'clear'),
       nodeValuesEstimations: () => apiPath('cycle-data', 'table', 'node-values-estimations'),
     },
-  },
-
-  DataQuery: {
-    one: () => apiPath('data-query'),
   },
 
   ExtData: {
