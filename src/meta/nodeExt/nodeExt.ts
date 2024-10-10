@@ -11,7 +11,7 @@ export enum NodeExtCellType {
 export enum NodeExtType {
   contact = 'contact',
   node = 'node',
-  dataQuery = 'dataQuery',
+  dashboard = 'dashboard',
 }
 
 export type NodeExt<Props, Value extends NodeValue | null = NodeValue> = {

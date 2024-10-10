@@ -37,7 +37,7 @@ export default async (client: BaseProtocol) => {
   await Promises.each(assessment.cycles, async (cycle) => {
     const schemaCycle = Schemas.getNameCycle(assessment, cycle)
     const dashboardItems = dashboardItemFactories.map((factory) => factory(cycle, false))
-    const nodeExtType = NodeExtType.dataQuery
+    const nodeExtType = NodeExtType.dashboard
 
     const query = `select 1 from ${schemaCycle}.node_ext where type = $1`
     const exists = (await client.manyOrNone(query, [nodeExtType])).length > 0
