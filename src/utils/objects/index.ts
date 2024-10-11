@@ -13,18 +13,22 @@ import * as unset from 'lodash.unset'
 import { getInPath } from 'utils/objects/getInPath'
 
 import { camelize } from './camelize'
+import { getDiffAsPartialObject } from './getDiffAsPartialObject'
 import { isEmpty } from './isEmpty'
+import { mergePartial } from './mergePartial'
 import { propertyOf } from './propertyOf'
 import { setInPath } from './setInPath'
 
 export const Objects = {
   camelize,
   cloneDeep,
+  getDiffAsPartialObject,
   getInPath,
   isEmpty,
   isEqual,
   isFunction,
   isNil,
+  mergePartial,
   pick,
   propertyOf,
   setInPath,
