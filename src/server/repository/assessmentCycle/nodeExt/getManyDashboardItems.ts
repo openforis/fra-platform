@@ -13,10 +13,9 @@ export const getManyDashboardItems = async (
   const { assessment, cycle } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  const result = await client.one<{ value: Array<DashboardItem<DashboardItemType>> }>(
+  return client.one<Array<DashboardItem<DashboardItemType>>>(
     `select value from ${schemaCycle}.node_ext where type = $1`,
-    [NodeExtType.dashboard]
+    [NodeExtType.dashboard],
+    (result) => result.value
   )
-
-  return result.value
 }
