@@ -13,6 +13,7 @@ const geo = require('./fr/geo')
 const history = require('./fr/history')
 const landing = require('./fr/landing')
 const login = require('./fr/login')
+const nationalDataPoint = require('./fr/nationalDataPoint')
 const other = require('./fr/other')
 const statisticalFactsheets = require('./fr/statisticalFactsheets')
 const uc = require('./fr/uc')
@@ -32,6 +33,7 @@ module.exports.translation = {
   history,
   landing,
   login,
+  nationalDataPoint,
 
   page: {
     assessmentSection,

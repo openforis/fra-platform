@@ -1,4 +1,4 @@
-import { AreaCode } from 'meta/area'
+import { AreaCode, CountryIso } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 
 export type AssessmentRouteParams = {
@@ -25,6 +25,6 @@ export type SectionRouteParams<T = AreaCode> = CountryRouteParams<T> & {
   sectionName: SectionName
 }
 
-export type OriginalDataPointRouteParams = SectionRouteParams & {
+export type OriginalDataPointRouteParams = SectionRouteParams<CountryIso> & {
   year: string
 }

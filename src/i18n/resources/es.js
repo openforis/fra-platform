@@ -12,6 +12,7 @@ const generalValidation = require('./es/generalValidations')
 const history = require('./es/history')
 const landing = require('./es/landing')
 const login = require('./es/login')
+const nationalDataPoint = require('./es/nationalDataPoint')
 const other = require('./es/other')
 const statisticalFactsheets = require('./es/statisticalFactsheets')
 const uc = require('./es/uc')
@@ -30,6 +31,7 @@ module.exports.translation = {
   history,
   landing,
   login,
+  nationalDataPoint,
 
   page: {
     assessmentSection,

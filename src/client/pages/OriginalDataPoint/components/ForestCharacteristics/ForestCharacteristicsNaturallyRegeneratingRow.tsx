@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
@@ -15,6 +15,7 @@ import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/h
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
 
@@ -54,13 +55,14 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
+  const showReviewIndicator = useShowReviewIndicator(SectionNames.forestCharacteristics)
+
   if (!ODPs.hasNaturallyRegenerating(nationalClass)) {
     return null
   }
 
   const isZeroOrNullPrimaryForest = ofWhichPrimary === null || Numbers.eq(ofWhichPrimary, 0)
 
-  const shouldRenderReviewIndicator = originalDataPoint.id && canEditData
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
@@ -87,7 +89,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         />
       </td>
 
-      {shouldRenderReviewIndicator && (
+      {showReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             subtitle={i18n.t('nationalDataPoint.naturallyRegeneratingForest')}
