@@ -49,10 +49,10 @@ const _traverseAndCompare = <T extends Record<string, unknown>>(
  * @example
  * const base = { a: 1, b: { c: 2 } };
  * const compare = { a: 1, b: { c: 3, d: 4 } };
- * const result = getDiffAsPartialObject(base, compare);
+ * const result = getDiff(base, compare);
  * // result: { b: { c: 3, d: 4 } }
  */
-export const getDiffAsPartialObject = <T extends Record<string, unknown>>(
+export const getDiff = <T extends Record<string, unknown>>(
   baseObject: T,
   compareObject: T,
   keysToIgnore?: Array<string>

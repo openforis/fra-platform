@@ -10,10 +10,10 @@ import * as isNil from 'lodash.isnil'
 import * as pick from 'lodash.pick'
 // @ts-ignore
 import * as unset from 'lodash.unset'
-import { getInPath } from 'utils/objects/getInPath'
 
 import { camelize } from './camelize'
-import { getDiffAsPartialObject } from './getDiffAsPartialObject'
+import { getDiff } from './getDiff'
+import { getInPath } from './getInPath'
 import { isEmpty } from './isEmpty'
 import { mergePartial } from './mergePartial'
 import { propertyOf } from './propertyOf'
@@ -22,7 +22,7 @@ import { setInPath } from './setInPath'
 export const Objects = {
   camelize,
   cloneDeep,
-  getDiffAsPartialObject,
+  getDiff,
   getInPath,
   isEmpty,
   isEqual,
