@@ -1,0 +1,55 @@
+{
+  "extent": {
+    "title": "Площадь",
+    "forest_area": "Леса (1000 га)",
+    "other_wooded_land": "Прочие лесистые земли (1000 га)",
+    "primary_forest_percent": "Первичные леса (% лесов)",
+    "protected_forest_percent": "Леса на охраняемых территориях (% лесов)",
+    "management_plan_percent": "Площадь лесов с планом управления  (% лесов)",
+    "certified_area": "Площадь сертифицированных лесов (1000 га)"
+  },
+  "periodicChangeRate": {
+    "title": "Периодические изменения (годовые темпы)",
+    "forest_area_annual_net_change": "Годовое чистое изменение площади  лесов (1000 гектаров)",
+    "forest_area_annual_net_change_rate": " Темпы чистого изменения площади лесов в год (%)",
+    "other_wooded_land_annual_net_change": "Годовое чистое изменение площади ПЛЗ (1000 га)",
+    "other_wooded_land_annual_net_change_rate": " Темпы чистого изменения площади ПЛЗ в год (%)",
+    "primary_forest_annual_net_change": "Годовое чистое изменение площади первичных лесов (1000 га)",
+    "primary_forest_annual_net_change_rate": "Темпы чистого изменения площади первичных лесов (%)",
+    "natural_forest_area_annual_net_change": "Годовое чистое изменение естественно возобновляемых лесов ",
+    "natural_forest_area_annual_net_change_rate": "Темпы чистого изменения естественно возобновляемых лесов  (%)",
+    "planted_forest_annual_net_change": "Годовое чистое изменение лесных культур",
+    "planted_forest_annual_net_change_rate": "Темпы чистого изменения лесных культур (%)"
+  },
+  "forestGrowingStockBiomassCarbon": {
+    "title": "Запас древостоя, биомасса и углерод",
+    "forest": "Запас древостоя (м3/га)",
+    "forest_above_ground": "Надземная биомасса (т/га)",
+    "forest_below_ground": "Подземная биомасса (т/га)",
+    "forest_deadwood": "Мертвая древесина (т/га)",
+    "carbon_forest_above_ground": "C в надземной биомассе (т/га)",
+    "carbon_forest_below_ground": "C в подземной биомассе (т/га)",
+    "carbon_forest_deadwood": "С в мертвой древесине (т/га)",
+    "carbon_forest_litter": "C в лесном опаде (т/га)",
+    "carbon_forest_soil": "С в почве (т/га)",
+    "above_ground_biomass_growing_stock_ratio": "Соотношение (надземная биомасса) / запас древостоя (т/м3)",
+    "root_shoot_ratio": "Соотношение массы корней и побегов ",
+    "carbon_biomass_deadwood_ratio": "Соотношение (мертвая древесина / живая биомасса)",
+    "carbon_biomass_above_ground_ratio": "Соотношение (углерод/биомасса) для надземной биомассы",
+    "carbon_biomass_below_ground_ratio": "Соотношение (углерод/биомасса) для подземной биомассы ",
+    "dead_living_mass_ratio": "Соотношение (углерод/биомасса) для мертвой древесины"
+  },
+  "primaryDesignatedManagementObjective": {
+    "title": "Основная назначенная цель управления"
+  },
+  "totalAreaDesignatedManagementObjective": "Общая площадь с назначенной целью управления",
+  "forestOwnership": {
+    "title": "Права собственности"
+  },
+  "holderOfManagementRights": {
+    "title": "Права управления государственными лесами"
+  },
+  "disturbances": {
+    "title": "Нарушения состояния лесов"
+  }
+}

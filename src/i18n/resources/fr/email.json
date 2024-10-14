@@ -1,0 +1,7 @@
+{
+  "invitationAccepted": {
+    "subject": "L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation",
+    "textMessage": "Cher/Chère {{recipientName}} {{recipientSurname}},\n\nL’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la {{- country}}\n{{- manageCollaboratorsUrl}}\n\nL’équipe FRA",
+    "htmlMessage": "Cher/Chère {{recipientName}} {{recipientSurname}},\n<br/><br/>\nL’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nL’équipe FRA"
+  }
+}
