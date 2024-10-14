@@ -44,7 +44,7 @@ const hasEditSectionPermission = (
 
   const userRole = Users.getRole(user, countryIso, cycle)
 
-  return countryStatus[userRole.role].includes(status) && hasCollaboratorEditSectionPermission(props)
+  return countryStatus[userRole.role]?.includes(status) && hasCollaboratorEditSectionPermission(props)
 }
 
 /**
