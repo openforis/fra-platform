@@ -39,7 +39,7 @@ const _getDiffs = (
   regionItems: Array<DashboardItem>
 ): Array<Partial<DashboardItem> | undefined> => {
   return countryItems.map((countryItem, index) =>
-    Objects.getDiffAsPartialObject<DashboardItem>(countryItem, regionItems[index], keysToIgnore)
+    Objects.getDiff<DashboardItem>(countryItem, regionItems[index], keysToIgnore)
   )
 }
 
