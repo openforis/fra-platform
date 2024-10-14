@@ -1,9 +1,10 @@
-import { Cycle, TableNames, Unit } from 'meta/assessment'
+import { Cycle, TableNames } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
 
 import type { RowsMetadata } from '../utils'
 import { getTable } from '../utils'
+import { unit } from '../utils/unit'
 
 const commonColumns = ['1990', '2000', '2010', '2020']
 
@@ -19,13 +20,13 @@ export const naturallyRegeneratingForestArea = (cycle: Cycle, region: boolean): 
     {
       variableName: 'naturalForestArea',
       color: ChartColor.green,
-      unit: `unit.${Unit.haThousand}`,
+      unit: unit(region),
       label: { key: 'statisticalFactsheets.rowName.naturalForestArea' },
     },
     {
       variableName: 'plantedForest',
       color: ChartColor.forestPlanted,
-      unit: `unit.${Unit.haThousand}`,
+      unit: unit(region),
       label: { key: 'statisticalFactsheets.rowName.plantedForest' },
     },
   ]
@@ -45,14 +46,14 @@ export const naturallyRegeneratingForestArea = (cycle: Cycle, region: boolean): 
     type: DashboardItemType.barChart,
     title: {
       key: 'statisticalFactsheets.naturallyRegeneratingForest.title',
-      params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: `unit.${Unit.haThousand}` },
+      params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: unit(region) },
     },
     table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
     chart: {
       columns: cols[cycle.name],
       cells,
       xAxis: { label: { key: 'common.year' } },
-      yAxis: { label: { key: `unit.${Unit.haThousand}` } },
+      yAxis: { label: { key: unit(region) } },
     },
   }
 }
