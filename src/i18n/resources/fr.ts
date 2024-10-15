@@ -1,23 +1,22 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const admin = require('./fr/admin.json')
-const area = require('./fr/area.json')
-const assessmentSection = require('./fr/assessmentSection.json')
-const common = require('./fr/common.json')
-const contentCheck = require('./fr/contentCheck.json')
-const dataDownload = require('./fr/dataDownload.json')
-const dataSource = require('./fr/dataSource.json')
-const editUser = require('./fr/editUser.json')
-const email = require('./fr/email.json')
-const fra = require('./fr/fra.json')
-const generalValidation = require('./fr/generalValidation.json')
-const geo = require('./fr/geo.json')
-const history = require('./fr/history.json')
-const landing = require('./fr/landing.json')
-const login = require('./fr/login.json')
-const nationalDataPoint = require('./fr/nationalDataPoint.json')
-const other = require('./fr/other.json')
-const statisticalFactsheets = require('./fr/statisticalFactsheets.json')
-const uc = require('./fr/uc.json')
+import * as admin from './fr/admin.json'
+import * as area from './fr/area.json'
+import * as assessmentSection from './fr/assessmentSection.json'
+import * as common from './fr/common.json'
+import * as contentCheck from './fr/contentCheck.json'
+import * as dataDownload from './fr/dataDownload.json'
+import * as dataSource from './fr/dataSource.json'
+import * as editUser from './fr/editUser.json'
+import * as email from './fr/email.json'
+import * as fra from './fr/fra.json'
+import * as generalValidation from './fr/generalValidation.json'
+import * as geo from './fr/geo.json'
+import * as history from './fr/history.json'
+import * as landing from './fr/landing.json'
+import * as login from './fr/login.json'
+import * as nationalDataPoint from './fr/nationalDataPoint.json'
+import * as other from './fr/other.json'
+import * as statisticalFactsheets from './fr/statisticalFactsheets.json'
+import * as uc from './fr/uc.json'
 
 export const frTranslation = {
   admin,

@@ -1,26 +1,25 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const admin = require('./en/admin.json')
-const area = require('./en/area.json')
-const assessmentSection = require('./en/assessmentSection.json')
-const bulkDownload = require('./en/bulkDownload.json')
-const common = require('./en/common.json')
-const contentCheck = require('./en/contentCheck.json')
-const dataDownload = require('./en/dataDownload.json')
-const dataSource = require('./en/dataSource.json')
-const editUser = require('./en/editUser.json')
-const email = require('./en/email.json')
-const fra = require('./en/fra.json')
-const generalValidation = require('./en/generalValidation.json')
-const geo = require('./en/geo.json')
-const history = require('./en/history.json')
-const landing = require('./en/landing.json')
-const login = require('./en/login.json')
-const nationalDataPoint = require('./en/nationalDataPoint.json')
-const other = require('./en/other.json')
-const panEuropean = require('./en/panEuropean/panEuropean.json')
-const statisticalFactsheets = require('./en/statisticalFactsheets.json')
-const uc = require('./en/uc.json')
-const validation = require('./en/validation.json')
+import * as admin from './en/admin.json'
+import * as area from './en/area.json'
+import * as assessmentSection from './en/assessmentSection.json'
+import * as bulkDownload from './en/bulkDownload.json'
+import * as common from './en/common.json'
+import * as contentCheck from './en/contentCheck.json'
+import * as dataDownload from './en/dataDownload.json'
+import * as dataSource from './en/dataSource.json'
+import * as editUser from './en/editUser.json'
+import * as email from './en/email.json'
+import * as fra from './en/fra.json'
+import * as generalValidation from './en/generalValidation.json'
+import * as geo from './en/geo.json'
+import * as history from './en/history.json'
+import * as landing from './en/landing.json'
+import * as login from './en/login.json'
+import * as nationalDataPoint from './en/nationalDataPoint.json'
+import * as other from './en/other.json'
+import * as panEuropean from './en/panEuropean/panEuropean.json'
+import * as statisticalFactsheets from './en/statisticalFactsheets.json'
+import * as uc from './en/uc.json'
+import * as validation from './en/validation.json'
 
 export const enTranslation = {
   admin,
