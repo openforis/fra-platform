@@ -62,10 +62,10 @@
   "success": "تمت بنجاح",
   "tier": "المستوى",
   "tiers": {
-    "notSelected": "",
     "high": "مرتفع",
+    "low": "منخفض",
     "medium": "متوسط",
-    "low": "منخفض"
+    "notSelected": ""
   },
   "totalPercentage": "النسبة المئوية الإجمالية",
   "trend": "اتجاه",

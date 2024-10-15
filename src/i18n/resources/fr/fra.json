@@ -1,21 +1,13 @@
 {
-  "print": {
-    "title": "Rapport FRA {{cycleName}}",
-    "titleTables": "Tableaux du rapport FRA {{cycleName}}",
-    "tableOfContent": "Table des matières",
-    "disclaimer": "Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur évolution. FRA est un processus piloté par les pays et les évaluations reposent sur les rapports préparés par les correspondants nationaux nommés officiellement. Si aucun rapport n'est disponible, le secrétariat de FRA prépare une étude de bureau à l'aide de rapports antérieurs, d'informations existantes et/ou d'analyses basées sur des études par télédétection.",
-    "disclaimerGenerated": "Ce document a été généré automatiquement à l'aide du rapport fourni en tant que contribution à l'Évaluation des ressources forestières mondiales {{cycleName}} de la FAO et soumis à la FAO en tant que document officiel du gouvernement. Le contenu et les points de vue exprimés dans le présent rapport sont la responsabilité de l'entité qui a soumis le rapport à la FAO. La FAO ne peut être tenu responsable de l'utilisation qui pourrait être faite des informations contenues dans le présent rapport.",
-    "disclaimerGeneratedDeskStudy": "Ce document a été généré automatiquement à partir d'une étude de bureau. La FAO ne peut être tenu responsable de l'utilisation qui pourrait être faite des informations contenues dans le présent rapport."
-  },
-  "area100HaYear": "Superficie (1000 ha)",
-  "categoryHeader2020": "Catégories de FRA 2020",
-  "categoryHeader2025": "Catégories de FRA 2025",
-  "forestArea100HaYear": "Superficie forestière (1000 ha)",
   "area100Ha": "Superficie (1 000 ha)",
+  "area100HaYear": "Superficie (1000 ha)",
   "areaAffectedByFire": {
     "areaAffected": "Superficie touchée (1 000 ha)",
     "areaAffectedByFire2025": "$t(areaAffectedByFire.areaAffectedByFire)",
     "totalLandAreaAffectedByFire2025": "Superficie totale des terres touchées par des incendies"
+  },
+  "areaOfPermanentForestEstate": {
+    "areaOfPermanentForestEstate2025": "Superficie des domaines forestiers permanents"
   },
   "biomassStock": {
     "biomassStock2025": "Stock de biomasse"
@@ -26,12 +18,22 @@
   "biomassStockTotal": {
     "totalForestBiomass": "Biomasse totale de la forêt (en million de tonnes)"
   },
+  "biomassStock_biomassStockStatus_Description": {
+    "header_0": "Critères d’évaluation du niveau pour le Matériel sur pied",
+    "status": {
+      "high": "Application des facteurs de conversion et d’expansion de la biomasse ou équations allométriques spécifiques au pays.",
+      "low": "Application des facteurs par défaut de conversion et d’expansion de la biomasse du GIEC (par exemple, utilisation du « calculateur de biomasse »), ou estimations reposant sur une cartographie par télédétection de la biomasse.",
+      "medium": "Application d’équations allométriques génériques ou au niveau du biome, ou d’une combinaison de facteurs de conversion spécifiques au pays/biome et de facteurs par défaut de l’expansion de la biomasse du GIEC."
+    }
+  },
   "carbonStock": {
     "carbonStock2025": "Stock de carbone"
   },
   "carbonStockTotal": {
     "totalForestCarbon": "Carbone total de la forêt (en million de tonnes)"
   },
+  "categoryHeader2020": "Catégories de FRA 2020",
+  "categoryHeader2025": "Catégories de FRA 2025",
   "climaticDomain": {
     "percentOfForestArea": "% de la superficie de forêt"
   },
@@ -39,41 +41,41 @@
     "expectedYearForNextCountryReportUpdate": "Année prévue pour la prochaine mise à jour du rapport national"
   },
   "degradedForest": {
+    "biome": "Biome",
+    "changeInForestStructureDecreaseInForestCanopy": "Changement dans la structure de la forêt / Diminution du couvert forestier",
+    "criteriaOfDegradedForest": "Critères utilisés dans la définition de la forêt dégradée",
+    "criteriaOfDegradedForest2025": "Critères appliqués dans la définition de la forêt dégradée",
+    "degradedAreaForThatYear": "Superficie de forêt dégradée pour cette année-là (1 000 ha)",
     "degradedForest": "Forêt dégradée",
     "degradedForestDefinition": "Définition de la forêt dégradée",
-    "forestDegradationMonitoringAndAssessment": "Evaluation et suvi de la dégradation des forêts",
-    "degradedAreaForThatYear": "Superficie de forêt dégradée pour cette année-là (1 000 ha)",
     "doesYourCountryMonitor": "Votre pays assure-t-il un suivi de la superficie de forêts dégradée",
+    "expertOpinion": "Avis d'experts",
+    "fieldInventoryAndObservations": "Inventaire et observations sur le terrain",
+    "forestDegradationMonitoringAndAssessment": "Evaluation et suvi de la dégradation des forêts",
+    "forestDisturbances": "Perturbations forestières",
+    "forestManagementPlanReport": "Rapports des plans de gestion forestière",
     "hasNationalDefinitionOfDegradedForest": "Votre pays dispose-t-il d’une définition de la « forêt dégradée » ?",
     "hasNationalLevelData": "Si des données sont disponibles à l’échelle nationale",
     "howMonitored": "Décrire le processus de suivi  et les résultats",
     "ifYes": "Si « Oui »",
-    "whatIsDefinition": "Quelle est la définition nationale de la « forêt dégradée » ?",
-    "yearOfLatestAssessment": "Année de la dernière évaluation",
-    "other": "Autre (expliquer dans les commentaires)",
-    "notSelected": "",
-    "criteriaOfDegradedForest": "Critères utilisés dans la définition de la forêt dégradée",
-    "changeInForestStructureDecreaseInForestCanopy": "Changement dans la structure de la forêt / Diminution du couvert forestier",
-    "forestDisturbances": "Perturbations forestières",
-    "lossOfProductivityAndForestGoods": "Pertes de la productivité et de biens forestiers",
-    "lossOfForestServices": "Perte de services forestiers",
-    "lossOfCarbonBiomassAndGrowingStock": "Perte de carbone, de biomasse et de matériel sur pied",
     "lossOfBiologicalDiversity": "Perte de diversité biologique",
-    "soilDamageErosion": "Dommages au sol / érosion",
+    "lossOfCarbonBiomassAndGrowingStock": "Perte de carbone, de biomasse et de matériel sur pied",
+    "lossOfForestServices": "Perte de services forestiers",
+    "lossOfProductivityAndForestGoods": "Pertes de la productivité et de biens forestiers",
     "mainMethods": "Principales méthodes appliquées pour assurer un suivi de la superficie de forêt dégradée",
-    "fieldInventoryAndObservations": "Inventaire et observations sur le terrain",
-    "wallToWallRemoteSensingMapping": "Cartographie complète par télédétection",
-    "remoteSensingSurvey": "Enquête par télédétection",
-    "expertOpinion": "Avis d'experts",
-    "productionHarvestData": "Données de production/récolte",
-    "forestManagementPlanReport": "Rapports des plans de gestion forestière",
-    "underDevelopment": "En cours de développement",
     "monitoringScale": "Échelle du suivi",
     "national": "Nationale",
-    "subnational": "Sous-nationale",
-    "biome": "Biome",
+    "notSelected": "",
+    "other": "Autre (expliquer dans les commentaires)",
+    "productionHarvestData": "Données de production/récolte",
+    "remoteSensingSurvey": "Enquête par télédétection",
+    "soilDamageErosion": "Dommages au sol / érosion",
     "standLocal": "Peuplement / Locale",
-    "criteriaOfDegradedForest2025": "Critères appliqués dans la définition de la forêt dégradée"
+    "subnational": "Sous-nationale",
+    "underDevelopment": "En cours de développement",
+    "wallToWallRemoteSensingMapping": "Cartographie complète par télédétection",
+    "whatIsDefinition": "Quelle est la définition nationale de la « forêt dégradée » ?",
+    "yearOfLatestAssessment": "Année de la dernière évaluation"
   },
   "designatedManagementObjective": {
     "designatedManagementObjective2025": "Objectif de gestion fixés",
@@ -81,16 +83,33 @@
     "unknown2025": "Affectation inconnue"
   },
   "disturbances": {
+    "forestAreaAffected": "Superficie de forêt touchée (1 000 ha)",
     "forestDamage": "Dommages causés aux forêts",
     "predominantCause": "Cause prédominante",
-    "forestAreaAffected": "Superficie de forêt touchée (1 000 ha)",
     "severeWeatherEvents2025": "Phénomènes météorologiques graves"
   },
   "extentOfForest": {
-    "remainingLandArea": "Terres restantes",
     "extentOfForest2025": "$t(extentOfForest.extentOfForest)",
-    "otherWoodedLand": "$t(fraClass.otherWoodedLand)"
+    "otherWoodedLand": "$t(fraClass.otherWoodedLand)",
+    "remainingLandArea": "Terres restantes"
   },
+  "extentOfForest_forestAreaStatusAndTrend_Description": {
+    "footer1": "¹ Données ne remontant pas à plus de 5 ans à compter de l’année de soumission du rapport (2018 ou plus récent pour les rapports nationaux de FRA 2025)",
+    "footer2": "² Données remontant à plus de 5 ans à partir de l’année de soumission du rapport (antérieures à 2018 pour les rapports nationaux de FRA 2025)",
+    "footer3": "³ Compatibles en termes de méthodes, de catégories et de définitions utilisées",
+    "header_0": "Critères d’évaluation du niveau pour la superficie de forêt",
+    "status": {
+      "high": "Sources de données : récentes¹  – inventaire forestier national ou télédétection (enquête sur un échantillon représentatif ou cartographie complète) avec une évaluation de l’exactitude / calibrage à partir de données de terrain.",
+      "low": "Sources de données : autres – par exemple, registres, estimations d’experts ou télédétection sans évaluation de l’exactitude/calibrage à partir de données de terrain.",
+      "medium": "Sources de données : anciennes² – inventaire forestier national ou télédétection (enquête sur un échantillon représentatif ou cartographie complète) avec une évaluation de l’exactitude / calibrage à partir de données de terrain."
+    },
+    "trend": {
+      "high": "Estimations reposant sur des inventaires forestiers nationaux répétés compatibles³ dont les données du plus récent ne remontent pas à plus de cinq ans ; et/ou analyse des données de télédétection multitemporelles pour une période qui a pris fin il y a cinq ans au plus.",
+      "low": "Autres sources de données – par exemple, estimations d’experts ou estimations reposant sur des évaluations non compatibles.",
+      "medium": "Estimations reposant sur des inventaires forestiers nationaux répétés compatibles³ dont les données du plus récent remontent à plus de cinq ans ; et/ou analyse des données de télédétection multitemporelles pour une période qui a pris fin il y a plus de cinq ans ; ou comparaison de cartes compatibles sans analyse multitemporelle"
+    }
+  },
+  "forestArea100HaYear": "Superficie forestière (1000 ha)",
   "forestAreaChange": {
     "forestAreaChange2025": "Expansion de la forêt, déforestation et changement net annuels",
     "forestAreaNetChange2025": "Changement net de la superficie de forêt (a-b)"
@@ -101,149 +120,130 @@
   },
   "forestCharacteristics": {
     "ofWhichOtherPlantedForest": "...dont autres forêts plantées",
-    "primaryForest": "...dont forêt primaire",
+    "otherPlantedForest2025": "...dont autres forêts plantées",
     "plantationForestIntroducedArea2025": "...dont d'espèces introduites",
-    "otherPlantedForest2025": "...dont autres forêts plantées"
+    "primaryForest": "...dont forêt primaire"
   },
   "forestOwnership": {
-    "ofWhichPrivateBusinesses2025": "...dont appartenant à des entités et institutions commerciales privées",
     "ofWhichCommunities2025": "...dont Peuples autochtones et aux communautés locales",
+    "ofWhichPrivateBusinesses2025": "...dont appartenant à des entités et institutions commerciales privées",
     "other2025": "Autres formes de propriété (préciser dans les commentaires)",
-    "unknown2025": "Propriété inconnue",
-    "total2025": "Total"
+    "total2025": "Total",
+    "unknown2025": "Propriété inconnue"
+  },
+  "forestPolicy": {
+    "existenceOfTraceabilitySystem2025": "Système de traçabilité des produits ligneux",
+    "forestPolicy2025": "Politiques, législation et plateforme nationale de participation des parties prenantes à l’élaboration des politiques forestières",
+    "legislationsSFM2025": "Législations et/ou règlementations en faveur de la GDF",
+    "policiesSFM2025": "Politiques d’appui à la gestion durable des forêts (GDF)",
+    "stakeholderParticipation2025": "Plateforme de participation des parties prenantes à l’élaboration de politiques forestières"
   },
   "forestRestoration": {
     "forestRestoration": "Restauration des forêts",
     "hasYourCountryForestRestorationCommitments": "Votre pays a-t-il pris des engagements en faveur de la restauration des forêts? ",
+    "howManyHectaresOfForestHaveBeenRestoredToDate": "Combien d’hectares de forêts ont été restaurés à ce jour ?",
+    "ifYes": "Si « Oui »",
     "isThereALawOrOtherGovernmentMandateInSupportOfRestoration": "Existe-t-il une loi ou un autre mandat gouvernemental en soutien à la restauration des forêts ?",
     "isThereANationalDefinitionOfRestoration": "Existe-t-il une définition nationale de la « restauration des forêts »? Si « Oui », indiquer cette définition, le processus de suivi et les résultats.",
-    "whatAreasInNeedOfRestorationHaveBeenIdentified": "Quelles sont les zones nécessitant une restauration des forêts qui ont été identifiées et, le cas échéant, comment ont-elles été identifiées ?",
     "whatAreTheTargetsSetForTheRestoration": "Quelles sont les objectifs fixés pour la restauration des forêts ? Par exemple, xxx hectares d’ici à l’année yyyy",
-    "howManyHectaresOfForestHaveBeenRestoredToDate": "Combien d’hectares de forêts ont été restaurés à ce jour ?",
-    "ifYes": "Si « Oui »"
+    "whatAreasInNeedOfRestorationHaveBeenIdentified": "Quelles sont les zones nécessitant une restauration des forêts qui ont été identifiées et, le cas échéant, comment ont-elles été identifiées ?"
   },
   "growingStock": {
-    "totalForest": "Total Forêt",
     "naturallyRegeneratingForest2025": "Forêt naturellement régénérée",
+    "otherPlantedForest2025": "...dont autres forêts plantées",
     "plantedForest2025": "Forêts plantées",
-    "otherPlantedForest2025": "...dont autres forêts plantées"
+    "totalForest": "Total Forêt"
   },
   "growingStockComposition": {
+    "introducedTreeSpecies2025": "Espèces d’arbres introduite",
     "millionCubicMeter": "Millions de m³",
     "mostRecentYear": "Année la plus récente",
+    "nativeTreeSpecies2025": "Espèces d’arbres indigènes",
     "percentOfTotal": "% du total",
     "ranked": "Classée #{{idx}}",
+    "remainingIntroduced2025": "Autres espèces d’arbres introduites",
+    "remainingNative2025": "Autres espèces d’arbres indigènes",
     "totalGrowingStock": "TOTAL Matériel sur pied ",
     "totalIntroducedTreeSpecies": "TOTAL Espèces d’arbres introduites ",
-    "totalNativeTreeSpecies": "TOTAL Espèces d’arbres indigènes ",
-    "nativeTreeSpecies2025": "Espèces d’arbres indigènes",
-    "remainingNative2025": "Autres espèces d’arbres indigènes",
-    "introducedTreeSpecies2025": "Espèces d’arbres introduite",
-    "remainingIntroduced2025": "Autres espèces d’arbres introduites"
+    "totalNativeTreeSpecies": "TOTAL Espèces d’arbres indigènes "
+  },
+  "growingStock_growingStockStatus_Description": {
+    "footer1": "¹ Données ne remontant pas à plus de 10 ans à compter de l’année de soumission du rapport (2013 ou plus récent pour les rapports nationaux de FRA 2025)",
+    "footer2": "² Données remontant à plus de 10 ans à compter de l’année de soumission du rapport (antérieures à 2013 pour les rapports nationaux de FRA 2025)",
+    "header_0": "Critères d’évaluation du niveau pour les estimations de la biomasse",
+    "status": {
+      "high": "Application des facteurs de conversion et d’expansion de la biomasse ou équations allométriques spécifiques au pays.",
+      "low": "Application des facteurs par défaut de conversion et d’expansion de la biomasse du GIEC (par exemple, utilisation du « calculateur de la biomasse »), ou estimations reposant sur une cartographie par télédétection de la biomasse.",
+      "medium": "Application d’équations allométriques génériques ou au niveau du biome, ou d’une combinaison des facteurs de conversion spécifiques au pays/biome et des facteurs par défaut de l’expansion de la biomasse du GIEC."
+    },
+    "status2025": {
+      "high": "Sources de données: récentes¹ – Inventaire forestier national ou balayage laser aéroporté (BLA) calibré avec des données de terrain.",
+      "low": "Autres sources de données telles que données satellites, registres, questionnaires ou évaluations d’experts.",
+      "medium": "Sources de données: anciennes² – Inventaire forestier national, inventaires de terrain partiels ou balayage laser aéroporté (BLA) non calibré avec des données de terrain."
+    }
   },
   "holderOfManagementRights": {
-    "holderOfManagementRights2025": "Droits de gestion des forêts publiques",
-    "privateBusinesses2025": "Entités et institutions commerciales privées",
     "communities2025": "Peuples autochtones et communautés locales ",
+    "holderOfManagementRights2025": "Droits de gestion des forêts publiques",
     "other2025": "Autres formes de droits de gestion (préciser dans les commentaires)",
+    "privateBusinesses2025": "Entités et institutions commerciales privées",
     "unknown2025": "Droits de gestion inconnus"
-  },
-  "otherWoodedLand": {
-    "otherWoodedLand2025": "Autres terres boisées"
-  },
-  "nonWoodForestProductsRemovals": {
-    "nonWoodForestProductsRemovals2025": "Extraction et valeur des produits forestiers non ligneux en 2020",
-    "nameOfProduct2025": "Nom du produit PFNL",
-    "allOtherPlantProducts2025": "Tout autre produit végétal",
-    "allOtherAnimalProducts2025": "Tout autre produit animal",
-    "currency2025": "Nom de la monnaie"
-  },
-  "otherLandWithTreeCover": {
-    "otherLandWithTreeCover2025": "Autres terres avec un couvert arboré",
-    "agroforestry2025": "Systèmes agroforestiers",
-    "other2025": "Autre (à préciser)"
-  },
-  "primaryForestByClimaticDomain": {
-    "primaryForestByClimaticDomain": "Forêt primaire par domaine climatique",
-    "primaryForestBoreal": "...dont forêt primaire boréale",
-    "primaryForestTemperate": "...dont forêt primaire tempérée",
-    "primaryForestTropical": "...dont  forêt primaire tropicale",
-    "primaryForestSubTropical": "...dont l forêt primaire subtropicale",
-    "totalPrimaryForest": "Total Forêt primaire"
-  },
-  "specificForestCategories": {
-    "specificForestCategories2025": "Catégories spécifiques de forêts",
-    "mangroves2025": "Mangroves¹",
-    "rubberWood2025": "Hévéas",
-    "mangrovesDisclaimer": "¹Pour la catégorie « Mangroves », la superficie doit inclure celles des « Forêts » et des « Autres terres boisées »"
-  },
-  "forestPolicy": {
-    "forestPolicy2025": "Politiques, législation et plateforme nationale de participation des parties prenantes à l’élaboration des politiques forestières",
-    "policiesSFM2025": "Politiques d’appui à la gestion durable des forêts (GDF)",
-    "legislationsSFM2025": "Législations et/ou règlementations en faveur de la GDF",
-    "stakeholderParticipation2025": "Plateforme de participation des parties prenantes à l’élaboration de politiques forestières",
-    "existenceOfTraceabilitySystem2025": "Système de traçabilité des produits ligneux"
-  },
-  "areaOfPermanentForestEstate": {
-    "areaOfPermanentForestEstate2025": "Superficie des domaines forestiers permanents"
-  },
-  "sustainableDevelopment": {
-    "annualForestAreaChangeRate": "Taux de changement annuel de la superficie forestière",
-    "sdgIndicator1_2025": "Indicateur ODD 15.1.1: Surface des zones forestières, en proportion de la surface terrestre ",
-    "forestAreaProportionLandArea": "Surface des zones forestières, en proportion de la surface terrestre ",
-    "aboveGroundBiomassStockForests2025": "Stock de biomasse aérienne dans les forêts",
-    "proportionForestAreaLegallyEstablishedProtectedAreas2025": "Proportion de la superficie forestière se trouvant dans des aires protégées juridiquement constituées",
-    "proportionForestAreaLongTermForestManagement2025": "Proportion de la superficie forestière faisant l’objet d’un plan de gestion forestière à long terme",
-    "forestAreaVerifiedForestManagement2025": "Superficie forestière dont la gestion est certifiée par des systèmes de vérification indépendants",
-    "dataProvidedBy": "Les données pour ce sous-indicateur des ODD sont fournies par le Forest Stewardship Council (FSC) et le Programme de reconnaissance des certifications forestières (PEFC).",
-    "Metadata-15-01-01": "Métadonnées de l’indicateur des ODD 15.1.1",
-    "Metadata-15-02-01": "Métadonnées de l’indicateur des ODD 15.2.1"
   },
   "navigation": {
     "sectionHeaders": {
       "employmentEducationAndNwfp2025": "Extraction et valeur des produits forestiers non ligneux en 2020",
-      "forestGrowingStockBiomassAndCarbon2025": "Matériel sur pied, biomasse et carbone de la forêt",
       "forestDesignationAndManagement2025": "Affectation et gestion des forêts",
+      "forestGrowingStockBiomassAndCarbon2025": "Matériel sur pied, biomasse et carbone de la forêt",
       "forestPolicyAndLegislation2025": "Politiques et législations forestières"
     }
   },
-  "extentOfForest_forestAreaStatusAndTrend_Description": {
-    "header_0": "Critères d’évaluation du niveau pour la superficie de forêt",
-    "status": {
-      "high": "Sources de données : récentes¹  – inventaire forestier national ou télédétection (enquête sur un échantillon représentatif ou cartographie complète) avec une évaluation de l’exactitude / calibrage à partir de données de terrain.",
-      "medium": "Sources de données : anciennes² – inventaire forestier national ou télédétection (enquête sur un échantillon représentatif ou cartographie complète) avec une évaluation de l’exactitude / calibrage à partir de données de terrain.",
-      "low": "Sources de données : autres – par exemple, registres, estimations d’experts ou télédétection sans évaluation de l’exactitude/calibrage à partir de données de terrain."
-    },
-    "trend": {
-      "high": "Estimations reposant sur des inventaires forestiers nationaux répétés compatibles³ dont les données du plus récent ne remontent pas à plus de cinq ans ; et/ou analyse des données de télédétection multitemporelles pour une période qui a pris fin il y a cinq ans au plus.",
-      "medium": "Estimations reposant sur des inventaires forestiers nationaux répétés compatibles³ dont les données du plus récent remontent à plus de cinq ans ; et/ou analyse des données de télédétection multitemporelles pour une période qui a pris fin il y a plus de cinq ans ; ou comparaison de cartes compatibles sans analyse multitemporelle",
-      "low": "Autres sources de données – par exemple, estimations d’experts ou estimations reposant sur des évaluations non compatibles."
-    },
-    "footer1": "¹ Données ne remontant pas à plus de 5 ans à compter de l’année de soumission du rapport (2018 ou plus récent pour les rapports nationaux de FRA 2025)",
-    "footer2": "² Données remontant à plus de 5 ans à partir de l’année de soumission du rapport (antérieures à 2018 pour les rapports nationaux de FRA 2025)",
-    "footer3": "³ Compatibles en termes de méthodes, de catégories et de définitions utilisées"
+  "nonWoodForestProductsRemovals": {
+    "allOtherAnimalProducts2025": "Tout autre produit animal",
+    "allOtherPlantProducts2025": "Tout autre produit végétal",
+    "currency2025": "Nom de la monnaie",
+    "nameOfProduct2025": "Nom du produit PFNL",
+    "nonWoodForestProductsRemovals2025": "Extraction et valeur des produits forestiers non ligneux en 2020"
   },
-  "biomassStock_biomassStockStatus_Description": {
-    "header_0": "Critères d’évaluation du niveau pour le Matériel sur pied",
-    "status": {
-      "high": "Application des facteurs de conversion et d’expansion de la biomasse ou équations allométriques spécifiques au pays.",
-      "medium": "Application d’équations allométriques génériques ou au niveau du biome, ou d’une combinaison de facteurs de conversion spécifiques au pays/biome et de facteurs par défaut de l’expansion de la biomasse du GIEC.",
-      "low": "Application des facteurs par défaut de conversion et d’expansion de la biomasse du GIEC (par exemple, utilisation du « calculateur de biomasse »), ou estimations reposant sur une cartographie par télédétection de la biomasse."
-    }
+  "otherLandWithTreeCover": {
+    "agroforestry2025": "Systèmes agroforestiers",
+    "other2025": "Autre (à préciser)",
+    "otherLandWithTreeCover2025": "Autres terres avec un couvert arboré"
   },
-  "growingStock_growingStockStatus_Description": {
-    "header_0": "Critères d’évaluation du niveau pour les estimations de la biomasse",
-    "status": {
-      "high": "Application des facteurs de conversion et d’expansion de la biomasse ou équations allométriques spécifiques au pays.",
-      "medium": "Application d’équations allométriques génériques ou au niveau du biome, ou d’une combinaison des facteurs de conversion spécifiques au pays/biome et des facteurs par défaut de l’expansion de la biomasse du GIEC.",
-      "low": "Application des facteurs par défaut de conversion et d’expansion de la biomasse du GIEC (par exemple, utilisation du « calculateur de la biomasse »), ou estimations reposant sur une cartographie par télédétection de la biomasse."
-    },
-    "status2025": {
-      "high": "Sources de données: récentes¹ – Inventaire forestier national ou balayage laser aéroporté (BLA) calibré avec des données de terrain.",
-      "medium": "Sources de données: anciennes² – Inventaire forestier national, inventaires de terrain partiels ou balayage laser aéroporté (BLA) non calibré avec des données de terrain.",
-      "low": "Autres sources de données telles que données satellites, registres, questionnaires ou évaluations d’experts."
-    },
-    "footer1": "¹ Données ne remontant pas à plus de 10 ans à compter de l’année de soumission du rapport (2013 ou plus récent pour les rapports nationaux de FRA 2025)",
-    "footer2": "² Données remontant à plus de 10 ans à compter de l’année de soumission du rapport (antérieures à 2013 pour les rapports nationaux de FRA 2025)"
+  "otherWoodedLand": {
+    "otherWoodedLand2025": "Autres terres boisées"
+  },
+  "primaryForestByClimaticDomain": {
+    "primaryForestBoreal": "...dont forêt primaire boréale",
+    "primaryForestByClimaticDomain": "Forêt primaire par domaine climatique",
+    "primaryForestSubTropical": "...dont l forêt primaire subtropicale",
+    "primaryForestTemperate": "...dont forêt primaire tempérée",
+    "primaryForestTropical": "...dont  forêt primaire tropicale",
+    "totalPrimaryForest": "Total Forêt primaire"
+  },
+  "print": {
+    "disclaimer": "Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur évolution. FRA est un processus piloté par les pays et les évaluations reposent sur les rapports préparés par les correspondants nationaux nommés officiellement. Si aucun rapport n'est disponible, le secrétariat de FRA prépare une étude de bureau à l'aide de rapports antérieurs, d'informations existantes et/ou d'analyses basées sur des études par télédétection.",
+    "disclaimerGenerated": "Ce document a été généré automatiquement à l'aide du rapport fourni en tant que contribution à l'Évaluation des ressources forestières mondiales {{cycleName}} de la FAO et soumis à la FAO en tant que document officiel du gouvernement. Le contenu et les points de vue exprimés dans le présent rapport sont la responsabilité de l'entité qui a soumis le rapport à la FAO. La FAO ne peut être tenu responsable de l'utilisation qui pourrait être faite des informations contenues dans le présent rapport.",
+    "disclaimerGeneratedDeskStudy": "Ce document a été généré automatiquement à partir d'une étude de bureau. La FAO ne peut être tenu responsable de l'utilisation qui pourrait être faite des informations contenues dans le présent rapport.",
+    "tableOfContent": "Table des matières",
+    "title": "Rapport FRA {{cycleName}}",
+    "titleTables": "Tableaux du rapport FRA {{cycleName}}"
+  },
+  "specificForestCategories": {
+    "mangroves2025": "Mangroves¹",
+    "mangrovesDisclaimer": "¹Pour la catégorie « Mangroves », la superficie doit inclure celles des « Forêts » et des « Autres terres boisées »",
+    "rubberWood2025": "Hévéas",
+    "specificForestCategories2025": "Catégories spécifiques de forêts"
+  },
+  "sustainableDevelopment": {
+    "Metadata-15-01-01": "Métadonnées de l’indicateur des ODD 15.1.1",
+    "Metadata-15-02-01": "Métadonnées de l’indicateur des ODD 15.2.1",
+    "aboveGroundBiomassStockForests2025": "Stock de biomasse aérienne dans les forêts",
+    "annualForestAreaChangeRate": "Taux de changement annuel de la superficie forestière",
+    "dataProvidedBy": "Les données pour ce sous-indicateur des ODD sont fournies par le Forest Stewardship Council (FSC) et le Programme de reconnaissance des certifications forestières (PEFC).",
+    "forestAreaProportionLandArea": "Surface des zones forestières, en proportion de la surface terrestre ",
+    "forestAreaVerifiedForestManagement2025": "Superficie forestière dont la gestion est certifiée par des systèmes de vérification indépendants",
+    "proportionForestAreaLegallyEstablishedProtectedAreas2025": "Proportion de la superficie forestière se trouvant dans des aires protégées juridiquement constituées",
+    "proportionForestAreaLongTermForestManagement2025": "Proportion de la superficie forestière faisant l’objet d’un plan de gestion forestière à long terme",
+    "sdgIndicator1_2025": "Indicateur ODD 15.1.1: Surface des zones forestières, en proportion de la surface terrestre "
   }
 }

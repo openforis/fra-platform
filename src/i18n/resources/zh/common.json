@@ -62,10 +62,10 @@
   "success": "成功",
   "tier": "等级",
   "tiers": {
-    "notSelected": "",
     "high": "高",
+    "low": "低",
     "medium": "中",
-    "low": "低"
+    "notSelected": ""
   },
   "totalPercentage": "总百分比",
   "trend": "趋势",

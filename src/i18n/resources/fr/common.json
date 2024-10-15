@@ -61,10 +61,10 @@
   "success": "Succès",
   "tier": "Niveau",
   "tiers": {
-    "notSelected": "",
     "high": "Elevé",
+    "low": "Faible",
     "medium": "Moyen",
-    "low": "Faible"
+    "notSelected": ""
   },
   "totalPercentage": "Pourcentage total",
   "trend": "Tendances",
