@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const admin = require('./zh/admin.json')
 const area = require('./zh/area.json')
 const assessmentSection = require('./zh/assessmentSection.json')
@@ -18,7 +19,7 @@ const other = require('./zh/other.json')
 const statisticalFactsheets = require('./zh/statisticalFactsheets.json')
 const uc = require('./zh/uc.json')
 
-module.exports.translation = {
+export const zhTranslation = {
   admin,
   area,
   common,

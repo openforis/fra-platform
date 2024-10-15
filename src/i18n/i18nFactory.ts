@@ -3,23 +3,23 @@ import { TFunction } from 'i18next'
 
 import { Lang } from 'meta/lang'
 
-import * as arTranslation from './resources/ar'
-import * as enTranslation from './resources/en'
-import * as esTranslation from './resources/es'
-import * as frTranslation from './resources/fr'
-import * as ruTranslation from './resources/ru'
-import * as zhTranslation from './resources/zh'
+import { arTranslation } from './resources/ar'
+import { enTranslation } from './resources/en'
+import { esTranslation } from './resources/es'
+import { frTranslation } from './resources/fr'
+import { ruTranslation } from './resources/ru'
+import { zhTranslation } from './resources/zh'
 
 // @ts-ignore
 const createInstance = i18next.createInstance || i18next.default.createInstance
 
 const translationsFiles: { [langCode: string]: any } = {
-  en: enTranslation.translation,
-  es: esTranslation.translation,
-  fr: frTranslation.translation,
-  ru: ruTranslation.translation,
-  ar: arTranslation.translation,
-  zh: zhTranslation.translation,
+  en: enTranslation,
+  es: esTranslation,
+  fr: frTranslation,
+  ru: ruTranslation,
+  ar: arTranslation,
+  zh: zhTranslation,
 }
 
 export const createParams = (lang: string) => ({

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const admin = require('./en/admin.json')
 const area = require('./en/area.json')
 const assessmentSection = require('./en/assessmentSection.json')
@@ -21,7 +22,7 @@ const statisticalFactsheets = require('./en/statisticalFactsheets.json')
 const uc = require('./en/uc.json')
 const validation = require('./en/validation.json')
 
-module.exports.translation = {
+export const enTranslation = {
   admin,
   area,
   bulkDownload,
