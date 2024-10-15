@@ -48,7 +48,7 @@ export const getNWFP = async (props: Props) => {
     }
 
     const variableSet1 = Array.from({ length: 10 }, (_, i) => `product_${i + 1}`)
-    const colSet1 = ['product_name', 'value', 'category']
+    const colSet1 = ['product_name', 'value', 'category', 'quantity', 'unit']
 
     variableSet1.forEach((variableName) => {
       colSet1.forEach((colName) => {
