@@ -1,5 +1,5 @@
-import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
+import { getManyItems } from './getManyItems'
 
 export const DashboardController = {
-  getManyItems: NodeExtRepository.getManyDashboardItems,
+  getManyItems,
 }
