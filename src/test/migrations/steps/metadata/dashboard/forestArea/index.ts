@@ -1,8 +1,9 @@
-import { Cycle, Unit } from 'meta/assessment'
+import { Cycle } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
 
 import { getTable, RowsMetadata } from '../utils'
+import { unit } from '../utils/unit'
 
 const commonColumns = ['1990', '2000', '2010', '2020']
 
@@ -28,7 +29,7 @@ export const forestArea = (cycle: Cycle, region: boolean): DashboardBarChart => 
   type: DashboardItemType.barChart,
   title: {
     key: 'statisticalFactsheets.forestArea.title',
-    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: `unit.${Unit.haThousand}` },
+    params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: unit(region) },
   },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
   chart: {
@@ -38,10 +39,10 @@ export const forestArea = (cycle: Cycle, region: boolean): DashboardBarChart => 
         variableName: 'forestArea',
         color: ChartColor.green,
         label: { key: 'statisticalFactsheets.rowName.area' },
-        unit: `unit.${Unit.haThousand}`,
+        unit: unit(region),
       },
     ],
     xAxis: { label: { key: 'common.year' } },
-    yAxis: { label: { key: `unit.${Unit.haThousand}` } },
+    yAxis: { label: { key: unit(region) } },
   },
 })

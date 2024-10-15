@@ -32,7 +32,7 @@ const rowMetadata = (cycle: Cycle, region: boolean): RowsMetadata =>
     label: {
       key: `statisticalFactsheets.primaryDesignatedManagementObjective.${variableName}`,
       params: {
-        unit: 'unit.haThousand',
+        unit: region ? 'unit.haMillion' : 'unit.haThousand',
       },
     },
     calculateFn: `${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
@@ -46,7 +46,7 @@ export const primaryDesignatedManagementObjectiveDashboard = (cycle: Cycle, regi
     params: {
       startYear: cols[cycle.name].at(0),
       endYear: cols[cycle.name].at(-1),
-      unit: 'unit.haThousand',
+      unit: region ? 'unit.haMillion' : 'unit.haThousand',
     },
   },
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(cycle, region), tableName }),

@@ -1,10 +1,11 @@
-import { Cycle, Unit } from 'meta/assessment'
+import { Cycle } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType } from 'meta/dashboard'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
 import type { RowsMetadata } from '../utils'
 import { getTable } from '../utils'
+import { unit } from '../utils/unit'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['2020'],
@@ -52,14 +53,14 @@ export const forestAreaPercentOfLandArea = (cycle: Cycle, region: boolean): Dash
         color: ChartColor.green,
         columnName: cols[cycle.name][0],
         label: { key: 'statisticalFactsheets.rowName.forest' },
-        unit: `unit.${Unit.haThousand}`,
+        unit: unit(region),
       },
       {
         variableName: 'otherLand',
         color: ChartColor.otherLand,
         columnName: cols[cycle.name][0],
         label: { key: 'statisticalFactsheets.rowName.otherLand' },
-        unit: `unit.${Unit.haThousand}`,
+        unit: unit(region),
       },
     ],
   },

@@ -1,8 +1,11 @@
-import { Cycle, TableNames, Unit } from 'meta/assessment'
+import { Cycle, TableNames } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
-import { DashboardItemType, DashboardPieChart } from 'meta/dashboard'
+import { DashboardItemType } from 'meta/dashboard'
+import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
-import { getTable, RowsMetadata } from '../utils'
+import { getTable } from 'client/pages/CountryHome/Overview/meta/utils'
+import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
+import { unit } from 'client/pages/CountryHome/Overview/meta/utils/unit'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['2020'],
@@ -53,14 +56,14 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): D
           color: ChartColor.green,
           columnName,
           label: { key: 'statisticalFactsheets.rowName.other' },
-          unit: `unit.${Unit.haThousand}`,
+          unit: unit(region),
         },
         {
           variableName,
           color: ChartColor.forestLight,
           columnName,
           label: { key: 'statisticalFactsheets.rowName.protected' },
-          unit: `unit.${Unit.haThousand}`,
+          unit: unit(region),
         },
       ],
     },
