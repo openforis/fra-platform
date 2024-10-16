@@ -3,6 +3,7 @@ import { i18n as i18nType } from 'i18next'
 
 import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
@@ -81,7 +82,7 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
 }
 
 const handleContent = async (content: Array<Record<string, string>>) => {
-  const i18n = (await createI18nPromise('en')) as i18nType
+  const i18n = (await createI18nPromise(Lang.en)) as i18nType
   // sort content by country iso and then by year
   content.sort((a, b) => {
     if (a.iso3 < b.iso3) return -1
