@@ -1,4 +1,5 @@
 import * as admin from './ar/admin.json'
+import * as anchors from './ar/anchors.json'
 import * as area from './ar/area.json'
 import * as assessmentSection from './ar/assessmentSection.json'
 import * as common from './ar/common.json'
@@ -20,6 +21,7 @@ import * as uc from './ar/uc.json'
 
 export const arTranslation = {
   admin,
+  anchors,
   area,
   common,
   contentCheck,

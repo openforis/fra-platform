@@ -1,7 +1,7 @@
 {
-  "dateOfExport": "Date of export",
   "NDPYear": {
-    "latestYear": "Latest NDP year",
-    "earliestYear": "Earliest NDP year"
-  }
+    "earliestYear": "Earliest NDP year",
+    "latestYear": "Latest NDP year"
+  },
+  "dateOfExport": "Date of export"
 }

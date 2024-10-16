@@ -1,7 +1,7 @@
 {
   "invitationAccepted": {
+    "htmlMessage": "Estimado/a {{recipientName}} {{recipientSurname}},\n<br/><br/>\nEl usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación a {{assessmentName}} {{cycleName}} como {{role}} para <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nEl equipo de FRA",
     "subject": "El usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación",
-    "textMessage": "Estimado/a {{recipientName}} {{recipientSurname}},\n\nEl usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación a {{assessmentName}} {{cycleName}} como {{role}} para {{country}}:\n{{- manageCollaboratorsUrl}}\n\nEl equipo de FRA",
-    "htmlMessage": "Estimado/a {{recipientName}} {{recipientSurname}},\n<br/><br/>\nEl usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación a {{assessmentName}} {{cycleName}} como {{role}} para <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nEl equipo de FRA"
+    "textMessage": "Estimado/a {{recipientName}} {{recipientSurname}},\n\nEl usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación a {{assessmentName}} {{cycleName}} como {{role}} para {{country}}:\n{{- manageCollaboratorsUrl}}\n\nEl equipo de FRA"
   }
 }

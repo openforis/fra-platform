@@ -51,10 +51,10 @@
   "submittedToReview": "Enviado para revisión",
   "tier": "Nivel",
   "tiers": {
-    "notSelected": "",
     "high": "Alto",
+    "low": "Bajo",
     "medium": "Medio",
-    "low": "Bajo"
+    "notSelected": ""
   },
   "totalPercentage": "Porcentaje total",
   "trend": "Tendencia",

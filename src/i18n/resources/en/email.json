@@ -1,14 +1,14 @@
 {
   "invitationAccepted": {
+    "htmlMessage": "Dear {{recipientName}} {{recipientSurname}},\n<br/><br/>\nUser {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nThe FRA team",
     "subject": "User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation",
-    "textMessage": "Dear {{recipientName}} {{recipientSurname}},\n\nUser {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for {{- country}}:\n{{- manageCollaboratorsUrl}}\n\nThe FRA team",
-    "htmlMessage": "Dear {{recipientName}} {{recipientSurname}},\n<br/><br/>\nUser {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nThe FRA team"
+    "textMessage": "Dear {{recipientName}} {{recipientSurname}},\n\nUser {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for {{- country}}:\n{{- manageCollaboratorsUrl}}\n\nThe FRA team"
   },
   "remindReviewer": {
-    "subject": "Reminder: One or more countries are pending review",
-    "messageHeader": "Dear {{recipientName}},",
-    "messageFooter": "\n    Please provide your comments and send the report back to “Editing”, or proceed with approval if there are no further issues.\n    <br />\n    Thank you.",
+    "messageBodyHTML": "\n    <br/>\n    The {{assessmentName}} {{cycleName}} country reports for<br />\n    {{- countryLinks}}<br />\n    have been “In review” more than a week.<br/>\n    ",
     "messageBodyText": "\n    The {{assessmentName}} {{cycleName}} country report for countries: {{- countries}} have been “In review” over a week.\n   \n\n{{- countryUrls}}\n\n    ",
-    "messageBodyHTML": "\n    <br/>\n    The {{assessmentName}} {{cycleName}} country reports for<br />\n    {{- countryLinks}}<br />\n    have been “In review” more than a week.<br/>\n    "
+    "messageFooter": "\n    Please provide your comments and send the report back to “Editing”, or proceed with approval if there are no further issues.\n    <br />\n    Thank you.",
+    "messageHeader": "Dear {{recipientName}},",
+    "subject": "Reminder: One or more countries are pending review"
   }
 }
