@@ -1,3 +1,5 @@
+import { CommentableDescriptionName } from 'meta/assessment'
+
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol, Schemas } from 'server/db'
 
@@ -39,7 +41,13 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
       from ${schemaCycleSource}.original_data_point;
 
       insert into ${schemaCycleTarget}.descriptions (country_iso, section_name, name, value)
-      select country_iso, section_name, name, value
+      select country_iso,
+             section_name,
+             name,
+             case
+                 when name = '${CommentableDescriptionName.dataSources}' then jsonb_delete(value, 'text')
+                 else value
+                 end -- // delete nationalData->dataSources->text needed only in FRA 2025 
       from ${schemaCycleSource}.descriptions;
 
       insert into ${schemaCycleTarget}.repository (uuid, country_iso, file_uuid, link, props)
