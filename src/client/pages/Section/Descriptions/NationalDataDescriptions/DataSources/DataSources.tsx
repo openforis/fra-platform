@@ -41,7 +41,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
 
-  const renderGrid = Boolean(!Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSources) || editable)
+  const renderGrid = Boolean(!Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked) || editable)
   const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
 
   return (
