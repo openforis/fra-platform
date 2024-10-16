@@ -1,3 +1,55 @@
+export const getUsersRoleDDL = (schemaName = 'public'): string => {
+  return `
+    create table if not exists ${schemaName}.users_role (
+      id bigserial primary key,
+      uuid uuid default uuid_generate_v4(),
+      assessment_id bigint,
+      cycle_uuid uuid,
+      country_iso character varying(3),
+
+      user_id bigint not null,
+      role ${schemaName}.user_role not null,
+
+      props jsonb not null default '{}'::jsonb,
+      permissions jsonb not null default '{}'::jsonb,
+
+      foreign key (assessment_id) references ${schemaName}.assessment (id) on update no action on delete cascade,
+      foreign key (user_id) references ${schemaName}.users (id) on update no action on delete cascade,
+      foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid) on update cascade on delete cascade,
+      foreign key (country_iso) references ${schemaName}.country (country_iso) on update cascade on delete cascade
+    );
+    create unique index if not exists user_assessment_cycle_country_key on ${schemaName}.users_role using btree (user_id, assessment_id, cycle_uuid, country_iso);
+    create unique index if not exists users_role_user_id_assessment_id_country_iso_cycle_uuid_uindex on ${schemaName}.users_role using btree (user_id, assessment_id, country_iso, cycle_uuid);
+`
+}
+
+export const getUsersInvitationDDL = (schemaName = 'public'): string => {
+  return `
+    create table if not exists ${schemaName}.users_invitation (
+      id bigserial primary key,
+      uuid uuid default uuid_generate_v4(),
+      assessment_id bigint,
+      cycle_uuid uuid,
+      country_iso character varying(3),
+        
+      user_id bigint not null,
+      invited_by_user_uuid uuid,
+
+      role ${schemaName}.user_role not null,
+
+      invited_at timestamp with time zone default now(),
+      accepted_at timestamp with time zone,
+
+      foreign key (assessment_id) references ${schemaName}.assessment (id) on update no action on delete cascade,
+      foreign key (user_id) references ${schemaName}.users (id) on update no action on delete cascade,
+      foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid) on update cascade on delete cascade,
+      foreign key (country_iso) references ${schemaName}.country (country_iso) on update cascade on delete cascade
+    );
+
+    create unique index if not exists users_invitation_uuid_key on ${schemaName}.users_invitation using btree (uuid);
+  `
+}
+
 export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
   const query = `
     -- Extensions
@@ -119,30 +171,9 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
         on update no action on delete cascade
     );
 
-    create table if not exists ${schemaName}.users_role (
-      id bigserial primary key,
-      user_id bigint not null,
-      assessment_id bigint,
-      country_iso character varying(3),
-      role ${schemaName}.user_role not null,
-      props jsonb not null default '{}'::jsonb,
-      cycle_uuid uuid,
-      invitation_uuid uuid default uuid_generate_v4(),
-      invited_at timestamp with time zone default now(),
-      accepted_at timestamp with time zone,
-      permissions jsonb not null default '{}'::jsonb,
-      invited_by_user_uuid uuid,
-      foreign key (assessment_id) references ${schemaName}.assessment (id)
-        on update no action on delete cascade,
-      foreign key (user_id) references ${schemaName}.users (id)
-        on update no action on delete cascade,
-      foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid)
-        on update cascade on delete cascade,
-      foreign key (country_iso) references ${schemaName}.country (country_iso)
-        on update cascade on delete cascade
-    );
-    create unique index if not exists user_assessment_cycle_country_key on ${schemaName}.users_role using btree (user_id, assessment_id, cycle_uuid, country_iso);
-    create unique index if not exists users_role_user_id_assessment_id_country_iso_cycle_uuid_uindex on ${schemaName}.users_role using btree (user_id, assessment_id, country_iso, cycle_uuid);
+  ${getUsersRoleDDL(schemaName)}
+  ${getUsersInvitationDDL(schemaName)}
+
   `
 
   return query
