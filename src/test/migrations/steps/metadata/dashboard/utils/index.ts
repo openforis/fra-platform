@@ -1,8 +1,16 @@
 import { UUIDs } from 'utils/uuids'
 
-import { Col, ColStyle, ColType, Cycle, CycleUuid, Row, RowType, Table, VariableCache } from 'meta/assessment'
+import { Col, ColStyle, ColType, Cycle, CycleUuid, Label, Row, RowType, Table, VariableCache } from 'meta/assessment'
 
-import { RowMetadata, RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
+export type RowMetadata = {
+  id: number
+  label: Label
+  variableName: string
+  calculateFn: string
+  calculationDependencies: Array<VariableCache>
+}
+
+export type RowsMetadata = Array<RowMetadata>
 
 const getStyle = (cycle: Cycle): Record<CycleUuid, ColStyle> => {
   return {

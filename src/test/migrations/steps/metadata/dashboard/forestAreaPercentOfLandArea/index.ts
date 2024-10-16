@@ -3,9 +3,9 @@ import { ChartColor } from 'meta/chart'
 import { DashboardItemType } from 'meta/dashboard'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
 
-import { getTable } from 'client/pages/CountryHome/Overview/meta/utils'
-import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
-import { unit } from 'client/pages/CountryHome/Overview/meta/utils/unit'
+import type { RowsMetadata } from '../utils'
+import { getTable } from '../utils'
+import { unit } from '../utils/unit'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['2020'],

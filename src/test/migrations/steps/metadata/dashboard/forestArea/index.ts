@@ -1,11 +1,9 @@
 import { Cycle } from 'meta/assessment'
 import { ChartColor } from 'meta/chart'
-import { DashboardItemType } from 'meta/dashboard'
-import { DashboardBarChart } from 'meta/dashboard/dashboard'
+import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
 
-import { getTable } from 'client/pages/CountryHome/Overview/meta/utils'
-import { RowsMetadata } from 'client/pages/CountryHome/Overview/meta/utils/rowsMetadata'
-import { unit } from 'client/pages/CountryHome/Overview/meta/utils/unit'
+import { getTable, RowsMetadata } from '../utils'
+import { unit } from '../utils/unit'
 
 const commonColumns = ['1990', '2000', '2010', '2020']
 
@@ -36,7 +34,6 @@ export const forestArea = (cycle: Cycle, region: boolean): DashboardBarChart => 
   table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
   chart: {
     columns: cols[cycle.name],
-    label: ({ variableName, percent }: any) => `${variableName} ${(percent * 100).toFixed(0)}%`,
     cells: [
       {
         variableName: 'forestArea',
