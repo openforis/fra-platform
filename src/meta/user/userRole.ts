@@ -52,19 +52,28 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
   contactPreference?: UserContactPreference
 }
 
-export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
+export interface UserInvitation<Name extends RoleName> {
   id: number
   assessmentId?: number
   cycleUuid: string
   countryIso?: CountryIso
   invitedByUserUuid?: string
-  permissions: Permissions
-  props: Props
   role: Name
   userId: number
   invitationUuid: string
   invitedAt: string
   acceptedAt?: string
+}
+
+export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
+  id: number
+  assessmentId?: number
+  cycleUuid: string
+  countryIso?: CountryIso
+  permissions: Permissions
+  props: Props
+  role: Name
+  userId: number
 }
 
 export type UserRoleExtended<Name extends RoleName> = UserRole<Name, UserRoleExtendedProps>
