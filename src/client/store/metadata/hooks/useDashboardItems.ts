@@ -5,8 +5,10 @@ import { MetadataSelectors } from 'client/store/metadata/selectors'
 import { useAppSelector } from 'client/store/store'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
+import { DashboardAreaType } from '../state'
+
 export const useDashboardItems = (): Array<DashboardItem> => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
-  const key = Areas.isISOCountry(countryIso) ? 'country' : 'region'
-  return useAppSelector((state) => MetadataSelectors.getDashboard(state, assessmentName, cycleName)?.[key])
+  const key = Areas.isISOCountry(countryIso) ? DashboardAreaType.Country : DashboardAreaType.Region
+  return useAppSelector((state) => MetadataSelectors.getDashboard(state, assessmentName, cycleName, key))
 }

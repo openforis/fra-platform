@@ -1,23 +1,16 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
+import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 
 import { getDashboard } from 'client/store/metadata/actions/getDashboard'
-import { MetadataState } from 'client/store/metadata/state'
+import { DashboardAreaType, MetadataState } from 'client/store/metadata/state'
 
 export const getDashboardReducer = (builder: ActionReducerMapBuilder<MetadataState>): void => {
   builder.addCase(getDashboard.fulfilled, (state, action) => {
     const { assessmentName, cycleName, countryIso } = action.meta.arg
-    if (!state.dashboard[assessmentName]) {
-      state.dashboard[assessmentName] = {}
-    }
+    const key = Areas.isISOCountry(countryIso) ? DashboardAreaType.Country : DashboardAreaType.Region
 
-    if (!state.dashboard[assessmentName][cycleName]) {
-      state.dashboard[assessmentName][cycleName] = { region: undefined, country: undefined }
-    }
-
-    const key = Areas.isISOCountry(countryIso) ? 'country' : 'region'
-
-    state.dashboard[assessmentName][cycleName][key] = action.payload
+    Objects.setInPath({ obj: state.dashboard, path: [assessmentName, cycleName, key], value: action.payload })
   })
 }

@@ -6,3 +6,4 @@ export { useTableSections, useTableSectionsCycle } from './hooks/useTableSection
 export { MetadataSelectors } from './selectors'
 export { MetadataActions } from './slice'
 export type { MetadataState } from './state'
+export { DashboardAreaType } from './state'

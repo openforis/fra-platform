@@ -2,9 +2,17 @@ import { AssessmentName, CycleName, Section, TableSection } from 'meta/assessmen
 import { SectionName } from 'meta/assessment/section'
 import { DashboardItem } from 'meta/dashboard'
 
+export enum DashboardAreaType {
+  Region = 'region',
+  Country = 'country',
+}
+
 type DashboardState = Record<
   AssessmentName,
-  Record<CycleName, { region: Array<DashboardItem>; country: Array<DashboardItem> }>
+  Record<
+    CycleName,
+    { [DashboardAreaType.Region]?: Array<DashboardItem>; [DashboardAreaType.Country]?: Array<DashboardItem> }
+  >
 >
 
 export interface MetadataState {
