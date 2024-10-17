@@ -11,6 +11,7 @@ export const getUsersRoleDDL = (schemaName = 'public'): string => {
       props jsonb not null default '{}'::jsonb,
       permissions jsonb not null default '{}'::jsonb,
       invitation_uuid uuid,
+      created_at timestamp with time zone default now(),
 
       foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update no action on delete cascade,
       foreign key (user_uuid) references ${schemaName}.users (uuid) on update no action on delete cascade,

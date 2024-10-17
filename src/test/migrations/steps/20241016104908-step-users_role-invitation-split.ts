@@ -28,7 +28,7 @@ export default async () => {
   // ---- 5. Populate new users_role table from _legacy
   await client.query(`
     insert into public.users_role (
-      user_uuid, assessment_uuid, country_iso, role, cycle_uuid, permissions, props
+      user_uuid, assessment_uuid, country_iso, role, cycle_uuid, permissions, props, created_at
     )
     select 
       (select uuid from public.users where id = l_ur.user_id),
@@ -37,7 +37,8 @@ export default async () => {
       l_ur.role,
       l_ur.cycle_uuid,
       l_ur.permissions,
-      l_ur.props
+      l_ur.props,
+      l_ur.invited_at as created_at
     from _legacy.users_role l_ur;
   `)
 
