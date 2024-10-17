@@ -1,4 +1,5 @@
 import { TFunction } from 'i18next'
+import { Objects } from 'utils/objects'
 
 import { Cycle } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
@@ -12,16 +13,22 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col })
   const { uuid: cycleSourceUuid } = cycleSource
   const { uuid: cycleTargetUuid } = cycleTarget
 
-  const _props: Col['props'] = { ...col.props }
+  const _props: Col['props'] = Objects.cloneDeep(col.props)
   _props.cycles.push(cycleTargetUuid)
 
-  if (_props.calculateFn?.[cycleSourceUuid]) _props.calculateFn[cycleTargetUuid] = _props.calculateFn[cycleSourceUuid]
-  if (_props.classNames?.[cycleSourceUuid]) _props.classNames[cycleTargetUuid] = _props.classNames[cycleSourceUuid]
-  if (_props.labels?.[cycleSourceUuid]) _props.labels[cycleTargetUuid] = _props.labels[cycleSourceUuid]
-  if (_props.linkedNodes?.[cycleSourceUuid]) _props.linkedNodes[cycleTargetUuid] = _props.linkedNodes[cycleSourceUuid]
-  if (_props.style?.[cycleSourceUuid]) _props.style[cycleTargetUuid] = _props.style[cycleSourceUuid]
-  if (_props.validateFns?.[cycleSourceUuid]) _props.validateFns[cycleTargetUuid] = _props.validateFns[cycleSourceUuid]
-  if (_props.variableNo?.[cycleSourceUuid]) _props.variableNo[cycleTargetUuid] = _props.variableNo[cycleSourceUuid]
+  if (_props.calculateFn?.[cycleSourceUuid])
+    _props.calculateFn[cycleTargetUuid] = Objects.cloneDeep(_props.calculateFn[cycleSourceUuid])
+  if (_props.classNames?.[cycleSourceUuid])
+    _props.classNames[cycleTargetUuid] = Objects.cloneDeep(_props.classNames[cycleSourceUuid])
+  if (_props.labels?.[cycleSourceUuid])
+    _props.labels[cycleTargetUuid] = Objects.cloneDeep(_props.labels[cycleSourceUuid])
+  if (_props.linkedNodes?.[cycleSourceUuid])
+    _props.linkedNodes[cycleTargetUuid] = Objects.cloneDeep(_props.linkedNodes[cycleSourceUuid])
+  if (_props.style?.[cycleSourceUuid]) _props.style[cycleTargetUuid] = Objects.cloneDeep(_props.style[cycleSourceUuid])
+  if (_props.validateFns?.[cycleSourceUuid])
+    _props.validateFns[cycleTargetUuid] = Objects.cloneDeep(_props.validateFns[cycleSourceUuid])
+  if (_props.variableNo?.[cycleSourceUuid])
+    _props.variableNo[cycleTargetUuid] = Objects.cloneDeep(_props.variableNo[cycleSourceUuid])
 
   return _props
 }
