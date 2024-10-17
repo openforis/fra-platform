@@ -7,11 +7,13 @@ import { Column } from 'client/components/TablePaginated'
 import NameField from 'client/pages/Admin/UserManagement/NameField'
 import RoleField from 'client/pages/Admin/UserManagement/RoleField'
 
-export const useColumns = (): Array<Column<User>> => {
+type Returned = Array<Column<User>>
+
+export const useColumns = (): Returned => {
   const { t } = useTranslation()
 
-  return useMemo<Array<Column<User>>>(() => {
-    const roleColumns: Array<Column<User>> = Object.values(RoleName).map((roleName) => ({
+  return useMemo<Returned>(() => {
+    const roleColumns: Returned = Object.values(RoleName).map((roleName) => ({
       component: ({ datum }) => <RoleField roleName={roleName} user={datum} />,
       header: t(Users.getI18nRoleLabelKey(roleName)),
       key: roleName,
