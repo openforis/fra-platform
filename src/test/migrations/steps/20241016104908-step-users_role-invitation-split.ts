@@ -13,34 +13,52 @@ export default async () => {
     return
   }
 
-  // ---- 1. Move users_role table to _legacy schema
-  await client.query(`alter table public.users_role set schema _legacy;`)
+  // ---- 1. Add unique index on users (uuid) table
+  await client.query(`create unique index if not exists users_uuid_key on public.users (uuid);`)
 
-  // ---- 2. Create new users_role table in public schema
-  await client.query(getUsersRoleDDL())
+  // ---- 2. Move users_role table to _legacy schema
+  await client.query(`alter table public.users_role set schema _legacy;`)
 
   // ---- 3. Create users_invitation table
   await client.query(getUsersInvitationDDL())
 
-  // ---- 4. Populate new users_role table from _legacy
+  // ---- 4. Create new users_role table in public schema
+  await client.query(getUsersRoleDDL())
+
+  // ---- 5. Populate new users_role table from _legacy
   await client.query(`
     insert into public.users_role (
-      id, user_id, assessment_id, country_iso, role, props, cycle_uuid, permissions
+      user_uuid, assessment_uuid, country_iso, role, cycle_uuid, permissions, props
     )
     select 
-      id, user_id, assessment_id, country_iso, role,  props, cycle_uuid, permissions
-    from _legacy.users_role;
+      (select uuid from public.users where id = l_ur.user_id),
+      (select uuid from public.assessment where id = l_ur.assessment_id),
+      l_ur.country_iso,
+      l_ur.role,
+      l_ur.cycle_uuid,
+      l_ur.permissions,
+      l_ur.props
+    from _legacy.users_role l_ur;
   `)
 
-  // ---- 5. Populate users_invitation table from _legacy
+  // ---- 6. Populate users_invitation table from _legacy
   await client.query(`
     insert into public.users_invitation (
-      user_id, assessment_id, country_iso, role, cycle_uuid, invitation_uuid, invited_at, accepted_at, invited_by_user_uuid
+      uuid, user_uuid, assessment_uuid, country_iso, role, cycle_uuid, invited_at, accepted_at, invited_by_user_uuid, props
     )
     select 
-      user_id, assessment_id, country_iso, role, cycle_uuid, invitation_uuid, invited_at, accepted_at, invited_by_user_uuid
-    from _legacy.users_role
-    where invitation_uuid is not null;
+      l_ur.invitation_uuid, 
+      (select uuid from public.users where id = l_ur.user_id),
+      (select uuid from public.assessment where id = l_ur.assessment_id),
+      l_ur.country_iso, 
+      l_ur.role, 
+      l_ur.cycle_uuid, 
+      l_ur.invited_at, 
+      l_ur.accepted_at, 
+      l_ur.invited_by_user_uuid,
+      l_ur.props
+    from _legacy.users_role l_ur
+    where l_ur.invitation_uuid is not null;
   `)
 
   Logger.info('Migration completed successfully')
