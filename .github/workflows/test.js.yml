@@ -3,6 +3,7 @@ name: Run yarn test
 on:
   push:
     branches-ignore:
+      - '*'
       - 'master'
       - 'production'
 
