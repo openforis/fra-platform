@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { RoleName } from 'meta/user'
 
 import TablePaginated from 'client/components/TablePaginated'
 import UsersCount from 'client/pages/Admin/UserManagement/UsersCount'
@@ -13,7 +12,7 @@ const UserManagement: React.FC = () => {
   const columns = useColumns()
   const filters = useFilters()
 
-  const gridTemplateColumns = `repeat(${Object.values(RoleName).length + 1}, 1fr)`
+  const gridTemplateColumns = `repeat(${columns.length}, 1fr)`
 
   return (
     <TablePaginated
