@@ -9,8 +9,7 @@ import { useColumns } from './hooks/useColumns'
 import { useFilters } from './hooks/useFilters'
 
 const UserManagement: React.FC = () => {
-  const path = ApiEndPoint.Admin.users()
-  const columns = useColumns({ path })
+  const columns = useColumns()
   const filters = useFilters()
 
   const gridTemplateColumns = `repeat(${columns.length}, 1fr)`
@@ -23,7 +22,7 @@ const UserManagement: React.FC = () => {
       filters={filters}
       gridTemplateColumns={gridTemplateColumns}
       limit={20}
-      path={path}
+      path={ApiEndPoint.Admin.users()}
     />
   )
 }
