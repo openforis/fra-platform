@@ -1,0 +1,16 @@
+{
+  "comments": "Comments",
+  "fraVariable": "FRA variable",
+  "nationalForestInventory": "National Forest Inventory (NFI)",
+  "other": "$t(common.otherSpecifyInComments)",
+  "referenceToTataSource": "Reference to data source",
+  "registersAndStatistics": "Registers and statistics",
+  "remoteSensingBasedAssessmentWithGroundTruthing": "Remote sensing based assessment with ground truthing",
+  "remoteSensingBasedAssessmentWithoutGroundTruthing": "Remote sensing based assessment without ground truthing",
+  "statisticalRemoteSensingSurveyWithAccuracyAssessment": "Statistical remote sensing survey with accuracy assessment",
+  "typeOfDataSource": "Type of data source",
+  "typeOfDataSourceText": "$t(dataSource.typeOfDataSource)",
+  "variable": "Variable",
+  "vegetationMapping": "Vegetation mapping",
+  "yearForDataSource": "Year for data source"
+}

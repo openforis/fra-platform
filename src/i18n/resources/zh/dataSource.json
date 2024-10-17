@@ -1,0 +1,15 @@
+{
+  "comments": "评论",
+  "fraVariable": "FRA变量",
+  "nationalForestInventory": "国家森林资源调查(NFI)",
+  "referenceToTataSource": "数据源参考文献",
+  "registersAndStatistics": "登记册和统计资料",
+  "remoteSensingBasedAssessmentWithGroundTruthing": "基于遥感的评估，并辅以地面实况调查",
+  "remoteSensingBasedAssessmentWithoutGroundTruthing": "基于遥感的评估，没有辅以地面实况调查",
+  "statisticalRemoteSensingSurveyWithAccuracyAssessment": "带有精度评估的统计遥感调查",
+  "typeOfDataSource": "数据源的类型",
+  "typeOfDataSourceText": "$t(dataSource.typeOfDataSource)",
+  "variable": "变量",
+  "vegetationMapping": "植被测绘",
+  "yearForDataSource": "数据源的年份"
+}

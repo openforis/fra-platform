@@ -3,60 +3,60 @@ import { TFunction } from 'i18next'
 
 import { Lang } from 'meta/lang'
 
-import * as arTranslation from './resources/ar'
-import * as enTranslation from './resources/en'
-import * as esTranslation from './resources/es'
-import * as frTranslation from './resources/fr'
-import * as ruTranslation from './resources/ru'
-import * as zhTranslation from './resources/zh'
+import { arTranslation } from './resources/ar'
+import { enTranslation } from './resources/en'
+import { esTranslation } from './resources/es'
+import { frTranslation } from './resources/fr'
+import { ruTranslation } from './resources/ru'
+import { zhTranslation } from './resources/zh'
 
 // @ts-ignore
 const createInstance = i18next.createInstance || i18next.default.createInstance
 
-const translationsFiles: { [langCode: string]: any } = {
-  en: enTranslation.translation,
-  es: esTranslation.translation,
-  fr: frTranslation.translation,
-  ru: ruTranslation.translation,
-  ar: arTranslation.translation,
-  zh: zhTranslation.translation,
+const translationsFiles = {
+  [Lang.en]: enTranslation,
+  [Lang.es]: esTranslation,
+  [Lang.fr]: frTranslation,
+  [Lang.ru]: ruTranslation,
+  [Lang.ar]: arTranslation,
+  [Lang.zh]: zhTranslation,
 }
 
-export const createParams = (lang: string) => ({
-  fallbackLng: 'en',
+export const createParams = (lang: Lang) => ({
+  fallbackLng: Lang.en,
   debug: false,
 
   // react i18next special options (optional)
   react: {
     wait: false, // set to true if you like to wait for loaded in every translated hoc
-    nsMode: 'default', // set it to fallback to let passed namespaces to translated hoc act as fallbacks
+    nsMode: 'default' as 'default' | 'fallback', // set it to fallback to let passed namespaces to translated hoc act as fallbacks
   },
 
   lng: lang,
 
   resources: {
-    en: {
-      translation: translationsFiles.en,
+    [Lang.en]: {
+      translation: translationsFiles[Lang.en],
     },
-    es: {
-      translation: translationsFiles.es,
+    [Lang.es]: {
+      translation: translationsFiles[Lang.es],
     },
-    fr: {
-      translation: translationsFiles.fr,
+    [Lang.fr]: {
+      translation: translationsFiles[Lang.fr],
     },
-    ru: {
-      translation: translationsFiles.ru,
+    [Lang.ru]: {
+      translation: translationsFiles[Lang.ru],
     },
-    ar: {
-      translation: translationsFiles.ar,
+    [Lang.ar]: {
+      translation: translationsFiles[Lang.ar],
     },
-    zh: {
-      translation: translationsFiles.zh,
+    [Lang.zh]: {
+      translation: translationsFiles[Lang.zh],
     },
   },
 })
 
-export const createI18nPromise = (lang: any): Promise<{ language: Lang; t: TFunction }> =>
+export const createI18nPromise = (lang: Lang): Promise<{ language: Lang; t: TFunction }> =>
   new Promise((resolve, reject) =>
     // @ts-ignore
     // eslint-disable-next-line no-promise-executor-return

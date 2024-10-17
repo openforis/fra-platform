@@ -6,6 +6,7 @@ import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint'
 import { RecordAssessmentDatas } from 'meta/data'
+import { Lang } from 'meta/lang'
 
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
@@ -52,7 +53,7 @@ const getValue = async (props: {
 
 export const getNDPYear = async (props: Props) => {
   const { assessment, cycle, countries } = props
-  const { t } = await createI18nPromise('en')
+  const { t } = await createI18nPromise(Lang.en)
 
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,

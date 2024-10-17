@@ -3,6 +3,7 @@ import { i18n as i18nType } from 'i18next'
 import { Objects } from 'utils/objects'
 
 import { Assessment, Cycle, Labels } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 
 import { TableRedisRepository } from 'server/repository/redis/table'
 
@@ -52,7 +53,7 @@ export const getMetadata = async (
   const table = await TableRedisRepository.getOne(props)
   const { rows } = table
 
-  const i18n = (await createI18nPromise('en')) as i18nType
+  const i18n = (await createI18nPromise(Lang.en)) as i18nType
   const dateOfExport = `(${i18n.t('bulkDownload.dateOfExport')})`
   const dateExported = `${new Date().toLocaleDateString('en-GB', {
     day: '2-digit',

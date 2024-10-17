@@ -1,0 +1,14 @@
+{
+  "comments": "التعليقات",
+  "fraVariable": "متغير (فرا)",
+  "nationalForestInventory": "الجرد الوطني للغابات (NFI)",
+  "referenceToTataSource": "مرجع مصدر البيانات",
+  "registersAndStatistics": "السجلات والإحصاءات",
+  "remoteSensingBasedAssessmentWithGroundTruthing": "التقييم القائم على الاستشعار عن بعد مع التحقيق السطحي",
+  "remoteSensingBasedAssessmentWithoutGroundTruthing": "التقييم القائم على الاستشعار عن بعد دون التحقيق السطحي",
+  "statisticalRemoteSensingSurveyWithAccuracyAssessment": "المسح الإحصائي بالاستشعار عن بعد مع تقييم الدقة",
+  "typeOfDataSource": "نوع مصدر البيانات",
+  "variable": "المتغير",
+  "vegetationMapping": "رسم خرائط الغطاء النباتي",
+  "yearForDataSource": "سنة مصدر البيانات"
+}

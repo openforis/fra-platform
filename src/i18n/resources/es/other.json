@@ -1,0 +1,701 @@
+{
+  "annualReforestation": {
+    "annualReforestation": "Reforestación anual",
+    "areaUnitLabel": "Área (1000 ha/año)",
+    "categoryHeader": "Categorías de FRA",
+    "reforestation": "Reforestación"
+  },
+  "areaAffectedByFire": {
+    "areaAffectedByFire": "Área afectada por incendios",
+    "areaUnitLabel": "Área (1000 ha)",
+    "categoryHeader": "Categorías de FRA",
+    "ofWhichForest": "…de la cual en bosque",
+    "totalLandAreaAffectedByFire": "Área total afectada por incendios"
+  },
+  "areaOfPermanentForestEstate": {
+    "applicable": "¿Es aplicable?",
+    "areaOfPermanentForestEstate": "Área de zona forestal permanente",
+    "areaUnitLabel": "Área de bosque (1000 ha)",
+    "categoryHeader": "Categorías de FRA 2020"
+  },
+  "assessment": {
+    "deskStudy": "Estudio técnico",
+    "fra": "FRA",
+    "status": {
+      "accepted": {
+        "label": "Aceptado",
+        "next": "Aceptar",
+        "previous": ""
+      },
+      "approval": {
+        "label": "Esperando aprobación",
+        "next": "Enviar para aprobación",
+        "previous": "Volver a aprobación"
+      },
+      "changing": {
+        "label": "Cambiando…"
+      },
+      "editing": {
+        "label": "Editando",
+        "previous": "Volver a editar"
+      },
+      "notStarted": {
+        "label": "No iniciado"
+      },
+      "review": {
+        "label": "En revisión",
+        "next": "Enviar a revisión",
+        "previous": "Volver a revisar"
+      }
+    },
+    "statusChangeNotification": {
+      "htmlMessage": "Estimado/a {{recipientName}},\n<br/><br/>\n{{changer}} ha cambiado el estado de {{assessment}} a \"{{status}}\" para {{country}} en la plataforma de FRA.\n<br/><br/>\n{{message}}\n<br/><br/>\n<a href=\"{{- serverUrl}}\"><b>Visite la plataforma</b></a>\n<br/><br/>\nEl equipo de FRA\n<br/>\n{{- serverUrl}}",
+      "subject": "El estado de {{country}} cambió a {{status}} en la plataforma de FRA",
+      "textMessage": "Estimado/a {{recipientName}},\n\n\n{{changer}} ha cambiado el estado de {{assessment}} a \"{{status}}\" para {{country}} en la plataforma de FRA.\n\n\n{{message}}\n\n\nVisite la plataforma en la siguiente dirección: {{- serverUrl}}\n\n\nEl equipo de FRA\n{{- serverUrl}}"
+    }
+  },
+  "audit": {
+    "edited": "Editado",
+    "notStarted": "No iniciado"
+  },
+  "biomassStock": {
+    "aboveGround": "Biomasa por encima del suelo",
+    "belowGround": "Biomasa por debajo del suelo",
+    "biomassStock": "Biomasa",
+    "categoryHeader": "Categorías de FRA",
+    "deadWood": "Madera muerta",
+    "downloadExcel": "Descargar calculadora de excel",
+    "tableHeader": "Biomasa forestal (toneladas/ha)"
+  },
+  "carbonStock": {
+    "carbonAboveGroundBiomass": "Carbono en la biomasa por encima del suelo",
+    "carbonBelowGroundBiomass": "Carbono en la biomasa por debajo del suelo",
+    "carbonDeadwood": "Carbono en la madera muerta",
+    "carbonLitter": "Carbono en la hojarasca",
+    "carbonSoil": "Carbono en el suelo",
+    "carbonStock": "Carbono",
+    "categoryHeader": "Categorías de FRA",
+    "soilDepthHeading": "Profundidad del suelo (cm) utilizada para calcular el carbono en el suelo",
+    "tableHeader": "Carbono forestal (toneladas/ha)"
+  },
+  "climaticDomain": {
+    "boreal": "Boreal",
+    "climaticDomain": "Región climática",
+    "percentOfForestArea2015": "Porcentaje de área de bosque en 2015",
+    "percentOfForestArea2015Override": "Reemplazar valor",
+    "selectDefault": "Por defecto",
+    "sub_tropical": "$t(climaticDomain.subtropical)",
+    "subtropical": "Subtropical",
+    "temperate": "Templada",
+    "tropical": "Tropical"
+  },
+  "contactPersons": {
+    "all": "$t(common.all)",
+    "contactPersons": "Introducción",
+    "contactPersonsSupport": "El presente informe fue preparado por la/s siguiente/s persona/s",
+    "email": "Correo electrónico",
+    "firstName": "Nombre",
+    "institution": "Institución/dirección",
+    "introductoryText": "Texto introductorio",
+    "introductoryTextSupport": "Incluir un texto introductorio en el contenido del presente informe",
+    "lastName": "Apellido",
+    "none": "Ninguna",
+    "reportPreparationAndContactPersons": "Elaboración de informes y personas de contacto",
+    "tables": "Tablas"
+  },
+  "country": {
+    "region": {
+      "africa": "África",
+      "asia": "Asia",
+      "atlantis": "Atlántida",
+      "europe": "Europa",
+      "forest_europe": "Forest Europe",
+      "north_and_central_america": "América del Norte y Central",
+      "oceania": "Oceanía",
+      "south_america": "América del Sur"
+    }
+  },
+  "countryListing": {
+    "annuallyUpdated": "Actualizado anualmente",
+    "fra2020": "FRA 2020"
+  },
+  "countryMessageBoard": {
+    "messageBoard": "Tablero de mensajes",
+    "messageBoardDesc": "Los mensajes publicados aquí son visibles para todos los miembros del país.",
+    "oneToOneMessages": "Mensajes individuales"
+  },
+  "countrySelection": {
+    "selectCountry": "Seleccionar país"
+  },
+  "definition": {
+    "definitionLabel": "Véanse las definiciones",
+    "faqLabel": "Preguntas frecuentes"
+  },
+  "degradedForest": {
+    "degradedForest": "Bosque degradado",
+    "doesYourCountryMonitor": "¿Su país hace un seguimiento del área de bosque degradado?",
+    "howMonitored": "Describa el proceso de seguimiento y los resultados",
+    "ifYes": "En caso afirmativo",
+    "whatIsDefinition": "¿Cuál es la definición nacional de \"bosque degradado\"?"
+  },
+  "description": {
+    "analysisAndProcessing": "Análisis y procesamiento de datos nacionales",
+    "dataSources": "Fuentes de datos",
+    "dataSourcesPlus": "Fuentes de datos + tipo de fuente de datos, por ej. el inventario nacional de los bosques, etc",
+    "dataSourcesTitle": "Fuentes de datos, datos originales y clasificación nacional y definiciones",
+    "description": "Descripción",
+    "done": "Finalizado",
+    "edit": "Editar",
+    "estimationAndForecasting": "Estimación y proyección",
+    "generalCommentsTitle": "Comentarios",
+    "loading": "Cargando contenido…",
+    "nationalClassificationAndDefinitions": "Clasificación nacional y definiciones",
+    "nationalData": "Datos nacionales",
+    "originalData": "Datos originales",
+    "reclassification": "Reclasificación en categorías de FRA {{cycleName}}"
+  },
+  "designatedManagementObjective": {
+    "areaUnitLabel": "Área forestal (1000 ha)",
+    "biodiversityConservation": "Conservación de la biodiversidad",
+    "categoryHeader": "Categorías de FRA 2020",
+    "designatedManagementObjective": "Objetivo de gestión designado",
+    "multipleUse": "Uso múltiple",
+    "other": "Otros (especificar en comentarios)",
+    "primaryDesignatedManagementObjective": "Objetivo primario de gestión designado",
+    "primaryDesignatedManagementObjectiveSupport": "El objetivo primario de gestión designado es significativamente más importante que otros objetivos de gestión. Los diferentes objetivos primarios de gestión son *exclusivos* y las áreas reportadas bajo un objetivo primario de gestión no deben ser reportadas para ningún otro objetivo primario de gestión. La suma de los diferentes objetivos de gestión se debe añadir al área de bosque.",
+    "production": "Producción",
+    "socialServices": "Servicios sociales",
+    "soilWaterProtection": "Protección del suelo y del agua",
+    "total": "Total",
+    "totalAreaWithDesignatedManagementObjective": "Área total con objetivo de gestión designado",
+    "totalAreaWithDesignatedManagementObjectiveSupport": "Objetivo de gestión designado, independientemente de si es primario o no. Las diferentes categorías de designación *no son exclusivas*. Por lo tanto, las áreas se pueden reportar más de una vez. Por ejemplo, el área de bosque reportado como objetivo primario de gestión \"de uso múltiple\" debe ser reportado para cada objetivo de gestión específico. De este modo, la suma de los diferentes objetivos de gestión puede ser superior al área total de bosque.",
+    "totalForestArea": "Área total de bosque",
+    "unknown": "Ninguno/desconocido"
+  },
+  "disclaimer": {
+    "europeanUnion": "Unión Europea",
+    "gef": "Fondo para el Medio Ambiente Mundial",
+    "govFinland": "Gobierno de Finlandia",
+    "govNorway": "Gobierno de Noruega",
+    "part1": "Este portal se ha realizado con la asistencia de la ",
+    "part2": ", el ",
+    "part3": ", el ",
+    "part4": " y el ",
+    "part5": ". Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia, el Gobierno de Noruega y el Fondo para el Medio Ambiente Mundial.",
+    "statisticalFactsheets": "Descargo de responsabilidad: puede contener estimaciones de la FAO, puede contener valores faltantes",
+    "termsOfUse": "Condiciones de uso de la base de datos estadísticos"
+  },
+  "disturbances": {
+    "areaUnitLabel": "Área (1000 ha)",
+    "categoryHeader": "Categorías de FRA",
+    "diseases": "Enfermedades",
+    "disturbances": "Perturbaciones",
+    "insects": "Insectos",
+    "other": "Otras (especificar en comentarios)",
+    "severeWeatherEvents": "Eventos climáticos extremos",
+    "total": "Total",
+    "totalForestArea": "Área total de bosque"
+  },
+  "emoji": {
+    "picker": {
+      "categories": {
+        "activity": "Actividad",
+        "flags": "Banderas",
+        "foods": "Comida y bebida",
+        "nature": "Animales y naturaleza",
+        "objects": "Objetos",
+        "people": "Emoticonos y personas",
+        "places": "Viajes y lugares",
+        "recent": "Usados frecuentemente",
+        "search": "Buscar resultados",
+        "symbols": "Símbolos"
+      },
+      "search": "Buscar"
+    }
+  },
+  "employment": {
+    "average": "en un promedio de 3 años",
+    "categoryHeader": "Categorías de FRA 2020",
+    "employment": "Empleo en silvicultura y extracción de madera",
+    "female": "Mujeres",
+    "inForestry": "Empleo en silvicultura y extracción de madera",
+    "male": "Hombres",
+    "ofWhichGathering": "…del cual en la recolección de productos forestales no maderables",
+    "ofWhichLogging": "…del cual en la extracción de madera",
+    "ofWhichSilviculture": "…del cual en la silvicultura y otras actividades forestales",
+    "ofWhichSupport": "…del cual en los servicios de apoyo a la silvicultura",
+    "total": "Total",
+    "unitHeader": "Empleo equivalente dedicación completa (1000 EDC)"
+  },
+  "error": {
+    "access": {
+      "assessmentCommentingNotAllowed": "Error: El usuario {{user}} en función {{role}} no puede comentar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}",
+      "assessmentEditingNotAllowed": "Error: El usuario {{user}} en función {{role}} no puede editar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}",
+      "countryDoesNotMatch": "Error: El país {{countyryIso}} no coincide",
+      "countryRoleNotSpecified": "Error: El usuario {{user}} intentó acceder {{countryIso}} pero no se había especificado ninguna función",
+      "countryUserNotReviewer": "Error: El usuario {{user}} intentó acceder {{countryIso}}, del cual no es evaluador",
+      "invitationAlreadyUsed": "Error: La invitación {{invitationUuid}} ya se ha utilizado, ¡el robo del {{loginEmail}} está prohibido!",
+      "roleChangeNotAllowed": "Error: El usuario {{user}} intentó asignar otra función de usuario a {{role}}, lo que está prohibido para el usuario conectado",
+      "userAlreadyAddedToCountry": "Error: El usuario {{user}} ya está añadido al país {{country Iso}}",
+      "userNotAdministrator": "Error: El usuario {{user}} ha intentado acceder a un recurso disponible sólo para administradores"
+    },
+    "assessment": {
+      "deskStudyNotAllowed": "Error: El administrador es el único que puede cambiar el estado del estudio técnico",
+      "transitionNotAllowed": "Error: El paso de {{currentStatus}} a {{status}} está prohibido en el caso de la función {{role}}"
+    },
+    "ndp": {
+      "previousNdpNotFound": "No es posible encontrar ningún punto de información nacional anterior a {{year}}"
+    },
+    "review": {
+      "commentDeleteNotOwner": "Error: El usuario {{user}} intentó borrar un comentario que no es suyo",
+      "commentEnterResolvedIssue": "Error: El usuario {{user}} intentó introducir un comentario a un asunto que ya se había resuelto"
+    }
+  },
+  "extentOfForest": {
+    "categoryHeader": "Categorías de FRA",
+    "chart": {
+      "placeholderLine1": "Para empezar, añada nuevos puntos de datos nacionales y úselos",
+      "placeholderLine2": "para generar los valores de FRA de forma automática."
+    },
+    "dontUseOriginalDataPoints": "No usar puntos de datos nacionales",
+    "estimationAndForecasting": "Estimación and proyección",
+    "extentOfForest": "Extensión de bosque y otras tierras boscosas",
+    "fedAreasExceedTotalLandArea": "El área de bosque y otras tierras boscosas exceden la superficie total de tierra",
+    "forestArea": "Bosque",
+    "forestAreaDoesNotMatchPreviouslyReported": "El área de bosque no coincide con el área de FRA {{year}}: {{previous}}",
+    "forestAreaNetChangeDoesNotMatch": "El cambio neto de la superficie forestal no coincide con el valor esperado: {{value}}",
+    "hideNDPs": "Esconder puntos de datos nacionales",
+    "ndpMissingValues": "El punto de dato nacional tiene valores faltantes",
+    "ofWhichAgroforestry": "…de las cuales agroforestería",
+    "ofWhichPalms": "…de las cuales palmas (aceitera, cocotera, dátiles, etc.)",
+    "ofWhichTreeOrchards": "…de las cuales huertos de árboles (frutas, frutos secos, aceitunas, etc.)",
+    "ofWhichTreesUrbanSettings": "…de las cuales árboles en espacios urbanos",
+    "otherLandCategories": "Otras categorías de tierras",
+    "showNDPs": "Mostrar puntos de datos nacionales",
+    "tableNoticeMessage": "La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia",
+    "totalLandArea": "Superficie total de tierra",
+    "useOriginalDataPoints": "Usar puntos de datos nacionales",
+    "whatIsThis": "¿Qué significa esto?"
+  },
+  "fileDrop": {
+    "dragAndDropOrClick": "Arrastre y coloque los archivos aquí, o haga clic en \"Seleccionar archivos\"",
+    "dropFilesHere": "Coloque aquí los archivos"
+  },
+  "footer": {
+    "contactUs": "Contacto",
+    "licenses": "Licencias",
+    "platformVersion": "Versión de la plataforma",
+    "reportMisconduct": "Reportar mala conducta",
+    "scamAlert": "Alerta de estafa",
+    "sendFeedback": "Enviar comentarios",
+    "termsAndConditions": "Términos y condiciones",
+    "tutorials": "Vídeo"
+  },
+  "forestAreaChange": {
+    "areaUnitLabel": "Área (1000 ha/año)",
+    "categoryHeader": "Categorías de FRA",
+    "deforestation": "Deforestación",
+    "forestAreaChange": "Expansión, deforestación anual y cambio neto anual",
+    "forestAreaNetChange": "Cambio neto en el área de bosque",
+    "forestAreaNetChangeFrom1a": "Cambio neto de la extensión de bosque calculado a partir de la tabla 1a",
+    "forestExpansion": "Expansión del bosque",
+    "netChangeDoesNotMatch": "No coincide con el cambio neto en el área de bosque",
+    "ofWhichAfforestation": "…de la cual es forestación",
+    "ofWhichNaturalExpansion": "…de la cual es expansión natural"
+  },
+  "forestAreaWithinProtectedAreas": {
+    "areaUnitLabel": "Área (1000 ha)",
+    "categoryHeader": "Categorías de FRA",
+    "forestAreaWithLongTermManagementPlan": "Área de bosque con planes de gestión a largo plazo",
+    "forestAreaWithinProtectedAreas": "Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con planes de gestión a largo plazo",
+    "header": "Área de bosque dentro de áreas protegidas legalmente establecidas",
+    "ofWhichInProtectedAreas": "…de la cual en áreas protegidas"
+  },
+  "forestCharacteristics": {
+    "categoryHeader": "Categorías de FRA",
+    "dontUseOriginalDataPoints": "No usar puntos de datos nacionales",
+    "estimationAndForecasting": "Estimación y proyección",
+    "forestCharacteristics": "Características de los bosques",
+    "naturalForestArea": "Bosque regenerado de forma natural",
+    "otherPlantedForestArea": "Otros bosques plantado",
+    "plantationForestArea": "Plantación forestal",
+    "plantationForestIntroducedArea": "…de la cual de especies introducidas",
+    "plantedForest": "Bosque plantado",
+    "total": "Total",
+    "totalForestArea": "Área total de bosque",
+    "useOriginalDataPoints": "Usar puntos de datos nacionales"
+  },
+  "forestOwnership": {
+    "areaUnitLabel": "Área de bosque (1000 ha)",
+    "categoryHeader": "Categorías de FRA",
+    "forestOwnership": "Propiedad del bosque",
+    "ofWhichCommunities": "…de la cual es propiedad de comunidades locales, tribales e indígenas",
+    "ofWhichIndividuals": "…de la cual es propiedad de individuos",
+    "ofWhichPrivateBusinesses": "…de la cual es propiedad de entidades comerciales e instituciones privadas",
+    "otherOrUnknown": "Desconocidas/otras (especificar en comentarios)",
+    "privateOwnership": "Propiedad privada",
+    "publicOwnership": "Propiedad pública",
+    "total": "Total",
+    "totalForestArea": "Área total de bosque"
+  },
+  "forestPolicy": {
+    "areaUnitLabel": "Booleana (Sí/No)",
+    "categoryHeader": "Indicar la existencia de",
+    "existenceOfTraceabilitySystem": "Sistema/s de trazabilidad para los productos madereros",
+    "forestPolicy": "Políticas, legislación y plataforma nacional para la participación de los grupos de interés en la política forestal",
+    "legislationsSFM": "Leyes y/o reglamentos que apoyan la gestión forestal sostenible",
+    "national": "Nacional",
+    "policiesSFM": "Políticas que apoyan la gestión forestal sostenible",
+    "stakeholderParticipation": "Platforma que fomenta o permite la participación de grupos de interés en la elaboración de políticas forestales",
+    "subnational": "Subnacional"
+  },
+  "fraClass": {
+    "forest": "Bosque",
+    "otherLand": "Otras tierras",
+    "otherWoodedLand": "Otras tierras boscosas"
+  },
+  "fraForestCharacteristicsClass": {
+    "naturallyRegeneratingForest": "Bosque regenerado de forma natural",
+    "ofWhichIntroduced": "…de la cual de especies introducidas",
+    "otherPlantedForest": "Otros bosques plantados",
+    "plantationForest": "Plantación forestal",
+    "totalForest": "Área total de bosque"
+  },
+  "fraOtherLandClass": {
+    "agroforestry": "…de las cuales agroforestería",
+    "palms": "…de las cuales palmas (aceitera, cocotera, dátiles, etc)",
+    "treeOrchards": "…de las cuales huertos de árboles (frutas, frutos secos, aceitunas,etc.)",
+    "treesUrbanSettings": "…de las cuales árboles en espacios urbanos"
+  },
+  "graduationOfStudents": {
+    "average": "en un promedio de 3 años",
+    "bachelorsDegree": "Título de grado",
+    "doctoralDegree": "Doctorado",
+    "female": "Mujeres",
+    "fra2020Categories": "Categorías de FRA 2020",
+    "graduationOfStudents": "Graduación de alumnos en estudios relativos al bosque",
+    "male": "Hombres",
+    "mastersDegree": "Maestría",
+    "numberOfStudents": "Número de graduados",
+    "technicianCertificate": "Certificado/diploma de técnico",
+    "total": "Total"
+  },
+  "growingStock": {
+    "avgTableHeader": "Existencias en formación en m³/ha (sobre la corteza)",
+    "categoryHeader": "Categorías de FRA",
+    "copyToClipboard": "Copiar valores",
+    "forest": "Bosque",
+    "growingStock": "Existencias en formación",
+    "naturallyRegeneratingForest": "Bosque regenerado de forma natural",
+    "otherPlantedForest": "…del cual son otros bosques plantados",
+    "otherWoodedLand": "Otras tierras boscosas",
+    "plantationForest": "…del cual es plantación forestal",
+    "plantedForest": "Bosque plantado",
+    "supportText": "Asegúrese de que ha introducido los datos en las tablas 1a y 1b antes de editar esta tabla",
+    "totalTableHeader": "Existencias totales en formación (millones de m³ sobre la corteza)"
+  },
+  "growingStockComposition": {
+    "areaUnitLabel": "Existencias en formación en el bosque (millones de m³ sobre la corteza)",
+    "categoryHeader": "Categorías de FRA",
+    "commonName": "Nombre común",
+    "forestGrowingStockComposition": "Composición de las existencias forestales en formación",
+    "growingStockComposition": "Composición de las existencias en formación",
+    "introduced": "Introducida",
+    "introducedTreeSpecies": "Especies introducidas",
+    "native": "Nativa",
+    "nativeTreeSpecies": "Especies de árboles nativos",
+    "rank": "#{{idx}} Clasificadas en cuanto al volumen",
+    "rankingYear": "Clasificación en el año 2015",
+    "remainingIntroduced": "Especies introducidas restantes",
+    "remainingNative": "Especies de árboles nativos restantes",
+    "scientificName": "Nombre científico",
+    "totalGrowingStock": "Existencias totales en formación",
+    "totalIntroduced": "Volumen total de especies introducidas",
+    "totalNative": "Volumen total de especies de árboles nativos "
+  },
+  "header": {
+    "autoSave": {
+      "complete": "Todos los cambios han sido guardados",
+      "lastSaveTimestampReceived": "Editado por última vez",
+      "saving": "Guardando…"
+    },
+    "editProfile": "Editar perfil",
+    "hideSidebar": "Esconder la barra lateral",
+    "logout": "Desconectar",
+    "showSidebar": "Mostrar la barra lateral"
+  },
+  "holderOfManagementRights": {
+    "areaUnitLabel": "Área de bosque (1000 ha)",
+    "categoryHeader": "Categorías de FRA",
+    "communities": "Comunidades locales, tribales e indígenas",
+    "holderOfManagementRights": "Titular de los derechos de gestión de bosques públicos",
+    "individuals": "Individuos",
+    "other": "Desconocidas/otras (especificar en comentarios)",
+    "privateBusinesses": "Entidades comerciales e instituciones privadas",
+    "publicAdministration": "La Administración Pública",
+    "publicOwnershipDoesNotMatch": "No coincide con la propiedad pública total",
+    "total": "Total",
+    "totalPublicOwnership": "Propiedad pública total"
+  },
+  "home": {
+    "keyFindings": "El área total de bosques en el mundo es de 4 060 millones de hectáreas (ha),\nque corresponde al 31 por ciento de la superficie total de la tierra. Esta área\nes equivalente a 0,52 ha por persona\n, aunque los bosques no están distribuidos\nde manera equitativa por población mundial o situación geográfica. Las zonas\ntropicales poseen la mayor proporción de los bosques del mundo (45 por ciento),\nel resto está localizado en las regiones boreales, templadas y subtropicales."
+  },
+  "language": {
+    "ar": "العربية",
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "ru": "Русский",
+    "zh": "中文"
+  },
+  "multiSelect": {
+    "placeholder": "Elegir…"
+  },
+  "navigation": {
+    "cancel": "Cancelar",
+    "changeStatusTextPlaceholder": "Añadir un mensaje opcional",
+    "doNotNotifyUsers": "No notificar a los usuarios",
+    "hideAll": "Esconder todo",
+    "notifySelf": "Enviar copia a uno mismo",
+    "sectionHeaders": {
+      "employmentEducationAndNwfp": "Empleo, educación y PFNM",
+      "forestDesignationAndManagement": "Designación y gestión del bosque",
+      "forestDisturbances": "Perturbaciones en el bosque",
+      "forestExtentCharacteristicsAndChanges": "Extensión de bosque, características y cambios",
+      "forestGrowingStockBiomassAndCarbon": "Existencias en formación, biomasa y carbono",
+      "forestOwnershipAndManagementRights": "Propiedad del bosque y derechos de gestión",
+      "forestPolicyAndLegislation": "Política y legislación forestal",
+      "introduction": "Introducción",
+      "panEuropeanIndicators": "Indicadores paneuropeos",
+      "sustainableDevelopment": "Objetivo de Desarrollo Sostenible 15"
+    },
+    "showAll": "Mostrar todo",
+    "support": {
+      "dontDelete": "No elimine la información del sistema",
+      "feedbackEmailSubject": "Comentarios de la plataforma de FRA",
+      "manageCollaborators": "Gestionar colaboradores",
+      "platformVersion": "Versión de la plataforma",
+      "user": "Usuario",
+      "userAgent": "Agente de usuario"
+    }
+  },
+  "nonWoodForestProductsRemovals": {
+    "allOtherAnimalProducts": "Todos los demás productos animales",
+    "allOtherPlantProducts": "Todos los demás productos vegetales",
+    "animalProductsSelectHeading": "Productos animales / materia prima",
+    "animalRawMaterialForColorants": "14 Materia prima para la preparación de colorantes",
+    "animalRawMaterialForMedicine": "13 Materia prima para la preparación de medicamentos",
+    "category": "Categoría de PFNM",
+    "currency": "Nombre de la moneda local",
+    "exudates": "7 Exudados",
+    "fodder": "2 Forraje",
+    "food": "1 Alimentos",
+    "hidesSkins": "10 Cueros, pieles y trofeos",
+    "keySpecies": "Especies principales",
+    "livingAnimals": "9 Animales vivos",
+    "nameOfProduct": "Nombre del PFNM",
+    "nonWoodForestProductsRemovals": "Extracción y valor de los productos forestales no maderables en 2015",
+    "notSelected": "",
+    "ornamentalPlants": "6 Plantas ornamentales",
+    "otherEdibleAnimalProducts": "15 Otros productos animales comestibles",
+    "otherNonEdibleAnimalProducts": "16 Otros productos animales no comestibles",
+    "otherPlantProducts": "8 Otros productos vegetales",
+    "plantProductsSelectHeading": "Productos vegetales / materia prima",
+    "quantity": "Cantidad",
+    "rawMaterialForColorants": "4 Materia prima para la preparación de colorantes y tintes",
+    "rawMaterialForMedicine": "3 Materia prima para la preparación de medicamentos y productos aromáticos",
+    "rawMaterialForUtensils": "5 Materia prima para la fabricación de utensilios, artesanías y para la construcción",
+    "total": "Total",
+    "unit": "Unidad",
+    "value": "Valor (1000 en moneda local)",
+    "wildHoney": "11 Miel silvestre y cera de abeja",
+    "wildMeat": "12 Carne silvestre"
+  },
+  "otherLandWithTreeCover": {
+    "agroforestry": "Agroforestería",
+    "areaUnitLabel": "Área (1000 ha)",
+    "categoryHeader": "Categorías de FRA",
+    "other": "Otros (especificar en comentarios)",
+    "otherLandArea": "Área de otras tierras",
+    "otherLandWithTreeCover": "Otras tierras con cubierta de árboles",
+    "palms": "Palmas",
+    "total": "Total",
+    "treeorchards": "Huertos de árboles",
+    "treesinurbansettings": "Árboles en espacios urbanos"
+  },
+  "panEuropeanIndicators": {
+    "accessReportingPage": "Acceder a la página de informes",
+    "chooseFile": "Elegir archivo",
+    "download": "Descargar",
+    "downloadQuestionnaire": "Descargar el cuestionario",
+    "noQuestionnaire": "Ningún cuestionario seleccionado",
+    "panEuropeanIndicators": "Indicadores cuantitativos paneuropeos para la gestión forestal sostenible",
+    "panEuropeanQualitativeIndicators": "Indicadores cualitativos paneuropeos para la gestión forestal sostenible",
+    "remove": "Eliminar",
+    "uploadQuestionnaire": "Cargar cuestionario"
+  },
+  "review": {
+    "cancel": "Cancelar",
+    "commentDeleted": "Comentario borrado",
+    "commentMarkedAsResolved": "Señalado como resuelto",
+    "commentingClosed": "Se han desactivado los comentarios",
+    "comments": "Comentarios",
+    "confirmDelete": "¿Borrar este comentario? Esta acción no puede deshacerse.",
+    "delete": "Borrar",
+    "loading": "Cargando",
+    "noComments": "Sin comentarios",
+    "resolve": "Resolver",
+    "writeComment": "Escriba un comentario…"
+  },
+  "specificForestCategories": {
+    "areaUnitLabel": "Área (1000 ha)",
+    "bamboo": "Bambúes",
+    "categoryHeader": "Categorías de FRA",
+    "exceedsNaturallyRegeneratingForest": "Excede el bosque regenerado de forma natural (1b)",
+    "mangroves": "Manglares",
+    "primaryForest": "Bosque primario",
+    "rubberWood": "Caucho",
+    "specificForestCategories": "Bosque primario y categorías especiales de los bosques",
+    "temporarilyUnstocked": "Bosque temporalmente sin cubierta de árboles y/o recientemente regenerado"
+  },
+  "sustainableDevelopment": {
+    "aboveGroundBiomassStockForests": "Biomasa aérea en los bosques",
+    "forestArea1000Ha": "Área de bosque (1000 ha)",
+    "forestAreaAnnualNetChangeRate": "Porcentaje anual de cambio neto en el área de bosque",
+    "forestAreaProportionLandArea2015": "Superficie forestal como proporción de la superficie total en 2015",
+    "forestAreaVerifiedForestManagement": "Área de bosque bajo sistemas de certificación de manejo forestal verificados de forma independiente",
+    "indicator": "Indicador",
+    "nameOfAgencyResponsible": "Nombre del organismo responsable",
+    "percent": "Porcentaje",
+    "percent2015ForestAreaBaseline": "Porcentaje (referencia del área de bosque en 2015)",
+    "proportionForestAreaLegallyEstablishedProtectedAreas": "Proporción de área de bosque dentro de áreas protegidas legalmente establecidas",
+    "proportionForestAreaLongTermForestManagement": "Proporción de área de bosque con planes de gestión a largo plazo",
+    "sdgIndicator1": "Indicador 15.1.1 de los ODS: Superficie forestal como proporción de la superficie total en 2015",
+    "sdgIndicator2": "Indicador 15.2.1 de los ODS: Progresos en la gestión forestal sostenible",
+    "subIndicator": "Subindicador {{no}}",
+    "sustainableDevelopment": "Objetivo de Desarrollo Sostenible 15"
+  },
+  "tableWithOdp": {
+    "_1000haYear": "1000 ha/año",
+    "annualChangeExtrapolation": "Cambio anual",
+    "confirmGenerateFraValues": "¿Reemplazar los valores existentes?",
+    "copyToClipboard": "Copiar valores",
+    "generateFraValues": "Generar valores",
+    "generatingFraValues": "Generando...",
+    "linearExtrapolation": "Lineal",
+    "placeholderFuture": "Futuro",
+    "placeholderPast": "Pasado",
+    "placeholderSelect": "Estimación y proyección",
+    "repeatLastExtrapolation": "Repetir el último"
+  },
+  "time": {
+    "aMomentAgo": "Hace un momento",
+    "day": "Hace {{count}} día",
+    "day_plural": "Hace {{count}} días ",
+    "hour": "Hace {{count}} hora",
+    "hour_plural": "Hace {{count}} horas",
+    "week": "Hace {{count}} semana",
+    "week_plural": "Hace {{count}} semanas"
+  },
+  "tutorial": {
+    "collaboratorAdd": "Manual de usuario de la plataforma FRA - Cómo añadir un colaborador",
+    "documentUpload": "Manual de usuario de la plataforma FRA - Cómo subir un documento",
+    "googleLogin": "Manual de usuario de la plataforma FRA - Cómo iniciar sesión utilizando la autenticación de Google",
+    "googleLoginShort": "Cómo iniciar sesión utilizando la autenticación de Google",
+    "guidelinesAndSpecifications": "Directrices y Especificaciones",
+    "nationalDataAddReferenceLink": "Tutorial del usuario de la plataforma FRA - Cómo agregar un enlace de referencia para datos nacionales",
+    "ndpAdd": "Manual de usuario de la plataforma FRA - Cómo añadir un punto de dato nacional",
+    "ndpAddReferenceLink": "Tutorial del usuario de la plataforma FRA - Cómo agregar un enlace de referencia para un punto de datos nacional",
+    "passwordLogin": "Manual de usuario de la plataforma FRA - Cómo iniciar sesión con una contraseña autodefinida",
+    "passwordLoginShort": "Cómo iniciar sesión con una contraseña autodefinida",
+    "platformNavigation": "Manual de usuario de la plataforma FRA - Navegación por la plataforma",
+    "watch": "Ver"
+  },
+  "unit": {
+    "acre": "acre",
+    "acre1000": "1 000 acres",
+    "billionCubicMeter": "mil millones m³",
+    "fte1000": "1 000 EDC",
+    "growingStockPercent": "% del total de las Existencias Forestales en Formación",
+    "gt": "Gt",
+    "ha": "ha",
+    "haMillion": "millones de ha",
+    "haThousand": "1 000 ha",
+    "haThousandPerYear": "1 000 ha / an",
+    "kmSq": "km²",
+    "mileSq": "mi²",
+    "millionsCubicMeterOverBark": "millones de m³ sobre corteza",
+    "numberOfStudents": "$t(graduationOfStudents.numberOfStudents)",
+    "tonnesPerHa": "toneladas / ha"
+  },
+  "user": {
+    "resetPasswordEmail": {
+      "subject": "Plataforma FRA - Restablecer contraseña"
+    },
+    "roles": {
+      "ADMINISTRATOR": "Administrador",
+      "ALTERNATE_NATIONAL_CORRESPONDENT": "Corresponsal Nacional alterno",
+      "COLLABORATOR": "Colaborador",
+      "NATIONAL_CORRESPONDENT": "Corresponsal Nacional",
+      "REVIEWER": "Evaluador",
+      "VIEWER": "Observador",
+      "alternateNationalCorrespondent_plural": "Corresponsales nacionales suplentes",
+      "collaborator_plural": "Colaboradores",
+      "nationalCorrespondent_plural": "Corresponsales nacionales",
+      "noRole": "",
+      "reviewer_plural": "Revisores"
+    }
+  },
+  "userChat": {
+    "cancel": "Cancelar",
+    "chatHeader": "Mensajes con {{user}}",
+    "noMessages": "Ningún mensaje",
+    "notificationEmail": {
+      "htmlMessage": "Estimado/a {{recipient}},\n<br/><br/>\n{{sender}} le envió un mensaje.\n<br/><br/>\n<b><a href=\"{{- link}}\">Acceda a la plataforma para verlo y responder.</a></b>\n<br/><br/>\nEl equipo de FRA\n<br/>\n{{- url}}\n   ",
+      "subject": "{{sender}} le envió un mensaje",
+      "textMessage": "Estimado/a {{recipient}},\n\n\n{{sender}} le envió un mensaje.\n\n\nAcceda a la plataforma en la siguiente dirección URL para verlo y responder:\n{{- link}}\n\n\nEl equipo de FRA\n{{- url}}\n   "
+    },
+    "send": "Enviar",
+    "writeMessage": "Escriba un mensaje…"
+  },
+  "userManagement": {
+    "addUser": "Añadir colaborador",
+    "allUsers": "Todos los colaboradores",
+    "confirmDelete": "¿Eliminar {{user}}?",
+    "done": "Finalizado",
+    "edit": "Editar",
+    "editPermissions": "Editar permisos",
+    "formErrors": "Hay errores en el formulario. Por favor, corrígelos y envíalo de nuevo.",
+    "info": "Información",
+    "insufficientPrivileges": "Privilegios insuficientes",
+    "invitationDeleted": "La invitación ha sido eliminada",
+    "invitationEmail": {
+      "htmlMessage": "Estimado/a {{invitedUser}},\n<br/><br/>\nHa sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.\n<br/><br/>\n<b><a href=\"{{- link}}\">Acepte esta invitación y acceda a la plataforma</a></b>\n<br/><br/>\n¡Que disfrute del trabajo!\n<br/><br/>\nEl equipo de FRA\n<br/>\n{{- url}}\n   ",
+      "subject": "Invitación a la plataforma de FRA",
+      "textMessage": "Estimado/a {{invitedUser}},\n\n\nHa sido invitado/a a acceder {{assessmentName}} {{cycleName}} como {{role}} para {{country}}.\n\n\nAcepte esta invitación y acceda a la plataforma en la siguiente dirección URL:\n{{- link}}\n\n\n¡Que disfrute del trabajo!\n\n\nEl equipo de FRA\n{{- url}}\n   "
+    },
+    "invitationEmailSent": "Se le ha enviado un correo electrónico de invitación",
+    "invitationLink": "Enlace de invitación",
+    "inviteAgain": "Invitar de nuevo",
+    "loginEmail": "Nombre de usuario",
+    "manageCollaborators": "Gestionar colaboradores",
+    "noUsers": "No se han añadido colaboradores",
+    "permissionNames": {
+      "descriptions": "Descripciones",
+      "tableData": "Datos de la tabla"
+    },
+    "permissions": "Permisos",
+    "personalInfoRequired": "Por favor complete sus datos personales antes de continuar",
+    "placeholder": "Elegir…",
+    "remove": "Eliminar",
+    "sendInvitation": "Enviar correo electrónico de invitación",
+    "tableAccess": "Acceso a las mesas",
+    "userAdded": "El email {{email}} ha sido añadido",
+    "userModified": "El usuario {{usuario}} ha sido modificado"
+  },
+  "yesNoTextSelect": {
+    "no": "No",
+    "notSelected": "",
+    "yes": "Sí"
+  }
+}

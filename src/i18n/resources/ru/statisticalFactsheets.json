@@ -1,0 +1,57 @@
+{
+  "carbonAndGrowingStock": {
+    "carbon_stock_biomass_total": "Запас углерода в биомассе ($t({{unit}}))",
+    "carbon_stock_total": "Общий запас углерода ($t({{unit}}))",
+    "growing_stock_total": "$t(growingStock.growingStock) ($t({{unit}}))",
+    "rowName": "",
+    "title": "Запасы древостоя и углерода в лесах, {{startYear}} - {{endYear}}"
+  },
+  "forestArea": {
+    "title": "Площадь лесов, {{startYear}} - {{endYear}}, $t({{unit}})"
+  },
+  "forestAreaPercent": {
+    "title": "Площадь лесов в % от площади земель, {{year}}"
+  },
+  "forestAreaWithinProtectedAreas": {
+    "title": "$t(forestAreaWithinProtectedAreas.header), {{year}}"
+  },
+  "forestOwnership": {
+    "title": "$t(forestOwnership.forestOwnership) %, {{year}}"
+  },
+  "naturallyRegeneratingForest": {
+    "title": "Площадь естественно возобновляемых лесов и лесных культур, {{startYear}} - {{endYear}}, $t({{unit}})"
+  },
+  "noData": "Данные отсутствуют",
+  "primaryDesignatedManagementObjective": {
+    "conservation_of_biodiversity": "$t(designatedManagementObjective.biodiversityConservation)",
+    "multiple_use": "$t(designatedManagementObjective.multipleUse)",
+    "no_designation": "$t(fra.designatedManagementObjective.noDesignation)",
+    "other": "$t(common.other)",
+    "production": "$t(designatedManagementObjective.production)",
+    "protection_of_soil_and_water": "$t(designatedManagementObjective.soilWaterProtection)",
+    "rowName": "",
+    "social_services": "$t(designatedManagementObjective.socialServices)",
+    "title": "$t(designatedManagementObjective.primaryDesignatedManagementObjective), {{startYear}} - {{endYear}} $t({{unit}})",
+    "unknown": "$t(fra.designatedManagementObjective.unknown2025)"
+  },
+  "primaryForest": {
+    "title": "Девственные леса % от площади лесов, {{year}}"
+  },
+  "rowName": {
+    "area": "Площадь",
+    "forest": "Площадь лесов",
+    "landArea": "Площадь земель",
+    "naturalForestArea": "$t(forestCharacteristics.naturalForestArea)",
+    "other": "$t(common.other)",
+    "otherArea": " Прочие площади",
+    "otherForest": "Прочие леса",
+    "otherLand": "$t(fraClass.otherLand)",
+    "other_or_unknown": "Другое или неизвестно",
+    "plantedForest": "$t(forestCharacteristics.plantedForest)",
+    "primaryForest": "$t(specificForestCategories.primaryForest)",
+    "private_ownership": "Частная собственность",
+    "protected": "Охраняемые",
+    "public_ownership": "Государственная собственность",
+    "unknown": "$t(fra.forestOwnership.unknown2025)"
+  }
+}
