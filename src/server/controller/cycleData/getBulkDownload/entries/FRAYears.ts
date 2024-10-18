@@ -283,6 +283,10 @@ export const entries = (
             variableName: 'primaryForest',
             csvColumn: '2a_gs_ha_primary',
           },
+          {
+            variableName: 'plantationForestIntroducedArea',
+            csvColumn: '2a_gs_ha_introduced',
+          },
         ]
 
   const growingStockTotalVariables =
@@ -292,6 +296,10 @@ export const entries = (
           {
             variableName: 'primaryForest',
             csvColumn: '2a_gs_total_primary',
+          },
+          {
+            variableName: 'plantationForestIntroducedArea',
+            csvColumn: '2a_gs_total_introduced',
           },
         ]
 
