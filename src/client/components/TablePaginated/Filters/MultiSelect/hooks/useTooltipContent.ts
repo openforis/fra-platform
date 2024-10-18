@@ -22,7 +22,7 @@ type Returned = {
 export const useTooltipContent = (props: Props): Returned => {
   const { fieldName, options, path } = props
   const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
-  const [isTooltipVisible, setTooltipVisible] = useState(true)
+  const [canDisplayTooltip, setCanDisplayTooltip] = useState(true)
 
   const valueToLabelMap = useMemo(() => {
     return options.reduce((acc, { value, label }) => {
@@ -47,12 +47,12 @@ export const useTooltipContent = (props: Props): Returned => {
     return selectedLabels.join(', ')
   }, [filterValue, valueToLabelMap])
 
-  const hideTooltip = useCallback(() => setTooltipVisible(false), [])
-  const showTooltip = useCallback(() => setTooltipVisible(true), [])
+  const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
+  const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
 
   return {
     hideTooltip,
     showTooltip,
-    tooltipContent: isTooltipVisible ? tooltipContent : null,
+    tooltipContent: canDisplayTooltip ? tooltipContent : null,
   }
 }
