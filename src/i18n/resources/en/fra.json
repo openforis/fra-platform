@@ -1,16 +1,4 @@
 {
-  "2020": {},
-  "2025": {
-    "description": {
-      "dataSource": {
-        "comments": "$t(dataSource.comments)",
-        "referenceToTataSource": "$t(dataSource.referenceToTataSource)",
-        "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
-        "variable": "$t(dataSource.fraVariable)",
-        "yearForDataSource": "$t(dataSource.yearForDataSource)"
-      }
-    }
-  },
   "area100Ha": "Area (1000 ha)",
   "area100HaYear": "Area (1000 ha/year)",
   "areaAffectedByFire": {
@@ -93,6 +81,15 @@
     "wallToWallRemoteSensingMapping": "Wall-to-wall remote sensing mapping",
     "whatIsDefinition": "What is the national definition of \"Degraded forest\"?",
     "yearOfLatestAssessment": "Year of latest assessment"
+  },
+  "description": {
+    "dataSource": {
+      "comments": "$t(dataSource.comments)",
+      "referenceToTataSource": "$t(dataSource.referenceToTataSource)",
+      "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+      "variable": "$t(dataSource.fraVariable)",
+      "yearForDataSource": "$t(dataSource.yearForDataSource)"
+    }
   },
   "designatedManagementObjective": {
     "designatedManagementObjective2025": "$t(designatedManagementObjective.designatedManagementObjective)",
