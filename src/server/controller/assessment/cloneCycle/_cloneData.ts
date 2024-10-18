@@ -1,3 +1,6 @@
+import { CommentableDescriptionName } from 'meta/assessment'
+import { NodeExtType } from 'meta/nodeExt'
+
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol, Schemas } from 'server/db'
 
@@ -16,8 +19,16 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
       select uuid, country_iso, row_uuid, col_uuid, value
       from ${schemaCycleSource}.node;
 
-      insert into ${schemaCycleTarget}.node_ext (country_iso, parent_uuid, props, type, uuid, value)
-      select country_iso, parent_uuid, props, type, uuid, value
+      insert into ${schemaCycleTarget}.node_ext (
+          country_iso, parent_uuid, props, type, uuid, value
+      )
+      select 
+          country_iso, parent_uuid, props, type, uuid,
+          case 
+              when type = '${NodeExtType.dashboard}' then 
+                  replace(value::text, '${cycleSource.uuid}', '${cycleTarget.uuid}')::jsonb
+              else value
+          end as value
       from ${schemaCycleSource}.node_ext;
 
       insert into ${schemaCycleTarget}.node_values_estimation (uuid, country_iso, table_uuid, created_at, method, variables)
@@ -39,7 +50,13 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
       from ${schemaCycleSource}.original_data_point;
 
       insert into ${schemaCycleTarget}.descriptions (country_iso, section_name, name, value)
-      select country_iso, section_name, name, value
+      select country_iso,
+             section_name,
+             name,
+             case
+                 when name = '${CommentableDescriptionName.dataSources}' then jsonb_delete(value, 'text')
+                 else value
+                 end -- // delete nationalData->dataSources->text needed only in FRA 2025 
       from ${schemaCycleSource}.descriptions;
 
       insert into ${schemaCycleTarget}.repository (uuid, country_iso, file_uuid, link, props)
