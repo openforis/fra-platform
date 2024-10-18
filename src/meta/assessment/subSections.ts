@@ -21,9 +21,10 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; subSection:
     Objects.unset(descriptionsSource, ['nationalData', 'dataSources', 'text'])
     _props.descriptions[cycleTargetUuid] = descriptionsSource
   }
-  if (_props.hidden?.[cycleSourceUuid])
+  if (!Objects.isNil(_props.hidden?.[cycleSourceUuid]))
     _props.hidden[cycleTargetUuid] = Objects.cloneDeep(_props.hidden[cycleSourceUuid])
-  if (_props.hints?.[cycleSourceUuid]) _props.hints[cycleTargetUuid] = Objects.cloneDeep(_props.hints[cycleSourceUuid])
+  if (!Objects.isNil(_props.hints?.[cycleSourceUuid]))
+    _props.hints[cycleTargetUuid] = Objects.cloneDeep(_props.hints[cycleSourceUuid])
 
   return _props
 }
