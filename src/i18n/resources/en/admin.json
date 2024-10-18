@@ -7,6 +7,8 @@
   "invitationsSentCount": "Nº of Invitations sent",
   "lastStatus": "Last Status",
   "locationsCount": "Nº of Locations",
+  "role_one": "{{count}} Role",
+  "role_other": "{{count}} Roles",
   "urlParsingError": "URL parsing error",
   "usersCount": "Nº of Users",
   "verifyLinks": "Verify links"

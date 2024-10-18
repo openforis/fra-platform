@@ -1,0 +1,57 @@
+@import 'src/client/style/partials';
+
+$icon-size: 14px;
+
+.filter-multiselect__tooltip-trigger {
+  height: 100%;
+}
+
+div.filter-multiselect__container {
+  border-radius: 2px;
+  border: 1px solid $ui-border;
+  font-size: $font-xxs;
+  min-width: #{3 * $spacing-xl};
+  padding: 0;
+  transition: all 0.2s ease;
+
+  div.select__control {
+    min-height: $spacing-s;
+    padding: 0 6px;
+
+    div.select__indicatorsContainer {
+      div.select__clearIndicator {
+        height: unset;
+        width: unset;
+
+        svg.icon {
+          color: rgba(0, 0, 0, 0.5);
+          height: $icon-size;
+          width: $icon-size;
+        }
+
+        &:hover {
+          background-color: unset;
+
+          svg.icon {
+            color: $ui-destructive;
+          }
+        }
+      }
+    }
+  }
+
+  div.select__dropdownIndicator {
+    svg {
+      height: $icon-size;
+      width: $icon-size;
+    }
+  }
+
+  &.active {
+    border: 1px solid $ui-accent;
+  }
+
+  &.select__container {
+    height: calc(100% + 1px);
+  }
+}

@@ -4,6 +4,8 @@
   align-items: center;
   display: flex;
   gap: $spacing-xxs;
+  height: $spacing-m;
+  padding: $spacing-xxxxs 0;
   width: 100%;
 
   svg.icon_filter {
