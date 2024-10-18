@@ -32,7 +32,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { nationalData } = props
 
   const { t } = useTranslation()
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { assessmentName } = useCycleRouteParams()
   const { sectionName } = useSectionContext()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
@@ -42,7 +42,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { empty } = useDescriptionErrorState({ name, sectionName })
 
   const renderGrid = Boolean(!Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked) || editable)
-  const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
+  const keyPrefix = `${assessmentName}.description.dataSource`
 
   return (
     <DataGrid className="description" withActions={canEdit}>
