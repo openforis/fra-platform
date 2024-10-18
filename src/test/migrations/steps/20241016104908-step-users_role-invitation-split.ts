@@ -38,7 +38,7 @@ export default async () => {
       l_ur.cycle_uuid,
       l_ur.permissions,
       l_ur.props,
-      l_ur.invited_at as created_at
+      l_ur.accepted_at as created_at
     from _legacy.users_role l_ur;
   `)
 
