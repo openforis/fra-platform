@@ -1,6 +1,7 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
 import { AssessmentName } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes'
 import { User, UserResetPassword, Users } from 'meta/user'
 
@@ -15,7 +16,7 @@ export const resetPassword = async (props: {
 }) => {
   const { assessmentName, cycleName, url, user, userResetPassword } = props
 
-  const i18n = await createI18nPromise('en')
+  const i18n = await createI18nPromise(Lang.en)
 
   const link = `${url}${Routes.LoginResetPassword.generatePath(
     { assessmentName, cycleName },
