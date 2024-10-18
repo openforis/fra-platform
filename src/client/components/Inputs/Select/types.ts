@@ -14,7 +14,10 @@ export type OptionsOrGroups = readonly (Option | OptionsGroup)[]
 
 export type ValueInput = string | Array<string> | null
 
-type SelectBaseProps = Pick<ReactSelectProps, 'isClearable' | 'isMulti' | 'maxMenuHeight' | 'placeholder'>
+type SelectBaseProps = Pick<
+  ReactSelectProps,
+  'isClearable' | 'isMulti' | 'maxMenuHeight' | 'onMenuOpen' | 'onMenuClose' | 'placeholder'
+>
 type SelectClassNamesProps = {
   classNames?: { container?: string }
 }
