@@ -84,5 +84,30 @@
   "users": {
     "message": "Сообщение",
     "users": "Контакты"
+  },
+  "versioning": {
+    "form": {
+      "cancel": "Cancel",
+      "date": "Date",
+      "error": "There are errors in the form. Please, fix them and submit it again.",
+      "newVersion": "New version",
+      "versionNumber": "Version"
+    },
+    "status": {
+      "completed": "Completed",
+      "failed": "Failed",
+      "pending": "Pending",
+      "running": "Running"
+    },
+    "table": {
+      "createdBy": "Created By",
+      "databaseVersions": "Database Versions",
+      "delete": "Delete",
+      "noVersions": "No versions yet",
+      "publishedAt": "Scheduled Time",
+      "scheduledAt": "Scheduled at",
+      "status": "Status",
+      "versionNumber": "Version Number"
+    }
   }
 }

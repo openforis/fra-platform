@@ -1,9 +1,25 @@
 {
+  "2020": {},
+  "2025": {
+    "description": {
+      "dataSource": {
+        "comments": "$t(dataSource.comments)",
+        "referenceToTataSource": "$t(dataSource.referenceToTataSource)",
+        "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+        "variable": "$t(dataSource.fraVariable)",
+        "yearForDataSource": "$t(dataSource.yearForDataSource)"
+      }
+    }
+  },
   "area100Ha": "Área (1000 ha)",
   "area100HaYear": "Área (1000 ha)",
   "areaAffectedByFire": {
     "areaAffected": "Área afectada (1000 ha)",
-    "areaAffectedByFire2025": "$t(areaAffectedByFire.areaAffectedByFire)"
+    "areaAffectedByFire2025": "$t(areaAffectedByFire.areaAffectedByFire)",
+    "totalLandAreaAffectedByFire2025": "$t(areaAffectedByFire.totalLandAreaAffectedByFire)"
+  },
+  "areaOfPermanentForestEstate": {
+    "areaOfPermanentForestEstate2025": "$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)"
   },
   "biomassStock": {
     "aboveGround2025": "Biomasa aérea",
@@ -45,6 +61,7 @@
     "biome": "Bioma",
     "changeInForestStructureDecreaseInForestCanopy": "Cambio en la estructura del bosque / Disminución del dosel forestal",
     "criteriaOfDegradedForest": "Criterios aplicados en la definición de bosque degradado",
+    "criteriaOfDegradedForest2025": "$t(fra.degradedForest.criteriaOfDegradedForest)",
     "degradedAreaForThatYear": "Superficie forestal degradada ese año (en 1000 ha)",
     "degradedForest": "Bosque degradado",
     "degradedForestDefinition": "Definición de bosque degradado",
@@ -78,6 +95,7 @@
     "yearOfLatestAssessment": "Año de la última evaluación"
   },
   "designatedManagementObjective": {
+    "designatedManagementObjective2025": "$t(designatedManagementObjective.designatedManagementObjective)",
     "noDesignation": "Sin designación",
     "unknown2025": "Desconocido"
   },
@@ -112,6 +130,7 @@
   "forestArea100HaYear": "Área forestal (1000 ha)",
   "forestAreaChange": {
     "forestAreaChange2025": "Expansión forestal, deforestación y cambio neto anual",
+    "forestAreaNetChange2025": "$t(forestAreaChange.forestAreaNetChange)",
     "forestExpansion2025": "Expansión forestal"
   },
   "forestAreaWithinProtectedAreas": {
@@ -120,15 +139,25 @@
   },
   "forestCharacteristics": {
     "naturalForestArea2025": "Bosque con procesos de regeneración natural",
+    "ofWhichOtherPlantedForest": "$t(growingStock.otherPlantedForest)",
+    "ofWhichPlantationForest": "$t(growingStock.plantationForest)",
     "plantationForestIntroducedArea2025": "...del cual de especies introducidas",
     "primaryForest": "...del cual es bosque primario"
   },
   "forestOwnership": {
     "forestOwnership2025": "Propiedad forestal",
     "ofWhichCommunities2025": "...de la cual pertenece a Pueblos Indígenas y comunidades locales",
+    "ofWhichPrivateBusinesses2025": "$t(forestOwnership.ofWhichPrivateBusinesses)",
     "other2025": "$t(common.otherSpecifyInComments)",
     "total2025": "Total",
     "unknown2025": "Desconocido"
+  },
+  "forestPolicy": {
+    "existenceOfTraceabilitySystem2025": "$t(forestPolicy.existenceOfTraceabilitySystem)",
+    "forestPolicy2025": "$t(forestPolicy.forestPolicy)",
+    "legislationsSFM2025": "$t(forestPolicy.legislationsSFM)",
+    "policiesSFM2025": "$t(forestPolicy.policiesSFM)",
+    "stakeholderParticipation2025": "$t(forestPolicy.stakeholderParticipation)"
   },
   "forestRestoration": {
     "forestRestoration": "Restauración forestal",
@@ -142,6 +171,9 @@
   },
   "growingStock": {
     "naturallyRegeneratingForest2025": "Bosque con procesos de regeneración natural",
+    "otherPlantedForest2025": "$t(growingStock.otherPlantedForest)",
+    "plantationForest2025": "$t(growingStock.plantationForest)",
+    "plantedForest2025": "$t(growingStock.plantedForest)",
     "totalForest": "Total Bosque"
   },
   "growingStockComposition": {
@@ -151,9 +183,12 @@
     "nativeTreeSpecies2025": "Especies arbóreas nativas",
     "percentOfTotal": "% del total",
     "ranked": "#{{idx}} Clasificado",
+    "remainingIntroduced2025": "$t(growingStockComposition.remainingIntroduced)",
+    "remainingNative2025": "$t(growingStockComposition.remainingNative)",
     "totalGrowingStock": "Existencias totales en formación",
     "totalIntroducedTreeSpecies": "Total de especies arbóreas introducidas",
-    "totalNativeTreeSpecies": "Total de especies arbóreas nativas"
+    "totalNativeTreeSpecies": "Total de especies arbóreas nativas",
+    "updatedGrowingStockComposition": "$t(growingStockComposition.growingStockComposition)"
   },
   "growingStock_growingStockStatus_Description": {
     "footer1": "¹ Datos con una antigüedad inferior a 10 años a partir del año de presentación del informe (2013 o más reciente en el caso de los informes nacionales de FRA 2025)",
@@ -163,12 +198,22 @@
       "high": "Fuentes de datos: Inventario forestal nacional reciente¹ o escaneado láser aerotransportado (ALS por sus siglas en inglés) con calibración de datos sobre el terreno.",
       "low": "Fuentes de datos: Otras fuentes de datos, como datos satelitales, registros, cuestionarios o evaluaciones de expertos.",
       "medium": "Fuentes de datos: Inventario forestal nacional antiguo², inventarios parciales sobre el terreno o escaneado láser aerotransportado (ALS) sin calibración de datos sobre el terreno."
+    },
+    "status2025": {
+      "high": "$t(fra.growingStock_growingStockStatus_Description.status.high)",
+      "low": "$t(fra.growingStock_growingStockStatus_Description.status.low)",
+      "medium": "$t(fra.growingStock_growingStockStatus_Description.status.medium)"
     }
   },
   "holderOfManagementRights": {
     "communities2025": "Pueblos Indígenas y comunidades locales",
+    "holderOfManagementRights2025": "$t(holderOfManagementRights.holderOfManagementRights)",
     "other2025": "$t(common.otherSpecifyInComments)",
+    "privateBusinesses2025": "$t(holderOfManagementRights.privateBusinesses)",
     "unknown2025": "Desconocido"
+  },
+  "labels": {
+    "short": "FRA"
   },
   "navigation": {
     "sectionHeaders": {
@@ -182,9 +227,15 @@
     }
   },
   "nonWoodForestProductsRemovals": {
+    "allOtherAnimalProducts2025": "$t(nonWoodForestProductsRemovals.allOtherAnimalProducts)",
+    "allOtherPlantProducts2025": "$t(nonWoodForestProductsRemovals.allOtherPlantProducts)",
+    "currency2025": "$t(nonWoodForestProductsRemovals.currency)",
+    "nameOfProduct2025": "$t(nonWoodForestProductsRemovals.nameOfProduct)",
     "nonWoodForestProductsRemovals2025": "Extracción y valor de productos forestales no madereros en 2020"
   },
   "otherLandWithTreeCover": {
+    "agroforestry2025": "$t(otherLandWithTreeCover.agroforestry)",
+    "other2025": "$t(otherLandWithTreeCover.other)",
     "otherLandWithTreeCover2025": "Otras tierras con cobertura arbórea"
   },
   "otherWoodedLand": {
@@ -210,14 +261,19 @@
   "specificForestCategories": {
     "mangroves2025": "Manglares¹",
     "mangrovesDisclaimer": "¹Incluye tanto Bosque como Otras Tierras Boscosas ",
+    "rubberWood2025": "$t(specificForestCategories.rubberWood)",
     "specificForestCategories2025": "Categorías específicas de los bosques"
   },
   "sustainableDevelopment": {
     "Metadata-15-01-01": "Metadatos del Indicador ODS 15.1.1",
     "Metadata-15-02-01": "Metadatos del Indicador ODS 15.2.1",
+    "aboveGroundBiomassStockForests2025": "$t(sustainableDevelopment.aboveGroundBiomassStockForests)",
     "annualForestAreaChangeRate": "Tasa de cambio anual del área de bosque",
     "dataProvidedBy": "Los datos para este subindicador ODS son proporcionados por FSC y PEFC (organizaciones de certificación forestal).",
     "forestAreaProportionLandArea": "Área de bosque en proporción a la superficie terrestre total",
+    "forestAreaVerifiedForestManagement2025": "$t(sustainableDevelopment.forestAreaVerifiedForestManagement)",
+    "proportionForestAreaLegallyEstablishedProtectedAreas2025": "$t(sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas)",
+    "proportionForestAreaLongTermForestManagement2025": "$t(sustainableDevelopment.proportionForestAreaLongTermForestManagement)",
     "sdgIndicator1_2025": "Indicador ODS 15.1.1: Área de bosque en proporción a la superficie terrestre total"
   }
 }

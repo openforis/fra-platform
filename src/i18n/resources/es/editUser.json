@@ -1,4 +1,5 @@
 {
+  "activate": "Activate",
   "activated": "Activado",
   "chooseProfilePicture": "Elegir foto",
   "city": "Ciudad",
@@ -6,7 +7,9 @@
   "contactPreferenceMethod": "Método de contacto",
   "contributions": "Contribuciones",
   "countryIso": "País",
+  "deactivate": "Deactivate",
   "demoteToUser": "¿Está seguro de que desea eliminar los privilegios de administrador?",
+  "disabled": "Disabled",
   "done": "Guardar",
   "email": "Correo electrónico",
   "institution": "Institución",

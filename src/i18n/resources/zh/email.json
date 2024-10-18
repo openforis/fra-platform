@@ -3,5 +3,12 @@
     "htmlMessage": "尊敬的 {{recipientName}} {{recipientSurname}},\n<br/><br/>\n用户 {{invitedUserName}} {{invitedUserSurname}} 已接受您的邀请，加入{{assessmentName}} {{cycleName}} <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>，并担任 {{role}}。\n<br/><br/>\n全球森林资源评估报告小组",
     "subject": "用户 {{invitedUserName}} {{invitedUserSurname}} 已经接受您的邀请",
     "textMessage": "尊敬的 {{recipientName}} {{recipientSurname}},\n\n用户 {{invitedUserName}} {{invitedUserSurname}} 已接受您的邀请，加入{{assessmentName}} {{cycleName}} {{country}}，并担任 {{role}}。\n{{- manageCollaboratorsUrl}}\n\n全球森林资源评估报告小组"
+  },
+  "remindReviewer": {
+    "messageBodyHTML": "\n    <br/>\n    The {{assessmentName}} {{cycleName}} country reports for<br />\n    {{- countryLinks}}<br />\n    have been “In review” more than a week.<br/>\n    ",
+    "messageBodyText": "\n    The {{assessmentName}} {{cycleName}} country report for countries: {{- countries}} have been “In review” over a week.\n   \n\n{{- countryUrls}}\n\n    ",
+    "messageFooter": "\n    Please provide your comments and send the report back to “Editing”, or proceed with approval if there are no further issues.\n    <br />\n    Thank you.",
+    "messageHeader": "Dear {{recipientName}},",
+    "subject": "Reminder: One or more countries are pending review"
   }
 }

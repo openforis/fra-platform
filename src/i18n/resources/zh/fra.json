@@ -1,9 +1,25 @@
 {
+  "2020": {},
+  "2025": {
+    "description": {
+      "dataSource": {
+        "comments": "$t(dataSource.comments)",
+        "referenceToTataSource": "$t(dataSource.referenceToTataSource)",
+        "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+        "variable": "$t(dataSource.fraVariable)",
+        "yearForDataSource": "$t(dataSource.yearForDataSource)"
+      }
+    }
+  },
   "area100Ha": "面积(1000公顷)",
   "area100HaYear": "面积 (1000 公顷)",
   "areaAffectedByFire": {
     "areaAffected": "受影响的面积(1000公顷)",
-    "areaAffectedByFire2025": "$t(areaAffectedByFire.areaAffectedByFire)"
+    "areaAffectedByFire2025": "$t(areaAffectedByFire.areaAffectedByFire)",
+    "totalLandAreaAffectedByFire2025": "$t(areaAffectedByFire.totalLandAreaAffectedByFire)"
+  },
+  "areaOfPermanentForestEstate": {
+    "areaOfPermanentForestEstate2025": "$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)"
   },
   "biomassStock": {
     "aboveGround2025": "地上生物量",
@@ -45,6 +61,7 @@
     "biome": "生物群落级",
     "changeInForestStructureDecreaseInForestCanopy": "森林结构的变化/森林冠层的减少",
     "criteriaOfDegradedForest": "定义“退化的森林”时采用的标准",
+    "criteriaOfDegradedForest2025": "$t(fra.degradedForest.criteriaOfDegradedForest)",
     "degradedAreaForThatYear": "当年的退化森林面积（单位：1 000公顷）",
     "degradedForest": "退化的森林",
     "degradedForestDefinition": "退化的森林定义",
@@ -78,6 +95,7 @@
     "yearOfLatestAssessment": "最近一次评估的年份"
   },
   "designatedManagementObjective": {
+    "designatedManagementObjective2025": "$t(designatedManagementObjective.designatedManagementObjective)",
     "noDesignation": "无指定",
     "unknown2025": "不明"
   },
@@ -112,6 +130,7 @@
   "forestArea100HaYear": "森林面积(1000公顷)",
   "forestAreaChange": {
     "forestAreaChange2025": "年度森林扩张、砍伐和净变化",
+    "forestAreaNetChange2025": "$t(forestAreaChange.forestAreaNetChange)",
     "forestExpansion2025": "森林扩张"
   },
   "forestAreaWithinProtectedAreas": {
@@ -120,15 +139,25 @@
   },
   "forestCharacteristics": {
     "naturalForestArea2025": "自然再生林",
+    "ofWhichOtherPlantedForest": "$t(growingStock.otherPlantedForest)",
+    "ofWhichPlantationForest": "$t(growingStock.plantationForest)",
     "plantationForestIntroducedArea2025": "...其中引进树种",
     "primaryForest": "...其中原生林"
   },
   "forestOwnership": {
     "forestOwnership2025": "森林所有权",
     "ofWhichCommunities2025": "...其中土著居民和当地社区拥有的部分",
+    "ofWhichPrivateBusinesses2025": "$t(forestOwnership.ofWhichPrivateBusinesses)",
     "other2025": "其他(在评论中阐述)",
     "total2025": "共计",
     "unknown2025": "不明"
+  },
+  "forestPolicy": {
+    "existenceOfTraceabilitySystem2025": "$t(forestPolicy.existenceOfTraceabilitySystem)",
+    "forestPolicy2025": "$t(forestPolicy.forestPolicy)",
+    "legislationsSFM2025": "$t(forestPolicy.legislationsSFM)",
+    "policiesSFM2025": "$t(forestPolicy.policiesSFM)",
+    "stakeholderParticipation2025": "$t(forestPolicy.stakeholderParticipation)"
   },
   "forestRestoration": {
     "forestRestoration": "森林恢复",
@@ -142,6 +171,9 @@
   },
   "growingStock": {
     "naturallyRegeneratingForest2025": "自然再生林",
+    "otherPlantedForest2025": "$t(growingStock.otherPlantedForest)",
+    "plantationForest2025": "$t(growingStock.plantationForest)",
+    "plantedForest2025": "$t(growingStock.plantedForest)",
     "totalForest": "森林总量"
   },
   "growingStockComposition": {
@@ -151,9 +183,12 @@
     "nativeTreeSpecies2025": "乡土树种",
     "percentOfTotal": "占总数的百分比",
     "ranked": "#{{idx}} 排名",
+    "remainingIntroduced2025": "$t(growingStockComposition.remainingIntroduced)",
+    "remainingNative2025": "$t(growingStockComposition.remainingNative)",
     "totalGrowingStock": "总立木蓄积",
     "totalIntroducedTreeSpecies": "引进树种总数",
-    "totalNativeTreeSpecies": "乡土树种总数"
+    "totalNativeTreeSpecies": "乡土树种总数",
+    "updatedGrowingStockComposition": "$t(growingStockComposition.growingStockComposition)"
   },
   "growingStock_growingStockStatus_Description": {
     "footer1": "¹ 从提交报告的年份起不超过10年的数据（对于2025年全球森林资源评估国家报告，年份应在2013年或之后）",
@@ -163,12 +198,22 @@
       "high": "数据来源：近期¹国家森林资源清查或机载激光扫描（ALS）辅以概率实地抽样",
       "low": "数据来源：其他数据来源，如卫星数据、登记册、问卷调查或专家评估。",
       "medium": "数据来源：旧的²国家森林资源清查，部分实地抽样，或者没有辅以概率地面抽样的机载激光扫描（ALS）"
+    },
+    "status2025": {
+      "high": "$t(fra.growingStock_growingStockStatus_Description.status.high)",
+      "low": "$t(fra.growingStock_growingStockStatus_Description.status.low)",
+      "medium": "$t(fra.growingStock_growingStockStatus_Description.status.medium)"
     }
   },
   "holderOfManagementRights": {
     "communities2025": "土著居民和当地社区",
+    "holderOfManagementRights2025": "$t(holderOfManagementRights.holderOfManagementRights)",
     "other2025": "其他(在评论中阐述)",
+    "privateBusinesses2025": "$t(holderOfManagementRights.privateBusinesses)",
     "unknown2025": "不明"
+  },
+  "labels": {
+    "short": "FRA"
   },
   "navigation": {
     "sectionHeaders": {
@@ -182,15 +227,22 @@
     }
   },
   "nonWoodForestProductsRemovals": {
+    "allOtherAnimalProducts2025": "$t(nonWoodForestProductsRemovals.allOtherAnimalProducts)",
+    "allOtherPlantProducts2025": "$t(nonWoodForestProductsRemovals.allOtherPlantProducts)",
+    "currency2025": "$t(nonWoodForestProductsRemovals.currency)",
+    "nameOfProduct2025": "$t(nonWoodForestProductsRemovals.nameOfProduct)",
     "nonWoodForestProductsRemovals2025": "非木材林产品采集和价值 2020"
   },
   "otherLandWithTreeCover": {
+    "agroforestry2025": "$t(otherLandWithTreeCover.agroforestry)",
+    "other2025": "$t(otherLandWithTreeCover.other)",
     "otherLandWithTreeCover2025": "有树木覆盖的其他土地"
   },
   "otherWoodedLand": {
     "otherWoodedLand2025": "$t(growingStock.otherWoodedLand)"
   },
   "primaryForestByClimaticDomain": {
+    "primaryForestArea100Ha": "Primary forest area ($t(unit.haThousand))",
     "primaryForestBoreal": "......其中北方原生林",
     "primaryForestByClimaticDomain": "按气候区划划分的原生林",
     "primaryForestSubTropical": "...其中亚热带原生林",
@@ -209,14 +261,19 @@
   "specificForestCategories": {
     "mangroves2025": "红树林¹",
     "mangrovesDisclaimer": "¹包括森林和其它林地",
+    "rubberWood2025": "$t(specificForestCategories.rubberWood)",
     "specificForestCategories2025": "具体的森林类别"
   },
   "sustainableDevelopment": {
     "Metadata-15-01-01": "可持续发展目标指标15.1.1元数据",
     "Metadata-15-02-01": "可持续发展目标指标15.2.1元数据",
+    "aboveGroundBiomassStockForests2025": "$t(sustainableDevelopment.aboveGroundBiomassStockForests)",
     "annualForestAreaChangeRate": "年森林面积变化率",
     "dataProvidedBy": "该可持续发展目标次级指标的数据由FSC和PEFC（森林认证机构）提供。",
     "forestAreaProportionLandArea": "森林面积占土地总面积的比例",
+    "forestAreaVerifiedForestManagement2025": "$t(sustainableDevelopment.forestAreaVerifiedForestManagement)",
+    "proportionForestAreaLegallyEstablishedProtectedAreas2025": "$t(sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas)",
+    "proportionForestAreaLongTermForestManagement2025": "$t(sustainableDevelopment.proportionForestAreaLongTermForestManagement)",
     "sdgIndicator1_2025": "可持续发展目标指标 15.1.1 森林面积占土地总面积的比例"
   }
 }

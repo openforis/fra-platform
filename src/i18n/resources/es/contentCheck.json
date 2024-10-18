@@ -1,11 +1,18 @@
 {
+  "//": "Keys are in same format as the database fields",
   "disturbances": {
+    "diseases": "$t(disturbances.diseases)",
+    "insects": "$t(disturbances.insects)",
+    "other": "$t(disturbances.other)",
+    "severe_weather_events": "$t(disturbances.severeWeatherEvents)",
     "title": "Perturbaciones"
   },
   "extent": {
+    "bamboo": "$t(specificForestCategories.bamboo)",
     "certified_area": "Superficie forestal certificada (1000 ha)",
     "forest_area": "Bosque (1000 ha)",
     "management_plan_percent": "Área de bosque con planes de gestión (% de bosque)",
+    "mangroves": "$t(specificForestCategories.mangroves)",
     "other_wooded_land": "Otras tierras boscosas (1000 ha)",
     "primary_forest_percent": "Bosque primario (% de bosque)",
     "protected_forest_percent": "Bosque dentro de áreas protegidas (% de bosques)",
@@ -30,9 +37,17 @@
     "title": "Existencias forestales en formación, biomasa y carbono"
   },
   "forestOwnership": {
+    "other_or_unknown": "$t(forestOwnership.otherOrUnknown)",
+    "private_ownership": "$t(forestOwnership.privateOwnership)",
+    "public_ownership": "$t(forestOwnership.publicOwnership)",
     "title": "Propiedad"
   },
   "holderOfManagementRights": {
+    "communities": "$t(holderOfManagementRights.communities)",
+    "individuals": "$t(holderOfManagementRights.individuals)",
+    "other": "$t(holderOfManagementRights.other)",
+    "private_businesses": "$t(holderOfManagementRights.privateBusinesses)",
+    "public_administration": "$t(holderOfManagementRights.publicAdministration)",
     "title": "Derechos de gestión de bosques públicos"
   },
   "periodicChangeRate": {
@@ -49,6 +64,13 @@
     "title": "Tasas de variación periódica (tasas anuales)"
   },
   "primaryDesignatedManagementObjective": {
+    "conservation_of_biodiversity": "$t(designatedManagementObjective.biodiversityConservation)",
+    "multiple_use": "$t(designatedManagementObjective.multipleUse)",
+    "no_unknown": "$t(designatedManagementObjective.unknown)",
+    "other": "$t(designatedManagementObjective.other)",
+    "production": "$t(designatedManagementObjective.production)",
+    "protection_of_soil_and_water": "$t(designatedManagementObjective.soilWaterProtection)",
+    "social_services": "$t(designatedManagementObjective.socialServices)",
     "title": "Objetivo principal de gestión designado"
   },
   "totalAreaDesignatedManagementObjective": "Área total con objetivo de gestión designado"

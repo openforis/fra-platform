@@ -1,11 +1,18 @@
 {
+  "//": "Keys are in same format as the database fields",
   "disturbances": {
+    "diseases": "$t(disturbances.diseases)",
+    "insects": "$t(disturbances.insects)",
+    "other": "$t(disturbances.other)",
+    "severe_weather_events": "$t(disturbances.severeWeatherEvents)",
     "title": "Нарушения состояния лесов"
   },
   "extent": {
+    "bamboo": "$t(specificForestCategories.bamboo)",
     "certified_area": "Площадь сертифицированных лесов (1000 га)",
     "forest_area": "Леса (1000 га)",
     "management_plan_percent": "Площадь лесов с планом управления  (% лесов)",
+    "mangroves": "$t(specificForestCategories.mangroves)",
     "other_wooded_land": "Прочие лесистые земли (1000 га)",
     "primary_forest_percent": "Первичные леса (% лесов)",
     "protected_forest_percent": "Леса на охраняемых территориях (% лесов)",
@@ -30,9 +37,17 @@
     "title": "Запас древостоя, биомасса и углерод"
   },
   "forestOwnership": {
+    "other_or_unknown": "$t(forestOwnership.otherOrUnknown)",
+    "private_ownership": "$t(forestOwnership.privateOwnership)",
+    "public_ownership": "$t(forestOwnership.publicOwnership)",
     "title": "Права собственности"
   },
   "holderOfManagementRights": {
+    "communities": "$t(holderOfManagementRights.communities)",
+    "individuals": "$t(holderOfManagementRights.individuals)",
+    "other": "$t(holderOfManagementRights.other)",
+    "private_businesses": "$t(holderOfManagementRights.privateBusinesses)",
+    "public_administration": "$t(holderOfManagementRights.publicAdministration)",
     "title": "Права управления государственными лесами"
   },
   "periodicChangeRate": {
@@ -49,6 +64,13 @@
     "title": "Периодические изменения (годовые темпы)"
   },
   "primaryDesignatedManagementObjective": {
+    "conservation_of_biodiversity": "$t(designatedManagementObjective.biodiversityConservation)",
+    "multiple_use": "$t(designatedManagementObjective.multipleUse)",
+    "no_unknown": "$t(designatedManagementObjective.unknown)",
+    "other": "$t(designatedManagementObjective.other)",
+    "production": "$t(designatedManagementObjective.production)",
+    "protection_of_soil_and_water": "$t(designatedManagementObjective.soilWaterProtection)",
+    "social_services": "$t(designatedManagementObjective.socialServices)",
     "title": "Основная назначенная цель управления"
   },
   "totalAreaDesignatedManagementObjective": "Общая площадь с назначенной целью управления"

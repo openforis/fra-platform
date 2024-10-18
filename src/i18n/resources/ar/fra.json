@@ -1,9 +1,31 @@
 {
+  "2020": {},
+  "2025": {
+    "description": {
+      "dataSource": {
+        "comments": "$t(dataSource.comments)",
+        "referenceToTataSource": "$t(dataSource.referenceToTataSource)",
+        "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+        "variable": "$t(dataSource.fraVariable)",
+        "yearForDataSource": "$t(dataSource.yearForDataSource)"
+      }
+    }
+  },
   "area100Ha": "المساحة (١٠٠٠  هكتار)",
   "area100HaYear": "المساحة (1000 هـ)",
   "areaAffectedByFire": {
     "areaAffected": "المساحة المتضررة (١٠٠٠  هكتار)",
+    "areaAffectedByFire2025": "$t(areaAffectedByFire.areaAffectedByFire)",
     "totalLandAreaAffectedByFire2025": "إجمالي مساحة الاراضي المتضررة بالحرائق"
+  },
+  "areaOfPermanentForestEstate": {
+    "areaOfPermanentForestEstate2025": "$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)"
+  },
+  "biomassStock": {
+    "aboveGround2025": "$t(biomassStock.aboveGround)",
+    "belowGround2025": "$t(biomassStock.belowGround)",
+    "biomassStock2025": "$t(biomassStock.biomassStock)",
+    "deadWood2025": "$t(biomassStock.deadWood)"
   },
   "biomassStockAvg": {
     "forestBiomass": "الكتلة الحيوية للغابات (طن / هكتار)"
@@ -18,6 +40,11 @@
       "low": "مصادر البيانات: مصادر البيانات الأخرى ، مثل بيانات الأقمار الصناعية أو السجلات أو الاستبيانات أو تقييمات الخبراء.",
       "medium": "مصادر البيانات: الجرد الوطني القديم للغابات ، قوائم الجرد الميدانية الجزئية ، أو المسح بالليزر المحمول جواً بدون عينات أرضية احتمالية."
     }
+  },
+  "carbonStock": {
+    "carbonAboveGroundBiomass2025": "$t(carbonStock.carbonAboveGroundBiomass)",
+    "carbonBelowGroundBiomass2025": "$t(carbonStock.carbonBelowGroundBiomass)",
+    "carbonStock2025": "$t(carbonStock.carbonStock)"
   },
   "carbonStockTotal": {
     "totalForestCarbon": "إجمالي الكربون الحرجي (مليون طن)"
@@ -34,6 +61,7 @@
     "biome": "منطقة حيوية",
     "changeInForestStructureDecreaseInForestCanopy": "تغيير في هيكل الغابة / انخفاض في الغطاء التاجي",
     "criteriaOfDegradedForest": "المعايير المطبقة في تعريف الغابات المتدهورة",
+    "criteriaOfDegradedForest2025": "$t(fra.degradedForest.criteriaOfDegradedForest)",
     "degradedAreaForThatYear": "مساحة الغابات المتدهورة لذلك العام (١٠٠٠  هكتار)",
     "degradedForest": "الغابة المتدهورة",
     "degradedForestDefinition": "تعريف الغابات المتدهورة",
@@ -67,18 +95,21 @@
     "yearOfLatestAssessment": "سنة آخر تقييم"
   },
   "designatedManagementObjective": {
+    "designatedManagementObjective2025": "$t(designatedManagementObjective.designatedManagementObjective)",
     "noDesignation": "بدون تعيين",
     "unknown2025": "غير معروف"
   },
   "disturbances": {
     "forestAreaAffected": "مساحة الغابات المتضررة (١٠٠٠  هكتار)",
     "forestDamage": "أضرار لاحقة بالغابة",
-    "predominantCause": "السبب الغالب"
+    "predominantCause": "السبب الغالب",
+    "severeWeatherEvents2025": "$t(disturbances.severeWeatherEvents)"
   },
   "extentOfForest": {
     "extentOfForest2025": "$t(extentOfForest.extentOfForest)",
     "otherWoodedLand": "$t(fraClass.otherWoodedLand)",
-    "remainingLandArea": "مساحة الأرض المتبقية"
+    "remainingLandArea": "مساحة الأرض المتبقية",
+    "totalLandArea2025": "$t(extentOfForest.totalLandArea)"
   },
   "extentOfForest_forestAreaStatusAndTrend_Description": {
     "footer1": "البيانات المستخدمة لا تزيد عمرها عن ٥ سنوات من سنة تقديم التقارير (البيانات أحدث من عام ٢٠١٨ لتقارير برنامج التقييم العالمي للغابات ٢٠٢٥)¹.",
@@ -97,19 +128,36 @@
     }
   },
   "forestArea100HaYear": "مساحة الغابة (1000 هـ)",
+  "forestAreaChange": {
+    "forestAreaChange2025": "$t(forestAreaChange.forestAreaChange)",
+    "forestAreaNetChange2025": "$t(forestAreaChange.forestAreaNetChange)",
+    "forestExpansion2025": "$t(forestAreaChange.forestExpansion)"
+  },
   "forestAreaWithinProtectedAreas": {
     "forestAreaWithLongTermManagementPlan2025": "منطقة الغابات مع خطة إدارة طويلة الأجل",
     "forestAreaWithinProtectedAreas2025": "$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)"
   },
   "forestCharacteristics": {
+    "naturalForestArea2025": "$t(forestCharacteristics.naturalForestArea)",
+    "ofWhichOtherPlantedForest": "$t(growingStock.otherPlantedForest)",
+    "ofWhichPlantationForest": "$t(growingStock.plantationForest)",
     "plantationForestIntroducedArea2025": "... منها الأنواع الدخيلة",
     "primaryForest": "... منها غابة أولية"
   },
   "forestOwnership": {
+    "forestOwnership2025": "$t(forestOwnership.forestOwnership)",
     "ofWhichCommunities2025": "... منها مملوكة من قبل الشعوب الأصلية والمجتمعات المحلية",
+    "ofWhichPrivateBusinesses2025": "$t(forestOwnership.ofWhichPrivateBusinesses)",
     "other2025": "$t(common.otherSpecifyInComments)",
     "total2025": "الإجمالي الكلي",
     "unknown2025": "غير معروف"
+  },
+  "forestPolicy": {
+    "existenceOfTraceabilitySystem2025": "$t(forestPolicy.existenceOfTraceabilitySystem)",
+    "forestPolicy2025": "$t(forestPolicy.forestPolicy)",
+    "legislationsSFM2025": "$t(forestPolicy.legislationsSFM)",
+    "policiesSFM2025": "$t(forestPolicy.policiesSFM)",
+    "stakeholderParticipation2025": "$t(forestPolicy.stakeholderParticipation)"
   },
   "forestRestoration": {
     "forestRestoration": "استصلاح الغابات",
@@ -122,17 +170,25 @@
     "whatAreasInNeedOfRestorationHaveBeenIdentified": "ما هي المناطق التي تحتاج إلى استصلاحها والتي تم تحديدها وكيف تم تحديدها؟"
   },
   "growingStock": {
+    "naturallyRegeneratingForest2025": "$t(growingStock.naturallyRegeneratingForest)",
+    "otherPlantedForest2025": "$t(growingStock.otherPlantedForest)",
     "plantationForest2025": "...منها غابة اصطناعيه",
+    "plantedForest2025": "$t(growingStock.plantedForest)",
     "totalForest": "مجموع الكلي للغابات"
   },
   "growingStockComposition": {
+    "introducedTreeSpecies2025": "$t(growingStockComposition.introducedTreeSpecies)",
     "millionCubicMeter": "مليون متر مكعب",
     "mostRecentYear": "آخر سنة:",
+    "nativeTreeSpecies2025": "$t(growingStockComposition.nativeTreeSpecies)",
     "percentOfTotal": "٪ من الكل",
     "ranked": "# {{idx}} الترتيب",
+    "remainingIntroduced2025": "$t(growingStockComposition.remainingIntroduced)",
+    "remainingNative2025": "$t(growingStockComposition.remainingNative)",
     "totalGrowingStock": "إجمالي مخزون الأشجار الحيّة",
     "totalIntroducedTreeSpecies": "إجمالي أنواع الأشجار الدخيلة",
-    "totalNativeTreeSpecies": "إجمالي أنواع الأشجار الأصلية"
+    "totalNativeTreeSpecies": "إجمالي أنواع الأشجار الأصلية",
+    "updatedGrowingStockComposition": "$t(growingStockComposition.growingStockComposition)"
   },
   "growingStock_growingStockStatus_Description": {
     "footer1": "البيانات المستخدمة لا تزيد عمرها عن ١٠ سنوات من سنة تقديم التقارير (البيانات أحدث من عام ٢٠١٣ لتقارير برنامج التقييم العالمي للغابات ٢٠٢٥)¹.",
@@ -142,27 +198,51 @@
       "high": "مصادر البيانات: الجرد الوطني الحديث¹ للغابات أو المسح الجوي بخاصية الليزر بالمسح الأرضي الاحتمالي.",
       "low": "مصادر البيانات: مصادر بيانات أخرى، مثل بيانات الأقمار الصناعية، السجلات، الاستبيانات أو تقييمات الخبيراء",
       "medium": "مصادر البيانات: الجرد الوطني القديم² للغابات، أو الجرد الجزئي الميداني، أو المسح  الجوي بخاصية الليزر بدون عينات ميدانية احتمالية."
+    },
+    "status2025": {
+      "high": "$t(fra.growingStock_growingStockStatus_Description.status.high)",
+      "low": "$t(fra.growingStock_growingStockStatus_Description.status.low)",
+      "medium": "$t(fra.growingStock_growingStockStatus_Description.status.medium)"
     }
   },
   "holderOfManagementRights": {
     "communities2025": "الشعوب الأصلية والمجتمعات المحلية",
+    "holderOfManagementRights2025": "$t(holderOfManagementRights.holderOfManagementRights)",
     "other2025": "$t(common.otherSpecifyInComments)",
+    "privateBusinesses2025": "$t(holderOfManagementRights.privateBusinesses)",
     "unknown2025": "غير معروف"
+  },
+  "labels": {
+    "short": "FRA"
   },
   "navigation": {
     "sectionHeaders": {
       "employmentEducationAndNwfp2025": "عمليات إزالة المنتجات الحرجية غير الخشبية وقيمتها ٢٠٢٠ ",
+      "forestDesignationAndManagement2025": "$t(navigation.sectionHeaders.forestDesignationAndManagement)",
+      "forestDisturbances2025": "$t(navigation.sectionHeaders.forestDisturbances)",
       "forestExtentCharacteristicsAndChanges2025": "$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)",
+      "forestGrowingStockBiomassAndCarbon2025": "$t(navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon)",
+      "forestOwnershipAndManagementRights2025": "$t(navigation.sectionHeaders.forestOwnershipAndManagementRights)",
       "forestPolicyAndLegislation2025": "$t(navigation.sectionHeaders.forestPolicyAndLegislation)"
     }
   },
   "nonWoodForestProductsRemovals": {
+    "allOtherAnimalProducts2025": "$t(nonWoodForestProductsRemovals.allOtherAnimalProducts)",
+    "allOtherPlantProducts2025": "$t(nonWoodForestProductsRemovals.allOtherPlantProducts)",
+    "currency2025": "$t(nonWoodForestProductsRemovals.currency)",
+    "nameOfProduct2025": "$t(nonWoodForestProductsRemovals.nameOfProduct)",
     "nonWoodForestProductsRemovals2025": "عمليات إزالة المنتجات الحرجية غير الخشبية وقيمتها ٢٠٢٠ "
+  },
+  "otherLandWithTreeCover": {
+    "agroforestry2025": "$t(otherLandWithTreeCover.agroforestry)",
+    "other2025": "$t(otherLandWithTreeCover.other)",
+    "otherLandWithTreeCover2025": "$t(otherLandWithTreeCover.otherLandWithTreeCover)"
   },
   "otherWoodedLand": {
     "otherWoodedLand2025": "$t(growingStock.otherWoodedLand)"
   },
   "primaryForestByClimaticDomain": {
+    "primaryForestArea100Ha": "Primary forest area ($t(unit.haThousand))",
     "primaryForestBoreal": "... منها غابة أولية شمالية",
     "primaryForestByClimaticDomain": "الغابات الأولية حسب المجال المناخي",
     "primaryForestSubTropical": "... منها غابة أولية شبه استوائية",
@@ -181,14 +261,19 @@
   "specificForestCategories": {
     "mangroves2025": "المانغروف¹",
     "mangrovesDisclaimer": "¹ تشمل كلا من الغابات والأراضي الحرجية الأخرى",
+    "rubberWood2025": "$t(specificForestCategories.rubberWood)",
     "specificForestCategories2025": "فئات الغابات المحددة"
   },
   "sustainableDevelopment": {
     "Metadata-15-01-01": "المؤشر ١٥. ١. ١ البيانات الوصفية لأهداف التنمية المستدامة.",
     "Metadata-15-02-01": "المؤشر ١٥. ٢. ١ البيانات الوصفية لأهداف التنمية المستدامة.",
+    "aboveGroundBiomassStockForests2025": "$t(sustainableDevelopment.aboveGroundBiomassStockForests)",
     "annualForestAreaChangeRate": "معدل التغير السنوي لمساحة الغابات",
     "dataProvidedBy": "يتم توفير البيانات الخاصة بهذا المؤشر الفرعي لأهداف التنمية المستدامة من قبل مجلس رعاية الغابات وهيئة اعتماد الحراجة البيئية (منظمات إصدار الشهادات الحرجية).",
     "forestAreaProportionLandArea": "مساحة الغابات كنسبة من إجمالي مساحة الأرض",
+    "forestAreaVerifiedForestManagement2025": "$t(sustainableDevelopment.forestAreaVerifiedForestManagement)",
+    "proportionForestAreaLegallyEstablishedProtectedAreas2025": "$t(sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas)",
+    "proportionForestAreaLongTermForestManagement2025": "$t(sustainableDevelopment.proportionForestAreaLongTermForestManagement)",
     "sdgIndicator1_2025": "مؤشر أهداف التنمية المستدامة ١٥ .١ .١  لمساحة الغابات كنسبة من إجمالي مساحة الأرض"
   }
 }

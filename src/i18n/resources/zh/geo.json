@@ -78,6 +78,7 @@
   "selectMinTreeCoverPercent": "选择最小树木覆盖百分比：",
   "sentinel": "哨兵卫星(Sentinel)",
   "showSatelliteMosaic": "显示卫星镶嵌",
+  "snowMasking": "Snow masking",
   "statistics": {
     "burnedArea": {
       "burnedAreaByYear": "烧毁区域（按年）"

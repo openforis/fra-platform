@@ -1,8 +1,13 @@
 {
   "admin": "Administración",
+  "enotfound": "DNS error",
   "filter": "Filtrar por",
   "invitationPending": "Invitación pendiente",
   "invitationsAcceptedCount": "Nº de invitaciones aceptadas",
   "invitationsSentCount": "Nº de invitaciones enviadas",
-  "usersCount": "Nº de usuarios"
+  "lastStatus": "Last Status",
+  "locationsCount": "Nº of Locations",
+  "urlParsingError": "URL parsing error",
+  "usersCount": "Nº de usuarios",
+  "verifyLinks": "Verify links"
 }

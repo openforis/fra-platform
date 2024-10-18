@@ -29,7 +29,6 @@
   "noMatchingEmail": "我们找不到任何匹配这一邮箱的用户。\n请确保使用有效的FRA账户。",
   "noMatchingLocalUser": "我们找不到符合这些条件的用户",
   "noMatchingProvider": "我们找不到符合这些条件的用户",
-  "noMatchingUser": "我们找不到任何匹配这些资历的用户。\n请确保使用有效的FRA账户。",
   "noShortPassword": "密码太短",
   "notAuthorized": "用户没有权限",
   "password": "密码",

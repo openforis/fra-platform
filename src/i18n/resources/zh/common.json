@@ -6,6 +6,7 @@
   "approve": "批准",
   "approved": "已批准",
   "areYouSureYouWantToDelete": "你确定要删除这个项目吗？ 此操作无法撤销。",
+  "areYouSureYouWantToDeleteAllTableData": "Are you sure you want to delete all data from the table?",
   "calculate": "计算",
   "cancel": "取消",
   "clearTable": "清除表格",
@@ -22,11 +23,14 @@
   "done": "完成",
   "email": "电子邮箱",
   "empty": "空的",
+  "expired": "Expired",
   "file": "文件",
   "filterCountries": "筛选国家",
   "fraPlatform": "FRA平台",
   "globalFRA": "全球森林资源评估",
   "hide": "隐藏",
+  "invitations": "Invitations",
+  "invited": "Invited",
   "issues": "问题",
   "label": "标签",
   "language": "语言",
@@ -37,6 +41,7 @@
   "loading": "加载中...",
   "login": "保留区",
   "name": "姓名",
+  "noItemsFound": "No items found",
   "or": "或",
   "other": "其他",
   "otherSpecifyInComments": "其他(在评论中阐述)",
@@ -67,6 +72,7 @@
     "medium": "中",
     "notSelected": ""
   },
+  "total": "Total",
   "totalPercentage": "总百分比",
   "trend": "趋势",
   "unknown": "无/未知",
@@ -75,5 +81,6 @@
   "userGuide": "使用指南",
   "variable": "FRA变量",
   "view": "查看",
-  "year": "年份"
+  "year": "年份",
+  "yes": "Yes"
 }

@@ -3,5 +3,12 @@
     "htmlMessage": "Уважаемый (ая) {{recipientName}} {{recipientSurname}},\n<br/><br/>\nПользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение на {{assessmentName}} {{cycleName}} в качестве {{role}} для <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nКоманда по ОЛР",
     "subject": "Пользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение",
     "textMessage": "Уважаемый (ая) {{recipientName}} {{recipientSurname}},\n\nПользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение на {{assessmentName}} {{cycleName}} в качестве {{role}} для {{country}}\n{{- manageCollaboratorsUrl}}\n\nКоманда по ОЛР"
+  },
+  "remindReviewer": {
+    "messageBodyHTML": "\n    <br/>\n    The {{assessmentName}} {{cycleName}} country reports for<br />\n    {{- countryLinks}}<br />\n    have been “In review” more than a week.<br/>\n    ",
+    "messageBodyText": "\n    The {{assessmentName}} {{cycleName}} country report for countries: {{- countries}} have been “In review” over a week.\n   \n\n{{- countryUrls}}\n\n    ",
+    "messageFooter": "\n    Please provide your comments and send the report back to “Editing”, or proceed with approval if there are no further issues.\n    <br />\n    Thank you.",
+    "messageHeader": "Dear {{recipientName}},",
+    "subject": "Reminder: One or more countries are pending review"
   }
 }

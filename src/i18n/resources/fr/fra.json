@@ -1,4 +1,16 @@
 {
+  "2020": {},
+  "2025": {
+    "description": {
+      "dataSource": {
+        "comments": "$t(dataSource.comments)",
+        "referenceToTataSource": "$t(dataSource.referenceToTataSource)",
+        "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+        "variable": "$t(dataSource.fraVariable)",
+        "yearForDataSource": "$t(dataSource.yearForDataSource)"
+      }
+    }
+  },
   "area100Ha": "Superficie (1 000 ha)",
   "area100HaYear": "Superficie (1000 ha)",
   "areaAffectedByFire": {
@@ -10,7 +22,10 @@
     "areaOfPermanentForestEstate2025": "Superficie des domaines forestiers permanents"
   },
   "biomassStock": {
-    "biomassStock2025": "Stock de biomasse"
+    "aboveGround2025": "$t(biomassStock.aboveGround)",
+    "belowGround2025": "$t(biomassStock.belowGround)",
+    "biomassStock2025": "Stock de biomasse",
+    "deadWood2025": "$t(biomassStock.deadWood)"
   },
   "biomassStockAvg": {
     "forestBiomass": "Biomasse de la forêt (t/ha)"
@@ -27,6 +42,8 @@
     }
   },
   "carbonStock": {
+    "carbonAboveGroundBiomass2025": "$t(carbonStock.carbonAboveGroundBiomass)",
+    "carbonBelowGroundBiomass2025": "$t(carbonStock.carbonBelowGroundBiomass)",
     "carbonStock2025": "Stock de carbone"
   },
   "carbonStockTotal": {
@@ -91,7 +108,8 @@
   "extentOfForest": {
     "extentOfForest2025": "$t(extentOfForest.extentOfForest)",
     "otherWoodedLand": "$t(fraClass.otherWoodedLand)",
-    "remainingLandArea": "Terres restantes"
+    "remainingLandArea": "Terres restantes",
+    "totalLandArea2025": "$t(extentOfForest.totalLandArea)"
   },
   "extentOfForest_forestAreaStatusAndTrend_Description": {
     "footer1": "¹ Données ne remontant pas à plus de 5 ans à compter de l’année de soumission du rapport (2018 ou plus récent pour les rapports nationaux de FRA 2025)",
@@ -112,19 +130,22 @@
   "forestArea100HaYear": "Superficie forestière (1000 ha)",
   "forestAreaChange": {
     "forestAreaChange2025": "Expansion de la forêt, déforestation et changement net annuels",
-    "forestAreaNetChange2025": "Changement net de la superficie de forêt (a-b)"
+    "forestAreaNetChange2025": "Changement net de la superficie de forêt (a-b)",
+    "forestExpansion2025": "$t(forestAreaChange.forestExpansion)"
   },
   "forestAreaWithinProtectedAreas": {
     "forestAreaWithLongTermManagementPlan2025": "Superficie de forêt soumise à un plan de gestion à long terme",
     "forestAreaWithinProtectedAreas2025": "Superficie de forêt se trouvant à l’intérieur d’aires protégées juridiquement constituées et superficie de forêt soumise à des plans de gestion à long terme"
   },
   "forestCharacteristics": {
+    "naturalForestArea2025": "$t(forestCharacteristics.naturalForestArea)",
     "ofWhichOtherPlantedForest": "...dont autres forêts plantées",
-    "otherPlantedForest2025": "...dont autres forêts plantées",
+    "ofWhichPlantationForest": "$t(growingStock.plantationForest)",
     "plantationForestIntroducedArea2025": "...dont d'espèces introduites",
     "primaryForest": "...dont forêt primaire"
   },
   "forestOwnership": {
+    "forestOwnership2025": "$t(forestOwnership.forestOwnership)",
     "ofWhichCommunities2025": "...dont Peuples autochtones et aux communautés locales",
     "ofWhichPrivateBusinesses2025": "...dont appartenant à des entités et institutions commerciales privées",
     "other2025": "Autres formes de propriété (préciser dans les commentaires)",
@@ -151,6 +172,7 @@
   "growingStock": {
     "naturallyRegeneratingForest2025": "Forêt naturellement régénérée",
     "otherPlantedForest2025": "...dont autres forêts plantées",
+    "plantationForest2025": "$t(growingStock.plantationForest)",
     "plantedForest2025": "Forêts plantées",
     "totalForest": "Total Forêt"
   },
@@ -165,7 +187,8 @@
     "remainingNative2025": "Autres espèces d’arbres indigènes",
     "totalGrowingStock": "TOTAL Matériel sur pied ",
     "totalIntroducedTreeSpecies": "TOTAL Espèces d’arbres introduites ",
-    "totalNativeTreeSpecies": "TOTAL Espèces d’arbres indigènes "
+    "totalNativeTreeSpecies": "TOTAL Espèces d’arbres indigènes ",
+    "updatedGrowingStockComposition": "$t(growingStockComposition.growingStockComposition)"
   },
   "growingStock_growingStockStatus_Description": {
     "footer1": "¹ Données ne remontant pas à plus de 10 ans à compter de l’année de soumission du rapport (2013 ou plus récent pour les rapports nationaux de FRA 2025)",
@@ -189,11 +212,17 @@
     "privateBusinesses2025": "Entités et institutions commerciales privées",
     "unknown2025": "Droits de gestion inconnus"
   },
+  "labels": {
+    "short": "FRA"
+  },
   "navigation": {
     "sectionHeaders": {
       "employmentEducationAndNwfp2025": "Extraction et valeur des produits forestiers non ligneux en 2020",
       "forestDesignationAndManagement2025": "Affectation et gestion des forêts",
+      "forestDisturbances2025": "$t(navigation.sectionHeaders.forestDisturbances)",
+      "forestExtentCharacteristicsAndChanges2025": "$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)",
       "forestGrowingStockBiomassAndCarbon2025": "Matériel sur pied, biomasse et carbone de la forêt",
+      "forestOwnershipAndManagementRights2025": "$t(navigation.sectionHeaders.forestOwnershipAndManagementRights)",
       "forestPolicyAndLegislation2025": "Politiques et législations forestières"
     }
   },
@@ -213,6 +242,7 @@
     "otherWoodedLand2025": "Autres terres boisées"
   },
   "primaryForestByClimaticDomain": {
+    "primaryForestArea100Ha": "Primary forest area ($t(unit.haThousand))",
     "primaryForestBoreal": "...dont forêt primaire boréale",
     "primaryForestByClimaticDomain": "Forêt primaire par domaine climatique",
     "primaryForestSubTropical": "...dont l forêt primaire subtropicale",

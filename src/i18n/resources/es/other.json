@@ -21,6 +21,7 @@
   "assessment": {
     "deskStudy": "Estudio técnico",
     "fra": "FRA",
+    "panEuropean": "pan-European",
     "status": {
       "accepted": {
         "label": "Aceptado",
@@ -129,14 +130,11 @@
   },
   "definition": {
     "definitionLabel": "Véanse las definiciones",
-    "faqLabel": "Preguntas frecuentes"
+    "faqLabel": "Preguntas frecuentes",
+    "seeReportingNotes": "See Reporting Notes"
   },
   "degradedForest": {
-    "degradedForest": "Bosque degradado",
-    "doesYourCountryMonitor": "¿Su país hace un seguimiento del área de bosque degradado?",
-    "howMonitored": "Describa el proceso de seguimiento y los resultados",
-    "ifYes": "En caso afirmativo",
-    "whatIsDefinition": "¿Cuál es la definición nacional de \"bosque degradado\"?"
+    "degradedForest": "Bosque degradado"
   },
   "description": {
     "analysisAndProcessing": "Análisis y procesamiento de datos nacionales",
@@ -357,6 +355,7 @@
   "fraForestCharacteristicsClass": {
     "naturallyRegeneratingForest": "Bosque regenerado de forma natural",
     "ofWhichIntroduced": "…de la cual de especies introducidas",
+    "ofWhichPrimaryForest": "$t(fra.forestCharacteristics.primaryForest)",
     "otherPlantedForest": "Otros bosques plantados",
     "plantationForest": "Plantación forestal",
     "totalForest": "Área total de bosque"
@@ -400,8 +399,11 @@
     "commonName": "Nombre común",
     "forestGrowingStockComposition": "Composición de las existencias forestales en formación",
     "growingStockComposition": "Composición de las existencias en formación",
+    "growingStockPercent": "$t(unit.growingStockPercent)",
     "introduced": "Introducida",
     "introducedTreeSpecies": "Especies introducidas",
+    "millionCubicMeter": "$t(fra.growingStockComposition.millionCubicMeter)",
+    "mostRecentYear": "$t(fra.growingStockComposition.mostRecentYear)",
     "native": "Nativa",
     "nativeTreeSpecies": "Especies de árboles nativos",
     "rank": "#{{idx}} Clasificadas en cuanto al volumen",
@@ -447,6 +449,9 @@
     "fr": "Français",
     "ru": "Русский",
     "zh": "中文"
+  },
+  "messageBoard": {
+    "messageBoard": "$t(landing.sections.messageBoard)"
   },
   "multiSelect": {
     "placeholder": "Elegir…"
@@ -612,9 +617,13 @@
     "watch": "Ver"
   },
   "unit": {
+    "absoluteNumber": "absolute number",
     "acre": "acre",
     "acre1000": "1 000 acres",
+    "annualNumberOfVisitsMillion": "annual number of visits (million)",
     "billionCubicMeter": "mil millones m³",
+    "cubicMeterPerHa": "m³/ha",
+    "facilityLengthIn1000Km": "facility (length in 1 000 km)",
     "fte1000": "1 000 EDC",
     "growingStockPercent": "% del total de las Existencias Forestales en Formación",
     "gt": "Gt",
@@ -624,13 +633,21 @@
     "haThousandPerYear": "1 000 ha / an",
     "kmSq": "km²",
     "mileSq": "mi²",
+    "millionNationalCurrency": "million national currency",
+    "millionTonnes": "million metric tonnes",
     "millionsCubicMeterOverBark": "millones de m³ sobre corteza",
     "numberOfStudents": "$t(graduationOfStudents.numberOfStudents)",
+    "thousandCubicMeter": "1 000 m³",
+    "thousandCubicMeterOverBark": "1 000 m³ over bark",
+    "thousandCubicMeterRWE": "1 000 m³ round-wood equivalent",
+    "thousandPersons": "1 000 persons",
     "tonnesPerHa": "toneladas / ha"
   },
   "user": {
     "resetPasswordEmail": {
-      "subject": "Plataforma FRA - Restablecer contraseña"
+      "htmlMessage": "Dear {{user}}\n<br/><br/>\nWe have received a request to reset your password for your FRA account. \n<br/>\nIf you didn't make this request, you can safely ignore this email.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Click here to reset your password</a>\n<br/><br/><br/>\nThanks,\n<br/>\nThe FRA team fra@fao.org\n<br/>\n{{- url}}\n      ",
+      "subject": "Plataforma FRA - Restablecer contraseña",
+      "textMessage": "Dear {{user}}\n\nWe have received a request to reset your password for your FRA account. \nIf you didn't make this request, you can safely ignore this email.\n\nClick the following link to reset your password\n{{- link}}\n\n\nThanks,\nThe FRA team fra@fao.org\n{{- url}}"
     },
     "roles": {
       "ADMINISTRATOR": "Administrador",
@@ -676,6 +693,7 @@
     },
     "invitationEmailSent": "Se le ha enviado un correo electrónico de invitación",
     "invitationLink": "Enlace de invitación",
+    "invitationLinkCopied": "The invitation link has been copied",
     "inviteAgain": "Invitar de nuevo",
     "loginEmail": "Nombre de usuario",
     "manageCollaborators": "Gestionar colaboradores",
@@ -689,7 +707,6 @@
     "placeholder": "Elegir…",
     "remove": "Eliminar",
     "sendInvitation": "Enviar correo electrónico de invitación",
-    "tableAccess": "Acceso a las mesas",
     "userAdded": "El email {{email}} ha sido añadido",
     "userModified": "El usuario {{usuario}} ha sido modificado"
   },
