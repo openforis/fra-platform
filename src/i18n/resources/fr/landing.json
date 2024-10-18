@@ -1,0 +1,88 @@
+{
+  "about": {
+    "contact": "Contact",
+    "email": "Email",
+    "faoForestryDepartment": "Département des forêts de la FAO",
+    "fraProcess": "Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d'évolution. L'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l'évolution du champ d'application.",
+    "linkFraProcess": "En savoir davantage sur le processus de FRA",
+    "or": "Ou",
+    "selectArea": "Sélectionnez une zone ci-dessous pour accéder aux données FRA",
+    "seniorForestryOfficer": "Forestier principal"
+  },
+  "dataExport": {
+    "downloadData": "Télécharger les données"
+  },
+  "home": "Accueil",
+  "links": {
+    "confirmDelete": "Supprimer {{file}}? Cette action ne peut pas être annulée.",
+    "fileDeleted": "Fichier supprimé avec succès",
+    "fileOperationFailed": "L'opération ne peut pas être réalisée parce que le fichier est en cours d'utilisation dans:\n{{sectionNames}}",
+    "fileUploaded": "Fichier téléchargé avec succès",
+    "links": "Liens",
+    "repository": "Référentiel",
+    "uploadFile": "Mettre en ligne un fichier"
+  },
+  "milestones": {
+    "date1": "Mars",
+    "date2": "Avril – Septembre",
+    "date3": "Octobre",
+    "date4": "Janvier – Février",
+    "date5": "Mars",
+    "date6": "Juillet",
+    "date7": "Mars - Décembre",
+    "date8": "Août",
+    "milestone1": "Réunion mondiale des correspondants nationaux",
+    "milestone2": "Ateliers régionaux et sous-régionaux",
+    "milestone3": "Date limite de présentation des rapports nationaux",
+    "milestone4": "Validation des rapports nationaux définitifs",
+    "milestone5": "Conclusions préliminaires de FRA 2020",
+    "milestone6": "Rapport principal de FRA 2020",
+    "milestone7": "Analyse des données et élaboration du rapport",
+    "milestone8": "Lancement de la plateforme d'analyse et de diffusion",
+    "milestones": "Étapes importantes"
+  },
+  "overview": {
+    "loadingMap": "Chargement carte…",
+    "withFinancialSupportOf": "Avec le soutien financier de "
+  },
+  "recentActivity": {
+    "actions": {
+      "acceptInvitation": "est devenu membre en tant que {{role}}",
+      "addInvitation": "a invité {{user}} en tant que {{role}}",
+      "addUser": "{{user}} a été ajouté comme {{role}}",
+      "added": "a ajouté",
+      "addedFile": "a ajouté {{file}}",
+      "commented": "a commenté",
+      "deleted": "a supprimé",
+      "deletedFile": "a supprimé {{file}}",
+      "edited": "a modifié",
+      "removeInvitation": "a révoqué l'invitation de {{user}} en tant que {{role}}",
+      "removeUser": "a éliminé {{user}}",
+      "resolved": "a résolu",
+      "status": "changer le statut à",
+      "updateAssessmentStatus": "a changé le statut de {{assessment}} à {{status}}",
+      "updateInvitation": "a mise à jour l'invitation pour {{user}} en tant que {{role}}",
+      "updateUser": "a modifié {{user}}"
+    },
+    "fraProcess": "Depuis 1946, la FAO assure le suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d'évolution. L'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l'évolution du champ d'application.",
+    "getStarted": "Commencer",
+    "linkFraProcess": "En savoir davantage sur le processus de FRA",
+    "noRecentActivityBody": "Les modifications apportées dans la plateforme apparaissent ici pour vous permettre de savoir ce qui se passe quand vous n'êtes pas en ligne.",
+    "noRecentActivityTitle": "Visiblement, il n'y a pas d'activité récente"
+  },
+  "sections": {
+    "about": "À propos de FRA",
+    "contentCheck": "Contenu / Vérification",
+    "externalData": "Données externes",
+    "messageBoard": "Panneau d'affichage",
+    "overview": "Aperçu",
+    "recentActivity": "Activité récente",
+    "repository": "Liens et Référentiel",
+    "userManagement": "Gérer collaborateurs",
+    "versioning": "Gestion des versions"
+  },
+  "users": {
+    "message": "Message",
+    "users": "Contacts"
+  }
+}

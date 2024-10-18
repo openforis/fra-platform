@@ -1,0 +1,11 @@
+{
+  "description": {
+    "dataSource": {
+      "comments": "$t(dataSource.comments)",
+      "referenceToTataSource": "Name and Reference to data source",
+      "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+      "variable": "$t(dataSource.variable)",
+      "yearForDataSource": "$t(dataSource.yearForDataSource)"
+    }
+  }
+}
