@@ -25,24 +25,7 @@ export default async () => {
   // ---- 4. Create new users_role table in public schema
   await client.query(getUsersRoleDDL())
 
-  // ---- 5. Populate new users_role table from _legacy
-  await client.query(`
-    insert into public.users_role (
-      user_uuid, assessment_uuid, country_iso, role, cycle_uuid, permissions, props, created_at
-    )
-    select 
-      (select uuid from public.users where id = l_ur.user_id),
-      (select uuid from public.assessment where id = l_ur.assessment_id),
-      l_ur.country_iso,
-      l_ur.role,
-      l_ur.cycle_uuid,
-      l_ur.permissions,
-      l_ur.props,
-      l_ur.accepted_at as created_at
-    from _legacy.users_role l_ur;
-  `)
-
-  // ---- 6. Populate users_invitation table from _legacy
+  // ---- 5. Populate users_invitation table from _legacy
   await client.query(`
     insert into public.users_invitation (
       uuid, user_uuid, assessment_uuid, country_iso, role, cycle_uuid, invited_at, accepted_at, invited_by_user_uuid, props
@@ -60,6 +43,23 @@ export default async () => {
       l_ur.props
     from _legacy.users_role l_ur
     where l_ur.invitation_uuid is not null;
+  `)
+  // ---- 6. Populate new users_role table from _legacy
+  await client.query(`
+    insert into public.users_role (
+      user_uuid, assessment_uuid, country_iso, role, cycle_uuid, permissions, props, created_at, invitation_uuid
+    )
+    select 
+      (select uuid from public.users where id = l_ur.user_id),
+      (select uuid from public.assessment where id = l_ur.assessment_id),
+      l_ur.country_iso,
+      l_ur.role,
+      l_ur.cycle_uuid,
+      l_ur.permissions,
+      l_ur.props,
+      l_ur.accepted_at as created_at,
+      l_ur.invitation_uuid
+    from _legacy.users_role l_ur;
   `)
 
   Logger.info('Migration completed successfully')
