@@ -1,3 +1,4 @@
+import './MultiValue.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { MultiValueProps as OriginalMultiValueProps } from 'react-select'
@@ -14,7 +15,7 @@ export const MultiValue: React.FC<MultiValueProps> = (props) => {
   const displayCountLabel = index === 0
 
   if (displayCountLabel) {
-    return <span>{t(multiLabelKey, { count })}</span>
+    return <span className="select__multiValue-label">{t(multiLabelKey, { count })}</span>
   }
 
   return null
