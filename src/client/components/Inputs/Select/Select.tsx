@@ -10,7 +10,7 @@ import { useValue } from './hooks/useValue'
 import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
-  const { disabled, isClearable, isMulti, maxMenuHeight, placeholder, onMenuOpen, onMenuClose } = props
+  const { disabled, isClearable, isMulti, maxMenuHeight, onMenuClose, onMenuOpen, placeholder } = props
 
   const classNames = useClassNames(props)
   const components = useComponents(props)
