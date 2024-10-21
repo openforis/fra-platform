@@ -33,11 +33,6 @@
         color: $ui-destructive;
       }
     }
-
-    &.disabled {
-      opacity: 0;
-      pointer-events: none;
-    }
   }
 
   &.active {

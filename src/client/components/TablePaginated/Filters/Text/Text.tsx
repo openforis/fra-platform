@@ -41,13 +41,11 @@ const Text = (props: Props) => {
   return (
     <div className={classNames('table-paginated-filter-input', { active: !Objects.isEmpty(filterValue) })}>
       <InputText onChange={handleChange} placeholder={label} value={filterValue ?? ''} />
-      <button
-        className={classNames('clear-button icon', { disabled: Objects.isEmpty(filterValue) })}
-        onClick={handleClearInput}
-        type="button"
-      >
-        <Icon className="icon-sub" name="remove" />
-      </button>
+      {!Objects.isEmpty(filterValue) && (
+        <button className="clear-button icon" onClick={handleClearInput} type="button">
+          <Icon className="icon-sub" name="remove" />
+        </button>
+      )}
     </div>
   )
 }
