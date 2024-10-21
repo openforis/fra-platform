@@ -24,7 +24,7 @@ type SelectClassNamesProps = {
 export type SelectProps = SelectBaseProps &
   SelectClassNamesProps & {
     disabled?: boolean
-    multiLabelKey?: string
+    multiLabelSummaryKey?: string
     onChange: (value: string | Array<string> | null) => void
     options: OptionsOrGroups
     toggleAll?: boolean

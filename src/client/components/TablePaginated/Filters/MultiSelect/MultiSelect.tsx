@@ -50,7 +50,7 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
           }),
         }}
         isMulti
-        multiLabelKey="admin.role"
+        multiLabelSummaryKey="admin.role"
         onChange={handleChange}
         onMenuClose={showTooltip}
         onMenuOpen={hideTooltip}

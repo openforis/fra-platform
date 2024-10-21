@@ -15,7 +15,7 @@ import { SelectProps } from 'client/components/Inputs/Select/types'
 type Returned = ReactSelectProps['components']
 
 export const useComponents = (props: SelectProps): Returned => {
-  const { isMulti, multiLabelKey } = props
+  const { isMulti, multiLabelSummaryKey } = props
 
   return useMemo<Returned>(() => {
     const components: Returned = {
@@ -25,13 +25,13 @@ export const useComponents = (props: SelectProps): Returned => {
       IndicatorSeparator: null,
     }
     if (isMulti) components.Option = MultiSelectOption
-    if (isMulti && !Objects.isEmpty(multiLabelKey)) {
+    if (isMulti && !Objects.isEmpty(multiLabelSummaryKey)) {
       components.MultiValue = (originalMultiValueProps: OriginalMultiValueProps) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <MultiValueSummary {...originalMultiValueProps} multiLabelKey={multiLabelKey} />
+        <MultiValueSummary {...originalMultiValueProps} multiLabelSummaryKey={multiLabelSummaryKey} />
       )
     }
 
     return components
-  }, [isMulti, multiLabelKey])
+  }, [isMulti, multiLabelSummaryKey])
 }
