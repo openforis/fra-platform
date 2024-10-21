@@ -1,18 +1,21 @@
-import { useMemo } from 'react'
-import { Props as ReactSelectProps } from 'react-select'
+import React, { useMemo } from 'react'
+import { MultiValueProps, Props as ReactSelectProps } from 'react-select'
+
+import { Objects } from 'utils/objects'
 
 import {
   ClearIndicator,
   DropdownIndicator,
   IndicatorsContainer,
   MultiSelectOption,
+  MultiValueSummary,
 } from 'client/components/Inputs/Select/Indicators'
 import { SelectProps } from 'client/components/Inputs/Select/types'
 
 type Returned = ReactSelectProps['components']
 
 export const useComponents = (props: SelectProps): Returned => {
-  const { isMulti } = props
+  const { isMulti, multiLabelSummaryKey } = props
 
   return useMemo<Returned>(() => {
     const components: Returned = {
@@ -22,7 +25,13 @@ export const useComponents = (props: SelectProps): Returned => {
       IndicatorSeparator: null,
     }
     if (isMulti) components.Option = MultiSelectOption
+    if (isMulti && !Objects.isEmpty(multiLabelSummaryKey)) {
+      components.MultiValue = (originalMultiValueProps: MultiValueProps) => (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <MultiValueSummary {...originalMultiValueProps} multiLabelSummaryKey={multiLabelSummaryKey} />
+      )
+    }
 
     return components
-  }, [isMulti])
+  }, [isMulti, multiLabelSummaryKey])
 }

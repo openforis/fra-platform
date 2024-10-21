@@ -4,6 +4,7 @@ import React from 'react'
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
 import Icon from 'client/components/Icon'
+import MultiSelect from 'client/components/TablePaginated/Filters/MultiSelect/MultiSelect'
 import Text from 'client/components/TablePaginated/Filters/Text/Text'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
@@ -11,8 +12,9 @@ const componentsByFilterType: Record<
   TablePaginatedFilterType,
   React.FC<TablePaginatedFilter<TablePaginatedFilterType> & { path: string }>
 > = {
-  [TablePaginatedFilterType.TEXT]: Text,
+  [TablePaginatedFilterType.MULTI_SELECT]: MultiSelect,
   [TablePaginatedFilterType.SWITCH]: () => null,
+  [TablePaginatedFilterType.TEXT]: Text,
 }
 
 type Props = {
