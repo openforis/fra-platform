@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { MultiValueProps as OriginalMultiValueProps, Props as ReactSelectProps } from 'react-select'
+import { MultiValueProps, Props as ReactSelectProps } from 'react-select'
 
 import { Objects } from 'utils/objects'
 
@@ -26,7 +26,7 @@ export const useComponents = (props: SelectProps): Returned => {
     }
     if (isMulti) components.Option = MultiSelectOption
     if (isMulti && !Objects.isEmpty(multiLabelSummaryKey)) {
-      components.MultiValue = (originalMultiValueProps: OriginalMultiValueProps) => (
+      components.MultiValue = (originalMultiValueProps: MultiValueProps) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <MultiValueSummary {...originalMultiValueProps} multiLabelSummaryKey={multiLabelSummaryKey} />
       )
