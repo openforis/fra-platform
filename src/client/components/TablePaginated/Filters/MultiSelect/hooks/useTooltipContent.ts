@@ -24,16 +24,15 @@ export const useTooltipContent = (props: Props): Returned => {
   const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
   const [canDisplayTooltip, setCanDisplayTooltip] = useState(true)
 
-  const valueToLabelMap = useMemo(() => {
-    return options.reduce((acc, { value, label }) => {
-      // eslint-disable-next-line no-param-reassign
-      acc[value] = label
-      return acc
-    }, {} as Record<string, string>)
+  const valueToLabelMap = useMemo<Record<string, string>>(() => {
+    return options.reduce<Record<string, string>>((acc, { value, label }) => {
+      return { ...acc, [value]: label }
+    }, {})
   }, [options])
 
-  const tooltipContent = useMemo(() => {
+  const tooltipContent = useMemo<string | null>(() => {
     if (Objects.isEmpty(filterValue)) return null
+    if (!canDisplayTooltip) return null
 
     const selectedLabels = filterValue.reduce<Array<string>>((acc, value) => {
       const label = valueToLabelMap[value]
@@ -45,7 +44,7 @@ export const useTooltipContent = (props: Props): Returned => {
       return null
     }
     return selectedLabels.join(', ')
-  }, [filterValue, valueToLabelMap])
+  }, [canDisplayTooltip, filterValue, valueToLabelMap])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
@@ -53,6 +52,6 @@ export const useTooltipContent = (props: Props): Returned => {
   return {
     hideTooltip,
     showTooltip,
-    tooltipContent: canDisplayTooltip ? tooltipContent : null,
+    tooltipContent,
   }
 }
