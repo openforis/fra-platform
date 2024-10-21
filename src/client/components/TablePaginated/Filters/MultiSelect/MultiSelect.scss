@@ -15,7 +15,7 @@ div.filter-multiselect__container {
   transition: all 0.2s ease;
 
   div.select__control {
-    min-height: $spacing-s;
+    min-height: unset;
     padding: 0 6px;
 
     div.select__indicatorsContainer {
@@ -49,9 +49,5 @@ div.filter-multiselect__container {
 
   &.active {
     border: 1px solid $ui-accent;
-  }
-
-  &.select__container {
-    height: calc(100% + 1px);
   }
 }
