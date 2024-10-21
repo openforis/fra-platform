@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 import { Sections } from 'meta/assessment/sections'
@@ -12,12 +14,17 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; subSection:
   const section = subSection as Section
 
   const _props: SubSection['props'] = Sections.cloneProps({ cycleSource, cycleTarget, section }) as SubSection['props']
-  _props.cycles.push(cycleTargetUuid)
 
-  if (_props.descriptions?.[cycleSourceUuid])
-    _props.descriptions[cycleTargetUuid] = _props.descriptions[cycleSourceUuid]
-  if (_props.hidden?.[cycleSourceUuid]) _props.hidden[cycleTargetUuid] = _props.hidden[cycleSourceUuid]
-  if (_props.hints?.[cycleSourceUuid]) _props.hints[cycleTargetUuid] = _props.hints[cycleSourceUuid]
+  const descriptionsSource = Objects.cloneDeep(_props.descriptions?.[cycleSourceUuid])
+  if (!Objects.isEmpty(descriptionsSource)) {
+    // delete nationalData->dataSources->text needed only in FRA 2025
+    Objects.unset(descriptionsSource, ['nationalData', 'dataSources', 'text'])
+    _props.descriptions[cycleTargetUuid] = descriptionsSource
+  }
+  if (!Objects.isNil(_props.hidden?.[cycleSourceUuid]))
+    _props.hidden[cycleTargetUuid] = Objects.cloneDeep(_props.hidden[cycleSourceUuid])
+  if (!Objects.isNil(_props.hints?.[cycleSourceUuid]))
+    _props.hints[cycleTargetUuid] = Objects.cloneDeep(_props.hints[cycleSourceUuid])
 
   return _props
 }
