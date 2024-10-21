@@ -1,4 +1,4 @@
-import './MultiValue.scss'
+import './MultiValueSummary.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { MultiValueProps as OriginalMultiValueProps } from 'react-select'
@@ -7,7 +7,7 @@ import { SelectProps } from 'client/components/Inputs/Select/types'
 
 type MultiValueProps = OriginalMultiValueProps & Pick<SelectProps, 'multiLabelKey'>
 
-export const MultiValue: React.FC<MultiValueProps> = (props) => {
+export const MultiValueSummary: React.FC<MultiValueProps> = (props) => {
   const { getValue, index, multiLabelKey } = props
   const count = getValue().length
   const { t } = useTranslation()
@@ -21,4 +21,4 @@ export const MultiValue: React.FC<MultiValueProps> = (props) => {
   return null
 }
 
-export default MultiValue
+export default MultiValueSummary

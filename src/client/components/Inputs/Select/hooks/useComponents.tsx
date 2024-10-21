@@ -8,7 +8,7 @@ import {
   DropdownIndicator,
   IndicatorsContainer,
   MultiSelectOption,
-  MultiValue,
+  MultiValueSummary,
 } from 'client/components/Inputs/Select/Indicators'
 import { SelectProps } from 'client/components/Inputs/Select/types'
 
@@ -28,7 +28,7 @@ export const useComponents = (props: SelectProps): Returned => {
     if (isMulti && !Objects.isEmpty(multiLabelKey)) {
       components.MultiValue = (originalMultiValueProps: OriginalMultiValueProps) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <MultiValue {...originalMultiValueProps} multiLabelKey={multiLabelKey} />
+        <MultiValueSummary {...originalMultiValueProps} multiLabelKey={multiLabelKey} />
       )
     }
 
