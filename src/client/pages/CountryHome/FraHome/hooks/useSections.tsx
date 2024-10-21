@@ -30,8 +30,8 @@ export const useSections = (): Array<Section> => {
 
     if (!cycle) return null
 
-    const isFra2025 = assessment.props.name === AssessmentNames.fra && cycle.name === '2025'
-    const showOverview = !isFra2025 || Areas.isISOCountry(countryIso)
+    const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
+    const showOverview = isFra2020 || Areas.isISOCountry(countryIso)
 
     if (showOverview) {
       sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
