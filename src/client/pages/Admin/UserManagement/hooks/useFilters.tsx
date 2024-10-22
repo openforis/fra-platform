@@ -36,6 +36,7 @@ export const useFilters = (): Returned => {
       {
         fieldName: 'roles',
         label: t('common.role'),
+        multiLabelSummaryKey: 'admin.role',
         options: roleOptions,
         type: TablePaginatedFilterType.MULTI_SELECT,
       },

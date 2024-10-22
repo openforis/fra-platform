@@ -50,6 +50,7 @@ type MultiSelectItem = {
 }
 
 type MultiSelectFilter = BaseTablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
+  multiLabelSummaryKey: string
   options: Array<MultiSelectItem>
 }
 
