@@ -1,9 +1,11 @@
 import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
+import { ActivityLog } from 'meta/assessment'
 import { RoleName, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getUsersInvitationDDL, getUsersRoleDDL } from 'server/repository/public/ddl/getCreatePublicSchemaDDL'
 import { Logger } from 'server/utils/logger'
 
@@ -22,9 +24,18 @@ type DBRole = {
 
 type DBActivityLogRole = UserRole<RoleName>
 
+type ActivityLogEntry = ActivityLog<{
+  userId: number
+  roles: Array<DBActivityLogRole>
+}>
+
 const client: BaseProtocol = DB
 
-const _handleRole = async (role: DBRole): Promise<DBRole> => {
+const _handleRole = async (
+  role: DBRole,
+  cycles: Record<string, string>,
+  activityLogsEntries: Record<number, Array<ActivityLogEntry>>
+): Promise<DBRole> => {
   // Role created by admin
   if (role.invitationUuid) {
     if (!role.createdAt) {
@@ -38,16 +49,12 @@ const _handleRole = async (role: DBRole): Promise<DBRole> => {
     return role
   }
 
-  // Get all activity log entries for current roles user (match through userId and message)
-  const activityLogEntries = await client.manyOrNone(`
-    select * from public.activity_log where  (target->>'userId')::integer =  ${role.userId} and message = 'userRolesUpdate' order by time asc
-  `)
+  const activityLogEntries = activityLogsEntries[role.userId]
 
   // It is possible we don't have any matches, e.g. Roles for FRA 2020 added by admin
-  if (activityLogEntries.length === 0) {
-    Logger.warn(
-      `No activity log entry found for role: countryIso=${role.countryIso}, role=${role.role}, userUuid=${role.userUuid}`
-    )
+  if (!activityLogEntries || activityLogEntries.length === 0) {
+    // eslint-disable-next-line no-param-reassign
+    role.createdAt = cycles[role.cycleUuid]
     return role
   }
 
@@ -57,9 +64,8 @@ const _handleRole = async (role: DBRole): Promise<DBRole> => {
   )
 
   if (!firstActivityLogEntry) {
-    Logger.warn(
-      `No activity log entry found for role ${role.countryIso} - ${JSON.stringify(role.role)} - ${role.userUuid}`
-    )
+    // eslint-disable-next-line no-param-reassign
+    role.createdAt = cycles[role.cycleUuid]
     return role
   }
 
@@ -137,18 +143,37 @@ export default async () => {
     (row) => Objects.camelize(row)
   )
 
-  const roles = await Promise.all(_roles.map((role) => _handleRole(role)))
+  // Utility consts to avoid fetching data multiple times
+  const assessments = await AssessmentRepository.getAll({}, client)
+  // [cycleUuid]: dateCreated
+  const cycleUuidMap: Record<string, string> = Object.fromEntries(
+    assessments.flatMap((assessment) => assessment.cycles.map((cycle) => [cycle.uuid, cycle.props.dateCreated]))
+  )
+  // [activityLogEntry]
+  const _activityLogsEntries = await client.manyOrNone(`
+    select * from public.activity_log where message = 'userRolesUpdate' order by time asc
+    `)
+  // [userId]: [activityLogEntry]
+  const activityLogsEntries: Record<number, Array<ActivityLogEntry>> = _activityLogsEntries.reduce((acc, entry) => {
+    const { userId } = entry.target
+    // eslint-disable-next-line no-param-reassign
+    if (!acc[userId]) acc[userId] = []
+    acc[userId].push(entry)
+    return acc
+  }, {} as Record<number, Array<ActivityLogEntry>>)
+
+  const roles = await Promise.all(_roles.map((role) => _handleRole(role, cycleUuidMap, activityLogsEntries)))
   const columns = [
-    { name: 'user_uuid', prop: 'userUuid' },
-    { name: 'assessment_uuid', prop: 'assessmentUuid' },
-    { name: 'country_iso', prop: 'countryIso' },
-    { name: 'role', prop: 'role' },
-    { name: 'cycle_uuid', prop: 'cycleUuid' },
-    { name: 'permissions', prop: 'permissions' },
-    { name: 'props', prop: 'props' },
-    { name: 'created_at', prop: 'createdAt' },
-    { name: 'invitation_uuid', prop: 'invitationUuid' },
-  ]
+    'user_uuid',
+    'assessment_uuid',
+    'country_iso',
+    'role',
+    'cycle_uuid',
+    'permissions',
+    'props',
+    'created_at',
+    'invitation_uuid',
+  ].map((name) => ({ name, prop: Objects.camelize(name) }))
 
   const options = { table: { table: 'users_role', schema: 'public' } }
   const cs = new pgp.helpers.ColumnSet(columns, options)
