@@ -53,10 +53,10 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
 }
 
 export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
-  assessmentId?: number
+  assessmentUuid?: string
   countryIso?: CountryIso
   createdAt: string
-  cycleUuid: string
+  cycleUuid?: string
   id: number
   invitationUuid?: string
   permissions: Permissions

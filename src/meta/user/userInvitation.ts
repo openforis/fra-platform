@@ -3,7 +3,7 @@ import { RoleName } from 'meta/user/userRole'
 
 export interface UserInvitation {
   acceptedAt?: string
-  assessmentUuid?: string
+  assessmentUuid: string
   countryIso?: CountryIso
   cycleUuid: string
   id: number
