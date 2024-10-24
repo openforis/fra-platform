@@ -8,7 +8,7 @@ export interface UserInvitation {
   cycleUuid: string
   id: number
   invitedAt: string
-  invitedByUserUuid?: string
+  invitedByUserUuid: string
   props: never // default {}
   role: RoleName
   userUuid: string
