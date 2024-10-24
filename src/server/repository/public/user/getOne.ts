@@ -83,9 +83,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
       `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
-        left join ${
-          usersRoleSubquery.length > 0 ? usersRoleSubquery : 'users_role'
-        } ur on u.uuid = ur.user_uuid and (ur.created_at is not null or ur.role = 'ADMINISTRATOR') ${join}
+        left join ${usersRoleSubquery.length > 0 ? usersRoleSubquery : 'users_role'} ur on u.uuid = ur.user_uuid ${join}
         where ${where.join(' ')}
         group by ${selectFields}
     `,
