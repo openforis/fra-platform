@@ -26,7 +26,6 @@
     "run:prod": "run-s build start",
     "run:prod:server": "node dist/server/start",
     "start": "run-s migration-public:run run:prod:server",
-    "metacache:generate": "ts-node src/tools/generateMetaCache/",
     "//test": "mochapack --webpack-config webpack.config.babel.test.js",
     "test": "run-s test:integration",
     "test:integration": "yarn jest --no-cache --detectOpenHandles --setupFiles dotenv/config",
@@ -280,7 +279,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.5.3",
+  "version": "3.6.0",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

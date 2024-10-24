@@ -1,0 +1,14 @@
+{
+  "comments": "Комментарии",
+  "fraVariable": "Переменная ОЛР",
+  "nationalForestInventory": "Национальная инвентаризация лесов (НИЛ)",
+  "referenceToTataSource": "Ссылка на источник данных",
+  "registersAndStatistics": "Реестры и статистика",
+  "remoteSensingBasedAssessmentWithGroundTruthing": "Оценка на основе дистанционного зондирования с наземной выверкой",
+  "remoteSensingBasedAssessmentWithoutGroundTruthing": "Оценка на основе дистанционного зондирования без наземной выверки",
+  "statisticalRemoteSensingSurveyWithAccuracyAssessment": "Статистическое обследование с помощью дистанционного зондирования с оценкой точности",
+  "typeOfDataSource": "Вид источника данных",
+  "variable": "Переменная",
+  "vegetationMapping": "Картографирование растительности",
+  "yearForDataSource": "Год для источника данных"
+}

@@ -31,17 +31,30 @@ export type TablePaginatedCounter = {
 export type TablePaginatedEmptyListComponent = React.FC
 
 type TablePaginatedFilterTypeMap = {
+  [TablePaginatedFilterType.MULTI_SELECT]: Array<string>
   [TablePaginatedFilterType.SWITCH]: boolean
   [TablePaginatedFilterType.TEXT]: string
 }
 
-export type TablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
+type BaseTablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
   defaultValue?: TablePaginatedFilterTypeMap[FilterType]
   fieldName: string
   hidden?: boolean
   label: string
   type: FilterType
 }
+
+type MultiSelectItem = {
+  label: string
+  value: string
+}
+
+type MultiSelectFilter = BaseTablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
+  options: Array<MultiSelectItem>
+}
+
+export type TablePaginatedFilter<FilterType extends TablePaginatedFilterType> =
+  FilterType extends TablePaginatedFilterType.MULTI_SELECT ? MultiSelectFilter : BaseTablePaginatedFilter<FilterType>
 
 export type TablePaginatedSkeleton = {
   baseColor: string

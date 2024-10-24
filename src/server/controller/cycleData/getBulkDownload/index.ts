@@ -3,6 +3,7 @@ import { i18n as i18nType } from 'i18next'
 
 import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
@@ -27,6 +28,7 @@ const _convertToCSV = (arr: Array<Record<string, string>>): string => {
   const fixedHeaders = [
     'regions',
     'iso3',
+    'deskStudy',
     'name',
     'year',
     'forest area 2020',
@@ -53,7 +55,7 @@ const _getFileName = (name: string): string => {
   return `${name}_${timestamp}.csv`
 }
 
-const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, string>, i18n: i18nType) => {
+const handleResult = ({ regions, iso3, deskStudy, name, year, ...row }: Record<string, string>, i18n: i18nType) => {
   const _translate = (key: string) => i18n.t<string>(Areas.getTranslationKey(key as RegionCode | CountryIso))
 
   const _handleRegions = (regions: string): string => {
@@ -63,6 +65,7 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
   const fixed: Record<string, string> = {
     regions: _handleRegions(regions),
     iso3: `"${iso3}"`,
+    deskStudy: `"${i18n.t(deskStudy)}"`,
     name: `"${_translate(name)}"`,
     ...row,
   }
@@ -81,7 +84,7 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
 }
 
 const handleContent = async (content: Array<Record<string, string>>) => {
-  const i18n = (await createI18nPromise('en')) as i18nType
+  const i18n = (await createI18nPromise(Lang.en)) as i18nType
   // sort content by country iso and then by year
   content.sort((a, b) => {
     if (a.iso3 < b.iso3) return -1
