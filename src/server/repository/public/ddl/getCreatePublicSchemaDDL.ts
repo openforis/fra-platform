@@ -13,8 +13,8 @@ export const getUsersRoleDDL = (schemaName = 'public'): string => {
       invitation_uuid uuid,
       created_at timestamp with time zone default now(),
 
-      foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update no action on delete cascade,
-      foreign key (user_uuid) references ${schemaName}.users (uuid) on update no action on delete cascade,
+      foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update cascade on delete cascade,
+      foreign key (user_uuid) references ${schemaName}.users (uuid) on update cascade on delete cascade,
       foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid) on update cascade on delete cascade,
       foreign key (country_iso) references ${schemaName}.country (country_iso) on update cascade on delete cascade,
       foreign key (invitation_uuid) references ${schemaName}.users_invitation (uuid) on update cascade on delete set null
@@ -47,6 +47,9 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
     );
 
     create unique index if not exists users_invitation_uuid_key on ${schemaName}.users_invitation using btree (uuid);
+    create unique index if not exists users_invitation_assessment_cycle_country_uindex 
+      on ${schemaName}.users_invitation using btree (assessment_uuid, cycle_uuid, country_iso, user_uuid) 
+      where accepted_at is null;
   `
 }
 
