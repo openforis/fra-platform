@@ -5,32 +5,38 @@ import { AssessmentAdapter } from 'server/repository/adapter'
 
 import { selectFields } from './selectFields'
 
-type Props = {
-  assessmentName?: string
-  id?: number
-  uuid?: string
-  metaCache?: boolean
-}
+type Props =
+  | {
+      assessmentName: string
+      metaCache?: boolean
+    }
+  | {
+      id: number
+      metaCache?: boolean
+    }
+  | {
+      uuid: string
+      metaCache?: boolean
+    }
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
-  const { assessmentName, id, uuid, metaCache } = props
-  if (!assessmentName && !id && !uuid) {
-    throw new Error('At least one of assessmentName, id, or uuid must be provided')
-  }
-
   let whereClause: string
   let queryValue: number | string
 
-  if (id) {
+  if ('id' in props) {
     whereClause = 'a.id = $1'
-    queryValue = id
-  } else if (uuid) {
+    queryValue = props.id
+  } else if ('uuid' in props) {
     whereClause = 'a.uuid = $1'
-    queryValue = uuid
-  } else {
+    queryValue = props.uuid
+  } else if ('assessmentName' in props) {
     whereClause = "a.props->>'name' = $1"
-    queryValue = assessmentName
+    queryValue = props.assessmentName
+  } else {
+    throw new Error('At least one of assessmentName, id, or uuid must be provided')
   }
+
+  const { metaCache } = props
 
   return client.one(
     `
