@@ -1,4 +1,5 @@
 import i18n from 'i18next'
+import { Dates } from 'utils/dates'
 
 import { Areas, AssessmentStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment'
@@ -37,7 +38,7 @@ const getLastRole = (params: { assessment?: Assessment; user: User }) => {
   if (!user || !user.roles) return undefined
 
   const roles = assessment
-    ? user.roles.filter((role) => Number(role.assessmentId) === Number(assessment?.id))
+    ? user.roles.filter((role) => Number(role.assessmentUuid) === Number(assessment?.uuid))
     : user.roles
 
   if (roles.length === 1) return roles[0]
@@ -46,7 +47,10 @@ const getLastRole = (params: { assessment?: Assessment; user: User }) => {
     if (!roleA.createdAt && !roleB.createdAt) return 0
     if (!roleA.createdAt) return 1
     if (!roleB.createdAt) return -1
-    return roleB.createdAt.localeCompare(roleA.createdAt)
+
+    const dateA = Dates.parseISO(roleA.createdAt)
+    const dateB = Dates.parseISO(roleB.createdAt)
+    return Dates.isBefore(dateB, dateA) ? -1 : 1
   })
 
   return _roles[0]
