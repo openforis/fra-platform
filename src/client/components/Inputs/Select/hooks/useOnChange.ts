@@ -23,13 +23,15 @@ export const useOnChange = (props: SelectProps): Returned => {
 
         // If "Select All" is toggled with no selection, select all original options
         if (selectedValues.length === 1) {
-          const allValues = selectOptions.flatMap((optionOrGroup) => {
+          const uniqueValues = new Set<string>()
+          selectOptions.forEach((optionOrGroup) => {
             if (Object.hasOwn(optionOrGroup, 'options')) {
-              return (optionOrGroup as OptionsGroup).options.map(({ value }) => value)
+              ;(optionOrGroup as OptionsGroup).options.forEach(({ value }) => uniqueValues.add(value))
+            } else {
+              uniqueValues.add((optionOrGroup as Option).value)
             }
-            return (optionOrGroup as Option).value
           })
-          return onChange(allValues)
+          return onChange(Array.from(uniqueValues))
         }
       }
       // Handle Single-Select
