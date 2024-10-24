@@ -10,14 +10,13 @@ export const acceptInvitation = async (req: CycleRequest<{ invitationUuid: strin
   try {
     const { invitationUuid } = req.query
 
-    const { user, userRole } = await UserController.findByInvitation({ invitationUuid })
+    const { user, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      id: userRole.assessmentId,
-      cycleUuid: userRole.cycleUuid,
-    })
+    const uuid = userInvitation.assessmentUuid
+    const { cycleUuid } = userInvitation
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ uuid, cycleUuid })
 
-    const acceptedUser = await UserController.acceptInvitation({ assessment, cycle, user, userRole })
+    const acceptedUser = await UserController.acceptInvitation({ assessment, cycle, user, userInvitation })
 
     Requests.sendOk(res, {
       user: acceptedUser,
