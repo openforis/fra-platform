@@ -17,7 +17,11 @@ type TestContext = {
 
 export default (): void =>
   describe('User Invite', () => {
-    let testContext: TestContext
+    const testContext: TestContext = {
+      assessment: undefined,
+      cycle: undefined,
+      user: undefined,
+    }
 
     beforeAll(async () => {
       testContext.assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
