@@ -40,6 +40,11 @@ export const useFilters = (): Returned => {
         options: roleOptions,
         type: TablePaginatedFilterType.MULTI_SELECT,
       },
+      {
+        fieldName: 'countries',
+        label: t('common.countries'),
+        type: TablePaginatedFilterType.COUNTRY,
+      },
     ]
   }, [t])
 }
