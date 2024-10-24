@@ -1,8 +1,8 @@
-import { Objects } from 'utils/objects'
 import { Request } from 'express'
 import { PassportStatic } from 'passport'
 import { VerifiedCallback } from 'passport-jwt'
 import * as passportLocal from 'passport-local'
+import { Objects } from 'utils/objects'
 
 import { AuthProvider, Users } from 'meta/user'
 import { AuthProviderLocalProps } from 'meta/user/userAuth'
@@ -24,7 +24,7 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
       const invitationUuid = req.query?.invitationUuid as string
 
       if (invitationUuid) {
-        const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
+        const { user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
         const userProviders = await UserProviderController.read<AuthProviderLocalProps>({
           user: invitedUser,
@@ -44,14 +44,14 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
 
         if (passwordMatch) {
           const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-            id: userRole.assessmentId,
-            cycleUuid: userRole.cycleUuid,
+            uuid: userInvitation.assessmentUuid,
+            cycleUuid: userInvitation.cycleUuid,
           })
 
-          const user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
+          const user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userInvitation })
 
           done(null, user, {
-            countryIso: userRole.countryIso,
+            countryIso: userInvitation.countryIso,
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
           })

@@ -1,17 +1,11 @@
 import i18n from 'i18next'
-import { Objects } from 'utils/objects'
+import { Dates } from 'utils/dates'
 
 import { Areas, AssessmentStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment'
 import { User } from 'meta/user/user'
 
 import { RoleName, UserRole } from './userRole'
-
-export const isInvitationExpired = (userRole: UserRole<RoleName>, expiryPeriod?: number) =>
-  new Date().getTime() - Date.parse(userRole.invitedAt) > (expiryPeriod || 7) * 86400000
-
-export const isInvitationPending = (userRole: UserRole<RoleName>) =>
-  !Objects.isEmpty(userRole.invitedAt) && Objects.isEmpty(userRole.acceptedAt)
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
@@ -44,16 +38,19 @@ const getLastRole = (params: { assessment?: Assessment; user: User }) => {
   if (!user || !user.roles) return undefined
 
   const roles = assessment
-    ? user.roles.filter((role) => Number(role.assessmentId) === Number(assessment?.id))
+    ? user.roles.filter((role) => Number(role.assessmentUuid) === Number(assessment?.uuid))
     : user.roles
 
   if (roles.length === 1) return roles[0]
 
   const _roles = [...roles].sort((roleA, roleB) => {
-    if (!roleA.acceptedAt && !roleB.acceptedAt) return 0
-    if (!roleA.acceptedAt) return 1
-    if (!roleB.acceptedAt) return -1
-    return roleB.acceptedAt.localeCompare(roleA.acceptedAt)
+    if (!roleA.createdAt && !roleB.createdAt) return 0
+    if (!roleA.createdAt) return 1
+    if (!roleB.createdAt) return -1
+
+    const dateA = Dates.parseISO(roleA.createdAt)
+    const dateB = Dates.parseISO(roleB.createdAt)
+    return Dates.isBefore(dateB, dateA) ? -1 : 1
   })
 
   return _roles[0]
@@ -75,8 +72,6 @@ const sortRolesByRolesAndCountry = (
   (i18n.t(Areas.getTranslationKey(countryIsoA)) < i18n.t(Areas.getTranslationKey(countryIsoB)) ? -1 : 1)
 
 export const UserRoles = {
-  isInvitationExpired,
-  isInvitationPending,
   noRole,
   getRecipientRoles,
   getLastRole,

@@ -1,3 +1,58 @@
+export const getUsersRoleDDL = (schemaName = 'public'): string => {
+  return `
+    create table if not exists ${schemaName}.users_role (
+      id bigserial primary key,
+      uuid uuid default uuid_generate_v4(),
+      assessment_uuid uuid,
+      cycle_uuid uuid,
+      country_iso character varying(3),
+      user_uuid uuid not null,
+      role ${schemaName}.user_role not null,
+      props jsonb not null default '{}'::jsonb,
+      permissions jsonb not null default '{}'::jsonb,
+      invitation_uuid uuid,
+      created_at timestamp with time zone default now(),
+
+      foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update cascade on delete cascade,
+      foreign key (user_uuid) references ${schemaName}.users (uuid) on update cascade on delete cascade,
+      foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid) on update cascade on delete cascade,
+      foreign key (country_iso) references ${schemaName}.country (country_iso) on update cascade on delete cascade,
+      foreign key (invitation_uuid) references ${schemaName}.users_invitation (uuid) on update cascade on delete set null
+    );
+    create unique index if not exists users_role_uuid_key on ${schemaName}.users_role using btree (uuid);
+    create unique index if not exists users_role_user_uuid_assessment_uuid_country_iso_cycle_uuid_uindex on ${schemaName}.users_role using btree (user_uuid, assessment_uuid, country_iso, cycle_uuid);
+  `
+}
+
+export const getUsersInvitationDDL = (schemaName = 'public'): string => {
+  return `
+    create table if not exists ${schemaName}.users_invitation (
+      id bigserial primary key,
+      uuid uuid default uuid_generate_v4(),
+      assessment_uuid uuid,
+      cycle_uuid uuid not null,
+      country_iso character varying(3),
+      user_uuid uuid not null,
+      invited_by_user_uuid uuid,
+      role ${schemaName}.user_role not null,
+      invited_at timestamp with time zone default now(),
+      accepted_at timestamp with time zone,
+      props jsonb not null default '{}'::jsonb,
+
+      foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update cascade on delete cascade,
+      foreign key (user_uuid) references ${schemaName}.users (uuid) on update cascade on delete cascade,
+      foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid) on update cascade on delete cascade,
+      foreign key (country_iso) references ${schemaName}.country (country_iso) on update cascade on delete cascade,
+      foreign key (invited_by_user_uuid) references ${schemaName}.users (uuid) on update cascade on delete set null
+    );
+
+    create unique index if not exists users_invitation_uuid_key on ${schemaName}.users_invitation using btree (uuid);
+    create unique index if not exists users_invitation_assessment_cycle_country_uindex 
+      on ${schemaName}.users_invitation using btree (assessment_uuid, cycle_uuid, country_iso, user_uuid) 
+      where accepted_at is null;
+  `
+}
+
 export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
   const query = `
     -- Extensions
@@ -68,6 +123,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
         on update no action on delete no action
     );
     create unique index if not exists users_email_key on ${schemaName}.users using btree (email);
+    create unique index if not exists users_uuid_key on ${schemaName}.users using btree (uuid);
 
     create table if not exists ${schemaName}.activity_log (
       id bigserial primary key,
@@ -119,30 +175,9 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
         on update no action on delete cascade
     );
 
-    create table if not exists ${schemaName}.users_role (
-      id bigserial primary key,
-      user_id bigint not null,
-      assessment_id bigint,
-      country_iso character varying(3),
-      role ${schemaName}.user_role not null,
-      props jsonb not null default '{}'::jsonb,
-      cycle_uuid uuid,
-      invitation_uuid uuid default uuid_generate_v4(),
-      invited_at timestamp with time zone default now(),
-      accepted_at timestamp with time zone,
-      permissions jsonb not null default '{}'::jsonb,
-      invited_by_user_uuid uuid,
-      foreign key (assessment_id) references ${schemaName}.assessment (id)
-        on update no action on delete cascade,
-      foreign key (user_id) references ${schemaName}.users (id)
-        on update no action on delete cascade,
-      foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid)
-        on update cascade on delete cascade,
-      foreign key (country_iso) references ${schemaName}.country (country_iso)
-        on update cascade on delete cascade
-    );
-    create unique index if not exists user_assessment_cycle_country_key on ${schemaName}.users_role using btree (user_id, assessment_id, cycle_uuid, country_iso);
-    create unique index if not exists users_role_user_id_assessment_id_country_iso_cycle_uuid_uindex on ${schemaName}.users_role using btree (user_id, assessment_id, country_iso, cycle_uuid);
+    ${getUsersInvitationDDL(schemaName)}
+    ${getUsersRoleDDL(schemaName)}
+
   `
 
   return query

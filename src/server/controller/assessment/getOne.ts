@@ -3,7 +3,10 @@ import { Assessment, Cycle } from 'meta/assessment'
 import { BaseProtocol, DB } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 
-type Props = { assessmentName: string; metaCache?: boolean } | { id: number; metaCache?: boolean }
+type Props =
+  | { assessmentName: string; metaCache?: boolean }
+  | { id: number; metaCache?: boolean }
+  | { uuid: string; metaCache?: boolean }
 
 const _getCycleByName = (props: { cycleName?: string; assessment: Assessment }): Cycle | undefined => {
   const { cycleName, assessment } = props

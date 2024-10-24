@@ -1,5 +1,4 @@
-import { RoleName, UserRole } from 'meta/user'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserInvitation, UserInvitations } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { UserRepository } from 'server/repository/public/user'
@@ -8,30 +7,27 @@ import { MailService } from 'server/service'
 
 import { AssessmentController } from '../assessment'
 
-export const sendInvitationEmail = async (
-  props: { invitationUuid: string },
-  client: BaseProtocol = DB
-): Promise<UserRole<RoleName>> => {
+type Props = { invitationUuid: string }
+
+export const sendInvitationEmail = async (props: Props, client: BaseProtocol = DB): Promise<UserInvitation> => {
   const { invitationUuid } = props
 
-  let userRole = await UserInvitationRepository.getOne({ invitationUuid }, client)
+  let userInvitation = await UserInvitationRepository.getOne({ invitationUuid }, client)
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-    id: userRole.assessmentId,
-    cycleUuid: userRole.cycleUuid,
-  })
+  const uuid = userInvitation.assessmentUuid
+  const { cycleUuid } = userInvitation
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ uuid, cycleUuid })
 
-  if (UserRoles.isInvitationExpired(userRole)) userRole = await UserInvitationRepository.renew({ userRole })
+  if (UserInvitations.isExpired(userInvitation))
+    userInvitation = await UserInvitationRepository.renew({ invitation: userInvitation })
 
-  const userToInvite = await UserRepository.getOne({ id: userRole.userId }, client)
+  const userToInvite = await UserRepository.getOne({ uuid: userInvitation.userUuid }, client)
 
-  await MailService.userInvite({
-    countryIso: userRole.countryIso,
-    assessmentName: assessment.props.name,
-    cycleName: cycle.name,
-    role: userRole,
-    userToInvite,
-  })
+  const { countryIso } = userInvitation
+  const assessmentName = assessment.props.name
+  const cycleName = cycle.name
+  const mailProps = { countryIso, assessmentName, cycleName, userInvitation, userToInvite }
+  await MailService.userInvite(mailProps)
 
-  return userRole
+  return userInvitation
 }

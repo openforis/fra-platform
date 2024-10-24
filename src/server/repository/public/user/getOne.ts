@@ -67,7 +67,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
         select ur_sub.*
         from users_role ur_sub
         left join public.assessment_cycle c on ur_sub.cycle_uuid = c.uuid
-        left join public.assessment a on a.id = ur_sub.assessment_id
+        left join public.assessment a on a.uuid = ur_sub.assessment_uuid
         where (
           (c.name is null or a.props->>'name' is null or 
            ${allowedAtlantisCycles.join(' or ')}
@@ -83,9 +83,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
       `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
-        left join ${
-          usersRoleSubquery.length > 0 ? usersRoleSubquery : 'users_role'
-        } ur on u.id = ur.user_id and (ur.accepted_at is not null or ur.invited_at is null or ur.role = 'ADMINISTRATOR') ${join}
+        left join ${usersRoleSubquery.length > 0 ? usersRoleSubquery : 'users_role'} ur on u.uuid = ur.user_uuid ${join}
         where ${where.join(' ')}
         group by ${selectFields}
     `,
