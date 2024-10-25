@@ -23,8 +23,8 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
         select ur.*,
                u.email
         from users_role ur
-                 left join public.users u on ur.user_id = u.id
-                 left join public.assessment a on ur.assessment_id = a.id
+                 left join public.users u on ur.user_uuid = u.uuid
+                 left join public.assessment a on ur.assessment_uuid = a.uuid
                  left join public.assessment_cycle ac on ur.cycle_uuid = ac.uuid and a.id = ac.assessment_id
         where a.id = $1
           and ac.id = $2
