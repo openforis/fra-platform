@@ -24,7 +24,7 @@ export const readCountryUsersByRole = async (
   return client.map<User>(
     `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
-        from public.users u join users_role ur on (u.id = ur.user_id)
+        from public.users u join users_role ur on (u.uuid = ur.user_uuid)
         where ur.country_iso in ($1:csv) and ur.role in ($2:csv) and ur.cycle_uuid = $3
         group by ${selectFields}
 
