@@ -13,11 +13,13 @@ type Props = {
 export const getCount = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
   const { assessment, cycle } = props
 
+  // TODO: Check this
+  // Check if it is required to join user_invitations
   return client.one<TablePaginatedCount>(
     `
         select count(ur.id) as total
         from users_role ur
-                 left join public.assessment a on ur.assessment_id = a.id
+                 left join public.assessment a on ur.assessment_uuid = a.uuid
                  left join public.assessment_cycle ac on ur.cycle_uuid = ac.uuid and a.id = ac.assessment_id
         where a.id = $1
           and ac.id = $2

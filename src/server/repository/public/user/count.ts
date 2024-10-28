@@ -37,8 +37,8 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<Re
     return `select count(distinct (u.id)) as totals
                 ${groupByRole ? `, ur.role` : ''}
             from public.users u
-                     join public.users_role ur on u.id = ur.user_id
-            where (ur.assessment_id is null or (ur.assessment_id = $1 and ur.cycle_uuid = $2))
+                     join public.users_role ur on u.uuid = ur.user_uuid
+            where (ur.assessment_uuid is null or (ur.assessment_uuid = $1 and ur.cycle_uuid = $2))
               -- and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
                 and ${conditions.join(` 
               and 

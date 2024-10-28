@@ -9,14 +9,12 @@ export const getInvitation = async (req: CycleRequest<{ invitationUuid: string }
   try {
     const { invitationUuid } = req.query
 
-    const { userRole, assessment, user, userProviders } = await UserController.findByInvitation({ invitationUuid })
+    const invitation = await UserController.findByInvitation({ invitationUuid })
 
-    Requests.sendOk(res, {
-      userRole,
-      assessment,
-      user,
-      userProviders,
-    })
+    // TODO: This has changed
+    // { userRole => userInvitation }
+    // Update frontend accordingly
+    Requests.sendOk(res, invitation)
   } catch (e) {
     Requests.sendErr(res, e)
   }

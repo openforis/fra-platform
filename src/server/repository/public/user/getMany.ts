@@ -73,14 +73,14 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
 
   if (administrators) {
     whereConditions.push(`(
-    (ur.assessment_id = $1
+    (ur.assessment_uuid = $1
     and ur.cycle_uuid = $2
     and ((accepted_at is not null and invited_at is not null) or invited_at is null)
     )
    or (ur.role = '${RoleName.ADMINISTRATOR}')
     )`)
   } else {
-    whereConditions.push('ur.assessment_id = $1')
+    whereConditions.push('ur.assessment_uuid = $1')
     whereConditions.push('ur.cycle_uuid = $2')
   }
 
@@ -101,10 +101,10 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
   }
 
   if (countryIso) {
-    whereConditions.push(`u.id in (
-    select user_id
+    whereConditions.push(`u.uuid in (
+    select user_uuid
     from public.users_role
-    where assessment_id = $1
+    where assessment_uuid = $1
       and cycle_uuid = $2
       and country_iso = $3
     )`)
@@ -115,7 +115,7 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
   const query = `
       select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
       from public.users u
-               join public.users_role ur on (u.id = ur.user_id)
+               join public.users_role ur on (u.uuid = ur.user_uuid)
       where ${whereConditions.join(`
       and
       `)}
@@ -125,7 +125,7 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
                    ${offset ? `offset ${offset}` : ''}
   `
 
-  const queryParams = countryIso ? [assessment.id, cycle.uuid, countryIso] : [assessment.id, cycle.uuid]
+  const queryParams = countryIso ? [assessment.uuid, cycle.uuid, countryIso] : [assessment.uuid, cycle.uuid]
 
   return { query, queryParams }
 }
