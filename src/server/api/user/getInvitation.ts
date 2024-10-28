@@ -11,9 +11,6 @@ export const getInvitation = async (req: CycleRequest<{ invitationUuid: string }
 
     const invitation = await UserController.findByInvitation({ invitationUuid })
 
-    // TODO: This has changed
-    // { userRole => userInvitation }
-    // Update frontend accordingly
     Requests.sendOk(res, invitation)
   } catch (e) {
     Requests.sendErr(res, e)

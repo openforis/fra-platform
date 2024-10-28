@@ -4,8 +4,7 @@ import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 
 import { Assessments } from 'meta/assessment'
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
-import { Users } from 'meta/user'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserInvitations, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { LoginActions, useInvitation } from 'client/store/login'
@@ -25,9 +24,9 @@ const Invitation: React.FC = () => {
   useInitInvitation()
 
   const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()
-  const { assessment, invitedUser, userProviders, userRole } = useInvitation()
+  const { assessment, invitedUser, userProviders, userInvitation } = useInvitation()
 
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
 
@@ -36,14 +35,18 @@ const Invitation: React.FC = () => {
     navigate(Routes.Root.generatePath())
   }
 
-  if (userRole?.acceptedAt) {
+  // If the invitation has been accepted...
+  if (userInvitation?.acceptedAt) {
+    // ...and the user is already logged in, redirect to root
     if (loggedUser) {
-      return <Navigate to={Routes.Root.generatePath()} replace />
+      return <Navigate replace to={Routes.Root.generatePath()} />
     }
-    return <Navigate to={Routes.Login.generatePath({ assessmentName, cycleName })} replace />
+    // and the user is not logged in, redirect to login
+    return <Navigate replace to={Routes.Login.generatePath({ assessmentName, cycleName })} />
   }
 
-  if (userRole && UserRoles.isInvitationExpired(userRole)) {
+  // If the invitation is expired, show error message
+  if (userInvitation && UserInvitations.isExpired(userInvitation)) {
     return (
       <div className="login__form">
         <h3>{t('login.invitationExpired')}</h3>
@@ -53,16 +56,19 @@ const Invitation: React.FC = () => {
 
   if (!invitedUser) return null
 
+  const invitationMessageParams = {
+    assessment: t(Assessments.getShortLabel(assessmentName)),
+    country: t(`area.${userInvitation.countryIso}.listName`),
+    cycle: cycleName,
+    role: t(Users.getI18nRoleLabelKey(userInvitation.role)),
+  }
+  const invitationMessage = t('login.invitationMessage', invitationMessageParams)
+
+  const isInvitedUserLoggedIn = loggedUser?.email === invitedUser.email
+
   return (
     <div className="login__formWrapper">
-      <h3>
-        {t('login.invitationMessage', {
-          assessment: t(Assessments.getShortLabel(assessmentName)),
-          country: t(`area.${userRole.countryIso}.listName`),
-          cycle: cycleName,
-          role: t(Users.getI18nRoleLabelKey(userRole.role)),
-        })}
-      </h3>
+      <h3>{invitationMessage}</h3>
 
       {userProviders?.length > 0 && (
         <h3>{t('login.invitationProvidersRegistered', { authProviderNames: userProviders.join(', ') })}</h3>
@@ -70,8 +76,8 @@ const Invitation: React.FC = () => {
 
       <Outlet />
 
-      {loggedUser?.email === invitedUser.email ? (
-        <button type="button" className="btn" onClick={onAccept}>
+      {isInvitedUserLoggedIn ? (
+        <button className="btn" onClick={onAccept} type="button">
           {t('login.acceptInvitation')}
         </button>
       ) : (
