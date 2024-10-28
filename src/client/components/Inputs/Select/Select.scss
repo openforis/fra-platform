@@ -122,6 +122,7 @@ div.select__group {
 }
 
 div.select__groupHeading {
+  display: flex;
   text-transform: unset;
   font-size: $font-xs;
   font-weight: 600;

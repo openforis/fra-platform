@@ -48,11 +48,13 @@ const Country: React.FC<Props> = (props: Props) => {
             active: filterValue?.length > 0,
           }),
         }}
+        collapsibleGroups
         isMulti
         onChange={handleChange}
         onMenuClose={showTooltip}
         onMenuOpen={hideTooltip}
         placeholder={label}
+        selectableGroups
         toggleAll
         value={filterValue}
       />
