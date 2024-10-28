@@ -20,9 +20,9 @@ const AcceptInvitationButtons: React.FC = () => {
   const navigate = useNavigate()
 
   const { invitationUuid, lang } = useSearchParams<LoginInvitationQueryParams>()
-  const { assessment, invitedUser, userProviders, userRole } = useInvitation()
+  const { assessment, invitedUser, userProviders, userInvitation } = useInvitation()
 
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
 
@@ -43,10 +43,10 @@ const AcceptInvitationButtons: React.FC = () => {
   return (
     <>
       <button
-        type="button"
         className="btn"
-        onClick={isInInvitationLocal ? onAcceptInvitationLocal : goToAcceptInvitationLocal}
         disabled={isInInvitationLocal ? loginInfo?.isLoading : false}
+        onClick={isInInvitationLocal ? onAcceptInvitationLocal : goToAcceptInvitationLocal}
+        type="button"
       >
         {t('login.acceptInvitationWithFra')}
       </button>
@@ -57,7 +57,7 @@ const AcceptInvitationButtons: React.FC = () => {
         rel="noreferrer"
         target="_blank"
       >
-        <Icon name="video" className="icon-sub" /> {t(videoResources[0].labelKeyShort)}
+        <Icon className="icon-sub" name="video" /> {t(videoResources[0].labelKeyShort)}
       </a>
 
       <div className="divider" />
@@ -75,7 +75,7 @@ const AcceptInvitationButtons: React.FC = () => {
         rel="noreferrer"
         target="_blank"
       >
-        <Icon name="video" className="icon-sub" /> {t(videoResources[1].labelKeyShort)}
+        <Icon className="icon-sub" name="video" /> {t(videoResources[1].labelKeyShort)}
       </a>
     </>
   )
