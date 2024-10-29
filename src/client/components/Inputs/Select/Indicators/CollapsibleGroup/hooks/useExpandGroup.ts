@@ -12,15 +12,26 @@ type Returned = {
 export const useExpandGroup = (props: Props): Returned => {
   const { inputValue } = props
   const [expanded, setExpanded] = useState(false)
+  const [manuallyExpanded, setManuallyExpanded] = useState(false)
 
   useEffect(() => {
     if (inputValue.length > 0) {
-      setExpanded(true)
+      // Expand automatically on search
+      if (!expanded) {
+        setExpanded(true)
+        setManuallyExpanded(false)
+      }
+    } else if (!manuallyExpanded) {
+      // Collapse if not manually expanded
+      if (expanded) {
+        setExpanded(false)
+      }
     }
-  }, [inputValue])
+  }, [expanded, inputValue, manuallyExpanded])
 
   const toggleExpanded = useCallback(() => {
     setExpanded((prev) => !prev)
+    setManuallyExpanded(true)
   }, [])
 
   return { expanded, toggleExpanded }
