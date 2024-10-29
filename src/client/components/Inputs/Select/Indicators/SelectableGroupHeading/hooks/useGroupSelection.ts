@@ -13,7 +13,7 @@ export const useGroupSelection = (props: Props): Returned => {
   const { data, selectProps } = props
   const { onChange, value } = selectProps
 
-  const groupValues = useMemo(() => data.options.map((option) => option.value), [data.options])
+  const groupValues = useMemo<Array<string>>(() => data.options.map((option) => option.value), [data.options])
 
   const handleGroupSelectionToggle = useCallback(() => {
     const selectedOptions = value === null ? [] : (value as MultiValue<Option>)
