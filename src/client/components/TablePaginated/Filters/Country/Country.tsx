@@ -1,3 +1,4 @@
+import './Country.scss'
 import React from 'react'
 
 import classNames from 'classnames'
@@ -44,7 +45,7 @@ const Country: React.FC<Props> = (props: Props) => {
     >
       <CountryMultiSelect
         classNames={{
-          container: classNames('filter-multiselect__container', {
+          container: classNames('filter-multiselect__container filter-country', {
             active: filterValue?.length > 0,
           }),
         }}
