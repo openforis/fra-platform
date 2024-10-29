@@ -22,7 +22,7 @@ import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
   init: (express: Express): void => {
-    express.put(ApiEndPoint.User.many(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
+    express.put(ApiEndPoint.User.one(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
     express.get(ApiEndPoint.User.one(), AuthMiddleware.requireViewUser, getUser)
 
