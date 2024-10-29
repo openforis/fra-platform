@@ -1,5 +1,7 @@
 {
   "admin": "Admin",
+  "country_one": "{{count}} Country",
+  "country_other": "{{count}} Countries",
   "enotfound": "DNS error",
   "filter": "Filter by",
   "invitationPending": "Invitation pending",
