@@ -27,7 +27,7 @@ const putUser = Functions.debounce(
       formData.append('id', String(user.id))
       if (profilePicture) formData.append('profilePicture', profilePicture)
       formData.append('user', JSON.stringify(user))
-      await axios.put(ApiEndPoint.User.many(), formData, {
+      await axios.put(ApiEndPoint.User.one(), formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

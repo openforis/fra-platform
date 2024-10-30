@@ -1,5 +1,6 @@
 import { Objects } from 'utils/objects'
 
+import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
@@ -9,30 +10,47 @@ import { BaseProtocol, DB } from 'server/db'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  limit: string
-  offset: string
+  countryIso?: CountryIso
+  limit?: string
+  offset?: string
   orderBy?: string
   orderByDirection?: TablePaginatedOrderByDirection
+  pendingOnly?: boolean
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<UserInvitationSummary>> => {
-  const { assessment, cycle, limit, offset, orderBy, orderByDirection } = props
+  const { assessment, cycle, countryIso, limit, offset, orderBy, orderByDirection, pendingOnly } = props
+
+  const params: Record<string, string | number | boolean> = {
+    assessmentId: assessment.id,
+    cycleId: cycle.id,
+  }
+
+  if (countryIso) params.countryIso = countryIso
+  if (limit) params.limit = limit
+  if (offset) params.offset = offset
+  // Used in e.g. country home collaborator view
+  if (pendingOnly) params.pendingOnly = pendingOnly
 
   return client.map<UserInvitationSummary>(
     `
-        select ur.*,
-               u.email
-        from users_role ur
-                 left join public.users u on ur.user_uuid = u.uuid
-                 left join public.assessment a on ur.assessment_uuid = a.uuid
-                 left join public.assessment_cycle ac on ur.cycle_uuid = ac.uuid and a.id = ac.assessment_id
-        where a.id = $1
-          and ac.id = $2
-          and ur.invitation_uuid is not null
+        select ui.*,
+               u.email,
+               concat(u.props ->> 'name', ' ', u.props ->> 'surname') as name,
+               coalesce(u.props ->> 'lang', 'en') as lang
+        from users_invitation ui
+                 left join public.users u on ui.user_uuid = u.uuid
+                 left join public.assessment a on ui.assessment_uuid = a.uuid
+                 left join public.assessment_cycle ac on ui.cycle_uuid = ac.uuid and a.id = ac.assessment_id
+        where a.id = $(assessmentId)
+          and ac.id = $(cycleId)
+          ${countryIso ? 'and ui.country_iso = $(countryIso)' : ''}
+          ${pendingOnly ? 'and ui.accepted_at is null' : ''}
         order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
-        limit $3 offset $4
+        ${limit ? 'limit $(limit)' : ''}
+        ${offset ? 'offset $(offset)' : ''}
     `,
-    [assessment.id, cycle.id, limit, offset],
+    params,
     (row) => Objects.camelize(row)
   )
 }

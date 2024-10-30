@@ -7,6 +7,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 import { acceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'
+import { getInvitations } from './getInvitations'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
 import { getResetPassword } from './getResetPassword'
@@ -22,15 +23,16 @@ import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
   init: (express: Express): void => {
-    express.put(ApiEndPoint.User.many(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
+    express.put(ApiEndPoint.User.one(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
     express.get(ApiEndPoint.User.one(), AuthMiddleware.requireViewUser, getUser)
 
-    express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
-    express.get(ApiEndPoint.User.invitation(), getInvitation)
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireInviteUser, removeInvitation)
+    express.get(ApiEndPoint.User.invitation(), getInvitation)
     express.get(ApiEndPoint.User.invitationAccept(), acceptInvitation)
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
+    express.get(ApiEndPoint.User.invitations(), AuthMiddleware.requireViewUsers, getInvitations)
+    express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
 
     express.get(ApiEndPoint.User.resetPassword(), getResetPassword)
 
