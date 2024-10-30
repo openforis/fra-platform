@@ -3,19 +3,20 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserInvitations, UserInvitationSummary } from 'meta/user'
 
 type Props = {
-  role: UserInvitationSummary
+  userInvitation: UserInvitationSummary
 }
 
 const Expired: React.FC<Props> = (props: Props) => {
-  const { role } = props
+  const { userInvitation } = props
   const { t } = useTranslation()
 
   const isExpired =
-    !Objects.isEmpty(role.invitedAt) && Objects.isEmpty(role.acceptedAt) && UserRoles.isInvitationExpired(role)
+    !Objects.isEmpty(userInvitation.invitedAt) &&
+    Objects.isEmpty(userInvitation.acceptedAt) &&
+    UserInvitations.isExpired(userInvitation)
 
   if (isExpired) {
     return <span>{t('common.yes')}</span>
