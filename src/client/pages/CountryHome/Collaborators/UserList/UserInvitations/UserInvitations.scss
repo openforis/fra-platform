@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.user-invitations {
+  display: flex;
+  flex-direction: column;
+
+  .btn-invite {
+    margin: $spacing-xs $spacing-xs $spacing-xs auto;
+  }
+}
