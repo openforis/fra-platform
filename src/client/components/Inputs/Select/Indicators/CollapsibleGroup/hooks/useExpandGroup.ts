@@ -30,8 +30,10 @@ export const useExpandGroup = (props: Props): Returned => {
   }, [expanded, inputValue, manuallyExpanded])
 
   const toggleExpanded = useCallback(() => {
-    setExpanded((prev) => !prev)
-    setManuallyExpanded(true)
+    setExpanded((prev) => {
+      setManuallyExpanded(!prev)
+      return !prev
+    })
   }, [])
 
   return { expanded, toggleExpanded }
