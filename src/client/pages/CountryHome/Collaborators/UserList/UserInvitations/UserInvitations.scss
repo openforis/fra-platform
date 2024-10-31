@@ -7,4 +7,22 @@
   .btn-invite {
     margin: $spacing-xs $spacing-xs $spacing-xs auto;
   }
+
+  .data-grid-column {
+    display: flex;
+    align-items: center;
+  }
+
+  .invitation {
+    color: $text-disabled;
+  }
+
+  .expired {
+    color: lighten($ui-destructive, 40%);
+  }
+
+  .button-container {
+    position: relative;
+    margin-left: auto;
+  }
 }
