@@ -7,6 +7,7 @@ import { UserInvitationSummary } from 'meta/user'
 import { useAppDispatch } from 'client/store'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useRefetchInvitations } from 'client/pages/CountryHome/Collaborators/UserList/UserInvitations/Buttons/hooks/useRefetchInvitations'
 
 type Props = {
   invitationSummary: UserInvitationSummary
@@ -20,12 +21,16 @@ export const useRemoveInvitation = (props: Props) => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const refetchInvitations = useRefetchInvitations()
 
   return useCallback(() => {
     // eslint-disable-next-line no-alert
     if (window.confirm(t('userManagement.confirmDelete', { user }))) {
       const params = { assessmentName, cycleName, countryIso, invitationUuid }
-      dispatch(UserManagementActions.removeInvitation(params)).then(callback)
+      dispatch(UserManagementActions.removeInvitation(params)).then(() => {
+        refetchInvitations()
+        callback()
+      })
     }
-  }, [t, invitationUuid, user, dispatch, assessmentName, cycleName, countryIso, callback])
+  }, [t, user, assessmentName, cycleName, countryIso, invitationUuid, dispatch, refetchInvitations, callback])
 }

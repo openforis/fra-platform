@@ -8,6 +8,7 @@ import { useAppDispatch } from 'client/store'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useToaster } from 'client/hooks/useToaster'
+import { useRefetchInvitations } from 'client/pages/CountryHome/Collaborators/UserList/UserInvitations/Buttons/hooks/useRefetchInvitations'
 
 type Props = {
   invitationSummary: UserInvitationSummary
@@ -30,16 +31,18 @@ export const useResendInvitation = (props: Props): Returned => {
   const { toaster } = useToaster()
 
   const dispatch = useAppDispatch()
+  const refetchInvitations = useRefetchInvitations()
 
   const resendInvitation = useCallback(() => {
     setIsLoading(true)
     const params = { assessmentName, countryIso, cycleName, invitationUuid }
     dispatch(UserManagementActions.sendInvitationEmail(params)).then(() => {
+      refetchInvitations()
       toaster.success(t('userManagement.invitationEmailSent'))
       setIsLoading(false)
       callback?.()
     })
-  }, [dispatch, assessmentName, countryIso, cycleName, invitationUuid, toaster, t, callback])
+  }, [assessmentName, countryIso, cycleName, invitationUuid, dispatch, refetchInvitations, toaster, t, callback])
 
   return { resendInvitation, isLoading }
 }
