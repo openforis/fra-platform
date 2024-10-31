@@ -23,10 +23,12 @@ type SelectClassNamesProps = {
 }
 export type SelectProps = SelectBaseProps &
   SelectClassNamesProps & {
+    collapsibleGroups?: boolean
     disabled?: boolean
     multiLabelSummaryKey?: string
     onChange: (value: string | Array<string> | null) => void
     options: OptionsOrGroups
+    selectableGroups?: boolean
     toggleAll?: boolean
     value?: ValueInput
   }

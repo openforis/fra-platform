@@ -14,3 +14,10 @@
 .select__toggleAllOption-label {
   vertical-align: middle;
 }
+
+@include rtl {
+  .select__toggleAllOption-checkbox {
+    margin-left: $spacing-xxs;
+    margin-right: unset;
+  }
+}

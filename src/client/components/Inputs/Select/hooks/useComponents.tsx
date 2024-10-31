@@ -5,17 +5,19 @@ import { Objects } from 'utils/objects'
 
 import {
   ClearIndicator,
+  CollapsibleGroup,
   DropdownIndicator,
   IndicatorsContainer,
   MultiSelectOption,
   MultiValueSummary,
+  SelectableGroupHeading,
 } from 'client/components/Inputs/Select/Indicators'
 import { SelectProps } from 'client/components/Inputs/Select/types'
 
 type Returned = ReactSelectProps['components']
 
 export const useComponents = (props: SelectProps): Returned => {
-  const { isMulti, multiLabelSummaryKey } = props
+  const { collapsibleGroups, isMulti, multiLabelSummaryKey, selectableGroups } = props
 
   return useMemo<Returned>(() => {
     const components: Returned = {
@@ -31,7 +33,9 @@ export const useComponents = (props: SelectProps): Returned => {
         <MultiValueSummary {...originalMultiValueProps} multiLabelSummaryKey={multiLabelSummaryKey} />
       )
     }
+    if (isMulti && selectableGroups) components.GroupHeading = SelectableGroupHeading
+    if (collapsibleGroups) components.Group = CollapsibleGroup
 
     return components
-  }, [isMulti, multiLabelSummaryKey])
+  }, [collapsibleGroups, isMulti, multiLabelSummaryKey, selectableGroups])
 }

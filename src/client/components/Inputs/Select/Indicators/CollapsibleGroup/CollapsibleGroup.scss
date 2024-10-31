@@ -1,0 +1,26 @@
+@import 'src/client/style/partials';
+
+.select__group-collapse-button {
+  all: unset;
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+  padding: 0 $spacing-xxs;
+
+  .icon {
+    transition: $ease-out;
+  }
+
+  &.expanded {
+    .icon {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+@include rtl {
+  .select__group-collapse-button {
+    margin-left: unset;
+    margin-right: auto;
+  }
+}

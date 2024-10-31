@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+.select__groupHeading-selectable {
+  display: flex;
+
+  &:hover {
+    background-color: lighten($ui-accent-light-extra, 3%);
+  }
+}
+
+.select__groupHeading-selectable.select__groupHeading {
+  font-weight: bold;
+}
