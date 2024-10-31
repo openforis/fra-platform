@@ -84,5 +84,30 @@
   "users": {
     "message": "Сообщение",
     "users": "Контакты"
+  },
+  "versioning": {
+    "form": {
+      "cancel": "Отмена",
+      "date": "Дата",
+      "error": "В форме есть ошибки. Исправьте их и отправьте снова.",
+      "newVersion": "Новая версия",
+      "versionNumber": "Версии"
+    },
+    "status": {
+      "completed": "Выполнено",
+      "failed": "Неудачный",
+      "pending": "В ожидании",
+      "running": "Выполняется"
+    },
+    "table": {
+      "createdBy": "Создано",
+      "databaseVersions": "Версии базы данных",
+      "delete": "Удалить",
+      "noVersions": "Нет версий",
+      "publishedAt": "Запланированное время",
+      "scheduledAt": "Запланировано на",
+      "status": "Статус",
+      "versionNumber": "Номер версии"
+    }
   }
 }
