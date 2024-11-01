@@ -7,7 +7,8 @@ import { UserInvitationSummary } from 'meta/user'
 import { useAppDispatch } from 'client/store'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { useRefetchInvitations } from 'client/pages/CountryHome/Collaborators/UserList/UserInvitations/Buttons/hooks/useRefetchInvitations'
+
+import { useRefetchInvitations } from '../../hooks/useRefetchInvitations'
 
 type Props = {
   invitationSummary: UserInvitationSummary
