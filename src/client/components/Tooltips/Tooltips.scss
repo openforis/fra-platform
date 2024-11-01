@@ -1,6 +1,7 @@
 @import 'src/client/style/partials';
 
 .tooltip-container {
+  z-index: 1;
   .react-tooltip {
     ul {
       list-style: none;
