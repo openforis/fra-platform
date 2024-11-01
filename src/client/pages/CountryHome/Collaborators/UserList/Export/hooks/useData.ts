@@ -21,7 +21,7 @@ const userToCsv = (t: TFunction, countryIso: CountryIso, cycle: Cycle) => (user:
 
 const invitationToCsv = (t: TFunction) => (invitation: UserInvitationSummary) => ({
   name: invitation.name,
-  role: `${t(Users.getI18nRoleLabelKey(invitation?.role))} - ${t('admin.invitationPending')}`,
+  role: `${t(Users.getI18nRoleLabelKey(invitation.role))} - ${t('admin.invitationPending')}`,
   email: invitation.email,
 })
 
