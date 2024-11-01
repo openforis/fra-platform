@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+
+  .btn-export {
+    margin: $spacing-xs $spacing-xs $spacing-xs auto;
+  }
+}
