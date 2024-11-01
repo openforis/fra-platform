@@ -9,7 +9,8 @@ import { UserInvitations as UserInvitationMeta, UserInvitationSummary, Users } f
 
 import TablePaginated, { Column } from 'client/components/TablePaginated'
 
-import Buttons from './Buttons'
+import { GRID_TEMPLATE_COLUMNS } from '../getGridTemplateColumns'
+import Actions from './Actions'
 import Info from './Info'
 import Invite from './Invite'
 
@@ -31,7 +32,6 @@ const useColumns = (): Array<Column<UserInvitationSummary>> => {
         ),
         header: t('common.name'),
         key: 'name',
-        orderByProperty: 'u.name',
       },
       {
         component: ({ datum }) => (
@@ -41,7 +41,6 @@ const useColumns = (): Array<Column<UserInvitationSummary>> => {
         ),
         header: t('common.role'),
         key: 'role',
-        orderByProperty: 'role',
       },
       {
         component: ({ datum }) => (
@@ -49,12 +48,11 @@ const useColumns = (): Array<Column<UserInvitationSummary>> => {
         ),
         header: t('common.email'),
         key: 'email',
-        orderByProperty: 'u.email',
       },
       {
         header: '',
         key: 'actions',
-        component: ({ datum }) => <Buttons invitationSummary={datum} />,
+        component: ({ datum }) => <Actions invitationSummary={datum} />,
       },
     ],
     [t]
@@ -64,16 +62,14 @@ const useColumns = (): Array<Column<UserInvitationSummary>> => {
 const UserInvitations: React.FC = () => {
   const columns = useColumns()
 
-  const len = columns.length - 1
-  const gridTemplateColumns = `32px repeat(${len}, auto)`
-
   return (
     <div className="user-invitations">
       <Invite />
       <TablePaginated
         columns={columns}
         counter={{ show: false }}
-        gridTemplateColumns={gridTemplateColumns}
+        gridTemplateColumns={GRID_TEMPLATE_COLUMNS}
+        header={false}
         path={ApiEndPoint.User.invitations()}
       />
     </div>

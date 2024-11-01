@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TooltipId } from 'meta/tooltip'
 import { UserInvitationSummary } from 'meta/user'
 
 import { useUser } from 'client/store/user'
 import { useToaster } from 'client/hooks/useToaster'
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
 import { useRemoveInvitation } from './hooks/useRemoveInvitation'
 
@@ -25,18 +24,17 @@ const Remove: React.FC<Props> = (props: Props) => {
   }, [toaster, t])
 
   const removeInvitation = useRemoveInvitation({ invitationSummary, callback })
+  const disabled = currentUser.uuid === invitationSummary.userUuid
 
   return (
-    <button
-      className="btn-s btn-link-destructive"
-      data-tooltip-content={t('userManagement.remove')}
-      data-tooltip-id={TooltipId.error}
-      disabled={currentUser.uuid === invitationSummary.userUuid}
+    <Button
+      disabled={disabled}
+      iconName="trash-simple"
+      inverse
       onClick={removeInvitation}
-      type="button"
-    >
-      <Icon name="trash-simple" />
-    </button>
+      size={ButtonSize.s}
+      type={ButtonType.danger}
+    />
   )
 }
 

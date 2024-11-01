@@ -5,7 +5,7 @@
   flex-direction: column;
 
   .btn-invite {
-    margin: $spacing-xs $spacing-xs $spacing-xs auto;
+    margin: $spacing-xs 0 $spacing-xs auto;
   }
 
   .data-grid-column {
@@ -14,15 +14,11 @@
   }
 
   .invitation {
-    color: $text-disabled;
+    color: $text-mute;
+    font-style: italic;
   }
 
   .expired {
     color: lighten($ui-destructive, 40%);
-  }
-
-  .button-container {
-    position: relative;
-    margin-left: auto;
   }
 }

@@ -8,7 +8,8 @@ import { useAppDispatch } from 'client/store'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useToaster } from 'client/hooks/useToaster'
-import { useRefetchInvitations } from 'client/pages/CountryHome/Collaborators/UserList/UserInvitations/Buttons/hooks/useRefetchInvitations'
+
+import { useRefetchInvitations } from './useRefetchInvitations'
 
 type Props = {
   invitationSummary: UserInvitationSummary
