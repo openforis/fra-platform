@@ -14,10 +14,10 @@ import { AreaActions, useAssessmentCountry } from 'client/store/area'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
-import UserList from 'client/components/UserList'
 
+import { StatusTransition } from '../types'
 import { useRecipients } from './hooks/useRecipients'
-import { StatusTransition } from './types'
+import UserList from './UserList'
 
 type Props = {
   onClose: () => void
@@ -53,9 +53,9 @@ const StatusConfirm: React.FC<Props> = (props) => {
         <div style={{ height: '160px' }}>
           <textarea
             className="nav-assessment-status-confirm__message"
+            onChange={({ target: { value } }) => setTextareaValue(value)}
             placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
             value={textareaValue}
-            onChange={({ target: { value } }) => setTextareaValue(value)}
           />
         </div>
 
@@ -71,7 +71,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
-        {notifyUsers && hasRecipients && <UserList readOnly users={recipients} />}
+        {notifyUsers && hasRecipients && <UserList users={recipients} />}
         <div
           className="nav-assessment-status-confirm__notify-self"
           onClick={() => setNotifySelf(!notifySelf)}
