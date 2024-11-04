@@ -35,7 +35,8 @@ const Components: Record<string, React.FC<CellProps>> = {
   email: EmailCell,
 }
 
-const UserList: React.FC<Props> = ({ users }) => {
+const UserList: React.FC<Props> = (props: Props) => {
+  const { users } = props
   const { t } = useTranslation()
   const headers = Object.keys(Components)
   const gridTemplateColumns = `repeat(${headers.length}, 1fr)`
