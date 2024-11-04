@@ -12,6 +12,9 @@ type Props = {
   readOnly?: boolean
 }
 
+/**
+ * @deprecated
+ */
 const UserList: React.FC<Props> = (props) => {
   const { users, readOnly } = props
 
