@@ -2,6 +2,7 @@
   "comments": "评论",
   "fraVariable": "FRA变量",
   "nationalForestInventory": "国家森林资源调查(NFI)",
+  "other": "$t(common.otherSpecifyInComments)",
   "referenceToTataSource": "数据源参考文献",
   "registersAndStatistics": "登记册和统计资料",
   "remoteSensingBasedAssessmentWithGroundTruthing": "基于遥感的评估，并辅以地面实况调查",

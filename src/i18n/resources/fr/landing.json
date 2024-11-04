@@ -84,5 +84,30 @@
   "users": {
     "message": "Message",
     "users": "Contacts"
+  },
+  "versioning": {
+    "form": {
+      "cancel": "Abandonner",
+      "date": "Date",
+      "error": "Il y a des erreurs dans le formulaire. S'il vous plaît, corrigez-les et soumettez-les à nouveau.",
+      "newVersion": "Nouvelle version",
+      "versionNumber": "Version"
+    },
+    "status": {
+      "completed": "Terminé",
+      "failed": "Echoué",
+      "pending": "En attente",
+      "running": "En cours d'exécution"
+    },
+    "table": {
+      "createdBy": "Créé par",
+      "databaseVersions": "Versions de la base de données",
+      "delete": "Supprimez",
+      "noVersions": "Pas encore de versions",
+      "publishedAt": "Heure programmée",
+      "scheduledAt": "Planifié à",
+      "status": "Statut",
+      "versionNumber": "Numéro de version"
+    }
   }
 }
