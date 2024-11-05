@@ -22,8 +22,6 @@ const _getField = (field: ContactField, raw: string): string => `jsonb_build_obj
               'value', jsonb_build_object('raw', ${raw})
              )                                    as ${field}`
 
-// TODO: This has changed
-// Check section 0 - Contacts front end
 export const getContacts = async (props: Props, client: BaseProtocol = DB): Promise<Array<Contact>> => {
   const { countryIso, assessment, cycle } = props
 
@@ -57,7 +55,7 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
              and ur.assessment_uuid = $1
              and u.status = 'active'
                -- all roles but admin
-             and (ur.created_at is not null)
+             and (ur.created_at is not null))
          , users as
           (select u.id
                 , u.uuid
