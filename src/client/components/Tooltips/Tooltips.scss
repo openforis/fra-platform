@@ -2,6 +2,7 @@
 
 .tooltip-container {
   z-index: 1;
+
   .react-tooltip {
     ul {
       list-style: none;
@@ -36,10 +37,11 @@
     }
 
     &.info-tooltip {
-      color: black;
-      background-color: lighten($ui-accent, 55%);
+      background-color: $infoTooltipBgColor;
       border: 1px solid $ui-accent;
+      color: darken($text-body, 4%);
       max-width: 240px;
+      opacity: 0.95;
 
       .info-tooltip-arrow {
         border-bottom: 1px solid $ui-accent;

@@ -19,24 +19,28 @@ div.filter-country {
       row-gap: $spacing-xxxs;
 
       .region-title {
-        background-color: lighten($ui-accent, 55%);
+        align-self: end;
+        background-color: $infoTooltipBgColor;
         font-weight: bold;
         padding-bottom: $spacing-xxxs;
         position: sticky;
+        text-align: center;
         top: 0;
       }
 
       .countries-container {
         display: grid;
-        gap: $spacing-xxxs;
         height: min-content;
+        align-items: center;
 
         .country {
-          height: $spacing-s;
+          -moz-box-shadow: 0px -2px 4px -4px rgba($ui-accent, 1);
+          -webkit-box-shadow: 0px -2px 4px -4px rgba($ui-accent, 1);
+          box-shadow: 0px -2px 4px -4px rgba($ui-accent, 1);
           max-width: 170px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          min-height: $spacing-s;
+          padding: $spacing-xxxs 0;
+          white-space: wrap;
         }
       }
     }
