@@ -1,4 +1,4 @@
-import './MultiSelect.scss'
+import './Country.scss'
 import React from 'react'
 
 import classNames from 'classnames'
@@ -9,21 +9,21 @@ import { TooltipId } from 'meta/tooltip'
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
-import Select from 'client/components/Inputs/Select'
+import CountryMultiSelect from 'client/components/CountryMultiSelect/CountryMultiSelect'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 import { useTooltipContent } from './hooks/useTooltipContent'
 
-type Props = TablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
+type Props = TablePaginatedFilter<TablePaginatedFilterType.COUNTRY> & {
   path: string
 }
 
-const MultiSelect: React.FC<Props> = (props: Props) => {
-  const { fieldName, label, multiLabelSummaryKey, options, path } = props
+const Country: React.FC<Props> = (props: Props) => {
+  const { fieldName, label, path } = props
 
   const dispatch = useAppDispatch()
 
-  const { hideTooltip, showTooltip, tooltipContent } = useTooltipContent({ fieldName, options, path })
+  const { hideTooltip, showTooltip, tooltipContent } = useTooltipContent({ fieldName, path })
 
   const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
 
@@ -40,26 +40,30 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
   return (
     <div
       className="filter-multiselect__tooltip-trigger"
-      data-tooltip-content={tooltipContent}
-      data-tooltip-id={TooltipId.info}
+      data-tooltip-class-name="filter-country__tooltip"
+      data-tooltip-delay-hide={100}
+      data-tooltip-html={tooltipContent}
+      data-tooltip-id={TooltipId.infoClickable}
+      data-tooltip-place="bottom"
     >
-      <Select
+      <CountryMultiSelect
         classNames={{
-          container: classNames('filter-multiselect__container', {
+          container: classNames('filter-multiselect__container filter-country', {
             active: filterValue?.length > 0,
           }),
         }}
+        collapsibleGroups
         isMulti
-        multiLabelSummaryKey={multiLabelSummaryKey}
         onChange={handleChange}
         onMenuClose={showTooltip}
         onMenuOpen={hideTooltip}
-        options={options}
         placeholder={label}
+        selectableGroups
+        toggleAll
         value={filterValue}
       />
     </div>
   )
 }
 
-export default MultiSelect
+export default Country
