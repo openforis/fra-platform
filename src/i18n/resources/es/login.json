@@ -29,7 +29,6 @@
   "noMatchingEmail": "No pudimos encontrar ningún usuario que coincida con este correo electrónico.\nAsegúrese de tener una cuenta FRA válida.",
   "noMatchingLocalUser": "No se pudo encontrar ningún usuario que coincida con estas credenciales.",
   "noMatchingProvider": "No se pudo encontrar ningún usuario que coincida con estas credenciales.",
-  "noMatchingUser": "No pudimos encontrar ningún usuario que coincida con estas credenciales.\nAsegúrese de tener una cuenta FRA válida.",
   "noShortPassword": "Contraseña demasiado corta",
   "notAuthorized": "Usuario no autorizado",
   "password": "Password",

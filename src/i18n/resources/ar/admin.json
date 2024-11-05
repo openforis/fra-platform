@@ -7,6 +7,8 @@
   "invitationsSentCount": "عدد الدعوات المرسلة",
   "lastStatus": "آخر تحديث",
   "locationsCount": "عدد المواقع",
+  "role_one": "دور {{count}}",
+  "role_other": "{{count}} أدوار",
   "urlParsingError": "خطأ في التوصل إلى عنوان الموقع",
   "usersCount": "عدد المستخدمين",
   "verifyLinks": "التحقق من الروابط"

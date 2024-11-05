@@ -7,6 +7,8 @@
   "invitationsSentCount": "已发送的邀请数量",
   "lastStatus": "最新状态",
   "locationsCount": "N处位置",
+  "role_one": "{{count}} 个角色",
+  "role_other": "{{count}} 个角色",
   "urlParsingError": "URL解析错误",
   "usersCount": "用户数量",
   "verifyLinks": "验证链接"
