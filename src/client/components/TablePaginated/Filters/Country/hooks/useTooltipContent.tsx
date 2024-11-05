@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
@@ -31,45 +32,58 @@ export const useTooltipContent = (props: Props): Returned => {
   const tooltipContent = useMemo<string | null>(() => {
     if (Objects.isEmpty(filterValue)) return null
     if (!canDisplayTooltip) return null
-    const MAX_VISIBLE_LABELS = 50
 
-    let tooltipLabels: Array<string> = []
+    const selectedRegions: Array<{
+      regionLabel: string
+      selectedCountries: Array<string>
+    }> = []
 
     if (isPanEuropean) {
-      tooltipLabels = filterValue
-        .map((countryIso) => t(`area.${countryIso}.listName`))
-        .sort((a, b) => a.localeCompare(b))
+      selectedRegions.push({
+        regionLabel: '', // Not visible when there is only one region
+        selectedCountries: filterValue
+          .map((countryIso) => t(`area.${countryIso}.listName`))
+          .sort((a, b) => a.localeCompare(b)),
+      })
     } else {
-      const fullySelectedRegions: Array<string> = []
-      const partiallySelectedCountries: Array<string> = []
-
       countryOptionGroups.forEach((group) => {
         if (!Array.isArray((group as OptionsGroup).options)) return
-        const regionCountries = (group as OptionsGroup).options.map((option) => option.value)
-        const areAllCountriesSelected = regionCountries.every((country) => filterValue.includes(country))
 
-        if (areAllCountriesSelected) {
-          fullySelectedRegions.push(group.label)
-        } else {
-          regionCountries.forEach((country) => {
-            if (filterValue.includes(country)) {
-              partiallySelectedCountries.push(t(`area.${country}.listName`))
-            }
+        const regionCountries = (group as OptionsGroup).options.map((option) => option.value)
+        const selectedCountriesInRegion = regionCountries.filter((country) => filterValue.includes(country))
+
+        if (selectedCountriesInRegion.length > 0) {
+          selectedRegions.push({
+            regionLabel: group.label,
+            selectedCountries: selectedCountriesInRegion
+              .map((country) => t(`area.${country}.listName`))
+              .sort((a, b) => a.localeCompare(b)),
           })
         }
       })
-      tooltipLabels = [...fullySelectedRegions, ...partiallySelectedCountries.sort((a, b) => a.localeCompare(b))]
     }
+    const gridTemplateColumns = `repeat(${selectedRegions.length},1fr)`
 
-    const allLabelsCount = tooltipLabels.length
-    const overflowCount = allLabelsCount - MAX_VISIBLE_LABELS
+    return ReactDOMServer.renderToStaticMarkup(
+      <div className="regions-container" style={{ gridTemplateColumns }}>
+        {selectedRegions.length > 1 &&
+          selectedRegions.map(({ regionLabel }) => (
+            <div key={regionLabel} className="region-title">
+              {regionLabel}
+            </div>
+          ))}
 
-    tooltipLabels = tooltipLabels.slice(0, MAX_VISIBLE_LABELS)
-    if (overflowCount > 0) {
-      tooltipLabels.push(t('common.plusCountMore', { count: overflowCount }))
-    }
-
-    return tooltipLabels.join(', ')
+        {selectedRegions.map(({ regionLabel, selectedCountries }) => (
+          <div key={regionLabel} className="countries-container">
+            {selectedCountries.map((countryLabel) => (
+              <span key={countryLabel} className="country">
+                {countryLabel}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
   }, [canDisplayTooltip, countryOptionGroups, filterValue, isPanEuropean, t])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])

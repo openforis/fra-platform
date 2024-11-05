@@ -14,6 +14,7 @@ import Filters from 'client/components/TablePaginated/Filters/Filters'
 import ExportButton from './ExportButton/ExportButton'
 import { useFetchData } from './hooks/useFetchData'
 import { useInitTablePaginated } from './hooks/useInitTablePaginated'
+import { useResetOnUnmount } from './hooks/useResetOnUnmount'
 import Body from './Body'
 import Count from './Count'
 import DefaultEmptyList from './DefaultEmptyList'
@@ -41,6 +42,8 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
 
   useInitTablePaginated({ filters, path })
   useFetchData({ counter, limit, path })
+  useResetOnUnmount({ path })
+
   const count = useTablePaginatedCount(path)
   const data = useTablePaginatedData(path)
   const page = useTablePaginatedPage(path)

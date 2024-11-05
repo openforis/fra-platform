@@ -17,7 +17,7 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
 
   return (
     <div>
-      <div>
+      <div className="select__group-collapsible-heading">
         <Heading
           cx={cx}
           data={headingProps.data}

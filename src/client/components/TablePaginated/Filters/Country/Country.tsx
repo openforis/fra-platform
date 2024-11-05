@@ -40,8 +40,11 @@ const Country: React.FC<Props> = (props: Props) => {
   return (
     <div
       className="filter-multiselect__tooltip-trigger"
-      data-tooltip-content={tooltipContent}
-      data-tooltip-id={TooltipId.info}
+      data-tooltip-class-name="filter-country__tooltip"
+      data-tooltip-delay-hide={100}
+      data-tooltip-html={tooltipContent}
+      data-tooltip-id={TooltipId.infoClickable}
+      data-tooltip-place="bottom"
     >
       <CountryMultiSelect
         classNames={{
