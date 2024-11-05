@@ -6,7 +6,7 @@ import Users from './Users'
 
 const UserList: React.FC = () => {
   return (
-    <div className="user-list">
+    <div className="country-home__user-list">
       <Users />
       <UserInvitations />
     </div>
