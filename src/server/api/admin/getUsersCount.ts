@@ -12,18 +12,13 @@ export const getUsersCount = async (req: UsersRequest, res: Response) => {
     const { assessmentName, cycleName, filters } = req.query
 
     const decodedFilters = TablePaginateds.decodeFilters(filters) as UserFilters
-    const { administrators, countries, fullName, roles } = decodedFilters ?? {}
+    const { administrators, countries = [], fullName = '', roles = [] } = decodedFilters ?? {}
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const count = await UserController.count({
-      administrators,
-      assessment,
-      countries: countries || [],
-      cycle,
-      fullName: fullName || '',
-      roles: roles || [],
-    })
+    const invitedUsers = true
+    const params = { administrators, assessment, countries, cycle, fullName, roles, invitedUsers }
+    const count = await UserController.count(params)
 
     Requests.sendOk(res, count)
   } catch (e) {

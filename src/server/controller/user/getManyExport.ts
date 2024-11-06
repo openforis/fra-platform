@@ -14,7 +14,7 @@ type Props = UsersGetManyProps & {
 
 type Returned = {
   query: string
-  queryParams: Array<string | number>
+  queryParams: Record<string, string | number | boolean>
   rowTransformer: (rawUser: User) => Record<string, string>
 }
 

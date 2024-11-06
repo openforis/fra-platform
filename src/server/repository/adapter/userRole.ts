@@ -6,6 +6,6 @@ export const UserRoleAdapter = <N extends RoleName>({ permissions, ...role }: an
   ...Objects.camelize(role),
   permissions: {
     ...Objects.camelize(permissions),
-    sections: (permissions as CollaboratorPermissions).sections,
+    sections: (permissions as CollaboratorPermissions)?.sections,
   },
 })

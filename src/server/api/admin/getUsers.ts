@@ -1,7 +1,7 @@
-import { Response } from 'express'
+import type { Response } from 'express'
 
-import { UsersRequest } from 'meta/api/request'
-import { TablePaginateds, UserFilters } from 'meta/tablePaginated'
+import type { UsersRequest } from 'meta/api/request'
+import { type UserFilters, TablePaginateds } from 'meta/tablePaginated'
 import { UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -10,26 +10,41 @@ import Requests from 'server/utils/requests'
 
 export const getUsers = async (req: UsersRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, limit, offset, orderBy, orderByDirection, filters } = req.query
+    const {
+      assessmentName,
+      cycleName,
+      limit: limitProp,
+      offset: offsetProp,
+      orderBy,
+      orderByDirection,
+      filters,
+    } = req.query
 
     const decodedFilters = TablePaginateds.decodeFilters(filters) as UserFilters
-    const { administrators, countries, fullName, roles } = decodedFilters ?? {}
+    const { administrators, countries = [], fullName = '', roles = [] } = decodedFilters ?? {}
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const users = await UserController.getMany({
+    const invitedUsers = true
+    const limit = limitProp && Number(limitProp)
+    const offset = offsetProp && Number(offsetProp)
+    const statuses = [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending]
+
+    const params = {
       administrators,
       assessment,
-      countries: countries || [],
+      countries,
       cycle,
-      fullName: fullName || '',
-      limit: limit && Number(limit),
-      offset: offset && Number(offset),
+      fullName,
+      limit,
+      offset,
       orderBy,
       orderByDirection,
-      roles: roles || [],
-      statuses: [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending],
-    })
+      roles,
+      statuses,
+      invitedUsers,
+    }
+    const users = await UserController.getMany(params)
 
     Requests.sendOk(res, users)
   } catch (e) {
