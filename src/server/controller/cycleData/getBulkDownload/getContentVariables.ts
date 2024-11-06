@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { TableNames } from 'meta/assessment'
+import { TableNames, Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
@@ -16,6 +16,7 @@ type Entries = Array<{ tableName: string; variables: Array<{ csvColumn: string; 
 
 export const getContentVariables = async (props: Props & { fileName: string; entries: Entries }) => {
   const { assessment, cycle, countries, entries, fileName } = props
+  const isFRAYears = fileName === 'FRA_Years'
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,
@@ -40,7 +41,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
   await Promises.each(entries, async (entry) => {
     const { tableName, variables } = entry
     const tableMetadata = tablesMetadata.find((table) => table.props.name === tableName)
-    let cols = tableMetadata?.props.columnNames[cycle.uuid]
+    let cols = isFRAYears ? Years.fraYears(cycle) : tableMetadata?.props.columnNames[cycle.uuid]
 
     if (tableName === 'growingStockComposition2025') {
       cols = ['growingStockPercent', 'growingStockMillionCubicMeter']
