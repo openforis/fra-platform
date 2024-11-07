@@ -6,6 +6,7 @@ import { removeDataCache } from 'server/controller/assessment/removeCycle/remove
 import { removeMetadata } from 'server/controller/assessment/removeCycle/removeMetadata'
 import { removeMetadataCache } from 'server/controller/assessment/removeCycle/removeMetadataCache'
 import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
@@ -37,7 +38,10 @@ export const removeCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const activityLog = { target: cycle, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
 
-    return { assessment, cycle }
+    return {
+      assessment: await AssessmentRepository.getOne({ assessmentName: assessment.props.name }, t),
+      cycle,
+    }
   })
 
   await CycleRepository.removeSchema({ assessment, cycle: cycleProps })
