@@ -49,37 +49,56 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                    and a.section = 'assessment'
                    and a.message = '${ActivityLogMessage.assessmentStatusUpdate}'
                  group by 1, 2)
-           , user_summary as
-               (select c.country_iso,
-                       count(c.country_iso) filter ( where ur.invited_at is not null )           as invitations_sent_count,
-                       count(c.country_iso)
-                       filter ( where ur.invited_at is not null and ur.accepted_at is not null ) as invitations_accepted_count,
-                       count(c.country_iso)                                                      as users_count
-
-                from country c
-                         left join public.users_role ur
-                                   on c.country_iso = ur.country_iso
-                where ur.cycle_uuid = '${cycle.uuid}'
-                group by 1)
+           , user_roles as (
+               select ur.country_iso, ur.user_uuid
+               from public.users_role ur
+               where ur.cycle_uuid = '${cycle.uuid}'
+           ),
+           user_invitations as (
+               select ui.country_iso,
+                      ui.user_uuid,
+                      ui.invited_at,
+                      ui.accepted_at
+               from public.users_invitation ui
+               where ui.cycle_uuid = '${cycle.uuid}'
+           ),
+           unique_users as (
+               select user_uuid, country_iso
+               from (
+                    select user_uuid, country_iso from user_roles
+                    union
+                    select user_uuid, country_iso from user_invitations
+               ) combined_users
+           ),
+           user_summary as (
+               select c.country_iso,
+                      count(distinct ui.user_uuid) filter (where ui.invited_at is not null) as invitations_sent_count,
+                      count(distinct ui.user_uuid) filter (where ui.accepted_at is not null) as invitations_accepted_count,
+                      count(distinct uu.user_uuid) as users_count
+               from country c
+                    left join user_invitations ui on c.country_iso = ui.country_iso
+                    left join unique_users uu on c.country_iso = uu.country_iso
+               group by 1
+           )
       select c.country_iso
-             , le.last_edit
-             , leo.last_edit_odp_data
-             , lr.last_in_review
-             , lr.last_for_approval
-             , lr.last_accepted
-             , greatest(le.last_edit
-                 , leo.last_edit_odp_data
-                 , lr.last_in_review
-                 , lr.last_for_approval
-                 , lr.last_accepted)                      as last_update
-             , coalesce(us.invitations_accepted_count, 0) as invitations_accepted_count
-             , coalesce(us.invitations_sent_count, 0)     as invitations_sent_count
-             , coalesce(us.users_count, 0)                as users_count
-             , case
-                 when le.last_edit is null then '${AssessmentStatus.notStarted}'
-                 when c.status is null and le.last_edit is not null then '${AssessmentStatus.editing}'
-                 else c.status
-                 end                                    as status
+           , le.last_edit
+           , leo.last_edit_odp_data
+           , lr.last_in_review
+           , lr.last_for_approval
+           , lr.last_accepted
+           , greatest(le.last_edit
+               , leo.last_edit_odp_data
+               , lr.last_in_review
+               , lr.last_for_approval
+               , lr.last_accepted)                      as last_update
+           , coalesce(us.invitations_accepted_count, 0) as invitations_accepted_count
+           , coalesce(us.invitations_sent_count, 0)     as invitations_sent_count
+           , coalesce(us.users_count, 0)                as users_count
+           , case
+               when le.last_edit is null then '${AssessmentStatus.notStarted}'
+               when c.status is null and le.last_edit is not null then '${AssessmentStatus.editing}'
+               else c.status
+               end                                    as status
       from country c
                left join last_edit le on c.country_iso = le.country_iso
                left join last_edit_odp_data leo on c.country_iso = leo.country_iso
