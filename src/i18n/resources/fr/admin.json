@@ -1,5 +1,7 @@
 {
   "admin": "Administration",
+  "country_one": "{{count}} Pays",
+  "country_other": "{{count}} Pays",
   "enotfound": "Erreur DBS",
   "filter": "Filtrer par",
   "invitationPending": "Invitation en attente",

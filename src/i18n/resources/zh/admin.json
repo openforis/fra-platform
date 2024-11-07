@@ -1,5 +1,7 @@
 {
   "admin": "管理",
+  "country_one": "{{count}} 个国家",
+  "country_other": "{{count}} 个国家",
   "enotfound": "DNS错误",
   "filter": "筛选，按照",
   "invitationPending": "邀请待处理",
