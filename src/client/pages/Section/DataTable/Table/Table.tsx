@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 
 import classNames from 'classnames'
 
-import { AssessmentName, Table as TableType } from 'meta/assessment'
+import { AssessmentName, RowType, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
@@ -13,8 +13,10 @@ import { useCanEdit } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import ButtonTableExport from 'client/components/ButtonTableExport'
+import { DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'
+import GridRow from 'client/pages/Section/DataTable/Table/GridRow'
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
@@ -50,6 +52,8 @@ const Table: React.FC<Props> = (props) => {
 
   const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
 
+  const rowsData = table.rows.filter((row) => !row.props.hidden && row.props.type !== RowType.header)
+
   return (
     <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
       <div className="fra-table__scroll-wrapper">
@@ -59,6 +63,21 @@ const Table: React.FC<Props> = (props) => {
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
+        <DataGrid className="table__grid" gridTemplateColumns={`minmax(auto, 300px) repeat(${headers.length},1fr)`}>
+          {rowsData.map((row) => (
+            <GridRow
+              key={row.uuid}
+              assessmentName={assessmentName}
+              data={data}
+              disabled={disabled}
+              row={row}
+              sectionName={sectionName}
+              table={table}
+            />
+          ))}
+        </DataGrid>
+
+        {/* TODO: remove at the end */}
         <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
           <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
 
@@ -70,7 +89,6 @@ const Table: React.FC<Props> = (props) => {
             table={table}
           />
         </table>
-
         {!print && canEdit && <DataValidations table={table} />}
       </div>
     </div>

@@ -7,20 +7,21 @@ import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
 import { useNodeValueValidation } from 'client/store/data'
+import { DataCell } from 'client/components/DataGrid'
 
-import Calculated from '../../../GridRow/RowData/Cell/Calculated'
-import Flags from '../../../GridRow/RowData/Cell/Flags'
-import useClassName from '../../../GridRow/RowData/Cell/hooks/useClassName'
-import useErrorMessages from '../../../GridRow/RowData/Cell/hooks/useErrorMessages'
-import { useNodeValue } from '../../../GridRow/RowData/Cell/hooks/useNodeValue'
-import useOnChange from '../../../GridRow/RowData/Cell/hooks/useOnChange'
-import Multiselect from '../../../GridRow/RowData/Cell/Multiselect'
-import Number from '../../../GridRow/RowData/Cell/Number'
-import Placeholder from '../../../GridRow/RowData/Cell/Placeholder'
-import Select from '../../../GridRow/RowData/Cell/Select'
-import Taxon from '../../../GridRow/RowData/Cell/Taxon'
-import Text from '../../../GridRow/RowData/Cell/Text'
+import useClassName from './hooks/useClassName'
+import useErrorMessages from './hooks/useErrorMessages'
+import { useNodeValue } from './hooks/useNodeValue'
+import useOnChange from './hooks/useOnChange'
+import Calculated from './Calculated'
+import Flags from './Flags'
+import Multiselect from './Multiselect'
+import Number from './Number'
+import Placeholder from './Placeholder'
 import { PropsCell } from './props'
+import Select from './Select'
+import Taxon from './Taxon'
+import Text from './Text'
 
 const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
@@ -64,14 +65,14 @@ const Cell: React.FC<Props> = (props) => {
   if (!Component) return null
 
   return (
-    <td
+    <DataCell
       className={className}
-      colSpan={colSpan}
+      // colSpan={colSpan}
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
-      id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
-      rowSpan={rowSpan}
-      style={style}
+      // id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
+      // rowSpan={rowSpan}
+      // style={style}
     >
       <Component
         assessmentName={assessmentName}
@@ -88,7 +89,7 @@ const Cell: React.FC<Props> = (props) => {
       />
 
       <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />
-    </td>
+    </DataCell>
   )
 }
 

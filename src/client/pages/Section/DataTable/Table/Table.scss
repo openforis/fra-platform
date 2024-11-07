@@ -1,5 +1,11 @@
 @import 'src/client/style/partials';
 
+
+.table__grid {
+  overflow-x: auto;
+  width: 100%;
+}
+
 // TODO: fra prefix is left with old mode consistency. refactor later on
 .fra-table__scroll-wrapper {
   align-content: start;
