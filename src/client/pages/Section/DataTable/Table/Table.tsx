@@ -63,7 +63,7 @@ const Table: React.FC<Props> = (props) => {
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
-        <DataGrid className="table__grid" gridTemplateColumns={`minmax(auto, 300px) repeat(${headers.length},1fr)`}>
+        <DataGrid className="table__grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
           {rowsData.map((row) => (
             <GridRow
               key={row.uuid}
