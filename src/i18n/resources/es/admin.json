@@ -1,5 +1,7 @@
 {
   "admin": "Administración",
+  "country_one": "{{count}} País",
+  "country_other": "{{count}} Países",
   "enotfound": "Error de DNS",
   "filter": "Filtrar por",
   "invitationPending": "Invitación pendiente",

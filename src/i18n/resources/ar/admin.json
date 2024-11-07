@@ -1,5 +1,7 @@
 {
   "admin": "المدير",
+  "country_one": "{{count}} بلد",
+  "country_other": "{{count}} بلدان",
   "enotfound": "خطأ في نظام أسماء النطاقات",
   "filter": "غربلة وفق",
   "invitationPending": "تعليق الدعوة",
