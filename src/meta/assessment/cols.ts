@@ -86,7 +86,14 @@ const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
 const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
   const { col, cycle } = props
   const { style = {} } = col.props
-  return style[cycle.uuid] ?? {}
+  const colStyle = style[cycle.uuid] ?? {}
+  const { colSpan, rowSpan } = colStyle
+
+  return {
+    ...colStyle,
+    gridColumn: Objects.isNil(colSpan) ? undefined : `span ${colSpan}`,
+    gridRow: Objects.isNil(rowSpan) ? undefined : `span ${rowSpan}`,
+  }
 }
 
 export const Cols = {

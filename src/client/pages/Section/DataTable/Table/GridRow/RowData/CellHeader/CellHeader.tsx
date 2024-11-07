@@ -21,7 +21,7 @@ const CellHeader: React.FC<{ assessmentName: AssessmentName; col: Col; row: Row 
   let colHeaderLabel = Cols.getLabel({ cycle, col, t })
   const variableNo = col.props.variableNo?.[cycle.uuid]
   if (variableNo) colHeaderLabel = `${colHeaderLabel} (${variableNo})`
-  const { colSpan, rowSpan, ...colHeaderStyle } = Cols.getStyle({ col, cycle })
+  const { colSpan, gridColumn, gridRow, rowSpan, ...colHeaderStyle } = Cols.getStyle({ col, cycle })
   const classes = Cols.getClassNames({ col, cycle })
 
   // TODO: revisit the concept of headerCell
@@ -32,15 +32,17 @@ const CellHeader: React.FC<{ assessmentName: AssessmentName; col: Col; row: Row 
     <DataCell
       className={classNames(
         {
-          [`fra-table__subcategory${row.props.categoryLevel}-cell`]: subcategory,
-          'fra-table__category-cell': !subcategory && !headerCell,
-          'fra-table__header-cell-left': !subcategory && headerCell,
+          // [`fra-table__subcategory${row.props.categoryLevel}-cell`]: subcategory,
+          // 'fra-table__category-cell': !subcategory && !headerCell,
+          // 'fra-table__header-cell-left': !subcategory && headerCell,
         },
         classes
       )}
+      gridColumn={gridColumn}
+      gridRow={gridRow}
       // colSpan={colSpan}
       // rowSpan={rowSpan}
-      // style={colHeaderStyle}
+      style={colHeaderStyle}
     >
       {row.props.linkToSection?.[cycle.uuid] ? (
         <>

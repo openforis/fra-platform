@@ -36,20 +36,33 @@ const Components: Record<string, React.FC<PropsCell>> = {
 }
 
 type Props = {
-  data: RecordAssessmentData
   assessmentName: AssessmentName
+  col: Col
+  data: RecordAssessmentData
+  disabled: boolean
+  lastCol: boolean
+  lastRow: boolean
+  row: Row
+  rowIndex: number
   sectionName: string
   table: Table
-  disabled: boolean
-  rowIndex: number
-  col: Col
-  row: Row
 }
 
 const emptyFn = () => ({})
 
 const Cell: React.FC<Props> = (props) => {
-  const { data, assessmentName, sectionName, table, disabled: disabledProps, rowIndex, col, row } = props
+  const {
+    data,
+    assessmentName,
+    lastCol,
+    lastRow,
+    sectionName,
+    table,
+    disabled: disabledProps,
+    rowIndex,
+    col,
+    row,
+  } = props
 
   const cycle = useCycle()
   const nodeValue = useNodeValue({ col, data, row, table })
@@ -60,19 +73,21 @@ const Cell: React.FC<Props> = (props) => {
 
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ cycle, col })
   const Component = Components[col.props.colType]
-  const { colSpan, rowSpan, ...style } = Cols.getStyle({ col, cycle })
+  const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
 
   if (!Component) return null
 
   return (
     <DataCell
-      className={className}
-      // colSpan={colSpan}
+      // className={className}
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
+      gridColumn={gridColumn}
+      gridRow={gridRow}
       // id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
-      // rowSpan={rowSpan}
-      // style={style}
+      lastCol={lastCol}
+      lastRow={lastRow}
+      style={style}
     >
       <Component
         assessmentName={assessmentName}

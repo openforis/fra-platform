@@ -16,7 +16,7 @@ import Cell from './Cell'
 import CellHeader from './CellHeader'
 
 const RowData: React.FC<Props> = (props) => {
-  const { data, assessmentName, sectionName, table, row, disabled } = props
+  const { data, assessmentName, lastRow, sectionName, table, row, disabled } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
@@ -36,13 +36,15 @@ const RowData: React.FC<Props> = (props) => {
     <DataRow>
       {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} row={row} />}
 
-      {colsData.map((col) => (
+      {colsData.map((col, index) => (
         <Cell
           key={col.uuid}
           assessmentName={assessmentName}
           col={col}
           data={data}
           disabled={disabled}
+          lastCol={index === cols.length - 1}
+          lastRow={lastRow}
           row={row}
           rowIndex={Number(row.props.index)}
           sectionName={sectionName}

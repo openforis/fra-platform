@@ -4,8 +4,9 @@ import { RecordAssessmentData } from 'meta/data'
 export type Props = {
   assessmentName: AssessmentName
   data: RecordAssessmentData
+  disabled: boolean
+  lastRow?: boolean
+  row: Row
   sectionName: string
   table: Table
-  row: Row
-  disabled: boolean
 }

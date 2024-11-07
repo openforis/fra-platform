@@ -64,12 +64,13 @@ const Table: React.FC<Props> = (props) => {
         </div>
 
         <DataGrid className="table__grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
-          {rowsData.map((row) => (
+          {rowsData.map((row, index) => (
             <GridRow
               key={row.uuid}
               assessmentName={assessmentName}
               data={data}
               disabled={disabled}
+              lastRow={index === rowsData.length - 1}
               row={row}
               sectionName={sectionName}
               table={table}

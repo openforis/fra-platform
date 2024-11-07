@@ -4,7 +4,7 @@ import React, { HTMLAttributes, PropsWithChildren } from 'react'
 import classNames from 'classnames'
 
 type Props = PropsWithChildren<
-  Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'data-tooltip-content' | 'data-tooltip-id'>
+  Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'data-tooltip-content' | 'data-tooltip-id' | 'style'>
 > &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridRow'> & {
     actions?: boolean
@@ -19,7 +19,7 @@ type Props = PropsWithChildren<
   }
 
 const DataCell: React.FC<Props> = (props) => {
-  const { children, gridColumn, gridRow } = props
+  const { children, gridColumn, gridRow, style } = props
   // style props
   const { actions, className, editable, error, firstCol, header, highlighted, lastCol, lastRow, noBorder } = props
   // tooltip props
@@ -34,7 +34,7 @@ const DataCell: React.FC<Props> = (props) => {
       )}
       data-tooltip-content={dataTooltipContent}
       data-tooltip-id={dataTooltipContent ? dataTooltipId : null}
-      style={{ gridColumn, gridRow }}
+      style={{ gridColumn, gridRow, ...style }}
     >
       {React.Children.toArray(children)}
     </div>
