@@ -345,12 +345,9 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
   `
 }
 
-export const getCreateOrReplaceViewCountryUserSummary = (props: {
-  assessment: Assessment
-  cycle: Cycle
-  schemaName?: string
-}) => {
-  const { assessment, cycle, schemaName = Schemas.getNameCycle(assessment, cycle) } = props
+export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: Assessment; cycle: Cycle }) => {
+  const { assessment, cycle } = props
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
   return `
         create or replace view ${schemaName}.country_user_summary as
         with user_data as (
