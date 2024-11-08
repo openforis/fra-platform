@@ -3,7 +3,7 @@ import { Assessment, AssessmentMetaCache, AssessmentNames, Cycle, CycleProps, Cy
 import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
-import { CountryUserSummaryRepository } from 'server/repository/assessmentCycle/countryUserSummary'
+import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 
 const defaultMetaCache: AssessmentMetaCache = {
   calculations: { dependants: {}, dependencies: {} },
@@ -45,7 +45,7 @@ export const create = async (
   )
 
   // Init country user summary view
-  await CountryUserSummaryRepository.createOrReplaceView({ assessment, cycle })
+  await client.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))
 
   // Initialise meta_cache for assessment on cycle creation
   // cycle.uuid is required to initialise meta_cache

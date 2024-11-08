@@ -1,6 +1,6 @@
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db'
-import { CountryUserSummaryRepository } from 'server/repository/assessmentCycle/countryUserSummary'
+import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 
 export default async (client: BaseProtocol) => {
   const assessments = await AssessmentController.getAll({}, client)
@@ -9,7 +9,7 @@ export default async (client: BaseProtocol) => {
     assessments.map((assessment) =>
       Promise.all(
         assessment.cycles.map(async (cycle) => {
-          await CountryUserSummaryRepository.createOrReplaceView({ assessment, cycle }, client)
+          await client.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))
         })
       )
     )
