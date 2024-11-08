@@ -1,1 +1,0 @@
-![tucan](img/tucan.gif)
