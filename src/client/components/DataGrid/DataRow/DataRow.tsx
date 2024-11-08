@@ -1,14 +1,13 @@
-import React, { ReactElement } from 'react'
+import React, { PropsWithChildren, ReactElement } from 'react'
 
 import { DataRowAction } from 'client/components/DataGrid'
 import Actions from 'client/components/DataGrid/DataRow/Actions'
 
 import { useHighlighted } from './hooks/useHighlighted'
 
-type DataRowProps = {
+type DataRowProps = PropsWithChildren<{
   actions?: Array<DataRowAction>
-  children: ReactElement | Array<ReactElement>
-}
+}>
 
 const DataRow: React.FC<DataRowProps> = (props) => {
   const { actions, children } = props
@@ -21,7 +20,7 @@ const DataRow: React.FC<DataRowProps> = (props) => {
         if (!child) return null
         const firstCol = idx === 0
         const lastCol = idx === React.Children.count(children) - 1
-        return React.cloneElement(child, { firstCol, highlighted, lastCol })
+        return React.cloneElement(child as ReactElement, { firstCol, highlighted, lastCol })
       })}
       <Actions actions={actions} />
     </>
