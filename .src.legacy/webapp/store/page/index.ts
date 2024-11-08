@@ -1,1 +1,0 @@
-export { pageReducer } from './reducer'
