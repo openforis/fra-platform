@@ -34,7 +34,7 @@ const RowData: React.FC<Props> = (props) => {
 
   return (
     <DataRow>
-      {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} row={row} />}
+      {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} lastRow={lastRow} row={row} />}
 
       {colsData.map((col, index) => (
         <Cell

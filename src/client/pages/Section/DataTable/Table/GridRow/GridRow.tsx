@@ -12,7 +12,7 @@ const Components: Record<string, React.FC<Props>> = {
 }
 
 const GridRow: React.FC<Props> = (props) => {
-  const { data, assessmentName, sectionName, table, row, disabled } = props
+  const { assessmentName, data, disabled, lastRow, row, sectionName, table } = props
 
   const { type } = row.props
 
@@ -20,7 +20,7 @@ const GridRow: React.FC<Props> = (props) => {
 
   if (!Component) return null // TODO: Remove
 
-  return React.createElement(Component, { data, assessmentName, sectionName, table, row, disabled })
+  return React.createElement(Component, { assessmentName, data, disabled, lastRow, row, sectionName, table })
 }
 
 export default GridRow

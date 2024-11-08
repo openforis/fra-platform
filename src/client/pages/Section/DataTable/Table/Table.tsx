@@ -70,15 +70,15 @@ const Table: React.FC<Props> = (props) => {
               assessmentName={assessmentName}
               data={data}
               disabled={disabled}
-              lastRow={index === rowsData.length - 1}
+              lastRow={index === rowsData.length - 1} // TODO: Fix this for the case when the last row is type "noticeMessage"
               row={row}
               sectionName={sectionName}
               table={table}
             />
           ))}
         </DataGrid>
-
         {/* TODO: remove at the end */}
+        <br />
         <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
           <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
 

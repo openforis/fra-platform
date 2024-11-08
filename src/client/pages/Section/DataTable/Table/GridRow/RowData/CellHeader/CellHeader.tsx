@@ -11,8 +11,15 @@ import { useCycle } from 'client/store/assessment'
 import { useCountryIso } from 'client/hooks'
 import { DataCell } from 'client/components/DataGrid'
 
-const CellHeader: React.FC<{ assessmentName: AssessmentName; col: Col; row: Row }> = (props) => {
-  const { assessmentName, col, row } = props
+type Props = {
+  assessmentName: AssessmentName
+  col: Col
+  lastRow?: boolean
+  row: Row
+}
+
+const CellHeader: React.FC<Props> = (props) => {
+  const { assessmentName, col, lastRow, row } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
@@ -32,16 +39,16 @@ const CellHeader: React.FC<{ assessmentName: AssessmentName; col: Col; row: Row 
     <DataCell
       className={classNames(
         {
-          // [`fra-table__subcategory${row.props.categoryLevel}-cell`]: subcategory,
-          // 'fra-table__category-cell': !subcategory && !headerCell,
-          // 'fra-table__header-cell-left': !subcategory && headerCell,
+          [`subcategory${row.props.categoryLevel}`]: subcategory,
+          category: !subcategory && !headerCell,
+          'left': !subcategory && headerCell,
         },
         classes
       )}
       gridColumn={gridColumn}
       gridRow={gridRow}
-      // colSpan={colSpan}
-      // rowSpan={rowSpan}
+      header
+      lastRow={lastRow}
       style={colHeaderStyle}
     >
       {row.props.linkToSection?.[cycle.uuid] ? (
