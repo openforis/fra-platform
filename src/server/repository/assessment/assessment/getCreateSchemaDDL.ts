@@ -352,6 +352,7 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
         create or replace view ${schemaName}.country_user_summary as
         select distinct on (u.uuid, coalesce(ur.country_iso, ui.country_iso))
             u.uuid,
+            u.id,
             coalesce(ur.country_iso, ui.country_iso)  as country_iso,
             u.email,
             u.props->>'name' as name,
@@ -360,7 +361,7 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
                     coalesce(u.props->>'name', ''),
                     case when u.props->>'name' is not null and u.props->>'surname' is not null then ' ' else '' end,
                     coalesce(u.props->>'surname', '')
-            ) as fullname,
+            ) as full_name,
             u.status,
             to_jsonb(ur.*)                              as role,
             case
@@ -370,8 +371,8 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
                     coalesce(to_jsonb(ui.*), '{}'::jsonb)
                 end                                     as invitation
         from users u
-                 left join users_role ur on (u.uuid = ur.user_uuid and ur.cycle_uuid = '${cycle.uuid}' and ur.assessment_uuid = '${assessment.uuid}')
-                 left join users_invitation ui on (u.uuid = ui.user_uuid and ui.cycle_uuid = '${cycle.uuid}' and ui.assessment_uuid = '${assessment.uuid}')
+                 left join users_role ur on (u.uuid = ur.user_uuid and ((ur.cycle_uuid = '${cycle.uuid}' and ur.assessment_uuid = '${assessment.uuid}') or ur.role = 'ADMINISTRATOR'))
+                 left join users_invitation ui on (u.uuid = ui.user_uuid and ((ui.cycle_uuid = '${cycle.uuid}' and ui.assessment_uuid = '${assessment.uuid}') or ur.role = 'ADMINISTRATOR'))
         where (ur.uuid is not null or ui.uuid is not null)
         order by
             u.uuid,
