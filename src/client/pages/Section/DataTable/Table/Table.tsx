@@ -63,22 +63,22 @@ const Table: React.FC<Props> = (props) => {
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
-        <DataGrid className="table__grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
+        <DataGrid className="table-grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
           {rowsData.map((row, index) => (
             <GridRow
               key={row.uuid}
               assessmentName={assessmentName}
               data={data}
               disabled={disabled}
-              lastRow={index === rowsData.length - 1}
+              lastRow={index === rowsData.length - 1} // TODO: Fix this for the case when the last row is type "noticeMessage"
               row={row}
               sectionName={sectionName}
               table={table}
             />
           ))}
         </DataGrid>
-
         {/* TODO: remove at the end */}
+        <br />
         <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
           <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
 

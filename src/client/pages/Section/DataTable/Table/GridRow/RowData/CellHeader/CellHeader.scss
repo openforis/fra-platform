@@ -1,0 +1,30 @@
+@import 'src/client/style/partials';
+
+.table-grid__data-cell.header {
+  text-align: center;
+
+  &.left {
+    text-align: left;
+  }
+
+  &.category {
+    .link {
+      font-weight: 600;
+    }
+  }
+
+  &.subcategory1 {
+    padding-left: 20px;
+  }
+
+  &.subcategory2 {
+    padding-left: $spacing-m;
+  }
+
+  &.category,
+  &.subcategory1,
+  &.subcategory2 {
+    font-weight: 400;
+    text-align: left;
+  }
+}
