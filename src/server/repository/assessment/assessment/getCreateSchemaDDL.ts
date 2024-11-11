@@ -362,14 +362,12 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
                     coalesce(u.props->>'surname', '')
             ) as fullname,
             u.status,
-            coalesce(to_jsonb(ur.*), '{}'::jsonb)     as role,
+            to_jsonb(ur.*)                              as role,
             case
                 when
                     to_jsonb(ur.*) is null
                     then
                     coalesce(to_jsonb(ui.*), '{}'::jsonb)
-                else
-                    '{}'::jsonb
                 end                                     as invitation
         from users u
                  left join users_role ur on (u.uuid = ur.user_uuid and ur.cycle_uuid = '${cycle.uuid}' and ur.assessment_uuid = '${assessment.uuid}')
