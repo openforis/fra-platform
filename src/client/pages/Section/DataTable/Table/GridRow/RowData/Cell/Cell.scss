@@ -20,4 +20,9 @@
 .table-grid__data-cell {
   padding: 10px;
   text-align: right;
+
+  &.calculated {
+    cursor: default;
+    font-weight: 600;
+  }
 }

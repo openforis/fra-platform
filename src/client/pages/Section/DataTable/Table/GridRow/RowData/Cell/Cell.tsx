@@ -9,7 +9,7 @@ import { useCycle } from 'client/store/assessment'
 import { useNodeValueValidation } from 'client/store/data'
 import { DataCell } from 'client/components/DataGrid'
 
-import useClassName from './hooks/useClassName'
+import { useClassName } from './hooks/useClassName'
 import useErrorMessages from './hooks/useErrorMessages'
 import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
@@ -79,8 +79,7 @@ const Cell: React.FC<Props> = (props) => {
 
   return (
     <DataCell
-      // className={className}
-      className='table-grid__data-cell'
+      className={className}
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
       gridColumn={gridColumn}

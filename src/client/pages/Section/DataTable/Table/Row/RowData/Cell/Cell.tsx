@@ -10,7 +10,6 @@ import { useNodeValueValidation } from 'client/store/data'
 
 import Calculated from '../../../GridRow/RowData/Cell/Calculated'
 import Flags from '../../../GridRow/RowData/Cell/Flags'
-import useClassName from '../../../GridRow/RowData/Cell/hooks/useClassName'
 import useErrorMessages from '../../../GridRow/RowData/Cell/hooks/useErrorMessages'
 import { useNodeValue } from '../../../GridRow/RowData/Cell/hooks/useNodeValue'
 import useOnChange from '../../../GridRow/RowData/Cell/hooks/useOnChange'
@@ -20,6 +19,7 @@ import Placeholder from '../../../GridRow/RowData/Cell/Placeholder'
 import Select from '../../../GridRow/RowData/Cell/Select'
 import Taxon from '../../../GridRow/RowData/Cell/Taxon'
 import Text from '../../../GridRow/RowData/Cell/Text'
+import useClassName from './hooks/useClassName'
 import { PropsCell } from './props'
 
 const Components: Record<string, React.FC<PropsCell>> = {
