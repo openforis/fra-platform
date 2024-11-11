@@ -1,3 +1,5 @@
+@import 'src/client/style/partials';
+
 //TODO: Investigate
 //.fra-table__select-container {
 //  &.multiple {
@@ -14,3 +16,8 @@
 //    text-align: right;
 //  }
 //}
+
+.table-grid__data-cell {
+  padding: 10px;
+  text-align: right;
+}

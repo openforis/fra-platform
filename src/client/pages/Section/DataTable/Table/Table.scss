@@ -1,44 +1,10 @@
 @import 'src/client/style/partials';
 
-.table__grid {
+.table-grid {
   font-size: $font-s;
   line-height: 19px;
   overflow-x: auto;
   width: 100%;
-
-  .data-cell {
-    padding: 10px;
-    text-align: right;
-  }
-
-  .data-cell.header {
-    text-align: center;
-
-    &.category {
-      .link {
-        font-weight: 600;
-      }
-    }
-
-    &.subcategory1 {
-      padding-left: 20px;
-    }
-
-    &.subcategory2 {
-      padding-left: $spacing-m;
-    }
-
-    &.category,
-    &.subcategory1,
-    &.subcategory2 {
-      font-weight: 400;
-      text-align: left;
-    }
-  }
-
-  .data-cell.left {
-    text-align: left;
-  }
 }
 
 // TODO: fra prefix is left with old mode consistency. refactor later on

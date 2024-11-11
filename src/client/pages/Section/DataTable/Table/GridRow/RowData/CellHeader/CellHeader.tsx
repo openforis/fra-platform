@@ -1,3 +1,5 @@
+import './CellHeader.scss'
+
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -38,10 +40,11 @@ const CellHeader: React.FC<Props> = (props) => {
   return (
     <DataCell
       className={classNames(
+        'table-grid__data-cell',
         {
           [`subcategory${row.props.categoryLevel}`]: subcategory,
           category: !subcategory && !headerCell,
-          'left': !subcategory && headerCell,
+          left: !subcategory && headerCell,
         },
         classes
       )}
