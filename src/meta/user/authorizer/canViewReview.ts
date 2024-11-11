@@ -55,16 +55,20 @@ export const canViewReview = (props: AuthProps): boolean => {
   const { country, section, user } = props
   if (!country || !section || !user || !Areas.isISOCountry(country.countryIso)) return false
 
-  const allowedStatuses = [AssessmentStatus.review, AssessmentStatus.editing]
+  // Selected roles can see only in edit statuses: not started, review and editing
+  const allowedStatuses = [AssessmentStatus.notStarted, AssessmentStatus.review, AssessmentStatus.editing]
+
   const countryStatus = Object.fromEntries(
     [
-      RoleName.ADMINISTRATOR,
       RoleName.REVIEWER,
       RoleName.NATIONAL_CORRESPONDENT,
       RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
       RoleName.COLLABORATOR,
     ].map((role) => [role, allowedStatuses])
   )
+
+  // Admin can view in all statuses
+  countryStatus[RoleName.ADMINISTRATOR] = Object.values(AssessmentStatus)
 
   return hasEditSectionPermission({ ...props, countryStatus })
 }

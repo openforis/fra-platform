@@ -1,18 +1,22 @@
 import React, { useEffect, useRef } from 'react'
 
+import { Cols } from 'meta/assessment'
+
+import { useCycle } from 'client/store/assessment'
 import MultiSelect from 'client/components/MultiSelect'
 import { PropsCell } from 'client/pages/Section/DataTable/Table/Row/RowData/Cell/props'
 import { DOMs } from 'client/utils/dom'
 
 const Multiselect: React.FC<PropsCell> = (props) => {
   const { onChangeNodeValue, col, nodeValue, disabled } = props
-  const { options, labelKeyPrefix } = col.props.select
 
-  const value = nodeValue?.raw
-
-  const values = Array.isArray(value) ? value : []
-
+  const cycle = useCycle()
   const ref = useRef(null)
+
+  const { labelKeyPrefix } = Cols.getSelectProps({ cycle, col })
+  const options = Cols.getSelectOptions({ cycle, col })
+  const value = nodeValue?.raw
+  const values = Array.isArray(value) ? value : []
 
   useEffect(() => {
     if (ref) {
@@ -25,14 +29,14 @@ const Multiselect: React.FC<PropsCell> = (props) => {
   }, [ref, value])
 
   return (
-    <div className="fra-table__select-container multiple" ref={ref}>
+    <div ref={ref} className="fra-table__select-container multiple">
       <MultiSelect
         disabled={disabled}
-        options={options.map((option) => ({ label: `${labelKeyPrefix}.${option.name}`, value: option.name }))}
-        values={values}
         onChange={(values: Array<string>) => {
           onChangeNodeValue({ ...nodeValue, raw: values })
         }}
+        options={options.map((option) => ({ label: `${labelKeyPrefix}.${option.name}`, value: option.name }))}
+        values={values}
       />
     </div>
   )

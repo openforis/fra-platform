@@ -67,11 +67,14 @@ const exec = async () => {
       }
     }
   })
+
   if (!process.argv.includes('--watch')) {
     // eslint-disable-next-line no-restricted-syntax
     for (const file of executedMigrations) {
-      // eslint-disable-next-line no-await-in-loop
-      await client.query('insert into migrations.steps (name) values ($1)', [file])
+      if (!file.endsWith('-step-reset.ts')) {
+        // eslint-disable-next-line no-await-in-loop
+        await client.query('insert into migrations.steps (name) values ($1)', [file])
+      }
     }
   }
 
